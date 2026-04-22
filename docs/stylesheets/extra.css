@@ -20,22 +20,26 @@
 
 .aether-bg {
   position: fixed;
-  inset: -10%;                /* extra room for parallax transform */
+  /* Anchored exactly to the viewport, with a small bottom overflow so
+     the slow parallax shift never exposes empty space underneath. */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -8vh;
   z-index: -2;
   background-color: var(--aether-bg-deep);
   background-image:
     /* Vignette so text in the lower-left stays legible */
     linear-gradient(180deg, transparent 0%, rgba(5, 8, 24, 0.55) 80%, rgba(5, 8, 24, 0.85) 100%),
     linear-gradient(90deg, rgba(5, 8, 24, 0.7) 0%, transparent 50%),
-    /* Subtle atmosphere */
+    /* Atmospheric tint */
     radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 58, 237, 0.30), transparent 70%),
     radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6, 182, 212, 0.20), transparent 70%),
-    /* The actual hero scene — drop your AetherSDR screenshot here */
+    /* AetherSDR UI screenshot — contained so the whole panadapter is
+       visible without cropping at any aspect ratio. */
     url('../assets/aether-bg.png'),
-    /* Starfield fallback if no screenshot is present */
+    /* Starfield fallback */
     url('../assets/hero-stars.svg');
-  /* contain on the UI screenshot so the whole panadapter is visible
-     instead of being cropped by cover. Other layers stay cover. */
   background-size: cover, cover, cover, cover, contain, cover;
   background-position: center, center, center, center, center top, center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
@@ -47,17 +51,21 @@
 
 .aether-audience {
   position: fixed;
-  bottom: -5%;                /* extra room for parallax transform */
-  left: -5%;
-  right: -5%;
-  height: 78vh;
+  /* Anchored cleanly to the bottom of the viewport. Height is a modest
+     percentage of the viewport so aliens read as a foreground band, not
+     an entire scene. background-size: contain keeps them at their natural
+     proportions instead of stretching/cropping. */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42vh;
   z-index: -1;
   background-image: url('../assets/aether-audience.png');
-  background-size: cover;
+  background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;
   pointer-events: none;
-  filter: drop-shadow(0 -10px 30px rgba(6, 182, 212, 0.18));
+  filter: drop-shadow(0 -8px 24px rgba(6, 182, 212, 0.18));
   will-change: transform;
   transform: translateY(var(--parallax-y, 0));
 }
