@@ -25,28 +25,6 @@ Spanish mirror: [AetherSDRDocsSpanish](https://github.com/LU5DX/AetherSDRDocsSpa
 └── .github/workflows/      GitHub Pages deploy workflow
 ```
 
-## Local preview
-
-```bash
-pip install mkdocs-material
-mkdocs serve     # http://127.0.0.1:8000
-```
-
-## Hero artwork
-
-The landing page uses three SVG layers (stars, alien silhouette, AetherSDR
-UI mockup) for a parallax effect. The current SVGs are placeholders — see
-[`docs/assets/README.md`](docs/assets/README.md) for the image-generation
-prompt to swap in a higher-fidelity rendered scene.
-
-## Hosting
-
-The included GitHub Actions workflow (`.github/workflows/deploy-docs.yml`)
-publishes to GitHub Pages on every push to `main`. **Note:** Pages on a
-private repository requires GitHub Pro or higher. On the free tier, either
-make this repo public or swap the deploy job for Cloudflare Pages / Netlify
-/ Vercel — all of which build from private repos for free.
-
 ## Contributing
 
 Open an issue or PR against `docs/`. For maintainer notes on how this
