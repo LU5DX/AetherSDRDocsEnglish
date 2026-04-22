@@ -27,11 +27,8 @@
   position: relative;
   height: 100vh;
   min-height: 560px;
-  /* overflow: visible (default) so the audience layer can drift out of
-     the hero gracefully as the user scrolls past it, rather than
-     being clipped abruptly the moment the hero leaves the viewport. */
+  overflow: hidden;            /* contain bg + UI to the hero */
   isolation: isolate;
-  /* dark fallback so the hero isn't a white flash before bg loads */
   background-color: var(--aether-bg-deep);
 }
 
@@ -81,20 +78,22 @@
 
 /* ── Layer 2: alien audience, fastest drift (closest to camera) ─────── */
 
+/* Audience is FIXED at the viewport bottom (not bound to the hero),
+   so it stays in place while the page scrolls. Slow upward drift via
+   data-parallax-drift in the HTML. The tile section below the hero
+   has a higher stacking position, so as the user scrolls past the
+   hero the tile section's solid background covers the audience —
+   smooth fade rather than a sudden clip. */
 .aether-audience {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  /* Tall enough to show the full silhouettes (heads + shoulders + arms
-     up). With speed 0.35 in the HTML, the aliens barely drift = they
-     stay seated while the screen above them rises away. */
   height: 50vh;
-  z-index: 2;
+  /* z-index 0 = sits behind the .aether-home-below (z-index 1), so
+     the tile section paints over the audience as it scrolls into view */
+  z-index: 0;
   background-image: url('../assets/aether-audience.png');
-  /* contain shows the full silhouette without cropping at the top.
-     Image is anchored to bottom center, so the alien feet/seats line
-     up with the bottom edge of the viewport. */
   background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;

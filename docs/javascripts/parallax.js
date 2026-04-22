@@ -34,10 +34,29 @@
 
   function update() {
     const scrollY = window.scrollY || window.pageYOffset || 0;
+
+    // data-parallax-speed: for elements in document flow (e.g. inside the
+    // hero). Formula: translateY = scrollY * (1 - speed)
+    //   speed 0   → element appears stuck in viewport
+    //   speed 1   → moves with scroll (no parallax)
+    //   speed >1  → moves faster than scroll (rises out of view)
     document.querySelectorAll('[data-parallax-speed]').forEach(function (el) {
       const speed = parseFloat(el.dataset.parallaxSpeed);
       if (Number.isNaN(speed)) return;
       const offset = scrollY * (1 - speed);
+      el.style.setProperty('--parallax-y', offset + 'px');
+    });
+
+    // data-parallax-drift: for FIXED-position elements that need to
+    // slowly drift up out of the viewport as the page scrolls. Formula:
+    // translateY = -scrollY * drift
+    //   drift 0   → no movement
+    //   drift 0.2 → drifts up at 20% of scroll = visible for ~5 viewports
+    //   drift 0.5 → drifts up at half scroll speed = visible for ~2 viewports
+    document.querySelectorAll('[data-parallax-drift]').forEach(function (el) {
+      const drift = parseFloat(el.dataset.parallaxDrift);
+      if (Number.isNaN(drift)) return;
+      const offset = -scrollY * drift;
       el.style.setProperty('--parallax-y', offset + 'px');
     });
   }
@@ -54,7 +73,7 @@
       console.log('[aether-parallax] prefers-reduced-motion — disabled');
       return;
     }
-    const layers = document.querySelectorAll('[data-parallax-speed]');
+    const layers = document.querySelectorAll('[data-parallax-speed], [data-parallax-drift]');
     console.log('[aether-parallax] init —', layers.length, 'layer(s)');
     update();
     if (!attached) {
