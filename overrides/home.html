@@ -5,22 +5,21 @@
      template: home.html
      ---
 
-   Two-layer fixed parallax that persists across the whole landing page:
+   Static layered hero in the style of Material for MkDocs' own
+   homepage:
+     - .aether-bg          — full-bleed AetherSDR UI screenshot, fixed
+     - .aether-audience    — alien silhouettes pinned to the bottom
+     - .aether-hero__content — title + lede + CTAs in the lower-left
 
-     .aether-bg        — AetherSDR UI screenshot (the "movie")
-     .aether-audience  — alien silhouettes watching the movie
-
-   Both layers are position:fixed and z-index < 0, so they sit beneath
-   all content. JavaScript in javascripts/parallax.js drives a subtle
-   transform on each layer, with different speeds for depth.
+   No JS parallax. The background uses position: fixed so it stays put
+   as the page scrolls — that's all the depth we need.
 #}
 
 {% block tabs %}
   {{ super() }}
 
-  <div class="aether-bg"        data-parallax-speed="0.50" aria-hidden="true"></div>
-  <div class="aether-audience"  data-parallax-speed="0.85" aria-hidden="true"></div>
-  <div class="aether-veil"      aria-hidden="true"></div>
+  <div class="aether-bg"        aria-hidden="true"></div>
+  <div class="aether-audience"  aria-hidden="true"></div>
 
   <section class="aether-hero" aria-label="AetherSDR user manual">
     <div class="aether-hero__content">

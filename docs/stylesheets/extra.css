@@ -1,7 +1,8 @@
 /* ─── AetherSDR landing page ──────────────────────────────────────────────
-   Full-page parallax. Two fixed background layers persist across the
-   whole landing page (hero + tile grid below). Content scrolls on top.
-   See overrides/home.html for the markup.
+   Static layered hero modeled after Material for MkDocs' own homepage.
+   Two fixed background layers (UI screenshot + alien silhouettes), then
+   text positioned in the lower-left so the artwork stays the focal
+   point. No JS — position:fixed gives all the depth we need.
 */
 
 :root {
@@ -15,155 +16,114 @@
   --aether-text-dim:   #cbd5e1;
 }
 
-/* ── Layer 1: AetherSDR UI screenshot (the "movie") ─────────────────────
-   Full viewport, fixed, behind everything. Slightly dimmed and blurred
-   to feel like a screen seen from a distance.
-   To swap the placeholder, drop your AetherSDR screenshot at
-   docs/assets/aether-bg.png — that's all. */
+/* ── Layer 1: AetherSDR UI screenshot, full-bleed fixed background ─── */
 
 .aether-bg {
   position: fixed;
-  inset: -25%;                 /* generous room for the parallax transform */
+  inset: 0;
   z-index: -2;
   background-color: var(--aether-bg-deep);
   background-image:
-    /* DEBUG: high-contrast diagonal stripes so any motion is impossible
-       to miss. Remove this gradient once parallax is verified visually. */
-    repeating-linear-gradient(
-      45deg,
-      rgba(103, 232, 249, 0.10) 0px,
-      rgba(103, 232, 249, 0.10) 60px,
-      transparent 60px,
-      transparent 120px
-    ),
-    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 58, 237, 0.35), transparent 70%),
-    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6, 182, 212, 0.25), transparent 70%),
+    /* Vignette so text in the lower-left stays legible */
+    linear-gradient(180deg, transparent 0%, rgba(5, 8, 24, 0.55) 80%, rgba(5, 8, 24, 0.85) 100%),
+    linear-gradient(90deg, rgba(5, 8, 24, 0.7) 0%, transparent 50%),
+    /* Subtle atmosphere */
+    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 58, 237, 0.30), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6, 182, 212, 0.20), transparent 70%),
+    /* The actual hero scene — drop your AetherSDR screenshot here */
     url('../assets/aether-bg.png'),
+    /* Starfield placeholder for when no screenshot is present */
     url('../assets/hero-stars.svg');
-  background-size: auto, cover, cover, cover, cover;
-  background-position: center, center, center, center, center;
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  will-change: transform;
-  transform: translateY(var(--parallax-y, 0));
+  background-size: cover, cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
 }
 
-/* Once the user drops a real AetherSDR screenshot at
-   docs/assets/aether-bg.png, switch the bg to "movie screen" treatment
-   (slight blur + dim) so the audience layer reads as foreground. To
-   activate, add the class `has-bg-image` to the body via JS or comment
-   in this rule manually after the PNG is in place. */
-body.has-bg-image .aether-bg {
-  filter: blur(1.5px) brightness(0.65) saturate(1.1);
-}
-
-/* ── Layer 2: alien audience silhouette (foreground, faster drift) ──────
-   Pinned to bottom of the viewport. Drop a transparent PNG of the
-   audience here at docs/assets/aether-audience.png and it will slot in.
-   Until then, the layer is invisible — fail-soft. */
+/* ── Layer 2: alien audience silhouette, pinned to the bottom ───────── */
 
 .aether-audience {
   position: fixed;
-  bottom: -5%;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 60vh;
+  height: 55vh;
   z-index: -1;
   background-image: url('../assets/aether-audience.png');
   background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;
-  filter: drop-shadow(0 -10px 40px rgba(6, 182, 212, 0.2));
-  will-change: transform;
-  transform: translateY(var(--parallax-y, 0));
   pointer-events: none;
 }
 
-/* ── Veil: subtle vignette to keep text legible against any background ── */
-
-.aether-veil {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 40%,
-      rgba(5, 8, 24, 0.0) 0%,
-      rgba(5, 8, 24, 0.5) 80%,
-      rgba(5, 8, 24, 0.85) 100%);
-  pointer-events: none;
-}
-
-/* ── Hero (just the text + CTAs, nothing else) ────────────────────────── */
+/* ── Hero shell ─────────────────────────────────────────────────────── */
 
 .aether-hero {
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 1.5rem;
+  align-items: flex-end;       /* push content to the bottom */
+  justify-content: flex-start; /* push content to the left */
+  padding: 4rem 4vw 6rem;
   isolation: isolate;
 }
 
 .aether-hero__content {
   position: relative;
   z-index: 1;
-  text-align: center;
-  max-width: 820px;
+  text-align: left;
+  max-width: 580px;
   color: var(--aether-text);
 }
 
 .aether-hero__title {
-  font-size: clamp(2.75rem, 8.5vw, 6.5rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  margin: 0 0 1rem;
-  white-space: nowrap;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0 0 0.5rem;
   background: linear-gradient(135deg, #c4b5fd 0%, var(--aether-cyan-2) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 4px 40px rgba(124, 58, 237, 0.4);
+  text-shadow: 0 4px 30px rgba(124, 58, 237, 0.4);
 }
 
 .aether-hero__subtitle {
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
   font-weight: 500;
-  margin: 0 0 1.75rem;
+  margin: 0 0 1.25rem;
   color: #a5b4fc;
   letter-spacing: 0.01em;
 }
 
 .aether-hero__lede {
-  font-size: clamp(1rem, 1.65vw, 1.2rem);
-  line-height: 1.65;
-  margin: 0 auto 1rem;
-  max-width: 640px;
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
   color: var(--aether-text-dim);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .aether-hero__radios {
-  font-size: clamp(0.78rem, 1vw, 0.9rem);
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1.5;
-  margin: 0 auto 2.5rem;
-  max-width: 720px;
+  margin: 0 0 2rem;
   color: rgba(165, 180, 252, 0.85);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .aether-hero__cta {
   display: flex;
-  gap: 0.85rem;
-  justify-content: center;
+  gap: 0.65rem;
   flex-wrap: wrap;
 }
 
 .aether-hero .md-button {
   border-radius: 999px;
-  padding: 0.65rem 1.65rem;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   transition: transform 200ms ease, box-shadow 200ms ease;
@@ -173,7 +133,7 @@ body.has-bg-image .aether-bg {
 
 .aether-hero .md-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
 }
 
 .aether-hero .md-button--primary {
@@ -184,47 +144,45 @@ body.has-bg-image .aether-bg {
   backdrop-filter: none;
 }
 
-/* ── Scroll hint ──────────────────────────────────────────────────────── */
+/* ── Scroll hint (centered at bottom) ──────────────────────────────── */
 
 .aether-hero__scroll-hint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
-  height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
   border-radius: 14px;
   z-index: 1;
 }
 
 .aether-hero__scroll-hint span {
   display: block;
-  width: 4px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.8);
+  width: 3px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 2px;
-  margin: 6px auto 0;
+  margin: 5px auto 0;
   animation: aether-scroll-hint 2s infinite;
 }
 
 @keyframes aether-scroll-hint {
   0%   { transform: translateY(0); opacity: 0.7; }
-  60%  { transform: translateY(14px); opacity: 0; }
+  60%  { transform: translateY(12px); opacity: 0; }
   100% { transform: translateY(0); opacity: 0.7; }
 }
 
-/* ── Tile grid below the hero (parallax bg shows through) ───────────── */
+/* ── Tile grid below the hero ──────────────────────────────────────── */
 
 .aether-home-below {
   position: relative;
   z-index: 1;
   padding: 5rem 1.5rem 6rem;
-  /* Soft fade from transparent into the page background, so the
-     parallax scene blends down into the docs body rather than cutting. */
   background: linear-gradient(180deg,
-    rgba(5, 8, 24, 0.35) 0%,
-    rgba(5, 8, 24, 0.85) 60%,
+    rgba(5, 8, 24, 0.45) 0%,
+    rgba(5, 8, 24, 0.9) 60%,
     var(--md-default-bg-color) 100%);
 }
 
@@ -240,7 +198,7 @@ body.has-bg-image .aether-bg {
   display: block;
   padding: 1.5rem 1.5rem 1.65rem;
   border-radius: 14px;
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -275,14 +233,10 @@ body.has-bg-image .aether-bg {
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .aether-bg,
-  .aether-audience {
-    transform: none !important;
-  }
   .aether-hero__scroll-hint span { animation: none; }
 }
 
-/* ── Polish for doc pages (unchanged) ─────────────────────────────────── */
+/* ── Polish for doc pages ─────────────────────────────────────────────── */
 
 .md-typeset code { border-radius: 4px; }
 .md-typeset table:not([class]) th { font-weight: 600; }
