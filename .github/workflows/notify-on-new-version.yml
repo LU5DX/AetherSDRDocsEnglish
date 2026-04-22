@@ -1,0 +1,89 @@
+# Notify-only flavor: opens a GitHub Issue when a new AetherSDR tag appears.
+# YOU run update.py locally. Cheap ($0/run), safe, no secrets needed.
+#
+# To enable:
+#   cp _generator/workflows/notify-on-new-version.yml .github/workflows/
+#   git add .github/workflows/notify-on-new-version.yml && commit + push
+#
+# Requires no secrets. Uses default GITHUB_TOKEN to create issues in this repo.
+
+name: Notify on new AetherSDR version
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # daily at 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs (for .docs-version)
+        uses: actions/checkout@v4
+
+      - name: Read last-processed docs version
+        id: current
+        run: |
+          if [ -f _generator/.docs-version ]; then
+            v=$(cat _generator/.docs-version | tr -d '[:space:]')
+          else
+            v="v0.8.19"
+          fi
+          echo "version=$v" >> $GITHUB_OUTPUT
+
+      - name: Get latest AetherSDR tag
+        id: latest
+        run: |
+          tag=$(curl -s https://api.github.com/repos/ten9876/AetherSDR/releases/latest | jq -r '.tag_name')
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Check if newer version exists
+        id: check
+        run: |
+          if [ "${{ steps.current.outputs.version }}" != "${{ steps.latest.outputs.tag }}" ] \
+             && [ "${{ steps.latest.outputs.tag }}" != "null" ]; then
+            echo "needs_update=yes" >> $GITHUB_OUTPUT
+          else
+            echo "needs_update=no" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Open issue if newer version exists
+        if: steps.check.outputs.needs_update == 'yes'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const current = '${{ steps.current.outputs.version }}';
+            const latest  = '${{ steps.latest.outputs.tag }}';
+            const title   = `Docs regen pending for AetherSDR ${latest}`;
+            // Avoid duplicate issues
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', per_page: 100
+            });
+            if (issues.data.some(i => i.title === title)) {
+              console.log('Issue already open.');
+              return;
+            }
+            const body = [
+              `AetherSDR released **${latest}**. Docs are still at **${current}**.`,
+              ``,
+              `To update, run locally:`,
+              '```powershell',
+              `cd C:\\Users\\lu5dx\\Documents\\Codigo\\AetherSDR`,
+              `git fetch --all --tags && git checkout ${latest}`,
+              ``,
+              `cd C:\\Users\\lu5dx\\Documents\\Codigo\\AetherSDRDocsEnglish\\_generator`,
+              `$env:ANTHROPIC_API_KEY="sk-ant-..."`,
+              `python update.py --target ${latest}`,
+              '```',
+              ``,
+              `Then review + commit + push both repos. This issue can be closed once the push lands.`,
+            ].join('\n');
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title, body, labels: ['docs-regen']
+            });
