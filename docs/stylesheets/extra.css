@@ -295,15 +295,15 @@
   align-items: center;
   padding: 3px 12px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.95) 0%, rgba(103, 232, 249, 0.95) 100%);
-  border: 1px solid rgba(207, 250, 254, 0.85);
-  color: #052038;
+  background: #1f2937;                      /* charcoal */
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   white-space: nowrap;
   font-family: var(--md-text-font, sans-serif);
-  box-shadow: 0 0 12px rgba(103, 232, 249, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 76.1875em) {
