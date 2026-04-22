@@ -23,7 +23,7 @@
 
 .aether-bg {
   position: fixed;
-  inset: -10%;                 /* extra room for the parallax transform */
+  inset: -15%;                 /* extra room for the parallax transform */
   z-index: -2;
   background-color: var(--aether-bg-deep);
   background-image:
@@ -34,11 +34,17 @@
   background-size: cover, cover, cover, cover;
   background-position: center, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  /* When the user-supplied UI screenshot loads, it sits between the
-     gradients and the starfield. Slight blur sells the "distant screen". */
-  filter: blur(1.5px) brightness(0.65) saturate(1.1);
   will-change: transform;
   transform: translateY(var(--parallax-y, 0));
+}
+
+/* Once the user drops a real AetherSDR screenshot at
+   docs/assets/aether-bg.png, switch the bg to "movie screen" treatment
+   (slight blur + dim) so the audience layer reads as foreground. To
+   activate, add the class `has-bg-image` to the body via JS or comment
+   in this rule manually after the PNG is in place. */
+body.has-bg-image .aether-bg {
+  filter: blur(1.5px) brightness(0.65) saturate(1.1);
 }
 
 /* ── Layer 2: alien audience silhouette (foreground, faster drift) ──────
