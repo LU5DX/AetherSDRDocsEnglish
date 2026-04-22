@@ -277,17 +277,22 @@
 .md-typeset code { border-radius: 4px; }
 .md-typeset table:not([class]) th { font-weight: 600; }
 
-/* ── Docs-as-of version badge in the header right ──────────────────────
-   Single source of truth for the docs version. Bump the `content` value
-   when regenerating against a new AetherSDR release. The future
+/* ── Docs-as-of version badge in the navigation tabs row ───────────────
+   Sits at the right end of the tabs row (next to Troubleshooting),
+   reusing existing horizontal space so the header doesn't grow taller.
+   Single source of truth for the docs version — bump the `content`
+   value when regenerating against a new AetherSDR release. The future
    _generator/update.py script edits this same string. */
 
-.md-header__source::before {
+.md-tabs__list {
+  align-items: center;
+}
+
+.md-tabs__list::after {
   content: "docs · v0.8.19";
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
-  align-self: center;
-  margin-right: 0.85rem;
   padding: 2px 10px;
   border-radius: 999px;
   background: rgba(124, 58, 237, 0.20);
@@ -301,6 +306,6 @@
 }
 
 @media screen and (max-width: 76.1875em) {
-  /* Hide on tablet/mobile so the header doesn't get cramped */
-  .md-header__source::before { display: none; }
+  /* Tabs row hides on mobile in Material; the badge goes with it. */
+  .md-tabs__list::after { display: none; }
 }
