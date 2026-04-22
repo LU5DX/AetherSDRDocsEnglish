@@ -62,13 +62,12 @@
    away as the user scrolls. */
 .aether-ui {
   position: absolute;
-  /* 6vh below the top to clear the Material header (the header is
-     about 48px = ~4-5vh on a 1080p screen) */
-  top: 6vh;
+  /* 5vh below the top to clear the Material header */
+  top: 5vh;
   left: 50%;
-  width: min(72vw, 1100px);
+  width: min(82vw, 1300px);
   height: auto;
-  max-height: 70vh;
+  max-height: 58vh;
   object-fit: contain;
   z-index: 1;
   filter: drop-shadow(0 12px 40px rgba(6, 182, 212, 0.35));
@@ -84,14 +83,17 @@
   bottom: 0;
   left: 0;
   right: 0;
-  /* Taller and using cover so the aliens span the full viewport width
-     rather than being letterboxed. With speed 0.35 in the HTML, they
-     drift only slightly — they "stay in their seats" while the screen
-     above them rises away. */
-  height: 60vh;
+  /* Modest band at the bottom — wide via 100% horizontal sizing, but
+     not allowed to grow taller than the bottom third of the viewport.
+     With speed 0.35 in the HTML, the aliens barely drift = they sit
+     watching while the screen above them rises away. */
+  height: 38vh;
   z-index: 2;
   background-image: url('../assets/aether-audience.png');
-  background-size: cover;
+  /* 100% width, height auto = full viewport-wide silhouettes at their
+     natural aspect ratio. cover would scale UP the image height to fill
+     the container, making aliens look oversized. */
+  background-size: 100% auto;
   background-position: bottom center;
   background-repeat: no-repeat;
   pointer-events: none;
