@@ -62,13 +62,14 @@
    away as the user scrolls. */
 .aether-ui {
   position: absolute;
-  /* 5vh below the top to clear the Material header */
-  top: 5vh;
+  /* 4vh below the top to clear the Material header */
+  top: 4vh;
   left: 50%;
-  width: min(82vw, 1300px);
+  /* Width-driven sizing: the image renders at its natural aspect
+     ratio at this width. No max-height constraint, so the image is
+     never letterboxed inside an oversized box. */
+  width: min(90vw, 1500px);
   height: auto;
-  max-height: 58vh;
-  object-fit: contain;
   z-index: 1;
   filter: drop-shadow(0 12px 40px rgba(6, 182, 212, 0.35));
   pointer-events: none;
@@ -83,17 +84,16 @@
   bottom: 0;
   left: 0;
   right: 0;
-  /* Modest band at the bottom — wide via 100% horizontal sizing, but
-     not allowed to grow taller than the bottom third of the viewport.
-     With speed 0.35 in the HTML, the aliens barely drift = they sit
-     watching while the screen above them rises away. */
-  height: 38vh;
+  /* Tall enough to show the full silhouettes (heads + shoulders + arms
+     up). With speed 0.35 in the HTML, the aliens barely drift = they
+     stay seated while the screen above them rises away. */
+  height: 50vh;
   z-index: 2;
   background-image: url('../assets/aether-audience.png');
-  /* 100% width, height auto = full viewport-wide silhouettes at their
-     natural aspect ratio. cover would scale UP the image height to fill
-     the container, making aliens look oversized. */
-  background-size: 100% auto;
+  /* contain shows the full silhouette without cropping at the top.
+     Image is anchored to bottom center, so the alien feet/seats line
+     up with the bottom edge of the viewport. */
+  background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;
   pointer-events: none;
