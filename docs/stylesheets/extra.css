@@ -78,28 +78,10 @@
 
 /* ── Layer 2: alien audience, fastest drift (closest to camera) ─────── */
 
-/* Audience is absolutely positioned INSIDE the hero. The hero clips
-   it at its bottom edge via overflow: hidden — clean visual boundary,
-   never spills into the gray content section below. Slow parallax
-   drift inside the hero scroll range. */
-.aether-audience {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50vh;
-  z-index: 2;
-  background-image: url('../assets/aether-audience.png');
-  background-size: contain;
-  background-position: bottom center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  filter: drop-shadow(0 -8px 24px rgba(6, 182, 212, 0.18));
-  will-change: transform;
-  transform: translateY(var(--parallax-y, 0));
-}
-
-/* ── Hero content — bottom-left, in front of all parallax layers ──── */
+/* ── Hero content — bottom-left, in front of all parallax layers.
+   Uses parallax-speed > 1 (data-parallax-speed="1.30" in the HTML),
+   so it "rises" faster than the UI screen behind it — classic
+   foreground behavior. */
 
 .aether-hero__content {
   position: absolute;
@@ -109,6 +91,8 @@
   text-align: left;
   max-width: min(580px, 90vw);
   color: var(--aether-text);
+  will-change: transform;
+  transform: translateY(var(--parallax-y, 0));
 }
 
 .aether-hero__title {
@@ -264,11 +248,9 @@
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .aether-ui, .aether-audience {
-    /* Keep the centering transform for .aether-ui, kill the parallax */
-    transform: translateX(-50%) !important;
-  }
-  .aether-audience { transform: none !important; }
+  /* Keep the centering transform for .aether-ui, kill the parallax */
+  .aether-ui { transform: translateX(-50%) !important; }
+  .aether-hero__content { transform: none !important; }
   .aether-hero__scroll-hint span { animation: none; }
 }
 
