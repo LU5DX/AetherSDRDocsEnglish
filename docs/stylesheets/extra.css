@@ -276,3 +276,31 @@
 
 .md-typeset code { border-radius: 4px; }
 .md-typeset table:not([class]) th { font-weight: 600; }
+
+/* ── Docs-as-of version badge in the header right ──────────────────────
+   Single source of truth for the docs version. Bump the `content` value
+   when regenerating against a new AetherSDR release. The future
+   _generator/update.py script edits this same string. */
+
+.md-header__source::before {
+  content: "docs · v0.8.19";
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  margin-right: 0.85rem;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.20);
+  border: 1px solid rgba(124, 58, 237, 0.50);
+  color: #c4b5fd;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  font-family: var(--md-text-font, sans-serif);
+}
+
+@media screen and (max-width: 76.1875em) {
+  /* Hide on tablet/mobile so the header doesn't get cramped */
+  .md-header__source::before { display: none; }
+}
