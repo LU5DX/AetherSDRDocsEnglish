@@ -1,30 +1,39 @@
 {% extends "main.html" %}
 
-{# Custom landing page. Activated by docs/index.md frontmatter
+{# Custom landing page. Activated by docs/index.md frontmatter:
      ---
      template: home.html
      ---
-   The hero section sits above the standard Material content area and
-   is built from three parallax layers: stars (slow), alien silhouette
-   (medium), AetherSDR UI mockup (fastest). #}
+
+   Two-layer fixed parallax that persists across the whole landing page:
+
+     .aether-bg        — AetherSDR UI screenshot (the "movie")
+     .aether-audience  — alien silhouettes watching the movie
+
+   Both layers are position:fixed and z-index < 0, so they sit beneath
+   all content. JavaScript in javascripts/parallax.js drives a subtle
+   transform on each layer, with different speeds for depth.
+#}
 
 {% block tabs %}
   {{ super() }}
 
+  <div class="aether-bg"        data-parallax-speed="0.30" aria-hidden="true"></div>
+  <div class="aether-audience"  data-parallax-speed="0.65" aria-hidden="true"></div>
+  <div class="aether-veil"      aria-hidden="true"></div>
+
   <section class="aether-hero" aria-label="AetherSDR user manual">
-    <div class="aether-hero__stars" data-parallax-speed="0.85" aria-hidden="true"></div>
-    <div class="aether-hero__ui"    data-parallax-speed="0.60" aria-hidden="true"></div>
-    <div class="aether-hero__alien" data-parallax-speed="0.10" aria-hidden="true"></div>
-
-    <div class="aether-hero__veil" aria-hidden="true"></div>
-
     <div class="aether-hero__content">
       <h1 class="aether-hero__title">AetherSDR</h1>
       <p class="aether-hero__subtitle">The user manual</p>
       <p class="aether-hero__lede">
-        Operate your FlexRadio FLEX-8400, 8600, 6400, or 6600 from Linux,
-        macOS, or Windows. Hundreds of practical, task-focused guides
-        covering every applet, dialog, and menu — grounded in the source.
+        AetherSDR brings FlexRadio operation to Linux, macOS, and Windows
+        — without Wine or virtual machines. Built with Qt6 and C++20, it
+        speaks the SmartSDR protocol natively. Works with any FlexRadio
+        transceiver running SmartSDR firmware v3.x or v4.x.
+      </p>
+      <p class="aether-hero__radios">
+        FLEX-6400 / 6400M · 6600 / 6600M · 6700 · 8400 / 8400M · 8600 / 8600M · Aurora AU-510 / AU-520
       </p>
       <div class="aether-hero__cta">
         <a class="md-button md-button--primary" href="getting-started/install/installation-linux/">
@@ -42,8 +51,6 @@
   </section>
 {% endblock %}
 
-{# Suppress the default Markdown body so the hero is the entire above-the-fold
-   experience. Keeps the page focused. #}
 {% block content %}
   <div class="aether-home-below">
     <section class="aether-tiles">
