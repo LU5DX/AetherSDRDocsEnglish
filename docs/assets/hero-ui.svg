@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+  <defs>
+    <linearGradient id="screen-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#0a0e27"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="spectrum" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%"  stop-color="#06b6d4" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#67e8f9" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="waterfall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#facc15"/>
+      <stop offset="20%" stop-color="#f97316"/>
+      <stop offset="40%" stop-color="#ef4444"/>
+      <stop offset="60%" stop-color="#7c3aed"/>
+      <stop offset="80%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="screen-glow">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- Monitor bezel -->
+  <rect x="2" y="2" width="596" height="376" rx="14" fill="#0a0a0a" stroke="#1f2937" stroke-width="2"/>
+
+  <!-- Screen area -->
+  <rect x="14" y="14" width="572" height="352" rx="6" fill="url(#screen-bg)"/>
+
+  <!-- Top toolbar -->
+  <rect x="14" y="14" width="572" height="22" fill="#0f172a"/>
+  <circle cx="28" cy="25" r="4" fill="#ef4444"/>
+  <circle cx="42" cy="25" r="4" fill="#facc15"/>
+  <circle cx="56" cy="25" r="4" fill="#22c55e"/>
+  <text x="86" y="29" fill="#cbd5e1" font-family="monospace" font-size="11">14.225.000 MHz · USB · Slice A</text>
+
+  <!-- Spectrum (top half) -->
+  <g transform="translate(20 50)">
+    <rect width="560" height="140" fill="#000814" opacity="0.6"/>
+    <!-- Frequency grid -->
+    <g stroke="#1e293b" stroke-width="1">
+      <line x1="0"   y1="35"  x2="560" y2="35"/>
+      <line x1="0"   y1="70"  x2="560" y2="70"/>
+      <line x1="0"   y1="105" x2="560" y2="105"/>
+      <line x1="93"  y1="0"   x2="93"  y2="140"/>
+      <line x1="186" y1="0"   x2="186" y2="140"/>
+      <line x1="280" y1="0"   x2="280" y2="140"/>
+      <line x1="373" y1="0"   x2="373" y2="140"/>
+      <line x1="466" y1="0"   x2="466" y2="140"/>
+    </g>
+    <!-- Spectrum trace — simulated FFT line -->
+    <path d="M 0 110
+             L 30 105 L 50 108 L 70 102 L 90 100 L 110 95
+             L 130 92  L 150 80  L 170 72  L 190 60 L 210 40
+             L 215 20 L 220 38  L 230 65  L 250 85  L 270 95
+             L 290 100 L 310 95 L 330 88 L 350 92 L 370 96
+             L 390 90 L 410 85 L 430 88 L 450 92 L 470 95
+             L 490 92 L 510 96 L 530 100 L 550 102 L 560 100
+             L 560 140 L 0 140 Z"
+          fill="url(#spectrum)" filter="url(#screen-glow)"/>
+    <path d="M 0 110
+             L 30 105 L 50 108 L 70 102 L 90 100 L 110 95
+             L 130 92  L 150 80  L 170 72  L 190 60 L 210 40
+             L 215 20 L 220 38  L 230 65  L 250 85  L 270 95
+             L 290 100 L 310 95 L 330 88 L 350 92 L 370 96
+             L 390 90 L 410 85 L 430 88 L 450 92 L 470 95
+             L 490 92 L 510 96 L 530 100 L 550 102 L 560 100"
+          fill="none" stroke="#67e8f9" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Slice indicator (the carrier) -->
+    <line x1="218" y1="0" x2="218" y2="140" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+    <rect x="200" y="0" width="36" height="140" fill="#facc15" opacity="0.08"/>
+  </g>
+
+  <!-- Waterfall (bottom half) — striped bands suggesting time history -->
+  <g transform="translate(20 200)">
+    <rect width="560" height="160" fill="#000814"/>
+    <!-- Waterfall colored rows -->
+    <g>
+      <rect x="0" y="0"   width="560" height="8" fill="url(#waterfall)" opacity="0.95"/>
+      <rect x="0" y="8"   width="560" height="8" fill="url(#waterfall)" opacity="0.85"/>
+      <rect x="0" y="16"  width="560" height="8" fill="url(#waterfall)" opacity="0.78"/>
+      <rect x="0" y="24"  width="560" height="8" fill="url(#waterfall)" opacity="0.7"/>
+      <rect x="0" y="32"  width="560" height="8" fill="url(#waterfall)" opacity="0.62"/>
+      <rect x="0" y="40"  width="560" height="8" fill="url(#waterfall)" opacity="0.55"/>
+      <rect x="0" y="48"  width="560" height="8" fill="url(#waterfall)" opacity="0.5"/>
+      <rect x="0" y="56"  width="560" height="8" fill="url(#waterfall)" opacity="0.46"/>
+      <rect x="0" y="64"  width="560" height="8" fill="url(#waterfall)" opacity="0.42"/>
+      <rect x="0" y="72"  width="560" height="8" fill="url(#waterfall)" opacity="0.38"/>
+      <rect x="0" y="80"  width="560" height="8" fill="url(#waterfall)" opacity="0.34"/>
+      <rect x="0" y="88"  width="560" height="8" fill="url(#waterfall)" opacity="0.31"/>
+      <rect x="0" y="96"  width="560" height="8" fill="url(#waterfall)" opacity="0.28"/>
+      <rect x="0" y="104" width="560" height="8" fill="url(#waterfall)" opacity="0.25"/>
+      <rect x="0" y="112" width="560" height="8" fill="url(#waterfall)" opacity="0.22"/>
+      <rect x="0" y="120" width="560" height="8" fill="url(#waterfall)" opacity="0.2"/>
+      <rect x="0" y="128" width="560" height="8" fill="url(#waterfall)" opacity="0.18"/>
+      <rect x="0" y="136" width="560" height="8" fill="url(#waterfall)" opacity="0.15"/>
+      <rect x="0" y="144" width="560" height="8" fill="url(#waterfall)" opacity="0.12"/>
+      <rect x="0" y="152" width="560" height="8" fill="url(#waterfall)" opacity="0.1"/>
+    </g>
+    <!-- Slice indicator carried into waterfall -->
+    <rect x="200" y="0" width="36" height="160" fill="#facc15" opacity="0.05"/>
+  </g>
+</svg>

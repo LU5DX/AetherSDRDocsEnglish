@@ -44,7 +44,7 @@ def _require_anthropic():
 HERE = Path(__file__).parent
 CATALOG_DIR = HERE / "catalog"
 TOPICS_FILE = HERE / "topics.json"
-DOCS_ROOT = HERE.parent  # the English docs repo root
+DOCS_ROOT = HERE.parent / "docs"  # MkDocs docs/ subfolder of the English repo
 SOURCE_ROOT = Path(r"C:\Users\lu5dx\Documents\Codigo\AetherSDR")
 
 MODEL_IDS = {

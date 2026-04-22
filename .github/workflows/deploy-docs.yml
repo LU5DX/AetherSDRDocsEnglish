@@ -1,0 +1,75 @@
+# Build the MkDocs Material site and deploy to GitHub Pages.
+#
+# IMPORTANT: GitHub Pages on a private repo requires a paid GitHub plan
+# (Pro/Team/Enterprise). On the free tier you have three options:
+#   1. Make this repo public — GitHub Pages then works for free.
+#   2. Upgrade your account to Pro ($4/mo) and keep the repo private.
+#   3. Swap this workflow for one that deploys to Cloudflare Pages,
+#      Netlify, or Vercel — all of which build from private repos on
+#      free tiers. Replace the `deploy` job below; the `build` job is
+#      reusable.
+
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'overrides/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed for the git revision plugin if added later
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('mkdocs.yml') }}
+
+      - name: Install MkDocs Material
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material pymdown-extensions
+
+      - name: Build site
+        run: mkdocs build --strict --verbose
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

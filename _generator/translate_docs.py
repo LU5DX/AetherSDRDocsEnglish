@@ -36,8 +36,10 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).parent
-EN_ROOT = HERE.parent  # English docs repo
-ES_ROOT = Path(r"C:\Users\lu5dx\Documents\Codigo\AetherSDRDocsSpanish")
+EN_REPO = HERE.parent
+EN_ROOT = EN_REPO / "docs"   # MkDocs docs/ subfolder of the English repo
+ES_REPO = Path(r"C:\Users\lu5dx\Documents\Codigo\AetherSDRDocsSpanish")
+ES_ROOT = ES_REPO / "docs"   # MkDocs docs/ subfolder of the Spanish repo
 
 MODEL_IDS = {
     "sonnet": "claude-sonnet-4-6",
@@ -46,7 +48,7 @@ MODEL_IDS = {
 }
 
 # Folders under EN_ROOT that are NOT docs and should be skipped.
-SKIP_DIRS = {"_generator", ".git", ".github", "node_modules"}
+SKIP_DIRS = {"assets", "stylesheets", "javascripts"}  # MkDocs-only resources, no prose to translate
 
 SYSTEM_PROMPT = """You are a professional technical translator. You translate
 AetherSDR user-manual pages from English into neutral, clear Spanish for an

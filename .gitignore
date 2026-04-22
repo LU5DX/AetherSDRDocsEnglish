@@ -2,6 +2,11 @@ __pycache__/
 *.py[cod]
 .venv/
 .env
+
+# MkDocs build output
+/site/
+/.cache/
+
 # Virtualenv-like folders pip creates when sys.prefix is misconfigured
 _generator/Lib/
 _generator/Scripts/

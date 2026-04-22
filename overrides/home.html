@@ -1,0 +1,76 @@
+{% extends "main.html" %}
+
+{# Custom landing page. Activated by docs/index.md frontmatter
+     ---
+     template: home.html
+     ---
+   The hero section sits above the standard Material content area and
+   is built from three parallax layers: stars (slow), alien silhouette
+   (medium), AetherSDR UI mockup (fastest). #}
+
+{% block tabs %}
+  {{ super() }}
+
+  <section class="aether-hero" aria-label="AetherSDR user manual">
+    <div class="aether-hero__stars" data-parallax-speed="0.15" aria-hidden="true"></div>
+    <div class="aether-hero__alien" data-parallax-speed="0.45" aria-hidden="true"></div>
+    <div class="aether-hero__ui"    data-parallax-speed="0.75" aria-hidden="true"></div>
+
+    <div class="aether-hero__veil" aria-hidden="true"></div>
+
+    <div class="aether-hero__content">
+      <h1 class="aether-hero__title">AetherSDR</h1>
+      <p class="aether-hero__subtitle">The user manual</p>
+      <p class="aether-hero__lede">
+        Operate your FlexRadio FLEX-8600 from Linux. Hundreds of practical,
+        task-focused guides covering every applet, dialog, and menu —
+        grounded in the source.
+      </p>
+      <div class="aether-hero__cta">
+        <a class="md-button md-button--primary" href="getting-started/install/installation-linux/">
+          Get started
+        </a>
+        <a class="md-button" href="features/tci/overview/">
+          Browse features
+        </a>
+      </div>
+    </div>
+
+    <div class="aether-hero__scroll-hint" aria-hidden="true">
+      <span></span>
+    </div>
+  </section>
+{% endblock %}
+
+{# Suppress the default Markdown body so the hero is the entire above-the-fold
+   experience. Keeps the page focused. #}
+{% block content %}
+  <div class="aether-home-below">
+    <section class="aether-tiles">
+      <a class="aether-tile" href="getting-started/concepts/understanding-applets/">
+        <h3>Understand the panel</h3>
+        <p>Applets, slices, and how the AetherSDR UI is wired together.</p>
+      </a>
+      <a class="aether-tile" href="operating/dsp/noise-reduction-overview/">
+        <h3>Pull weak signals</h3>
+        <p>NR2, NR4, DFNR, MNR — which noise reduction to use, and when.</p>
+      </a>
+      <a class="aether-tile" href="operating/digital-modes/digital-modes-setup/">
+        <h3>Get on digital modes</h3>
+        <p>FT8, WSJT-X, fldigi — DAX audio routing and CAT control.</p>
+      </a>
+      <a class="aether-tile" href="features/tci/overview/">
+        <h3>Hook up your tools</h3>
+        <p>TCI for Log4OM and SunSDR. MQTT for home automation. MIDI for control surfaces.</p>
+      </a>
+      <a class="aether-tile" href="operating/remote/remote-operation-smartlink/">
+        <h3>Operate remotely</h3>
+        <p>SmartLink, port forwarding, and the remote-audio path.</p>
+      </a>
+      <a class="aether-tile" href="reference/settings/settings-reference/">
+        <h3>Reference</h3>
+        <p>Every persisted setting, every menu action, in one place.</p>
+      </a>
+    </section>
+  </div>
+{% endblock %}

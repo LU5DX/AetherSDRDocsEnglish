@@ -1,0 +1,263 @@
+/* ─── AetherSDR landing page ──────────────────────────────────────────────
+   Custom hero + parallax for docs/index.md (which uses overrides/home.html).
+   Deliberately scoped under .aether-* so it can't leak into doc pages.
+*/
+
+:root {
+  --aether-hero-h: clamp(560px, 100vh, 900px);
+  --aether-bg-deep:    #050818;
+  --aether-bg-mid:     #0a0e27;
+  --aether-violet:     #5b21b6;
+  --aether-violet-2:   #7c3aed;
+  --aether-cyan:       #06b6d4;
+  --aether-cyan-2:     #67e8f9;
+  --aether-text:       #f0f4f8;
+  --aether-text-dim:   #cbd5e1;
+  --aether-text-faint: #94a3b8;
+}
+
+/* ── Hero shell ─────────────────────────────────────────────── */
+
+.aether-hero {
+  position: relative;
+  height: var(--aether-hero-h);
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 30%,
+      rgba(124, 58, 237, 0.35), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 110%,
+      rgba(6, 182, 212, 0.22), transparent 70%),
+    linear-gradient(180deg, var(--aether-bg-mid) 0%, var(--aether-bg-deep) 100%);
+}
+
+/* Parallax layers — JS sets --parallax-y, CSS combines with centering. */
+
+.aether-hero__stars,
+.aether-hero__alien,
+.aether-hero__ui {
+  position: absolute;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.aether-hero__stars {
+  inset: -20% -10% -10%;
+  background-image: url('../assets/hero-stars.svg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.65;
+  transform: translateY(var(--parallax-y, 0));
+}
+
+.aether-hero__alien {
+  bottom: -3%;
+  left: 50%;
+  width: min(72%, 760px);
+  height: 88%;
+  background-image: url('../assets/hero-alien.svg');
+  background-size: contain;
+  background-position: bottom center;
+  filter: drop-shadow(0 20px 40px rgba(124, 58, 237, 0.45));
+  transform: translateX(-50%) translateY(var(--parallax-y, 0));
+}
+
+.aether-hero__ui {
+  top: 14%;
+  left: 50%;
+  width: min(46%, 520px);
+  height: 36%;
+  background-image: url('../assets/hero-ui.svg');
+  background-size: contain;
+  background-position: top center;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 30px rgba(103, 232, 249, 0.45));
+  transform: translateX(-50%) translateY(var(--parallax-y, 0));
+}
+
+.aether-hero__veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 60%,
+    transparent 0%, rgba(5, 8, 24, 0.65) 80%);
+  z-index: 1;
+}
+
+/* ── Hero content ───────────────────────────────────────────── */
+
+.aether-hero__content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 760px;
+  padding: 2rem 1.5rem;
+  color: var(--aether-text);
+}
+
+.aether-hero__title {
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg,
+    #c4b5fd 0%, var(--aether-cyan-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 30px rgba(124, 58, 237, 0.4);
+}
+
+.aether-hero__subtitle {
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+  color: #a5b4fc;
+  letter-spacing: 0.01em;
+}
+
+.aether-hero__lede {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.65;
+  margin: 0 auto 2.25rem;
+  max-width: 580px;
+  color: var(--aether-text-dim);
+}
+
+.aether-hero__cta {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.aether-hero .md-button {
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.aether-hero .md-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
+}
+
+.aether-hero .md-button--primary {
+  background: linear-gradient(135deg,
+    var(--aether-violet-2) 0%, var(--aether-cyan) 100%);
+  border: none;
+  color: white;
+}
+
+/* ── Scroll hint ───────────────────────────────────────────── */
+
+.aether-hero__scroll-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  z-index: 10;
+}
+
+.aether-hero__scroll-hint span {
+  display: block;
+  width: 4px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  margin: 6px auto 0;
+  animation: aether-scroll-hint 2s infinite;
+}
+
+@keyframes aether-scroll-hint {
+  0%   { transform: translateY(0); opacity: 0.7; }
+  60%  { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0.7; }
+}
+
+/* ── Tile grid below the hero ──────────────────────────────── */
+
+.aether-home-below {
+  background:
+    linear-gradient(180deg, var(--aether-bg-deep) 0%, transparent 80%),
+    var(--md-default-bg-color);
+  padding: 4rem 1.5rem 5rem;
+}
+
+.aether-tiles {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.aether-tile {
+  display: block;
+  padding: 1.5rem 1.5rem 1.65rem;
+  border-radius: 14px;
+  background: var(--md-code-bg-color, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(255, 255, 255, 0.08));
+  color: inherit !important;
+  text-decoration: none;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.aether-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--aether-cyan);
+  box-shadow: 0 12px 28px rgba(6, 182, 212, 0.18);
+}
+
+.aether-tile h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c4b5fd, var(--aether-cyan-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.aether-tile p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ── Reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .aether-hero__stars,
+  .aether-hero__alien,
+  .aether-hero__ui {
+    transform: none !important;
+  }
+  .aether-hero__alien { transform: translateX(-50%) !important; }
+  .aether-hero__ui    { transform: translateX(-50%) !important; }
+  .aether-hero__scroll-hint span { animation: none; }
+}
+
+/* ── Polish for doc pages ─────────────────────────────────── */
+
+/* Make code-fenced AppSettings keys visually distinct in prose */
+.md-typeset code {
+  border-radius: 4px;
+}
+
+/* Tighter list spacing in the "What each control does" tables */
+.md-typeset table:not([class]) th {
+  font-weight: 600;
+}
