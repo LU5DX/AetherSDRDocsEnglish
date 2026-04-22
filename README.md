@@ -1,7 +1,7 @@
 # AetherSDR User Documentation (English)
 
 Source for the AetherSDR user manual at
-**https://lu5dx.github.io/AetherSDRDocsEnglish/** (once Pages is enabled).
+**https://lu5dx.github.io/AetherSDRDocsEnglish/**.
 
 Built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 Spanish mirror: [AetherSDRDocsSpanish](https://github.com/LU5DX/AetherSDRDocsSpanish).
