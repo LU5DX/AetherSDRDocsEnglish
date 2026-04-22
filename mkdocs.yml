@@ -22,8 +22,8 @@ theme:
   name: material
   custom_dir: overrides
   language: en
-  logo: assets/aether-logo.svg
-  favicon: assets/aether-logo.svg
+  logo: assets/aether-logo.png
+  favicon: assets/aether-logo.png
   palette:
     - scheme: slate
       primary: deep purple
