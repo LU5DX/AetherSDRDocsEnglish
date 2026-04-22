@@ -1,5 +1,5 @@
 site_name: AetherSDR User Manual
-site_description: User documentation for AetherSDR — a Linux-native SmartSDR-compatible client for FlexRadio FLEX-8600.
+site_description: User documentation for AetherSDR — a SmartSDR-compatible client for FlexRadio FLEX-8400, FLEX-8600, FLEX-6400, and FLEX-6600. Runs on Linux, macOS, and Windows.
 site_author: AetherSDR community
 site_url: https://lu5dx.github.io/AetherSDRDocsEnglish/
 

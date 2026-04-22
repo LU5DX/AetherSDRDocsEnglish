@@ -55,28 +55,35 @@
   transform: translateY(var(--parallax-y, 0));
 }
 
+/* Alien silhouette — anchored at the bottom, only the head + headphones
+   peek up into the lower third of the hero. The figure is "looking up"
+   at the screen above. */
 .aether-hero__alien {
-  bottom: -3%;
+  bottom: -8%;
   left: 50%;
-  width: min(72%, 760px);
-  height: 88%;
+  width: min(50%, 520px);
+  height: 60%;
   background-image: url('../assets/hero-alien.svg');
   background-size: contain;
   background-position: bottom center;
-  filter: drop-shadow(0 20px 40px rgba(124, 58, 237, 0.45));
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 20px 40px rgba(124, 58, 237, 0.55));
   transform: translateX(-50%) translateY(var(--parallax-y, 0));
 }
 
+/* Screen mockup — pinned to the top of the hero, smaller than before so
+   it doesn't collide with the title. The alien is "facing" this. */
 .aether-hero__ui {
-  top: 14%;
+  top: 4%;
   left: 50%;
-  width: min(46%, 520px);
-  height: 36%;
+  width: min(34%, 380px);
+  aspect-ratio: 600 / 380;
   background-image: url('../assets/hero-ui.svg');
   background-size: contain;
   background-position: top center;
+  background-repeat: no-repeat;
   opacity: 0.92;
-  filter: drop-shadow(0 0 30px rgba(103, 232, 249, 0.45));
+  filter: drop-shadow(0 0 35px rgba(103, 232, 249, 0.55));
   transform: translateX(-50%) translateY(var(--parallax-y, 0));
 }
 
@@ -97,6 +104,8 @@
   max-width: 760px;
   padding: 2rem 1.5rem;
   color: var(--aether-text);
+  /* Push content down so the screen mockup at the top has breathing room */
+  margin-top: 8vh;
 }
 
 .aether-hero__title {
