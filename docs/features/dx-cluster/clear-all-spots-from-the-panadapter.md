@@ -1,28 +1,27 @@
 # Clear all spots from the panadapter
 
-Remove every spot currently tracked by AetherSDR from the panadapter in one action. Use this when the display is cluttered after a band change or after toggling spot sources.
+SpotHub accumulates spots from every active source in a single list. Use this page to remove all of them at once — for example, to start fresh after a band change.
 
 ## Before you start
 
-- At least one spot source (DX cluster, RBN, WSJT-X, SpotCollector, POTA, or FreeDV) must have delivered spots for there to be anything to clear.
-- The SpotHub dialog must be accessible via the menu (no radio connection required).
+- AetherSDR must be running. A radio connection is not required.
+- At least one spot source must have delivered spots, otherwise the spot list is already empty.
 
 ## Steps
 
-1. Click `Settings > SpotHub...` to open the SpotHub dialog.
-2. Click the `Spot List` tab.
-3. Click `Clear All Spots`.
+1. Open `Settings > SpotHub...`.
+2. Click the **Spot List** tab.
+3. Click **Clear**.
 
-All spots are immediately removed from the panadapter and from the spot table. Connected sources continue running and will populate new spots as they arrive.
+All spots are removed from both the spot table and the panadapter overlay immediately.
 
 ## Tips
 
-- `Clear All Spots` removes spots from the live tracking list across all sources at once. It does not disconnect any source or change any display settings.
-- If you want to remove spots only from the table view without affecting the panadapter overlay, use the `Clear` button on the `Spot List` tab instead. That button empties the table display only.
-- To stop new spots from appearing on the panadapter without disconnecting your sources, toggle `Spots:` to disabled on the `Display` tab (`IsSpotsEnabled`).
+- Clearing spots does not disconnect any active source. New spots from connected sources will appear again as they arrive.
+- If you want spots to stop appearing entirely, go to the **Display** tab and set **Spots:** to disabled before clearing.
 
 ## Related
 
+- [SpotHub overview](overview.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [SpotHub overview](overview.md)

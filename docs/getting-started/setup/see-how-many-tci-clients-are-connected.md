@@ -1,38 +1,36 @@
 # See how many TCI clients are connected
 
-The TCI Server applet shows a live client count in its status indicator. Use this page to open the applet and read that count.
+The TCI Server applet displays a live client count in its status indicator. Use this to confirm that external software (Log4OM, SunSDR tools, etc.) has successfully connected to AetherSDR's TCI server.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The TCI applet requires an active radio connection.
-- The TCI server must be enabled. If it is not running, the status shows `(stopped)` and no client count is available.
+- The TCI server must be running. The status indicator reads `(stopped)` if it is not. Click Enable in the TCI applet to start it, or see [Enable the TCI server for Log4OM / SunSDR clients](../../features/tci/enable-the-tci-server-for-log4om-sunsdr-clients.md).
+- AetherSDR must be connected to a radio. The TCI applet requires an active radio connection.
 
 ## Steps
 
 1. Click the **TCI** tray button on the right sidebar to open the TCI Server applet.
-2. Look at the status indicator in the bottom row of the applet, to the right of the **Port** field.
-3. Read the client count. When the server is running, the status reads `:<port> (N clients)` — for example, `:50001 (2 clients)`. When no clients are connected it reads `:50001 (0 clients)`. When the server is stopped it reads `(stopped)`.
+2. Look at the status indicator to the left of the Enable button.
 
-## What each control does
+The indicator shows the current state in one of three forms:
 
-| Control | Description | Default | Range / States | Setting key |
-|---|---|---|---|---|
-| **Port** | The port the TCI WebSocket server listens on. Changing it restarts the server if enabled. Out-of-range values snap to `50001`. | `50001` | 1024–65535 | `TciPort` |
-| **Enable** | Starts or stops the TCI server. If the port is already in use, the toggle snaps back to off and the status shows `(port in use)`. | Off | On / Off | — |
-| Server status indicator | Shows current server state and connected client count. Turns blue when one or more clients are connected; turns red on bind failure. | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` | — |
-| **RX1–RX4** gain+meter | Combined meter and slider setting the TCI RX gain for each channel. | 0.5 | 0.0–1.0 | `TciRxGain1`–`TciRxGain4` |
-| **TX** gain+meter | Combined meter and slider setting the TCI TX gain. | 0.5 | 0.0–1.0 | `TciTxGain` |
-| RX/TX slice-assignment labels | Indicate which slice drives each RX or TX row. Show `—` when no slice is assigned or `Slice <letter>` when one is. | `—` | `—` or `Slice <letter>` | — |
+| Status text | Meaning |
+|---|---|
+| `(stopped)` | Server is not running. |
+| `:<port> (N clients)` | Server is running on the given port; N is the number of connected clients. |
+| `(port in use)` | Server failed to bind; the port is occupied by another process. |
+
+When one or more clients are connected, the status text turns blue. When the server is running but no clients are connected, the text is grey. The count updates automatically each time a client connects or disconnects.
 
 ## Tips
 
-- The client count updates live. You do not need to reopen the applet; the status indicator refreshes each time a client connects or disconnects.
-- If the status shows `(port in use)`, another application is already bound to that port. Change the value in the **Port** field to a different number in the range 1024–65535 and press Enter.
+- The client count reflects WebSocket connections currently open to the TCI server. If a client disconnects ungracefully, the count drops as soon as AetherSDR detects the closed connection.
+- The port shown in the status indicator matches the value in the Port field (default `50001`, stored as `TciPort`). If you changed the port, confirm the external client is targeting the same value.
 
 ## Troubleshooting
 
-- **Status shows `(stopped)` even though Enable appears active** — The bind failed silently. Close and reopen the applet. Click **Enable** again. If the status immediately shows `(port in use)`, choose a different port.
-- **Client count stays at 0** — Confirm the third-party application is configured to connect to the same port shown in the **Port** field, and that no firewall is blocking that port.
+- **Status stays `(stopped)` even after clicking Enable** — The port may already be in use by another application. The status indicator will display `(port in use)` in red. Change the Port value to a free port in the range 1024–65535 and click Enable again. Out-of-range values snap back to `50001`.
+- **Client count stays at 0** — Verify the external application is configured to connect to the correct host address and port. Check that no firewall is blocking the TCI port.
 
 ## Related
 

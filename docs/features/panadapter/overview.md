@@ -1,23 +1,14 @@
 # Panadapter overview
 
-The panadapter is AetherSDR's primary display for visualizing RF spectrum activity. It combines an FFT spectrum plot and a scrolling waterfall, and optionally shows a CW decode panel below the display for off-air Morse reading.
-
-## Before you start
-
-- Connect to a FLEX-8600 radio. The panadapter requires an active radio connection.
-- If you want to use the CW decoder, PC audio routing to AetherSDR must be configured first. The panel shows a "(requires PC Audio)" reminder until audio is available.
+The panadapter is the primary display in AetherSDR. It shows a live FFT spectrum and waterfall for a single slice, and optionally an off-air CW decoder panel beneath it. This page describes every control in the panadapter and links to task-specific pages.
 
 ## How it works
 
-Each panadapter is bound to one slice (Slice A through Slice H). The slice title is shown in the panadapter's title bar. In single-panadapter mode, the title bar buttons for pop-out, maximize, and close are hidden. They appear when more than one panadapter is open.
+Each panadapter is bound to one slice (shown in the title bar as "Slice A" through "Slice H"). The upper portion is the spectrum and waterfall display; clicking or dragging it tunes the bound slice. Scrolling zooms the frequency span.
 
-**Spectrum and waterfall interaction**
+In single-panadapter mode the title bar shows only the slice label and drag grip. In multi-slice mode, pop-out (⬈), maximize (□), and close (×) buttons appear in the title bar so you can rearrange the layout.
 
-Clicking anywhere on the spectrum/waterfall area activates that panadapter. You can drag to tune and scroll to zoom. By default, a double-click is required to retune; enable `View > Single-Click to Tune` to change this. When `View > Pan Follows VFO` is on (the default), the display pans automatically to keep the active VFO marker visible.
-
-**CW decode panel**
-
-The CW decode panel appears below the spectrum when the CW decoder is turned on. It runs an off-air Morse decoder against PC audio and displays rolling decoded text. Each character is colour-coded by decode confidence: green (highest confidence), yellow, orange, and red (lowest confidence). The panel can be hidden at any time with ✕.
+The CW decode panel is hidden by default. When active, it sits below the waterfall and runs an off-air Morse decoder against PC audio routed to AetherSDR. The panel displays decoded text, pitch, and speed, and provides controls to tune and lock the decoder.
 
 ## What each control does
 
@@ -25,38 +16,38 @@ The CW decode panel appears below the spectrum when the CW decoder is turned on.
 
 | Control | Kind | Behavior | Notes |
 |---|---|---|---|
-| Slice title | Indicator | Shows the slice bound to this panadapter (e.g. "Slice A"). | — |
-| ⬈ / ↩ (pop-out/dock) | Button | Pops the panadapter into a floating window or docks it back. | Hidden in single-pan mode. |
-| □ (maximize) | Button | Maximizes this panadapter to fill the main layout area. | Hidden in single-pan mode. |
-| × (close) | Button | Closes this panadapter. | Hidden in single-pan mode. |
+| Slice title | Indicator | Shows which slice is bound (e.g. "Slice A"). Range: Slice A–Slice H. | — |
+| ⬈ / ↩ (pop-out/dock) | Push button | Pops the panadapter into a floating window; click again to dock it back. | Hidden in single-pan mode. |
+| □ (maximize) | Push button | Maximizes this panadapter to fill the main area. | Hidden in single-pan mode. |
+| × (close) | Push button | Closes this panadapter. | Hidden in single-pan mode. |
 
 ### Spectrum / waterfall
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Spectrum / waterfall | Display and drag handle | Click to activate; drag to tune; scroll to zoom. |
+| Spectrum / waterfall | Drag handle | Click to activate the panadapter (multi-slice mode); drag to pan frequency; scroll to zoom. |
 
 ### CW decode panel
 
-| Control | Kind | Default | Valid range | Persisted key | Behavior |
+| Control | Kind | Default | Range | Persisted key | Behavior |
 |---|---|---|---|---|---|
-| CW stats label | Indicator | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed currently detected by the decoder. |
-| Sens | Slider | 30 | 0–100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Maps 0–100 to a cost threshold of 1.0–0.1. |
-| 🔒P (Lock Pitch) | Toggle button | Off | — | — | Locks the decoder pitch to the current tuned frequency. |
-| 🔒S (Lock Speed) | Toggle button | Off | — | — | Locks the decoder speed to the current WPM. |
-| Lo (pitch min) | Slider | 500 Hz | 300–1200 Hz | — | Sets the minimum pitch the decoder searches. Clamped to ≤ Hi. |
-| Hi (pitch max) | Slider | 700 Hz | 300–1200 Hz | — | Sets the maximum pitch the decoder searches. Clamped to ≥ Lo. |
-| CPY ALL | Button | — | — | — | Copies the full decoded text buffer to the clipboard. |
-| CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
-| CLR | Button | — | — | — | Clears the CW decode buffer. |
-| ✕ (close CW) | Button | — | — | — | Hides the CW decode panel. |
-| CW decode text | Read-only text area | — | — | — | Rolling display of decoded Morse. Characters are coloured by confidence: green (<0.15), yellow (<0.35), orange (<0.60), red (≥0.60). |
+| CW stats label | Indicator | — | `<hz> Hz  <wpm> WPM` | — | Shows detected pitch and speed from the decoder. |
+| Sens | Slider | 30 | 0–100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Maps 0–100 to an internal cost threshold of 1.0–0.1. |
+| 🔒P (Lock Pitch) | Toggle button | Off | On/Off | — | Locks the decoder pitch to the current tuned frequency. |
+| 🔒S (Lock Speed) | Toggle button | Off | On/Off | — | Locks the decoder speed to the current WPM. |
+| Lo (pitch min) | Slider | 500 Hz | 300–1200 Hz | — | Minimum pitch the decoder searches. Clamped to ≤ Hi. |
+| Hi (pitch max) | Slider | 700 Hz | 300–1200 Hz | — | Maximum pitch the decoder searches. Clamped to ≥ Lo. |
+| CPY ALL | Push button | — | — | — | Copies the full decoded text buffer to the clipboard. |
+| CPY VIS | Push button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
+| CLR | Push button | — | — | — | Clears the CW decode buffer. |
+| ✕ (close CW) | Push button | — | — | — | Hides the CW decode panel. |
+| CW decode text | Text field (read-only) | — | — | — | Rolling display of decoded CW. Text is coloured by decode confidence: green (highest confidence) through yellow, orange, to red (lowest confidence). |
 
 ## Tips
 
-- Lo and Hi define the pitch search window. Narrowing the range around a known signal pitch reduces false decodes from adjacent interference.
-- Setting Sens to 0 shows all decode attempts, including low-confidence ones. Raise it gradually until noise-driven garbage disappears.
-- Use 🔒P and 🔒S once the decoder has locked onto a signal cleanly. This prevents the decoder from drifting if the signal temporarily weakens.
+- The CW decoder requires PC audio to be routed to AetherSDR. If the panel shows "(requires PC Audio)", audio routing is not yet configured.
+- Lo and Hi are clamped against each other: dragging Lo above Hi snaps Lo down to Hi's value, and vice versa. Set Lo first, then Hi.
+- Decoded text colour reflects confidence. Green text is the most reliable; red text should be treated with caution.
 
 ## Related
 

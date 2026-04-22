@@ -1,36 +1,38 @@
 # Check Radio Serial, Hardware Version, Region and Options
 
-Open the Radio tab in Radio Setup to view your FLEX-8600's chassis serial number, hardware version string, regulatory region, and licensed options. These are read-only values reported by the radio firmware.
+Open the Radio tab in Radio Setup to view your FLEX-8600's chassis serial number, hardware version, regulatory region, and licensed options. All fields on this tab are read-only indicators — no values can be changed here.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Radio tab fields are blank until a connection is established.
+- AetherSDR must be connected to the radio. These indicators are populated from the live radio connection.
 
 ## Steps
 
 1. Click `Settings > Radio Setup...`.
-2. Click the **Radio** tab.
-3. Read the values in the **Radio Information** group:
+2. The dialog opens on the **Radio** tab by default.
+3. Locate the **Radio Information** group.
+4. Read the values from the following indicators:
    - **Radio SN** — chassis serial number.
-   - **HW Version** — hardware version string reported by the radio.
-   - **Region** — regulatory region (defaults to `USA` if the radio does not report one).
+   - **HW Version** — hardware version string.
+   - **Region** — regulatory region (default: `USA`).
    - **Options** — licensed options active on this radio.
 
 ## What each control does
 
 | Label | Kind | Behavior |
 |---|---|---|
-| Radio SN | Indicator (read-only) | Chassis serial number as reported by the radio. |
-| HW Version | Indicator (read-only) | Hardware version string. Displayed with a leading `v`. |
-| Region | Indicator (read-only) | Regulatory region. Default: `USA`. |
-| Options | Indicator (read-only) | Licensed radio options string from the radio firmware. |
-| FlexControl | Indicator (read-only) | Detected state of connected FlexControl hardware. |
-| multiFLEX | Indicator (read-only) | multiFLEX enabled state. |
+| Radio SN | Indicator | Chassis serial number. Read-only. |
+| HW Version | Indicator | Hardware version string. Read-only. |
+| Region | Indicator | Radio regulatory region. Defaults to `USA`. Read-only. |
+| Options | Indicator | Lists the licensed options active on the radio. Read-only. |
+| Model | Indicator | Radio model string. Read-only. |
+| FlexControl | Indicator | Detected state of connected FlexControl hardware. Read-only. |
+| multiFLEX | Indicator | multiFLEX enabled state. Read-only. |
 
 ## Tips
 
-- All four values are read from the radio at connection time and cannot be changed from this dialog.
-- License details (subscription tier, expiration date, Radio ID, and licensed firmware version) are shown in the **License Info** group on the same tab.
+- If **Radio SN** appears blank, the radio may not have reported its chassis serial yet. Disconnect and reconnect to the radio, then reopen Radio Setup.
+- **Options** reflects what the radio firmware reports as licensed. If an expected option is missing, verify your license status through FlexRadio's licensing portal.
 
 ## Related
 

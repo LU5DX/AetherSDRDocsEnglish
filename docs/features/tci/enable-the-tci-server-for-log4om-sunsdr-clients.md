@@ -1,39 +1,41 @@
 # Enable the TCI server for Log4OM / SunSDR clients
 
-AetherSDR includes a built-in TCI WebSocket server that lets third-party software — such as Log4OM and SunSDR tools — read and control the radio over the TCI protocol. This page walks through opening the TCI applet and starting the server.
+Start the built-in TCI WebSocket server so third-party logging and SDR software such as Log4OM or SunSDR tools can read and control the radio over the TCI protocol.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The TCI applet requires an active radio connection.
-- The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
+- AetherSDR must be connected to a FLEX-8600 radio. The TCI applet requires an active radio connection.
+- The TCI applet must be visible. If you do not see it in the applet panel, click the TCI tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Click the **TCI** tray button on the right sidebar. The TCI Server applet appears in the applet panel.
-2. Check the **Port** field. The default is `50001`. Change it if another application is already using that port (valid range: 1024–65535; out-of-range values snap back to `50001`).
-3. Click **Enable**. The button highlights green when the server is running.
-4. Confirm the server status indicator next to **Enable** changes from `(stopped)` to `:<port> (0 clients)`. When a client connects, the count increments — for example, `50001 (1 client)`.
+1. Click the TCI tray button on the right sidebar to open the TCI Server applet.
+2. Check the Port field. The default is `50001`. Change it now if that port is already in use on your system — see [Change the TCI port](change-the-tci-port.md).
+3. Click Enable.
+4. Confirm the server started: the status indicator next to Enable changes from `(stopped)` to `:<port> (0 clients)`.
+5. In your third-party software (Log4OM, SunSDR tool, etc.), enter `localhost` and the port number shown in the status indicator. Once the client connects, the status updates to `:<port> (1 clients)` or higher.
 
 ## What each control does
 
-| Control | Description | Default | Range | Setting key |
+| Control | What it does | Default | Range | Setting key |
 |---|---|---|---|---|
-| **Port** | TCP port the TCI WebSocket server listens on. Changing the value while the server is running restarts it automatically. | `50001` | 1024–65535 | `TciPort` |
-| **Enable** | Starts or stops the TCI server. | Off | — | — |
-| **RX1–RX4** gain+meter | Combined meter and slider. Drag to set the TCI RX gain for each channel. | 0.5 | 0.0–1.0 | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
-| **TX** gain+meter | Combined meter and slider. Drag to set the TCI TX gain. | 0.5 | 0.0–1.0 | `TciTxGain` |
-| RX/TX slice-assignment labels | Read-only indicators showing which slice drives each RX or TX row (for example, `Slice A`). Shows `—` when no slice is assigned. | `—` | — | — |
-| Server status | Shows the current server state and connected client count. Turns red and displays `(port in use)` on bind failure. | `(stopped)` | — | — |
+| Port | Sets the TCP port the TCI WebSocket server listens on. Changing the value while Enable is active restarts the server automatically. Out-of-range values snap to `50001`. | `50001` | 1024–65535 | `TciPort` |
+| Enable | Starts or stops the TCI server. | Off | — | — |
+| Server status | Shows current server state and connected client count. Turns red and shows `(port in use)` if the bind fails. | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` | — |
+| RX1–RX4 gain+meter | Combined level meter and gain slider for each TCI RX channel. Drag to set gain. The slice letter assigned to each channel is shown to the left of the meter. | 0.5 | 0.0–1.0 | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
+| TX gain+meter | Combined level meter and gain slider for the TCI TX channel. The active TX slice letter is shown to the left of the meter. | 0.5 | 0.0–1.0 | `TciTxGain` |
+| RX/TX slice-assignment labels | Indicators showing which slice drives each RX or TX row. Displays `—` when no slice is assigned to that channel. | `—` | `—` or `Slice <letter>` | — |
 
 ## Tips
 
-- To have the TCI server start automatically every time AetherSDR launches, enable `Settings > Autostart TCI with AetherSDR` instead of clicking **Enable** each session.
-- The slice-assignment labels next to each RX row follow the same DAX channel mapping. If a row shows `—`, assign a DAX channel to the corresponding slice.
+- To have the TCI server start automatically every time AetherSDR launches, enable `Settings > Autostart TCI with AetherSDR`. See [Autostart TCI on launch](autostart-tci-on-launch.md).
+- The RX channel assignments follow DAX channel mapping. If a channel shows `—`, assign a DAX channel to the corresponding slice in radio setup.
 
 ## Troubleshooting
 
-- **Enable button snaps back off and status shows `(port in use)`** — Another application is already bound to the configured port. Enter a different value in **Port** and click **Enable** again.
-- **TCI applet does not appear in the applet panel** — Your build of AetherSDR may not include WebSocket support. The TCI applet is present only in builds compiled with WebSocket support enabled.
+- **Enable snaps back to off and status shows `(port in use)`** — Another application is already bound to that port. Change the Port value to a free port (1024–65535) and click Enable again.
+- **Status stays `(stopped)` after clicking Enable** — Confirm the radio is connected. The TCI server requires an active radio connection to start.
+- **Third-party software cannot connect** — Verify the port number in the client matches the Port field in AetherSDR. Check that your firewall permits connections on that port.
 
 ## Related
 

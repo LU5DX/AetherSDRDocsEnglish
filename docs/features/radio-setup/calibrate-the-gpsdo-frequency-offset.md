@@ -1,40 +1,35 @@
 # Calibrate the GPSDO frequency offset
 
-Use this page to correct any frequency error in the FLEX-8600's internal oscillator by applying a measured offset in parts per billion (ppb), or by running an automatic calibration sweep against a known reference frequency.
+Use this page to trim the frequency reference of your FLEX-8600 by setting a calibration frequency or entering a manual offset in parts-per-billion. Accurate frequency calibration improves receive and transmit accuracy across all bands.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The RX tab controls are only active with a live radio connection.
-- Have a known, accurate frequency reference available if you intend to use the calibration sweep — for example, a WWV carrier, a GPS-disciplined beacon, or a calibrated signal generator.
+- AetherSDR must be connected to the radio. The RX tab is only accessible when a radio connection is active.
+- Your radio must have a GPSDO fitted, or an accurate external reference signal available for comparison.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **RX** tab.
-3. To run an automatic sweep: enter the reference frequency in MHz in the **Cal Frequency (MHz):** spinbox, then click **Start**. The radio sweeps around that frequency and computes the offset.
-4. To set the offset manually: enter the desired correction directly into the **Freq Offset (ppb):** spinbox. Positive values shift the indicated frequency upward; negative values shift it downward.
-5. Close the dialog. The offset is applied immediately to the radio.
+3. To run an automatic calibration sweep, set the known-accurate reference frequency in **Cal Frequency (MHz):**, then click **Start**.
+4. To enter an offset manually, type the desired value directly into **Freq Offset (ppb):**.
+5. Close the dialog. The offset is applied to the radio immediately.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Range |
-|---|---|---|---|---|
-| **Cal Frequency (MHz):** | Spinbox | Frequency used as the reference for the automatic calibration sweep. | — | — |
-| **Start** | Button | Starts the frequency calibration sweep using the value in **Cal Frequency (MHz):**. | — | — |
-| **Freq Offset (ppb):** | Spinbox | Manual frequency correction applied to the oscillator, in parts per billion. | — | — |
-| **10 MHz Reference Source:** | Combo box | Selects whether the radio locks to its internal oscillator or an external 10 MHz reference input. | — | Internal \| External |
+| Control | Description | Default | Valid range |
+|---|---|---|---|
+| **Cal Frequency (MHz):** | The frequency used as the reference during a calibration sweep. Set this to a known-accurate signal (for example, a time standard or GPSDO-disciplined beacon). | — | — |
+| **Start** | Initiates the frequency calibration sweep using the value in **Cal Frequency (MHz):**. | — | — |
+| **Freq Offset (ppb):** | Manual frequency offset applied to the radio's reference oscillator, in parts per billion. | — | — |
+| **10 MHz Reference Source:** | Selects whether the radio uses its internal oscillator or an external 10 MHz reference input. | — | Internal \| External |
 
 ## Tips
 
-- If you have a GPS-disciplined 10 MHz source connected to the rear-panel reference input, switch **10 MHz Reference Source:** to External instead of applying a manual offset. See [Switch to an external 10 MHz reference](switch-to-an-external-10-mhz-reference.md).
-- Run the calibration sweep on a frequency where propagation effects are negligible — a local reference is more reliable than a distant shortwave standard.
-
-## Troubleshooting
-
-- **Start button has no effect** — Confirm AetherSDR is connected to the radio. The RX tab controls require an active radio connection.
-- **Freq Offset (ppb): value resets after reconnect** — The offset is stored on the radio, not in AetherSDR's local settings. If the radio loses power before saving its state, the value may revert to the last persisted radio configuration.
+- If you have a known-good 10 MHz external reference, switch **10 MHz Reference Source:** to External before calibrating to get the best baseline accuracy.
+- The **Freq Offset (ppb):** field lets you make fine corrections without running a full sweep, useful when you already know the approximate error from a previous calibration.
 
 ## Related
 
 - [Switch to an external 10 MHz reference](switch-to-an-external-10-mhz-reference.md)
-- [Radio Setup overview](overview.md)
+- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)

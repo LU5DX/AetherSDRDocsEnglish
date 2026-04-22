@@ -1,40 +1,32 @@
 # Set the Radio Nickname, Callsign and Station Name
 
-Set a human-readable nickname, your station callsign, and a station name on the connected FLEX-8600. These values identify the radio and this client to other multiFLEX stations on the network.
+Set a human-readable name, your callsign, and a station identifier on your FLEX-8600. These values are stored on the radio and identify your client to other multiFLEX stations.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Radio (tab) fields are not editable while disconnected.
+- AetherSDR must be connected to the radio. The Radio tab in Radio Setup is not available without an active connection.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Radio** tab.
-3. In the **Radio Identification** group, locate the **Nickname** field. Type the nickname you want to assign to the radio.
-4. Press Tab or click away from the field. AetherSDR sends the new nickname to the radio immediately.
-5. Locate the **Callsign** field. Type your callsign.
-6. Press Tab or click away from the field. AetherSDR sends the callsign to the radio immediately.
-7. Locate the **Station Name** field. Type the name that identifies this client to other multiFLEX stations.
-8. Press Tab or click away from the field. AetherSDR saves the value locally and sends it to the radio immediately.
+3. In the **Radio Identification** group, locate the **Nickname** field. Type the name you want to assign to the radio, then press Tab or Enter to commit. AetherSDR sends the new name to the radio immediately.
+4. Locate the **Callsign** field. Type your callsign, then press Tab or Enter to commit.
+5. Locate the **Station Name** field. Type the name that identifies this client to other multiFLEX stations, then press Tab or Enter to commit. If left empty, AetherSDR uses the OS hostname as the default.
+6. Click **Close** when finished.
 
 ## What each control does
 
-| Control | Description | Default | Setting key |
+| Control | Kind | Behavior | Default |
 |---|---|---|---|
-| **Nickname** | User-friendly label for the radio. Stored on the radio. | Radio's reported name | — |
-| **Callsign** | Station callsign. Stored on the radio. | Value reported by radio | — |
-| **Station Name** | Identifies this client to other multiFLEX stations. Stored locally and sent to the radio on change. | OS hostname | `StationName` |
+| **Nickname** | Text field | User-friendly name for the radio. Sent to the radio on commit. | Populated from the radio's current name if no nickname is set. |
+| **Callsign** | Text field | Station callsign stored on the radio. Sent to the radio on commit. | Current value held by the radio. |
+| **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Persisted locally. Sent to the radio on commit. | OS hostname if the field has never been set. |
 
 ## Tips
 
-- Changes take effect as soon as you leave each field — there is no separate Save button.
-- **Station Name** defaults to the operating system hostname if the field has never been set. To restore that default, clear the field and press Tab; it will revert to the hostname on the next dialog open.
-- **Nickname** and **Callsign** are stored on the radio itself. **Station Name** is stored in AetherSDR's local settings under the key `StationName` and is also sent to the radio as the client station identifier.
-
-## Troubleshooting
-
-- **Fields appear empty after opening the dialog** — The radio connection may not have finished sending its initial status. Close and reopen the dialog after the radio status bar shows as connected.
-- **Changes do not appear on other multiFLEX clients** — Confirm the radio is online and the SmartSDR protocol session is active. Only values sent while connected are received by other clients.
+- All three fields send their value to the radio as soon as you finish editing (on focus loss or Enter). There is no separate Save button.
+- **Station Name** is stored in AetherSDR's local settings under the key `StationName`. **Nickname** and **Callsign** are stored on the radio itself, not in AetherSDR's local settings.
 
 ## Related
 

@@ -1,65 +1,59 @@
 # Understanding Slices and VFOs
 
-A slice is an independent receive (and optionally transmit) channel within a panadapter. Understanding how slices and VFOs relate is the foundation for using AetherSDR effectively — every tuning, mode, and filter operation acts on a specific slice.
+A slice is an independent receive (and optionally transmit) channel within a single panadapter. Understanding how slices and VFOs relate to each other helps you use AetherSDR's multi-channel capability without confusion.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar.
+- AetherSDR must be connected to a FLEX-8600 radio. Slice controls are unavailable without a radio connection.
+- The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
 
 ## What a slice is
 
-The FLEX-8600 can run up to eight simultaneous receive slices, labeled A through H. Each slice is an independent radio channel with its own:
+The FLEX-8600 can run up to eight simultaneous receive channels inside one or more panadapters. Each channel is called a **slice** and is identified by a letter: A through H. Every slice has its own:
 
-- VFO frequency
-- Mode (USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY)
+- VFO frequency (shown in the **Frequency label** in the RX Controls applet)
+- Receive mode (USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY)
 - Filter passband
-- RX and TX antenna assignment
 - AGC, AF gain, squelch, RIT, and XIT settings
+- RX and TX antenna assignment
 
-Each slice occupies a segment of the spectrum covered by its panadapter. In the Panadapter, the Slice title indicator shows which slice is bound to that view — for example, "Slice A".
+The slice letter appears in the **Slice badge** indicator at the top of the RX Controls applet, colored to match that slice's identity.
 
-## What the VFO is
+## What a VFO is
 
-The VFO is the tuned frequency of a slice. In the RX Controls applet, the Frequency label displays the current VFO frequency with dotted grouping (for example, `14.225.000`). Clicking the Frequency label switches it to the Frequency edit field, where you can type a frequency in MHz and press Enter to retune.
+In AetherSDR, the VFO is the frequency assigned to a slice. There is no separate "VFO A / VFO B" concept distinct from slices. Each slice carries its own VFO. Slice A's frequency is VFO A; Slice B's frequency is VFO B, and so on.
 
-There is one VFO per slice. Slices are independent: tuning Slice A does not affect Slice B.
+The current VFO frequency is displayed in the **Frequency label** (format: `0.000.000`). Click the label to enter edit mode, type a frequency in MHz, and press Enter to tune that slice's VFO to the new frequency.
 
-## Slices and the RX Controls applet
+## How slices relate to panadapters
 
-The RX Controls applet is bound to one slice at a time. The Slice badge (A, B, C, D, E, F, G, H) in the applet header shows which slice the controls currently affect. When more than one slice is active, a row of Slice tabs (A..H) appears at the top of the applet. Click a tab to bind the applet to that slice.
+Each panadapter displays a segment of spectrum. Slices appear as markers within that panadapter's frequency range. The **Slice title** indicator at the top of each panadapter (for example, `Slice A`) shows which slice is bound to that view.
 
-All controls in the applet — mode, frequency, filter width, AGC, AF gain, squelch, RIT, XIT — operate on the slice currently shown in the Slice badge.
+In single-slice mode only one slice is active and its panadapter fills the main window. In multi-slice mode, additional slices can share the same panadapter or occupy separate ones. The ⬈ (pop-out), □ (maximize), and × (close) buttons in each panadapter title bar are available only in multi-pan layouts.
 
-## The TX slice
+## Switching between slices
 
-Only one slice transmits at a time. The TX badge in the RX Controls applet marks which slice is the TX slice. Click TX on any slice to make it the transmitting slice.
+The **Slice tabs (A..H)** row at the top of the RX Controls applet shows one tab per active slice. Click a tab to bind the RX Controls applet to that slice. The tab row is hidden when the radio is running only one slice.
 
-## Tune-lock
+Only one slice at a time is the TX slice. Click the **TX (badge)** button in the RX Controls applet for a given slice to make that slice the transmit channel.
 
-To prevent accidental retuning of a slice, click the 🔓 button in the RX Controls applet. The icon changes to 🔒 and the slice ignores frequency changes until you unlock it.
+## Locking a slice VFO
 
-## Slices and panadapters
-
-Each panadapter displays the spectrum and waterfall for its associated slice. In a multi-slice layout, each panadapter has its own title bar showing "Slice A", "Slice B", and so on. Clicking the spectrum or waterfall of a panadapter activates that panadapter's slice.
-
-## RIT and XIT
-
-RIT (Receive Incremental Tuning) offsets the receive frequency of the active slice without changing the displayed VFO. XIT (Transmit Incremental Tuning) offsets the transmit frequency without changing the RX frequency. Both are independent per slice and adjustable in 10 Hz steps using the RIT offset and XIT offset spinboxes.
+To prevent a slice from being retuned accidentally, click the 🔓 button in the RX Controls applet. The icon changes to 🔒 and the slice ignores frequency changes until you click it again to unlock.
 
 ## Tips
 
-- The Slice tabs row is hidden when only one slice is active, because there is nothing to switch between.
-- Double-clicking the L / R pan slider resets it to 50 (centre).
-- The STEP spinbox cycles through per-mode step sizes. For SSB the steps are 1, 10, 50, 100, 500, 1000, 2000, and 3000 Hz. For CW the steps are 1, 5, 10, 50, 100, 200, and 400 Hz. The default step is 100 Hz.
+- RIT offsets the receive frequency of the active slice without moving its VFO. XIT offsets the transmit frequency without changing receive. Both adjustments are per-slice and are independent across slices.
+- The **L / R pan** slider (default 50, center) lets you place each slice's audio in a different position in the stereo field when monitoring multiple slices simultaneously. Double-click the slider to reset it to center.
+- Slice step size is per-mode. For example, SSB steps are 1, 10, 50, 100, 500, 1000, 2000, and 3000 Hz; CW steps are 1, 5, 10, 50, 100, 200, and 400 Hz. Cycle through them with the **STEP** `<` and `>` buttons or the mouse wheel.
 
 ## Related
 
 - [Switch between multiple slices using the A..H tab row](../../features/rx/switch-between-multiple-slices-using-the-a-h-tab-row.md)
 - [Tune the radio to a frequency (type MHz in the readout)](../../features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Change mode (USB, LSB, CW, AM, FM, etc.)](../../features/rx/change-mode-usb-lsb-cw-am-fm-etc.md)
 - [Lock the slice to prevent accidental retuning](../../features/rx/lock-the-slice-to-prevent-accidental-retuning.md)
 - [Use RIT to offset the receive frequency for a drifting station](../../features/rx/use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
 - [Use XIT to offset the transmit frequency without changing RX](../../features/rx/use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
+- [Panadapter overview](../../features/panadapter/overview.md)
+- [RX Controls overview](../../features/rx/overview.md)
 - [Click the spectrum to activate a panadapter (multi-slice mode)](../../features/panadapter/click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
-- [Make your first QSO with AetherSDR](../tutorials/first-qso.md)
