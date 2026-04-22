@@ -1,0 +1,6117 @@
+{
+  "topic_count": 366,
+  "by_category": {
+    "features": 312,
+    "getting-started": 22,
+    "operating": 3,
+    "reference": 28,
+    "troubleshooting": 1
+  },
+  "topics": [
+    {
+      "id": "adjust-nr4-reduction-amount-in-db",
+      "title": "Adjust NR4 reduction amount in dB",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/adjust-nr4-reduction-amount-in-db.md"
+    },
+    {
+      "id": "aetherdspdialog-overview",
+      "title": "AetherDSP Settings overview",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "is_overview": true,
+      "output_path": "features/aether-dsp/overview.md"
+    },
+    {
+      "id": "change-nr2-noise-power-estimator-osms-mmse-nstat",
+      "title": "Change NR2 noise power estimator (OSMS/MMSE/NSTAT)",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/change-nr2-noise-power-estimator-osms-mmse-nstat.md"
+    },
+    {
+      "id": "configure-dfnr-post-filter-beta-for-extra-suppression",
+      "title": "Configure DFNR post-filter beta for extra suppression",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/configure-dfnr-post-filter-beta-for-extra-suppression.md"
+    },
+    {
+      "id": "enable-mnr-on-macos-and-set-its-strength",
+      "title": "Enable MNR on macOS and set its strength",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/enable-mnr-on-macos-and-set-its-strength.md"
+    },
+    {
+      "id": "enable-or-disable-nr4-adaptive-noise-estimation",
+      "title": "Enable or disable NR4 adaptive noise estimation",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/enable-or-disable-nr4-adaptive-noise-estimation.md"
+    },
+    {
+      "id": "reset-nr2-or-nr4-parameters-to-defaults",
+      "title": "Reset NR2 or NR4 parameters to defaults",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/reset-nr2-or-nr4-parameters-to-defaults.md"
+    },
+    {
+      "id": "set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals",
+      "title": "Set DeepFilterNet3 attenuation limit for strong or weak signals",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals.md"
+    },
+    {
+      "id": "switch-nr2-gain-method-between-linear-log-gamma-and-trained",
+      "title": "Switch NR2 gain method between Linear, Log, Gamma and Trained",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/switch-nr2-gain-method-between-linear-log-gamma-and-trained.md"
+    },
+    {
+      "id": "tune-nr2-reduction-depth-and-voice-threshold",
+      "title": "Tune NR2 reduction depth and voice threshold",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/tune-nr2-reduction-depth-and-voice-threshold.md"
+    },
+    {
+      "id": "tune-nr4-masking-depth-and-suppression-strength",
+      "title": "Tune NR4 masking depth and suppression strength",
+      "category": "features",
+      "subcategory": "aether-dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [
+        "NR2GainMethod",
+        "NR2NpeMethod",
+        "NR2AeFilter",
+        "NR2GainMax",
+        "NR2GainSmooth",
+        "NR2Qspp",
+        "MnrEnabled",
+        "MnrStrength",
+        "NR4NoiseEstimationMethod",
+        "NR4AdaptiveNoise",
+        "NR4ReductionAmount",
+        "NR4SmoothingFactor",
+        "NR4WhiteningFactor",
+        "NR4MaskingDepth",
+        "NR4SuppressionStrength",
+        "DfnrAttenLimit",
+        "DfnrPostFilterBeta"
+      ],
+      "output_path": "features/aether-dsp/tune-nr4-masking-depth-and-suppression-strength.md"
+    },
+    {
+      "id": "ampapplet-overview",
+      "title": "Amplifier overview",
+      "category": "features",
+      "subcategory": "amp",
+      "source_entries": [
+        "AmpApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/amp/overview.md"
+    },
+    {
+      "id": "monitor-forward-power-and-swr-at-the-amplifier-output",
+      "title": "Monitor forward power and SWR at the amplifier output",
+      "category": "features",
+      "subcategory": "amp",
+      "source_entries": [
+        "AmpApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/amp/monitor-forward-power-and-swr-at-the-amplifier-output.md"
+    },
+    {
+      "id": "put-the-pgxl-amplifier-in-operate",
+      "title": "Put the PGXL amplifier in OPERATE",
+      "category": "features",
+      "subcategory": "amp",
+      "source_entries": [
+        "AmpApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/amp/put-the-pgxl-amplifier-in-operate.md"
+    },
+    {
+      "id": "put-the-pgxl-amplifier-in-standby",
+      "title": "Put the PGXL amplifier in STANDBY",
+      "category": "features",
+      "subcategory": "amp",
+      "source_entries": [
+        "AmpApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/amp/put-the-pgxl-amplifier-in-standby.md"
+    },
+    {
+      "id": "watch-pgxl-temperature-drain-current-and-mains-voltage",
+      "title": "Watch PGXL temperature, drain current, and mains voltage",
+      "category": "features",
+      "subcategory": "amp",
+      "source_entries": [
+        "AmpApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/amp/watch-pgxl-temperature-drain-current-and-mains-voltage.md"
+    },
+    {
+      "id": "antennageniusapplet-overview",
+      "title": "Antenna Genius overview",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "is_overview": true,
+      "output_path": "features/antenna-genius/overview.md"
+    },
+    {
+      "id": "auto-discover-an-antenna-genius-on-the-lan",
+      "title": "Auto-discover an Antenna Genius on the LAN",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "features/antenna-genius/auto-discover-an-antenna-genius-on-the-lan.md"
+    },
+    {
+      "id": "enable-auto-mode-so-the-ag-follows-radio-band-changes",
+      "title": "Enable AUTO mode so the AG follows radio band changes",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "features/antenna-genius/enable-auto-mode-so-the-ag-follows-radio-band-changes.md"
+    },
+    {
+      "id": "select-an-antenna-for-port-a-or-port-b",
+      "title": "Select an antenna for Port A or Port B",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "features/antenna-genius/select-an-antenna-for-port-a-or-port-b.md"
+    },
+    {
+      "id": "spot-which-antennas-cannot-tx-on-the-current-band-amber-or-dim",
+      "title": "Spot which antennas cannot TX on the current band (amber or dim)",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "features/antenna-genius/spot-which-antennas-cannot-tx-on-the-current-band-amber-or-dim.md"
+    },
+    {
+      "id": "swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out",
+      "title": "Swap radios that share the AG (antennas in use by the other port are locked out)",
+      "category": "features",
+      "subcategory": "antenna-genius",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "features/antenna-genius/swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md"
+    },
+    {
+      "id": "bandstackpanel-overview",
+      "title": "Band Stack overview",
+      "category": "features",
+      "subcategory": "band-stack",
+      "source_entries": [
+        "BandStackPanel"
+      ],
+      "related_settings": [
+        "BandStack_<serial>"
+      ],
+      "is_overview": true,
+      "output_path": "features/band-stack/overview.md"
+    },
+    {
+      "id": "bookmark-the-current-frequency",
+      "title": "Bookmark the current frequency",
+      "category": "features",
+      "subcategory": "band-stack",
+      "source_entries": [
+        "BandStackPanel"
+      ],
+      "related_settings": [
+        "BandStack_<serial>"
+      ],
+      "output_path": "features/band-stack/bookmark-the-current-frequency.md"
+    },
+    {
+      "id": "delete-a-bookmark-you-no-longer-need",
+      "title": "Delete a bookmark you no longer need",
+      "category": "features",
+      "subcategory": "band-stack",
+      "source_entries": [
+        "BandStackPanel"
+      ],
+      "related_settings": [
+        "BandStack_<serial>"
+      ],
+      "output_path": "features/band-stack/delete-a-bookmark-you-no-longer-need.md"
+    },
+    {
+      "id": "recall-a-stored-bookmark-with-one-click",
+      "title": "Recall a stored bookmark with one click",
+      "category": "features",
+      "subcategory": "band-stack",
+      "source_entries": [
+        "BandStackPanel"
+      ],
+      "related_settings": [
+        "BandStack_<serial>"
+      ],
+      "output_path": "features/band-stack/recall-a-stored-bookmark-with-one-click.md"
+    },
+    {
+      "id": "visually-scan-the-stored-frequencies-for-the-active-band",
+      "title": "Visually scan the stored frequencies for the active band",
+      "category": "features",
+      "subcategory": "band-stack",
+      "source_entries": [
+        "BandStackPanel"
+      ],
+      "related_settings": [
+        "BandStack_<serial>"
+      ],
+      "output_path": "features/band-stack/visually-scan-the-stored-frequencies-for-the-active-band.md"
+    },
+    {
+      "id": "autostart-cat-servers-with-aethersdr",
+      "title": "Autostart CAT servers with AetherSDR",
+      "category": "features",
+      "subcategory": "cat-control",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "output_path": "features/cat-control/autostart-cat-servers-with-aethersdr.md"
+    },
+    {
+      "id": "catcontrolapplet-overview",
+      "title": "CAT Control overview",
+      "category": "features",
+      "subcategory": "cat-control",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "is_overview": true,
+      "output_path": "features/cat-control/overview.md"
+    },
+    {
+      "id": "change-the-base-tcp-port",
+      "title": "Change the base TCP port",
+      "category": "features",
+      "subcategory": "cat-control",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "output_path": "features/cat-control/change-the-base-tcp-port.md"
+    },
+    {
+      "id": "enable-cat-pty-so-linux-macos-apps-can-open-a-serial-style-cat-port",
+      "title": "Enable CAT PTY so Linux/macOS apps can open a serial-style CAT port",
+      "category": "features",
+      "subcategory": "cat-control",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "output_path": "features/cat-control/enable-cat-pty-so-linux-macos-apps-can-open-a-serial-style-cat-port.md"
+    },
+    {
+      "id": "enable-cat-tcp-so-n1mm-log4om-wsjt-x-can-control-the-radio",
+      "title": "Enable CAT TCP so N1MM, Log4OM, WSJT-X can control the radio",
+      "category": "features",
+      "subcategory": "cat-control",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "output_path": "features/cat-control/enable-cat-tcp-so-n1mm-log4om-wsjt-x-can-control-the-radio.md"
+    },
+    {
+      "id": "bypass-every-tx-stage-at-once",
+      "title": "Bypass every TX stage at once",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/bypass-every-tx-stage-at-once.md"
+    },
+    {
+      "id": "open-a-stage-s-floating-editor-from-the-chain",
+      "title": "Open a stage's floating editor from the chain",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/open-a-stage-s-floating-editor-from-the-chain.md"
+    },
+    {
+      "id": "play-back-the-captured-pudu-audio",
+      "title": "Play back the captured PUDU audio",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/play-back-the-captured-pudu-audio.md"
+    },
+    {
+      "id": "clientchainapplet-overview",
+      "title": "PooDoo Audio Chain overview",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-chain/overview.md"
+    },
+    {
+      "id": "re-enable-a-specific-stage-after-a-global-bypass",
+      "title": "Re-enable a specific stage after a global bypass",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/re-enable-a-specific-stage-after-a-global-bypass.md"
+    },
+    {
+      "id": "record-up-to-30-seconds-of-post-pudu-tx-audio",
+      "title": "Record up to 30 seconds of post-PUDU TX audio",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/record-up-to-30-seconds-of-post-pudu-tx-audio.md"
+    },
+    {
+      "id": "reorder-the-tx-dsp-chain",
+      "title": "Reorder the TX DSP chain",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/reorder-the-tx-dsp-chain.md"
+    },
+    {
+      "id": "switch-between-tx-chain-view-and-rx-placeholder",
+      "title": "Switch between TX chain view and RX placeholder",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/switch-between-tx-chain-view-and-rx-placeholder.md"
+    },
+    {
+      "id": "visually-confirm-when-tx-mox-is-live",
+      "title": "Visually confirm when TX (MOX) is live",
+      "category": "features",
+      "subcategory": "client-chain",
+      "source_entries": [
+        "ClientChainApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxChainStages",
+        "Applet_TXDSP"
+      ],
+      "output_path": "features/client-chain/visually-confirm-when-tx-mox-is-live.md"
+    },
+    {
+      "id": "adjust-compressor-threshold",
+      "title": "Adjust compressor threshold",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/adjust-compressor-threshold.md"
+    },
+    {
+      "id": "apply-make-up-gain-after-compression",
+      "title": "Apply make-up gain after compression",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/apply-make-up-gain-after-compression.md"
+    },
+    {
+      "id": "bypass-the-compressor-from-the-chain",
+      "title": "Bypass the compressor from the chain",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/bypass-the-compressor-from-the-chain.md"
+    },
+    {
+      "id": "clientcompapplet-overview",
+      "title": "Compressor overview",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-comp/overview.md"
+    },
+    {
+      "id": "open-the-full-compressor-editor-for-knee-and-limiter-controls",
+      "title": "Open the full Compressor editor for knee and limiter controls",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/open-the-full-compressor-editor-for-knee-and-limiter-controls.md"
+    },
+    {
+      "id": "set-compression-ratio-for-voice",
+      "title": "Set compression ratio for voice",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/set-compression-ratio-for-voice.md"
+    },
+    {
+      "id": "tune-attack-release-for-a-natural-sounding-squeeze",
+      "title": "Tune attack / release for a natural-sounding squeeze",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/tune-attack-release-for-a-natural-sounding-squeeze.md"
+    },
+    {
+      "id": "watch-live-gain-reduction-while-speaking",
+      "title": "Watch live gain reduction while speaking",
+      "category": "features",
+      "subcategory": "client-comp",
+      "source_entries": [
+        "ClientCompApplet"
+      ],
+      "related_settings": [
+        "ClientCompTxEnabled",
+        "ClientCompTxThresholdDb",
+        "ClientCompTxRatio",
+        "ClientCompTxAttackMs",
+        "ClientCompTxReleaseMs",
+        "ClientCompTxKneeDb",
+        "ClientCompTxMakeupDb",
+        "ClientCompTxLimEnabled",
+        "ClientCompTxLimCeilingDb"
+      ],
+      "output_path": "features/client-comp/watch-live-gain-reduction-while-speaking.md"
+    },
+    {
+      "id": "bypass-the-de-esser-from-the-chain",
+      "title": "Bypass the de-esser from the chain",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/bypass-the-de-esser-from-the-chain.md"
+    },
+    {
+      "id": "clientdeessapplet-overview",
+      "title": "De-Esser overview",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-de-ess/overview.md"
+    },
+    {
+      "id": "dial-amount-for-the-most-transparent-de-essing",
+      "title": "Dial Amount for the most transparent de-essing",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/dial-amount-for-the-most-transparent-de-essing.md"
+    },
+    {
+      "id": "narrow-or-widen-the-sidechain-band-with-q",
+      "title": "Narrow or widen the sidechain band with Q",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/narrow-or-widen-the-sidechain-band-with-q.md"
+    },
+    {
+      "id": "set-threshold-just-below-the-loudest-s-peaks",
+      "title": "Set threshold just below the loudest 'S' peaks",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/set-threshold-just-below-the-loudest-s-peaks.md"
+    },
+    {
+      "id": "sweep-freq-to-locate-peak-sibilance",
+      "title": "Sweep Freq to locate peak sibilance",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/sweep-freq-to-locate-peak-sibilance.md"
+    },
+    {
+      "id": "watch-live-gr-while-reading-a-sibilant-phrase",
+      "title": "Watch live GR while reading a sibilant phrase",
+      "category": "features",
+      "subcategory": "client-de-ess",
+      "source_entries": [
+        "ClientDeEssApplet"
+      ],
+      "related_settings": [
+        "ClientDeEssTxEnabled",
+        "ClientDeEssTxFrequencyHz",
+        "ClientDeEssTxQ",
+        "ClientDeEssTxThresholdDb",
+        "ClientDeEssTxAmountDb"
+      ],
+      "output_path": "features/client-de-ess/watch-live-gr-while-reading-a-sibilant-phrase.md"
+    },
+    {
+      "id": "bypass-the-eq-stage-from-the-chain",
+      "title": "Bypass the EQ stage from the chain",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "output_path": "features/client-eq/bypass-the-eq-stage-from-the-chain.md"
+    },
+    {
+      "id": "open-the-floating-editor-to-add-remove-tune-bands",
+      "title": "Open the floating editor to add / remove / tune bands",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "output_path": "features/client-eq/open-the-floating-editor-to-add-remove-tune-bands.md"
+    },
+    {
+      "id": "clienteqapplet-overview",
+      "title": "Parametric EQ (Client) overview",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-eq/overview.md"
+    },
+    {
+      "id": "see-the-live-spectrum-of-the-selected-path",
+      "title": "See the live spectrum of the selected path",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "output_path": "features/client-eq/see-the-live-spectrum-of-the-selected-path.md"
+    },
+    {
+      "id": "switch-between-viewing-rx-and-tx-eq",
+      "title": "Switch between viewing RX and TX EQ",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "output_path": "features/client-eq/switch-between-viewing-rx-and-tx-eq.md"
+    },
+    {
+      "id": "verify-the-summed-curve-matches-your-mental-target",
+      "title": "Verify the summed curve matches your mental target",
+      "category": "features",
+      "subcategory": "client-eq",
+      "source_entries": [
+        "ClientEqApplet"
+      ],
+      "related_settings": [
+        "ClientEqRxEnabled",
+        "ClientEqTxEnabled",
+        "ClientEqRxBands",
+        "ClientEqTxBands"
+      ],
+      "output_path": "features/client-eq/verify-the-summed-curve-matches-your-mental-target.md"
+    },
+    {
+      "id": "bypass-the-gate-from-the-chain",
+      "title": "Bypass the gate from the chain",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/bypass-the-gate-from-the-chain.md"
+    },
+    {
+      "id": "choose-gate-vs-soft-expander-behaviour-via-ratio",
+      "title": "Choose gate vs soft-expander behaviour via ratio",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/choose-gate-vs-soft-expander-behaviour-via-ratio.md"
+    },
+    {
+      "id": "clientgateapplet-overview",
+      "title": "Noise Gate / Expander overview",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-gate/overview.md"
+    },
+    {
+      "id": "set-floor-to-avoid-unnatural-silence-between-words",
+      "title": "Set Floor to avoid unnatural silence between words",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/set-floor-to-avoid-unnatural-silence-between-words.md"
+    },
+    {
+      "id": "set-threshold-just-above-room-noise-floor",
+      "title": "Set threshold just above room noise floor",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/set-threshold-just-above-room-noise-floor.md"
+    },
+    {
+      "id": "tune-attack-release-for-natural-open-close",
+      "title": "Tune attack / release for natural open/close",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/tune-attack-release-for-natural-open-close.md"
+    },
+    {
+      "id": "watch-live-gr-while-not-speaking",
+      "title": "Watch live GR while not speaking",
+      "category": "features",
+      "subcategory": "client-gate",
+      "source_entries": [
+        "ClientGateApplet"
+      ],
+      "related_settings": [
+        "ClientGateTxEnabled",
+        "ClientGateTxThresholdDb",
+        "ClientGateTxRatio",
+        "ClientGateTxAttackMs",
+        "ClientGateTxReleaseMs",
+        "ClientGateTxFloorDb"
+      ],
+      "output_path": "features/client-gate/watch-live-gr-while-not-speaking.md"
+    },
+    {
+      "id": "add-air-with-doo-harmonics",
+      "title": "Add air with Doo Harmonics",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/add-air-with-doo-harmonics.md"
+    },
+    {
+      "id": "blend-the-doo-excitement-with-mix",
+      "title": "Blend the Doo excitement with Mix",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/blend-the-doo-excitement-with-mix.md"
+    },
+    {
+      "id": "blend-the-poo-enhancement-with-mix",
+      "title": "Blend the Poo enhancement with Mix",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/blend-the-poo-enhancement-with-mix.md"
+    },
+    {
+      "id": "bypass-pudu-from-the-chain",
+      "title": "Bypass PUDU from the chain",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/bypass-pudu-from-the-chain.md"
+    },
+    {
+      "id": "centre-doo-on-the-presence-band-for-your-mic",
+      "title": "Centre Doo on the presence band for your mic",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/centre-doo-on-the-presence-band-for-your-mic.md"
+    },
+    {
+      "id": "dial-poo-drive-for-lf-thickness",
+      "title": "Dial Poo Drive for LF thickness",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/dial-poo-drive-for-lf-thickness.md"
+    },
+    {
+      "id": "clientpuduapplet-overview",
+      "title": "PUDU Exciter overview",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-pudu/overview.md"
+    },
+    {
+      "id": "pick-aphex-even-vs-behringer-odd-character",
+      "title": "Pick Aphex (Even) vs Behringer (Odd) character",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/pick-aphex-even-vs-behringer-odd-character.md"
+    },
+    {
+      "id": "tune-poo-to-the-fundamental-of-your-voice",
+      "title": "Tune Poo to the fundamental of your voice",
+      "category": "features",
+      "subcategory": "client-pudu",
+      "source_entries": [
+        "ClientPuduApplet"
+      ],
+      "related_settings": [
+        "ClientPuduTxEnabled",
+        "ClientPuduTxMode",
+        "ClientPuduTxPooDriveDb",
+        "ClientPuduTxPooTuneHz",
+        "ClientPuduTxPooMix",
+        "ClientPuduTxDooTuneHz",
+        "ClientPuduTxDooHarmonicsDb",
+        "ClientPuduTxDooMix"
+      ],
+      "output_path": "features/client-pudu/tune-poo-to-the-fundamental-of-your-voice.md"
+    },
+    {
+      "id": "bypass-reverb-from-the-chain",
+      "title": "Bypass reverb from the chain",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/bypass-reverb-from-the-chain.md"
+    },
+    {
+      "id": "dial-in-a-subtle-mix-10-15-is-typical-for-voice",
+      "title": "Dial in a subtle Mix \u2014 10-15 % is typical for voice",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/dial-in-a-subtle-mix-10-15-is-typical-for-voice.md"
+    },
+    {
+      "id": "offset-reflections-from-the-dry-signal-with-pre",
+      "title": "Offset reflections from the dry signal with Pre",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/offset-reflections-from-the-dry-signal-with-pre.md"
+    },
+    {
+      "id": "reduce-the-high-end-sparkle-of-the-tail-with-damp",
+      "title": "Reduce the high-end sparkle of the tail with Damp",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/reduce-the-high-end-sparkle-of-the-tail-with-damp.md"
+    },
+    {
+      "id": "clientreverbapplet-overview",
+      "title": "Reverb overview",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-reverb/overview.md"
+    },
+    {
+      "id": "set-room-size-for-a-small-or-large-hall-feel",
+      "title": "Set room size for a small or large-hall feel",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/set-room-size-for-a-small-or-large-hall-feel.md"
+    },
+    {
+      "id": "tune-decay-to-taste-without-muddying-speech",
+      "title": "Tune decay to taste without muddying speech",
+      "category": "features",
+      "subcategory": "client-reverb",
+      "source_entries": [
+        "ClientReverbApplet"
+      ],
+      "related_settings": [
+        "ClientReverbTxEnabled",
+        "ClientReverbTxSize",
+        "ClientReverbTxDecayS",
+        "ClientReverbTxDamping",
+        "ClientReverbTxPreDelayMs",
+        "ClientReverbTxMix"
+      ],
+      "output_path": "features/client-reverb/tune-decay-to-taste-without-muddying-speech.md"
+    },
+    {
+      "id": "brighten-or-darken-the-saturated-signal-with-tone",
+      "title": "Brighten or darken the saturated signal with Tone",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/brighten-or-darken-the-saturated-signal-with-tone.md"
+    },
+    {
+      "id": "bypass-the-tube-from-the-chain",
+      "title": "Bypass the tube from the chain",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/bypass-the-tube-from-the-chain.md"
+    },
+    {
+      "id": "compensate-level-changes-with-output",
+      "title": "Compensate level changes with Output",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/compensate-level-changes-with-output.md"
+    },
+    {
+      "id": "dial-drive-until-the-curve-starts-to-bend",
+      "title": "Dial Drive until the curve starts to bend",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/dial-drive-until-the-curve-starts-to-bend.md"
+    },
+    {
+      "id": "parallel-blend-saturation-with-mix",
+      "title": "Parallel-blend saturation with Mix",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/parallel-blend-saturation-with-mix.md"
+    },
+    {
+      "id": "shift-bias-to-tweak-the-even-odd-harmonic-balance",
+      "title": "Shift Bias to tweak the even / odd harmonic balance",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "output_path": "features/client-tube/shift-bias-to-tweak-the-even-odd-harmonic-balance.md"
+    },
+    {
+      "id": "clienttubeapplet-overview",
+      "title": "Tube Saturator overview",
+      "category": "features",
+      "subcategory": "client-tube",
+      "source_entries": [
+        "ClientTubeApplet"
+      ],
+      "related_settings": [
+        "ClientTubeTxEnabled",
+        "ClientTubeTxDriveDb",
+        "ClientTubeTxTone",
+        "ClientTubeTxBiasAmount",
+        "ClientTubeTxOutputGainDb",
+        "ClientTubeTxDryWet"
+      ],
+      "is_overview": true,
+      "output_path": "features/client-tube/overview.md"
+    },
+    {
+      "id": "connectionpanel-overview",
+      "title": "Connect to a Radio overview",
+      "category": "features",
+      "subcategory": "connection",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "is_overview": true,
+      "output_path": "features/connection/overview.md"
+    },
+    {
+      "id": "enable-low-bandwidth-mode-for-slow-links",
+      "title": "Enable low-bandwidth mode for slow links",
+      "category": "features",
+      "subcategory": "connection",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "features/connection/enable-low-bandwidth-mode-for-slow-links.md"
+    },
+    {
+      "id": "log-in-to-smartlink-to-see-remote-radios",
+      "title": "Log in to SmartLink to see remote radios",
+      "category": "features",
+      "subcategory": "connection",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "features/connection/log-in-to-smartlink-to-see-remote-radios.md"
+    },
+    {
+      "id": "retry-discovery-when-no-radios-appear",
+      "title": "Retry discovery when no radios appear",
+      "category": "features",
+      "subcategory": "connection",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "features/connection/retry-discovery-when-no-radios-appear.md"
+    },
+    {
+      "id": "cwxpanel-overview",
+      "title": "CWX overview",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "is_overview": true,
+      "output_path": "features/cwx/overview.md"
+    },
+    {
+      "id": "change-cw-send-speed-in-wpm",
+      "title": "Change CW send speed in WPM",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/change-cw-send-speed-in-wpm.md"
+    },
+    {
+      "id": "edit-a-cw-macro-string",
+      "title": "Edit a CW macro string",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/edit-a-cw-macro-string.md"
+    },
+    {
+      "id": "enable-qsk-full-break-in",
+      "title": "Enable QSK full break-in",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/enable-qsk-full-break-in.md"
+    },
+    {
+      "id": "look-up-the-prosign-character-shortcuts",
+      "title": "Look up the prosign character shortcuts",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/look-up-the-prosign-character-shortcuts.md"
+    },
+    {
+      "id": "send-a-typed-cw-buffer-live",
+      "title": "Send a typed CW buffer live",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/send-a-typed-cw-buffer-live.md"
+    },
+    {
+      "id": "trigger-a-cw-macro-with-f1-f12",
+      "title": "Trigger a CW macro with F1\u2013F12",
+      "category": "features",
+      "subcategory": "cwx",
+      "source_entries": [
+        "CwxPanel"
+      ],
+      "related_settings": [
+        "CwxSpeedWpm",
+        "CwxMacro_F1",
+        "CwxMacro_F2",
+        "CwxMacro_F3",
+        "CwxMacro_F4",
+        "CwxMacro_F5",
+        "CwxMacro_F6",
+        "CwxMacro_F7",
+        "CwxMacro_F8",
+        "CwxMacro_F9",
+        "CwxMacro_F10",
+        "CwxMacro_F11",
+        "CwxMacro_F12",
+        "CwxDelay",
+        "CwxQsk"
+      ],
+      "output_path": "features/cwx/trigger-a-cw-macro-with-f1-f12.md"
+    },
+    {
+      "id": "autostart-dax-on-launch",
+      "title": "Autostart DAX on launch",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/autostart-dax-on-launch.md"
+    },
+    {
+      "id": "daxapplet-overview",
+      "title": "DAX Audio overview",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "is_overview": true,
+      "output_path": "features/dax/overview.md"
+    },
+    {
+      "id": "enable-dax-to-route-slice-audio-to-wsjt-x-fldigi-other-digital-software",
+      "title": "Enable DAX to route slice audio to WSJT-X / FLDigi / other digital software",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/enable-dax-to-route-slice-audio-to-wsjt-x-fldigi-other-digital-software.md"
+    },
+    {
+      "id": "identify-which-slice-is-the-tx-slice",
+      "title": "Identify which slice is the TX slice",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/identify-which-slice-is-the-tx-slice.md"
+    },
+    {
+      "id": "see-which-slice-is-currently-using-each-dax-channel",
+      "title": "See which slice is currently using each DAX channel",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/see-which-slice-is-currently-using-each-dax-channel.md"
+    },
+    {
+      "id": "set-dax-rx-gain-per-channel",
+      "title": "Set DAX RX gain per channel",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/set-dax-rx-gain-per-channel.md"
+    },
+    {
+      "id": "set-dax-tx-gain",
+      "title": "Set DAX TX gain",
+      "category": "features",
+      "subcategory": "dax",
+      "source_entries": [
+        "DaxApplet"
+      ],
+      "related_settings": [
+        "AutoStartDAX",
+        "DaxRxGain1",
+        "DaxRxGain2",
+        "DaxRxGain3",
+        "DaxRxGain4",
+        "DaxTxGain"
+      ],
+      "output_path": "features/dax/set-dax-tx-gain.md"
+    },
+    {
+      "id": "daxiqapplet-overview",
+      "title": "DAX IQ overview",
+      "category": "features",
+      "subcategory": "dax-iq",
+      "source_entries": [
+        "DaxIqApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/dax-iq/overview.md"
+    },
+    {
+      "id": "disable-an-iq-stream-to-free-bandwidth",
+      "title": "Disable an IQ stream to free bandwidth",
+      "category": "features",
+      "subcategory": "dax-iq",
+      "source_entries": [
+        "DaxIqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/dax-iq/disable-an-iq-stream-to-free-bandwidth.md"
+    },
+    {
+      "id": "enable-an-iq-stream-for-external-sdr-software",
+      "title": "Enable an IQ stream for external SDR software",
+      "category": "features",
+      "subcategory": "dax-iq",
+      "source_entries": [
+        "DaxIqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/dax-iq/enable-an-iq-stream-for-external-sdr-software.md"
+    },
+    {
+      "id": "monitor-the-rms-level-of-each-iq-stream",
+      "title": "Monitor the RMS level of each IQ stream",
+      "category": "features",
+      "subcategory": "dax-iq",
+      "source_entries": [
+        "DaxIqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/dax-iq/monitor-the-rms-level-of-each-iq-stream.md"
+    },
+    {
+      "id": "pick-the-iq-sample-rate-24k-48k-96k-192k",
+      "title": "Pick the IQ sample rate (24k/48k/96k/192k)",
+      "category": "features",
+      "subcategory": "dax-iq",
+      "source_entries": [
+        "DaxIqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/dax-iq/pick-the-iq-sample-rate-24k-48k-96k-192k.md"
+    },
+    {
+      "id": "dvkpanel-overview",
+      "title": "Digital Voice Keyer overview",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/dvk/overview.md"
+    },
+    {
+      "id": "play-a-stored-voice-keyer-slot",
+      "title": "Play a stored voice-keyer slot",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/play-a-stored-voice-keyer-slot.md"
+    },
+    {
+      "id": "preview-a-slot-without-transmitting",
+      "title": "Preview a slot without transmitting",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/preview-a-slot-without-transmitting.md"
+    },
+    {
+      "id": "record-a-new-dvk-slot",
+      "title": "Record a new DVK slot",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/record-a-new-dvk-slot.md"
+    },
+    {
+      "id": "rename-a-slot",
+      "title": "Rename a slot",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/rename-a-slot.md"
+    },
+    {
+      "id": "stop-a-playback-in-progress",
+      "title": "Stop a playback in progress",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/stop-a-playback-in-progress.md"
+    },
+    {
+      "id": "upload-a-wav-file-into-a-slot",
+      "title": "Upload a WAV file into a slot",
+      "category": "features",
+      "subcategory": "dvk",
+      "source_entries": [
+        "DvkPanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/dvk/upload-a-wav-file-into-a-slot.md"
+    },
+    {
+      "id": "auto-reload-adif-log-when-updated-by-a-logger",
+      "title": "Auto-reload ADIF log when updated by a logger",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/auto-reload-adif-log-when-updated-by-a-logger.md"
+    },
+    {
+      "id": "clear-all-spots-from-the-panadapter",
+      "title": "Clear all spots from the panadapter",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/clear-all-spots-from-the-panadapter.md"
+    },
+    {
+      "id": "enable-dxcc-coloring-from-an-adif-log",
+      "title": "Enable DXCC coloring from an ADIF log",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md"
+    },
+    {
+      "id": "enable-freedv-qso-reporter-websocket",
+      "title": "Enable FreeDV QSO reporter WebSocket",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/enable-freedv-qso-reporter-websocket.md"
+    },
+    {
+      "id": "enable-spotcollector-udp-feed",
+      "title": "Enable SpotCollector UDP feed",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/enable-spotcollector-udp-feed.md"
+    },
+    {
+      "id": "pick-colors-for-each-spot-source",
+      "title": "Pick colors for each spot source",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/pick-colors-for-each-spot-source.md"
+    },
+    {
+      "id": "poll-pota-activations",
+      "title": "Poll POTA activations",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/poll-pota-activations.md"
+    },
+    {
+      "id": "dxclusterdialog-overview",
+      "title": "SpotHub overview",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "is_overview": true,
+      "output_path": "features/dx-cluster/overview.md"
+    },
+    {
+      "id": "start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me",
+      "title": "Start WSJT-X UDP listener and filter for CQ, POTA or calls to me",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md"
+    },
+    {
+      "id": "tune-spot-density-position-font-size-and-lifetime",
+      "title": "Tune spot density, position, font size and lifetime",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md"
+    },
+    {
+      "id": "tune-to-a-spot-by-double-clicking-the-spot-list",
+      "title": "Tune to a spot by double-clicking the spot list",
+      "category": "features",
+      "subcategory": "dx-cluster",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "features/dx-cluster/tune-to-a-spot-by-double-clicking-the-spot-list.md"
+    },
+    {
+      "id": "boost-or-cut-specific-octave-bands-63-hz-to-8-khz",
+      "title": "Boost or cut specific octave bands (63 Hz to 8 kHz)",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/boost-or-cut-specific-octave-bands-63-hz-to-8-khz.md"
+    },
+    {
+      "id": "compare-eq-on-vs-eq-off-quickly-with-the-on-button",
+      "title": "Compare EQ on vs EQ off quickly with the ON button",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/compare-eq-on-vs-eq-off-quickly-with-the-on-button.md"
+    },
+    {
+      "id": "enable-radio-side-graphic-eq-for-rx",
+      "title": "Enable radio-side graphic EQ for RX",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/enable-radio-side-graphic-eq-for-rx.md"
+    },
+    {
+      "id": "enable-radio-side-graphic-eq-for-tx",
+      "title": "Enable radio-side graphic EQ for TX",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/enable-radio-side-graphic-eq-for-tx.md"
+    },
+    {
+      "id": "eqapplet-overview",
+      "title": "Equalizer (Graphic) overview",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/eq/overview.md"
+    },
+    {
+      "id": "reset-all-bands-to-flat-with-one-click",
+      "title": "Reset all bands to flat with one click",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/reset-all-bands-to-flat-with-one-click.md"
+    },
+    {
+      "id": "switch-between-shaping-rx-audio-and-tx-audio",
+      "title": "Switch between shaping RX audio and TX audio",
+      "category": "features",
+      "subcategory": "eq",
+      "source_entries": [
+        "EqApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/eq/switch-between-shaping-rx-audio-and-tx-audio.md"
+    },
+    {
+      "id": "helpdialog-overview",
+      "title": "(variable -- passed in at construction) overview",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/help/overview.md"
+    },
+    {
+      "id": "configure-digital-modes-step-by-step",
+      "title": "Configure digital modes step-by-step",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/help/configure-digital-modes-step-by-step.md"
+    },
+    {
+      "id": "learn-the-differences-between-nr2-nr4-dfnr-and-mnr",
+      "title": "Learn the differences between NR2, NR4, DFNR and MNR",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/help/learn-the-differences-between-nr2-nr4-dfnr-and-mnr.md"
+    },
+    {
+      "id": "open-bundled-getting-started-guide",
+      "title": "Open bundled getting-started guide",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/help/open-bundled-getting-started-guide.md"
+    },
+    {
+      "id": "read-the-full-aethersdr-help-document",
+      "title": "Read the full AetherSDR help document",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/help/read-the-full-aethersdr-help-document.md"
+    },
+    {
+      "id": "understand-how-to-contribute-bug-reports-and-prs",
+      "title": "Understand how to contribute bug reports and PRs",
+      "category": "features",
+      "subcategory": "help",
+      "source_entries": [
+        "HelpDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/help/understand-how-to-contribute-bug-reports-and-prs.md"
+    },
+    {
+      "id": "add-a-memory-at-current-frequency",
+      "title": "Add a memory at current frequency",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/add-a-memory-at-current-frequency.md"
+    },
+    {
+      "id": "delete-one-or-more-memories",
+      "title": "Delete one or more memories",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/delete-one-or-more-memories.md"
+    },
+    {
+      "id": "edit-a-memory-s-name-mode-or-offset-inline",
+      "title": "Edit a memory's name, mode or offset inline",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/edit-a-memory-s-name-mode-or-offset-inline.md"
+    },
+    {
+      "id": "export-memories-for-backup-or-sharing",
+      "title": "Export memories for backup or sharing",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/export-memories-for-backup-or-sharing.md"
+    },
+    {
+      "id": "filter-memories-by-profile",
+      "title": "Filter memories by profile",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/filter-memories-by-profile.md"
+    },
+    {
+      "id": "import-memories-from-a-csv-json-file",
+      "title": "Import memories from a CSV/JSON file",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/import-memories-from-a-csv-json-file.md"
+    },
+    {
+      "id": "memorydialog-overview",
+      "title": "Memory Channels overview",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/memory/overview.md"
+    },
+    {
+      "id": "search-memories-by-name",
+      "title": "Search memories by name",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/search-memories-by-name.md"
+    },
+    {
+      "id": "sort-memory-table-by-column-header",
+      "title": "Sort memory table by column header",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/sort-memory-table-by-column-header.md"
+    },
+    {
+      "id": "tune-the-radio-to-a-stored-memory",
+      "title": "Tune the radio to a stored memory",
+      "category": "features",
+      "subcategory": "memory",
+      "source_entries": [
+        "MemoryDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory/tune-the-radio-to-a-stored-memory.md"
+    },
+    {
+      "id": "activate-a-memory-with-a-single-double-click",
+      "title": "Activate a memory with a single double-click",
+      "category": "features",
+      "subcategory": "memory-browse",
+      "source_entries": [
+        "MemoryBrowsePanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory-browse/activate-a-memory-with-a-single-double-click.md"
+    },
+    {
+      "id": "browse-the-radio-s-stored-memories",
+      "title": "Browse the radio's stored memories",
+      "category": "features",
+      "subcategory": "memory-browse",
+      "source_entries": [
+        "MemoryBrowsePanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory-browse/browse-the-radio-s-stored-memories.md"
+    },
+    {
+      "id": "jump-to-the-memory-closest-to-the-current-frequency",
+      "title": "Jump to the memory closest to the current frequency",
+      "category": "features",
+      "subcategory": "memory-browse",
+      "source_entries": [
+        "MemoryBrowsePanel"
+      ],
+      "related_settings": [],
+      "output_path": "features/memory-browse/jump-to-the-memory-closest-to-the-current-frequency.md"
+    },
+    {
+      "id": "memorybrowsepanel-overview",
+      "title": "Memory Browser overview",
+      "category": "features",
+      "subcategory": "memory-browse",
+      "source_entries": [
+        "MemoryBrowsePanel"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/memory-browse/overview.md"
+    },
+    {
+      "id": "check-the-radio-s-dc-supply-voltage",
+      "title": "Check the radio's DC supply voltage",
+      "category": "features",
+      "subcategory": "meter",
+      "source_entries": [
+        "MeterApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/meter/check-the-radio-s-dc-supply-voltage.md"
+    },
+    {
+      "id": "meterapplet-overview",
+      "title": "Meters overview",
+      "category": "features",
+      "subcategory": "meter",
+      "source_entries": [
+        "MeterApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/meter/overview.md"
+    },
+    {
+      "id": "monitor-the-main-cooling-fan-speed",
+      "title": "Monitor the main cooling fan speed",
+      "category": "features",
+      "subcategory": "meter",
+      "source_entries": [
+        "MeterApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/meter/monitor-the-main-cooling-fan-speed.md"
+    },
+    {
+      "id": "watch-pa-temperature-during-long-overs",
+      "title": "Watch PA temperature during long overs",
+      "category": "features",
+      "subcategory": "meter",
+      "source_entries": [
+        "MeterApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/meter/watch-pa-temperature-during-long-overs.md"
+    },
+    {
+      "id": "delete-a-binding",
+      "title": "Delete a binding",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "features/midi-mapping/delete-a-binding.md"
+    },
+    {
+      "id": "invert-a-knob-or-treat-it-as-an-endless-encoder",
+      "title": "Invert a knob or treat it as an endless encoder",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "features/midi-mapping/invert-a-knob-or-treat-it-as-an-endless-encoder.md"
+    },
+    {
+      "id": "load-a-previously-saved-midi-profile",
+      "title": "Load a previously saved MIDI profile",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "features/midi-mapping/load-a-previously-saved-midi-profile.md"
+    },
+    {
+      "id": "midimappingdialog-overview",
+      "title": "MIDI Controller Mapping overview",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "is_overview": true,
+      "output_path": "features/midi-mapping/overview.md"
+    },
+    {
+      "id": "record-a-new-binding-with-learn-mode",
+      "title": "Record a new binding with Learn mode",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "features/midi-mapping/record-a-new-binding-with-learn-mode.md"
+    },
+    {
+      "id": "save-the-current-mapping-as-a-named-profile",
+      "title": "Save the current mapping as a named profile",
+      "category": "features",
+      "subcategory": "midi-mapping",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "features/midi-mapping/save-the-current-mapping-as-a-named-profile.md"
+    },
+    {
+      "id": "add-or-remove-custom-publish-buttons",
+      "title": "Add or remove custom publish buttons",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "features/mqtt/add-or-remove-custom-publish-buttons.md"
+    },
+    {
+      "id": "enable-tls-with-a-custom-ca-certificate",
+      "title": "Enable TLS with a custom CA certificate",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "features/mqtt/enable-tls-with-a-custom-ca-certificate.md"
+    },
+    {
+      "id": "mqttapplet-overview",
+      "title": "MQTT overview",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "is_overview": true,
+      "output_path": "features/mqtt/overview.md"
+    },
+    {
+      "id": "overlay-an-mqtt-value-on-the-panadapter-prefix-topic-with",
+      "title": "Overlay an MQTT value on the panadapter (prefix topic with *)",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "features/mqtt/overlay-an-mqtt-value-on-the-panadapter-prefix-topic-with.md"
+    },
+    {
+      "id": "publish-a-canned-message-with-a-button-e-g-rotator-preset",
+      "title": "Publish a canned message with a button (e.g. rotator preset)",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "features/mqtt/publish-a-canned-message-with-a-button-e-g-rotator-preset.md"
+    },
+    {
+      "id": "subscribe-to-rotator-antenna-switch-topics",
+      "title": "Subscribe to rotator / antenna switch topics",
+      "category": "features",
+      "subcategory": "mqtt",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "features/mqtt/subscribe-to-rotator-antenna-switch-topics.md"
+    },
+    {
+      "id": "check-which-antenna-and-frequency-each-tx-station-is-using",
+      "title": "Check which antenna and frequency each TX station is using",
+      "category": "features",
+      "subcategory": "multi-flex",
+      "source_entries": [
+        "MultiFlexDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/multi-flex/check-which-antenna-and-frequency-each-tx-station-is-using.md"
+    },
+    {
+      "id": "enable-multiflex-on-the-radio",
+      "title": "Enable multiFLEX on the radio",
+      "category": "features",
+      "subcategory": "multi-flex",
+      "source_entries": [
+        "MultiFlexDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/multi-flex/enable-multiflex-on-the-radio.md"
+    },
+    {
+      "id": "grant-or-revoke-local-ptt",
+      "title": "Grant or revoke local PTT",
+      "category": "features",
+      "subcategory": "multi-flex",
+      "source_entries": [
+        "MultiFlexDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/multi-flex/grant-or-revoke-local-ptt.md"
+    },
+    {
+      "id": "multiflexdialog-overview",
+      "title": "multiFLEX Dashboard overview",
+      "category": "features",
+      "subcategory": "multi-flex",
+      "source_entries": [
+        "MultiFlexDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/multi-flex/overview.md"
+    },
+    {
+      "id": "check-per-category-data-rates-audio-fft-waterfall-meters-dax",
+      "title": "Check per-category data rates (audio, FFT, waterfall, meters, DAX)",
+      "category": "features",
+      "subcategory": "network-diagnostics",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/network-diagnostics/check-per-category-data-rates-audio-fft-waterfall-meters-dax.md"
+    },
+    {
+      "id": "measure-rtt-and-packet-drops-during-audio-problems",
+      "title": "Measure RTT and packet drops during audio problems",
+      "category": "features",
+      "subcategory": "network-diagnostics",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/network-diagnostics/measure-rtt-and-packet-drops-during-audio-problems.md"
+    },
+    {
+      "id": "networkdiagnosticsdialog-overview",
+      "title": "Network Diagnostics overview",
+      "category": "features",
+      "subcategory": "network-diagnostics",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/network-diagnostics/overview.md"
+    },
+    {
+      "id": "verify-the-radio-s-ip-and-local-bind-address",
+      "title": "Verify the radio's IP and local bind address",
+      "category": "features",
+      "subcategory": "network-diagnostics",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/network-diagnostics/verify-the-radio-s-ip-and-local-bind-address.md"
+    },
+    {
+      "id": "arrange-a-2x2-grid-of-panadapters",
+      "title": "Arrange a 2x2 grid of panadapters",
+      "category": "features",
+      "subcategory": "pan-layout",
+      "source_entries": [
+        "PanLayoutDialog"
+      ],
+      "related_settings": [
+        "PanLayout"
+      ],
+      "output_path": "features/pan-layout/arrange-a-2x2-grid-of-panadapters.md"
+    },
+    {
+      "id": "panlayoutdialog-overview",
+      "title": "Panadapter Layout overview",
+      "category": "features",
+      "subcategory": "pan-layout",
+      "source_entries": [
+        "PanLayoutDialog"
+      ],
+      "related_settings": [
+        "PanLayout"
+      ],
+      "is_overview": true,
+      "output_path": "features/pan-layout/overview.md"
+    },
+    {
+      "id": "preview-and-pick-among-the-10-layout-variants",
+      "title": "Preview and pick among the 10 layout variants",
+      "category": "features",
+      "subcategory": "pan-layout",
+      "source_entries": [
+        "PanLayoutDialog"
+      ],
+      "related_settings": [
+        "PanLayout"
+      ],
+      "output_path": "features/pan-layout/preview-and-pick-among-the-10-layout-variants.md"
+    },
+    {
+      "id": "split-panadapter-area-side-by-side",
+      "title": "Split panadapter area side-by-side",
+      "category": "features",
+      "subcategory": "pan-layout",
+      "source_entries": [
+        "PanLayoutDialog"
+      ],
+      "related_settings": [
+        "PanLayout"
+      ],
+      "output_path": "features/pan-layout/split-panadapter-area-side-by-side.md"
+    },
+    {
+      "id": "switch-to-a-single-full-width-panadapter",
+      "title": "Switch to a single full-width panadapter",
+      "category": "features",
+      "subcategory": "pan-layout",
+      "source_entries": [
+        "PanLayoutDialog"
+      ],
+      "related_settings": [
+        "PanLayout"
+      ],
+      "output_path": "features/pan-layout/switch-to-a-single-full-width-panadapter.md"
+    },
+    {
+      "id": "click-the-spectrum-to-activate-a-panadapter-multi-slice-mode",
+      "title": "Click the spectrum to activate a panadapter (multi-slice mode)",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md"
+    },
+    {
+      "id": "close-an-extra-panadapter",
+      "title": "Close an extra panadapter",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/close-an-extra-panadapter.md"
+    },
+    {
+      "id": "copy-decoded-cw-text-to-the-clipboard",
+      "title": "Copy decoded CW text to the clipboard",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/copy-decoded-cw-text-to-the-clipboard.md"
+    },
+    {
+      "id": "lock-cw-decoder-pitch-or-speed-once-tracking-is-good",
+      "title": "Lock CW decoder pitch or speed once tracking is good",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/lock-cw-decoder-pitch-or-speed-once-tracking-is-good.md"
+    },
+    {
+      "id": "maximize-one-panadapter-to-fill-the-main-area",
+      "title": "Maximize one panadapter to fill the main area",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/maximize-one-panadapter-to-fill-the-main-area.md"
+    },
+    {
+      "id": "panadapterapplet-overview",
+      "title": "Panadapter overview",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "is_overview": true,
+      "output_path": "features/panadapter/overview.md"
+    },
+    {
+      "id": "pop-a-panadapter-out-into-its-own-window",
+      "title": "Pop a panadapter out into its own window",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/pop-a-panadapter-out-into-its-own-window.md"
+    },
+    {
+      "id": "tune-cw-decoder-sensitivity-to-reject-noise",
+      "title": "Tune CW decoder sensitivity to reject noise",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/tune-cw-decoder-sensitivity-to-reject-noise.md"
+    },
+    {
+      "id": "turn-on-the-cw-decoder-to-read-morse-off-air",
+      "title": "Turn on the CW decoder to read Morse off-air",
+      "category": "features",
+      "subcategory": "panadapter",
+      "source_entries": [
+        "PanadapterApplet"
+      ],
+      "related_settings": [
+        "CwDecoderSensitivity"
+      ],
+      "output_path": "features/panadapter/turn-on-the-cw-decoder-to-read-morse-off-air.md"
+    },
+    {
+      "id": "adjust-am-carrier-power-for-am-transmit",
+      "title": "Adjust AM carrier power for AM transmit",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "output_path": "features/phone/adjust-am-carrier-power-for-am-transmit.md"
+    },
+    {
+      "id": "enable-vox-and-set-trigger-threshold",
+      "title": "Enable VOX and set trigger threshold",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "output_path": "features/phone/enable-vox-and-set-trigger-threshold.md"
+    },
+    {
+      "id": "phoneapplet-overview",
+      "title": "Phone overview",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "is_overview": true,
+      "output_path": "features/phone/overview.md"
+    },
+    {
+      "id": "set-the-tx-audio-high-cut-frequency",
+      "title": "Set the TX audio high-cut frequency",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "output_path": "features/phone/set-the-tx-audio-high-cut-frequency.md"
+    },
+    {
+      "id": "set-the-tx-audio-low-cut-frequency",
+      "title": "Set the TX audio low-cut frequency",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "output_path": "features/phone/set-the-tx-audio-low-cut-frequency.md"
+    },
+    {
+      "id": "tune-vox-hang-time",
+      "title": "Tune VOX hang time",
+      "category": "features",
+      "subcategory": "phone",
+      "source_entries": [
+        "PhoneApplet"
+      ],
+      "related_settings": [
+        "DexpEnabled",
+        "DexpLevel"
+      ],
+      "output_path": "features/phone/tune-vox-hang-time.md"
+    },
+    {
+      "id": "adjust-mic-gain-and-enable-the-accessory-mix",
+      "title": "Adjust mic gain and enable the accessory mix",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/adjust-mic-gain-and-enable-the-accessory-mix.md"
+    },
+    {
+      "id": "change-cw-pitch-sidetone-frequency",
+      "title": "Change CW pitch / sidetone frequency",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/change-cw-pitch-sidetone-frequency.md"
+    },
+    {
+      "id": "enable-iambic-paddle-keying",
+      "title": "Enable iambic paddle keying",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/enable-iambic-paddle-keying.md"
+    },
+    {
+      "id": "enable-speech-processor-at-nor-dx-or-dx-level",
+      "title": "Enable speech processor at NOR, DX, or DX+ level",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/enable-speech-processor-at-nor-dx-or-dx-level.md"
+    },
+    {
+      "id": "listen-to-a-tx-sidetone-monitor",
+      "title": "Listen to a TX sidetone monitor",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/listen-to-a-tx-sidetone-monitor.md"
+    },
+    {
+      "id": "phonecwapplet-overview",
+      "title": "Phone/CW overview",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "is_overview": true,
+      "output_path": "features/phone-cw/overview.md"
+    },
+    {
+      "id": "pick-a-mic-source-mic-bal-line-acc-pc",
+      "title": "Pick a mic source (MIC, BAL, LINE, ACC, PC)",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/pick-a-mic-source-mic-bal-line-acc-pc.md"
+    },
+    {
+      "id": "select-a-mic-profile-for-a-specific-microphone",
+      "title": "Select a mic profile for a specific microphone",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/select-a-mic-profile-for-a-specific-microphone.md"
+    },
+    {
+      "id": "set-cw-break-in-delay",
+      "title": "Set CW break-in delay",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/set-cw-break-in-delay.md"
+    },
+    {
+      "id": "set-cw-keying-speed-in-wpm",
+      "title": "Set CW keying speed in WPM",
+      "category": "features",
+      "subcategory": "phone-cw",
+      "source_entries": [
+        "PhoneCwApplet"
+      ],
+      "related_settings": [
+        "PcMicGain"
+      ],
+      "output_path": "features/phone-cw/set-cw-keying-speed-in-wpm.md"
+    },
+    {
+      "id": "create-a-separate-mic-profile-per-microphone",
+      "title": "Create a separate mic profile per microphone",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/create-a-separate-mic-profile-per-microphone.md"
+    },
+    {
+      "id": "profilemanagerdialog-overview",
+      "title": "Profile Manager overview",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "is_overview": true,
+      "output_path": "features/profile-manager/overview.md"
+    },
+    {
+      "id": "rename-or-delete-a-microphone-profile",
+      "title": "Rename or delete a microphone profile",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/rename-or-delete-a-microphone-profile.md"
+    },
+    {
+      "id": "review-the-list-of-active-global-profiles",
+      "title": "Review the list of active global profiles",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/review-the-list-of-active-global-profiles.md"
+    },
+    {
+      "id": "save-the-current-radio-state-as-a-new-global-profile",
+      "title": "Save the current radio state as a new global profile",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/save-the-current-radio-state-as-a-new-global-profile.md"
+    },
+    {
+      "id": "switch-to-a-saved-transmit-profile",
+      "title": "Switch to a saved transmit profile",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/switch-to-a-saved-transmit-profile.md"
+    },
+    {
+      "id": "turn-on-auto-save-so-tx-tweaks-always-persist",
+      "title": "Turn on auto-save so TX tweaks always persist",
+      "category": "features",
+      "subcategory": "profile-manager",
+      "source_entries": [
+        "ProfileManagerDialog"
+      ],
+      "related_settings": [
+        "AutoSaveTransmitProfile"
+      ],
+      "output_path": "features/profile-manager/turn-on-auto-save-so-tx-tweaks-always-persist.md"
+    },
+    {
+      "id": "check-current-solar-flux-sunspot-number-and-k-index",
+      "title": "Check current solar flux, sunspot number and K-index",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/check-current-solar-flux-sunspot-number-and-k-index.md"
+    },
+    {
+      "id": "cycle-solar-imagery-wavelengths-to-build-intuition",
+      "title": "Cycle solar imagery wavelengths to build intuition",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/cycle-solar-imagery-wavelengths-to-build-intuition.md"
+    },
+    {
+      "id": "decide-which-hf-band-is-open-for-day-or-night-work",
+      "title": "Decide which HF band is open for day or night work",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/decide-which-hf-band-is-open-for-day-or-night-work.md"
+    },
+    {
+      "id": "propdashboarddialog-overview",
+      "title": "HF Propagation Dashboard overview",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/prop-dashboard/overview.md"
+    },
+    {
+      "id": "read-rotating-learning-notes-about-solar-conditions",
+      "title": "Read rotating learning notes about solar conditions",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/read-rotating-learning-notes-about-solar-conditions.md"
+    },
+    {
+      "id": "see-the-3-day-kp-forecast-and-blackout-risk",
+      "title": "See the 3-day Kp forecast and blackout risk",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/see-the-3-day-kp-forecast-and-blackout-risk.md"
+    },
+    {
+      "id": "watch-for-vhf-sporadic-e-or-auroral-openings",
+      "title": "Watch for VHF sporadic-E or auroral openings",
+      "category": "features",
+      "subcategory": "prop-dashboard",
+      "source_entries": [
+        "PropDashboardDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/prop-dashboard/watch-for-vhf-sporadic-e-or-auroral-openings.md"
+    },
+    {
+      "id": "assign-a-usb-cable-as-cat-bcd-bit-or-ptt",
+      "title": "Assign a USB cable as CAT, BCD, bit or PTT",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/assign-a-usb-cable-as-cat-bcd-bit-or-ptt.md"
+    },
+    {
+      "id": "calibrate-the-gpsdo-frequency-offset",
+      "title": "Calibrate the GPSDO frequency offset",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/calibrate-the-gpsdo-frequency-offset.md"
+    },
+    {
+      "id": "change-network-mtu-for-vpn-remote-setups",
+      "title": "Change network MTU for VPN/remote setups",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/change-network-mtu-for-vpn-remote-setups.md"
+    },
+    {
+      "id": "check-radio-serial-hardware-version-region-and-options",
+      "title": "Check radio serial, hardware version, region and options",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/check-radio-serial-hardware-version-region-and-options.md"
+    },
+    {
+      "id": "choose-pc-input-output-audio-devices",
+      "title": "Choose PC input/output audio devices",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/choose-pc-input-output-audio-devices.md"
+    },
+    {
+      "id": "configure-flexcontrol-serial-port-pin-functions",
+      "title": "Configure FlexControl serial port pin functions",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/configure-flexcontrol-serial-port-pin-functions.md"
+    },
+    {
+      "id": "create-a-new-transverter-entry",
+      "title": "Create a new transverter entry",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/create-a-new-transverter-entry.md"
+    },
+    {
+      "id": "enable-auto-record-on-tx-and-pick-a-save-folder",
+      "title": "Enable auto-record on TX and pick a save folder",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/enable-auto-record-on-tx-and-pick-a-save-folder.md"
+    },
+    {
+      "id": "pick-opus-vs-uncompressed-audio-for-smartlink",
+      "title": "Pick Opus vs uncompressed audio for SmartLink",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/pick-opus-vs-uncompressed-audio-for-smartlink.md"
+    },
+    {
+      "id": "radiosetupdialog-overview",
+      "title": "Radio Setup overview",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "is_overview": true,
+      "output_path": "features/radio-setup/overview.md"
+    },
+    {
+      "id": "set-per-band-tx-max-power-and-tune-mode",
+      "title": "Set per-band TX max power and tune mode",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/set-per-band-tx-max-power-and-tune-mode.md"
+    },
+    {
+      "id": "set-the-radio-nickname-callsign-and-station-name",
+      "title": "Set the radio nickname, callsign and station name",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/set-the-radio-nickname-callsign-and-station-name.md"
+    },
+    {
+      "id": "start-stop-the-nvidia-bnr-container",
+      "title": "Start/stop the NVIDIA BNR container",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/start-stop-the-nvidia-bnr-container.md"
+    },
+    {
+      "id": "switch-the-radio-between-dhcp-and-static-ip",
+      "title": "Switch the radio between DHCP and static IP",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/switch-the-radio-between-dhcp-and-static-ip.md"
+    },
+    {
+      "id": "switch-to-an-external-10-mhz-reference",
+      "title": "Switch to an external 10 MHz reference",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/switch-to-an-external-10-mhz-reference.md"
+    },
+    {
+      "id": "toggle-low-latency-vs-sharp-filters-per-bandwidth",
+      "title": "Toggle low-latency vs sharp filters per bandwidth",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/toggle-low-latency-vs-sharp-filters-per-bandwidth.md"
+    },
+    {
+      "id": "turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation",
+      "title": "Turn on audio boost or enlarge the audio buffer for remote operation",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md"
+    },
+    {
+      "id": "upload-a-new-firmware-ssdr-to-the-radio",
+      "title": "Upload a new firmware .ssdr to the radio",
+      "category": "features",
+      "subcategory": "radio-setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "features/radio-setup/upload-a-new-firmware-ssdr-to-the-radio.md"
+    },
+    {
+      "id": "change-mode-usb-lsb-cw-am-fm-etc",
+      "title": "Change mode (USB, LSB, CW, AM, FM, etc.)",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/change-mode-usb-lsb-cw-am-fm-etc.md"
+    },
+    {
+      "id": "lock-the-slice-to-prevent-accidental-retuning",
+      "title": "Lock the slice to prevent accidental retuning",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/lock-the-slice-to-prevent-accidental-retuning.md"
+    },
+    {
+      "id": "pick-a-filter-width-preset-for-the-current-mode",
+      "title": "Pick a filter width preset for the current mode",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/pick-a-filter-width-preset-for-the-current-mode.md"
+    },
+    {
+      "id": "rxapplet-overview",
+      "title": "RX Controls overview",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "is_overview": true,
+      "output_path": "features/rx/overview.md"
+    },
+    {
+      "id": "select-the-rx-or-tx-antenna-for-this-slice",
+      "title": "Select the RX or TX antenna for this slice",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/select-the-rx-or-tx-antenna-for-this-slice.md"
+    },
+    {
+      "id": "switch-between-multiple-slices-using-the-a-h-tab-row",
+      "title": "Switch between multiple slices using the A..H tab row",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/switch-between-multiple-slices-using-the-a-h-tab-row.md"
+    },
+    {
+      "id": "tune-the-radio-to-a-frequency-type-mhz-in-the-readout",
+      "title": "Tune the radio to a frequency (type MHz in the readout)",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md"
+    },
+    {
+      "id": "turn-on-the-squelch-and-set-its-threshold",
+      "title": "Turn on the squelch and set its threshold",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/turn-on-the-squelch-and-set-its-threshold.md"
+    },
+    {
+      "id": "use-rit-to-offset-the-receive-frequency-for-a-drifting-station",
+      "title": "Use RIT to offset the receive frequency for a drifting station",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md"
+    },
+    {
+      "id": "use-xit-to-offset-the-transmit-frequency-without-changing-rx",
+      "title": "Use XIT to offset the transmit frequency without changing RX",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/use-xit-to-offset-the-transmit-frequency-without-changing-rx.md"
+    },
+    {
+      "id": "work-an-fm-repeater-with-ctcss-tone-and-offset",
+      "title": "Work an FM repeater with CTCSS tone and +/- offset",
+      "category": "features",
+      "subcategory": "rx",
+      "source_entries": [
+        "RxApplet"
+      ],
+      "related_settings": [
+        "FilterPresets"
+      ],
+      "output_path": "features/rx/work-an-fm-repeater-with-ctcss-tone-and-offset.md"
+    },
+    {
+      "id": "find-all-actions-in-a-category",
+      "title": "Find all actions in a category",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/shortcut/find-all-actions-in-a-category.md"
+    },
+    {
+      "id": "shortcutdialog-overview",
+      "title": "Keyboard Shortcuts overview",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/shortcut/overview.md"
+    },
+    {
+      "id": "rebind-a-keyboard-shortcut",
+      "title": "Rebind a keyboard shortcut",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/shortcut/rebind-a-keyboard-shortcut.md"
+    },
+    {
+      "id": "reset-every-shortcut-back-to-defaults",
+      "title": "Reset every shortcut back to defaults",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/shortcut/reset-every-shortcut-back-to-defaults.md"
+    },
+    {
+      "id": "reset-one-shortcut-to-its-default-key",
+      "title": "Reset one shortcut to its default key",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/shortcut/reset-one-shortcut-to-its-default-key.md"
+    },
+    {
+      "id": "see-the-default-key-for-any-action",
+      "title": "See the default key for any action",
+      "category": "features",
+      "subcategory": "shortcut",
+      "source_entries": [
+        "ShortcutDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/shortcut/see-the-default-key-for-any-action.md"
+    },
+    {
+      "id": "capture-a-slice-snapshot-for-support",
+      "title": "Capture a slice snapshot for support",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/slice-troubleshooting/capture-a-slice-snapshot-for-support.md"
+    },
+    {
+      "id": "copy-the-full-json-snapshot-to-the-clipboard",
+      "title": "Copy the full JSON snapshot to the clipboard",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/slice-troubleshooting/copy-the-full-json-snapshot-to-the-clipboard.md"
+    },
+    {
+      "id": "export-the-snapshot-to-a-file-to-attach-to-a-bug-report",
+      "title": "Export the snapshot to a file to attach to a bug report",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/slice-troubleshooting/export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md"
+    },
+    {
+      "id": "read-a-plain-language-list-of-suspected-slice-problems",
+      "title": "Read a plain-language list of suspected slice problems",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/slice-troubleshooting/read-a-plain-language-list-of-suspected-slice-problems.md"
+    },
+    {
+      "id": "refresh-the-snapshot-after-changing-slice-state",
+      "title": "Refresh the snapshot after changing slice state",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/slice-troubleshooting/refresh-the-snapshot-after-changing-slice-state.md"
+    },
+    {
+      "id": "slicetroubleshootingdialog-overview",
+      "title": "Slice Troubleshooting overview",
+      "category": "features",
+      "subcategory": "slice-troubleshooting",
+      "source_entries": [
+        "SliceTroubleshootingDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/slice-troubleshooting/overview.md"
+    },
+    {
+      "id": "adjust-spot-background-opacity",
+      "title": "Adjust spot background opacity",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/adjust-spot-background-opacity.md"
+    },
+    {
+      "id": "change-spot-density-and-vertical-position",
+      "title": "Change spot density and vertical position",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/change-spot-density-and-vertical-position.md"
+    },
+    {
+      "id": "clear-every-spot-from-the-panadapter",
+      "title": "Clear every spot from the panadapter",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/clear-every-spot-from-the-panadapter.md"
+    },
+    {
+      "id": "enlarge-or-shrink-the-spot-font",
+      "title": "Enlarge or shrink the spot font",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/enlarge-or-shrink-the-spot-font.md"
+    },
+    {
+      "id": "force-a-single-spot-text-color",
+      "title": "Force a single spot text color",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/force-a-single-spot-text-color.md"
+    },
+    {
+      "id": "overlay-memory-channels-on-the-panadapter",
+      "title": "Overlay memory channels on the panadapter",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/overlay-memory-channels-on-the-panadapter.md"
+    },
+    {
+      "id": "pick-a-custom-background-color-for-spots",
+      "title": "Pick a custom background color for spots",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/pick-a-custom-background-color-for-spots.md"
+    },
+    {
+      "id": "shorten-or-lengthen-spot-lifetime",
+      "title": "Shorten or lengthen spot lifetime",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/shorten-or-lengthen-spot-lifetime.md"
+    },
+    {
+      "id": "spotsettingsdialog-overview",
+      "title": "Spot Settings overview",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "is_overview": true,
+      "output_path": "features/spot-settings/overview.md"
+    },
+    {
+      "id": "turn-spots-on-or-off",
+      "title": "Turn spots on or off",
+      "category": "features",
+      "subcategory": "spot-settings",
+      "source_entries": [
+        "SpotSettingsDialog"
+      ],
+      "related_settings": [
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity"
+      ],
+      "output_path": "features/spot-settings/turn-spots-on-or-off.md"
+    },
+    {
+      "id": "clear-the-log-before-reproducing-a-bug",
+      "title": "Clear the log before reproducing a bug",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/clear-the-log-before-reproducing-a-bug.md"
+    },
+    {
+      "id": "enable-verbose-logging-for-a-specific-subsystem",
+      "title": "Enable verbose logging for a specific subsystem",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/enable-verbose-logging-for-a-specific-subsystem.md"
+    },
+    {
+      "id": "file-an-ai-assisted-bug-report",
+      "title": "File an AI-assisted bug report",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/file-an-ai-assisted-bug-report.md"
+    },
+    {
+      "id": "open-the-log-folder-to-grab-multiple-files",
+      "title": "Open the log folder to grab multiple files",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/open-the-log-folder-to-grab-multiple-files.md"
+    },
+    {
+      "id": "reset-aethersdr-settings-to-factory-defaults",
+      "title": "Reset AetherSDR settings to factory defaults",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/reset-aethersdr-settings-to-factory-defaults.md"
+    },
+    {
+      "id": "supportdialog-overview",
+      "title": "Support & Diagnostics overview",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/support/overview.md"
+    },
+    {
+      "id": "view-the-live-log-without-leaving-the-app",
+      "title": "View the live log without leaving the app",
+      "category": "features",
+      "subcategory": "support",
+      "source_entries": [
+        "SupportDialog"
+      ],
+      "related_settings": [],
+      "output_path": "features/support/view-the-live-log-without-leaving-the-app.md"
+    },
+    {
+      "id": "adjust-tci-rx-gain-per-channel",
+      "title": "Adjust TCI RX gain per channel",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "features/tci/adjust-tci-rx-gain-per-channel.md"
+    },
+    {
+      "id": "adjust-tci-tx-gain",
+      "title": "Adjust TCI TX gain",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "features/tci/adjust-tci-tx-gain.md"
+    },
+    {
+      "id": "autostart-tci-on-launch",
+      "title": "Autostart TCI on launch",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "features/tci/autostart-tci-on-launch.md"
+    },
+    {
+      "id": "change-the-tci-port",
+      "title": "Change the TCI port",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "features/tci/change-the-tci-port.md"
+    },
+    {
+      "id": "enable-the-tci-server-for-log4om-sunsdr-clients",
+      "title": "Enable the TCI server for Log4OM / SunSDR clients",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "features/tci/enable-the-tci-server-for-log4om-sunsdr-clients.md"
+    },
+    {
+      "id": "tciapplet-overview",
+      "title": "TCI Server overview",
+      "category": "features",
+      "subcategory": "tci",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "is_overview": true,
+      "output_path": "features/tci/overview.md"
+    },
+    {
+      "id": "fine-tune-the-c1-l-c2-relays-with-the-mousewheel",
+      "title": "Fine-tune the C1/L/C2 relays with the mousewheel",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tuner/fine-tune-the-c1-l-c2-relays-with-the-mousewheel.md"
+    },
+    {
+      "id": "put-the-tuner-in-operate-bypass-or-standby",
+      "title": "Put the tuner in OPERATE, BYPASS, or STANDBY",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tuner/put-the-tuner-in-operate-bypass-or-standby.md"
+    },
+    {
+      "id": "read-swr-immediately-after-a-tune",
+      "title": "Read SWR immediately after a tune",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tuner/read-swr-immediately-after-a-tune.md"
+    },
+    {
+      "id": "run-an-autotune-on-the-external-tgxl",
+      "title": "Run an autotune on the external TGXL",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tuner/run-an-autotune-on-the-external-tgxl.md"
+    },
+    {
+      "id": "switch-between-three-antennas-on-a-tgxl-3x1",
+      "title": "Switch between three antennas on a TGXL 3x1",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tuner/switch-between-three-antennas-on-a-tgxl-3x1.md"
+    },
+    {
+      "id": "tunerapplet-overview",
+      "title": "Tuner overview",
+      "category": "features",
+      "subcategory": "tuner",
+      "source_entries": [
+        "TunerApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/tuner/overview.md"
+    },
+    {
+      "id": "enable-apd-to-linearise-the-transmitter",
+      "title": "Enable APD to linearise the transmitter",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/enable-apd-to-linearise-the-transmitter.md"
+    },
+    {
+      "id": "recall-an-atu-memory",
+      "title": "Recall an ATU memory",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/recall-an-atu-memory.md"
+    },
+    {
+      "id": "run-the-internal-atu",
+      "title": "Run the internal ATU",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/run-the-internal-atu.md"
+    },
+    {
+      "id": "set-rf-output-power",
+      "title": "Set RF output power",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/set-rf-output-power.md"
+    },
+    {
+      "id": "set-tune-carrier-power",
+      "title": "Set tune-carrier power",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/set-tune-carrier-power.md"
+    },
+    {
+      "id": "start-a-tune-carrier-to-check-swr",
+      "title": "Start a tune carrier to check SWR",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/start-a-tune-carrier-to-check-swr.md"
+    },
+    {
+      "id": "switch-tx-profiles-e-g-ssb-digital",
+      "title": "Switch TX profiles (e.g. SSB, Digital)",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/switch-tx-profiles-e-g-ssb-digital.md"
+    },
+    {
+      "id": "txapplet-overview",
+      "title": "TX Controls overview",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "is_overview": true,
+      "output_path": "features/tx/overview.md"
+    },
+    {
+      "id": "toggle-mox-to-manually-key-the-transmitter",
+      "title": "Toggle MOX to manually key the transmitter",
+      "category": "features",
+      "subcategory": "tx",
+      "source_entries": [
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "features/tx/toggle-mox-to-manually-key-the-transmitter.md"
+    },
+    {
+      "id": "open-the-upgrade-flow-for-a-newer-build",
+      "title": "Open the upgrade flow for a newer build",
+      "category": "features",
+      "subcategory": "whats-new",
+      "source_entries": [
+        "WhatsNewDialog"
+      ],
+      "related_settings": [
+        "LastSeenVersion"
+      ],
+      "output_path": "features/whats-new/open-the-upgrade-flow-for-a-newer-build.md"
+    },
+    {
+      "id": "re-read-release-notes-later-via-help-menu",
+      "title": "Re-read release notes later via Help menu",
+      "category": "features",
+      "subcategory": "whats-new",
+      "source_entries": [
+        "WhatsNewDialog"
+      ],
+      "related_settings": [
+        "LastSeenVersion"
+      ],
+      "output_path": "features/whats-new/re-read-release-notes-later-via-help-menu.md"
+    },
+    {
+      "id": "read-what-changed-in-the-new-version",
+      "title": "Read what changed in the new version",
+      "category": "features",
+      "subcategory": "whats-new",
+      "source_entries": [
+        "WhatsNewDialog"
+      ],
+      "related_settings": [
+        "LastSeenVersion"
+      ],
+      "output_path": "features/whats-new/read-what-changed-in-the-new-version.md"
+    },
+    {
+      "id": "skip-the-current-version-s-release-notes",
+      "title": "Skip the current version's release notes",
+      "category": "features",
+      "subcategory": "whats-new",
+      "source_entries": [
+        "WhatsNewDialog"
+      ],
+      "related_settings": [
+        "LastSeenVersion"
+      ],
+      "output_path": "features/whats-new/skip-the-current-version-s-release-notes.md"
+    },
+    {
+      "id": "whatsnewdialog-overview",
+      "title": "What's New \u2014 AetherSDR overview",
+      "category": "features",
+      "subcategory": "whats-new",
+      "source_entries": [
+        "WhatsNewDialog"
+      ],
+      "related_settings": [
+        "LastSeenVersion"
+      ],
+      "is_overview": true,
+      "output_path": "features/whats-new/overview.md"
+    },
+    {
+      "id": "understanding-slices",
+      "title": "Understanding slices and VFOs",
+      "category": "getting-started",
+      "subcategory": "concepts",
+      "source_entries": [
+        "RxApplet",
+        "PanadapterApplet"
+      ],
+      "related_settings": [],
+      "output_path": "getting-started/concepts/understanding-slices.md"
+    },
+    {
+      "id": "understanding-applets",
+      "title": "Understanding the AetherSDR applet panel",
+      "category": "getting-started",
+      "subcategory": "concepts",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "related_settings": [],
+      "output_path": "getting-started/concepts/understanding-applets.md"
+    },
+    {
+      "id": "installation-linux",
+      "title": "Install AetherSDR on Linux",
+      "category": "getting-started",
+      "subcategory": "install",
+      "source_entries": [],
+      "related_settings": [],
+      "output_path": "getting-started/install/installation-linux.md"
+    },
+    {
+      "id": "installation-windows",
+      "title": "Install AetherSDR on Windows",
+      "category": "getting-started",
+      "subcategory": "install",
+      "source_entries": [],
+      "related_settings": [],
+      "output_path": "getting-started/install/installation-windows.md"
+    },
+    {
+      "id": "installation-macos",
+      "title": "Install AetherSDR on macOS",
+      "category": "getting-started",
+      "subcategory": "install",
+      "source_entries": [],
+      "related_settings": [],
+      "output_path": "getting-started/install/installation-macos.md"
+    },
+    {
+      "id": "auto-connect-midi-controller-on-startup",
+      "title": "Auto-connect MIDI controller on startup",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "getting-started/setup/auto-connect-midi-controller-on-startup.md"
+    },
+    {
+      "id": "check-how-many-external-clients-are-connected-to-each-channel",
+      "title": "Check how many external clients are connected to each channel",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "CatControlApplet"
+      ],
+      "related_settings": [
+        "CatTcpPort"
+      ],
+      "output_path": "getting-started/setup/check-how-many-external-clients-are-connected-to-each-channel.md"
+    },
+    {
+      "id": "connect-tgxl-pgxl-or-antenna-genius-by-ip",
+      "title": "Connect TGXL, PGXL or Antenna Genius by IP",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "RadioSetupDialog"
+      ],
+      "related_settings": [
+        "AudioCompression",
+        "AudioBoost",
+        "AudioBuffer",
+        "RecordMode",
+        "RecordDir",
+        "AutoRecordTx",
+        "RecordIdleTimeout"
+      ],
+      "output_path": "getting-started/setup/connect-tgxl-pgxl-or-antenna-genius-by-ip.md"
+    },
+    {
+      "id": "connect-a-midi-controller",
+      "title": "Connect a MIDI controller",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "MidiMappingDialog"
+      ],
+      "related_settings": [
+        "MidiPort",
+        "MidiAutoConnect"
+      ],
+      "output_path": "getting-started/setup/connect-a-midi-controller.md"
+    },
+    {
+      "id": "connect-by-ip-across-a-vpn-or-routed-network",
+      "title": "Connect by IP across a VPN or routed network",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "getting-started/setup/connect-by-ip-across-a-vpn-or-routed-network.md"
+    },
+    {
+      "id": "connect-to-a-dx-cluster",
+      "title": "Connect to a DX cluster",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "getting-started/setup/connect-to-a-dx-cluster.md"
+    },
+    {
+      "id": "connect-to-a-local-lan-radio",
+      "title": "Connect to a local LAN radio",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "getting-started/setup/connect-to-a-local-lan-radio.md"
+    },
+    {
+      "id": "connect-to-a-remote-radio-through-smartlink",
+      "title": "Connect to a remote radio through SmartLink",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "getting-started/setup/connect-to-a-remote-radio-through-smartlink.md"
+    },
+    {
+      "id": "connect-to-a-station-mqtt-broker",
+      "title": "Connect to a station MQTT broker",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "MqttApplet"
+      ],
+      "related_settings": [
+        "MqttHost",
+        "MqttPort",
+        "MqttUser",
+        "MqttPass",
+        "MqttTopics",
+        "MqttTls",
+        "MqttCaFile",
+        "MqttButtons"
+      ],
+      "output_path": "getting-started/setup/connect-to-a-station-mqtt-broker.md"
+    },
+    {
+      "id": "connect-to-the-reverse-beacon-network",
+      "title": "Connect to the Reverse Beacon Network",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "DxClusterDialog"
+      ],
+      "related_settings": [
+        "ClusterHost",
+        "ClusterPort",
+        "ClusterCallsign",
+        "ClusterAutoConnect",
+        "ClusterSpotColor",
+        "RbnHost",
+        "RbnPort",
+        "RbnCallsign",
+        "RbnRateLimit",
+        "RbnAutoConnect",
+        "RbnSpotColor",
+        "WsjtxAddress",
+        "WsjtxPort",
+        "WsjtxAutoStart",
+        "WsjtxFilterCQ",
+        "WsjtxFilterPOTA",
+        "WsjtxFilterCallingMe",
+        "WsjtxColorCQ",
+        "WsjtxColorPOTA",
+        "WsjtxColorCallingMe",
+        "WsjtxColorDefault",
+        "WsjtxSpotLife",
+        "SpotCollectorPort",
+        "SpotCollectorAutoStart",
+        "PotaPollInterval",
+        "PotaAutoStart",
+        "PotaSpotColor",
+        "FreeDvAutoStart",
+        "FreeDvSpotColor",
+        "IsSpotsEnabled",
+        "IsMemoriesShownOnPanadapter",
+        "SpotsAutoMode",
+        "SpotsStackLevels",
+        "SpotsPosition",
+        "SpotsFontSize",
+        "SpotsLifetime",
+        "IsSpotsOverrideColorsEnabled",
+        "SpotsOverrideColor",
+        "IsSpotsOverrideBackgroundColorsEnabled",
+        "IsSpotsOverrideToAutoBackgroundColorEnabled",
+        "SpotsOverrideBgColor",
+        "SpotsOverrideBgOpacity",
+        "DxccColoringEnabled",
+        "DxccAdifPath",
+        "DxccAutoReload"
+      ],
+      "output_path": "getting-started/setup/connect-to-the-reverse-beacon-network.md"
+    },
+    {
+      "id": "disconnect-from-the-current-radio",
+      "title": "Disconnect from the current radio",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "getting-started/setup/disconnect-from-the-current-radio.md"
+    },
+    {
+      "id": "manually-connect-to-an-ag-over-a-remote-network",
+      "title": "Manually connect to an AG over a remote network",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "AntennaGeniusApplet"
+      ],
+      "related_settings": [
+        "AG_ManualIp"
+      ],
+      "output_path": "getting-started/setup/manually-connect-to-an-ag-over-a-remote-network.md"
+    },
+    {
+      "id": "pick-the-local-network-interface-used-for-a-manual-connection",
+      "title": "Pick the local network interface used for a manual connection",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [
+        "ConnectionMode",
+        "SmartLinkEmail",
+        "ManualRadioIp",
+        "ManualBindSource",
+        "LowBandwidthMode"
+      ],
+      "output_path": "getting-started/setup/pick-the-local-network-interface-used-for-a-manual-connection.md"
+    },
+    {
+      "id": "see-all-stations-connected-to-this-flex",
+      "title": "See all stations connected to this FLEX",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "MultiFlexDialog"
+      ],
+      "related_settings": [],
+      "output_path": "getting-started/setup/see-all-stations-connected-to-this-flex.md"
+    },
+    {
+      "id": "see-how-many-tci-clients-are-connected",
+      "title": "See how many TCI clients are connected",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "TciApplet"
+      ],
+      "related_settings": [
+        "TciPort",
+        "TciRxGain1",
+        "TciRxGain2",
+        "TciRxGain3",
+        "TciRxGain4",
+        "TciTxGain"
+      ],
+      "output_path": "getting-started/setup/see-how-many-tci-clients-are-connected.md"
+    },
+    {
+      "id": "watch-the-first-udp-packet-timestamp-after-connect",
+      "title": "Watch the first-UDP-packet timestamp after connect",
+      "category": "getting-started",
+      "subcategory": "setup",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "output_path": "getting-started/setup/watch-the-first-udp-packet-timestamp-after-connect.md"
+    },
+    {
+      "id": "first-qso",
+      "title": "Make your first QSO with AetherSDR",
+      "category": "getting-started",
+      "subcategory": "tutorials",
+      "source_entries": [
+        "ConnectionPanel",
+        "RxApplet",
+        "TxApplet"
+      ],
+      "related_settings": [],
+      "output_path": "getting-started/tutorials/first-qso.md"
+    },
+    {
+      "id": "digital-modes-setup",
+      "title": "Setting up digital modes (FT8, WSJT-X, fldigi)",
+      "category": "operating",
+      "subcategory": "digital-modes",
+      "source_entries": [
+        "DaxApplet",
+        "CatControlApplet",
+        "DxClusterDialog"
+      ],
+      "related_settings": [],
+      "output_path": "operating/digital-modes/digital-modes-setup.md"
+    },
+    {
+      "id": "noise-reduction-overview",
+      "title": "Choosing the right noise reduction: NR2, NR4, DFNR, MNR",
+      "category": "operating",
+      "subcategory": "dsp",
+      "source_entries": [
+        "AetherDspDialog"
+      ],
+      "related_settings": [],
+      "output_path": "operating/dsp/noise-reduction-overview.md"
+    },
+    {
+      "id": "remote-operation-smartlink",
+      "title": "Operating remotely over SmartLink",
+      "category": "operating",
+      "subcategory": "remote",
+      "source_entries": [
+        "ConnectionPanel"
+      ],
+      "related_settings": [],
+      "output_path": "operating/remote/remote-operation-smartlink.md"
+    },
+    {
+      "id": "aethersdr-help",
+      "title": "AetherSDR Help",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > AetherSDR Help...",
+      "description": "Opens main user documentation.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/aethersdr-help.md"
+    },
+    {
+      "id": "configure-band-plan",
+      "title": "Configure Band Plan",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Band Plan",
+      "description": "Submenu: radio buttons Off, Small (6pt), Medium (10pt), Large (12pt), Huge (16pt), then region selector.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/configure-band-plan.md"
+    },
+    {
+      "id": "configure-ui-scale",
+      "title": "Configure UI Scale",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > UI Scale",
+      "description": "Submenu: radio buttons 75%, 85%, 100%, 110%, 125%, 150%, 175%, 200% plus Zoom In (Ctrl+=), Zoom Out (Ctrl+-), Reset (Ctrl+0).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/configure-ui-scale.md"
+    },
+    {
+      "id": "configuring-aethersdr-controls",
+      "title": "Configuring AetherSDR Controls",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > Configuring AetherSDR Controls...",
+      "description": "Opens guide for customizing applets, shortcuts, and MIDI mappings.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/configuring-aethersdr-controls.md"
+    },
+    {
+      "id": "configuring-data-modes",
+      "title": "Configuring Data Modes",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > Configuring Data Modes...",
+      "description": "Opens guide for setting up digital mode operation.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/configuring-data-modes.md"
+    },
+    {
+      "id": "contributing-to-aethersdr",
+      "title": "Contributing to AetherSDR",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > Contributing to AetherSDR...",
+      "description": "Opens guide for contributing code, bug reports, and feature requests.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/contributing-to-aethersdr.md"
+    },
+    {
+      "id": "enable-applet-panel",
+      "title": "Enable Applet Panel",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Applet Panel",
+      "description": "Checkable; toggles visibility of the right-side applet panel.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-applet-panel.md"
+    },
+    {
+      "id": "enable-blink-status-indicator",
+      "title": "Enable Blink Status Indicator",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Blink Status Indicator",
+      "description": "Checkable (default on); title bar indicator blinks to signal radio heartbeat.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-blink-status-indicator.md"
+    },
+    {
+      "id": "enable-frameless-window",
+      "title": "Enable Frameless Window",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Frameless Window",
+      "description": "Checkable; hides OS window decoration to save screen space.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-frameless-window.md"
+    },
+    {
+      "id": "enable-inhibit-during-tune",
+      "title": "Enable Inhibit during TUNE",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > Inhibit during TUNE",
+      "description": "Submenu with checkboxes: None, ACC TX, TX1, TX2, TX3 \u2014 select which TX outputs to suppress during tuning.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-inhibit-during-tune.md"
+    },
+    {
+      "id": "enable-keyboard-shortcuts",
+      "title": "Enable Keyboard Shortcuts",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Keyboard Shortcuts",
+      "description": "Checkable; enable/disable keyboard shortcut processing (e.g. arrow keys on sliders).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-keyboard-shortcuts.md"
+    },
+    {
+      "id": "enable-minimal-mode",
+      "title": "Enable Minimal Mode",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Minimal Mode",
+      "description": "Checkable; hides title bar and controls to maximize panadapter area.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-minimal-mode.md"
+    },
+    {
+      "id": "enable-pan-follows-vfo",
+      "title": "Enable Pan Follows VFO",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Pan Follows VFO",
+      "description": "Checkable (default on); when enabled, panadapter pans to keep VFO visible.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-pan-follows-vfo.md"
+    },
+    {
+      "id": "enable-pop-out-applet-panel",
+      "title": "Enable Pop Out Applet Panel",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Pop Out Applet Panel",
+      "description": "Checkable; floats the applet panel into separate window or docks it back.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-pop-out-applet-panel.md"
+    },
+    {
+      "id": "enable-propagation-conditions",
+      "title": "Enable Propagation Conditions",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Propagation Conditions",
+      "description": "Checkable; displays real-time ionospheric propagation forecast overlay on panadapters.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-propagation-conditions.md"
+    },
+    {
+      "id": "enable-single-click-to-tune",
+      "title": "Enable Single-Click to Tune",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Single-Click to Tune",
+      "description": "Checkable; when enabled, click panadapter to retune (default: double-click required).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-single-click-to-tune.md"
+    },
+    {
+      "id": "enable-autostart-for-cat-with-aethersdr",
+      "title": "Enable autostart for CAT with AetherSDR",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > Autostart CAT with AetherSDR",
+      "description": "Checkable menu item; creates virtual serial ports for CAT control (Linux/macOS; AppSettings: AutoStartCAT).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-autostart-for-cat-with-aethersdr.md"
+    },
+    {
+      "id": "enable-autostart-for-dax-with-aethersdr",
+      "title": "Enable autostart for DAX with AetherSDR",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > Autostart DAX with AetherSDR",
+      "description": "Checkable menu item; enables DAX audio bridge on startup (macOS/PipeWire; AppSettings: AutoStartDAX).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-autostart-for-dax-with-aethersdr.md"
+    },
+    {
+      "id": "enable-autostart-for-tci-with-aethersdr",
+      "title": "Enable autostart for TCI with AetherSDR",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > Autostart TCI with AetherSDR",
+      "description": "Checkable menu item; starts TCI server on launch (AppSettings: AutoStartTCI).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-autostart-for-tci-with-aethersdr.md"
+    },
+    {
+      "id": "enable-autostart-for-rigctld-with-aethersdr",
+      "title": "Enable autostart for rigctld with AetherSDR",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > Autostart rigctld with AetherSDR",
+      "description": "Checkable menu item; spawns rigctld CAT server on startup (AppSettings: AutoStartRigctld).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/enable-autostart-for-rigctld-with-aethersdr.md"
+    },
+    {
+      "id": "flexcontrol",
+      "title": "FlexControl",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > FlexControl...",
+      "description": "Opens serial port configuration for FlexControl hardware interface.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/flexcontrol.md"
+    },
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > Getting Started...",
+      "description": "Opens beginner guide to connecting and using AetherSDR.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/getting-started.md"
+    },
+    {
+      "id": "import-export-profiles",
+      "title": "Import/Export Profiles",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Profiles > Import/Export Profiles...",
+      "description": "Opens import/export dialog for profile backup and sharing (not yet implemented).",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/import-export-profiles.md"
+    },
+    {
+      "id": "quit",
+      "title": "Quit",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "File > Quit",
+      "description": "Closes the application.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/quit.md"
+    },
+    {
+      "id": "reset-applet-order",
+      "title": "Reset Applet Order",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "View > Reset Applet Order",
+      "description": "Restores applet panel to default order.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/reset-applet-order.md"
+    },
+    {
+      "id": "usb-cables",
+      "title": "USB Cables",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Settings > USB Cables...",
+      "description": "Opens USB cable assignment configuration for CAT and audio.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/usb-cables.md"
+    },
+    {
+      "id": "understanding-noise-cancellation",
+      "title": "Understanding Noise Cancellation",
+      "category": "reference",
+      "subcategory": "menu-actions",
+      "source_entries": [
+        "MainWindow"
+      ],
+      "menu_path": "Help > Understanding Noise Cancellation...",
+      "description": "Opens guide explaining NR2, NR4, DFNR, and MNR noise reduction.",
+      "related_settings": [],
+      "output_path": "reference/menu-actions/understanding-noise-cancellation.md"
+    },
+    {
+      "id": "settings-reference",
+      "title": "Full AppSettings key reference",
+      "category": "reference",
+      "subcategory": "settings",
+      "source_entries": [],
+      "related_settings": [],
+      "output_path": "reference/settings/settings-reference.md"
+    },
+    {
+      "id": "diagnose-audio-underruns-and-jitter",
+      "title": "Diagnose audio underruns and jitter",
+      "category": "troubleshooting",
+      "subcategory": "networkdiagnostics",
+      "source_entries": [
+        "NetworkDiagnosticsDialog"
+      ],
+      "related_settings": [],
+      "output_path": "troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md"
+    }
+  ]
+}

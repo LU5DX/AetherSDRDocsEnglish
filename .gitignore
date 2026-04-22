@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+# Virtualenv-like folders pip creates when sys.prefix is misconfigured
+_generator/Lib/
+_generator/Scripts/
+_generator/bin/
+_generator/Include/
+_generator/pyvenv.cfg
+_generator/topics.json.bak

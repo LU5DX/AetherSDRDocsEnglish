@@ -1,0 +1,371 @@
+{
+  "scope": "navigation",
+  "menus": [
+    {
+      "title": "File",
+      "mnemonic": "&F",
+      "items": [
+        {
+          "label": "Quit",
+          "shortcut": "Ctrl+Q",
+          "opens": null,
+          "action": "Closes the application."
+        }
+      ]
+    },
+    {
+      "title": "Settings",
+      "mnemonic": "&Settings",
+      "items": [
+        {
+          "label": "Radio Setup...",
+          "shortcut": null,
+          "opens": "RadioSetupDialog",
+          "action": "Opens radio connection, audio, antenna, and band settings."
+        },
+        {
+          "label": "Connect to Radio...",
+          "shortcut": null,
+          "opens": "ConnectionDialog",
+          "action": "Opens dialog to discover and connect to FLEX-8600 radios on the network."
+        },
+        {
+          "label": "FlexControl...",
+          "shortcut": null,
+          "opens": "RadioSetupDialog (Serial tab)",
+          "action": "Opens serial port configuration for FlexControl hardware interface.",
+          "build_gate": "HAVE_SERIALPORT"
+        },
+        {
+          "label": "Network...",
+          "shortcut": null,
+          "opens": "NetworkDiagnosticsDialog",
+          "action": "Opens network diagnostics and status display."
+        },
+        {
+          "label": "Memory...",
+          "shortcut": null,
+          "opens": "MemoryDialog",
+          "action": "Opens memory configuration dialog."
+        },
+        {
+          "label": "USB Cables...",
+          "shortcut": null,
+          "opens": "RadioSetupDialog (USB Cables tab)",
+          "action": "Opens USB cable assignment configuration for CAT and audio."
+        },
+        {
+          "label": "MIDI Mapping...",
+          "shortcut": null,
+          "opens": "MidiMappingDialog",
+          "action": "Opens MIDI controller configuration and mapping dialog.",
+          "build_gate": "HAVE_MIDI"
+        },
+        {
+          "label": "SpotHub...",
+          "shortcut": null,
+          "opens": "DxClusterDialog",
+          "action": "Opens configuration for DX cluster, RBN, WSJTX, Spot Collector, POTA, and FreeDV sources."
+        },
+        {
+          "label": "multiFLEX...",
+          "shortcut": null,
+          "opens": "MultiFlexDialog",
+          "action": "Opens multi-radio management dialog for controlling multiple FLEX-8600 radios."
+        },
+        {
+          "label": "TX Band Settings...",
+          "shortcut": null,
+          "opens": "TX Band Settings Dialog",
+          "action": "Opens table to adjust TX power, tune power, inhibit settings, and external amp control per band."
+        },
+        {
+          "label": "Inhibit during TUNE",
+          "shortcut": null,
+          "opens": null,
+          "action": "Submenu with checkboxes: None, ACC TX, TX1, TX2, TX3 — select which TX outputs to suppress during tuning."
+        },
+        {
+          "label": "AetherDSP Settings...",
+          "shortcut": null,
+          "opens": "AetherDspDialog",
+          "action": "Opens advanced DSP parameter tuning: NR2, NR4, DFNR, and MNR controls."
+        },
+        {
+          "label": "Autostart rigctld with AetherSDR",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable menu item; spawns rigctld CAT server on startup (AppSettings: AutoStartRigctld)."
+        },
+        {
+          "label": "Autostart CAT with AetherSDR",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable menu item; creates virtual serial ports for CAT control (Linux/macOS; AppSettings: AutoStartCAT)."
+        },
+        {
+          "label": "Autostart TCI with AetherSDR",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable menu item; starts TCI server on launch (AppSettings: AutoStartTCI).",
+          "build_gate": "HAVE_WEBSOCKETS"
+        },
+        {
+          "label": "Autostart DAX with AetherSDR",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable menu item; enables DAX audio bridge on startup (macOS/PipeWire; AppSettings: AutoStartDAX)."
+        }
+      ]
+    },
+    {
+      "title": "Profiles",
+      "mnemonic": "&Profiles",
+      "items": [
+        {
+          "label": "Profile Manager...",
+          "shortcut": null,
+          "opens": "ProfileManagerDialog",
+          "action": "Opens dialog to view, create, edit, and delete transmit profiles."
+        },
+        {
+          "label": "Import/Export Profiles...",
+          "shortcut": null,
+          "opens": null,
+          "action": "Opens import/export dialog for profile backup and sharing (not yet implemented)."
+        },
+        {
+          "label": "<dynamic profile list>",
+          "shortcut": null,
+          "opens": null,
+          "action": "Below separator: radio populates checkable list of active global profiles. Click to load."
+        }
+      ]
+    },
+    {
+      "title": "View",
+      "mnemonic": "&View",
+      "items": [
+        {
+          "label": "Applet Panel",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable; toggles visibility of the right-side applet panel."
+        },
+        {
+          "label": "Pop Out Applet Panel",
+          "shortcut": "Ctrl+Shift+S",
+          "opens": null,
+          "action": "Checkable; floats the applet panel into separate window or docks it back."
+        },
+        {
+          "label": "Band Plan",
+          "shortcut": null,
+          "opens": null,
+          "action": "Submenu: radio buttons Off, Small (6pt), Medium (10pt), Large (12pt), Huge (16pt), then region selector."
+        },
+        {
+          "label": "Single-Click to Tune",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable; when enabled, click panadapter to retune (default: double-click required)."
+        },
+        {
+          "label": "Pan Follows VFO",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable (default on); when enabled, panadapter pans to keep VFO visible."
+        },
+        {
+          "label": "UI Scale",
+          "shortcut": null,
+          "opens": null,
+          "action": "Submenu: radio buttons 75%, 85%, 100%, 110%, 125%, 150%, 175%, 200% plus Zoom In (Ctrl+=), Zoom Out (Ctrl+-), Reset (Ctrl+0)."
+        },
+        {
+          "label": "Reset Applet Order",
+          "shortcut": null,
+          "opens": null,
+          "action": "Restores applet panel to default order."
+        },
+        {
+          "label": "Minimal Mode",
+          "shortcut": "Ctrl+M",
+          "opens": null,
+          "action": "Checkable; hides title bar and controls to maximize panadapter area."
+        },
+        {
+          "label": "Frameless Window",
+          "shortcut": "Ctrl+Shift+F",
+          "opens": null,
+          "action": "Checkable; hides OS window decoration to save screen space."
+        },
+        {
+          "label": "Propagation Conditions",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable; displays real-time ionospheric propagation forecast overlay on panadapters."
+        },
+        {
+          "label": "Keyboard Shortcuts",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable; enable/disable keyboard shortcut processing (e.g. arrow keys on sliders)."
+        },
+        {
+          "label": "Configure Shortcuts...",
+          "shortcut": null,
+          "opens": "ShortcutDialog",
+          "action": "Opens keyboard shortcut editor to customize application-wide bindings."
+        },
+        {
+          "label": "Blink Status Indicator",
+          "shortcut": null,
+          "opens": null,
+          "action": "Checkable (default on); title bar indicator blinks to signal radio heartbeat."
+        }
+      ]
+    },
+    {
+      "title": "Help",
+      "mnemonic": "&Help",
+      "items": [
+        {
+          "label": "Getting Started...",
+          "shortcut": null,
+          "opens": "HelpDialog (getting-started.md)",
+          "action": "Opens beginner guide to connecting and using AetherSDR."
+        },
+        {
+          "label": "AetherSDR Help...",
+          "shortcut": null,
+          "opens": "HelpDialog (aethersdr-help.md)",
+          "action": "Opens main user documentation."
+        },
+        {
+          "label": "Understanding Noise Cancellation...",
+          "shortcut": null,
+          "opens": "HelpDialog (understanding-noise-cancellation.md)",
+          "action": "Opens guide explaining NR2, NR4, DFNR, and MNR noise reduction."
+        },
+        {
+          "label": "Configuring AetherSDR Controls...",
+          "shortcut": null,
+          "opens": "HelpDialog (configuring-aethersdr-controls.md)",
+          "action": "Opens guide for customizing applets, shortcuts, and MIDI mappings."
+        },
+        {
+          "label": "Configuring Data Modes...",
+          "shortcut": null,
+          "opens": "HelpDialog (understanding-data-modes.md)",
+          "action": "Opens guide for setting up digital mode operation."
+        },
+        {
+          "label": "Contributing to AetherSDR...",
+          "shortcut": null,
+          "opens": "HelpDialog (contributing-to-aethersdr.md)",
+          "action": "Opens guide for contributing code, bug reports, and feature requests."
+        },
+        {
+          "label": "Support...",
+          "shortcut": null,
+          "opens": "SupportDialog",
+          "action": "Opens support dialog showing radio status, logs, and links to forums."
+        },
+        {
+          "label": "Slice Troubleshooting...",
+          "shortcut": null,
+          "opens": "SliceTroubleshootingDialog",
+          "action": "Opens dialog to diagnose slice creation, audio, and connectivity issues."
+        },
+        {
+          "label": "What's New...",
+          "shortcut": null,
+          "opens": "WhatsNewDialog",
+          "action": "Opens release notes for the current AetherSDR version."
+        },
+        {
+          "label": "About AetherSDR",
+          "shortcut": null,
+          "opens": "AboutDialog",
+          "action": "Displays version, build date, copyright, and Qt information."
+        }
+      ]
+    }
+  ],
+  "toolbars": [],
+  "applet_panel": {
+    "location": "Right sidebar",
+    "default_order": ["RX", "TUN", "AMP", "TX", "PHNE", "P/CW", "EQ", "TXDSP", "CAT", "DAX", "TCI", "IQ", "MTR", "AG"],
+    "applet_map": [
+      {"id_string": "RX", "class_name": "RxApplet", "display_name": "RX Controls", "visibility_toggle": "RX button in tray (always visible)"},
+      {"id_string": "TUN", "class_name": "TunerApplet", "display_name": "Tuner", "visibility_toggle": "TUN button in tray (appears when tuner detected)"},
+      {"id_string": "AMP", "class_name": "AmpApplet", "display_name": "Amplifier", "visibility_toggle": "AMP button in tray (appears when amp detected)"},
+      {"id_string": "TX", "class_name": "TxApplet", "display_name": "TX Controls", "visibility_toggle": "TX button in tray (always visible)"},
+      {"id_string": "PHNE", "class_name": "PhoneApplet", "display_name": "Phone", "visibility_toggle": "PHNE button in tray"},
+      {"id_string": "P/CW", "class_name": "PhoneCwApplet", "display_name": "Phone/CW", "visibility_toggle": "P/CW button in tray"},
+      {"id_string": "EQ", "class_name": "EqApplet", "display_name": "Equalizer", "visibility_toggle": "EQ button in tray"},
+      {"id_string": "TXDSP", "class_name": "ContainerWidget (composite)", "display_name": "PUDU", "visibility_toggle": "PUDU button in tray (toggles whole PooDoo Audio section)"},
+      {"id_string": "CAT", "class_name": "CatControlApplet", "display_name": "CAT Control", "visibility_toggle": "CAT button in tray"},
+      {"id_string": "DAX", "class_name": "DaxApplet", "display_name": "DAX Audio", "visibility_toggle": "DAX button in tray"},
+      {"id_string": "TCI", "class_name": "TciApplet", "display_name": "TCI Server", "visibility_toggle": "TCI button in tray", "build_gate": "HAVE_WEBSOCKETS"},
+      {"id_string": "IQ", "class_name": "DaxIqApplet", "display_name": "DAX IQ", "visibility_toggle": "IQ button in tray"},
+      {"id_string": "MTR", "class_name": "MeterApplet", "display_name": "Meters", "visibility_toggle": "MTR button in tray"},
+      {"id_string": "AG", "class_name": "AntennaGeniusApplet", "display_name": "Antenna Genius", "visibility_toggle": "AG button in tray (appears when detected)"},
+      {"id_string": "MQTT", "class_name": "MqttApplet", "display_name": "MQTT", "visibility_toggle": "MQTT button in tray", "build_gate": "HAVE_MQTT"},
+      {"id_string": "VU", "class_name": "SMeterWidget", "display_name": "S-Meter", "visibility_toggle": "VU button in tray (always at top)"}
+    ],
+    "tray_buttons": {
+      "row_1": "VU, RX, TUN, AMP, TX, PHNE, P/CW, EQ",
+      "row_2": "LCK, PUDU, CAT, DAX, TCI, IQ, MTR, AG, MQTT (if HAVE_MQTT)",
+      "notes": "VU always at top; LCK disables accidental slider changes while scrolling. TUN, AMP, AG buttons only appear when hardware detected."
+    }
+  },
+  "context_menus": [
+    {
+      "trigger": "Right-click on applet title bar",
+      "items": [
+        {"label": "Float", "action": "Pops applet into separate window."},
+        {"label": "Close", "action": "Hides applet tile (toggle tray button to show again)."}
+      ]
+    },
+    {
+      "trigger": "Right-click on status indicator (title bar)",
+      "items": [
+        {"label": "Blink Status Indicator", "action": "Checkable toggle to enable/disable blink."}
+      ]
+    }
+  ],
+  "global_shortcuts": [
+    {"keys": "Ctrl+Q", "action": "Quit application."},
+    {"keys": "Ctrl+M", "action": "Toggle Minimal Mode."},
+    {"keys": "Ctrl+Shift+S", "action": "Pop Out/Dock Applet Panel."},
+    {"keys": "Ctrl+Shift+F", "action": "Toggle Frameless Window."},
+    {"keys": "Ctrl+=", "action": "Zoom In."},
+    {"keys": "Ctrl+-", "action": "Zoom Out."},
+    {"keys": "Ctrl+0", "action": "Reset UI Scale to 100%."}
+  ],
+  "autostart_settings": [
+    {
+      "menu_item": "Settings > Autostart rigctld with AetherSDR",
+      "setting_key": "AutoStartRigctld",
+      "description": "Spawn rigctld CAT server on startup."
+    },
+    {
+      "menu_item": "Settings > Autostart CAT with AetherSDR",
+      "setting_key": "AutoStartCAT",
+      "description": "Create virtual serial ports for CAT control (Linux/macOS only)."
+    },
+    {
+      "menu_item": "Settings > Autostart TCI with AetherSDR",
+      "setting_key": "AutoStartTCI",
+      "description": "Start TCI server on launch.",
+      "build_gate": "HAVE_WEBSOCKETS"
+    },
+    {
+      "menu_item": "Settings > Autostart DAX with AetherSDR",
+      "setting_key": "AutoStartDAX",
+      "description": "Enable DAX audio bridge on startup (macOS/PipeWire)."
+    }
+  ]
+}
