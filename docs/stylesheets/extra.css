@@ -78,21 +78,17 @@
 
 /* ── Layer 2: alien audience, fastest drift (closest to camera) ─────── */
 
-/* Audience is FIXED at the viewport bottom (not bound to the hero),
-   so it stays in place while the page scrolls. Slow upward drift via
-   data-parallax-drift in the HTML. The tile section below the hero
-   has a higher stacking position, so as the user scrolls past the
-   hero the tile section's solid background covers the audience —
-   smooth fade rather than a sudden clip. */
+/* Audience is absolutely positioned INSIDE the hero. The hero clips
+   it at its bottom edge via overflow: hidden — clean visual boundary,
+   never spills into the gray content section below. Slow parallax
+   drift inside the hero scroll range. */
 .aether-audience {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 50vh;
-  /* z-index 0 = sits behind the .aether-home-below (z-index 1), so
-     the tile section paints over the audience as it scrolls into view */
-  z-index: 0;
+  z-index: 2;
   background-image: url('../assets/aether-audience.png');
   background-size: contain;
   background-position: bottom center;
