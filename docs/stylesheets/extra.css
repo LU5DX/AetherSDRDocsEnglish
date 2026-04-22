@@ -23,17 +23,26 @@
 
 .aether-bg {
   position: fixed;
-  inset: -15%;                 /* extra room for the parallax transform */
+  inset: -25%;                 /* generous room for the parallax transform */
   z-index: -2;
   background-color: var(--aether-bg-deep);
   background-image:
+    /* DEBUG: high-contrast diagonal stripes so any motion is impossible
+       to miss. Remove this gradient once parallax is verified visually. */
+    repeating-linear-gradient(
+      45deg,
+      rgba(103, 232, 249, 0.10) 0px,
+      rgba(103, 232, 249, 0.10) 60px,
+      transparent 60px,
+      transparent 120px
+    ),
     radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 58, 237, 0.35), transparent 70%),
     radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6, 182, 212, 0.25), transparent 70%),
     url('../assets/aether-bg.png'),
     url('../assets/hero-stars.svg');
-  background-size: cover, cover, cover, cover;
-  background-position: center, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: auto, cover, cover, cover, cover;
+  background-position: center, center, center, center, center;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   will-change: transform;
   transform: translateY(var(--parallax-y, 0));
 }
