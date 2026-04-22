@@ -5,23 +5,27 @@
      template: home.html
      ---
 
-   Static layered hero in the style of Material for MkDocs' own
-   homepage:
-     - .aether-bg          — full-bleed AetherSDR UI screenshot, fixed
+   Scroll-coupled parallax hero in the style of Material for MkDocs'
+   own homepage:
+
+     - hero is 100vh, in document flow, scrolls away with the page
+     - .aether-bg          — full-bleed AetherSDR UI screenshot
      - .aether-audience    — alien silhouettes pinned to the bottom
      - .aether-hero__content — title + lede + CTAs in the lower-left
 
-   No JS parallax. The background uses position: fixed so it stays put
-   as the page scrolls — that's all the depth we need.
+   javascripts/parallax.js translates each parallax-speed layer based
+   on window.scrollY — bg drifts slow (deep), audience drifts fast
+   (foreground). As you scroll past the hero, both layers rise out of
+   view at different rates, then the tile grid appears below.
 #}
 
 {% block tabs %}
   {{ super() }}
 
-  <div class="aether-bg"        data-parallax-speed="0.10" aria-hidden="true"></div>
-  <div class="aether-audience"  data-parallax-speed="0.25" aria-hidden="true"></div>
-
   <section class="aether-hero" aria-label="AetherSDR user manual">
+    <div class="aether-bg"        data-parallax-speed="0.30" aria-hidden="true"></div>
+    <div class="aether-audience"  data-parallax-speed="0.75" aria-hidden="true"></div>
+
     <div class="aether-hero__content">
       <h1 class="aether-hero__title">AetherSDR</h1>
       <p class="aether-hero__subtitle">The user manual</p>
