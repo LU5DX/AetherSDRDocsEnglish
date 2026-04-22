@@ -22,7 +22,6 @@ Spanish mirror: [AetherSDRDocsSpanish](https://github.com/LU5DX/AetherSDRDocsSpa
 │   ├── operating/          Cross-cutting operating guides
 │   ├── reference/          Menu actions, AppSettings reference
 │   └── troubleshooting/    Common problems and fixes
-├── _generator/             Pipeline that turns AetherSDR source into docs/
 └── .github/workflows/      GitHub Pages deploy workflow
 ```
 
@@ -32,21 +31,6 @@ Spanish mirror: [AetherSDRDocsSpanish](https://github.com/LU5DX/AetherSDRDocsSpa
 pip install mkdocs-material
 mkdocs serve     # http://127.0.0.1:8000
 ```
-
-## Regenerating the docs
-
-When AetherSDR ships a new version:
-
-```bash
-cd _generator
-python -m pip install anthropic
-$env:ANTHROPIC_API_KEY="sk-ant-..."   # PowerShell
-python build_topics.py                # refresh topic list from catalog
-python generate_docs.py               # regenerates missing pages into docs/
-python translate_docs.py --sync       # mirrors EN → ES
-```
-
-See [`_generator/README.md`](_generator/README.md) for full details.
 
 ## Hero artwork
 
@@ -62,3 +46,9 @@ publishes to GitHub Pages on every push to `main`. **Note:** Pages on a
 private repository requires GitHub Pro or higher. On the free tier, either
 make this repo public or swap the deploy job for Cloudflare Pages / Netlify
 / Vercel — all of which build from private repos for free.
+
+## Contributing
+
+Open an issue or PR against `docs/`. For maintainer notes on how this
+documentation is authored and kept in sync with AetherSDR releases, contact
+the repo owner.
