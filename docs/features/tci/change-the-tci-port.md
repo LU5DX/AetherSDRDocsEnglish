@@ -1,33 +1,38 @@
 # Change the TCI port
 
-Change the port the TCI WebSocket server listens on. Do this when port 50001 conflicts with another application or when your logging or digital-mode software expects a different port.
+The TCI server listens on a configurable TCP port. Change the port if the default conflicts with another application or if your logging or digital-mode software requires a specific port number.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The TCI applet requires an active radio connection.
-- Have the TCI applet open. If it is not visible, click the **TCI** tray button on the right sidebar.
+- Open the TCI applet by clicking the **TCI** tray button on the right sidebar if it is not already visible.
 
 ## Steps
 
-1. In the TCI applet, locate the **Port** field at the bottom of the panel.
+1. Locate the **Port** field at the bottom of the TCI applet, to the right of the "Port:" label.
 2. Click the **Port** field and type the new port number. Valid values are 1024–65535. The default is `50001`.
-3. Press **Enter** or click away from the field to confirm. Values outside 1024–65535 snap back to `50001`.
-4. If the server is already running (Enable is active), AetherSDR stops and restarts the server on the new port automatically. No manual toggle is needed.
-5. The server status indicator updates to show the new port in the format `:<port> (N clients)`.
+3. Press **Enter** or click away from the field to confirm. If you enter a value outside 1024–65535, the field resets to `50001` and saves that value.
+4. If the server is already running (Enable is checked), it restarts automatically on the new port. No additional action is required.
 
-The new port is saved to `TciPort` and persists across restarts.
+The new port is saved to `TciPort` and persists across sessions.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Port** | `50001` | 1024–65535 | `TciPort` | Sets the port the TCI WebSocket server binds to. Changing the value while the server is running restarts the server on the new port. Out-of-range values snap to `50001`. |
-| **Enable** | Off | On / Off | — | Starts or stops the TCI server. If the port is already in use, the toggle snaps back to off and the status shows `(port in use)`. |
+| Control | Default | Valid range | Persisted setting |
+|---|---|---|---|
+| **Port** field | `50001` | 1024–65535 | `TciPort` |
+| **Enable** toggle | Off | On / Off | — |
+| Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` | — |
+
+## Tips
+
+- The server status indicator updates immediately after a port change. If the status shows `(port in use)` and **Enable** snaps back to unchecked, another process is already bound to that port. Choose a different port number.
+- If you have `Settings > Autostart TCI with AetherSDR` enabled, the saved `TciPort` value is used at the next launch with no further action needed.
 
 ## Troubleshooting
 
-- **Status shows `(port in use)` and Enable snaps off** — Another application is already bound to that port. Enter a different port number in the **Port** field and click Enable again.
-- **Port field reverts to `50001` after editing** — The value you entered was outside the 1024–65535 range. Enter a value within that range.
+- **Status shows `(port in use)` and Enable turns off** — The port is already bound by another application. Enter a different port number, then click **Enable** again.
+- **Port field resets to 50001** — The value you entered was outside the 1024–65535 range. Enter a value within that range.
 
 ## Related
 

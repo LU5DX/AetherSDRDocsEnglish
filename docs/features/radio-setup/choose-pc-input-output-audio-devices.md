@@ -1,49 +1,49 @@
 # Choose PC input/output audio devices
 
-Select which PC audio device receives the radio's received audio and which device captures your microphone input. You configure both on the Audio tab of Radio Setup.
+Select which PC sound card or audio interface AetherSDR uses to play received audio and capture microphone audio. This is separate from the radio's own Line Out and Headphone outputs.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Audio tab is not accessible without an active radio connection.
-- Ensure your PC audio devices (headset, microphone, speakers) are recognized by the operating system before opening this dialog.
+- Your audio interface must already be recognized by the operating system before opening this dialog.
 
 ## Steps
 
-1. Click `Settings > Radio Setup...`.
+1. Go to `Settings > Radio Setup...`.
 2. Click the **Audio** tab.
-3. Under **PC Audio Devices:**, click the **Input:** drop-down and select the device that will capture your transmitted audio (microphone or headset).
-4. Click the **Output:** drop-down and select the device that will play received audio (speakers or headset).
-5. Close the dialog. AetherSDR applies the selection immediately.
+3. Under **PC Audio Devices:**, click the **Input:** drop-down and select the device to use for microphone or audio input.
+4. Click the **Output:** drop-down and select the device to use for received audio playback.
+5. Close the dialog. The selection takes effect immediately.
 
 ## What each control does
 
-| Control | What it does | Default | Range | Setting key |
+| Control | Description | Default | Valid range / values | Setting key |
 |---|---|---|---|---|
-| **PC Audio Devices: Input:** | Selects the PC audio input device (microphone/headset) used for transmit audio. | System default | Available host devices | — |
-| **PC Audio Devices: Output:** | Selects the PC audio output device (speakers/headset) used for received audio playback. | System default | Available host devices | — |
-| **Audio Boost:** | Applies extra gain to the client audio path. | Off | On / Off | `AudioBoost` |
-| **Audio Buffer:** | Sets the client-side audio buffer size. Increase this to reduce dropouts over VPN or SmartLink. | — | 50–1000 ms | `AudioBuffer` |
-| **Audio Compression (SmartLink):** | Selects the audio codec used over SmartLink or LAN. Three options: Auto, Uncompressed, Opus. | Auto | Auto / Uncompressed / Opus | `AudioCompression` |
-| **Recording: Radio Side / Client Side** | Picks whether recordings are captured at the radio or at the PC client. | — | Radio Side / Client Side | `RecordMode` |
-| **Save to:** | Folder path where recordings are saved. Click **...** to browse. | — | Any writable path | `RecordDir` |
-| **Auto-record on TX** | Starts recording automatically whenever you transmit. | Off | On / Off | `AutoRecordTx` |
-| **Idle timeout:** | Seconds of silence after which an auto-recording stops. | — | — | `RecordIdleTimeout` |
+| **PC Audio Devices: Input:** | Selects the host OS audio input device (microphone, line in). | System default | Devices enumerated from OS | — |
+| **PC Audio Devices: Output:** | Selects the host OS audio output device (speakers, headphones, audio interface). | System default | Devices enumerated from OS | — |
+| **Audio Boost:** | Applies extra gain on the client audio path. | Off | On / Off | `AudioBoost` |
+| **Audio Buffer:** | Increases the audio buffer depth to absorb jitter on VPN or SmartLink connections. | — | 50–1000 ms | `AudioBuffer` |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects the audio codec used over SmartLink or LAN. | Auto | Auto / Uncompressed / Opus | `AudioCompression` |
+| **Recording: Radio Side / Client Side** | Chooses whether recording is performed on the radio or on this PC. | — | Radio Side / Client Side | `RecordMode` |
+| **Save to:** | Folder path where recordings are saved. | — | Any writable directory | `RecordDir` |
+| **...** | Opens a folder browser to choose the recording directory. | — | — | — |
+| **Auto-record on TX** | Automatically starts recording when the radio transmits. | Off | On / Off | `AutoRecordTx` |
+| **Idle timeout:** | Seconds of silence after which an active recording stops. | — | — | `RecordIdleTimeout` |
 
 ## Tips
 
-- If your headset appears in both Input and Output drop-downs, select it in both to keep transmit and receive audio on the same device.
-- If audio drops out during SmartLink or VPN sessions, increase **Audio Buffer:** before switching codecs. Valid range is 50–1000 ms.
-- **Audio Boost:** adds gain on the client path only. If the radio-side audio level is already sufficient, leave it off to avoid clipping.
+- If your preferred device does not appear in the drop-down, confirm the OS recognizes it, then close and reopen the **Radio Setup** dialog. The Audio tab enumerates devices when it is first displayed.
+- Use **Audio Buffer:** to reduce audio dropouts when operating over a VPN or slow network link. Higher values add latency; 50 ms suits local LAN, while 200–400 ms suits most remote setups.
+- **Audio Boost:** is useful when the incoming audio level is low even at maximum slice volume.
 
 ## Troubleshooting
 
-- **No devices appear in the Input or Output drop-down** — The Audio tab defers hardware probing until first opened. If devices are still missing, confirm the OS recognizes the device (check system sound settings), then close and reopen Radio Setup.
-- **Output audio is silent after selecting a device** — Verify the selected output device is not muted in the OS mixer. Also check the **Line Out:** and **Headphone:** sliders on the same Audio tab, and confirm neither is muted via the corresponding **Mute** button.
-- **Input device produces no level during TX** — Confirm the correct Input device is selected. On Linux (PipeWire/PulseAudio), the device must not be claimed exclusively by another application.
+- **No audio devices appear in the Input or Output drop-downs** — The Audio tab defers device enumeration until it is opened. If the list is still empty, verify the OS audio subsystem is running and that at least one device is enabled in system sound settings.
+- **Audio drops out during remote operation** — Increase **Audio Buffer:** (range 50–1000 ms) and consider switching **Audio Compression (SmartLink):** from Auto to Opus to reduce bandwidth requirements.
 
 ## Related
 
-- [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
 - [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)
+- [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
 - [Enable auto-record on TX and pick a save folder](enable-auto-record-on-tx-and-pick-a-save-folder.md)
 - [Start/stop the NVIDIA BNR container](start-stop-the-nvidia-bnr-container.md)

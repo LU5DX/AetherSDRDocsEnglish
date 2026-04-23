@@ -1,28 +1,27 @@
 # Delete a bookmark you no longer need
 
-Remove a frequency bookmark from the Band Stack panel when it is no longer useful. Deleted bookmarks are immediately removed from the panel and from the persisted `BandStack_<serial>` settings for your radio.
+Remove a stored frequency bookmark from the Band Stack panel when it is no longer useful. Deleted bookmarks are removed from the persisted `BandStack_<serial>` settings for the connected radio.
 
 ## Before you start
 
-- AetherSDR must be connected to your FLEX-8600 radio. The Band Stack panel is only visible when a radio is connected.
-- Locate the Band Stack panel — the narrow vertical strip of color-coded frequency buttons alongside the panadapter.
+- AetherSDR must be connected to a radio. The Band Stack panel is only visible when a radio is connected.
+- Confirm you can see the Band Stack panel — the narrow vertical strip of frequency buttons alongside the panadapter.
 
 ## Steps
 
-1. Find the bookmark button you want to delete in the Band Stack panel.
-2. Right-click that bookmark button.
+1. Locate the bookmark button you want to remove in the Band Stack panel.
+2. Right-click the bookmark button.
 3. Click **Remove** in the context menu that appears.
 
-The button disappears immediately and the remaining bookmarks shift to fill the gap.
+The button disappears immediately and the change is saved to `BandStack_<serial>`.
 
 ## Tips
 
-- If you right-click a bookmark by mistake, move the mouse away from **Remove** and click elsewhere, or press Escape, to dismiss the menu without deleting anything.
-- To check which frequency a bookmark holds before deleting it, hover over the button — the tooltip shows the full frequency in MHz, mode, and RX antenna.
+- To remove all bookmarks at once, click the **×** button at the bottom of the Band Stack panel. Its tooltip reads "Clear all bookmarks".
+- If "Group by band" is enabled, bookmarks are grouped under band headers. You can right-click a band header to clear every bookmark in that band without affecting other bands.
 
 ## Related
 
-- [Band Stack overview](overview.md)
 - [Bookmark the current frequency](bookmark-the-current-frequency.md)
 - [Recall a stored bookmark with one click](recall-a-stored-bookmark-with-one-click.md)
-- [Visually scan the stored frequencies for the active band](visually-scan-the-stored-frequencies-for-the-active-band.md)
+- [Band Stack overview](overview.md)

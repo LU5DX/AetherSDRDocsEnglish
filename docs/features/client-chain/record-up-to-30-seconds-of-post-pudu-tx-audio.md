@@ -1,45 +1,42 @@
 # Record up to 30 seconds of post-PUDU TX audio
 
-Use the monitor recorder in the PooDoo Audio Chain to capture up to 30 seconds of your processed TX audio after it has passed through every stage, including PUDU. This lets you audition exactly what your signal sounds like before transmitting on air.
+Use the post-PUDU monitor recorder to capture up to 30 seconds of your processed TX audio after it passes through the full PooDoo chain. This lets you hear exactly what the chain produces without needing a second receiver.
 
 ## Before you start
 
 - The PooDoo Audio (TXDSP) container must be visible. If it is not, click the "PUDU" tray button in the right sidebar to show it.
-- Your microphone input source must be set to PC and DAX must be off. The record button is disabled until both conditions are met.
-- You must be in TX chain view. Click "TX" if "RX" is currently selected.
+- Your microphone input must be set to PC and DAX must be off. The record button is disabled if either condition is not met.
+- No playback must be in progress. The record button is disabled while the Play button is active.
 
 ## Steps
 
-1. Confirm the "TX" toggle is selected in the PooDoo Audio Chain header. The button is amber when active.
-2. Locate the record button (⏺) in the header row, to the right of the "TX" and "RX" toggles. It is enabled only when the mic input is ready.
-3. Click ⏺ to start recording. The button pulses red and its background brightens to confirm capture is active. Recording stops automatically after 30 seconds.
-4. To stop before 30 seconds, click ⏺ again.
-5. Playback starts automatically when recording stops. The play button (▶) pulses green during playback.
-6. To replay the captured audio manually, click ▶. To cancel playback in progress, click ▶ again.
+1. In the PooDoo Audio container, confirm the TX button is selected (amber). The monitor recorder operates on the TX chain only.
+2. Click the Record button (⏺) in the header row, to the right of the TX and RX buttons.
+3. Transmit as normal. The Record button pulses red while capturing.
+4. Click the Record button (⏺) again to stop, or allow the recording to stop automatically at 30 seconds. Playback starts automatically once recording stops.
 
 ## What each control does
 
 | Control | Behavior | Default | Notes |
 |---|---|---|---|
-| ⏺ (record) | Captures up to 30 s of post-PUDU TX audio. Click again to stop early; playback starts automatically. | Unchecked | Enabled only when mic source is PC, DAX is off, and playback is not running. Disabled when no recording exists and conditions are not met. Pulses red while recording. |
-| ▶ (play) | Plays back the captured audio. Click again to cancel. | Unchecked | Enabled only once a recording exists and recording is not active. Pulses green while playing. |
-
-Persisted settings involved: `ClientCompTxChainStages`, `Applet_TXDSP`.
+| Record (⏺) | Starts or stops capture of up to 30 s of post-PUDU TX audio. Playback starts automatically on stop. | Unchecked | Enabled only when mic input is ready and playback is not running. Pulses red while recording. |
+| Play (▶) | Plays back the captured audio. Click again to cancel. | Unchecked | Enabled only once a recording exists and recording is not active. Pulses green while playing. |
 
 ## Tips
 
-- If you want to hear the effect of a specific stage, bypass other stages using single-click on each chain stage before recording, then compare results.
-- The record button remains enabled while recording so you can click it to stop at any time.
-- The play button remains enabled during playback so you can cancel at any time.
+- The tooltip on the Record button reads: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off). Click again to stop; playback starts automatically." If the button appears dimmed, check both the mic source setting and DAX state first.
+- The Record button remains enabled while recording is active so you can click it to stop the capture at any time before the 30-second limit.
+- The chain processes audio regardless of which stages are bypassed. To evaluate specific stages, bypass others before recording. See [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md).
 
 ## Troubleshooting
 
-- **⏺ is greyed out and cannot be clicked** — The mic input source is not set to PC, DAX is on, or playback is currently running. Check your audio source settings and ensure DAX is disabled.
-- **Playback does not start after recording stops** — No audio was captured, or the recording was too short. Verify that audio is reaching the chain and that MOX was active during recording.
+- **Record button (⏺) is dimmed and cannot be clicked** — Either the mic input is not set to PC, DAX is on, or playback is currently running. Correct the mic and DAX settings, or wait for playback to finish.
+- **Recording stops before you finish** — The recorder captures a maximum of 30 seconds. Start the capture closer to the part of your transmission you want to evaluate.
+- **Playback does not start after recording stops** — Playback requires a completed recording. If you stopped recording immediately after starting it, try again and allow at least a brief capture before stopping.
 
 ## Related
 
-- [PooDoo Audio Chain overview](overview.md)
 - [Play back the captured PUDU audio](play-back-the-captured-pudu-audio.md)
 - [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)
 - [Open a stage's floating editor from the chain](open-a-stage-s-floating-editor-from-the-chain.md)
+- [PooDoo Audio Chain overview](overview.md)

@@ -6,38 +6,39 @@ Configure AetherSDR to start the TCI server automatically each time the applicat
 
 - AetherSDR must be built with WebSocket support (`HAVE_WEBSOCKETS`). If the `Settings > Autostart TCI with AetherSDR` menu item is absent, your build does not include TCI.
 - Confirm the TCI server works manually before enabling autostart. See [Enable the TCI server for Log4OM / SunSDR clients](enable-the-tci-server-for-log4om-sunsdr-clients.md).
-- Decide which port you want the server to use. The default is `50001`. See [Change the TCI port](change-the-tci-port.md).
+- A radio connection is required for the TCI server to operate after launch.
 
 ## Steps
 
-1. Click `Settings` in the menu bar.
-2. Click `Autostart TCI with AetherSDR`.
+1. Open the `Settings` menu.
+2. Click `Autostart TCI with AetherSDR`. A check mark appears next to the item when it is active.
+3. Restart AetherSDR. The TCI server starts automatically on the port stored in `TciPort` (default `50001`).
 
-A checkmark appears next to the item. AetherSDR persists this choice as `AutoStartTCI`.
-
-On the next launch, AetherSDR starts the TCI server on the port stored in `TciPort` before the applet panel is shown. The TCI tray button and the server status indicator in the TCI Server applet reflect the running state automatically.
-
-To disable autostart, repeat steps 1–2. The checkmark clears and the server will no longer start on launch.
+To disable autostart, repeat steps 1–2. The check mark is removed and the server will no longer start on launch.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| `Autostart TCI with AetherSDR` | Checkable menu item. When checked, the TCI server starts on every launch. | Off | On / Off | `AutoStartTCI` |
-| Port | TCP port the server binds to. Set in the TCI Server applet before enabling autostart. | `50001` | 1024–65535 | `TciPort` |
-| RX1–RX4 gain | Per-channel TCI receive gain, applied when the server starts. | `0.5` | 0.0–1.0 | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
-| TX gain | TCI transmit gain, applied when the server starts. | `0.5` | 0.0–1.0 | `TciTxGain` |
+| Control | Default | Valid range | Persisted setting |
+|---|---|---|---|
+| `Autostart TCI with AetherSDR` menu item | Off (unchecked) | On / Off | `AutoStartTCI` |
+| Port field | `50001` | 1024–65535 | `TciPort` |
+| RX1 gain | 0.5 | 0.0–1.0 | `TciRxGain1` |
+| RX2 gain | 0.5 | 0.0–1.0 | `TciRxGain2` |
+| RX3 gain | 0.5 | 0.0–1.0 | `TciRxGain3` |
+| RX4 gain | 0.5 | 0.0–1.0 | `TciRxGain4` |
+| TX gain | 0.5 | 0.0–1.0 | `TciTxGain` |
 
 ## Tips
 
-- Set `TciPort` and gain levels before enabling autostart. Autostart uses whatever values are already persisted.
-- The TCI Server applet is hidden by default. Toggle it with the `TCI` tray button on the right sidebar to verify the server status after launch.
+- Autostart uses whatever port is saved in `TciPort` at the time of launch. Set the correct port before enabling autostart to avoid having to change it later. See [Change the TCI port](change-the-tci-port.md).
+- If the saved port is already in use when AetherSDR starts, the server will not bind. The TCI applet status indicator will show `(port in use)` in red and the `Enable` button will be off. Change the port and click `Enable` manually.
+- Gain values (`TciRxGain1`–`TciRxGain4`, `TciTxGain`) are saved independently of autostart. They persist across restarts regardless of whether autostart is enabled.
 
 ## Troubleshooting
 
-- **Menu item `Autostart TCI with AetherSDR` is not visible** — The build does not include WebSocket support. TCI is unavailable in this installation.
-- **Server status shows `(port in use)` after autostart** — Another application is already bound to `TciPort`. Open the TCI Server applet, change the Port value to a free port, save it, then relaunch. Out-of-range values snap back to `50001`.
-- **Enable button appears off after autostart** — The server failed to bind. The toggle snaps back to off and status shows `(port in use)`. Change the port as above.
+- **`Autostart TCI with AetherSDR` is not in the Settings menu** — This build of AetherSDR does not include WebSocket support. TCI is not available.
+- **Server does not start after launch despite autostart being enabled** — The radio connection had not been established before the autostart attempt, or the configured port was in use. Open the TCI applet via the `TCI` tray button and check the status indicator. Correct the port if needed, then click `Enable`.
+- **Status shows `(port in use)` on launch** — Another application is bound to `TciPort`. Change the port in the TCI applet Port field to a free port in the range 1024–65535 and click `Enable`. Update `TciPort` before the next restart.
 
 ## Related
 

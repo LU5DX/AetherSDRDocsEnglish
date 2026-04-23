@@ -1,32 +1,32 @@
 # Pop a panadapter out into its own window
 
-Popping a panadapter into a floating window lets you move it to a second monitor or resize it independently from the main AetherSDR layout.
+Move a panadapter into a floating window so you can position it freely on a second monitor or resize it independently from the main AetherSDR layout.
 
 ## Before you start
 
-- AetherSDR must be connected to your FLEX-8600 radio. The pop-out button is not available without a radio connection.
-- You must have more than one panadapter open. The ⬈ / ↩ button is hidden in single-pan mode.
+- AetherSDR must be connected to the radio. The pop-out button is only available when a radio connection is active.
+- You must have more than one panadapter open. In single-pan mode, the title bar buttons (including the pop-out button) are hidden.
 
 ## Steps
 
-1. Locate the title bar at the top of the panadapter you want to pop out. It shows the slice name (for example, "Slice A") and a row of small buttons on the right.
-2. Click the **⬈** button in that title bar. The panadapter detaches and opens in a separate floating window.
-3. Resize or move the floating window using standard OS window controls.
-4. To dock the panadapter back into the main window, click the **↩** button in the floating window's title bar.
+1. Locate the panadapter you want to float. Its title bar runs along the top edge and shows a slice label such as "Slice A".
+2. Click the **⬈** button in the title bar. The panadapter detaches into a separate floating window.
+3. Drag or resize the floating window as needed using your operating system's normal window controls.
+4. To dock the panadapter back into the main window, click the **↩** button that appears in the floating window's title bar.
 
 ## What each control does
 
 | Control | Behavior | Default | Notes |
 |---|---|---|---|
-| **⬈ / ↩** (pop-out/dock) | Pops the panadapter into a floating window (⬈), or docks it back into the main layout (↩). | — | Hidden when only one panadapter is open. |
-| **□** (maximize) | Maximizes this panadapter to fill the main area in a multi-pan layout. | — | Hidden when only one panadapter is open. |
-| **×** (close) | Closes this panadapter. | — | Hidden when only one panadapter is open. |
-| Slice title | Indicates which slice is bound to this panadapter (Slice A through Slice H). | Slice A | Read-only indicator. |
+| **⬈ / ↩ (pop-out/dock)** | Pops the panadapter out into a floating window; when floating, changes to ↩ to dock it back. | — | Hidden in single-pan mode. |
+| **□ (maximize)** | Maximizes this panadapter to fill the main area in a multi-pan layout. | — | Hidden in single-pan mode. |
+| **× (close)** | Closes this panadapter. | — | Hidden in single-pan mode. |
+| **Slice title** | Indicator showing which slice is bound to this panadapter (e.g. "Slice A"). | Slice A | Read-only; ranges from Slice A to Slice H. |
 
 ## Tips
 
-- The ⬈ and ↩ buttons share the same position in the title bar; the icon changes depending on whether the panadapter is currently docked or floating.
-- If you want to give one panadapter the full main-window area without floating it, use **□** (maximize) instead.
+- The **□ (maximize)** button expands the panadapter within the main window without floating it. Use pop-out instead if you want the panadapter on a separate screen.
+- You can pop out multiple panadapters simultaneously, one per floating window.
 
 ## Related
 

@@ -1,38 +1,37 @@
 # Enable AUTO mode so the AG follows radio band changes
 
-AUTO mode tells the Antenna Genius to select antennas automatically as the radio changes bands, instead of requiring you to pick an antenna manually. Enable it separately for Port A and Port B.
+AUTO mode tells the Antenna Genius to track your radio's active band and switch antennas automatically. This removes the need to manually select an antenna each time you change bands.
 
 ## Before you start
 
-- The Antenna Genius applet must be visible. It appears only after a device is discovered or you connect manually. Open it by clicking the AG tray button on the right sidebar.
-- The applet must show a status of **Connected — \<name\> v\<version\>**. AUTO mode cannot be enabled while disconnected.
+- The Antenna Genius applet must be visible. It is hidden until a device is discovered or manually connected. Use the AG tray button on the right sidebar to open it.
+- The applet must show a "Connected — \<name\> v\<version\>" status. AUTO mode has no effect when disconnected.
 
 ## Steps
 
 1. Click the AG tray button on the right sidebar to open the Antenna Genius applet.
-2. Confirm the status label reads **Connected —** followed by the device name and version.
-3. To enable band-following on Port A, click **AUTO** under the Port A antenna buttons. The button highlights green when active.
-4. To enable band-following on Port B, click **AUTO** under the Port B antenna buttons. The button highlights green when active.
-5. To turn AUTO mode off for a port, click the highlighted **AUTO** button again. The button returns to its inactive appearance and you can select antennas manually.
+2. Confirm the status label reads "Connected — \<name\> v\<version\>".
+3. To enable band-follow on Port A, click **AUTO** under the Port A antenna buttons. The button highlights green when active.
+4. To enable band-follow on Port B, click **AUTO** under the Port B antenna buttons. The button highlights green when active.
+   - The Port B section is hidden if the connected device reports only one radio port.
+5. To disable AUTO mode on either port, click the lit **AUTO** button again. It returns to its unlit state and the port reverts to manual antenna selection.
 
 ## What each control does
 
-| Control | Location | Behavior | Default |
-|---|---|---|---|
-| Port A AUTO | Below the Port A antenna buttons | Toggles band-follow mode for Port A. When active, the AG selects the antenna for Port A as the radio changes bands. | Off |
-| Port B AUTO | Below the Port B antenna buttons | Toggles band-follow mode for Port B. When active, the AG selects the antenna for Port B as the radio changes bands. | Off |
-
-> **Note:** The Port B section is hidden if the connected AG device reports only one radio port.
+| Control | Behavior | Default |
+|---|---|---|
+| Port A AUTO | Toggles band-follow on Port A. When active, the AG selects the antenna for Port A based on the radio's current band. | Off |
+| Port B AUTO | Toggles band-follow on Port B. When active, the AG selects the antenna for Port B based on the radio's current band. Hidden on single-port devices. | Off |
 
 ## Tips
 
-- AUTO mode is applied per port. You can run Port A in AUTO while leaving Port B in manual, or vice versa.
-- When AUTO is active, the antenna buttons for that port still update to reflect the currently selected antenna and its TX/RX permission colouring. Watch the Port A and Port B antenna indicators to confirm the AG is tracking band changes correctly.
+- You can run AUTO on one port and select antennas manually on the other. The two ports are independent.
+- When AUTO is active, the Port A band and Port B band indicators update as you tune across bands, confirming the AG is tracking correctly.
 
 ## Troubleshooting
 
-- **AUTO button has no effect or does not stay highlighted** — The applet is not connected. Check that the status label reads **Connected —** and not **Disconnected**, **No device found**, or **Error: \<msg\>**. Connect first, then enable AUTO.
-- **Port B AUTO is not visible** — The connected device has only one radio port. Port B controls are hidden automatically in this case.
+- **AUTO button does not respond to clicks** — The applet is not connected. Check that the status label reads "Connected — \<name\> v\<version\>" before enabling AUTO. If not connected, see the pages below.
+- **Band indicator shows "—" after enabling AUTO** — The AG has not yet received a band report from the radio. Tune to a frequency within a recognized band to trigger an update.
 
 ## Related
 
@@ -40,4 +39,3 @@ AUTO mode tells the Antenna Genius to select antennas automatically as the radio
 - [Auto-discover an Antenna Genius on the LAN](auto-discover-an-antenna-genius-on-the-lan.md)
 - [Manually connect to an AG over a remote network](../../getting-started/setup/manually-connect-to-an-ag-over-a-remote-network.md)
 - [Select an antenna for Port A or Port B](select-an-antenna-for-port-a-or-port-b.md)
-- [Spot which antennas cannot TX on the current band (amber or dim)](spot-which-antennas-cannot-tx-on-the-current-band-amber-or-dim.md)

@@ -1,31 +1,31 @@
 # Set DeepFilterNet3 Attenuation Limit for Strong or Weak Signals
 
-The `DfnrAttenLimit` setting controls how aggressively DeepFilterNet3 suppresses noise. Lowering it preserves more of the original signal on strong stations; raising it maximizes noise removal on weak ones.
+The `DfnrAttenLimit` setting caps how much noise DeepFilterNet3 is allowed to suppress. Lowering the limit preserves more signal character on strong, clean signals; raising it gives maximum noise removal on weak or noisy signals.
 
 ## Before you start
 
 - AetherSDR must be running. A radio connection is not required to change this setting.
-- DeepFilterNet3 (DFNR) must be active as your selected noise-reduction engine for this setting to have an audible effect.
+- DeepFilterNet3 (DFNR) must already be selected as your active noise reduction engine. See [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md) if you have not done this yet.
 
 ## Steps
 
 1. Click `Settings > AetherDSP Settings...`.
-2. Click the **DFNR** tab.
-3. Drag the **Attenuation Limit** slider to the desired value (0–100 dB).
+2. In the AetherDSP Settings dialog, click the **DFNR** tab.
+3. Drag the **Attenuation Limit** slider to the desired value.
 4. Close the dialog. The value is saved immediately.
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key | Behavior |
+| Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
-| **Attenuation Limit** | 100 | 0–100 dB | `DfnrAttenLimit` | Sets the maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough (no attenuation); 100 = maximum attenuation. |
-| **Post-Filter Beta** | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter on top of DeepFilterNet3 for extra suppression. |
+| Attenuation Limit | 100 | 0–100 dB | `DfnrAttenLimit` | Sets the maximum noise attenuation DeepFilterNet3 may apply. 0 is passthrough (no attenuation); 100 is maximum attenuation. |
+| Post-Filter Beta | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter on top of DFNR for extra suppression. |
 
 ## Tips
 
-- For strong signals where over-processing is noticeable, set **Attenuation Limit** to a lower value (for example, 40–60 dB) to reduce artifacts while still removing background noise.
-- For weak or buried signals, leave **Attenuation Limit** at 100 to allow maximum suppression.
-- **Attenuation Limit** at 0 passes audio through DeepFilterNet3 unchanged, which is useful for A/B comparisons.
+- For strong signals where you want to preserve natural audio character, set **Attenuation Limit** to a lower value such as 20–40 dB.
+- For weak or heavily noise-affected signals, leave **Attenuation Limit** at 100 to allow full suppression.
+- Setting **Attenuation Limit** to 0 effectively bypasses DeepFilterNet3 without disabling the engine.
 
 ## Related
 

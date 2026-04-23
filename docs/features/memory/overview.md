@@ -1,78 +1,72 @@
 # Memory Channels overview
 
-The Memory Channels dialog lets you store, organize, and recall frequencies on your FLEX-8600. Use it to save a frequency and its associated mode, filter, tone, and offset settings so you can tune back to it instantly without re-entering values.
+The Memory Channels dialog lets you store, organize, and recall frequencies on your FLEX-8600. Use it to save commonly used frequencies with their mode, filter, and repeater settings, then tune any slice to a stored memory in one click.
 
 ## Before you start
 
-- AetherSDR must be connected to a radio. The dialog requires an active radio connection.
+- AetherSDR must be connected to a FLEX-8600 radio. Memory Channels requires an active radio connection.
 
 ## How it works
 
-Open the dialog with `Settings > Memory...`. The dialog shows a table of all stored memory channels. You can filter what is shown, add new memories, edit existing ones, tune the active slice to any stored memory, and import or export the list for backup or sharing.
+Open the dialog at `Settings > Memory...`. The dialog shows a table of all memories stored on the radio. You can filter the table, edit entries inline, tune a slice to any memory, and import or export memories as files.
 
-**Filtering the table**
+**Filtering and searching**
 
-The Search field and Profile combo box work together to narrow the table. Typing in Search filters rows by memory name as you type; pressing Enter activates the currently highlighted row. The Profile combo box filters rows by the active global profile. Either filter can be used independently or together.
+The Search: field and the Profile: combo box sit above the table. Typing in Search: instantly filters the table to rows whose name matches. Selecting a profile in Profile: narrows the table to memories belonging to that global profile. Both filters can be active at the same time.
 
 **The memory table**
 
-Each row is one stored memory. The table supports multi-row selection (Shift-click for a range; Ctrl-click or Command-click on macOS to add or remove individual rows). Double-clicking a row tunes the active slice to that memory. Clicking a column header sorts the table by that column; clicking again reverses the order.
-
-The table contains the following columns:
+Each row represents one stored memory. The table has 18 columns:
 
 | Column | What it stores |
 |---|---|
-| Group | Group or category name |
-| Owner | Owner label |
-| Frequency | Stored frequency (MHz) |
-| Name | Memory name |
+| Group | Logical group name for the memory |
+| Owner | Owner tag |
+| Frequency | Stored frequency in MHz |
+| Name | Human-readable label |
 | Mode | Operating mode (e.g. USB, CW, FM) |
 | Step | Tuning step |
-| FM TX Offset Dir | FM repeater offset direction |
+| FM TX Offset Dir | Repeater offset direction |
 | Repeater Offset | Repeater offset value |
 | Tone Mode | CTCSS/DCS tone mode |
 | Tone Value | Tone frequency or code |
-| Squelch | Squelch enabled flag |
-| Squelch Level | Squelch threshold level |
+| Squelch | Squelch on/off |
+| Squelch Level | Squelch threshold |
 | RX Filter Low | Lower edge of the receive filter |
 | RX Filter High | Upper edge of the receive filter |
 | RTTY Mark | RTTY mark frequency |
 | RTTY Shift | RTTY shift |
-| DIGL Offset | Digital Lower offset |
-| DIGU Offset | Digital Upper offset |
+| DIGL Offset | Digital lower sideband offset |
+| DIGU Offset | Digital upper sideband offset |
 
-## What each control does
+Click a column header to sort by that column. Click again to reverse the sort order.
 
-| Control | Behavior |
+The table supports extended selection: Shift-click selects a range; Ctrl-click (Command-click on macOS) adds or removes individual rows. Double-clicking a row tunes the active slice to that memory immediately.
+
+**Buttons**
+
+| Button | What it does |
 |---|---|
-| Search | Filters table rows by memory name. Has a clear button. Press Enter to activate the highlighted row. |
-| Profile | Filters table rows by active global profile. |
-| Memory table | Displays and edits all stored memories. Supports multi-row selection and inline editing via keyboard. |
-| Add | Creates a new memory at the current VFO frequency. |
+| Add | Creates a new memory using the current VFO frequency and settings. |
 | Edit | Enters inline-edit mode on the selected memory row. |
 | Tune | Tunes the active slice to the selected memory. |
 | Select All | Selects every row in the table. |
-| Import... | Imports memories from a file. |
-| Export... | Exports selected memories to a file. |
-| Remove | Deletes selected memories after confirmation. |
-| Selection count | Displays the number of currently selected rows as `<N> selected`. |
+| Import... | Imports memories from a file into the radio. |
+| Export... | Exports the selected memories to a file. |
+| Remove | Deletes the selected memories after a confirmation prompt. |
 
-None of these controls persist settings to AppSettings keys; all memory data is stored on the radio.
+**Selection count**
 
-## Tips
-
-- Double-clicking a row is a shortcut for Tune — it tunes the active slice to that memory without using the Tune button.
-- Use the Profile combo box together with Export... to export only the memories belonging to a specific group.
-- The export filename is generated automatically using the current date and AetherSDR version, and defaults to your Documents folder.
+The indicator to the left of Remove shows how many rows are currently selected, displayed as `<N> selected`.
 
 ## Related
 
 - [Add a memory at current frequency](add-a-memory-at-current-frequency.md)
 - [Edit a memory's name, mode or offset inline](edit-a-memory-s-name-mode-or-offset-inline.md)
 - [Tune the radio to a stored memory](tune-the-radio-to-a-stored-memory.md)
-- [Delete one or more memories](delete-one-or-more-memories.md)
 - [Search memories by name](search-memories-by-name.md)
 - [Filter memories by profile](filter-memories-by-profile.md)
+- [Sort memory table by column header](sort-memory-table-by-column-header.md)
 - [Import memories from a CSV/JSON file](import-memories-from-a-csv-json-file.md)
 - [Export memories for backup or sharing](export-memories-for-backup-or-sharing.md)
-- [Sort memory table by column header](sort-memory-table-by-column-header.md)
+- [Delete one or more memories](delete-one-or-more-memories.md)

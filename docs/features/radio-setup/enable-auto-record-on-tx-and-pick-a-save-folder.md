@@ -1,36 +1,42 @@
 # Enable auto-record on TX and pick a save folder
 
-This page explains how to configure AetherSDR to start recording automatically whenever you transmit, and how to choose where those recordings are saved. This is useful for logging your transmissions without manually starting and stopping a recorder.
+AetherSDR can automatically start recording audio whenever you transmit and stop after a configurable period of silence. This page explains how to turn on that feature and choose where recordings are saved.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Audio tab in Radio Setup is not accessible without an active radio connection.
-- Decide whether you want radio-side or client-side recording before you begin, as the recording mode affects where audio is captured.
+- AetherSDR must be connected to the radio. Radio Setup requires an active radio connection.
+- Decide whether you want recordings made on the radio side or the client (PC) side before you begin.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Audio** tab.
-3. In the **Recording:** control, click **Radio Side** or **Client Side** to select where audio is captured. The currently active mode appears highlighted. This persists as `RecordMode`.
-4. In the **Save to:** field, review the current folder path. To change it, click **...** next to the field and choose a folder in the file browser. The chosen path persists as `RecordDir`.
-5. Check **Auto-record on TX**. When checked, AetherSDR begins recording each time the radio keys up and stops when transmission ends (subject to the idle timeout). This persists as `AutoRecordTx`.
-6. Set **Idle timeout:** to the number of seconds of silence after which the recording stops. This persists as `RecordIdleTimeout`.
-7. Close the dialog. Settings take effect immediately.
+3. Under **Recording:**, click either **Radio Side** or **Client Side** to select where audio is captured. This sets `RecordMode`.
+4. In the **Save to:** field, type a folder path directly, or click **...** to open a folder browser. The chosen path is saved as `RecordDir`.
+5. Check **Auto-record on TX**. This sets `AutoRecordTx` and enables automatic recording whenever the radio keys up.
+6. Set **Idle timeout:** to the number of seconds of silence after which the recording stops. This sets `RecordIdleTimeout`.
+7. Click **Close**.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
+| Control | Behavior | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| **Recording: Radio Side / Client Side** | Selects whether audio is captured on the radio or on the PC running AetherSDR. | — | Radio Side \| Client Side | `RecordMode` |
-| **Save to:** | Folder path where recording files are written. | — | Any valid directory path | `RecordDir` |
-| **...** | Opens a folder browser to select the save directory. | — | — | — |
-| **Auto-record on TX** | When checked, recording starts automatically on transmit and stops when idle. | — | Checked \| Unchecked | `AutoRecordTx` |
-| **Idle timeout:** | Seconds of silence after transmit ends before the recording file is closed. | — | — | `RecordIdleTimeout` |
+| **Recording: Radio Side / Client Side** | Selects whether audio is captured on the radio or on this PC. | — | Radio Side, Client Side | `RecordMode` |
+| **Save to:** | Folder path where recording files are written. | — | Any writable path | `RecordDir` |
+| **...** | Opens a folder-browser dialog to pick the save folder. | — | — | — |
+| **Auto-record on TX** | When checked, recording starts automatically each time the radio transmits. | — | Checked / unchecked | `AutoRecordTx` |
+| **Idle timeout:** | Seconds of silence before the active recording is closed. | — | — | `RecordIdleTimeout` |
 
 ## Tips
 
-- If you use SmartLink or a VPN, consider whether radio-side or client-side recording better captures the audio you want. Radio-side recording captures what the radio processes; client-side recording captures what reaches the PC.
-- Set **Idle timeout:** to a value long enough to bridge brief pauses in your transmission (such as between over-and-out exchanges) without creating a new file for each key-up.
+- The **...** button opens a standard folder-browser dialog. If you prefer to type a path, click in **Save to:** and edit it directly.
+- Radio Side recording uses the radio's own audio path. Client Side recording captures the audio stream as it arrives at the PC. Choose Client Side if you are operating remotely over SmartLink and want to record what you actually hear.
+- Setting **Idle timeout:** to a low value produces many short files if you have frequent brief transmissions. Set it higher to merge a contest exchange or a CW pileup into one file.
+
+## Troubleshooting
+
+- **Recordings are not created after transmitting** — Confirm **Auto-record on TX** is checked and that the path in **Save to:** exists and is writable by the user running AetherSDR. If the folder does not exist, create it first.
+- **Save to: field is blank after reopening the dialog** — The path is stored in `RecordDir`. If no folder was ever selected, the field will be empty. Click **...** and choose a folder, then close the dialog to persist the setting.
 
 ## Related
 

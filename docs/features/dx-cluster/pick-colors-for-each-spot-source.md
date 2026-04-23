@@ -1,47 +1,50 @@
 # Pick colors for each spot source
 
-AetherSDR can display spots from several independent sources on the panadapter. This page explains how to assign a distinct color to each source so you can tell them apart at a glance.
+Each spot source in SpotHub has its own color setting so you can tell at a glance where a spot came from on the panadapter. This page explains how to set the spot color for each source.
 
 ## Before you start
 
-- Open AetherSDR.
-- At least one spot source (DX cluster, RBN, WSJT-X, POTA, FreeDV) should already be configured. Colors can be set before or after a source is connected.
+- Open AetherSDR with at least one spot source configured. Colors take effect immediately on any spots already displayed.
+- The panadapter spot overlay must be active (`IsSpotsEnabled` set to Enabled) for colors to be visible. See [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md) if you need to enable it first.
 
 ## Steps
 
-1. Click `Settings > SpotHub...` to open the SpotHub dialog.
-2. To set the color for **DX cluster spots**, click the **Cluster** tab, then click **Spot Color:**. Choose a color from the color picker and confirm.
-3. To set the color for **RBN spots**, click the **RBN** tab, then click **Spot Color:**. Choose a color and confirm.
-4. To set colors for **WSJT-X spots**, click the **WSJT-X** tab. Four color pickers are available:
-   - Click **CQ color** to set the color for CQ spots. Saved as `WsjtxColorCQ`.
-   - Click **POTA color** to set the color for CQ POTA spots. Saved as `WsjtxColorPOTA`.
-   - Click **Calling Me color** to set the color for decodes addressed to your callsign. Saved as `WsjtxColorCallingMe`.
-   - Click **Default color** to set the color for all other WSJT-X spots. Saved as `WsjtxColorDefault`.
-5. To set the color for **POTA spots**, click the **POTA** tab, then click **Spot Color:**. Choose a color and confirm.
-6. To set the color for **FreeDV spots**, click the **FreeDV** tab, then click **Spot Color:**. Choose a color and confirm.
+1. Go to `Settings > SpotHub...` to open the SpotHub dialog.
+2. To set the **DX cluster** spot color, click the **Cluster** tab, then click **Spot Color:**. Choose a color in the color picker and confirm. The selection is saved to `ClusterSpotColor`.
+3. To set the **RBN** spot color, click the **RBN** tab, then click **Spot Color:**. Choose a color and confirm. Saved to `RbnSpotColor`.
+4. To set **WSJT-X** spot colors, click the **WSJT-X** tab. There are four separate color pickers, one for each category:
+   - Click the color button next to **CQ** to set the CQ call color. Saved to `WsjtxColorCQ`.
+   - Click the color button next to **CQ POTA** to set the POTA call color. Saved to `WsjtxColorPOTA`.
+   - Click the color button next to **Calling Me** to set the color for decodes addressed to your callsign. Saved to `WsjtxColorCallingMe`.
+   - Click the color button next to **Default** to set the fallback color for all other WSJT-X spots. Saved to `WsjtxColorDefault`.
+5. To set the **POTA** spot color, click the **POTA** tab, then click **Spot Color:**. Choose a color and confirm. Saved to `PotaSpotColor`.
+6. To set the **FreeDV** spot color, click the **FreeDV** tab, then click **Spot Color:**. Choose a color and confirm. Saved to `FreeDvSpotColor`.
 
 ## What each control does
 
-| Control | Tab | Description | Setting key |
+| Control | Tab | Persisted setting | Description |
 |---|---|---|---|
-| Spot Color: | Cluster | Color applied to all spots from the DX cluster telnet source. | `ClusterSpotColor` |
-| Spot Color: | RBN | Color applied to all spots from the Reverse Beacon Network. | `RbnSpotColor` |
-| CQ color | WSJT-X | Color for WSJT-X spots matching the CQ filter. | `WsjtxColorCQ` |
-| POTA color | WSJT-X | Color for WSJT-X spots matching the CQ POTA filter. | `WsjtxColorPOTA` |
-| Calling Me color | WSJT-X | Color for WSJT-X decodes addressed to your callsign. | `WsjtxColorCallingMe` |
-| Default color | WSJT-X | Color for all other WSJT-X spots not matched by a filter. | `WsjtxColorDefault` |
-| Spot Color: | POTA | Color applied to all spots from the POTA activation feed. | `PotaSpotColor` |
-| Spot Color: | FreeDV | Color applied to all spots from the FreeDV QSO reporter. | `FreeDvSpotColor` |
+| **Spot Color:** | Cluster | `ClusterSpotColor` | Color applied to all spots received from the DX cluster telnet source. |
+| **Spot Color:** | RBN | `RbnSpotColor` | Color applied to all spots received from the Reverse Beacon Network. |
+| CQ color button | WSJT-X | `WsjtxColorCQ` | Color for WSJT-X decodes that are CQ calls. |
+| POTA color button | WSJT-X | `WsjtxColorPOTA` | Color for WSJT-X decodes that are CQ POTA calls. |
+| Calling Me color button | WSJT-X | `WsjtxColorCallingMe` | Color for WSJT-X decodes addressed to your callsign. |
+| Default color button | WSJT-X | `WsjtxColorDefault` | Fallback color for WSJT-X decodes that do not match any active filter. |
+| **Spot Color:** | POTA | `PotaSpotColor` | Color applied to all spots from POTA activations polling. |
+| **Spot Color:** | FreeDV | `FreeDvSpotColor` | Color applied to all spots from the FreeDV QSO reporter WebSocket. |
 
 ## Tips
 
-- The **Display** tab provides global overrides. If **Override Colors:** is enabled, the single override color replaces all per-source colors on the panadapter. Disable it to restore per-source colors.
-- The FreeDV tab is only present in builds with WebSocket support.
-- WSJT-X provides four distinct colors because the same UDP feed can carry CQ calls, POTA activations, and contacts directed at your callsign simultaneously. Assigning different colors lets you prioritize at a glance.
+- The **FreeDV** tab is only present in builds that include WebSocket support. If the tab is absent, your build does not include it.
+- If you want all spots to share a single color regardless of source, enable **Override Colors:** on the **Display** tab instead. That setting (`IsSpotsOverrideColorsEnabled`) overrides every per-source color.
+- The WSJT-X Default color applies only to spots that do not match an enabled filter (CQ, CQ POTA, or Calling Me). If no filters are checked, the Default color is used for all WSJT-X spots.
 
 ## Related
 
-- [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
+- [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
-- [SpotHub overview](overview.md)
+- [Poll POTA activations](poll-pota-activations.md)
+- [Enable FreeDV QSO reporter WebSocket](enable-freedv-qso-reporter-websocket.md)
+- [Connect to a DX cluster](../../getting-started/setup/connect-to-a-dx-cluster.md)
+- [Connect to the Reverse Beacon Network](../../getting-started/setup/connect-to-the-reverse-beacon-network.md)

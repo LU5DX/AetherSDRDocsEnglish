@@ -1,26 +1,23 @@
 # Close an extra panadapter
 
-Remove a panadapter you no longer need when working with multiple slices. The × (close) button is only available when more than one panadapter is open.
+When running multiple slices, each panadapter gets its own title bar. Use the × button in that title bar to remove a panadapter you no longer need.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The × (close) button is not available without an active radio connection.
-- At least two panadapters must be open. In single-pan mode the × (close) button is hidden.
+- Your radio must be connected. The × button is hidden in single-pan mode and only appears when two or more panadapters are open.
+- Identify which panadapter you want to close by checking the slice label (for example, "Slice B") in its title bar.
 
 ## Steps
 
-1. Locate the title bar of the panadapter you want to remove. It sits above the spectrum and waterfall display and shows the slice name (for example, "Slice A").
-2. Click × (close) in the right side of that title bar.
-3. The panadapter closes and the remaining panadapters reflow to fill the space.
+1. Locate the title bar at the top of the panadapter you want to close.
+2. Click × in the right side of that title bar.
+
+The panadapter closes immediately. The remaining panadapters redistribute to fill the space.
 
 ## Tips
 
-- If you cannot see the × (close) button, you are in single-pan mode. Add a second slice first, or check that the radio has more than one panadapter active.
-- To temporarily hide a panadapter without closing it, use □ (maximize) on a different panadapter to fill the main area instead. See [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md).
-
-## Troubleshooting
-
-- **× (close) button is not visible** — The radio has only one active panadapter. The × (close), □ (maximize), and ⬈ / ↩ (pop-out/dock) buttons are all hidden in single-pan mode. Open an additional slice to make them appear.
+- If you do not see × on a panadapter, you are in single-pan mode. The button is hidden when only one panadapter is open.
+- To reduce a panadapter without removing it entirely, use □ to maximize a different one instead. See [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md).
 
 ## Related
 

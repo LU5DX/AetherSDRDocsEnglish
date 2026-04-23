@@ -1,33 +1,32 @@
 # Upload a new firmware .ssdr to the radio
 
-This page explains how to load a firmware image file onto your FLEX-8600 using AetherSDR's built-in uploader. You would do this to update the radio to a specific firmware version without using SmartSDR for Windows.
+Use this page to load a new firmware image onto your FLEX-8600. You will need a `.ssdr` firmware file on your local machine before you begin.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Radio (tab) in Radio Setup requires an active radio connection.
-- Obtain the correct `.ssdr` firmware file for your FLEX-8600 and note its location on your computer.
-- Do not interrupt power to the radio or close AetherSDR during the upload.
+- AetherSDR must be connected to the radio. The Radio tab in Radio Setup is not available without an active connection.
+- Download the target `.ssdr` firmware file and note its location on disk.
+- Do not transmit during the upload.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
-2. Click the `Radio (tab)` tab if it is not already selected.
-3. Click `Browse .ssdr...` to open a file chooser.
-4. Navigate to your `.ssdr` file, select it, and confirm.
-5. Click `Upload Firmware`.
-6. Watch the progress bar and status text below the button. Wait until the status indicates the upload is complete before doing anything else.
-7. Reboot the radio when prompted or when the upload status confirms completion.
+2. Click the **Radio** tab.
+3. Click **Browse .ssdr...** to open a file chooser, then select your `.ssdr` firmware file and confirm.
+4. Click **Upload Firmware**.
+5. Watch the firmware status indicator below the button. It is empty until the upload begins, then shows progress and a result message when complete.
+6. Close the dialog when the status indicator confirms the upload finished.
 
 ## Tips
 
-- If you want AetherSDR to check for an available update rather than supplying your own file, click `Check for Update` instead of `Browse .ssdr...`.
-- The firmware status area is blank until an upload begins. A progress bar and result text appear once `Upload Firmware` is clicked.
+- If you want AetherSDR to confirm which firmware version is currently on the radio before selecting a file, check **HW Version** in the Radio Information group on the same tab.
+- The **Check for Update** button queries for available firmware updates if your radio has internet access configured.
 
 ## Troubleshooting
 
-- **"Browse .ssdr..." does nothing or the dialog closes immediately** — Verify you are connected to the radio. The Radio tab controls are only active with an established radio connection.
-- **Upload stalls or fails partway through** — Do not close the dialog. Check that the network connection between your computer and the radio is stable. If using a VPN or remote link, a wired local connection is more reliable for firmware transfers.
-- **Radio does not reboot after upload** — Power-cycle the FLEX-8600 manually from the front panel, then reconnect AetherSDR.
+- **Browse .ssdr... opens but no file appears in the chooser** — Confirm the file has a `.ssdr` extension. The file picker filters for that type.
+- **Upload Firmware is unresponsive after clicking Browse .ssdr...** — No file has been selected yet. Click **Browse .ssdr...** again and confirm a file before clicking **Upload Firmware**.
+- **Status indicator shows a failure message** — Verify the radio is still connected (`Settings > Connect to Radio...`) and that no other client is holding an exclusive session. Then retry from step 3.
 
 ## Related
 

@@ -1,45 +1,47 @@
-# Reorder the TX DSP chain
+# Reorder the TX DSP Chain
 
-Drag the stage tiles in the PooDoo Audio Chain applet to change the order in which EQ, Compressor, Gate, De-Esser, Tube, PUDU, and Reverb process your transmit audio. The new order is saved in `ClientCompTxChainStages` and takes effect immediately.
+Drag the stage tiles in the PooDoo Audio Chain strip to change the order in which DSP processing is applied to your TX audio. The new order is saved automatically in `ClientCompTxChainStages`.
 
 ## Before you start
 
 - The PooDoo Audio (TXDSP) container must be visible. If it is not, click the tray button labelled **PUDU** in the right sidebar to show it.
-- The TX chain must be selected. Confirm that the **TX** button at the top of the applet is active (amber highlight). If **RX** is selected instead, click **TX**.
+- The **TX** mode button must be selected (it is selected by default). The RX view does not support reordering.
 
 ## Steps
 
-1. Locate the horizontal strip of stage tiles inside the PooDoo Audio Chain applet. The tiles are labelled **Eq**, **Comp**, **Gate**, **DeEss**, **Tube**, **Enh**, and **Reverb**.
-2. Click and hold the tile you want to move.
-3. Drag it left or right to the position you want in the chain.
-4. Release the mouse button. The tile drops into the new position and the chain order updates immediately.
-5. Repeat for any other stages you want to reorder.
+1. Locate the chain strip at the top of the PooDoo Audio container. It shows the stages in their current order: **Eq**, **Comp**, **Gate**, **DeEss**, **Tube**, **Enh / PUDU**, **Reverb**.
+2. Click and hold the stage tile you want to move.
+3. Drag it left or right to the target position. The other tiles shift to indicate the insertion point.
+4. Release to drop the stage in the new position. The chain updates immediately and the new order is saved to `ClientCompTxChainStages`.
 
 ## What each control does
 
-| Control | Kind | Behavior | Persisted key |
+| Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **TX** | Toggle button | Switches to TX chain view (the interactive, reorderable chain). Default: checked. | — |
-| **RX** | Toggle button | Switches to the RX placeholder view. Reordering is not available in this mode. Default: unchecked. | — |
-| **BYPASS** | Toggle button | Checked: disables every stage at once. Unchecked: restores the stages that were active before. Default: unchecked. | — |
-| **Eq** stage tile | Drag handle | Single-click toggles bypass for EQ; double-click opens the EQ editor; drag reorders. | `ClientCompTxChainStages` |
-| **Comp** stage tile | Drag handle | Single-click toggles bypass for the compressor; double-click opens the compressor editor; drag reorders. | `ClientCompTxChainStages` |
-| **Gate** stage tile | Drag handle | Single-click toggles bypass for the gate; double-click opens the gate editor; drag reorders. | `ClientCompTxChainStages` |
-| **DeEss** stage tile | Drag handle | Single-click toggles bypass for the de-esser; double-click opens the de-ess editor; drag reorders. | `ClientCompTxChainStages` |
-| **Tube** stage tile | Drag handle | Single-click toggles bypass for the tube saturator; double-click opens the tube editor; drag reorders. | `ClientCompTxChainStages` |
-| **Enh** stage tile | Drag handle | Single-click toggles bypass for the PUDU exciter; double-click opens the PUDU editor; drag reorders. | `ClientCompTxChainStages` |
-| **Reverb** stage tile | Drag handle | Single-click toggles bypass for the reverb; double-click opens the reverb editor; drag reorders. | `ClientCompTxChainStages` |
+| **TX** | Toggle button | Checked | Shows the interactive TX DSP chain. Amber when selected. |
+| **RX** | Toggle button | Unchecked | Switches to the RX placeholder view. Reordering is not available in this mode. |
+| **BYPASS** | Toggle button | Unchecked | When checked, disables every stage at once. When unchecked, restores the stages that were active before. |
+| **Chain stage (Eq)** | Drag handle | — | Single-click bypasses the EQ stage; double-click opens its editor; drag reorders. |
+| **Chain stage (Comp)** | Drag handle | — | Single-click bypasses the compressor; double-click opens its editor; drag reorders. |
+| **Chain stage (Gate)** | Drag handle | — | Single-click bypasses the gate; double-click opens its editor; drag reorders. |
+| **Chain stage (DeEss)** | Drag handle | — | Single-click bypasses the de-esser; double-click opens its editor; drag reorders. |
+| **Chain stage (Tube)** | Drag handle | — | Single-click bypasses the tube saturator; double-click opens its editor; drag reorders. |
+| **Chain stage (Enh / PUDU)** | Drag handle | — | Single-click bypasses the PUDU exciter; double-click opens its editor; drag reorders. |
+| **Chain stage (Reverb)** | Drag handle | — | Single-click bypasses the reverb; double-click opens its editor; drag reorders. |
+
+The persisted setting `Applet_TXDSP` controls whether the PooDoo Audio container is shown at all.
 
 ## Tips
 
-- A hint below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" — this is only shown when TX mode is active.
-- A single click on a tile toggles that stage's bypass state. Take care not to single-click when you intend to drag; the bypass state changes on release of a plain click.
-- To audition the chain without any processing, click **BYPASS** rather than bypassing stages one by one. **BYPASS** snapshots the active stages and restores them when you uncheck it.
+- The hint line beneath the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" and is visible only when **TX** is selected.
+- A single-click on a stage tile bypasses that stage, not just picks it up. Start your drag before releasing to avoid an unintended bypass toggle.
+- To silence all stages temporarily without losing the current order, use **BYPASS** rather than bypassing stages individually. See [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md).
 
 ## Troubleshooting
 
-- **The stage tiles do not respond to dragging** — confirm the **TX** button is selected (amber). The **RX** view is a placeholder and does not support reordering.
-- **PUDU tray button is not visible** — open `View > Applet Panel` to ensure the right sidebar is shown, then look for the **PUDU** tray button.
+- **The chain strip is not visible** — The container may be hidden. Click the **PUDU** tray button in the right sidebar to show it, or check that **TX** is selected rather than **RX**.
+- **Dragging has no effect** — Confirm that **TX** is selected. The RX placeholder does not support drag-to-reorder.
+- **Stages snap back after a drag** — If **BYPASS** is checked, the bypass snapshot may conflict with the reorder. Uncheck **BYPASS** first, reorder, then re-enable **BYPASS** if needed.
 
 ## Related
 

@@ -1,38 +1,37 @@
 # Set per-band TX max power and tune mode
 
-This page explains how to set a global TX power cap and choose the tune mode for your FLEX-8600, then open the per-band power and tune table to configure each band individually.
+Use this page to cap transmit power and select tune mode for each amateur band on your FLEX-8600. These settings let you protect amplifiers, antennas, or band-specific hardware from over-power conditions.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. These controls are not available while disconnected.
-- Know which bands you want to limit and what maximum power level (as a percentage) you need.
+- AetherSDR must be connected to the radio. The TX (tab) and TX Band Settings dialog are only available with an active radio connection.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **TX** tab.
-3. To set a radio-wide power cap, adjust **Max Power:** to the desired value (0–100 %).
-4. To change how the tune button behaves, select the desired mode from the **Tune Mode:** drop-down.
-5. To configure power and tune settings on a per-band basis, click **TX Band Settings**. This opens the dedicated per-band power and tune dialog.
-6. In the per-band dialog, set the power and tune parameters for each band as needed.
-7. Close the dialog when finished. Settings are applied to the radio immediately.
+3. To set a radio-level power cap that applies across all bands, adjust **Max Power:** (0–100 %).
+4. To select how the tune button behaves, choose an option from the **Tune Mode:** drop-down.
+5. To configure power and tune settings per band, click **TX Band Settings**. This opens the dedicated per-band power and tune dialog.
+6. In the TX Band Settings dialog, locate the band row you want to adjust and set the power and tune values for that band.
+7. Close the TX Band Settings dialog when done, then close Radio Setup.
 
-Alternatively, you can open the per-band dialog directly from the menu without going through Radio Setup: use `Settings > TX Band Settings...`.
+Alternatively, open the per-band dialog directly via `Settings > TX Band Settings...`.
 
 ## What each control does
 
 | Control | Kind | Valid range | Behavior |
 |---|---|---|---|
-| **Max Power:** | Spinbox | 0–100 % | Sets a radio-level TX power cap that applies across all slices. |
-| **Tune Mode:** | Combo box | See radio options | Selects how the tune button behaves when activated. |
-| **TX Band Settings** | Push button | — | Opens the per-band power and tune dialog where you can set TX power, tune power, inhibit settings, and external amp control for each band individually. |
-| **Show TX in Waterfall:** | Toggle button | On / Off | Draws the TX signal in the waterfall display while transmitting. |
-| **TX Follows Active Slice / Active Slice Follows TX** | Push button | Mutually exclusive | Controls whether the TX follows the active slice or the active slice follows TX. |
+| **Max Power:** | Spinbox | 0–100 % | Sets a radio-level TX power cap applied across all bands. |
+| **Tune Mode:** | Combo box | Options set by radio firmware | Selects how the tune button behaves when activated. |
+| **TX Band Settings** | Button | — | Opens the per-band power and tune dialog. |
+| **Show TX in Waterfall:** | Toggle | — | Draws the TX signal in the waterfall display. |
+| **TX Follows Active Slice / Active Slice Follows TX** | Button | Mutually exclusive | Controls whether the TX follows the active slice or the active slice follows TX. |
 
 ## Tips
 
-- **Max Power:** is a radio-level cap. It does not replace per-band limits set in the TX Band Settings dialog; both apply.
-- If you only need to adjust a single band quickly, use `Settings > TX Band Settings...` to skip the Radio Setup dialog entirely.
+- **Max Power:** on the TX tab is a global cap. Per-band limits set in TX Band Settings operate within that cap.
+- You can reach TX Band Settings without opening Radio Setup by using `Settings > TX Band Settings...` directly from the menu.
 
 ## Related
 

@@ -1,42 +1,44 @@
 # Spot which antennas cannot TX on the current band (amber or dim)
 
-The Antenna Genius applet colour-codes every antenna button to show whether that antenna can transmit on the current band. Checking button colours before you transmit tells you immediately which antennas are TX-capable and which are receive-only or have no permission at all on that band.
+The antenna buttons in the Antenna Genius applet are colour-coded to show TX and RX permission on the current band. This lets you see at a glance which antennas are available for transmit before you click one.
 
 ## Before you start
 
-- The Antenna Genius applet must be open and connected. The status label should read "Connected — \<name\> v\<version\>".
-- The radio must be tuned to the band you want to check; button colours update automatically when the band changes.
+- The Antenna Genius applet must be open. Click the "AG" tray button on the right sidebar to show it.
+- The applet must be connected to a device. The status label must read "Connected — \<name\> v\<version\>".
+- The radio must be on the band you want to check. Button colours update automatically when the band changes.
 
 ## Steps
 
-1. Click the "AG" tray button on the right sidebar to open the Antenna Genius applet.
-2. Look at the antenna buttons in the Port A (and Port B, if visible) grid.
-3. Read the colour of each button:
-   - **Blue** — antenna has TX and RX permission on the current band.
-   - **Amber** — antenna has RX permission only on the current band; transmitting on this antenna is not permitted.
-   - **Dim (unlit)** — antenna has no permission at all on the current band.
-4. Choose a blue button for normal TX+RX operation. Avoid amber and dim buttons if you intend to transmit.
+1. Look at the antenna buttons in the Port A or Port B section.
+2. Read the button colour:
+   - **Blue (checked)** — the selected antenna has TX and RX permission on the current band.
+   - **Amber (checked)** — the selected antenna has RX-only permission on the current band; transmit is not available on this antenna.
+   - **Dim (unchecked, visually muted)** — the antenna has no permission on the current band for either TX or RX.
+3. If you need a TX-capable antenna, click a button that is not dim. After selection, confirm it lights blue rather than amber.
 
 ## What each control does
 
-| Control | Colour / state | Meaning |
+| Control | Colour / State | Meaning |
 |---|---|---|
-| Port A antenna buttons | Blue (checked) | Selected; TX and RX allowed on current band |
-| Port A antenna buttons | Amber (checked) | Selected; RX only on current band |
-| Port A antenna buttons | Dim | Not selected or no permission on current band |
-| Port B antenna buttons | Same three states | Same meaning for Port B |
-| Port A band / Port B band labels | Band name or "—" | Shows the band AetherSDR is currently evaluating permissions against |
+| Port A antenna buttons | Blue | Antenna selected; TX and RX permitted on the current band. |
+| Port A antenna buttons | Amber | Antenna selected; RX only on the current band — no TX. |
+| Port A antenna buttons | Dim | No permission on the current band. |
+| Port B antenna buttons | Blue | Antenna selected; TX and RX permitted on the current band. |
+| Port B antenna buttons | Amber | Antenna selected; RX only on the current band — no TX. |
+| Port B antenna buttons | Dim | No permission on the current band. |
+
+Buttons are also disabled and dim when the same antenna is already selected on the other port. See [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md) for details on that case.
 
 ## Tips
 
-- Button colours update in real time whenever the radio changes band, so you do not need to reopen the applet after tuning.
-- If Port B is hidden, the connected Antenna Genius reports only one radio port; all antenna buttons are on Port A.
-- An antenna button that is dim because it is already selected on the other port is a separate lockout condition. See [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md) for details.
+- Button colours refresh automatically when the radio changes band, so you do not need to reopen the applet after a band change.
+- If you use AUTO mode, the applet selects antennas based on band-follow rules. The same colour coding applies to the automatically selected antenna. See [Enable AUTO mode so the AG follows radio band changes](enable-auto-mode-so-the-ag-follows-radio-band-changes.md).
 
 ## Troubleshooting
 
-- **All buttons appear dim and the band label shows "—"** — AetherSDR cannot determine the current band. Confirm the radio is connected and tuned to a recognised amateur band.
-- **Colours do not change after tuning** — Verify the status label still reads "Connected — \<name\> v\<version\>". If the connection dropped, click "Disconnect" then "Connect" to re-establish it.
+- **All buttons are dim after connecting** — The applet may not yet have received band information from the radio. Confirm the radio is tuned to a valid band and that the status label shows "Connected". If the applet was opened before the radio was on a band, change bands once to trigger a refresh.
+- **Colours do not update when changing bands** — The band-follow update requires an active connection to the Antenna Genius device. Verify the status label still reads "Connected — \<name\> v\<version\>" and that no error is displayed.
 
 ## Related
 

@@ -1,29 +1,29 @@
 # Reset NR2 or NR4 parameters to defaults
 
-Use this page to restore all NR2 or NR4 controls to their factory defaults with a single click, undoing any experimental changes without having to adjust each control individually.
+Use this page to restore all NR2 or NR4 controls to their factory defaults with a single click, undoing any experimental tuning.
 
 ## Before you start
 
 - Open `Settings > AetherDSP Settings...` to reach the AetherDSP Settings dialog.
-- Know which engine you want to reset: NR2 or NR4 (or both).
+- Identify which engine you want to reset: NR2 or NR4.
 
 ## Steps
 
-### Reset NR2
+### Reset NR2 to defaults
 
 1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR2** tab.
 3. Click **Reset Defaults**.
 
-All NR2 controls return to their defaults immediately.
+All NR2 controls return to their default values immediately.
 
-### Reset NR4
+### Reset NR4 to defaults
 
 1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR4** tab.
 3. Click **Reset Defaults**.
 
-All NR4 controls return to their defaults immediately.
+All NR4 controls return to their default values immediately.
 
 ## What each control does
 
@@ -52,11 +52,13 @@ All NR4 controls return to their defaults immediately.
 
 ## Tips
 
-- **Reset Defaults** affects only the tab currently shown. Clicking it on the NR2 tab does not alter NR4 settings, and vice versa.
-- Changes take effect immediately; there is no confirmation prompt and no undo. If you want to preserve a working configuration, note down your current values before clicking **Reset Defaults**.
+- **Reset Defaults** applies changes immediately. There is no confirmation prompt, but you can re-tune individual controls afterwards without reopening the dialog.
+- Each tab has its own **Reset Defaults** button. Clicking it on the NR2 tab does not affect NR4 settings, and vice versa.
+- All values are persisted as soon as a control changes, including when reset. Closing the dialog without further changes leaves the defaults saved.
 
 ## Related
 
+- [AetherDSP Settings overview](overview.md)
 - [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)

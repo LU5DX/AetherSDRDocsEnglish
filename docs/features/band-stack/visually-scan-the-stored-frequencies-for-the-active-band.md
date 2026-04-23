@@ -1,31 +1,39 @@
 # Visually scan the stored frequencies for the active band
 
-The Band Stack panel shows all your bookmarked frequencies as a vertical strip of color-coded buttons alongside the panadapter. Glancing at the panel lets you see at a glance which frequencies you have stored and which band-plan segment each one falls in, without tuning to any of them.
+The Band Stack panel shows all your saved frequency bookmarks as a vertical strip beside the panadapter. This page explains how to read the panel at a glance — understanding the color coding, layout order, and grouping options — so you can find a stored frequency quickly without scrolling through a long list.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The Band Stack panel is only visible when a radio is connected.
-- At least one bookmark must already be stored for the active radio. If the panel is empty, see [Bookmark the current frequency](bookmark-the-current-frequency.md).
+- AetherSDR must be connected to your FLEX-8600 radio. The Band Stack panel is only visible when a radio connection is active.
+- You need at least one bookmark already saved. If the panel is empty, see [Bookmark the current frequency](bookmark-the-current-frequency.md).
 
 ## Steps
 
-1. Look at the narrow vertical strip (80 px wide) that sits alongside the panadapter in the main window. This is the Band Stack panel.
-2. Read the frequency labels on the bookmark buttons. Each button displays the stored frequency in MHz to three decimal places (for example, `14.225`).
-3. Hover over any bookmark button to see a tooltip showing the full frequency to six decimal places, the stored mode, and the RX antenna.
-4. Note the background color of each button. The color reflects the band-plan segment that contains that frequency. Buttons for frequencies outside any defined band-plan segment appear in dark grey.
-5. If there are more bookmarks than fit in the visible area, scroll the panel vertically to reveal additional buttons. The panel scrolls; no horizontal scrolling is available.
+1. Look at the Band Stack panel — the narrow vertical strip immediately beside the panadapter in the main window.
+2. Read each bookmark button. The button label shows the frequency in MHz to three decimal places (for example, `14.225`). Hover over any button to see a tooltip with the full frequency to six decimal places, mode, and receive antenna.
+3. Note the button color. Each bookmark's background color reflects the band-plan segment that contains that frequency, matching the same color scheme used on the panadapter's band plan overlay.
+4. To switch the panel from insertion order to band-grouped order, click the ⚙ button at the bottom of the panel. In the menu that appears, click **Group by band**. The panel rebuilds with labeled band headers separating each group. Bookmarks that do not fall within a known band appear under an **Other** header at the bottom.
+5. To return to flat insertion order, click ⚙ again and click **Group by band** to uncheck it.
+6. Scroll the bookmark list up or down if there are more bookmarks than fit in the visible area. The horizontal scrollbar is hidden; only vertical scrolling is available.
 
 ## What each control does
 
-| Control | Behavior | Persisted setting |
+| Control | Behavior | Notes |
 |---|---|---|
-| Bookmark buttons | Each button shows a stored frequency. Color reflects the band-plan segment for that frequency. Click to recall; right-click to delete. | `BandStack_<serial>` |
-| + | Adds a new bookmark at the active slice's current frequency. | `BandStack_<serial>` |
+| Bookmark buttons | Display stored frequency in MHz (3 decimal places). Click to recall; right-click for a **Remove** option. | Color matches the band-plan segment for that frequency. |
+| ⚙ (gear button) | Opens a menu with layout and expiry options. | Located in the bottom row of the panel. |
+| **Group by band** (menu item) | Toggles between flat insertion order and band-grouped layout with band-name headers. | When grouped, right-clicking a band header shows a **Clear \<band\>** option. |
+| **Auto-expiry** (menu items) | Sets how long bookmarks are retained before automatic removal. Options: **Off**, **5 min**, **15 min**, **30 min**, **60 min**. Default: **Off**. | Applies to all bookmarks for the connected radio. |
+| × (clear all button) | Removes all bookmarks at once. | Located in the bottom row beside + and ⚙. |
+| + | Saves the active slice's current frequency as a new bookmark. | Located in the bottom row. |
+
+Bookmarks are persisted under the key `BandStack_<serial>`, where `<serial>` is your radio's serial number.
 
 ## Tips
 
-- Tooltip text includes the mode and RX antenna stored with each bookmark, so you can distinguish two bookmarks at the same frequency saved with different modes or antennas without recalling either one.
-- Bookmark data is stored per radio serial number. If you connect a different radio, its own separate list of bookmarks appears.
+- When **Group by band** is on, bookmarks within each band appear in the order they were saved. Scanning a single band is easier because its bookmarks are contiguous and labeled with the band name.
+- If you operate on many bands, enabling **Group by band** avoids having to remember which frequency belongs to which band — the headers make it immediately visible.
+- The tooltip on each bookmark includes the mode and receive antenna that were active when the bookmark was saved, giving you more context without needing to recall the frequency.
 
 ## Related
 

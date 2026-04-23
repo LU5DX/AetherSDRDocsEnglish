@@ -1,26 +1,28 @@
 # Enable or disable NR4 adaptive noise estimation
 
-NR4's adaptive noise estimation continuously re-estimates the noise floor as band conditions change. Disabling it locks the noise floor to a fixed estimate, which can help on very steady noise but may degrade suppression when conditions shift.
+NR4's adaptive noise estimation continuously re-estimates the noise floor as band conditions change. Disabling it locks the estimate at its last computed value, which can help on very stable noise environments but will cause under- or over-suppression when noise changes.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to change this setting.
-- Open the NR4 tab in AetherDSP Settings. If you are not already there, follow the steps below.
+- AetherSDR must be running. A radio connection is not required to adjust DSP settings.
+- NR4 must be the active noise-reduction engine in your receive chain. If you are using NR2, MNR, or DFNR, this setting has no effect.
 
 ## Steps
 
 1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR4** tab.
-3. Check or uncheck **Adaptive Noise Estimation** to enable or disable it.
+3. Check or uncheck **Adaptive Noise Estimation**.
+   - Checked (default): NR4 continuously re-estimates the noise floor.
+   - Unchecked: NR4 holds the noise estimate fixed.
 
-The setting takes effect immediately and is saved automatically to `NR4AdaptiveNoise`.
+The change takes effect immediately and is persisted automatically.
 
 ## What each control does
 
 | Control | Kind | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| **Adaptive Noise Estimation** | Checkbox | Enabled (True) | On / Off | `NR4AdaptiveNoise` |
-| **Noise Estimation Method** | Radio button | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
+| **Adaptive Noise Estimation** | Checkbox | Checked | On / Off | `NR4AdaptiveNoise` |
+| **Noise Estimation Method** | Radio buttons | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
 | **Reduction (dB):** | Slider | 10.0 | 0.0–40.0 dB | `NR4ReductionAmount` |
 | **Smoothing (%):** | Slider | 0 | 0–100 | `NR4SmoothingFactor` |
 | **Whitening (%):** | Slider | 0 | 0–100 | `NR4WhiteningFactor` |
@@ -28,15 +30,17 @@ The setting takes effect immediately and is saved automatically to `NR4AdaptiveN
 | **Suppression:** | Slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
 | **Reset Defaults** | Button | — | — | — |
 
-**Adaptive Noise Estimation** controls whether NR4 continuously updates its noise floor model. When enabled, NR4 tracks noise that changes over time. When disabled, the noise floor is fixed at the estimate captured when NR4 was last initialized.
-
-**Noise Estimation Method** selects the algorithm used to estimate the noise floor. SPP-MMSE balances noise estimation with speech preservation; Brandt uses recursive smoothing across critical frequency bands and suits non-stationary noise; Martin uses running spectral minima and suits slowly varying noise floors.
-
 ## Tips
 
-- If the noise floor on your band is stable and you are hearing suppression artifacts that follow the signal, try disabling **Adaptive Noise Estimation** and selecting the Martin method, which is designed for slowly varying noise floors.
-- After disabling adaptive estimation, increase **Smoothing (%):** to stabilize the fixed noise floor estimate against short-term fluctuations.
-- Click **Reset Defaults** to return all NR4 controls to their factory values (SPP-MMSE, adaptive on, 10 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50).
+- If the noise floor on the band is stable (for example, a quiet local noise environment late at night), disabling **Adaptive Noise Estimation** can prevent the estimator from drifting toward signal peaks and inadvertently suppressing weak stations.
+- If you disable adaptive estimation and then notice the noise reduction is no longer tracking correctly after a band condition change, re-enable it and allow a few seconds for the estimator to converge before adjusting other sliders.
+- The **Noise Estimation Method** selection determines which algorithm feeds the adaptive estimator. SPP-MMSE is the default and suits most conditions; switch to Brandt or Martin if you are working with rapidly changing or slowly varying noise floors respectively.
+- Click **Reset Defaults** to restore `NR4AdaptiveNoise` to checked along with all other NR4 parameters.
+
+## Troubleshooting
+
+- **Noise suppression stops tracking after a QSB fade** — Adaptive noise estimation is likely disabled. Open `Settings > AetherDSP Settings...`, select the **NR4** tab, and check **Adaptive Noise Estimation**.
+- **NR4 is suppressing signal peaks along with noise** — The estimator may be adapting too aggressively. Disable **Adaptive Noise Estimation** temporarily, or reduce **Reduction (dB):** and **Suppression:** to lower values.
 
 ## Related
 

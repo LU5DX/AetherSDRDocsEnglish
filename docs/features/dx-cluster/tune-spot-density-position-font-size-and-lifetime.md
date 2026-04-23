@@ -1,52 +1,44 @@
 # Tune spot density, position, font size and lifetime
 
-The Display tab in SpotHub controls how spots appear on the panadapter: how many stack vertically, where they sit, how large the text is, and how long they stay visible before fading. Adjust these settings to reduce clutter or improve readability on your screen.
+Use the Display tab in SpotHub to control how many spot labels appear on the panadapter, where they sit vertically, how large the text is, and how long each spot stays visible before fading.
 
 ## Before you start
 
-- Open AetherSDR and confirm at least one spot source is active (DX cluster, RBN, WSJT-X, POTA, SpotCollector, or FreeDV).
-- Confirm the spot overlay is not disabled — `IsSpotsEnabled` must be on (see the Spots toggle below).
+- Open AetherSDR and ensure at least one spot source is configured (DX cluster, RBN, WSJT-X, POTA, SpotCollector, or FreeDV).
+- Spots must be enabled: the `IsSpotsEnabled` toggle must be on (default: Enabled).
 
 ## Steps
 
-1. Open `Settings > SpotHub...`.
+1. Click `Settings > SpotHub...` to open the SpotHub dialog.
 2. Click the **Display** tab.
-3. Confirm **Spots:** is set to Enabled. If it shows Disabled, click it to toggle it on.
-4. To let AetherSDR automatically adjust density as you zoom, click **Auto Mode:** to enable it. Skip steps 5–6 if you use Auto Mode.
-5. To set density manually, drag the **Levels:** slider to the number of vertical stacking rows you want.
-6. Drag the **Position:** slider to move the spot row up or down on the panadapter.
+3. Confirm the **Spots:** toggle shows **Enabled**. If it does not, click it to enable the spot overlay.
+4. To let AetherSDR automatically adjust spot density as you zoom the panadapter, click **Auto Mode:** to enable it. Skip steps 5 and 6 if you use Auto Mode.
+5. To set density manually, drag the **Levels:** slider to choose the number of vertical stacking rows for spots.
+6. Drag the **Position:** slider to move the spot row block up or down on the panadapter.
 7. Drag the **Font Size:** slider to increase or decrease the spot label text size.
 8. Drag the **Spot Lifetime:** slider to set how many seconds a spot remains visible before it fades.
 
 ## What each control does
 
-| Control | Behavior | Setting key |
+| Control | What it does | Persisted key |
 |---|---|---|
-| **Spots:** | Master toggle for the panadapter spot overlay. Default: Enabled. | `IsSpotsEnabled` |
-| **Auto Mode:** | Automatically adjusts spot density based on the current zoom level. | `SpotsAutoMode` |
-| **Levels:** | Number of vertical stacking rows used when spots overlap at the same frequency. | `SpotsStackLevels` |
-| **Position:** | Vertical position of the spot row on the panadapter. | `SpotsPosition` |
-| **Font Size:** | Size of the text label drawn on each spot. | `SpotsFontSize` |
-| **Spot Lifetime:** | Seconds a spot remains on the panadapter before it is removed. | `SpotsLifetime` |
-
-Note: The **Display** tab also contains color override and DXCC coloring controls not covered here. See the related pages below.
+| **Spots:** | Master toggle for the spot overlay. Default: Enabled. | `IsSpotsEnabled` |
+| **Auto Mode:** | Automatically adjusts spot density based on panadapter zoom level. | `SpotsAutoMode` |
+| **Levels:** | Number of vertical stacking rows used when spots cluster at nearby frequencies. | `SpotsStackLevels` |
+| **Position:** | Vertical position of the spot overlay on the panadapter. | `SpotsPosition` |
+| **Font Size:** | Size of the text used for spot labels. | `SpotsFontSize` |
+| **Spot Lifetime:** | Seconds a spot remains on the panadapter before being removed. | `SpotsLifetime` |
 
 ## Tips
 
 - When **Auto Mode:** is enabled, the **Levels:** slider has no effect. Disable **Auto Mode:** first if you want manual control over stacking density.
-- If the panadapter looks crowded at wide zoom, reduce **Levels:** or increase **Spot Lifetime:** only as high as your spot rate requires. A shorter lifetime also reduces clutter when spot rate is high.
-- WSJT-X spots have their own independent lifetime set via **Spot Life:** on the **WSJT-X** tab, stored in `WsjtxSpotLife`. The **Spot Lifetime:** slider on the Display tab applies to all other sources.
-
-## Troubleshooting
-
-- **No spots visible on the panadapter despite active connections** — Check that **Spots:** on the Display tab is Enabled (`IsSpotsEnabled`). Also confirm the correct band is visible in the panadapter and that spots exist for that band in the **Spot List** tab.
-- **Spots disappear almost immediately** — The **Spot Lifetime:** slider is set very low. Drag it to the right to increase lifetime.
-- **Spots all stack in one row regardless of the Levels: setting** — **Auto Mode:** is enabled and overriding the manual Levels value. Click **Auto Mode:** to disable it, then adjust **Levels:**.
+- The WSJT-X source has its own separate spot lifetime setting (**Spot Life:** on the WSJT-X tab), stored as `WsjtxSpotLife`. Adjusting **Spot Lifetime:** on the Display tab does not affect WSJT-X spots.
+- If the panadapter looks cluttered at a busy contest frequency, reduce **Levels:** or shorten **Spot Lifetime:** rather than disabling spots entirely.
 
 ## Related
 
 - [SpotHub overview](overview.md)
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
-- [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
-- [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
+- [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
+- [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)

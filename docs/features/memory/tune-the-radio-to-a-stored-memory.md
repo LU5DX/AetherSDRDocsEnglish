@@ -1,41 +1,41 @@
 # Tune the Radio to a Stored Memory
 
-Open the Memory Channels dialog to find a stored frequency and send it to the active slice receiver with a single click or double-click.
+Open a saved memory channel and retune the active slice to its stored frequency, mode, and filter settings.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
-- At least one memory must already be stored. See [Add a memory at current frequency](add-a-memory-at-current-frequency.md) if your list is empty.
+- AetherSDR must be connected to a FLEX-8600 radio. The Memory Channels dialog requires an active radio connection.
+- At least one memory must already be stored. See [Add a memory at current frequency](add-a-memory-at-current-frequency.md) if the list is empty.
 
 ## Steps
 
 1. Click `Settings > Memory...` to open the Memory Channels dialog.
-2. Optional: Type a name in the **Search:** field to filter the table, or choose a group from the **Profile:** drop-down to narrow the list.
-3. Click the row for the memory you want to tune to. The row highlights and the selection count at the bottom right updates.
-4. Click **Tune**. The active slice tunes to the frequency, mode, and filter settings stored in that memory.
+2. Optional: Type a name in the **Search:** field to narrow the list, or select a group from the **Profile:** drop-down to filter by profile.
+3. Click the row for the memory you want to tune to. The row highlights and the selection count updates.
+4. Click **Tune**.
 
-Alternatively, double-click any row in the memory table to tune immediately without using the **Tune** button.
+The active slice retunes to the frequency, mode, and stored filter settings of the selected memory.
+
+**Shortcut:** Double-click any row in the memory table to tune immediately without clicking **Tune**.
 
 ## What each control does
 
-| Control | Description |
+| Control | Behavior |
 |---|---|
-| **Search:** | Filters the table to rows whose name matches the typed text. Has a clear button; press Enter to confirm. |
+| **Search:** | Filters the table to rows whose name matches the typed text. Press Enter to confirm, or use the clear button to reset. |
 | **Profile:** | Filters the table to memories belonging to the selected global profile. |
-| Memory table | Shows all stored memories. Columns include Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, and DIGU Offset. Click a column header to sort by that column. |
-| **Tune** | Tunes the active slice to the selected memory. |
-| Selection count | Displays the number of currently selected rows (shown as `N selected`). |
+| Memory table | Displays all stored memories. Columns include Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, and DIGU Offset. Click a column header to sort. |
+| **Tune** | Tunes the active slice to the selected memory. Enabled when exactly one row is selected. |
 
 ## Tips
 
-- Double-clicking a row tunes the radio without needing to click **Tune**, which is faster when browsing through memories.
-- Use **Search:** to jump to a named memory quickly. The table filters as you type; press Enter to tune the highlighted row.
-- Shift-click selects a range of rows. On Linux and Windows, Ctrl-click adds or removes individual rows from the selection. On macOS, use Command-click instead.
+- To select a contiguous range of memories, click the first row then Shift-click the last. To add or remove individual rows from a selection, use Ctrl-click (Command-click on macOS). Only the single memory you act on with **Tune** or a double-click is applied to the slice.
+- If you know the memory name, type it in **Search:** and press Enter to tune directly from the keyboard without reaching for the mouse.
 
 ## Troubleshooting
 
-- **Tune does nothing** — Verify the radio is connected. The **Tune** button requires an active radio connection. Check the connection status and reconnect via `Settings > Connect to Radio...` if needed.
-- **The memory you want is not visible** — A search term or Profile filter may be hiding it. Clear the **Search:** field and set **Profile:** back to its default to show all memories.
+- **Tune is not available** — No row is selected. Click a row in the table first.
+- **The table is empty** — A profile filter may be active. Set **Profile:** back to its unfiltered state, or clear the **Search:** field to show all memories.
 
 ## Related
 

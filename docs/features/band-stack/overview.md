@@ -1,33 +1,39 @@
 # Band Stack overview
 
-The Band Stack is a vertical strip of frequency bookmarks that sits alongside each panadapter. Use it to save frequencies you return to often, then recall them with a single click.
-
-## Before you start
-
-- A FLEX-8600 radio must be connected. The Band Stack panel is not visible when no radio is connected.
+The Band Stack is a vertical strip of frequency bookmarks that sits beside each panadapter. Use it to save, recall, and manage tuning positions without leaving the panadapter view.
 
 ## How it works
 
-The Band Stack panel appears as a narrow strip to the side of each panadapter in the main window. It is always visible when a radio is connected and requires no manual setup to display.
+The Band Stack panel appears automatically alongside each panadapter when a radio is connected. It requires no separate step to open.
 
-Each bookmark button shows a frequency in MHz, rounded to three decimal places. The button's color reflects the band-plan segment that contains that frequency — for example, phone, CW, or data portions of a band are each shown in the color defined by your active band plan. Frequencies that fall outside any defined band-plan segment appear in a neutral dark grey.
+Each bookmark is displayed as a button labeled with the stored frequency in MHz. Button colors reflect the band-plan segment for that frequency, making it easy to see at a glance which band a bookmark belongs to. Bookmarks are saved per radio serial number under the `BandStack_<serial>` setting, so each radio you connect maintains its own independent list.
 
-Bookmarks are stored per radio, identified by serial number, using the `BandStack_<serial>` setting. The file is saved automatically whenever you add or remove a bookmark. If you connect a different radio, its own set of bookmarks loads independently.
+The panel is scrollable when the bookmark list grows longer than the visible area. A row of three buttons at the bottom of the panel controls the list:
 
-The panel scrolls vertically if you have more bookmarks than fit in the visible area. A thin scrollbar appears on the right edge of the panel when needed.
+| Control | What it does |
+|---|---|
+| Bookmark buttons | Click to recall the stored frequency on the active panadapter. Right-click to open a context menu with a "Remove" option. Tooltip shows full frequency in MHz, mode, and RX antenna. |
+| `+` | Adds a new bookmark at the active slice's current frequency. |
+| `×` | Clears all bookmarks in the list. |
+| ⚙ (gear) | Opens the band stack options menu (see below). |
 
-## What each control does
+### Band stack options menu
 
-| Control | Behavior | Notes |
-|---|---|---|
-| Bookmark buttons | Click to tune the panadapter to the stored frequency. Right-click to open a context menu with a **Remove** option. | Button color reflects the band-plan segment for that frequency. Tooltip shows full frequency in MHz, mode, and RX antenna. |
-| **+** | Adds a new bookmark at the active slice's current frequency. | Located at the bottom of the panel. Stores frequency, mode, filter edges, antennas, AGC settings, audio gain, and noise-reduction state. |
+Clicking the gear button opens a menu with two categories of settings:
 
-## Tips
+**Group by band** — A checkable option. When enabled, bookmarks are sorted into band sections with a labeled header for each band (for example, "40m", "20m"). Right-clicking a band header offers an option to clear all bookmarks within that band's frequency range. When disabled, bookmarks appear in insertion order.
 
-- Each radio's bookmarks are stored separately. Connecting a second FLEX-8600 loads that radio's own bookmark list without affecting the first.
-- Bookmark button tooltips show the full six-decimal-place frequency, the mode, and the RX antenna. Hover over a button to confirm what it will recall before clicking.
-- If you reorganize your band plan regions, existing bookmark colors update to match the new plan on the next load.
+**Auto-expiry** — Sets how long bookmarks are retained before being removed automatically. Options are:
+
+| Option | Retention |
+|---|---|
+| Off | Bookmarks are never expired automatically |
+| 5 min | Removed after 5 minutes |
+| 15 min | Removed after 15 minutes |
+| 30 min | Removed after 30 minutes |
+| 60 min | Removed after 60 minutes |
+
+Only one auto-expiry option is active at a time.
 
 ## Related
 

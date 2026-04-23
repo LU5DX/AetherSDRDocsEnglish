@@ -1,52 +1,61 @@
 # Diagnose audio underruns and jitter
 
-Use the Network Diagnostics dialog to watch the audio buffer, underrun counters, arrival gap, and jitter estimate in real time. This helps you identify whether audio glitches are caused by a starving playback buffer, irregular packet delivery, or both.
+Use the Network Diagnostics dialog to read the audio buffer health, underrun counters, and jitter indicators that identify the cause of choppy or interrupted received audio.
 
 ## Before you start
 
-- AetherSDR must be running. The dialog does not require an active radio connection, but the audio indicators are only meaningful while the radio is streaming audio.
-- Reproduce or wait for the audio problem to occur while the dialog is open so the counters accumulate.
+- AetherSDR must be running. The dialog does not require an active radio connection, but the audio indicators are only meaningful while a radio is connected and streaming audio.
+- Reproduce the audio problem before opening the dialog so the counters accumulate during the fault.
 
 ## Steps
 
-1. Click `Settings > Network...`. The Network Diagnostics dialog opens.
-2. Look at the **Audio Playback** group in the lower-right of the dialog.
-3. Read **RX Buffer Now** to see the current fill level of the playback buffer in bytes and milliseconds. A value near zero while audio is playing indicates the buffer is starving.
-4. Read **RX Buffer Peak** to see the highest fill level recorded since the dialog opened.
-5. Read **Underruns (total)** for the cumulative count of buffer underruns since connect.
-6. Read **Underruns (last sec)** to see whether underruns are occurring right now or are only a historical artifact.
-7. Read **Audio Arrival Gap** for the current inter-packet arrival interval. Large values indicate bursts of delayed packets even when no packets are lost.
-8. Read **Max Arrival Gap** for the worst arrival gap seen since the dialog opened.
-9. Read **Jitter Estimate** for the smoothed jitter of the audio stream.
-10. If underruns are rising but the buffer is near zero, the audio stream is being starved — check the **Audio** row in **Incoming Stream Rates** and **Packet Loss (Sequence Gaps)** for low throughput or packet loss on that stream.
-11. If the buffer has healthy fill but underruns still occur, high jitter or large arrival gaps are the likely cause — compare **Jitter Estimate** and **Max Arrival Gap** against **Latency (RTT)** in the **Network Status** group.
-12. Click Close when finished.
+1. Click `Settings > Network...` to open the Network Diagnostics dialog.
+2. Let the display refresh for at least 10–15 seconds while the audio problem is occurring. The dialog updates every second.
+3. Look at the **Audio Playback** group in the lower-right of the dialog. Read these indicators in order:
+
+   a. **RX Buffer Now** — current fill of the audio playback buffer, shown in bytes and milliseconds. A value near zero while underruns are rising means playback is starving for data.
+
+   b. **RX Buffer Peak** — highest buffer fill recorded since the dialog opened. A very low peak combined with underruns confirms the buffer has never built up enough headroom.
+
+   c. **Underruns (total)** — cumulative count of playback buffer underruns since the audio engine started.
+
+   d. **Underruns (last sec)** — underruns that occurred in the most recent one-second window. A non-zero value here means the problem is active right now.
+
+   e. **Audio Arrival Gap** — current inter-packet arrival interval for the audio stream.
+
+   f. **Max Arrival Gap** — largest arrival gap seen since connect. A large max gap relative to a normal arrival gap points to burst delays rather than steady loss.
+
+   g. **Jitter Estimate** — smoothed measure of timing variation in the audio stream. Rising jitter with a low buffer fill is a common cause of underruns.
+
+4. Cross-check the **Packet Loss (Sequence Gaps)** group. Read the **Audio** drop row. If the drop count is zero but underruns are rising, the problem is delivery timing or buffer starvation, not packet loss.
+5. Cross-check the **Incoming Stream Rates** group. Read the **Audio** rate row. Large swings from one second to the next indicate bursty delivery even when no packets are lost.
+6. Click Close when done.
 
 ## What each control does
 
-| Indicator | Meaning |
+| Indicator | What it shows |
 |---|---|
-| **RX Buffer Now** | Current audio playback buffer fill, shown in bytes and milliseconds. |
-| **RX Buffer Peak** | Highest buffer fill recorded since the dialog was opened. |
-| **Underruns (total)** | Cumulative count of audio buffer underruns since the radio connected. |
-| **Underruns (last sec)** | Number of underruns that occurred in the most recent one-second window. |
-| **Audio Arrival Gap** | Current time between consecutive incoming audio packet arrivals. |
-| **Max Arrival Gap** | Largest arrival gap observed since the dialog was opened. |
-| **Jitter Estimate** | Smoothed jitter value for the audio stream. |
+| **RX Buffer Now** | Current audio playback buffer fill, in bytes and milliseconds. |
+| **RX Buffer Peak** | Highest buffer fill recorded since the dialog opened. |
+| **Underruns (total)** | Total audio buffer underruns since the audio engine started. |
+| **Underruns (last sec)** | Underruns in the most recent one-second interval. |
+| **Audio Arrival Gap** | Current inter-packet arrival timing for the audio stream. |
+| **Max Arrival Gap** | Largest inter-packet arrival gap seen since connect. |
+| **Jitter Estimate** | Smoothed jitter of the incoming audio stream. |
 
-All audio buffer sizes are displayed as bytes with a millisecond conversion based on the active sample rate. Values below 1 ms are shown as `< 1 ms`.
+None of these indicators have persisted setting keys. They are read-only live measurements.
 
 ## Tips
 
-- The dialog refreshes every second. Leave it open for at least 30–60 seconds during a problem to capture meaningful peak values.
-- Zero packet loss in the **Packet Loss (Sequence Gaps)** group does not rule out jitter or late bursts as the cause of underruns. Always check **Audio Arrival Gap** and **Jitter Estimate** alongside the drop counters.
-- Large swings in the **Audio** rate shown in **Incoming Stream Rates** can indicate bursty delivery even when no sequence-number gaps are detected.
+- Zero packet loss in the **Audio** drop row does not rule out underruns. Packets can arrive in bursts that exhaust the buffer without any sequence gaps.
+- The dialog note for the Audio Playback group states: "If underruns rise while the buffer stays near zero, playback is starving." Check **RX Buffer Now** and **Underruns (last sec)** together, not separately.
+- Arrival gap and jitter measure timing, not packet loss. A large **Max Arrival Gap** with a low **Jitter Estimate** suggests a single isolated burst rather than a chronic jitter problem.
 
 ## Troubleshooting
 
-- **Underruns (last sec) is non-zero but Audio drops show zero** — Packets are arriving in order but with irregular timing. Check **Jitter Estimate** and **Max Arrival Gap**. The cause is likely network bufferbloat or competing traffic on the local network segment.
-- **RX Buffer Now stays near zero** — The audio stream rate is too low to keep the buffer filled. Check the **Audio** row in **Incoming Stream Rates** for an unexpectedly low kbps value, and check **Audio** drops for sequence gaps that would indicate packet loss.
-- **Max Arrival Gap is large but current Audio Arrival Gap looks normal** — A transient burst occurred earlier in the session. The peak value is not reset while the dialog is open; reconnect to the radio to clear historical peaks.
+- **Underruns (last sec) is non-zero but Audio drop count is zero** — packets are arriving but not on time. The network path is introducing bursts or jitter. Investigate the switch, cable, or Wi-Fi segment between the host and the FLEX-8600.
+- **RX Buffer Now reads near zero constantly** — the buffer is not filling. Check that the audio stream is active and that the **Audio** rate in the Incoming Stream Rates group is non-zero.
+- **Max Arrival Gap is large but current Audio Arrival Gap is normal** — a single burst event occurred at some point since connect. Reopen the dialog and monitor over a longer period to determine whether it recurs.
 
 ## Related
 

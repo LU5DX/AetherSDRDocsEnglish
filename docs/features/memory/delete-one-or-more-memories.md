@@ -1,50 +1,50 @@
 # Delete one or more memories
 
-Use this page to permanently remove one or more stored memory channels from your radio. Deletion requires a connected radio and cannot be undone.
+Use this page to remove one memory or a batch of memories from the radio. Deleted memories are removed from the radio permanently after confirmation.
 
 ## Before you start
 
-- AetherSDR must be connected to your FLEX-8600. Memory Channels requires an active radio connection.
-- Know which memories you want to remove. Use Search: or Profile: to narrow the list if needed.
+- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
+- Open the dialog via `Settings > Memory...`.
 
 ## Steps
 
 1. Open `Settings > Memory...`.
-2. In the memory table, select the row or rows you want to delete.
+2. Select the memory or memories you want to delete.
    - Click a single row to select it.
    - Shift-click to select a contiguous range.
-   - Ctrl-click (Command-click on macOS) to add or remove individual rows from the selection.
-   - To remove every memory shown, click `Select All`.
-3. Confirm your selection. The indicator at the bottom right of the dialog shows how many rows are currently selected (for example, `3 selected`).
-4. Click `Remove`.
-5. Confirm the deletion when the confirmation dialog appears.
+   - On Linux and Windows, Ctrl-click to add or remove individual rows from the selection. On macOS, use Command-click.
+   - To select every row, click **Select All**.
+   - To narrow the list before selecting, use the **Search:** field or the **Profile:** combo box. See [Search memories by name](search-memories-by-name.md) and [Filter memories by profile](filter-memories-by-profile.md).
+3. Confirm the count shown in the selection indicator (for example, "3 selected") matches your intent.
+4. Click **Remove**.
+5. When the confirmation dialog appears, confirm the deletion.
 
-The selected memories are deleted from the radio.
+The selected memories are removed from the radio.
 
 ## What each control does
 
-| Control | Behavior |
+| Control | Description |
 |---|---|
-| `Search:` | Filters the table by memory name. Use this to locate specific entries before selecting them. |
-| `Profile:` | Filters the table to show only memories belonging to the selected global profile. |
-| Memory table | Displays all memory channels. Supports extended selection: click, Shift-click, and Ctrl-click (Command-click on macOS). |
-| `Select All` | Selects every row currently visible in the table. |
-| Selection count | Shows `<N> selected` in the bottom-right area of the dialog, reflecting the current selection. |
-| `Remove` | Deletes all selected rows after confirmation. |
+| **Select All** | Selects every row currently visible in the table. |
+| **Remove** | Deletes all selected rows. Presents a confirmation prompt before removing. |
+| **Search:** | Filters the table by memory name, reducing the rows available for selection. |
+| **Profile:** | Filters the table to memories belonging to the chosen global profile. |
+| Selection count | Displays the number of currently selected rows as "N selected". |
 
 ## Tips
 
-- If you only want to delete memories belonging to one group, set `Profile:` to that group first, then click `Select All` before clicking `Remove`. This limits the selection to the filtered rows.
-- If you are unsure which memories to remove, export a backup first before deleting anything.
+- Use **Select All** after filtering with **Search:** or **Profile:** to quickly select a named subset before clicking **Remove**.
+- The selection hint below the table is a reminder: "Tip: Double-click tunes. Shift-click selects a range. Ctrl-click adds or removes rows." (On macOS, Ctrl-click is shown as Command-click.) Use these to build your selection precisely before deleting.
 
 ## Troubleshooting
 
-- **`Remove` has no effect or is not available** — Ensure at least one row is selected in the table. The button requires an active selection.
-- **Memories reappear after deletion** — The radio connection may have dropped and re-synced stale data. Check your connection status and try again.
+- **Remove is not available or has no effect** — At least one row must be selected. Click a row in the table, then click **Remove**.
+- **The memory you want to delete is not visible** — A search term or profile filter may be hiding it. Clear the **Search:** field and set **Profile:** back to its unfiltered state, then locate the row.
 
 ## Related
 
-- [Memory Channels overview](overview.md)
+- [Add a memory at current frequency](add-a-memory-at-current-frequency.md)
 - [Search memories by name](search-memories-by-name.md)
 - [Filter memories by profile](filter-memories-by-profile.md)
 - [Export memories for backup or sharing](export-memories-for-backup-or-sharing.md)

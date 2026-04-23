@@ -1,40 +1,39 @@
 # Enable MNR on macOS and set its strength
 
-MNR is AetherSDR's MMSE-Wiener noise reduction engine, available on macOS only. This page shows how to turn it on and adjust how aggressively it suppresses noise.
+MNR is AetherSDR's macOS-native MMSE-Wiener noise reduction engine with asymmetric gain smoothing. Use this page to turn it on and adjust how aggressively it suppresses noise.
 
 ## Before you start
 
-- AetherSDR must be running on macOS. The "Enable MNR (macOS only)" checkbox is present on all platforms but MNR processing is macOS-exclusive.
-- No radio connection is required to open AetherDSP Settings.
+- AetherSDR must be running on macOS. MNR is a macOS-only engine; the control is present but has no effect on other platforms.
+- No radio connection is required to change these settings.
 
 ## Steps
 
 1. Click `Settings > AetherDSP Settings...`.
-2. In the **AetherDSP Settings** dialog, click the **MNR** tab.
-3. Check **Enable MNR (macOS only)** to activate the engine.
-4. Drag the **Strength** slider to set aggressiveness. The default is 100 (maximum). Lower values reduce suppression.
+2. In the AetherDSP Settings dialog, click the **MNR** tab.
+3. Check **Enable MNR (macOS only)** to turn the engine on.
+4. Drag the **Strength** slider to the desired level. The range is 0–100; 0 is mild reduction and 100 is maximum.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Setting key |
+| Control | Description | Default | Range | Setting key |
 |---|---|---|---|---|
-| Enable MNR (macOS only) | Checkbox | *(read from audio engine at launch)* | On / Off | `MnrEnabled` |
-| Strength | Slider | 100 | 0–100 | `MnrStrength` |
+| **Enable MNR (macOS only)** | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. | Read from audio engine at startup | On / Off | `MnrEnabled` |
+| **Strength** | Adjusts MNR aggressiveness. | 100 | 0–100 | `MnrStrength` |
 
-**Strength** is persisted internally as a normalized value of 0.00–1.00. The slider displays it on a 0–100 scale. A value of 0 applies minimal noise reduction; 100 applies maximum suppression.
+`MnrStrength` is persisted as a normalized value of 0.00–1.00 regardless of the slider's 0–100 display scale.
 
 ## Tips
 
-- Changes to **Strength** take effect immediately without restarting AetherSDR or reconnecting to the radio.
-- If you want a lighter touch, set **Strength** to a value between 30 and 60 to reduce noise while preserving more speech naturalness.
+- Start with **Strength** at 100 and reduce it if you notice speech artifacts or an unnatural sound. Lower values trade some noise suppression for more natural audio.
 
 ## Troubleshooting
 
-- **"Enable MNR (macOS only)" checkbox is visible but has no effect** — MNR processing is macOS-only. If you are running AetherSDR on Linux or Windows, the checkbox will appear but the engine will not activate.
+- **Enable MNR (macOS only) has no effect** — MNR is a macOS-only engine. On Linux or Windows the checkbox is visible but the engine does not run.
+- **Settings do not persist after restart** — Verify that AetherSDR has write access to its settings storage. Both `MnrEnabled` and `MnrStrength` are persisted automatically when you change them.
 
 ## Related
 
 - [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
+- [AetherDSP Settings overview](overview.md)
 - [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
-- [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md)
-- [Set DeepFilterNet3 attenuation limit for strong or weak signals](set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals.md)

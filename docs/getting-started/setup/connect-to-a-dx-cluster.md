@@ -1,55 +1,53 @@
 # Connect to a DX cluster
 
-AetherSDR's SpotHub dialog lets you connect to a DX cluster via telnet and display incoming spots on the panadapter. Use this page to make that first connection and optionally reconnect automatically on every launch.
+Open the SpotHub dialog and enter your cluster's hostname, port, and callsign so that DX spots appear as overlays on the panadapter.
 
 ## Before you start
 
-- Know the hostname and port of the DX cluster you want to use (for example, `dxc.k0xm.net`, port `23`).
-- Have your callsign ready to use as the login credential.
+- Know the hostname (or IP address) and telnet port of the DX cluster you want to use (for example, `dxc.k0xm.net`, port `23`).
+- Have your callsign ready — the cluster uses it for login.
 
 ## Steps
 
-1. Open `Settings > SpotHub...`.
+1. Click `Settings > SpotHub...` to open the SpotHub dialog.
 2. Click the **Cluster** tab.
-3. In the **Server:** field, enter the cluster hostname.
-4. In the **Port:** field, enter the telnet port (valid range: 1–65535).
-5. In the **Callsign:** field, enter the callsign you want to log in with.
-6. Click **Connect**.
-7. Watch the **Cluster Console** area for the cluster's login banner and spot traffic to confirm the connection is live.
-8. To type a command to the cluster, enter it in the command line field beneath the console and click **Send**.
+3. In the **Server:** field, type the cluster hostname or IP address. This value is saved as `ClusterHost`.
+4. In the **Port:** field, set the telnet port (valid range: 1–65535). This value is saved as `ClusterPort`.
+5. In the **Callsign:** field, type your callsign. This value is saved as `ClusterCallsign`.
+6. Click **Connect**. The button label changes to **Disconnect** when the session is established, and the **Cluster Console** shows `--- Connected ---`.
+7. To connect automatically every time AetherSDR starts, click **Auto-connect on startup** so it is enabled. This value is saved as `ClusterAutoConnect`.
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---|---|---|
-| **Server:** | Hostname of the DX cluster to connect to. | `ClusterHost` |
-| **Port:** | Telnet port on the DX cluster. Valid range: 1–65535. | `ClusterPort` |
-| **Callsign:** | Login callsign sent to the cluster at connect time. | `ClusterCallsign` |
-| **Connect / Disconnect** | Toggles the telnet connection. Label switches to "Disconnect" while connected. | — |
-| **Auto-connect on startup** | When enabled, AetherSDR connects to the cluster automatically at launch. | `ClusterAutoConnect` |
-| **Cluster Console** | Read-only display of raw telnet traffic from the cluster. | — |
-| **Send** | Sends the typed command to the cluster. Only active while connected. | — |
-| **Spot Color:** | Opens a color picker to set the color used for cluster spots on the panadapter. | `ClusterSpotColor` |
+| Control | Behavior | Setting key | Default | Valid range |
+|---|---|---|---|---|
+| **Server:** | Hostname of the DX cluster. | `ClusterHost` | — | Any hostname or IP |
+| **Port:** | Telnet port on the cluster. | `ClusterPort` | — | 1–65535 |
+| **Callsign:** | Login callsign sent to the cluster on connect. | `ClusterCallsign` | — | — |
+| **Connect / Disconnect** | Toggles the telnet connection. | — | Connect | — |
+| **Auto-connect on startup** | Reconnects to this cluster each time AetherSDR launches. | `ClusterAutoConnect` | — | — |
+| **Cluster Console** | Read-only display of raw cluster traffic. | — | — | — |
+| **Send** (command line) | Sends a typed command to the connected cluster. | — | — | — |
+| **Spot Color:** | Opens a color picker for cluster-sourced spots on the panadapter. | `ClusterSpotColor` | — | — |
 
 ## Tips
 
-- Spots from the cluster appear in the unified **Spot List** tab alongside spots from other sources. The **Source** column identifies them as "Cluster".
-- Double-click any row in the spot table to tune the radio to that frequency. See [Tune to a spot by double-clicking the spot list](../../features/dx-cluster/tune-to-a-spot-by-double-clicking-the-spot-list.md).
-- The master spot overlay on the panadapter must be enabled. Go to the **Display** tab and confirm **Spots:** is set to Enabled (the default). If spots are not visible, check that control first.
-- Per-source spot colors can be changed at any time without disconnecting.
+- The **Cluster Console** shows raw telnet output, including login prompts. If the cluster requires a password, type it in the command field and click **Send**.
+- To tune directly to a spotted frequency, switch to the **Spot List** tab and double-click the row.
+- Spot overlays on the panadapter are controlled globally by the **Spots:** toggle on the **Display** tab (`IsSpotsEnabled`, default: Enabled). If spots are not visible after connecting, check that toggle.
 
 ## Troubleshooting
 
-- **"Disconnect" button appears but no spots arrive** — The cluster may require a specific login command after the banner. Type the appropriate command (for example, `SET/SKIMMER` or `SET/DX`) in the command line and click **Send**.
-- **Status shows an error in red** — The hostname or port is unreachable. Verify the **Server:** and **Port:** values and confirm your network path to the cluster host.
-- **Spots appear in the Spot List but not on the panadapter** — Open the **Display** tab and confirm **Spots:** is Enabled. Also verify the radio is tuned to a band that has active spots.
+- **Button stays as "Connect" after clicking** — The cluster hostname or port is incorrect, or the server is unreachable from your network. Check the **Cluster Console** for an error line and verify the hostname and port.
+- **No spots appear on the panadapter despite being connected** — Confirm that **Spots:** on the **Display** tab is enabled. Also verify that the band of the incoming spots is not hidden via the **Bands:** checkboxes on the **Spot List** tab.
+- **"Error: …" shown in the console** — The cluster rejected the connection or dropped it. This is often a login issue; watch the **Cluster Console** for the cluster's login prompt and send your callsign manually with **Send** to confirm the credentials.
 
 ## Related
 
 - [SpotHub overview](../../features/dx-cluster/overview.md)
 - [Connect to the Reverse Beacon Network](connect-to-the-reverse-beacon-network.md)
 - [Tune to a spot by double-clicking the spot list](../../features/dx-cluster/tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](../../features/dx-cluster/pick-colors-for-each-spot-source.md)
 - [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md)
 - [Enable DXCC coloring from an ADIF log](../../features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md)
-- [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](../../features/dx-cluster/start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
+- [Pick colors for each spot source](../../features/dx-cluster/pick-colors-for-each-spot-source.md)
+- [Clear all spots from the panadapter](../../features/dx-cluster/clear-all-spots-from-the-panadapter.md)
