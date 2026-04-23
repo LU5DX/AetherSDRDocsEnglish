@@ -1,6 +1,6 @@
 # Check Radio Serial, Hardware Version, Region and Options
 
-View the read-only hardware details reported by your connected FLEX-8600: chassis serial number, hardware version string, regulatory region, and licensed options.
+View the read-only hardware details reported by your connected Flex radio: chassis serial number, hardware version string, regulatory region, and licensed options.
 
 ## Before you start
 

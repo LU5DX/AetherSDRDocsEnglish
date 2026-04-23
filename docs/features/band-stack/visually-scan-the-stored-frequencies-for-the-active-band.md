@@ -4,7 +4,7 @@ The Band Stack panel shows all your saved frequency bookmarks as a vertical stri
 
 ## Before you start
 
-- AetherSDR must be connected to your FLEX-8600 radio. The Band Stack panel is only visible when a radio connection is active.
+- AetherSDR must be connected to your Flex radio. The Band Stack panel is only visible when a radio connection is active.
 - You need at least one bookmark already saved. If the panel is empty, see [Bookmark the current frequency](bookmark-the-current-frequency.md).
 
 ## Steps

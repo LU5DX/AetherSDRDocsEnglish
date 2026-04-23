@@ -1,6 +1,6 @@
 # Meters overview
 
-The Meters applet displays live hardware telemetry from your FLEX-8600: PA temperature, DC supply voltage, and main cooling fan speed. Use it to keep an eye on radio health during operation without leaving the main AetherSDR window.
+The Meters applet displays live hardware telemetry from your Flex radio: PA temperature, DC supply voltage, and main cooling fan speed. Use it to keep an eye on radio health during operation without leaving the main AetherSDR window.
 
 ## Before you start
 

@@ -4,7 +4,7 @@ When AetherSDR opens in local mode and no radios appear in the list, use the "No
 
 ## Before you start
 
-- The FLEX-8600 is powered on and connected to the same LAN as your computer.
+- The Flex radio is powered on and connected to the same LAN as your computer.
 - AetherSDR is running and showing the "Connect to a Radio" panel. If it is not visible, click `Settings > Connect to Radio...`.
 
 ## Steps

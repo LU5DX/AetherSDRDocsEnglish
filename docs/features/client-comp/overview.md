@@ -9,7 +9,7 @@ The client-side TX compressor in AetherSDR reduces dynamic range in your transmi
 
 ## How it works
 
-The compressor runs entirely on the client side — it processes audio in AetherSDR before the signal is sent to the FLEX-8600. It applies a standard gain-reduction model: when the input level crosses the threshold, the compressor attenuates the signal according to the ratio you set. Attack and release times control how quickly the compressor clamps down and recovers. Makeup gain lets you restore the average level lost to compression.
+The compressor runs entirely on the client side — it processes audio in AetherSDR before the signal is sent to the Flex radio. It applies a standard gain-reduction model: when the input level crosses the threshold, the compressor attenuates the signal according to the ratio you set. Attack and release times control how quickly the compressor clamps down and recovers. Makeup gain lets you restore the average level lost to compression.
 
 The **COMPRESSOR** applet tile lives inside the PooDoo Audio (TXDSP) parent container. It shows a transfer curve with a live envelope indicator and a horizontal gain-reduction meter so you can watch compression in real time while transmitting.
 

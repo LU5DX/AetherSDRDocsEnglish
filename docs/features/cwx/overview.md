@@ -1,10 +1,10 @@
 # CWX overview
 
-CWX is AetherSDR's CW keying panel. It lets you type and send live CW text, trigger pre-written macro strings with function keys, and configure QSK and inter-macro delay — all routed through the connected FLEX-8600.
+CWX is AetherSDR's CW keying panel. It lets you type and send live CW text, trigger pre-written macro strings with function keys, and configure QSK and inter-macro delay — all routed through the connected Flex radio.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. CWX requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. CWX requires an active radio connection.
 - The active slice must be in CW, CWL, or CWU mode for CWX to appear automatically in the main window area.
 
 ## How it works

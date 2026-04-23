@@ -4,7 +4,7 @@ Adjust the receive audio level for each of the four DAX channels (DAX 1–4) so 
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - The DAX applet must be open. If it is not visible, click the DAX tray button on the right sidebar to show it.
 - DAX must be enabled. If the Enable button is not lit, click Enable to start the DAX audio bridge.
 

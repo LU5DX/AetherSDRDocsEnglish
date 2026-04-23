@@ -40,7 +40,7 @@ The row of buttons at the bottom of the dialog drives all file and reporting act
 - Enable only the categories relevant to the problem you are reproducing. A smaller log is easier to read and share.
 - Click Clear Log before you reproduce a bug so the log contains only the relevant event sequence.
 - The support bundle created by File an Issue includes your logs and settings. Attach it to the GitHub issue by dragging it from the folder that opens automatically.
-- Reset Settings removes local AetherSDR preferences and the NR2 wisdom cache. It does not alter any settings stored on the FLEX-8600 itself.
+- Reset Settings removes local AetherSDR preferences and the NR2 wisdom cache. It does not alter any settings stored on the Flex radio itself.
 
 ## Related
 

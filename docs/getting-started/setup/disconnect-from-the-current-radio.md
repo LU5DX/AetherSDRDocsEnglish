@@ -1,6 +1,6 @@
 # Disconnect from the current radio
 
-This page explains how to disconnect AetherSDR from a FLEX-8600 radio. You would do this to connect to a different radio, switch connection modes, or shut down your session cleanly.
+This page explains how to disconnect AetherSDR from a Flex radio. You would do this to connect to a different radio, switch connection modes, or shut down your session cleanly.
 
 ## Before you start
 

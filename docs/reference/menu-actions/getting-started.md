@@ -1,11 +1,11 @@
 # Getting Started
 
-`Help > Getting Started...` opens the built-in beginner guide for connecting to and using AetherSDR with your FLEX-8600 radio.
+`Help > Getting Started...` opens the built-in beginner guide for connecting to and using AetherSDR with your Flex radio.
 
 ## Before you start
 
 - AetherSDR is installed and running on your computer.
-- Your FLEX-8600 is powered on and reachable on the local network.
+- Your Flex radio is powered on and reachable on the local network.
 
 ## Steps
 

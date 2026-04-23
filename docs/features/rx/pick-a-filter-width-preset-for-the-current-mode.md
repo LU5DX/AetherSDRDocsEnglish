@@ -4,7 +4,7 @@ Filter width presets let you apply a standard bandwidth to the active slice with
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - The RX applet must be open. If it is not visible, click the RX tray button on the right sidebar to show it.
 - Select the slice you want to adjust using the slice tabs (A..H) at the top of the RX applet.
 

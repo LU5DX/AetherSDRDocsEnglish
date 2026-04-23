@@ -4,7 +4,7 @@ Disabling an active DAX IQ stream stops it from consuming radio DSP bandwidth an
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The DAX IQ applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The DAX IQ applet requires an active radio connection.
 - Open the DAX IQ applet by clicking the IQ tray button on the right sidebar. The applet is hidden by default.
 - Identify which channel (IQ 1–4) you want to disable. The toggle button for that channel must currently show "On".
 

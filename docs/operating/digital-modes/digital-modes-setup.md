@@ -4,7 +4,7 @@ This page explains how to connect AetherSDR to digital-mode software such as WSJ
 
 ## Before you start
 
-- AetherSDR is connected to your FLEX-8600 (the radio icon in the title bar shows a live connection).
+- AetherSDR is connected to your Flex radio (the radio icon in the title bar shows a live connection).
 - WSJT-X, fldigi, or your other digital-mode software is installed and closed for now. Configure AetherSDR first, then start the external program.
 - Decide which slice you will use for digital modes and note its letter (A, B, C, or D).
 

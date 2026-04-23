@@ -4,7 +4,7 @@ This page explains how to enable single-click tuning on the panadapter. By defau
 
 ## Before you start
 
-- AetherSDR must be running and connected to a FLEX-8600 radio.
+- AetherSDR must be running and connected to a Flex radio.
 - A panadapter must be visible in the main window.
 
 ## Steps

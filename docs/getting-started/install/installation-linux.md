@@ -1,6 +1,6 @@
 # Install AetherSDR on Linux
 
-This page walks you through installing AetherSDR on a Linux system so you can connect to your FLEX-8600 radio.
+This page walks you through installing AetherSDR on a Linux system so you can connect to your Flex radio.
 
 ## Before you start
 
@@ -25,7 +25,7 @@ This page walks you through installing AetherSDR on a Linux system so you can co
    ```
    aethersdr
    ```
-5. On first launch, go to `Settings > Connect to Radio...` to discover and connect to your FLEX-8600.
+5. On first launch, go to `Settings > Connect to Radio...` to discover and connect to your Flex radio.
 
 ## Tips
 
@@ -36,7 +36,7 @@ This page walks you through installing AetherSDR on a Linux system so you can co
 ## Troubleshooting
 
 - **AetherSDR does not start after installation** — Confirm that Qt6 runtime libraries are installed on your system. Your distribution's package manager should pull these in automatically from the package dependencies; if not, install the Qt6 base libraries manually.
-- **No radios found in `Settings > Connect to Radio...`** — Confirm the FLEX-8600 is powered on and connected to the same local network segment. Check that no firewall rules are blocking UDP discovery traffic.
+- **No radios found in `Settings > Connect to Radio...`** — Confirm the Flex radio is powered on and connected to the same local network segment. Check that no firewall rules are blocking UDP discovery traffic.
 - **Virtual serial ports for CAT are not created** — Confirm `Settings > Autostart CAT with AetherSDR` is enabled. This feature requires the appropriate kernel modules for virtual serial ports to be loaded on your system.
 
 ## Related

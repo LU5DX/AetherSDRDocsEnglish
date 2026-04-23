@@ -1,11 +1,11 @@
 # Enable multiFLEX on the radio
 
-multiFLEX lets multiple stations share a single FLEX-8600 simultaneously. Use this page to turn multiFLEX on or off from AetherSDR.
+multiFLEX lets multiple stations share a single Flex radio simultaneously. Use this page to turn multiFLEX on or off from AetherSDR.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The multiFLEX Dashboard is not available without an active radio connection.
-- Your FlexRadio FLEX-8600 must support multiFLEX. Confirm your radio's license includes the multiFLEX feature before proceeding.
+- Your Flex radio must support multiFLEX. Confirm your radio's license includes the multiFLEX feature before proceeding.
 
 ## Steps
 

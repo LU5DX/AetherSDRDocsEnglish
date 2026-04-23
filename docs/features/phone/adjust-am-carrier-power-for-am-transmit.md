@@ -4,7 +4,7 @@ Use this page to set the AM carrier power level when transmitting in AM mode. Th
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - The radio must be set to AM mode before the AM Carrier level has any effect on transmit.
 - The Phone applet must be visible in the Applet Panel.
 

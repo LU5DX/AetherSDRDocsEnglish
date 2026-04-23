@@ -53,7 +53,7 @@ Two fixed learning notes explain the difference between auroral propagation and 
 
 - The **Rationale** text below the forecast grid provides a plain-language explanation of why today's forecast looks the way it does — read it for a quick summary before checking individual metrics.
 - Hovering over a **Current Conditions** card shows a detailed tooltip explaining the metric's significance for HF propagation, including which bands are most affected.
-- The dashboard does not require a connected FLEX-8600 radio. You can consult it before powering up your station.
+- The dashboard does not require a connected Flex radio. You can consult it before powering up your station.
 
 ## Related
 

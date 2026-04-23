@@ -4,7 +4,7 @@ Use the Panadapter Layout dialog to display four panadapters arranged in two row
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The layout dialog requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The layout dialog requires an active radio connection.
 - Your radio configuration must support at least four panadapters. Layout options requiring more panadapters than your radio allows are disabled in the dialog.
 
 ## Steps
@@ -29,7 +29,7 @@ The 2×2 layout is stored as value `2x2` in `PanLayout`.
 
 ## Troubleshooting
 
-- **The 2×2 tile is greyed out and cannot be clicked** — The radio connection does not support four panadapters at once. The dialog limits available layouts to those within the radio's panadapter count. Verify your FLEX-8600's current configuration.
+- **The 2×2 tile is greyed out and cannot be clicked** — The radio connection does not support four panadapters at once. The dialog limits available layouts to those within the radio's panadapter count. Verify your Flex radio's current configuration.
 - **Right-clicking the panadapter area does nothing** — AetherSDR is not connected to a radio. Establish a connection via `Settings > Connect to Radio...` first.
 
 ## Related

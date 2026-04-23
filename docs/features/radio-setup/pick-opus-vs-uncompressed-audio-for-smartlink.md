@@ -4,7 +4,7 @@ Choose whether AetherSDR compresses audio over SmartLink using Opus, leaves it u
 
 ## Before you start
 
-- Be connected to a FLEX-8600 radio.
+- Be connected to a Flex radio.
 - If using SmartLink over the internet or a VPN, have an estimate of your available uplink bandwidth.
 
 ## Steps

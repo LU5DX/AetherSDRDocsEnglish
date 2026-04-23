@@ -1,11 +1,11 @@
 # multiFLEX Dashboard overview
 
-The multiFLEX Dashboard shows every SmartSDR client currently sharing your FLEX-8600 and lets you manage PTT authority between them. Use it when more than one operator or application is connected to the same radio and you need to see who holds transmit control.
+The multiFLEX Dashboard shows every SmartSDR client currently sharing your Flex radio and lets you manage PTT authority between them. Use it when more than one operator or application is connected to the same radio and you need to see who holds transmit control.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The dashboard requires an active radio connection.
-- multiFLEX must be supported by your radio firmware (FLEX-8600, firmware 4.1.5).
+- multiFLEX must be supported by your radio firmware (Flex radio, firmware 4.1.5).
 
 ## How it works
 

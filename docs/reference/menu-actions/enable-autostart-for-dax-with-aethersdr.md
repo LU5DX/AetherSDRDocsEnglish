@@ -4,7 +4,7 @@ This page explains how to configure AetherSDR to start the DAX audio bridge auto
 
 ## Before you start
 
-- AetherSDR must be installed and able to connect to your FLEX-8600.
+- AetherSDR must be installed and able to connect to your Flex radio.
 - DAX audio bridge is supported on macOS and PipeWire-based Linux systems. This setting has no effect on other platforms.
 
 ## Steps

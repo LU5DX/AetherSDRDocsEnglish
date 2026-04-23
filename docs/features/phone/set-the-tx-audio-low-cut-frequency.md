@@ -4,7 +4,7 @@ Use this page to raise or lower the low-cut edge of the TX audio filter in the P
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The Phone applet requires an active radio connection.
+- Connect to a Flex radio. The Phone applet requires an active radio connection.
 - Confirm the Phone applet is visible in the Applet Panel. If it is not, click the PHNE tray button on the right sidebar.
 
 ## Steps

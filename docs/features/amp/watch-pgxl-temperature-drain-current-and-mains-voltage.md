@@ -4,7 +4,7 @@ The Amplifier applet displays live heatsink temperature, drain current, and main
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - A Power Genius XL amplifier must be detected by the radio. The AMP tray button does not appear until the radio reports a PGXL.
 
 ## Steps
@@ -28,7 +28,7 @@ The Amplifier applet displays live heatsink temperature, drain current, and main
 
 ## Troubleshooting
 
-- **AMP tray button is not visible** — The radio has not detected a Power Genius XL. Confirm the PGXL is powered on and connected to the FLEX-8600.
+- **AMP tray button is not visible** — The radio has not detected a Power Genius XL. Confirm the PGXL is powered on and connected to the Flex radio.
 - **Volts / Amps line does not appear** — The applet hides this indicator until the first telemetry arrives. Wait for the PGXL to send a telemetry update, or check the amplifier connection.
 
 ## Related

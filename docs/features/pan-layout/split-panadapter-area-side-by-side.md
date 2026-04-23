@@ -4,7 +4,7 @@ Use this page to divide the panadapter area into two panels displayed left and r
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The layout dialog requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The layout dialog requires an active radio connection.
 - Your radio license must support at least 2 panadapters. Layout buttons for pan counts exceeding your radio's maximum are disabled automatically.
 
 ## Steps

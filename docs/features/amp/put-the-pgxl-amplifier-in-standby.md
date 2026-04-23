@@ -24,7 +24,7 @@ The button label changes to "STANDBY" and the green background is replaced with 
 
 ## Troubleshooting
 
-- **The AMP tray button is not visible** — The applet is hidden until a Power Genius XL is detected by the radio. Confirm the PGXL is powered on and connected to the FLEX-8600.
+- **The AMP tray button is not visible** — The applet is hidden until a Power Genius XL is detected by the radio. Confirm the PGXL is powered on and connected to the Flex radio.
 - **The OPERATE button is not visible** — The button is hidden until the first state message arrives from the amplifier. Wait a moment after the applet opens; if it does not appear, check the amplifier connection.
 - **Clicking OPERATE has no effect** — Confirm AetherSDR is still connected to the radio. Disconnect and reconnect if needed.
 

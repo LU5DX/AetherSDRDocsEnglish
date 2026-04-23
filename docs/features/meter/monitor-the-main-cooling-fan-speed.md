@@ -1,6 +1,6 @@
 # Monitor the Main Cooling Fan Speed
 
-The Meters applet shows a live gauge of the FLEX-8600's main cooling fan speed. Use this to confirm the fan is spinning and to catch abnormally high speeds that may indicate thermal stress.
+The Meters applet shows a live gauge of the Flex radio's main cooling fan speed. Use this to confirm the fan is spinning and to catch abnormally high speeds that may indicate thermal stress.
 
 ## Before you start
 

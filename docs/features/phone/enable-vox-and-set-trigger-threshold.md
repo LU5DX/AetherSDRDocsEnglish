@@ -4,7 +4,7 @@ Use the Phone applet to turn on voice-operated transmit (VOX) and adjust how sen
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. VOX controls are sent directly to the FLEX-8600 and require an active connection.
+- AetherSDR must be connected to the radio. VOX controls are sent directly to the Flex radio and require an active connection.
 - The Phone applet must be visible. If it is not, click the PHNE tray button in the right sidebar to show it.
 
 ## Steps

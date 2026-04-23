@@ -4,7 +4,7 @@ The DAX (Digital Audio eXchange) applet bridges audio between AetherSDR and othe
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The DAX applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The DAX applet requires an active radio connection.
 - The DAX applet is hidden by default. Click the **DAX** tray button on the right sidebar to show it.
 
 ## How it works

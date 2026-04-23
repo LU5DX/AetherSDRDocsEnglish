@@ -4,7 +4,7 @@ The CWX panel lets you type a message and transmit it immediately in Morse code.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The CWX panel requires an active radio connection.
+- Connect to a Flex radio. The CWX panel requires an active radio connection.
 - Set the active slice to CW, CWL, or CWU mode. The CWX panel appears in the main window when a CW mode is active.
 
 ## Steps

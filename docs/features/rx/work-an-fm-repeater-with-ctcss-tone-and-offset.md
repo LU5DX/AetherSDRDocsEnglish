@@ -4,7 +4,7 @@ Configure a slice for FM repeater operation by setting the mode, repeater offset
 
 ## Before you start
 
-- AetherSDR must be connected to the FLEX-8600 radio.
+- AetherSDR must be connected to the Flex radio.
 - The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
 - Know your repeater's output frequency, offset direction, offset magnitude, and CTCSS tone (if required).
 

@@ -1,10 +1,10 @@
 # DAX IQ overview
 
-The DAX IQ applet lets you enable up to four independent IQ data streams from the FLEX-8600, set each stream's sample rate, and monitor its live signal level. Use these streams to feed external SDR software with raw IQ samples from the radio.
+The DAX IQ applet lets you enable up to four independent IQ data streams from the Flex radio, set each stream's sample rate, and monitor its live signal level. Use these streams to feed external SDR software with raw IQ samples from the radio.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The DAX IQ applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The DAX IQ applet requires an active radio connection.
 - The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
 
 ## How it works

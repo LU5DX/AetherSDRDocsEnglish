@@ -1,10 +1,10 @@
 # Connect to a local LAN radio
 
-Open AetherSDR's connection screen and connect to a FLEX-8600 that is on the same LAN as your computer. This is the recommended path for first-time users at a home or club station.
+Open AetherSDR's connection screen and connect to a Flex radio that is on the same LAN as your computer. This is the recommended path for first-time users at a home or club station.
 
 ## Before you start
 
-- The FLEX-8600 is powered on and connected to the same local network as your computer.
+- The Flex radio is powered on and connected to the same local network as your computer.
 - No VPN or guest Wi-Fi isolation is active between the radio and the computer. Either can block mDNS discovery.
 - AetherSDR is installed and launched.
 
@@ -23,7 +23,7 @@ Open AetherSDR's connection screen and connect to a FLEX-8600 that is on the sam
 | **On This Network** | Mode button | Switches to the local LAN discovery page. Default mode. | `ConnectionMode` |
 | **Remote with SmartLink** | Mode button | Switches to the SmartLink page. | `ConnectionMode` |
 | **Connect by IP** | Mode button | Switches to the manual/IP page. | `ConnectionMode` |
-| **Available radios** | List | Shows FLEX-8600 radios found on the LAN via mDNS. Updates automatically. | — |
+| **Available radios** | List | Shows Flex radios found on the LAN via mDNS. Updates automatically. | — |
 | **Connect Selected Radio** | Button | Connects to the highlighted radio. Disabled until a radio is selected. | — |
 | **No local radios found yet** | Indicator | Shown instead of the list when discovery has not found any radios. | — |
 | **Retry Discovery** | Button | Re-runs LAN discovery immediately. Visible only in the empty state. | — |

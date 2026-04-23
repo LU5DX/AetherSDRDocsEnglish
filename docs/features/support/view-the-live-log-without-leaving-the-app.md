@@ -4,7 +4,7 @@ The Support & Diagnostics dialog includes a built-in log viewer so you can read 
 
 ## Before you start
 
-- No radio connection is required. The log viewer works whether or not AetherSDR is connected to a FLEX-8600.
+- No radio connection is required. The log viewer works whether or not AetherSDR is connected to a Flex radio.
 - If you want to capture a clean trace of a specific problem, consider clearing the log first before reproducing the issue.
 
 ## Steps

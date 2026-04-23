@@ -1,10 +1,10 @@
 # CAT Control overview
 
-The CAT Control applet runs up to four rigctld-compatible servers — one per radio slice — so external logging and contest software can control the FLEX-8600 using standard CAT commands. Each channel (A, B, C, D) can be reached over TCP, and on Linux and macOS, also through a virtual serial port (PTY).
+The CAT Control applet runs up to four rigctld-compatible servers — one per radio slice — so external logging and contest software can control the Flex radio using standard CAT commands. Each channel (A, B, C, D) can be reached over TCP, and on Linux and macOS, also through a virtual serial port (PTY).
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The CAT applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The CAT applet requires an active radio connection.
 - The CAT tray button must be visible in the right sidebar. If the applet panel is hidden, enable it via `View > Applet Panel`.
 
 ## How it works

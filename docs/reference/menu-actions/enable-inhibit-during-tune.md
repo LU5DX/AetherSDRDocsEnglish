@@ -1,10 +1,10 @@
 # Enable Inhibit during TUNE
 
-Use `Settings > Inhibit during TUNE` to select which TX output lines the FLEX-8600 suppresses while the tuner is running. This prevents RF from reaching amplifiers or antenna switches that should not receive tuning power.
+Use `Settings > Inhibit during TUNE` to select which TX output lines the Flex radio suppresses while the tuner is running. This prevents RF from reaching amplifiers or antenna switches that should not receive tuning power.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - Identify which TX output connectors on your radio are wired to equipment you want to protect during tuning.
 
 ## Steps

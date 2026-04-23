@@ -4,7 +4,7 @@
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio so that a panadapter is displayed.
+- AetherSDR must be connected to a Flex radio so that a panadapter is displayed.
 
 ## Steps
 

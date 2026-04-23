@@ -1,10 +1,10 @@
 # Enable an IQ stream for external SDR software
 
-The DAX IQ applet lets you activate one or more of four IQ data streams from your FLEX-8600. External SDR software can then receive raw IQ samples from the radio over the local network.
+The DAX IQ applet lets you activate one or more of four IQ data streams from your Flex radio. External SDR software can then receive raw IQ samples from the radio over the local network.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. If not connected, open `Settings > Connect to Radio...` first.
+- AetherSDR must be connected to a Flex radio. If not connected, open `Settings > Connect to Radio...` first.
 - The applet panel must be visible. If it is not, open `View > Applet Panel`.
 
 ## Steps

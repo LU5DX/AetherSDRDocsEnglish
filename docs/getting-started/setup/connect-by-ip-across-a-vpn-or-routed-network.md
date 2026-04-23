@@ -1,6 +1,6 @@
 # Connect by IP across a VPN or routed network
 
-Use the Manual mode to connect to a FLEX-8600 when mDNS discovery cannot reach it — for example, when the radio is on a VPN tunnel or a different routed subnet and you already know its IP address.
+Use the Manual mode to connect to a Flex radio when mDNS discovery cannot reach it — for example, when the radio is on a VPN tunnel or a different routed subnet and you already know its IP address.
 
 ## Before you start
 

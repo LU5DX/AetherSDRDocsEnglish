@@ -1,6 +1,6 @@
 # See all stations connected to this FLEX
 
-The multiFLEX Dashboard shows every client currently sharing your FLEX-8600 and what each one is doing. Use it to confirm who is connected, which antenna they are using, and what frequency they are transmitting on.
+The multiFLEX Dashboard shows every client currently sharing your Flex radio and what each one is doing. Use it to confirm who is connected, which antenna they are using, and what frequency they are transmitting on.
 
 ## Before you start
 

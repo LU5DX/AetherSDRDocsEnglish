@@ -4,7 +4,7 @@ Use `View > Band Plan` to overlay amateur band segment labels on the panadapter.
 
 ## Before you start
 
-- AetherSDR must be running and connected to a FLEX-8600 radio so the panadapter is visible.
+- AetherSDR must be running and connected to a Flex radio so the panadapter is visible.
 
 ## Steps
 

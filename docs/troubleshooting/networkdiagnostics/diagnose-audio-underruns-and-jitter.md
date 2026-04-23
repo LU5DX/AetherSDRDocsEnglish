@@ -53,7 +53,7 @@ None of these indicators have persisted setting keys. They are read-only live me
 
 ## Troubleshooting
 
-- **Underruns (last sec) is non-zero but Audio drop count is zero** — packets are arriving but not on time. The network path is introducing bursts or jitter. Investigate the switch, cable, or Wi-Fi segment between the host and the FLEX-8600.
+- **Underruns (last sec) is non-zero but Audio drop count is zero** — packets are arriving but not on time. The network path is introducing bursts or jitter. Investigate the switch, cable, or Wi-Fi segment between the host and the Flex radio.
 - **RX Buffer Now reads near zero constantly** — the buffer is not filling. Check that the audio stream is active and that the **Audio** rate in the Incoming Stream Rates group is non-zero.
 - **Max Arrival Gap is large but current Audio Arrival Gap is normal** — a single burst event occurred at some point since connect. Reopen the dialog and monitor over a longer period to determine whether it recurs.
 

@@ -1,6 +1,6 @@
 # Switch the Radio Between DHCP and Static IP
 
-Use this page to configure the FLEX-8600's network addressing mode. Switch to static IP when you need the radio at a fixed address on your LAN, or return to DHCP to let your router assign an address automatically.
+Use this page to configure the Flex radio's network addressing mode. Switch to static IP when you need the radio at a fixed address on your LAN, or return to DHCP to let your router assign an address automatically.
 
 ## Before you start
 
@@ -35,7 +35,7 @@ Use this page to configure the FLEX-8600's network addressing mode. Switch to st
 
 ## Troubleshooting
 
-- **Radio does not appear after switching to static IP** — The address entered may conflict with another device or may be outside your LAN's subnet. Verify the IP address, mask, and gateway are correct for your network. If the radio becomes unreachable, a hardware reset may be required to restore DHCP; see your FLEX-8600 hardware documentation.
+- **Radio does not appear after switching to static IP** — The address entered may conflict with another device or may be outside your LAN's subnet. Verify the IP address, mask, and gateway are correct for your network. If the radio becomes unreachable, a hardware reset may be required to restore DHCP; see your Flex radio hardware documentation.
 - **Apply does not seem to take effect** — Ensure you are still connected to the radio at the moment you click **Apply**. If the connection dropped before you clicked, reopen `Settings > Radio Setup...`, re-enter the static values, and click **Apply** promptly.
 
 ## Related

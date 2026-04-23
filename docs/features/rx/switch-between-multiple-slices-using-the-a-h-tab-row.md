@@ -4,7 +4,7 @@ The RX Controls applet can be bound to any active slice on the radio. Use the sl
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The slice tab row is not shown when the radio reports only one slice.
+- AetherSDR must be connected to a Flex radio. The slice tab row is not shown when the radio reports only one slice.
 - At least two slices must already exist on the radio. Create additional slices from the panadapter before using this procedure. See [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md).
 
 ## Steps

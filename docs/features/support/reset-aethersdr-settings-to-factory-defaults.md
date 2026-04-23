@@ -1,6 +1,6 @@
 # Reset AetherSDR Settings to Factory Defaults
 
-Use this procedure to wipe AetherSDR's locally stored settings and NR2 wisdom cache back to their defaults. Radio settings stored on the FLEX-8600 itself are not affected.
+Use this procedure to wipe AetherSDR's locally stored settings and NR2 wisdom cache back to their defaults. Radio settings stored on the Flex radio itself are not affected.
 
 ## Before you start
 

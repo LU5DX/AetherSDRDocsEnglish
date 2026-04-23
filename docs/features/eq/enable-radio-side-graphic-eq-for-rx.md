@@ -1,10 +1,10 @@
 # Enable radio-side graphic EQ for RX
 
-Open the Equalizer applet and turn on the RX equalizer path so the FLEX-8600 applies an 8-band graphic EQ to received audio inside the radio itself.
+Open the Equalizer applet and turn on the RX equalizer path so the Flex radio applies an 8-band graphic EQ to received audio inside the radio itself.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The EQ applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The EQ applet requires an active radio connection.
 - If the applet panel is not visible, enable it via `View > Applet Panel`.
 
 ## Steps

@@ -5,7 +5,7 @@ The applet panel is a dockable region of the AetherSDR window that groups the co
 ## Before you start
 
 - AetherSDR must be installed and running.
-- No radio connection is required to explore the panel layout, but most controls become active only when connected to a FLEX-8600.
+- No radio connection is required to explore the panel layout, but most controls become active only when connected to a Flex radio.
 
 ## What the applet panel is
 

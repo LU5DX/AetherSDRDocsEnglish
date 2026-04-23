@@ -1,15 +1,15 @@
 # Understanding Slices and VFOs
 
-A slice is an independent receive (and optionally transmit) channel running inside a single panadapter on the FLEX-8600. Understanding how slices map to VFOs helps you navigate AetherSDR's controls and work multiple signals simultaneously.
+A slice is an independent receive (and optionally transmit) channel running inside a single panadapter on the Flex radio. Understanding how slices map to VFOs helps you navigate AetherSDR's controls and work multiple signals simultaneously.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. Slice controls are not available offline.
+- AetherSDR must be connected to a Flex radio. Slice controls are not available offline.
 - Familiarize yourself with the Applet Panel on the right sidebar. The RX Controls applet (toggle with the RX tray button) is where per-slice settings live.
 
 ## How slices and VFOs work
 
-The FLEX-8600 supports up to eight simultaneous slices, labeled A through H. Each slice is an independent receiver with its own:
+The Flex radio supports up to eight simultaneous slices, labeled A through H. Each slice is an independent receiver with its own:
 
 - **VFO frequency** — shown in the Frequency label in the RX Controls applet, formatted as dotted MHz groups (for example, `14.225.000`).
 - **Mode** — USB, LSB, CW, AM, FM, and others selectable from the Mode combo.

@@ -4,7 +4,7 @@ The Tuner applet gives you control over a 4O3A Tuner Genius XL (TGXL) external a
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The applet is hidden until a Tuner Genius XL is detected.
+- Connect to a Flex radio. The applet is hidden until a Tuner Genius XL is detected.
 - Confirm the TGXL is powered and communicating with the radio or directly with AetherSDR.
 
 ## How it works

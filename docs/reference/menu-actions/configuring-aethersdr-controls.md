@@ -4,7 +4,7 @@ This page describes how to open the built-in guide for customizing applets, keyb
 
 ## Before you start
 
-- AetherSDR must be running and connected to a FLEX-8600 radio.
+- AetherSDR must be running and connected to a Flex radio.
 
 ## Steps
 

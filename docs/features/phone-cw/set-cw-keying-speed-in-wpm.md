@@ -1,6 +1,6 @@
 # Set CW keying speed in WPM
 
-Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, measured in words per minute. This setting is sent directly to the FLEX-8600 and takes effect immediately.
+Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, measured in words per minute. This setting is sent directly to the Flex radio and takes effect immediately.
 
 ## Before you start
 

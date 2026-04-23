@@ -4,7 +4,7 @@
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - The USB cable must be physically connected between the radio and your computer before assigning it here.
 
 ## Steps

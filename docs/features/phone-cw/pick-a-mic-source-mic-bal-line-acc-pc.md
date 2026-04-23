@@ -4,7 +4,7 @@ This page explains how to select the microphone input source for the active tran
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - The active slice must be in a voice mode (Phone panel must be visible in the P/CW applet). The mic source controls are not shown when the slice is in CW mode.
 
 ## Steps

@@ -4,7 +4,7 @@ The Amplifier applet shows live forward power and SWR readings from a connected 
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - A Power Genius XL amplifier must be detected by the radio. The AMP tray button does not appear until the PGXL is present.
 
 ## Steps
@@ -34,7 +34,7 @@ Neither meter has a persisted settings key. Values are read-only telemetry from 
 
 ## Troubleshooting
 
-- **AMP tray button is not visible** — The PGXL has not been detected by the radio. Verify the amplifier is powered on and connected to the FLEX-8600. AetherSDR shows the AMP button only after the radio reports an amplifier is present.
+- **AMP tray button is not visible** — The PGXL has not been detected by the radio. Verify the amplifier is powered on and connected to the Flex radio. AetherSDR shows the AMP button only after the radio reports an amplifier is present.
 - **Fwd Pwr and SWR meters show no movement during transmit** — Confirm the amplifier is in OPERATE state, not STANDBY. See [Put the PGXL amplifier in OPERATE](put-the-pgxl-amplifier-in-operate.md).
 
 ## Related

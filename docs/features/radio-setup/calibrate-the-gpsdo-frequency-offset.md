@@ -1,6 +1,6 @@
 # Calibrate the GPSDO frequency offset
 
-Use this page to trim the FLEX-8600's internal oscillator frequency by entering a known-good calibration frequency and applying a parts-per-billion offset. Accurate frequency calibration improves receive accuracy and on-air frequency precision.
+Use this page to trim the Flex radio's internal oscillator frequency by entering a known-good calibration frequency and applying a parts-per-billion offset. Accurate frequency calibration improves receive accuracy and on-air frequency precision.
 
 ## Before you start
 

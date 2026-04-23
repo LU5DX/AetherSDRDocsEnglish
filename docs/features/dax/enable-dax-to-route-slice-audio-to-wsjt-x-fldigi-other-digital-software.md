@@ -1,10 +1,10 @@
 # Enable DAX to Route Slice Audio to WSJT-X / FLDigi / Other Digital Software
 
-DAX (Digital Audio eXchange) bridges audio between the FLEX-8600 and other software running on your computer. Enabling it creates virtual audio channels that programs like WSJT-X, FLDigi, and similar digital mode applications can use as their sound device.
+DAX (Digital Audio eXchange) bridges audio between the Flex radio and other software running on your computer. Enabling it creates virtual audio channels that programs like WSJT-X, FLDigi, and similar digital mode applications can use as their sound device.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. DAX requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. DAX requires an active radio connection.
 - The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
 - In your digital mode software, have the audio device settings open so you can select the DAX channel once it is active.
 

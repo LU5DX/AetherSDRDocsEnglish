@@ -1,6 +1,6 @@
 # Tube Saturator overview
 
-The Tube Saturator is a TX-side processor that shapes your transmitted signal through a bias-swept tube model, adding harmonic richness before the signal reaches the radio. Use it to add warmth or edge to SSB and other voice modes without changing anything on the FLEX-8600 itself.
+The Tube Saturator is a TX-side processor that shapes your transmitted signal through a bias-swept tube model, adding harmonic richness before the signal reaches the radio. Use it to add warmth or edge to SSB and other voice modes without changing anything on the Flex radio itself.
 
 ## Before you start
 

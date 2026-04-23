@@ -1,11 +1,11 @@
 # Connect to a Radio overview
 
-The Connect to a Radio panel is the starting point for getting AetherSDR talking to your FLEX-8600. It appears automatically before any radio is connected and whenever you disconnect. Use it to choose how AetherSDR reaches the radio: on the local network, through SmartLink, or by a direct IP address.
+The Connect to a Radio panel is the starting point for getting AetherSDR talking to your Flex radio. It appears automatically before any radio is connected and whenever you disconnect. Use it to choose how AetherSDR reaches the radio: on the local network, through SmartLink, or by a direct IP address.
 
 ## Before you start
 
 - AetherSDR is installed and running.
-- Your FLEX-8600 is powered on and reachable by at least one of the three connection paths described below.
+- Your Flex radio is powered on and reachable by at least one of the three connection paths described below.
 
 ## How it works
 
@@ -33,7 +33,7 @@ You can reopen this panel at any time by choosing `Settings > Connect to Radio..
 
 | Control | What it does |
 |---|---|
-| Available radios | Lists FLEX-8600 radios discovered on the local network. |
+| Available radios | Lists Flex radios discovered on the local network. |
 | Connect Selected Radio | Connects to the highlighted radio in the list. Disabled until a radio is selected. |
 | No local radios found yet | Callout shown when discovery has returned no results. |
 | Retry Discovery | Re-runs LAN discovery. |

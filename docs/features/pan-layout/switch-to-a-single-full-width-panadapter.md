@@ -4,7 +4,7 @@ This page explains how to change the panadapter area to display one full-width p
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The layout dialog requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The layout dialog requires an active radio connection.
 
 ## Steps
 

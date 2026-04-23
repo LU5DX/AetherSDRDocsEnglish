@@ -4,7 +4,7 @@ After an autotune, you can nudge the C1, L, and C2 relay positions by hand. This
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - A 4O3A Tuner Genius XL must be detected; the TUN tray button appears on the right sidebar only when one is present.
 - The TGXL must be connected via a direct TGXL connection. Mousewheel scrolling on the relay bars is disabled when only a radio-mediated connection is active.
 - The Tuner applet must be open. Click the TUN tray button to show it.

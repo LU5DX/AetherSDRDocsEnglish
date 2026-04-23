@@ -1,11 +1,11 @@
 # Install AetherSDR on macOS
 
-This page walks you through installing AetherSDR on macOS so you can connect to your FLEX-8600 radio.
+This page walks you through installing AetherSDR on macOS so you can connect to your Flex radio.
 
 ## Before you start
 
-- Your Mac must be connected to the same local network as your FLEX-8600.
-- Confirm your FLEX-8600 is running firmware 4.1.5.
+- Your Mac must be connected to the same local network as your Flex radio.
+- Confirm your Flex radio is running firmware 4.1.5.
 - You must have sufficient permissions to install applications on your Mac (administrator account or equivalent).
 
 ## Steps
@@ -16,7 +16,7 @@ This page walks you through installing AetherSDR on macOS so you can connect to 
 4. Eject the disk image.
 5. Open **Applications** and double-click **AetherSDR** to launch it.
 6. If macOS displays a security prompt stating the app is from an unidentified developer, open **System Settings > Privacy & Security**, scroll to the blocked app notice, and click **Open Anyway**.
-7. Once AetherSDR opens, go to `Settings > Connect to Radio...` to discover and connect to your FLEX-8600.
+7. Once AetherSDR opens, go to `Settings > Connect to Radio...` to discover and connect to your Flex radio.
 
 ## Tips
 

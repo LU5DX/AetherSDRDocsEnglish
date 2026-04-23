@@ -1,10 +1,10 @@
 # Enable radio-side graphic EQ for TX
 
-This page explains how to turn on the graphic equalizer for the transmit path. The equalizer runs inside the FLEX-8600 itself, shaping your transmitted audio across eight fixed bands before it leaves the radio.
+This page explains how to turn on the graphic equalizer for the transmit path. The equalizer runs inside the Flex radio itself, shaping your transmitted audio across eight fixed bands before it leaves the radio.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The EQ applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The EQ applet requires an active radio connection.
 - The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
 
 ## Steps

@@ -4,7 +4,7 @@ Use the RF Power slider in the TX Controls applet to set how much power the radi
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. If not, go to `Settings > Connect to Radio...`.
+- AetherSDR must be connected to a Flex radio. If not, go to `Settings > Connect to Radio...`.
 - The TX Controls applet must be visible. If it is not, click the TX tray button on the right sidebar to show it.
 
 ## Steps

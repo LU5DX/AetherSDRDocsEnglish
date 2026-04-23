@@ -4,7 +4,7 @@ This page explains how to manually connect a TGXL, PGXL, or Antenna Genius perip
 
 ## Before you start
 
-- AetherSDR must already be connected to your FLEX-8600 radio.
+- AetherSDR must already be connected to your Flex radio.
 - You must know the IP address of the TGXL, PGXL, or Antenna Genius device.
 
 ## Steps

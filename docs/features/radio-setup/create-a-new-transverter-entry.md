@@ -1,6 +1,6 @@
 # Create a new transverter entry
 
-Use this page to add a transverter definition to your FLEX-8600 so AetherSDR can display and tune the transverter's output frequency band.
+Use this page to add a transverter definition to your Flex radio so AetherSDR can display and tune the transverter's output frequency band.
 
 ## Before you start
 

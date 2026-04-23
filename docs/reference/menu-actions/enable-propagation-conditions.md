@@ -4,7 +4,7 @@
 
 ## Before you start
 
-- AetherSDR must be running and connected to a FLEX-8600 radio.
+- AetherSDR must be running and connected to a Flex radio.
 - At least one panadapter must be open and visible.
 
 ## Steps

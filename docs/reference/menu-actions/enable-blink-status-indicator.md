@@ -4,7 +4,7 @@
 
 ## Before you start
 
-- AetherSDR must be running and connected to a FLEX-8600 radio to observe the heartbeat blink.
+- AetherSDR must be running and connected to a Flex radio to observe the heartbeat blink.
 
 ## Steps
 

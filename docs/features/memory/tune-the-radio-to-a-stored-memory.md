@@ -4,7 +4,7 @@ Open a saved memory channel and retune the active slice to its stored frequency,
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The Memory Channels dialog requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The Memory Channels dialog requires an active radio connection.
 - At least one memory must already be stored. See [Add a memory at current frequency](add-a-memory-at-current-frequency.md) if the list is empty.
 
 ## Steps

@@ -4,7 +4,7 @@ The CAT PTY feature creates four virtual serial port symlinks under `/tmp/` that
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The CAT Control applet requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The CAT Control applet requires an active radio connection.
 - PTY symlinks are available on Linux and macOS only. This feature is not available on Windows.
 - The CAT Control applet is hidden by default. You must make it visible before you can use it.
 

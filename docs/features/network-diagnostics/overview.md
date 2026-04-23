@@ -1,6 +1,6 @@
 # Network Diagnostics overview
 
-The Network Diagnostics dialog gives you a live view of the link between AetherSDR and your FLEX-8600: connection endpoints, round-trip latency, per-stream data rates, packet loss counts, and audio buffer health. Use it to confirm your network path is stable or to isolate the cause of audio dropouts and waterfall stuttering.
+The Network Diagnostics dialog gives you a live view of the link between AetherSDR and your Flex radio: connection endpoints, round-trip latency, per-stream data rates, packet loss counts, and audio buffer health. Use it to confirm your network path is stable or to isolate the cause of audio dropouts and waterfall stuttering.
 
 ## How it works
 

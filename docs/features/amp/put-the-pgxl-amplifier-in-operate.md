@@ -5,7 +5,7 @@ This page explains how to switch a connected Power Genius XL amplifier from STAN
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Amplifier applet is hidden until a Power Genius XL is detected by the radio.
-- The PGXL must be powered on and communicating with the FLEX-8600 so that state telemetry has arrived. The OPERATE button is hidden until the first state update is received.
+- The PGXL must be powered on and communicating with the Flex radio so that state telemetry has arrived. The OPERATE button is hidden until the first state update is received.
 
 ## Steps
 
@@ -31,7 +31,7 @@ This page explains how to switch a connected Power Genius XL amplifier from STAN
 
 ## Troubleshooting
 
-- **The AMP tray button does not appear** — No Power Genius XL has been detected by the radio. Confirm the PGXL is powered on and correctly connected to the FLEX-8600.
+- **The AMP tray button does not appear** — No Power Genius XL has been detected by the radio. Confirm the PGXL is powered on and correctly connected to the Flex radio.
 - **The OPERATE button is not visible inside the applet** — The applet has opened but no state telemetry has arrived yet from the PGXL. Wait a moment; the button appears after the first state update.
 - **The button shows "STANDBY" immediately after clicking** — The PGXL may be in FAULT or POWERUP and cannot enter OPERATE. Check the amplifier's front panel for fault indicators.
 

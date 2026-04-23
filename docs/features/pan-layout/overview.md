@@ -4,7 +4,7 @@ The Panadapter Layout feature controls how many panadapters are displayed and ho
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. Layout buttons for arrangements requiring more panadapters than the radio supports are disabled.
+- AetherSDR must be connected to a Flex radio. Layout buttons for arrangements requiring more panadapters than the radio supports are disabled.
 
 ## How it works
 

@@ -1,6 +1,6 @@
 # Change Network MTU for VPN/Remote Setups
 
-Adjust the outgoing network MTU that the FLEX-8600 uses when sending data to clients. Lowering the MTU prevents fragmentation over VPNs and other links that have a smaller maximum packet size than a standard Ethernet connection.
+Adjust the outgoing network MTU that the Flex radio uses when sending data to clients. Lowering the MTU prevents fragmentation over VPNs and other links that have a smaller maximum packet size than a standard Ethernet connection.
 
 ## Before you start
 

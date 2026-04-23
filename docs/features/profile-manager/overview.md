@@ -8,7 +8,7 @@ The Profile Manager lets you create, load, rename, and delete Global, Transmit, 
 
 ## How it works
 
-Open the Profile Manager from `Profiles > Profile Manager...`. The dialog contains four tabs — **Global**, **Transmit**, **Microphone**, and **Auto-Save** — each covering a separate category of profiles stored on the FLEX-8600.
+Open the Profile Manager from `Profiles > Profile Manager...`. The dialog contains four tabs — **Global**, **Transmit**, **Microphone**, and **Auto-Save** — each covering a separate category of profiles stored on the Flex radio.
 
 **Global, Transmit, and Microphone tabs** share the same layout: a text field at the top for entering a profile name, three action buttons (Load, Save, Delete), and a list of all profiles in that category below. The currently active profile is highlighted in the list. Selecting a profile in the list populates the **Profile name** field with that profile's name and enables the Load and Delete buttons. Double-clicking a profile in the list loads it immediately, equivalent to clicking Load.
 

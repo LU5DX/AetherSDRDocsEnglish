@@ -1,10 +1,10 @@
 # Run the internal ATU
 
-Use the ATU controls in the TX Controls applet to run the FLEX-8600's internal automatic antenna tuner and check the result. This reduces SWR and optimises the match between the radio and your antenna on the current frequency.
+Use the ATU controls in the TX Controls applet to run the Flex radio's internal automatic antenna tuner and check the result. This reduces SWR and optimises the match between the radio and your antenna on the current frequency.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The TX Controls applet requires an active radio connection.
+- Connect to a Flex radio. The TX Controls applet requires an active radio connection.
 - Ensure the TX Controls applet is visible. If it is not, click the TX tray button on the right sidebar.
 - Check that you are not operating with a TGXL in OPERATE mode — ATU and MEM are disabled in that state.
 

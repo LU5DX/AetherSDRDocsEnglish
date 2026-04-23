@@ -1,6 +1,6 @@
 # Grant or revoke local PTT
 
-When multiple stations share a FLEX-8600 via multiFLEX, only one station holds local PTT authority at a time. This page explains how to claim local PTT for your station and how to read which station currently holds it.
+When multiple stations share a Flex radio via multiFLEX, only one station holds local PTT authority at a time. This page explains how to claim local PTT for your station and how to read which station currently holds it.
 
 ## Before you start
 

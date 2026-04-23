@@ -1,10 +1,10 @@
 # Operating Remotely over SmartLink
 
-SmartLink is FlexRadio's cloud relay service that lets you connect to a FLEX-8600 at a remote location over the internet. Use this page when your radio and computer are on different networks and you have a FlexRadio account.
+SmartLink is FlexRadio's cloud relay service that lets you connect to a Flex radio at a remote location over the internet. Use this page when your radio and computer are on different networks and you have a FlexRadio account.
 
 ## Before you start
 
-- Your FLEX-8600 must be powered on and connected to the internet at the remote site.
+- Your Flex radio must be powered on and connected to the internet at the remote site.
 - You must have a FlexRadio account (email and password) with SmartLink access enabled on that account.
 - AetherSDR must be installed and running on your local machine.
 

@@ -5,7 +5,7 @@ Use this page to confirm which IP address AetherSDR has connected to and which l
 ## Before you start
 
 - AetherSDR must be running. The dialog can be opened whether or not a radio is connected.
-- If you want to see a live IP address, connect to your FLEX-8600 first.
+- If you want to see a live IP address, connect to your Flex radio first.
 
 ## Steps
 
@@ -33,7 +33,7 @@ Use this page to confirm which IP address AetherSDR has connected to and which l
 
 ## Troubleshooting
 
-- **Target Radio IP shows `Not connected`** — No radio connection is active. Go to `Settings > Connect to Radio...` to discover and connect to a FLEX-8600 on the network.
+- **Target Radio IP shows `Not connected`** — No radio connection is active. Go to `Settings > Connect to Radio...` to discover and connect to a Flex radio on the network.
 - **Selected Source shows an unexpected interface** — AetherSDR may have bound to the wrong NIC. Check your operating system's routing table and confirm the radio's subnet is reachable from the expected interface.
 
 ## Related

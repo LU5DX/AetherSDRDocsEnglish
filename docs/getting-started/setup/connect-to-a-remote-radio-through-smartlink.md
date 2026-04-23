@@ -1,10 +1,10 @@
 # Connect to a Remote Radio through SmartLink
 
-SmartLink lets you connect to a FLEX-8600 that is at a different location from your computer. Use this procedure when your radio is not on the same local network as AetherSDR.
+SmartLink lets you connect to a Flex radio that is at a different location from your computer. Use this procedure when your radio is not on the same local network as AetherSDR.
 
 ## Before you start
 
-- Your FLEX-8600 must be powered on and connected to the internet at the remote location, with SmartLink enabled in the radio's settings.
+- Your Flex radio must be powered on and connected to the internet at the remote location, with SmartLink enabled in the radio's settings.
 - You need a FlexRadio account (email and password) with SmartLink access for that radio.
 - AetherSDR must not already be connected to a radio. If it is, disconnect first.
 

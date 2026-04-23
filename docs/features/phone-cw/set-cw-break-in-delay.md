@@ -4,7 +4,7 @@ The Phone/CW applet lets you set how long the radio waits after the last CW elem
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
+- Connect to a Flex radio. The Phone/CW applet requires an active radio connection.
 - Set the active slice to a CW mode. The applet automatically switches to the CW sub-panel when the slice is in CW; the Delay control is not visible in phone modes.
 
 ## Steps

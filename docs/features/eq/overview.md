@@ -1,12 +1,12 @@
 # Equalizer (Graphic) overview
 
-The Equalizer (Graphic) applet provides an 8-band graphic equalizer that runs inside the FLEX-8600 radio itself, applied via the radio's TCP/IP API. Use it to shape the frequency response of your received audio or your transmitted signal across eight fixed octave bands from 63 Hz to 8 kHz.
+The Equalizer (Graphic) applet provides an 8-band graphic equalizer that runs inside the Flex radio itself, applied via the radio's TCP/IP API. Use it to shape the frequency response of your received audio or your transmitted signal across eight fixed octave bands from 63 Hz to 8 kHz.
 
 This equalizer is separate from any client-side parametric EQ in AetherSDR. Changes take effect in the radio's DSP, not in software on your computer.
 
 ## Before you start
 
-- Connect AetherSDR to a FLEX-8600 radio. The applet requires an active radio connection.
+- Connect AetherSDR to a Flex radio. The applet requires an active radio connection.
 - Make the applet panel visible. If it is hidden, go to `View > Applet Panel` to show it.
 
 ## How it works

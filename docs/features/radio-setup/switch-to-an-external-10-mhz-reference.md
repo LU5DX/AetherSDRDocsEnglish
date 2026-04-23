@@ -1,6 +1,6 @@
 # Switch to an external 10 MHz reference
 
-Use this page to change the FLEX-8600's frequency reference from its internal oscillator to an external 10 MHz signal connected to the rear-panel REF IN connector. An external reference improves frequency accuracy and stability, which matters for weak-signal work, digital modes, and operating with GPS-disciplined or rubidium standards.
+Use this page to change the Flex radio's frequency reference from its internal oscillator to an external 10 MHz signal connected to the rear-panel REF IN connector. An external reference improves frequency accuracy and stability, which matters for weak-signal work, digital modes, and operating with GPS-disciplined or rubidium standards.
 
 ## Before you start
 

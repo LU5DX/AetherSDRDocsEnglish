@@ -34,7 +34,7 @@ This page explains how to trigger the 4O3A Tuner Genius XL automatic tune cycle 
 
 ## Troubleshooting
 
-- **TUN tray button does not appear** — The TGXL has not been detected by the radio. Verify the tuner is powered on and correctly connected to the FLEX-8600.
+- **TUN tray button does not appear** — The TGXL has not been detected by the radio. Verify the tuner is powered on and correctly connected to the Flex radio.
 - **TUNE button returns to "TUNE" immediately without showing an SWR result** — The tune cycle may have been aborted or the TGXL did not report a settled SWR. Check the tuner's physical state and try again.
 - **TUNE button shows "SWR 3.00" or a very high value** — The tuner could not find an acceptable match on the current frequency and antenna. Verify the antenna is connected and the band is within the tuner's matching range.
 

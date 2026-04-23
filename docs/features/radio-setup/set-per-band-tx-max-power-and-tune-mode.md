@@ -1,6 +1,6 @@
 # Set per-band TX max power and tune mode
 
-Use this page to cap transmit power and select tune mode for each amateur band on your FLEX-8600. These settings let you protect amplifiers, antennas, or band-specific hardware from over-power conditions.
+Use this page to cap transmit power and select tune mode for each amateur band on your Flex radio. These settings let you protect amplifiers, antennas, or band-specific hardware from over-power conditions.
 
 ## Before you start
 

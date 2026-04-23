@@ -1,6 +1,6 @@
 # Upload a new firmware .ssdr to the radio
 
-Use this page to load a new firmware image onto your FLEX-8600. You will need a `.ssdr` firmware file on your local machine before you begin.
+Use this page to load a new firmware image onto your Flex radio. You will need a `.ssdr` firmware file on your local machine before you begin.
 
 ## Before you start
 

@@ -1,10 +1,10 @@
 # Digital Voice Keyer overview
 
-The Digital Voice Keyer (DVK) lets you record, store, and play back up to 12 voice-keyer slots on a connected FLEX-8600 radio. Use it to send pre-recorded or live-recorded audio on-air without manually keying the microphone, or to preview recordings locally before transmitting.
+The Digital Voice Keyer (DVK) lets you record, store, and play back up to 12 voice-keyer slots on a connected Flex radio. Use it to send pre-recorded or live-recorded audio on-air without manually keying the microphone, or to preview recordings locally before transmitting.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The DVK panel is not available without an active radio connection.
+- AetherSDR must be connected to a Flex radio. The DVK panel is not available without an active radio connection.
 - A voice mode must be active, or DVK must be enabled, for the panel to appear in the main window.
 
 ## How it works

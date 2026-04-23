@@ -1,6 +1,6 @@
 # Enable iambic paddle keying
 
-The iambic keyer lets you use a squeeze paddle to generate CW with the FLEX-8600's built-in keyer. This page explains how to turn it on and adjust the related CW controls.
+The iambic keyer lets you use a squeeze paddle to generate CW with the Flex radio's built-in keyer. This page explains how to turn it on and adjust the related CW controls.
 
 ## Before you start
 

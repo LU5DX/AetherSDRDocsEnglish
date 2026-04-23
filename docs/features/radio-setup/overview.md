@@ -1,10 +1,10 @@
 # Radio Setup Overview
 
-The Radio Setup dialog is the central configuration window for your connected FLEX-8600. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB cables, and peripherals into a single tabbed interface.
+The Radio Setup dialog is the central configuration window for your connected Flex radio. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB cables, and peripherals into a single tabbed interface.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600. The dialog requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The dialog requires an active radio connection.
 
 ## How it works
 

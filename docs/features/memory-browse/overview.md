@@ -1,6 +1,6 @@
 # Memory Browser overview
 
-The Memory Browser is a read-only side panel that lists the stored memories from your connected FLEX-8600 radio alongside the panadapter. It automatically highlights the memory closest to your current tuned frequency and lets you jump to any memory with a double-click or Enter key.
+The Memory Browser is a read-only side panel that lists the stored memories from your connected Flex radio alongside the panadapter. It automatically highlights the memory closest to your current tuned frequency and lets you jump to any memory with a double-click or Enter key.
 
 ## Before you start
 

@@ -4,7 +4,7 @@ When this setting is enabled, AetherSDR automatically spawns a rigctld CAT serve
 
 ## Before you start
 
-- AetherSDR must be installed and able to connect to your FLEX-8600 radio.
+- AetherSDR must be installed and able to connect to your Flex radio.
 - rigctld must be installed and accessible on your system PATH.
 
 ## Steps

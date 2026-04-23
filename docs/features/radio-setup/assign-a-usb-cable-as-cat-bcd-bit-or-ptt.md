@@ -1,11 +1,11 @@
 # Assign a USB cable as CAT, BCD, bit or PTT
 
-The USB Cables tab lets you assign physical USB serial adapters connected to the FLEX-8600 to a specific cable type — CAT, BCD, bit, or PTT — and configure per-cable serial parameters. Use this when you need the radio to drive external equipment such as amplifiers, band decoders, or logging software through a USB serial port.
+The USB Cables tab lets you assign physical USB serial adapters connected to the Flex radio to a specific cable type — CAT, BCD, bit, or PTT — and configure per-cable serial parameters. Use this when you need the radio to drive external equipment such as amplifiers, band decoders, or logging software through a USB serial port.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The USB Cables tab is only available while a radio connection is active.
-- The USB cable must already be physically plugged into the FLEX-8600's USB port. Cables that are not detected appear with an "Unplugged" status in the list.
+- The USB cable must already be physically plugged into the Flex radio's USB port. Cables that are not detected appear with an "Unplugged" status in the list.
 
 ## Steps
 

@@ -1,6 +1,6 @@
 # Log in to SmartLink to see remote radios
 
-SmartLink lets you see and connect to a FLEX-8600 radio that is at a different location from your computer. This page covers signing in to your SmartLink account so that remote radios appear in the list.
+SmartLink lets you see and connect to a Flex radio that is at a different location from your computer. This page covers signing in to your SmartLink account so that remote radios appear in the list.
 
 ## Before you start
 

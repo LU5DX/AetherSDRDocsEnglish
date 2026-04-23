@@ -4,7 +4,7 @@ The panadapter displays a live FFT spectrum and waterfall for a bound slice, and
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The panadapter requires an active radio connection.
+- AetherSDR must be connected to a Flex radio. The panadapter requires an active radio connection.
 - PC audio must be routed to AetherSDR for the CW decoder to produce output.
 
 ## How it works

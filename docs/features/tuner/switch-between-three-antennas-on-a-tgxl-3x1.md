@@ -4,7 +4,7 @@ Select which of the three antenna ports on a 4O3A Tuner Genius XL 3x1 switch is 
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
+- AetherSDR must be connected to a Flex radio.
 - A Tuner Genius XL must be detected; the TUN tray button appears on the right sidebar only when one is present.
 - A direct TGXL connection must be active. The antenna switch row is hidden if the TGXL is not connected directly or does not report an antenna switch.
 
