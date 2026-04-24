@@ -167,16 +167,19 @@
       window.print();
     }
 
-    function aetherAddMsg(text, role, sources) {
+    function aetherAddMsg(text, role, sourceLinks) {
       const container = document.getElementById("aether-chat-messages");
       const div = document.createElement("div");
       div.className = "aether-msg " + role;
       div.textContent = text;
       container.appendChild(div);
-      if (sources && sources.length > 0) {
+      if (sourceLinks && sourceLinks.length > 0) {
         const src = document.createElement("div");
         src.className = "aether-sources";
-        src.textContent = "Sources: " + sources.slice(0, 3).map(s => s.split("/").pop()).join(", ");
+        src.innerHTML = "📄 <strong>Sources:</strong><ul style='margin:0.3rem 0 0 1rem;padding:0;list-style:disc'>" +
+          sourceLinks.slice(0, 5).map(s =>
+            `<li><a href="${s.url}" target="_blank" style="color:var(--md-primary-fg-color)">${s.title}</a></li>`
+          ).join("") + "</ul>";
         container.appendChild(src);
       }
       container.scrollTop = container.scrollHeight;
@@ -200,7 +203,7 @@
         });
         const data = await res.json();
         thinking.remove();
-        aetherAddMsg(data.answer, "bot", data.sources);
+        aetherAddMsg(data.answer, "bot", data.source_links);
       } catch(e) {
         thinking.remove();
         aetherAddMsg("Error connecting to assistant. Please try again.", "bot");
