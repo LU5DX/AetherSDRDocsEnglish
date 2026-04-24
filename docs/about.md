@@ -77,7 +77,7 @@ If you find this documentation useful — if it saved you an hour of digging thr
 ## Support the project
 
 !!! tip "Every contribution helps"
-    Even a small contribution offsets API costs and motivates continued improvements to both the docs and the assistant.
+    Even a small contribution offsets API costs and infrastructure expenses, and motivates continued improvements to both the docs and the assistant.
 
 <div style="text-align:center; margin: 2rem 0;">
   <a href="https://ko-fi.com/lu5dx" class="md-button md-button--primary" target="_blank" rel="noopener" style="margin: 0.5rem;">
