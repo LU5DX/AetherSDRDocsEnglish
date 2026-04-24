@@ -124,6 +124,7 @@
     <div id="aether-chat-header">
       <span class="aether-header-title">⚡ Athena AetherSDR Assistant</span>
       <div class="aether-header-actions">
+        <button class="aether-icon-btn" onclick="aetherToggleMode()" title="User mode: docs only" id="aether-mode-btn">👤</button>
         <button class="aether-icon-btn" onclick="aetherExpand()" title="Expand / Collapse" id="aether-expand-btn">⛶</button>
         <button class="aether-icon-btn" onclick="aetherPrint()" title="Print / Save as PDF">🖨</button>
         <button class="aether-icon-btn" onclick="aetherToggle()" title="Close">✕</button>
@@ -144,11 +145,24 @@
     const AETHER_API = "https://aethersdr-assistant-production.up.railway.app";
     const AETHER_SESSION = Math.random().toString(36).slice(2);
     const AETHER_VERSION = "latest";
+    let AETHER_MODE = "user";
 
     function aetherToggle() {
       const popup = document.getElementById("aether-chat-popup");
       popup.classList.toggle("open");
       if (popup.classList.contains("open")) document.getElementById("aether-chat-input").focus();
+    }
+
+    function aetherToggleMode() {
+      const btn = document.getElementById("aether-mode-btn");
+      AETHER_MODE = AETHER_MODE === "user" ? "advanced" : "user";
+      if (AETHER_MODE === "advanced") {
+        btn.textContent = "⚙️";
+        btn.title = "Advanced mode: docs + source code";
+      } else {
+        btn.textContent = "👤";
+        btn.title = "User mode: docs only";
+      }
     }
 
     function aetherExpand() {
@@ -199,7 +213,7 @@
         const res = await fetch(AETHER_API + "/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, version: AETHER_VERSION, session_id: AETHER_SESSION, lang: "en" })
+          body: JSON.stringify({ question, version: AETHER_VERSION, session_id: AETHER_SESSION, lang: "en", mode: AETHER_MODE })
         });
         const data = await res.json();
         thinking.remove();
