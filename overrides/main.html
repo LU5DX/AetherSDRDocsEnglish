@@ -199,7 +199,7 @@
         const res = await fetch(AETHER_API + "/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, version: AETHER_VERSION, session_id: AETHER_SESSION })
+          body: JSON.stringify({ question, version: AETHER_VERSION, session_id: AETHER_SESSION, lang: "en" })
         });
         const data = await res.json();
         thinking.remove();
