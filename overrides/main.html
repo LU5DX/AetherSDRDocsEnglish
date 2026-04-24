@@ -186,10 +186,11 @@
     }
 
     function aetherPrint() {
-      const messages = document.getElementById("aether-chat-messages").cloneNode(true);
       const printArea = document.getElementById("aether-print-area");
       printArea.innerHTML = "<h2>⚡ AetherSDR Assistant — Session</h2>";
-      printArea.appendChild(messages);
+      document.getElementById("aether-chat-messages").childNodes.forEach(node => {
+        printArea.appendChild(node.cloneNode(true));
+      });
       window.print();
     }
 
