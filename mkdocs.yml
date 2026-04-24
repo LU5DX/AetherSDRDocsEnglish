@@ -37,9 +37,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-  font:
-    text: Inter
-    code: JetBrains Mono
+  font: false
   features:
     - navigation.instant
     - navigation.instant.progress
@@ -64,6 +62,7 @@ theme:
     view: material/eye
 
 extra_css:
+  - assets/fonts/fonts.css
   - stylesheets/extra.css
 
 extra_javascript:
