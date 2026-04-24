@@ -22,7 +22,7 @@ theme:
   name: material
   custom_dir: overrides
   language: en
-  logo: assets/aether-logo.png
+  logo: assets/aether-logo.webp
   favicon: assets/aether-logo.png
   palette:
     - scheme: slate
