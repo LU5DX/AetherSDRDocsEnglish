@@ -292,3 +292,14 @@
   /* Tabs row hides on mobile in Material; the badge goes with it. */
   .md-tabs__list::after { display: none; }
 }
+
+/* ── Accessibility: improve tab link contrast (WCAG AA) ─────────────────── */
+.md-tabs__link {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+  color: #ffffff !important;
+  opacity: 0.85 !important;
+}
