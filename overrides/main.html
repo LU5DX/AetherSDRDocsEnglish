@@ -2,7 +2,19 @@
 
 {% block extrahead %}
   {{ super() }}
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <style>
+    .aether-msg.bot table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; font-size: 0.8rem; }
+    .aether-msg.bot th, .aether-msg.bot td { border: 1px solid var(--md-default-fg-color--lighter); padding: 0.3rem 0.6rem; text-align: left; }
+    .aether-msg.bot th { background: var(--md-default-fg-color--lightest); font-weight: 600; }
+    .aether-msg.bot code { background: var(--md-default-fg-color--lightest); padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.8rem; }
+    .aether-msg.bot pre { background: var(--md-default-fg-color--lightest); padding: 0.6rem; border-radius: 6px; overflow-x: auto; margin: 0.4rem 0; }
+    .aether-msg.bot pre code { background: none; padding: 0; }
+    .aether-msg.bot ul, .aether-msg.bot ol { margin: 0.3rem 0 0.3rem 1.2rem; padding: 0; }
+    .aether-msg.bot p { margin: 0.3rem 0; }
+    .aether-msg.bot strong { font-weight: 700; }
+  </style>
     #aether-chat-btn {
       position: fixed;
       bottom: 1.5rem;
@@ -185,7 +197,11 @@
       const container = document.getElementById("aether-chat-messages");
       const div = document.createElement("div");
       div.className = "aether-msg " + role;
-      div.textContent = text;
+      if (role === "bot" && typeof marked !== "undefined") {
+        div.innerHTML = DOMPurify.sanitize(marked.parse(text));
+      } else {
+        div.textContent = text;
+      }
       container.appendChild(div);
       if (sourceLinks && sourceLinks.length > 0) {
         const src = document.createElement("div");
