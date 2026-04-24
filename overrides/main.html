@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
-{% block scripts %}
+{% block extrahead %}
   {{ super() }}
-
-  <!-- AetherSDR AI Assistant Widget -->
   <style>
     #aether-chat-btn {
       position: fixed;
@@ -24,10 +22,7 @@
       gap: 0.5rem;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    #aether-chat-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    }
+    #aether-chat-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
     #aether-chat-popup {
       position: fixed;
@@ -45,8 +40,16 @@
       display: none;
       flex-direction: column;
       overflow: hidden;
+      transition: width 0.25s, height 0.25s, bottom 0.25s, right 0.25s, border-radius 0.25s;
     }
     #aether-chat-popup.open { display: flex; }
+    #aether-chat-popup.expanded {
+      width: 50vw;
+      height: 80vh;
+      bottom: 1rem;
+      right: 1rem;
+      border-radius: 16px;
+    }
 
     #aether-chat-header {
       background: var(--md-primary-fg-color);
@@ -58,114 +61,84 @@
       justify-content: space-between;
       align-items: center;
       flex-shrink: 0;
+      gap: 0.5rem;
     }
-    #aether-chat-close {
+    .aether-header-title { flex: 1; }
+    .aether-header-actions { display: flex; gap: 0.4rem; align-items: center; }
+    .aether-icon-btn {
       background: none;
       border: none;
       color: inherit;
-      font-size: 1.2rem;
       cursor: pointer;
+      padding: 0.2rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
       line-height: 1;
-      padding: 0;
+      opacity: 0.85;
+      transition: opacity 0.15s, background 0.15s;
     }
+    .aether-icon-btn:hover { opacity: 1; background: rgba(255,255,255,0.15); }
 
-    #aether-chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    #aether-chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .aether-msg { max-width: 88%; padding: 0.6rem 0.85rem; border-radius: 10px; font-size: 0.875rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+    .aether-msg.user { align-self: flex-end; background: var(--md-primary-fg-color); color: var(--md-primary-bg-color); border-bottom-right-radius: 3px; }
+    .aether-msg.bot { align-self: flex-start; background: var(--md-code-bg-color); color: var(--md-default-fg-color); border-bottom-left-radius: 3px; }
+    .aether-msg.thinking { opacity: 0.6; font-style: italic; }
+    .aether-sources { font-size: 0.75rem; opacity: 0.6; margin-top: 0.3rem; align-self: flex-start; }
 
-    .aether-msg {
-      max-width: 88%;
-      padding: 0.6rem 0.85rem;
-      border-radius: 10px;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .aether-msg.user {
-      align-self: flex-end;
-      background: var(--md-primary-fg-color);
-      color: var(--md-primary-bg-color);
-      border-bottom-right-radius: 3px;
-    }
-    .aether-msg.bot {
-      align-self: flex-start;
-      background: var(--md-code-bg-color);
-      color: var(--md-default-fg-color);
-      border-bottom-left-radius: 3px;
-    }
-    .aether-msg.thinking {
-      opacity: 0.6;
-      font-style: italic;
-    }
-
-    .aether-sources {
-      font-size: 0.75rem;
-      opacity: 0.6;
-      margin-top: 0.3rem;
-      align-self: flex-start;
-    }
-
-    #aether-chat-input-row {
-      display: flex;
-      gap: 0.5rem;
-      padding: 0.75rem;
-      border-top: 1px solid var(--md-default-fg-color--lightest);
-      flex-shrink: 0;
-    }
-    #aether-chat-input {
-      flex: 1;
-      border: 1px solid var(--md-default-fg-color--light);
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.875rem;
-      background: var(--md-default-bg-color);
-      color: var(--md-default-fg-color);
-      resize: none;
-      outline: none;
-      font-family: inherit;
-    }
-    #aether-chat-input:focus {
-      border-color: var(--md-primary-fg-color);
-    }
-    #aether-chat-send {
-      background: var(--md-primary-fg-color);
-      color: var(--md-primary-bg-color);
-      border: none;
-      border-radius: 8px;
-      padding: 0.5rem 0.9rem;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: opacity 0.2s;
-    }
+    #aether-chat-input-row { display: flex; gap: 0.5rem; padding: 0.75rem; border-top: 1px solid var(--md-default-fg-color--lightest); flex-shrink: 0; }
+    #aether-chat-input { flex: 1; border: 1px solid var(--md-default-fg-color--light); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.875rem; background: var(--md-default-bg-color); color: var(--md-default-fg-color); resize: none; outline: none; font-family: inherit; }
+    #aether-chat-input:focus { border-color: var(--md-primary-fg-color); }
+    #aether-chat-send { background: var(--md-primary-fg-color); color: var(--md-primary-bg-color); border: none; border-radius: 8px; padding: 0.5rem 0.9rem; cursor: pointer; font-size: 1rem; transition: opacity 0.2s; }
     #aether-chat-send:disabled { opacity: 0.4; cursor: default; }
+
+    @media print {
+      body > *:not(#aether-print-area) { display: none !important; }
+      #aether-print-area {
+        display: block !important;
+        font-family: Inter, sans-serif;
+        padding: 2rem;
+        color: #000;
+      }
+      #aether-print-area h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+      #aether-print-area .aether-msg { margin-bottom: 0.75rem; padding: 0.5rem; border-radius: 6px; }
+      #aether-print-area .aether-msg.user { background: #e8e0f5; text-align: right; }
+      #aether-print-area .aether-msg.bot { background: #f0f0f0; }
+      #aether-print-area .aether-sources { font-size: 0.75rem; color: #666; }
+    }
+    #aether-print-area { display: none; }
   </style>
+{% endblock %}
+
+{% block footer %}
+  {{ super() }}
 
   <button id="aether-chat-btn" onclick="aetherToggle()">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
       <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
     </svg>
-    AI Assistant
+    Athena
   </button>
 
   <div id="aether-chat-popup">
     <div id="aether-chat-header">
-      <span>⚡ AetherSDR Assistant</span>
-      <button id="aether-chat-close" onclick="aetherToggle()" title="Close">✕</button>
+      <span class="aether-header-title">⚡ Athena AetherSDR Assistant</span>
+      <div class="aether-header-actions">
+        <button class="aether-icon-btn" onclick="aetherExpand()" title="Expand / Collapse" id="aether-expand-btn">⛶</button>
+        <button class="aether-icon-btn" onclick="aetherPrint()" title="Print / Save as PDF">🖨</button>
+        <button class="aether-icon-btn" onclick="aetherToggle()" title="Close">✕</button>
+      </div>
     </div>
     <div id="aether-chat-messages">
-      <div class="aether-msg bot">Hi! I'm the AetherSDR AI assistant. Ask me anything about installation, configuration, or troubleshooting.</div>
+      <div class="aether-msg bot">Hi! I'm Athena, the AetherSDR AI assistant. Ask me anything about installation, configuration, or troubleshooting.</div>
     </div>
     <div id="aether-chat-input-row">
       <textarea id="aether-chat-input" rows="1" placeholder="Ask a question..."></textarea>
       <button id="aether-chat-send" onclick="aetherSend()">➤</button>
     </div>
   </div>
+
+  <div id="aether-print-area"></div>
 
   <script>
     const AETHER_API = "https://aethersdr-assistant-production.up.railway.app";
@@ -175,9 +148,23 @@
     function aetherToggle() {
       const popup = document.getElementById("aether-chat-popup");
       popup.classList.toggle("open");
-      if (popup.classList.contains("open")) {
-        document.getElementById("aether-chat-input").focus();
-      }
+      if (popup.classList.contains("open")) document.getElementById("aether-chat-input").focus();
+    }
+
+    function aetherExpand() {
+      const popup = document.getElementById("aether-chat-popup");
+      const btn = document.getElementById("aether-expand-btn");
+      popup.classList.toggle("expanded");
+      btn.textContent = popup.classList.contains("expanded") ? "⛶" : "⛶";
+      btn.title = popup.classList.contains("expanded") ? "Collapse" : "Expand";
+    }
+
+    function aetherPrint() {
+      const messages = document.getElementById("aether-chat-messages").cloneNode(true);
+      const printArea = document.getElementById("aether-print-area");
+      printArea.innerHTML = "<h2>⚡ AetherSDR Assistant — Session</h2>";
+      printArea.appendChild(messages);
+      window.print();
     }
 
     function aetherAddMsg(text, role, sources) {
@@ -201,12 +188,10 @@
       const btn = document.getElementById("aether-chat-send");
       const question = input.value.trim();
       if (!question) return;
-
       input.value = "";
       btn.disabled = true;
       aetherAddMsg(question, "user");
       const thinking = aetherAddMsg("Thinking…", "bot thinking");
-
       try {
         const res = await fetch(AETHER_API + "/chat", {
           method: "POST",
@@ -216,7 +201,7 @@
         const data = await res.json();
         thinking.remove();
         aetherAddMsg(data.answer, "bot", data.sources);
-      } catch (e) {
+      } catch(e) {
         thinking.remove();
         aetherAddMsg("Error connecting to assistant. Please try again.", "bot");
       } finally {
@@ -226,10 +211,7 @@
     }
 
     document.getElementById("aether-chat-input").addEventListener("keydown", function(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        aetherSend();
-      }
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); aetherSend(); }
     });
   </script>
 {% endblock %}
