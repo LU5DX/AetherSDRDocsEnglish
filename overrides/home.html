@@ -24,7 +24,10 @@
 
   <section class="aether-hero" aria-label="AetherSDR user manual">
     <div class="aether-bg"                            aria-hidden="true"></div>
-    <img class="aether-ui"  src="assets/aether-bg.webp"  data-parallax-speed="0.35" aria-hidden="true" alt="" loading="eager" fetchpriority="high">
+    <picture>
+      <source media="(max-width: 768px)" srcset="assets/aether-bg-mobile.webp">
+      <img class="aether-ui" src="assets/aether-bg.webp" data-parallax-speed="0.35" aria-hidden="true" alt="" loading="eager" fetchpriority="high">
+    </picture>
 
     <div class="aether-hero__content" data-parallax-speed="1.30">
       <h1 class="aether-hero__title">AetherSDR</h1>
