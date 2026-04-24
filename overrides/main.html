@@ -105,18 +105,23 @@
     #aether-chat-send:disabled { opacity: 0.4; cursor: default; }
 
     @media print {
-      body > *:not(#aether-print-area) { display: none !important; }
+      body * { visibility: hidden; }
+      #aether-print-area, #aether-print-area * { visibility: visible; }
       #aether-print-area {
-        display: block !important;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
         font-family: Inter, sans-serif;
         padding: 2rem;
         color: #000;
+        background: #fff;
       }
       #aether-print-area h2 { font-size: 1.2rem; margin-bottom: 1rem; }
-      #aether-print-area .aether-msg { margin-bottom: 0.75rem; padding: 0.5rem; border-radius: 6px; }
+      #aether-print-area .aether-msg { margin-bottom: 0.75rem; padding: 0.5rem; border-radius: 6px; white-space: pre-wrap; }
       #aether-print-area .aether-msg.user { background: #e8e0f5; text-align: right; }
-      #aether-print-area .aether-msg.bot { background: #f0f0f0; }
+      #aether-print-area .aether-msg.bot { background: #f0f0f0; color: #000; }
       #aether-print-area .aether-sources { font-size: 0.75rem; color: #666; }
+      #aether-print-area .aether-msg.thinking { display: none; }
     }
     #aether-print-area { display: none; }
   </style>
