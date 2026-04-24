@@ -62,7 +62,6 @@ theme:
     view: material/eye
 
 extra_css:
-  - assets/fonts/fonts.css
   - stylesheets/extra.css
 
 extra_javascript:
