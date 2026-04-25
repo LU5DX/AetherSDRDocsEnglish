@@ -52,7 +52,6 @@ theme:
     - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -134,6 +133,73 @@ extra:
       link: https://github.com/LU5DX/AetherSDRDocsEnglish
       name: Documentation source
   generator: false
+  # Sidebar section icons. Keyed by the section's title (auto-generated from
+  # the folder name: dashes become spaces, first letter is capitalized).
+  # Used by overrides/partials/nav-item.html via render_section_icon().
+  section_icons:
+    # Top-level tabs
+    Features: material/star-four-points
+    "Getting started": material/rocket-launch
+    Operating: material/broadcast
+    Reference: material/book-open-variant
+    Troubleshooting: material/wrench-cog
+    About: material/information-outline
+    # Features sub-sections
+    "Aether dsp": material/waveform
+    Amp: material/amplifier
+    "Antenna genius": material/antenna
+    "Band stack": material/bookmark-multiple
+    "Cat control": material/console-network
+    "Client chain": material/transit-connection-variant
+    "Client comp": material/volume-vibrate
+    "Client de ess": material/account-voice
+    "Client eq": material/equalizer
+    "Client gate": material/gate
+    "Client pudu": material/microphone-settings
+    "Client reverb": material/surround-sound
+    "Client tube": material/lightning-bolt-circle
+    Connection: material/lan-connect
+    Cwx: material/dots-horizontal
+    Dax: material/audio-input-rca
+    "Dax iq": material/sine-wave
+    Dvk: material/microphone-message
+    "Dx cluster": material/radio-tower
+    Eq: material/equalizer-outline
+    Help: material/help-circle-outline
+    Memory: material/memory
+    "Memory browse": material/folder-search
+    Meter: material/gauge
+    "Midi mapping": material/midi
+    Mqtt: material/transit-connection
+    "Multi flex": material/account-multiple
+    "Network diagnostics": material/lan
+    "Pan layout": material/view-grid
+    Panadapter: material/chart-bell-curve
+    Phone: material/microphone
+    "Phone cw": material/microphone-variant
+    "Profile manager": material/account-cog
+    "Prop dashboard": material/satellite-variant
+    "Radio setup": material/radio
+    Rx: material/arrow-down-bold-circle
+    Shortcut: material/keyboard-outline
+    "Slice troubleshooting": material/wrench
+    "Spot settings": material/map-marker-radius
+    Support: material/lifebuoy
+    Tci: material/protocol
+    Tuner: material/tune
+    Tx: material/arrow-up-bold-circle
+    "Whats new": material/star-shooting
+    # Getting started sub-sections
+    Concepts: material/lightbulb-on
+    Install: material/download
+    Setup: material/cog-outline
+    Tutorials: material/school
+    # Operating sub-sections
+    "Digital modes": material/keyboard
+    Dsp: material/sine-wave
+    Remote: material/cloud
+    # Troubleshooting sub-sections
+    Networkdiagnostics: material/lan
 
 # Auto-build navigation from folder structure. With 367 pages a manual nav
 # tree would be unmaintainable; folder hierarchy already mirrors the doc
