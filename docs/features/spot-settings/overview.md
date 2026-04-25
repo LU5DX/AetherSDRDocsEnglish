@@ -1,45 +1,50 @@
 # Spot Settings overview
 
-The Spot Settings dialog controls how DX spots and memory channels appear on the panadapter — including whether they are shown at all, how many rows they occupy, where they sit vertically, how long they persist, and what colors they use. Open it from the panadapter context menu or the spots overlay; it does not require an active radio connection.
+The Spot Settings dialog controls how DX spots and memory channels appear on the panadapter — including whether they are shown at all, how dense and large they are, how long they persist, and how their text and background are colored. Open it from the panadapter context menu or the Spots overlay.
+
+## Before you start
+
+- No radio connection is required to change these settings.
+- Spots must be fed from a configured DX cluster or other source via `Settings > SpotHub...` before any spots will appear on the panadapter.
 
 ## How it works
 
-AetherSDR draws DX spots as labeled markers directly on the panadapter display. Each spot is placed at its spotted frequency and stacked vertically when multiple spots fall close together. The dialog groups its controls into four areas: visibility toggles, layout, lifetime, and color.
+When spots are enabled, AetherSDR receives spot data from connected sources (DX cluster, RBN, WSJTX, and others) and renders each spot as a labeled marker on the panadapter at the corresponding frequency. The Spot Settings dialog gives you control over every visual aspect of that rendering.
 
-**Visibility** — The `IsSpotsEnabled` master toggle must be on for any spots to appear. The `IsMemoriesShownOnPanadapter` toggle independently controls whether radio memory channels are rendered in the same overlay.
+The **Total Spots:** indicator at the top of the dialog shows a live count of spots currently being tracked, regardless of whether the display is enabled.
 
-**Layout** — `SpotsStackLevels` sets how many vertical rows are available when spots crowd the same frequency. `SpotsPosition` sets the baseline height as a percentage from the bottom of the panadapter. `SpotsFontSize` controls the text size of spot labels.
-
-**Lifetime** — `SpotsLifetime` determines how long a spot remains visible before it fades. The slider uses a non-linear scale: it steps through seconds (10–55 s), then minutes (5–55 min), then hours (1–24 hr), displaying a formatted label such as "15 mins" or "2 hrs".
-
-**Color** — By default, spots are drawn using colors assigned by the spot source. `IsSpotsOverrideColorsEnabled` replaces all spot text with a single chosen color (`SpotsOverrideColor`, default `#FFFF00`). Background rendering is controlled by `IsSpotsOverrideBackgroundColorsEnabled` (default on) with `IsSpotsOverrideToAutoBackgroundColorEnabled` (default on) selecting a contrast color automatically. When auto mode is off, `SpotsOverrideBgColor` (default `#000000`) is used. `SpotsOverrideBgOpacity` sets the background alpha on a 0–100 scale (default 48).
-
-The **Total Spots:** indicator at the bottom of the dialog shows how many spots are currently tracked.
+Settings are saved immediately when you change a control. No Apply or OK button is needed.
 
 ## What each control does
 
-| Label | Kind | Default | Setting key | Behavior |
+| Label | Kind | Default | Persisted key | What it does |
 |---|---|---|---|---|
-| Spots: | Toggle button | Enabled | `IsSpotsEnabled` | Master on/off for the DX spot overlay. |
+| Spots: | Toggle button | Enabled | `IsSpotsEnabled` | Master on/off for DX spot display on the panadapter. |
 | Memories: | Toggle button | Disabled | `IsMemoriesShownOnPanadapter` | Shows radio memory channels as spot-like markers on the panadapter. |
-| Levels: | Slider | 3 | `SpotsStackLevels` | Number of vertical stacking rows; range 1–10. |
-| Position: | Slider | 50 | `SpotsPosition` | Baseline height of the spot row as a percentage (0–100) from the bottom. |
-| Font Size: | Slider | 16 | `SpotsFontSize` | Spot label text size in points; range 8–32. |
-| Spot Lifetime: | Slider | 30 min | `SpotsLifetime` | How long a spot is displayed; non-linear scale from 10 sec to 24 hr. |
-| Override Colors: | Toggle button | Disabled | `IsSpotsOverrideColorsEnabled` | Forces all spot text to a single color instead of source-assigned colors. |
-| Spot text color picker | Button | `#FFFF00` | `SpotsOverrideColor` | Opens a color picker to choose the override text color. Active only when Override Colors is Enabled. |
-| Override Background: Enabled | Toggle button | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a filled background behind each spot label. |
-| Override Background: Auto | Toggle button | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | Automatically selects a background color to contrast with the text. When off, uses the manually chosen background color. |
-| Spot background color picker | Button | `#000000` | `SpotsOverrideBgColor` | Opens a color picker to choose the background color. Used when Auto is off. |
-| Background Opacity: | Slider | 48 | `SpotsOverrideBgOpacity` | Alpha of the spot background; range 0–100. |
-| Clear All Spots | Button | — | — | Immediately removes all spots from the panadapter. This action is not undoable. |
+| Levels: | Slider | 3 | `SpotsStackLevels` | Number of vertical stacking rows used when spots crowd the same frequency area. Range: 1–10. |
+| Position: | Slider | 50 | `SpotsPosition` | Vertical position of the spot row on the panadapter, as a percentage from top to bottom. Range: 0–100. |
+| Font Size: | Slider | 16 | `SpotsFontSize` | Text size for spot labels. Range: 8–32. |
+| Spot Lifetime: | Slider | 30 min | `SpotsLifetime` | How long a spot remains on the panadapter before expiring. The slider uses a non-linear scale: 10–55 seconds in 5-second steps, 5–55 minutes in 5-minute steps, then 1–24 hours in 1-hour steps. |
+| Override Colors: | Toggle button | Disabled | `IsSpotsOverrideColorsEnabled` | When enabled, forces all spot text to a single color instead of per-source colors. |
+| Spot text color picker | Button | #FFFF00 | `SpotsOverrideColor` | Opens a color picker to select the override text color. Active only when Override Colors: is Enabled. |
+| Override Background: Enabled | Toggle button | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a filled background behind each spot label for legibility. |
+| Override Background: Auto | Toggle button | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | When enabled, automatically selects a background color to contrast with the spot text. When disabled, uses the manually chosen background color. |
+| Spot background color picker | Button | #000000 | `SpotsOverrideBgColor` | Opens a color picker to select a fixed background color. Used when Override Background: Auto is disabled. |
+| Background Opacity: | Slider | 48 | `SpotsOverrideBgOpacity` | Alpha transparency of the spot background. Range: 0 (fully transparent) to 100 (fully opaque). |
+| Clear All Spots | Button | — | — | Immediately removes all spots from the panadapter. Does not affect incoming spot sources. |
 
 ## Tips
 
-- If spots from different sources use colors that clash with your panadapter theme, enable Override Colors and pick a single readable color rather than adjusting each source individually.
-- Set Override Background: Auto on whenever you change the text override color; AetherSDR will pick a contrasting background automatically.
-- The Spot Lifetime slider snaps to defined steps. There is no arbitrary seconds entry; choose the nearest step available.
-- Reducing Levels to 1 makes the overlay compact but causes spots at close frequencies to overlap rather than stack.
+- Set Override Background: Auto to Enabled when you have many spot sources with different colors — the automatic contrast selection keeps labels readable regardless of the underlying spectrum color.
+- If spots from different sources stack on top of each other, increase Levels: to spread them across more rows.
+- The Spot Lifetime: slider snaps to named intervals (for example, "10 sec", "5 mins", "1 hr"). The display label updates as you drag.
+- Turning Spots: to Disabled stops rendering on the panadapter but does not disconnect your DX cluster sources; the Total Spots: count continues to increment.
+
+## Troubleshooting
+
+- **No spots appear even though Spots: shows Enabled** — Check that at least one spot source is configured and connected in `Settings > SpotHub...`. The Total Spots: count will read 0 if no data is arriving.
+- **Spot labels are unreadable against the panadapter background** — Enable Override Background: Enabled and Override Background: Auto, or lower the Background Opacity: slider to reduce the background density.
+- **All spots disappear shortly after appearing** — Spot Lifetime: may be set very low. Open Spot Settings and drag the Spot Lifetime: slider to a higher value such as 30 mins.
 
 ## Related
 

@@ -1,41 +1,38 @@
-# Change Network MTU for VPN/Remote Setups
+# Change network MTU for VPN/remote setups
 
-Adjust the outgoing network MTU that the Flex radio uses when sending data to clients. Lowering the MTU prevents fragmentation over VPNs and other links that have a smaller maximum packet size than a standard Ethernet connection.
+Lowering the network MTU prevents IP fragmentation when your radio traffic passes through a VPN tunnel or a WAN link with a smaller path MTU than Ethernet's default. Set this value on the radio so that outgoing packets fit inside the tunnel without being dropped or reassembled.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Network tab is only available while a connection is active.
-- Know the MTU of your VPN or remote link before changing this value. Your network administrator or VPN documentation should list it.
+- AetherSDR must be connected to the radio. The Network tab is not accessible while disconnected.
+- Know the MTU of your VPN tunnel or remote link. A common starting point for OpenVPN is 1400 bytes; WireGuard tunnels often use 1420 bytes.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Network** tab.
 3. Locate the **Network MTU:** spinbox.
-4. Set the value to match or stay below the MTU of your VPN or remote link.
-5. Click **Apply** to push the new network configuration to the radio.
+4. Set the value in bytes to match your tunnel's MTU.
+5. Click **Apply** to push the new MTU to the radio.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid range | Setting key |
-|---|---|---|---|---|---|
-| **Network MTU:** | Spinbox | Sets the outgoing MTU in bytes that the radio uses when sending packets. | — | — | — |
-| **Apply** | Button | Pushes the current network configuration, including the MTU value, to the radio. | — | — | — |
-
-No setting key is persisted in AetherSDR for this value; it is stored on the radio itself.
+| Control | Description | Default | Valid range | Setting key |
+|---|---|---|---|---|
+| **Network MTU:** | Outgoing MTU in bytes sent by the radio. Lower this when packets are fragmented or dropped over a VPN or WAN path. | — | — | — |
+| **Apply** | Pushes the current network configuration, including the MTU value, to the radio. | — | — | — |
 
 ## Tips
 
-- If you are also experiencing audio dropouts over a VPN, increase the **Audio Buffer:** value (50–1000 ms) on the **Audio** tab. A larger buffer absorbs the extra jitter that fragmented or re-ordered packets can cause on high-latency links.
-- The **Enforce Private IP Connections:** toggle on the same tab restricts the radio to RFC 1918 peers. If your VPN assigns a public IP to your client interface, disable that toggle before connecting remotely.
+- If audio stutters or panadapter data drops intermittently over a VPN, also increase **Audio Buffer:** (found on the **Audio** tab) to compensate for added jitter. That setting accepts values between 50 and 1000 ms.
+- The **IP Address / Mask / MAC Address** fields on the same tab are read-only and confirm which interface the radio is using.
 
 ## Troubleshooting
 
-- **Audio cuts out or the connection drops shortly after changing the MTU** — the value may still be too large for the path. Reduce the MTU further in small steps (for example, by 50 bytes at a time) and click **Apply** after each change until the connection stabilises.
-- **Apply has no visible effect** — confirm the radio is still connected. If the connection dropped, reconnect via `Settings > Connect to Radio...`, reopen `Settings > Radio Setup...`, navigate to the **Network** tab, re-enter the MTU value, and click **Apply** again.
+- **Apply has no visible effect** — Verify the radio is still connected. If the connection dropped, close and reopen `Settings > Radio Setup...`, reconnect, and apply again.
+- **Audio still drops after lowering MTU** — The MTU controls outgoing radio packets. Also check that your host OS network interface MTU is set to the same value or lower, and consider raising **Audio Buffer:** on the **Audio** tab.
 
 ## Related
 
 - [Switch the radio between DHCP and static IP](switch-the-radio-between-dhcp-and-static-ip.md)
 - [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
-- [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)

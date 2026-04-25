@@ -1,41 +1,39 @@
 # Pick a custom background color for spots
 
-This page explains how to set a specific background color for spot labels on the panadapter. Use this when you want consistent, manually chosen background colors rather than the automatic contrast-based selection.
+This page explains how to set a specific background color that appears behind spot labels on the panadapter, instead of letting AetherSDR choose the color automatically.
 
 ## Before you start
 
-- Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter.
-- Confirm that `IsSpotsOverrideBackgroundColorsEnabled` is active — the "Override Background: Enabled" button must be checked. If it is not, the background color picker has no effect.
-- Disable automatic background color selection: the "Override Background: Auto" button must be unchecked. While Auto is active, AetherSDR ignores the manually chosen color.
+- Open the Spot Settings dialog by right-clicking on the panadapter and selecting it from the spots overlay context menu.
+- Confirm that the `IsSpotsOverrideBackgroundColorsEnabled` toggle is active — the background color picker has no effect if background override is off.
 
 ## Steps
 
-1. Right-click the spots overlay on the panadapter and open Spot Settings.
-2. Locate the **Override Background:** row.
-3. If the "Enabled" button shows as unchecked, click it so it reads "Enabled".
-4. If the "Auto" button shows as checked, click it so it reads unchecked. This disables automatic color selection and enables the manual color picker.
-5. Click the small color swatch button (the square to the right of "Auto") to open the color picker.
-6. Select your desired background color in the color dialog and confirm. The swatch updates immediately and the color is saved to `SpotsOverrideBgColor`.
+1. In the Spot Settings dialog, locate the **Override Background:** row.
+2. Confirm the **Enabled** toggle button shows **Enabled**. If it shows **Disabled**, click it to enable background overrides. This controls `IsSpotsOverrideBackgroundColorsEnabled`.
+3. Click the **Auto** toggle button so it shows **Disabled**. While **Auto** is enabled, AetherSDR picks the background color automatically and ignores your custom color. Disabling it activates `IsSpotsOverrideToAutoBackgroundColorEnabled` = False.
+4. Click the small color swatch button to the right of **Auto**. This is the spot background color picker and opens a color chooser dialog.
+5. Select your desired color in the color dialog and confirm the selection.
+6. The swatch updates to show the chosen color. The value is saved immediately to `SpotsOverrideBgColor`.
 
 ## What each control does
 
-| Control | Default | Persisted setting | Behavior |
+| Control | What it does | Default | Setting key |
 |---|---|---|---|
-| Override Background: Enabled | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a background behind spot label text. Must be enabled for any background color setting to apply. |
-| Override Background: Auto | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | When enabled, AetherSDR picks a background color automatically for contrast. Disable this to use a manually chosen color. |
-| Spot background color picker | `#000000` | `SpotsOverrideBgColor` | Opens the color picker dialog. The selected color is used as the spot background when Auto is off. |
-| Background Opacity: | 48 | `SpotsOverrideBgOpacity` | Controls the transparency of the spot background, from 0 (fully transparent) to 100 (fully opaque). |
+| **Override Background: Enabled** toggle | Draws a background behind spot text. When **Disabled**, no background is drawn and all background controls are inactive. | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` |
+| **Override Background: Auto** toggle | When **Enabled**, AetherSDR automatically selects a contrasting background color and ignores the custom color picker. Set to **Disabled** to use your chosen color. | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
+| Spot background color picker | Opens a color dialog to choose the custom background color. Active only when **Auto** is **Disabled**. | `#000000` | `SpotsOverrideBgColor` |
+| **Background Opacity:** slider | Controls the transparency of the spot background. Range 0–100; default 48. | 48 | `SpotsOverrideBgOpacity` |
 
 ## Tips
 
-- If you change the background color but spots still show the automatic color, check that "Override Background: Auto" is unchecked. Auto takes precedence over the manual color.
-- The background color and opacity are independent. After choosing a color, adjust the **Background Opacity:** slider to control how strongly it renders over the panadapter.
+- The custom color set here only takes effect when both **Enabled** is active and **Auto** is **Disabled**. If spots still show automatic background colors after picking a color, check that **Auto** reads **Disabled**.
+- To fine-tune how visible the background is without changing the color, adjust the **Background Opacity:** slider after setting your color. See [Adjust spot background opacity](adjust-spot-background-opacity.md).
 
 ## Troubleshooting
 
-- **Color picker opens but changes have no visible effect** — "Override Background: Auto" is still checked. Uncheck it so the manual color in `SpotsOverrideBgColor` is used.
-- **No background appears behind spot text at all** — "Override Background: Enabled" is unchecked. Click it so it reads "Enabled".
-- **Background is invisible despite correct color and Enabled state** — The **Background Opacity:** slider may be set to 0. Raise it above 0.
+- **Background color does not change after picking a new color** — Check that **Override Background:** shows **Enabled** and that the **Auto** toggle shows **Disabled**. If **Auto** is **Enabled**, the custom color is ignored.
+- **No background appears at all** — The **Enabled** toggle under **Override Background:** is set to **Disabled**. Click it so it reads **Enabled**.
 
 ## Related
 

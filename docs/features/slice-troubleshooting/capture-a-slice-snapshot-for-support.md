@@ -1,42 +1,40 @@
 # Capture a slice snapshot for support
 
-The Slice Troubleshooting dialog captures a point-in-time snapshot of every slice, panadapter, and DAX channel in AetherSDR's current in-memory state. Use it to collect diagnostic information before filing a bug report or asking for help.
+The Slice Troubleshooting dialog captures a snapshot of every slice's current state and summarizes likely problems. Use it to gather information before filing a bug report or asking for support.
 
 ## Before you start
 
 - AetherSDR must be connected to a radio. The dialog requires an active radio connection.
-- Reproduce or confirm the problem you want to report before opening the dialog, so the snapshot reflects the relevant state.
 
 ## Steps
 
-1. Open `Help > Slice Troubleshooting...`.
-2. The dialog opens on the **Issue Summary** tab and takes a snapshot automatically. Review the bullet list for any detected problems (missing audio, stuck mute, missing antenna).
-3. Click the **JSON** tab to see the full JSON snapshot of slices and DAX channels.
-4. If you changed slice state after opening the dialog, click **Refresh Snapshot** to re-read the current state.
-5. To share a plain-language summary, click **Copy Summary**. The text is copied to the clipboard.
-6. To share the full technical detail, click **Copy JSON**. The full JSON is copied to the clipboard.
-7. To save the snapshot as a file for attachment to a bug report, click **Export JSON...**, choose a save location, and confirm. The default filename is `aethersdr-slice-troubleshooting-<timestamp>.json` in your home directory.
-8. Check the status label at the bottom of the dialog to confirm the last action (for example, `Issue summary copied to clipboard.` or `JSON copied to clipboard.`).
-9. Click **Close** when finished.
+1. Click `Help > Slice Troubleshooting...` to open the Slice Troubleshooting dialog.
+2. Review the **Issue Summary** tab for a plain-language list of detected problems (missing audio, stuck mute, missing antenna, and similar issues).
+3. Click the **JSON** tab to view the full snapshot of slices and DAX channels.
+4. Do one of the following to share the snapshot:
+   - Click **Copy Summary** to copy the issue summary to the clipboard.
+   - Click **Copy JSON** to copy the full JSON snapshot to the clipboard.
+   - Click **Export JSON...** to save the JSON to a file you can attach to a bug report.
+5. If you change slice state while the dialog is open, click **Refresh Snapshot** to re-read the current state before copying or exporting.
+6. Click **Close** when finished.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Issue Summary** | Tab | Displays a plain-language bullet list of detected problems. |
-| **JSON** | Tab | Displays the full JSON snapshot of slices and DAX channels. |
+| **Issue Summary** | Tab | Plain-language bullet list of detected problems. |
+| **JSON** | Tab | Full JSON snapshot of slices and DAX channels. |
 | **Refresh Snapshot** | Button | Re-reads slice state into the snapshot. |
 | **Copy Summary** | Button | Copies the issue summary to the clipboard. |
-| **Copy JSON** | Button | Copies the full JSON to the clipboard. |
-| **Export JSON...** | Button | Opens a save dialog and writes the JSON to a file. |
+| **Copy JSON** | Button | Copies the full JSON snapshot to the clipboard. |
+| **Export JSON...** | Button | Saves the JSON to a file. |
 | **Close** | Button | Closes the dialog. |
-| Status label | Indicator | Shows the result of the last copy or export action. |
+| Status label | Indicator | Shows the result of the last copy or export action (for example, "Copied to clipboard"). |
 
 ## Tips
 
-- The dialog reads AetherSDR's in-memory state only. It does not re-query the radio over the network. If the radio state changed recently and the snapshot looks stale, click **Refresh Snapshot**.
-- The **Issue Summary** tab is suited for pasting into GitHub issues or forum posts. The **JSON** tab output is better for detailed or AI-assisted troubleshooting.
-- The exported filename includes a timestamp, so repeated exports do not overwrite each other.
+- Use the **Issue Summary** tab when filing a GitHub issue. Use the **JSON** tab output when seeking AI-assisted troubleshooting or when support asks for the full state.
+- Click **Refresh Snapshot** after making any change to slice configuration so the snapshot reflects the current state before you export or copy.
 
 ## Related
 

@@ -1,33 +1,38 @@
 # See all stations connected to this FLEX
 
-The multiFLEX Dashboard shows every client currently sharing your Flex radio and what each one is doing. Use it to confirm who is connected, which antenna they are using, and what frequency they are transmitting on.
+The multiFLEX Dashboard lists every client currently sharing the radio, showing each station's name, transmit antenna, and transmit frequency. Use it to check who else is on the radio before transmitting.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The multiFLEX Dashboard requires an active radio connection.
-- multiFLEX must be enabled on the radio. If the dashboard shows no stations, check that multiFLEX is active (see [Enable multiFLEX on the radio](../../features/multi-flex/enable-multiflex-on-the-radio.md)).
+- AetherSDR must be connected to a FLEX-8600 radio. The menu item is unavailable without an active radio connection.
+- multiFLEX must be enabled on the radio. If it is not, the Stations table will be empty or show only your own station.
 
 ## Steps
 
 1. Click `Settings > multiFLEX...`.
-2. The **multiFLEX Dashboard** opens and immediately populates the **Stations table** with all connected clients.
-3. Read the table. Each row is one client. The columns are **LOCAL PTT**, **STATION**, **TX ANT**, and **TX FREQ (MHz)**. Your own station is highlighted in blue.
-4. Click `Close` when finished.
+2. The **multiFLEX Dashboard** opens. The **Stations table** lists every connected client with four columns: **LOCAL PTT**, **STATION**, **TX ANT**, and **TX FREQ (MHz)**.
+3. Review the table. Your own station is highlighted in blue. A checkmark in the **LOCAL PTT** column indicates which station currently holds PTT authority.
+4. Click **Close** when finished.
 
 ## What each control does
 
 | Control | What it does |
 |---|---|
-| `Enabled` / `Disabled` button | Toggles multiFLEX on or off for the radio. The button label reflects the current state. |
-| **Stations table** | Lists every connected multiFLEX client. Columns: **LOCAL PTT** (checkmark if that station holds PTT), **STATION** (program and station name), **TX ANT** (transmit antenna), **TX FREQ (MHz)** (transmit frequency). Displays `----` when a value is not available. |
-| `Enable` (PTT) | Requests local PTT authority for your station. Appears only when another client is connected and your station does not currently hold PTT. |
-| `Close` | Closes the dialog. |
+| **Enabled** / **Disabled** button | Toggles multiFLEX on or off for the radio. Displays **Enabled** (green) or **Disabled** (red) to reflect the current state. |
+| **Stations table** | Lists each connected multiFLEX client. Columns: **LOCAL PTT** (checkmark if this station holds PTT), **STATION** (program and station name), **TX ANT** (transmit antenna), **TX FREQ (MHz)** (transmit frequency in MHz). |
+| **Enable** (PTT) | Claims local PTT authority for your station. Visible only when another station holds PTT and you do not. |
+| **Close** | Closes the dialog. |
 
 ## Tips
 
-- The table updates automatically as clients connect, disconnect, or change state. You do not need to reopen the dialog to see changes.
-- Your own station's row is shown in a distinct color so you can locate it quickly in a crowded list.
-- The `Enable` (PTT) button is hidden when your station already holds PTT or when you are the only connected client.
+- Your own station's row is shown in blue. Other stations are shown in the default color.
+- If only one station is connected, the PTT label and **Enable** button are hidden — PTT is not contested.
+- TX antenna and frequency show `----` if the radio has not yet reported slice data for that station.
+
+## Troubleshooting
+
+- **The Stations table shows only one row or is empty** — multiFLEX may not be enabled on the radio. Click the **Disabled** button to enable it, then check whether other clients appear.
+- **TX ANT and TX FREQ show `----` for a station** — Slice status data for that client has not yet arrived from the radio. Wait a moment and the table will refresh automatically when the data is received.
 
 ## Related
 

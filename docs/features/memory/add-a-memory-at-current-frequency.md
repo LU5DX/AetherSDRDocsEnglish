@@ -1,10 +1,10 @@
 # Add a memory at current frequency
 
-Save the active VFO frequency, mode, and filter settings as a named memory channel so you can return to it quickly later.
+Save the active VFO frequency, mode, and filter settings as a named memory channel so you can return to that frequency quickly later.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
+- AetherSDR must be connected to a FLEX-8600 radio. The Memory Channels dialog requires an active radio connection.
 - Tune the active slice to the frequency you want to store.
 
 ## Steps
@@ -12,26 +12,22 @@ Save the active VFO frequency, mode, and filter settings as a named memory chann
 1. Open `Settings > Memory...`.
 2. Click `Add`.
 
-The radio creates a new memory row populated with the current VFO frequency, mode, and filter settings. The row appears in the memory table.
+The new memory appears in the memory table with the current VFO frequency pre-filled in the Frequency column.
 
-3. To name or edit the new entry immediately, select the row and click `Edit`, then modify the fields inline.
+3. To give the memory a name immediately, select the new row, click `Edit`, type a name in the Name column, then press Enter to confirm.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| `Add` | Button | Creates a new memory at the current VFO. |
-| `Edit` | Button | Enters inline-edit mode on the selected memory row. |
-| Memory table | List | Displays all stored memories. Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. |
+| Control | Description |
+|---|---|
+| `Add` | Creates a new memory row at the current VFO frequency. |
+| `Edit` | Enters inline-edit mode on the selected row so you can update any field. |
+| Memory table | Displays all stored memories. Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. |
 
 ## Tips
 
-- Double-clicking a row in the memory table tunes the active slice to that memory directly.
-- On Linux and Windows, Ctrl+N opens the Add action from within the Memory Channels dialog.
-
-## Troubleshooting
-
-- **`Add` has no effect** — The dialog requires an active radio connection. If the radio is not connected, connect first via `Settings > Connect to Radio...`, then reopen `Settings > Memory...`.
+- Double-clicking a row tunes the active slice to that memory without closing the dialog.
+- On Linux and Windows, Ctrl-click adds or removes individual rows from the selection. On macOS, use Command-click.
 
 ## Related
 

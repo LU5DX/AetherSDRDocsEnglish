@@ -1,69 +1,62 @@
 # Radio Setup Overview
 
-The Radio Setup dialog is the central configuration window for your connected Flex radio. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB cables, and peripherals into a single tabbed interface.
-
-## Before you start
-
-- AetherSDR must be connected to a Flex radio. The dialog requires an active radio connection.
+The Radio Setup dialog is the central configuration window for your FLEX-8600. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB accessories, external peripherals, and (on supported builds) FlexControl serial — all in one place. Open it once to orient yourself; return to specific tabs whenever you need to change a setting.
 
 ## How it works
 
-Open the dialog via `Settings > Radio Setup...`. The dialog stays open while you work; close it with the Close button when finished.
+Open the dialog with `Settings > Radio Setup...`. The dialog has a tab bar across the top; each tab covers a distinct area of radio configuration. Tabs are built on first use, so switching to a tab for the first time may take a moment while AetherSDR probes connected hardware.
 
-The dialog is organized into tabs. Each tab covers a distinct area of radio configuration. Tabs other than Radio are built on first access, so there may be a brief delay the first time you click a tab.
+You can also jump directly to specific tabs via `Settings > USB Cables...` (opens the USB Cables tab) and `Settings > FlexControl...` (opens the Serial tab, where available).
 
-You can also jump directly to specific tabs:
-
-- `Settings > FlexControl...` opens the dialog on the Serial tab.
-- `Settings > USB Cables...` opens the dialog on the USB Cables tab.
+The dialog has no Apply or OK button for most tabs — changes take effect immediately when you interact with a control. The exception is the Network tab, which has its own "Apply" button. Close the dialog with the "Close" button at the bottom.
 
 ### Tab summary
 
 | Tab | What it covers |
 |---|---|
-| Radio | Radio identification, nickname, callsign, station name, license info, and firmware update. |
-| Network | IP address, MTU, DHCP vs. static IP, and private-IP enforcement. |
-| GPS | GPS presence and live position, altitude, time, and satellite data. |
-| TX | TX timings, interlocks, max power (0–100 %), tune mode, waterfall TX display, and TX/slice follow behavior. |
-| Phone/CW | Microphone level meter, iambic keyer, dit/dah swap, CW pitch sideband (LSB or USB), CWX, CW decoder, and RTTY mark default. |
+| Radio | Serial number, region, hardware version, licensed options, nickname, callsign, station name, license info, and firmware update. |
+| Network | Read-only IP/MAC addresses, DHCP/Static switching, static IP fields, MTU, and private-IP enforcement. |
+| GPS | GPS presence indicator and live latitude, longitude, altitude, time, and satellite count. |
+| TX | TX timing, interlocks, max power cap (0–100 %), tune mode, waterfall TX display, TX/slice follow modes, and a shortcut to TX Band Settings. |
+| Phone/CW | Microphone level meter, iambic keyer, dit/dah swap, CW sideband, CWX macros, CW decoder, and RTTY mark default. |
 | RX | GPSDO frequency calibration, manual frequency offset (ppb), and 10 MHz reference source (Internal or External). |
-| Audio | Radio audio outputs (line out, headphone, front speaker), PC audio device selection, audio compression, boost, buffer, recording, and NVIDIA BNR noise removal. |
-| Filters | Low Latency vs. Sharp filter preference per bandwidth, with an option to force low-latency filters for digital modes. |
-| XVTR | Per-transverter configuration: RX-only mode, remove, and Create New Transverter. |
-| USB Cables | Assigns USB serial adapters to CAT, BCD, bit, and PTT cable types with full serial parameter control. |
-| Peripherals | Manual IP connection for TGXL, PGXL, and Antenna Genius devices. |
-| Serial | FlexControl serial port selection, line parameters, pin function assignment, paddle swap, auto-open, and FlexControl tuning knob detection. (Shown only when serial port support is compiled in.) |
+| Audio | Line-out and headphone gain and mute, PC audio device selection, audio compression codec, audio boost, audio buffer size, recording mode and folder, auto-record on TX, idle timeout, and NVIDIA BNR container controls. |
+| Filters | Low Latency or Sharp filter selection per bandwidth, and a separate option to force low-latency filters in digital modes. |
+| XVTR | Per-transverter configuration tabs, RX-only toggle, remove, and Create New Transverter. |
+| USB Cables | Lists detected USB serial adapters; assigns each as CAT, BCD, bit, or PTT with full serial parameters. |
+| Peripherals | Manual IP-based connection and disconnection for TGXL, PGXL, and Antenna Genius. |
+| Serial | FlexControl serial port selection, line parameters, DTR/RTS pin assignment, paddle swap, auto-open on startup, and tuning knob detect/close. Available only on builds with serial port support. |
 
-### Audio and recording settings
+### Persisted settings on the Audio tab
 
-The Audio tab holds the controls with persisted settings most commonly adjusted for remote and SmartLink operation.
+The following settings are saved in AetherSDR's application settings and persist across sessions.
 
-| Control | What it does | Setting key | Default | Range |
+| Control | Setting key | Default | Valid range | What it does |
 |---|---|---|---|---|
-| Audio Compression (SmartLink): Auto / Uncompressed / Opus | Selects the audio codec used over SmartLink or LAN. | `AudioCompression` | Auto | Auto, Uncompressed, Opus |
-| Audio Boost: | Enables extra gain on the client audio path. | `AudioBoost` | — | On / Off |
-| Audio Buffer: | Increases the audio buffer to absorb VPN or SmartLink jitter. | `AudioBuffer` | — | 50–1000 ms |
-| Recording: Radio Side / Client Side | Selects whether recording happens on the radio or on this computer. | `RecordMode` | — | Radio Side, Client Side |
-| Save to: | Folder where recordings are saved. | `RecordDir` | — | Any valid path |
-| Auto-record on TX | Starts recording automatically whenever you transmit. | `AutoRecordTx` | — | On / Off |
-| Idle timeout: | Seconds of silence after which an active recording stops. | `RecordIdleTimeout` | — | — |
+| Audio Compression (SmartLink): Auto / Uncompressed / Opus | `AudioCompression` | Auto | Auto, Uncompressed, Opus | Selects the audio codec used over SmartLink or LAN. |
+| Audio Boost: | `AudioBoost` | — | On / Off | Enables extra gain on the client audio path. |
+| Audio Buffer: | `AudioBuffer` | — | 50–1000 ms | Increases the audio buffer to absorb VPN or SmartLink jitter. |
+| Recording: Radio Side / Client Side | `RecordMode` | — | Radio Side, Client Side | Selects whether recording happens on the radio or on this PC. |
+| Save to: | `RecordDir` | — | Any writable folder path | Folder where recordings are saved. |
+| Auto-record on TX | `AutoRecordTx` | — | On / Off | Starts recording automatically whenever you transmit. |
+| Idle timeout: | `RecordIdleTimeout` | — | — (seconds) | Seconds of silence after which an auto-started recording stops. |
 
 ## Tips
 
-- The TX Band Settings shortcut on the TX tab opens the dedicated per-band power and tune dialog, the same one accessible via `Settings > TX Band Settings...`.
-- Station Name defaults to the OS hostname if left blank. It identifies this client to other multiFLEX stations.
-- The Serial tab appears only on builds that include serial port support. If you do not see it, use `Settings > FlexControl...` to confirm whether serial support is available on your installation.
+- If `Settings > FlexControl...` is not visible in your menu, the build does not include serial port support.
+- The Serial tab is also absent from the tab bar in that case.
+- TX Band Settings can be reached from `Settings > TX Band Settings...` in the menu or from the "TX Band Settings" button inside the TX tab.
 
 ## Related
 
-- [Set the radio nickname, callsign and station name](set-the-radio-nickname-callsign-and-station-name.md)
 - [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)
+- [Set the radio nickname, callsign and station name](set-the-radio-nickname-callsign-and-station-name.md)
 - [Upload a new firmware .ssdr to the radio](upload-a-new-firmware-ssdr-to-the-radio.md)
 - [Switch the radio between DHCP and static IP](switch-the-radio-between-dhcp-and-static-ip.md)
 - [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md)
+- [Set per-band TX max power and tune mode](set-per-band-tx-max-power-and-tune-mode.md)
 - [Calibrate the GPSDO frequency offset](calibrate-the-gpsdo-frequency-offset.md)
 - [Switch to an external 10 MHz reference](switch-to-an-external-10-mhz-reference.md)
-- [Set per-band TX max power and tune mode](set-per-band-tx-max-power-and-tune-mode.md)
 - [Choose PC input/output audio devices](choose-pc-input-output-audio-devices.md)
 - [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)
 - [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)

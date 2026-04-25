@@ -1,42 +1,43 @@
-# Switch NR2 Gain Method Between Linear, Log, Gamma and Trained
+# Switch NR2 gain method between Linear, Log, Gamma and Trained
 
-The NR2 engine's gain method controls how it maps estimated noise to a suppression curve. Changing it lets you trade off between aggressive noise removal and natural-sounding speech.
+The NR2 gain method controls how AetherSDR maps the estimated noise reduction gain onto the audio signal. Choosing the right method affects the balance between noise suppression and speech naturalness.
 
 ## Before you start
 
-- No radio connection is required. AetherDSP Settings can be opened at any time.
-- NR2 must be active on a receiver slice for changes to take effect on live audio.
+- AetherSDR must be running. A radio connection is not required to change this setting.
+- NR2 must be active on the slice you want to affect.
 
 ## Steps
 
-1. Open `Settings > AetherDSP Settings...`.
+1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR2** tab.
-3. In the **Gain Method** group, click one of the four radio buttons: **Linear**, **Log**, **Gamma**, or **Trained**.
-
-The setting takes effect immediately. AetherSDR persists the choice to `NR2GainMethod`.
+3. Under **Gain Method**, click one of the four radio buttons: **Linear**, **Log**, **Gamma**, or **Trained**.
+4. Close the dialog. The setting takes effect immediately and is saved automatically.
 
 ## What each control does
 
-| Control | Kind | Default | Valid values | Persisted key |
-|---|---|---|---|---|
-| **Gain Method** | Radio buttons | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` |
+| Control | Kind | Default | Valid values | Setting key | Behavior |
+|---|---|---|---|---|---|
+| **Gain Method** | Radio buttons | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects the gain-curve mapping used by NR2. Stored as integer 0–3 matching the order above. |
 
 **Gain Method options:**
 
-- **Linear** — Maps gain using a linear audio amplitude scale. No compression of dynamic range.
-- **Log** — Uses a logarithmic amplitude scale. Compresses dynamic range; tends to reduce musical noise artifacts at the cost of some speech naturalness.
-- **Gamma** — Models speech amplitude using a Gamma distribution. Default. Generally the best balance between suppression and speech fidelity for SSB and CW work.
-- **Trained** — Applies a noise reduction model trained on real speech and noise samples. May perform better on specific noise types but can sound processed on others.
-
-The selection is stored as an integer: Linear = 0, Log = 1, Gamma = 2, Trained = 3.
+- **Linear** — Applies gain on a linear amplitude scale. Direct, with no dynamic-range compression.
+- **Log** — Uses a logarithmic amplitude scale, compressing the dynamic range of the applied gain.
+- **Gamma** — Models speech amplitude as a Gamma distribution. This is the default and suits typical speech patterns.
+- **Trained** — Uses a noise-reduction model trained on real speech and noise samples.
 
 ## Tips
 
-- Start with **Gamma** if you are unsure. It is the default and suits most HF conditions.
-- If you hear residual musical noise with Gamma, try **Log**.
-- If the noise type is consistent (for example, a steady fan or HVAC hum), **Trained** may give cleaner results.
-- After switching methods, use the **Reduction Depth:** and **Voice Threshold:** sliders to re-optimize suppression for the new curve. See [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md).
-- To return all NR2 parameters to their defaults, click **Reset Defaults** on the NR2 tab. This restores Gain Method to **Gamma**. See [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md).
+- **Gamma** is the default and works well for most SSB voice contacts. Start here if you are unsure.
+- **Trained** can sound more natural on clean speech but may behave differently on heavily distorted or weak signals.
+- **Log** reduces the aggressiveness of gain transitions and can help if **Gamma** or **Trained** produce audible pumping.
+- Click **Reset Defaults** on the NR2 tab to return **Gain Method** to **Gamma** along with all other NR2 parameters.
+
+## Troubleshooting
+
+- **Changing the gain method has no audible effect** — Confirm that NR2 is enabled on the active slice. The AetherDSP Settings dialog adjusts parameters only; NR2 must be switched on separately from the slice controls.
+- **Speech sounds distorted after switching to Trained** — Try reducing **Reduction Depth:** from its default of 1.50 or increasing **Voice Threshold:** slightly. See [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md).
 
 ## Related
 

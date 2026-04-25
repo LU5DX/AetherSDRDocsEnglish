@@ -1,44 +1,45 @@
 # Switch the Radio Between DHCP and Static IP
 
-Use this page to configure the Flex radio's network addressing mode. Switch to static IP when you need the radio at a fixed address on your LAN, or return to DHCP to let your router assign an address automatically.
+Use this page to change how your FLEX-8600 obtains its IP address — either automatically via DHCP or with a fixed static address you specify. You would use a static IP to ensure the radio is always reachable at a known address, for example in a remote or VPN setup.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Network tab is only available while connected.
-- If you are assigning a static IP, have your intended IP address, subnet mask, and gateway address ready before you begin.
-- Changing the IP address will disconnect AetherSDR from the radio. Be prepared to reconnect at the new address.
+- If you are switching to static IP, have your intended IP address, subnet mask, and gateway address ready before you start.
+- Changing the radio's IP address will drop the current connection. Reconnect using the new address after applying.
 
 ## Steps
 
-1. Open `Settings > Radio Setup...`.
+1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
 2. Click the **Network** tab.
-3. Locate the **DHCP / Static** toggle button. Click it to switch between modes.
-   - When set to DHCP, the static address fields are not needed.
-   - When set to Static, the **IP Address:**, **Mask:**, and **Gateway:** fields become active.
-4. If you selected Static, enter the desired values in the **IP Address:**, **Mask:**, and **Gateway:** fields.
+3. Locate the **DHCP / Static** toggle button. Click it to switch between DHCP and Static IP modes.
+4. If you selected Static: type the desired values into the **IP Address:**, **Mask:**, and **Gateway:** fields.
 5. Click **Apply** to push the network configuration to the radio.
+6. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **DHCP / Static** | Toggle button | Switches the radio between DHCP and static IP modes. |
+| **DHCP / Static** | Toggle button | Switches the radio between DHCP mode (address assigned by your router) and Static IP mode (address you enter manually). |
 | **IP Address:** | Text field | The static IPv4 address to assign to the radio. Active only in Static mode. |
-| **Mask:** | Text field | The subnet mask for the static configuration. Active only in Static mode. |
-| **Gateway:** | Text field | The default gateway for the static configuration. Active only in Static mode. |
-| **Apply** | Button | Pushes the current network configuration to the radio. |
+| **Mask:** | Text field | The subnet mask for the static address. Active only in Static mode. |
+| **Gateway:** | Text field | The default gateway for the static address. Active only in Static mode. |
+| **Apply** | Push button | Sends the current network configuration to the radio. |
+| **IP Address / Mask / MAC Address** (read-only) | Indicator | Displays the radio's current network addresses. These are read-only. |
 
 ## Tips
 
-- The **IP Address / Mask / MAC Address** indicators above the toggle show the radio's current network addresses and are read-only. Use them to confirm the new settings took effect after reconnecting.
-- After clicking **Apply** in Static mode, AetherSDR will lose the connection. Reconnect via `Settings > Connect to Radio...` using the new static address.
+- The read-only **IP Address / Mask / MAC Address** indicators at the top of the Network tab show the radio's current active addresses. Note these down before making changes so you can recover if needed.
+- If you are connecting over a VPN or remote link, also review the **Network MTU:** setting on the same tab. See [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md).
 
 ## Troubleshooting
 
-- **Radio does not appear after switching to static IP** — The address entered may conflict with another device or may be outside your LAN's subnet. Verify the IP address, mask, and gateway are correct for your network. If the radio becomes unreachable, a hardware reset may be required to restore DHCP; see your Flex radio hardware documentation.
-- **Apply does not seem to take effect** — Ensure you are still connected to the radio at the moment you click **Apply**. If the connection dropped before you clicked, reopen `Settings > Radio Setup...`, re-enter the static values, and click **Apply** promptly.
+- **Cannot see the Network tab** — The tab is only available when AetherSDR is connected to the radio. Connect first via `Settings > Connect to Radio...`, then reopen Radio Setup.
+- **Radio is unreachable after clicking Apply** — The radio has adopted its new address. If you switched to static IP, reconnect using the address you entered. If you switched to DHCP, check your router's DHCP lease table to find the address the radio was assigned.
+- **Apply has no effect** — Verify that the IP Address:, Mask:, and Gateway: fields all contain valid values before clicking Apply. An incomplete static configuration may be rejected silently.
 
 ## Related
 
 - [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md)
-- [Radio Setup overview](overview.md)
+- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)

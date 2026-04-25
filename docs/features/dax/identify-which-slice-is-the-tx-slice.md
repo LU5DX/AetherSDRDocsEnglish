@@ -1,34 +1,31 @@
 # Identify which slice is the TX slice
 
-The DAX Audio applet shows a TX assignment indicator that tells you at a glance which slice currently holds TX privileges. Use this when you need to confirm that the correct slice is driving the DAX TX stream before transmitting from digital mode software.
+The DAX Audio applet shows a live TX assignment indicator that tells you which slice currently holds TX privileges. Use this when you need to confirm which slice drives the DAX TX stream before transmitting digital audio.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The TX indicator is only populated when a radio connection is active.
-- The DAX Audio applet must be visible. If it is not, click the DAX tray button on the right sidebar to open it.
+- AetherSDR must be connected to the radio. The TX indicator requires an active radio connection.
+- The DAX applet must be visible. If you do not see it, click the DAX tray button on the right sidebar to open it.
 
 ## Steps
 
-1. Click the DAX tray button on the right sidebar to open the DAX Audio applet.
-2. Look at the row labeled **TX:** near the bottom of the applet.
-3. Read the indicator to the right of the **TX:** label. It shows either `—` (no TX slice assigned) or `Slice A` through `Slice H` (the slice currently holding TX privileges).
+1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet.
+2. Look at the **TX:** row at the bottom of the applet.
+3. Read the status indicator immediately to the right of the **TX:** label.
+   - If a slice holds TX privileges, the indicator shows **Slice A** through **Slice H**, matching the letter assigned to that slice.
+   - If no slice currently holds TX privileges, the indicator shows **—**.
 
 ## What each control does
 
-| Control | Description | Default | Notes |
+| Control | Description | States | Persisted key |
 |---|---|---|---|
-| TX assignment indicator | Shows which slice currently has TX privileges. Updates automatically when TX changes between slices. | `—` | Display only; not configurable here. |
-| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag to adjust. | 0.5 (range 0.0–1.0) | Persisted as `DaxTxGain`. |
+| TX assignment indicator | Shows which slice currently holds TX privileges and drives the DAX TX stream. Updated automatically when TX changes between slices. | **—** (none) or **Slice A–H** | None |
+| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. | 0.0–1.0 (default 0.5) | `DaxTxGain` |
 
 ## Tips
 
-- The TX indicator updates automatically whenever TX moves to a different slice — you do not need to refresh or re-open the applet.
-- If the indicator shows `—` and you expect a slice to be transmitting, verify that the radio has an active slice with TX enabled.
-- The RX rows above the TX row each have their own slice assignment indicator showing `Slice A`–`Slice H` or `—`. Compare these with the TX row to understand the full routing picture.
-
-## Troubleshooting
-
-- **TX indicator shows `—` even though a slice is active** — The radio connection may not be fully established, or no slice currently holds TX privileges. Check the connection status and ensure at least one slice is configured for TX on the radio.
+- The TX indicator updates immediately whenever TX privileges transfer to a different slice. You do not need to refresh or reopen the applet.
+- The RX rows above the **TX:** row show which slice is routed to each DAX channel (DAX 1 through DAX 4). Those indicators follow the same **Slice A–H** or **—** format and are independent of the TX indicator.
 
 ## Related
 

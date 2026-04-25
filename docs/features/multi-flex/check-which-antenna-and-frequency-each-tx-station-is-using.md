@@ -1,42 +1,34 @@
 # Check which antenna and frequency each TX station is using
 
-The multiFLEX Dashboard shows the transmit antenna and frequency for every station currently sharing the radio. Use this page to confirm what each connected client is doing before you transmit.
+Open the multiFLEX Dashboard to see, at a glance, which TX antenna and transmit frequency every connected station is currently using.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The multiFLEX Dashboard requires an active radio connection.
-- multiFLEX must be enabled on the radio. If the dashboard shows no stations, see [Enable multiFLEX on the radio](enable-multiflex-on-the-radio.md).
+- multiFLEX must be enabled on the radio. If it is not, the stations table will be empty.
 
 ## Steps
 
 1. Click `Settings > multiFLEX...` to open the multiFLEX Dashboard.
-2. Read the Stations table. Each row is one connected client.
-3. Find the **TX ANT** column for the transmit antenna in use by each station.
-4. Find the **TX FREQ (MHz)** column for the transmit frequency of each station, shown in MHz to three decimal places.
-5. Click `Close` when finished.
+2. Read the **Stations table**. Each row is one connected client. The columns are:
 
-## What each control does
+   | Column | What it shows |
+   |---|---|
+   | LOCAL PTT | A check mark if that station currently holds PTT authority. |
+   | STATION | The program and station name for that client. Your own station is highlighted in blue. |
+   | TX ANT | The transmit antenna that station has selected. Shows `----` if not yet reported. |
+   | TX FREQ (MHz) | The transmit frequency in MHz, to three decimal places. Shows `----` if not yet reported. |
 
-| Control | Description |
-|---|---|
-| Stations table | Lists every multiFLEX client currently connected to the radio. Columns: **LOCAL PTT**, **STATION**, **TX ANT**, **TX FREQ (MHz)**. |
-| LOCAL PTT | A check mark (✔) indicates the station currently holds local PTT authority. |
-| STATION | The program name and station name of the client. Your own station is highlighted in blue. |
-| TX ANT | The transmit antenna the station's TX slice is using. Displays `----` if no data is available. |
-| TX FREQ (MHz) | The transmit frequency of the station's TX slice, in MHz. Displays `----` if no data is available. |
+3. Click `Close` when you are done.
 
 ## Tips
 
-- The table updates automatically whenever a client connects, disconnects, or changes its TX slice. You do not need to close and reopen the dialog to see current values.
-- Your own station's row is highlighted in a distinct color, making it easy to identify yourself among multiple clients.
-
-## Troubleshooting
-
-- **TX ANT or TX FREQ (MHz) shows `----` for a station** — The radio has not yet reported TX slice data for that client. Wait a moment for the table to refresh, or ask the other operator to confirm they have a TX slice active.
-- **No rows appear in the Stations table** — multiFLEX may not be enabled, or no other clients are connected. Verify the Enable button shows "Enabled" and check the network connection to the radio.
+- The table updates automatically whenever a station changes its transmit antenna or frequency. You do not need to reopen the dialog.
+- Your own station's row is distinguished by blue text in the STATION column, making it easy to compare your settings against other stations.
+- `TX ANT` and `TX FREQ (MHz)` values of `----` mean the radio has not yet reported that data for the station, not that the station is inactive.
 
 ## Related
 
 - [Enable multiFLEX on the radio](enable-multiflex-on-the-radio.md)
-- [Grant or revoke local PTT](grant-or-revoke-local-ptt.md)
 - [See all stations connected to this FLEX](../../getting-started/setup/see-all-stations-connected-to-this-flex.md)
+- [Grant or revoke local PTT](grant-or-revoke-local-ptt.md)

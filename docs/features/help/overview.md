@@ -1,47 +1,41 @@
-# AetherSDR Offline Help overview
+# AetherSDR Offline Help Overview
 
-AetherSDR includes a built-in help reader that displays bundled Markdown guides directly in the application. The help is available without an internet connection, so you can read it at the radio bench or in the field.
+AetherSDR includes a built-in help reader that displays bundled Markdown documentation without requiring an internet connection. Use it to read getting-started guides, learn about noise cancellation modes, configure data modes, and more.
 
 ## How it works
 
-Each entry in the `Help` menu opens a separate instance of the help reader, pre-loaded with the topic for that menu item. The available topics are:
+Each help topic opens in its own HelpDialog window. The window is independent of the radio connection — you can read help at any time, even when no radio is connected.
 
-| Menu item | Topic |
-|---|---|
-| `Help > Getting Started...` | Getting started with AetherSDR |
-| `Help > AetherSDR Help...` | Full AetherSDR help document |
-| `Help > Understanding Noise Cancellation...` | NR2, NR4, DFNR, and MNR noise reduction |
-| `Help > Configuring AetherSDR Controls...` | AetherSDR controls reference |
-| `Help > Configuring Data Modes...` | Digital mode configuration |
-| `Help > Contributing to AetherSDR...` | Bug reports and contributions |
+Open any topic from the Help menu:
 
-Each dialog opens independently. You can have more than one topic open at the same time.
+- `Help > Getting Started...`
+- `Help > AetherSDR Help...`
+- `Help > Understanding Noise Cancellation...`
+- `Help > Configuring AetherSDR Controls...`
+- `Help > Configuring Data Modes...`
+- `Help > Contributing to AetherSDR...`
 
-The window opens at 760 × 680 pixels and can be resized down to a minimum of 520 × 420 pixels.
-
-If AetherSDR cannot find the bundled file for a topic, the Markdown viewer displays a message that the help file is not available, along with instructions to reinstall the application.
+Each entry opens a separate window pre-loaded with that topic. You can have multiple help windows open at the same time.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| `AETHERSDR OFFLINE HELP` | Indicator (eyebrow) | Brand header displayed above the topic title. Read-only. |
-| Title | Indicator | Displays the topic name passed in when the dialog was opened. Read-only. |
-| Subtitle | Indicator | Fixed line: "Bundled help is available even when your station computer is offline." Read-only. |
-| Markdown viewer | Scrollable text area | Renders the loaded Markdown topic. Supports internal scrolling. External links open in your default browser. |
-| Hint / footer | Indicator | Displays: "Tip: The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
-| Close | Button | Closes the help dialog. |
-
-No settings from this dialog are persisted.
+| Control | Description |
+|---|---|
+| **AETHERSDR OFFLINE HELP** | Brand header shown above the topic title. Read-only indicator. |
+| **Title** | Displays the topic name as the window title. Read-only. |
+| **Subtitle** | One-line description: "Bundled help is available even when your station computer is offline." Read-only. |
+| **Find:** field | Type a subject or term to search within the current topic. The field border turns red when there are no matches. Activate with the standard Find keyboard shortcut or by clicking the field. |
+| **Next** | Finds the next occurrence of the search term. Enabled only when the Find field contains text. Press Return in the Find field for the same effect. Wraps to the top of the document when the end is reached. |
+| **Previous** | Finds the previous occurrence of the search term. Enabled only when the Find field contains text. Press Shift+Return in the Find field for the same effect. Wraps to the bottom when the beginning is reached. |
+| **Markdown viewer** | Renders the loaded help topic. Read-only. External links open in your system browser. |
+| **Hint / footer** | Shows the tip: "The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
+| **Close** | Closes the help window. |
 
 ## Tips
 
-- The `Help` menu items are independent. Open `Help > Understanding Noise Cancellation...` and `Help > Configuring Data Modes...` side by side if you need both.
-- No radio connection is required to open any help topic.
-
-## Troubleshooting
-
-- **Markdown viewer shows "Help file not available"** — The bundled help asset is missing from the installation. Reinstall AetherSDR and try again.
+- The Find field searches only the currently open topic. To search a different guide, open it from the Help menu and use Find there.
+- If a search term is not found from the current scroll position, the viewer wraps automatically and shows "Wrapped to top" or "Wrapped to bottom" as a status indicator next to the Find field. If there are no matches at all, it shows "No matches."
+- No persisted settings are associated with the help reader. Nothing is saved when you close it.
 
 ## Related
 

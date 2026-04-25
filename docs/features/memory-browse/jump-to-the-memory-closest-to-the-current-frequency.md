@@ -1,33 +1,34 @@
-# Jump to the memory closest to the current frequency
+# Jump to the Memory Closest to the Current Frequency
 
-The Memory Browser automatically highlights the memory whose stored frequency is nearest to your current tuning. This page explains how to read that highlight and use it to orient yourself within your saved memories.
+The Memory Browser automatically highlights the memory whose stored frequency is nearest to your current tuning. Use this to quickly find and confirm the closest reference point without scrolling manually.
 
 ## Before you start
 
-- The radio must be connected. The Memory Browser requires an active radio connection.
-- At least one memory with a valid frequency must be loaded on the radio. If no memories are available, the panel shows "No memories are available yet." and there is nothing to highlight.
-- The Memory Browser side panel must be visible. See [Memory Browser overview](overview.md) for how to enable it.
+- AetherSDR must be connected to a FLEX-8600 radio.
+- The Memory Browser side panel must be open. See [Memory Browser overview](overview.md).
+- The radio must have at least one memory with a valid frequency stored. If none are loaded, the panel shows "No memories are available yet." and no highlighting occurs.
 
 ## Steps
 
-1. Tune your radio's VFO to any frequency using your normal method.
-2. Look at the Memory Browser panel alongside the panadapter. The panel updates automatically — no button press is required.
-3. Find the highlighted row in the memory table. That row is the memory whose stored frequency is closest to your current tuned frequency.
-4. The panel scrolls automatically to keep the highlighted row centered in view.
+1. Open the Memory Browser side panel. It sits alongside the panadapter in the main window.
+2. Tune the radio to any frequency using the VFO or panadapter.
+3. Look at the memory table. The row corresponding to the memory closest to your current frequency is highlighted automatically.
+4. If the highlighted row is not visible, the panel scrolls it to the center of the table.
 
 ## What each control does
 
 | Control | Behavior |
 |---|---|
-| Memory table | Lists all memories with valid frequencies, sorted by frequency. Columns: Frequency (MHz, six decimal places), Name. |
-| Highlighted row | Marks the single memory closest to the current tuned frequency. Updated each time the tuning changes. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories with valid frequencies loaded. |
+| Memory table | Lists all stored memories sorted by frequency. Columns: Frequency (MHz), Name. |
+| Highlighted row | Marks the single memory whose frequency is nearest to the current tuned frequency. Updated each time you retune. |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. |
 
 ## Tips
 
-- The table is sorted by frequency, not by memory index, so the highlighted row will always appear near other entries at similar frequencies.
-- If two memories are equidistant from the current frequency, the one with the lower memory index is highlighted.
-- The highlight updates as you tune, so you can sweep the VFO and watch the highlight move through the list to find a cluster of memories in a band segment.
+- The table is sorted by frequency, so the highlighted row also shows you where your current frequency sits relative to all stored memories.
+- If two memories are equally close to the current frequency, the one with the lower memory index is highlighted.
+- Memories with a frequency of 0 are excluded from the table and from the closest-match calculation.
+- A memory's displayed name comes from its name field if set, its group name if the name is blank, or "Memory N" as a fallback.
 
 ## Related
 

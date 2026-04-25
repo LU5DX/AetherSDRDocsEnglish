@@ -1,46 +1,45 @@
-# Enable DAX to Route Slice Audio to WSJT-X / FLDigi / Other Digital Software
+# Enable DAX to route slice audio to WSJT-X / FLDigi / other digital software
 
-DAX (Digital Audio eXchange) bridges audio between the Flex radio and other software running on your computer. Enabling it creates virtual audio channels that programs like WSJT-X, FLDigi, and similar digital mode applications can use as their sound device.
+DAX (Digital Audio eXchange) creates audio streams between AetherSDR and other applications on your computer. Enable it so that software such as WSJT-X or FLDigi can receive audio from a radio slice and transmit audio back through it.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio. DAX requires an active radio connection.
-- The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
-- In your digital mode software, have the audio device settings open so you can select the DAX channel once it is active.
+- AetherSDR must be connected to a FLEX-8600 radio. DAX requires an active radio connection.
+- At least one slice must exist and be assigned to a DAX channel in the radio's configuration before audio will flow.
+- Your digital mode software must be configured to use the DAX virtual audio device. See [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md) for that side of the setup.
 
 ## Steps
 
-1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet.
-2. Click **Enable** to start the DAX audio bridge. The button turns green when active, and the setting is saved as `AutoStartDAX`.
-3. In your radio, assign a slice to a DAX channel. The slice-assignment indicator next to each channel row updates to show the assigned slice (for example, `Slice A`). A `—` means no slice is assigned to that channel.
-4. In your digital mode software, select the DAX RX channel that matches the assigned channel as your audio input device (for example, DAX IQ 1 or DAX Audio 1, depending on your OS and driver).
-5. If your digital mode software transmits audio, select the corresponding DAX TX channel as your audio output device.
-6. Drag the gain slider on the channel row to adjust the RX level for that channel. The default is `0.5` (mid-range). The meter behind the slider shows the live signal level.
-7. If transmitting via DAX, drag the **TX** gain slider to set the transmit audio level. The default is also `0.5`.
+1. Click the `DAX` tray button on the right sidebar to open the DAX Audio applet. The applet is hidden by default.
+2. Click `Enable`. The button turns green when DAX is active. AetherSDR saves this state as `AutoStartDAX`.
+3. Check the slice-assignment indicator next to each DAX channel (for example, `Slice A`). A dash (`—`) means no slice is routed to that channel. Assign a slice to a DAX channel from within the radio's slice settings if needed.
+4. Drag the gain+meter slider for the DAX channel your digital software will use to set the RX audio level. The default is `0.5` (mid-scale). Adjust until the level meter shows signal without clipping.
+5. If your digital software will transmit through DAX, drag the `TX` gain+meter slider to set the transmit audio level. The default is also `0.5`.
+6. In your digital mode software (WSJT-X, FLDigi, etc.), select the DAX virtual audio device as the input (RX) and output (TX) sound card.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting | Behavior |
+| Control | What it does | Default | Range | Setting key |
 |---|---|---|---|---|
-| Enable | Off | On / Off | `AutoStartDAX` | Master switch. Starts the DAX audio bridge for all RX and TX streams. |
-| DAX 1 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain1` | Drag to set RX gain on DAX channel 1. Meter shows live level post-fader. |
-| DAX 2 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain2` | Drag to set RX gain on DAX channel 2. |
-| DAX 3 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain3` | Drag to set RX gain on DAX channel 3. |
-| DAX 4 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain4` | Drag to set RX gain on DAX channel 4. |
-| TX gain+meter | 0.5 | 0.0 – 1.0 | `DaxTxGain` | Drag to set TX stream gain. Meter shows live transmit level post-fader. |
-| Slice-assignment indicator | — | `—` or `Slice A`–`Slice H` | _(none)_ | Shows which slice is routed to each DAX channel. Read-only. |
+| `Enable` | Starts the DAX audio bridge. All RX and TX streams depend on this being active. | Off | On / Off | `AutoStartDAX` |
+| `DAX 1` gain+meter | Sets RX audio gain for DAX channel 1. Drag to adjust; meter shows live level. | 0.5 | 0.0 – 1.0 | `DaxRxGain1` |
+| `DAX 2` gain+meter | Sets RX audio gain for DAX channel 2. | 0.5 | 0.0 – 1.0 | `DaxRxGain2` |
+| `DAX 3` gain+meter | Sets RX audio gain for DAX channel 3. | 0.5 | 0.0 – 1.0 | `DaxRxGain3` |
+| `DAX 4` gain+meter | Sets RX audio gain for DAX channel 4. | 0.5 | 0.0 – 1.0 | `DaxRxGain4` |
+| `TX` gain+meter | Sets the transmit audio level for the DAX TX stream. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
+| Slice-assignment indicator (per channel) | Shows which slice is routed to this DAX channel (`—` if none, or `Slice A` through `Slice H`). | `—` | — | — |
 
 ## Tips
 
-- To have DAX start automatically every time AetherSDR launches, enable `Settings > Autostart DAX with AetherSDR` instead of clicking **Enable** manually each session.
-- The TX status indicator shows which slice currently holds TX privileges. Only that slice drives the DAX TX stream.
-- If a channel's meter is active but your digital software receives no audio, confirm the slice-assignment indicator shows a slice name rather than `—`.
+- To have DAX start automatically every time AetherSDR launches, enable `Settings > Autostart DAX with AetherSDR` instead of clicking `Enable` each session.
+- The level meter in each gain+meter widget shows post-fader level — it reflects the actual output level after the gain slider is applied. Use it to judge whether your digital software is receiving adequate signal.
+- The `TX` indicator shows which slice currently holds TX privileges. If it reads `—`, no slice is designated as the TX slice and DAX TX audio will not be routed.
 
 ## Troubleshooting
 
-- **Enable button is present but does nothing visible** — DAX requires an active radio connection. Confirm AetherSDR is connected to the radio before clicking **Enable**.
-- **Slice-assignment indicator shows `—` for all channels** — No slice has been assigned to a DAX channel in the radio. Use the radio's slice controls to assign a DAX channel number to the slice you want to decode.
-- **Digital software receives no audio despite a slice being assigned** — Check that your software's audio input device matches the correct DAX channel number shown in the applet. Also confirm the RX gain slider is above `0.0`.
+- **`Enable` button is present but the DAX applet shows no meter activity** — Confirm a slice is assigned to the DAX channel you are using. The slice-assignment indicator must show a slice letter, not `—`.
+- **Digital software receives no audio** — Verify that the DAX virtual audio device is selected as the input device in your digital software. DAX must be enabled in AetherSDR before the virtual device becomes active.
+- **TX audio is not reaching the radio** — Check that the `TX` indicator shows a slice letter. If it reads `—`, no TX slice is assigned. Also confirm your digital software is using the DAX virtual audio device as its output.
 
 ## Related
 

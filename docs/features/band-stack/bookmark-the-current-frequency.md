@@ -1,37 +1,40 @@
 # Bookmark the current frequency
 
-Save the active slice's frequency to the Band Stack so you can return to it later with a single click.
+Save the active slice's frequency to the Band Stack panel so you can return to it with a single click.
 
 ## Before you start
 
-- AetherSDR must be connected to a radio. The Band Stack panel is only visible when a radio connection is active.
-- Tune the active slice to the frequency you want to bookmark.
+- AetherSDR must be connected to a FLEX-8600 radio. The Band Stack panel is only visible when a radio is connected.
+- Tune the active slice to the frequency you want to save.
 
 ## Steps
 
-1. Locate the Band Stack panel — the narrow vertical strip alongside the panadapter.
+1. Locate the Band Stack panel — the narrow vertical strip of colored buttons that sits alongside the panadapter.
 2. Click `+` at the bottom of the Band Stack panel.
 
-A new bookmark button appears in the list, labeled with the frequency in MHz and colored to match the band-plan segment for that frequency. The bookmark is saved immediately to `BandStack_<serial>`, where `<serial>` is your radio's serial number.
+The new bookmark appears immediately as a color-coded button showing the frequency in MHz. The button color reflects the band-plan segment for that frequency. Bookmarks are saved automatically to `BandStack_<serial>`, where `<serial>` is your radio's serial number.
 
 ## What each control does
 
 | Control | Behavior | Notes |
 |---|---|---|
-| `+` | Adds a bookmark at the active slice's current frequency. | Saved to `BandStack_<serial>`. |
-| Bookmark buttons | Click to recall the stored frequency; right-click to delete. | Color reflects the band-plan segment for that frequency. Tooltip shows full frequency in MHz, mode, and RX antenna. |
-| ⚙ | Opens band stack options. | Options include "Group by band" and auto-expiry intervals: Off, 5 min, 15 min, 30 min, 60 min. |
-| × | Clears all bookmarks. | Tooltip reads "Clear all bookmarks". |
+| `+` | Adds a bookmark at the active slice's current frequency. | One click; no confirmation dialog. |
+| Bookmark buttons | Click to recall the stored frequency; right-click to delete. | Color matches the band-plan segment. |
+| ⚙ (gear button) | Opens Band Stack options menu. | See options below. |
+| × button | Clears all bookmarks. | Tooltip: "Clear all bookmarks". |
+
+### Gear menu options
+
+| Option | Values | Behavior |
+|---|---|---|
+| Group by band | On / Off | Arranges bookmarks under band headers instead of insertion order. |
+| Auto-expiry | Off, 5 min, 15 min, 30 min, 60 min | Automatically removes bookmarks older than the selected age. |
+| Auto-save dwell | Off, 10 sec, 30 sec, 60 sec | Automatically bookmarks a frequency after the slice dwells on it for the chosen duration. |
 
 ## Tips
 
-- If "Group by band" is enabled (via the ⚙ menu), the new bookmark appears under its band heading rather than at the bottom of a flat list.
-- The bookmark button tooltip shows the full six-decimal frequency, mode, and RX antenna — hover over a button to confirm what was captured.
-
-## Troubleshooting
-
-- **The `+` button is not visible** — The Band Stack panel only appears when a radio is connected. Verify the connection via `Settings > Connect to Radio...`.
-- **The bookmark appears in an unexpected position** — "Group by band" is on. The ⚙ menu shows whether grouping is active; uncheck it to restore insertion-order display.
+- Pair **Auto-save dwell** with **Auto-expiry** to maintain a self-pruning rolling history of recently visited frequencies without any manual bookmarking.
+- Hover over a bookmark button to see the full frequency in MHz, the mode, and the RX antenna stored with it.
 
 ## Related
 

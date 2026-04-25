@@ -1,46 +1,40 @@
-# Support & Diagnostics Overview
+# Support & Diagnostics overview
 
-The Support & Diagnostics dialog gives you a single place to control what AetherSDR logs, inspect the live log, and submit a bug report. Open it any time from `Help > Support...` — no radio connection is required.
+The Support & Diagnostics dialog gives you a single place to control diagnostic logging, inspect the live log, and file bug reports. Open it from `Help > Support...`. No radio connection is required.
 
 ## How it works
 
-The dialog is divided into three functional areas: logging category controls, a live log viewer, and action buttons for file management and bug reporting.
+The dialog has three areas: a logging control panel at the top, a log viewer in the middle, and a row of action buttons at the bottom.
 
-**Diagnostic Logging group**
+**Diagnostic Logging panel**
 
-Each logging category appears as a checkbox. Checking a category enables log output for that subsystem; unchecking it silences it. You do not need to restart AetherSDR for changes to take effect. The log file path and current file size are shown as read-only indicators directly below the group.
+The top group, labeled "Diagnostic Logging", lists every available logging category as a checkbox. Each checkbox enables or disables messages from that subsystem as AetherSDR runs. Changes take effect immediately — you do not need to restart.
 
 **Log viewer**
 
-The log viewer is a scrollable, read-only text area showing the most recent log entries (up to 2,000 lines). It displays the contents of the active log file on disk.
+Below the category panel, a read-only text area displays the most recent log entries. The log file path is shown above it; the current file size is shown on the right of the same row. The viewer holds up to 2000 lines. Use Refresh to reload the file on demand.
 
 **Action buttons**
 
-The row of buttons at the bottom of the dialog drives all file and reporting actions.
+The button row at the bottom provides the following controls:
 
-## What each control does
-
-| Control | Kind | Behavior |
-|---|---|---|
-| Category checkboxes | Checkbox (one per category) | Enables or disables logging for that specific subsystem. |
-| Enable All | Button | Turns on every logging category at once. |
-| Disable All | Button | Turns off every logging category at once. |
-| Log path label | Indicator | Shows the full path to the current log file. |
-| Log file size | Indicator | Shows the current size of the active log file. |
-| Log viewer | Scrollable text area | Displays the most recent log text from the log file (up to 2,000 lines). |
-| Refresh | Button | Reloads the log file into the viewer. |
-| Clear Log | Button | Truncates (empties) the current log file. |
-| Open Log Folder | Button | Opens the directory containing the log file in your operating system's file browser. |
-| Reset Settings | Button | Resets AetherSDR's local settings and NR2 wisdom cache to defaults, after confirmation. Radio settings stored on the radio are not affected. |
-| File an Issue | Button | Launches the AI-assisted bug report flow: creates a support bundle, copies a pre-filled diagnostic prompt to your clipboard, and guides you through submitting a GitHub issue. |
-| Close | Button | Closes the dialog. |
+| Button | What it does |
+|---|---|
+| Enable All | Turns on every logging category at once. |
+| Disable All | Turns off every logging category at once. |
+| Refresh | Reloads the log file into the viewer. |
+| Clear Log | Truncates the current log file. This cannot be undone. |
+| Open Log Folder | Opens the log directory in your OS file browser so you can copy or attach multiple files. |
+| Reset Settings | Resets AetherSDR settings to defaults after asking for confirmation. Radio settings stored on the radio are not affected. |
+| File an Issue | Launches the AI-assisted bug report flow. Copies a diagnostic prompt (with your AetherSDR version, Qt version, OS, and connected radio details) to the clipboard, then walks you through opening an AI assistant and submitting a GitHub issue. |
+| Close | Closes the dialog. |
 
 ## Tips
 
-- Enable only the categories relevant to the problem you are reproducing. A smaller log is easier to read and share.
-- Click Clear Log before you reproduce a bug so the log contains only the relevant event sequence.
-- The support bundle created by File an Issue includes your logs and settings. Attach it to the GitHub issue by dragging it from the folder that opens automatically.
-- Reset Settings removes local AetherSDR preferences and the NR2 wisdom cache. It does not alter any settings stored on the Flex radio itself.
+- Enable only the categories relevant to the problem you are chasing to keep the log readable.
+- Click Clear Log immediately before reproducing a bug so the log contains only the relevant sequence of events.
+- If you use File an Issue, the diagnostic prompt is pre-filled with your system information. Paste it into any AI assistant listed in the follow-up dialog, describe what went wrong, then use the AI's output as your GitHub issue body.
+- The log folder opened by Open Log Folder is the same folder where support bundles are saved when you use File an Issue, so you can drag both the log and the bundle into a GitHub issue in one step.
 
 ## Related
 

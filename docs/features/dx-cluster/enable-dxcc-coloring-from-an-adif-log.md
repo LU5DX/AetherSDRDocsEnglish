@@ -1,44 +1,46 @@
 # Enable DXCC Coloring from an ADIF Log
 
-DXCC coloring overlays worked, confirmed, and needed status on panadapter spots by comparing each spot's callsign against your ADIF log. This lets you see at a glance which stations represent new entities, new band-slots, or already-worked contacts.
+DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has been worked, confirmed, or is still needed, based on contacts in your ADIF log file. This helps you quickly distinguish new entities from ones you have already logged.
 
 ## Before you start
 
-- AetherSDR is running and at least one spot source is configured and producing spots. Spots must be visible on the panadapter for coloring to have any visible effect.
-- You have an ADIF log file exported from your logging software and accessible on the local filesystem.
+- AetherSDR must be running. A radio connection is not required to configure this feature.
+- You need an ADIF log file exported from your logging software. The file must use the standard `.adi` or `.adif` format.
+- At least one spot source (DX cluster, RBN, WSJT-X, POTA, etc.) should be active so spots appear on the panadapter.
 
 ## Steps
 
-1. Click `Settings > SpotHub...` to open the SpotHub dialog.
+1. Open `Settings > SpotHub...`.
 2. Click the **Display** tab.
-3. Click **DXCC Coloring** to enable it. The toggle activates DXCC-based spot coloring.
-4. Click **Log File (ADIF):** to open a file browser.
-5. Navigate to your ADIF log file and select it. The path is saved to `DxccAdifPath`. The DXCC stats indicator in the dialog will show the number of QSOs imported once the file is read.
-6. If your logging software updates the ADIF file while AetherSDR is running, click **Auto-Reload Log:** to enable automatic re-reading when the file changes. This saves to `DxccAutoReload`.
+3. Click the **DXCC Coloring** toggle button to enable it. The button activates DXCC coloring (`DxccColoringEnabled`).
+4. Click **Log File (ADIF):** to open a file chooser. Select your ADIF log file. The path is stored in `DxccAdifPath`.
+5. Confirm the DXCC stats indicator updates to show the number of QSOs imported from the file.
+6. If your logging software updates the ADIF file while AetherSDR is running and you want spots to reflect new contacts automatically, enable **Auto-Reload Log:** (`DxccAutoReload`).
 
 ## What each control does
 
 | Control | Behavior | Setting key |
 |---|---|---|
-| **DXCC Coloring** | Master toggle. Colors panadapter spots by worked/confirmed/needed status. | `DxccColoringEnabled` |
-| **Log File (ADIF):** | Opens a file browser to select the ADIF log file that drives DXCC coloring. | `DxccAdifPath` |
-| **Auto-Reload Log:** | When enabled, re-reads the ADIF file automatically whenever it changes on disk. | `DxccAutoReload` |
+| **DXCC Coloring** | Master toggle. Colors panadapter spots by worked/confirmed/needed DXCC status. | `DxccColoringEnabled` |
+| **Log File (ADIF):** | Opens a file picker. The chosen ADIF file is read to populate DXCC status. | `DxccAdifPath` |
+| **Auto-Reload Log:** | When enabled, re-reads the ADIF file whenever it changes on disk. | `DxccAutoReload` |
 
 ## Tips
 
-- The DXCC stats indicator in the SpotHub dialog shows the count of QSOs imported from the selected ADIF file. If the count reads zero after selecting a file, verify the file is a valid ADIF export and is not empty.
-- Enable **Auto-Reload Log:** if your logger writes to the ADIF file in real time. Coloring will update within seconds of a new QSO being logged without requiring any manual action.
-- DXCC coloring applies on top of the spot overlay. Ensure **Spots:** is set to Enabled on the **Display** tab or no spots will appear regardless of coloring settings.
+- The DXCC stats indicator in the dialog shows how many QSOs were imported from the ADIF file. If it reads zero after loading, verify the file is valid ADIF.
+- The **Log File (ADIF):** button stores the path persistently. You do not need to re-select the file after restarting AetherSDR.
+- Enabling **Auto-Reload Log:** removes the need to reopen the dialog after logging a new contact — the spot colors on the panadapter update as soon as your logger writes to the file.
+- DXCC coloring is independent of per-source spot colors. If **Override Colors:** is also active, see [Pick colors for each spot source](pick-colors-for-each-spot-source.md) for how those settings interact.
 
 ## Troubleshooting
 
-- **Spots appear but show no DXCC coloring** — Confirm **DXCC Coloring** is toggled on and that a valid ADIF file path is set under **Log File (ADIF):**. Check the DXCC stats indicator for a non-zero QSO count.
-- **DXCC stats show 0 QSOs after loading a file** — The file may not be a valid ADIF format, or it may be empty. Re-export from your logger and select the new file again using **Log File (ADIF):**.
-- **Coloring does not update after new QSOs are logged** — Enable **Auto-Reload Log:**. If it is already enabled, confirm your logging software is writing to the same file path stored in `DxccAdifPath`.
+- **DXCC stats shows 0 QSOs after selecting a file** — The file may not be valid ADIF, may be empty, or may use an encoding AetherSDR cannot read. Export a fresh ADIF from your logger and try again.
+- **Spot colors do not change after enabling DXCC Coloring** — Confirm the **Spots:** toggle on the **Display** tab is enabled (`IsSpotsEnabled`). Also check that **Override Colors:** (`IsSpotsOverrideColorsEnabled`) is not active, as it forces a single color for all spots regardless of DXCC status.
+- **New contacts are not reflected on spots** — Enable **Auto-Reload Log:** so AetherSDR detects file changes, or manually re-select the log file with **Log File (ADIF):** to trigger a fresh import.
 
 ## Related
 
 - [Auto-reload ADIF log when updated by a logger](auto-reload-adif-log-when-updated-by-a-logger.md)
-- [SpotHub overview](overview.md)
-- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
+- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
+- [SpotHub overview](overview.md)

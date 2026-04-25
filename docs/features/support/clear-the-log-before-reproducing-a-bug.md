@@ -1,28 +1,34 @@
 # Clear the Log Before Reproducing a Bug
 
-Clearing the log before you trigger a bug ensures the resulting log file contains only the events relevant to that bug, making it easier to diagnose and report.
+Clearing the log before you trigger a problem ensures the log file contains only the relevant session, making it easier to isolate and report the issue.
 
 ## Before you start
 
-- Open AetherSDR. A radio connection is not required for this task.
-- Know the steps needed to reproduce the bug so you can trigger it immediately after clearing.
+- Open AetherSDR. A radio connection is not required for this procedure.
+- If you want verbose output captured during the reproduction, enable the relevant logging categories first. See [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md).
 
 ## Steps
 
 1. Click `Help > Support...` to open the Support & Diagnostics dialog.
-2. Click `Clear Log`. This truncates the current log file immediately — there is no confirmation prompt.
-3. Verify the log viewer is empty, then reproduce the bug.
-4. Click `Refresh` to reload the log file and confirm the new entries are captured.
-5. Click `Open Log Folder` if you need to attach the log file to a bug report.
+2. Click `Clear Log`.
+3. Confirm that the log viewer is now empty.
+4. Close the dialog or leave it open, then perform the actions that trigger the bug.
+5. Return to `Help > Support...` and click `Refresh` to reload the log file.
+6. Review the log viewer to confirm the relevant output was captured.
+7. Click `Open Log Folder` to access the log file in your OS file browser if you need to attach it to a report.
 
 ## Tips
 
-- Enable verbose logging for the relevant subsystem before clearing, so the reproduction run captures detailed output. Use the category checkboxes or click `Enable All` to turn on every logging category at once.
-- Clear the log and reproduce the bug in one uninterrupted sequence. Any restart of AetherSDR between clearing and reproducing may add unrelated startup entries.
+- Click `Refresh` after reproducing the bug before reading the log. The log viewer does not update automatically.
+- If you intend to file a report immediately after capturing the log, click `File an Issue` to start the AI-assisted bug report flow. See [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md).
+
+## Troubleshooting
+
+- **Log viewer is still showing old entries after clicking `Clear Log`** — Click `Refresh` to reload the now-truncated file. The viewer does not clear its display automatically on truncation.
 
 ## Related
 
 - [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md)
 - [View the live log without leaving the app](view-the-live-log-without-leaving-the-app.md)
-- [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
 - [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md)
+- [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)

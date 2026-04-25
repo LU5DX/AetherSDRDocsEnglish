@@ -1,63 +1,69 @@
 # Start WSJT-X UDP Listener and Filter for CQ, POTA or Calls to Me
 
-AetherSDR can listen on a UDP port for WSJT-X decode messages and plot the resulting spots on the panadapter. Use the filters to limit what appears to CQ calls, POTA activations, or stations calling your callsign.
+Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and show only the spot categories you care about — CQ calls, POTA activations, or stations calling your callsign — as overlays on the panadapter.
 
 ## Before you start
 
-- WSJT-X must be configured to send UDP messages to the address and port you set here. In WSJT-X, open **File > Settings > Reporting** and confirm the UDP server address and port match what you enter below.
-- AetherSDR does not need to be connected to a radio for the listener to run, but spots only appear on the panadapter when a radio is connected.
+- WSJT-X must be running on the same machine or network and configured to send UDP status messages to the address and port you will set here.
+- Know the UDP address and port WSJT-X is broadcasting to (check WSJT-X under **File > Settings > Reporting**, UDP Server section).
+- Your callsign must be set in WSJT-X for the "Calling Me" filter to work.
 
 ## Steps
 
 1. Open `Settings > SpotHub...`.
 2. Click the **WSJT-X** tab.
-3. In **Address:**, enter the UDP bind address where AetherSDR should listen (stored as `WsjtxAddress`). Use `127.0.0.1` if WSJT-X runs on the same machine.
-4. In **Port:**, set the UDP port to match your WSJT-X reporting configuration (stored as `WsjtxPort`; valid range 1–65535).
+3. In **Address:**, enter the UDP bind address AetherSDR should listen on (stored as `WsjtxAddress`). Use `127.0.0.1` if WSJT-X runs on the same machine, or `0.0.0.0` to listen on all interfaces.
+4. In **Port:**, enter the UDP port number that matches the port configured in WSJT-X (stored as `WsjtxPort`; valid range 1–65535).
 5. Click **Start**. The status indicator changes to **Listening**.
-6. To start the listener automatically at launch, click **Auto-start on startup** (stored as `WsjtxAutoStart`).
-7. Enable one or more filters:
-   - Check **CQ** to show only CQ calls (stored as `WsjtxFilterCQ`).
-   - Check **CQ POTA** to show CQ POTA calls (stored as `WsjtxFilterPOTA`).
-   - Check **Calling Me** to show only decodes addressed to your callsign (stored as `WsjtxFilterCallingMe`).
-8. Optionally adjust **Spot Life:** to control how many seconds WSJT-X spots remain on the panadapter (stored as `WsjtxSpotLife`).
-9. Confirm decoded transmissions are appearing in the **WSJT-X Decodes** console.
+6. To start the listener automatically every time AetherSDR launches, enable **Auto-start on startup (WSJT-X)** (stored as `WsjtxAutoStart`).
+7. Under the filter checkboxes, enable one or more of the following to restrict which decodes appear as panadapter spots:
+   - **CQ** — shows stations sending a general CQ call (stored as `WsjtxFilterCQ`).
+   - **CQ POTA** — shows stations sending CQ POTA (stored as `WsjtxFilterPOTA`).
+   - **Calling Me** — shows decodes addressed to your callsign (stored as `WsjtxFilterCallingMe`).
+8. Optionally assign a distinct color to each category by clicking the corresponding color button:
+   - **CQ color** (stored as `WsjtxColorCQ`)
+   - **POTA color** (stored as `WsjtxColorPOTA`)
+   - **Calling Me color** (stored as `WsjtxColorCallingMe`)
+   - **Default color** for decodes that pass no active filter (stored as `WsjtxColorDefault`)
+9. Set **Spot Life:** to the number of seconds a WSJT-X spot should remain visible on the panadapter (stored as `WsjtxSpotLife`).
+10. Confirm decoded transmissions are arriving in the **WSJT-X Decodes** console at the bottom of the tab.
 
 ## What each control does
 
-| Control | Behavior | Setting key | Default | Valid range |
-|---|---|---|---|---|
-| **Address:** | UDP bind address for WSJT-X messages | `WsjtxAddress` | — | — |
-| **Port:** | UDP port for WSJT-X | `WsjtxPort` | — | 1–65535 |
-| **Start / Stop** | Starts or stops the UDP listener | — | — | — |
-| **Auto-start on startup** | Auto-starts the listener on launch | `WsjtxAutoStart` | — | — |
-| **CQ** | Show only CQ calls | `WsjtxFilterCQ` | — | — |
-| **CQ POTA** | Show CQ POTA calls | `WsjtxFilterPOTA` | — | — |
-| **Calling Me** | Show only decodes addressed to your callsign | `WsjtxFilterCallingMe` | — | — |
-| **CQ color** | Color picker for CQ spots | `WsjtxColorCQ` | — | — |
-| **POTA color** | Color picker for POTA spots | `WsjtxColorPOTA` | — | — |
-| **Calling Me color** | Color picker for stations calling you | `WsjtxColorCallingMe` | — | — |
-| **Default color** | Color picker for all other WSJT-X spots | `WsjtxColorDefault` | — | — |
-| **Spot Life:** | Seconds WSJT-X spots remain on the panadapter | `WsjtxSpotLife` | — | — |
-| **WSJT-X Decodes** | Read-only console of decoded transmissions | — | — | — |
+| Control | Behavior | Setting key | Default / Range |
+|---|---|---|---|
+| **Address:** | UDP bind address for incoming WSJT-X messages. | `WsjtxAddress` | — |
+| **Port:** | UDP port number. Must match WSJT-X reporting port. | `WsjtxPort` | 1–65535 |
+| **Start / Stop** | Starts or stops the UDP listener. | — | — |
+| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch. | `WsjtxAutoStart` | — |
+| **CQ** | Passes only CQ transmissions to the panadapter. | `WsjtxFilterCQ` | — |
+| **CQ POTA** | Passes only CQ POTA transmissions. | `WsjtxFilterPOTA` | — |
+| **Calling Me** | Passes only decodes addressed to your callsign. | `WsjtxFilterCallingMe` | — |
+| **CQ color** | Color for CQ spots on the panadapter. | `WsjtxColorCQ` | — |
+| **POTA color** | Color for CQ POTA spots. | `WsjtxColorPOTA` | — |
+| **Calling Me color** | Color for spots calling your callsign. | `WsjtxColorCallingMe` | — |
+| **Default color** | Color for spots that match no active filter. | `WsjtxColorDefault` | — |
+| **Spot Life:** | Seconds a WSJT-X spot remains on the panadapter before fading. | `WsjtxSpotLife` | — |
+| **WSJT-X Decodes** | Read-only console showing decoded transmissions as they arrive. | — | — |
 
 ## Tips
 
-- If none of the three filters (**CQ**, **CQ POTA**, **Calling Me**) are checked, all decoded spots are passed through to the panadapter.
-- The **Calling Me** filter matches against the callsign AetherSDR receives from WSJT-X in each decode message, so ensure your callsign is set correctly in WSJT-X itself.
-- You can assign distinct colors to each filter category so CQ calls, POTA activations, and stations calling you are visually distinct on the panadapter. Use the **CQ color**, **POTA color**, **Calling Me color**, and **Default color** pickers on the same tab.
-- Decoded spots flow into the unified **Spot List** tab alongside spots from other sources. Use the band checkboxes there to narrow the view.
+- If none of the three filter checkboxes (**CQ**, **CQ POTA**, **Calling Me**) are checked, all decoded transmissions are shown on the panadapter regardless of content.
+- WSJT-X spots appear in the unified **Spot List** tab alongside spots from other sources. Double-click any row there to tune directly to that frequency.
+- Spots from WSJT-X will only appear on the panadapter if the master **Spots:** toggle on the **Display** tab is enabled (stored as `IsSpotsEnabled`; default Enabled).
+- FT8 operates on a 15-second cycle. Keep **Spot Life:** at 15 seconds or a multiple thereof so spots expire cleanly between cycles.
 
 ## Troubleshooting
 
-- **No spots appear in WSJT-X Decodes** — Verify the address and port in AetherSDR match the UDP server address and port set in WSJT-X under **File > Settings > Reporting**. Confirm the listener status shows **Listening**, not **Stopped**. Check that your firewall is not blocking the UDP port.
-- **Spots appear in the console but not on the panadapter** — Confirm the master spot overlay is enabled. Open the **Display** tab in SpotHub and check that **Spots:** is set to **Enabled** (`IsSpotsEnabled`). Also confirm a radio is connected, as the panadapter overlay requires an active radio connection.
-- **Only some spots appear** — One or more filters are active. If you want all decodes, uncheck **CQ**, **CQ POTA**, and **Calling Me**.
+- **Status stays at Stopped / no decodes appear in the console** — Verify the address and port in AetherSDR match exactly what is configured in WSJT-X under **File > Settings > Reporting**. Confirm no firewall is blocking the UDP port. Click **Stop** then **Start** after correcting the values.
+- **Spots appear on the Spot List tab but not on the panadapter** — Open `Settings > SpotHub...`, go to the **Display** tab, and confirm **Spots:** is set to Enabled.
+- **"Calling Me" filter shows no spots** — WSJT-X must have your callsign entered in its settings and must be actively decoding transmissions directed to that callsign. Verify your callsign in WSJT-X under **File > Settings > General**.
 
 ## Related
 
 - [SpotHub overview](overview.md)
-- [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
+- [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Poll POTA activations](poll-pota-activations.md)
+- [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)

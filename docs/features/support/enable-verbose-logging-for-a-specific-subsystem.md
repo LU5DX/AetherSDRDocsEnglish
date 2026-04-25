@@ -1,40 +1,37 @@
-# Enable Verbose Logging for a Specific Subsystem
+# Enable verbose logging for a specific subsystem
 
-Use the Support & Diagnostics dialog to turn on logging for individual subsystems. Enabling only the categories you need keeps the log readable and makes it easier to isolate a problem.
+The Support & Diagnostics dialog lets you turn on logging for individual subsystems. Enable only the categories you need to keep log output focused and easier to read when diagnosing a problem.
 
 ## Before you start
 
-- Reproduce the issue after enabling logging, not before — the log viewer shows recent entries only.
-- If you want a clean capture, clear the log first before reproducing the problem.
+- No radio connection is required to change logging categories.
+- If you want a clean log that starts at the moment you reproduce a bug, clear the log first before enabling categories.
 
 ## Steps
 
 1. Click `Help > Support...` to open the Support & Diagnostics dialog.
-2. In the **Diagnostic Logging** group, find the checkbox row for the subsystem you want to trace.
-3. Check the checkbox next to that category. The label on the checkbox identifies the subsystem. Logging for that category activates immediately — no apply or restart needed.
-4. Reproduce the condition you are diagnosing.
-5. Click **Refresh** to reload the log viewer with the latest entries.
-6. Review the output in the **Log viewer**.
-
-To disable the category when you are done, uncheck the same checkbox.
+2. In the **Diagnostic Logging** group, find the checkbox row for the subsystem you want to diagnose.
+3. Check the checkbox next to that category's label to enable logging for it. Uncheck it to disable.
+4. Reproduce the behavior you are investigating. Log output begins immediately when a category is enabled.
+5. Click **Refresh** to reload the log file and see the latest entries in the Log viewer.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Category checkboxes | Checkbox (one per subsystem) | Enables or disables logging for that specific category. Changes take effect immediately. |
+| Category checkboxes | Checkbox | One row per logging category. Check to enable, uncheck to disable. Changes take effect immediately. |
 | Enable All | Button | Turns on every logging category at once. |
 | Disable All | Button | Turns off every logging category at once. |
-| Log viewer | Scrollable text area | Displays the most recent log entries (up to 2000 lines). |
-| Refresh | Button | Reloads the log file into the log viewer. |
-| Log path label | Indicator | Shows the file path of the current log file. |
+| Log viewer | Text area | Scrollable view of the most recent log text. Displays up to 2000 lines. |
+| Refresh | Button | Reloads the log file into the Log viewer. |
+| Log path label | Indicator | Shows the full path of the current log file. |
 | Log file size | Indicator | Shows the current size of the active log file. |
 
 ## Tips
 
-- Use **Disable All** first, then check only the one category you need. This reduces noise in the log when you are chasing a specific issue.
-- Use **Enable All** when you are not sure which subsystem is involved and want the broadest possible capture.
-- The log viewer holds a maximum of 2000 lines. For longer sessions, click **Open Log Folder** to access the full file on disk.
+- Use **Enable All** only when you are unsure which subsystem is involved. The log will be large. For a targeted investigation, enable only the relevant category checkbox.
+- Use **Disable All** after you have captured what you need to stop further log growth.
+- The Log viewer shows a maximum of 2000 lines. If you need the full file, click **Open Log Folder** to access it directly in your file browser.
 
 ## Related
 

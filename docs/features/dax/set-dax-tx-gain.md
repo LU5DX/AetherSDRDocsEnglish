@@ -1,36 +1,36 @@
 # Set DAX TX gain
 
-Adjust the TX gain slider in the DAX Audio applet to control the level of the transmit audio stream sent from your computer to the radio. Setting this correctly prevents over- or under-driving the DAX TX path when using digital mode software.
+Adjust the TX gain slider in the DAX Audio applet to control the output level of the DAX transmit stream sent from your computer audio to the radio. This is useful when your digital mode software's audio output is too loud or too quiet relative to the radio's expected input level.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The DAX Audio applet requires an active radio connection.
-- DAX must be enabled. Click Enable in the DAX Audio applet if it is not already active.
+- Connect to a FLEX-8600 radio. The DAX applet requires an active radio connection.
+- Open the DAX applet by clicking the DAX tray button on the right sidebar. The applet is hidden by default.
+- DAX must be enabled. If the Enable button is not lit, click Enable to start the DAX audio bridge.
 
 ## Steps
 
 1. Click the DAX tray button on the right sidebar to open the DAX Audio applet.
-2. Locate the **TX:** row at the bottom of the applet. The combined meter and slider shows the current TX gain position and live TX audio level.
-3. Drag the slider thumb left to decrease TX gain or right to increase it. The valid range is 0.0 to 1.0. The default is 0.5.
-4. Release the slider. The value is saved immediately to `DaxTxGain` and takes effect without restarting.
+2. Locate the TX row at the bottom of the applet. It shows a label "TX:", a slice assignment indicator, and a combined meter/slider.
+3. Drag the thumb on the TX gain+meter slider left to decrease gain or right to increase gain. The valid range is 0.0 to 1.0.
+4. Release the mouse button. The new value is saved immediately to `DaxTxGain`.
 
 ## What each control does
 
-| Control | Default | Range | Setting key | Behavior |
+| Control | Default | Valid range | Setting key | Behavior |
 |---|---|---|---|---|
-| TX gain+meter | 0.5 | 0.0–1.0 | `DaxTxGain` | Drag to set the TX stream gain. The meter behind the thumb shows the live transmit level post-fader. |
-| TX assignment indicator | — | — or Slice A–H | — | Shows which slice currently holds TX privileges and drives the DAX TX stream. Read-only. |
-| Enable | off | on/off | `AutoStartDAX` | Master switch for all DAX streams including TX. TX gain has no effect while DAX is disabled. |
+| TX gain+meter slider | 0.5 | 0.0–1.0 | `DaxTxGain` | Sets the gain for the DAX TX stream. The meter bar behind the slider shows the current output level post-fader. |
+| TX assignment indicator | — | — or Slice A–H | *(none)* | Shows which slice currently holds TX privileges and drives the DAX TX stream. |
 
 ## Tips
 
-- The meter fill behind the slider reflects the post-fader level — the raw input level multiplied by the current gain — so you can see the effective TX output level as you drag.
-- If the TX assignment indicator shows —, no slice currently holds TX privileges. Ensure your transmit slice is selected on the radio before adjusting TX gain.
+- The meter bar behind the slider shows the post-fader level — that is, the incoming audio level multiplied by the current gain setting. A bar that stays near the right edge at your current gain suggests the gain is too high; reduce it to avoid clipping.
+- The gain value persists across sessions. You do not need to re-enter it after restarting AetherSDR.
 
 ## Troubleshooting
 
-- **TX meter shows no activity** — DAX TX audio only flows while the radio is transmitting or a digital mode application is sending audio to the DAX TX device. Check that your software (WSJT-X, fldigi, etc.) is routed to the correct DAX TX audio device.
-- **TX gain resets after restart** — Verify `AutoStartDAX` is enabled so the DAX bridge starts on launch and restores the saved `DaxTxGain` value. See [Autostart DAX on launch](autostart-dax-on-launch.md).
+- **TX meter shows no activity** — The TX slice may not be assigned yet. Check the TX assignment indicator. If it shows "—", no slice currently holds TX privileges. See [Identify which slice is the TX slice](identify-which-slice-is-the-tx-slice.md).
+- **Slider position resets on reopen** — If DAX was not enabled when you set the gain, the setting still saves, but confirm Enable is active so the bridge is running and the value takes effect.
 
 ## Related
 

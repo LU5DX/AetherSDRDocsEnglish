@@ -1,6 +1,6 @@
-# Change NR2 Noise Power Estimator (OSMS/MMSE/NSTAT)
+# Change NR2 noise power estimator (OSMS/MMSE/NSTAT)
 
-The NR2 noise power estimator (NPE) controls how AetherSDR's NR2 engine measures the noise floor before applying gain. Switching between OSMS, MMSE, and NSTAT lets you match the estimator to the type of noise you are dealing with — steady, averaged, or rapidly changing.
+The NR2 noise power estimator (NPE) determines how AetherSDR's NR2 engine measures the background noise floor. Switching between OSMS, MMSE, and NSTAT lets you match the estimator to the type of noise you are dealing with.
 
 ## Before you start
 
@@ -10,27 +10,27 @@ The NR2 noise power estimator (NPE) controls how AetherSDR's NR2 engine measures
 ## Steps
 
 1. Click `Settings > AetherDSP Settings...`.
-2. Click the **NR2** tab.
-3. In the **NPE Method** group, click one of the three radio buttons: **OSMS**, **MMSE**, or **NSTAT**.
+2. In the AetherDSP Settings dialog, click the **NR2** tab.
+3. Under **NPE Method**, click one of the three radio buttons: **OSMS**, **MMSE**, or **NSTAT**.
 
-The selection takes effect immediately and is saved to `NR2NpeMethod`.
+The setting takes effect immediately and is saved automatically to `NR2NpeMethod`.
 
 ## What each control does
 
 | Control | Kind | Default | Valid values | Setting key | Behavior |
 |---|---|---|---|---|---|
-| **NPE Method** | Radio buttons | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` | Selects the noise power estimator used by NR2. Stored as integer 0–2. |
+| NPE Method — **OSMS** | radio button | ✓ default | — | `NR2NpeMethod` = 0 | Optimal Smoothing Minimum Statistics. Tracks the noise floor using a running minimum estimate. Best for steady, stationary noise. |
+| NPE Method — **MMSE** | radio button | — | — | `NR2NpeMethod` = 1 | Minimum Mean Squared Error. Minimizes the expected noise estimation error. A balanced choice for mixed conditions. |
+| NPE Method — **NSTAT** | radio button | — | — | `NR2NpeMethod` = 2 | Non-Stationary estimation. Adapts to noise that changes rapidly over time, such as QRM that varies in character. |
 
-**OSMS** — Optimal Smoothing Minimum Statistics. Tracks the noise floor using a running minimum estimate. Best for steady, slow-changing noise.
-
-**MMSE** — Minimum Mean Squared Error. Minimizes the expected noise estimation error. A balanced general-purpose choice.
-
-**NSTAT** — Non-Stationary estimation. Adapts to noise that changes over time. Use this when background noise is variable or intermittent.
+`NR2NpeMethod` is stored as an integer: 0 = OSMS, 1 = MMSE, 2 = NSTAT.
 
 ## Tips
 
-- If you hear musical noise artifacts after switching estimators, enable **AE Filter (artifact elimination)** on the same tab. Its setting is `NR2AeFilter` and it defaults to on.
-- If you change the NPE method and are not satisfied, click **Reset Defaults** on the NR2 tab to restore OSMS along with all other NR2 parameters to their defaults (Gamma / OSMS / AE on / 1.50 / 0.85 / 0.20).
+- OSMS is the default and works well for consistent atmospheric or band noise.
+- If the noise floor varies quickly (for example, switching stations or changing band conditions), try NSTAT, which re-adapts more aggressively.
+- MMSE is a middle ground: it tends to leave less residual noise than OSMS in moderate conditions without the faster-moving artifacts that NSTAT can introduce.
+- To return all NR2 parameters to their defaults (including NPE Method back to OSMS), click **Reset Defaults** at the bottom of the NR2 tab.
 
 ## Related
 

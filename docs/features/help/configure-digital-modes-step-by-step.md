@@ -1,27 +1,33 @@
 # Configure digital modes step-by-step
 
-This page explains how to open the bundled digital modes configuration guide in AetherSDR. The guide walks you through setting up data modes (such as FT8, JS8Call, or other digital modes) using AetherSDR's offline help system.
+This page explains how to open AetherSDR's bundled guide for configuring digital (data) modes. The guide is available offline and walks you through setup step-by-step.
 
 ## Before you start
 
-- AetherSDR must be installed. No radio connection is required to read this guide.
+- AetherSDR must be installed. No radio connection is required to read help topics.
 
 ## Steps
 
-1. Click **Help** in the menu bar.
-2. Click **Configuring Data Modes...**.
-3. The HelpDialog opens with the title set to the data modes topic. Read through the Markdown viewer for step-by-step configuration instructions.
-4. When finished, click **Close**.
+1. Click `Help` in the menu bar.
+2. Click `Configuring Data Modes...`.
+3. The HelpDialog opens, displaying the data modes guide in the Markdown viewer.
+4. Read the guide. Scroll as needed.
+5. To search within the guide, type a term into the `Find:` field and click `Next` to move forward through matches or `Previous` to move backward. Press Return to advance to the next match; press Shift+Return to go to the previous match.
+6. Click `Close` when finished.
+
+## What each control does
+
+| Control | Behavior |
+|---|---|
+| `Find:` field | Enter a subject or term to search within the displayed topic. The field border turns red if no matches are found. |
+| `Next` | Moves to the next match in the document. Wraps to the top when the end is reached. Enabled only when the `Find:` field is not empty. |
+| `Previous` | Moves to the previous match in the document. Wraps to the bottom when the beginning is reached. Enabled only when the `Find:` field is not empty. |
+| `Close` | Closes the help dialog. |
 
 ## Tips
 
-- The footer note reads: "The Help menu keeps each guide separate so you can reopen just the topic you need." Each digital modes step in the guide is self-contained — you can close and reopen the dialog at any point without losing your radio configuration.
-- The dialog is resizable. Drag the edges to give yourself more reading room if the default 760 × 680 size is too small for your display.
-- This help topic is available offline. No internet connection is required.
-
-## Troubleshooting
-
-- **The Markdown viewer shows "Help file not available"** — The bundled help asset is missing from your installation. Reinstall AetherSDR to restore the file.
+- Each help topic opens in its own dialog. You can reopen `Help > Configuring Data Modes...` at any time without affecting other open help windows.
+- The bundled help is available even when your station computer has no internet access.
 
 ## Related
 

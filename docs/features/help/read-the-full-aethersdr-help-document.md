@@ -1,39 +1,45 @@
 # Read the full AetherSDR help document
 
-The HelpDialog is an offline Markdown reader built into AetherSDR. Use it to browse bundled reference guides without an internet connection.
+The AetherSDR help system bundles several offline guides covering setup, noise cancellation, data modes, and more. Use the Help menu to open any topic without an internet connection.
 
 ## Before you start
 
-- No radio connection is required to open help topics.
-- AetherSDR must be installed with its bundled help assets intact. If a help file is missing, the viewer displays an error message instead of the topic content.
+- AetherSDR must be installed and running. No radio connection is required.
 
 ## Steps
 
 1. Click `Help` in the menu bar.
-2. Click `Help > AetherSDR Help...`.
-3. The help window opens. The header shows the eyebrow label **AETHERSDR OFFLINE HELP** above the topic title and subtitle.
-4. Scroll through the Markdown viewer to read the content.
-5. Click `Close` when finished.
+2. Select any of the following items to open the corresponding guide:
+   - `Help > Getting Started...`
+   - `Help > AetherSDR Help...`
+   - `Help > Understanding Noise Cancellation...`
+   - `Help > Configuring AetherSDR Controls...`
+   - `Help > Configuring Data Modes...`
+   - `Help > Contributing to AetherSDR...`
+3. Read the content in the Markdown viewer. Scroll as needed.
+4. To search within the open topic, type a word or phrase in the `Find:` field.
+5. Click `Next` to jump to the next match, or click `Previous` to go to the previous match. Search wraps around when it reaches the end or beginning of the document.
+6. Click `Close` to dismiss the dialog.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| **AETHERSDR OFFLINE HELP** | Indicator | Brand eyebrow shown above the topic title. Not interactive. |
-| Title | Indicator | Displays the name of the open help topic. |
-| Subtitle | Indicator | One-line description: "Bundled help is available even when your station computer is offline." |
-| Markdown viewer | Text area | Renders the bundled Markdown file for the topic. Read-only. External links open in your default browser. |
-| Hint / footer | Indicator | Shows the tip: "The Help menu keeps each guide separate so you can reopen just the topic you need." |
-| `Close` | Button | Closes the help window. |
+| Control | Behavior |
+|---|---|
+| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the topic title. Read-only. |
+| Title | Displays the name of the open help topic. Read-only. |
+| Subtitle | One-line description: "Bundled help is available even when your station computer is offline." Read-only. |
+| `Find:` field | Type a search term to locate text within the current topic. Placeholder text reads "Subject or term". The border turns red when there are no matches. |
+| `Next` | Finds the next occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Return. |
+| `Previous` | Finds the previous occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Shift+Return. |
+| Markdown viewer | Renders the loaded help topic. External links open in your default browser. |
+| Hint / footer | Reads: "Tip: The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
+| `Close` | Closes the help dialog. |
 
 ## Tips
 
-- Each help topic opens in its own window. You can open multiple topics side by side by choosing different items from the `Help` menu without closing the previous window.
-- All six topics are available from the `Help` menu: `Help > Getting Started...`, `Help > AetherSDR Help...`, `Help > Understanding Noise Cancellation...`, `Help > Configuring AetherSDR Controls...`, `Help > Configuring Data Modes...`, and `Help > Contributing to AetherSDR...`.
-
-## Troubleshooting
-
-- **The viewer shows "Help file not available" instead of content** — A bundled help asset is missing from the installation. Reinstall AetherSDR and confirm all files are present, or report the missing asset to the project.
+- Each Help menu item opens a separate dialog, so you can have more than one topic open at the same time.
+- Press the standard Find shortcut (Ctrl+F on Linux and Windows, Cmd+F on macOS) while the dialog is focused to move the cursor directly to the `Find:` field.
+- If a search term is not found, the `Find:` field border turns red and the status area shows "No matches". Clearing the field resets the state.
 
 ## Related
 

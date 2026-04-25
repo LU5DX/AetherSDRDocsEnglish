@@ -1,42 +1,39 @@
 # Slice Troubleshooting Overview
 
-The Slice Troubleshooting dialog captures a snapshot of AetherSDR's current in-memory radio, panadapter, slice, and meter state. Use it to diagnose common slice problems yourself or to produce a report for support.
+The Slice Troubleshooting dialog captures a snapshot of AetherSDR's current slice, panadapter, and DAX channel state, then analyzes it for common problems. Use it to diagnose audio, mute, and antenna issues yourself, or to gather diagnostic data before contacting support.
 
 ## Before you start
 
-- AetherSDR must be connected to a radio. The dialog requires an active radio connection.
-- The snapshot reflects in-memory state at the moment you open the dialog or click Refresh Snapshot. It does not re-query the radio.
+- AetherSDR must be connected to the radio. The dialog requires an active radio connection.
 
 ## How it works
 
-Open the dialog from `Help > Slice Troubleshooting...`. The snapshot is taken automatically when the dialog opens.
+Open the dialog from `Help > Slice Troubleshooting...`. When the dialog opens, AetherSDR reads the current in-memory radio and slice state into a snapshot. The snapshot is not automatically refreshed if you change slice settings after opening the dialog — click "Refresh Snapshot" to update it.
 
-The dialog presents two views of the same snapshot, selectable by tab:
+The dialog has two tabs:
 
-- **Issue Summary** — a plain-language bullet list of detected problems, such as missing audio, stuck mute, or missing antenna assignments.
-- **JSON** — the full snapshot in JSON format, covering slices, DAX channels, panadapters, meters, client DSP state, and UI state.
+- **Issue Summary** — shows a plain-language bullet list of detected problems, such as missing audio, stuck mute, or missing antenna assignments.
+- **JSON** — shows the full snapshot as structured JSON, covering slices, panadapters, DAX channels, meters, and client DSP state.
 
-Once you have the snapshot, you can copy or export it using the buttons along the bottom of the dialog. The status label above the buttons shows the result of the last action (for example, "Issue summary copied to clipboard." or "JSON copied to clipboard.").
-
-To capture a fresh snapshot after making changes to slice state, click Refresh Snapshot. The status label then reports how many slices, global meters, and total meters were found.
+A status label below the tabs confirms the result of copy and export actions (for example, "Copied to clipboard").
 
 ## What each control does
 
-| Control | Kind | Behavior |
+| Control | Kind | What it does |
 |---|---|---|
-| Issue Summary | Tab | Displays a plain-language bullet list of detected slice problems. |
-| JSON | Tab | Displays the full JSON snapshot of slices and DAX channels. |
-| Refresh Snapshot | Button | Re-reads slice state into the snapshot and updates both tabs. |
+| Issue Summary (tab) | Tab | Displays a plain-language bullet list of detected problems. |
+| JSON (tab) | Tab | Displays the full JSON snapshot of slices and DAX channels. |
+| Refresh Snapshot | Button | Re-reads current slice state into the snapshot. Use this after changing slice configuration while the dialog is open. |
 | Copy Summary | Button | Copies the issue summary text to the clipboard. |
-| Copy JSON | Button | Copies the full JSON to the clipboard. |
-| Export JSON... | Button | Opens a save dialog to write the JSON to a file. The default filename includes a timestamp, for example `aethersdr-slice-troubleshooting-20240501-143022.json`. |
+| Copy JSON | Button | Copies the full JSON snapshot to the clipboard. |
+| Export JSON... | Button | Opens a file save dialog to write the JSON snapshot to a file. |
 | Close | Button | Closes the dialog. |
-| Status label | Indicator | Shows the result of the last copy or export action, and the slice/meter counts after a refresh. |
 
 ## Tips
 
-- Use the Issue Summary tab when filing a GitHub issue. Use the JSON tab when working through a problem with AI-assisted tools or attaching a file to a bug report.
-- If you change a slice setting (such as unmuting or reassigning an antenna) while the dialog is open, click Refresh Snapshot to update the snapshot before copying or exporting.
+- Use the **Issue Summary** tab and "Copy Summary" when filing a GitHub issue — the plain-language format is easier to read in a bug report.
+- Use the **JSON** tab and "Copy JSON" or "Export JSON..." when you need to provide detailed diagnostic data, for example for AI-assisted troubleshooting or attaching to a support ticket.
+- If you change a slice setting (mode, antenna, mute) while the dialog is open, click "Refresh Snapshot" before copying or exporting, otherwise the snapshot will reflect the state at the time the dialog was opened.
 
 ## Related
 

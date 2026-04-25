@@ -1,55 +1,55 @@
 # File an AI-assisted bug report
 
-AetherSDR can prepare a diagnostic prompt — pre-filled with your version, OS, and radio info — that you paste into an AI assistant to produce a well-structured GitHub bug report. Use this when you need help describing a problem clearly before filing it on GitHub.
+Use the AI-assisted bug report flow to get help writing a clear, complete GitHub issue. AetherSDR copies a pre-filled diagnostic prompt — including your version, OS, and connected radio — to your clipboard, then guides you through an AI assistant and the GitHub issue form.
 
 ## Before you start
 
-- Reproduce or note the details of the problem you want to report.
-- Optionally, clear and re-capture the log immediately before filing so it contains only relevant data. See [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md).
-- A radio connection is not required, but if you are connected the bundle will include your radio model, firmware version, and callsign automatically.
+- Reproduce the problem at least once so you can describe what happened.
+- If you want diagnostic logs attached, clear the log and reproduce the issue first so the log contains only relevant output. See [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md).
+- A radio connection is not required, but if you are connected the bundle will include radio model, firmware, and serial information automatically.
 
 ## Steps
 
-1. Click `Help > Support...` to open the **Support & Diagnostics** dialog.
-2. Click **File an Issue**.
-   AetherSDR creates a support bundle (logs and settings) and copies a diagnostic prompt to your clipboard. The prompt is pre-filled with your AetherSDR version, Qt version, OS, and radio information.
-3. In the **AI-Assisted Bug Report** dialog that appears, click the AI service you want to use: **Claude**, **ChatGPT**, **Gemini**, **Grok**, or **Perplexity**. Your default browser opens that service.
-4. In the AI chat window, paste the clipboard contents (the prompt is already there from step 2).
-5. At the end of the prompt, replace the placeholder text with a description of what went wrong — for example, what you were doing, what happened, and what you expected instead.
-6. Send the message and wait for the AI to produce a formatted GitHub bug report.
+1. Click `Help > Support...` to open the Support & Diagnostics dialog.
+2. Click `File an Issue`.
+   AetherSDR creates a support bundle (logs and settings) and copies a diagnostic prompt to your clipboard. The prompt includes your AetherSDR version, Qt version, OS, and radio information if connected.
+3. In the AI-Assisted Bug Report dialog that appears, click the AI service you want to use: `Claude`, `ChatGPT`, `Gemini`, `Grok`, or `Perplexity`.
+   Your default browser opens to that service.
+4. In the AI chat, paste the clipboard contents.
+5. At the end of the prompt, replace the placeholder text with a plain description of what went wrong. For example: "The waterfall freezes after about 10 minutes" or "Audio cuts out when I switch bands."
+6. Send the prompt and wait for the AI to produce a formatted bug report.
 7. Copy the AI's output.
-8. Return to the **AI-Assisted Bug Report** dialog (still open in AetherSDR) and click **Submit Bug Report**. AetherSDR opens the GitHub new-issue form in your browser and opens the folder containing your support bundle.
-9. Paste the AI's output into the GitHub issue form.
-10. Drag your support bundle file from the folder that opened into the GitHub issue form to attach it.
+8. Return to AetherSDR. If the dialog is still open, click `Submit Bug Report`.
+   Your browser opens the GitHub new-issue form with the `bug` label pre-selected, and the folder containing your support bundle opens in the OS file browser.
+9. Paste the AI's bug report into the GitHub issue form.
+10. Drag the support bundle file from the folder that opened into the GitHub issue form to attach it.
+11. Submit the issue on GitHub.
 
 ## What each control does
 
-| Control | Behavior |
+| Control | What it does |
 |---|---|
-| **Claude** | Opens `https://claude.ai/new` in your browser. |
-| **ChatGPT** | Opens `https://chat.openai.com/` in your browser. |
-| **Gemini** | Opens `https://gemini.google.com/` in your browser. |
-| **Grok** | Opens `https://grok.x.ai/` in your browser. |
-| **Perplexity** | Opens `https://www.perplexity.ai/` in your browser. |
-| **Submit Bug Report** | Opens the GitHub new-issue form (pre-tagged `bug`) and opens the support bundle folder for drag-and-drop attachment. |
-| **Close** | Dismisses the dialog without filing. |
+| `Claude` | Opens `https://claude.ai/new` in your browser. |
+| `ChatGPT` | Opens `https://chat.openai.com/` in your browser. |
+| `Gemini` | Opens `https://gemini.google.com/` in your browser. |
+| `Grok` | Opens `https://grok.x.ai/` in your browser. |
+| `Perplexity` | Opens `https://www.perplexity.ai/` in your browser. |
+| `Submit Bug Report` | Opens the GitHub new-issue form (pre-tagged `bug`) and opens the support bundle folder for drag-and-drop attachment. |
 
 ## Tips
 
-- The diagnostic prompt instructs the AI to write the full report in one response without asking follow-up questions. Give the AI as much detail as you can in your description — the more specific, the better the output.
-- If you clicked an AI button and then closed the **AI-Assisted Bug Report** dialog before submitting, click **File an Issue** again to re-open it and use **Submit Bug Report**. A new support bundle will be created.
-- If you are connected to your radio when you click **File an Issue**, the bundle automatically includes your radio model, serial number, firmware version, and IP address. If you are not connected, connect first and then click **File an Issue** to include that data.
-- Enable verbose logging for the relevant subsystem before reproducing the bug so the support bundle contains useful detail. See [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md).
+- The diagnostic prompt instructs the AI to write the full bug report in one response without asking follow-up questions. You only need to add your description at the bottom of the pasted prompt.
+- The support bundle is created when you click `File an Issue`, before you interact with any AI. If you reproduce the issue after opening the dialog, click `Close`, clear the log, reproduce the bug, then start the flow again so the bundle contains fresh logs.
+- If you close the AI-Assisted Bug Report dialog and need to file the issue later, click `Submit Bug Report` from a new `File an Issue` session to reopen the GitHub form and the bundle folder.
 
 ## Troubleshooting
 
-- **"Failed to create support bundle." warning appears** — AetherSDR could not write the bundle to disk. Check that you have write permission to your user data directory. The diagnostic prompt is still copied to your clipboard, so you can proceed with the AI steps and file the issue manually without the attachment.
-- **No browser opens after clicking an AI button** — Verify that your OS has a default browser configured and that it can open external URLs. On Linux, ensure `xdg-open` is functional.
-- **Radio information shows "not connected" in the prompt** — AetherSDR was not connected to the radio when you clicked **File an Issue**. Connect via `Settings > Connect to Radio...` and click **File an Issue** again if the radio details are relevant to your report.
+- **"Failed to create support bundle" warning appears** — AetherSDR could not write the bundle to disk. Check that you have write permission to your home directory and that there is available disk space, then try again.
+- **The browser does not open when you click an AI button** — Verify that a default browser is configured on your OS. On Linux, check that `xdg-open` is installed and associated with an HTTP handler.
+- **Radio information shows "not connected" in the prompt** — The radio was not connected when you clicked `File an Issue`. Add the radio model and firmware version manually in the AI chat after pasting the prompt.
 
 ## Related
 
 - [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md)
 - [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md)
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
-- [Support & Diagnostics overview](overview.md)

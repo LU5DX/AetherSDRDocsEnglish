@@ -1,38 +1,41 @@
 # Tune NR4 masking depth and suppression strength
 
-The NR4 tab in AetherDSP Settings exposes two controls — `NR4MaskingDepth` and `NR4SuppressionStrength` — that together govern how aggressively NR4 (libspecbleach) attenuates noise between speech syllables. Adjusting these lets you trade residual noise against speech naturalness.
+Use this page to adjust NR4's spectral-masking depth and overall suppression strength, controlling how aggressively the NR4 engine attenuates noise relative to speech-like content.
 
 ## Before you start
 
-- AetherSDR must be running. No radio connection is required to change these settings.
-- NR4 must be the active noise-reduction engine on the slice you are listening to. If you have not yet enabled NR4, the sliders take effect as soon as you do.
+- Open AetherSDR.
+- NR4 must be selected as your active noise-reduction engine. See [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md) if you are unsure.
 
 ## Steps
 
-1. Open `Settings > AetherDSP Settings...`.
+1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR4** tab.
-3. Locate the **Masking Depth:** slider. Drag it left or right to set spectral-masking depth (range 0.00–1.00, default 0.50). The current value is shown to the right of the slider.
-4. Locate the **Suppression:** slider. Drag it left or right to set overall suppression strength (range 0.00–1.00, default 0.50). The current value is shown to the right of the slider.
-5. Monitor the audio in real time. Adjust until residual noise is acceptably low without audible speech degradation.
-6. Close the dialog. Values are saved immediately when each slider moves; no separate Save action is needed.
+3. Adjust **Masking Depth:** to set how deeply spectral masking is applied. Lower values apply less masking; higher values apply more.
+4. Adjust **Suppression:** to set the overall NR4 suppression strength. Lower values are gentler; higher values are more aggressive.
+5. Close the dialog. Changes take effect immediately.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls how deeply spectral masking suppresses bins estimated to contain noise. Higher values increase masking at the risk of muffling weak signals. |
-| **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` | Sets the overall NR4 suppression strength. Higher values remove more noise; very high values may introduce processing artifacts. |
+| Control | Default | Valid range | Setting key |
+|---|---|---|---|
+| **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
+| **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
+
+**Masking Depth:** controls the depth of spectral masking applied by the NR4 engine. At 0.00 masking is not applied; at 1.00 masking is applied at full depth.
+
+**Suppression:** sets the overall suppression strength of the NR4 engine. At 0.00 suppression is minimal; at 1.00 it is at maximum.
 
 ## Tips
 
-- These two controls interact: a high **Suppression:** value with a low **Masking Depth:** tends to produce a drier, flatter residual, whereas matching both at moderate levels (around 0.50) generally preserves the most natural speech character.
-- If you want to return to a known-good baseline, click **Reset Defaults** on the NR4 tab. This restores **Masking Depth:** to 0.50 and **Suppression:** to 0.50, along with all other NR4 parameters.
-- Changes take effect immediately without restarting AetherSDR or reconnecting to the radio.
+- Start with both sliders at their defaults (0.50) and make small incremental adjustments. Increasing **Suppression:** too far can cause audible artifacts on weak signals.
+- If residual noise remains after raising **Suppression:**, also raise **Masking Depth:** gradually. The two controls interact: masking depth shapes which spectral bins are targeted, while suppression determines how much gain reduction is applied to them.
+- Use **Reset Defaults** to return both sliders — along with all other NR4 parameters — to their factory values (SPP-MMSE, adaptive on, 10.0 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50).
 
 ## Troubleshooting
 
-- **Increasing Suppression: makes voices sound hollow or phasey** — reduce **Suppression:** toward 0.30–0.40 and verify that **Adaptive Noise Estimation** is enabled so the noise floor estimate stays current. See [Enable or disable NR4 adaptive noise estimation](enable-or-disable-nr4-adaptive-noise-estimation.md).
-- **Sliders have no audible effect** — NR4 may not be the active noise-reduction engine on the current slice, or the overall **Reduction (dB):** amount may be set to 0.0. See [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md).
+- **Speech sounds muffled after increasing Suppression:** — The suppression level is too high. Reduce **Suppression:** and, if needed, also reduce **Masking Depth:** to restore speech clarity.
+- **Noise floor is still audible at maximum Suppression:** — Check that **Reduction (dB):** is set high enough and that **Adaptive Noise Estimation** is enabled. See [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md) and [Enable or disable NR4 adaptive noise estimation](enable-or-disable-nr4-adaptive-noise-estimation.md).
 
 ## Related
 

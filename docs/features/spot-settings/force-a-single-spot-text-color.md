@@ -1,37 +1,36 @@
 # Force a single spot text color
 
-By default, AetherSDR renders each DX spot in a color determined by its source or mode. Enabling color override forces every spot label to display in one color you choose, making the panadapter easier to read at a glance.
+By default, AetherSDR colors each DX spot according to its source or mode. This page explains how to override that behavior and display all spot text in one color of your choosing.
 
 ## Before you start
 
-- Spots must be enabled. If the `IsSpotsEnabled` toggle shows "Disabled", enable it first — see [Turn spots on or off](turn-spots-on-or-off.md).
-- Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter and selecting the spot settings option from the context menu.
+- The Spot Settings dialog must be open. Right-click the spots overlay on the panadapter to open it.
+- Spots must be active. If the `IsSpotsEnabled` toggle reads "Disabled", enable it first (see [Turn spots on or off](turn-spots-on-or-off.md)).
 
 ## Steps
 
-1. In the Spot Settings dialog, locate the **Override Colors:** row.
-2. Click the toggle button so it reads "Enabled". The setting `IsSpotsOverrideColorsEnabled` is saved immediately.
-3. Click the small color swatch button to the right of the toggle. A color picker dialog opens titled "Spot Text Color".
-4. Select your desired color and confirm. The swatch updates to reflect your choice and the color is saved to `SpotsOverrideColor`.
-
-To revert to per-spot colors, click the **Override Colors:** toggle again so it reads "Disabled".
+1. Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter.
+2. Locate the **Override Colors:** row.
+3. Click the toggle button so it reads **Enabled**. This activates the single-color override and persists `IsSpotsOverrideColorsEnabled`.
+4. Click the small color swatch button immediately to the right of the **Enabled** toggle. A color picker dialog opens titled "Spot Text Color".
+5. Select your desired color and confirm. The swatch updates to reflect your choice, and the color is saved to `SpotsOverrideColor`.
 
 ## What each control does
 
 | Control | Default | Behavior | Setting key |
 |---|---|---|---|
-| **Override Colors:** toggle | Disabled | When "Enabled", replaces all spot text colors with the single color set by the color picker. When "Disabled", each spot uses its own source-assigned color. | `IsSpotsOverrideColorsEnabled` |
-| Spot text color picker (swatch button) | `#FFFF00` (yellow) | Opens the "Spot Text Color" picker. The chosen color applies to all spot labels when **Override Colors:** is "Enabled". | `SpotsOverrideColor` |
+| **Override Colors:** toggle | Disabled | When Enabled, all spot text is rendered in a single color instead of per-source colors. | `IsSpotsOverrideColorsEnabled` |
+| Spot text color picker (swatch button) | `#FFFF00` | Opens the color picker dialog. The selected color is applied to all spot text when Override Colors is Enabled. | `SpotsOverrideColor` |
 
 ## Tips
 
-- The color picker only takes effect when **Override Colors:** is "Enabled". You can pre-select a color while the toggle is "Disabled" and enable it later.
-- Yellow (`#FFFF00`) is the default override color. It contrasts well against the default dark panadapter background at the default background opacity of 48.
+- The color swatch reflects the currently saved color even when **Override Colors:** is Disabled. You can pre-select a color before enabling the override.
+- The default text color is `#FFFF00` (yellow). If you want to return to the default, open the color picker and enter that value manually.
 
 ## Troubleshooting
 
-- **Spots still appear in multiple colors after enabling Override Colors:** — Confirm the toggle reads "Enabled" (green state), not "Disabled". Clicking the toggle cycles its state and saves immediately; no Apply button is required.
-- **Color picker closes but the swatch does not update** — The picker was dismissed with Cancel or the window was closed without selecting a color. Click the swatch button again and confirm a color selection.
+- **Spots still show multiple colors after enabling Override Colors** — Confirm the toggle reads **Enabled** (not **Disabled**). If it reads Disabled, click it once to toggle it on.
+- **Color picker closes but swatch does not change** — You likely dismissed the dialog without confirming a color. Open the picker again and select a color, then click OK.
 
 ## Related
 

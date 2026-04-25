@@ -1,47 +1,42 @@
 # Set DAX RX gain per channel
 
-Adjust the receive audio level for each of the four DAX channels (DAX 1–4) so that digital mode software or other audio consumers receive audio at the right level.
+Use the DAX Audio applet to adjust the receive gain for each of the four DAX channels independently. Each channel's gain is saved and restored between sessions.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio.
-- The DAX applet must be open. If it is not visible, click the DAX tray button on the right sidebar to show it.
-- DAX must be enabled. If the Enable button is not lit, click Enable to start the DAX audio bridge.
+- AetherSDR must be connected to the radio. DAX controls are unavailable without an active radio connection.
+- The DAX audio bridge must be running. Click Enable in the DAX Audio applet to start it if you have not already done so.
 
 ## Steps
 
-1. Click the DAX tray button on the right sidebar to open the DAX Audio applet.
-2. Locate the row for the channel you want to adjust: DAX 1, DAX 2, DAX 3, or DAX 4.
-3. Drag the meter/slider on that row left or right to decrease or increase the RX gain.
-4. Release the mouse button. The new gain is saved immediately.
+1. Click the DAX tray button on the right sidebar to open the DAX Audio applet. If the applet panel is not visible, enable it first with `View > Applet Panel`.
+2. Locate the row for the channel you want to adjust: **DAX 1**, **DAX 2**, **DAX 3**, or **DAX 4**.
+3. Drag the combined meter/slider for that channel left to reduce gain or right to increase gain. The gain range is 0.0 to 1.0; the default is 0.5.
+4. Release the drag. The new value is saved immediately to the corresponding setting key (`DaxRxGain1`, `DaxRxGain2`, `DaxRxGain3`, or `DaxRxGain4`) and takes effect at once.
 
-Repeat for any other channels that need adjustment.
+Repeat for any other channel you want to adjust.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| DAX 1 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain1` |
-| DAX 2 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain2` |
-| DAX 3 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain3` |
-| DAX 4 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain4` |
-| Slice-assignment status | — | — or Slice A–H | _(not persisted)_ |
-
-Each meter/slider is a combined control. The background bar shows the smoothed RMS audio level post-fader; the draggable thumb sets the gain. Moving the thumb immediately updates the displayed level. Gain values are stored as two decimal places (for example, `0.50`).
-
-The slice-assignment indicator to the left of each meter shows which slice is currently routed to that channel (for example, Slice A). A dash (—) means no slice is assigned.
+| Control | Default | Valid range | Setting key | Behavior |
+|---|---|---|---|---|
+| DAX 1 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain1` | Sets RX gain for DAX channel 1. The meter bar shows the post-fader output level. |
+| DAX 2 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain2` | Sets RX gain for DAX channel 2. |
+| DAX 3 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain3` | Sets RX gain for DAX channel 3. |
+| DAX 4 gain+meter | 0.5 | 0.0–1.0 | `DaxRxGain4` | Sets RX gain for DAX channel 4. |
+| Slice-assignment status | — | — or Slice A–H | — (not persisted) | Shows which slice is routed to each DAX channel. Read-only. |
+| Enable | off | on/off | `AutoStartDAX` | Master switch for the DAX audio bridge. All gain sliders are inactive when this is off. |
 
 ## Tips
 
-- Gain is applied post-fader: the meter bar reflects the actual output level after your gain adjustment, not the raw input level. Use this to confirm that the signal reaching your digital mode software is neither clipped nor too low.
-- Gain settings persist across restarts. You do not need to re-adjust them each session.
-- If a channel shows — in the slice-assignment indicator, no audio will pass through regardless of the gain setting. Assign a slice to that DAX channel first.
+- The meter background shows the smoothed RMS level multiplied by the current gain, so the bar reflects actual output level. Moving the slider gives immediate visual feedback even before audio arrives.
+- Gain values are stored as two decimal places (for example, `0.50`). They are restored from disk when AetherSDR next launches, so you do not need to re-set them after restarting.
+- The status indicator next to each channel label shows which slice is assigned to that DAX channel. If the indicator shows —, no slice is currently routed there. See [See which slice is currently using each DAX channel](see-which-slice-is-currently-using-each-dax-channel.md).
 
 ## Troubleshooting
 
-- **Dragging the slider has no effect** — Verify that Enable is active (lit green). Gain changes are accepted at any time, but no audio flows unless the DAX bridge is running.
-- **Meter bar shows no movement after adjusting gain** — Check that a slice is assigned to the channel (the indicator should show Slice A–H, not —). If the indicator shows —, assign a slice to the DAX channel from the radio's slice controls.
-- **Gain resets to 0.5 after restart** — This can happen if AetherSDR cannot write its settings file. Check file-system permissions for the AetherSDR settings directory.
+- **Dragging the slider has no effect on the audio level** — Check that Enable is active (lit green). The gain change is applied by the DAX bridge; if the bridge is not running, the setting is saved but not applied to the audio stream.
+- **The meter bar shows no activity** — The status indicator next to the channel may show —, meaning no slice is assigned to that DAX channel. Assign a slice to the channel in your radio's slice settings.
 
 ## Related
 

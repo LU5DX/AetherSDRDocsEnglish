@@ -1,49 +1,53 @@
 # Connect to a local LAN radio
 
-Open AetherSDR's connection screen and connect to a Flex radio that is on the same LAN as your computer. This is the recommended path for first-time users at a home or club station.
+Use this page to connect AetherSDR to a FLEX-8600 that is on the same LAN as your computer. AetherSDR discovers the radio automatically using mDNS — no IP address required.
 
 ## Before you start
 
-- The Flex radio is powered on and connected to the same local network as your computer.
-- No VPN or guest Wi-Fi isolation is active between the radio and the computer. Either can block mDNS discovery.
-- AetherSDR is installed and launched.
+- The FLEX-8600 must be powered on and reachable on the same local network as your computer.
+- AetherSDR must be running. The connection screen appears automatically before any radio is connected, or after a disconnect.
+- Confirm that no VPN, guest Wi-Fi isolation, or host firewall is blocking mDNS/discovery traffic on your network.
 
 ## Steps
 
-1. Open the connection screen. It appears automatically in the main window before a radio is connected. You can also reach it at any time via `Settings > Connect to Radio...`.
-2. Click **On This Network**. This selects local LAN discovery mode and sets `ConnectionMode` to `LocalMode`.
-3. Wait a few seconds for the **Available radios** list to populate. AetherSDR discovers radios automatically via mDNS.
+1. Open the connection screen. It appears automatically at startup. You can also open it at any time via `Settings > Connect to Radio...`.
+2. Click **On This Network**. This is the default mode, so it may already be selected.
+3. Wait a few seconds for the **Available radios** list to populate. AetherSDR listens for discovery packets from the radio; this normally completes within a few seconds.
 4. Click your radio in the **Available radios** list to highlight it.
 5. Click **Connect Selected Radio**.
 
+The status label at the bottom of the panel updates through connecting and then connected states as the link is established.
+
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
-|---|---|---|---|
-| **On This Network** | Mode button | Switches to the local LAN discovery page. Default mode. | `ConnectionMode` |
-| **Remote with SmartLink** | Mode button | Switches to the SmartLink page. | `ConnectionMode` |
-| **Connect by IP** | Mode button | Switches to the manual/IP page. | `ConnectionMode` |
-| **Available radios** | List | Shows Flex radios found on the LAN via mDNS. Updates automatically. | — |
-| **Connect Selected Radio** | Button | Connects to the highlighted radio. Disabled until a radio is selected. | — |
-| **No local radios found yet** | Indicator | Shown instead of the list when discovery has not found any radios. | — |
-| **Retry Discovery** | Button | Re-runs LAN discovery immediately. Visible only in the empty state. | — |
-| **Open Network Diagnostics** | Button | Opens the network diagnostics dialog. Visible only in the empty state. | — |
+| Control | What it does | Persisted setting |
+|---|---|---|
+| **On This Network** | Selects local LAN discovery mode. Default mode on first launch. | `ConnectionMode` |
+| **Available radios** | Lists FLEX-8600 radios discovered on the LAN via mDNS. Populated automatically; no input required. | — |
+| **Connect Selected Radio** | Connects to the highlighted radio. Enabled only when a radio is selected in the list. | — |
+| **No local radios found yet** | Callout shown when discovery returns no results. Replaces the list until a radio is found or discovery is retried. | — |
+| **Retry Discovery** | Re-runs LAN discovery immediately. Appears inside the empty-state callout. | — |
+| **Connect by IP** | Shortcut to the **Connect by IP** mode. Appears inside the empty-state callout. | `ConnectionMode` |
+| **Remote with SmartLink** | Shortcut to the **Remote with SmartLink** mode. Appears inside the empty-state callout. | `ConnectionMode` |
+| **Open Network Diagnostics** | Opens the network diagnostics window. Appears inside the empty-state callout. | — |
 
 ## Tips
 
-- If the list stays empty for more than 10–15 seconds, click **Retry Discovery** before changing any network settings.
-- VPN client software running on the same machine is a common cause of discovery failure even when the radio is on the local network. Try disabling the VPN, then click **Retry Discovery**.
-- If your radio is on a different subnet or reachable only through a VPN, use **Connect by IP** instead of **On This Network**.
+- If the list is slow to populate, wait at least 10–15 seconds before using **Retry Discovery**. The radio sends periodic discovery packets and AetherSDR may not have received the first one yet.
+- If your computer has multiple network interfaces, AetherSDR may be listening on the wrong one. If discovery consistently fails, consider switching to **Connect by IP** mode and specifying the interface with **Advanced: Source path**.
 
 ## Troubleshooting
 
-- **"No local radios found yet" appears and does not clear** — mDNS discovery is being blocked. Check for guest Wi-Fi isolation on your access point, a host firewall blocking UDP, or VPN software redirecting traffic. Click **Open Network Diagnostics** to inspect the network path, or switch to **Connect by IP** if you know the radio's IP address.
-- **Connect Selected Radio is greyed out** — No radio is highlighted in the **Available radios** list. Click a radio in the list first.
+- **"No local radios found yet" appears and does not go away** — The radio's discovery packets are not reaching AetherSDR. Common causes: the radio and computer are on different VLANs or subnets, guest Wi-Fi AP isolation is enabled, or a software VPN is intercepting multicast traffic. Click **Open Network Diagnostics** for details, or switch to **Connect by IP** mode if you know the radio's IP address.
+- **Connect Selected Radio is greyed out** — No radio is selected in the **Available radios** list. Click a radio in the list first.
+- **The status label shows an error after clicking Connect Selected Radio** — The radio was discovered but the TCP connection failed. Check that no firewall is blocking the SmartSDR protocol port, and that no other SmartSDR-compatible client holds the exclusive connection.
 
 ## Related
 
 - [Retry discovery when no radios appear](../../features/connection/retry-discovery-when-no-radios-appear.md)
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Connect to a remote radio through SmartLink](connect-to-a-remote-radio-through-smartlink.md)
+- [Pick the local network interface used for a manual connection](pick-the-local-network-interface-used-for-a-manual-connection.md)
+- [Enable low-bandwidth mode for slow links](../../features/connection/enable-low-bandwidth-mode-for-slow-links.md)
 - [Disconnect from the current radio](disconnect-from-the-current-radio.md)
 - [Make your first QSO with AetherSDR](../tutorials/first-qso.md)

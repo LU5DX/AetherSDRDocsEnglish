@@ -1,34 +1,33 @@
 # Activate a memory with a single double-click
 
-The Memory Browser lets you tune the radio directly to a stored memory by double-clicking its row in the memory table. This saves you from manually entering a frequency.
+The Memory Browser lets you tune your radio directly to a stored memory by double-clicking its row in the memory table. This is faster than manually entering a frequency.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Memory Browser requires an active radio connection.
-- The Memory Browser panel must be visible. It appears as a side panel in the main window when memory browsing is enabled.
+- AetherSDR must be connected to a FLEX-8600 radio.
+- The Memory Browser panel must be open and visible in the main window.
 - At least one memory with a valid frequency must be stored on the radio. If none are loaded, the panel shows "No memories are available yet." instead of the table.
 
 ## Steps
 
-1. Locate the Memory Browser side panel next to the panadapter.
-2. Find the memory you want in the memory table. Columns show Frequency and Name.
-3. Double-click the row for that memory.
+1. Locate the Memory Browser side panel alongside the panadapter.
+2. Find the memory you want in the memory table. Columns are **Frequency** and **Name**. The row highlighted in a distinct background color is the memory closest to your current tuned frequency.
+3. Double-click any row in the memory table to activate that memory. Your radio tunes to the memory's frequency immediately.
 
-The radio tunes to that memory's frequency immediately.
+Alternatively, click a row to select it, then press **Enter** to activate it.
 
 ## What each control does
 
 | Control | Behavior |
 |---|---|
-| Memory table | Lists all stored memories with valid frequencies, sorted by frequency. Double-click or press Enter to activate a row. |
-| Highlighted row | Indicates the memory closest to the current tuned frequency. The panel scrolls automatically to keep this row visible. |
+| Memory table | Lists all stored memories that have a valid frequency, sorted by frequency. Double-click or press Enter on a row to activate it. |
+| Highlighted row | Indicates the memory whose frequency is closest to the current tuned frequency. The panel scrolls automatically to keep this row in view. |
 | "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. |
 
 ## Tips
 
-- You can also press Enter to activate the currently selected row if you prefer keyboard navigation.
-- The highlighted row tracks your VFO as you tune, so the closest memory is always easy to spot.
-- If a memory has no name, the table falls back to its group name, or displays a placeholder such as "Memory 1".
+- The highlighted row updates automatically as you tune. If you are browsing near a particular band segment, the closest memory is already marked before you double-click.
+- If a memory has no name, the panel displays its group name instead. If neither is set, it falls back to a label based on the memory's index.
 
 ## Related
 

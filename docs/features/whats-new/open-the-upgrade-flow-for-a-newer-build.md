@@ -1,34 +1,34 @@
-# Open the upgrade flow for a newer build
+# Open the Upgrade Flow for a Newer Build
 
-When a newer build of AetherSDR is available, the What's New — AetherSDR dialog shows an Upgrade button that opens the download page directly. This page explains how to reach that button.
+When a newer build of AetherSDR is available, the What's New dialog shows an "Upgrade" button that opens the download page in your browser. This page explains how to reach that button.
 
 ## Before you start
 
-- The Upgrade button appears only when AetherSDR has detected that a newer build is available. If no upgrade is pending, the button is not shown.
+- The "Upgrade" button appears only when AetherSDR has detected that a newer build is available. If no upgrade is available, the button is not shown.
 - No radio connection is required.
 
 ## Steps
 
 1. Open `Help > What's New...`.
-2. In the What's New — AetherSDR dialog, review the release notes in the release notes browser.
+2. Review the release notes in the scrollable browser at the top of the dialog.
 3. Click `Upgrade`.
 
-AetherSDR opens the AetherSDR releases page in your default browser and closes the dialog.
+AetherSDR opens the AetherSDR releases page in your default web browser and closes the dialog.
 
 ## What each control does
 
 | Control | Kind | Behavior | Persisted setting |
 |---|---|---|---|
-| Release notes browser | Scrollable view | Displays styled HTML release notes for versions newer than `LastSeenVersion` up to the current version. Shows at most 5 releases. | — |
-| `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen. | `LastSeenVersion` |
+| Release notes browser | Scrollable HTML view | Displays release entries between the last seen version and the current version. Shows at most 5 recent releases. | — |
 | `Upgrade` | Button | Visible only when an upgrade is available. Opens the download page and closes the dialog. | — |
-| `Skip this version` | Button | Visible only when an upgrade is available. Suppresses the upgrade prompt for the current version and closes the dialog. | `LastSeenVersion` |
-| Hint | Indicator | Displays a short footer line with guidance. | — |
+| `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen. | `LastSeenVersion` |
+| `Skip this version` | Button | Suppresses the release reminder for this version and marks it as seen. | `LastSeenVersion` |
+| Hint | Indicator | Short footer line with guidance. | — |
 
 ## Tips
 
-- If you click `Skip this version` instead of `Upgrade`, AetherSDR writes the current version to `LastSeenVersion` and will not prompt you about this release again. You can still return to the dialog later via `Help > What's New...`, but the Upgrade button will not reappear for the skipped version.
-- Clicking `Got it — 73!` also marks the version as seen without opening the download page.
+- If you close the dialog with `Got it — 73!` instead of `Upgrade`, AetherSDR records the current version in `LastSeenVersion` and will not prompt you again for this release. You can still return to the dialog via `Help > What's New...`.
+- If you click `Skip this version`, `LastSeenVersion` is set to the current version and the nag for this release is suppressed, but the download page is not opened.
 
 ## Related
 

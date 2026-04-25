@@ -1,35 +1,36 @@
 # Refresh the snapshot after changing slice state
 
-The Slice Troubleshooting dialog captures a snapshot of radio state when it opens. If you change a slice setting after opening the dialog — for example, unmuting a slice or switching its antenna — the displayed data will be stale. Click **Refresh Snapshot** to re-read the current state so the **Issue Summary** and **JSON** tabs reflect your changes.
+The Slice Troubleshooting dialog captures a snapshot of slice state when it opens. If you change something — unmute a slice, switch antennas, adjust DAX — the displayed data goes stale. Clicking "Refresh Snapshot" re-reads the current state so the summary and JSON reflect your changes.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Slice Troubleshooting dialog requires an active radio connection.
-- The Slice Troubleshooting dialog must already be open. If it is not, go to `Help > Slice Troubleshooting...`.
+- AetherSDR must be connected to the radio. The dialog requires an active radio connection.
+- Open the Slice Troubleshooting dialog via `Help > Slice Troubleshooting...`.
 
 ## Steps
 
-1. Make whatever slice state change you want to capture (for example, unmute a slice, change its mode, or reassign its antenna).
-2. In the Slice Troubleshooting dialog, click **Refresh Snapshot**.
-3. Check the status label at the bottom of the dialog. It will show a message in the form `Snapshot refreshed: N slice(s), N global meter(s), N total meter(s).`
-4. Review the updated content on the **Issue Summary** tab or the **JSON** tab as needed.
+1. Make the slice change you want to capture (for example, unmute a slice or reassign an antenna).
+2. In the Slice Troubleshooting dialog, click `Refresh Snapshot`.
+3. Check the `Issue Summary` tab to confirm the updated state is reflected in the problem list.
+4. Switch to the `JSON` tab if you need to verify the raw values.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Issue Summary** | Tab | Displays a plain-language bullet list of detected problems found in the refreshed snapshot. |
-| **JSON** | Tab | Displays the full JSON snapshot of slices and DAX channels produced by the last refresh. |
-| **Refresh Snapshot** | Button | Re-reads current slice state into the snapshot and updates both tabs. |
-| **Copy Summary** | Button | Copies the issue summary text to the clipboard. The status label confirms with `Issue summary copied to clipboard.` |
-| **Copy JSON** | Button | Copies the full JSON to the clipboard. The status label confirms with `JSON copied to clipboard.` |
-| **Export JSON...** | Button | Opens a file save dialog and writes the JSON to a file. |
-| **Close** | Button | Closes the dialog. |
+| `Refresh Snapshot` | Button | Re-reads slice state into the snapshot. Both the `Issue Summary` and `JSON` tabs update. |
+| `Issue Summary` (tab) | Tab | Plain-language bullet list of detected problems based on the current snapshot. |
+| `JSON` (tab) | Tab | Full JSON snapshot of slices and DAX channels based on the current snapshot. |
+| `Copy Summary` | Button | Copies the issue summary to the clipboard. |
+| `Copy JSON` | Button | Copies the full JSON to the clipboard. |
+| `Export JSON...` | Button | Saves the JSON to a file. |
+| `Close` | Button | Closes the dialog. |
+| Status label | Indicator | Shows the last copy or export result, for example `Copied to clipboard`. |
 
 ## Tips
 
-- The dialog does not poll the radio continuously. Every time you change slice state and want fresh data, click **Refresh Snapshot** again.
-- After refreshing, use **Copy Summary** to copy the updated issue list, or **Copy JSON** to copy the raw snapshot, before sharing with support.
+- The dialog does not re-query the radio continuously. Any state change made after the dialog opens will not appear until you click `Refresh Snapshot`.
+- After refreshing, use `Copy Summary` or `Copy JSON` to capture the updated data for a support report.
 
 ## Related
 

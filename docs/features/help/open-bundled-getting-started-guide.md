@@ -1,37 +1,38 @@
 # Open bundled getting-started guide
 
-Open the bundled getting-started guide to read an offline introduction to AetherSDR without needing an internet connection or a connected radio.
+AetherSDR ships a set of offline help topics that open without an internet connection. This page explains how to open the getting-started guide.
 
 ## Before you start
 
-- AetherSDR must be installed. No radio connection is required.
+- AetherSDR must be running. A radio connection is not required.
 
 ## Steps
 
-1. Click **Help** in the menu bar.
-2. Click **Getting Started...**
-3. Read the content in the Markdown viewer. Scroll as needed.
-4. Click **Close** when done.
+1. Click `Help` in the menu bar.
+2. Click `Getting Started...`.
+3. The help dialog opens, displaying the getting-started topic in the Markdown viewer.
+4. To search within the topic, type a term in the `Find:` field and click `Next` to move forward through matches or `Previous` to move backward. Press Return to advance to the next match. Press Shift+Return to go to the previous match.
+5. To close the dialog, click `Close`.
 
 ## What each control does
 
-| Control | Description |
+| Control | Behavior |
 |---|---|
-| AETHERSDR OFFLINE HELP | Brand header displayed above the topic title. |
-| Title | Shows the name of the open help topic. |
-| Subtitle | One-line description: "Bundled help is available even when your station computer is offline." |
-| Markdown viewer | Renders the bundled getting-started Markdown content. Read-only; external links open in your browser. |
-| Hint / footer | Shows the tip: "The Help menu keeps each guide separate so you can reopen just the topic you need." |
-| Close | Closes the dialog. |
+| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the topic title. Read-only. |
+| Title | Displays the topic name passed to the dialog at open time. Read-only. |
+| Subtitle | One-line description of the topic. Read-only. |
+| Markdown viewer | Renders the bundled Markdown content for the selected topic. Read-only; external links open in your browser. |
+| `Find:` field | Type a subject or term to search within the displayed topic. The `Next` and `Previous` buttons are disabled until you enter text. |
+| `Next` | Finds the next occurrence of the search term. Wraps to the top when the end of the document is reached. |
+| `Previous` | Finds the previous occurrence of the search term. Wraps to the bottom when the start of the document is reached. |
+| Hint / footer | Shows a short usage tip. Read-only. |
+| `Close` | Closes the help dialog. |
 
 ## Tips
 
-- Each help topic in the **Help** menu opens its own separate dialog. You can open **Getting Started...** again at any time without disrupting other open dialogs.
-- The dialog can be resized. The minimum size is 520 × 420 pixels.
-
-## Troubleshooting
-
-- **The Markdown viewer shows "Help file not available"** — The bundled help asset is missing from your installation. Reinstall AetherSDR. If the problem persists, report the missing file to the project.
+- Each entry under the `Help` menu opens a separate dialog for that topic, so you can keep multiple topics open at the same time.
+- The help content is bundled with the application and does not require a network connection.
+- If a help file cannot be loaded, the viewer displays a notice asking you to reinstall AetherSDR or report the missing asset.
 
 ## Related
 

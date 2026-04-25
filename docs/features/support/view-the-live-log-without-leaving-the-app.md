@@ -1,39 +1,38 @@
 # View the Live Log Without Leaving the App
 
-The Support & Diagnostics dialog includes a built-in log viewer so you can read log output in real time without opening a terminal or external file browser. Use this when you want to watch what AetherSDR is doing while you reproduce a problem.
+The Support & Diagnostics dialog includes a scrollable log viewer that lets you read recent log output without opening a file manager or terminal. Use this when you want to watch what AetherSDR is doing in real time or quickly spot an error after something unexpected happens.
 
 ## Before you start
 
-- No radio connection is required. The log viewer works whether or not AetherSDR is connected to a Flex radio.
-- If you want to capture a clean trace of a specific problem, consider clearing the log first before reproducing the issue.
+- No radio connection is required to open the dialog or read the log.
+- If you want to capture output for a specific event, consider clearing the log first so only relevant entries appear.
 
 ## Steps
 
 1. Click `Help > Support...` to open the Support & Diagnostics dialog.
-2. Find the **Log viewer** — the large dark text area in the center of the dialog. It shows the most recent log entries automatically when the dialog opens.
-3. Scroll through the log viewer to read recent entries. The viewer holds up to 2000 lines.
-4. If new log activity has occurred since you opened the dialog, click **Refresh** to reload the log file and show the latest entries.
+2. Find the **Log viewer** panel in the center of the dialog. It shows the most recent log text as a scrollable, read-only view.
+3. Scroll through the log viewer to read current entries. The log path is shown in the **Log path label** above the viewer, and the current file size appears to the right of it.
+4. If new activity has occurred since you opened the dialog, click **Refresh** to reload the log file and show the latest entries.
+5. Click **Close** when finished.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Log viewer | Scrollable text area | Displays the most recent log entries. Read-only. Holds up to 2000 lines. |
-| Refresh | Button | Reloads the log file from disk and updates the log viewer. |
-| Log path label | Indicator | Shows the full file path of the current log file. |
+| Log path label | Indicator | Shows the full path to the current log file. |
 | Log file size | Indicator | Shows the current size of the active log file. |
-| Clear Log | Button | Truncates the log file. The log viewer will be empty after clearing. |
-| Open Log Folder | Button | Opens the log directory in your OS file browser. |
+| Log viewer | Text field | Scrollable, read-only view of the most recent log text. Displays up to 2000 lines. |
+| Refresh | Button | Reloads the log file into the viewer. |
+| Clear Log | Button | Truncates the current log file. |
+| Open Log Folder | Button | Opens the log directory in the OS file browser. |
 
 ## Tips
 
-- The log viewer loads automatically each time you open the dialog. You do not need to click **Refresh** on first open.
-- If entries stop appearing, click **Refresh** — the viewer does not tail the file continuously.
-- To increase the detail captured in the log, enable additional categories using the category checkboxes or click **Enable All** before reproducing your issue.
-- The log path label shows exactly where the file lives if you need to open it in an external editor.
+- The log viewer holds a maximum of 2000 lines. If the log file is large, only the most recent content is shown. Click **Open Log Folder** to access the full file.
+- To control which categories appear in the log, use the category checkboxes in the **Diagnostic Logging** section at the top of the dialog. Click **Enable All** to turn on every category, or **Disable All** to silence all of them.
 
 ## Related
 
-- [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md)
 - [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md)
+- [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md)
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)

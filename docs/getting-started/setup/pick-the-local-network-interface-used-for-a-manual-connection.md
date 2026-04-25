@@ -1,47 +1,44 @@
 # Pick the local network interface used for a manual connection
 
-When connecting by IP across a VPN or routed network, AetherSDR needs to know which local network interface (NIC) to use as the source of outgoing traffic. This page explains how to select that interface using the **Advanced: Source path** control on the Manual connection page.
+When connecting by IP across a VPN or routed network, AetherSDR lets you choose which local network interface (NIC) your computer uses to reach the radio. This matters when your machine has multiple network interfaces and the default route does not lead to the radio.
 
 ## Before you start
 
-- You must be using the **Connect by IP** connection mode. The **Advanced: Source path** control is not available in Local or Remote with SmartLink modes.
-- You need to know which network interface on your computer reaches the radio. If you are unsure, check your operating system's network settings or use `Settings > Network...` to open network diagnostics.
-- Have the radio's IP address ready to enter in **Radio IP address**.
+- You must know the radio's IP address. See [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md).
+- The ConnectionPanel must be visible. It appears automatically before a radio is connected, or open it via `Settings > Connect to Radio...`.
 
 ## Steps
 
-1. Open the **Connect to a Radio** panel. If a radio is already connected, go to `Settings > Connect to Radio...`.
-2. Click **Connect by IP** in the mode row at the top of the panel.
-3. Locate the **Advanced: Source path** combo box near the bottom of the Manual page.
-4. Open the **Advanced: Source path** drop-down. The list shows all network interfaces currently detected on your computer.
-5. Select the interface that has a path to the radio. For a VPN connection, choose the VPN adapter. For a second physical NIC, choose that NIC's entry.
-6. Check the **Source warning label** below the combo box. If it shows a warning such as `<interface> (unavailable, last <address>)`, the previously saved interface is no longer reachable. Select a current interface from the list instead.
-7. Enter the radio's IP address in **Radio IP address**.
-8. Click **Connect by IP** to start the connection.
+1. In the ConnectionPanel, click `Connect by IP` to switch to the Manual mode page.
+2. Enter the radio's IP address in the `Radio IP address` field. This value is saved as `ManualRadioIp`.
+3. Locate the `Advanced: Source path` combo box below the IP address field.
+4. Open the combo box and select the local network interface you want to use for this connection. The selected interface is saved as `ManualBindSource`.
+5. If the interface you saved previously is no longer available, a `Source warning label` appears beneath the combo box indicating the saved source is stale or unreachable. Select a currently available interface before proceeding.
+6. Click `Connect by IP` to start the connection.
 
 ## What each control does
 
-| Control | What it does | Persisted setting |
+| Control | What it does | Persisted key |
 |---|---|---|
-| **Advanced: Source path** | Selects the local NIC used as the source address for the manual connection. When set to an explicit interface, AetherSDR binds outgoing traffic to that interface. | `ManualBindSource` |
-| **Radio IP address** | The IP address or hostname of the Flex radio to connect to. | `ManualRadioIp` |
-| **Use low bandwidth mode** | Enables reduced-rate audio and data streams, useful for slow or high-latency VPN links. | `LowBandwidthMode` |
-| **Network Diagnostics** | Opens the network diagnostics panel so you can verify interface reachability without leaving the connection screen. | — |
+| `Radio IP address` | The IP address or hostname of the radio to connect to. | `ManualRadioIp` |
+| `Advanced: Source path` | Selects the local NIC that AetherSDR binds to when opening the connection. Leave on the default automatic entry unless you need to force a specific interface. | `ManualBindSource` |
+| `Use low bandwidth mode` | Reduces stream data rates for slow or congested links. | `LowBandwidthMode` |
+| `Connect by IP` (button) | Starts the manual connection using the IP and source path configured above. | — |
 
 ## Tips
 
-- If you previously connected successfully and the interface has since changed (for example, a VPN was assigned a different adapter), the **Source warning label** will display the last known IPv4 address alongside the unavailable interface name. Pick the correct current interface before attempting to reconnect.
-- If none of the interfaces in **Advanced: Source path** lead to the radio, verify that your VPN or routing is active before opening AetherSDR, as interface discovery runs when the panel loads.
+- If the previously saved interface is unavailable, the `Source warning label` shows the saved interface name (or ID) and the last known IPv4 address. Choose a different interface from `Advanced: Source path` before connecting.
+- On a machine with only one network interface, the `Advanced: Source path` selection has no practical effect. It is most useful on machines with separate wired, wireless, and VPN interfaces.
+- If you are on a slow link such as a cellular or satellite connection, enable `Use low bandwidth mode` on the same page before clicking `Connect by IP`.
 
 ## Troubleshooting
 
-- **Source warning label shows the saved interface as unavailable** — The NIC selected during a previous session is no longer present or has no IP address. Open **Advanced: Source path** and choose the interface that is currently active on your system.
-- **Connection attempt fails immediately after selecting an interface** — The selected interface may not have a route to the radio's subnet. Confirm the routing table on your computer, then retry with the correct interface selected.
-- **Advanced: Source path is empty or shows no useful entries** — AetherSDR found no usable network interfaces at startup. Check that your VPN or network adapter is connected and has an assigned IP address, then reopen `Settings > Connect to Radio...` to reload the interface list.
+- **`Source warning label` appears after selecting an interface** — The interface saved in `ManualBindSource` is no longer present or has no active address. Open `Advanced: Source path` and select a currently available interface.
+- **Connection fails immediately after clicking `Connect by IP`** — The `Manual result label` below the button shows the error. Verify the IP in `Radio IP address` is reachable from the interface selected in `Advanced: Source path`. Use `Network Diagnostics` on the same page to check reachability.
 
 ## Related
 
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
-- [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)
 - [Enable low-bandwidth mode for slow links](../../features/connection/enable-low-bandwidth-mode-for-slow-links.md)
-- [Retry discovery when no radios appear](../../features/connection/retry-discovery-when-no-radios-appear.md)
+- [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)
+- [Connect to a remote radio through SmartLink](connect-to-a-remote-radio-through-smartlink.md)

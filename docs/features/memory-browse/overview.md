@@ -1,38 +1,37 @@
 # Memory Browser overview
 
-The Memory Browser is a read-only side panel that lists the stored memories from your connected Flex radio alongside the panadapter. It automatically highlights the memory closest to your current tuned frequency and lets you jump to any memory with a double-click or Enter key.
+The Memory Browser is a read-only side panel that lists your radio's stored memories alongside the panadapter. As you tune, it automatically highlights the memory closest to your current frequency so you can orient yourself quickly and jump to a stored channel without leaving the main display.
 
 ## Before you start
 
-- AetherSDR must be connected to a radio. The Memory Browser requires an active radio connection.
-- Your radio must have memories configured. Use `Settings > Memory...` to open the memory configuration dialog if no memories appear.
+- AetherSDR must be connected to a FLEX-8600 radio.
+- The radio must have at least one memory configured. Use `Settings > Memory...` to manage memories.
 
 ## How it works
 
-The Memory Browser sits as a side panel in the main window when memory browsing is enabled. It has no tray button or separate window mode.
+The Memory Browser appears as a side panel in the main window. When memories are present, the panel displays a two-column table listing every stored memory that has a valid frequency. The table is sorted by frequency, lowest to highest.
 
-When memories are loaded, the panel displays them in a two-column table sorted by frequency in ascending order. As you tune, the panel continuously compares your current frequency against all stored memories and highlights the row belonging to the closest match. The panel scrolls automatically to keep that highlighted row visible.
+As you tune the radio, the panel continuously recalculates which memory is closest to the active frequency and highlights that row. The panel scrolls automatically to keep the highlighted row visible.
 
-If the radio has no memories loaded, the table is hidden and the panel shows the message "No memories are available yet." in its place.
+When no memories are loaded, the panel shows the message "No memories are available yet." in place of the table.
 
-Entries with no frequency value are excluded from the list entirely.
-
-When a memory name is not set, the panel falls back to showing the memory's group name. If neither is set, it displays the memory's index number in the form `Memory N`.
+**Activating a memory:** Double-click any row, or select a row and press Enter, to activate that memory on the radio.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| Memory table | List | Displays all memories with a valid frequency. Columns are **Frequency** (MHz, 6 decimal places) and **Name**. Double-click a row, or select it and press Enter, to activate that memory. The table is sorted by frequency, ascending. |
-| Highlighted row | Indicator | The row whose frequency is closest to the current tuned frequency is highlighted. The panel scrolls to keep this row centered. |
-| "No memories are available yet." | Indicator | Shown in place of the table when the radio has no memories with a valid frequency. |
+| Control | Description |
+|---|---|
+| Memory table | Lists all memories with a valid frequency. Columns: Frequency (MHz, 6 decimal places) and Name. Single-selection; read-only. Double-click or press Enter on a row to activate that memory. |
+| Highlighted row | Indicates the memory whose frequency is closest to the current tuned frequency. The panel scrolls to keep this row centered. |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories with a valid frequency. Disappears automatically once memories are available. |
 
-The Memory Browser has no persisted settings of its own.
+**Name display:** The Name column shows the memory's name if set, the group name if no memory name is set, or "Memory N" (where N is the memory index) if neither is set.
 
 ## Tips
 
-- Hovering over a truncated **Frequency** or **Name** cell shows the full value in a tooltip.
-- If two memories are equidistant from the current frequency, the one with the lower index number is highlighted.
+- The highlighted row updates as you tune — you do not need to take any action to refresh it.
+- If two memories are equidistant from the current frequency, the one with the lower memory index is highlighted.
+- Memories with a frequency of 0 or no frequency set are excluded from the table entirely.
 
 ## Related
 
