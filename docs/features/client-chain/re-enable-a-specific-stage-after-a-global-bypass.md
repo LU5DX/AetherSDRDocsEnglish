@@ -1,43 +1,46 @@
 # Re-enable a specific stage after a global bypass
 
-After using BYPASS to silence every TX DSP stage at once, you can re-enable individual stages without turning off the global bypass first. This is useful when you want to audition a single stage in isolation while keeping the rest of the chain silent.
+After using BYPASS to silence every TX DSP stage at once, you may want to turn a single stage back on without releasing the global bypass. This page shows how to do that without disturbing the snapshot that BYPASS is holding.
 
 ## Before you start
 
 - The PooDoo Audio (TXDSP) container must be visible. If it is not, click the PUDU tray button in the right sidebar to show it.
-- TX must be selected in the chain applet header (not RX).
-- BYPASS must already be active (the BYPASS toggle is checked).
+- TX must be the active mode in the applet. Confirm the TX toggle button is checked (amber). BYPASS has no effect in RX mode.
+- BYPASS must already be checked. If it is not, this procedure does not apply — click a stage directly to toggle it instead.
 
 ## Steps
 
-1. Locate the BYPASS toggle in the header row of the PooDoo Audio Chain. Confirm it is checked (amber border and fill).
-2. Find the stage you want to re-enable in the chain strip — for example, Chain stage (Comp) or Chain stage (Eq).
-3. Single-click that stage tile. The stage toggles from bypassed to active. Its visual state updates immediately.
-4. Repeat step 3 for any other individual stages you want to re-enable.
-
-Stages you re-enable manually while BYPASS is checked are preserved outside the bypass snapshot. If you later uncheck BYPASS, only the stages that were on before BYPASS was first activated are restored; the stages you toggled manually during bypass retain their current state.
+1. Locate the chain strip in the PooDoo Audio container. Stages are shown left to right: Eq, Comp, Gate, DeEss, Tube, Enh / PUDU, Reverb.
+2. Find the stage you want to re-enable. Bypassed stages appear visually inactive.
+3. Click that stage once. A single click toggles the bypass state for that stage alone, turning it back on while all other bypassed stages remain off.
+4. Repeat for any other individual stages you want to restore.
 
 ## What each control does
 
 | Control | Behavior | Default | Setting key |
 |---|---|---|---|
-| BYPASS | Checked: snapshots currently-enabled stages and disables all of them. Unchecked: re-enables only the stages that were on before BYPASS was activated. | Unchecked | — |
-| Chain stage (Eq) | Single-click toggles bypass for the EQ stage. | — | `ClientCompTxChainStages` |
-| Chain stage (Comp) | Single-click toggles bypass for the compressor. | — | `ClientCompTxChainStages` |
-| Chain stage (Gate) | Single-click toggles bypass for the gate. | — | `ClientCompTxChainStages` |
-| Chain stage (DeEss) | Single-click toggles bypass for the de-esser. | — | `ClientCompTxChainStages` |
-| Chain stage (Tube) | Single-click toggles bypass for the tube saturator. | — | `ClientCompTxChainStages` |
-| Chain stage (Enh / PUDU) | Single-click toggles bypass for the PUDU exciter. | — | `ClientCompTxChainStages` |
-| Chain stage (Reverb) | Single-click toggles bypass for the reverb. | — | `ClientCompTxChainStages` |
+| BYPASS | Checked: snapshots currently-enabled stages and disables all of them. Unchecked: restores exactly the stages that were on before. | Unchecked | — |
+| Chain stage (Eq) | Single click toggles bypass for the EQ stage. | — | `ClientCompTxChainStages` |
+| Chain stage (Comp) | Single click toggles bypass for the compressor. | — | `ClientCompTxChainStages` |
+| Chain stage (Gate) | Single click toggles bypass for the gate. | — | `ClientCompTxChainStages` |
+| Chain stage (DeEss) | Single click toggles bypass for the de-esser. | — | `ClientCompTxChainStages` |
+| Chain stage (Tube) | Single click toggles bypass for the tube saturator. | — | `ClientCompTxChainStages` |
+| Chain stage (Enh / PUDU) | Single click toggles bypass for the PUDU exciter. | — | `ClientCompTxChainStages` |
+| Chain stage (Reverb) | Single click toggles bypass for the reverb. | — | `ClientCompTxChainStages` |
 
 ## Tips
 
-- To return the entire chain to its pre-bypass state in one action, uncheck BYPASS. Only stages that were enabled before the bypass snapshot are restored; any stages you toggled individually while BYPASS was active are not affected by this restore.
-- The interaction hint below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" — single-click is always the bypass toggle regardless of BYPASS state.
-- BYPASS is a no-op in RX mode. Switch to TX before attempting to re-enable stages.
+- Stages toggled manually while BYPASS is checked are tracked outside the snapshot. If you later uncheck BYPASS, only the stages that were on before you first checked BYPASS are restored — any stages you individually re-enabled during the bypass are not part of that snapshot.
+- To restore all previously-enabled stages at once, simply uncheck BYPASS. This is faster than clicking each stage individually.
+- The hint below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" and is visible whenever TX mode is active. Double-clicking a stage opens its editor rather than toggling it.
+
+## Troubleshooting
+
+- **Clicking a stage has no visible effect** — Confirm TX is the active mode. The RX chain view is a placeholder and BYPASS is a no-op there. Click TX to switch back.
+- **Unchecking BYPASS does not restore the stage you manually re-enabled** — This is expected. Stages you toggle individually while BYPASS is checked are excluded from the snapshot that BYPASS tracks. Set the stage after you uncheck BYPASS.
 
 ## Related
 
 - [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)
-- [PooDoo Audio Chain overview](overview.md)
 - [Open a stage's floating editor from the chain](open-a-stage-s-floating-editor-from-the-chain.md)
+- [Switch between TX chain view and RX placeholder](switch-between-tx-chain-view-and-rx-placeholder.md)

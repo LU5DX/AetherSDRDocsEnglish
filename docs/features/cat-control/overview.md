@@ -1,43 +1,40 @@
 # CAT Control overview
 
-CAT Control lets external logging and contest software — such as N1MM+, Log4OM, and WSJT-X — command the FLEX-8600 by presenting up to four independent rigctld-compatible interfaces, one per radio slice. Each interface is available as a TCP server, a PTY serial symlink (Linux and macOS only), or both simultaneously.
+The CAT Control applet lets external logging and contest software control the FLEX-8600 by exposing up to four independent rigctld-compatible interfaces — one per slice. Each channel can be reached over TCP, or on Linux and macOS via a PTY symlink that appears to software as a serial port.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. CAT Control requires an active radio connection.
-- Open the CAT Control applet by clicking the CAT tray button on the right sidebar. The applet is hidden by default.
+- AetherSDR must be connected to a radio. The CAT applet requires an active radio connection.
+- Know which port your logging software expects. The default base port is 4532.
 
 ## How it works
 
-AetherSDR runs up to four rigctld-compatible servers in parallel, labelled channels A, B, C, and D. Each channel maps to one radio slice (slice 0–3). External software connects to a channel and issues standard rigctld commands to read or set frequency, mode, and other parameters on that slice.
+The CAT Control applet runs up to four rigctld-compatible servers, one for each slice channel (A, B, C, D). When TCP is enabled, each channel listens on a consecutive port starting at the value in `CatTcpPort`: channel A on the base port, B on base+1, C on base+2, D on base+3. When TTY is enabled on Linux or macOS, each channel also creates a PTY symlink under `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D` that software can open as a virtual serial device.
 
-**TCP servers** bind to consecutive ports starting from the base port. With the default base port of 4532, channel A binds to port 4532, B to 4533, C to 4534, and D to 4535. Any software that can target a rigctld TCP socket can connect to the appropriate port.
+The applet is hidden by default. Click the **CAT** tray button on the right sidebar to show it. Each channel row shows a colour-coded badge (A/B/C/D matching the slice colour), the current TCP server status, and the PTY path. The TCP status updates in real time as clients connect and disconnect.
 
-**PTY symlinks** (Linux and macOS only) appear as virtual serial devices under `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. Software that expects a serial port path can open these symlinks directly.
-
-TCP and PTY modes are independent. You can run one, both, or neither on any given session. Both modes can be configured to start automatically when AetherSDR launches via `Settings > Autostart rigctld with AetherSDR` and `Settings > Autostart CAT with AetherSDR`.
+Autostart behaviour is controlled separately via `Settings > Autostart rigctld with AetherSDR` (TCP) and `Settings > Autostart CAT with AetherSDR` (TTY).
 
 ## What each control does
 
 | Control | Kind | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|---|
-| Enable TCP | Toggle button | Off | — | — | Starts or stops all four rigctld TCP servers on Base through Base+3. Also persists the current base port to `CatTcpPort`. |
-| Enable TTY | Toggle button | Off | — | — | Starts or stops all four PTY symlinks at `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. Linux and macOS only. |
-| Base | Text field | 4532 | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels bind to Base, Base+1, Base+2, Base+3. Values outside the valid range snap back to 4532. If TCP servers are already running, they restart immediately on the new ports. |
-| A / B / C / D channel rows | Indicator | (stopped) | — | — | Each row shows a colour-coded channel badge, the TCP status for that channel, and the PTY path. TCP status reads `(stopped)` when the server is not running, or `:<port> (N client(s))` when listening. |
+| **Enable TCP** | Toggle button | Off | — | — | Starts or stops all four rigctld TCP servers on ports Base through Base+3. Also persists the current base port to `CatTcpPort`. |
+| **Enable TTY** | Toggle button | Off | — | — | Starts or stops all four PTY symlinks at `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. Linux and macOS only. |
+| **Base** | Text field | 4532 | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels bind to Base, Base+1, Base+2, Base+3. Values outside the valid range snap back to 4532. If the servers are running when you change this value, they restart immediately on the new ports. |
+| **A/B/C/D channel rows** | Indicator | (stopped) | — | — | Each row shows the channel badge, TCP status (e.g. `:4532 (1 client)`), and PTY path. The badge and active status text are colour-coded to match the slice. |
 
 ## Tips
 
-- If you change the base port while Enable TCP is active, the servers restart automatically on the new ports — you do not need to toggle Enable TCP off and back on.
-- The channel badge colours match the slice colours used elsewhere in AetherSDR, making it straightforward to identify which channel corresponds to which slice.
-- To check how many external clients are currently connected to each channel, read the TCP status label in each channel row. It updates live as clients connect and disconnect.
+- If logging software cannot connect, check that **Enable TCP** is on and that no firewall is blocking the port. The channel row will show `(stopped)` if the server is not running, or a port and client count when it is.
+- Each channel maps to a slice (A=slice 0, B=slice 1, and so on). Run multiple channels if you want separate programs controlling separate slices simultaneously.
+- Changing the **Base** port while servers are running restarts them automatically — connected clients will be dropped and must reconnect.
 
 ## Troubleshooting
 
-- **Enable TCP stays off after clicking it** — Confirm AetherSDR is connected to the radio. CAT Control requires an active radio connection.
-- **Port binding fails silently** — Another process on the system may already be using that port. Change Base to an unused port in the range 1024–65535 and click Enable TCP again.
-- **Enable TTY has no effect** — PTY symlinks are only available on Linux and macOS. The control has no function on Windows.
-- **External software cannot connect** — Verify the software is pointed at the correct port (Base + channel offset 0–3) and that a local firewall is not blocking the connection.
+- **Channel row always shows `(stopped)` after clicking Enable TCP** — the port may already be in use by another application. Change the **Base** value to a free port range and try again.
+- **PTY symlinks do not appear** — Enable TTY is only functional on Linux and macOS. The control has no effect on Windows.
+- **Logging software loses connection after a port change** — changing **Base** restarts all servers. Reconnect the logging software to the new port.
 
 ## Related
 
@@ -46,4 +43,3 @@ TCP and PTY modes are independent. You can run one, both, or neither on any give
 - [Change the base TCP port](change-the-base-tcp-port.md)
 - [Autostart CAT servers with AetherSDR](autostart-cat-servers-with-aethersdr.md)
 - [Check how many external clients are connected to each channel](../../getting-started/setup/check-how-many-external-clients-are-connected-to-each-channel.md)
-- [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)

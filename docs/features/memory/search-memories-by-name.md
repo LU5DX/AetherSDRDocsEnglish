@@ -1,6 +1,6 @@
-# Search Memories by Name
+# Search memories by name
 
-Use the Search field in the Memory Channels dialog to narrow the memory table to entries whose name matches what you type. This is useful when you have a large number of stored frequencies and want to find a specific one quickly.
+Use the Search field in the Memory Channels dialog to narrow the memory table to entries whose name matches what you type. This is useful when you have a large number of stored frequencies and want to locate a specific one quickly.
 
 ## Before you start
 
@@ -11,21 +11,21 @@ Use the Search field in the Memory Channels dialog to narrow the memory table to
 
 1. Open `Settings > Memory...`.
 2. Click the **Search:** field at the top of the dialog.
-3. Type part or all of the memory name you are looking for. The table filters as you type.
-4. To confirm and activate the top result, press Enter. To clear the search and show all memories again, click the clear button inside the **Search:** field.
+3. Type part or all of the memory name you want to find. The table filters as you type.
+4. To clear the search and show all memories, click the clear button inside the **Search:** field.
 
 ## What each control does
 
 | Control | Behavior | Notes |
 |---|---|---|
-| **Search:** | Filters the memory table to rows whose name matches the text you enter. | Has a clear button. Press Enter to activate the current row. |
-| Memory table | Displays the filtered set of memories. Columns include Group, Owner, Frequency, Name, Mode, and others. | Click a row to select it. Double-click a row to tune the active slice to that memory. |
+| **Search:** | Filters the memory table to rows whose name matches the entered text. | Has a clear button. Press Enter to activate the currently highlighted row. |
 
 ## Tips
 
-- The filter is applied as you type — you do not need to press Enter to see results narrow down.
-- To move focus to the **Search:** field from anywhere in the dialog, use the Find keyboard shortcut (Ctrl+F on Linux and Windows, Cmd+F on macOS). The existing text is selected automatically so you can start typing immediately.
-- After filtering, use Shift-click to select a range of results, or Ctrl-click (Cmd-click on macOS) to add or remove individual rows.
+- You do not need to press Enter to filter — the table updates with each character you type.
+- Pressing Enter after typing confirms and activates (tunes to) the currently selected row in the filtered results.
+- The **Search:** field can be focused quickly using the Find keyboard shortcut (Ctrl+F on Linux and Windows, Cmd+F on macOS) without reaching for the mouse.
+- Use the **Profile:** combo box alongside the search field to restrict results to a specific profile before searching.
 
 ## Related
 

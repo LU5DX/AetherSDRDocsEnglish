@@ -1,38 +1,47 @@
 # Watch the first-UDP-packet timestamp after connect
 
-The **First UDP Packet** indicator in Network Diagnostics confirms that the radio's UDP data stream has reached your machine after a connection is established. Use it to verify that the UDP path is open and that packets are flowing, not just the TCP control channel.
+The **First UDP Packet** indicator in Network Diagnostics shows whether AetherSDR has received any UDP data from the radio since the current connection was established. Use it to confirm that the UDP data path is open — a missing first packet means audio, FFT, and waterfall data cannot flow, even if the TCP command channel is up.
 
 ## Before you start
 
-- AetherSDR must be running.
-- A connection attempt to the radio must have been made. The indicator is most useful immediately after connecting.
+- AetherSDR must be running. The radio does not need to be connected; the dialog opens regardless.
+- For the indicator to show a meaningful result, connect to a radio first — see [Connect to a local LAN radio](connect-to-a-local-lan-radio.md).
 
 ## Steps
 
-1. Click `Settings > Network...` to open the Network Diagnostics dialog.
-2. In the **Network Status** group, locate the **First UDP Packet** row.
-3. Read the value. It shows either **Yes** or **No**.
+1. Click `Settings > Network...`.
+2. The **Network Diagnostics** dialog opens.
+3. Locate the **Network Status** group in the upper-left area of the dialog.
+4. Read the **First UDP Packet** row.
+   - **Yes** — at least one UDP packet has arrived from the radio since connect.
+   - **No** — no UDP packet has been received yet on the current connection.
+5. Click **Close** to dismiss the dialog.
 
 ## What each control does
 
-| Indicator | Meaning | Notes |
-|---|---|---|
-| **First UDP Packet** | Shows **Yes** if at least one UDP packet has been received from the radio since connect; **No** otherwise. | Resets each time a new connection is made. |
+| Indicator | Meaning |
+|---|---|
+| **First UDP Packet** | Shows **Yes** or **No**. Resets each time a new connection is made. Reports whether any UDP packet from the radio has been received on the current session. |
+| **Status** | Overall link state of the connection. |
+| **Local UDP** | The local UDP endpoint AetherSDR is listening on. If this is blank or unexpected, UDP traffic cannot arrive at all. |
+| **Target Radio IP** | IP address of the connected radio. Shows `Not connected` when no radio is connected. |
 
 ## Tips
 
-- The dialog refreshes once per second. If the value changes from **No** to **Yes** shortly after connecting, the UDP path opened successfully.
-- If **First UDP Packet** remains **No** while **Status** shows connected, the TCP control channel is up but UDP traffic is blocked. Check firewalls and router NAT rules for the UDP port used by the radio.
-- **First UDP Packet** only indicates that one packet arrived. Check **Audio**, **FFT**, and **Waterfall** rates in the **Incoming Stream Rates** group to confirm sustained data flow.
+- The indicator is updated once per second. Allow a few seconds after connecting before concluding that no UDP traffic is arriving.
+- If **First UDP Packet** stays **No** while **Status** shows a connected state, check **Local UDP** to confirm a port is bound. A firewall blocking the UDP port is the most common cause.
+- **First UDP Packet** resets to **No** on every new connection. Disconnect and reconnect to retest after changing network settings.
 
 ## Troubleshooting
 
-- **First UDP Packet stays "No" after connecting** — The TCP handshake succeeded but no UDP packets have arrived. A firewall or NAT rule is likely blocking the UDP stream. Verify that your firewall permits inbound UDP from the radio's IP. On a routed or VPN path, confirm that UDP is not filtered between the two endpoints.
+- **First UDP Packet shows "No" after several seconds connected** — The TCP command path is up but UDP is blocked. Verify that your firewall permits inbound UDP from the radio's IP. Check **Local UDP** to confirm AetherSDR has bound a port. On a routed or VPN network, confirm the path is symmetric — see [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md).
+- **First UDP Packet shows "Yes" but audio is silent** — UDP is arriving; the problem is downstream of the network layer. Check **RX Buffer Now**, **Underruns (total / last sec)**, and **Audio Arrival Gap** in the **Audio Playback** group — see [Diagnose audio underruns and jitter](../../troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md).
 
 ## Related
 
 - [Network Diagnostics overview](../../features/network-diagnostics/overview.md)
 - [Verify the radio's IP and local bind address](../../features/network-diagnostics/verify-the-radio-s-ip-and-local-bind-address.md)
-- [Measure RTT and packet drops during audio problems](../../features/network-diagnostics/measure-rtt-and-packet-drops-during-audio-problems.md)
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
+- [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)
 - [Diagnose audio underruns and jitter](../../troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md)
+- [Measure RTT and packet drops during audio problems](../../features/network-diagnostics/measure-rtt-and-packet-drops-during-audio-problems.md)

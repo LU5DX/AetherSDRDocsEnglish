@@ -1,36 +1,32 @@
 # See how many TCI clients are connected
 
-The TCI Server applet shows a live client count in its status indicator. Use this to confirm that logging or digital-mode software has successfully connected to AetherSDR's TCI server.
+The TCI Server applet shows a live client count in its status indicator. Use this to confirm that third-party software such as Log4OM or SunSDR tools has successfully connected.
 
 ## Before you start
 
-- The TCI server must be running. Click Enable in the TCI applet if it is not already active. See [Enable the TCI server for Log4OM / SunSDR clients](../../features/tci/enable-the-tci-server-for-log4om-sunsdr-clients.md).
-- AetherSDR must be connected to the radio. The TCI applet requires an active radio connection.
+- The TCI server must be running. The Enable button must be in its checked (green) state.
+- The TCI applet must be visible. If it is not, click the **TCI** tray button on the right sidebar to show it.
 
 ## Steps
 
 1. Click the **TCI** tray button on the right sidebar to open the TCI Server applet.
-2. Read the server status indicator in the bottom row of the applet, to the right of the **Port** field.
+2. Read the status indicator next to the Port field at the bottom of the applet. When the server is running, it displays in the form `:<port> (N clients)` — for example, `:50001 (2 clients)`. The count updates automatically whenever a client connects or disconnects.
 
-The status indicator shows one of the following:
+## What each control does
 
-| Text | Meaning |
-|------|---------|
-| `(stopped)` | The TCI server is not running. |
-| `:<port> (N clients)` | The server is running on the given port with N connected clients. |
-| `(port in use)` | The server failed to bind — another process is using the port. |
-
-When at least one client is connected, the status text turns blue. When the server is running but no clients are connected, the text is grey.
-
-## Tips
-
-- The client count updates automatically whenever a client connects or disconnects — there is no need to refresh manually.
-- If you expect a client to appear but the count stays at 0, confirm that the client is pointed at the correct port. The current port is shown in the **Port** field directly to the left of the status indicator. The default port is `50001`.
+| Control | Description | Default | Range | Setting key |
+|---|---|---|---|---|
+| Port | TCP port the TCI WebSocket server listens on. Out-of-range values snap to 50001. | `50001` | 1024–65535 | `TciPort` |
+| Enable | Starts or stops the TCI server. When checked, the button turns green. If the port is already in use, the toggle snaps back to off and the status shows `(port in use)` in red. | Off | — | — |
+| Server status | Read-only indicator showing server state and connected client count. Shows `(stopped)`, `:<port> (N clients)`, or `(port in use)`. Text turns blue when one or more clients are connected. | `(stopped)` | — | — |
+| RX1–RX4 gain+meter | Combined meter and slider setting the TCI RX gain for each channel. | 0.5 | 0.0–1.0 | `TciRxGain1`–`TciRxGain4` |
+| TX gain+meter | Combined meter and slider setting the TCI TX gain. | 0.5 | 0.0–1.0 | `TciTxGain` |
+| RX/TX slice-assignment labels | Read-only. Shows which slice drives each RX or TX row (for example, `Slice A`), or `—` if unassigned. | `—` | — | — |
 
 ## Troubleshooting
 
-- **Status shows `(port in use)` and Enable snaps off** — another application is already listening on the configured port. Change the port to a different value in the range 1024–65535. Values outside this range revert to `50001`. See [Change the TCI port](../../features/tci/change-the-tci-port.md).
-- **Status shows `:<port> (0 clients)` but external software is running** — verify the external software is configured to connect to the same port shown in the **Port** field and to the correct host address.
+- **Status shows `(stopped)` instead of a client count** — Enable has not been toggled on, or the server stopped after a failed bind. Click Enable to start the server. If the status immediately changes to `(port in use)`, another application is occupying the configured port. Change the value in the Port field to a free port in the range 1024–65535 and click Enable again.
+- **Status shows `:<port> (0 clients)` but your software should be connected** — Confirm the external application is connecting to the same port shown in the status indicator. Check that no firewall is blocking the port.
 
 ## Related
 

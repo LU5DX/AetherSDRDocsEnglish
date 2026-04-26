@@ -1,27 +1,30 @@
 # Bypass the tube from the chain
 
-Use this page to remove the Tube Saturator from the TX signal path without changing any of its settings. Bypassing lets you compare your signal with and without saturation, or simply disable the stage when it is not needed.
+When you want to hear your TX signal without tube saturation — for comparison or troubleshooting — you can bypass the Tube stage without changing any of its settings. Bypassing leaves all knob positions intact so you can re-enable the stage exactly as you left it.
 
 ## Before you start
 
-- The Tube Saturator stage must already be present in the CHAIN widget inside the PooDoo Audio (TXDSP) container.
-- The TUBE sub-container must be visible, or you must have access to the CHAIN widget.
+- The TXDSP (PooDoo Audio) processing chain must be visible in the applet panel.
+- The Tube stage must already be present in the CHAIN widget. If it is not in the chain, there is nothing to bypass.
 
 ## Steps
 
-1. Locate the Tube stage in the CHAIN widget inside the PooDoo Audio (TXDSP) container.
-2. Single-click the Tube stage in the CHAIN widget to toggle bypass on or off.
+1. Locate the CHAIN widget inside the PooDoo Audio (TXDSP) container in the applet panel.
+2. Single-click the Tube stage in the CHAIN widget to toggle its bypass state.
 
-When the stage is bypassed, the tube transfer curve and knobs in the TUBE sub-container remain at their last values. The setting `ClientTubeTxEnabled` is updated and persisted automatically.
+   - When bypassed, the stage is removed from the active signal path. The TUBE sub-container, if visible, continues to show the transfer curve and knob positions but the tube model is not applied to the TX signal.
+   - Single-click again to re-enable the stage.
+
+The bypass state is persisted in `ClientTubeTxEnabled`.
 
 ## Tips
 
-- To re-engage the tube, single-click the Tube stage in the CHAIN widget again.
-- Bypassing via the CHAIN widget does not reset Drive, Tone, Bias, Output, or Mix — all values are preserved for when you re-enable the stage.
-- To open the full floating editor instead of bypassing, double-click the Tube stage in the CHAIN widget.
+- To open the floating Tube editor without toggling bypass, double-click the Tube stage in the CHAIN widget instead of single-clicking.
+- The transfer curve and live input ball in the TUBE sub-container continue to update visually regardless of bypass state. Watch the curve to confirm your Drive, Bias, and Tone settings before re-engaging.
+- If you want a partial blend rather than a hard bypass, reduce the Mix knob toward 0 % instead. That keeps the stage active but fades to dry signal. See [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md).
 
 ## Related
 
 - [Tube Saturator overview](overview.md)
-- [Dial Drive until the curve starts to bend](dial-drive-until-the-curve-starts-to-bend.md)
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
+- [Dial Drive until the curve starts to bend](dial-drive-until-the-curve-starts-to-bend.md)

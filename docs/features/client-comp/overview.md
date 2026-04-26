@@ -1,47 +1,42 @@
 # Compressor overview
 
-The client-side TX compressor in AetherSDR reduces dynamic range in your transmitted audio before it reaches the radio. Use it to tame voice peaks, maintain consistent average power, and reduce the chance of splatter on SSB.
+The client-side compressor is a TX dynamic-range processor built into AetherSDR's audio chain. It reduces peak levels before transmission, letting you increase average power without over-driving the signal.
 
 ## Before you start
 
-- The Compressor stage must be enabled (bypass off) via the CHAIN widget or the floating editor before the COMPRESSOR applet tile becomes visible.
-- No radio connection is required to adjust compressor settings.
+- The COMPRESSOR tile is part of the PooDoo Audio (TXDSP) processing chain. It stays hidden until the Compressor stage is enabled — bypass it off via the CHAIN widget or the floating editor to make the tile visible.
+- No radio connection is required to configure the compressor.
 
 ## How it works
 
-The compressor runs entirely on the client side — it processes audio in AetherSDR before the signal is sent to the Flex radio. It applies a standard gain-reduction model: when the input level crosses the threshold, the compressor attenuates the signal according to the ratio you set. Attack and release times control how quickly the compressor clamps down and recovers. Makeup gain lets you restore the average level lost to compression.
+The compressor monitors the level of your TX audio in real time. When the signal exceeds the threshold you set, the compressor reduces gain at the ratio you specify. Attack and release times control how quickly it clamps down and lets go. Make-up gain compensates for the overall level lost to compression.
 
-The **COMPRESSOR** applet tile lives inside the PooDoo Audio (TXDSP) parent container. It shows a transfer curve with a live envelope indicator and a horizontal gain-reduction meter so you can watch compression in real time while transmitting.
+The COMPRESSOR applet gives you a compact view of all of this at once:
 
-To access knee and limiter controls (`ClientCompTxKneeDb`, `ClientCompTxLimEnabled`, `ClientCompTxLimCeilingDb`), open the floating editor by double-clicking the Comp stage in the CHAIN widget.
+- The **Transfer curve** shows the static input/output gain relationship as a curve. A live ball moves along the curve to show where the current envelope level sits. This view is read-only in the applet; the curve is editable in the floating editor.
+- The **Gain-reduction bar** is a horizontal amber strip that fills from the right. It shows how much attenuation the compressor is currently applying, up to a maximum of 20 dB. A tick mark at −6 dB indicates a typical working amount of gain reduction. The meter refreshes at approximately 30 Hz with smoothed ballistics.
+
+Two controls that affect whether the compressor is active — enable/bypass and the knee and limiter settings — are not in the applet itself. Bypass is controlled from the CHAIN widget (single-click) or the floating editor. Knee and limiter settings are only available in the floating editor.
 
 ## What each control does
 
-| Control | Description | Default | Range | Setting key |
+| Control | Default | Valid range | Persisted setting | Behavior |
 |---|---|---|---|---|
-| Transfer curve | Draws the static input/output transfer curve. A live ball moves along the curve to show the current envelope level. View-only in the applet; editable in the floating editor. | — | — | — |
-| Gain-reduction bar | Horizontal amber strip, right-filled. Shows how much attenuation is currently applied. A tick marks the −6 dB point as a typical working reference. Scale maxes at 20 dB reduction. | — | 0–20 dB GR | — |
-| Thresh | Level above which compression starts. | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` |
-| Ratio | How aggressively peaks are held once the threshold is crossed. Displayed as X.XX:1. | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` |
-| Attack | How quickly the compressor clamps down after the input crosses the threshold. | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` |
-| Release | How quickly gain returns after the input drops back below the threshold. | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` |
-| Makeup | Adds back gain lost to compression. Positive values are shown with an explicit `+` sign. | 0.0 dB | −12.0 to 24.0 dB | `ClientCompTxMakeupDb` |
-
-The following settings are available only in the floating editor:
-
-| Setting key | Purpose |
-|---|---|
-| `ClientCompTxEnabled` | Enables or bypasses the compressor stage. |
-| `ClientCompTxKneeDb` | Softens the transition into compression around the threshold. |
-| `ClientCompTxLimEnabled` | Enables the output limiter. |
-| `ClientCompTxLimCeilingDb` | Sets the hard ceiling the limiter enforces. |
+| Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` | Sets the input level above which compression begins. Lower values compress more of the signal. |
+| Ratio | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` | Sets how aggressively peaks are held once the threshold is crossed. Displayed as X.XX:1. Uses logarithmic knob mapping. |
+| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` | Sets how quickly the compressor responds after the signal crosses the threshold. Uses exponential knob mapping. |
+| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` | Sets how quickly gain returns after the signal drops back below the threshold. Uses exponential knob mapping. |
+| Makeup | 0.0 dB | −12.0 to +24.0 dB | `ClientCompTxMakeupDb` | Adds back gain lost to compression. Positive values display with an explicit + sign. |
+| `ClientCompTxEnabled` | — | on/off | `ClientCompTxEnabled` | Whether the compressor stage is active or bypassed. Controlled from the CHAIN widget or floating editor, not from the applet directly. |
+| `ClientCompTxKneeDb` | — | — | `ClientCompTxKneeDb` | Knee width. Only accessible in the floating editor. |
+| `ClientCompTxLimEnabled` | — | on/off | `ClientCompTxLimEnabled` | Enables the output limiter. Only accessible in the floating editor. |
+| `ClientCompTxLimCeilingDb` | — | — | `ClientCompTxLimCeilingDb` | Limiter ceiling level. Only accessible in the floating editor. |
 
 ## Tips
 
-- The gain-reduction bar is refreshed at approximately 30 Hz. Watch it while speaking to judge whether your settings are working before you transmit on-air.
-- The −6 dB tick on the gain-reduction bar is a useful reference: consistent reduction in that region generally produces natural-sounding compression on SSB voice.
-- The five knobs in the applet tile are sufficient for most adjustments. Open the floating editor only when you need to tune the knee or enable the limiter.
-- Right-click the COMPRESSOR sub-container titlebar to float, pop-out, or hide the applet tile.
+- Watch the gain-reduction bar while speaking at your normal voice level. Aim to keep the amber fill working mostly to the left of the −6 dB tick mark for a natural-sounding result.
+- The Transfer curve ball gives you a quick visual check that the threshold is set appropriately — if the ball never moves off the resting position, the threshold may be set too high for your signal level.
+- Knee width and limiter settings are only available in the floating editor. Double-click the Comp stage in the CHAIN widget to open it.
 
 ## Related
 

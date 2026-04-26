@@ -1,41 +1,41 @@
 # Toggle MOX to manually key the transmitter
 
-MOX lets you key the transmitter without a PTT input or microphone activity. Use it when you need to hold the radio in transmit — for example, to check SWR, test audio, or send a manual carrier.
+MOX lets you key the transmitter without using a microphone PTT or footswitch. Use it to hold the radio in transmit for testing, adjusting audio, or any situation where you need manual TX control.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. MOX has no effect when the radio is offline.
-- Confirm your RF power level is set appropriately before keying. See [Set RF output power](set-rf-output-power.md).
+- AetherSDR must be connected to the radio. MOX requires a live radio connection.
+- Open the TX Controls applet. If it is not visible, click the TX tray button in the right sidebar.
 
 ## Steps
 
-1. If the TX Controls applet is not visible, click the TX tray button on the right sidebar to open it.
+1. In the TX Controls applet, locate the row of four buttons: TUNE, MOX, ATU, MEM.
 2. Click MOX.
-   - The button turns red and the radio keys immediately.
-3. Click MOX again to unkey.
-   - The button returns to its default (blue) state and the radio returns to receive.
+3. The button turns red and the radio keys the transmitter.
+4. Click MOX again to unkey. The button returns to its default (blue) appearance and the radio returns to receive.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Range |
-|---|---|---|---|---|
-| MOX | Toggle button | Keys or unkeys the transmitter manually. Red while transmit is active. | Off (blue) | Off / On (red) |
-| RF Pwr | Meter | Displays forward power at the exciter output while transmitting. | — | 0–120 W; red above 100 W (barefoot) / 0–600 W; red above 500 W (Aurora 500W) |
-| SWR | Meter | Displays standing wave ratio at the exciter while transmitting. | — | 1.0–3.0; red above 2.5 |
+| Control | Kind | Behavior |
+|---|---|---|
+| MOX | Toggle button | Toggles manual transmit on and off. Red while TX is keyed; blue (off) while in receive. |
+| RF Pwr | Meter | Displays forward power at the exciter output. Scale: 0–120 W (barefoot); red above 100 W. Aurora 500W model: 0–600 W, red above 500 W. |
+| SWR | Meter | Displays standing wave ratio at the exciter. Scale: 1.0–3.0; red above 2.5. |
+| RF Power | Slider | Sets transmit RF power level. Default: 100. Range: 0–100. |
 
 ## Tips
 
-- Watch the RF Pwr and SWR meters while MOX is active. If SWR reads red (above 2.5), unkey and address the antenna system before continuing.
-- MOX and TUNE are independent controls. TUNE sends a constant carrier at the Tune Pwr level; MOX keys the radio at the RF Power level using your active mode and audio.
+- Watch the RF Pwr and SWR meters while MOX is active to confirm the radio is transmitting and the antenna system is within acceptable limits.
+- MOX and TUNE are independent controls. If a tune carrier is already running (TUNE shows "TUNING..."), stop it before using MOX.
 
 ## Troubleshooting
 
-- **MOX button is visible but the radio does not key** — Confirm AetherSDR is connected to the radio. The applet requires an active radio connection.
-- **Radio stays keyed after clicking MOX a second time** — The button state may have lost sync with the radio. Click MOX once more to force a toggle, or cycle the connection.
+- **MOX button does not respond** — The TX Controls applet requires an active radio connection. Check that AetherSDR is connected to the FLEX-8600 via `Settings > Connect to Radio...`.
+- **Radio transmits but RF Pwr reads zero** — Verify the RF Power slider is not set to 0.
 
 ## Related
 
-- [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md)
-- [Set RF output power](set-rf-output-power.md)
-- [Run the internal ATU](run-the-internal-atu.md)
 - [TX Controls overview](overview.md)
+- [Set RF output power](set-rf-output-power.md)
+- [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md)
+- [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)

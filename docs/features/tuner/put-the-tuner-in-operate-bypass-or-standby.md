@@ -1,39 +1,40 @@
 # Put the tuner in OPERATE, BYPASS, or STANDBY
 
-The OPERATE button cycles the 4O3A Tuner Genius XL through its three relay states: OPERATE, BYPASS, and STANDBY. Use this to engage or disengage the tuner network without leaving the applet.
+Use the OPERATE button in the Tuner applet to cycle the 4O3A Tuner Genius XL between its three relay states: OPERATE, BYPASS, and STANDBY.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Tuner applet is hidden until a Tuner Genius XL is detected.
-- Open the Tuner applet by clicking the "TUN" tray button on the right sidebar.
+- The TUN tray button must be available on the right sidebar, which confirms the TGXL has been detected.
 
 ## Steps
 
-1. Locate the "OPERATE" button in the lower-right area of the Tuner applet.
-2. Click the button once to advance to the next state. Each click cycles one step forward: OPERATE → BYPASS → STANDBY → OPERATE.
+1. Click the TUN tray button on the right sidebar to open the Tuner applet.
+2. Locate the OPERATE button in the lower-right of the applet.
+3. Click OPERATE to advance to the next state. Each click cycles one step forward: OPERATE → BYPASS → STANDBY → OPERATE.
 
 ## What each control does
 
 | Button label | Color | Meaning |
 |---|---|---|
-| OPERATE | Green | The tuner network is engaged. Relay settings are active. |
-| BYPASS | Orange | The tuner is energized but the matching network is bypassed. |
-| STANDBY | Default (blue-grey) | The tuner is in standby. RF passes without tuner involvement. |
+| OPERATE | Green | Tuner network is in circuit and actively matching. |
+| BYPASS | Orange | Tuner relay is bypassed; RF passes through without matching. |
+| STANDBY | Default (blue-grey) | Tuner is in standby; relay network is neither in circuit nor actively bypassed. |
 
-The button label and color update immediately to reflect the new state as reported by the TGXL.
+The button label and color update immediately when the TGXL confirms the state change.
 
 ## Tips
 
-- Each click advances exactly one step. To go from STANDBY directly to BYPASS, you must pass through OPERATE first.
-- The current state shown on the button reflects what the TGXL has confirmed, not just what was requested. If the label does not change after a click, the TGXL has not acknowledged the command yet.
+- The button always shows the **current** state, not the state you are about to select. A green OPERATE label means the tuner is already in OPERATE; clicking it will move to BYPASS.
+- If you have just run an autotune, the tuner enters OPERATE automatically. You do not need to click OPERATE after a successful tune cycle.
 
 ## Troubleshooting
 
-- **The "TUN" tray button is not visible** — The Tuner applet only appears when a Tuner Genius XL is detected. Verify the TGXL is connected and powered, and that AetherSDR is connected to the radio.
-- **Button label does not change after clicking** — The applet reflects state reported by the TGXL. A slow or interrupted connection between the radio and the TGXL may delay or prevent acknowledgement. Check the TGXL connection and try again.
+- **TUN tray button is not visible** — The TGXL has not been detected. Check the connection between the radio and the tuner and confirm the tuner is powered on.
+- **Button label does not change after clicking** — The radio has not acknowledged the state change. Verify the radio connection is active via `Settings > Connect to Radio...` and try again.
 
 ## Related
 
-- [Tuner overview](overview.md)
 - [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
 - [Read SWR immediately after a tune](read-swr-immediately-after-a-tune.md)
+- [Tuner overview](overview.md)

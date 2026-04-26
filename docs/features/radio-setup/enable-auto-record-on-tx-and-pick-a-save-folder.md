@@ -1,36 +1,36 @@
 # Enable auto-record on TX and pick a save folder
 
-Use this page to configure AetherSDR to start recording automatically whenever you transmit, and to choose where those recordings are saved.
+AetherSDR can automatically start recording audio whenever you transmit and stop after a configurable period of silence. This page explains how to turn that feature on and set the folder where recordings are saved.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. Recording settings are not available until a connection is established.
-- Decide whether you want the radio itself or your PC to handle the recording. See "What each control does" below for the difference.
+- AetherSDR must be connected to the radio. The Audio tab in Radio Setup is not available without a radio connection.
+- Decide whether you want recording to happen on the radio itself or on the PC running AetherSDR. You will need to set this before enabling auto-record.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Audio** tab.
-3. Under **Recording:**, click either **Radio Side** or **Client Side** to select where audio is captured. The active selection is highlighted.
-4. In the **Save to:** field, type the full path to the folder where recordings should be saved, or click **...** to open a folder browser and select it.
-5. Check **Auto-record on TX**. Recording will now start automatically each time you key the transmitter.
-6. Set **Idle timeout:** to the number of seconds of silence after which the recording stops automatically.
+3. Under **Recording:**, click **Radio Side** or **Client Side** to select where recordings are captured. This sets `RecordMode`.
+4. In the **Save to:** field, type a folder path directly, or click **...** to browse for a folder. The chosen path is saved as `RecordDir`.
+5. Check **Auto-record on TX**. This sets `AutoRecordTx` and enables automatic recording whenever the radio transitions to transmit.
+6. Adjust **Idle timeout:** to the number of seconds of silence after which the recording stops. This sets `RecordIdleTimeout`.
 7. Close the dialog. Settings are saved immediately.
 
 ## What each control does
 
-| Control | What it does | Default | Valid range / values | Setting key |
+| Control | Behavior | Persisted key | Default | Valid range |
 |---|---|---|---|---|
-| **Recording: Radio Side / Client Side** | Selects whether audio is captured on the radio hardware or on the PC running AetherSDR. | — | Radio Side, Client Side | `RecordMode` |
-| **Save to:** | Folder path where recording files are written. | — | Any writable directory path | `RecordDir` |
-| **...** | Opens a folder browser to select the save folder. | — | — | — |
-| **Auto-record on TX** | When checked, recording starts automatically whenever the radio transmits and stops after the idle timeout expires. | — | Checked / unchecked | `AutoRecordTx` |
-| **Idle timeout:** | Seconds of silence after TX ends before the recording file is closed. | — | — | `RecordIdleTimeout` |
+| **Recording: Radio Side / Client Side** | Selects whether audio is captured on the radio or on the PC. | `RecordMode` | — | Radio Side, Client Side |
+| **Save to:** | Folder path where recording files are written. | `RecordDir` | — | Any valid directory path |
+| **...** | Opens a folder browser to select the recording destination. | — | — | — |
+| **Auto-record on TX** | When checked, recording starts automatically each time you transmit. | `AutoRecordTx` | — | Checked / unchecked |
+| **Idle timeout:** | Seconds of post-TX silence before the recording file is closed. | `RecordIdleTimeout` | — | — |
 
 ## Tips
 
-- If you leave **Save to:** empty, click **...** to browse to a folder rather than typing a path, to avoid typos that would silently prevent files from being written.
-- **Idle timeout:** keeps short unkeyed pauses within a single file rather than splitting each transmission into a separate recording. Increase it if you want exchanges in a QSO captured together.
+- If you want recordings separated per transmission rather than merged into one long file, keep **Idle timeout:** short so the file closes soon after you unkey.
+- The **Save to:** path must exist and be writable before recording begins. AetherSDR does not create the directory automatically.
 
 ## Related
 

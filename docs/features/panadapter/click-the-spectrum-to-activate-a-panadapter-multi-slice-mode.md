@@ -1,38 +1,39 @@
 # Click the spectrum to activate a panadapter (multi-slice mode)
 
-When you have more than one panadapter open, only one is active at a time. Click its spectrum to make it the active panadapter before tuning, adjusting settings, or using keyboard shortcuts.
+When multiple panadapters are open, only one is active at a time. Clicking the spectrum area of a panadapter makes it the active one, directing tune and scroll input to that panadapter.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio.
-- At least two panadapters must be open (multi-slice mode). In single-pan mode, the panadapter is always active and no click is required.
+- AetherSDR must be connected to a FLEX-8600 radio. The panadapter display requires an active radio connection.
+- At least two panadapters must be open. In single-panadapter mode, the activation click has no visible effect and the title bar buttons described below are hidden.
 
 ## Steps
 
-1. Locate the panadapter you want to work with. Each panadapter has a title bar showing a slice label (for example, "Slice A" or "Slice B").
-2. Click anywhere on the spectrum or waterfall area of that panadapter.
+1. Open AetherSDR with multiple panadapters visible in the main window.
+2. Locate the panadapter you want to make active.
+3. Click anywhere on the Spectrum / waterfall area of that panadapter.
 
-The panadapter is now active. Tuning, zoom, and keyboard shortcuts apply to this panadapter until you click another.
+The panadapter is now active. Subsequent drag gestures tune the VFO and scroll gestures zoom the spectrum on that panadapter.
 
 ## What each control does
 
-| Control | Description | Default | Range | Setting key |
-|---|---|---|---|---|
-| Spectrum / waterfall | Click to activate this panadapter; drag to tune; scroll to zoom. | — | — | — |
-| Slice title | Indicator showing which slice is bound to this panadapter. | Slice A | Slice A–Slice H | — |
-| ⬈ / ↩ (pop-out/dock) | Pops the panadapter into a floating window or docks it back. Hidden in single-pan mode. | — | — | — |
-| □ (maximize) | Maximizes this panadapter in a multi-pan layout. Hidden in single-pan mode. | — | — | — |
-| × (close) | Closes this panadapter. Hidden in single-pan mode. | — | — | — |
+| Control | Kind | Default | Valid range | Setting key | Behavior |
+|---|---|---|---|---|---|
+| Slice title | Indicator | Slice A | Slice A–Slice H | — | Shows which slice is bound to this panadapter. |
+| Spectrum / waterfall | Drag handle | — | — | — | Click activates the panadapter; drag to tune, scroll to zoom. |
+| ⬈ / ↩ (pop-out/dock) | Push button | — | — | — | Pops the panadapter into a floating window or docks it back. Hidden in single-pan mode. |
+| □ (maximize) | Push button | — | — | — | Maximizes this panadapter in a multi-pan layout. Hidden in single-pan mode. |
+| × (close) | Push button | — | — | — | Closes this panadapter. Hidden in single-pan mode. |
 
 ## Tips
 
-- In single-pan mode, ⬈ / ↩, □, and × are all hidden. These controls appear only when more than one panadapter is open.
-- If you want a single click on the spectrum to retune rather than just activate, enable `View > Single-Click to Tune`.
+- In multi-pan layouts the ⬈ / ↩, □, and × buttons in the title bar only appear once more than one panadapter is open. If you do not see them, you are in single-pan mode.
+- To tune by single-clicking the spectrum rather than double-clicking, enable `View > Single-Click to Tune`.
 
 ## Related
 
 - [Panadapter overview](overview.md)
-- [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md)
 - [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md)
+- [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md)
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)

@@ -1,36 +1,37 @@
 # Set DAX TX gain
 
-Adjust the TX gain slider in the DAX Audio applet to control the output level of the DAX transmit stream sent from your computer audio to the radio. This is useful when your digital mode software's audio output is too loud or too quiet relative to the radio's expected input level.
+Adjust the DAX TX gain slider to control the level of audio sent from your computer to the radio's transmit chain over the DAX audio bridge.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The DAX applet requires an active radio connection.
-- Open the DAX applet by clicking the DAX tray button on the right sidebar. The applet is hidden by default.
-- DAX must be enabled. If the Enable button is not lit, click Enable to start the DAX audio bridge.
+- AetherSDR must be connected to the radio. The DAX applet requires an active radio connection.
+- DAX must be enabled. Click Enable in the DAX Audio applet to start the DAX bridge before adjusting TX gain.
 
 ## Steps
 
-1. Click the DAX tray button on the right sidebar to open the DAX Audio applet.
-2. Locate the TX row at the bottom of the applet. It shows a label "TX:", a slice assignment indicator, and a combined meter/slider.
-3. Drag the thumb on the TX gain+meter slider left to decrease gain or right to increase gain. The valid range is 0.0 to 1.0.
-4. Release the mouse button. The new value is saved immediately to `DaxTxGain`.
+1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet.
+2. If the Enable button is not already lit, click **Enable** to start the DAX bridge.
+3. Locate the **TX:** row at the bottom of the applet. The combined meter and slider shows the current TX gain and live TX audio level.
+4. Drag the slider thumb left to reduce TX gain or right to increase it. The setting is saved immediately as `DaxTxGain`.
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key | Behavior |
+| Control | Description | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| TX gain+meter slider | 0.5 | 0.0–1.0 | `DaxTxGain` | Sets the gain for the DAX TX stream. The meter bar behind the slider shows the current output level post-fader. |
-| TX assignment indicator | — | — or Slice A–H | *(none)* | Shows which slice currently holds TX privileges and drives the DAX TX stream. |
+| Enable | Starts the DAX audio bridge. Must be active for TX audio to flow. | Off | On / Off | `AutoStartDAX` |
+| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag the thumb to set gain. The meter bar reflects the post-fader output level. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
+| TX assignment indicator | Shows which slice currently holds TX privileges and drives the DAX TX stream. Displays `—` when no TX slice is assigned, or `Slice A` through `Slice H`. | — | — / Slice A–H | — |
 
 ## Tips
 
-- The meter bar behind the slider shows the post-fader level — that is, the incoming audio level multiplied by the current gain setting. A bar that stays near the right edge at your current gain suggests the gain is too high; reduce it to avoid clipping.
-- The gain value persists across sessions. You do not need to re-enter it after restarting AetherSDR.
+- The meter bar in the TX row reflects post-fader level — it scales with the gain thumb position, so you get immediate visual feedback as you drag.
+- The gain value is persisted as soon as you release the slider. Restarting AetherSDR restores the saved value.
+- Check the TX assignment indicator in the TX row to confirm the expected slice is driving DAX TX before transmitting.
 
 ## Troubleshooting
 
-- **TX meter shows no activity** — The TX slice may not be assigned yet. Check the TX assignment indicator. If it shows "—", no slice currently holds TX privileges. See [Identify which slice is the TX slice](identify-which-slice-is-the-tx-slice.md).
-- **Slider position resets on reopen** — If DAX was not enabled when you set the gain, the setting still saves, but confirm Enable is active so the bridge is running and the value takes effect.
+- **TX meter shows no activity during transmit** — Verify Enable is active (button lit green). Confirm your digital mode software is sending audio to the correct DAX TX device. Check the TX assignment indicator to ensure a slice is assigned.
+- **Gain resets to 0.5 after restart** — If `DaxTxGain` is absent from saved settings, AetherSDR falls back to the default of 0.5. Make a small adjustment and release the slider to force a save.
 
 ## Related
 

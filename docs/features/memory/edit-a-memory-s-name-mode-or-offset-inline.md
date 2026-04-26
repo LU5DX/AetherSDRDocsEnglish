@@ -1,62 +1,45 @@
 # Edit a memory's name, mode or offset inline
 
-Use this page to change a stored memory's name, mode, repeater offset, or any other editable field without leaving the Memory Channels dialog.
+The Memory Channels dialog lets you change any field of a stored memory — including its name, mode, repeater offset, and more — without leaving the table. Use this when you need to correct or update a memory after it was added.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
-- The memory you want to edit must already exist. To create a new memory, see [Add a memory at current frequency](add-a-memory-at-current-frequency.md).
+- The memory you want to edit must already exist in the table. To create a new memory, see [Add a memory at current frequency](add-a-memory-at-current-frequency.md).
 
 ## Steps
 
 1. Open `Settings > Memory...`.
-2. Locate the memory you want to edit. Use the **Search:** field or the **Profile:** combo box to narrow the list if needed.
-3. Click the row to select it.
-4. Click **Edit**. The selected row enters inline-edit mode.
-5. Click the cell you want to change — for example, the **Name**, **Mode**, or **Repeater Offset** column — and type the new value.
-6. Press Enter or click another cell to confirm each change.
-7. Repeat for any other columns in the same row.
-8. Click outside the row or select a different row to finish editing.
+2. In the memory table, click the row you want to edit to select it.
+3. Click `Edit`. The row enters inline-edit mode and its cells become editable.
+4. Click the cell you want to change — for example, the **Name**, **Mode**, or **Repeater Offset** column — and type the new value.
+5. Press Enter or click another cell to confirm each change.
+6. To finish editing, click any other row or press Escape.
 
 ## What each control does
 
-| Column | What it stores |
+| Control | Description |
 |---|---|
-| Group | Group or profile label for the memory. |
-| Owner | Owner tag for the memory. |
-| Frequency | Stored frequency in MHz. |
-| Name | Human-readable label. |
-| Mode | Operating mode (e.g. USB, LSB, CW, FM). |
-| Step | Tuning step size. |
-| FM TX Offset Dir | Repeater offset direction. |
-| Repeater Offset | Repeater offset value. |
-| Tone Mode | CTCSS/DCS tone mode. |
-| Tone Value | Tone frequency or code. |
-| Squelch | Squelch on/off (checkbox). |
-| Squelch Level | Squelch threshold level. |
-| RX Filter Low | Lower edge of the receive filter. |
-| RX Filter High | Upper edge of the receive filter. |
-| RTTY Mark | RTTY mark frequency offset. |
-| RTTY Shift | RTTY shift value. |
-| DIGL Offset | DIGL mode offset. |
-| DIGU Offset | DIGU mode offset. |
-
-The **Edit** button enters inline-edit mode on the selected memory. All columns listed above are editable inline.
+| Memory table | Displays all memory rows. Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Inline editing is enabled after clicking `Edit`. |
+| `Edit` | Enters inline-edit mode for the selected row. |
+| `Search:` | Filters the table by memory name. Use this to locate a memory before editing. Has a clear button; press Enter to apply. |
+| `Profile:` | Filters the table by active global profile. |
 
 ## Tips
 
-- You can also double-click a row to tune the radio to that memory rather than edit it. To edit, use the **Edit** button rather than double-clicking.
-- To find a specific memory quickly before editing, type part of its name into the **Search:** field. The table filters as you type.
+- You can also enter inline-edit mode using the keyboard after selecting a row, consistent with the table's keyboard-driven edit mode.
+- Double-clicking a row tunes the radio to that memory rather than opening it for editing. To edit, use the `Edit` button.
+- Use `Search:` to narrow down the table before selecting a row to edit, especially if you have many memories stored.
 
 ## Troubleshooting
 
-- **Edit button does nothing** — No row is selected. Click a row in the memory table first, then click **Edit**.
-- **Changes do not appear to save** — Confirm each cell edit by pressing Enter or moving focus to another cell before clicking away from the row.
+- **`Edit` has no effect** — Make sure exactly one row is selected before clicking `Edit`. If no row is selected, the button will not enter edit mode.
+- **Changes do not appear to save** — The dialog requires an active radio connection. If the connection dropped, reconnect and re-enter the value.
 
 ## Related
 
 - [Add a memory at current frequency](add-a-memory-at-current-frequency.md)
 - [Search memories by name](search-memories-by-name.md)
 - [Filter memories by profile](filter-memories-by-profile.md)
-- [Tune the radio to a stored memory](tune-the-radio-to-a-stored-memory.md)
+- [Sort memory table by column header](sort-memory-table-by-column-header.md)
 - [Delete one or more memories](delete-one-or-more-memories.md)

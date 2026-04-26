@@ -1,40 +1,42 @@
 # Play back the captured PUDU audio
 
-Use the Play button in the PooDoo Audio Chain applet to listen to a previously recorded post-PUDU TX audio capture. This lets you hear exactly how your processed signal sounds without transmitting.
+Use the Play button in the PooDoo Audio Chain to listen to audio you have already recorded through the TX DSP chain. This lets you hear exactly what your signal sounded like after every processing stage, without transmitting.
 
 ## Before you start
 
-- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the tray button labelled **PUDU** in the right sidebar to toggle it on.
-- The TX mode must be selected (the **TX** toggle must be checked, not **RX**).
-- A recording must already exist. The Play button is disabled until at least one capture has been made. See [Record up to 30 seconds of post-PUDU TX audio](record-up-to-30-seconds-of-post-pudu-tx-audio.md).
-- Recording must not be in progress. The Play button is disabled while the Record button is active.
+- You must have at least one recording captured using the Record button. The Play button is disabled until a recording exists.
+- Recording must not be active. You cannot play back while a capture is in progress.
+- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the tray button labelled **PUDU** in the right sidebar to show it.
+- The **TX** mode button must be selected (default). The monitor buttons are part of the TX chain view.
 
 ## Steps
 
-1. Confirm the **TX** toggle is checked in the applet header row. The Play button is not functional in RX mode.
-2. Locate the Play button (▶) to the right of the Record button (⏺) in the applet header row.
-3. Click the Play button (▶) to start playback. The button pulses green while playback is active.
-4. To stop playback before it finishes, click the Play button (▶) again.
+1. Confirm the **TX** button in the PooDoo Audio Chain header is checked. If not, click **TX**.
+2. Confirm the Record button (circle glyph) is not lit or pulsing red. If it is, click it to stop the current recording before proceeding.
+3. Click the Play button (triangle glyph ▶) in the header row of the PooDoo Audio Chain.
+4. The Play button pulses green while playback is running.
+5. To stop playback before it finishes, click the Play button (triangle glyph ▶) again.
 
 ## What each control does
 
-| Control | Behavior | Enabled when | Indicator |
+| Control | Behavior | Enabled when | Visual state |
 |---|---|---|---|
-| Play (▶) | Plays back the captured PUDU audio; click again to cancel. | A recording exists and recording is not active. While playing, remains enabled so you can cancel. | Pulses green (500 ms alternating bright/dim) during playback. |
-| Record (⏺) | Captures up to 30 s of post-PUDU TX audio; click again to stop. Recording stops and playback starts automatically. | MIC input is ready (source set to PC, DAX off) and playback is not running. | Pulses red during recording. |
+| Play (triangle glyph) | Starts playback of the captured PUDU audio. Click again to cancel. | A recording exists and recording is not active. While playing, remains enabled so you can cancel. | Pulses green (alternating bright and dim at 500 ms) during playback. Dimmed and inactive at idle. |
+| Record (circle glyph) | Captures post-PUDU TX audio. Disabled during playback. | MIC input is ready (source set to PC, DAX off) and playback is not running. | Pulses red during recording. |
 
 ## Tips
 
-- If playback starts automatically after you stop a recording, that is expected behavior — stopping the Record button triggers playback immediately.
-- The Play button becomes disabled as soon as you click the Record button to start a new recording. Cancel or finish recording first.
+- Playback starts automatically after a recording completes. You do not need to click Play manually if you just stopped the Record button.
+- The Play button remains enabled during playback so you can cancel at any time by clicking it again.
+- The green pulse on the Play button is the only on-screen indicator that playback is running. Watch for it if you are unsure whether audio is playing.
 
 ## Troubleshooting
 
-- **Play button (▶) is greyed out** — No recording exists yet, or recording is currently in progress. Make a recording first, or wait for the current recording to finish.
-- **Play button (▶) is greyed out even though a recording was made** — Recording may still be active (the Record button still pulses red). Click the Record button (⏺) to stop recording, then click Play.
+- **Play button (triangle glyph) is disabled and grey** — No recording has been captured yet, or recording is currently active. If the Record button is pulsing red, click it to stop recording first. Then click Play.
+- **Play button is enabled but no audio is heard** — Verify your system audio output is configured correctly. AetherSDR plays the captured audio through the host audio system; check your OS mixer and output device selection.
 
 ## Related
 
 - [Record up to 30 seconds of post-PUDU TX audio](record-up-to-30-seconds-of-post-pudu-tx-audio.md)
-- [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)
 - [PooDoo Audio Chain overview](overview.md)
+- [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)

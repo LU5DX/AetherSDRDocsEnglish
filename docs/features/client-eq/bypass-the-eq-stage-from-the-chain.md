@@ -1,36 +1,38 @@
 # Bypass the EQ stage from the chain
 
-The client-side parametric EQ can be removed from the audio processing chain without deleting your band settings. Bypassing lets you A/B the EQ effect or temporarily disable processing on one path while leaving the other unchanged. The bypass state is saved per path in `ClientEqRxEnabled` and `ClientEqTxEnabled`.
+Remove the client-side parametric EQ from the audio processing chain without deleting your band settings. Use this when you want to compare processed and unprocessed audio, or temporarily disable EQ without losing your configuration.
 
 ## Before you start
 
-- The CEQ sub-container must be visible inside the PooDoo Audio (TXDSP) parent container. It is hidden until the EQ stage has been enabled at least once via the CHAIN widget or the floating editor.
-- Decide whether you want to bypass the RX path, the TX path, or both, before you start.
+- The ClientEqApplet (labeled "CEQ") must be visible in the applet panel. It is hidden until the EQ stage is enabled via the CHAIN widget or the floating editor.
+- Open the floating EQ editor by double-clicking the EQ stage in the CHAIN widget. The bypass control lives in that editor, not in the compact CEQ applet tile.
 
 ## Steps
 
-1. Locate the CHAIN widget inside the PooDoo Audio (TXDSP) container.
-2. Find the EQ stage block in the chain.
-3. Single-click the EQ stage block to toggle bypass for that path. A single click enables or disables the stage directly in the chain.
-4. To bypass the other path, switch to it first — use the RX or TX tab at the top of the CEQ applet to confirm which path is active — then single-click the EQ stage block again.
+1. Double-click the EQ stage in the CHAIN widget to open the floating EQ editor.
+2. In the floating editor, locate the enable toggle for the path you want to bypass — RX or TX.
+3. Click the toggle to disable the EQ for that path.
+
+The CEQ applet tile reflects the change: `ClientEqRxEnabled` or `ClientEqTxEnabled` is set to false for the affected path, and the EQ is removed from the signal chain. Your band settings stored in `ClientEqRxBands` and `ClientEqTxBands` are preserved.
 
 ## What each control does
 
-| Control | Kind | Default | Persisted key | Behavior |
+| Control | Path | Persisted key | Default | Behavior |
 |---|---|---|---|---|
-| EQ stage (CHAIN widget, single-click) | Toggle | Enabled | `ClientEqRxEnabled` / `ClientEqTxEnabled` | Bypasses or re-inserts the client EQ for the selected path. Does not clear band data stored in `ClientEqRxBands` or `ClientEqTxBands`. |
-| RX | Tab | Checked | — | Selects the receive path for display in the CEQ applet. |
-| TX | Tab | Unchecked | — | Selects the transmit path for display in the CEQ applet. |
+| RX enable toggle | Receive | `ClientEqRxEnabled` | — | Inserts or bypasses the EQ in the RX audio chain. Bands are retained when bypassed. |
+| TX enable toggle | Transmit | `ClientEqTxEnabled` | — | Inserts or bypasses the EQ in the TX audio chain. Bands are retained when bypassed. |
+| `ClientEqRxBands` | Receive | `ClientEqRxBands` | — | Persisted band configuration for the RX path. Unaffected by bypass. |
+| `ClientEqTxBands` | Transmit | `ClientEqTxBands` | — | Persisted band configuration for the TX path. Unaffected by bypass. |
 
 ## Tips
 
-- Bypassing a path leaves all band settings intact. Re-enabling restores the full curve immediately.
-- The analyzer / curve area in the CEQ applet continues to display the stored EQ response shape even while the stage is bypassed, so you can still inspect your curve without processing it.
+- Bypassing one path does not affect the other. You can bypass RX EQ while keeping TX EQ active, or vice versa.
+- The summed EQ response curve in the CEQ applet tile shows the current state of the selected path. When bypassed, the curve reflects that the EQ is inactive.
 
 ## Troubleshooting
 
-- **The CEQ sub-container is not visible** — The EQ stage has not yet been enabled. Enable it once via the CHAIN widget or the floating editor to make the CEQ sub-container appear.
-- **Single-clicking the EQ stage has no effect** — Confirm you are clicking the correct block in the CHAIN widget. Double-clicking opens the floating editor instead of toggling bypass.
+- **The CEQ applet tile is not visible** — The tile is hidden until the EQ stage is enabled from the CHAIN widget or the floating editor. Enable the stage first, then bypass it if needed.
+- **Double-clicking the CHAIN widget does not open the floating editor** — Confirm you are double-clicking directly on the EQ stage block within the CHAIN widget, not on the surrounding container.
 
 ## Related
 

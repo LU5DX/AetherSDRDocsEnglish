@@ -1,25 +1,26 @@
 # Bypass PUDU from the chain
 
-The PUDU exciter is enabled and disabled from the CHAIN widget, not from inside the PUDU Exciter applet itself. Use this page to temporarily remove PUDU from the TX DSP chain without changing any of its settings.
+Temporarily remove the PUDU exciter from the TX DSP chain without changing any of its settings. Use this when you want to compare your audio with and without PUDU processing, or when you need to transmit without the effect active.
 
 ## Before you start
 
-- The PooDoo Audio (TXDSP) parent container must be visible in the applet panel.
-- The PUDU (Enh) stage must be present in the CHAIN widget.
+- The PUDU stage must already be present in the CHAIN widget inside the PooDoo Audio (TXDSP) container.
+- No radio connection is required to bypass or re-enable the stage.
 
 ## Steps
 
-1. Locate the CHAIN widget inside the PooDoo Audio (TXDSP) container.
-2. Find the **PUDU (Enh)** stage block in the chain.
-3. Single-click the **PUDU (Enh)** stage to toggle it off. The stage is now bypassed and audio passes through the chain without PUDU processing.
-4. Single-click the **PUDU (Enh)** stage again to re-enable it.
+1. Locate the CHAIN widget in the PooDoo Audio (TXDSP) container.
+2. Single-click the **PUDU (Enh)** stage in the CHAIN widget.
 
-When PUDU is bypassed, the PUDU sub-container remains hidden. The persisted setting `ClientPuduTxEnabled` is updated immediately. All knob values (`ClientPuduTxPooDriveDb`, `ClientPuduTxPooTuneHz`, `ClientPuduTxPooMix`, `ClientPuduTxDooTuneHz`, `ClientPuduTxDooHarmonicsDb`, `ClientPuduTxDooMix`) and the selected mode (`ClientPuduTxMode`) are preserved.
+A single click toggles the PUDU stage between active and bypassed. The stage remains in the chain but audio passes through it unprocessed while it is bypassed. The `ClientPuduTxEnabled` setting is updated immediately and persisted.
+
+To re-enable PUDU, single-click the **PUDU (Enh)** stage again.
 
 ## Tips
 
-- Bypassing from the CHAIN widget is non-destructive. Re-enabling restores all knob positions exactly as you left them.
-- To open the PUDU Exciter controls without enabling the stage, double-click the **PUDU (Enh)** stage in the CHAIN widget to open the floating editor.
+- Bypassing via the CHAIN widget does not reset any knob values. All settings for Poo Drive, Poo Tune, Poo Mix, Doo Tune, Doo Air, and Doo Mix are preserved.
+- Double-clicking the **PUDU (Enh)** stage in the CHAIN widget opens the floating PUDU editor instead of toggling bypass. Use a single click to bypass.
+- The PooDoo logo inside the PUDU applet pulses with the processed signal RMS when PUDU is active and stops pulsing when bypassed.
 
 ## Related
 

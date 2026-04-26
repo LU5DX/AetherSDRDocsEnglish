@@ -1,40 +1,43 @@
 # Lock CW decoder pitch or speed once tracking is good
 
-Once the CW decoder has acquired a signal, locking its pitch or speed stops it from drifting to another signal or re-estimating speed between overs.
+Once the CW decoder has settled on a signal's pitch and speed, locking those values prevents the decoder from drifting to interference or noise between transmissions.
 
 ## Before you start
 
-- The CW decode panel must be open. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
-- The CW stats label should be showing a stable reading, for example `600 Hz  20 WPM`, before you lock.
+- The CW decode panel must be open and decoding. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
+- PC audio must be routed to AetherSDR. The CW panel shows "(requires PC Audio)" as a reminder if it is not.
+- Watch the CW stats label (format: `<hz> Hz  <wpm> WPM`) and wait for stable, consistent readings before locking.
 
 ## Steps
 
-1. Watch the CW stats label until the pitch (Hz) and speed (WPM) values settle on the signal you want.
-2. To lock the pitch, click 🔒P. The button highlights when active.
-3. To lock the speed, click 🔒S. The button highlights when active.
+1. Tune to the CW signal and watch the CW stats label until pitch and speed readings stabilize.
+2. To lock pitch: click 🔒P in the CW panel. The button highlights when active.
+3. To lock speed: click 🔒S in the CW panel. The button highlights when active.
 4. To unlock, click the active button again.
 
 ## What each control does
 
-| Control | What it does | Default | Valid range | Setting key |
+| Control | What it does | Default | Range | Setting key |
 |---|---|---|---|---|
-| CW stats label | Displays the currently detected pitch and speed as `<hz> Hz  <wpm> WPM`. | — | — | — |
-| 🔒P (Lock Pitch) | Locks the decoder pitch to the current tuned frequency. Toggle off to resume tracking. | Off | On / Off | — |
-| 🔒S (Lock Speed) | Locks the decoder speed to the current WPM. Toggle off to resume tracking. | Off | On / Off | — |
-| Lo (pitch min) | Minimum pitch the decoder searches. Clamped ≤ Hi. | 500 Hz | 300–1200 Hz | — |
-| Hi (pitch max) | Maximum pitch the decoder searches. Clamped ≥ Lo. | 700 Hz | 300–1200 Hz | — |
-| Sens | Filters low-confidence decodes. Higher values are stricter. Maps 0–100 to a cost threshold of 1.0–0.1. | 30 | 0–100 | `CwDecoderSensitivity` |
+| CW stats label | Shows detected pitch and speed as `<hz> Hz  <wpm> WPM`. | — | — | — |
+| 🔒P | Locks the CW decoder pitch to the current tuned frequency. Toggle; highlighted when locked. | Off | — | — |
+| 🔒S | Locks the CW decoder speed to the current WPM. Toggle; highlighted when locked. | Off | — | — |
+| Lo | Minimum pitch the decoder searches. Clamped ≤ Hi. | 500 Hz | 300–1200 Hz | — |
+| Hi | Maximum pitch the decoder searches. Clamped ≥ Lo. | 700 Hz | 300–1200 Hz | — |
+| Sens | Filters low-confidence decodes. Higher values are stricter. | 30 | 0–100 | `CwDecoderSensitivity` |
 
 ## Tips
 
-- If the decoder is jumping between signals, narrow the Lo/Hi pitch range around the signal before locking pitch. This constrains the search window before the lock takes effect.
-- Lock speed when copying a single operator at a known WPM; unlock it when moving to a new QSO where the sending speed may differ.
-- Locking both pitch and speed together gives the most stable decode in a crowded band segment.
+- Lock pitch and speed together when copying a single station through a pileup. The decoder will stop chasing other signals in the passband.
+- If the signal drifts slightly, unlock 🔒P, let the decoder re-acquire, then re-lock.
+- Narrow the Lo and Hi pitch range before locking to reduce the chance of the decoder latching onto the wrong signal in the first place.
+- Decoded text is colour-coded by confidence: green is highest confidence, then yellow, orange, and red. Lock when you are seeing mostly green or yellow characters.
 
 ## Troubleshooting
 
-- **CW stats label shows no reading before locking** — The decoder has not acquired the signal yet. Check that PC audio is routed correctly (the CW panel displays a `(requires PC Audio)` reminder if audio is missing). Adjust Lo and Hi to bracket the signal's pitch, and lower Sens toward 0 to allow lower-confidence decodes through until the signal is acquired.
-- **Decoded text quality drops after locking pitch** — The signal may have drifted. Unlock 🔒P, let the decoder re-acquire, then re-lock.
+- **🔒P or 🔒S does not appear** — The CW decode panel is not open. Open it first; see [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
+- **Stats label shows no reading after locking** — PC audio is not routed to AetherSDR. The panel will show "(requires PC Audio)". Check your audio routing and unlock to allow the decoder to re-acquire.
+- **Decoded text turns mostly orange or red after locking** — The locked pitch or speed no longer matches the signal. Click 🔒P or 🔒S to unlock, wait for the stats label to stabilize on the target signal, then re-lock.
 
 ## Related
 

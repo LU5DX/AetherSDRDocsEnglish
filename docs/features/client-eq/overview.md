@@ -1,48 +1,49 @@
 # Parametric EQ (Client) overview
 
-The Parametric EQ (Client) applet applies a client-side parametric equalizer to your receive and transmit audio paths independently. Use it to shape audio before it reaches your speakers or microphone chain, without touching the radio's own DSP.
+The Parametric EQ (Client) feature provides a client-side parametric equalizer for both the receive and transmit audio paths. Use it to shape the frequency response of audio passing through AetherSDR without touching the radio's own DSP chain.
 
 ## Before you start
 
-- The applet is housed inside the PooDoo Audio (TXDSP) parent container as the "CEQ" sub-container. It is hidden until the EQ stage is enabled via the CHAIN widget or the floating editor.
-- No radio connection is required to configure the EQ.
+- AetherSDR must be running. A radio connection is not required to configure the EQ, but a live audio path is needed for the analyzer overlay to show signal.
+- The EQ applet is hidden by default. Enable the EQ stage from the CHAIN widget or the floating editor to make the applet visible.
 
 ## How it works
 
-The applet presents a compact view of one audio path at a time — either RX or TX. The **RX** and **TX** tabs at the top of the applet select which path is displayed. Switching tabs rebinds the curve area to that path's EQ instance; it does not bypass or alter either path.
+AetherSDR runs one EQ instance for the receive path and one for the transmit path. Each instance is independent: it has its own set of bands, its own enabled/bypassed state, and its own persisted settings.
 
-The main area of the applet is the analyzer and curve display. It is 110 pixels tall and shows two layers at once:
+The **CEQ** sub-container sits inside the PooDoo Audio (TXDSP) parent container in the applet panel. It displays a compact curve and analyzer area (110 px tall) for whichever path it is bound to. There is one applet tile per path — the RX-bound tile shows the RX EQ; the TX-bound tile shows the TX EQ. Neither tile contains an internal path selector; the chain widget's tab determines which side you are editing.
 
-- **Summed EQ response** — the combined frequency response of all enabled bands for the selected path. The curve is flat when no bands are active or all are bypassed, and shaped when one or more bands are contributing gain or cut.
-- **Live FFT analyzer overlay** — a real-time spectrum of audio flowing through the selected path. This overlay is idle when no audio is present and running when audio is active.
+Actual band editing — adding, removing, and tuning bands — happens in the floating **ClientEqEditor** window, not in the applet tile itself. Open it by double-clicking the EQ stage in the CHAIN widget. The applet tile is a read-only view: it shows the current state of the path but does not accept clicks to move or edit bands.
 
-The curve area is view-only. To add, remove, or tune bands, open the floating editor by double-clicking the EQ stage in the CHAIN widget.
+The curve area renders two layers simultaneously:
 
-Bypass (enabling and disabling the EQ stage entirely) is controlled from the CHAIN widget, not from within the applet itself.
+- **Summed EQ response** — the cumulative frequency response of all enabled bands for the bound path. When no bands are configured, the area displays "(no bands — add one in the editor)". When no EQ is connected, it displays "(no EQ connected)".
+- **Live FFT analyzer overlay** — a real-time FFT of the audio passing through the bound path, drawn as a filled cyan gradient. The vertical scale runs from −70 dB at the bottom to 0 dB at the top. The horizontal scale is logarithmic from 20 Hz to 20 kHz.
+
+The frequency grid draws vertical lines at 20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, and 20k Hz. Horizontal dB reference lines appear at ±6 dB and ±12 dB, with a brighter line at 0 dB.
 
 ## What each control does
 
-| Control | Kind | Default | Behavior | Persisted setting |
+| Control | Kind | Default | Behavior | Setting key |
 |---|---|---|---|---|
-| **RX** | Tab | Checked | Selects the receive path; binds the curve area to the RX EQ instance. Mutually exclusive with TX. | — |
-| **TX** | Tab | Unchecked | Selects the transmit path; binds the curve area to the TX EQ instance. Mutually exclusive with RX. | — |
-| Analyzer / curve area | Indicator | — | Displays the summed EQ response and live FFT analyzer overlay for the selected path. View-only. | — |
-| RX enabled state | — | — | Whether the RX EQ stage is active or bypassed. Controlled via the CHAIN widget. | `ClientEqRxEnabled` |
-| TX enabled state | — | — | Whether the TX EQ stage is active or bypassed. Controlled via the CHAIN widget. | `ClientEqTxEnabled` |
-| RX band configuration | — | — | Frequency, gain, Q, and type for each band on the RX path. Edited in the floating editor. | `ClientEqRxBands` |
-| TX band configuration | — | — | Frequency, gain, Q, and type for each band on the TX path. Edited in the floating editor. | `ClientEqTxBands` |
+| RX tab | Tab | Checked | Binds the curve widget to the RX EQ instance. Mutually exclusive with TX. | — |
+| TX tab | Tab | Unchecked | Binds the curve widget to the TX EQ instance. Mutually exclusive with RX. | — |
+| Analyzer / curve area | Indicator (view-only) | — | Displays the summed EQ response and live FFT analyzer overlay for the selected path. Editing happens in the floating ClientEqEditor. | — |
+| `ClientEqRxEnabled` | Persisted setting | — | Stores the enabled/bypassed state of the RX EQ. | `ClientEqRxEnabled` |
+| `ClientEqTxEnabled` | Persisted setting | — | Stores the enabled/bypassed state of the TX EQ. | `ClientEqTxEnabled` |
+| `ClientEqRxBands` | Persisted setting | — | Stores the band configuration for the RX EQ. | `ClientEqRxBands` |
+| `ClientEqTxBands` | Persisted setting | — | Stores the band configuration for the TX EQ. | `ClientEqTxBands` |
 
 ## Tips
 
-- The curve area vertical range is ±18 dB. Horizontal gridlines appear at ±6 dB and ±12 dB; the 0 dB reference line is drawn slightly brighter.
-- Frequency gridlines are placed at 20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, and 20k Hz.
-- The RX and TX paths are independent. Switching the tab to check one path does not affect what the other path is doing.
-- Right-click the "CEQ" sub-container titlebar to float, pop out, or hide the applet if you need more screen space.
+- Right-click the **CEQ** sub-container titlebar to float, pop out, or hide the applet tile if you need more screen space.
+- The summed EQ response is computed from analog-prototype transfer functions across the full 20 Hz–20 kHz range. The curve is an ideal reference; the audio path uses the equivalent digital biquads.
+- Band colors follow a fixed palette (gray, amber, yellow, green, teal, blue, purple, gray). With more than 8 bands, colors wrap rather than repeat from gray.
 
 ## Related
 
-- [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Open the floating editor to add / remove / tune bands](open-the-floating-editor-to-add-remove-tune-bands.md)
 - [See the live spectrum of the selected path](see-the-live-spectrum-of-the-selected-path.md)
+- [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
 - [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)

@@ -1,31 +1,30 @@
 # Adjust AM carrier power for AM transmit
 
-Use this page to set the AM carrier power level when transmitting in AM mode. The carrier level controls how much of the transmitter power is devoted to the unmodulated carrier.
+Use the AM Carrier slider in the Phone applet to set the carrier power level when transmitting in AM mode. Lowering this value reduces the unmodulated carrier power; raising it increases it.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio.
-- The radio must be set to AM mode before the AM Carrier level has any effect on transmit.
-- The Phone applet must be visible in the Applet Panel.
+- AetherSDR must be connected to the radio. The Phone applet is unavailable without an active radio connection.
+- Your slice must be set to AM mode before the AM carrier level has any effect on transmit.
 
 ## Steps
 
-1. If the Phone applet is not visible, click the **PHNE** tray button on the right sidebar to show it.
-2. Locate the **AM Carrier** slider in the Phone applet.
-3. Drag the **AM Carrier** slider left or right to set the desired carrier level. The numeric value (0–100) updates next to the slider as you drag.
+1. If the Phone applet is not visible in the right sidebar, click the **PHNE** tray button to show it.
+2. Locate the **AM Carrier** row at the top of the Phone applet.
+3. Drag the **AM Carrier** slider left to decrease carrier power or right to increase it. The numeric value to the right of the slider updates as you drag (for example, **48**).
 
 ## What each control does
 
-| Control | Type | Range | Default | Persisted key |
+| Control | Type | Valid range | Default | Persisted key |
 |---|---|---|---|---|
 | AM Carrier | Slider | 0–100 | — | — |
 
-The numeric label to the right of the **AM Carrier** slider shows the current value (for example, `48`). This value is sent directly to the radio and is not saved by AetherSDR between sessions; the radio restores it from its own state on reconnect.
+The numeric label next to the slider shows the current value. There is no persisted setting for AM Carrier level; the value is read from the radio on each connection.
 
 ## Tips
 
-- The AM Carrier level applies only while the radio is in AM mode. Adjusting it in other modes has no audible effect but the value is still sent to the radio.
-- A carrier level of 0 suppresses the carrier entirely; a level of 100 sets full carrier power as allowed by the radio's TX band settings.
+- The current level is displayed as a number to the right of the slider (for example, **48**). Use this to return to a known setting after experimenting.
+- The AM Carrier slider has no effect when the slice is in a non-AM mode such as SSB or CW.
 
 ## Related
 

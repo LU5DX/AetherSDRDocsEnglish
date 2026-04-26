@@ -1,34 +1,34 @@
-# Monitor the Main Cooling Fan Speed
+# Monitor the main cooling fan speed
 
-The Meters applet shows a live gauge of the Flex radio's main cooling fan speed. Use this to confirm the fan is spinning and to catch abnormally high speeds that may indicate thermal stress.
+The Meters applet includes a "Main Fan" gauge that shows the FLEX-8600's main cooling fan speed in real time. Use it to confirm the fan is running and to catch abnormally high speeds that may indicate thermal stress.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Meters applet requires an active radio connection.
-- The applet panel must be visible. If it is hidden, click the MTR tray button on the right sidebar to show it.
+- The applet panel must be visible. If it is not, enable it via `View > Applet Panel`.
 
 ## Steps
 
-1. Click the MTR tray button on the right sidebar. The Meters applet opens.
-2. Look at the "Main Fan" gauge under the "Radio Hardware" header. The bar shows current fan speed in rpm.
+1. Click the **MTR** tray button on the right sidebar to open the Meters applet.
+2. Look at the **Main Fan** gauge under the "Radio Hardware" section header.
+3. Read the current fan speed from the horizontal bar. The gauge range is 0–3000 rpm. The bar turns red above 2500 rpm.
 
 ## What each control does
 
-| Label | Range | Red zone | Notes |
+| Control | Description | Valid range | Redline |
 |---|---|---|---|
-| Main Fan | 0–3000 rpm | above 2500 rpm | Bar turns red when fan speed exceeds 2500 rpm. No persisted setting. |
-
-The gauge fills from left to right. The bar is green below 2500 rpm and turns red above 2500 rpm. Tick labels along the top read 0, 500, 1k, 1.5k, 2k, and 3k.
+| Main Fan | Displays the radio's main cooling fan speed. | 0–3000 rpm | > 2500 rpm (bar turns red) |
+| PA Temp | Displays the PA temperature. | 0–120 °C | > 70 °C |
+| +13.8V | Displays the DC supply voltage. | 10.0–16.0 V | > 15 V |
 
 ## Tips
 
-- Fan speed is read from the radio's MAINFAN meter. The value updates in real time as the radio reports new readings; there is no manual refresh.
-- A reading at or near 0 rpm while the radio is powered and transmitting warrants attention. Check physical connections and radio ventilation.
-- Compare fan speed against the PA Temp gauge in the same applet. Rising temperature alongside high fan speed is normal during long transmissions; high temperature with low fan speed is not.
+- The Main Fan gauge updates lazily: the first reading may appear a moment after the applet opens, once the radio reports the meter value.
+- The bar fills cyan through a yellow zone and turns red past 2500 rpm. Sustained red readings during a long over may indicate inadequate ventilation around the radio.
 
 ## Troubleshooting
 
-- **Main Fan gauge shows no movement or stays at 0** — The meter index is resolved lazily after connection. Wait a few seconds for the radio to report its first MAINFAN reading. If the gauge remains at 0 while the radio is on and warm, verify the radio connection is active under `Settings > Connect to Radio...`.
+- **Main Fan gauge shows no movement** — The meter index is resolved after the radio connection is established. If the gauge remains blank, disconnect and reconnect to the radio, then reopen the Meters applet.
 
 ## Related
 

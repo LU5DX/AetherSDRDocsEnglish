@@ -1,47 +1,50 @@
 # Create a separate mic profile per microphone
 
-Use the Profile Manager to save a dedicated microphone profile for each physical microphone you use. Switching microphones then takes one load action instead of manually adjusting mic settings each time.
+Use the Profile Manager to save a named microphone profile for each physical microphone you use. Switching mics then takes one load operation instead of manually adjusting mic settings each time.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. Profile Manager requires an active radio connection.
-- Configure the radio's mic settings (gain, EQ, etc.) for the microphone you want to save before opening the dialog.
+- Configure the radio's mic settings (gain, EQ, etc.) for the microphone you want to capture before saving.
 
 ## Steps
 
 1. Open `Profiles > Profile Manager...`.
 2. Click the **Microphone** tab.
-3. In the **Profile name** field, type a name that identifies the microphone (for example, `Heil PR-40` or `Desk Mic`).
-4. Click **Save**. The profile appears in the **Profile list**.
-5. Repeat steps 3–4 for each additional microphone, adjusting the radio's mic settings before each save.
-6. To switch to a saved microphone profile, select it in the **Profile list** and click **Load**, or double-click its entry in the list.
-7. Click **Close** when finished.
+3. Adjust your radio's microphone settings to match the first microphone if you have not already done so.
+4. Click the **Profile name** field and type a name for this microphone (for example, the microphone model or position).
+5. Click **Save**. The new profile appears in the **Profile list**.
+6. Repeat steps 3–5 for each additional microphone, using a distinct name each time.
+
+To switch to a saved mic profile later, select it in the **Profile list** and click **Load**, or double-click the profile name directly.
 
 ## What each control does
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| **Microphone** (tab) | Tab | Shows mic profiles stored on the radio. | — |
-| **Profile name** | Text field | Name used when saving a new mic profile. Select an existing profile to populate this field automatically. | — |
-| **Profile list** | List | All mic profiles on the radio; the currently active one is highlighted. | — |
-| **Load** | Button | Loads the selected profile onto the radio. Also activated by double-clicking a list entry. Enabled only when a profile is selected. | — |
-| **Save** | Button | Saves the current radio mic state under the name in **Profile name**. If **Profile name** is empty and a profile is selected, saves under that profile's name. | — |
-| **Delete** | Button | Deletes the selected profile after confirmation. Enabled only when a profile is selected. | — |
-| **Close** | Button | Closes the dialog. | — |
+| **Microphone** tab | Tab | Shows the microphone profile list and controls. | — |
+| **Profile name** | Text field | Name used when saving a new mic profile. Populated automatically when you select a profile from the list. | — |
+| **Profile list** | List | All saved microphone profiles; the active one is highlighted. | — |
+| **Load** | Button | Loads the selected mic profile onto the radio. Enabled only when a profile is selected. | — |
+| **Save** | Button | Saves the current radio mic state under the name typed in **Profile name**. If **Profile name** is empty and a profile is selected, saves over that profile's name. | — |
+| **Delete** | Button | Deletes the selected mic profile after a confirmation prompt. Enabled only when a profile is selected. | — |
+| **Close** | Button | Closes the Profile Manager dialog. | — |
 
 ## Tips
 
-- When you select a profile in the **Profile list**, its name appears automatically in the **Profile name** field. Edit the text before clicking **Save** to save a copy under a new name without overwriting the original.
-- If you want mic changes to be written back to the active profile automatically whenever you adjust them, enable **Auto-save profile changes** on the **Auto-Save** tab. This is controlled by the `AutoSaveTransmitProfile` setting.
+- Selecting a profile from the **Profile list** copies its name into the **Profile name** field. Clear the field and type a new name before clicking **Save** to create a new profile rather than overwriting the existing one.
+- The **Profile list** updates automatically if the radio pushes changes while the dialog is open.
+- If you also use transmit profiles, consider enabling **Auto-save profile changes** on the **Auto-Save** tab so that mic adjustments made during a session are written back to the active profile automatically. This setting is persisted as `AutoSaveTransmitProfile`.
 
 ## Troubleshooting
 
-- **Load and Delete are greyed out** — no profile is selected in the **Profile list**. Click a profile name to select it.
-- **Save does nothing** — both the **Profile name** field is empty and no profile is selected. Type a name in **Profile name** and click **Save** again.
-- **Profile list is empty after saving** — the radio pushes the updated list back via status. If the list does not refresh, close and reopen the dialog to force a re-query.
+- **Load and Delete are grayed out** — No profile is selected. Click a name in the **Profile list** to select it.
+- **Clicking Save does nothing** — Both the **Profile name** field and the **Profile list** selection are empty. Type a name in **Profile name** before clicking **Save**.
+- **Profile list is empty** — The radio has no saved microphone profiles yet. Create the first one using the steps above.
 
 ## Related
 
 - [Profile Manager overview](overview.md)
 - [Rename or delete a microphone profile](rename-or-delete-a-microphone-profile.md)
 - [Turn on auto-save so TX tweaks always persist](turn-on-auto-save-so-tx-tweaks-always-persist.md)
+- [Switch to a saved transmit profile](switch-to-a-saved-transmit-profile.md)

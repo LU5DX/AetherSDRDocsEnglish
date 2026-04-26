@@ -1,6 +1,6 @@
 # Invert a knob or treat it as an endless encoder
 
-Once a MIDI binding exists, you can reverse its direction with Invert or switch it to relative mode so an endless encoder works correctly instead of jumping to absolute positions.
+After creating a MIDI binding, you can reverse its direction with Invert or tell AetherSDR to treat the control as an endless encoder with Relative. Both options are set per binding in the Bindings table.
 
 ## Before you start
 
@@ -11,31 +11,32 @@ Once a MIDI binding exists, you can reverse its direction with Invert or switch 
 
 1. Open `Settings > MIDI Mapping...`.
 2. Locate the binding you want to change in the Bindings table.
-3. To reverse the control direction, check the **Invert** checkbox in that binding's row.
-4. To treat the control as an endless encoder, check the **Relative** checkbox in that binding's row.
-5. Click **Close** to dismiss the dialog. Changes take effect immediately and are saved automatically.
+3. To reverse the control direction, check the Invert checkbox in that binding's row.
+4. To treat the control as an endless encoder, check the Relative checkbox in that binding's row.
+5. Either checkbox can be checked or unchecked independently. Changes take effect immediately.
+6. Click Close when finished.
 
 ## What each control does
 
-| Control | Where | What it does |
-|---|---|---|
-| Invert | Bindings table, per row | Reverses the direction of the MIDI control for that binding. |
-| Relative | Bindings table, per row | Treats the control as an endless encoder rather than an absolute position source. |
+| Control | Column in Bindings table | Behavior | Default |
+|---|---|---|---|
+| Invert | Invert | Reverses the direction of the control for that binding. Turn clockwise to decrease, counter-clockwise to increase, or vice versa. | Unchecked |
+| Relative | Relative | Treats the control as an endless encoder. Use this when your hardware knob sends incremental (relative) values rather than absolute positions (0–127). | Unchecked |
 
 ## Tips
 
-- Invert and Relative are independent. You can enable both on the same binding — for example, a reversed endless encoder.
-- If a knob sends CC values in the range 0–127 and you notice it always snaps to a fixed position when you turn it, the control is likely sending absolute values. Enable Relative to fix this.
-- Changes to Invert and Relative are persisted immediately when Learn completes or when the dialog saves bindings. You do not need to use Save under Profile: to preserve these per-binding flags, but saving a named profile will capture them.
+- Use Relative when your knob sends small increment/decrement values rather than an absolute position. If a knob jumps erratically when turned, enabling Relative usually corrects it.
+- Invert and Relative can be combined on the same binding. For example, a Relative encoder that increments in the wrong direction can have both options checked.
+- Changes to Invert and Relative are saved automatically when you save a profile. Use Save under Profile: to preserve them.
 
 ## Troubleshooting
 
-- **Invert or Relative checkboxes are not visible** — The Bindings table is empty. You must record at least one binding first. See [Record a new binding with Learn mode](record-a-new-binding-with-learn-mode.md).
-- **Enabling Relative has no effect on the hardware knob behavior** — The connected controller may be sending absolute CC values (0–127) rather than relative/signed values. Relative mode in AetherSDR expects the controller itself to be configured for relative encoding. Check your controller's own settings or documentation.
+- **Checking Relative makes a knob stop responding** — The knob may be sending absolute values (0–127). Uncheck Relative and leave the binding in absolute mode.
+- **Control still moves in the wrong direction after checking Invert** — Confirm you checked Invert on the correct row. Each binding row has its own Invert checkbox; scroll horizontally if the column is not visible.
 
 ## Related
 
 - [Record a new binding with Learn mode](record-a-new-binding-with-learn-mode.md)
-- [Connect a MIDI controller](../../getting-started/setup/connect-a-midi-controller.md)
 - [Delete a binding](delete-a-binding.md)
 - [Save the current mapping as a named profile](save-the-current-mapping-as-a-named-profile.md)
+- [Connect a MIDI controller](../../getting-started/setup/connect-a-midi-controller.md)

@@ -1,35 +1,33 @@
 # Enable multiFLEX on the radio
 
-multiFLEX lets multiple stations share a single FLEX-8600 simultaneously. This page explains how to turn multiFLEX on or off from within AetherSDR.
+multiFLEX lets multiple stations share a single FLEX-8600 simultaneously. This page explains how to enable or disable multiFLEX from within AetherSDR.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The multiFLEX Dashboard is unavailable without an active radio connection.
+- AetherSDR must be connected to the radio. The multiFLEX Dashboard is not available without an active radio connection.
+- You need operator access to the FLEX-8600. Enabling multiFLEX is a radio-wide setting that affects all connected stations.
 
 ## Steps
 
 1. Click `Settings > multiFLEX...` to open the multiFLEX Dashboard.
-2. Click the toggle button at the top of the dialog. When multiFLEX is off, the button reads "Disabled". When it is on, the button reads "Enabled".
-3. Click Close to dismiss the dialog.
+2. At the top of the dialog, locate the enable/disable button. When multiFLEX is off, the button reads "Disabled". When it is on, it reads "Enabled".
+3. Click the button to toggle multiFLEX on or off. The button label and color update immediately to reflect the new state.
+4. Click `Close` to dismiss the dialog.
 
 ## What each control does
 
-| Control | Behavior |
+| Control | Description |
 |---|---|
-| Enable / Disable toggle | Enables or disables multiFLEX on the radio. The button label reflects the current state: "Enabled" (green) or "Disabled" (red). Clicking it toggles to the opposite state. |
-| Stations table | Lists every multiFLEX client currently connected to the radio. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). |
-| Enable (PTT) | Toggles local PTT authority for this station. Visible only when more than one station is connected and this station does not currently hold PTT. |
-| Close | Closes the multiFLEX Dashboard dialog. |
+| Enable / Disable button | Toggles multiFLEX on or off for the radio. Displays "Enabled" (green) when active and "Disabled" (red) when inactive. |
+| Stations table | Lists every multiFLEX client currently connected. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). |
+| Enable (PTT) | Toggles local PTT authority for this station. Appears only when more than one station is connected and this station does not currently hold PTT. |
+| Close | Closes the multiFLEX Dashboard. |
 
 ## Tips
 
-- The Stations table is empty until at least one client connects. If you are the only client, the LOCAL PTT and Enable (PTT) controls are hidden.
-- Your own station entry appears highlighted in the Stations table, making it easy to identify among other connected clients.
-
-## Troubleshooting
-
-- **"multiFLEX..." is grayed out in the Settings menu** — AetherSDR is not connected to the radio. Establish a radio connection first, then return to `Settings > multiFLEX...`.
-- **The button shows "Enabled" but other stations cannot connect** — multiFLEX licensing and slot availability are enforced by the radio firmware, not by AetherSDR. Verify that the FLEX-8600 firmware is 4.1.5 and that available multiFLEX slots have not been exhausted.
+- When only one station is connected, the PTT controls are hidden. They appear automatically once a second station joins.
+- Your own station is highlighted in the Stations table so you can identify it among other connected clients.
+- Clicking the enable/disable button takes effect immediately on the radio. You do not need to disconnect and reconnect.
 
 ## Related
 

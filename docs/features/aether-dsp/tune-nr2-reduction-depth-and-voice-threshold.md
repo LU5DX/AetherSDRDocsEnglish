@@ -1,58 +1,49 @@
 # Tune NR2 Reduction Depth and Voice Threshold
 
-Adjust how aggressively NR2 suppresses noise and how sensitively it detects speech. These two controls set the tradeoff between maximum noise removal and preserving quiet voice passages.
+Adjust how aggressively NR2 suppresses noise and how sensitively it detects speech. These two controls — **Reduction Depth:** and **Voice Threshold:** — set the core tradeoff between noise suppression and speech preservation.
 
 ## Before you start
 
-- AetherSDR does not need to be connected to a radio to change these settings.
-- NR2 must be active on your slice for changes to take audible effect.
+- AetherSDR must be running. A radio connection is not required to adjust these settings.
+- NR2 must be enabled on the slice you want to affect. These controls tune the engine parameters; they do not activate NR2 itself.
 
 ## Steps
 
-1. Click `Settings > AetherDSP Settings...` to open the AetherDSP Settings dialog.
+1. Open `Settings > AetherDSP Settings...`.
 2. Click the **NR2** tab.
-3. Locate the **Reduction Depth:** slider. Drag it left to reduce suppression or right to increase it. The default is **1.50**; the valid range is **0.50–2.00**.
-4. Locate the **Voice Threshold:** slider. Drag it left to detect quieter speech (more noise may pass) or right to raise the threshold (stronger suppression between speech bursts). The default is **0.20**; the valid range is **0.05–0.50**.
-5. Listen to the received audio and fine-tune both sliders until the balance between noise suppression and speech clarity is acceptable.
-6. To undo all changes on this tab, click **Reset Defaults**. This restores Reduction Depth to **1.50** and Voice Threshold to **0.20**, along with all other NR2 defaults.
+3. Drag the **Reduction Depth:** slider to set how much noise NR2 can remove. Higher values suppress more noise; lower values preserve more natural sound at the cost of less reduction.
+4. Drag the **Voice Threshold:** slider to set the speech-presence-probability threshold. Lower values cause NR2 to treat quieter signals as speech and apply less reduction to them; higher values require a stronger signal before NR2 backs off.
+5. Changes take effect immediately. No confirmation step is needed.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| **Reduction Depth:** slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
-| **Smoothing:** slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
-| **Voice Threshold:** slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
-| **AE Filter (artifact elimination)** checkbox | Enabled | — | `NR2AeFilter` |
-| **Gain Method** radio buttons | Gamma | Linear \| Log \| Gamma \| Trained | `NR2GainMethod` |
-| **NPE Method** radio buttons | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
-| **Reset Defaults** button | — | — | — |
-
-**Reduction Depth:** Sets the maximum gain reduction NR2 can apply. Higher values suppress more noise but increase the risk of speech distortion.
-
-**Smoothing:** Controls how quickly the noise estimate follows changes in the noise floor. Higher values produce steadier but slower adaptation.
-
-**Voice Threshold:** Sets the speech-presence-probability threshold. Lower values cause NR2 to treat more signal as speech and reduce suppression; higher values increase suppression during pauses.
-
-**AE Filter (artifact elimination):** Applies a post-filter that reduces ringing and musical-noise artifacts. Leave this enabled unless you are comparing raw NR2 output.
+| Control | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|
+| **Reduction Depth:** | 1.50 | 0.50 – 2.00 | `NR2GainMax` | Sets the maximum NR2 reduction depth. Lower values produce gentler reduction; higher values produce deeper noise suppression at greater risk of speech distortion. |
+| **Voice Threshold:** | 0.20 | 0.05 – 0.50 | `NR2Qspp` | Sets the speech-presence-probability threshold. Lower values preserve quiet speech but may let more noise through; higher values suppress more noise but may clip low-level speech. |
+| **Smoothing:** | 0.85 | 0.50 – 0.98 | `NR2GainSmooth` | Controls how quickly the noise estimate tracks changes. Higher values give a steadier but slower-reacting estimate. |
+| **AE Filter (artifact elimination)** | On | On / Off | `NR2AeFilter` | Toggles the anti-artifact post-filter that reduces musical noise typical of frequency-domain NR. |
+| **Gain Method** | Gamma | Linear / Log / Gamma / Trained | `NR2GainMethod` | Selects the gain-curve mapping used by NR2. |
+| **NPE Method** | OSMS | OSMS / MMSE / NSTAT | `NR2NpeMethod` | Selects the noise power estimator. |
+| **Reset Defaults** | — | — | — | Restores all NR2 tab values to their defaults: Gamma, OSMS, AE on, 1.50, 0.85, 0.20. |
 
 ## Tips
 
-- On a quiet band with steady background noise, a **Reduction Depth:** of 1.50–2.00 and a **Voice Threshold:** of 0.15–0.25 works well for most SSB signals.
-- If weak stations are being cut off at the start of syllables, lower **Voice Threshold:** toward 0.05 so NR2 opens up sooner.
-- If musical noise (tonal artifacts) appears after increasing **Reduction Depth:**, verify that **AE Filter (artifact elimination)** is checked.
-- Increasing **Smoothing:** can help on steady noise floors (RTTY interference, power-line hum) but slows NR2's reaction to rapidly changing noise.
+- Start with **Reduction Depth:** at the default of 1.50 and increase it only if noise remains clearly audible after enabling NR2.
+- If speech sounds hollow or distorted after increasing **Reduction Depth:**, lower **Voice Threshold:** slightly so NR2 more readily identifies speech segments and backs off reduction.
+- If you hear musical-noise artifacts (a warbling or bubbling quality in the residual noise), verify that **AE Filter (artifact elimination)** is checked.
+- Click **Reset Defaults** to return the entire NR2 tab to its factory values if the settings become difficult to reason about.
 
 ## Troubleshooting
 
-- **Slider changes have no audible effect** — NR2 may not be enabled on the active slice. Enable it from the slice controls, then return to this dialog.
-- **Speech sounds distorted or robotic** — **Reduction Depth:** is set too high. Lower it toward 1.00–1.50 and confirm **AE Filter (artifact elimination)** is checked.
-- **Noise breaks through between words** — **Voice Threshold:** may be too low. Raise it gradually toward 0.30–0.40 so NR2 applies stronger suppression during pauses.
+- **Noise is barely reduced even at maximum Reduction Depth:** — The NPE Method may be losing track of the noise floor. Try switching **NPE Method** to MMSE or NSTAT, or enable a slower-varying noise scenario by increasing **Smoothing:**.
+- **Speech sounds clipped or over-processed** — **Reduction Depth:** is likely too high or **Voice Threshold:** is too high, causing speech frames to be treated as noise. Lower **Reduction Depth:** and reduce **Voice Threshold:** toward 0.05.
+- **Settings revert after restart** — This should not occur as values are persisted immediately on change. If it does, check whether AetherSDR has write access to its settings storage location.
 
 ## Related
 
-- [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
+- [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)
-- [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md)
 - [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md)
+- [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)

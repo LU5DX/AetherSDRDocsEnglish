@@ -1,38 +1,35 @@
 # Copy decoded CW text to the clipboard
 
-Use the CW decode panel to copy Morse text that has been decoded off-air — either the full decode buffer or only what is currently visible on screen.
+The CW decode panel provides two copy buttons that let you transfer decoded Morse text to the system clipboard — either the full decode history or only the text currently on screen.
 
 ## Before you start
 
 - The CW decode panel must be open and actively decoding. If it is not visible, see [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
-- The CW decoder requires PC audio routing to receive signal. The panel displays "(requires PC Audio)" as a reminder.
+- PC audio must be routed to AetherSDR. The panel displays "(requires PC Audio)" as a reminder if audio is not flowing.
 
 ## Steps
 
-1. Locate the CW decode panel at the bottom of the Panadapter applet.
-2. To copy everything in the decode buffer, click `CPY ALL`. All text in the decode buffer is placed on the clipboard.
-3. To copy only the text currently visible in the scroll area, click `CPY VIS`. Only the visible portion is placed on the clipboard.
+1. Locate the CW decode panel beneath the panadapter spectrum and waterfall.
+2. Choose which text to copy:
+   - To copy everything in the decode buffer, click `CPY ALL`.
+   - To copy only the text currently visible in the scroll area, click `CPY VIS`.
+3. Paste into any application using your system's standard paste command.
+
+To remove all decoded text from the buffer after copying, click `CLR`.
 
 ## What each control does
 
 | Control | Behavior | Default | Range | Setting key |
 |---|---|---|---|---|
-| CPY ALL | Copies the full decoded text buffer to the clipboard. | — | — | — |
-| CPY VIS | Copies only the text currently visible in the scroll area to the clipboard. | — | — | — |
-| CLR | Clears the CW decode buffer entirely. Does not affect the clipboard. | — | — | — |
-| Sens | Filters low-confidence decodes. Higher values are stricter. | 30 | 0–100 | `CwDecoderSensitivity` |
-| CW decode text | Read-only rolling display of decoded CW, coloured by confidence. Green = highest confidence; yellow, orange, and red indicate progressively lower confidence. | — | — | — |
+| `CPY ALL` | Copies the full decoded text buffer to the clipboard. | — | — | — |
+| `CPY VIS` | Copies only the text currently visible in the scroll area to the clipboard. | — | — | — |
+| `CLR` | Clears the CW decode buffer. Does not affect the clipboard. | — | — | — |
+| Sens | Filters low-confidence decodes; higher values reject more uncertain characters. | 30 | 0–100 | `CwDecoderSensitivity` |
 
 ## Tips
 
-- If the buffer has accumulated a long session but you only want the most recent exchange, scroll the decode text to the portion you want and use `CPY VIS` rather than `CPY ALL`.
-- Use `CLR` to reset the decode buffer before a new contact so that `CPY ALL` captures only that contact's text.
-- Adjust the Sens slider to reduce noise characters in the buffer before copying. A value of 30 (the default) passes most readable text while rejecting the lowest-confidence decodes.
-
-## Troubleshooting
-
-- **CPY ALL places an empty string on the clipboard** — The decode buffer is empty. Check that the CW decoder is receiving audio and that the Sens slider is not set so high that all decodes are being filtered out.
-- **CPY VIS copies less text than expected** — Only the text visible in the scroll area at the moment of the click is copied. Scroll the decode panel to show the desired text first.
+- Text in the decode display is colour-coded by confidence. Characters shown in red represent the lowest-confidence decodes and may contain errors. If accuracy matters, copy after tuning the Sens slider upward to suppress poor decodes — see [Tune CW decoder sensitivity to reject noise](tune-cw-decoder-sensitivity-to-reject-noise.md).
+- `CPY VIS` is useful when you have scrolled back to a specific portion of a QSO and want only that excerpt on the clipboard.
 
 ## Related
 

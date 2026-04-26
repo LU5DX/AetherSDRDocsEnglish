@@ -1,43 +1,42 @@
 # Tune Poo to the fundamental of your voice
 
-The **Poo / Tune** knob centres the low-frequency processing band on the frequency you choose. Setting it to the fundamental of your voice focuses the Poo saturator or compressor where your voice actually has energy, rather than above or below it.
+The **Poo / Tune** knob sets the centre frequency of the PUDU exciter's low-frequency processing band. Matching it to the fundamental of your voice ensures the Poo stage works where your microphone and vocal character actually sit, rather than above or below it.
 
 ## Before you start
 
-- The PUDU stage must be enabled in the PooDoo Audio chain. If the PUDU sub-container is not visible, enable the stage via the CHAIN widget or double-click the PUDU (Enh) stage in the CHAIN widget to open the floating editor.
-- You need a rough idea of your voice's fundamental frequency. Most male voices sit between 85 and 180 Hz; most female voices between 165 and 255 Hz. A starting point of 100 Hz (the default) works for many baritone and bass voices.
+- The PUDU exciter must be enabled and visible. It appears in the "PUDU" sub-container inside the PooDoo Audio (TXDSP) parent container. If it is hidden, enable the PUDU stage via the CHAIN widget or double-click the PUDU (Enh) stage in the CHAIN widget to open the floating PUDU editor.
+- Know the approximate fundamental frequency of your voice. For most male voices this is roughly 85–180 Hz; for most female voices roughly 165–255 Hz. The **Poo / Tune** range covers 50 to 160 Hz, so it is most useful for deeper fundamentals or for targeting the low-frequency body of the voice rather than the fundamental pitch itself.
 
 ## Steps
 
-1. Open the PUDU sub-container inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Locate the **Poo** group — the three knobs under the bracket labelled **Poo**.
-3. Turn the **Poo / Tune** knob to match your voice's fundamental. The knob displays its value as a whole number in Hz (for example, `100 Hz`).
-4. Key the radio and listen to your monitor audio or watch the PooDoo logo pulse. Increase or decrease **Poo / Tune** until the low-end thickening centres on your voice rather than sounding muddy (too low) or thin (too high).
-5. Fine-tune **Poo / Drive** and **Poo / Mix** to taste once the frequency is set.
+1. Open the PUDU sub-container inside the PooDoo Audio (TXDSP) parent container.
+2. Locate the **Poo** group — the three knobs beneath the "Poo" bracket label.
+3. Transmit in your normal operating mode and speak into the microphone at your typical operating level.
+4. Turn the **Poo / Tune** knob while listening to the processed signal. Rotate toward lower values to focus the band on a deeper fundamental; rotate toward higher values to raise it.
+5. Stop adjusting when the low-end enhancement sounds centred on your voice rather than muddy or thin.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Poo / Tune | 100 Hz | 50 to 160 Hz | `ClientPuduTxPooTuneHz` | Linear mapping. Centres the low-frequency focus band. |
-| Poo / Drive | 6.0 dB | 0.0 to 24.0 dB | `ClientPuduTxPooDriveDb` | Drives the low-frequency saturator or compressor harder. |
-| Poo / Mix | 30 % | 0 to 100 % | `ClientPuduTxPooMix` | Blends the enhanced low band back with the dry signal. |
+| Control | Default | Valid range | Persisted key |
+|---|---|---|---|
+| Poo / Tune | 100 Hz | 50 to 160 Hz | `ClientPuduTxPooTuneHz` |
+| Poo / Drive | 6.0 dB | 0.0 to 24.0 dB | `ClientPuduTxPooDriveDb` |
+| Poo / Mix | 30 % | 0 to 100 % | `ClientPuduTxPooMix` |
+
+**Poo / Tune** centres the low-frequency focus band using a linear mapping across 50–160 Hz. The knob label reads the current value as "X Hz".
+
+**Poo / Drive** and **Poo / Mix** are companion controls. Drive determines how hard the saturator or compressor is pushed at the tuned frequency; Mix blends the processed low band back with the dry signal. See [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md) and [Blend the Poo enhancement with Mix](blend-the-poo-enhancement-with-mix.md).
 
 ## Tips
 
-- The **Poo / Tune** range is 50 to 160 Hz. If your voice fundamental falls above 160 Hz, set **Poo / Tune** to its maximum and rely more on the **Doo** group for presence instead.
-- In **Even** mode the Poo section uses Big Bottom-style LF saturation; in **Odd** mode it uses a feed-forward bass compressor. The same **Poo / Tune** frequency applies in both modes, but the character differs — re-check the setting if you switch modes.
-- The PooDoo logo brightens with processed signal RMS. If the logo barely pulses when you transmit, **Poo / Mix** may be very low or the stage may be bypassed.
-
-## Troubleshooting
-
-- **Poo / Tune knob has no audible effect** — Confirm the PUDU stage is not bypassed in the CHAIN widget. Also check that **Poo / Mix** is above 0 %; at 0 % the processed low band is fully removed from the output.
-- **Low end sounds muddy regardless of Tune position** — **Poo / Drive** may be set too high. Reduce it and re-evaluate the frequency.
-- **Poo / Tune control is not visible** — The PUDU sub-container is hidden until the PUDU stage is enabled. Enable it via the CHAIN widget.
+- The PooDoo logo pulses brighter as the wet-signal RMS rises. Use this as a rough visual indicator that the Poo stage is working — if the logo barely reacts during speech, **Poo / Drive** may be set too low or **Poo / Mix** near zero.
+- If the processed audio sounds boomy or indistinct, the tune frequency is likely below your voice's actual fundamental. Increase **Poo / Tune** in small steps until the enhancement tracks your voice.
+- The **Even** mode uses Big Bottom-style LF saturation; **Odd** mode uses a feed-forward bass compressor. The character of the Poo band differs between modes, so re-check the Tune setting after switching. See [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md).
+- The upper limit of **Poo / Tune** is 160 Hz. If your voice fundamental sits above that range, focus the Poo section on the sub-fundamental body of your voice and use the **Doo** section for presence. See [Centre Doo on the presence band for your mic](centre-doo-on-the-presence-band-for-your-mic.md).
 
 ## Related
 
-- [PUDU Exciter overview](overview.md)
 - [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
 - [Blend the Poo enhancement with Mix](blend-the-poo-enhancement-with-mix.md)
 - [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md)
+- [Centre Doo on the presence band for your mic](centre-doo-on-the-presence-band-for-your-mic.md)

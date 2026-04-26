@@ -1,69 +1,81 @@
 # Network Diagnostics overview
 
-The Network Diagnostics dialog gives you a live view of the link between AetherSDR and your FLEX-8600. Use it to inspect TCP/UDP endpoints, round-trip time, per-category data rates, packet loss, and audio buffer health — all updated once per second without requiring an active radio connection.
+The Network Diagnostics dialog gives you a live, continuously updated view of the link between AetherSDR and your FLEX-8600. Use it to confirm connectivity details, measure latency, watch per-stream data rates, and identify the source of audio problems such as underruns and jitter.
+
+## Before you start
+
+- No radio connection is required to open the dialog, but most indicators will be empty or show "Not connected" unless AetherSDR is connected to a radio.
 
 ## How it works
 
-Open the dialog from `Settings > Network...`. It refreshes automatically every second. All indicators are read-only; there is nothing to configure here. Click Close when you are done.
+Open the dialog via `Settings > Network...`. It refreshes all indicators once per second automatically. Click Close when you are done.
 
 The dialog is divided into four groups:
 
-### Network Status
+**Network Status** — connection path and TCP latency.
 
-Confirms which network path AetherSDR is using and how responsive it is.
+**Incoming Stream Rates** — current bitrates per stream type, plus aggregate totals.
+
+**Packet Loss (Sequence Gaps)** — dropped-packet counts inferred from missing VITA-49 sequence numbers.
+
+**Audio Playback** — speaker-side buffer health, underrun counters, and timing metrics.
+
+## What each control does
+
+### Network Status
 
 | Indicator | What it shows |
 |---|---|
-| Status | Overall link state. |
-| Target Radio IP | IP address of the connected radio, or "Not connected". |
-| Selected Source | Local NIC or bind path used for the connection. |
+| Status | Overall link state reported by the radio model. |
+| Target Radio IP | IP address of the connected radio. Shows "Not connected" when no radio is linked. |
+| Selected Source | Local network interface or bind path used for the connection. |
 | Local TCP | Local TCP endpoint (address and port). |
 | Local UDP | Local UDP endpoint (address and port). |
-| First UDP Packet | Whether the first inbound UDP packet has been received ("Yes" or "No"). |
-| Latency (RTT) | Current round-trip time in milliseconds, reported as "< 1 ms" when below 1 ms. |
-| Max Latency (RTT) | Highest RTT recorded since the last connect. |
+| First UDP Packet | Whether the first UDP packet has been received since connect ("Yes" or "No"). |
+| Latency (RTT) | Current round-trip time in milliseconds. Displays "< 1 ms" when below 1 ms. |
+| Max Latency (RTT) | Highest RTT recorded since the current connection was established. |
 
 ### Incoming Stream Rates
 
-Shows current receive and transmit bitrates broken down by stream type. Large swings can indicate bursty delivery even when no packets are dropped.
-
 | Indicator | What it shows |
 |---|---|
-| Audio | Ingress rate for the audio stream, in kbps. |
-| FFT | Ingress rate for FFT data, in kbps. |
-| Waterfall | Ingress rate for waterfall data, in kbps. |
-| Meters | Ingress rate for meter data, in kbps. |
-| DAX | Ingress rate for DAX audio, in kbps. |
-| Total RX | Aggregate inbound rate across all streams, in kbps. |
-| Total TX | Aggregate outbound rate, in kbps. |
+| Audio | Ingress bitrate for the audio stream, in kbps. |
+| FFT | Ingress bitrate for the FFT stream, in kbps. |
+| Waterfall | Ingress bitrate for the waterfall stream, in kbps. |
+| Meters | Ingress bitrate for the meters stream, in kbps. |
+| DAX | Ingress bitrate for the DAX stream, in kbps. |
+| Total RX | Aggregate inbound bytes per second across all streams, in kbps. |
+| Total TX | Aggregate outbound bytes per second, in kbps. |
+
+Large swings in individual stream rates can indicate bursty delivery even when no packets are dropped.
 
 ### Packet Loss (Sequence Gaps)
 
-Reports inferred packet loss derived from missing VITA-49 sequence numbers. Zero here does not rule out jitter or late packet bursts.
-
 | Indicator | What it shows |
 |---|---|
-| Audio | Dropped packets / total packets (percentage) for the audio stream. |
-| FFT | Dropped / total for FFT data. |
-| Waterfall | Dropped / total for waterfall data. |
-| Meters | Dropped / total for meter data. |
-| DAX | Dropped / total for DAX audio. |
+| Audio | Dropped vs. total packets for the audio stream, with percentage. |
+| FFT | Dropped vs. total packets for the FFT stream, with percentage. |
+| Waterfall | Dropped vs. total packets for the waterfall stream, with percentage. |
+| Meters | Dropped vs. total packets for the meters stream, with percentage. |
+| DAX | Dropped vs. total packets for the DAX stream, with percentage. |
+
+Zero loss here does not rule out jitter or late packet bursts.
 
 ### Audio Playback
 
-Reports speaker-side buffer health. Rising underruns combined with a near-zero buffer indicate the playback pipeline is starving. Arrival gap and jitter measure packet timing, not packet loss.
-
 | Indicator | What it shows |
 |---|---|
-| RX Buffer Now | Current audio buffer fill, in bytes and milliseconds. |
+| RX Buffer Now | Current audio receive buffer fill, in bytes and milliseconds. |
 | RX Buffer Peak | Highest buffer fill recorded since connect, in bytes and milliseconds. |
-| Underruns (total) | Cumulative audio buffer underrun count. |
+| Underruns (total) | Cumulative count of audio buffer underruns since connect. |
 | Underruns (last sec) | Underruns that occurred in the most recent one-second interval. |
-| Audio Arrival Gap | Measured gap between consecutive incoming audio packet arrivals. |
-| Max Arrival Gap | Largest arrival gap recorded since connect. |
+| Audio Arrival Gap | Time between consecutive incoming audio packets. |
+| Max Arrival Gap | Largest inter-packet arrival gap recorded since connect. |
 | Network Jitter | Smoothed jitter estimate for the audio stream. |
 
-## Controls
+If underruns rise while RX Buffer Now stays near zero, the audio path is starving. Arrival Gap and Network Jitter measure timing, not packet loss.
+
+### Button
 
 | Control | Behavior |
 |---|---|
@@ -71,9 +83,9 @@ Reports speaker-side buffer health. Rising underruns combined with a near-zero b
 
 ## Tips
 
-- The dialog does not require an active radio connection to open, but most indicators will show placeholder values until a connection is established.
-- Packet loss indicators count sequence-number gaps in VITA-49 streams. A count of zero does not guarantee clean delivery — use the Audio Playback group to check for timing problems independently.
-- "< 1 ms" in RTT fields means the measured value is below 1 ms, not that measurement failed.
+- The dialog does not require a connected radio to open. You can open it before connecting to confirm no stale values are present.
+- All indicators reset their peak and cumulative values when a new connection is established.
+- Zero packet loss in the Packet Loss group does not guarantee clean audio. Check Network Jitter and Underruns (last sec) as well.
 
 ## Related
 

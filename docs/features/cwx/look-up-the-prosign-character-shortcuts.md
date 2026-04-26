@@ -1,39 +1,33 @@
 # Look up the prosign character shortcuts
 
-The CWX panel includes a built-in prosigns legend so you can find the correct shortcut characters to type when composing CW messages or macros.
+The CWX panel includes a built-in prosigns legend that shows which keyboard characters to type in order to send common CW prosigns. Use this reference when composing a typed buffer or writing a macro.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio.
-- The active slice must be in CW, CWL, or CWU mode so the CWX panel is visible.
+- The CWX panel must be open. It appears automatically when the active slice is in CW, CWL, or CWU mode.
 
 ## Steps
 
-1. Locate the CWX panel in the main window central area.
-2. Click "Setup" at the bottom of the CWX panel.
-3. Read the prosigns legend displayed in the Setup view. It shows the shortcut characters for common CW prosigns: `=`, `+`, `(`, `&`, and `$`.
+1. In the CWX panel, click **Setup** in the bottom bar.
+2. Locate the prosigns legend displayed in the Setup view. It is a read-only indicator — no interaction is required.
+3. Note the character shortcuts shown (=, +, (, &, $) and use them when typing in the send text area or editing a macro.
 
 ## What each control does
 
-| Control | Description | Setting key |
-|---|---|---|
-| "Send" | Shows the live send area with history and text input field. | — |
-| "Live" | Shows the live send view. | — |
-| "Setup" | Shows the macro editor, QSK setup, and the prosigns legend. | — |
-| Prosigns legend | Read-only display of shortcut characters for common CW prosigns (`=`, `+`, `(`, `&`, `$`). | — |
-| Speed: | CW send speed in WPM. Valid range: 5–100 WPM. Default: 20 WPM. | `CwxSpeedWpm` |
-| Delay: | Inter-macro delay in ms. Valid range: 0–2000 ms. Default: 5 ms. | `CwxDelay` |
-| QSK | Enables QSK full break-in. | `CwxQsk` |
-| F1 … F12 macro editors | Text fields for each macro in the Setup view. | `CwxMacro_F1` – `CwxMacro_F12` |
+| Control | Kind | Behavior | Setting key |
+|---|---|---|---|
+| Prosigns legend | Indicator (read-only) | Displays the keyboard shortcuts for common CW prosigns: `=`, `+`, `(`, `&`, `$`. | — |
+| Send text area | Text field | Type your CW message here, using prosign shortcuts where needed. Press Enter to send. | — |
+| F1 … F12 macro editors | Text fields | Enter prosign shortcuts directly into macro text in the Setup view. | `CwxMacro_F1` – `CwxMacro_F12` |
 
 ## Tips
 
-- Use the prosign shortcut characters directly when typing in the send text area or when editing macro strings. For example, type `=` in your macro text where you want the BT prosign sent.
-- The prosigns legend is always accessible in the Setup view without affecting any in-progress transmission.
+- Prosign shortcuts work in both the live send text area and in the F-key macro editors. Type them as you would any other character.
+- To send a macro that contains a prosign, edit the macro string in the Setup view using the same shortcut characters, then trigger it with the corresponding F-key from the Send view.
 
 ## Related
 
-- [CWX overview](overview.md)
 - [Send a typed CW buffer live](send-a-typed-cw-buffer-live.md)
 - [Edit a CW macro string](edit-a-cw-macro-string.md)
 - [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md)

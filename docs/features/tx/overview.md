@@ -1,43 +1,53 @@
 # TX Controls overview
 
-The TX Controls applet gives you access to all transmit functions in one panel: power metering, RF and tune power adjustment, TX profile selection, manual transmit keying, ATU control, and adaptive pre-distortion. Open it whenever you need to monitor or adjust your station's transmit chain.
+The TX Controls applet is your primary interface for managing transmit power, tuning, and antenna matching on the FLEX-8600. It provides meters, sliders, profile selection, and keying controls in a single panel.
 
 ## How it works
 
-The TX Controls applet lives in the Applet Panel (right sidebar) and is always accessible. Toggle its visibility with the TX tray button on the right sidebar. The applet requires an active radio connection to operate.
+The TX Controls applet is always visible in the Applet Panel (right sidebar). Click the TX tray button to show or hide it. The applet requires an active radio connection to operate.
 
 The applet is organized into five functional areas:
 
-**Power meters** — Two horizontal bar gauges at the top show live transmit readings. "RF Pwr" displays forward power at the exciter output in watts; the scale is 0–120 W for standard operation, with the red zone starting above 100 W. On an Aurora 500W-capable radio the scale extends to 0–600 W, red above 500 W. "SWR" shows the standing wave ratio on a 1.0–3.0 scale, with red above 2.5.
+**Power meters** — Two horizontal bar gauges at the top of the applet display real-time transmit readings:
 
-**Power sliders** — "RF Power" sets the transmit RF power level from 0 to 100 (default 100). "Tune Pwr" sets the tune-carrier power level from 0 to 100 (default 10). A numeric readout to the right of each slider shows the current value.
+- **RF Pwr** — Forward power at the exciter output. Scale is 0–120 W for standard configurations, or 0–600 W for Aurora 500W models. The bar turns red above 100 W (or above 500 W on Aurora models).
+- **SWR** — Standing wave ratio at the exciter, displayed on a 1.0–3.0 scale. The bar turns red above 2.5.
 
-**TX Profile** — The "TX Profile" drop-down lists the transmit profiles available on the connected radio. Selecting a profile loads it immediately. The three small indicators next to the drop-down ("Success", "Byp", "Mem") reflect ATU state:
+**Power sliders** — Two sliders set power levels sent to the radio:
 
-| Indicator | Color when lit | Meaning |
-|-----------|---------------|---------|
-| Success | Green | ATU tuned successfully or status is OK |
-| Byp | Orange | ATU is in Bypass or ManualBypass |
-| Mem | Green | ATU is using a stored memory |
+- **RF Power** — Sets the transmit RF power level. Range: 0–100. Default: 100.
+- **Tune Pwr** — Sets the tune-carrier power level. Range: 0–100. Default: 10.
 
-**TUNE / MOX / ATU / MEM buttons** — Four buttons control transmit keying and antenna tuning:
+Both sliders display their current value as a number to the right of the slider.
 
-| Button | Type | Behavior |
-|--------|------|----------|
-| TUNE | Push button | Starts or stops a tune carrier. Label changes to "TUNING..." with a red background while the carrier is active. |
-| MOX | Toggle button | Manually keys the transmitter. Button turns red while TX is keyed. |
-| ATU | Push button | Starts the internal ATU tuning cycle. Disabled when the TGXL is in OPERATE mode. |
-| MEM | Toggle button | Enables or disables ATU memory recall. Disabled when the TGXL is in OPERATE mode. |
+**TX Profile and ATU status** — A dropdown and three indicators share a single row:
 
-**APD** — The "APD" toggle button enables Adaptive Pre-Distortion on the radio, which linearises the transmitter. Three indicators show APD progression:
+- **TX Profile** — Selects the active transmit profile. The list is populated from the profiles stored on the radio. Selecting a profile loads it immediately.
+- **Success** — Lit green when the ATU reports a successful match.
+- **Byp** — Lit orange when the ATU is in bypass or manual bypass.
+- **Mem** — Lit green when the ATU is using a stored memory.
 
-| Indicator | Color when lit | Meaning |
-|-----------|---------------|---------|
-| Cal | Green | APD is on and calibrating |
-| Avail | Green | APD is on and a calibration is available but not yet applied |
-| Active | Green | APD is on and the equalizer is actively applied |
+**Action buttons** — Four buttons control transmit and antenna tuning:
 
-The normal progression after enabling APD is Cal → Avail → Active.
+- **TUNE** — Starts a tune carrier. The button label changes to "TUNING..." with a red background while active. Click again to stop.
+- **MOX** — Toggles manual transmit. The button turns red while the transmitter is keyed.
+- **ATU** — Starts the internal ATU tuning cycle. Disabled when the TGXL transverter is in OPERATE mode.
+- **MEM** — Toggles ATU memory recall on or off. Disabled when the TGXL transverter is in OPERATE mode.
+
+**APD and status indicators** — The bottom row controls Adaptive Pre-Distortion:
+
+- **APD** — Toggles adaptive pre-distortion on the radio.
+- **Active** — Lit green when APD is on and the equalizer is actively applied.
+- **Cal** — Lit green when APD is on and still calibrating.
+- **Avail** — Lit green when APD is on and a calibration is available but not yet applied.
+
+APD status progresses through the indicators in sequence: Cal (calibrating) → Avail (calibration ready) → Active (equalizer applied).
+
+## Tips
+
+- Keep **Tune Pwr** low (the default of 10 is a reasonable starting point) to avoid stressing the amplifier or antenna during ATU cycles.
+- The **RF Pwr** meter scale changes automatically based on which radio model AetherSDR detects; no manual adjustment is needed.
+- **ATU** and **MEM** are grayed out when the TGXL is in OPERATE mode. Switch the TGXL out of OPERATE mode before attempting ATU operations.
 
 ## Related
 
@@ -49,4 +59,3 @@ The normal progression after enabling APD is Cal → Avail → Active.
 - [Run the internal ATU](run-the-internal-atu.md)
 - [Recall an ATU memory](recall-an-atu-memory.md)
 - [Enable APD to linearise the transmitter](enable-apd-to-linearise-the-transmitter.md)
-- [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)

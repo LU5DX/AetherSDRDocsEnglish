@@ -1,55 +1,46 @@
 # Verify the summed curve matches your mental target
 
-Use the ClientEqApplet's analyzer/curve area to confirm that the combined effect of all your EQ bands produces the frequency response shape you intended, for either the RX or TX path.
+The analyzer / curve area in the ClientEq applet shows the cumulative frequency response of all enabled bands for a path alongside a live FFT of audio passing through it. Use this view to confirm that what you have built in the editor produces the shape you intended.
 
 ## Before you start
 
-- The CEQ applet must be visible. It is hidden until the EQ stage is enabled via the CHAIN widget or the floating editor.
-- At least one band must be configured in the floating editor so the summed EQ response is non-flat.
+- The EQ stage must be enabled. The applet is hidden until the EQ stage is enabled via the CHAIN widget or the floating editor.
+- At least one band must be configured for the relevant path. The curve area displays "(no bands — add one in the editor)" when no bands exist.
+- Open the floating editor first if you still need to add or tune bands. See [Open the floating editor to add / remove / tune bands](open-the-floating-editor-to-add-remove-tune-bands.md).
 
 ## Steps
 
 1. Locate the CEQ sub-container inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Click the **RX** tab to inspect the receive-path EQ, or click the **TX** tab to inspect the transmit-path EQ.
-3. Look at the analyzer/curve area — the 110 px tall display that fills the lower portion of the applet.
-4. Read the summed EQ response line. It shows the cumulative frequency response of all enabled bands for the selected path, drawn over a frequency grid spanning 20 Hz to 20 kHz and a vertical range of ±18 dB.
-5. Compare the curve shape against your intended target. Horizontal dB gridlines appear at 0, ±6, and ±12 dB as reference markers. Frequency gridlines appear at 20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, and 20k Hz.
-6. If the curve does not match your target, double-click the EQ stage in the CHAIN widget to open the floating editor and adjust your bands. Return to the applet to re-verify after each change.
+2. Look at the analyzer / curve area. The summed EQ response curve is drawn over the live FFT analyzer overlay.
+3. Check that the curve rises and falls at the frequencies you expect. The vertical extent is ±18 dB. Gridlines appear at ±6 dB and ±12 dB; the 0 dB reference line is drawn slightly brighter. Frequency gridlines are labeled along the bottom at 20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, and 20k Hz.
+4. If you are checking the RX path, confirm the RX instance is bound. If you are checking the TX path, confirm the TX instance is bound. Each CEQ tile is bound to a single path at construction — RX tiles show only the RX response, TX tiles show only the TX response. See [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md) if you need to view the other path.
+5. Compare the summed curve shape against your target. If the shape is wrong, return to the floating editor to adjust band parameters.
+6. While audio is passing through the path, observe the live analyzer overlay (the cyan-gradient filled region). Confirm the post-EQ spectrum matches the summed curve's shaping.
 
 ## What each control does
 
-| Control | Kind | Default | Behavior | Setting key |
+| Control | Kind | Behavior | Default | Setting key |
 |---|---|---|---|---|
-| RX | Tab | Checked | Binds the analyzer/curve area to the receive-path EQ. | — |
-| TX | Tab | Unchecked | Binds the analyzer/curve area to the transmit-path EQ. | — |
-| Analyzer/curve area | Indicator (view-only) | — | Displays the summed EQ response for the selected path overlaid with a live FFT analyzer. Frequency axis: 20 Hz–20 kHz (log). Vertical axis: ±18 dB. | — |
-
-Persisted settings that affect what the curve reflects:
-
-| Setting key | What it controls |
-|---|---|
-| `ClientEqRxEnabled` | Whether the RX EQ stage is active |
-| `ClientEqTxEnabled` | Whether the TX EQ stage is active |
-| `ClientEqRxBands` | Saved band parameters for the RX path |
-| `ClientEqTxBands` | Saved band parameters for the TX path |
+| Analyzer / curve area | Indicator | Displays the grid, summed EQ response for the bound path, and a live FFT analyzer overlay. View-only; 110 px tall. | — | — |
+| Summed EQ response | Indicator state | Cumulative frequency response of all enabled bands. Shows "flat" when no bands contribute boost or cut; "shaped" when bands are active. | flat | `ClientEqRxBands` / `ClientEqTxBands` |
+| Live analyzer overlay | Indicator state | Real-time FFT of audio passing through the bound path. "idle" when no audio is present; "running" when audio flows. | idle | — |
 
 ## Tips
 
-- The analyzer/curve area is view-only. All editing — adding, removing, and tuning bands — happens in the floating ClientEqEditor, not in the applet.
-- The live FFT analyzer overlay shows audio actually flowing through the selected path post-EQ. If the overlay is idle, no audio is passing through that path at the moment.
-- The 0 dB reference line is drawn slightly brighter than the other dB gridlines, making it easy to spot boost and cut symmetry at a glance.
-- Right-click the CEQ sub-container titlebar to float or pop out the applet if you want to position it alongside the floating editor.
+- If the curve area shows "(no EQ connected)" the applet has not been linked to an audio engine. Ensure the radio is connected and the EQ stage has been enabled.
+- The summed curve is drawn using an analog-prototype reference across the full 20 Hz–20 kHz canvas, so it represents the ideal response the digital filters approximate. Small deviations between the curve and measured audio are normal near Nyquist.
+- The live FFT reflects audio post-EQ. If the FFT shape does not follow the summed curve, check that the EQ stage is not bypassed in the chain. See [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md).
 
 ## Troubleshooting
 
-- **The analyzer/curve area is not visible** — The CEQ applet hides itself until the EQ stage is enabled. Enable the EQ stage from the CHAIN widget or the floating editor, then check that the applet panel is visible via `View > Applet Panel`.
-- **The summed response line is flat** — No bands are enabled for the selected path, or all bands have 0 dB gain. Open the floating editor to confirm band settings are saved under `ClientEqRxBands` or `ClientEqTxBands` for the path you are viewing.
-- **The curve shows a shape but bypassing the EQ stage sounds identical** — `ClientEqRxEnabled` or `ClientEqTxEnabled` may be off. Verify the EQ stage is not bypassed in the CHAIN widget.
+- **Curve area shows "(no bands — add one in the editor)"** — No bands have been added for the bound path. Open the floating editor and add at least one band.
+- **Curve area shows "(no EQ connected)"** — The applet is not linked to the audio engine. Verify the radio is connected and the EQ stage is enabled via the CHAIN widget.
+- **Live analyzer overlay is absent or empty** — No audio is passing through the path, or the FFT has not received data yet. Transmit or receive a signal and the overlay will populate.
+- **Summed curve appears flat despite bands being configured** — The EQ stage may be bypassed. Check the CHAIN widget and confirm `ClientEqRxEnabled` or `ClientEqTxEnabled` is active for the relevant path.
 
 ## Related
 
-- [Parametric EQ (Client) overview](overview.md)
 - [Open the floating editor to add / remove / tune bands](open-the-floating-editor-to-add-remove-tune-bands.md)
-- [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
 - [See the live spectrum of the selected path](see-the-live-spectrum-of-the-selected-path.md)
+- [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)

@@ -1,43 +1,45 @@
 # multiFLEX Dashboard overview
 
-The multiFLEX Dashboard shows every SmartSDR client currently sharing your FLEX-8600 and lets you manage PTT authority between stations. Use it when more than one operator or application is connected to the same radio and you need to see who is transmitting, on what antenna, and at what frequency.
+The multiFLEX Dashboard shows every client currently sharing your FLEX-8600 and lets you enable multiFLEX on the radio, monitor each station's transmit state, and manage local PTT authority. Open it whenever you need to see who else is connected or to claim PTT for your station.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The dashboard requires an active radio connection.
-- multiFLEX must be supported by your radio firmware (4.1.5 or later).
+- AetherSDR must be connected to the radio. The multiFLEX Dashboard requires an active radio connection.
+- Your FLEX-8600 firmware must support multiFLEX (firmware 4.1.5, SmartSDR protocol v1.4.0.0).
 
 ## How it works
 
-Open the dashboard with `Settings > multiFLEX...`. The dialog title is **multiFLEX Dashboard** and its central element is the **Stations table**, which refreshes automatically whenever clients connect, disconnect, or change state.
+Open the dashboard from `Settings > multiFLEX...`. The dialog is titled **multiFLEX Dashboard** and displays the heading **multiFLEX Stations**.
 
-Each row in the **Stations table** represents one connected SmartSDR client. The table has four columns:
+When only one client is connected, the local PTT controls are hidden — PTT management only becomes relevant when two or more stations share the radio. The table and PTT section update automatically whenever another client connects, disconnects, or changes its transmit state.
 
-| Column | What it shows |
-|---|---|
-| LOCAL PTT | A checkmark (✔) if that station currently holds local PTT authority. |
-| STATION | The program name and station name of the client. Your own station is highlighted in blue. |
-| TX ANT | The transmit antenna that client is using. Shows `----` if not available. |
-| TX FREQ (MHz) | The transmit frequency in MHz to three decimal places. Shows `----` if not available. |
+**multiFLEX enable state** is toggled with the button at the top of the dialog. The button label reflects the current state: it reads **Enabled** (green) when multiFLEX is active on the radio, and **Disabled** (red) when it is not. Clicking the button toggles the state immediately.
 
-The **Local PTT label** above the PTT button shows context-sensitive status text. If your station does not hold PTT, it reads something like `Enable Local PTT for this station (<your station name>):`. If another station holds PTT, it identifies that station and notes they must claim PTT from their own client.
-
-When only one client is connected, the PTT label and PTT button are hidden — they are only relevant in a multi-station scenario.
+**Local PTT** is managed per-station. Only one station can hold PTT authority at a time. If your station does not currently hold PTT, the dashboard shows the label "Enable Local PTT for this station (*station name*):" alongside the **Enable** button. If your station already holds PTT and you select another station's row in the table, the dashboard shows a message indicating that the other station must claim PTT from their own client — you cannot grant it to them from here.
 
 ## What each control does
 
-| Control | Behavior |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Enabled** / **Disabled** | Push button | Enables or disables multiFLEX on the radio. Label and color reflect the current state. |
+| Stations table | List | Lists every connected multiFLEX client. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). Your own station is highlighted. A checkmark (✔) in LOCAL PTT marks the station currently holding PTT authority. |
+| Local PTT label | Indicator | Shows context-sensitive text: either an invitation to claim PTT for your station, or a message that another selected station must claim PTT themselves. Hidden when only one client is connected. |
+| **Enable** (PTT) | Push button | Requests local PTT authority for this station. Visible only when your station does not currently hold PTT and at least one other client is connected. |
+| **Close** | Push button | Closes the dialog. |
+
+### Stations table columns
+
+| Column | Content |
 |---|---|
-| Enable | Toggles multiFLEX on or off for the radio. When multiFLEX is active, the button label changes to **Enabled** (green); when inactive it reads **Disabled** (red). Clicking it toggles the current state. |
-| Stations table | Lists all connected multiFLEX clients with their LOCAL PTT status, station name, TX antenna, and TX frequency. Updated automatically on any client change. |
-| Enable (PTT) | Appears when your station does not currently hold local PTT and more than one client is connected. Click it to claim local PTT authority for your station. The button label is **Enable**. |
-| Close | Closes the dialog. |
+| LOCAL PTT | Checkmark if this station currently holds PTT authority. |
+| STATION | Program name and station name, formatted as *program: station*. Your own station is shown in blue. |
+| TX ANT | The transmit antenna assigned to this station's TX slice. Shows `----` if not available. |
+| TX FREQ (MHz) | The transmit frequency in MHz to three decimal places. Shows `----` if not available. |
 
 ## Tips
 
-- Your own station's row is highlighted in a distinct color in the STATION column, making it easy to identify yourself among multiple clients.
-- If you hold PTT and need another station to transmit, that operator must claim PTT from their own client — you cannot grant it to them from this dialog.
-- The TX ANT and TX FREQ columns pull data from the radio's slice status. If a client connected before its slice status was received, these fields may briefly show `----` until the dashboard refreshes.
+- Selecting a row in the Stations table while your station holds PTT will display a message about that station needing to claim PTT from their own client. No action on your part is required or possible from this dialog in that situation.
+- The table updates automatically when other clients connect or disconnect. You do not need to reopen the dialog.
 
 ## Related
 

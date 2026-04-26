@@ -1,37 +1,39 @@
 # Watch PA temperature during long overs
 
-The Meters applet shows a live PA Temp gauge fed directly from the radio. Use it during extended transmit periods to catch thermal buildup before it triggers the radio's protection circuits.
+The Meters applet shows a live PA Temp gauge pulled directly from the radio. Use it to keep an eye on power amplifier temperature when running high-duty-cycle modes such as FT8, RTTY, or long CW overs.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Meters applet requires an active radio connection.
-- The applet panel must be visible. If it is hidden, use `View > Applet Panel` to show it.
+- The applet panel must be visible. If it is hidden, enable it with `View > Applet Panel`.
 
 ## Steps
 
-1. Click the MTR tray button on the right sidebar. The Meters applet opens, showing the **Radio Hardware** section with three horizontal gauges.
-2. Locate the **PA Temp** gauge at the top of the applet.
-3. Begin your transmission. Watch the **PA Temp** bar as the over progresses.
-4. If the bar enters the yellow zone (above 55 °C), consider shortening your overs. If it reaches the red zone (above 70 °C), end the transmission and allow the radio to cool.
+1. Locate the **MTR** tray button on the right sidebar of the applet panel.
+2. Click **MTR** to toggle the Meters applet open.
+3. Read the **PA Temp** gauge under the **Radio Hardware** section header.
+4. Watch the bar colour as temperature rises: the bar is green below 55 °C, yellow from 55 °C to 70 °C, and red above 70 °C.
 
 ## What each control does
 
-| Control | What it shows | Range | Red threshold |
+| Control | What it shows | Valid range | Red threshold |
 |---|---|---|---|
-| PA Temp | Power amplifier temperature from the radio's PATEMP meter | 0–120 °C | above 70 °C |
-| +13.8V | DC supply voltage | 10.0–16.0 V | above 15 V |
-| Main Fan | Cooling fan speed | 0–3000 rpm | above 2500 rpm |
+| PA Temp | Power amplifier temperature from the radio | 0–120 °C | Above 70 °C |
+| +13.8V | DC supply voltage | 10.0–16.0 V | Above 15 V |
+| Main Fan | Main cooling fan speed | 0–3000 rpm | Above 2500 rpm |
 
-The bar fills cyan through yellow (above 55 °C) to red (above 70 °C). The gauge updates continuously while the radio is connected; no manual refresh is needed.
+No settings keys are associated with these meters. All values are read-only telemetry from the radio.
 
 ## Tips
 
-- During a long over, glance at **Main Fan** alongside **PA Temp**. A fan reading well below the red zone (2500 rpm) while temperature climbs may indicate restricted airflow around the radio.
-- The gauge uses smoothed ballistics, so the bar animates gradually toward the current reading rather than jumping. Brief thermal spikes may appear slightly softened.
+- The gauge bar animates smoothly between readings — a sudden jump to red is a real hardware event, not a display glitch.
+- If PA Temp is climbing toward 70 °C during a contest or digital over, reduce duty cycle or transmit power to allow the amplifier to cool.
+- Checking Main Fan alongside PA Temp can help distinguish a ventilation problem from a high-power one.
 
 ## Troubleshooting
 
-- **PA Temp gauge shows no movement after transmitting** — Confirm the radio connection is active. The Meters applet requires a live connection to receive telemetry; a disconnected state will leave all gauges static.
+- **All gauges read zero or are unresponsive** — the applet requires an active radio connection. Confirm the radio is connected via `Settings > Connect to Radio...` before using the Meters applet.
+- **PA Temp gauge stays at zero even when transmitting** — the radio may not yet have sent a telemetry update. Wait a few seconds after keying up. If it remains at zero, check your network connection to the radio.
 
 ## Related
 

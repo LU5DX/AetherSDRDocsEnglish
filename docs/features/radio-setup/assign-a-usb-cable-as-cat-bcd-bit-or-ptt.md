@@ -1,56 +1,49 @@
 # Assign a USB cable as CAT, BCD, bit or PTT
 
-The USB Cables tab in Radio Setup lets you assign physical USB serial adapters connected to the FLEX-8600 to specific control roles: CAT, BCD, bit, or PTT. Use this page when you want an external device or amplifier controller to communicate with the radio over a USB serial cable.
+The USB Cables tab in Radio Setup lets you assign physical USB serial adapters connected to the FLEX-8600 to specific functions: CAT control, BCD band data, individual bit outputs, or PTT. Use this page to configure which cable does what and to set its serial parameters.
 
 ## Before you start
 
-- Connect the USB serial adapter to the FLEX-8600 before opening the dialog. The radio must detect the cable for it to appear in the list.
-- AetherSDR must be connected to the radio.
+- AetherSDR must be connected to the radio. The USB Cables tab is not accessible without an active radio connection.
+- The USB serial adapter must be physically plugged into the FLEX-8600 before you open the tab. Unplugged cables appear with an Unplugged status.
 
 ## Steps
 
-1. Open `Settings > USB Cables...`.
-   The Radio Setup dialog opens with the **USB Cables** tab already selected.
-   Alternatively, open `Settings > Radio Setup...` and click the **USB Cables** tab.
-2. Locate your cable in the **Cables list / Status** indicator. Each detected cable is listed with its type and a **Plugged** or **Unplugged** status.
-3. Select the cable you want to configure by clicking it in the list.
-4. Set the cable's role and serial parameters using the controls that appear for the selected cable:
-   - **Name:** — identifies the cable.
-   - **Enabled** — enables or disables this cable assignment.
-   - **Speed** — serial baud rate.
-   - **Data Bits** — number of data bits.
-   - **Parity** — parity setting.
-   - **Stop Bits** — number of stop bits.
-   - **Flow** — flow control method.
-   - **Source** — the radio source this cable tracks.
-   - **Auto Report** — controls automatic state reporting.
-   - **BCD Type** — applies when the cable type is BCD; sets the BCD encoding variant.
-   - **Polarity** — signal polarity (normal or inverted).
-   - **Bit Configuration (0-7)** — applies when the cable type is bit; assigns individual bit functions.
-5. Close the dialog when finished. Settings are applied to the radio immediately as you make changes.
+1. Open `Settings > USB Cables...`. This opens the Radio Setup dialog directly on the **USB Cables** tab. Alternatively, open `Settings > Radio Setup...` and click the **USB Cables** tab.
+2. Locate your cable in the **Cables list**. Each detected adapter is listed with its current **Status** shown as Plugged or Unplugged.
+3. Select the cable entry you want to configure.
+4. Set **Name:** to a descriptive label for the cable.
+5. Set the cable type using the appropriate field. The available types are CAT, BCD, bit, and PTT. Select the type that matches your intended use.
+6. Set **Enabled** to enable the cable once configuration is complete.
+7. For CAT and BCD cables, configure the serial line parameters: **Speed**, **Data Bits**, **Parity**, **Stop Bits**, and **Flow**.
+8. Set **Source** to select what drives the cable output.
+9. For CAT cables, set **Auto Report** as needed.
+10. For BCD cables, set **BCD Type** and **Polarity**.
+11. For bit cables, configure **Bit Configuration (0–7)** and **Polarity** for each bit position.
+12. Close the dialog. Settings are applied to the radio immediately when each control is changed.
 
 ## What each control does
 
 | Control | Description |
 |---|---|
-| **Cables list / Status** | Read-only list of detected USB cables and their current **Plugged** or **Unplugged** state. |
-| **Name:** | Label identifying the cable. |
-| **Enabled** | Activates or deactivates this cable's assignment on the radio. |
-| **Speed** | Serial port baud rate for the cable. |
-| **Data Bits** | Word length for the serial link. |
-| **Parity** | Parity checking mode for the serial link. |
-| **Stop Bits** | Number of stop bits for the serial link. |
-| **Flow** | Hardware or software flow control selection. |
-| **Source** | Which radio slice or signal source this cable reports. |
-| **Auto Report** | Whether the radio automatically sends state updates over this cable. |
-| **BCD Type** | BCD encoding variant; active only for BCD-type cables. |
-| **Polarity** | Sets the logic polarity of the output signal. |
-| **Bit Configuration (0-7)** | Assigns a function to each of the eight bit outputs; active only for bit-type cables. |
+| **Cables list / Status** | Lists all detected USB cables and shows Plugged or Unplugged for each. |
+| **Name:** | User-assigned label for the cable. |
+| **Enabled** | Activates or deactivates the cable. |
+| **Speed** | Serial baud rate for the cable. |
+| **Data Bits** | Number of data bits per serial frame. |
+| **Parity** | Parity setting for the serial connection. |
+| **Stop Bits** | Number of stop bits per serial frame. |
+| **Flow** | Flow control mode. |
+| **Source** | Selects what signal or data source drives this cable's output. |
+| **Auto Report** | Controls whether the radio automatically sends updates over the CAT cable. |
+| **BCD Type** | Selects the BCD encoding format (BCD cables only). |
+| **Polarity** | Sets active-high or active-low polarity for BCD and bit cables. |
+| **Bit Configuration (0–7)** | Assigns a function to each of the eight bit outputs (bit cables only). |
 
-## Troubleshooting
+## Tips
 
-- **Cable does not appear in the list** — The radio enumerates cables at connection time. Unplug and replug the USB adapter, then close and reopen `Settings > USB Cables...` to refresh the list. Confirm the adapter is connected to the radio's USB port, not to the host PC.
-- **Status shows Unplugged** — The cable is configured but currently not physically present. Reconnect the adapter to the radio.
+- If a cable you expect to see is not listed, check that it is physically plugged into the radio and that the radio firmware recognizes it. Reopening the USB Cables tab after plugging in the cable may be necessary to refresh the list.
+- Configuring a cable as PTT requires no serial parameters — only **Enabled**, **Source**, and **Polarity** apply.
 
 ## Related
 

@@ -1,40 +1,43 @@
 # Set Floor to avoid unnatural silence between words
 
-The Floor knob limits how deeply the gate can attenuate your audio. Without a floor limit, the gate can cut signal to near silence between words, which sounds unnatural. Setting Floor to a moderate value — such as the default −15.0 dB — leaves a small residual level during quiet gaps so the cut is less jarring.
+The Floor knob limits how deeply the gate can attenuate your audio. Without a floor, a hard gate cuts completely to silence between words, which sounds unnatural on voice. Setting a moderate floor lets a small amount of audio through while the gate is closed, preserving the feel of a live transmission.
 
 ## Before you start
 
-- The GATE applet must be visible in the applet panel. It is hidden until the Gate stage is enabled via the CHAIN widget or the floating Gate editor. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) for how to enable it.
-- A radio connection is not required to adjust Floor; changes take effect immediately and persist across restarts.
+- The Gate stage must be enabled. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) to confirm the stage is active.
+- Open the GATE applet: it is the sub-container labeled GATE inside the PooDoo Audio (TXDSP) parent container. If it is not visible, double-click the Gate stage in the CHAIN widget to open the floating Gate editor, or right-click the GATE sub-container titlebar and select the appropriate option.
 
 ## Steps
 
-1. Locate the GATE sub-container in the applet panel.
-2. Find the rightmost knob in the five-knob row, labelled **Floor**.
-3. Turn the **Floor** knob clockwise to raise the floor (less maximum attenuation) or counter-clockwise to lower it (more maximum attenuation).
-4. Speak normally and watch the gain-reduction bar. The amber fill should not reach beyond the −15 dB tick during normal pauses between words. If it does, raise Floor toward 0.0 dB until the fill stays within a comfortable range.
-5. Transmit a short test recording and listen back. If gaps between words sound abruptly silent, raise Floor. If background noise bleeds through noticeably during pauses, lower Floor.
+1. Locate the Floor knob in the five-knob row at the bottom of the GATE applet. It is the rightmost knob, labeled "Floor".
+2. Watch the Gain-reduction bar while you pause speaking. The amber fill shows how much attenuation the gate is currently applying. The tick mark at the -15 dB position marks the default floor.
+3. Turn the Floor knob clockwise (toward 0 dB) to reduce the maximum attenuation, allowing more audio through when the gate is closed.
+4. Turn the Floor knob counter-clockwise (toward -80 dB) to increase the maximum attenuation, cutting more deeply between words.
+5. Speak normally and pause deliberately. Adjust until the transitions between words sound natural rather than abruptly silent or unnaturally quiet.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key |
-|---|---|---|---|
-| Floor | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` |
-| Gain-reduction bar | — | 0 to 40 dB GR | — |
-
-**Floor** sets the maximum attenuation the gate is allowed to apply. A value of −15.0 dB means the gate can reduce the signal by at most 15 dB, leaving audio at −15 dB relative to its open level rather than cutting to full silence. A value of −80.0 dB gives the gate effectively unlimited cut depth.
-
-The **Gain-reduction bar** is a horizontal amber strip, right-filled, running from 0 to 40 dB. The tick mark at −15 dB corresponds to the default Floor value and serves as a visual reference for how deep the gate is cutting.
+| Control | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|
+| Floor | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate is allowed to apply. Higher (closer to 0 dB) values let more audio through when the gate is closed. Lower values cut more deeply. |
+| Gain-reduction bar | — | 0 to 40 dB GR | — | Horizontal amber strip, right-filled. Shows the depth of attenuation while the gate is closed. The tick at -15 dB marks the default floor position. |
 
 ## Tips
 
-- The −15 dB tick on the gain-reduction bar is a built-in reference for the default Floor. If the amber fill consistently exceeds that tick during normal speech pauses, your Floor is set lower than the default and may produce a noticeably abrupt cut.
-- Floor interacts with Ratio. A high Ratio (hard gate) combined with a very low Floor (e.g. −80.0 dB) produces an aggressive on/off effect. If you want a softer sound, raise Floor toward −10.0 dB or lower Ratio rather than adjusting both independently.
-- The Floor knob in the GATE applet tile and the same knob in the floating Gate editor are synchronized in real time. Adjusting one immediately updates the other.
+- The default Floor of -15.0 dB is intentionally moderate. It keeps a faint residual signal present between words, which most listeners find more natural than complete silence.
+- If you are using a low Ratio (soft expander behavior), the gate may never reach the Floor even at full attenuation — the Floor only caps the maximum, it does not set a target.
+- The transfer curve in the GATE applet updates to reflect your Floor setting. Watch the curve's lower plateau while adjusting to see the effect visually alongside the live input ball.
+- Changes are saved immediately. The Floor value persists across restarts via `ClientGateTxFloorDb`.
+
+## Troubleshooting
+
+- **Audio cuts to complete silence between words despite a high Floor value** — Confirm the gate stage is not bypassed. Check the Gain-reduction bar: if it shows full amber fill reaching the right edge, the gate is applying maximum attenuation. Raise Floor (closer to 0 dB) and monitor the bar to confirm it limits the fill.
+- **Floor knob has no audible effect** — The gate may not be triggering. If the input ball on the transfer curve stays above threshold, the gate is open and Floor is not being applied. Lower Thresh so the gate actually closes between words.
 
 ## Related
 
 - [Noise Gate / Expander overview](overview.md)
+- [Set threshold just above room noise floor](set-threshold-just-above-room-noise-floor.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
-- [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md)
+- [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)

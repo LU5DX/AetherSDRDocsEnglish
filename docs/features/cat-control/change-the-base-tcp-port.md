@@ -1,38 +1,38 @@
 # Change the base TCP port
 
-Change the port number that the CAT Control applet uses as the starting point for its four rigctld TCP servers. You need to do this when port 4532 conflicts with another application on your system.
+Change the port number that the CAT Control applet uses as the starting point for its four rigctld TCP servers. Each channel binds to consecutive ports starting at the base: Base, Base+1, Base+2, Base+3.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The CAT Control applet requires an active radio connection.
-- Open the CAT Control applet by clicking the **CAT** tray button on the right sidebar if it is not already visible.
+- Open the CAT Control applet by clicking the `CAT` tray button on the right sidebar if it is not already visible.
 
 ## Steps
 
-1. Locate the **Base:** field in the top-right area of the CAT Control applet.
-2. Click the **Base:** field and type the new port number. Valid range is 1024–65535. The default is `4532`.
-3. Press Enter or click away from the field to confirm.
-   - If you enter a value outside 1024–65535, the field snaps back to `4532`.
-   - The new value is saved to `CatTcpPort` immediately.
-   - If **Enable TCP** is currently active, all four servers stop and restart on the new ports automatically. No manual restart is required.
+1. Locate the `Base:` field in the bottom row of the CAT Control applet.
+2. Click the `Base:` field and type the new port number. Valid values are 1024–65535. The default is `4532`.
+3. Press Enter or Tab to confirm. If the value is outside the valid range, it resets to `4532` automatically.
+4. AetherSDR saves the new value to `CatTcpPort` immediately.
+5. If `Enable TCP` is currently active, all four servers stop and restart on the new ports automatically. No further action is needed.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key | Behavior |
-|---------|---------|-------------|---------------|----------|
-| **Base:** | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels A, B, C, and D bind to Base, Base+1, Base+2, and Base+3 respectively. Out-of-range values snap back to `4532`. If **Enable TCP** is on, servers restart immediately with the new ports. |
+|---|---|---|---|---|
+| `Base:` | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels A, B, C, D bind to Base, Base+1, Base+2, Base+3. Out-of-range values snap back to `4532`. If `Enable TCP` is on, servers restart with the new port immediately. |
+| `Enable TCP` | Off | On/Off | — | Starts or stops all four rigctld TCP servers. Also persists the current base port to `CatTcpPort` when toggled. |
+| A/B/C/D rows | `(stopped)` | — | — | Each row shows the channel letter, TCP status (e.g. `:4532 (1 client)`), and PTY path. |
 
 ## Tips
 
-- Choose a base port that leaves the next three ports free. For example, if you set **Base:** to `4532`, the four servers occupy ports 4532, 4533, 4534, and 4535.
-- After changing the port, update the port number in any external logging or contest software (N1MM, Log4OM, WSJT-X) to match.
-- The channel status rows (A/B/C/D) update to show the new port numbers as soon as the servers restart.
+- If you change the port while `Enable TCP` is off, the new port takes effect the next time you click `Enable TCP`.
+- External software (N1MM, Log4OM, WSJT-X) must be reconfigured to use the new port numbers after any change.
+- Channel A uses the base port exactly; channel D uses Base+3. Plan around this if other applications occupy nearby ports.
 
 ## Troubleshooting
 
-- **Field snaps back to 4532 after I type a new value** — The value you entered was outside the valid range of 1024–65535. Enter a number within that range.
-- **Servers do not restart on the new port after changing Base:** — Check that **Enable TCP** is on. If TCP is disabled, the new port is saved but servers do not start until you click **Enable TCP**.
-- **Server fails to start on the new port** — Another application may already be listening on that port or one of the three ports above it. Choose a different base port and try again.
+- **Server does not start after changing the port** — Another application may already be listening on that port or an adjacent port (Base through Base+3). Choose a different base port and try again.
+- **Field resets to 4532** — The value entered was outside the 1024–65535 range. Enter a value within the valid range.
 
 ## Related
 

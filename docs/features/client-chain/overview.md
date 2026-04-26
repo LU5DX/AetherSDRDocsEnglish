@@ -1,47 +1,46 @@
 # PooDoo Audio Chain overview
 
-The PooDoo Audio Chain applet shows the TX DSP signal path as a horizontal strip of stages and lets you bypass, reorder, or edit each one. Use it to shape your transmitted audio before it reaches the radio.
+The PooDoo Audio Chain applet shows the TX DSP signal flow as an ordered strip of processing stages. It lets you bypass, reorder, and edit each stage without leaving the main window, and provides a built-in monitor recorder to audition the processed audio before transmitting.
 
 ## Before you start
 
-- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the tray button labelled **PUDU** in the right sidebar to toggle it on.
-- A radio connection is not required to configure the chain, but stages have no effect on audio until a radio is connected and a mic source is active.
+- Open the PooDoo Audio container by clicking the PUDU tray button in the right sidebar. The chain applet is always visible at the top of that container when the container is enabled.
+- No radio connection is required to configure the chain.
 
 ## How it works
 
-The applet appears as the top section of the TXDSP container. It presents a header row of controls above a horizontal strip of processing stages. Audio flows left to right through whichever stages are not bypassed.
+The chain applet displays up to seven processing stages in a horizontal strip: Eq, Comp, Gate, DeEss, Tube, Enh (PUDU), and Reverb. Audio flows left to right through whatever stages are currently active. The stage order is yours to change by dragging.
 
-The chain currently has two modes, selected by the **TX** and **RX** toggle buttons in the header:
+A single-row header sits above the strip containing the TX/RX mode selector, the post-PUDU monitor recorder buttons, and the BYPASS toggle. A static hint line below the strip reads "Click to bypass · Double click to edit · Drag to reorder".
 
-- **TX mode** (default) — shows the interactive DSP chain. All stage controls and the hint text "Click to bypass · Double click to edit · Drag to reorder" are active.
-- **RX mode** — shows the placeholder message "Client RX chain — coming in a future phase". No stage controls are available and **BYPASS** has no effect.
+The active stage order and the enabled/bypassed state of each stage are persisted in `ClientCompTxChainStages`. Whether the PooDoo Audio container itself is shown is persisted in `Applet_TXDSP`.
 
-When you transmit on your own slice, the TX endpoint indicator pulses red to confirm the chain is live.
+**TX mode** is the fully implemented path. Clicking TX makes the chain strip interactive and shows the hint line.
 
-The chain order and per-stage state are saved to `ClientCompTxChainStages`. Whether the TXDSP container is shown is saved to `Applet_TXDSP`.
+**RX mode** currently shows a placeholder ("Client RX chain — coming in a future phase"). BYPASS has no effect in RX mode.
 
 ## What each control does
 
-| Control | Kind | Default | Behavior |
+| Label | Kind | Default | Behavior |
 |---|---|---|---|
-| **TX** | Toggle button | Checked | Selects TX chain view. Shown in amber when active. |
-| **RX** | Toggle button | Unchecked | Selects RX placeholder view. BYPASS is a no-op in this mode. |
-| **BYPASS** | Toggle button | Unchecked | Checked: snapshots enabled stages and disables all of them. Unchecked: restores only the stages that were enabled before the snapshot. Stages toggled manually while BYPASS was active are not affected by the restore. |
-| **Record (⏺)** | Toggle button | Unchecked | Captures up to 30 seconds of post-PUDU TX audio. Click again to stop; playback starts automatically. Enabled only when MIC is set to PC, DAX is off, and playback is not running. Pulses red while recording. |
-| **Play (▶)** | Toggle button | Unchecked | Plays back the captured audio. Click again to cancel. Enabled only once a recording exists and recording is not active. Pulses green during playback. |
-| **Chain stage (Eq)** | Drag handle | — | Single-click toggles bypass for the EQ stage. Double-click opens the EQ editor. Drag to reorder. |
-| **Chain stage (Comp)** | Drag handle | — | Single-click toggles bypass for the compressor. Double-click opens the compressor editor. Drag to reorder. |
-| **Chain stage (Gate)** | Drag handle | — | Single-click toggles bypass for the gate. Double-click opens the gate editor. Drag to reorder. |
-| **Chain stage (DeEss)** | Drag handle | — | Single-click toggles bypass for the de-esser. Double-click opens the de-ess editor. Drag to reorder. |
-| **Chain stage (Tube)** | Drag handle | — | Single-click toggles bypass for the tube saturator. Double-click opens the tube editor. Drag to reorder. |
-| **Chain stage (Enh / PUDU)** | Drag handle | — | Single-click toggles bypass for the PUDU exciter. Double-click opens the PUDU editor. Drag to reorder. |
-| **Chain stage (Reverb)** | Drag handle | — | Single-click toggles bypass for the reverb. Double-click opens the reverb editor. Drag to reorder. |
+| TX | Toggle button | Checked | Switches to the TX DSP chain view. Amber color when selected. |
+| RX | Toggle button | Unchecked | Switches to the RX chain view. Currently a placeholder only. |
+| BYPASS | Toggle button | Unchecked | Checked: snapshots all currently-enabled stages and disables them all. Unchecked: re-enables exactly the stages that were on before the snapshot. Stages toggled individually while BYPASS is active are preserved outside the snapshot. |
+| Record (⏺) | Toggle button | Unchecked | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. Enabled only when the mic input is set to PC and DAX is off, and playback is not running. Pulses red while recording. |
+| Play (▶) | Toggle button | Unchecked | Plays back the most recent captured recording. Click again to cancel. Enabled only once a recording exists and recording is not active. Pulses green while playing. |
+| Chain stage (Eq) | Drag handle | — | Single-click toggles bypass for the EQ stage. Double-click opens the EQ editor. Drag to reorder. |
+| Chain stage (Comp) | Drag handle | — | Single-click toggles bypass for the compressor. Double-click opens the compressor editor. Drag to reorder. |
+| Chain stage (Gate) | Drag handle | — | Single-click toggles bypass for the gate. Double-click opens the gate editor. Drag to reorder. |
+| Chain stage (DeEss) | Drag handle | — | Single-click toggles bypass for the de-esser. Double-click opens the de-ess editor. Drag to reorder. |
+| Chain stage (Tube) | Drag handle | — | Single-click toggles bypass for the tube saturator. Double-click opens the tube editor. Drag to reorder. |
+| Chain stage (Enh / PUDU) | Drag handle | — | Single-click toggles bypass for the PUDU exciter. Double-click opens the PUDU editor. Drag to reorder. |
+| Chain stage (Reverb) | Drag handle | — | Single-click toggles bypass for the reverb. Double-click opens the reverb editor. Drag to reorder. |
 
 ## Tips
 
-- Stages toggled individually while **BYPASS** is checked are excluded from the automatic restore when you uncheck **BYPASS**. Use individual stage clicks when you want a particular stage to stay off after the global bypass is lifted.
-- The **Record (⏺)** button remains enabled while recording so you can click it to stop early. Similarly, **Play (▶)** remains enabled during playback so you can cancel at any time.
-- The hint text "Click to bypass · Double click to edit · Drag to reorder" is shown only in TX mode and does not appear when **RX** is selected.
+- The TX endpoint indicator pulses red while you are transmitting on your own slice, giving you a live confirmation that MOX is active without leaving the audio chain view.
+- The Record button is disabled whenever DAX is on or the mic source is not set to PC. Check both conditions if the button remains grayed out.
+- Stages you toggle individually while BYPASS is checked are tracked separately. When you uncheck BYPASS, only the stages that were enabled before you engaged BYPASS are restored.
 
 ## Related
 

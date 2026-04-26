@@ -1,44 +1,52 @@
 # Noise Gate / Expander overview
 
-The Noise Gate / Expander is a TX-side downward expander that attenuates audio falling below a set level. Use it to silence background noise and room ambience between words without manually keying the mic.
+The Noise Gate / Expander is a TX-side downward expander that attenuates audio falling below a set level. Use it to suppress background noise, fan hum, and room ambience between words without manually operating a hardware gate.
 
 ## Before you start
 
-- The GATE applet is hidden until the Gate stage is enabled. Enable it through the CHAIN widget or the floating Gate editor.
-- The applet lives inside the PooDoo Audio (TXDSP) parent container as the "GATE" sub-container.
+- The GATE applet is hidden until the Gate stage is enabled via the CHAIN widget or the floating Gate editor. Enable the stage there first.
+- The applet lives inside the PooDoo Audio (TXDSP) parent container. Make sure the applet panel is visible (`View > Applet Panel`).
 
 ## How it works
 
-When your microphone signal drops below the threshold you set, the gate attenuates the audio by an amount determined by the ratio and floor settings. When your signal rises back above the threshold, the gate opens again at the speed set by attack. When it falls back below, it closes at the speed set by release.
+When your microphone audio drops below the **Thresh** level, the gate begins attenuating the signal. The depth and speed of that attenuation are controlled by **Ratio**, **Attack**, **Release**, and **Floor**.
 
-At low ratios (close to 1.0:1) the gate acts as a soft downward expander — audio below the threshold is turned down gradually. At high ratios (approaching 10.0:1) the gate acts more like a hard cut, abruptly silencing anything below the threshold. The floor sets a ceiling on how deeply the gate is allowed to cut, preventing unnatural complete silence between words.
+At a **Ratio** of 2.0:1 (the default) the gate acts as a soft downward expander — audio below the threshold is turned down gradually. At higher ratios (approaching 10.0:1) the cut becomes sharper and the behaviour is closer to a hard gate. The **Floor** knob caps the maximum attenuation so the gate never creates an unnaturally complete silence.
 
-The applet gives you two live indicators while you talk:
+The applet shows two live indicators while you transmit or monitor:
 
-- **Transfer curve** — a plot of the expander's static input-to-output curve, with a live ball showing the current input level and whether the gate is open or closed.
-- **Gain-reduction bar** — an amber horizontal strip, right-filled, showing how many dB of attenuation the gate is currently applying. The scale runs 0 to 40 dB. A tick mark at 15 dB indicates the default Floor value.
+- **Transfer curve** — a static curve plot with a live ball that moves to the current input level, showing whether the gate is open (ball above threshold) or closed (ball below threshold).
+- **Gain-reduction bar** — a horizontal amber strip that fills from the right. The scale runs 0 to 40 dB of gain reduction. A tick mark at −15 dB indicates the default **Floor** value.
 
-Knob changes made in the applet and in the floating Gate editor stay in sync — turning a knob in either place updates the other.
+All five knobs in the applet are wired directly to the audio engine. Changes made here are immediately reflected in the floating Gate editor, and vice versa. Settings are persisted automatically after each adjustment.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting | Description |
-|---|---|---|---|---|
-| Thresh | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` | Level below which the gate begins attenuating. Set just above your room noise floor. |
-| Ratio | 2.0:1 | 1.0 to 10.0 | `ClientGateTxRatio` | Higher values produce a harder gate-like cut; lower values produce a gentler downward expansion. |
-| Attack | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` | How quickly the gate opens when input rises above threshold. Shorter times sound more immediate; longer times ease in. |
-| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | How quickly the gate closes after input falls below threshold. Longer times avoid choppy tails between syllables. |
-| Floor | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate can apply. Limits how quiet the audio gets when the gate is closed. |
+| Control | Default | Valid range | Persisted setting |
+|---|---|---|---|
+| Thresh | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` |
+| Ratio | 2.0:1 | 1.0 to 10.0 | `ClientGateTxRatio` |
+| Attack | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` |
+| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` |
+| Floor | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` |
 
-Enabled state is persisted as `ClientGateTxEnabled`.
+**Thresh** — the level below which the gate starts attenuating. Set this just above your room noise floor so speech opens the gate cleanly.
+
+**Ratio** — controls how hard the cut is. Lower values (near 1.0:1) produce a gentle downward expansion. Higher values (near 10.0:1) produce an abrupt gate-like cutoff.
+
+**Attack** — how quickly the gate opens when input rises above the threshold. Uses an exponential scale (0.1 ms to 100.0 ms). Faster attack values let the leading edge of each word through immediately.
+
+**Release** — how quickly the gate closes after input falls below the threshold. Uses an exponential scale (5 ms to 2000 ms). Longer release values give a more natural tail-off; very short values can produce a choppy sound.
+
+**Floor** — the maximum gain reduction the gate is permitted to apply. At the default of −15.0 dB, background noise is reduced by up to 15 dB rather than silenced entirely. Set lower for a harder cut, higher to be more conservative.
+
+Whether the gate stage is active or bypassed is persisted in `ClientGateTxEnabled`.
 
 ## Tips
 
-- Watch the gain-reduction bar while you are not speaking. If it reads near 0 dB, lower the threshold — the gate is not closing.
-- If the gate cuts into the start of words, increase Attack slightly.
-- If the gate chops off the end of words, increase Release.
-- Set Floor to a moderate value such as −15.0 dB rather than −80.0 dB to preserve a small amount of room tone and avoid robotic silences.
-- To open the floating Gate editor, double-click the Gate stage in the CHAIN widget. Right-click the "GATE" sub-container titlebar to float, pop out, or hide the applet.
+- Watch the transfer curve ball and the gain-reduction bar while not speaking. If the bar shows significant amber fill at rest, the gate is working. If the ball rarely crosses threshold during speech, **Thresh** may be set too high.
+- The floating Gate editor and the GATE applet knobs stay in sync. You do not need to open the editor for routine threshold or floor adjustments.
+- Right-click the GATE sub-container titlebar to float, pop-out, or hide the applet if you need more screen space.
 
 ## Related
 

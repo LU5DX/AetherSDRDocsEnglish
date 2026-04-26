@@ -1,43 +1,41 @@
 # Disable an IQ stream to free bandwidth
 
-Each active IQ stream consumes radio bandwidth and processing resources. Use this procedure to turn off a stream you no longer need.
+Each active DAX IQ stream consumes bandwidth between AetherSDR and the radio. Disabling a stream you are not using releases that capacity for other tasks.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The DAX IQ applet must be visible. If it is not, click the **IQ** tray button on the right sidebar to show it.
-- Identify which channel (IQ 1–4) you want to disable by checking which toggle button shows **On**.
+- AetherSDR must be connected to the radio. The DAX IQ applet requires an active radio connection.
+- Open the DAX IQ applet by clicking the IQ tray button on the right sidebar. The applet is hidden by default.
 
 ## Steps
 
-1. Locate the row for the channel you want to disable (IQ 1, IQ 2, IQ 3, or IQ 4).
-2. Click the **On** button at the right end of that row.
-3. The button label changes to **Off**, the button style dims, and the level meter resets to 0.
+1. Locate the channel row you want to stop — IQ 1, IQ 2, IQ 3, or IQ 4.
+2. Check that the toggle button for that row reads "On". If it already reads "Off", the stream is already inactive.
+3. Click the "On" button. The button label changes to "Off", the button style dims, and the level meter resets to 0.
 
-The stream is now torn down on the radio. The radio does not persist stream state between sessions; AetherSDR records your choice in `DaxIqEnabled1` through `DaxIqEnabled4` so it can restore the same state when you reconnect.
+The radio tears down the stream immediately. The change is saved so that the stream does not re-enable automatically on the next connection.
 
 ## What each control does
 
-| Control | Default | Behavior |
-|---|---|---|
-| **IQ 1..4 Off/On** (toggle button) | Off | Clicking while **On** emits a disable request to the radio, resets the label to **Off**, and clears the level meter. |
-| **IQ 1..4 meter** (level meter) | 0 | Displays the RMS level of the stream (0–100). Resets to 0 when the stream is disabled or the radio disconnects. |
-| **IQ 1..4 rate** (combo box) | 48k | Selects sample rate: 24k, 48k, 96k, or 192k. Syncs back to the radio-reported rate while a stream is active. Persisted per channel in `DaxIqRate1` through `DaxIqRate4`. |
+| Control | Default | Valid values | Persisted setting key |
+|---|---|---|---|
+| IQ 1–4 Off/On | Off | Off, On | `DaxIqEnabled1` – `DaxIqEnabled4` |
+| IQ 1–4 rate | 48k | 24k, 48k, 96k, 192k | `DaxIqRate1` – `DaxIqRate4` |
+| IQ 1–4 meter | 0 | 0–100 (RMS × 200) | — |
 
 ## Tips
 
-- Disabling a stream does not change its saved sample rate. The rate you had selected will still be set when you re-enable the stream.
-- If you disconnect and reconnect, AetherSDR waits briefly before re-enabling any streams that were active. If you want a stream to stay off after reconnect, ensure its button shows **Off** before disconnecting — the `DaxIqEnabled1`–`DaxIqEnabled4` settings control which streams are restored.
-- Disabling unused streams before changing sample rates on active streams reduces the chance of the radio rejecting the rate change.
+- The meter resets to 0 as soon as a stream is disabled. A non-zero meter reading confirms a stream is still active before you disable it.
+- IQ streams are per-session on the radio side, but AetherSDR persists your On/Off choice. After reconnecting, any channel whose setting key is `"True"` will be re-enabled automatically after a short delay once the session is ready. Setting a channel to "Off" prevents that auto-restart.
+- If you only need to reduce the data rate rather than stop the stream entirely, lower the rate combo to 24k instead of disabling the stream.
 
 ## Troubleshooting
 
-- **Button shows Off but the external SDR application still reports a stream** — The radio-side stream may not have been removed yet. Disconnect and reconnect to the radio to force a clean session state.
-- **Button reverts to On immediately after clicking Off** — The radio rejected the disable request. Check your network connection and verify no other SmartSDR client has locked the stream.
+- **Button returns to "On" shortly after you click "Off"** — Another application may be requesting the stream, or you reconnected to the radio while the persisted setting was still `"True"`. Click "Off" again; the setting will be saved as `"False"` and the stream will not restart on the next connection.
+- **Meter stays at a non-zero value after disabling** — A brief delay between the disable request and the radio acknowledging it is normal. The meter resets to 0 once the radio confirms the stream is torn down.
 
 ## Related
 
 - [Enable an IQ stream for external SDR software](enable-an-iq-stream-for-external-sdr-software.md)
 - [Pick the IQ sample rate (24k/48k/96k/192k)](pick-the-iq-sample-rate-24k-48k-96k-192k.md)
 - [Monitor the RMS level of each IQ stream](monitor-the-rms-level-of-each-iq-stream.md)
-- [DAX IQ overview](overview.md)

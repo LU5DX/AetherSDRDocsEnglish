@@ -1,45 +1,45 @@
 # Enable or disable NR4 adaptive noise estimation
 
-NR4's adaptive noise estimation continuously re-measures the noise floor as conditions change on the band. Enabling it lets the engine track drifting interference; disabling it locks the noise floor estimate in place, which can help on very stable, consistent noise backgrounds.
+NR4's adaptive noise estimation continuously re-estimates the noise floor as band conditions change. Enabling it helps maintain accurate noise reduction on signals with varying or non-stationary noise; disabling it freezes the noise floor estimate, which can be useful on very stable, quiet bands.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to change this setting.
-- Open the AetherDSP Settings dialog via `Settings > AetherDSP Settings...`.
+- AetherDSP Settings does not require a radio connection. You can adjust NR4 settings at any time.
+- NR4 must be active on your receive chain for these settings to have audible effect.
 
 ## Steps
 
-1. Go to `Settings > AetherDSP Settings...`.
+1. Click `Settings > AetherDSP Settings...`.
 2. Click the **NR4** tab.
 3. Check or uncheck **Adaptive Noise Estimation**.
    - Checked (default): NR4 continuously re-estimates the noise floor.
-   - Unchecked: the noise floor estimate is frozen at the value captured when NR4 was last started.
+   - Unchecked: the noise floor estimate is frozen at its last computed value.
 
-The setting is saved immediately. No confirmation or restart is needed.
+The setting takes effect immediately and is persisted as `NR4AdaptiveNoise`.
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key |
-|---|---|---|---|
-| **Noise Estimation Method** (radio buttons: SPP-MMSE, Brandt, Martin) | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
-| **Adaptive Noise Estimation** (checkbox) | Enabled | On / Off | `NR4AdaptiveNoise` |
-| **Reduction (dB):** | 10.0 dB | 0.0–40.0 dB | `NR4ReductionAmount` |
-| **Smoothing (%):** | 0 | 0–100 | `NR4SmoothingFactor` |
-| **Whitening (%):** | 0 | 0–100 | `NR4WhiteningFactor` |
-| **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
-| **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
-| **Reset Defaults** (button) | — | — | — |
+| Control | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|
+| **Adaptive Noise Estimation** | Enabled | On / Off | `NR4AdaptiveNoise` | Enables continuous re-estimation of the noise floor. |
+| **Noise Estimation Method** | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` | Selects which algorithm performs the noise-floor estimation that adaptive mode continuously updates. |
+| **Reduction (dB):** | 10.0 dB | 0.0–40.0 dB | `NR4ReductionAmount` | Maximum noise reduction applied by NR4. |
+| **Smoothing (%):** | 0 | 0–100 | `NR4SmoothingFactor` | Time-domain smoothing of the NR4 noise estimate. |
+| **Whitening (%):** | 0 | 0–100 | `NR4WhiteningFactor` | Flattens residual noise spectral shape. |
+| **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls spectral-masking depth. |
+| **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` | Overall NR4 suppression strength. |
+| **Reset Defaults** | — | — | — | Restores NR4 defaults: SPP-MMSE, adaptive on, 10 dB, 0, 0, 0.50, 0.50. |
 
 ## Tips
 
-- If the noise character on your frequency changes rapidly (pulse noise, QRM bursts), keep **Adaptive Noise Estimation** enabled so the estimator can follow the changing floor.
-- If you notice the noise estimator pulling down signals during a long transmission from a weak station, try disabling **Adaptive Noise Estimation** to prevent the engine from treating the incoming signal as part of the noise floor.
-- Clicking **Reset Defaults** on the NR4 tab restores all NR4 parameters to their defaults, including re-enabling **Adaptive Noise Estimation**.
+- Adaptive noise estimation works in combination with the selected **Noise Estimation Method**. If you change the method, the adaptive tracker resets to that algorithm's initial estimate.
+- On stable, low-noise bands where signals are consistent, disabling adaptive estimation and relying on a frozen noise floor can reduce unnecessary gain fluctuation during pauses in speech.
+- If the noise floor changes frequently (e.g. moving between bands or during solar activity), keep adaptive estimation enabled.
 
 ## Troubleshooting
 
-- **Desired signals are being suppressed along with noise** — the adaptive estimator may be classifying a weak or steady signal as noise. Uncheck **Adaptive Noise Estimation** to freeze the noise floor estimate.
-- **Noise suppression stops tracking after a while** — verify that **Adaptive Noise Estimation** is checked. If the noise character has changed significantly since AetherSDR started, the frozen estimate may no longer match the current floor.
+- **Noise reduction seems to pump or breathe on speech pauses** — try increasing **Smoothing (%):** or disabling **Adaptive Noise Estimation** to stabilize the noise floor estimate.
+- **Noise is not being suppressed after conditions change** — if adaptive estimation is disabled, the frozen noise floor estimate may no longer match the actual noise. Re-enable **Adaptive Noise Estimation** or click **Reset Defaults** to restore a known state.
 
 ## Related
 

@@ -1,46 +1,52 @@
-# Configure FlexControl serial port pin functions
+# Configure FlexControl Serial Port Pin Functions
 
-This page explains how to assign functions to the DTR and RTS output pins on a FlexControl serial port connection. Use these settings to drive external devices such as a CW keyer or PTT line from the serial port's control signals.
+This page explains how to select a serial port for the FlexControl knob and assign signal functions to its hardware pins. You would do this to use a FlexControl tuning knob with AetherSDR over a serial connection, or to control PTT and keying lines through the serial port's DTR and RTS pins.
 
 ## Before you start
 
-- AetherSDR must be built with serial port support (`HAVE_SERIALPORT`). If the Serial tab is not visible in Radio Setup, your build does not include this feature.
-- The radio must be connected. Radio Setup requires an active radio connection.
-- Know the device path of your serial port (for example, `/dev/ttyUSB0` on Linux or `COM3` on Windows).
+- The radio must be connected. The Serial tab is only available when AetherSDR is connected to a FLEX-8600.
+- The serial port support must be compiled into your AetherSDR build (`HAVE_SERIALPORT`). If you do not see `Settings > FlexControl...` in the menu, your build does not include serial port support.
+- The serial device must be physically attached and visible to the operating system before you open the dialog.
 
 ## Steps
 
-1. Open `Settings > FlexControl...`. This opens the Radio Setup dialog directly on the Serial tab. Alternatively, open `Settings > Radio Setup...` and click the **Serial** tab.
-2. In the **Port** combo box, select your serial port device. Click **Refresh** if your port does not appear in the list, or type the path directly into the **Path** field.
-3. Set **Baud**, **Data**, **Parity**, and **Stop** to match the device connected to the serial port.
-4. Under the **DTR** row, open the **Function** combo box and select the function you want DTR to perform. Then set the **Polarity** combo box for that pin.
-5. Under the **RTS** row, open the **Function** combo box and select the function you want RTS to perform. Then set the **Polarity** combo box for that pin.
-6. If you are using a paddle and need to swap dit and dah, check **Paddle Swap (swap dit/dah)**.
-7. To have AetherSDR open this serial port automatically each time it launches, check **Auto-open serial port on startup**.
-8. If a FlexControl tuning knob is attached, click **Detect** to identify it. Click **Close** to release it. To detect the knob automatically at launch, check **Auto-detect on startup**. To reverse the tuning direction, check **Invert tuning direction**.
+1. Click `Settings > FlexControl...`. This opens the Radio Setup dialog directly on the Serial tab. Alternatively, open `Settings > Radio Setup...` and click the **Serial** tab.
+2. In the **Port** combo box, select your serial device from the list. If the device does not appear, click **Refresh** to rescan. You can also type a path directly into the **Path** field.
+3. Set the serial line parameters using the **Baud**, **Data**, **Parity**, and **Stop** combo boxes to match your hardware.
+4. For each output pin you want to configure, locate the **DTR** or **RTS** row and set the **Function** combo box to the desired signal function, then set the **Polarity** combo box to the appropriate polarity.
+5. If you are using a paddle with this serial port and need to swap dit and dah, check **Paddle Swap (swap dit/dah)**.
+6. To have AetherSDR reopen this port automatically every time it starts, check **Auto-open serial port on startup**.
+7. To detect an attached FlexControl tuning knob, click **Detect** in the FlexControl Tuning Knob section. To release the port, click **Close**.
+8. To have the FlexControl knob detected automatically at startup, check **Auto-detect on startup**. To reverse the tuning direction, check **Invert tuning direction**.
+9. Click **Close** in the dialog button bar when finished.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid range / notes |
-|---|---|---|---|---|
-| Port / Refresh / Path | Combo box | Selects or manually enters the serial device path. **Refresh** rescans available ports. | — | System-dependent |
-| Baud / Data / Parity / Stop | Combo boxes | Serial line parameters. Must match the attached device. | — | — |
-| DTR: Function | Combo box | Assigns the function driven on the DTR output pin. | — | Options populated from device capabilities |
-| DTR: Polarity | Combo box | Sets active-high or active-low logic for DTR. | — | — |
-| RTS: Function | Combo box | Assigns the function driven on the RTS output pin. | — | Options populated from device capabilities |
-| RTS: Polarity | Combo box | Sets active-high or active-low logic for RTS. | — | — |
-| Paddle Swap (swap dit/dah) | Checkbox | Swaps the dit and dah inputs for a connected paddle. | Unchecked | — |
-| Auto-open serial port on startup | Checkbox | Reopens the configured port automatically when AetherSDR launches. | Unchecked | — |
-| FlexControl Tuning Knob: Detect | Push button | Detects a FlexControl knob on the selected port. | — | — |
-| FlexControl Tuning Knob: Close | Push button | Releases the FlexControl knob. | — | — |
-| Auto-detect on startup | Checkbox | Detects the FlexControl knob automatically at launch. | — | — |
-| Invert tuning direction | Checkbox | Reverses the direction of tuning knob rotation. | — | — |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Port** | Combo box | Selects the serial device from the list of detected ports. |
+| **Refresh** | Button | Rescans for available serial ports and updates the **Port** list. |
+| **Path** | Field | Displays or overrides the path to the selected serial device. |
+| **Baud** | Combo box | Sets the baud rate for the serial connection. |
+| **Data** | Combo box | Sets the number of data bits. |
+| **Parity** | Combo box | Sets the parity mode. |
+| **Stop** | Combo box | Sets the number of stop bits. |
+| **DTR: Function** | Combo box | Assigns the signal function carried by the DTR pin. |
+| **DTR: Polarity** | Combo box | Sets active-high or active-low polarity for DTR. |
+| **RTS: Function** | Combo box | Assigns the signal function carried by the RTS pin. |
+| **RTS: Polarity** | Combo box | Sets active-high or active-low polarity for RTS. |
+| **Paddle Swap (swap dit/dah)** | Checkbox | Swaps dit and dah inputs for the connected paddle. |
+| **Auto-open serial port on startup** | Checkbox | Reopens this serial port automatically when AetherSDR launches. |
+| **Detect** | Button | Detects an attached FlexControl tuning knob on the configured port. |
+| **Close** | Button | Releases the FlexControl knob connection. |
+| **Auto-detect on startup** | Checkbox | Automatically detects the FlexControl knob when AetherSDR starts. |
+| **Invert tuning direction** | Checkbox | Reverses the direction of frequency change when turning the FlexControl knob. |
 
 ## Troubleshooting
 
-- **Serial tab is missing** — Your AetherSDR build does not include `HAVE_SERIALPORT`. Install or obtain a build that includes serial port support.
-- **Port does not appear in the list** — Click **Refresh**. Confirm the device is plugged in and that your OS user account has permission to access the serial port (on Linux, the user typically needs to be in the `dialout` group).
-- **Pin functions have no effect** — Confirm the **Polarity** setting matches what the attached device expects. Some devices require active-low logic.
+- **The Serial tab does not appear in Radio Setup** — Your AetherSDR build does not include serial port support (`HAVE_SERIALPORT`). You also will not see `Settings > FlexControl...` in the menu. Obtain a build that includes this feature.
+- **Your device does not appear in the Port list** — Click **Refresh**. If it still does not appear, confirm the device is plugged in and the OS has assigned it a port. On Linux, verify your user account has permission to access the device (typically membership in the `dialout` group).
+- **Detect reports no FlexControl knob** — Confirm the baud rate and serial parameters match the FlexControl hardware requirements and that the correct port is selected before clicking **Detect**.
 
 ## Related
 

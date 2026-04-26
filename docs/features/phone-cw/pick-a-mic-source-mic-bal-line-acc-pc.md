@@ -1,36 +1,39 @@
 # Pick a mic source (MIC, BAL, LINE, ACC, PC)
 
-This page explains how to select the microphone input source for the active transmit slice. Use this when you want to switch between a front-panel mic, balanced input, line-level input, accessory connector, or PC audio.
+This page shows how to select the microphone input source for your FLEX-8600 in AetherSDR. The correct source must match the physical connector you are using before you transmit.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio.
-- The active slice must be in a voice mode (Phone panel must be visible in the P/CW applet). The mic source controls are not shown when the slice is in CW mode.
+- AetherSDR must be connected to your FLEX-8600.
+- The active slice must be in a phone mode (USB, LSB, AM, FM, or similar). The Phone panel is hidden when the active slice is in CW mode.
+- Open the Phone/CW applet: click the **P/CW** tray button on the right sidebar if the applet is not already visible.
 
 ## Steps
 
-1. Locate the **P/CW** tray button on the right sidebar and confirm the Phone panel is showing.
-2. Find the **Mic source** combo box. It appears to the left of the mic gain slider, directly below the **Mic profile** combo box.
-3. Click the **Mic source** combo box and select one of the available sources: `MIC`, `BAL`, `LINE`, `ACC`, or `PC`.
-4. The radio switches to the selected input immediately.
-5. If you selected `PC`, adjust the **Mic gain** slider to your preferred level. The radio does not report a gain value for the PC source — AetherSDR stores this value locally as `PcMicGain`.
+1. Locate the **Mic source** drop-down in the Phone/CW applet. It is a narrow combo box (approximately 55 px wide) on the same row as the **Mic gain** slider and the **+ACC** button.
+2. Click the **Mic source** drop-down.
+3. Select one of the available sources: `MIC`, `BAL`, `LINE`, `ACC`, or `PC`. The selection is sent to the radio immediately.
+4. If you selected `PC`, set the **Mic gain** slider to the desired level (0–100; default 50). The `PC` source keeps its gain value locally in `PcMicGain` because the radio always reports mic level as 0 for this source.
+5. Watch the **Level** gauge (−40 to +10 dBFS). Speak or feed audio and confirm the needle moves. Aim to keep peaks below 0 dBFS (the gauge turns red above 0).
 
 ## What each control does
 
-| Control | Kind | Valid values | Default | Setting key | Notes |
+| Control | Kind | Default | Valid range | Setting key | Notes |
 |---|---|---|---|---|---|
-| **Mic source** | Combo box | `MIC`, `BAL`, `LINE`, `ACC`, `PC` | — | — | Sends the selected source to the radio immediately. Additional sources may appear if the radio reports them. |
-| **Mic gain** | Slider | 0–100 | 50 | `PcMicGain` (PC source only) | When source is `PC`, the radio always reports `mic_level=0`; AetherSDR keeps the value client-side using `PcMicGain`. For all other sources the value is stored on the radio. |
+| Mic source | Combo box | — | MIC, BAL, LINE, ACC, PC | — | Sent to the radio on change. |
+| Mic gain | Slider | 50 | 0–100 | `PcMicGain` (PC source only) | For non-PC sources, gain is stored on the radio. For PC, the value is kept client-side. |
+| Level | Meter | — | −40 to +10 dBFS (red above 0) | — | Shows microphone input peak level. Reads −150 when not transmitting and mic monitoring is off. |
 
 ## Tips
 
-- The **Level** gauge (−40 to +10 dBFS, red above 0) gives immediate feedback after you change source. Watch it while speaking to confirm signal is arriving from the new input.
-- If you also want to mix in the accessory connector alongside another primary source, use the **+ACC** toggle button rather than selecting `ACC` as the sole source.
+- The `PC` source routes audio from your computer's sound input. The radio does not report the mic level for this source, so the `PcMicGain` value is stored in AetherSDR and applied locally.
+- If you want to blend an accessory microphone with your selected source, enable **+ACC** on the same row after choosing your primary source.
 
 ## Troubleshooting
 
-- **Level gauge shows no movement after selecting a new source** — confirm the physical connection to that input on the radio. The Level gauge is suppressed when the radio is not transmitting and met_in_rx is off; key the radio briefly to verify input.
-- **Mic gain slider has no effect when source is PC** — this is expected. The radio ignores the gain value for the PC source; AetherSDR applies the `PcMicGain` value locally. Adjust the slider and the stored value will update.
+- **Level gauge shows no movement after selecting a source** — Confirm you are transmitting or that mic monitoring is active. The gauge is suppressed to −150 dBFS when neither condition is true.
+- **PC source selected but Mic gain slider has no effect on the radio's reported level** — This is expected. The radio always reports mic_level=0 for the PC source. AetherSDR stores the gain in `PcMicGain` and applies it client-side.
+- **Phone panel is not visible** — The applet switches to CW controls when the active slice is in a CW mode. Change the active slice to a phone mode to see the mic source controls.
 
 ## Related
 

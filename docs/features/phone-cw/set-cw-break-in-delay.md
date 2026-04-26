@@ -1,33 +1,37 @@
 # Set CW break-in delay
 
-The Phone/CW applet lets you set how long the radio waits after the last CW element before returning to receive. Adjusting this delay prevents the radio from switching back to RX between characters at high speed, or lets it return quickly for quick-response QSOs.
+The CW break-in delay controls how long the radio waits after the last keyed element before returning to receive. Adjusting this prevents premature receiver recovery during fast exchanges.
 
 ## Before you start
 
-- Connect to a Flex radio. The Phone/CW applet requires an active radio connection.
-- Set the active slice to a CW mode. The applet automatically switches to the CW sub-panel when the slice is in CW; the Delay control is not visible in phone modes.
+- AetherSDR must be connected to the radio.
+- The active slice must be in a CW mode. The Phone/CW applet automatically shows CW controls only when a CW mode is selected.
 
 ## Steps
 
-1. Locate the **P/CW** tray button on the right sidebar and confirm the applet is visible. If the applet is hidden, click the **P/CW** tray button to show it.
-2. Verify the applet is showing the CW sub-panel. If the active slice is in CW mode, the CW controls appear automatically.
-3. Find the **Delay (CW)** slider.
-4. Drag the **Delay (CW)** slider to the desired value. The delay applies immediately.
+1. If the Phone/CW applet is not visible, click the **P/CW** tray button on the right sidebar to show it.
+2. Locate the **Delay** slider in the CW sub-panel.
+3. Drag the **Delay** slider to the desired value. The valid range is 0–2000 ms in steps of 10.
+4. To enable full break-in (QSK) with no delay, click **Breakin** so it is active.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
+| Control | Kind | Default | Valid range | Persisted key |
 |---|---|---|---|---|
-| **Delay (CW)** | Sets the break-in delay: how long the radio waits after the last keyed element before returning to receive. | — | 0–2000 ms, step 10 | — |
-| **Breakin** | Toggles full break-in (QSK). When enabled, the radio switches to RX between every element. | — | On / Off | — |
+| **Delay** | Slider | — | 0–2000 ms (step 10) | — |
+| **Breakin** | Toggle button | — | On / Off | — |
+
+- **Delay** — Sets the time the radio waits after the last keyed element before switching back to receive.
+- **Breakin** — Toggles full break-in (QSK). When active, the radio returns to receive immediately between keyed elements regardless of the **Delay** setting.
 
 ## Tips
 
-- Set **Delay (CW)** to 0 ms with **Breakin** active for full QSK operation.
-- At higher speeds, increase the delay slightly to prevent RX/TX chatter between characters.
+- A **Delay** value of 0 ms with **Breakin** active gives true QSK behavior.
+- Increase **Delay** if your receiver is recovering too quickly and disturbing your keying rhythm during pile-ups.
 
 ## Related
 
+- [Phone/CW overview](overview.md)
 - [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)

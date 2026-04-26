@@ -1,39 +1,37 @@
 # Change NR2 noise power estimator (OSMS/MMSE/NSTAT)
 
-The NR2 noise power estimator (NPE) determines how AetherSDR's NR2 engine measures the background noise floor. Switching between OSMS, MMSE, and NSTAT lets you match the estimator to the type of noise you are dealing with.
+The NR2 noise power estimator (NPE) controls how AetherSDR's NR2 engine measures the noise floor before applying suppression. Switching between OSMS, MMSE, and NSTAT can improve noise reduction quality depending on whether the noise on your band is stationary, slowly varying, or rapidly changing.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to change this setting.
-- NR2 must be active on your slice for the change to have an audible effect.
+- No radio connection is required. AetherSDR's DSP settings take effect locally and can be changed while the radio is disconnected.
+- NR2 must be active on your slice for changes to be audible. Enabling NR2 is done from the slice controls, not from this dialog.
 
 ## Steps
 
-1. Click `Settings > AetherDSP Settings...`.
-2. In the AetherDSP Settings dialog, click the **NR2** tab.
-3. Under **NPE Method**, click one of the three radio buttons: **OSMS**, **MMSE**, or **NSTAT**.
-
-The setting takes effect immediately and is saved automatically to `NR2NpeMethod`.
+1. Open `Settings > AetherDSP Settings...`.
+2. Click the **NR2** tab.
+3. Under the **NPE Method** group, select one of the three radio buttons: **OSMS**, **MMSE**, or **NSTAT**.
+4. Close the dialog. The setting takes effect immediately and is persisted automatically.
 
 ## What each control does
 
-| Control | Kind | Default | Valid values | Setting key | Behavior |
-|---|---|---|---|---|---|
-| NPE Method — **OSMS** | radio button | ✓ default | — | `NR2NpeMethod` = 0 | Optimal Smoothing Minimum Statistics. Tracks the noise floor using a running minimum estimate. Best for steady, stationary noise. |
-| NPE Method — **MMSE** | radio button | — | — | `NR2NpeMethod` = 1 | Minimum Mean Squared Error. Minimizes the expected noise estimation error. A balanced choice for mixed conditions. |
-| NPE Method — **NSTAT** | radio button | — | — | `NR2NpeMethod` = 2 | Non-Stationary estimation. Adapts to noise that changes rapidly over time, such as QRM that varies in character. |
+| Control | Description | Default | Valid values | Setting key |
+|---|---|---|---|---|
+| **OSMS** | Optimal Smoothing Minimum Statistics — tracks the noise floor using a running minimum estimate. Good for stationary or slowly drifting noise. | ✓ (default) | — | `NR2NpeMethod` = 0 |
+| **MMSE** | Minimum Mean Squared Error — minimizes the expected noise estimation error. Tends to preserve speech more conservatively. | — | — | `NR2NpeMethod` = 1 |
+| **NSTAT** | Non-Stationary estimation — adapts to noise that changes over time. Suits bands with impulsive or rapidly varying interference. | — | — | `NR2NpeMethod` = 2 |
 
-`NR2NpeMethod` is stored as an integer: 0 = OSMS, 1 = MMSE, 2 = NSTAT.
+The `NR2NpeMethod` setting is stored as an integer: 0 = OSMS, 1 = MMSE, 2 = NSTAT.
 
 ## Tips
 
-- OSMS is the default and works well for consistent atmospheric or band noise.
-- If the noise floor varies quickly (for example, switching stations or changing band conditions), try NSTAT, which re-adapts more aggressively.
-- MMSE is a middle ground: it tends to leave less residual noise than OSMS in moderate conditions without the faster-moving artifacts that NSTAT can introduce.
-- To return all NR2 parameters to their defaults (including NPE Method back to OSMS), click **Reset Defaults** at the bottom of the NR2 tab.
+- Start with **OSMS** (the default) on most HF bands where background noise is relatively steady. Switch to **NSTAT** if the noise floor is fluctuating or the band conditions are changing rapidly.
+- If you want to return all NR2 parameters to their original state, click **Reset Defaults** on the NR2 tab. This restores NPE Method to **OSMS** along with the other NR2 defaults.
 
 ## Related
 
+- [AetherDSP Settings overview](overview.md)
 - [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md)

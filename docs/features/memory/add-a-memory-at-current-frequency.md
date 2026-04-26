@@ -1,33 +1,25 @@
 # Add a memory at current frequency
 
-Save the active VFO frequency, mode, and filter settings as a named memory channel so you can return to that frequency quickly later.
+Open the Memory Channels dialog and save the active VFO frequency as a new memory channel entry.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The Memory Channels dialog requires an active radio connection.
-- Tune the active slice to the frequency you want to store.
+- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
+- Tune the active slice to the frequency you want to store before opening the dialog.
 
 ## Steps
 
-1. Open `Settings > Memory...`.
+1. Click `Settings > Memory...` to open the Memory Channels dialog.
 2. Click `Add`.
 
-The new memory appears in the memory table with the current VFO frequency pre-filled in the Frequency column.
+A new row appears in the memory table containing the current VFO frequency. The memory is created immediately on the radio.
 
-3. To give the memory a name immediately, select the new row, click `Edit`, type a name in the Name column, then press Enter to confirm.
-
-## What each control does
-
-| Control | Description |
-|---|---|
-| `Add` | Creates a new memory row at the current VFO frequency. |
-| `Edit` | Enters inline-edit mode on the selected row so you can update any field. |
-| Memory table | Displays all stored memories. Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. |
+3. To rename or adjust the new entry, select its row and click `Edit`, then modify the fields inline.
 
 ## Tips
 
-- Double-clicking a row tunes the active slice to that memory without closing the dialog.
-- On Linux and Windows, Ctrl-click adds or removes individual rows from the selection. On macOS, use Command-click.
+- Double-clicking any row in the memory table tunes the active slice to that memory. If you want to verify the frequency was captured correctly, double-click the new row immediately after adding it.
+- To find the new entry quickly, type part of its name or frequency into the `Search:` field. The table filters as you type.
 
 ## Related
 

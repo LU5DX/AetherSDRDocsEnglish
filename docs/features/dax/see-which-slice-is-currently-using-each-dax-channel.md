@@ -1,32 +1,35 @@
 # See which slice is currently using each DAX channel
 
-The DAX Audio applet shows a slice-assignment indicator next to each DAX channel so you can confirm at a glance which slice is routed where, without opening any menus or dialogs.
+The DAX Audio applet shows a per-channel indicator next to each DAX channel and the TX row, letting you confirm at a glance which slice is routed to which channel without opening any additional dialog.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The slice-assignment indicators reflect live radio state and show `—` when no radio is connected.
+- AetherSDR must be connected to the radio. The slice-assignment indicators are not populated when no radio is connected.
 - The DAX applet must be visible. It is hidden by default.
 
 ## Steps
 
-1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet.
-2. Look at the status indicator to the right of each channel label (**DAX 1:**, **DAX 2:**, **DAX 3:**, **DAX 4:**).
-3. Read the indicator value:
-   - `Slice A` through `Slice H` — that slice is currently routed to this DAX channel.
-   - `—` — no slice is assigned to this channel.
-4. To check which slice is currently driving the DAX TX stream, read the status indicator to the right of the **TX:** label.
+1. Click the `DAX` tray button on the right sidebar to open the DAX Audio applet.
+2. Look at the label to the right of each channel name (`DAX 1:` through `DAX 4:` and `TX:`).
+3. Read the indicator for each channel:
+   - `—` means no slice is currently assigned to that channel.
+   - `Slice A` through `Slice H` means that slice is routed to the channel.
+
+No further action is required. The indicators update automatically whenever a slice's DAX channel assignment changes.
 
 ## What each control does
 
-| Label | Kind | Possible values | Meaning |
+| Indicator | Location | Possible values | Persisted setting |
 |---|---|---|---|
-| Slice-assignment indicator (DAX 1–4) | Indicator | `—` or `Slice A`–`Slice H` | The slice currently routed to that RX channel. Updates automatically when slice DAX assignments change. No persisted setting. |
-| TX assignment indicator | Indicator | `—` or `Slice A`–`Slice H` | The slice currently holding TX privileges. Updates automatically when the TX slice changes. No persisted setting. |
+| Slice-assignment status | Next to `DAX 1:` – `DAX 4:` | `—` or `Slice A`–`Slice H` | none |
+| TX assignment status | Next to `TX:` | `—` or `Slice A`–`Slice H` | none |
+
+The RX indicators reflect which slice has been assigned to each DAX channel on the radio. The TX indicator reflects which slice currently holds TX privileges; that slice drives the DAX TX stream.
 
 ## Tips
 
-- The indicators update in real time. If you reassign a slice to a different DAX channel on the radio, the label changes immediately without any manual refresh.
-- A channel showing `—` carries no audio. If you expect audio on a channel and see `—`, assign a DAX channel to the relevant slice from the radio or from the slice controls in AetherSDR.
+- A channel showing `—` will carry no audio even if its gain slider is set above zero. If you expect audio on a channel but see `—`, assign the slice to that DAX channel from the slice controls.
+- The TX indicator changes automatically when you move TX between slices. You do not need to reopen the applet.
 
 ## Related
 

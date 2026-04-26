@@ -1,28 +1,30 @@
 # Bypass the Gate from the Chain
 
-This page explains how to bypass the TX noise gate without deleting its settings. Use bypass when you want to temporarily disable the gate — for example, to compare processed and unprocessed audio — while keeping all your tuned parameters intact.
+Bypassing the gate removes it from the TX audio processing chain without changing any of its settings. Use this when you want to disable noise gating temporarily — for example, during a net check-in — and restore it later with the same configuration.
 
 ## Before you start
 
-- The Gate stage must be enabled in the CHAIN widget before you can bypass it. If the GATE sub-container is not visible in the PooDoo Audio (TXDSP) parent container, the gate has not yet been added to the chain.
-- A radio connection is not required to bypass the gate; the setting is local to AetherSDR.
+- The GATE stage must already be present in the CHAIN widget inside the PooDoo Audio (TXDSP) container.
+- The GATE sub-container applet is only visible when the Gate stage is enabled in the CHAIN widget; bypassing is done from the CHAIN widget itself.
 
 ## Steps
 
-1. Locate the **CHAIN** widget inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Single-click the **Gate** stage in the CHAIN widget to toggle bypass on or off.
-   - When bypassed, the gate applies no attenuation and the transfer curve and gain-reduction bar in the GATE sub-container reflect the inactive state.
-   - Single-clicking again re-enables the gate; your previously set Thresh, Ratio, Attack, Release, and Floor values are restored immediately.
+1. Locate the CHAIN widget inside the PooDoo Audio (TXDSP) container in the applet panel.
+2. Single-click the Gate stage block in the CHAIN widget to toggle its bypass state.
 
-The bypass state is persisted in `ClientGateTxEnabled`. All other gate parameters (`ClientGateTxThresholdDb`, `ClientGateTxRatio`, `ClientGateTxAttackMs`, `ClientGateTxReleaseMs`, `ClientGateTxFloorDb`) are unaffected by bypass.
+The Gate stage is bypassed when the block appears inactive in the CHAIN widget. The GATE sub-container remains visible but the gate applies no attenuation — the gain-reduction bar will read 0 dB and the transfer curve ball will track the input level without triggering any gain reduction.
+
+3. To re-enable the gate, single-click the Gate stage block again.
+
+The bypass state is persisted in `ClientGateTxEnabled`. All knob values (`ClientGateTxThresholdDb`, `ClientGateTxRatio`, `ClientGateTxAttackMs`, `ClientGateTxReleaseMs`, `ClientGateTxFloorDb`) are unchanged by bypassing.
 
 ## Tips
 
-- To open the floating Gate editor instead of toggling bypass, double-click the Gate stage in the CHAIN widget.
-- The gain-reduction bar in the GATE tile goes dark (no amber fill) while the gate is bypassed, which makes it easy to confirm bypass is active at a glance.
+- Bypassing from the CHAIN widget is non-destructive. All five tuning knobs (Thresh, Ratio, Attack, Release, Floor) retain their values and take effect immediately when you re-enable the stage.
+- To open the floating Gate editor for detailed adjustments without bypassing, double-click the Gate stage in the CHAIN widget.
 
 ## Related
 
 - [Noise Gate / Expander overview](overview.md)
-- [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Set threshold just above room noise floor](set-threshold-just-above-room-noise-floor.md)
+- [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)

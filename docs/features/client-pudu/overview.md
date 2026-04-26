@@ -1,39 +1,32 @@
 # PUDU Exciter overview
 
-The PUDU Exciter is the centrepiece of the PooDoo Audio transmit DSP chain. It adds low-frequency body ("Poo") and high-frequency presence or air ("Doo") to your transmitted audio using two independent parallel processors, each with its own character, tuning, and wet/dry blend.
+The PUDU Exciter is the centrepiece of the PooDoo Audio TX chain. It adds harmonic enhancement and tonal shaping to your transmitted audio in two frequency regions: low-end body ("Poo") and high-frequency presence and air ("Doo").
 
 ## Before you start
 
-- The PUDU stage must be enabled in the CHAIN widget before the applet becomes visible. The sub-container remains hidden until the stage is active.
-- No radio connection is required to adjust PUDU settings.
+- The PUDU stage must be enabled in the CHAIN widget before the PUDU applet becomes visible. The sub-container remains hidden until the stage is active.
+- The PooDoo Audio (TXDSP) parent container must be open in the applet panel.
 
 ## How it works
 
-PUDU processes transmit audio in two parallel bands.
+PUDU processes audio in two independent bands, each controlled by a group of three knobs.
 
-**Mode** selects the overall character of both processors. Click **Even** for Aphex-lineage asymmetric shaping — predominantly even harmonics, warmer, with Big Bottom low-frequency saturation. Click **Odd** for Behringer-lineage symmetric tanh shaping — pure odd harmonics, brighter, with a feed-forward bass compressor. The two buttons are mutually exclusive; the selected mode is saved to `ClientPuduTxMode`.
+**Mode selection** — The Even and Odd radio buttons at the top of the applet select the character of the harmonic shaping applied across both bands. Even mode uses Aphex-lineage asymmetric saturation, producing predominantly even harmonics with a warmer character and Big Bottom low-frequency saturation. Odd mode uses Behringer-lineage symmetric tanh shaping, producing pure odd harmonics with a brighter character and a feed-forward bass compressor. The two buttons are mutually exclusive; the active selection is shown in amber.
 
-**Poo group** — the three knobs under the "Poo" bracket label shape the low-frequency band:
+**Poo group** — The three knobs under the "Poo" bracket act on the low-frequency band. Drive pushes the saturator or compressor harder. Tune centres the frequency band on your target fundamental. Mix blends the processed low band back with the dry signal.
 
-- **Drive** sets how hard the low-frequency saturator or compressor is driven. Higher values add more low-end thickness and density.
-- **Tune** centres the low-frequency focus band on a specific frequency.
-- **Mix** blends the processed low band back with the dry signal. At 0 % the Poo processor is fully bypassed; at 100 % it is fully wet.
+**Doo group** — The three knobs under the "Doo" bracket act on the high-frequency band. Tune centres the excitement band in the presence or air region. Air controls the amount of harmonics added at that band. Mix blends the excited highs back with the dry signal.
 
-**Doo group** — the three knobs under the "Doo" bracket label add presence and air in the high-frequency band:
+The animated PooDoo logo pulses in brightness with the processed (wet) signal RMS, giving a continuous visual indication that the stage is active and passing audio.
 
-- **Tune** centres the high-frequency excitement band on a specific frequency. The mapping is logarithmic, so the knob travels more slowly at higher frequencies.
-- **Air** sets the amount of harmonics added at the Doo band.
-- **Mix** blends the excited highs back with the dry signal.
-
-The **PooDoo logo** at the top of the applet pulses in brightness with the processed (wet) signal RMS, giving a visual indication that the exciter is active and receiving audio.
-
-Bypass and enable are handled by the CHAIN widget, not by controls inside the applet. To open the floating PUDU editor, double-click the PUDU (Enh) stage in the CHAIN widget.
+To open the floating editor, double-click the PUDU (Enh) stage in the CHAIN widget. To float, pop out, or hide the sub-container, right-click the PUDU sub-container titlebar.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted setting |
 |---|---|---|---|
-| Even / Odd | — | Either/or | `ClientPuduTxMode` |
+| Even | — | — | `ClientPuduTxMode` |
+| Odd | — | — | `ClientPuduTxMode` |
 | Poo / Drive | 6.0 dB | 0.0 – 24.0 dB | `ClientPuduTxPooDriveDb` |
 | Poo / Tune | 100 Hz | 50 – 160 Hz | `ClientPuduTxPooTuneHz` |
 | Poo / Mix | 30 % | 0 – 100 % | `ClientPuduTxPooMix` |
@@ -41,14 +34,13 @@ Bypass and enable are handled by the CHAIN widget, not by controls inside the ap
 | Doo / Air | 6.0 dB | 0.0 – 24.0 dB | `ClientPuduTxDooHarmonicsDb` |
 | Doo / Mix | 30 % | 0 – 100 % | `ClientPuduTxDooMix` |
 
-Enable/disable state is persisted separately as `ClientPuduTxEnabled` and controlled from the CHAIN widget.
+The `ClientPuduTxEnabled` setting persists whether the PUDU stage is active in the chain.
 
 ## Tips
 
-- The PooDoo logo pulse is a quick check that audio is flowing through the wet path. If the logo is not pulsing during transmit, verify the PUDU stage is enabled in the CHAIN widget.
-- Poo / Tune responds linearly, so dial it close to the fundamental frequency of your voice for the most focused low-end enhancement.
-- Doo / Tune uses a logarithmic scale. A small physical movement near the top of the range covers a wide frequency span; use slow, deliberate turns when targeting a specific presence peak.
-- Keep Poo / Mix and Doo / Mix at moderate values (20–40 %) as a starting point. Parallel processing at high mix levels can cause the signal to sound over-processed on the receiving end.
+- Poo / Tune responds to a linear frequency mapping, so small adjustments near 50 Hz and near 160 Hz move the band by the same absolute amount. Set Tune close to the fundamental of your voice before increasing Drive or Mix.
+- Doo / Tune uses a logarithmic mapping, so the knob covers more octaves toward the top of its travel. A setting of 5.0 kHz is the label displayed at the default position; values below 1000 Hz display in Hz.
+- Keep Poo / Mix and Doo / Mix conservative — both default to 30 %. Large mix values at high Drive settings can increase average power significantly.
 
 ## Related
 

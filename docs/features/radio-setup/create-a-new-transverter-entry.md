@@ -1,35 +1,33 @@
 # Create a new transverter entry
 
-This page explains how to add a transverter definition to your FLEX-8600 so AetherSDR can display and tune the transverter's output frequency instead of the radio's IF frequency.
+Use this page to add a transverter definition to your FLEX-8600 so AetherSDR can display and tune RF frequencies above the radio's native range.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Radio Setup dialog requires an active radio connection.
-- Know the transverter's IF frequency range and output frequency offset before you begin.
+- Know the IF frequency your transverter uses and the RF frequency offset you want to apply.
 
 ## Steps
 
 1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
-2. Click the **XVTR** tab.
-3. Click **Create New Transverter**.
-
-A new transverter entry appears as a nested tab inside the XVTR tab.
-
-4. Configure the entry using the controls on the new tab (frequency range, offset, name, and RX-only setting — see below).
-5. To remove an entry at any time, select its tab and click **Remove**.
+2. Click the `XVTR` tab.
+3. Click `Create New Transverter`.
+4. A new nested tab appears for the transverter entry. Configure the entry using the controls on that tab.
+5. To restrict the transverter to receive only, enable `RX Only:`.
+6. Close the dialog when finished. Settings are sent to the radio immediately.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Create New Transverter** | Button | Adds a new transverter entry and creates a nested tab for it. |
-| **RX Only:** | Toggle button | When enabled, prevents transmitting through this transverter. |
-| **Remove** | Button | Permanently deletes the selected transverter entry. |
+| `Create New Transverter` | Push button | Adds a new transverter entry and opens a nested tab for it. |
+| `RX Only:` | Toggle button | When enabled, prevents transmitting through this transverter. |
+| `Remove (xvtr)` | Push button | Deletes the selected transverter definition from the radio. |
 
 ## Tips
 
-- The XVTR tab uses nested tabs — one tab per transverter, plus a tab for creating new entries. If you have multiple transverters, select the correct nested tab before clicking **Remove**.
-- If you want a transverter that cannot transmit (for example, a receive-only downconverter), enable **RX Only:** immediately after creating the entry.
+- Each transverter entry appears as its own nested tab inside the XVTR tab. To edit an existing entry, click its tab.
+- Use `Remove (xvtr)` only if you no longer need the entry. The deletion is immediate.
 
 ## Related
 

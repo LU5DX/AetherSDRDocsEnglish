@@ -1,40 +1,43 @@
 # Tube Saturator overview
 
-The Tube Saturator is a TX-side processor that shapes your transmitted signal through a bias-swept tube model, adding harmonic richness before the signal reaches the radio. Use it to add warmth or edge to SSB and other voice modes without changing anything on the Flex radio itself.
+The Tube Saturator is a TX-side audio processing stage that shapes your transmitted signal through a bias-swept tube model, adding harmonic richness and saturation. Use it to give your audio more presence and character before it reaches the radio.
 
 ## Before you start
 
-- The Tube Saturator operates on the transmit audio path. It has no effect on received signals.
-- The TUBE stage must be enabled via the CHAIN widget or the floating editor before the applet becomes visible in the PooDoo Audio (TXDSP) container.
+- The Tube Saturator applet is hidden until the Tube stage is enabled. Enable it via the CHAIN widget in the PooDoo Audio (TXDSP) container, or by double-clicking the Tube stage in the CHAIN widget to open the floating editor.
+- The applet appears as the `TUBE` sub-container inside the PooDoo Audio (TXDSP) parent container.
 
 ## How it works
 
-The Tube Saturator inserts a nonlinear transfer function — a tube model — into the TX audio chain. Drive pushes the signal deeper into the nonlinear region of the curve. Bias shifts the operating point on that curve, changing the ratio of even to odd harmonics. Tone applies a post-saturation tilt to brighten or darken the result. Output trims the level after saturation so you can compensate for any gain change. Mix blends the saturated signal back against the dry signal, allowing parallel saturation.
+The Tube Saturator processes the TX audio signal through a nonlinear transfer curve that models tube saturation behavior. The shape of the curve changes in real time as you adjust Drive, Bias, and the active tube model.
 
-The transfer curve display shows the current shape of the tube model in real time. A live input ball rides along the curve at the actual input level, showing which part of the curve your signal is exciting at any moment. When Drive is low and the curve is nearly straight, little saturation occurs. As Drive increases, the curve bends and the ball enters the nonlinear region.
+The applet displays a compact transfer curve graph. A live input ball rides along the curve, showing where the current signal level sits in the saturation regime — fully linear near the center, increasingly saturated toward the edges. The ball position updates at approximately 30 Hz and smooths slightly to avoid jarring jumps.
 
-Changes made in the floating editor (opened by double-clicking the Tube stage in the CHAIN widget) are reflected on the applet knobs within approximately 33 ms, and vice versa.
+The five knobs control how hard the signal is pushed into the tube (Drive), the tonal character of the result (Tone), the asymmetry of the operating point (Bias), the post-saturation output level (Output), and the blend between the original dry signal and the saturated signal (Mix). All settings are persisted and kept in sync between the applet and the floating editor.
 
-To open the applet: enable the Tube stage in the CHAIN widget. The TUBE sub-container appears inside the PooDoo Audio (TXDSP) parent container. Double-click the Tube stage in the CHAIN widget to open the floating editor. Right-click the TUBE sub-container titlebar to float, pop out, or hide it.
+Bypass is handled from the CHAIN widget, not from within the applet itself.
 
 ## What each control does
 
-| Control | What it does | Default | Valid range | Setting key |
+| Control | Default | Range | Persisted setting | Description |
 |---|---|---|---|---|
-| Transfer curve | Draws the active tube transfer curve. The live input ball moves along the curve at the current input level. Read-only indicator. | — | — | — |
-| Drive | Pushes more signal into the tube stage, increasing saturation. | 0.0 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` |
-| Tone | Tilts the frequency balance of the saturated signal. Negative values darken; positive values brighten. | 0.00 | -1.0 to 1.0 | `ClientTubeTxTone` |
-| Bias | Shifts the operating point on the transfer curve, changing the harmonic mix between even and odd orders. | 0 % | 0 % to 100 % | `ClientTubeTxBiasAmount` |
-| Output | Post-tube make-up or trim gain. Use this to compensate for level changes introduced by saturation. | 0.0 dB | -24.0 to 12.0 dB | `ClientTubeTxOutputGainDb` |
-| Mix | Blends the dry (unprocessed) and saturated signals. 100 % passes the fully saturated signal; 0 % passes the dry signal unchanged. | 100 % | 0 % to 100 % | `ClientTubeTxDryWet` |
+| Transfer curve | — | — | — | Displays the current tube transfer curve. Bends and shifts as Drive, Bias, and model change. |
+| Live input ball | — | — | — | Dot moves along the transfer curve at the current input level, showing the active saturation regime. |
+| Drive | 0.0 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` | Pushes more signal into the tube stage. Higher values bend the curve more aggressively. |
+| Tone | 0.00 | -1.0 to 1.0 | `ClientTubeTxTone` | Negative values darken the saturated signal; positive values brighten it. |
+| Bias | 0 % | 0 % to 100 % | `ClientTubeTxBiasAmount` | Shifts the operating point on the transfer curve, changing the balance of even and odd harmonics. |
+| Output | 0.0 dB | -24.0 to 12.0 dB | `ClientTubeTxOutputGainDb` | Post-tube make-up or trim gain. Use this to compensate for level changes introduced by saturation. |
+| Mix | 100 % | 0 % to 100 % | `ClientTubeTxDryWet` | Blends the dry (unprocessed) and saturated signals. 100 % passes only the saturated signal. |
 
-The enabled/disabled state of the Tube stage is persisted as `ClientTubeTxEnabled`. Bypass is controlled from the CHAIN widget, not from within the applet itself.
+The enabled state of the Tube stage is persisted as `ClientTubeTxEnabled` and is controlled from the CHAIN widget.
 
 ## Tips
 
-- Start with Drive at a low value and watch the transfer curve. The ball indicates which portion of the curve your signal is using — aim to keep peaks in the gently bent region rather than hard against the limits.
-- After increasing Drive, use Output to bring the level back to where it was so downstream processing and your TX audio level remain consistent.
-- Setting Mix below 100 % lets you blend in only a portion of the saturation, which can be useful when you want subtle harmonic enhancement without a large tonal change.
+- Start with Drive at 0.0 dB and raise it slowly until the transfer curve visibly bends. That bend is where saturation begins.
+- Use Mix below 100 % to blend in only a portion of the saturated signal, which can add warmth without obvious coloration.
+- Raising Bias shifts the curve asymmetrically, which introduces more even-order harmonics and changes the character of the saturation.
+- If saturation raises your perceived level, pull Output down to compensate before adjusting other settings.
+- Changes made in the floating editor are reflected in the applet knobs automatically, and vice versa.
 
 ## Related
 

@@ -1,39 +1,40 @@
 # Auto-connect MIDI controller on startup
 
-Configure AetherSDR to reopen your MIDI controller automatically each time the application launches, so you do not have to connect it manually after every restart.
+When AetherSDR launches, it can automatically reopen the last-used MIDI port so your controller is ready without manual intervention each session.
 
 ## Before you start
 
-- A MIDI controller must already be connected to your computer and visible as a MIDI input device.
-- You must have connected to the device at least once using the Port: selector and Connect button so that AetherSDR has a device name to remember. See [Connect a MIDI controller](connect-a-midi-controller.md).
+- AetherSDR must have been built with MIDI support (`Settings > MIDI Mapping...` must appear in the Settings menu).
+- Your MIDI controller must be physically connected and recognized by the operating system.
+- You must have connected to the port at least once manually so that AetherSDR has a device to reopen. See [Connect a MIDI controller](connect-a-midi-controller.md).
 
 ## Steps
 
-1. Open `Settings > MIDI Mapping...`.
-2. In the **Port:** combo box, select your MIDI controller from the list. If it does not appear, click Refresh.
-3. Click Connect. The port status changes to show the connected device name.
+1. Go to `Settings > MIDI Mapping...`.
+2. In the **Port:** combo box, select your MIDI controller.
+3. Click **Connect**. The port status changes to show the connected device name.
 4. Check **Auto-connect on startup**.
 
-AetherSDR immediately saves both `MidiPort` and `MidiAutoConnect` to persistent settings. On the next launch, the port will be opened automatically without further action.
+AetherSDR saves both `MidiPort` and `MidiAutoConnect` immediately. On the next launch, the port reopens automatically without any further action.
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
+| Control | Kind | Behavior | Persisted setting |
 |---|---|---|---|
-| Port: | Combo box | Selects the MIDI input device to open. | `MidiPort` |
-| Refresh | Button | Rescans available MIDI ports and repopulates Port:. | — |
-| Connect | Button | Opens or closes the selected MIDI port. Label toggles to Disconnect when the port is open. | — |
-| Auto-connect on startup | Checkbox | When checked, AetherSDR reopens the saved MIDI port on every launch. | `MidiAutoConnect` |
+| **Port:** | Combo box | Selects the MIDI input device to use | `MidiPort` |
+| **Refresh** | Button | Rescans available MIDI ports | — |
+| **Connect** | Button | Opens or closes the selected MIDI port | — |
+| **Auto-connect on startup** | Checkbox | Reopens the saved MIDI port each time AetherSDR launches | `MidiAutoConnect` |
 
 ## Tips
 
-- If you rename or replug the controller and the port name changes, uncheck **Auto-connect on startup**, reselect the correct port from Port:, click Connect, then re-check **Auto-connect on startup** to update the saved device name.
-- The activity indicator next to the port status updates with each incoming MIDI message, which is a quick way to confirm the port opened successfully at startup.
+- If you unplug and replug the controller, click **Refresh** to repopulate the **Port:** list before clicking **Connect**.
+- The port status and activity indicator update in real time. Confirm the activity indicator shows incoming messages before closing the dialog.
 
 ## Troubleshooting
 
-- **Port does not appear in Port: after launch** — The controller was not plugged in before AetherSDR started. Click Refresh to rescan, select the port, click Connect, and re-save the preference by checking **Auto-connect on startup** again.
-- **Auto-connect on startup is checked but the controller is not connected after launch** — The device name saved in `MidiPort` no longer matches any available port, likely because the controller was renamed by the OS or connected to a different USB port. Select the correct port from Port:, click Connect, and re-check **Auto-connect on startup**.
+- **Port list is empty after plugging in the controller** — Click **Refresh** to rescan. If the port still does not appear, verify the operating system recognizes the device.
+- **Auto-connect does not work on the next launch** — Confirm you clicked **Connect** and saw a connected status before checking **Auto-connect on startup**. The setting saves the most recently opened port name; if the device name changed (for example, on a different USB port on some systems), select the correct port manually, connect again, and re-check **Auto-connect on startup**.
 
 ## Related
 
@@ -41,4 +42,3 @@ AetherSDR immediately saves both `MidiPort` and `MidiAutoConnect` to persistent 
 - [MIDI Controller Mapping overview](../../features/midi-mapping/overview.md)
 - [Record a new binding with Learn mode](../../features/midi-mapping/record-a-new-binding-with-learn-mode.md)
 - [Save the current mapping as a named profile](../../features/midi-mapping/save-the-current-mapping-as-a-named-profile.md)
-- [Load a previously saved MIDI profile](../../features/midi-mapping/load-a-previously-saved-midi-profile.md)

@@ -1,42 +1,39 @@
 # Enable CAT PTY so Linux/macOS apps can open a serial-style CAT port
 
-The CAT PTY feature creates virtual serial port symlinks at `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`, one per channel. Use this when your logging or digital-mode software expects to open a serial device rather than a TCP socket for CAT control.
+The CAT PTY feature creates four virtual serial port symlinks under `/tmp/` that logging and contest software on Linux and macOS can open as if they were physical serial ports. Use this when your application expects a serial device path rather than a TCP connection.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The CAT Control applet requires an active radio connection.
+- AetherSDR must be connected to the radio. The CAT Control applet requires an active radio connection.
 - PTY symlinks are only created on Linux and macOS. This feature is not available on Windows.
-- The CAT Control applet is hidden by default. You must reveal it before you can use it.
+- The CAT tray button must be visible in the right sidebar. If it is not visible, see [CAT Control overview](overview.md).
 
 ## Steps
 
-1. Click the **CAT** tray button on the right sidebar to show the CAT Control applet.
-2. Click **Enable TTY**.
-
-The button highlights green when active. Each channel row immediately shows its symlink path. The path for each channel updates from the static placeholder to the live path once the PTY is running.
+1. Click the **CAT** tray button on the right sidebar to open the CAT Control applet.
+2. Click **Enable TTY** to start the PTY servers.
+3. Check the per-channel rows. When each PTY is running, the path column updates from `/tmp/AetherSDR-CAT-A` (or B, C, D) to the active symlink path assigned by the system.
+4. In your logging or contest application, set the serial port to the path shown in the relevant channel row — for example `/tmp/AetherSDR-CAT-A` for channel A.
 
 ## What each control does
 
-| Control | What it does | Default | Range | Setting key |
-|---|---|---|---|---|
-| **Enable TTY** | Starts or stops PTY symlinks for all four channels (A–D). | Off | — | — |
-| **Enable TCP** | Starts or stops the rigctld TCP servers. Independent of PTY. | Off | — | — |
-| **Base** | Base TCP port for the rigctld servers. Channels bind to Base, Base+1, Base+2, Base+3. Does not affect PTY paths. | `4532` | 1024–65535 | `CatTcpPort` |
-| A/B/C/D rows | Show each channel's badge, TCP server status, and current PTY symlink path. Read-only indicators. | `(stopped)` | — | — |
-
-The PTY symlink paths are fixed as `/tmp/AetherSDR-CAT-A`, `/tmp/AetherSDR-CAT-B`, `/tmp/AetherSDR-CAT-C`, and `/tmp/AetherSDR-CAT-D`. Each maps to the corresponding slice (channel A = slice 0, B = slice 1, and so on).
+| Control | Kind | Default | Range | Persisted key | Behavior |
+|---|---|---|---|---|---|
+| **Enable TTY** | Toggle button | Off | On / Off | — | Starts or stops all four PTY symlinks under `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. |
+| **Base** | Text field | `4532` | 1024–65535 | `CatTcpPort` | Base TCP port used by the TCP servers. Does not affect PTY paths. Out-of-range values snap back to `4532`. |
+| A / B / C / D rows | Indicator | `(stopped)` | — | — | Each row shows a colour-coded channel badge, the TCP server status, and the current PTY symlink path. |
 
 ## Tips
 
-- Open your external application to the symlink path shown in the channel row, for example `/tmp/AetherSDR-CAT-A`. Treat it exactly as you would a hardware serial port.
-- PTY and TCP can run simultaneously. If your software supports both, you can enable **Enable TTY** and **Enable TCP** at the same time without conflict.
-- To start PTY symlinks automatically every time AetherSDR launches, use `Settings > Autostart CAT with AetherSDR`.
+- Each of the four channels (A–D) maps to one radio slice. Open the path for the channel that corresponds to the slice you want to control.
+- You can run **Enable TTY** and **Enable TCP** at the same time. They operate independently.
+- To start the PTY servers automatically every time AetherSDR launches, use `Settings > Autostart CAT with AetherSDR`.
 
 ## Troubleshooting
 
-- **The Enable TTY button is present but symlinks never appear** — Confirm you are running Linux or macOS. PTY creation is not supported on Windows.
-- **External software cannot open the symlink** — Check that AetherSDR is connected to the radio. The CAT Control applet requires an active radio connection; PTYs may not function while the radio is disconnected.
-- **The channel row still shows the placeholder path after clicking Enable TTY** — The PTY may have failed to start. Try clicking **Enable TTY** again to toggle it off and back on.
+- **The PTY path does not appear or stays grey after clicking Enable TTY** — confirm the radio is connected. The CAT Control applet requires an active radio connection before PTY servers can start.
+- **The symlink path shown is not `/tmp/AetherSDR-CAT-A`** — the system may have assigned a different slave device path. Use the exact path shown in the channel row, not a hardcoded value.
+- **Enable TTY has no effect on Windows** — PTY symlinks are a Linux/macOS feature. Use **Enable TCP** and a TCP-to-serial bridge utility instead.
 
 ## Related
 

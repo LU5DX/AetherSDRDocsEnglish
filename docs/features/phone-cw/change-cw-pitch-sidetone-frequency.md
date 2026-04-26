@@ -1,36 +1,33 @@
 # Change CW pitch / sidetone frequency
 
-The CW pitch setting controls the tone frequency used for both the sidetone monitor and the CW decode offset. Adjusting it lets you match your preferred listening pitch and align the panadapter filter marker with your operating frequency.
+The CW pitch setting controls the tone frequency used for both the sidetone you hear while keying and the CW decode offset. Adjust it to match your preferred listening pitch or to place decoded CW correctly in the passband.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio.
-- The active slice must be in a CW mode. The Phone/CW applet automatically switches to the CW panel when CW mode is active.
+- The active slice must be in a CW mode. The Phone/CW applet automatically switches to the CW panel when a CW mode is selected; the pitch control is not visible in Phone mode.
 
 ## Steps
 
-1. Locate the Phone/CW applet in the Applet Panel (right sidebar). If it is not visible, click the **P/CW** tray button to show it.
-2. Confirm the CW sub-panel is displayed. It appears automatically when the active slice is in CW mode.
-3. Find the **Pitch** spinbox near the bottom of the CW panel. The current pitch value is shown in Hz between two arrow buttons.
-4. Click **<** to decrease the pitch by 10 Hz, or click **>** to increase it by 10 Hz.
-5. Repeat until the displayed value matches your desired pitch.
+1. Locate the P/CW tray button on the right sidebar and confirm the CW panel is showing. If the applet is hidden, click the P/CW tray button to show it.
+2. Find the **Pitch < / >** spinbox at the bottom of the CW panel.
+3. Click **<** to decrease the pitch by 10 Hz, or click **>** to increase it by 10 Hz.
+4. Repeat until the displayed value matches your target frequency.
 
 ## What each control does
 
 | Control | Description | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| **Pitch < / >** | Steps the CW sidetone and decode pitch frequency. Each click changes the value by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | — |
-| **Sidetone** | Toggles the CW sidetone monitor on or off. Pitch has no audible effect unless Sidetone is enabled. | — | On / Off | — |
-| **Sidetone volume** | Sets the CW monitor volume level. | — | 0–100 | — |
+| **Pitch < / >** | Steps the CW sidetone and decode pitch up or down. Each click moves the value by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | — |
 
 ## Tips
 
-- The pitch value affects both the audible sidetone tone and the frequency offset used for CW decoding. Set it to match your preferred listening pitch before operating.
-- Pitch changes in 10 Hz increments only. To reach a value such as 750 Hz from 600 Hz, click **>** fifteen times.
+- The pitch value affects both what you hear in the sidetone and the frequency offset used for CW decoding. If decoded text appears shifted, verify the pitch matches your filter center.
+- The pitch setting is sent directly to the radio; there is no separate client-side persistence for it.
 
 ## Related
 
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
-- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
-- [Set CW break-in delay](set-cw-break-in-delay.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
+- [Set CW break-in delay](set-cw-break-in-delay.md)
+- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)

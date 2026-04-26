@@ -1,42 +1,47 @@
 # Connect a MIDI controller
 
-Use this page to select your MIDI input device, open the port, and confirm AetherSDR is receiving messages from your controller.
+This page explains how to select and connect a MIDI controller in AetherSDR so that physical knobs, faders, and buttons on the device become available for parameter bindings.
 
 ## Before you start
 
-- Your MIDI controller must be connected to the computer and recognized by the OS before opening AetherSDR.
-- MIDI support must be compiled in (`HAVE_MIDI`). If `Settings > MIDI Mapping...` does not appear in the menu, your build does not include MIDI.
+- Your MIDI controller must be plugged in and recognised by the operating system before opening AetherSDR.
+- AetherSDR must have been built with MIDI support (`Settings > MIDI Mapping...` must be present in the menu; if it is missing, your build does not include MIDI).
 
 ## Steps
 
-1. Go to `Settings > MIDI Mapping...`. The MIDI Controller Mapping dialog opens.
-2. In the Port: combo box, select your MIDI controller from the list of available devices. If the list is empty or your device is missing, click Refresh to rescan.
-3. Click Connect. The port status label changes to **Connected:** followed by the device name. If the connection fails, the label remains **Disconnected**.
-4. Move a knob, fader, or button on your controller. The activity indicator displays the most recent message received, for example `Ch 1 CC #7 = 64`. This confirms AetherSDR is receiving MIDI data.
-5. If you want AetherSDR to open this device automatically on every launch, check Auto-connect on startup. This persists as `MidiAutoConnect`.
-6. Click Close.
+1. Go to `Settings > MIDI Mapping...`. The **MIDI Controller Mapping** dialog opens.
+2. In the **MIDI Device** section, open the **Port:** drop-down and select your controller from the list.
+3. If your controller does not appear, click **Refresh**. AetherSDR rescans available MIDI ports and repopulates the **Port:** list.
+4. Click **Connect**. AetherSDR opens the selected port. The port status area changes to **Connected:** followed by the device name, and the **Connect** button label changes to **Disconnect**.
+5. Move a knob or press a button on the controller. The activity indicator next to the port status should show the most recent MIDI message received (for example, `Ch 1 CC #7 = 64`). This confirms the device is sending data.
+6. To have AetherSDR reopen this port every time it starts, check **Auto-connect on startup**.
+7. Click **Close** when done.
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
+| Control | Kind | Behavior | Persisted setting |
 |---|---|---|---|
-| Port: | Combo box | Selects the MIDI input device. | `MidiPort` |
-| Refresh | Button | Rescans available MIDI ports. | — |
-| Connect | Button | Opens or closes the selected MIDI port. Label toggles to **Disconnect** when the port is open. | — |
-| Auto-connect on startup | Checkbox | Reopens the saved MIDI port each time AetherSDR launches. | `MidiAutoConnect` |
-| Port status | Indicator | Shows **Connected:** with the device name, or **Disconnected**. | — |
-| Activity indicator | Indicator | Shows the most recent MIDI message received (channel, type, number, value). | — |
+| **Port:** | Drop-down | Selects the MIDI input device to use. | `MidiPort` |
+| **Refresh** | Button | Rescans available MIDI ports and repopulates the **Port:** list. | — |
+| **Connect** | Button | Opens the selected MIDI port. Label changes to **Disconnect** while the port is open; clicking again closes it. | — |
+| **Auto-connect on startup** | Checkbox | When checked, AetherSDR reopens the last connected MIDI port on launch. | `MidiAutoConnect` |
+| Port status | Indicator | Shows **Connected:** followed by the device name when the port is open, or **Disconnected** when closed. | — |
+| Activity indicator | Indicator | Displays the most recent MIDI message received (channel, type, number, and value). | — |
+
+## Tips
+
+- If the port status shows **Connected** but the activity indicator never updates, check that your controller is set to transmit on a MIDI channel and that no other application has the port exclusively locked.
+- The activity indicator updates in real time. Use it to verify the correct port is selected before creating bindings.
 
 ## Troubleshooting
 
-- **Port: list is empty** — Your OS has not enumerated the device yet. Unplug and replug the controller, then click Refresh.
-- **Connect fails and status stays Disconnected** — Another application may have exclusive access to the MIDI port. Close any DAW, virtual MIDI router, or other SDR application that might hold the port open, then click Connect again.
-- **Activity indicator shows no messages after connecting** — Verify the controller is sending on the channel and message type you expect. Try moving a different control. If nothing appears, the port may have opened but the device is not transmitting.
+- **`Settings > MIDI Mapping...` is not in the menu** — Your AetherSDR build was compiled without MIDI support. Obtain a build that includes the `HAVE_MIDI` feature.
+- **Controller does not appear in the Port: list** — Click **Refresh**. If the device still does not appear, check that the operating system recognises it (verify in your system's MIDI or audio device settings) and that no other application holds an exclusive lock on the port.
+- **Port status shows Connected but the activity indicator is blank** — The device is open but not sending data. Check the controller's power, USB or DIN connection, and that it is configured to output MIDI.
 
 ## Related
 
 - [MIDI Controller Mapping overview](../../features/midi-mapping/overview.md)
-- [Record a new binding with Learn mode](../../features/midi-mapping/record-a-new-binding-with-learn-mode.md)
 - [Auto-connect MIDI controller on startup](auto-connect-midi-controller-on-startup.md)
+- [Record a new binding with Learn mode](../../features/midi-mapping/record-a-new-binding-with-learn-mode.md)
 - [Load a previously saved MIDI profile](../../features/midi-mapping/load-a-previously-saved-midi-profile.md)
-- [Save the current mapping as a named profile](../../features/midi-mapping/save-the-current-mapping-as-a-named-profile.md)

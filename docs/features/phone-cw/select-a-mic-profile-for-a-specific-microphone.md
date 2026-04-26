@@ -1,32 +1,37 @@
 # Select a mic profile for a specific microphone
 
-The Phone/CW applet lets you load a named mic processing profile stored on the radio. Use this when switching between microphones that need different EQ or gain characteristics.
+The Phone/CW applet lets you load a named mic processing profile stored on the radio. Use this when switching between microphones that need different EQ, compression, or gain settings.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The "Mic profile" combo box is only populated when a radio connection is active.
-- The active slice must be in a Phone mode (SSB, AM, FM). In CW mode the Phone panel is hidden and "Mic profile" is not visible.
-- Mic profiles must already exist on the radio. AetherSDR reads the list from the radio; it does not create or edit profiles.
+- AetherSDR must be connected to the radio. The "Mic profile" combo box is populated from the radio's profile list and will be empty with no connection.
+- The active slice must be in a Phone mode (SSB, AM, FM). In CW mode the applet shows CW controls instead of Phone controls.
 
 ## Steps
 
-1. Click the **P/CW** tray button in the right sidebar to open the Phone/CW applet.
-2. Confirm the Phone panel is showing (not the CW panel). If the CW panel is visible, switch the active slice to a voice mode.
-3. Click the **Mic profile** combo box at the top of the Phone panel.
-4. Select the profile name that matches your microphone.
+1. Open the Applet Panel if it is not visible. Click the **P/CW** tray button on the right sidebar, or use `View > Applet Panel` to make the panel visible.
+2. Confirm the Phone sub-panel is showing. If the CW controls are displayed, the active slice is in CW mode — switch the slice to a voice mode first.
+3. Locate the **Mic profile** combo box. It appears directly below the Level and Compression gauges, above the **Mic source** row.
+4. Click the **Mic profile** combo box and select the profile name that matches your microphone.
 
 The radio loads the selected profile immediately.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid values | Setting key |
+| Control | Kind | Behavior | Default | Valid range | Setting key |
 |---|---|---|---|---|---|
-| Mic profile | Combo box | Loads the named mic processing profile on the radio. The list is populated from the radio. | — | Names provided by the radio | — |
+| Mic profile | Combo box | Loads the named mic processing profile on the radio. | — | Populated from radio profile list | — |
 
 ## Tips
 
-- The "Mic profile" list reflects profiles stored on the radio. If a profile you expect is missing, create it using SmartSDR or the radio's own profile management before connecting AetherSDR.
-- Changing the profile does not affect the **Mic gain** slider value. If you use the **PC** source, the gain is stored locally as `PcMicGain` (default 50, range 0–100) and is independent of the profile.
+- Profiles are stored on the radio, not in AetherSDR. To create or delete profiles, use `Profiles > Profile Manager...`.
+- After switching profiles, watch the **Level** gauge (−40 to +10 dBFS, red above 0) to confirm the new profile's gain is appropriate for your microphone.
+- If you use a PC microphone (Mic source set to **PC**), the mic gain value is kept client-side as `PcMicGain` and is not affected by the profile load.
+
+## Troubleshooting
+
+- **"Mic profile" combo box is empty** — The radio has no saved mic profiles, or AetherSDR is not connected. Check the connection status, then use `Profiles > Profile Manager...` to create at least one profile.
+- **Selecting a profile has no audible effect** — Verify that **Mic source** is set to the input your microphone is physically connected to. A profile loaded for one source will not alter processing on a different source.
 
 ## Related
 

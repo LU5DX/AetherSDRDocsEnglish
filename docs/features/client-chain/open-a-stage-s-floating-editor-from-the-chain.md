@@ -1,48 +1,40 @@
-# Open a stage's floating editor from the chain
+# Open a Stage's Floating Editor from the Chain
 
-Double-clicking a stage in the PooDoo Audio Chain opens that stage's floating editor, where you can adjust its parameters in detail.
+Each stage in the TX DSP chain has a dedicated floating editor where you can adjust its parameters in detail. Double-clicking a stage tile opens that editor without affecting the stage's bypass state.
 
 ## Before you start
 
-- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the PUDU tray button in the right sidebar to toggle it on.
-- The chain must be in TX mode. The TX button must be selected (amber) in the chain header.
+- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the PUDU tray button in the right sidebar to show it.
+- The chain must be in TX mode. Confirm that TX is selected (not RX) at the top of the chain strip.
 
 ## Steps
 
-1. Locate the PooDoo Audio Chain strip at the top of the TXDSP container.
-2. Find the stage you want to edit: Eq, Comp, Gate, DeEss, Tube, Enh / PUDU, or Reverb.
-3. Double-click the stage tile.
-
-The stage's floating editor opens immediately.
+1. Locate the chain strip at the top of the PooDoo Audio container. The hint line below the strip reads "Click to bypass · Double click to edit · Drag to reorder".
+2. Identify the stage you want to edit: Eq, Comp, Gate, DeEss, Tube, Enh / PUDU, or Reverb.
+3. Double-click the stage tile. The editor for that stage opens as a floating window.
+4. Adjust parameters in the editor as needed. Close the editor when finished.
 
 ## What each control does
 
-| Stage tile | Single-click | Double-click | Drag |
-|---|---|---|---|
-| Chain stage (Eq) | Toggles bypass for the EQ stage | Opens the EQ editor | Reorders the chain |
-| Chain stage (Comp) | Toggles bypass for the compressor | Opens the compressor editor | Reorders the chain |
-| Chain stage (Gate) | Toggles bypass for the gate | Opens the gate editor | Reorders the chain |
-| Chain stage (DeEss) | Toggles bypass for the de-esser | Opens the de-ess editor | Reorders the chain |
-| Chain stage (Tube) | Toggles bypass for the tube saturator | Opens the tube editor | Reorders the chain |
-| Chain stage (Enh / PUDU) | Toggles bypass for the PUDU exciter | Opens the PUDU editor | Reorders the chain |
-| Chain stage (Reverb) | Toggles bypass for the reverb | Opens the reverb editor | Reorders the chain |
+| Stage tile | Opens editor for | Single-click action |
+|---|---|---|
+| Chain stage (Eq) | EQ | Toggles bypass for the EQ stage |
+| Chain stage (Comp) | Compressor | Toggles bypass for the compressor |
+| Chain stage (Gate) | Gate | Toggles bypass for the gate |
+| Chain stage (DeEss) | De-esser | Toggles bypass for the de-esser |
+| Chain stage (Tube) | Tube saturator | Toggles bypass for the tube saturator |
+| Chain stage (Enh / PUDU) | PUDU exciter | Toggles bypass for the PUDU exciter |
+| Chain stage (Reverb) | Reverb | Toggles bypass for the reverb |
 
-The chain's stage order and enabled states are persisted under `ClientCompTxChainStages`. The container's visibility state is persisted under `Applet_TXDSP`.
+The chain strip order and per-stage bypass states are persisted under `ClientCompTxChainStages`. The TXDSP container visibility is persisted under `Applet_TXDSP`.
 
 ## Tips
 
-- The hint text below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" and is visible whenever TX mode is active.
-- A single click bypasses the stage rather than opening the editor. If the editor did not open, check whether you single-clicked instead of double-clicked.
-- The stage tile responds to double-click regardless of whether the stage is currently bypassed.
-
-## Troubleshooting
-
-- **The chain strip is not visible** — The TXDSP container may be hidden. Click the PUDU tray button in the right sidebar to show it, or verify that TX is selected in the chain header rather than RX.
-- **Double-clicking has no effect** — The chain must be in TX mode. Click TX in the chain header to switch to it. In RX mode the chain strip is replaced by a placeholder and stage interaction is not available.
+- A single click on a stage tile toggles its bypass rather than opening the editor. Be sure to double-click to reach the editor.
+- Opening an editor does not bypass or otherwise change the stage's active state.
 
 ## Related
 
-- [PooDoo Audio Chain overview](overview.md)
 - [Reorder the TX DSP chain](reorder-the-tx-dsp-chain.md)
 - [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)
 - [Re-enable a specific stage after a global bypass](re-enable-a-specific-stage-after-a-global-bypass.md)

@@ -1,22 +1,21 @@
 # Capture a slice snapshot for support
 
-The Slice Troubleshooting dialog captures a snapshot of every slice's current state and summarizes likely problems. Use it to gather information before filing a bug report or asking for support.
+The Slice Troubleshooting dialog captures a point-in-time JSON snapshot of every slice and DAX channel, and summarizes detected problems in plain language. Use this when reporting a bug or asking for support — you can copy or export the data to share with the AetherSDR team.
 
 ## Before you start
 
-- AetherSDR must be connected to a radio. The dialog requires an active radio connection.
+- AetherSDR must be connected to the radio. The dialog requires an active radio connection.
 
 ## Steps
 
 1. Click `Help > Slice Troubleshooting...` to open the Slice Troubleshooting dialog.
-2. Review the **Issue Summary** tab for a plain-language list of detected problems (missing audio, stuck mute, missing antenna, and similar issues).
-3. Click the **JSON** tab to view the full snapshot of slices and DAX channels.
-4. Do one of the following to share the snapshot:
-   - Click **Copy Summary** to copy the issue summary to the clipboard.
-   - Click **Copy JSON** to copy the full JSON snapshot to the clipboard.
-   - Click **Export JSON...** to save the JSON to a file you can attach to a bug report.
-5. If you change slice state while the dialog is open, click **Refresh Snapshot** to re-read the current state before copying or exporting.
-6. Click **Close** when finished.
+2. The snapshot is taken automatically when the dialog opens. Review the **Issue Summary** tab for a bullet list of detected problems (missing audio, stuck mute, missing antenna, and similar).
+3. To see the raw data, click the **JSON** tab.
+4. If you have changed slice state since opening the dialog, click `Refresh Snapshot` to re-read the current state.
+5. To share the summary text, click `Copy Summary`. The text is placed on the clipboard. The status label confirms "Copied to clipboard".
+6. To share the full JSON, click `Copy JSON`. Paste it into your support ticket or email.
+7. To save the JSON to a file (for attaching to a bug report), click `Export JSON...` and choose a save location in the file dialog.
+8. Click `Close` when finished.
 
 ## What each control does
 
@@ -24,17 +23,17 @@ The Slice Troubleshooting dialog captures a snapshot of every slice's current st
 |---|---|---|
 | **Issue Summary** | Tab | Plain-language bullet list of detected problems. |
 | **JSON** | Tab | Full JSON snapshot of slices and DAX channels. |
-| **Refresh Snapshot** | Button | Re-reads slice state into the snapshot. |
-| **Copy Summary** | Button | Copies the issue summary to the clipboard. |
-| **Copy JSON** | Button | Copies the full JSON snapshot to the clipboard. |
-| **Export JSON...** | Button | Saves the JSON to a file. |
-| **Close** | Button | Closes the dialog. |
+| `Refresh Snapshot` | Button | Re-reads slice state into the snapshot. Use this after changing slice configuration. |
+| `Copy Summary` | Button | Copies the issue summary text to the clipboard. |
+| `Copy JSON` | Button | Copies the full JSON snapshot to the clipboard. |
+| `Export JSON...` | Button | Opens a save dialog and writes the JSON to a file. |
+| `Close` | Button | Closes the dialog. |
 | Status label | Indicator | Shows the result of the last copy or export action (for example, "Copied to clipboard"). |
 
 ## Tips
 
-- Use the **Issue Summary** tab when filing a GitHub issue. Use the **JSON** tab output when seeking AI-assisted troubleshooting or when support asks for the full state.
-- Click **Refresh Snapshot** after making any change to slice configuration so the snapshot reflects the current state before you export or copy.
+- Take the snapshot before changing anything. If you reconfigure a slice to work around a problem, click `Refresh Snapshot` a second time after the change so you have both a before and after snapshot to compare.
+- `Export JSON...` produces a file you can attach directly to a bug report without needing to paste large amounts of text.
 
 ## Related
 

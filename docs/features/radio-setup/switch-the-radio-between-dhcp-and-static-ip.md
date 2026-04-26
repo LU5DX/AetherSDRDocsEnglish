@@ -1,45 +1,48 @@
 # Switch the Radio Between DHCP and Static IP
 
-Use this page to change how your FLEX-8600 obtains its IP address — either automatically via DHCP or with a fixed static address you specify. You would use a static IP to ensure the radio is always reachable at a known address, for example in a remote or VPN setup.
+Use this page to change how your FLEX-8600 receives its network address — either automatically via DHCP or with a fixed static IP that you specify.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Network tab is only available while connected.
-- If you are switching to static IP, have your intended IP address, subnet mask, and gateway address ready before you start.
-- Changing the radio's IP address will drop the current connection. Reconnect using the new address after applying.
+- AetherSDR must be connected to the radio. The Network tab is only available when a radio connection is active.
+- If you are switching to static IP, have your intended IP address, subnet mask, and gateway address ready before you begin.
+- Changing the radio's IP address will drop the current connection. You will need to reconnect using the new address.
 
 ## Steps
 
-1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
+1. Open `Settings > Radio Setup...`.
 2. Click the **Network** tab.
-3. Locate the **DHCP / Static** toggle button. Click it to switch between DHCP and Static IP modes.
-4. If you selected Static: type the desired values into the **IP Address:**, **Mask:**, and **Gateway:** fields.
-5. Click **Apply** to push the network configuration to the radio.
-6. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
+3. Note the current **IP Address**, **Mask**, and **MAC Address** shown as read-only indicators. These reflect what the radio is currently using.
+4. Click the **DHCP / Static** toggle button to switch modes. The button label reflects the currently active mode.
+5. If you switched to **Static**, fill in the **IP Address:**, **Mask:**, and **Gateway:** fields with your intended values.
+6. Click **Apply** to push the network configuration to the radio.
+7. Reconnect to the radio using the new IP address if the connection drops.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **DHCP / Static** | Toggle button | Switches the radio between DHCP mode (address assigned by your router) and Static IP mode (address you enter manually). |
-| **IP Address:** | Text field | The static IPv4 address to assign to the radio. Active only in Static mode. |
-| **Mask:** | Text field | The subnet mask for the static address. Active only in Static mode. |
-| **Gateway:** | Text field | The default gateway for the static address. Active only in Static mode. |
+| **IP Address / Mask / MAC Address** | Indicator (read-only) | Shows the radio's current network addresses. Updated after a connection is established. |
+| **DHCP / Static** | Toggle button | Switches the radio between DHCP mode (address assigned by your router) and Static mode (address you specify manually). |
+| **IP Address:** | Text field | The static IPv4 address to assign to the radio. Only active in Static mode. |
+| **Mask:** | Text field | The subnet mask for the static configuration. Only active in Static mode. |
+| **Gateway:** | Text field | The default gateway for the static configuration. Only active in Static mode. |
+| **Enforce Private IP Connections:** | Toggle button | When enabled, the radio rejects connections from non-RFC1918 (non-private) IP addresses. |
+| **Network MTU:** | Spinbox | Sets the outgoing MTU in bytes. |
 | **Apply** | Push button | Sends the current network configuration to the radio. |
-| **IP Address / Mask / MAC Address** (read-only) | Indicator | Displays the radio's current network addresses. These are read-only. |
 
 ## Tips
 
-- The read-only **IP Address / Mask / MAC Address** indicators at the top of the Network tab show the radio's current active addresses. Note these down before making changes so you can recover if needed.
-- If you are connecting over a VPN or remote link, also review the **Network MTU:** setting on the same tab. See [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md).
+- After clicking **Apply** with a new static IP, AetherSDR will lose contact with the radio. Use `Settings > Connect to Radio...` to rediscover or manually enter the new address.
+- If you are unsure which static address to use, check your router's DHCP lease table for the address currently assigned to the radio's MAC address, then reserve or assign that address as a static entry.
 
 ## Troubleshooting
 
-- **Cannot see the Network tab** — The tab is only available when AetherSDR is connected to the radio. Connect first via `Settings > Connect to Radio...`, then reopen Radio Setup.
-- **Radio is unreachable after clicking Apply** — The radio has adopted its new address. If you switched to static IP, reconnect using the address you entered. If you switched to DHCP, check your router's DHCP lease table to find the address the radio was assigned.
-- **Apply has no effect** — Verify that the IP Address:, Mask:, and Gateway: fields all contain valid values before clicking Apply. An incomplete static configuration may be rejected silently.
+- **The IP Address:, Mask:, and Gateway: fields are not editable** — The **DHCP / Static** toggle is set to DHCP. Switch it to Static first.
+- **The radio does not appear after switching to static IP** — The address, mask, or gateway entered may be incorrect for your network. Connect the radio to a screen or use its front-panel controls to verify or reset the network settings, then retry.
+- **Apply has no visible effect** — Confirm AetherSDR is still connected to the radio before clicking **Apply**. If the connection was already lost, reconnect first and then reapply the settings.
 
 ## Related
 
 - [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md)
-- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)
+- [Radio Setup overview](overview.md)

@@ -1,47 +1,39 @@
 # Open the floating editor to add / remove / tune bands
 
-The ClientEqEditor floating window is where you add, remove, and tune individual EQ bands for the RX and TX paths. The compact applet view is read-only; all band editing happens in this separate window.
+The floating ClientEqEditor is where you add, remove, and tune EQ bands for the RX and TX paths. The compact applet in the panel shows the result; editing always happens in this separate window.
 
 ## Before you start
 
-- The CEQ sub-container must be visible inside the PooDoo Audio (TXDSP) parent container. If it is hidden, enable the EQ stage via the CHAIN widget first.
-- Locate the CHAIN widget for the audio path you want to edit (RX or TX).
+- The CEQ applet must be visible in the applet panel. It is hidden until the EQ stage is enabled via the CHAIN widget.
+- Locate the EQ stage tile in the CHAIN widget for the path you want to edit (RX or TX).
 
 ## Steps
 
-1. In the CHAIN widget, double-click the EQ stage to open the ClientEqEditor floating window.
-
-That is the only supported way to open the editor. The applet itself does not contain an edit button; bypass and editor-open are both handled from the CHAIN widget.
+1. Find the EQ stage in the CHAIN widget for the path you want to shape (RX chain for receive, TX chain for transmit).
+2. Double-click the EQ stage in the CHAIN widget.
+3. The ClientEqEditor floating window opens. Add, remove, or tune bands there.
 
 ## What each control does
 
-| Control | Kind | Default | Persisted setting |
-|---|---|---|---|
-| RX | Tab | Checked | — |
-| TX | Tab | Unchecked | — |
-| Analyzer / curve area | Indicator (view-only) | — | — |
-| RX EQ enabled state | — | — | `ClientEqRxEnabled` |
-| TX EQ enabled state | — | — | `ClientEqTxEnabled` |
-| RX band configuration | — | — | `ClientEqRxBands` |
-| TX band configuration | — | — | `ClientEqTxBands` |
-
-The analyzer / curve area is 110 px tall and shows the summed EQ response for the selected path overlaid with a live FFT analyzer. It is view-only; use the floating editor for all band changes.
+| Control | Kind | Default | Behavior | Setting key |
+|---|---|---|---|---|
+| RX | Tab | Checked | Binds the curve widget to the RX EQ instance. | — |
+| TX | Tab | Unchecked | Binds the curve widget to the TX EQ instance. | — |
+| Analyzer / curve area | Indicator | — | Displays the summed EQ response and a live FFT overlay for the selected path. View-only; editing requires the floating editor. | — |
+| RX enabled state | — | — | Whether the RX EQ stage is active. | `ClientEqRxEnabled` |
+| TX enabled state | — | — | Whether the TX EQ stage is active. | `ClientEqTxEnabled` |
+| RX band configuration | — | — | Stored band parameters for the RX path. | `ClientEqRxBands` |
+| TX band configuration | — | — | Stored band parameters for the TX path. | `ClientEqTxBands` |
 
 ## Tips
 
-- The CEQ applet starts hidden and only becomes visible after the EQ stage is enabled via the CHAIN widget or the floating editor.
-- The RX tab is selected by default. If you intend to edit the TX path, click TX in the applet before opening the editor so the curve area reflects the correct path.
-- Right-click the CEQ sub-container titlebar for options to float, pop out, or hide the applet panel.
-
-## Troubleshooting
-
-- **Double-clicking the EQ stage in the CHAIN widget does nothing** — The CEQ sub-container may be hidden. Verify the EQ stage is enabled in the CHAIN widget; the applet must be active before the editor can open.
-- **The CEQ applet is not visible** — It is hidden until the EQ stage is toggled on. Enable the stage from the CHAIN widget to make the CEQ sub-container appear.
+- The curve area is 110 px tall and shows a ±18 dB vertical range. If all bands are removed, the applet displays "(no bands — add one in the editor)" as a reminder that the floating editor is the only place to add bands.
+- Each path has its own applet tile. Double-click the EQ stage in the RX chain to edit RX bands; double-click the one in the TX chain to edit TX bands. There is no internal RX/TX selector inside the applet itself.
+- You can also right-click the CEQ sub-container titlebar for options to float, pop-out, or hide the applet tile.
 
 ## Related
 
 - [Parametric EQ (Client) overview](overview.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
-- [See the live spectrum of the selected path](see-the-live-spectrum-of-the-selected-path.md)
 - [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)

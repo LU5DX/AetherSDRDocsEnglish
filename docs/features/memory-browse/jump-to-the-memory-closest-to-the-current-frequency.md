@@ -1,37 +1,36 @@
-# Jump to the Memory Closest to the Current Frequency
+# Jump to the memory closest to the current frequency
 
-The Memory Browser automatically highlights the memory whose stored frequency is nearest to your current tuning. Use this to quickly find and confirm the closest reference point without scrolling manually.
+The Memory Browser automatically highlights the memory whose frequency is nearest to your current tuning. This page explains how to read that highlight and scroll to it.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The Memory Browser side panel must be open. See [Memory Browser overview](overview.md).
-- The radio must have at least one memory with a valid frequency stored. If none are loaded, the panel shows "No memories are available yet." and no highlighting occurs.
+- AetherSDR must be connected to the radio. The Memory Browser requires an active radio connection.
+- At least one memory with a valid frequency must be stored on the radio. If none are present, the panel shows "No memories are available yet." instead of the table.
+- The Memory Browser side panel must be visible in the main window.
 
 ## Steps
 
-1. Open the Memory Browser side panel. It sits alongside the panadapter in the main window.
-2. Tune the radio to any frequency using the VFO or panadapter.
-3. Look at the memory table. The row corresponding to the memory closest to your current frequency is highlighted automatically.
-4. If the highlighted row is not visible, the panel scrolls it to the center of the table.
+1. Tune your radio VFO to any frequency using your normal method.
+2. Look at the Memory Browser panel to the side of the panadapter. The memory table updates automatically.
+3. Locate the highlighted row. The highlighted row is the memory whose stored frequency is closest to your current tuned frequency. If two memories are equidistant, the one with the lower memory index is highlighted.
+4. The panel scrolls automatically to center the highlighted row in view. No additional action is required.
 
 ## What each control does
 
 | Control | Behavior |
 |---|---|
-| Memory table | Lists all stored memories sorted by frequency. Columns: Frequency (MHz), Name. |
-| Highlighted row | Marks the single memory whose frequency is nearest to the current tuned frequency. Updated each time you retune. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. |
+| Memory table | Lists all memories with valid frequencies, sorted by frequency. Columns: Frequency (MHz, six decimal places), Name. |
+| Highlighted row | Indicates the memory closest to the current tuned frequency. Updated each time the tuning changes. |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories with valid frequencies loaded. |
 
 ## Tips
 
-- The table is sorted by frequency, so the highlighted row also shows you where your current frequency sits relative to all stored memories.
-- If two memories are equally close to the current frequency, the one with the lower memory index is highlighted.
-- Memories with a frequency of 0 are excluded from the table and from the closest-match calculation.
-- A memory's displayed name comes from its name field if set, its group name if the name is blank, or "Memory N" as a fallback.
+- The highlight updates whenever your tuned frequency changes, so you can use it as a live nearest-memory indicator while spinning the VFO.
+- Memory names are drawn from the memory's name field first, then the group field, then a fallback label of the form `Memory N`. Long names are truncated with an ellipsis; hover over a row to see the full name in a tooltip.
+- To act on the highlighted memory, double-click its row or press Enter to activate it.
 
 ## Related
 
 - [Memory Browser overview](overview.md)
-- [Browse the radio's stored memories](browse-the-radio-s-stored-memories.md)
 - [Activate a memory with a single double-click](activate-a-memory-with-a-single-double-click.md)
+- [Browse the radio's stored memories](browse-the-radio-s-stored-memories.md)

@@ -1,34 +1,25 @@
 # Maximize one panadapter to fill the main area
 
-In a multi-panadapter layout, use the maximize button on any panadapter's title bar to expand it so it fills the entire main area, temporarily hiding the other panadapters.
+In a multi-panadapter layout, click the maximize button on any panadapter's title bar to expand it so it fills the entire main area, hiding the other panadapters temporarily.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio.
-- At least two panadapters must be open. The maximize button is hidden in single-pan mode.
+- AetherSDR must be connected to your FLEX-8600 radio.
+- You must have more than one panadapter open. The maximize button is hidden in single-pan mode.
 
 ## Steps
 
-1. Locate the title bar at the top of the panadapter you want to expand.
-2. Click □ (the maximize button) on the right side of that title bar.
-   The selected panadapter expands to fill the main area.
-3. To restore the previous multi-pan layout, click □ again on the same panadapter's title bar.
-
-## What each control does
-
-| Control | Behavior | Notes |
-|---|---|---|
-| □ (maximize) | Expands this panadapter to fill the main area; click again to restore the multi-pan layout. | Hidden when only one panadapter is open. |
-| ⬈ / ↩ (pop-out/dock) | Pops the panadapter into a floating window, or docks it back. | Hidden in single-pan mode. See [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md). |
-| × (close) | Closes this panadapter entirely. | Hidden in single-pan mode. See [Close an extra panadapter](close-an-extra-panadapter.md). |
+1. Locate the title bar at the top of the panadapter you want to expand. The title bar shows the slice name (for example, "Slice A") and a row of small buttons on the right.
+2. Click □ (the maximize button) in that panadapter's title bar.
+3. The selected panadapter expands to fill the main area.
 
 ## Tips
 
-- If you want to reclaim even more screen space after maximizing, use `View > Minimal Mode` (Ctrl+M) to hide the title bar and controls.
+- To return to the multi-panadapter layout, click □ again on the maximized panadapter's title bar.
+- If you want a panadapter in a completely separate window instead, use ⬈ (the pop-out button) rather than □. See [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md).
 
 ## Related
 
-- [Panadapter overview](overview.md)
 - [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md)
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Click the spectrum to activate a panadapter (multi-slice mode)](click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)

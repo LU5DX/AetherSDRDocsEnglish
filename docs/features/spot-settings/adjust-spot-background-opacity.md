@@ -1,39 +1,37 @@
 # Adjust spot background opacity
 
-Use this page to control how transparent or opaque the background fill behind spot labels appears on the panadapter. A lower value makes the background nearly invisible; a higher value makes it solid and easier to read against a busy spectrum display.
+Use the **Background Opacity:** slider to control how transparent or opaque the background fill behind spot labels appears on the panadapter.
 
 ## Before you start
 
-- Open the Spot Settings dialog by right-clicking on the panadapter spots overlay and selecting it from the context menu.
-- Confirm that "Override Background:" is set to **Enabled**. The opacity slider has no visible effect if the background is disabled.
+- Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter.
+- Confirm that "Override Background: Enabled" is active (the button reads "Enabled"). If it is not, the opacity slider has no visible effect.
 
 ## Steps
 
-1. In the Spot Settings dialog, locate the **Override Background:** row and confirm the **Enabled** toggle shows "Enabled". If it shows "Disabled", click it to enable it.
-2. Locate the **Background Opacity:** slider.
-3. Drag the slider left to decrease opacity (more transparent) or right to increase it (more opaque).
-4. The numeric readout beside the slider updates immediately to show the current value.
-5. The panadapter updates in real time. No confirmation step is required.
-
-The value is saved automatically to `SpotsOverrideBgOpacity`.
+1. In the Spot Settings dialog, locate the "Override Background:" row.
+2. Confirm the "Enabled" toggle button is checked (showing "Enabled"). If not, click "Enabled" to activate it.
+3. Locate the "Background Opacity:" slider near the bottom of the dialog.
+4. Drag the slider left to reduce opacity (more transparent) or right to increase it (more opaque).
+5. The numeric label beside the slider updates immediately. The panadapter reflects the change in real time.
 
 ## What each control does
 
-| Control | Default | Range | Setting key | Behavior |
-|---|---|---|---|---|
-| **Override Background: Enabled** | Enabled | Enabled / Disabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a background fill under spot text. Opacity has no effect when this is Disabled. |
-| **Override Background: Auto** | Enabled | Enabled / Disabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | When Enabled, the background color is chosen automatically for contrast. When Disabled, the color set by the background color picker is used instead. |
-| **Background Opacity:** | 48 | 0 – 100 | `SpotsOverrideBgOpacity` | Sets the alpha of the spot background fill. 0 is fully transparent; 100 is fully opaque. |
+| Control | Default | Valid range | Setting key |
+|---|---|---|---|
+| "Override Background: Enabled" toggle | Enabled | Enabled / Disabled | `IsSpotsOverrideBackgroundColorsEnabled` |
+| "Override Background: Auto" toggle | Enabled | Enabled / Disabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
+| "Background Opacity:" slider | 48 | 0 – 100 | `SpotsOverrideBgOpacity` |
 
 ## Tips
 
-- The default opacity of 48 provides a semi-transparent background that remains readable without obscuring the spectrum beneath.
-- If **Override Background: Auto** is Enabled, the background color is chosen automatically for contrast with the spot text. To use a specific color at your chosen opacity, set **Override Background: Auto** to "Disabled" and use the background color picker instead.
+- A value of 0 makes the background fully transparent; spot text still appears but with no fill behind it.
+- A value of 100 makes the background fully opaque. This can obscure the spectrum trace under dense spot clusters, so a mid-range value such as the default (48) is usually a practical starting point.
+- The "Override Background: Auto" button, when "Enabled", lets AetherSDR choose the background color automatically for contrast. To use a fixed color instead, click "Auto" so it shows "Disabled", then use the spot background color picker. See [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md).
 
 ## Troubleshooting
 
-- **Changing the slider has no effect on the panadapter** — Confirm that **Override Background: Enabled** shows "Enabled". If the background override is off, no background is drawn and opacity has nothing to affect.
-- **Background is invisible even at opacity 100** — Confirm that **Spots:** is set to "Enabled". If the master spots toggle is off, no spots or their backgrounds are rendered. See [Turn spots on or off](turn-spots-on-or-off.md).
+- **Slider moves but panadapter background does not change** — Check that "Override Background: Enabled" shows "Enabled". If `IsSpotsEnabled` is also disabled (the "Spots:" toggle shows "Disabled"), no spot elements render at all. See [Turn spots on or off](turn-spots-on-or-off.md).
 
 ## Related
 

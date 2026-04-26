@@ -1,58 +1,57 @@
 # Panadapter overview
 
-The panadapter displays a live FFT spectrum and waterfall for a bound slice, and optionally decodes Morse code from audio. This page describes every control in the panadapter and its CW decode panel; follow the links at the bottom for step-by-step task instructions.
+The panadapter is AetherSDR's main display: a live FFT spectrum and waterfall showing radio frequency activity across the tuned band. An optional CW decode panel underneath it can decode Morse code off-air in real time.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio. The panadapter requires an active radio connection.
-- PC audio must be routed to AetherSDR for the CW decoder to produce output.
+- Connect to a FLEX-8600 radio. The panadapter requires an active radio connection.
+- If you intend to use the CW decoder, PC audio routing to AetherSDR must be active. The panel shows the reminder "(requires PC Audio)" until audio is available.
 
 ## How it works
 
-Each panadapter is a self-contained display bound to one slice (Slice A through Slice H). The main area shows the FFT spectrum on top and the waterfall below, drawn by the SpectrumWidget. Click anywhere on the spectrum or waterfall to activate that panadapter; drag to tune; scroll to zoom.
-
-In the default single-panadapter layout, only one panadapter is visible and its title bar buttons (pop-out, maximize, close) are hidden. When you add slices, each panadapter gets its own title bar and those buttons become available.
-
-Underneath the spectrum sits an optional CW decode panel. It is hidden by default and appears when you enable CW decoding. The decoder listens to PC audio and uses the ggmorse engine to identify Morse; decoded text scrolls in a read-only display and is colour-coded by confidence.
-
-## What each control does
-
-### Title bar
-
-| Control | Kind | Behavior |
-|---|---|---|
-| Slice title | Indicator | Shows the slice bound to this panadapter. Default: `Slice A`. Range: Slice A–Slice H. |
-| ⬈ / ↩ (pop-out/dock) | Button | Pops the panadapter into a floating window, or docks it back. Hidden in single-pan mode. |
-| □ (maximize) | Button | Maximizes this panadapter to fill the main area in a multi-pan layout. Hidden in single-pan mode. |
-| × (close) | Button | Closes this panadapter. Hidden in single-pan mode. |
+AetherSDR opens with one panadapter visible in the centre of the main window. The title bar at the top of the panadapter shows which slice is bound to it (default: "Slice A", ranging from Slice A through Slice H). In multi-slice mode, each slice gets its own panadapter with its own title bar and controls.
 
 ### Spectrum and waterfall
 
-| Control | Kind | Behavior |
-|---|---|---|
-| Spectrum / waterfall | Display / drag handle | Click to activate this panadapter. Drag left or right to tune. Scroll to zoom in or out. |
+The spectrum and waterfall area occupies the main body of the panadapter. Clicking it activates that panadapter. Dragging tunes the VFO; scrolling zooms the frequency span. With `View > Pan Follows VFO` enabled (the default), the display pans automatically to keep the VFO marker in view.
+
+### Title bar controls
+
+In single-pan mode, the ⬈ / ↩, □, and × buttons are hidden. They become visible when a second panadapter is added.
+
+| Control | What it does |
+|---|---|
+| Slice title | Indicator showing which slice (Slice A–Slice H) is bound to this panadapter. |
+| ⬈ / ↩ (pop-out/dock) | Pops the panadapter into a floating window, or docks it back. Hidden in single-pan mode. |
+| □ (maximize) | Expands this panadapter to fill the main area in a multi-pan layout. Hidden in single-pan mode. |
+| × (close) | Closes this panadapter. Hidden in single-pan mode. |
 
 ### CW decode panel
 
-| Control | Kind | Default | Range | Setting key | Behavior |
-|---|---|---|---|---|---|
-| CW stats label | Indicator | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed currently detected by the decoder. |
-| Sens | Slider | 30 | 0–100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Internally maps 0–100 to a cost threshold of 1.0–0.1. |
-| 🔒P (Lock Pitch) | Toggle button | Off | On / Off | — | Locks the decoder pitch to the currently tuned frequency. |
-| 🔒S (Lock Speed) | Toggle button | Off | On / Off | — | Locks the decoder speed to the current WPM value. |
-| Lo (pitch min) | Slider | 500 Hz | 300–1200 Hz | — | Sets the minimum pitch the decoder searches. Clamped to be no greater than Hi. |
-| Hi (pitch max) | Slider | 700 Hz | 300–1200 Hz | — | Sets the maximum pitch the decoder searches. Clamped to be no less than Lo. |
-| CPY ALL | Button | — | — | — | Copies the entire decoded text buffer to the clipboard. |
-| CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
-| CLR | Button | — | — | — | Clears the CW decode buffer. |
-| × (close CW) | Button | — | — | — | Hides the CW decode panel. |
-| CW decode text | Read-only display | — | — | — | Rolling display of decoded Morse. Text is colour-coded by decode confidence: green (best) through yellow and orange to red (poorest). |
+The CW decode panel appears below the spectrum when the CW decoder is turned on. It uses PC audio to detect and decode Morse code off-air, displaying decoded text coloured by confidence: green (highest confidence), yellow, orange, and red (lowest confidence). The detected pitch and speed are shown in the CW stats label in the format `<hz> Hz  <wpm> WPM`.
+
+## What each control does
+
+### CW decode panel controls
+
+| Control | Default | Valid range | Persisted key | What it does |
+|---|---|---|---|---|
+| CW stats label | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch (Hz) and speed (WPM) detected by the decoder. |
+| Sens | 30 | 0–100 | `CwDecoderSensitivity` | Filters out low-confidence decodes. Higher values are stricter. Maps the 0–100 range to an internal cost threshold of 1.0–0.1. |
+| 🔒P (Lock Pitch) | Off | On / Off | — | Locks the decoder to the current detected pitch rather than tracking automatically. |
+| 🔒S (Lock Speed) | Off | On / Off | — | Locks the decoder to the current WPM rather than tracking automatically. |
+| Lo (pitch min) | 500 Hz | 300–1200 Hz | — | Sets the lower bound of the pitch range the decoder searches. Clamped to be no greater than Hi. |
+| Hi (pitch max) | 700 Hz | 300–1200 Hz | — | Sets the upper bound of the pitch range the decoder searches. Clamped to be no less than Lo. |
+| CPY ALL | — | — | — | Copies the full decoded text buffer to the clipboard. |
+| CPY VIS | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
+| CLR | — | — | — | Clears the CW decode buffer. |
+| × (close CW) | — | — | — | Hides the CW decode panel. |
 
 ## Tips
 
-- Lo and Hi define the pitch search window. Narrowing this range around the actual signal pitch reduces false decodes.
-- The CW stats label shows `(requires PC Audio)` when audio is not yet routed. If you see only this hint and no pitch or WPM, check your PC audio routing before adjusting Sens.
-- Decoded text colour gives a quick quality check without reading the raw characters. A stream of green text indicates the decoder is tracking the signal well.
+- The Lo and Hi pitch sliders constrain the frequency range the decoder searches. Narrowing this range around the signal's actual tone (visible on the spectrum) reduces false detections.
+- Decoded text confidence is shown by colour: green is below a 0.15 cost threshold, yellow below 0.35, orange below 0.60, and red at 0.60 or above. Raising Sens discards the red and orange text.
+- With `View > Single-Click to Tune` enabled, a single click on the spectrum retunes the VFO. Without it, a double-click is required.
 
 ## Related
 

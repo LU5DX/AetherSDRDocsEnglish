@@ -1,37 +1,31 @@
 # Check the Radio's DC Supply Voltage
 
-The Meters applet includes a live supply voltage gauge that shows the voltage the radio is receiving from its DC power source. Use this to confirm your power supply is delivering a healthy voltage before and during operation.
+The Meters applet shows the radio's DC supply voltage in real time. Use this to confirm your power supply is delivering a stable voltage under load.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Meters applet requires an active radio connection.
-- The applet panel must be visible. If it is hidden, use `View > Applet Panel` to show it.
+- The applet panel must be visible. If it is not, enable it via `View > Applet Panel`.
 
 ## Steps
 
-1. Locate the `MTR` tray button on the right sidebar of the applet panel.
-2. Click `MTR` to open the Meters applet.
-3. Read the `+13.8V` gauge under the **Radio Hardware** section header.
+1. Click the **MTR** tray button on the right sidebar to open the Meters applet.
+2. Read the **+13.8V** gauge under the **Radio Hardware** section header.
 
-The bar fills from left to right. The fill color is green in the normal operating range, transitions to yellow as voltage rises toward the warning zone, and turns red above 15.0 V.
+The bar fills left to right. The gauge turns red when the reading exceeds 15 V.
 
 ## What each control does
 
-| Control | Description | Valid range | Red threshold |
+| Control | What it shows | Valid range | Red above |
 |---|---|---|---|
-| `+13.8V` | Live DC supply voltage from the radio's power input | 10.0–16.0 V | > 15.0 V |
+| +13.8V | DC supply voltage from the radio | 10.0–16.0 V | 15 V |
 
-No setting key is associated with this gauge. The value is read directly from the radio and is not persisted.
+There is no persisted setting for this gauge. The value is read directly from the radio.
 
 ## Tips
 
-- A reading consistently below 13.0 V under transmit load suggests the power supply or cabling cannot sustain the radio's current draw. Check your supply's rated current and cable gauge.
-- The gauge uses smoothed ballistics, so sudden brief voltage sags may appear slightly softened in the display.
-
-## Troubleshooting
-
-- **`+13.8V` gauge shows no movement or reads 0 V** — The radio may not yet have sent telemetry. Verify the radio connection is active. The gauge updates only when the radio sends hardware telemetry data.
-- **Applet panel is missing** — Click `View > Applet Panel` to restore it, then click the `MTR` tray button.
+- Watch the **+13.8V** gauge while transmitting. A significant voltage drop under TX load may indicate an undersized or failing power supply.
+- The gauge uses smoothed ballistics, so rapid transients may not be visible at their peak instantaneous value.
 
 ## Related
 

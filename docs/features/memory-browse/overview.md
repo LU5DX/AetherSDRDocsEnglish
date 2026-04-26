@@ -1,37 +1,40 @@
-# Memory Browser overview
+# Memory Browser Overview
 
-The Memory Browser is a read-only side panel that lists your radio's stored memories alongside the panadapter. As you tune, it automatically highlights the memory closest to your current frequency so you can orient yourself quickly and jump to a stored channel without leaving the main display.
+The Memory Browser is a read-only side panel that lists your radio's stored memories alongside the panadapter. It automatically highlights the memory closest to your current tuned frequency so you can orient yourself quickly and jump to a nearby channel.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The radio must have at least one memory configured. Use `Settings > Memory...` to manage memories.
+- AetherSDR must be connected to a FLEX-8600 radio. The panel does not appear or populate without an active radio connection.
+- At least one memory must be stored on the radio. If none are loaded, the panel displays "No memories are available yet." in place of the table.
 
 ## How it works
 
-The Memory Browser appears as a side panel in the main window. When memories are present, the panel displays a two-column table listing every stored memory that has a valid frequency. The table is sorted by frequency, lowest to highest.
+The Memory Browser panel sits inside the main window splitter, to the side of the panadapter. When memory browsing is enabled, the panel opens automatically within that layout — it is not a floating window.
 
-As you tune the radio, the panel continuously recalculates which memory is closest to the active frequency and highlights that row. The panel scrolls automatically to keep the highlighted row visible.
+The panel continuously tracks the current tuned frequency. As you tune, the panel finds the stored memory whose frequency is nearest to your VFO and highlights that row. The table also scrolls to keep the highlighted row visible, so you do not need to scroll manually.
 
-When no memories are loaded, the panel shows the message "No memories are available yet." in place of the table.
+Memories are listed in ascending frequency order. Each row shows two columns:
 
-**Activating a memory:** Double-click any row, or select a row and press Enter, to activate that memory on the radio.
+| Column | Contents |
+|---|---|
+| Frequency | Memory frequency in MHz, displayed to six decimal places. |
+| Name | Memory name if set; falls back to the group name; falls back to "Memory _N_" where _N_ is the memory index. |
+
+When the radio reports no memories, the table is hidden and the label "No memories are available yet." is shown instead.
 
 ## What each control does
 
-| Control | Description |
+| Control | Behavior |
 |---|---|
-| Memory table | Lists all memories with a valid frequency. Columns: Frequency (MHz, 6 decimal places) and Name. Single-selection; read-only. Double-click or press Enter on a row to activate that memory. |
-| Highlighted row | Indicates the memory whose frequency is closest to the current tuned frequency. The panel scrolls to keep this row centered. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories with a valid frequency. Disappears automatically once memories are available. |
-
-**Name display:** The Name column shows the memory's name if set, the group name if no memory name is set, or "Memory N" (where N is the memory index) if neither is set.
+| Memory table | Lists all stored memories with valid frequencies, sorted by frequency. Double-click a row, or select it and press Enter, to activate that memory. |
+| Highlighted row | The row whose frequency is closest to the current tuned frequency. The panel scrolls automatically to keep this row centered. |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. Disappears as soon as memories become available. |
 
 ## Tips
 
-- The highlighted row updates as you tune — you do not need to take any action to refresh it.
 - If two memories are equidistant from the current frequency, the one with the lower memory index is highlighted.
-- Memories with a frequency of 0 or no frequency set are excluded from the table entirely.
+- Memories with a frequency of 0 are excluded from the table entirely and are never highlighted.
+- Long names that exceed the column width are truncated with an ellipsis. Hover over a cell to see the full text in a tooltip.
 
 ## Related
 
