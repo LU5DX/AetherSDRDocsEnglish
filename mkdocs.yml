@@ -78,6 +78,7 @@ extra_javascript:
 plugins:
   - search
   - tags
+  - awesome-pages
 
 markdown_extensions:
   - abbr
