@@ -22,11 +22,6 @@ copyright: >
   <a href="https://paypal.me/lu5dx599" target="_blank" rel="noopener" style="color:inherit;" title="Donate via PayPal">💙 PayPal</a>
   &middot; &copy; 2026 AetherSDR contributors
 
-extra:
-  analytics:
-    provider: google
-    property: G-BVRLJZXNFG
-
 theme:
   name: material
   custom_dir: overrides
@@ -119,6 +114,11 @@ markdown_extensions:
   - pymdownx.keys
 
 extra:
+  version:
+    provider: mike
+  analytics:
+    provider: google
+    property: G-BVRLJZXNFG
   alternate:
     - name: English
       link: https://lu5dx.github.io/AetherSDRDocsEnglish/
