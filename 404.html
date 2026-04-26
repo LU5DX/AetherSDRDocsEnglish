@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<meta name="robots" content="noindex">
+<style>
+  body { font-family: system-ui, sans-serif; background: #0a0e27; color: #f0f4f8;
+         display: flex; align-items: center; justify-content: center; min-height: 100vh;
+         margin: 0; padding: 1rem; text-align: center; }
+  .box { max-width: 540px; }
+  h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+  p { line-height: 1.6; opacity: 0.85; }
+  a { color: #67e8f9; }
+  code { background: rgba(255,255,255,0.1); padding: 0.1em 0.4em; border-radius: 3px; font-size: 0.95em; }
+</style>
+</head>
+<body>
+<script>
+/* Legacy-URL redirect for the versioned-docs migration.
+ *
+ * Background: this site previously lived at unversioned URLs (e.g.
+ *   /AetherSDRDocsEnglish/features/client-chain/overview/).
+ * After switching to mike, the same content moved under a version
+ * subdirectory (/AetherSDRDocsEnglish/latest/features/client-chain/overview/).
+ *
+ * If a user follows an old shared link, GitHub Pages serves this
+ * 404.html. We detect that the URL is missing the version segment
+ * and inject 'latest/' so the user lands on the equivalent page.
+ *
+ * Already-versioned URLs (containing /latest/ or /vN.M.P/) are left
+ * alone — they're true 404s and we render the explanatory message.
+ */
+(function () {
+  var path = window.location.pathname;
+  var parts = path.split('/');
+  // For a project pages URL the path typically looks like
+  //   ['', '<repo>', '<rest>', ...]
+  // Insert 'latest' at index 2 unless that slot is already a version.
+  if (parts.length >= 3 && parts[2] && !/^(latest|v?\d+\.\d+(\.\d+)?)$/.test(parts[2])) {
+    parts.splice(2, 0, 'latest');
+    var redirected = parts.join('/');
+    if (redirected !== path) {
+      window.location.replace(redirected + window.location.search + window.location.hash);
+      return;
+    }
+  }
+})();
+</script>
+<div class="box">
+  <h1>Page not found</h1>
+  <p>If you followed an old link, you should be redirected automatically.</p>
+  <p>Otherwise, head back to the <a href="latest/">current docs</a> or use the version selector at the top of the page.</p>
+</div>
+</body>
+</html>
