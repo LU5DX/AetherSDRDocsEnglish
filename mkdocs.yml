@@ -144,6 +144,7 @@ extra:
     Reference: material/book-open-variant
     Troubleshooting: material/wrench-cog
     About: material/information-outline
+    Changelog: material/history
     # Features sub-sections
     "Aether dsp": material/waveform
     Amp: material/amplifier
