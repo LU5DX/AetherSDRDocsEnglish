@@ -1,24 +1,16 @@
 # Build the MkDocs Material site and deploy to GitHub Pages.
 #
-# IMPORTANT: GitHub Pages on a private repo requires a paid GitHub plan
-# (Pro/Team/Enterprise). On the free tier you have three options:
-#   1. Make this repo public — GitHub Pages then works for free.
-#   2. Upgrade your account to Pro ($4/mo) and keep the repo private.
-#   3. Swap this workflow for one that deploys to Cloudflare Pages,
-#      Netlify, or Vercel — all of which build from private repos on
-#      free tiers. Replace the `deploy` job below; the `build` job is
-#      reusable.
+# DISABLED auto-trigger: Pages is now sourced from the `gh-pages` branch
+# managed by mike (multi-version docs). This workflow is kept for the
+# `workflow_dispatch` manual button and as a reference for the build job,
+# but it no longer auto-deploys. The deploy step would also fail under
+# the new branch-based Pages source. To publish a new release run:
+#   mike deploy --push --update-aliases <version> latest
+# locally against the gh-pages branch.
 
 name: Deploy docs
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/**'
-      - 'overrides/**'
-      - 'mkdocs.yml'
-      - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
 permissions:
