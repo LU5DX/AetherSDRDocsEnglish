@@ -1,29 +1,28 @@
 # Enable Pan Follows VFO
 
-`View > Pan Follows VFO` is a checkable menu item that keeps the panadapter centered on the active VFO frequency as you tune. When enabled, the panadapter view scrolls automatically so the VFO marker stays visible at all times.
+`View > Pan Follows VFO` controls whether the panadapter automatically scrolls to keep the active VFO frequency visible when you tune outside the current view.
 
 ## Before you start
 
-- AetherSDR must be connected to a Flex radio so that a panadapter is displayed.
+- AetherSDR must be connected to a FLEX-8600 radio so that the panadapter is active.
 
 ## Steps
 
 1. Click `View` in the menu bar.
 2. Click `Pan Follows VFO` to toggle the checkmark.
-   - A checkmark next to the label means the feature is **on** (default).
-   - No checkmark means the panadapter will not follow the VFO when you tune.
+   - Checkmark present: the panadapter pans automatically to keep the VFO in view.
+   - Checkmark absent: the panadapter stays fixed; the VFO can move outside the visible span without the view following.
 
 ## What each control does
 
 | Control | Default | Behavior |
 |---|---|---|
-| `Pan Follows VFO` | On (checked) | When checked, the panadapter pans automatically to keep the VFO marker in view as you tune. When unchecked, the panadapter stays fixed until you scroll it manually. |
+| `Pan Follows VFO` | On (checked) | When enabled, the panadapter scrolls whenever the VFO frequency moves outside the current display span. When disabled, the panadapter does not move regardless of VFO position. |
 
 ## Tips
 
-- If you prefer to scroll the panadapter yourself and tune by clicking within the current view, disable `Pan Follows VFO` and enable `View > Single-Click to Tune` together.
+- If you prefer to scroll the panadapter manually and tune by clicking within the displayed span, disable `Pan Follows VFO` and enable `View > Single-Click to Tune` so clicks retune the VFO without moving the panadapter center.
 
 ## Related
 
 - [Enable Single-Click to Tune](enable-single-click-to-tune.md)
-- [Configure Band Plan](configure-band-plan.md)

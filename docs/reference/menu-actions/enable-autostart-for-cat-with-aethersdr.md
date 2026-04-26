@@ -1,29 +1,34 @@
 # Enable Autostart for CAT with AetherSDR
 
-This page explains how to enable automatic startup of virtual serial ports for CAT control when AetherSDR launches. Use this if you want CAT-capable logging or contest software to connect to AetherSDR immediately on startup without manually enabling CAT each session.
+Enabling autostart for CAT instructs AetherSDR to create virtual serial ports for CAT control each time the application launches, so external logging or contest software can connect without manual intervention.
 
 ## Before you start
 
-- CAT autostart creates virtual serial ports and is supported on Linux and macOS only. Windows users should see an alternative CAT method such as rigctld.
-- Confirm that your third-party software is configured to connect to the virtual serial port that AetherSDR will create.
+- AetherSDR must be running on Linux or macOS. This feature creates virtual serial ports and is not available on Windows.
+- Confirm that any software you intend to connect via CAT is not already holding the virtual ports open from a previous session.
 
 ## Steps
 
 1. Click `Settings` in the menu bar.
 2. Click `Autostart CAT with AetherSDR`.
 
-The menu item is checkable. A check mark next to the label means CAT autostart is enabled. Clicking it again removes the check mark and disables autostart. The setting persists across sessions under the key `AutoStartCAT`.
+The menu item is checkable. A check mark next to the label means autostart is enabled. Clicking the item again removes the check mark and disables autostart.
 
 ## What each control does
 
-| Control | Description | Default | Persisted key |
-|---|---|---|---|
-| `Autostart CAT with AetherSDR` | When checked, AetherSDR creates virtual serial ports for CAT control each time it starts. Supported on Linux and macOS. | Off (unchecked) | `AutoStartCAT` |
+| Control | Description | Persisted key |
+|---|---|---|
+| `Autostart CAT with AetherSDR` | Checkable menu item. When checked, AetherSDR creates virtual serial ports for CAT control on every launch (Linux and macOS only). | `AutoStartCAT` |
+
+## Tips
+
+- The setting takes effect on the next launch of AetherSDR. Toggling it during a running session does not immediately start or stop CAT; restart the application to apply the change.
+- If you also use rigctld for CAT control, see [Enable autostart for rigctld with AetherSDR](enable-autostart-for-rigctld-with-aethersdr.md) — running both simultaneously may cause port conflicts.
 
 ## Troubleshooting
 
-- **The menu item is present but CAT does not start on Windows** — Virtual serial port CAT autostart is not supported on Windows. Use `Autostart rigctld with AetherSDR` as an alternative CAT interface on that platform.
-- **Third-party software reports the serial port is unavailable** — Verify the software is configured to use the correct virtual port and that no other process has the port open. Uncheck and recheck `Autostart CAT with AetherSDR` to force re-creation of the virtual ports, then restart AetherSDR.
+- **Virtual serial ports do not appear after enabling autostart** — Verify you are running AetherSDR on Linux or macOS. This feature is not active on Windows. Also confirm you have restarted AetherSDR after enabling the setting.
+- **CAT software cannot open the virtual port** — Another process may already hold the port open. Close any other CAT clients, then restart AetherSDR.
 
 ## Related
 

@@ -1,107 +1,111 @@
 # Make your first QSO with AetherSDR
 
-This page walks you through connecting to your FLEX-8600, tuning to a frequency, and making a voice contact. Follow the steps in order the first time.
+This page walks you through connecting to your FLEX-8600, tuning to a frequency, checking your transmit settings, and making a contact. Follow the steps in order the first time.
 
 ## Before you start
 
-- AetherSDR is installed and running on your computer.
-- Your FLEX-8600 is powered on and reachable — either on the same LAN or through SmartLink.
-- An antenna is connected to the radio.
+- AetherSDR is installed and running.
+- Your FLEX-8600 is powered on and reachable — either on the same LAN, via SmartLink, or by a known IP address.
+- Your microphone and headphones are configured in the radio's audio settings.
 - You know the frequency and mode of the station you want to work.
 
 ## Steps
 
-### 1. Connect to the radio
+### 1. Connect to your radio
 
-1. The "Connect to a Radio" screen appears automatically in the main window when no radio is connected. If it does not appear, choose `Settings > Connect to Radio...`.
-2. The default mode is **Local**. If your radio is on the same network, it will appear in the **Available radios** list within a few seconds.
-3. Highlight your radio in the list.
+1. The **Connect to a Radio** panel appears in the main window. If it does not, go to `Settings > Connect to Radio...`.
+2. Select **Local** if the radio is on your LAN. Wait a few seconds for the **Available radios** list to populate.
+3. Highlight your radio in the **Available radios** list.
 4. Click **Connect Selected Radio**.
-5. If no radio appears, click **Retry Discovery** and wait. If the radio is still not found, see [Retry discovery when no radios appear](../../features/connection/retry-discovery-when-no-radios-appear.md).
+
+The status label updates through "searching" and "connecting" and then shows "connected" when the link is established. The applet panel becomes active on the right side.
+
+> If the list stays empty, click **Retry Discovery**. If the radio is on a different subnet or VPN, click **Connect by IP** instead and see [Connect by IP across a VPN or routed network](../setup/connect-by-ip-across-a-vpn-or-routed-network.md).
 
 ### 2. Open the RX Controls applet
 
-1. The **RX** tray button is in the right sidebar (Applet Panel). Click it if the RX Controls panel is not already visible.
+Click the **RX** tray button on the right sidebar to expand the RX Controls applet. Slice **A** is selected by default.
 
-### 3. Set the mode
+### 3. Set the operating mode
 
-1. In the RX Controls applet, find the **Mode combo** (shows **USB** by default).
-2. Click it and select the mode that matches the contact — for example, **USB** for a 20 m SSB contact or **LSB** for 40 m/80 m.
+In the **Mode combo**, select the mode that matches the contact you want to make — for example, **USB** for most HF phone, **LSB** for 40/80/160 m phone, or **CW** for Morse.
+
+The filter presets below the frequency display update automatically for the chosen mode.
 
 ### 4. Tune to the frequency
 
-1. Click the **Frequency label** (the large dotted readout, e.g. `0.000.000`). It switches to an editable field.
-2. Type the frequency in MHz — for example:
-   ```
-   14.225
-   ```
-3. Press **Enter**. The radio tunes to that frequency and the panadapter recenters.
+1. Click the **Frequency label** (showing a dotted readout such as `0.000.000`). It switches to an edit field.
+2. Type the frequency in MHz — for example, `14.225` for 14.225 MHz.
+3. Press **Enter**. The radio tunes and the panadapter recenters on the new frequency.
 
-### 5. Set a filter width
+If you need to cancel without changing frequency, press **Escape**.
 
-1. In the RX Controls applet, click one of the **Filter width presets** buttons to choose a receive bandwidth suitable for the mode. For SSB, 2700 Hz is a common starting point.
+### 5. Pick a filter width
 
-### 6. Check receive audio
+Click one of the **Filter width presets** buttons to select a suitable bandwidth for your mode. For SSB the choices are 1800, 2100, 2400, 2700, 2900, and 3300 Hz. The current filter width is shown in the **Filter width label** (for example, `2.7K`).
 
-1. Confirm the **AF gain** slider is not at zero (default is 70).
-2. Confirm the 🔊 / 🔇 mute toggle is in the unmuted state (🔊).
-3. Listen for signals on the panadapter and in audio.
+### 6. Check the RX antenna
 
-### 7. Open the TX Controls applet
+Confirm the **ANT1 (RX antenna)** combo shows the antenna you want to receive on. Change it if needed.
 
-1. Click the **TX** tray button in the right sidebar to open the TX Controls applet.
+### 7. Set AF gain
 
-### 8. Set transmit power
+Adjust the **AF gain** slider so you can hear comfortably. The default is 70 (range 0–100).
 
-1. Adjust the **RF Power** slider to your desired output level (default is 100; valid range 0–100).
+### 8. Open the TX Controls applet
 
-### 9. Check that this slice is the TX slice
+Click the **TX** tray button on the right sidebar to expand the TX Controls applet.
 
-1. In the RX Controls applet, confirm the **TX (badge)** indicator is lit for slice **A** (the default slice). If it is not, click the **TX (badge)** button to make this slice the transmit slice.
+### 9. Set transmit power
+
+Move the **RF Power** slider to your intended output level. The default is 100 (range 0–100). Watch the **RF Pwr** meter and the **SWR** meter during the next step.
 
 ### 10. Verify the TX antenna
 
-1. In the RX Controls applet, confirm the red **ANT1 (TX antenna)** combo box shows the antenna you want to transmit on. Click it to change if needed.
+Back in the RX Controls applet, confirm the **ANT1 (TX antenna)** combo shows the correct transmit antenna for this band.
 
-### 11. Check SWR before transmitting (recommended)
+### 11. Check SWR with a tune carrier (optional but recommended)
 
-1. In the TX Controls applet, click **TUNE**. The button label changes to **TUNING...** and a carrier is transmitted at the **Tune Pwr** level (default 10).
-2. Watch the **SWR** meter. A reading well below 2.5 is acceptable. Red starts above 2.5.
-3. Click **TUNE** again (or wait for it to complete) to stop the carrier.
-4. If SWR is high, check your antenna connection or run the internal ATU — see [Run the internal ATU](../../features/tx/run-the-internal-atu.md).
+1. In the TX Controls applet, set the **Tune Pwr** slider to a low level (default is 10).
+2. Click **TUNE**. The button label changes to **TUNING...** with a red background while the carrier is active.
+3. Read the **SWR** meter. When satisfied, click **TUNE** again to stop.
 
-### 12. Transmit
+A good SWR reading (below 2.0) means your antenna system is ready.
 
-1. Key your microphone normally (VOX, footswitch, or PTT) to transmit. Alternatively, click **MOX** in the TX Controls applet to key the transmitter manually — the button turns red while transmitting.
-2. Speak, then release PTT or click **MOX** again to return to receive.
+### 12. Make the contact
 
-### 13. Confirm the contact
+When the frequency is clear and the other station is ready:
 
-1. Log the QSO in your preferred logging application.
+1. Key your microphone or paddle. The radio will go to transmit.
+2. To manually key the transmitter for testing, click **MOX** in the TX Controls applet. The button turns red while transmit is active. Click **MOX** again to return to receive.
+3. Watch the **RF Pwr** meter to confirm power output and the **SWR** meter to confirm the antenna is behaving.
 
 ## Tips
 
-- The **AF gain** slider default is 70 and the **L / R pan** slider default is 50 (centre). Double-clicking the pan slider resets it to centre.
-- The **AGC mode** combo defaults to **Med**. If signals are very strong or very weak, try **Slow** or **Fast**.
-- If you accidentally retune the VFO while transmitting or logging, click the 🔓 toggle in the RX Controls applet to lock the slice frequency. The icon changes to 🔒 when locked.
-- The **RF Power** slider sets power as a percentage of the radio's full output, not directly in watts. Watch the **RF Pwr** meter in the TX Controls applet for actual forward power.
+- If you are working a station that is slightly off your receive frequency, enable **RIT** in the RX Controls applet and use the **RIT offset** spinbox to shift receive without moving your transmit frequency. Click **RIT 0** to zero it when done.
+- If you hear feedback from your own transmission, reduce **AF gain** while transmitting or use headphones.
+- The **RF Power** and **Tune Pwr** sliders, **TX Profile** combo, and antenna selectors keep their state between sessions for the same radio.
+- To prevent accidentally retuning the slice during a QSO, click the 🔓 toggle button in the RX Controls applet to lock the frequency. It changes to 🔒 when locked.
 
 ## Troubleshooting
 
-- **No radio appears in the Available radios list** — The radio may not be on the same subnet, or discovery has not completed. Click **Retry Discovery**. If still absent, try connecting by IP instead: see [Connect by IP across a VPN or routed network](../setup/connect-by-ip-across-a-vpn-or-routed-network.md).
-- **No receive audio** — Check that the mute toggle shows 🔊 (unmuted) and the **AF gain** slider is above zero. Also verify your system audio output is configured correctly.
-- **MOX keys the radio but SWR is very high** — Stop transmitting immediately. Verify the antenna is connected and the correct **ANT1 (TX antenna)** port is selected. Run the ATU if fitted.
-- **Frequency label does not accept keyboard input** — Click directly on the frequency readout to enter edit mode, then type the MHz value and press **Enter**.
+- **"No local radios found yet" appears and the list stays empty** — Click **Retry Discovery**. Check that the radio is powered on and on the same network segment. If it is on a different subnet, use **Connect by IP** or SmartLink instead.
+- **MOX keys the radio but RF Pwr meter shows zero** — Check the **RF Power** slider is above 0 and that the correct TX antenna is selected in the **ANT1 (TX antenna)** combo.
+- **SWR reads red (above 2.5)** — Check your coax and antenna connections. Run the internal ATU if your setup includes one: click **ATU** in the TX Controls applet.
+- **Audio is very quiet or absent on receive** — Check the **AF gain** slider (default 70) and confirm the 🔊 / 🔇 mute toggle is in the unmuted (🔊) state.
 
 ## Related
 
 - [Connect to a local LAN radio](../setup/connect-to-a-local-lan-radio.md)
 - [Connect to a remote radio through SmartLink](../setup/connect-to-a-remote-radio-through-smartlink.md)
+- [Connect by IP across a VPN or routed network](../setup/connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Tune the radio to a frequency (type MHz in the readout)](../../features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Change mode (USB, LSB, CW, AM, FM, etc.)](../../features/rx/change-mode-usb-lsb-cw-am-fm-etc.md)
 - [Pick a filter width preset for the current mode](../../features/rx/pick-a-filter-width-preset-for-the-current-mode.md)
-- [Set RF output power](../../features/tx/set-rf-output-power.md)
+- [Select the RX or TX antenna for this slice](../../features/rx/select-the-rx-or-tx-antenna-for-this-slice.md)
 - [Start a tune carrier to check SWR](../../features/tx/start-a-tune-carrier-to-check-swr.md)
+- [Set RF output power](../../features/tx/set-rf-output-power.md)
 - [Run the internal ATU](../../features/tx/run-the-internal-atu.md)
-- [Toggle MOX to manually key the transmitter](../../features/tx/toggle-mox-to-manually-key-the-transmitter.md)
+- [Use RIT to offset the receive frequency for a drifting station](../../features/rx/use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
 - [Lock the slice to prevent accidental retuning](../../features/rx/lock-the-slice-to-prevent-accidental-retuning.md)
+- [Retry discovery when no radios appear](../../features/connection/retry-discovery-when-no-radios-appear.md)

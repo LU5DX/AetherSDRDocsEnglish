@@ -1,22 +1,26 @@
 # Enable Keyboard Shortcuts
 
-`View > Keyboard Shortcuts` is a checkable menu item that enables or disables keyboard shortcut processing throughout AetherSDR. When enabled, keyboard shortcuts such as using arrow keys to adjust slider values become active.
+Toggle keyboard shortcut processing on or off. When enabled, keyboard shortcuts — such as using arrow keys to adjust sliders — are active throughout the application.
 
 ## Before you start
 
-- AetherSDR must be running and connected to a Flex radio.
+- AetherSDR must be running and connected to a radio.
 
 ## Steps
 
 1. Click `View` in the menu bar.
-2. Click `Keyboard Shortcuts` to toggle it.
-   - A check mark next to the label means keyboard shortcuts are enabled.
-   - No check mark means keyboard shortcuts are disabled.
+2. Click `Keyboard Shortcuts` to toggle it on or off. A check mark indicates shortcuts are enabled.
+
+## What each control does
+
+| Control | Description | Default |
+|---|---|---|
+| `Keyboard Shortcuts` | Checkable menu item. When checked, keyboard shortcut processing is active (e.g. arrow keys on sliders). When unchecked, shortcuts are suppressed. | See tips |
 
 ## Tips
 
-- If arrow keys or other keyboard controls stop responding on sliders or other controls, check that `View > Keyboard Shortcuts` is checked.
-- To customize which keys are bound to which actions, use `View > Configure Shortcuts...`, which opens the keyboard shortcut editor.
+- If arrow keys or other keyboard shortcuts are interfering with text entry or other input, uncheck `Keyboard Shortcuts` to disable shortcut processing.
+- To change which keys are bound to which actions, use `View > Configure Shortcuts...`.
 
 ## Related
 

@@ -1,6 +1,6 @@
 # AetherSDR Help
 
-Opens the main AetherSDR user documentation. Use this when you need reference material or guidance while the application is running.
+Opens the main AetherSDR user documentation. Use this when you need to browse the full manual from within the application.
 
 ## Before you start
 
@@ -8,8 +8,8 @@ Opens the main AetherSDR user documentation. Use this when you need reference ma
 
 ## Steps
 
-1. Click `Help` in the menu bar.
-2. Click `AetherSDR Help...`.
+1. Click **Help** in the menu bar.
+2. Click **AetherSDR Help...**.
 
 The main user documentation opens.
 

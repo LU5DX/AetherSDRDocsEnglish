@@ -1,6 +1,6 @@
 # Reset Applet Order
 
-`View > Reset Applet Order` restores the applet panel to its default ordering. Use this if you have rearranged applets and want to return to the original layout without reconfiguring each one manually.
+`View > Reset Applet Order` restores the applet panel to its default order. Use this if you have rearranged applets and want to return to the original layout.
 
 ## Before you start
 
@@ -15,6 +15,6 @@ The applet panel immediately returns to its default order. No confirmation dialo
 
 ## Related
 
-- [Understanding the AetherSDR applet panel](../../getting-started/concepts/understanding-applets.md)
 - [Enable Applet Panel](enable-applet-panel.md)
 - [Enable Pop Out Applet Panel](enable-pop-out-applet-panel.md)
+- [Understanding the AetherSDR applet panel](../../getting-started/concepts/understanding-applets.md)

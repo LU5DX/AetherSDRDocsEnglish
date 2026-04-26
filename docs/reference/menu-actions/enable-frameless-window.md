@@ -1,32 +1,48 @@
 # Enable Frameless Window
 
-`View > Frameless Window` removes the OS window decoration (title bar, borders, and window controls) to recover screen space.
+`View > Frameless Window` toggles the custom frameless window style for the AetherSDR main window. When enabled, AetherSDR manages its own title bar, giving you a consistent look across desktop environments and precise control over window chrome.
 
 ## Before you start
 
-- AetherSDR must be running and connected to a Flex radio.
+- AetherSDR must be running.
+- Frameless Window is on by default in v0.9.0. If you have upgraded from an earlier version, it is forced on once automatically.
 
 ## Steps
 
 1. Click `View` in the menu bar.
-2. Click `Frameless Window`.
+2. Click `Frameless Window`. A checkmark next to the item indicates it is on.
 
-The checkmark next to `Frameless Window` indicates the mode is active and the OS window decoration is hidden.
-
-To restore the window decoration, click `View > Frameless Window` again to uncheck it.
+Alternatively, press `Ctrl+Shift+F` to toggle the setting without opening the menu.
 
 ## What each control does
 
-| Control | Description | Shortcut |
-|---|---|---|
-| `Frameless Window` | Checkable menu item. When checked, hides the OS window title bar and borders. When unchecked, restores normal window decoration. | `Ctrl+Shift+F` |
+| Control | Description | Default | Persisted key |
+|---|---|---|---|
+| `View > Frameless Window` | Toggles `Qt::FramelessWindowHint` on the main window. When on, the native OS window decorations are removed and replaced with AetherSDR's own 20px title bar. | On | `FramelessWindow` |
+
+**When Frameless Window is on:**
+
+- A 20px custom title bar appears at the top of the window. Drag it to move the window.
+- Double-click the title bar to maximize or restore the window.
+- Minimize, maximize, and close buttons appear in the title bar.
+- A resize grip appears in the bottom-right corner of the window.
+
+**When Frameless Window is off:**
+
+- The native OS window decorations are restored.
+- The custom title bar and bottom-right resize grip are hidden.
 
 ## Tips
 
-- To move an AetherSDR window that has no title bar, drag from within the application's own toolbar or panadapter area, depending on your desktop environment's behavior.
-- If you also want to reduce AetherSDR's own UI chrome, see [Enable Minimal Mode](enable-minimal-mode.md), which hides the title bar and internal controls separately from the OS decoration.
+- If your desktop environment or window manager conflicts with AetherSDR's custom title bar (for example, double title bars or missing window controls), turn Frameless Window off to fall back to native decorations.
+- The setting persists across restarts via `FramelessWindow`.
+
+## Troubleshooting
+
+- **Two title bars visible** — Your window manager is drawing its own title bar on top of AetherSDR's. Go to `View > Frameless Window` and confirm the checkmark is present. If the issue persists, check your window manager's settings for overriding client-side decorations.
+- **Window cannot be moved or resized after turning Frameless Window off** — The native title bar may not have appeared yet. Try minimizing and restoring the window so the window manager redraws its decorations.
 
 ## Related
 
-- [Enable Minimal Mode](enable-minimal-mode.md)
 - [Configure UI Scale](configure-ui-scale.md)
+- [Enable Minimal Mode](enable-minimal-mode.md)

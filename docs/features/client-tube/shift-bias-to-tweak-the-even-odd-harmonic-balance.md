@@ -1,45 +1,42 @@
 # Shift Bias to tweak the even / odd harmonic balance
 
-The Bias knob shifts the tube model's operating point on the transfer curve, changing the ratio of even to odd harmonics in the saturated signal. Use it to add asymmetric warmth or push toward a more complex, harmonically rich tone.
+The Bias knob shifts the operating point on the tube transfer curve, changing the ratio of even to odd harmonics in the saturated signal. Use it to move from a symmetrical, odd-harmonic character toward a warmer, even-harmonic one — or anywhere in between.
 
 ## Before you start
 
-- The Tube Saturator stage must be enabled and visible. If the TUBE sub-container is hidden, enable the stage via the CHAIN widget or double-click the Tube stage in the CHAIN widget to open the floating Tube editor.
-- Drive should already be set high enough that the transfer curve shows visible bending. Without some drive, Bias has little audible effect.
+- The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md) if the stage is currently bypassed.
+- The applet must be visible. If it is not, open the Aetherial Audio (TXDSP) parent container and locate the "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container.
 
 ## Steps
 
-1. Open the TUBE sub-container inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Locate the transfer curve display at the top of the applet. The live input ball rides the curve at the current input level.
-3. Turn the **Bias** knob. Start from the default of 0 % and increase toward 100 % while watching the curve bend asymmetrically.
-4. Transmit a steady signal — for example, speak into the microphone on SSB or key a tone — and listen for the change in harmonic character as Bias increases.
-5. Stop at the value where the even/odd harmonic balance suits your taste. The transfer curve and the live input ball update in real time to reflect the new operating point.
+1. Locate the five-knob row at the bottom of the applet: Drive, Tone, Bias, Output, Mix.
+2. Find the knob labeled **Bias** — the third knob in the row.
+3. Turn the **Bias** knob to the desired value. The label beneath the knob displays the current value as a percentage (for example, `50 %`).
+4. Watch the transfer curve above the knob row. The curve's operating point shifts as you turn the knob, visualising the change in harmonic balance.
+5. The live input ball on the transfer curve moves in real time, showing where the current input level sits on the new curve.
+
+To open the larger floating editor for finer control, double-click the TUBE stage in the CHAIN widget on the matching side. The editor is titled "Aetherial Tube — TX" or "Aetherial Tube — RX". The Bias knob is available there as well, and both the applet and the editor stay in sync.
 
 ## What each control does
 
-| Control | Default | Range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Bias | 0 % | 0 % to 100 % | `ClientTubeTxBiasAmount` | Shifts the operating point on the transfer curve. Higher values increase asymmetric saturation, altering the even/odd harmonic mix. |
-| Drive | 0.0 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` | Pushes more signal into the tube stage. More drive makes Bias changes more pronounced. |
-| Transfer curve | — | — | — | Draws the current tube transfer curve. Updates immediately as Bias changes. The live input ball shows the current saturation regime. |
+| Control | Default | Valid range | Persisted setting |
+|---|---|---|---|
+| Bias (TX) | 0 % | 0 % to 100 % (internal: 0.0 to 1.0) | `ClientTubeTxBiasAmount` |
+| Bias (RX) | 0 % | 0 % to 100 % (internal: 0.0 to 1.0) | `ClientTubeRxBiasAmount` |
+
+At 0 % the operating point is centred, producing a predominantly odd-harmonic character. Increasing Bias moves the operating point off-centre, introducing even harmonics. The transfer curve in the applet reflects this shift visually.
 
 ## Tips
 
-- Bias works in conjunction with Drive. At 0.0 dB Drive the curve is nearly linear and Bias has minimal audible effect. Increase Drive first until the curve bends, then dial in Bias.
-- The transfer curve's asymmetry becomes visible as Bias increases above 0 %. Use it as a visual reference alongside the audio result.
-- If the Bias change shifts your overall output level noticeably, use the **Output** knob (`ClientTubeTxOutputGainDb`, default 0.0 dB, range −24.0 to 12.0 dB) to compensate.
-- Changes made to Bias in the floating Tube editor are reflected on the applet knob within approximately 33 ms, and vice versa.
-
-## Troubleshooting
-
-- **Bias knob has no audible effect** — Drive is likely at or near 0.0 dB. Increase Drive until the transfer curve shows clear bending, then adjust Bias.
-- **Bias change disappears after restarting AetherSDR** — The value is persisted to `ClientTubeTxBiasAmount`. If the setting is not being saved, confirm the Tube stage is fully enabled before closing the application.
+- Bias interacts with Drive. Higher Drive values push more signal into the curve, so the effect of a given Bias setting becomes more pronounced. Set Drive first, then fine-tune Bias.
+- The applet knobs and the floating editor knobs share the same state and sync within approximately 33 ms of any change made in either location.
+- Changes are saved immediately to `ClientTubeTxBiasAmount` or `ClientTubeRxBiasAmount` after each knob movement.
 
 ## Related
 
-- [Tube Saturator overview](overview.md)
-- [Dial Drive until the curve starts to bend](dial-drive-until-the-curve-starts-to-bend.md)
-- [Compensate level changes with Output](compensate-level-changes-with-output.md)
+- [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
+- [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Brighten or darken the saturated signal with Tone](brighten-or-darken-the-saturated-signal-with-tone.md)
+- [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
-- [Bypass the tube from the chain](bypass-the-tube-from-the-chain.md)
+- [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)

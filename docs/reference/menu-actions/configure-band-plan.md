@@ -1,37 +1,27 @@
 # Configure Band Plan
 
-Use `View > Band Plan` to overlay amateur band segment labels on the panadapter. Choose a font size that fits your display, then select the regulatory region whose band allocations apply to you.
+`View > Band Plan` controls whether band allocation markers appear on panadapters, how large the labels are, and which regional frequency plan is used.
 
 ## Before you start
 
-- AetherSDR must be running and connected to a Flex radio so the panadapter is visible.
+- AetherSDR must be connected to a FLEX-8600 radio so that panadapters are visible.
 
 ## Steps
 
 1. Click `View > Band Plan`.
-2. In the submenu, select one of the size radio buttons:
-   - **Off** — disables the band plan overlay entirely.
-   - **Small (6pt)** — displays labels at 6 pt.
-   - **Medium (10pt)** — displays labels at 10 pt.
-   - **Large (12pt)** — displays labels at 12 pt.
-   - **Huge (16pt)** — displays labels at 16 pt.
-3. Below the size options, select your region from the region selector to load the band allocations for that regulatory area.
+2. In the submenu, select a label size: **Off**, **Small (6pt)**, **Medium (10pt)**, **Large (12pt)**, or **Huge (16pt)**.
+3. Select the appropriate region from the region selector below the size options.
 
 ## What each control does
 
 | Control | Description |
 |---|---|
-| **Off** | Hides the band plan overlay on all panadapters. |
-| **Small (6pt)** | Shows band segment labels at 6 pt font size. |
-| **Medium (10pt)** | Shows band segment labels at 10 pt font size. |
-| **Large (12pt)** | Shows band segment labels at 12 pt font size. |
-| **Huge (16pt)** | Shows band segment labels at 16 pt font size. |
-| Region selector | Sets the regulatory region whose amateur band allocations are drawn on the panadapter. |
-
-## Tips
-
-- If band labels overlap or crowd the panadapter, switch to a smaller size or **Off** while doing detailed work, then switch back.
-- Change the region any time without affecting the chosen size; the two settings are independent.
+| **Off** | Disables band plan overlay entirely. No markers appear on panadapters. |
+| **Small (6pt)** | Displays band plan markers with 6 pt labels. |
+| **Medium (10pt)** | Displays band plan markers with 10 pt labels. |
+| **Large (12pt)** | Displays band plan markers with 12 pt labels. |
+| **Huge (16pt)** | Displays band plan markers with 16 pt labels. |
+| Region selector | Selects the regional frequency allocation plan applied to all panadapter overlays. |
 
 ## Related
 

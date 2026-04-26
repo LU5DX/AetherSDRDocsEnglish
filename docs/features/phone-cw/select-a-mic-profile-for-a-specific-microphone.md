@@ -1,37 +1,35 @@
 # Select a mic profile for a specific microphone
 
-The Phone/CW applet lets you load a named mic processing profile stored on the radio. Use this when switching between microphones that need different EQ, compression, or gain settings.
+The **Mic profile** combo box loads a named transmit processing profile stored on the radio, letting you switch quickly between EQ and processing presets optimised for different microphones.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The "Mic profile" combo box is populated from the radio's profile list and will be empty with no connection.
-- The active slice must be in a Phone mode (SSB, AM, FM). In CW mode the applet shows CW controls instead of Phone controls.
+- AetherSDR must be connected to the radio. The **Mic profile** list is populated from the radio; it is empty when disconnected.
+- The active slice must be in a phone mode (USB, LSB, AM, FM). The Phone panel is not shown when the slice is in CW mode.
 
 ## Steps
 
-1. Open the Applet Panel if it is not visible. Click the **P/CW** tray button on the right sidebar, or use `View > Applet Panel` to make the panel visible.
-2. Confirm the Phone sub-panel is showing. If the CW controls are displayed, the active slice is in CW mode — switch the slice to a voice mode first.
-3. Locate the **Mic profile** combo box. It appears directly below the Level and Compression gauges, above the **Mic source** row.
-4. Click the **Mic profile** combo box and select the profile name that matches your microphone.
-
-The radio loads the selected profile immediately.
+1. Click the **P/CW** tray button in the right sidebar to open the Phone/CW applet, if it is not already visible.
+2. Confirm the Phone panel is showing. If the CW panel is displayed instead, switch the active slice to a phone mode.
+3. Click the **Mic profile** combo box. The list is populated from the profiles stored on the radio.
+4. Select the profile name that matches your microphone. AetherSDR immediately loads that profile on the radio.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid range | Setting key |
+| Control | Kind | Behavior | Default | Range | Setting key |
 |---|---|---|---|---|---|
-| Mic profile | Combo box | Loads the named mic processing profile on the radio. | — | Populated from radio profile list | — |
+| **Mic profile** | Combo box | Loads the named mic processing profile on the radio. | — | Populated from radio | — |
 
 ## Tips
 
-- Profiles are stored on the radio, not in AetherSDR. To create or delete profiles, use `Profiles > Profile Manager...`.
-- After switching profiles, watch the **Level** gauge (−40 to +10 dBFS, red above 0) to confirm the new profile's gain is appropriate for your microphone.
-- If you use a PC microphone (Mic source set to **PC**), the mic gain value is kept client-side as `PcMicGain` and is not affected by the profile load.
+- Profile names are defined on the radio, not in AetherSDR. To create, rename, or delete profiles, use `Profiles > Profile Manager...`.
+- After selecting a profile, check the **Level** gauge (−40 to +10 dBFS, red above 0) and the **Compression** gauge (−25 to 0 dB) to verify the profile settings suit your microphone.
+- If your mic source is **PC**, the radio always reports a mic level of 0. Use the **Mic gain** slider (0–100, default 50) to set gain client-side; this value is persisted as `PcMicGain`.
 
 ## Troubleshooting
 
-- **"Mic profile" combo box is empty** — The radio has no saved mic profiles, or AetherSDR is not connected. Check the connection status, then use `Profiles > Profile Manager...` to create at least one profile.
-- **Selecting a profile has no audible effect** — Verify that **Mic source** is set to the input your microphone is physically connected to. A profile loaded for one source will not alter processing on a different source.
+- **The Mic profile combo box is empty** — The radio has no mic profiles defined, or AetherSDR is not connected. Check the connection via `Settings > Connect to Radio...`, then create a profile using `Profiles > Profile Manager...`.
+- **The Phone panel is not visible; the CW panel is shown instead** — The active slice is in a CW mode. Switch the slice to a phone mode to reveal the Phone panel and the **Mic profile** control.
 
 ## Related
 

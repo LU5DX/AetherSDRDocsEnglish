@@ -1,38 +1,39 @@
 # Tune CW decoder sensitivity to reject noise
 
-The Sens slider controls how strictly the CW decoder filters out low-confidence decodes. Raising it reduces garbage characters caused by noise; lowering it lets through weaker or faster signals that the decoder is less certain about.
+The **Sens** slider controls how strictly the CW decoder filters uncertain character decodes. Raising it suppresses garbled output caused by noise or weak signals; lowering it shows more characters at the cost of accuracy.
 
 ## Before you start
 
-- The CW decode panel must be open. If it is not visible beneath the panadapter, see [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
-- PC audio must be routed to AetherSDR. The panel displays "(requires PC Audio)" as a reminder if audio is not reaching the decoder.
+- The CW decode panel must be open in the Panadapter applet. If it is not visible, open it first.
+- PC audio must be routed to AetherSDR. The panel displays "(requires PC Audio)" as a reminder.
 
 ## Steps
 
-1. Locate the CW decode panel at the bottom of the panadapter.
-2. Find the **Sens** slider in the panel's control bar.
-3. Drag the slider right to increase sensitivity (stricter filtering, fewer low-confidence characters output) or left to decrease it (more permissive, more characters output including uncertain ones).
-4. Watch the decoded text in the **CW decode text** area. Characters are coloured by confidence: green is highest confidence, then yellow, orange, and red. Raise Sens until red and orange characters drop to an acceptable level.
-
-The setting is saved automatically. The next time AetherSDR starts, the slider restores to this value.
+1. Locate the CW decode panel at the bottom of the Panadapter applet.
+2. Find the **Sens:** label and the short horizontal slider immediately to its right.
+3. Drag the **Sens** slider left to accept more decodes (lower threshold) or right to reject low-confidence decodes (higher threshold).
+4. Watch the "CW decode text" area. Characters coloured red or orange indicate low confidence; reduce them by moving the slider right.
+5. Release the slider. The value is saved automatically to `CwDecoderSensitivity`.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
+| Control | Default | Range | Persisted key | Behavior |
 |---|---|---|---|---|
-| Sens | 30 | 0–100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values apply a stricter cost threshold, rejecting more uncertain characters. Maps 0–100 to an internal cost threshold of 1.0–0.1. |
+| **Sens** slider | 30 | 0–100 | `CwDecoderSensitivity` | Maps 0–100 to an internal cost threshold of 1.0–0.1. Higher values mean stricter filtering: only high-confidence characters are shown. |
+| CW decode text | — | — | — | Read-only rolling display coloured by confidence: green (highest), yellow, orange, red (lowest). |
+| CW stats label | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed the decoder is currently tracking. |
 
 ## Tips
 
-- A Sens value of 30 (the default) is a reasonable starting point on a quiet band. On a noisy band or with a weak signal, try values in the 50–70 range and watch whether the colour of decoded text shifts toward green.
-- If a strong, clean signal is producing few decoded characters, lower Sens toward 10–20 to loosen the threshold.
-- The **Lo** and **Hi** pitch sliders (300–1200 Hz, defaults 500 Hz and 700 Hz) narrow the frequency range the decoder searches. Constraining this range can help on its own before you need to raise Sens. See [Lock CW decoder pitch or speed once tracking is good](lock-cw-decoder-pitch-or-speed-once-tracking-is-good.md) to hold the decoder on a known pitch once it is tracking correctly.
-- Use **CLR** to clear the decode buffer after adjusting Sens so you are reading only fresh output at the new setting.
+- Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.
+- Character colour is a quick confidence gauge: if most output is green, the current sensitivity is well matched to signal conditions. If the display goes blank entirely, the slider is set too high — move it left until characters return.
+- The **Lo** and **Hi** pitch sliders (default 500 Hz and 700 Hz, range 300–1200 Hz) constrain which pitches the decoder searches. Narrowing that range to match the received signal's sidetone pitch can reduce false triggers independently of **Sens**.
 
 ## Troubleshooting
 
-- **Decoder still outputs many garbage characters at high Sens** — Confirm PC audio is being received (the CW stats label should show a pitch in Hz and a speed in WPM). If the stats label is blank, the decoder is receiving no audio and sensitivity has no effect.
-- **No characters appear at all** — Sens may be set too high (near 100), or the signal pitch may fall outside the Lo–Hi range. Lower Sens toward 20–30 and widen the Lo and Hi pitch range to cover the signal.
+- **Decoded text disappears completely after raising Sens** — the threshold is above the confidence level of the incoming signal. Lower the slider until output returns, then raise it more slowly.
+- **Output remains noisy even at Sens 100** — the signal may be outside the pitch search window. Check the CW stats label for the reported pitch and adjust **Lo** and **Hi** to bracket it.
+- **Sens resets to 30 after restart** — if `CwDecoderSensitivity` is missing from saved settings, AetherSDR uses the default of 30. Move the slider once to write the value; it is then saved on every change.
 
 ## Related
 

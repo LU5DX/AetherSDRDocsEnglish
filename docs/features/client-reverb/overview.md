@@ -1,45 +1,47 @@
-# Reverb overview
+# Aetherial FreeVerb Overview
 
-The Reverb applet adds a Freeverb-based reverb tail to your transmitted audio. Use it to add subtle room or hall ambience to voice transmissions before the signal leaves the client.
+Aetherial FreeVerb adds a Freeverb-based reverb tail to your transmitted audio, giving your voice a sense of room or hall ambience. It applies to the TX path only — there is no RX counterpart.
 
 ## Before you start
 
-- The Reverb stage must be enabled via the CHAIN widget or the floating Reverb editor before the applet appears. The applet is hidden until the stage is active.
-- Reverb is a client-side TX effect. It processes audio on your computer, not on the radio.
+- The Reverb stage must be enabled in the CHAIN widget inside the Aetherial Audio (TXDSP) applet. The "Aetherial FreeVerb" sub-container and its controls remain hidden until the stage is enabled.
+- A radio connection is not required to adjust reverb settings.
 
 ## How it works
 
-The Reverb applet appears as a sub-container labeled **REVERB** inside the PooDoo Audio (TXDSP) parent container. It presents a compact row of five knobs — **Size**, **Decay**, **Damp**, **Pre**, and **Mix** — that together shape the character of the reverb tail applied to your outgoing audio.
+Aetherial FreeVerb inserts a Freeverb reverb processor into the client-side TX audio chain, after any upstream DSP stages. When the VERB stage is active, the five knobs — Size, Decay, Damp, Pre, and Mix — shape the character and level of the reverb tail added to your transmitted voice.
 
-Knob values are synchronized with the floating Reverb editor at approximately 30 Hz. Changes made in either the applet or the floating editor are reflected in both places immediately.
+The controls appear in two places that stay synchronized at approximately 30 Hz:
 
-To open the floating Reverb editor, double-click the Reverb stage in the CHAIN widget. To float, pop out, or hide the **REVERB** sub-container, right-click its titlebar.
+- **The "Aetherial FreeVerb" sub-container** — a compact five-knob row embedded inside the Aetherial Audio (TXDSP) parent container in the applet panel.
+- **The floating editor titled "Aetherial FreeVerb — TX"** — a larger version of the same controls, opened by double-clicking the VERB stage in the CHAIN widget. You can also right-click the "Aetherial FreeVerb" sub-container titlebar to float, pop-out, or hide it.
 
-No radio connection is required to adjust Reverb settings.
+Turning any knob in either view immediately updates the other. Settings are persisted automatically when you change a knob.
 
 ## What each control does
 
-| Knob | Default | Valid range | Persisted setting | Behavior |
-|------|---------|-------------|-------------------|----------|
-| **Size** | 50 % | 0 – 100 % | `ClientReverbTxSize` | Sets the modelled room size. Linear mapping. |
-| **Decay** | 1.20 s | 0.3 – 5.0 s | `ClientReverbTxDecayS` | Sets the reverb tail length. Exponential mapping; small increases at the low end have more effect than the same movement at the high end. |
-| **Damp** | 50 % | 0 – 100 % | `ClientReverbTxDamping` | Controls how quickly high frequencies fade in the tail. Higher values damp high frequencies faster, producing a warmer, darker reverb. Linear mapping. |
-| **Pre** | 20 ms | 0 – 100 ms | `ClientReverbTxPreDelayMs` | Sets the pre-delay between the dry signal and the first reflections. Linear mapping. |
-| **Mix** | 15 % | 0 – 100 % | `ClientReverbTxMix` | Sets the dry/wet balance. Linear mapping. |
+| Knob | Default | Valid range | Behavior | Setting key |
+|------|---------|-------------|----------|-------------|
+| Size | 50 % | 0–100 % | Sets the modelled room size. Linear mapping. | `ClientReverbTxSize` |
+| Decay | 1.20 s | 0.3–5.0 s | Sets the reverb tail length. Exponential mapping — the knob travels from 0.3 s to 5.0 s with finer control at shorter values. | `ClientReverbTxDecayS` |
+| Damp | 50 % | 0–100 % | Higher values damp high frequencies faster in the tail, producing a warmer, less bright reverb. Linear mapping. | `ClientReverbTxDamping` |
+| Pre | 20 ms | 0–100 ms | Sets the pre-delay between the dry signal and the first reflections. Linear mapping. | `ClientReverbTxPreDelayMs` |
+| Mix | 15 % | 0–100 % | Sets the dry/wet balance. 0 % is fully dry; 100 % is fully wet. Linear mapping. | `ClientReverbTxMix` |
 
-The enabled/disabled state of the reverb stage is persisted in `ClientReverbTxEnabled`.
+The enabled/disabled state of the stage is persisted as `ClientReverbTxEnabled`.
 
 ## Tips
 
-- A Mix of 10–15 % is typical for voice. Higher values become noticeable quickly and can muddy speech intelligibility.
-- Short Decay values (0.3–0.8 s) with a small Size produce a tight room effect. Longer Decay values with a large Size approximate a hall.
-- Increasing Damp can help tame harshness in the reverb tail without reducing Mix.
+- For voice, a Mix of 10–15 % is typical. The default of 15 % is a reasonable starting point.
+- High Decay values (above 3 s) can muddy speech. Start at the default 1.20 s and increase only if the room effect sounds too short.
+- Raising Damp reduces high-frequency sparkle in the tail, which can help reverb sit behind speech rather than on top of it.
+- The floating editor ("Aetherial FreeVerb — TX") provides larger knobs for precise adjustment. Its position and size are saved automatically between sessions.
 
 ## Related
 
 - [Bypass reverb from the chain](bypass-reverb-from-the-chain.md)
 - [Dial in a subtle Mix — 10-15 % is typical for voice](dial-in-a-subtle-mix-10-15-is-typical-for-voice.md)
-- [Offset reflections from the dry signal with Pre](offset-reflections-from-the-dry-signal-with-pre.md)
+- [Tune decay to taste without muddying speech](tune-decay-to-taste-without-muddying-speech.md)
 - [Reduce the high-end sparkle of the tail with Damp](reduce-the-high-end-sparkle-of-the-tail-with-damp.md)
 - [Set room size for a small or large-hall feel](set-room-size-for-a-small-or-large-hall-feel.md)
-- [Tune decay to taste without muddying speech](tune-decay-to-taste-without-muddying-speech.md)
+- [Offset reflections from the dry signal with Pre](offset-reflections-from-the-dry-signal-with-pre.md)

@@ -1,6 +1,6 @@
-# Slice Troubleshooting
+# Slice Troubleshooting Overview
 
-The Slice Troubleshooting dialog captures a snapshot of every slice and DAX channel on the connected radio, then analyzes it for likely problems such as missing audio, stuck mute, and missing antenna. Use it to diagnose slice issues yourself or to collect information to share with support.
+The Slice Troubleshooting dialog captures a full snapshot of your radio's slice, panadapter, transverter, and DAX channel state and checks it for common problems. Use it to diagnose audio, mute, antenna, and transverter issues, or to collect diagnostic data before contacting support.
 
 ## Before you start
 
@@ -8,36 +8,35 @@ The Slice Troubleshooting dialog captures a snapshot of every slice and DAX chan
 
 ## How it works
 
-Open the dialog from `Help > Slice Troubleshooting...`. When it opens, AetherSDR reads the current state of all slices and DAX channels into a snapshot. The dialog presents that snapshot in two views, accessible as tabs.
+Open the dialog from `Help > Slice Troubleshooting...`. AetherSDR reads the current state of every slice, panadapter, transverter, and DAX channel and builds a snapshot. The snapshot is available in two forms: a plain-language issue summary and a full JSON representation. You can refresh the snapshot at any time, copy either form to the clipboard, or save the JSON to a file.
 
-**Issue Summary tab** — shows a plain-language bullet list of problems detected in the snapshot, such as missing audio devices, stuck mute states, or unconfigured antennas. Review this tab first to get a quick reading of what may be wrong.
+The dialog checks for likely problems automatically, including missing audio, stuck mute conditions, missing antenna assignments, and transverter validity issues. Detected problems appear as a bullet list on the Issue Summary tab.
 
-**JSON tab** — shows the full snapshot as structured JSON, covering every slice property and DAX channel assignment. Use this view when the Issue Summary does not capture enough detail, or when a support contact asks for the raw data.
-
-The snapshot is taken when the dialog opens. If you change slice settings while the dialog is open, click "Refresh Snapshot" to re-read the current state before copying or exporting.
+No settings are persisted by this dialog. It reads radio state at the moment you open it or click Refresh Snapshot.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Issue Summary (tab) | Tab | Displays a plain-language bullet list of detected slice problems. |
-| JSON (tab) | Tab | Displays the full JSON snapshot of slices and DAX channels. |
-| Refresh Snapshot | Button | Re-reads slice state and updates both tabs with current data. |
-| Copy Summary | Button | Copies the Issue Summary text to the clipboard. |
+| Issue Summary (tab) | Tab | Displays a plain-language bullet list of detected problems with the current slice configuration. |
+| JSON (tab) | Tab | Displays the full JSON snapshot of slices, panadapters, transverters, and DAX channels. |
+| Refresh Snapshot | Button | Re-reads the current slice state and rebuilds the snapshot. Click this after changing any slice configuration. |
+| Copy Summary | Button | Copies the issue summary text to the clipboard. |
 | Copy JSON | Button | Copies the full JSON snapshot to the clipboard. |
 | Export JSON... | Button | Opens a file dialog to save the JSON snapshot to a file. |
 | Close | Button | Closes the dialog. |
-| Status label | Indicator | Shows the result of the most recent copy or export action (for example, "Copied to clipboard"). |
+| Status label | Indicator | Displays the result of the last copy or export action, for example "Copied to clipboard". |
 
 ## Tips
 
-- Click "Refresh Snapshot" after making any change to slice configuration — the dialog does not update automatically.
-- Use "Copy Summary" to paste a concise problem list into a support forum post. Use "Copy JSON" or "Export JSON..." when a support contact needs the full snapshot.
+- Click Refresh Snapshot after making any change to slice, antenna, or transverter settings so the snapshot reflects the updated state before you copy or export it.
+- Use Copy Summary to paste a concise problem list into a forum post or support ticket. Use Copy JSON or Export JSON... when the support team asks for full diagnostic data.
 
 ## Related
 
 - [Capture a slice snapshot for support](capture-a-slice-snapshot-for-support.md)
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
+- [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
 - [Copy the full JSON snapshot to the clipboard](copy-the-full-json-snapshot-to-the-clipboard.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
-- [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
+- [Inspect each transverter's RF/IF, offset and validity flags for XVTR diagnosis](inspect-each-transverter-s-rf-if-offset-and-validity-flags-for-xvtr-diagnosis.md)

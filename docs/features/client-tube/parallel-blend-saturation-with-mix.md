@@ -1,41 +1,39 @@
 # Parallel-blend saturation with Mix
 
-The Mix knob blends the dry (unprocessed) signal with the fully saturated (wet) output. Use it to add harmonic richness while keeping some of the original signal's transient character intact — a technique known as parallel compression or parallel saturation.
+The Mix knob blends the dry (unprocessed) signal with the fully saturated tube output. Reducing Mix below 100 % lets you add harmonic richness while preserving some of the original signal's transient character — a technique called parallel saturation.
 
 ## Before you start
 
-- The Tube Saturator stage must be enabled via the CHAIN widget. See [Bypass the tube from the chain](bypass-the-tube-from-the-chain.md).
-- The TUBE sub-container must be visible inside the PooDoo Audio (TXDSP) parent container.
+- The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
+- Open the applet containing the Mix knob: **Aetherial Mic-PreAmp** (TX side) or **Aetherial Dynamic Tube** (RX side), found inside the Aetherial Audio (TXDSP) parent container.
 
 ## Steps
 
-1. Open the TUBE sub-container in the PooDoo Audio (TXDSP) parent container. If it is not visible, double-click the Tube stage in the CHAIN widget to open the floating Tube editor, or right-click the TUBE sub-container titlebar and select the appropriate option to show it.
-2. Locate the Mix knob — the rightmost knob in the five-knob row at the bottom of the applet.
-3. Turn Mix toward 0 % to increase the proportion of dry signal. Turn it toward 100 % to use more of the saturated signal.
-4. Set Mix to the value where the transmitted audio sounds full without losing the original signal's clarity. A starting point of 50 % to 70 % is typical for parallel saturation.
+1. Locate the **Mix** knob — rightmost knob in the five-knob row, labelled **Mix**.
+2. Turn **Mix** to set the dry/wet balance. The label displays the current value as a percentage (for example, `75 %`).
+   - `100 %` — fully saturated signal, no dry blend (default).
+   - `0 %` — dry signal only; tube saturation is inaudible.
+   - Values between `0 %` and `100 %` blend dry and wet proportionally.
+3. Adjust **Drive**, **Bias**, and **Tone** on the wet path as needed. The transfer curve and live input ball update to reflect the saturated signal regardless of the Mix position.
+4. Use **Output** to compensate for any overall level change introduced by the blend. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
+
+Your setting is saved automatically each time you move the knob.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---------|---------|-------------|-------------------|
-| Mix | 100 % | 0 % to 100 % (internal: 0.0 to 1.0) | `ClientTubeTxDryWet` |
-
-At 100 % the output is entirely the saturated signal. At 0 % the tube stage is effectively bypassed in terms of audio content, though it remains active in the signal chain. Values between the two blend dry and wet proportionally.
+| Control | Default | Valid range | Persisted setting (TX / RX) |
+|---------|---------|-------------|------------------------------|
+| Mix | `100 %` | `0 %` to `100 %` (stored as 0.0 to 1.0) | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
 
 ## Tips
 
-- Changes made to Mix in the floating Tube editor are reflected on the applet knob within approximately 33 ms, and vice versa.
-- If the blended signal sounds louder than the dry signal alone, use the Output knob to trim the level back. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
-- For subtle warmth without obvious distortion, set Drive high to bend the curve, then pull Mix back to 20 %–40 %.
-
-## Troubleshooting
-
-- **Mix knob has no effect** — Confirm the Tube stage is enabled in the CHAIN widget. If the stage is bypassed, no wet signal is produced and the Mix knob cannot alter the output.
-- **Knob position does not match what you set in the floating editor** — The applet syncs every ~33 ms. Wait a moment and the knob will update to reflect the current value.
+- Start with **Mix** at `100 %`, dial in **Drive** and **Bias** for the tone you want, then back Mix down until the result sits comfortably in the audio — this is easier than trying to set all knobs simultaneously.
+- Because the dry and wet signals are summed, heavy Drive settings at low Mix values can still produce audible harmonic content without overwhelming the source.
+- The TX and RX Tube stages have fully independent Mix settings. Adjusting one side does not affect the other.
 
 ## Related
 
-- [Bypass the tube from the chain](bypass-the-tube-from-the-chain.md)
-- [Dial Drive until the curve starts to bend](dial-drive-until-the-curve-starts-to-bend.md)
+- [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
+- [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
-- [Tube Saturator overview](overview.md)
+- [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)

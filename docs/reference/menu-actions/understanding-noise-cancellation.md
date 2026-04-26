@@ -1,6 +1,6 @@
 # Understanding Noise Cancellation
 
-This page opens the built-in guide explaining the noise reduction algorithms available in AetherSDR: NR2, NR4, DFNR, and MNR.
+This page describes how to open the built-in noise cancellation guide in AetherSDR, which explains the NR2, NR4, DFNR, and MNR noise reduction algorithms available on the FLEX-8600.
 
 ## Before you start
 
@@ -11,9 +11,9 @@ This page opens the built-in guide explaining the noise reduction algorithms ava
 1. Click `Help` in the menu bar.
 2. Click `Understanding Noise Cancellation...`.
 
-The guide opens in a help window describing each noise reduction algorithm.
+The guide opens and covers the NR2, NR4, DFNR, and MNR noise reduction modes.
 
 ## Related
 
 - [AetherSDR Help](aethersdr-help.md)
-- [Getting Started](getting-started.md)
+- [Configuring AetherSDR Controls](configuring-aethersdr-controls.md)

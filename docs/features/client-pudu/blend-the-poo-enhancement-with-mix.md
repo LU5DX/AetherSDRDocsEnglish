@@ -1,44 +1,38 @@
 # Blend the Poo enhancement with Mix
 
-The **Poo / Mix** knob controls how much of the processed low-frequency signal is blended back with your dry audio. Use it to dial in just enough Poo enhancement without overwhelming your transmit signal.
+The "Poo / Mix" knob controls how much of the processed low-frequency signal is blended back with the dry audio. Use it to dial in the amount of Poo enhancement without overwhelming the original signal.
 
 ## Before you start
 
-- The PUDU stage must be enabled in the PooDoo Audio chain. If the PUDU applet is not visible, enable the PUDU (Enh) stage via the CHAIN widget or double-click it to open the floating editor.
-- Audio engine must be running with a transmit audio source active so you can hear the effect of the blend.
+- PUDU must be enabled on the side you want to adjust. If the Poo group is not visible, the PUDU stage may be bypassed — see [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md).
+- Open the relevant applet: "Aetherial TX Poodoo™" for transmit, or "Aetherial RX Poodoo™" for receive. Double-click the PUDU stage in the CHAIN widget on the matching side to open the frameless editor if the applet is not already visible.
 
 ## Steps
 
-1. Open the PUDU sub-container inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Locate the **Poo** group — the three knobs under the bracket labelled **Poo**.
-3. Turn the third knob in the Poo group, labelled **Mix**, to set the wet/dry blend for the low-frequency processor.
-   - Turning left toward 0 % passes only the dry signal.
-   - Turning right toward 100 % passes only the processed low-band signal.
-4. Release the knob. The value is saved automatically to `ClientPuduTxPooMix`.
+1. Locate the **Poo** group bracket in the applet. It contains three knobs: **Drive**, **Tune**, and **Mix**.
+2. Turn the **Mix** knob under the **Poo** bracket to the desired blend level.
+   - Turning toward 0 % passes the dry signal with no low-frequency enhancement.
+   - Turning toward 100 % blends the full processed signal in.
+3. The value is saved automatically. No additional confirmation is needed.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key |
+| Control | Default | Valid range | Persisted setting |
 |---|---|---|---|
-| Poo / Mix | 30 % | 0 % to 100 % (internal 0.0 to 1.0) | `ClientPuduTxPooMix` |
+| **Poo / Mix** (TX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduTxPooMix` |
+| **Poo / Mix** (RX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduRxPooMix` |
 
-The knob uses a linear mapping. The displayed label shows the blend as a whole-number percentage (for example, **30 %**).
+The knob display shows the value as a whole-number percentage (for example, "30 %"). Internally the value is stored as a linear fraction between 0.0 and 1.0.
 
 ## Tips
 
-- Start at the default of 30 % and increase slowly. At high values the low-band saturation can add significant weight; small increases have an audible effect.
-- The PooDoo logo pulses brighter as the wet (processed) RMS increases — use it as a visual guide when you cannot monitor audio directly.
-- Set Poo / Drive and Poo / Tune to appropriate values before committing to a Mix level. The character of what you are blending in depends on those two knobs.
-
-## Troubleshooting
-
-- **Turning Poo / Mix has no audible effect** — confirm the PUDU stage is enabled in the CHAIN widget and not bypassed. If the stage is bypassed, all three Poo knobs have no effect on the output.
-- **Mix snaps back after adjustment** — the audio engine may not be connected. Check that AetherSDR is connected to the FLEX-8600 and the TX audio path is active.
+- The TX and RX sides have fully independent Mix values. Adjusting one does not affect the other.
+- Watch the PooDoo logo — its brightness pulses with the wet (processed) signal RMS. A noticeable increase in pulse intensity as you raise Mix confirms the low-frequency processing is audible in the blend.
+- Start at the default of 30 % and increase gradually. Heavy Mix values can thicken the low end to the point of muddiness, especially if **Poo / Drive** is also high.
 
 ## Related
 
-- [PUDU Exciter overview](overview.md)
 - [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
-- [Tune Poo to the fundamental of your voice](tune-poo-to-the-fundamental-of-your-voice.md)
+- [Tune Poo to the fundamental of your voice (TX) or to bring out RX program lows](tune-poo-to-the-fundamental-of-your-voice-tx-or-to-bring-out-rx-program-lows.md)
 - [Blend the Doo excitement with Mix](blend-the-doo-excitement-with-mix.md)
-- [Bypass PUDU from the chain](bypass-pudu-from-the-chain.md)
+- [Aetherial TX Poodoo / Aetherial RX Poodoo overview](overview.md)

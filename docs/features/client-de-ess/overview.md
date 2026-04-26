@@ -1,41 +1,43 @@
-# De-Esser Overview
+# Aetherial De-Esser overview
 
-The De-Esser reduces harsh sibilance ("S" and "T" sounds) on your TX audio by ducking a narrow frequency band whenever its level exceeds a set threshold. Use it to take the edge off a bright microphone or a room with pronounced high-frequency reflections without coloring the rest of your voice.
+The Aetherial De-Esser is a TX-only client-side processor that reduces harsh sibilance ("S" and "T" sounds) in your transmitted audio. It works by monitoring a narrow frequency band and ducking it when the signal level in that band exceeds a set threshold.
 
 ## Before you start
 
-- The De-Esser operates on the TX audio path only. It has no effect on received audio.
-- The De-Ess stage must be enabled in the CHAIN widget before the applet appears. See [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md) for how to enable and disable it.
-- No radio connection is required to view or adjust the De-Esser controls.
+- The De-Esser is a TX-only stage. It has no effect on received audio.
+- The applet is hidden until the De-Ess stage is enabled. Enable it via the CHAIN widget inside the Aetherial Audio (TXDSP) parent container, or from the floating editor.
+- No radio connection is required to configure the de-esser.
 
 ## How it works
 
-The De-Esser uses a sidechain architecture. A bandpass filter isolates the frequency range you define with Freq and Q. When the level in that band rises above the Thresh level, the De-Esser attenuates that band by up to the Amount you set. Audio outside the sidechain band is unaffected.
+The de-esser uses a sidechain design. A bandpass filter isolates the sibilance band defined by **Freq** and **Q**. When the level in that band exceeds the **Thresh** value, the de-esser attenuates the band by up to the **Amount** value. The rest of your audio passes through unaffected.
 
-The applet lives in the DESS sub-container inside the PooDoo Audio (TXDSP) parent container. It is hidden until the De-Ess stage is enabled via the CHAIN widget or the floating editor. To open the floating editor, double-click the DeEss stage in the CHAIN widget. To float, pop out, or hide the docked applet, right-click the DESS sub-container titlebar.
+The applet displays two live indicators while you transmit:
 
-The applet displays two visual indicators and four tuning knobs:
+- **Sidechain response curve** — shows the bandpass filter shape with a ball marker at the current centre frequency. As you adjust **Freq** and **Q**, the curve and ball update immediately.
+- **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show how much attenuation is being applied at any moment. The scale runs from 0 to 24 dB; a tick marks the −6 dB point. The meter refreshes approximately 30 times per second.
 
-- **Sidechain response curve** — draws the bandpass filter shape. A live ball marks the current centre frequency on the curve peak.
-- **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB; a tick marks the −6 dB point. The bar refreshes approximately 30 times per second.
+To open the full floating editor, double-click the DESS stage in the CHAIN widget. The editor window is titled "Aetherial De-Esser — TX". To bypass the de-esser without changing any settings, use the single-click gesture on the DESS stage in the CHAIN widget.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted setting | Description |
 |---|---|---|---|---|
-| Freq | 6000 Hz | 1000 – 12000 Hz | `ClientDeEssTxFrequencyHz` | Centre frequency of the sibilance band. Uses logarithmic scaling. Displays as "X.X kHz" at or above 1000 Hz. |
-| Q | 2.00 | 0.5 – 5.0 | `ClientDeEssTxQ` | Bandwidth of the sibilance band. Higher values produce a narrower band. |
-| Thresh | −30.0 dB | −60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which attenuation begins. Set this just below your loudest sibilant peaks. |
-| Amount | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied at peak sibilance. Values are zero or negative because they represent reduction. |
+| **Freq** | 6000 Hz | 1000 – 12000 Hz | `ClientDeEssTxFrequencyHz` | Centre frequency of the sibilance band. Uses logarithmic scaling. Displays as "X.X kHz" at or above 1000 Hz. |
+| **Q** | 2.00 | 0.5 – 5.0 | `ClientDeEssTxQ` | Bandwidth of the sibilance band. Higher values produce a narrower band. Uses linear scaling. |
+| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which the de-esser begins attenuating the band. Set this just below your loudest sibilant peaks. |
+| **Amount** | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied when sibilance is at its peak. Negative values represent reduction; 0 dB means no attenuation. |
+| **Sidechain response curve** | — | — | — | Live display of the bandpass filter shape. The ball marks the current centre frequency. |
+| **Gain-reduction bar** | — | 0 – 24 dB GR | — | Live meter showing current attenuation. Soft-red fill; tick at −6 dB. |
 
-The enabled/disabled state of the De-Ess stage is persisted as `ClientDeEssTxEnabled` and is controlled from the CHAIN widget, not from the applet itself.
+Enabled state is persisted as `ClientDeEssTxEnabled`.
 
 ## Tips
 
-- Start with Freq at the default 6.0 kHz and sweep it while speaking sibilant phrases. Watch the gain-reduction bar — peak activity indicates you have found the sibilance centre frequency.
-- A Q of 2.00 is a reasonable starting point. Narrow the band (increase Q toward 5.0) if the de-esser affects consonants other than sibilants. Widen it (decrease Q toward 0.5) if sibilance still escapes.
-- Set Thresh so the gain-reduction bar barely moves on normal speech and reacts clearly on hard "S" sounds. Too low a threshold causes constant gain reduction that dulls the voice.
-- Keep Amount at −6.0 dB or shallower for transparent results. Deeper values can produce an audible "lisp" effect if over-applied.
+- Start with **Freq** at the default 6.0 kHz and sweep it slowly while speaking sibilant words. Watch the gain-reduction bar — maximum deflection indicates you have found the peak sibilance frequency.
+- A **Q** of 2.00 is a reasonable starting point. Increase it to isolate a narrow problem band; decrease it if the sibilance is spread across a wider range.
+- Set **Thresh** so the gain-reduction bar only moves on genuine "S" and "T" sounds, not on normal vowels or consonants.
+- The −6 dB tick on the gain-reduction bar marks the default **Amount** value. Keeping reduction near that tick usually produces transparent results. Larger amounts are available but can make the effect audible as pumping or lisping.
 
 ## Related
 

@@ -1,53 +1,66 @@
 # TX Controls overview
 
-The TX Controls applet is your primary interface for managing transmit power, tuning, and antenna matching on the FLEX-8600. It provides meters, sliders, profile selection, and keying controls in a single panel.
+The TX Controls applet gives you direct access to all transmit functions from a single panel: power metering, output level adjustment, profile selection, antenna tuning, and signal linearisation. Open it whenever you need to adjust transmit settings or monitor output during a QSO.
+
+## Before you start
+
+- Connect to a FLEX-8600 radio. TX Controls requires an active radio connection.
+- Confirm the Applet Panel is visible. If it is not, click `View > Applet Panel` to show it.
 
 ## How it works
 
-The TX Controls applet is always visible in the Applet Panel (right sidebar). Click the TX tray button to show or hide it. The applet requires an active radio connection to operate.
+The TX Controls applet is always present in the right-side Applet Panel. Toggle its visibility with the TX tray button on the right sidebar. The applet is divided into five functional areas:
 
-The applet is organized into five functional areas:
+**Power meters** — two horizontal bar gauges at the top of the applet display live transmitter output.
 
-**Power meters** — Two horizontal bar gauges at the top of the applet display real-time transmit readings:
+- **RF Pwr** shows forward power at the exciter output. The scale is 0–120 W on standard FLEX-8600 hardware (red zone above 100 W) or 0–600 W on Aurora 500 W hardware (red zone above 500 W). The scale switches automatically based on the connected radio model.
+- **SWR** shows standing wave ratio at the exciter. The scale runs from 1.0 to 3.0; the bar turns red above 2.5.
 
-- **RF Pwr** — Forward power at the exciter output. Scale is 0–120 W for standard configurations, or 0–600 W for Aurora 500W models. The bar turns red above 100 W (or above 500 W on Aurora models).
-- **SWR** — Standing wave ratio at the exciter, displayed on a 1.0–3.0 scale. The bar turns red above 2.5.
+**Power sliders** — two sliders let you set output levels before keying.
 
-**Power sliders** — Two sliders set power levels sent to the radio:
+- **RF Power** sets the transmit RF power level. Range is 0–100, default 100.
+- **Tune Pwr** sets the tune-carrier power level. Range is 0–100, default 10. Keep this low to protect the final amplifier and antenna during tuning.
 
-- **RF Power** — Sets the transmit RF power level. Range: 0–100. Default: 100.
-- **Tune Pwr** — Sets the tune-carrier power level. Range: 0–100. Default: 10.
+A numeric readout to the right of each slider shows the current value.
 
-Both sliders display their current value as a number to the right of the slider.
+**TX Profile** — a drop-down selector populated with the profiles stored on the radio. Selecting a profile immediately loads it on the radio. Use this to switch between configurations such as SSB, digital, or contest modes.
 
-**TX Profile and ATU status** — A dropdown and three indicators share a single row:
+**ATU status indicators** — three small indicators sit alongside the TX Profile selector and report the state of the internal antenna tuner:
 
-- **TX Profile** — Selects the active transmit profile. The list is populated from the profiles stored on the radio. Selecting a profile loads it immediately.
-- **Success** — Lit green when the ATU reports a successful match.
-- **Byp** — Lit orange when the ATU is in bypass or manual bypass.
-- **Mem** — Lit green when the ATU is using a stored memory.
+| Indicator | Lights when |
+|-----------|-------------|
+| Success | ATU tune completed successfully (dim otherwise) |
+| Byp | ATU is in bypass or manual bypass (orange) |
+| Mem | ATU is operating from a stored memory (green) |
 
-**Action buttons** — Four buttons control transmit and antenna tuning:
+**Action buttons** — a row of four buttons controls transmit and tuning operations:
 
-- **TUNE** — Starts a tune carrier. The button label changes to "TUNING..." with a red background while active. Click again to stop.
-- **MOX** — Toggles manual transmit. The button turns red while the transmitter is keyed.
-- **ATU** — Starts the internal ATU tuning cycle. Disabled when the TGXL transverter is in OPERATE mode.
-- **MEM** — Toggles ATU memory recall on or off. Disabled when the TGXL transverter is in OPERATE mode.
+| Button | Type | Behavior |
+|--------|------|----------|
+| TUNE | Push | Starts a tune carrier. Label changes to "TUNING..." with a red background while active. Click again to stop. |
+| MOX | Toggle | Keys the transmitter manually. Turns red while TX is active. |
+| ATU | Push | Starts the internal ATU tuning cycle. Disabled when TGXL is in OPERATE mode. |
+| MEM | Toggle | Enables or disables ATU memory recall. Disabled when TGXL is in OPERATE mode. |
 
-**APD and status indicators** — The bottom row controls Adaptive Pre-Distortion:
+**APD (Adaptive Pre-Distortion)** — the bottom row contains the APD toggle and its status cluster.
 
-- **APD** — Toggles adaptive pre-distortion on the radio.
-- **Active** — Lit green when APD is on and the equalizer is actively applied.
-- **Cal** — Lit green when APD is on and still calibrating.
-- **Avail** — Lit green when APD is on and a calibration is available but not yet applied.
+- **APD** toggles adaptive pre-distortion on the radio. When enabled, the button lights green.
+- Three indicators in the inset panel to the right of APD show the progression of the APD process:
 
-APD status progresses through the indicators in sequence: Cal (calibrating) → Avail (calibration ready) → Active (equalizer applied).
+| Indicator | Meaning |
+|-----------|---------|
+| Cal | APD is on and currently calibrating |
+| Avail | APD is on and a calibration is available but not yet applied |
+| Active | APD is on and the equaliser is actively applied |
+
+The normal progression after enabling APD is Cal → Avail → Active.
 
 ## Tips
 
-- Keep **Tune Pwr** low (the default of 10 is a reasonable starting point) to avoid stressing the amplifier or antenna during ATU cycles.
-- The **RF Pwr** meter scale changes automatically based on which radio model AetherSDR detects; no manual adjustment is needed.
-- **ATU** and **MEM** are grayed out when the TGXL is in OPERATE mode. Switch the TGXL out of OPERATE mode before attempting ATU operations.
+- Set **Tune Pwr** to a low value (10 is the default) before running the ATU or checking SWR. Tuning at high power can stress an unmatched antenna system.
+- The **TUNE** button sends a continuous carrier on the current frequency and mode. Ensure you are within your licensed band before activating it.
+- **MOX** does not depend on any mode or PTT input — it keys the transmitter unconditionally. Use it with care.
+- The ATU and MEM buttons are disabled when the TGXL amplifier is in OPERATE mode to prevent interference with the amplifier's own tuning state.
 
 ## Related
 
@@ -59,3 +72,5 @@ APD status progresses through the indicators in sequence: Cal (calibrating) → 
 - [Run the internal ATU](run-the-internal-atu.md)
 - [Recall an ATU memory](recall-an-atu-memory.md)
 - [Enable APD to linearise the transmitter](enable-apd-to-linearise-the-transmitter.md)
+- [Run a Two-Tone Tune](run-a-two-tone-tune.md)
+- [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)

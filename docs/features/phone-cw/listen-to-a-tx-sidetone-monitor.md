@@ -1,35 +1,45 @@
 # Listen to a TX sidetone monitor
 
-The TX sidetone monitor lets you hear your own transmitted audio in your headphones while on phone modes. Use it to confirm your audio is clean and at the right level without relying on a separate receiver.
+The Phone/CW applet provides two independent ways to monitor your transmitted audio: a radio-side sideband monitor (Phone modes) and a radio-side CW sidetone monitor (CW mode). Use these to hear your own signal during transmission without relying on external audio paths.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio.
-- The active slice must be in a phone mode (SSB, AM, FM). The Phone/CW applet displays phone controls only when a phone mode is active; switching to CW shows the CW panel instead.
-- Open the Phone/CW applet in the Applet Panel. If it is not visible, click the **P/CW** tray button on the right sidebar.
+- AetherSDR must be connected to the radio. The Phone/CW applet is only functional when a radio connection is active.
+- The P/CW applet must be visible in the Applet Panel. If it is not, click the **P/CW** tray button on the right sidebar to open it.
+- Confirm which mode the active slice is in. The applet automatically shows the Phone panel in voice modes and the CW panel in CW mode.
 
 ## Steps
 
-1. In the Phone/CW applet, locate the **MON** toggle button.
-2. Click **MON** to enable the sidetone monitor. The button lights up when active.
-3. Adjust the **Monitor volume** slider (0–100) to set the monitor level in your headphones.
-4. To disable the monitor, click **MON** again.
+### Phone modes (SSB, AM, FM)
+
+1. Open the **P/CW** applet from the right sidebar.
+2. Confirm the Phone panel is displayed (not the CW panel).
+3. Click **MON** to enable the sideband monitor. The button lights when active.
+4. Drag the **Monitor volume** slider to set the monitor level. Valid range: 0–100.
+
+### CW mode
+
+1. Open the **P/CW** applet from the right sidebar.
+2. Confirm the CW panel is displayed. If the active slice is in a CW mode, the applet switches to it automatically.
+3. Click **Sidetone** to enable the radio CW sidetone monitor. The button lights when active.
+4. Drag the **Sidetone volume** slider to set the monitor level. Valid range: 0–100.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| MON | Enables or disables the TX sidetone monitor. | Off | On / Off | — |
-| Monitor volume | Sets the sideband monitor playback volume. | — | 0–100 | — |
+| Control | Kind | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|---|
+| **MON** | Toggle button | — | On / Off | — | Enables the sideband monitor for Phone modes. |
+| **Monitor volume** | Slider | — | 0–100 | — | Sets the sideband monitor volume. |
+| **Sidetone** | Toggle button | — | On / Off | — | Enables the radio CW sidetone monitor. |
+| **Sidetone volume** | Slider | — | 0–100 | — | Sets the CW monitor volume. |
 
 ## Tips
 
-- The monitor plays back what the radio is actually transmitting, so it reflects any speech processing or compression applied by the **PROC** control.
-- If you are using **PC** as the mic source, the mic gain value is stored client-side as `PcMicGain` (default 50, range 0–100) rather than reported by the radio.
+- The radio-side CW sidetone monitor routes audio through the radio's DAX path. If you need lower latency (approximately 10 ms) for paddle or straight-key work, use the **Local STn** client-side sidetone instead. See [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md).
+- **MON** and **Sidetone** are separate controls on separate panels. Enabling one does not affect the other.
 
 ## Related
 
-- [Phone/CW overview](overview.md)
-- [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
-- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
+- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
+- [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
+- [Set the local sidetone volume independently of the radio monitor](set-the-local-sidetone-volume-independently-of-the-radio-monitor.md)

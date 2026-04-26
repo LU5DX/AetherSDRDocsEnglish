@@ -1,44 +1,48 @@
 # Start a tune carrier to check SWR
 
-Use the TUNE function to transmit a steady carrier at a reduced power level so you can read SWR without making a contact. This is the standard way to check your antenna match before operating.
+Use the TUNE function to transmit a steady carrier at reduced power, then read the SWR meter to verify your antenna system before making a contact.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The TX Controls applet is only functional when a radio connection is active.
-- Confirm the frequency and mode are set to what you intend to check.
-- Set "Tune Pwr" to a safe level for your antenna and any connected amplifier before transmitting.
+- AetherSDR must be connected to the radio. See `Settings > Connect to Radio...` if not connected.
+- The TX Controls applet must be visible. If it is not, click the **TX** tray button on the right sidebar.
+- Set an appropriate tune power level. The default is 10 (out of 100). See [Set tune-carrier power](set-tune-carrier-power.md) if you need to change it.
+- Confirm you are permitted to transmit on the current frequency (correct band, licence class, and any required inhibit settings).
 
 ## Steps
 
-1. Click the TX tray button on the right sidebar to open the TX Controls applet if it is not already visible.
-2. Adjust the "Tune Pwr" slider to the desired tune-carrier power level. The default is 10; valid range is 0–100.
-3. Click TUNE. The button label changes to "TUNING..." and the button background turns red while the carrier is active.
-4. Read the SWR meter. The "SWR" gauge displays the standing wave ratio at the exciter. The scale runs from 1.0 to 3.0; values above 2.5 are shown in red.
-5. Click TUNE again (now labeled "TUNING...") to stop the carrier. The button returns to its normal "TUNE" label.
+1. Open the TX Controls applet by clicking the **TX** tray button on the right sidebar if it is not already open.
+2. Check the **Tune Pwr** slider. The default value is 10. Adjust if needed by dragging the slider.
+3. Click **TUNE**.
+4. The button label changes to **TUNING...** and the button background turns red. The radio is now transmitting a continuous carrier.
+5. Read the **SWR** meter. The scale runs from 1.0 to 3.0; the display turns red above 2.5.
+6. Click **TUNE** again to stop the carrier. The button label returns to **TUNE**.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Behavior |
+| Control | Kind | Default | Valid range | Behaviour |
 |---|---|---|---|---|
-| TUNE | Push button | — | — | Starts or stops the tune carrier. Displays "TUNING..." with a red background while active. |
-| Tune Pwr | Slider | 10 | 0–100 | Sets the tune-carrier power level sent to the radio. |
-| SWR | Meter | — | 1.0–3.0 (red > 2.5) | Displays the standing wave ratio at the exciter while transmitting. |
-| RF Pwr | Meter | — | 0–120 W barefoot; 0–600 W Aurora 500W (red > 100 W / > 500 W) | Displays forward power at the exciter output. |
+| **Tune Pwr** | Slider | 10 | 0–100 | Sets the power level of the tune carrier. |
+| **TUNE** | Button | — | — | Click to start the tune carrier; click again to stop. Label shows **TUNING...** with a red background while active. |
+| **SWR** | Meter | — | 1.0–3.0 (red above 2.5) | Displays standing wave ratio at the exciter during transmission. |
+| **RF Pwr** | Meter | — | 0–120 W barefoot; 0–600 W Aurora 500W (red above 100 W / 500 W) | Displays forward power at the exciter output during the tune carrier. |
 
 ## Tips
 
-- Keep "Tune Pwr" at the minimum level needed to get a reliable SWR reading. A value of 10 is sufficient for most antenna analyzers and internal tuners.
-- If you intend to run the internal ATU, you can start ATU tuning directly with the ATU button instead; the ATU cycle uses the tune carrier automatically. See [Run the internal ATU](run-the-internal-atu.md).
+- Keep **Tune Pwr** low (10 or below) to protect your finals and any downstream amplifier while checking SWR.
+- The tune carrier runs at the **Tune Pwr** level, not the **RF Power** level. Changing **RF Power** during a tune has no effect on carrier power.
+- If you want to suppress a specific TX output line during tuning, use `Settings > Inhibit during TUNE` to select ACC TX, TX1, TX2, or TX3 before clicking **TUNE**.
 
 ## Troubleshooting
 
-- **TUNE button has no effect** — The TX Controls applet requires an active radio connection. Check that AetherSDR is connected to the FLEX-8600 via `Settings > Connect to Radio...`.
-- **SWR gauge stays at 1.0 during tuning** — The radio may not be detecting reflected power. Verify the antenna connector and feedline are properly attached to the radio.
-- **Carrier does not stop** — If clicking the button a second time does not stop the tune, the radio may have lost the command. Click MOX once to force the transmitter off, then click MOX again to return to receive.
+- **TUNE button has no effect** — Verify the radio connection is active. The TX Controls applet requires a live radio connection; the **TX** tray button and all controls are disabled when the radio is offline.
+- **SWR reads high immediately** — Check antenna connection, coax, and any switch positions. A reading at or above 2.5 triggers the red zone on the SWR meter.
+- **TUNING... does not stop** — Click **TUNE** a second time to send the stop command. If the button does not respond, check for a network interruption to the radio.
 
 ## Related
 
 - [Set tune-carrier power](set-tune-carrier-power.md)
-- [Run the internal ATU](run-the-internal-atu.md)
 - [Set RF output power](set-rf-output-power.md)
+- [Run the internal ATU](run-the-internal-atu.md)
 - [Toggle MOX to manually key the transmitter](toggle-mox-to-manually-key-the-transmitter.md)
+- [TX Controls overview](overview.md)

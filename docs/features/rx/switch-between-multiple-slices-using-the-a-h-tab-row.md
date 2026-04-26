@@ -1,38 +1,36 @@
 # Switch between multiple slices using the A..H tab row
 
-The RX Controls applet shows a row of lettered tabs — A through H — when the radio has more than one slice active. Clicking a tab binds the entire RX Controls applet to that slice, letting you adjust its frequency, mode, filter, and other settings independently.
+The FLEX-8600 supports up to eight simultaneous receive slices. The A..H tab row in the RX Controls applet lets you move between those slices so the applet's controls apply to the one you want.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The tab row requires a live radio connection.
-- At least two slices must exist on the radio. The tab row is hidden when only one slice is active.
+- AetherSDR must be connected to a FLEX-8600 radio. The tab row is not visible otherwise.
+- The radio must have more than one slice active. The tab row is hidden when only one slice exists.
+- The RX Controls applet must be open in the Applet Panel. If it is not visible, click the **RX** tray button on the right sidebar.
 
 ## Steps
 
-1. Open the RX Controls applet in the Applet Panel. If it is not visible, click the RX tray button on the right sidebar.
-2. Locate the slice tab row at the top of the RX Controls applet. Tabs are labelled A, B, C, and so on, up to H, with one tab per active slice.
-3. Click the tab letter for the slice you want to control (for example, B to switch to slice B).
-4. Confirm the switch: the slice badge below the tab row updates to the letter of the selected slice, and all controls in the applet — mode, frequency, filter width, antenna, and so on — reflect that slice's current state.
+1. Look at the top of the RX Controls applet for a row of lettered buttons (A, B, C, and so on).
+2. Click the letter of the slice you want to work with (for example, **B**).
+3. Confirm the change: the **Slice badge** (the small coloured square at the left of the header row) updates to show the selected letter, and all controls below — frequency, mode, filter, AGC, and so on — now reflect that slice.
 
 ## What each control does
 
 | Control | Behavior | Notes |
 |---|---|---|
-| Slice tabs (A..H) | Selects which slice the RX Controls applet is bound to. | Row is hidden when the radio reports only one slice. Between 1 and 8 tabs appear, capped by the radio's maximum slice count. |
-| Slice badge | Displays the letter of the currently bound slice (A/B/C/D/E/F/G/H). | Coloured by slice identity. Updates immediately when you click a tab. |
-
-No persisted setting key is associated with the slice tab selection itself. Filter width presets are stored per-mode under `FilterPresets`.
+| Slice tabs (A..H) | Selects which slice the RX applet is bound to. | 1–8 buttons, capped by the radio's maximum slice count. Row is hidden when only one slice is present. |
+| Slice badge | Displays the letter of the currently bound slice. | Coloured by slice identity. Updates immediately when you click a tab. |
 
 ## Tips
 
-- The tab row only appears when `maxSlices` is greater than 1. If you see no tabs, the radio currently has only a single slice configured.
-- Switching tabs does not change anything on the radio; it only changes which slice the local RX Controls applet is viewing and editing.
-- Each slice retains its own mode, frequency, filter, antenna, AGC, and RIT/XIT settings. Switching tabs lets you inspect or adjust a slice without disturbing the others.
+- The tab row shows only as many buttons as the radio has slices available, up to a maximum of eight (A through H).
+- After switching slices, check the **Slice badge** to confirm which slice is active before changing mode, frequency, or filter settings.
+- Filter width presets are stored per-mode under the `FilterPresets` setting. Switching slices does not change your saved presets, but the displayed preset buttons will reflect the mode and filter of the newly selected slice.
 
 ## Related
 
-- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
 - [RX Controls overview](overview.md)
+- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
 - [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Lock the slice to prevent accidental retuning](lock-the-slice-to-prevent-accidental-retuning.md)
 - [Pick a filter width preset for the current mode](pick-a-filter-width-preset-for-the-current-mode.md)

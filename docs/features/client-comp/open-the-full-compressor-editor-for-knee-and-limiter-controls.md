@@ -1,50 +1,66 @@
 # Open the Full Compressor Editor for Knee and Limiter Controls
 
-The COMPRESSOR applet exposes five knobs for everyday adjustments. Two controls — soft-knee width (`ClientCompTxKneeDb`) and the output limiter (`ClientCompTxLimEnabled`, `ClientCompTxLimCeilingDb`) — are only available in the floating Compressor editor. Open the editor when you need to shape the compression curve at the threshold or add a hard ceiling to your TX signal.
+The applet tile exposes five knobs — Thresh, Ratio, Attack, Release, and Makeup — but the knee width and limiter controls are only available in the floating editor. This page explains how to open that editor for either the TX or RX compressor.
 
 ## Before you start
 
-- The Compressor stage must be present in the PooDoo Audio (TXDSP) chain. If you have not added it yet, see [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
-- The COMPRESSOR sub-container must be visible in the applet panel. It stays hidden while the Compressor stage is bypassed.
+- The Aetherial Audio (TXDSP) parent container must be visible in the applet panel.
+- The COMP stage must exist in the CHAIN widget for the side you want to edit (TX or RX).
 
 ## Steps
 
-1. Locate the CHAIN widget inside the PooDoo Audio (TXDSP) container.
-2. Double-click the **Comp** stage in the CHAIN widget. The floating Compressor editor opens.
-
-Alternatively:
-
-1. Right-click the **COMPRESSOR** sub-container titlebar.
-2. Select the option to open or float the editor from the context menu.
+1. Locate the CHAIN widget for the side you want to edit — TX or RX.
+2. Double-click the COMP stage in the CHAIN widget.
+   - For the TX side, this opens the floating editor titled **Aetherial Compressor — TX**.
+   - For the RX side, this opens the floating editor titled **Aetherial Compressor — RX**.
+3. Use the controls in the floating editor to adjust knee and limiter settings. The editor contains all controls from the applet tile plus the knee and limiter sections not available in the tile.
 
 ## What each control does
 
-The floating Compressor editor exposes all compressor parameters, including the two not available in the applet.
+The floating editor includes the five knobs shared with the applet tile plus two additional sections: knee and limiter. All values are persisted per side.
+
+### TX side
 
 | Control | Default | Valid range | Setting key |
 |---|---|---|---|
-| Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` |
+| Thresh | -18.0 dB | -60.0 to 0.0 dB | `ClientCompTxThresholdDb` |
 | Ratio | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` |
 | Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` |
 | Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` |
-| Makeup | 0.0 dB | −12.0 to 24.0 dB | `ClientCompTxMakeupDb` |
+| Makeup | 0.0 dB | -12.0 to 24.0 dB | `ClientCompTxMakeupDb` |
 | Knee | — | — | `ClientCompTxKneeDb` |
-| Limiter enabled | — | on / off | `ClientCompTxLimEnabled` |
+| Limiter enabled | — | — | `ClientCompTxLimEnabled` |
 | Limiter ceiling | — | — | `ClientCompTxLimCeilingDb` |
 
-The transfer curve widget in the editor is interactive, unlike the view-only version in the applet. Changes to knee, threshold, and ratio are reflected on the curve immediately.
+### RX side
+
+| Control | Default | Valid range | Setting key |
+|---|---|---|---|
+| Thresh | -18.0 dB | -60.0 to 0.0 dB | `ClientCompRxThresholdDb` |
+| Ratio | 3.0 | 1.0 to 20.0 | `ClientCompRxRatio` |
+| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompRxAttackMs` |
+| Release | 200 ms | 5 to 2000 ms | `ClientCompRxReleaseMs` |
+| Makeup | 0.0 dB | -12.0 to 24.0 dB | `ClientCompRxMakeupDb` |
+| Knee | — | — | `ClientCompRxKneeDb` |
+| Limiter enabled | — | — | `ClientCompRxLimEnabled` |
+| Limiter ceiling | — | — | `ClientCompRxLimCeilingDb` |
+
+Defaults and valid ranges for Knee and Limiter ceiling are not specified in the available documentation; see the floating editor for current values.
 
 ## Tips
 
-- Knob and curve changes made in the floating editor are reflected in real time on the applet's transfer curve and gain-reduction bar, so you can watch metering in the applet while editing parameters in the floating window.
-- The five knobs in the COMPRESSOR applet (Thresh, Ratio, Attack, Release, Makeup) are kept in sync with the editor. Adjusting either location updates the other.
+- Changes made in the floating editor are reflected immediately in the applet tile's transfer curve and gain-reduction bar.
+- The TX and RX editors are fully independent. Opening one does not affect the other.
+- The floating editor is frameless. Drag its title bar to reposition it.
+
+## Troubleshooting
+
+- **Double-clicking COMP in the CHAIN widget does nothing** — The COMP stage may be bypassed or the audio engine may not be connected. Check that the stage is active and that AetherSDR has an audio engine running.
+- **Knee and limiter controls are not visible** — You may be looking at the applet tile rather than the floating editor. The tile does not expose knee or limiter controls. Double-click the COMP stage in the CHAIN widget to open the full editor.
 
 ## Related
 
-- [Compressor overview](overview.md)
-- [Adjust compressor threshold](adjust-compressor-threshold.md)
-- [Set compression ratio for voice](set-compression-ratio-for-voice.md)
-- [Tune attack / release for a natural-sounding squeeze](tune-attack-release-for-a-natural-sounding-squeeze.md)
-- [Apply make-up gain after compression](apply-make-up-gain-after-compression.md)
-- [Watch live gain reduction while speaking](watch-live-gain-reduction-while-speaking.md)
+- [Aetherial Compressor (TX) / Aetherial AGC-C (RX) overview](overview.md)
 - [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md)
+- [Adjust compressor threshold (TX or RX side)](adjust-compressor-threshold-tx-or-rx-side.md)
+- [Watch live gain reduction while speaking or listening](watch-live-gain-reduction-while-speaking-or-listening.md)

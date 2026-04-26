@@ -1,23 +1,23 @@
 # Configuring Data Modes
 
-This page opens the built-in guide for setting up digital mode operation on your Flex radio with AetherSDR.
+This page describes how to open the data modes setup guide in AetherSDR. The guide covers configuring AetherSDR for digital mode operation such as FT8, JS8, or other data modes that require audio routing or CAT control.
 
 ## Before you start
 
-- AetherSDR must be installed and running.
+- AetherSDR must be running.
+- You must be connected to a FLEX-8600 radio, or know which interface (DAX, TCI, CAT) you intend to configure for your digital mode software.
 
 ## Steps
 
 1. Click `Help` in the menu bar.
 2. Click `Configuring Data Modes...`.
 
-The guide opens in the AetherSDR help viewer.
+The data modes setup guide opens.
 
 ## Related
 
-- [Getting Started](getting-started.md)
 - [Enable autostart for DAX with AetherSDR](enable-autostart-for-dax-with-aethersdr.md)
 - [Enable autostart for TCI with AetherSDR](enable-autostart-for-tci-with-aethersdr.md)
 - [Enable autostart for CAT with AetherSDR](enable-autostart-for-cat-with-aethersdr.md)
 - [Enable autostart for rigctld with AetherSDR](enable-autostart-for-rigctld-with-aethersdr.md)
-- [USB Cables](usb-cables.md)
+- [Getting Started](getting-started.md)

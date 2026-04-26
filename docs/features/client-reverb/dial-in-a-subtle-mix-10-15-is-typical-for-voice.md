@@ -1,42 +1,40 @@
 # Dial in a subtle Mix — 10-15 % is typical for voice
 
-The Mix knob controls the dry/wet balance of the reverb effect on your transmitted audio. Keeping Mix low — between 10 % and 15 % — adds a sense of space without making your voice sound processed or hollow.
+The Mix knob controls the dry/wet balance of the Aetherial FreeVerb reverb on your transmitted audio. Keeping Mix in the 10–15 % range adds a light sense of space without making your voice sound processed or distant.
 
 ## Before you start
 
-- The REVERB sub-container must be visible in the PooDoo Audio (TXDSP) parent container. It is hidden until the Reverb stage is enabled via the CHAIN widget or the floating editor.
-- Enable the Reverb stage before adjusting Mix, or the effect will not be heard even if Mix is set above zero.
+- The Reverb stage must be enabled in the CHAIN widget. The "Aetherial FreeVerb" sub-container is hidden until the stage is active.
+- You can adjust Mix from either the compact applet row inside the Aetherial Audio (TXDSP) container or from the floating "Aetherial FreeVerb — TX" editor.
 
 ## Steps
 
-1. Locate the REVERB sub-container inside the PooDoo Audio (TXDSP) panel.
-2. Find the Mix knob — the rightmost knob in the five-knob row.
-3. Turn Mix to your target value. The label updates live, showing the current percentage (for example, `15 %`).
-4. Transmit a test signal and listen to the monitor output. Adjust Mix up or down until the reverb tail is audible but not dominant.
-
-To reset Mix to its default, double-click the Mix knob. The default is 15 %.
+1. Open the floating editor by double-clicking the VERB stage in the CHAIN widget. The editor titled "Aetherial FreeVerb — TX" appears.
+2. Locate the Mix knob — the rightmost of the five knobs in the editor row.
+3. Turn Mix to your target value. The knob label updates in real time, displayed as a percentage (for example, `15 %`).
+4. For voice, set Mix between 10 % and 15 %. Lower values blend in less reverb tail; higher values make the effect more prominent.
+5. Close the editor or leave it open. The value is saved immediately.
 
 ## What each control does
 
-| Control | Default | Range | Persisted key | Behavior |
-|---------|---------|-------|---------------|----------|
-| Mix | 15 % | 0 % to 100 % | `ClientReverbTxMix` | Sets the dry/wet balance. Higher values increase the proportion of reverberated signal relative to the dry signal. Mapped linearly. |
+| Label | Default | Valid range | Persisted key | Behavior |
+|-------|---------|-------------|---------------|----------|
+| Mix | 15 % | 0–100 % (0.0 to 1.0) | `ClientReverbTxMix` | Linear dry/wet balance. Higher values increase the proportion of reverb tail in the transmitted signal. |
+| Size | 50 % | 0–100 % (0.0 to 1.0) | `ClientReverbTxSize` | Models the room size. |
+| Decay | 1.20 s | 0.3 to 5.0 s | `ClientReverbTxDecayS` | Sets the reverb tail length (exponential mapping). |
+| Damp | 50 % | 0–100 % (0.0 to 1.0) | `ClientReverbTxDamping` | Higher values damp high frequencies faster in the tail. |
+| Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Pre-delay between the dry signal and the first reflections. |
 
 ## Tips
 
-- 10–15 % is a practical starting point for SSB voice. At these levels the tail adds warmth without calling attention to itself on the receiving end.
-- Raising Mix above 30 % makes the reverb effect audible to most listeners and may reduce intelligibility in poor band conditions.
-- Hold Shift while dragging the Mix knob for finer adjustment (drag sensitivity is reduced to one quarter of normal).
-- Scroll the mouse wheel over the Mix knob to step in 1 % increments.
-
-## Troubleshooting
-
-- **Mix is set above 0 % but no reverb is audible** — The Reverb stage may not be enabled in the CHAIN widget. Enable the stage, then re-check Mix.
-- **Knob position does not change after editing** — The floating Reverb editor and the REVERB applet sync at 30 Hz. Changes made in one are reflected in the other within one refresh cycle. If they appear out of sync, wait a moment or reopen the applet.
+- The default Mix value is 15 %, which is already within the typical voice range. If you reset the knob to default, it returns to 15 %.
+- Both the compact applet knob and the floating editor knob stay in sync. Changes made in one are reflected in the other within approximately 33 ms.
+- Mix at 0 % passes only dry signal; the reverb stage is still active but inaudible. To remove it from the processing chain entirely, see [Bypass reverb from the chain](bypass-reverb-from-the-chain.md).
 
 ## Related
 
-- [Reverb overview](overview.md)
+- [Aetherial FreeVerb overview](overview.md)
 - [Bypass reverb from the chain](bypass-reverb-from-the-chain.md)
 - [Tune decay to taste without muddying speech](tune-decay-to-taste-without-muddying-speech.md)
 - [Reduce the high-end sparkle of the tail with Damp](reduce-the-high-end-sparkle-of-the-tail-with-damp.md)
+- [Offset reflections from the dry signal with Pre](offset-reflections-from-the-dry-signal-with-pre.md)

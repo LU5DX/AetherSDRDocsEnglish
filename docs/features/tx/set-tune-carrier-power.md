@@ -1,33 +1,32 @@
 # Set tune-carrier power
 
-The "Tune Pwr" slider controls how much RF power the radio outputs when you press TUNE. Keeping this low protects your antenna system and any connected amplifier during tuning.
+The "Tune Pwr" slider controls how much RF power the radio outputs when you press TUNE. Keeping this value low protects your antenna, tuner, and finals during routine ATU runs or SWR checks.
 
 ## Before you start
 
-- AetherSDR must be connected to your FLEX-8600 radio.
-- The TX applet must be visible in the Applet Panel. If it is not, click the TX tray button on the right sidebar.
+- AetherSDR must be connected to the radio. The TX Controls applet is not functional without a radio connection.
+- The TX Controls applet must be visible. If it is not, click the TX tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Locate the "Tune Pwr:" slider in the TX applet.
-2. Drag the slider left to decrease power or right to increase power. The numeric readout to the right of the slider updates immediately.
-3. Release the slider. The new value is sent to the radio.
+1. Locate the "Tune Pwr:" row in the TX Controls applet.
+2. Drag the "Tune Pwr" slider left or right to set the desired tune-carrier power level.
+3. Read the numeric value displayed to the right of the slider to confirm your setting.
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
+| Control | Description | Default | Valid range |
 |---|---|---|---|
-| Tune Pwr | 10 | 0–100 | Sets the power level of the tune carrier. The value is applied the next time TUNE is pressed. |
+| Tune Pwr | Sets the power level of the tune carrier transmitted when TUNE is active. | 10 | 0–100 |
 
 ## Tips
 
-- A setting of 10 is enough for the internal ATU to find a match on most bands. Raise it only if the ATU needs more power to measure SWR accurately.
-- The "Tune Pwr:" slider is independent of the "RF Power:" slider, which controls normal transmit power. Changing one does not affect the other.
-- You can also set tune power per band using `Settings > TX Band Settings...`, which overrides the global slider for each individual band.
+- The numeric readout to the right of the "Tune Pwr" slider updates as you drag, so you can set an exact value before pressing TUNE.
+- Many operators leave tune power at 10 or below to reduce wear on the finals and to satisfy ATU requirements. Raise it only if your tuner fails to find a match at lower power.
+- The "Tune Pwr" setting is independent of the "RF Power" slider, which controls normal transmit power. Changing one does not affect the other.
 
 ## Related
 
 - [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md)
 - [Run the internal ATU](run-the-internal-atu.md)
 - [Set RF output power](set-rf-output-power.md)
-- [TX Controls overview](overview.md)

@@ -1,43 +1,42 @@
 # Apply make-up gain after compression
 
-After the compressor reduces peaks, the overall signal level drops. The Makeup knob adds back the lost gain so your transmitted audio reaches the intended loudness.
+Make-up gain compensates for the overall level lost when the compressor reduces peaks. Adjust the Makeup knob on the TX or RX side so that compressed audio comes out at a consistent, useful level.
 
 ## Before you start
 
-- The Compressor stage must be enabled (bypass off). If it is bypassed, make-up gain has no effect. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
-- The COMPRESSOR sub-container must be visible inside the PooDoo Audio (TXDSP) parent container.
+- The Aetherial Compressor (TX) or Aetherial AGC-C (RX) applet must be visible. Each tile stays hidden until its stage is enabled via the CHAIN widget.
+- The compressor must be enabled (not bypassed) on the side you want to adjust. Make-up gain has no audible effect when the compressor is bypassed.
 
 ## Steps
 
-1. Locate the COMPRESSOR sub-container in the applet panel.
-2. Find the **Makeup** knob — the rightmost knob in the five-knob row.
-3. Turn or click-drag the **Makeup** knob to set the desired gain.
-   - Positive values are displayed with an explicit `+` sign, for example `+6.0 dB`.
-   - Watch the transfer curve and the gain-reduction bar while speaking to judge how much gain to restore.
-4. Release the knob. The value is saved automatically to `ClientCompTxMakeupDb`.
+1. Locate the "Aetherial Compressor" tile (TX side) or "Aetherial AGC-C" tile (RX side) in the Aetherial Audio (TXDSP) parent container.
+2. Find the **Makeup** knob — the rightmost knob in the five-knob row at the bottom of the applet.
+3. Turn the **Makeup** knob to the desired value. Positive values are displayed with an explicit `+` sign (for example, `+6.0 dB`); negative values display without one (for example, `-3.0 dB`).
+4. Watch the gain-reduction bar while speaking (TX) or listening (RX). A good starting point is to add make-up gain equal to roughly half the gain reduction shown on the bar.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| Makeup | `0.0 dB` | `-12.0 to 24.0 dB` | `ClientCompTxMakeupDb` |
+| Control | Default | Valid range | Persisted setting key |
+|---------|---------|-------------|-----------------------|
+| Makeup (TX) | `0.0 dB` | `-12.0` to `+24.0 dB` | `ClientCompTxMakeupDb` |
+| Makeup (RX) | `0.0 dB` | `-12.0` to `+24.0 dB` | `ClientCompRxMakeupDb` |
 
-The **Makeup** knob uses a linear mapping. It adds a fixed gain stage after the compressor. Raising it compensates for the average level reduction caused by gain reduction; lowering it below `0.0 dB` can attenuate the post-compressor signal.
+The **Makeup** knob uses a linear mapping. It adds a fixed amount of gain after the compressor stage. It does not affect the threshold, ratio, or any other compressor parameter.
 
 ## Tips
 
-- Start with the **Makeup** value approximately equal to the typical reading on the gain-reduction bar. If the compressor is pulling back 6 dB on average, try `+6.0 dB` as a starting point, then adjust by ear.
-- The gain-reduction bar's tick mark sits at the 6 dB point and gives a quick visual reference for a typical working amount of compression.
-- For a more precise match, open the full editor where the knee and limiter ceiling (`ClientCompTxLimCeilingDb`) are also accessible. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- Watch the gain-reduction bar while transmitting or listening. If the bar regularly sits at or beyond the `-6 dB` tick, you are applying significant compression; consider adding make-up gain in the `+4.0` to `+10.0 dB` range to recover loudness.
+- Make-up gain is applied before the limiter stage (if enabled). If you add a large make-up value and the output clips, enable the limiter and set an appropriate ceiling. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- The TX and RX sides store their make-up values independently. Adjusting one does not affect the other.
 
 ## Troubleshooting
 
-- **Makeup knob has no effect** — The Compressor stage may be bypassed. Enable it via the CHAIN widget or the floating editor, then adjust Makeup again.
-- **Output is too loud after adding make-up gain** — Reduce `ClientCompTxMakeupDb` or enable the limiter and lower `ClientCompTxLimCeilingDb` to prevent clipping. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- **Makeup knob has no audible effect** — The compressor stage is likely bypassed. Re-enable it via the CHAIN widget so the compressor is in the signal path. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
+- **Output is louder but peaks are clipping** — The make-up value combined with your signal level is exceeding headroom. Reduce **Makeup**, or open the full editor and enable the limiter with a suitable ceiling. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 
 ## Related
 
-- [Watch live gain reduction while speaking](watch-live-gain-reduction-while-speaking.md)
-- [Adjust compressor threshold](adjust-compressor-threshold.md)
+- [Aetherial Compressor (TX) / Aetherial AGC-C (RX) overview](overview.md)
+- [Watch live gain reduction while speaking or listening](watch-live-gain-reduction-while-speaking-or-listening.md)
 - [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md)
-- [Set compression ratio for voice](set-compression-ratio-for-voice.md)
+- [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md)

@@ -1,48 +1,49 @@
 # Sweep Freq to locate peak sibilance
 
-Use the Freq knob to scan across the sibilance band until the gain-reduction meter peaks, pinpointing the centre frequency where your microphone produces the harshest "S" and "T" sounds.
+Use the Freq knob to scan across the sibilance range while transmitting or monitoring audio, watching the gain-reduction bar for the frequency that triggers the most reduction. This identifies the centre of the problem sibilance band before you finalize your Q, Thresh, and Amount settings.
 
 ## Before you start
 
-- The De-Ess stage must be enabled in the CHAIN widget. The De-Esser applet (DESS) is hidden until the stage is active.
-- Open the DESS sub-container inside the PooDoo Audio (TXDSP) parent container. If it is not visible, double-click the DeEss stage in the CHAIN widget to open the floating editor, or right-click the DESS sub-container titlebar and select the appropriate option.
-- Set Thresh to a level where sibilance already triggers some gain reduction before you start sweeping. See [Set threshold just below the loudest 'S' peaks](set-threshold-just-below-the-loudest-s-peaks.md).
+- The Aetherial De-Esser must be enabled via the CHAIN widget in the Aetherial Audio (TXDSP) container. The applet is hidden until the DESS stage is active.
+- You need a live audio source — either transmitting or routing audio through the TX DSP chain — so the gain-reduction bar responds in real time.
+- Open the de-esser applet or the floating editor. To open the floating editor, double-click the DESS stage in the CHAIN widget. The editor is titled "Aetherial De-Esser — TX".
 
 ## Steps
 
-1. Speak or repeatedly say a sibilant phrase ("sixty-six", "Mississippi") into your microphone at your normal operating level.
-2. Watch the Gain-reduction bar at the top of the DESS applet — soft-red fill moving rightward indicates the de-esser is actively attenuating.
-3. Turn the Freq knob slowly from its default of 6.0 kHz upward or downward across the 1000–12000 Hz range.
-4. Stop at the position where the Gain-reduction bar shows the deepest fill during your sibilant phrase — this is the centre frequency of peak sibilance for your voice and microphone combination.
-5. Observe the centre-frequency ball on the Sidechain response curve; it moves along the curve peak to confirm the currently tuned frequency.
-6. Continue speaking sibilant phrases and make small adjustments to Freq until the Gain-reduction bar responds most aggressively and consistently.
+1. Set Thresh to a value just below your typical sibilance peaks — a starting point of -30.0 dB (the default) works for most voices.
+2. Set Amount to a clearly audible value such as -12.0 dB or lower so gain reduction is easy to see on the bar.
+3. Speak or play audio containing sustained "S" and "T" sounds continuously into the microphone.
+4. Slowly turn the Freq knob from its default of 6.0 kHz upward or downward across the 1000 to 12000 Hz range.
+5. Watch the gain-reduction bar. The bar fills furthest to the right — indicating maximum attenuation — when Freq is centred on the dominant sibilance band.
+6. Stop at the Freq value that produces the highest gain-reduction reading. That value is your sibilance centre frequency.
+7. Return Amount to your intended operating value (default -6.0 dB) once the sweep is complete.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
-| Freq | 6000 Hz | 1000 to 12000 Hz | `ClientDeEssTxFrequencyHz` | Sets the centre frequency of the sibilance band. Uses logarithmic mapping. Labels show "X.X kHz" at or above 1000 Hz. |
-| Q | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` | Sets the bandwidth of the sibilance band. Higher Q = narrower notch. |
-| Thresh | -30.0 dB | -60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which the de-esser begins attenuating. |
-| Amount | -6.0 dB | -24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied at peak sibilance. |
-| Sidechain response curve | — | — | — | Displays the bandpass filter response with a live ball at the current centre frequency. |
+| Freq | 6000 Hz | 1000 to 12000 Hz | `ClientDeEssTxFrequencyHz` | Sets the centre frequency of the sibilance band. Uses logarithmic mapping. The sidechain response curve and its live centre-frequency ball update as you turn the knob. |
+| Q | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` | Sets the bandwidth of the sibilance band. Higher Q = narrower band. Keep Q moderate during the sweep so you do not miss the peak. |
+| Thresh | -30.0 dB | -60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which attenuation starts. Set low enough during the sweep that the bar responds clearly to sibilance. |
+| Amount | -6.0 dB | -24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied at peak sibilance. Increase temporarily during the sweep to make the gain-reduction bar easier to read. |
+| Sidechain response curve | — | — | — | Draws the bandpass filter response. The live ball marks the current centre frequency. |
 | Gain-reduction bar | — | 0 to 24 dB GR | — | Horizontal soft-red strip, right-filled. A tick marks the -6 dB point. Refreshed at approximately 30 Hz. |
 
 ## Tips
 
-- Narrow Q before sweeping if your sibilance is sharp and tonal — a tighter band makes the Gain-reduction bar respond more selectively, making the peak easier to locate.
-- If the Gain-reduction bar stays empty throughout the sweep, Thresh is set too high. Lower it until you see a response, then re-sweep.
-- A Q of 2.00 (the default) is a reasonable starting width for an initial sweep. Refine with Q after you find the frequency.
+- Keep Q at its default of 2.00 during the initial sweep. A very narrow Q can cause you to sweep past the true peak without triggering the bar. Narrow the band with Q only after you have located the peak.
+- If the gain-reduction bar never moves, Thresh is set too high. Lower it until the bar responds to "S" sounds.
+- The centre-frequency ball on the sidechain response curve moves as you turn Freq, giving a visual reference even before audio is present.
 
 ## Troubleshooting
 
-- **Gain-reduction bar shows no fill at any Freq position** — Thresh is set above your sibilance level. Lower Thresh until the bar responds, or increase your microphone gain and retry.
-- **Gain-reduction bar is always fully filled regardless of Freq position** — Amount is set very high or Thresh is far below your average level, causing the de-esser to trigger on all audio, not just sibilance. Raise Thresh and reduce Amount before sweeping.
-- **DESS applet is not visible** — The De-Ess stage is not enabled in the CHAIN widget. Enable it there first.
+- **Gain-reduction bar does not move during the sweep** — Thresh is above the level of your sibilance peaks. Lower Thresh until the bar begins to respond, then re-sweep.
+- **Bar stays near maximum across a wide Freq range** — Amount is set to a very large negative value and Thresh is very low. Raise Thresh slightly so the bar discriminates between frequencies rather than clamping at maximum everywhere.
+- **Applet is not visible** — The DESS stage has not been enabled in the CHAIN widget. Enable it there first; the applet remains hidden until the stage is active.
 
 ## Related
 
-- [De-Esser overview](overview.md)
+- [Aetherial De-Esser overview](overview.md)
 - [Narrow or widen the sidechain band with Q](narrow-or-widen-the-sidechain-band-with-q.md)
 - [Set threshold just below the loudest 'S' peaks](set-threshold-just-below-the-loudest-s-peaks.md)
 - [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md)

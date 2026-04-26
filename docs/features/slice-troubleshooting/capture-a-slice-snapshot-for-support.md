@@ -1,6 +1,6 @@
 # Capture a slice snapshot for support
 
-The Slice Troubleshooting dialog captures a point-in-time JSON snapshot of every slice and DAX channel, and summarizes detected problems in plain language. Use this when reporting a bug or asking for support — you can copy or export the data to share with the AetherSDR team.
+The Slice Troubleshooting dialog captures a full snapshot of your slices, panadapters, transverters, and DAX channels and summarizes likely problems in plain language. Use it to gather the information a support request needs before filing a bug report or asking for help.
 
 ## Before you start
 
@@ -8,32 +8,31 @@ The Slice Troubleshooting dialog captures a point-in-time JSON snapshot of every
 
 ## Steps
 
-1. Click `Help > Slice Troubleshooting...` to open the Slice Troubleshooting dialog.
-2. The snapshot is taken automatically when the dialog opens. Review the **Issue Summary** tab for a bullet list of detected problems (missing audio, stuck mute, missing antenna, and similar).
-3. To see the raw data, click the **JSON** tab.
-4. If you have changed slice state since opening the dialog, click `Refresh Snapshot` to re-read the current state.
-5. To share the summary text, click `Copy Summary`. The text is placed on the clipboard. The status label confirms "Copied to clipboard".
-6. To share the full JSON, click `Copy JSON`. Paste it into your support ticket or email.
-7. To save the JSON to a file (for attaching to a bug report), click `Export JSON...` and choose a save location in the file dialog.
-8. Click `Close` when finished.
+1. Click `Help > Slice Troubleshooting...` to open the Slice Troubleshooting dialog. The snapshot is taken automatically when the dialog opens.
+2. Review detected problems on the **Issue Summary** tab. Each entry is a plain-language bullet describing a suspected issue such as missing audio, stuck mute, missing antenna, or an invalid transverter.
+3. Switch to the **JSON** tab to see the full machine-readable snapshot covering every slice, panadapter, transverter, and DAX channel.
+4. If you changed radio state after opening the dialog, click **Refresh Snapshot** to re-read the current slice state.
+5. To share the summary with support, click **Copy Summary**. The issue summary is copied to the clipboard. The status label at the bottom of the dialog confirms the result.
+6. To share the full detail, click **Copy JSON** to copy the complete JSON to the clipboard, or click **Export JSON...** to save it to a file you can attach to a bug report.
+7. Click **Close** when finished.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Issue Summary** | Tab | Plain-language bullet list of detected problems. |
-| **JSON** | Tab | Full JSON snapshot of slices and DAX channels. |
-| `Refresh Snapshot` | Button | Re-reads slice state into the snapshot. Use this after changing slice configuration. |
-| `Copy Summary` | Button | Copies the issue summary text to the clipboard. |
-| `Copy JSON` | Button | Copies the full JSON snapshot to the clipboard. |
-| `Export JSON...` | Button | Opens a save dialog and writes the JSON to a file. |
-| `Close` | Button | Closes the dialog. |
-| Status label | Indicator | Shows the result of the last copy or export action (for example, "Copied to clipboard"). |
+| **Issue Summary** | Tab | Displays a plain-language bullet list of detected problems. |
+| **JSON** | Tab | Displays the full JSON snapshot of slices, panadapters, transverters, and DAX channels. |
+| **Refresh Snapshot** | Button | Re-reads slice state into the snapshot. Use this after changing radio configuration. |
+| **Copy Summary** | Button | Copies the issue summary to the clipboard. |
+| **Copy JSON** | Button | Copies the full JSON snapshot to the clipboard. |
+| **Export JSON...** | Button | Opens a file save dialog and writes the JSON snapshot to a file. |
+| **Close** | Button | Closes the dialog. |
+| Status label | Indicator | Shows the result of the last copy or export action, for example "Copied to clipboard". |
 
 ## Tips
 
-- Take the snapshot before changing anything. If you reconfigure a slice to work around a problem, click `Refresh Snapshot` a second time after the change so you have both a before and after snapshot to compare.
-- `Export JSON...` produces a file you can attach directly to a bug report without needing to paste large amounts of text.
+- Click **Refresh Snapshot** after making any change to slice, antenna, or DAX settings so the snapshot reflects the current state before you copy or export it.
+- If you are filing a bug report, use **Export JSON...** rather than **Copy JSON** so you have a saved file to attach without risk of overwriting the clipboard.
 
 ## Related
 
@@ -42,3 +41,4 @@ The Slice Troubleshooting dialog captures a point-in-time JSON snapshot of every
 - [Copy the full JSON snapshot to the clipboard](copy-the-full-json-snapshot-to-the-clipboard.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
+- [Inspect each transverter's RF/IF, offset and validity flags for XVTR diagnosis](inspect-each-transverter-s-rf-if-offset-and-validity-flags-for-xvtr-diagnosis.md)

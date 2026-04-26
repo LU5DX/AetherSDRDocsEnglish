@@ -1,49 +1,49 @@
 # Tune Attack / Release for Natural Open/Close
 
-Adjust how quickly the noise gate opens when you start speaking and closes when you stop. Correct attack and release times prevent the gate from clipping the front edge of words or leaving an audible chop at the end of each transmission.
+Attack and Release control how quickly the gate opens when your voice crosses the threshold and how quickly it closes when it falls back below. Getting these right eliminates the clipped first syllable (Attack too slow) and the abrupt chop after each word (Release too fast) that make gating sound unnatural.
 
 ## Before you start
 
-- The GATE applet must be visible in the applet panel. It appears as a sub-container inside the PooDoo Audio (TXDSP) parent container. If it is hidden, enable the Gate stage via the CHAIN widget or double-click the Gate stage in the CHAIN widget to open the floating Gate editor.
-- The gate must be enabled. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) if the gate is currently bypassed.
-- Set a working threshold before tuning timing. See [Set threshold just above room noise floor](set-threshold-just-above-room-noise-floor.md).
+- The gate must be enabled on the side you want to adjust (TX or RX). See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) to confirm the gate stage is active.
+- Open the Aetherial TX Gate (TX side) or Aetherial AGC-T (RX side) sub-container inside the Aetherial Audio (TXDSP) parent container in the applet panel. If the sub-container is not visible, double-click the GATE stage in the CHAIN widget on the matching side to open the floating gate editor.
 
 ## Steps
 
-1. Open the GATE applet inside the PooDoo Audio (TXDSP) container. The five knobs — Thresh, Ratio, Attack, Release, Floor — appear in a row below the transfer curve and gain-reduction bar.
-2. Key the mic and speak normally while watching the Gain-reduction bar. The amber strip collapses to the left as the gate opens and fills to the right as it closes.
-3. Turn the Attack knob while speaking. Lower values open the gate faster; raise the value if the gate opens too abruptly and causes audible pumping on loud signals. The label shows the current value in milliseconds (for example, `0.50 ms`).
-4. Pause between words and watch the Gain-reduction bar refill. Turn the Release knob to control how quickly the gate closes after your voice drops below threshold. Shorter values close the gate quickly; longer values let the tail of each word decay naturally before attenuation begins.
-5. Repeat steps 3 and 4 until speech passes through cleanly with no clipped consonants on opening and no abrupt chop on closing.
+1. Locate the **Attack** knob in the five-knob row at the bottom of the applet.
+2. Turn **Attack** left to open faster (minimum 0.1 ms) or right to open slower (maximum 100.0 ms). The default is 0.50 ms. For most voice work, values between 0.5 ms and 5 ms avoid clipping the leading edge of consonants.
+3. Speak normally and watch the transfer curve's input ball and the amber gain-reduction bar. If the bar shows a brief spike of gain reduction at the very start of each word, Attack is too slow — turn it left.
+4. Locate the **Release** knob in the same row.
+5. Turn **Release** left to close faster (minimum 5 ms) or right to close slower (maximum 2000 ms). The default is 100 ms. For natural speech, values between 80 ms and 400 ms let the gate trail off rather than cut abruptly.
+6. Pause speaking and watch the gain-reduction bar. If the bar fills rapidly and the signal cuts off unnaturally between words, increase Release (turn right). If background noise bleeds back in during pauses, decrease Release (turn left).
+7. Repeat steps 2–6 until pauses sound natural and the gate opens cleanly on the first syllable.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Attack | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` | Sets how quickly the gate opens when input rises above threshold. Mapped exponentially: turning from minimum to maximum covers 0.1 ms through 100.0 ms. |
-| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | Sets how quickly the gate closes after input falls below threshold. Mapped exponentially: turning from minimum to maximum covers 5 ms through 2000 ms. |
-| Thresh | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` | Level below which the gate begins attenuating. Affects when the Attack and Release timing is triggered. |
-| Floor | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate applies when closed. Does not affect timing, but limits how deep the gate cuts during the release phase. |
+| Control | Default | Valid range | Persisted setting (TX / RX) |
+|---|---|---|---|
+| **Attack** | 0.50 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` / `ClientGateRxAttackMs` |
+| **Release** | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
+
+Attack uses exponential knob mapping (0.1 × 1000^n). Release uses exponential knob mapping (5 × 400^n). Both knobs save immediately; changes persist across restarts and are shared between the applet knobs and the floating editor.
+
+The gain-reduction bar shows 0 to 40 dB of attenuation as an amber right-filled strip. A tick mark at −15 dB corresponds to the default **Floor** value. Use this bar as a live guide: a clean release will show the bar growing smoothly during pauses rather than snapping to full scale.
 
 ## Tips
 
-- Start with Attack at the default (0.5 ms) and adjust Release first. Release has the greater effect on perceived naturalness.
-- If the front of words sounds cut off, increase Attack slightly (try 2–5 ms) so the gate has time to open before the transient arrives.
-- If you hear the gate chatter — rapidly opening and closing — increase Release to smooth out brief pauses within a word.
-- The live ball on the transfer curve shows whether the gate is currently above or below threshold. Watch it track your speech to confirm timing changes are taking effect.
-- Attack and Release knobs sync bidirectionally with the floating Gate editor. Changes made in either view are reflected immediately in the other.
+- Attack and Release interact with **Thresh** and **Ratio**. A harder ratio (higher value) makes timing errors more audible — consider dialing ratio back toward 2.0:1 while tuning attack/release, then tighten ratio once timing feels right.
+- Knob changes made in the floating gate editor and in the applet tile stay in sync automatically; you do not need to close the editor to see updated values in the applet.
+- The input ball on the transfer curve moves to show whether the gate is currently open (ball above threshold line) or closed (ball below). Watch it during natural speech to confirm the gate is tracking correctly.
 
 ## Troubleshooting
 
-- **Front consonants are cut off** — Attack is too fast relative to the signal rise time, or Thresh is set too high. Lower Thresh slightly or increase Attack (try 2–10 ms) to allow the gate to open before the transient.
-- **Gate closes abruptly mid-word during normal pauses** — Release is too short. Increase Release toward 200–500 ms to let short gaps pass without closing.
-- **Gate does not close between words** — Release may be very long, or Thresh is set below the room noise floor. Check Thresh first (see [Set threshold just above room noise floor](set-threshold-just-above-room-noise-floor.md)), then reduce Release.
-- **Gain-reduction bar does not move** — The gate may be bypassed or the audio engine is not connected. Confirm the Gate stage is active in the CHAIN widget.
+- **First syllable of each word is clipped or quiet** — Attack is too slow. Turn the **Attack** knob left toward 0.1 ms until the gate opens before the syllable is lost.
+- **Gate closes too quickly, chopping the end of words** — Release is too short. Turn the **Release** knob right. Start around 150–200 ms for voice.
+- **Background noise audible between words** — Release is too long, or **Thresh** is set below the noise floor. Shorten Release and/or raise Thresh. See [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md).
+- **Knob value in the applet does not match the floating editor** — Wait one meter tick (approximately 33 ms); the applet syncs knob positions from the engine on each tick and will update automatically.
 
 ## Related
 
-- [Set threshold just above room noise floor](set-threshold-just-above-room-noise-floor.md)
-- [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
+- [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
+- [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
-- [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md)

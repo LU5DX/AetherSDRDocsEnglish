@@ -1,23 +1,17 @@
 # Enable Applet Panel
 
-`View > Applet Panel` toggles the visibility of the right-side applet panel. Use this when you want to reclaim horizontal screen space or restore the panel after hiding it.
+Toggle the visibility of the applet panel, which runs along the right side of the main window.
 
 ## Before you start
 
-- AetherSDR must be running and connected to a Flex radio.
+- AetherSDR must be open.
 
 ## Steps
 
 1. Click `View` in the menu bar.
-2. Click `Applet Panel`.
-   - A check mark next to the label means the panel is visible.
-   - Clicking again removes the check mark and hides the panel.
+2. Click `Applet Panel` to check or uncheck it.
 
-## What each control does
-
-| Control | Description | Default |
-|---|---|---|
-| `Applet Panel` (checkable) | Shows or hides the right-side applet panel. | On (visible) |
+When checked, the applet panel is visible. When unchecked, it is hidden.
 
 ## Related
 

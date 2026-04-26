@@ -1,48 +1,44 @@
-# Reorder the TX DSP Chain
+# Reorder the TX DSP chain
 
-Drag the stage tiles in the PooDoo Audio Chain to change the order in which DSP processing is applied to your transmitted audio. The new order is saved automatically in `ClientCompTxChainStages`.
+Drag stages in the TX DSP chain to change the order in which your audio is processed before transmission. The new order is saved automatically and persists across sessions.
 
 ## Before you start
 
-- The PooDoo Audio (TXDSP) container must be visible. If it is not, click the `PUDU` tray button in the right sidebar to show it.
-- The TX chain must be active. Confirm that TX is selected (amber highlight) in the header row. If RX is selected instead, click TX.
+- The Aetherial Audio container must be visible. If it is not, click the tray button labelled **PUDU** in the applet panel to show it.
+- The TX chain must be the active view. If the **RX** button is currently selected, click **TX** to switch.
 
 ## Steps
 
-1. Locate the chain strip showing the stage tiles: Eq, Comp, Gate, DeEss, Tube, Enh / PUDU, and Reverb.
-2. Click and hold on the stage tile you want to move.
-3. Drag the tile left or right to its new position in the chain.
-4. Release to drop the tile. The chain updates immediately and the new order is persisted in `ClientCompTxChainStages`.
-5. Repeat for any other stages you want to reorder.
+1. Open the Aetherial Audio container by clicking the **PUDU** tray button in the applet panel, if it is not already visible.
+2. In the header row, click **TX** if it is not already selected. The TX chain strip becomes active.
+3. Locate the stage you want to move. The TX chain contains up to seven stages: EQ, COMP, GATE, DESS, TUBE, PUDU, and VERB.
+4. Click and hold on the stage tile you want to reorder.
+5. Drag the tile left or right along the chain strip. A vertical cyan bar appears between tiles to show where the stage will land when you release.
+6. Release the mouse button to drop the stage into the new position.
+7. Repeat for any other stages you want to reorder.
+
+The updated order is saved immediately to `ClientCompTxChainStages`.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| TX | Toggle button | Selects the TX chain view. Default: checked (amber). Reordering is only available in this mode. |
-| RX | Toggle button | Selects the RX chain view. Default: unchecked. Drag-to-reorder is not available in this mode. |
-| BYPASS | Toggle button | Default: unchecked. When checked, disables every stage at once. Uncheck to restore the stages that were active before. Does not affect stage order. |
-| Chain stage (Eq) | Drag handle | Single-click toggles bypass for EQ. Double-click opens the EQ editor. Drag to reorder. |
-| Chain stage (Comp) | Drag handle | Single-click toggles bypass for the compressor. Double-click opens the compressor editor. Drag to reorder. |
-| Chain stage (Gate) | Drag handle | Single-click toggles bypass for the gate. Double-click opens the gate editor. Drag to reorder. |
-| Chain stage (DeEss) | Drag handle | Single-click toggles bypass for the de-esser. Double-click opens the de-ess editor. Drag to reorder. |
-| Chain stage (Tube) | Drag handle | Single-click toggles bypass for the tube saturator. Double-click opens the tube editor. Drag to reorder. |
-| Chain stage (Enh / PUDU) | Drag handle | Single-click toggles bypass for the PUDU exciter. Double-click opens the PUDU editor. Drag to reorder. |
-| Chain stage (Reverb) | Drag handle | Single-click toggles bypass for the reverb. Double-click opens the reverb editor. Drag to reorder. |
+| Control | Kind | Default | Behavior | Setting key |
+|---|---|---|---|---|
+| **TX** | Toggle button | Checked | Shows and enables editing of the TX DSP chain. Part of an exclusive pair with **RX**. | `PooDooAudioActiveTab` |
+| **RX** | Toggle button | Unchecked | Switches the view to the RX chain. TX chain reordering is not available while RX is active. | `PooDooAudioActiveTab` |
+| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Drag handle | — | Single-click toggles bypass for the stage. Double-click opens its frameless floating editor. Drag reorders the TX chain. | — |
+| **BYPASS** | Toggle button | Unchecked | Checked: snapshots the currently-enabled stages and disables all of them. Unchecked: re-enables only the stages that were on before. Does not affect stage order. | — |
 
 ## Tips
 
-- The hint text below the chain reads "Click to bypass · Double click to edit · Drag to reorder" and is only shown in TX mode.
-- A single click on a stage tile bypasses that stage, not the whole chain. Use BYPASS to disable everything at once.
-
-## Troubleshooting
-
-- **Dragging a tile has no effect** — Confirm TX is selected. The RX view does not support reordering in the current release.
-- **PUDU tray button is not visible** — Open the applet panel via `View > Applet Panel`, then locate the PUDU tray button in the right sidebar.
+- A static hint below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" as a quick reminder of all three interactions.
+- The cyan drop indicator shows the landing position before you release, so you can adjust your drop target without committing.
+- The TX and RX chains have independent order. Reordering the TX chain does not affect the RX chain, and vice versa.
+- If you want to compare your audio with and without the current chain order, use **BYPASS** to disable all stages temporarily without losing the order you have set.
 
 ## Related
 
-- [PooDoo Audio Chain overview](overview.md)
+- [Aetherial Audio Chain overview](overview.md)
+- [Reorder the RX DSP chain (independent of TX order)](reorder-the-rx-dsp-chain-independent-of-tx-order.md)
 - [Bypass every TX stage at once](bypass-every-tx-stage-at-once.md)
-- [Open a stage's floating editor from the chain](open-a-stage-s-floating-editor-from-the-chain.md)
-- [Re-enable a specific stage after a global bypass](re-enable-a-specific-stage-after-a-global-bypass.md)
+- [Open a stage's frameless floating editor from the chain](open-a-stage-s-frameless-floating-editor-from-the-chain.md)
+- [Switch between editing the TX and RX chains](switch-between-editing-the-tx-and-rx-chains.md)

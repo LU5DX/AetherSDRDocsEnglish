@@ -1,46 +1,47 @@
 # Verify the summed curve matches your mental target
 
-The analyzer / curve area in the ClientEq applet shows the cumulative frequency response of all enabled bands for a path alongside a live FFT of audio passing through it. Use this view to confirm that what you have built in the editor produces the shape you intended.
+Use the curve area in the "Aetherial TX EQ" or "Aetherial RX EQ" applet tile to confirm that the combined response of all your enabled bands matches the shape you intended before transmitting or listening.
 
 ## Before you start
 
-- The EQ stage must be enabled. The applet is hidden until the EQ stage is enabled via the CHAIN widget or the floating editor.
-- At least one band must be configured for the relevant path. The curve area displays "(no bands — add one in the editor)" when no bands exist.
-- Open the floating editor first if you still need to add or tune bands. See [Open the floating editor to add / remove / tune bands](open-the-floating-editor-to-add-remove-tune-bands.md).
+- The matching EQ stage must be enabled. If the applet tile is hidden, enable the EQ stage via the CHAIN widget or open the floating editor first.
+- At least one band should be configured so the curve shows a non-flat response. A flat line means either no bands are active or all bands are bypassed.
 
 ## Steps
 
-1. Locate the CEQ sub-container inside the PooDoo Audio (TXDSP) parent container in the applet panel.
-2. Look at the analyzer / curve area. The summed EQ response curve is drawn over the live FFT analyzer overlay.
-3. Check that the curve rises and falls at the frequencies you expect. The vertical extent is ±18 dB. Gridlines appear at ±6 dB and ±12 dB; the 0 dB reference line is drawn slightly brighter. Frequency gridlines are labeled along the bottom at 20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, and 20k Hz.
-4. If you are checking the RX path, confirm the RX instance is bound. If you are checking the TX path, confirm the TX instance is bound. Each CEQ tile is bound to a single path at construction — RX tiles show only the RX response, TX tiles show only the TX response. See [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md) if you need to view the other path.
-5. Compare the summed curve shape against your target. If the shape is wrong, return to the floating editor to adjust band parameters.
-6. While audio is passing through the path, observe the live analyzer overlay (the cyan-gradient filled region). Confirm the post-EQ spectrum matches the summed curve's shaping.
+1. Locate the "Aetherial TX EQ" or "Aetherial RX EQ" sub-container inside the Aetherial Audio (TXDSP) parent container in the applet panel.
+2. Look at the curve area — the 110 px display that fills the tile. The white (or highlighted) line drawn across the frequency grid is the summed EQ response: the cumulative effect of every enabled band for that path.
+3. Compare the shape of the summed response against your target:
+   - A boost at a particular frequency appears as an upward peak.
+   - A cut appears as a downward dip.
+   - High-pass and low-pass filtering appears as a rolloff at the edges.
+4. If the live FFT analyzer overlay is running, a second trace shows the real-time spectrum of audio passing through that path. Use it to cross-check that the curve is affecting the audio where you expect.
+5. If the shape does not match your target, double-click the EQ stage in the CHAIN widget for the same path (TX or RX) to open the floating editor titled "Aetherial Parametric EQ — TX" or "Aetherial Parametric EQ — RX", then adjust your bands there. The curve in the applet tile updates as you make changes.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Setting key |
-|---|---|---|---|---|
-| Analyzer / curve area | Indicator | Displays the grid, summed EQ response for the bound path, and a live FFT analyzer overlay. View-only; 110 px tall. | — | — |
-| Summed EQ response | Indicator state | Cumulative frequency response of all enabled bands. Shows "flat" when no bands contribute boost or cut; "shaped" when bands are active. | flat | `ClientEqRxBands` / `ClientEqTxBands` |
-| Live analyzer overlay | Indicator state | Real-time FFT of audio passing through the bound path. "idle" when no audio is present; "running" when audio flows. | idle | — |
+| Control | Kind | Behavior | Setting key |
+|---|---|---|---|
+| Analyzer / curve area | Indicator (view-only) | Displays the summed EQ response for this tile's path (TX or RX) and a live FFT analyzer overlay of audio passing through that path. Not editable from the applet; editing requires the floating editor. | — |
+| Summed EQ response | Indicator state | Shows the cumulative frequency response of all enabled bands. Displays as flat when no bands are active or shaping is zero; displays as shaped when one or more bands alter the response. | `ClientEqTxBands` (TX) / `ClientEqRxBands` (RX) |
+| Live analyzer overlay | Indicator state | Real-time FFT of audio passing through this path. Runs while the applet is visible; idle when no audio is flowing. | — |
 
 ## Tips
 
-- If the curve area shows "(no EQ connected)" the applet has not been linked to an audio engine. Ensure the radio is connected and the EQ stage has been enabled.
-- The summed curve is drawn using an analog-prototype reference across the full 20 Hz–20 kHz canvas, so it represents the ideal response the digital filters approximate. Small deviations between the curve and measured audio are normal near Nyquist.
-- The live FFT reflects audio post-EQ. If the FFT shape does not follow the summed curve, check that the EQ stage is not bypassed in the chain. See [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md).
+- The applet tile is view-only. You cannot drag bands or change parameters from it. All editing happens in the floating editor.
+- Both the TX and RX tiles are independent. Checking one does not tell you anything about the other path.
+- If the curve looks correct in the applet but the audio does not sound right, confirm the EQ stage is not in bypass. A bypassed stage passes audio unchanged regardless of what the curve shows.
 
 ## Troubleshooting
 
-- **Curve area shows "(no bands — add one in the editor)"** — No bands have been added for the bound path. Open the floating editor and add at least one band.
-- **Curve area shows "(no EQ connected)"** — The applet is not linked to the audio engine. Verify the radio is connected and the EQ stage is enabled via the CHAIN widget.
-- **Live analyzer overlay is absent or empty** — No audio is passing through the path, or the FFT has not received data yet. Transmit or receive a signal and the overlay will populate.
-- **Summed curve appears flat despite bands being configured** — The EQ stage may be bypassed. Check the CHAIN widget and confirm `ClientEqRxEnabled` or `ClientEqTxEnabled` is active for the relevant path.
+- **The curve area is flat even though bands are configured** — The EQ stage may be disabled or bypassed. Check the CHAIN widget and confirm `ClientEqTxEnabled` or `ClientEqRxEnabled` is active for the relevant path.
+- **The applet tile is not visible** — The EQ stage has not been enabled yet. Enable it via the CHAIN widget or open the floating editor, which also makes the tile appear.
+- **The live analyzer overlay is not moving** — No audio is passing through that path, or the EQ stage is disabled. Transmit audio (TX path) or receive a signal (RX path) and confirm the stage is enabled.
 
 ## Related
 
-- [Open the floating editor to add / remove / tune bands](open-the-floating-editor-to-add-remove-tune-bands.md)
-- [See the live spectrum of the selected path](see-the-live-spectrum-of-the-selected-path.md)
-- [Switch between viewing RX and TX EQ](switch-between-viewing-rx-and-tx-eq.md)
+- [Aetherial Parametric EQ (TX / RX) overview](overview.md)
+- [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
+- [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
+- [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)

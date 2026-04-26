@@ -1,43 +1,42 @@
 # Use RIT to offset the receive frequency for a drifting station
 
-RIT (Receive Incremental Tuning) shifts only the receive frequency by a small offset, leaving the transmit frequency and the VFO dial unchanged. Use it when a station you are working has drifted slightly off your dial frequency.
+RIT (Receive Incremental Tuning) shifts only the receive frequency while leaving your transmit frequency unchanged. Use it when a station you are working drifts slightly off your dial frequency and you want to follow them without moving your VFO.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. RX Controls are unavailable without a radio connection.
-- Open the RX Controls applet. If it is not visible, click the RX tray button on the right sidebar.
-- Select the slice you want to adjust using the slice tabs (A..H) if more than one slice is active.
+- AetherSDR must be connected to the radio. RIT is a per-slice control and requires an active slice.
+- Open the RX Controls applet. If it is not visible, click the **RX** tray button on the right sidebar.
 
 ## Steps
 
-1. In the RX Controls applet, click RIT to enable Receive Incremental Tuning. The button latches on.
-2. Use the `<` and `>` arrows beside the RIT offset spinbox, or scroll the mousewheel over it, to adjust the offset. Each step moves the receive frequency by 10 Hz.
+1. In the RX Controls applet, click **RIT** to enable Receive Incremental Tuning. The button latches on.
+2. Use the **<** and **>** buttons flanking the **RIT offset** spinbox, or scroll the mouse wheel over the spinbox, to shift the receive frequency. Each step moves 10 Hz.
 3. Continue adjusting until the drifting station is centred in the passband.
-4. To return the receive frequency to zero offset, click RIT 0.
-5. To turn RIT off entirely, click RIT again to deactivate it.
+4. To return to zero offset, click **RIT 0**.
+5. To disable RIT entirely, click **RIT** again to unlatch it.
 
 ## What each control does
 
-| Control | What it does | Default | Range/Step |
-|---|---|---|---|
-| RIT | Toggles Receive Incremental Tuning on/off. | Off | — |
-| RIT offset | Sets the RIT offset in Hz. Adjust with `<` / `>` or mousewheel. | +0 Hz | Steps of 10 Hz |
-| RIT 0 | Zeroes the RIT offset immediately without turning RIT off. | — | — |
+| Control | Behavior | Default |
+|---|---|---|
+| **RIT** | Toggle button. Enables or disables Receive Incremental Tuning for the active slice. | Off |
+| **RIT offset** | Spinbox showing the current RIT offset in Hz. Adjust with **<** / **>** or the mouse wheel. | +0 Hz |
+| **RIT 0** | Push button. Immediately zeroes the RIT offset without disabling RIT. | — |
 
 ## Tips
 
-- RIT affects only the receive frequency. Your transmit frequency remains on the VFO dial, so your transmitted signal stays on the frequency the other station expects.
-- Clicking RIT 0 clears the offset but leaves RIT enabled, so you can re-apply an offset without toggling the feature back on.
-- The RIT offset spinbox has no documented hard limit in the catalog; use the smallest offset that brings the station into the passband rather than retuning the VFO.
+- RIT offset steps are fixed at 10 Hz per click or wheel detent. For larger corrections, click or scroll repeatedly.
+- Clicking **RIT 0** zeroes the offset but leaves RIT enabled, so you can re-apply an offset without toggling the feature off and back on.
+- If you need to offset the transmit frequency instead of the receive frequency, use **XIT** — its controls work the same way. See [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md).
 
 ## Troubleshooting
 
-- **RIT has no audible effect** — Confirm that RIT is showing as active (button latched). If the slice is tune-locked (🔒 padlock shown), the lock may prevent frequency changes; click the padlock to unlock the slice first.
-- **Offset jumps back to +0 Hz** — Clicking RIT 0 is a one-shot action that always resets to zero. If you want to hold an offset, do not click RIT 0.
+- **RIT button does not respond** — The slice may be locked. Check whether the lock icon (🔒) is shown in the applet header. If it is, click it to unlock the slice. See [Lock the slice to prevent accidental retuning](lock-the-slice-to-prevent-accidental-retuning.md).
+- **Receive frequency does not shift when RIT is on** — Confirm the correct slice tab (A–H) is selected in the applet. RIT applies only to the slice the applet is currently bound to.
 
 ## Related
 
 - [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Lock the slice to prevent accidental retuning](lock-the-slice-to-prevent-accidental-retuning.md)
-- [RX Controls overview](overview.md)
+- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
+- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)

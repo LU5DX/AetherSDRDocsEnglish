@@ -1,39 +1,34 @@
 # Narrow or widen the sidechain band with Q
 
-The Q knob controls how wide or narrow the sidechain bandpass filter is around the sibilance centre frequency. A higher Q targets a tighter slice of the spectrum; a lower Q catches a broader range. Adjust Q after you have located the sibilance peak with Freq.
+The Q knob controls how wide or narrow the sidechain bandpass filter is around the sibilance centre frequency. A higher Q focuses attenuation on a tighter slice of the spectrum; a lower Q affects a broader band. Adjust Q after locating the sibilance peak with Freq so the de-esser targets exactly the right content without dulling nearby consonants.
 
 ## Before you start
 
-- The De-Ess stage must be enabled and the DESS applet must be visible inside the PooDoo Audio (TXDSP) container. See [De-Esser overview](overview.md).
-- Identify the centre frequency of your sibilance first. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md).
+- The Aetherial De-Esser (DESS) stage must be enabled and visible. It appears as a sub-container inside the Aetherial Audio (TXDSP) parent container.
+- If the applet is not visible, double-click the DESS stage in the CHAIN widget to open the frameless editor titled "Aetherial De-Esser — TX", which exposes the same Q knob.
+- Set the centre frequency with Freq before fine-tuning Q. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md).
 
 ## Steps
 
-1. Open the DESS applet inside the PooDoo Audio (TXDSP) container.
-2. Locate the Q knob in the four-knob row below the sidechain response curve.
-3. Turn Q clockwise to increase the value and narrow the band, or counter-clockwise to decrease the value and widen the band.
-4. Watch the sidechain response curve update in real time. The curve shape shows the resulting bandpass width around the centre-frequency ball.
-5. Speak a sibilant phrase and watch the gain-reduction bar. Confirm the de-esser triggers only on the intended sibilance, not on surrounding audio.
+1. Open the Aetherial De-Esser applet or the "Aetherial De-Esser — TX" editor.
+2. Locate the **Q** knob in the four-knob tuning row.
+3. Rotate **Q** clockwise to increase the value and narrow the sidechain band, or counter-clockwise to decrease the value and widen it.
+4. Watch the sidechain response curve — the bandpass peak broadens or sharpens as Q changes.
+5. While transmitting or speaking a sibilant phrase, observe the gain-reduction bar to confirm the de-esser is still triggering at the adjusted bandwidth. See [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md).
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
-| Q | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` | Linear mapping. Higher values narrow the sidechain bandpass; lower values widen it. |
-| Sidechain response curve | — | — | — | Draws the bandpass filter shape with a live ball at the current centre frequency. Updates immediately as Q changes. |
-| Gain-reduction bar | — | 0 to 24 dB GR | — | Shows current attenuation applied to the sidechain band, refreshed at approximately 30 Hz. |
+| **Q** | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` | Linear mapping. Higher values narrow the sidechain bandpass; lower values widen it. |
+| Sidechain response curve | — | — | — | Displays the bandpass filter shape. Updates live as Q changes. The ball marks the current centre frequency. |
+| Gain-reduction bar | — | 0 to 24 dB GR | — | Shows current attenuation applied to the sibilance band, refreshed approximately 30 times per second. |
 
 ## Tips
 
-- Start at the default Q of 2.00 and adjust from there. Most sibilance is resolved in the range 1.5 to 3.5.
-- A narrower Q (higher value) is more transparent because it leaves adjacent frequencies untouched, but it requires Freq to be precisely on the sibilance peak.
-- A wider Q (lower value) is more forgiving of an imprecise Freq setting but can affect consonants and fricatives beyond the sibilant band.
-- The response curve gives immediate visual feedback — use it alongside the gain-reduction bar rather than relying on either alone.
-
-## Troubleshooting
-
-- **Gain-reduction bar shows little or no activity** — Q may be too narrow and the filter is missing the sibilance peak. Lower Q slightly, or re-sweep Freq to confirm the centre frequency is correct.
-- **De-esser triggers on normal speech, not just sibilants** — Q is likely too low (band is too wide). Increase Q to tighten the filter around the sibilance frequency.
+- Start at the default of 2.00 and increase Q only if attenuation is spilling onto vowels or other consonants adjacent to the sibilance band.
+- Very high Q values (above 4.0) can make the de-esser miss slightly off-centre sibilants. If GR stops triggering reliably, lower Q slightly or re-sweep Freq.
+- The response curve gives immediate visual feedback — use it to judge whether the bell is too broad or too sharp before committing to a setting.
 
 ## Related
 
@@ -41,4 +36,4 @@ The Q knob controls how wide or narrow the sidechain bandpass filter is around t
 - [Set threshold just below the loudest 'S' peaks](set-threshold-just-below-the-loudest-s-peaks.md)
 - [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md)
 - [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md)
-- [De-Esser overview](overview.md)
+- [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md)

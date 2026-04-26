@@ -1,41 +1,40 @@
 # Turn on the squelch and set its threshold
 
-Use the squelch to mute the slice audio when no signal is present. This is most useful on FM and noisy bands where you want silence between transmissions.
+Squelch silences the slice audio when the received signal falls below a set level. This is useful on FM, AM, or any mode where you want the speaker quiet between transmissions.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The RX Controls applet requires an active radio connection.
-- Select the slice you want to apply squelch to using the slice tabs (A–H) at the top of the RX Controls applet.
+- The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Click the **RX** tray button on the right sidebar to open the RX Controls applet, if it is not already visible.
-2. If you have more than one slice, click the appropriate slice tab (A–H) to bind the applet to the correct slice.
-3. Move the **Squelch level** slider to the threshold you want. The default is 20; the valid range is 0–100. A higher value requires a stronger signal to open the squelch.
-4. Click **SQL** to enable the squelch. The button activates and the squelch takes effect at the level set in step 3.
-
-To disable the squelch, click **SQL** again.
+1. In the RX Controls applet, select the slice you want to adjust by clicking its tab (A through H) if more than one slice is active.
+2. Move the squelch level slider to set the threshold. The default is 20, and the valid range is 0–100. A higher value means the signal must be stronger to open the squelch.
+3. Click SQL to enable the squelch. The button highlights when squelch is active.
+4. Adjust the squelch level slider until the audio opens reliably on signals you want to hear and closes between them.
+5. To disable squelch, click SQL again.
 
 ## What each control does
 
-| Control | Kind | Default | Range | Behavior |
-|---|---|---|---|---|
-| **SQL** | Toggle button | Off | On / Off | Enables squelch at the current slider level. Audio is muted until a signal exceeds the threshold. |
-| **Squelch level** | Slider | 20 | 0–100 | Sets the squelch threshold. Takes effect only when **SQL** is on. Higher values require a stronger signal to open the squelch. |
+| Control | Default | Valid range | Behavior |
+|---|---|---|---|
+| SQL | Off | On / Off | Enables squelch at the current slider level. Audio is muted when the signal is below the threshold. |
+| Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. Higher values require a stronger signal to open the squelch. |
 
 ## Tips
 
-- Set the **Squelch level** slider before clicking **SQL** so the squelch opens at the right threshold immediately on activation.
-- If the squelch never opens, lower the **Squelch level** slider. If it never closes, raise it.
-- Squelch level has no effect when **SQL** is off.
+- Set the squelch level slider before clicking SQL so the audio does not cut in and out while you are adjusting.
+- If you cannot find a level that opens reliably on weak signals but stays closed on noise, try lowering the value toward 0 in small increments.
+- The squelch level slider has no effect when SQL is off.
 
 ## Troubleshooting
 
-- **Audio is always muted after enabling SQL** — The **Squelch level** slider is set too high. Lower the slider until the squelch opens on your target signal, then click **SQL** again.
-- **Squelch never closes between transmissions** — The **Squelch level** slider is set too low. Raise the slider until weak noise no longer opens it.
+- **Audio stays muted after clicking SQL** — The squelch level is set too high for the incoming signal. Lower the squelch level slider until the audio opens.
+- **Squelch never closes on noise** — The squelch level is too low. Increase the slider value until the audio mutes between transmissions.
 
 ## Related
 
 - [RX Controls overview](overview.md)
 - [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
+- [Work an FM repeater with CTCSS tone and +/- offset](work-an-fm-repeater-with-ctcss-tone-and-offset.md)

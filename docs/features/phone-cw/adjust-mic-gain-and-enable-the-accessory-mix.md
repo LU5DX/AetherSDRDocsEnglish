@@ -1,38 +1,33 @@
 # Adjust mic gain and enable the accessory mix
 
-Use the Phone/CW applet to set the microphone input level and optionally blend in the accessory port input when operating in a voice mode.
+Use this page to set the microphone input level and optionally blend in the accessory connector input on your FLEX-8600 while operating in a voice mode.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
-- Set the active slice to a voice mode (SSB, AM, FM). The applet shows the Phone panel only when the active slice is not in CW mode.
+- AetherSDR must be connected to a FLEX-8600 radio.
+- The active slice must be in a voice mode (USB, LSB, AM, FM, etc.) so that the Phone sub-panel is visible in the PhoneCwApplet.
 
 ## Steps
 
-1. Open the Applet Panel if it is not visible. Click the **P/CW** tray button on the right sidebar, or go to `View > Applet Panel` to show the panel, then click **P/CW**.
-2. Confirm the Phone panel is shown. If the active slice is in CW mode, switch it to a voice mode first.
-3. Locate the **Mic gain** slider in the row that also contains the **Mic source** combo box and the **+ACC** button.
-4. Drag the **Mic gain** slider left or right to set the desired input level. The valid range is 0–100. The default is 50. The numeric value updates to the right of the slider as you drag.
-5. Watch the **Level** gauge above the slider. Aim to keep peaks below 0 dBFS; the gauge turns red above 0 dBFS. The valid display range is −40 to +10 dBFS.
-6. To mix in the accessory port input alongside the currently selected mic source, click **+ACC** so it lights green. Click **+ACC** again to disable the mix.
+1. Click the **P/CW** tray button in the right sidebar to open the Phone/CW applet, if it is not already open.
+2. Confirm the Phone sub-panel is displayed. If the active slice is in a CW mode, switch the slice to a voice mode first.
+3. Locate the **Mic source** combo box. If you are using a PC microphone, select **PC** from the list. For other sources, see [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md).
+4. Drag the **Mic gain** slider to set the desired input level. Watch the **Level** gauge: aim to keep peaks below 0 dBFS (the gauge turns red above 0).
+5. To mix in the accessory connector input, click **+ACC** so it appears highlighted. Click it again to disable the mix.
 
 ## What each control does
 
-| Control | Kind | Default | Range | Persisted key |
-|---|---|---|---|---|
-| **Mic gain** | Slider | 50 | 0–100 | `PcMicGain` |
-| **+ACC** | Toggle button | — | On / Off | — |
-| **Level** | Meter | — | −40 to +10 dBFS (red above 0) | — |
+| Control | Type | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|---|
+| **Level** | Meter | — | −40 to +10 dBFS (red above 0) | — | Shows microphone input peak level in dBFS. |
+| **Mic gain** | Slider | 50 | 0–100 | `PcMicGain` | Adjusts mic input level. When **Mic source** is set to **PC**, the value is stored client-side; the radio always reports mic_level=0 for PC source. |
+| **+ACC** | Toggle button | — | On / Off | — | Enables the accessory mic input mix. |
 
 ## Tips
 
-- When **Mic source** is set to **PC**, the radio always reports a mic level of 0 internally. AetherSDR keeps the **Mic gain** value locally using the `PcMicGain` setting and applies it client-side. Set the level in the applet rather than relying on the radio's reported value.
-- **+ACC** adds the accessory port input on top of the selected **Mic source**. It does not replace the current source selection.
-
-## Troubleshooting
-
-- **Level gauge reads −150 dBFS and does not respond while receiving** — The meter is suppressed to −150 when the radio is not transmitting and met_in_rx is off. The gauge becomes active when you transmit.
-- **Mic gain slider resets to 0 after changing Mic source to PC** — The radio reports mic_level=0 for the PC source. The slider will reflect the locally stored `PcMicGain` value on the next update. Adjust the slider to your preferred level and it will be saved.
+- When **Mic source** is **PC**, the radio does not report the mic level back to AetherSDR. The **Mic gain** value is saved locally in `PcMicGain` and restored on the next session.
+- Use the **Level** gauge while speaking to verify the gain setting before transmitting. Peaks that consistently hit the red region (above 0 dBFS) indicate the **Mic gain** is too high.
+- **+ACC** can be active at the same time as any other mic source, allowing you to blend an accessory-connected audio device with the primary source.
 
 ## Related
 

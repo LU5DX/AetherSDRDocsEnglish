@@ -1,49 +1,57 @@
-# Compressor overview
+# Aetherial Compressor (TX) / Aetherial AGC-C (RX) Overview
 
-The client-side compressor is a TX dynamic-range processor built into AetherSDR's audio chain. It reduces peak levels before transmission, letting you increase average power without over-driving the signal.
+AetherSDR includes a client-side dynamic-range compressor that runs in two independent instances: **Aetherial Compressor** on the TX path and **Aetherial AGC-C** on the RX path. Use the TX instance to tame voice peaks before transmitting; use the RX instance to even out received audio levels.
 
 ## Before you start
 
-- The COMPRESSOR tile is part of the PooDoo Audio (TXDSP) processing chain. It stays hidden until the Compressor stage is enabled — bypass it off via the CHAIN widget or the floating editor to make the tile visible.
-- No radio connection is required to configure the compressor.
+- Both instances live inside the **Aetherial Audio (TXDSP)** parent container in the applet panel. Each tile stays hidden until its stage is enabled — bypass it off via the CHAIN widget or the floating editor on the matching side.
+- No radio connection is required to configure the compressor. Settings are saved locally.
 
 ## How it works
 
-The compressor monitors the level of your TX audio in real time. When the signal exceeds the threshold you set, the compressor reduces gain at the ratio you specify. Attack and release times control how quickly it clamps down and lets go. Make-up gain compensates for the overall level lost to compression.
+Each instance processes audio independently. The compressor monitors the input signal level. When the level exceeds the threshold, it attenuates the output by the compression ratio you choose. Attack and Release control how fast it reacts. Makeup adds back gain lost to compression. An optional limiter (configured in the full editor) puts a hard ceiling on output.
 
-The COMPRESSOR applet gives you a compact view of all of this at once:
+The applet tile for each instance shows:
 
-- The **Transfer curve** shows the static input/output gain relationship as a curve. A live ball moves along the curve to show where the current envelope level sits. This view is read-only in the applet; the curve is editable in the floating editor.
-- The **Gain-reduction bar** is a horizontal amber strip that fills from the right. It shows how much attenuation the compressor is currently applying, up to a maximum of 20 dB. A tick mark at −6 dB indicates a typical working amount of gain reduction. The meter refreshes at approximately 30 Hz with smoothed ballistics.
+- A **transfer curve** — a static input/output plot with a live envelope ball that rides along the curve in real time, showing the current operating point.
+- A **gain-reduction bar** — a horizontal amber strip that fills from the right. The scale runs 0 to 20 dB of gain reduction. A tick marks the −6 dB point as a typical working reference. The strip refreshes at approximately 30 Hz.
 
-Two controls that affect whether the compressor is active — enable/bypass and the knee and limiter settings — are not in the applet itself. Bypass is controlled from the CHAIN widget (single-click) or the floating editor. Knee and limiter settings are only available in the floating editor.
+To open the full editor for either instance — which adds knee and limiter controls not available in the applet — double-click the COMP stage in the CHAIN widget on the TX or RX side. The editor opens titled **Aetherial Compressor — TX** or **Aetherial Compressor — RX** accordingly.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting | Behavior |
-|---|---|---|---|---|
-| Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` | Sets the input level above which compression begins. Lower values compress more of the signal. |
-| Ratio | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` | Sets how aggressively peaks are held once the threshold is crossed. Displayed as X.XX:1. Uses logarithmic knob mapping. |
-| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` | Sets how quickly the compressor responds after the signal crosses the threshold. Uses exponential knob mapping. |
-| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` | Sets how quickly gain returns after the signal drops back below the threshold. Uses exponential knob mapping. |
-| Makeup | 0.0 dB | −12.0 to +24.0 dB | `ClientCompTxMakeupDb` | Adds back gain lost to compression. Positive values display with an explicit + sign. |
-| `ClientCompTxEnabled` | — | on/off | `ClientCompTxEnabled` | Whether the compressor stage is active or bypassed. Controlled from the CHAIN widget or floating editor, not from the applet directly. |
-| `ClientCompTxKneeDb` | — | — | `ClientCompTxKneeDb` | Knee width. Only accessible in the floating editor. |
-| `ClientCompTxLimEnabled` | — | on/off | `ClientCompTxLimEnabled` | Enables the output limiter. Only accessible in the floating editor. |
-| `ClientCompTxLimCeilingDb` | — | — | `ClientCompTxLimCeilingDb` | Limiter ceiling level. Only accessible in the floating editor. |
+The five knobs appear in a row at the bottom of each applet tile. Both the TX (Aetherial Compressor) and RX (Aetherial AGC-C) instances share the same knob layout with independent state.
+
+| Knob | Default | Valid range | TX setting key | RX setting key | Behavior |
+|---|---|---|---|---|---|
+| Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` | `ClientCompRxThresholdDb` | Sets the level above which compression starts. Mapped linearly. Label shows value as `-18.0 dB`. |
+| Ratio | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` | `ClientCompRxRatio` | Sets how hard peaks are held once threshold is crossed. Mapped logarithmically. Label shows value as `X.XX:1`. |
+| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` | `ClientCompRxAttackMs` | Sets how quickly the compressor clamps down after threshold is crossed. Mapped exponentially. Label shows `X.X ms` below 10, `X ms` above. |
+| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` | `ClientCompRxReleaseMs` | Sets how quickly gain returns after the input drops back below threshold. Mapped exponentially. Label shows `X ms`. |
+| Makeup | 0.0 dB | −12.0 to 24.0 dB | `ClientCompTxMakeupDb` | `ClientCompRxMakeupDb` | Adds back gain lost to compression. Label shows an explicit `+` sign for positive values. |
+
+Additional settings managed only through the full editor:
+
+| Setting key (TX) | Setting key (RX) | Description |
+|---|---|---|
+| `ClientCompTxEnabled` | `ClientCompRxEnabled` | Whether the compressor stage is active (bypass off). |
+| `ClientCompTxKneeDb` | `ClientCompRxKneeDb` | Soft-knee width in dB. Adjustable in the floating editor. |
+| `ClientCompTxLimEnabled` | `ClientCompRxLimEnabled` | Whether the output limiter is active. |
+| `ClientCompTxLimCeilingDb` | `ClientCompRxLimCeilingDb` | Hard ceiling applied by the limiter. |
 
 ## Tips
 
-- Watch the gain-reduction bar while speaking at your normal voice level. Aim to keep the amber fill working mostly to the left of the −6 dB tick mark for a natural-sounding result.
-- The Transfer curve ball gives you a quick visual check that the threshold is set appropriately — if the ball never moves off the resting position, the threshold may be set too high for your signal level.
-- Knee width and limiter settings are only available in the floating editor. Double-click the Comp stage in the CHAIN widget to open it.
+- The envelope ball on the transfer curve gives continuous visual feedback. If the ball sits well above the knee at rest, the threshold is set too low — raise Thresh until the ball only crosses the knee on peaks.
+- The −6 dB tick on the gain-reduction bar is a useful reference point. Consistent amber fill up to or slightly past that tick indicates active, moderate compression. Fill reaching the right edge of the bar means the compressor is working at or beyond 20 dB reduction.
+- The TX and RX instances are fully independent. Changes to Aetherial Compressor (TX) do not affect Aetherial AGC-C (RX) and vice versa.
+- Knee and limiter controls are not available in the applet tile. Open the full editor to access them.
 
 ## Related
 
-- [Adjust compressor threshold](adjust-compressor-threshold.md)
-- [Set compression ratio for voice](set-compression-ratio-for-voice.md)
+- [Adjust compressor threshold (TX or RX side)](adjust-compressor-threshold-tx-or-rx-side.md)
+- [Set compression ratio for voice (TX) or for received audio (RX AGC-C)](set-compression-ratio-for-voice-tx-or-for-received-audio-rx-agc-c.md)
 - [Tune attack / release for a natural-sounding squeeze](tune-attack-release-for-a-natural-sounding-squeeze.md)
 - [Apply make-up gain after compression](apply-make-up-gain-after-compression.md)
-- [Watch live gain reduction while speaking](watch-live-gain-reduction-while-speaking.md)
+- [Watch live gain reduction while speaking or listening](watch-live-gain-reduction-while-speaking-or-listening.md)
 - [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md)
 - [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md)

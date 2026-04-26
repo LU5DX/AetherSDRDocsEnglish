@@ -1,55 +1,51 @@
 # Tune Attack / Release for a Natural-Sounding Squeeze
 
-Adjust the Attack and Release knobs in the Compressor applet to control how quickly the compressor responds to voice peaks and recovers between syllables. Getting these two values right prevents the compressor from pumping on fast transients or clamping so slowly that peaks escape.
+The Attack and Release knobs control how quickly the compressor clamps down on loud transients and how quickly it lets go afterward. Dialing these in is what separates a transparent, natural-sounding squeeze from an audible pumping artifact.
 
 ## Before you start
 
-- The Compressor stage must be enabled (bypass off). If the COMPRESSOR tile is hidden, enable the stage via the CHAIN widget or double-click the Comp stage in the CHAIN widget to open the floating editor and enable it there. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
-- The COMPRESSOR sub-container must be visible inside the PooDoo Audio (TXDSP) parent container.
-- You need an audio source (microphone) active so the gain-reduction bar gives live feedback while you adjust.
+- The Aetherial Compressor (TX) or Aetherial AGC-C (RX) applet must be visible. The tile is hidden until its stage is enabled via the CHAIN widget. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile is not showing.
+- Decide whether you are tuning the TX path ("Aetherial Compressor" sub-container) or the RX path ("Aetherial AGC-C" sub-container). Both have independent Attack and Release knobs with the same ranges and behavior.
 
 ## Steps
 
-1. Locate the COMPRESSOR sub-container in the PooDoo Audio (TXDSP) parent container.
-2. Find the Attack knob in the five-knob row at the bottom of the applet.
-3. Rotate Attack to set how quickly the compressor clamps down after the signal crosses the threshold. The default is 20.0 ms. For voice, start there and increase toward 50–80 ms if consonants sound dulled, or decrease toward 5–10 ms if peaks are escaping.
-4. Find the Release knob immediately to the right of Attack.
-5. Rotate Release to set how quickly gain returns after the signal drops back below the threshold. The default is 200 ms. Increase Release if you hear pumping or breathing between words; decrease it if the compressor holds down the level too long between syllables.
-6. Speak into the microphone at a normal level and watch the Gain-reduction bar. The amber fill should move fluidly with your speech. The tick mark on the bar indicates 6 dB of reduction, which is a typical working amount. If the bar is surging and relaxing in an audible rhythm, the Release is too short for your speaking rate.
-7. Once the gain-reduction bar moves smoothly without pumping, your attack and release settings are working together correctly.
+1. Locate the five-knob row at the bottom of the compressor tile. The knobs are labeled Thresh, Ratio, Attack, Release, and Makeup, left to right.
+2. Watch the gain-reduction bar (the amber horizontal strip above the knob row) while speaking into the microphone (TX) or while audio plays (RX). The strip fills from the right; a tick mark indicates 6 dB of reduction.
+3. Turn the **Attack** knob to set how quickly the compressor responds after the input crosses the threshold. Turn left for a faster clamp (more transient control), right for a slower onset (more transient pass-through).
+4. Turn the **Release** knob to set how quickly gain recovers after the input drops back below the threshold. Turn left for a faster release (tighter sound), right for a slower release (smoother, less pumping).
+5. Observe the live envelope ball on the transfer curve above the knob row. A ball that races up and snaps back on every syllable suggests Release is too fast. A ball that never returns to rest suggests Release is too slow.
+6. Repeat steps 3–5 until the gain-reduction bar sits near the −6 dB tick during normal speech peaks and the sound feels even without pumping.
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key |
+| Knob | Default | Valid range | Persisted key (TX / RX) |
 |---|---|---|---|
-| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` |
-| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` |
-| Gain-reduction bar | — | 0 to 20 dB GR | — |
+| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` / `ClientCompRxAttackMs` |
+| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` / `ClientCompRxReleaseMs` |
 
-**Attack** — Sets how quickly the compressor clamps down after the input crosses the threshold. Uses exponential knob mapping; the label shows values below 10 ms as `X.X ms` and values at or above 10 ms as `X ms`.
+**Attack** — Exponential knob mapping. Values below 10 ms display as `X.X ms`; values at 10 ms and above display as `X ms`. Shorter attack times clamp peaks faster but can dull consonants. Longer attack times let transients through before compression engages.
 
-**Release** — Sets how quickly gain returns after the input drops below the threshold. Uses exponential knob mapping; the label shows values as `X ms`.
-
-**Gain-reduction bar** — A horizontal amber strip that fills from the right. Maxes at 20 dB of reduction. A tick marks the 6 dB point. Use this as your primary visual reference while adjusting attack and release.
+**Release** — Exponential knob mapping. Displayed as `X ms`. Shorter release times let gain return quickly between syllables; if too short, the compressor audibly pumps. Longer release times produce a smoother, more sustained gain reduction but can reduce intelligibility if set too long.
 
 ## Tips
 
-- The Gain-reduction bar updates at approximately 30 Hz with smoothed ballistics, so small rapid changes in your voice will appear slightly averaged. Judge pumping by ear, not solely by the meter.
-- Attack and Release interact with Ratio and Thresh. If you change the threshold or ratio significantly, re-check attack and release. See [Adjust compressor threshold](adjust-compressor-threshold.md) and [Set compression ratio for voice](set-compression-ratio-for-voice.md).
-- For a slow, transparent squeeze on voice, try Attack around 30–50 ms and Release around 300–500 ms. For tighter peak control, try Attack around 5–10 ms and Release around 100–150 ms.
-- The transfer curve and its live envelope ball show the static input/output relationship but do not animate attack and release timing directly. Use the Gain-reduction bar for dynamic feedback.
+- The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
+- A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
+- Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the Knee and Limiter controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- Both Attack and Release are saved immediately when you move a knob; no explicit save step is needed.
 
 ## Troubleshooting
 
-- **Audible pumping or breathing between words** — Release is too short. Increase Release until the level recovers smoothly between syllables rather than snapping back.
-- **Fast transients or consonants sound squashed** — Attack is too short. Increase Attack to let the initial transient through before the compressor engages.
-- **Compressor does not react at all to peaks** — Attack may be at or near its maximum (300.0 ms). Decrease Attack. Also confirm the compressor stage is enabled and that the threshold is set below your typical input level. See [Adjust compressor threshold](adjust-compressor-threshold.md).
-- **Gain-reduction bar is pinned at maximum** — The compressor is applying its full 20 dB of reduction. The Release is likely too long relative to your speaking rate, or Ratio and Thresh together are too aggressive. Reduce Release, then re-check Thresh and Ratio.
+- **Audible pumping or breathing on every syllable** — Release is too fast. Increase the Release value. Try 200–500 ms as a starting range.
+- **Gain never fully recovers between words; everything sounds squashed** — Release is too slow, or Ratio is too high. Decrease Release and check that Ratio is not set above 6:1 for normal voice work.
+- **Loud transients still clip even with a fast Attack** — Attack cannot be set to 0 ms; the minimum is 0.1 ms. If clipping persists, enable the limiter in the full editor. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- **Knob value resets unexpectedly** — Another source (such as a profile load) may have overwritten `ClientCompTxAttackMs` or `ClientCompTxReleaseMs`. Retune and the new value will persist immediately.
 
 ## Related
 
-- [Watch live gain reduction while speaking](watch-live-gain-reduction-while-speaking.md)
-- [Adjust compressor threshold](adjust-compressor-threshold.md)
-- [Set compression ratio for voice](set-compression-ratio-for-voice.md)
+- [Aetherial Compressor (TX) / Aetherial AGC-C (RX) overview](overview.md)
+- [Adjust compressor threshold (TX or RX side)](adjust-compressor-threshold-tx-or-rx-side.md)
+- [Set compression ratio for voice (TX) or for received audio (RX AGC-C)](set-compression-ratio-for-voice-tx-or-for-received-audio-rx-agc-c.md)
 - [Apply make-up gain after compression](apply-make-up-gain-after-compression.md)
+- [Watch live gain reduction while speaking or listening](watch-live-gain-reduction-while-speaking-or-listening.md)
 - [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md)
