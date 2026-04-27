@@ -1,30 +1,29 @@
 # Lock the slice to prevent accidental retuning
 
-Use the tune-lock toggle in the RX Controls applet to freeze a slice's frequency so that clicks, scroll-wheel events, and tuning commands cannot retune it.
+The tune-lock feature prevents a slice from responding to frequency changes. Use it when you want to monitor a fixed frequency without the risk of nudging the VFO by clicking the panadapter or scrolling the mouse wheel.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The RX Controls applet requires an active radio connection.
-- Identify which slice you want to lock. If you have more than one slice active, select it first using the slice tab row (A..H).
+- The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Open the RX Controls applet. If it is not visible, click the **RX** tray button on the right sidebar.
-2. If multiple slices are in use, click the lettered tab (A through H) for the slice you want to lock.
-3. Locate the **🔓** button in the header row, immediately to the right of the slice badge.
-4. Click **🔓**. The icon changes to **🔒** and turns blue. The slice is now locked and will ignore frequency changes.
-5. To unlock, click **🔒**. The icon returns to **🔓** and the slice accepts tuning again.
+1. In the RX Controls applet, identify the header row containing the slice badge, lock button, and antenna selectors.
+2. If you have more than one slice, click the appropriate slice tab (A through H) to select the slice you want to lock.
+3. Click the 🔓 button in the header row. The icon changes to 🔒 and turns blue, confirming the slice is locked.
+4. To unlock, click 🔒 again. The icon returns to 🔓 and the slice resumes responding to frequency changes.
 
 ## What each control does
 
 | Control | Default | Behavior |
 |---|---|---|
-| **🔓 / 🔒** | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores frequency changes from any source. When unlocked (🔓), normal tuning resumes. |
+| 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
 
 ## Tips
 
-- The lock state applies only to the slice it is set on. Other slices are unaffected.
-- The slice badge letter (A, B, C, etc.) and the lock button are both in the header row. Confirm the badge shows the correct slice letter before locking.
+- The lock state applies per slice. You can lock slice A while slice B remains freely tunable.
+- The lock button is always visible in the header row regardless of the current mode.
 
 ## Related
 

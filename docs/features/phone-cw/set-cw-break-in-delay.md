@@ -1,39 +1,35 @@
 # Set CW break-in delay
 
-Set how long the radio waits after the last keypress before returning to receive. A longer delay prevents choppy RX switching during fast sending; a shorter delay (or full QSK) minimizes receive dead time.
+The CW break-in delay controls how long the radio waits after the last keypress before returning to receive. Adjusting this prevents choppy QSK switching while still allowing a fast return to RX between words or characters.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The active slice must be in a CW mode. The Phone/CW applet automatically switches to its CW sub-panel when CW mode is selected; the Delay slider is only visible there.
+- AetherSDR must be connected to the radio. The Phone/CW applet shows controls only when a radio connection is active.
+- The active slice must be in a CW mode. The CW sub-panel replaces the Phone sub-panel automatically when CW is selected on the active slice.
 
 ## Steps
 
-1. If the Phone/CW applet is not visible, click the **P/CW** tray button on the right sidebar to open it.
-2. Confirm the CW sub-panel is showing. If you see mic and processor controls instead, your active slice is not in CW mode — change the slice mode first.
-3. Locate the **Delay** slider in the CW sub-panel.
-4. Drag the **Delay** slider left to decrease the delay or right to increase it. The value updates the radio in real time.
-5. To use full break-in (QSK) with no delay, click **Breakin** to toggle it on. When **Breakin** is active, the radio switches to receive immediately after each element.
+1. Locate the **P/CW** tray button in the right sidebar and confirm the applet is visible. If the applet is not visible, click the **P/CW** tray button to show it.
+2. Confirm the CW sub-panel is displayed. If the Phone controls are showing instead, switch the active slice to a CW mode using the mode selector in the main VFO area.
+3. Locate the **Delay (CW)** slider in the CW sub-panel.
+4. Drag the **Delay (CW)** slider left to decrease the delay or right to increase it. The value is applied to the radio immediately.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Persisted setting |
+| Control | Description | Valid range | Default | Setting key |
 |---|---|---|---|---|
-| **Delay** | Slider | — | 0–2000 ms, step 10 | none |
-| **Breakin** | Toggle button | — | On / Off | none |
-
-**Delay** — Sets the CW break-in delay in milliseconds. At 0 ms the radio attempts to return to receive as quickly as possible between elements. At 2000 ms the radio holds transmit for two full seconds after the last key event.
-
-**Breakin** — Enables full QSK operation. When on, the radio switches between transmit and receive within each inter-element gap.
+| Delay (CW) | Sets the CW break-in delay. The radio returns to receive this many milliseconds after the last keyed element. | 0–2000 ms (step 10) | — | — |
+| Breakin | Toggles full break-in (QSK). When enabled, the radio switches to receive between every element. The **Delay (CW)** slider still takes effect when **Breakin** is off. | On / Off | — | — |
 
 ## Tips
 
-- Delay and Breakin work together. If **Breakin** is off, the **Delay** value determines hold time. If **Breakin** is on, the radio ignores the delay and goes full QSK.
-- If relay switching noise or amplifier sequencing is a concern, set a longer delay rather than enabling **Breakin**.
+- A delay of 0 ms with **Breakin** enabled gives full QSK operation. Increase the delay to reduce relay wear during fast sending.
+- The **Delay (CW)** slider steps in 10 ms increments. For fine adjustment, click the slider track and use the arrow keys (if keyboard shortcuts are enabled under `View > Keyboard Shortcuts`).
 
 ## Related
 
-- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
+- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
 - [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
+- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)

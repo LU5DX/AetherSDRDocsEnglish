@@ -1,43 +1,40 @@
 # Monitor the RMS level of each IQ stream
 
-The DAX IQ applet displays a real-time level meter for each of the four IQ streams, letting you confirm that an active stream is carrying signal and roughly gauge its strength.
+The DAX IQ applet includes a real-time level meter for each of the four IQ streams. Use these meters to confirm that a stream is active and receiving signal.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- At least one IQ stream must be enabled (button shows "On"). The meter reads 0 when a stream is off or the radio is disconnected.
+- AetherSDR must be connected to the radio. The DAX IQ applet requires an active radio connection.
+- At least one IQ stream must be enabled. A disabled stream shows a meter value of 0.
 
 ## Steps
 
-1. Click the "IQ" tray button on the right sidebar to open the DAX IQ applet.
-2. Locate the row for the channel you want to watch: **IQ 1**, **IQ 2**, **IQ 3**, or **IQ 4**.
-3. Confirm the toggle button on the right of that row shows "On". If it shows "Off", the meter will remain at 0.
-4. Observe the progress bar in the middle of the row. It updates in real time as the stream carries signal.
+1. Click the **IQ** tray button on the right sidebar to open the DAX IQ applet.
+2. Locate the row for the channel you want to monitor: **IQ 1**, **IQ 2**, **IQ 3**, or **IQ 4**.
+3. Confirm the toggle button for that channel shows **On**. If it shows **Off**, enable the stream first — see [Enable an IQ stream for external SDR software](enable-an-iq-stream-for-external-sdr-software.md).
+4. Observe the level meter in the center of the row. The bar updates in real time as IQ data arrives from the radio.
 
 ## What each control does
 
-| Control | Description | Default | Range |
+| Control | What it shows | Range | Notes |
 |---|---|---|---|
-| IQ 1–4 meter | Progress bar showing the RMS level of the IQ stream. Scaled from the raw RMS value × 200. | 0 | 0–100 |
-| IQ 1–4 Off/On | Toggles the IQ stream on or off. The meter resets to 0 when switched to "Off". | Off | Off / On |
-| IQ 1–4 rate | Sample rate for the IQ stream. Does not affect the meter scale. | 48k | 24k, 48k, 96k, 192k |
-
-None of these controls have persisted setting keys that affect the meter directly. The meter state is live and resets to 0 on disconnect or disable.
+| IQ 1–4 meter | RMS level of the IQ stream, scaled for display | 0–100 (scaled from RMS × 200) | Resets to 0 when the stream is disabled or the radio disconnects |
+| IQ 1–4 Off/On | Whether this IQ stream is currently active | Off / On | Stream must be **On** for the meter to advance above 0 |
 
 ## Tips
 
-- A meter reading of 0 on an "On" stream can indicate no signal within the slice, a misconfigured receiver, or a network issue dropping IQ packets.
-- The meter resets to 0 automatically when the radio disconnects or when the stream is toggled to "Off". This is expected behavior, not an error.
-- The meter scale is 0–100, derived from RMS × 200. A full-scale reading (100) corresponds to an RMS value of 0.5 or above.
+- A meter that stays at 0 on an **On** stream can indicate the radio has no active slice or the external software has not opened the stream yet.
+- The meter resets to 0 on disconnect and on any stream that is toggled to **Off**.
+- The meter value is a display-only indicator. It has no persisted setting key and no effect on radio configuration.
 
 ## Troubleshooting
 
-- **Meter stays at 0 even though the stream is "On"** — The radio may still be setting up the stream. Wait a moment after enabling; the radio connection requires a short settling period before stream data flows. If the meter remains at 0, verify that your external SDR software is connected to the correct IQ channel and that the radio has an active slice on that channel.
-- **Meter resets to 0 after reconnecting** — This is normal. Streams are per-session and not preserved by the radio across connections. AetherSDR re-enables persisted streams automatically after reconnect.
+- **Meter stays at 0 even though the stream is On** — The radio resets all IQ streams per session. If you just reconnected, AetherSDR waits approximately 1.5 seconds before re-enabling persisted streams. Wait for the toggle to settle to **On**, then check the meter again.
+- **Stream toggles back to Off immediately after connecting** — The radio was not ready when the enable request was sent. AetherSDR retries automatically after the session setup settles. If the button remains **Off**, click it manually to request the stream again.
 
 ## Related
 
 - [Enable an IQ stream for external SDR software](enable-an-iq-stream-for-external-sdr-software.md)
-- [Pick the IQ sample rate (24k/48k/96k/192k)](pick-the-iq-sample-rate-24k-48k-96k-192k.md)
 - [Disable an IQ stream to free bandwidth](disable-an-iq-stream-to-free-bandwidth.md)
+- [Pick the IQ sample rate (24k/48k/96k/192k)](pick-the-iq-sample-rate-24k-48k-96k-192k.md)
 - [DAX IQ overview](overview.md)

@@ -1,45 +1,39 @@
-# DAX IQ overview
+# DAX IQ Overview
 
-The DAX IQ applet lets you enable up to four independent IQ data streams from the FLEX-8600, set the sample rate for each, and monitor the real-time signal level. Use these streams to feed external SDR software with raw IQ data from the radio.
+The DAX IQ applet lets you enable up to four independent IQ data streams from your FLEX-8600, set each stream's sample rate, and monitor each stream's signal level in real time. Use these streams to feed external SDR software with raw IQ data from the radio.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The DAX IQ applet requires an active radio connection.
-- The applet is hidden by default. Click the **IQ** tray button on the right sidebar to show it.
+- AetherSDR must be connected to a FLEX-8600 radio. The DAX IQ applet requires an active radio connection.
+- The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
 
 ## How it works
 
-The FLEX-8600 supports four simultaneous DAX IQ channels. Each channel is independent: you can run them at different sample rates, enable only the ones you need, and monitor each one's signal level separately.
+The DAX IQ applet provides four independent IQ stream channels, labeled IQ 1 through IQ 4. Each channel is controlled entirely within a single row of the applet. Streams are per-session: the radio does not persist stream state across disconnections, but AetherSDR saves each channel's enabled state and sample rate locally, and re-enables any previously active channels approximately 1.5 seconds after a successful reconnection.
 
-IQ streams are per-session. The radio does not persist stream state across connections. When AetherSDR reconnects, it waits for the radio session to settle, then re-enables any channels that were marked enabled when you last disconnected. Each channel's last-used sample rate is saved locally and restored on the next session.
+When you toggle a channel on, AetherSDR requests the stream from the radio. When the radio confirms the stream is active, the channel's toggle button updates to reflect the live state. If the radio rejects or removes a stream, the button and meter reset automatically.
 
-When a stream is active, the rate combo box syncs to the rate reported by the radio, which may differ from the locally saved value if the radio rejects the requested rate.
-
-Meters reset to zero when a stream is disabled or the radio disconnects.
+The applet is hidden by default. Toggle it open or closed using the IQ tray button on the right sidebar.
 
 ## What each control does
 
-Each of the four rows (labeled **IQ 1:** through **IQ 4:**) contains three controls:
-
-| Control | What it does | Default | Valid values | Persisted key |
+| Control | What it does | Default | Valid values | Persisted setting key |
 |---|---|---|---|---|
-| Rate combo box | Sets the IQ sample rate for that channel. | `48k` | `24k` (24000), `48k` (48000), `96k` (96000), `192k` (192000) | `DaxIqRate1` – `DaxIqRate4` |
-| Level meter | Displays the RMS level of the IQ stream, scaled 0–100. | 0 | 0–100 | — |
-| **Off** / **On** toggle | Enables or disables the IQ stream for that channel. | **Off** | **Off**, **On** | `DaxIqEnabled1` – `DaxIqEnabled4` |
-
-The toggle button label switches between **Off** and **On** to reflect the current stream state. The radio confirms stream creation or removal; if the radio rejects the request, the button state updates to match the radio-reported state.
+| IQ 1..4 rate | Sets the sample rate for that IQ channel. The combo syncs back to the radio-reported rate when a stream is active. | 48k | 24k (24000), 48k (48000), 96k (96000), 192k (192000) | `DaxIqRate1` – `DaxIqRate4` |
+| IQ 1..4 meter | Shows the RMS level of the IQ stream on a 0–100 scale (scaled from RMS × 200). Resets to 0 on disconnect or disable. | 0 | 0–100 | — |
+| IQ 1..4 Off/On | Toggles the IQ stream for that channel. Displays "Off" when inactive and "On" when active. | Off | Off, On | `DaxIqEnabled1` – `DaxIqEnabled4` |
 
 ## Tips
 
-- Enabling a channel at a higher sample rate (96k or 192k) increases network and CPU load. Enable only the channels you are actively using.
-- If you close AetherSDR with a channel marked **On**, it will be re-enabled automatically about 1.5 seconds after the next successful connection.
-- To prevent a channel from re-enabling on reconnect, click its toggle to **Off** before disconnecting.
+- Changing the sample rate while a stream is active sends the new rate to the radio immediately. If the radio reports a different rate back, the combo will sync to the radio-reported value.
+- On reconnect, AetherSDR waits 1.5 seconds before re-enabling persisted channels to allow the radio session to fully initialize before stream requests are sent.
+- Scrolling the applet panel will not accidentally change rate combos or other controls; the applet panel locks sidebar controls during scroll.
 
 ## Troubleshooting
 
-- **Toggle shows "On" but resets to "Off" immediately after connecting** — The radio rejected the stream request. This can happen if the session has not fully initialized. AetherSDR waits 1.5 seconds after connect before re-enabling streams; if the radio is still busy, try toggling the channel manually after a few more seconds.
-- **Rate combo shows a different value than selected** — The radio has overridden the requested rate. The combo syncs back to the radio-reported rate when a stream is active. Select the rate again if needed.
-- **Meter stays at zero with the stream enabled** — No IQ data is flowing. Confirm your receiving application has opened the IQ stream on the correct channel number.
+- **Channel shows "On" but resets to "Off" immediately** — The radio rejected the stream request, likely because the session was not fully ready. Disconnect and reconnect, or wait a moment and toggle the channel again.
+- **Rate combo shows a different value than what you selected** — The radio reported a different sample rate for the active stream. The combo syncs to the radio-reported value; this is expected behavior.
+- **Meter stays at 0 while a channel is "On"** — No IQ data is being received. Confirm that external software is connected to the stream and that the radio is actively processing audio on the associated slice.
 
 ## Related
 

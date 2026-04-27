@@ -1,38 +1,42 @@
 # Save the current radio state as a new global profile
 
-Use the Profile Manager to capture the radio's current state and store it as a named global profile. Global profiles record overall radio configuration and can be recalled at any time from the Profiles menu.
+Use this page to capture the radio's current state and store it as a named global profile. Global profiles record overall radio configuration so you can return to a known setup later.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Profile Manager requires an active radio connection.
+- AetherSDR must be connected to the radio. Profile Manager requires an active radio connection.
 - Decide on a name for the new profile before you begin.
 
 ## Steps
 
 1. Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
-2. Click the **Global (tab)** tab.
-3. In the **Profile name** field, type the name for the new profile.
-4. Click **Save**.
+2. Click the `Global (tab)` tab if it is not already selected.
+3. In the `Profile name` field, type the name for the new profile.
+4. Click `Save`.
 
-The radio saves the current state under the name you entered. The **Profile name** field clears, and the radio pushes an updated list back to AetherSDR. The new profile appears in the **Profile list**.
+The radio saves the current state under the name you typed. The `Profile name` field clears, and the radio pushes an updated list back to the `Profile list`.
 
 ## What each control does
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| **Global (tab)** | Tab | Switches to the global profile view. | — |
-| **Profile name** | Text field | Name used when saving a new profile. If empty when you click Save, the name of the selected item in the Profile list is used instead. | — |
-| **Profile list** | List | Shows all global profiles stored on the radio. The active profile is highlighted. | — |
-| **Load** | Button | Loads the selected profile onto the radio. Enabled only when a profile is selected. | — |
-| **Save** | Button | Saves the current radio state under the name typed in Profile name. | — |
-| **Delete** | Button | Deletes the selected profile after a confirmation prompt. Enabled only when a profile is selected. | — |
-| **Close** | Button | Closes the Profile Manager dialog. | — |
+| `Profile name` | Text field | Name used when saving a new profile. If left blank when Save is clicked and a profile is selected in the list, the selected profile's name is used instead. | — |
+| `Profile list` | List | Shows all existing global profiles. The active profile is highlighted. | — |
+| `Load` | Button | Loads the selected profile onto the radio. Enabled only when a profile is selected. | — |
+| `Save` | Button | Saves the current radio state under the name typed in `Profile name`. | — |
+| `Delete` | Button | Deletes the selected profile after a confirmation prompt. Enabled only when a profile is selected. | — |
+| `Close` | Button | Closes the Profile Manager dialog. | — |
 
 ## Tips
 
-- You can also load a profile by double-clicking its entry in the **Profile list** without clicking **Load**.
-- If you select an existing profile from the **Profile list**, its name is copied into the **Profile name** field automatically. Clicking **Save** at that point overwrites that profile with the current radio state.
-- Saved global profiles appear in the dynamic list under `Profiles` in the menu bar and can be loaded with a single click from there.
+- Clicking an existing profile in the `Profile list` populates the `Profile name` field with that profile's name. If you then click `Save`, the existing profile is overwritten with the current radio state.
+- You can also double-click a profile in the `Profile list` to load it immediately without clicking `Load`.
+- The `Profile list` updates automatically when the radio confirms the save. You do not need to close and reopen the dialog to see the new entry.
+
+## Troubleshooting
+
+- **Save has no effect and the profile does not appear in the list** — Confirm the radio is connected. Profile Manager requires an active radio connection; if the connection dropped, reconnect via `Settings > Connect to Radio...` and try again.
+- **Clicking Save with an empty `Profile name` field does nothing** — Either type a name in `Profile name` or select an existing profile in the `Profile list` first (its name will fill the field automatically).
 
 ## Related
 

@@ -1,47 +1,45 @@
 # Use XIT to offset the transmit frequency without changing RX
 
-XIT (Transmit Incremental Tuning) shifts the transmit frequency by a fixed amount while leaving the receive frequency unchanged. This is useful when you need to transmit slightly off your receive VFO — for example, to work a split pile-up or compensate for a transceiver offset at the other station.
+XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fixed number of hertz while your receive frequency stays on the VFO. This is useful when working split, compensating for a TX offset requested by the other station, or matching a net frequency without retuning the panadapter.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The RX Controls applet requires an active radio connection.
-- The RX applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
-- Select the correct slice using the slice tabs (A..H) if you have more than one slice active.
+- AetherSDR must be connected to the radio. XIT controls are only active when a radio connection is present.
+- Open the RX Controls applet. If it is not visible, click the RX tray button on the right sidebar.
+- Select the slice you want to adjust using the slice tabs (A..H) at the top of the applet.
 
 ## Steps
 
-1. Open the RX applet by clicking the RX tray button on the right sidebar if it is not already visible.
-2. Scroll down to the XIT row near the bottom of the applet.
-3. Click XIT to enable Transmit Incremental Tuning. The button highlights when active.
-4. Adjust the XIT offset using the XIT offset spinbox:
-   - Click `<` to decrease the offset in 10 Hz steps.
-   - Click `>` to increase the offset in 10 Hz steps.
-   - Scroll the mouse wheel over the spinbox to change the offset in 10 Hz steps.
-5. To return the TX frequency to the RX frequency, click XIT 0. This zeroes the offset without turning XIT off.
-6. To disable XIT entirely, click XIT again to toggle it off.
+1. In the RX Controls applet, scroll down to the RIT/XIT section.
+2. Click XIT to enable Transmit Incremental Tuning. The button lights when active.
+3. Adjust the XIT offset using one of these methods:
+   - Click the **<** or **>** buttons flanking the XIT offset spinbox to step in 10 Hz increments.
+   - Hover over the XIT offset spinbox and scroll the mouse wheel to step in 10 Hz increments.
+4. To return the TX offset to zero without disabling XIT, click XIT 0.
+5. To turn XIT off, click XIT again so the button is no longer lit.
 
 ## What each control does
 
-| Control | Default | Valid range / step | Behavior |
+| Control | What it does | Default | Step / Range |
 |---|---|---|---|
-| XIT | Off (unchecked) | On / Off | Toggles Transmit Incremental Tuning on or off. |
-| XIT offset | +0 Hz | Step: 10 Hz | Sets the TX frequency offset relative to the RX VFO. Adjust with `<` / `>` or the mouse wheel. |
-| XIT 0 | — | — | Immediately zeroes the XIT offset. Does not turn XIT off. |
+| XIT | Toggles Transmit Incremental Tuning on or off. | Off | — |
+| XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz | 10 Hz per step |
+| XIT 0 | Resets the XIT offset to +0 Hz without turning XIT off. | — | — |
 
 ## Tips
 
-- RIT and XIT are independent. You can run both simultaneously: RIT shifts what you hear, XIT shifts where you transmit.
-- The XIT offset spinbox responds to the mouse wheel when the cursor is positioned over it, which is convenient when operating without moving focus away from the panadapter.
-- If the slice is tune-locked (🔒), frequency-related controls are suppressed. Unlock the slice first if XIT controls do not respond.
+- RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.
+- If you need the TX offset to persist across a session, set the XIT offset before transmitting; it remains set until you click XIT 0 or disable XIT.
+- To zero the offset quickly before a transmission, click XIT 0 rather than toggling XIT off and back on.
 
 ## Troubleshooting
 
-- **XIT offset spinbox has no effect** — Confirm XIT is enabled (button should be highlighted). If the slice is locked, click the 🔓 / 🔒 toggle to unlock it first.
-- **TX frequency does not shift as expected** — Verify this slice is the active TX slice. Check that the TX (badge) button is active for this slice; only the TX slice uses the XIT offset on transmit.
+- **XIT controls are greyed out** — The radio is not connected. Use `Settings > Connect to Radio...` to establish a connection, then try again.
+- **TX frequency is not shifting as expected** — Confirm the correct slice is selected using the slice tabs (A..H). XIT acts only on the currently bound slice.
 
 ## Related
 
 - [Use RIT to offset the receive frequency for a drifting station](use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
-- [RX Controls overview](overview.md)
-- [Lock the slice to prevent accidental retuning](lock-the-slice-to-prevent-accidental-retuning.md)
+- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
+- [RX Controls overview](overview.md)

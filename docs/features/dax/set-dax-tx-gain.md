@@ -1,37 +1,31 @@
 # Set DAX TX gain
 
-Adjust the DAX TX gain slider to control the level of audio sent from your computer to the radio's transmit chain over the DAX audio bridge.
+Adjust the DAX TX gain slider to control how much audio from your transmit slice is sent through the DAX TX stream to connected software.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The DAX applet requires an active radio connection.
-- DAX must be enabled. Click Enable in the DAX Audio applet to start the DAX bridge before adjusting TX gain.
+- The radio must be connected. The DAX Audio applet requires an active radio connection.
+- DAX must be enabled. Click `Enable` in the DAX Audio applet if it is not already active.
 
 ## Steps
 
-1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet.
-2. If the Enable button is not already lit, click **Enable** to start the DAX bridge.
-3. Locate the **TX:** row at the bottom of the applet. The combined meter and slider shows the current TX gain and live TX audio level.
-4. Drag the slider thumb left to reduce TX gain or right to increase it. The setting is saved immediately as `DaxTxGain`.
+1. Click the `DAX` tray button on the right sidebar to open the DAX Audio applet.
+2. Locate the `TX:` row at the bottom of the applet. The slider to the right of the TX status indicator is the TX gain control.
+3. Drag the thumb on the `TX gain+meter` slider left or right to decrease or increase TX gain. The value is saved immediately and persists as `DaxTxGain`.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Enable | Starts the DAX audio bridge. Must be active for TX audio to flow. | Off | On / Off | `AutoStartDAX` |
-| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag the thumb to set gain. The meter bar reflects the post-fader output level. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
-| TX assignment indicator | Shows which slice currently holds TX privileges and drives the DAX TX stream. Displays `—` when no TX slice is assigned, or `Slice A` through `Slice H`. | — | — / Slice A–H | — |
+| Control | Default | Range | Persisted key |
+|---|---|---|---|
+| `TX gain+meter` slider | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
+| TX status indicator | — | — or Slice A–H | *(none)* |
+
+The TX status indicator shows which slice currently holds TX privileges. It updates automatically as the TX slice changes. The meter bar behind the slider displays the live TX audio level scaled by the current gain setting.
 
 ## Tips
 
-- The meter bar in the TX row reflects post-fader level — it scales with the gain thumb position, so you get immediate visual feedback as you drag.
-- The gain value is persisted as soon as you release the slider. Restarting AetherSDR restores the saved value.
-- Check the TX assignment indicator in the TX row to confirm the expected slice is driving DAX TX before transmitting.
-
-## Troubleshooting
-
-- **TX meter shows no activity during transmit** — Verify Enable is active (button lit green). Confirm your digital mode software is sending audio to the correct DAX TX device. Check the TX assignment indicator to ensure a slice is assigned.
-- **Gain resets to 0.5 after restart** — If `DaxTxGain` is absent from saved settings, AetherSDR falls back to the default of 0.5. Make a small adjustment and release the slider to force a save.
+- The meter bar reflects post-fader level: it shows the actual output level after your gain setting is applied. Moving the slider gives immediate visual feedback even before you transmit.
+- A gain of 0.5 is the default starting point. If your digital mode software reports overdriven or weak audio, adjust from there in small increments.
 
 ## Related
 
@@ -39,4 +33,4 @@ Adjust the DAX TX gain slider to control the level of audio sent from your compu
 - [Enable DAX to route slice audio to WSJT-X / FLDigi / other digital software](enable-dax-to-route-slice-audio-to-wsjt-x-fldigi-other-digital-software.md)
 - [Set DAX RX gain per channel](set-dax-rx-gain-per-channel.md)
 - [Identify which slice is the TX slice](identify-which-slice-is-the-tx-slice.md)
-- [Autostart DAX on launch](autostart-dax-on-launch.md)
+- [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)

@@ -1,43 +1,59 @@
 # Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)
 
-Use the Drive knob to push more signal into the tube stage until the transfer curve visibly bends, adding harmonic richness to your TX audio or shaping the tone of received audio.
+Use the Drive knob to push signal into the tube stage and produce harmonic saturation. Watching the transfer curve bend as you increase Drive tells you exactly when and how much saturation is happening.
 
 ## Before you start
 
-- The Tube stage must be enabled on the side you want to adjust (TX or RX). If it is not yet active, enable it via the CHAIN widget first. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
-- Open the applet: the TX tube applet appears in the "Aetherial Mic-PreAmp" sub-container inside the Aetherial Audio (TXDSP) parent container; the RX tube applet appears in the "Aetherial Dynamic Tube" sub-container. Double-click the TUBE stage in the CHAIN widget to open the matching floating editor ("Aetherial Tube — TX" or "Aetherial Tube — RX") if you prefer a larger view.
+- The Tube stage must be enabled on the side you want to shape (TX or RX). Enable it through the CHAIN widget or by opening the floating editor for that side.
+- The "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container must be visible inside the Aetherial Audio (TXDSP) parent container in the applet panel.
 
 ## Steps
 
-1. Locate the **Drive** knob in the five-knob row (Drive, Tone, Bias, Output, Mix).
-2. Watch the **Transfer curve** display above the knob row. At the default of 0.0 dB the curve is nearly straight.
-3. Turn **Drive** clockwise. The knob label updates as `X.X dB`. Increase Drive until you see the transfer curve begin to bend at its top and bottom — this is where saturation starts.
-4. Observe the **Live input ball** (the dot riding the transfer curve). As Drive increases, the ball travels further into the bent region of the curve during loud signal peaks, showing you how heavily the tube is being driven.
-5. Stop increasing Drive when the amount of curve bend suits the effect you want. Moderate bend (roughly 6–12 dB of Drive) produces subtle warmth; higher Drive produces more obvious saturation.
-6. If the driven signal is louder or quieter than the bypass signal, turn the **Output** knob to compensate. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
-7. Your setting is saved automatically. The knob value is persisted as `ClientTubeTxDriveDb` (TX) or `ClientTubeRxDriveDb` (RX).
+1. Locate the correct sub-container in the applet panel: "Aetherial Mic-PreAmp" for TX signal shaping, or "Aetherial Dynamic Tube" for RX tone shaping.
+2. Look at the transfer curve display at the top of the applet. At Drive 0.0 dB the curve is a straight diagonal line — no saturation.
+3. Turn the Drive knob clockwise. Watch the transfer curve: the shoulders begin to compress and bend as Drive increases. The live input ball moves along the curve and shows which part of the curve your current signal level is hitting.
+4. Stop increasing Drive when the curve shows the amount of bend you want. Subtle warmth appears with light bend; heavier saturation comes from pushing Drive further toward 24.0 dB.
+5. If the saturated output is noticeably louder or quieter than the dry signal, trim the Output knob to compensate.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key (TX / RX) | Behavior |
-|---|---|---|---|---|
-| Drive | 0.0 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` / `ClientTubeRxDriveDb` | Pushes more signal into the tube stage; higher values bend the transfer curve further. |
-| Transfer curve | — | — | — | Displays the tube transfer curve. Bends visibly as Drive, Bias, or model changes. |
-| Live input ball | — | — | — | Dot that moves along the transfer curve at the current input level, showing the active saturation regime. |
+| Control | Default | Valid range | Persisted key (TX / RX) |
+|---|---|---|---|
+| Drive | 0.0 dB | 0.0 – 24.0 dB | `ClientTubeTxDriveDb` / `ClientTubeRxDriveDb` |
+| Tone | 0.00 | −1.0 – 1.0 | `ClientTubeTxTone` / `ClientTubeRxTone` |
+| Bias | 0 % | 0 – 100 % | `ClientTubeTxBiasAmount` / `ClientTubeRxBiasAmount` |
+| Output | 0.0 dB | −24.0 – 12.0 dB | `ClientTubeTxOutputGainDb` / `ClientTubeRxOutputGainDb` |
+| Mix | 100 % | 0 – 100 % | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
+
+**Transfer curve** — Indicator. Draws the tube transfer curve in real time. The shape changes as you adjust Drive, Bias, and model selection. The live input ball rides the curve at the current signal level, showing the active saturation regime. No persisted key.
+
+**Drive** — Pushes more signal into the tube stage. Higher values cause the transfer curve to bend more sharply, producing stronger harmonic content.
+
+**Tone** — Negative values darken the saturated signal; positive values brighten it.
+
+**Bias** — Shifts the operating point on the transfer curve, changing the balance of even and odd harmonics.
+
+**Output** — Post-tube make-up or trim gain. Use this to match the saturated level to the dry level.
+
+**Mix** — Dry/wet blend. At 100 % only the saturated signal passes. Reducing Mix blends in the original dry signal for parallel saturation.
 
 ## Tips
 
-- Start with Drive at 0.0 dB and increase slowly. The first noticeable bend in the transfer curve is typically the most musical-sounding operating point.
-- The applet knobs and the floating editor knobs stay in sync. Changes made in one view are reflected in the other within approximately 33 ms.
-- If you want only a touch of saturation rather than full processing, set **Mix** below 100 % to blend the dry signal back in. See [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md).
-- After setting Drive, use **Tone** to brighten or darken the result without changing the saturation amount. See [Brighten or darken the saturated signal with Tone](brighten-or-darken-the-saturated-signal-with-tone.md).
-- Use **Bias** to shift the operating point on the curve and change the harmonic character of the saturation. See [Shift Bias to tweak the even / odd harmonic balance](shift-bias-to-tweak-the-even-odd-harmonic-balance.md).
+- Start with Drive at 0.0 dB and increase slowly. The transfer curve is the most direct visual guide to how much saturation you are adding.
+- The TX and RX sides are fully independent. Adjustments to the TX tube do not affect the RX tube and vice versa.
+- The floating editor (opened by double-clicking the TUBE stage in the CHAIN widget) and the docked applet knobs stay in sync — changes in one are reflected in the other within approximately 30 ms.
+- If you want to hear the effect without committing to it, reduce Mix toward 0 % to blend back to dry while keeping your Drive setting in place.
+
+## Troubleshooting
+
+- **Transfer curve does not bend when Drive is increased** — The Tube stage may not be enabled for that side. Enable it through the CHAIN widget. The applet is hidden until the stage is active.
+- **Knobs in the applet do not match the floating editor** — The applet syncs from the engine on a polling timer. Wait a moment; they should align within about 30 ms. If they remain out of sync, the audio engine may not be connected — check that the radio connection is active.
 
 ## Related
 
 - [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
-- [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
 - [Shift Bias to tweak the even / odd harmonic balance](shift-bias-to-tweak-the-even-odd-harmonic-balance.md)
 - [Brighten or darken the saturated signal with Tone](brighten-or-darken-the-saturated-signal-with-tone.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
+- [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)

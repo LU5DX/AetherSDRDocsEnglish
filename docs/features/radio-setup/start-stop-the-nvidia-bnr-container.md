@@ -1,36 +1,35 @@
-# Start/stop the NVIDIA BNR container
+# Start/stop the NVIDIA BNR Container
 
-This page explains how to start, stop, and check the status of the NVIDIA Broadcast noise-removal (BNR) container from within AetherSDR. Use this feature to apply AI-based background noise removal to your received or transmitted audio.
+The NVIDIA BNR (Broadcast Noise Removal) container applies AI-based noise suppression to your microphone audio. Use the controls on the Audio tab to start, stop, or check the state of the container without leaving AetherSDR.
 
 ## Before you start
 
-- You must be connected to a FLEX-8600 radio. The Audio tab is not available without an active radio connection.
-- The NVIDIA BNR container must already be installed on your system. AetherSDR controls the container but does not install it.
+- AetherSDR must be connected to the radio. The Audio tab is not accessible when disconnected.
+- The NVIDIA Broadcast container must be installed on your system independently of AetherSDR. AetherSDR controls it but does not install it.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Audio** tab.
 3. Locate the **NVIDIA BNR** section near the bottom of the tab.
-4. To have the container start automatically each time AetherSDR connects, click **Autostart Container**.
+4. To have the container start automatically each time AetherSDR launches, click **Autostart Container** so it is active.
 5. To start the container immediately, click **Start**.
-6. To stop the container, click **Stop**.
-7. To query the current state of the container, click **Check Status**.
+6. To stop a running container, click **Stop**.
+7. To query the current state without changing it, click **Check Status**. The colored status dot next to the controls updates to reflect Running, Stopped, or Unknown.
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Autostart Container** | Starts the NVIDIA BNR container automatically when AetherSDR connects to the radio. |
-| **Start** | Starts the container immediately. |
-| **Stop** | Stops the container immediately. |
-| **Check Status** | Queries the container and updates the status indicator. |
-| NVIDIA BNR status dot | Colored dot showing the current container state: Running, Stopped, or Unknown. |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Autostart Container** | Button | When active, AetherSDR starts the NVIDIA BNR container automatically on launch. |
+| **Start** | Button | Starts the NVIDIA BNR container immediately. |
+| **Stop** | Button | Stops a running NVIDIA BNR container immediately. |
+| **Check Status** | Button | Queries the container state and updates the status dot. |
+| NVIDIA BNR status dot | Indicator | Colored dot showing the container state: Running, Stopped, or Unknown. |
 
-## Troubleshooting
+## Tips
 
-- **Status dot shows Unknown after clicking Check Status** — The container runtime may not be reachable. Verify that the NVIDIA container runtime is installed and that your user has permission to manage containers. Click **Check Status** again after resolving any permission issues.
-- **Start has no effect** — Confirm the NVIDIA BNR container image is present on your system. AetherSDR cannot install the container itself.
+- Click **Check Status** after clicking **Start** or **Stop** if the status dot does not update on its own, to confirm the container reached the expected state.
 
 ## Related
 

@@ -1,58 +1,54 @@
 # Turn spots on or off
 
-DX spots from your configured cluster sources can be shown or hidden on the panadapter at any time. Use the master spot toggle to enable or disable the entire spot overlay without changing any other settings.
+DX spots from cluster sources appear as overlays on the panadapter. This page explains how to enable or disable that display using the master spot toggle in the Spot Settings dialog.
 
 ## Before you start
 
-- Open a panadapter. The Spot Settings dialog is accessed from the panadapter context menu.
-- Ensure at least one spot source is configured in `Settings > SpotHub...` if you want spots to appear after enabling.
+- A panadapter must be visible in the main window.
+- Spot sources (DX cluster, RBN, etc.) should be configured via `Settings > SpotHub...` if you want live spots to appear once you enable the overlay.
 
 ## Steps
 
 1. Right-click anywhere on the panadapter to open the context menu.
 2. Select the spot overlay option to open the **Spot Settings** dialog.
-3. Locate the **Spots:** row.
-4. Click the toggle button to switch between **Enabled** and **Disabled**.
-
-The change takes effect immediately. The button label updates to reflect the current state, and `IsSpotsEnabled` is saved.
+3. Locate the **Spots:** toggle button at the top of the dialog.
+4. Click the button to toggle between **Enabled** and **Disabled**.
+   - When **Enabled**, DX spots are drawn on the panadapter.
+   - When **Disabled**, no spots are drawn. The setting is saved immediately; no additional confirmation is needed.
 
 ## What each control does
 
-| Control | Default | Behavior | Setting key |
-|---|---|---|---|
-| **Spots:** toggle | Enabled | Master toggle. Hides or shows all DX spots on the panadapter. | `IsSpotsEnabled` |
-| **Memories:** toggle | Disabled | Shows radio memory channels as spot-like markers on the panadapter. | `IsMemoriesShownOnPanadapter` |
-| **Levels:** slider | 3 | Number of vertical stacking rows used when spots overlap. Range: 1–10. | `SpotsStackLevels` |
-| **Position:** slider | 50 | Vertical position of the spot band on the panadapter, as a percentage from top. Range: 0–100. | `SpotsPosition` |
-| **Font Size:** slider | 16 | Text size for spot labels. Range: 8–32 pt. | `SpotsFontSize` |
-| **Spot Lifetime:** slider | 30 min | How long a spot remains visible before expiring. Steps run from 10 sec through 24 hrs. | `SpotsLifetime` |
-| **Override Colors:** toggle | Disabled | Forces all spot labels to use a single text color instead of cluster-assigned colors. | `IsSpotsOverrideColorsEnabled` |
-| Spot text color picker | `#FFFF00` | Opens a color picker to select the override text color. Active only when **Override Colors:** is Enabled. | `SpotsOverrideColor` |
-| **Override Background: Enabled** toggle | Enabled | Draws a solid background behind each spot label. | `IsSpotsOverrideBackgroundColorsEnabled` |
-| **Override Background: Auto** toggle | Enabled | Automatically chooses a background color to contrast with the text color. | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
-| Spot background color picker | `#000000` | Opens a color picker to select a manual background color. Used when Auto is Disabled. | `SpotsOverrideBgColor` |
-| **Background Opacity:** slider | 48 | Alpha value for the spot background. Range: 0–100. | `SpotsOverrideBgOpacity` |
-| **Clear All Spots** | — | Removes all spots currently displayed on the panadapter. Does not affect settings. | — |
+| Label | Kind | Default | Persisted key | Behavior |
+|---|---|---|---|---|
+| **Spots:** | Toggle button | Enabled | `IsSpotsEnabled` | Master on/off switch for DX spot display on the panadapter. |
+| **Memories:** | Toggle button | Disabled | `IsMemoriesShownOnPanadapter` | Shows radio memory channels as spot-like markers on the panadapter. |
+| **Levels:** | Slider | 3 | `SpotsStackLevels` | Number of vertical stacking rows used when spots overlap. Range: 1–10. |
+| **Position:** | Slider | 50 | `SpotsPosition` | Vertical position of the spot band on the panadapter. Range: 0–100. |
+| **Font Size:** | Slider | 16 | `SpotsFontSize` | Text size for spot labels. Range: 8–32. |
+| **Spot Lifetime:** | Slider | 30 min | `SpotsLifetime` | How long a spot remains visible before expiring. Steps range from 10 seconds to 24 hours. |
+| **Override Colors:** | Toggle button | Disabled | `IsSpotsOverrideColorsEnabled` | Forces all spot text to a single chosen color instead of source-assigned colors. |
+| Spot text color picker | Button | `#FFFF00` | `SpotsOverrideColor` | Opens a color picker to select the override text color. Active only when **Override Colors:** is **Enabled**. |
+| **Override Background: Enabled** | Toggle button | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a filled background behind each spot label. |
+| **Override Background: Auto** | Toggle button | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | Automatically selects a background color for contrast rather than using the manually chosen color. |
+| Spot background color picker | Button | `#000000` | `SpotsOverrideBgColor` | Opens a color picker for the manual background color. Used when **Override Background: Auto** is **Disabled**. |
+| **Background Opacity:** | Slider | 48 | `SpotsOverrideBgOpacity` | Alpha level of the spot background. Range: 0–100. |
+| **Clear All Spots** | Button | — | — | Immediately removes all spots from the panadapter. Does not affect the enabled/disabled state. |
+
+The **Total Spots:** indicator at the bottom of the dialog shows how many live spots are currently tracked.
 
 ## Tips
 
-- The **Total Spots:** indicator in the dialog shows how many spots are currently tracked, even when the **Spots:** toggle is Disabled.
-- Disabling **Spots:** does not clear the internal spot list. Re-enabling restores all spots that have not yet expired.
-- If you want spots hidden only temporarily, toggle **Spots:** off rather than disconnecting your cluster source in `Settings > SpotHub...`.
-
-## Troubleshooting
-
-- **Spots toggle is Enabled but no spots appear on the panadapter** — No spots have been received yet, or all received spots fall outside the current panadapter frequency range. Check your cluster connection at `Settings > SpotHub...`. The **Total Spots:** count will be zero if no data has arrived.
-- **Spots reappear after restart even though you disabled them** — The `IsSpotsEnabled` setting is saved immediately when you toggle. If spots appear, the toggle may have been re-enabled by another session or profile load.
+- Toggling **Spots:** to **Disabled** does not clear buffered spots. When you re-enable it, spots that have not yet expired will reappear.
+- The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
 
 ## Related
 
 - [Spot Settings overview](overview.md)
 - [Overlay memory channels on the panadapter](overlay-memory-channels-on-the-panadapter.md)
 - [Change spot density and vertical position](change-spot-density-and-vertical-position.md)
+- [Enlarge or shrink the spot font](enlarge-or-shrink-the-spot-font.md)
 - [Shorten or lengthen spot lifetime](shorten-or-lengthen-spot-lifetime.md)
 - [Force a single spot text color](force-a-single-spot-text-color.md)
 - [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md)
 - [Adjust spot background opacity](adjust-spot-background-opacity.md)
-- [Enlarge or shrink the spot font](enlarge-or-shrink-the-spot-font.md)
 - [Clear every spot from the panadapter](clear-every-spot-from-the-panadapter.md)

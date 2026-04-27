@@ -1,91 +1,64 @@
-# Aetherial Parametric EQ (TX / RX) Overview
+# Aetherial Parametric EQ (TX / RX) overview
 
-The Aetherial Parametric EQ is a client-side parametric equalizer that processes audio independently on the transmit and receive paths. Use it to shape your transmitted signal or your received audio without touching any radio-side DSP settings.
+The Aetherial Parametric EQ provides client-side parametric equalization for both your transmit and receive audio paths. Use it to shape your TX microphone audio or to tailor the sound of received audio before it reaches your speakers or headphones, without touching any radio-side processing.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required for configuration, but the live FFT analyzer only shows signal when audio is flowing.
-- The EQ tiles ("Aetherial TX EQ" and "Aetherial RX EQ") are hidden until the matching EQ stage is enabled via the CHAIN widget or the floating editor. Enable the EQ stage first if you do not see the tiles.
+- AetherSDR must be running. A radio connection is not required to configure the EQ, but a connection is needed for the live FFT analyzer overlay to show real audio.
+- The EQ applet tiles are hidden until the matching EQ stage is enabled via the CHAIN widget or the floating editor. If you do not see "Aetherial TX EQ" or "Aetherial RX EQ" in the Aetherial Audio (TXDSP) parent container, enable the EQ stage first.
 
 ## How it works
 
-AetherSDR instantiates two separate EQ copies: one bound permanently to the TX path ("Aetherial TX EQ") and one bound permanently to the RX path ("Aetherial RX EQ"). Each lives inside the Aetherial Audio (TXDSP) parent container. There is no in-tile selector for switching between paths — each tile is locked to its side at construction.
+AetherSDR instantiates two separate EQ tiles inside the Aetherial Audio (TXDSP) parent container:
 
-**Applet tiles (docked view)**
+- **Aetherial TX EQ** — processes audio on the transmit path only.
+- **Aetherial RX EQ** — processes audio on the receive path only.
 
-Each tile contains a single read-only analyzer and curve area. The tile shows the summed EQ response for its path and a live FFT analyzer overlay. You cannot edit bands directly in the tile; all band editing happens in the floating editor.
+Each tile is fixed to its path. There is no in-tile RX/TX selector. The tile shows a compact view of the summed EQ response curve and a live FFT analyzer overlay for that path. Editing — adding, removing, and tuning bands — happens in a separate floating window called the **Aetherial Parametric EQ** editor, which opens from the CHAIN widget. The editor's title bar reads either "Aetherial Parametric EQ — TX" or "Aetherial Parametric EQ — RX" depending on which side you opened it from. One shared editor instance is reused for both sides; the title flips when you switch sides.
 
-**Floating editor**
+### Applet tile
 
-Double-clicking the EQ stage in the CHAIN widget opens the frameless floating editor, titled "Aetherial Parametric EQ — TX" or "Aetherial Parametric EQ — RX" depending on which side you opened. A single editor window is reused for both sides; its title updates to reflect the active path.
+Each tile contains one control area:
 
-The floating editor contains:
-
-- An interaction hint strip at the top describing drag gestures.
-- A filter family selector (see table below).
-- An icon row, an editable canvas, and a parameter row for adding, removing, and tuning bands.
-- An output fader on the right with a level meter and dB readout.
-
-The FFT analyzer in the editor runs at 25 Hz while the editor is visible and stops when it is closed.
-
-**Bypass**
-
-Bypassing an EQ stage is done from the CHAIN widget, not from inside the tile or the floating editor.
-
-## What each control does
-
-### Applet tile controls
-
-| Control | Description | Persisted setting |
-|---|---|---|
-| Analyzer / curve area | Read-only display, 110 px tall. Shows the summed EQ response curve and a live FFT analyzer overlay for this tile's path. | — |
-
-### Floating editor controls
-
-| Control | Default | Valid values | Persisted setting |
-|---|---|---|---|
-| Filter family | Butterworth | Butterworth, Chebyshev, Bessel, Elliptic | `ClientEqTxBands` / `ClientEqRxBands` (saved with band data) |
-| Output fader | — | Linear gain, shown as dB | `ClientEqTxBands` / `ClientEqRxBands` |
-| RX EQ enabled | — | On / bypassed | `ClientEqRxEnabled` |
-| TX EQ enabled | — | On / bypassed | `ClientEqTxEnabled` |
-| Band definitions (RX) | — | Added/removed interactively in the canvas | `ClientEqRxBands` |
-| Band definitions (TX) | — | Added/removed interactively in the canvas | `ClientEqTxBands` |
-
-**Filter family options**
-
-| Option | Behavior |
+| Element | Description |
 |---|---|
-| Butterworth | Maximally flat passband |
-| Chebyshev | Steeper transition, 1 dB passband ripple |
-| Bessel | Linear phase, gentler rolloff |
-| Elliptic | Steepest transition, ripple in both bands |
+| Analyzer / curve area | A 110 px tall view showing the summed EQ response curve for all enabled bands on that path, with a live FFT analyzer overlay. This area is view-only in the applet tile. |
 
-The filter family selector applies to HP/LP cascade math. Shelves and peaks use their native second-order topology regardless of this setting.
+The **summed EQ response** displays the cumulative frequency response of all enabled bands. When no bands are boosted or cut, the curve is flat. The **live analyzer overlay** shows the real-time FFT of audio passing through that path; it is idle when no audio is active and running when audio is present.
 
-**Summed EQ response indicator**
+### Floating editor
 
-Shows the cumulative frequency response of all enabled bands for the tile's path. Displays as flat when no bands are active or all bands are at 0 dB gain, and shaped when bands are contributing to the response.
+Double-clicking the EQ stage in the CHAIN widget opens the floating editor for that side. The editor provides:
 
-**Live analyzer overlay**
+| Control | Description |
+|---|---|
+| Analyzer / curve area (canvas) | Interactive canvas where you drag band handles to set frequency and gain. Drag peak/shelf handles to adjust frequency and gain. Drag HP/LP handles to adjust frequency and Q. Hold Shift while dragging to adjust Q on any band type. Click a band icon to cycle through filter types. |
+| Peak Hold | Checkable button. When checked, the analyzer's per-bin peak trace stops decaying so the highest level seen at each frequency stays visible. Toggle off to resume normal decay. |
+| Filter family selector | Selects the filter family applied to HP/LP cascade math. Options: Butterworth (maximally flat passband), Chebyshev (steeper transition, 1 dB passband ripple), Bessel (linear phase, gentler rolloff), Elliptic (steepest transition, ripple in both bands). Default: Butterworth. Shelves and peaks use their native second-order topology regardless of this setting. |
+| Reset | Drops every band back to default values, restores the default band count, and resets the filter family to Butterworth. Saves immediately. |
+| Output fader | Vertical meter, slider, and dB readout on the right side of the editor. Controls the output level for the EQ stage. |
 
-Displays a real-time FFT of audio passing through the tile's path. Idle when no audio is flowing; running when audio is present.
+Bypass is handled from the CHAIN widget, not from inside the editor. See [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md).
+
+### Persisted settings
+
+| Setting key | What it stores |
+|---|---|
+| `ClientEqRxEnabled` | Whether the RX EQ stage is enabled. |
+| `ClientEqTxEnabled` | Whether the TX EQ stage is enabled. |
+| `ClientEqRxBands` | Band parameters for the RX EQ. |
+| `ClientEqTxBands` | Band parameters for the TX EQ. |
 
 ## Tips
 
+- The applet tiles are hidden by default. If you want a persistent visual reference of your EQ curve while operating, enable the EQ stage via the CHAIN widget so the tile becomes visible in the Aetherial Audio (TXDSP) container.
+- The floating editor is shared between TX and RX. Opening it from the TX chain tile and then opening it from the RX chain tile switches the editor to the RX side; your TX settings are not affected.
 - Right-click the "Aetherial TX EQ" or "Aetherial RX EQ" sub-container titlebar to float, pop out, or hide the tile.
-- In the floating editor canvas: drag a peak or shelf band to adjust frequency and gain; hold Shift while dragging to adjust Q. Drag an HP or LP band to adjust frequency and Q. Click a band icon to cycle through filter types.
-- The output fader in the floating editor controls master gain for that EQ path after all bands are summed.
-
-## Troubleshooting
-
-- **The "Aetherial TX EQ" or "Aetherial RX EQ" tile is not visible** — The tile is hidden until the matching EQ stage is enabled. Enable the stage from the CHAIN widget or from the floating editor.
-- **The live FFT analyzer shows nothing** — Audio must be flowing through the path for the analyzer to display signal. Confirm the radio is connected and audio routing is active for that path.
-- **The floating editor title does not match the side you want to edit** — The editor is shared between both paths. Open the editor by double-clicking the correct EQ stage (TX or RX) in the CHAIN widget to switch it to that side.
 
 ## Related
 
-- [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
 - [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)
 - [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
+- [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)

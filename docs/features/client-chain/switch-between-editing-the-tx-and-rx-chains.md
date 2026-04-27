@@ -1,35 +1,35 @@
 # Switch between editing the TX and RX chains
 
-The Aetherial Audio Chain applet shows either the TX or RX DSP chain at a time. Use the TX and RX toggle buttons to select which chain is visible and editable. Your last-used selection is restored when you reopen AetherSDR.
+The Aetherial Audio Chain applet shows either the TX or RX DSP chain at a time. Use the TX and RX toggle buttons to switch which chain is visible and editable. Your last-used selection is restored when you reopen the applet.
 
 ## Before you start
 
-- The Aetherial Audio (TXDSP) container must be open. If it is not visible, click the tray button labelled PUDU in the right sidebar to show it.
-- Both chains are available without a radio connection.
+- The Aetherial Audio (TXDSP) container must be visible. If it is not, click the tray button labelled PUDU in the right sidebar to show it.
+- The TX chain is shown by default. If you have never changed the selection, clicking RX is all that is needed.
 
 ## Steps
 
-1. Locate the header row at the top of the Aetherial Audio Chain applet. It contains two mode buttons: TX and RX.
-2. Click TX to show and edit the TX DSP chain (Parametric EQ, Compressor, Gate, De-Ess, Tube, PUDU, Reverb).
-3. Click RX to show and edit the RX DSP chain (RX EQ, AGC-T, AGC-C, Dynamic Tube, RX PUDU), along with the RADIO, DSP, and SPEAK status tiles.
-4. The selected button turns amber. The previously visible chain hides and the newly selected chain appears in its place.
-
-Your selection persists across sessions via `PooDooAudioActiveTab`.
+1. Locate the header row at the top of the Aetherial Audio Chain applet. It contains the buttons TX, RX, and BYPASS.
+2. Click TX to display and edit the TX DSP chain (Parametric EQ, Compressor, Gate, De-Ess, Tube, PUDU, Reverb).
+3. Click RX to display and edit the RX DSP chain (RX EQ, AGC-T, AGC-C, Dynamic Tube, RX PUDU), which also shows the RADIO, DSP, and SPEAK status tiles.
+4. The selected button turns amber. The chain strip below updates immediately to show the chosen side.
 
 ## What each control does
 
-| Control | Kind | Default | Behavior | Persisted setting |
+| Control | Kind | Default | Persisted key | Behavior |
 |---|---|---|---|---|
-| TX | Toggle button | Checked | Shows and enables editing of the TX DSP chain. Amber when selected. | `PooDooAudioActiveTab` = `TX` |
-| RX | Toggle button | Unchecked | Shows and enables editing of the RX DSP chain. Amber when selected. | `PooDooAudioActiveTab` = `RX` |
+| TX | Toggle button | Checked | `PooDooAudioActiveTab` | Shows and makes editable the TX DSP chain. Amber when selected. |
+| RX | Toggle button | Unchecked | `PooDooAudioActiveTab` | Shows and makes editable the RX DSP chain. Amber when selected. |
 
-TX and RX form an exclusive pair — only one can be selected at a time. Each side keeps its own independent stage state, chain order, and BYPASS snapshot. The stage order in the TX chain (`ClientCompTxChainStages`) has no effect on the RX chain order (`ClientCompRxChainStages`), and vice versa.
+TX and RX form an exclusive pair — only one can be active at a time. The active tab is saved as `PooDooAudioActiveTab` with the value `TX` or `RX` and is restored on next launch.
+
+The TX and RX chains are fully independent: each has its own stage order, per-stage bypass state, and global BYPASS snapshot. Switching sides does not affect the other chain's state. The TX chain order is persisted as `ClientCompTxChainStages`; the RX chain order as `ClientCompRxChainStages`.
 
 ## Tips
 
-- The BYPASS button always acts on whichever chain is currently shown. Check which mode is active before engaging BYPASS to avoid silencing the wrong chain.
-- The Record and Play monitor buttons are visible only in TX mode; they are hidden when RX is selected.
-- The hint text below the chain strip — "Click to bypass · Double click to edit · Drag to reorder" — applies to both TX and RX modes.
+- The BYPASS button always acts on the currently shown side only. Switching from TX to RX and clicking BYPASS bypasses only the RX chain; the TX chain's bypass state is unchanged.
+- The record (⏺) and play (▶) monitor buttons are hidden when RX is selected — they are TX-only features.
+- The hint text below the chain strip, "Click to bypass · Double click to edit · Drag to reorder", applies equally to both the TX and RX chains.
 
 ## Related
 

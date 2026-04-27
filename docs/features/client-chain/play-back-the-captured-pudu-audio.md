@@ -1,38 +1,38 @@
 # Play back the captured PUDU audio
 
-This page explains how to play back audio you recorded with the post-PUDU TX monitor. Use this to hear how your TX signal sounds after the full client-side DSP chain has processed it.
+This page explains how to play back audio you have already recorded with the post-PUDU TX monitor. Use this to hear exactly what your transmitted signal sounds like after the full TX DSP chain has processed it.
 
 ## Before you start
 
-- You must have at least one recording already captured. The Play button is disabled until a recording exists.
-- The Aetherial Audio Chain applet must be visible. If it is not, click the "PUDU" tray button in the right sidebar to show it.
-- Make sure you are not currently recording. The Play button is disabled while recording is active.
-- The TX chain must be shown. The Play button is hidden when the RX chain is active.
+- You must have an existing recording. The Play (▶) button is only enabled once a recording exists.
+- Recording must not be currently active. The Play (▶) button is disabled while the Record (⏺) button is engaged.
+- The Aetherial Audio (TXDSP) container must be visible. If it is not, click the tray button labelled `PUDU` in the right sidebar to show it.
+- The TX chain must be the active view. The Play (▶) button is hidden in RX mode.
 
 ## Steps
 
-1. If the RX chain is currently shown, click **TX** to switch to the TX chain.
-2. Locate the **Play (triangle glyph)** button in the header row, to the right of the **Record (circle glyph)** button.
-3. Click **Play (triangle glyph)** to start playback. The button pulses green while audio is playing.
-4. To stop playback before it finishes, click **Play (triangle glyph)** again.
+1. In the ClientChainApplet header row, confirm the **TX** button is selected. If not, click **TX**.
+2. Click the **Play (▶)** button.
+   - The button pulses green while playback is running.
+3. To stop playback before it finishes, click the **Play (▶)** button again.
 
 ## What each control does
 
 | Control | Behavior | Notes |
 |---|---|---|
-| **Play (triangle glyph)** | Starts playback of the captured PUDU audio. Click again to cancel. | Enabled only when a recording exists and recording is not active. Pulses green while playing. Hidden when the RX chain is shown. |
-| **Record (circle glyph)** | Disabled during playback. | Re-enables automatically when playback ends. |
+| **Play (▶)** | Starts playback of the captured PUDU audio; click again to cancel. | Hidden in RX mode. Enabled only when a recording exists and recording is not active. Pulses green while playing. |
+| **Record (⏺)** | Disabled during playback. | Re-enabled automatically when playback ends. |
 
 ## Tips
 
-- Playback begins immediately when you click **Play (triangle glyph)**; there is no confirmation step.
-- If you want a new recording first, wait for playback to finish or cancel it, then use **Record (circle glyph)**.
-- The green pulse on the **Play (triangle glyph)** button alternates between bright and dim every 500 ms while playback is running, giving a clear at-a-glance indication that audio is in progress.
+- The Play (▶) button remains enabled while playback is running so you can cancel at any time by clicking it again.
+- If you want a new recording before listening, click **Record (⏺)** to capture up to 30 seconds of post-PUDU TX audio. Playback starts automatically when recording stops.
+- The Play (▶) button is hidden whenever the **RX** tab is active. Switch back to **TX** to access it.
 
 ## Troubleshooting
 
-- **Play (triangle glyph) is greyed out** — No recording has been made yet, or recording is currently active. Complete or stop the recording first.
-- **Play (triangle glyph) is not visible** — The RX chain is currently shown. Click **TX** to switch to the TX chain; the play and record buttons only appear in TX mode.
+- **Play (▶) is greyed out** — No recording exists yet, or recording is currently in progress. Make a recording first using **Record (⏺)**, or wait for the current recording to finish.
+- **Play (▶) is not visible** — The **RX** tab is active. Click **TX** to switch to the TX chain view.
 
 ## Related
 

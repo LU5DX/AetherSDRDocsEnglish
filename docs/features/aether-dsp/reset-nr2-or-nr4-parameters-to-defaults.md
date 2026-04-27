@@ -1,10 +1,10 @@
 # Reset NR2 or NR4 parameters to defaults
 
-Use this page to restore all NR2 or NR4 noise-reduction controls to their factory defaults in one click, discarding any experimental adjustments you have made.
+Use the **Reset Defaults** button on the NR2 or NR4 tab to restore all parameters for that engine to their factory values in a single click.
 
 ## Before you start
 
-- Open `Settings > AetherDSP Settings...` to reach the AetherDSP Settings dialog.
+- AetherSDR must be running. A radio connection is not required to access AetherDSP Settings.
 
 ## Steps
 
@@ -14,7 +14,7 @@ Use this page to restore all NR2 or NR4 noise-reduction controls to their factor
 2. Click the **NR2** tab.
 3. Click **Reset Defaults**.
 
-All NR2 controls return to the values shown in the table below.
+All NR2 controls return to the values in the table below.
 
 ### Reset NR4 defaults
 
@@ -22,7 +22,7 @@ All NR2 controls return to the values shown in the table below.
 2. Click the **NR4** tab.
 3. Click **Reset Defaults**.
 
-All NR4 controls return to the values shown in the table below.
+All NR4 controls return to the values in the table below.
 
 ## What each control does
 
@@ -32,7 +32,7 @@ All NR4 controls return to the values shown in the table below.
 |---|---|---|---|
 | Gain Method | Gamma | Linear \| Log \| Gamma \| Trained | `NR2GainMethod` |
 | NPE Method | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
-| AE Filter (artifact elimination) | Checked | — | `NR2AeFilter` |
+| AE Filter (artifact elimination) | Enabled | — | `NR2AeFilter` |
 | Reduction Depth: | 1.50 | 0.50–2.00 | `NR2GainMax` |
 | Smoothing: | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
 | Voice Threshold: | 0.20 | 0.05–0.50 | `NR2Qspp` |
@@ -42,7 +42,7 @@ All NR4 controls return to the values shown in the table below.
 | Control | Default | Valid range | Setting key |
 |---|---|---|---|
 | Noise Estimation Method | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
-| Adaptive Noise Estimation | Checked | — | `NR4AdaptiveNoise` |
+| Adaptive Noise Estimation | Enabled | — | `NR4AdaptiveNoise` |
 | Reduction (dB): | 10.0 | 0.0–40.0 dB | `NR4ReductionAmount` |
 | Smoothing (%): | 0 | 0–100 | `NR4SmoothingFactor` |
 | Whitening (%): | 0 | 0–100 | `NR4WhiteningFactor` |
@@ -51,11 +51,12 @@ All NR4 controls return to the values shown in the table below.
 
 ## Tips
 
-- **Reset Defaults** affects only the tab you are currently on. Clicking it on the NR2 tab does not change any NR4 settings, and vice versa.
-- Changes take effect immediately; the updated values are persisted to AppSettings as soon as the sliders and buttons move.
+- **Reset Defaults** affects only the tab where you click it. Resetting NR2 does not alter NR4 settings, and vice versa.
+- Changes take effect immediately. If NR2 or NR4 is active on a receive slice at the time, you will hear the engine revert to its default behaviour as soon as you click **Reset Defaults**.
 
 ## Related
 
+- [AetherDSP Settings overview](overview.md)
 - [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)

@@ -1,38 +1,34 @@
 # Compensate level changes with Output
 
-The Output knob applies post-tube make-up or trim gain, letting you correct the level change that Drive and Bias introduce without altering the saturation character.
+The Output knob applies a post-tube gain trim to the processed signal. Use it to compensate for the level increase or decrease that Drive and Bias introduce, so the tube stage does not unintentionally push levels up or down in the rest of the chain.
 
 ## Before you start
 
 - The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
-- The "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container must be visible in the Applet Panel.
+- Open either the docked applet ("Aetherial Mic-PreAmp" for TX, "Aetherial Dynamic Tube" for RX) or the floating editor (double-click the TUBE stage in the CHAIN widget).
 
 ## Steps
 
-1. Locate the five-knob row at the bottom of the "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container.
-2. Find the fourth knob, labelled **Output**.
-3. Turn the Output knob to the desired gain value. The label below the knob updates in real time and shows the current value in dB (for example, `0.0 dB`).
-   - Turn clockwise to increase output level.
-   - Turn counter-clockwise to reduce output level.
-4. Release the knob. The new value is saved automatically.
+1. Locate the **Output** knob in the five-knob row (fourth from the left: Drive, Tone, Bias, **Output**, Mix).
+2. Turn **Output** clockwise to increase the post-tube level, or counter-clockwise to reduce it.
+3. Release the knob when the output level matches your target. The label under the knob updates in real time and shows the current value in dB (for example, `0.0 dB`).
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key (TX / RX) |
-|---------|---------|-------------|--------------------------|
-| Output | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeTxOutputGainDb` / `ClientTubeRxOutputGainDb` |
+| Control | Default | Valid range | Persisted setting key |
+|---|---|---|---|
+| Output (TX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeTxOutputGainDb` |
+| Output (RX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeRxOutputGainDb` |
 
-Output applies a linear gain stage after the tube model. It does not affect Drive, Bias, or Tone — only the final signal level leaving the tube stage. The label format is `X.X dB`.
+Output is a post-tube make-up or trim gain. It acts after the Drive, Bias, and Tone stages, so it adjusts the final level without affecting the saturation character.
 
 ## Tips
 
-- If heavy Drive or high Bias cause the output to clip downstream, pull Output down to compensate before reducing Drive.
-- The Output knob on the applet and the Output knob in the floating editor ("Aetherial Tube — TX" / "— RX") share the same parameter. Changes in one are reflected in the other within approximately 33 ms.
-- To restore the default of 0.0 dB, double-click the Output knob.
+- If raising Drive increases loudness more than desired, reduce Output by a matching amount to keep the net level consistent.
+- Changes made in the floating editor and the docked applet stay in sync. A 30 Hz polling timer keeps both views updated, so adjusting Output in one location is reflected immediately in the other.
 
 ## Related
 
 - [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
-- [Shift Bias to tweak the even / odd harmonic balance](shift-bias-to-tweak-the-even-odd-harmonic-balance.md)
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)

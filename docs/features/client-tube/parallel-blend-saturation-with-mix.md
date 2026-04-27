@@ -1,39 +1,37 @@
 # Parallel-blend saturation with Mix
 
-The Mix knob blends the dry (unprocessed) signal with the fully saturated tube output. Reducing Mix below 100 % lets you add harmonic richness while preserving some of the original signal's transient character — a technique called parallel saturation.
+The Mix knob blends the dry (unprocessed) signal with the fully saturated tube output. Backing off Mix from 100 % lets you add harmonic color while preserving the transient character and dynamic feel of the original signal — a technique called parallel saturation.
 
 ## Before you start
 
 - The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
-- Open the applet containing the Mix knob: **Aetherial Mic-PreAmp** (TX side) or **Aetherial Dynamic Tube** (RX side), found inside the Aetherial Audio (TXDSP) parent container.
+- The Aetherial Mic-PreAmp (TX) or Aetherial Dynamic Tube (RX) sub-container must be visible inside the Aetherial Audio (TXDSP) parent container.
 
 ## Steps
 
-1. Locate the **Mix** knob — rightmost knob in the five-knob row, labelled **Mix**.
-2. Turn **Mix** to set the dry/wet balance. The label displays the current value as a percentage (for example, `75 %`).
-   - `100 %` — fully saturated signal, no dry blend (default).
-   - `0 %` — dry signal only; tube saturation is inaudible.
-   - Values between `0 %` and `100 %` blend dry and wet proportionally.
-3. Adjust **Drive**, **Bias**, and **Tone** on the wet path as needed. The transfer curve and live input ball update to reflect the saturated signal regardless of the Mix position.
-4. Use **Output** to compensate for any overall level change introduced by the blend. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
-
-Your setting is saved automatically each time you move the knob.
+1. Locate the five-knob row at the bottom of the applet — Drive, Tone, Bias, Output, Mix.
+2. Find the rightmost knob, labeled **Mix**.
+3. Turn **Mix** to set the dry/wet balance. At **100 %** only the saturated signal passes. At **0 %** only the dry signal passes. Intermediate values blend the two proportionally.
+4. Watch the transfer curve and listen to the result. A value around 30–60 % is typical for parallel saturation.
+5. If the blended level is louder or quieter than the dry signal, trim it with the **Output** knob. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting (TX / RX) |
-|---------|---------|-------------|------------------------------|
-| Mix | `100 %` | `0 %` to `100 %` (stored as 0.0 to 1.0) | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
+| Control | Default | Valid range | Persisted setting key |
+|---|---|---|---|
+| Mix (TX) | 100 % | 0 % to 100 % (stored as 0.0–1.0) | `ClientTubeTxDryWet` |
+| Mix (RX) | 100 % | 0 % to 100 % (stored as 0.0–1.0) | `ClientTubeRxDryWet` |
+
+Mix operates as a linear dry/wet blend. The knob label displays the value as a percentage (e.g. `50 %`).
 
 ## Tips
 
-- Start with **Mix** at `100 %`, dial in **Drive** and **Bias** for the tone you want, then back Mix down until the result sits comfortably in the audio — this is easier than trying to set all knobs simultaneously.
-- Because the dry and wet signals are summed, heavy Drive settings at low Mix values can still produce audible harmonic content without overwhelming the source.
-- The TX and RX Tube stages have fully independent Mix settings. Adjusting one side does not affect the other.
+- Mix adjustments made in the floating Aetherial Tube editor are reflected on the applet knob within approximately 33 ms, and vice versa. You do not need to reopen the editor after changing Mix in the applet.
+- Mix applies after the tube stage but before nothing else in the chain — set Drive first to taste, then use Mix to dial back the intensity without losing the harmonic shape you dialed in.
 
 ## Related
 
 - [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
-- [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
+- [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)

@@ -1,31 +1,32 @@
 # Search memories by name
 
-Use the Search field in the Memory Channels dialog to narrow the memory table to entries whose name matches what you type. This is useful when you have a large number of stored frequencies and want to locate a specific one quickly.
+Use the Search field in Memory Channels to narrow the table to memories whose names match what you type. This is useful when you have a large number of stored frequencies and want to find a specific one quickly.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
-- Open the Memory Channels dialog via `Settings > Memory...`.
+- AetherSDR must be connected to the radio. Memory Channels requires an active radio connection.
+- Open Memory Channels via `Settings > Memory...`.
 
 ## Steps
 
 1. Open `Settings > Memory...`.
 2. Click the **Search:** field at the top of the dialog.
-3. Type part or all of the memory name you want to find. The table filters as you type.
-4. To clear the search and show all memories, click the clear button inside the **Search:** field.
+3. Type any part of the memory name. The table filters as you type — no need to press Enter to see results.
+4. To jump to and activate the current row, press Enter.
+5. To clear the filter and show all memories, click the clear button inside the **Search:** field.
 
 ## What each control does
 
 | Control | Behavior | Notes |
 |---|---|---|
-| **Search:** | Filters the memory table to rows whose name matches the entered text. | Has a clear button. Press Enter to activate the currently highlighted row. |
+| **Search:** | Filters the memory table by memory name. | Has a clear button. Pressing Enter activates the current row. |
+| Memory table | Shows only memories whose names match the search text. | Combine with **Profile:** to narrow results further. |
 
 ## Tips
 
-- You do not need to press Enter to filter — the table updates with each character you type.
-- Pressing Enter after typing confirms and activates (tunes to) the currently selected row in the filtered results.
-- The **Search:** field can be focused quickly using the Find keyboard shortcut (Ctrl+F on Linux and Windows, Cmd+F on macOS) without reaching for the mouse.
-- Use the **Profile:** combo box alongside the search field to restrict results to a specific profile before searching.
+- The filter updates on every keystroke, so you can stop typing as soon as the list is short enough to find your entry.
+- After filtering, use Shift-click or Ctrl-click (Command-click on macOS) to select multiple rows from the filtered results.
+- To search and immediately tune, type enough of the name to isolate one row, confirm it is highlighted, then press Enter.
 
 ## Related
 

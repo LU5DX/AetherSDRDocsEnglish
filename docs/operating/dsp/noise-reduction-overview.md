@@ -1,24 +1,24 @@
 # Choosing the right noise reduction: NR2, NR4, DFNR, MNR
 
-AetherSDR provides four client-side noise-reduction engines. This page explains what each one does and how to decide which to use, so you can open the right tab in AetherDSP Settings and start tuning.
+AetherSDR provides four client-side noise-reduction engines. This page describes what each engine does, when to use it, and where to find its controls so you can pick the right one for your operating conditions.
 
 ## Before you start
 
-- Open `Settings > AetherDSP Settings...` to reach the AetherDSP Settings dialog.
-- A radio connection is not required to configure these parameters.
+- Open AetherDSP Settings via `Settings > AetherDSP Settings...`.
+- The NR engine you configure here is client-side only; it does not require a radio connection.
 
 ## Steps
 
-1. Open `Settings > AetherDSP Settings...`.
+1. Go to `Settings > AetherDSP Settings...`.
 2. Click the tab for the engine you want to use: **NR2**, **NR4**, **DFNR**, or **MNR**.
-3. Adjust the controls on that tab. Settings are saved immediately; there is no Apply button.
-4. If you want to return a tab to its shipped defaults, click **Reset Defaults** at the bottom of the NR2 or NR4 tab.
+3. Adjust the controls on that tab (see the table below).
+4. Close the dialog. Settings are saved automatically.
 
 ## What each control does
 
-### NR2 tab — musical-noise reduction
+### NR2 — musical-noise reduction
 
-NR2 is a frequency-domain engine focused on suppressing the tonal "musical noise" artefacts that are common in SSB and weak-signal work. Use it when you hear a warbling, fluttery quality in the noise rather than a flat hiss.
+A frequency-domain noise reducer designed to minimise the tonal "birdie" artefacts common in spectral subtraction. Good starting choice for SSB voice in moderate QRN.
 
 | Control | Kind | Default | Range | Setting key |
 |---|---|---|---|---|
@@ -30,23 +30,25 @@ NR2 is a frequency-domain engine focused on suppressing the tonal "musical noise
 | Voice Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
 | Reset Defaults | Button | — | — | — |
 
-**Gain Method** selects the curve used to calculate how much gain to apply to each spectral bin. Gamma is the default and suits most voice work. Trained uses a model built from real speech and noise samples and may perform better on weak DX signals. Linear and Log offer simpler mappings if you want predictable, auditable behaviour.
+**Gain Method** selects how NR2 maps noise estimates to gain reduction. Gamma matches typical speech amplitude patterns and is the default. Trained uses a model built from real speech and noise samples. Linear and Log trade perceptual accuracy for simpler computation.
 
-**NPE Method** controls how NR2 estimates the noise floor. OSMS tracks the floor using a running minimum and is robust on stable noise. MMSE minimises the mean squared estimation error. NSTAT adapts to noise that changes quickly over time.
+**NPE Method** selects the noise power estimator. OSMS (Optimal Smoothing Minimum Statistics) tracks the noise floor using a running minimum and suits slowly varying noise. MMSE minimises expected estimation error. NSTAT adapts to noise that changes rapidly over time.
 
-**AE Filter (artifact elimination)** applies a post-filter to reduce ringing and musical-noise residuals. Leave it enabled unless you are deliberately comparing raw NR2 output.
+**AE Filter (artifact elimination)** applies a post-filter to reduce ringing and musical artefacts. Leave it enabled unless you are experimenting with very low Reduction Depth values.
 
-**Reduction Depth:** sets how aggressively NR2 attenuates noise. Higher values suppress more noise but can distort speech.
+**Reduction Depth:** controls maximum suppression. Higher values remove more noise but risk speech distortion. 1.50 is the default.
 
-**Smoothing:** controls how quickly the noise estimate follows changes. Higher values produce a steadier estimate but react more slowly to sudden noise bursts.
+**Smoothing:** controls how quickly the noise estimate follows changes. Higher values are steadier but slower to adapt.
 
-**Voice Threshold:** is the speech-presence-probability threshold below which NR2 treats a bin as noise. Lower values protect quieter speech but pass more noise.
+**Voice Threshold:** is the speech-presence-probability threshold. Lower values protect quiet speech but may allow more noise through.
+
+**Reset Defaults** restores: Gamma / OSMS / AE Filter on / 1.50 / 0.85 / 0.20.
 
 ---
 
-### NR4 tab — libspecbleach broadband reduction
+### NR4 — libspecbleach
 
-NR4 is built on libspecbleach and is suited to broadband noise: power-line hash, band noise, and atmospheric noise under SSB signals. It offers explicit dB-calibrated reduction and a whitening stage.
+A separate spectral-bleaching engine with its own noise estimator and additional shaping controls. Useful when NR2 leaves residual noise or when you want dB-calibrated reduction targets.
 
 | Control | Kind | Default | Range | Setting key |
 |---|---|---|---|---|
@@ -59,69 +61,70 @@ NR4 is built on libspecbleach and is suited to broadband noise: power-line hash,
 | Suppression: | Slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
 | Reset Defaults | Button | — | — | — |
 
-**Noise Estimation Method** sets the noise-floor estimator. SPP-MMSE balances noise estimation with speech preservation. Brandt uses recursive smoothing across critical frequency bands and handles non-stationary noise well. Martin uses running spectral minima and is robust when the noise floor changes slowly.
+**Noise Estimation Method** — SPP-MMSE balances noise estimation with speech preservation. Brandt uses recursive smoothing over critical frequency bands and suits non-stationary noise. Martin uses running spectral minima and is robust for slowly varying noise floors.
 
-**Adaptive Noise Estimation** enables continuous re-estimation of the noise floor. Disable it only if you want to lock the estimate to a snapshot.
+**Adaptive Noise Estimation** enables continuous re-estimation of the noise floor. Disable it only if the noise environment is static and you want a fixed floor.
 
-**Reduction (dB):** is the main depth control. Start at the default 10.0 dB and increase only as needed; high values at wide bandwidths can hollow out voice quality.
+**Reduction (dB):** sets the maximum reduction in dB. Start at 10 dB and increase if noise remains.
 
-**Smoothing (%):** applies time-domain smoothing to the noise estimate. Increase it to stabilise the estimate on burst noise.
+**Smoothing (%):** applies time-domain smoothing to the noise estimate.
 
-**Whitening (%):** flattens the residual noise spectral shape after reduction, trading a coloured noise floor for a flatter hiss.
+**Whitening (%):** flattens the residual noise spectral shape after reduction.
 
-**Masking Depth:** controls how deeply spectral-masking suppression is applied.
+**Masking Depth:** controls the depth of spectral masking applied.
 
-**Suppression:** sets the overall NR4 suppression strength.
+**Suppression:** sets the overall suppression strength. Higher values are more aggressive.
+
+**Reset Defaults** restores: SPP-MMSE / Adaptive on / 10.0 dB / 0 / 0 / 0.50 / 0.50.
 
 ---
 
-### DFNR tab — DeepFilterNet3
+### DFNR — DeepFilterNet3
 
-DFNR runs DeepFilterNet3, a neural-network filter. It operates on the audio stream and requires no noise-floor estimate. It is the most effective option for intelligibility on crowded bands but has the highest CPU cost of the four engines.
+A neural-network-based noise filter. Suited for strong broadband noise where conventional spectral methods fall short. Has the highest CPU cost of the four engines.
 
 | Control | Kind | Default | Range | Setting key |
 |---|---|---|---|---|
 | Attenuation Limit | Slider | 100 dB | 0–100 dB | `DfnrAttenLimit` |
 | Post-Filter Beta | Slider | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` |
 
-**Attenuation Limit** caps how much attenuation DeepFilterNet3 can apply. At 0 it passes the signal through unchanged; at 100 it applies maximum attenuation. Reduce this on strong signals to prevent over-suppression.
+**Attenuation Limit** sets the maximum noise attenuation DeepFilterNet3 will apply. 0 is passthrough; 100 is maximum attenuation. Reduce this value if the neural filter over-suppresses weak signals.
 
-**Post-Filter Beta** applies an additional post-filter on top of DeepFilterNet3's output for extra suppression. The default of 0.00 disables it. Increase cautiously; high values can degrade speech quality.
+**Post-Filter Beta** adds an extra suppression stage on top of the neural filter output. Leave at 0.00 unless residual noise remains after adjusting Attenuation Limit.
 
 ---
 
-### MNR tab — macOS MMSE-Wiener reduction
+### MNR — macOS only
 
-MNR is an MMSE-Wiener filter with asymmetric gain smoothing. It is available on macOS only.
+An MMSE-Wiener noise reducer with asymmetric gain smoothing, available only on macOS.
 
 | Control | Kind | Default | Range | Setting key |
 |---|---|---|---|---|
-| Enable MNR (macOS only) | Checkbox | Read from audio engine | — | `MnrEnabled` |
+| Enable MNR (macOS only) | Checkbox | (read from audio engine) | — | `MnrEnabled` |
 | Strength | Slider | 100 | 0–100 | `MnrStrength` |
 
-**Enable MNR (macOS only)** activates the engine. The initial state reflects what the audio engine reports, not a stored default.
+**Enable MNR (macOS only)** turns the engine on or off. The initial state reflects the current audio engine state.
 
-**Strength** sets aggressiveness. 0 is mild; 100 is maximum suppression.
+**Strength** sets aggressiveness. 0 is the mildest; 100 is maximum. Persisted internally as a normalised value of 0.00–1.00.
 
----
-
-### Choosing between the engines
-
-| Situation | Suggested engine |
-|---|---|
-| Musical-noise artefacts, warbling in SSB noise | NR2 |
-| Broadband atmospheric or power-line noise | NR4 |
-| Maximum intelligibility, CPU available | DFNR |
-| macOS system audio path, light processing | MNR |
-
-You are not limited to one engine at a time; the tray buttons for each engine activate them independently. Start with one and add a second only if the first is insufficient.
+MNR is not available on Linux or Windows. The **MNR** tab is still present but **Enable MNR (macOS only)** will have no effect on non-macOS systems.
 
 ## Tips
 
-- On the NR2 tab, click **Reset Defaults** to return to Gamma / OSMS / AE Filter on / 1.50 / 0.85 / 0.20 at any point.
-- On the NR4 tab, click **Reset Defaults** to return to SPP-MMSE / adaptive on / 10.0 dB / 0 / 0 / 0.50 / 0.50.
-- The MNR tab is present on all platforms but **Enable MNR (macOS only)** has no effect on Linux or Windows.
-- Setting DFNR **Attenuation Limit** to 0 disables DeepFilterNet3 suppression without closing the dialog, which is useful for A/B comparison.
+- Run only one noise-reduction engine at a time. Chaining multiple engines can cause speech artefacts and adds CPU load.
+- For SSB voice with moderate band noise, start with NR2 at its defaults before trying NR4 or DFNR.
+- If you are on macOS and prefer a lighter CPU load, MNR is the lowest-overhead option.
+- DFNR's Attenuation Limit at 100 dB can suppress very weak signals along with the noise. Reduce it to 40–60 dB on marginal paths.
+- On the NR2 tab, if speech sounds hollow or "underwater", lower **Reduction Depth:** toward 0.80–1.00 or switch **Gain Method** from Gamma to Log.
+- Use **Reset Defaults** on the NR2 or NR4 tab to recover a known-good starting point after experimental changes.
+
+## Troubleshooting
+
+- **Speech sounds hollow or musical artefacts are audible on NR2** — Reduce **Reduction Depth:** or confirm **AE Filter (artifact elimination)** is enabled.
+- **NR4 is not reducing noise enough** — Increase **Reduction (dB):** and enable **Adaptive Noise Estimation** if it is off.
+- **DFNR removes weak signals along with the noise** — Lower **Attenuation Limit** from 100 toward 40–60 dB.
+- **MNR tab is present but has no effect** — MNR is macOS-only. On Linux or Windows, use NR2, NR4, or DFNR instead.
+- **NR2 or NR4 settings did not persist after restart** — Settings are saved automatically on each control change. If values revert, click **Reset Defaults** and re-enter the desired values to force a save.
 
 ## Related
 
@@ -129,6 +132,4 @@ You are not limited to one engine at a time; the tray buttons for each engine ac
 - [Tune NR2 reduction depth and voice threshold](../../features/aether-dsp/tune-nr2-reduction-depth-and-voice-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](../../features/aether-dsp/switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](../../features/aether-dsp/change-nr2-noise-power-estimator-osms-mmse-nstat.md)
-- [Adjust NR4 reduction amount in dB](../../features/aether-dsp/adjust-nr4-reduction-amount-in-db.md)
-- [Enable or disable NR4 adaptive noise estimation](../../features/aether-dsp/enable-or-disable-nr4-adaptive-noise-estimation.md)
-- [Tune NR4 masking depth and suppression strength](../../features/aether-dsp/tune-nr4-masking-depth-and-
+- [Adjust NR4 reduction amount in dB](../../features/aether-dsp/adjust-

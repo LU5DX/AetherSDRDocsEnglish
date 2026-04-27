@@ -1,31 +1,44 @@
 # Pick a mic source (MIC, BAL, LINE, ACC, PC)
 
-Select which physical or virtual microphone input the FLEX-8600 uses for transmission. The correct source depends on how your microphone or audio device is connected to the radio.
+Select which physical or virtual input the radio uses as the microphone source for voice transmissions. The choice determines where the FLEX-8600 takes its TX audio from — the front-panel mic connector, balanced input, line input, accessory port, or the PC's audio system.
 
 ## Before you start
 
 - AetherSDR must be connected to a FLEX-8600 radio.
-- The active slice must be in a voice mode (USB, LSB, AM, FM) so that the Phone sub-panel is visible in the Phone/CW applet.
+- The active slice must be in a phone mode (USB, LSB, AM, FM, etc.). The Phone/CW applet shows the Phone sub-panel automatically in voice modes.
 
 ## Steps
 
-1. Locate the **P/CW** tray button on the right sidebar and confirm the Phone/CW applet is visible. If it is not, click the **P/CW** tray button to show it.
-2. In the Phone sub-panel, find the **Mic source** combo box on the left side of the mic gain row.
-3. Click **Mic source** and select one of the available options: **MIC**, **BAL**, **LINE**, **ACC**, or **PC**.
+1. Click the `P/CW` tray button in the right sidebar to open the Phone/CW applet.
+2. Locate the **Mic source** drop-down box in the Phone sub-panel.
+3. Click **Mic source** and select one of the available sources: `MIC`, `BAL`, `LINE`, `ACC`, or `PC`.
 
-The selection takes effect immediately. The radio switches its transmit audio input to the chosen source.
+The selection takes effect immediately on the radio.
 
 ## What each control does
 
 | Control | Description | Default | Valid values | Setting key |
 |---|---|---|---|---|
-| **Mic source** | Selects the microphone input source sent to the radio. | — | MIC, BAL, LINE, ACC, PC | — |
-| **Mic gain** | Adjusts the input level for the selected source (0–100). When **PC** is selected, the value is stored client-side because the radio always reports `mic_level=0` for that source. | 50 | 0–100 | `PcMicGain` (PC source only) |
+| **Mic source** | Selects the microphone input source sent to the radio. | — | `MIC`, `BAL`, `LINE`, `ACC`, `PC` | — |
+| **Mic gain** | Adjusts the microphone input level. When the source is `PC`, the value is stored client-side because the radio always reports a level of 0 for PC sources. | 50 | 0–100 | `PcMicGain` |
+
+**Source descriptions:**
+
+- **MIC** — Front-panel microphone connector.
+- **BAL** — Balanced microphone input.
+- **LINE** — Line-level input.
+- **ACC** — Accessory port microphone input.
+- **PC** — Computer audio system. The radio does not report mic level for this source; AetherSDR stores the gain value locally in `PcMicGain`.
 
 ## Tips
 
-- When you select **PC**, the radio does not report a mic level back to AetherSDR. AetherSDR stores the **Mic gain** value locally using the `PcMicGain` setting and restores it on the next session.
-- The **Mic source** combo box is populated from the radio's available input list. If your radio firmware exposes additional inputs, they will appear alongside the five standard options.
+- When using `PC` as the source, the **Level** meter in the applet is suppressed while not transmitting. Transmit briefly to confirm audio is passing.
+- To mix in the accessory port alongside your primary source, enable the **+ACC** toggle button after selecting your main source.
+
+## Troubleshooting
+
+- **Mic source combo shows no selection or resets** — The list is populated from the radio's reported inputs. If the combo is empty, verify the radio connection is active (`Settings > Connect to Radio...`).
+- **Level meter reads nothing when source is PC** — This is expected. The radio reports `mic_level=0` for PC sources; the gain is managed by `PcMicGain` on the client side.
 
 ## Related
 

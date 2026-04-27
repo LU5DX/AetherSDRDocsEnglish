@@ -1,31 +1,31 @@
 # Tune VOX hang time
 
-VOX hang time controls how long the radio stays in transmit after your voice drops below the VOX threshold. Adjusting it prevents the radio from cutting back to receive too quickly between words.
+The VOX hang time controls how long the radio stays in transmit after your voice drops below the VOX trigger threshold. Adjusting it prevents choppy transmit drop-outs at the end of words while avoiding excessive dead air before returning to receive.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Phone applet is unavailable when disconnected.
-- VOX must be enabled. See [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md).
+- AetherSDR must be connected to the radio. The Phone applet requires an active radio connection.
+- VOX must be enabled. If VOX is not already on, enable it first — see [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md).
 
 ## Steps
 
-1. Open the Phone applet in the Applet Panel. If it is not visible, click the **PHNE** tray button on the right sidebar.
-2. Locate the **Delay** row beneath the VOX level row.
-3. Drag the **Delay** slider left to shorten hang time or right to lengthen it. The numeric readout to the right of the slider updates as you drag.
+1. Open the Phone applet by clicking the **PHNE** tray button in the right sidebar. If the applet panel is hidden, click the panel edge or use `View > Applet Panel` to show it.
+2. Locate the **Delay:** row, directly below the VOX level row.
+3. Drag the **Delay** slider left to shorten hang time or right to lengthen it. The numeric value to the right of the slider updates as you drag.
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| **Delay** | Sets VOX hang time — how long the radio remains in transmit after audio drops below the VOX threshold. | — | 0–100 | — |
+| Control | Description | Valid range | Default |
+|---|---|---|---|
+| **Delay** slider | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100 | — |
 
-No value for the default is available in the catalog. The range is 0 to 100 (unitless scale sent to the radio).
+No setting key is persisted for the Delay slider; the value is sent directly to the radio.
 
 ## Tips
 
-- If the radio drops to receive in the middle of a sentence, increase **Delay**.
-- If the radio stays in transmit too long after you stop speaking, decrease **Delay**.
-- The **Delay** slider has no effect unless **VOX** is enabled.
+- A Delay value that is too low causes the transmitter to drop in and out between words. Raise the value until tail drop-outs stop.
+- A Delay value that is too high keeps the transmitter keyed well after you finish speaking, blocking other stations. Lower the value until the hang is just long enough to cover normal pauses.
+- The VOX level threshold and Delay interact: a more sensitive (lower) VOX level may require a shorter Delay, and vice versa.
 
 ## Related
 

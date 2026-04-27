@@ -1,39 +1,44 @@
-# Autostart DAX on launch
+# Autostart DAX on Launch
 
-Configure AetherSDR to start the DAX audio bridge automatically every time the application launches, so you do not have to manually enable DAX after each restart.
+Enable the `AutoStartDAX` setting so that the DAX audio bridge starts automatically every time AetherSDR opens, without requiring a manual click of Enable each session.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio before DAX streams become active, even if autostart is enabled.
-- DAX autostart is available on macOS and PipeWire-enabled Linux systems.
+- AetherSDR must be connected to a FLEX-8600 radio. The DAX applet requires an active radio connection.
+- The DAX applet must be visible. If it is not, click the **DAX** tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Open the DAX Audio applet by clicking the **DAX** tray button on the right sidebar. If the applet panel is not visible, enable it with `View > Applet Panel`.
-2. To enable autostart via the menu, click `Settings > Autostart DAX with AetherSDR`. A checkmark appears next to the item when autostart is on. This persists the `AutoStartDAX` setting.
-3. Alternatively, click **Enable** inside the DAX Audio applet. Clicking **Enable** both starts the DAX bridge immediately and saves `AutoStartDAX` so the bridge starts automatically on the next launch.
-4. Verify the setting took effect by restarting AetherSDR and confirming that **Enable** appears active (highlighted green) when the DAX Audio applet opens.
+1. Open the DAX applet by clicking the **DAX** tray button on the right sidebar if it is not already visible.
+2. Click **Settings > Autostart DAX with AetherSDR** to place a check mark next to the item. This persists `AutoStartDAX` as `True`.
+3. Confirm the **Enable** button in the DAX applet is checked (lit green). If it is not, click **Enable** to start the bridge for the current session.
+
+On the next launch, AetherSDR will read `AutoStartDAX` and activate the bridge automatically, reflecting the checked state on the **Enable** button.
+
+To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again to remove the check mark.
 
 ## What each control does
 
-| Control | Description | Default | Range | Setting key |
+| Control | What it does | Default | Range | Setting key |
 |---|---|---|---|---|
-| **Enable** | Master toggle for the DAX audio bridge. Starts or stops all DAX RX and TX streams. State is persisted and restored on launch. | Off | On / Off | `AutoStartDAX` |
-| DAX 1 gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxRxGain1` |
-| DAX 2 gain+meter | Combined level meter and gain slider for DAX RX channel 2. | 0.5 | 0.0–1.0 | `DaxRxGain2` |
-| DAX 3 gain+meter | Combined level meter and gain slider for DAX RX channel 3. | 0.5 | 0.0–1.0 | `DaxRxGain3` |
-| DAX 4 gain+meter | Combined level meter and gain slider for DAX RX channel 4. | 0.5 | 0.0–1.0 | `DaxRxGain4` |
-| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. | 0.5 | 0.0–1.0 | `DaxTxGain` |
+| **Enable** (in the DAX applet) | Master toggle. Starts or stops the DAX audio bridge for the current session and persists the state. | Off | On / Off | `AutoStartDAX` |
+| **Settings > Autostart DAX with AetherSDR** | Checkable menu item. When checked, AetherSDR starts the DAX bridge on every launch. | Off (unchecked) | Checked / Unchecked | `AutoStartDAX` |
+| DAX 1 gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain1` |
+| DAX 2 gain+meter | Combined level meter and gain slider for DAX RX channel 2. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain2` |
+| DAX 3 gain+meter | Combined level meter and gain slider for DAX RX channel 3. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain3` |
+| DAX 4 gain+meter | Combined level meter and gain slider for DAX RX channel 4. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain4` |
+| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
 
 ## Tips
 
-- The menu item `Settings > Autostart DAX with AetherSDR` and the **Enable** button inside the applet write to the same `AutoStartDAX` setting. Either method produces the same result.
-- Gain values for all channels (`DaxRxGain1` through `DaxRxGain4` and `DaxTxGain`) are saved independently each time you drag a slider, and are restored at launch regardless of whether autostart is on.
+- The **Enable** button and **Settings > Autostart DAX with AetherSDR** both write the same `AutoStartDAX` key. Clicking either one updates the shared setting.
+- Gain values for all four RX channels and the TX channel are saved independently. Adjusting them before enabling autostart means they will be restored at the same levels on the next launch.
 
 ## Troubleshooting
 
-- **Enable appears active after launch but no audio passes** — DAX streams require an active radio connection. Confirm AetherSDR is connected to the FLEX-8600 before expecting audio. The slice-assignment indicator next to each channel will show `—` if no slice is routed to that channel.
-- **`Settings > Autostart DAX with AetherSDR` is missing** — This menu item is only present on supported platforms (macOS and PipeWire-enabled Linux). On unsupported systems, use the **Enable** button in the applet each session.
+- **The DAX applet is not visible** — Click the **DAX** tray button on the right sidebar to show it.
+- **Enable is checked but the bridge does not start on the next launch** — Verify that **Settings > Autostart DAX with AetherSDR** has a check mark. Clicking **Enable** in the applet alone sets the bridge state for the current session and persists `AutoStartDAX`, but confirming the menu item is checked ensures the autostart path runs at launch.
+- **The Enable button is unchecked after launch despite autostart being on** — This can occur if AetherSDR launches before a radio connection is established. The DAX applet requires a connected radio. Connect to the radio and click **Enable** manually, or allow AetherSDR to connect before checking the bridge state.
 
 ## Related
 

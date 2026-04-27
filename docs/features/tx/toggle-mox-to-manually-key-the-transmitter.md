@@ -1,41 +1,44 @@
 # Toggle MOX to manually key the transmitter
 
-MOX lets you key the transmitter manually, without a footswitch or PTT line. Use it when you need continuous carrier for testing, net check-ins, or any situation where you want direct software control of TX.
+MOX lets you key the transmitter without a footswitch or PTT line. Use it to check audio, test your signal, or transmit when hardware PTT is unavailable.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. MOX requires an active radio connection.
-- Open the TX Controls applet. Click the TX tray button on the right sidebar, or confirm the applet is already visible in the Applet Panel.
+- AetherSDR must be connected to the radio. MOX has no effect when the radio is offline.
+- Confirm your TX profile and RF Power level are set correctly before keying.
 
 ## Steps
 
-1. In the TX Controls applet, locate the row containing TUNE, MOX, ATU, and MEM.
-2. Click MOX to key the transmitter. The button turns red to confirm TX is active.
-3. Click MOX again to return to receive. The button returns to its default (blue off) state.
+1. If the TX Controls applet is not visible, click the **TX** tray button on the right sidebar to show it.
+2. Locate the **MOX** button in the button row alongside TUNE, ATU, and MEM.
+3. Click **MOX** to key the transmitter. The button turns red while TX is active.
+4. Click **MOX** again to unkey the transmitter. The button returns to its unlit state.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| MOX | Toggle button | Toggles manual transmit. Red when TX is keyed; blue (off) when in receive. |
-| RF Pwr | Meter | Displays forward power at the exciter output. Scale: 0–120 W (barefoot); red above 100 W. |
-| SWR | Meter | Displays standing wave ratio. Red above 2.5. |
+| Control | Behavior | Default | Range |
+|---------|----------|---------|-------|
+| **MOX** | Toggles manual transmit on or off. Button goes red while the transmitter is keyed. | Off | Off / On (red) |
+| **RF Power** | Sets the transmit RF power level sent to the radio. | 100 | 0–100 |
+| **RF Pwr** meter | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W). | — | 0–120 W / 0–600 W |
+| **SWR** meter | Displays standing wave ratio at the exciter. Turns red above 2.5. | — | 1.0–3.0 |
 
 ## Tips
 
-- Watch the RF Pwr and SWR meters while MOX is active to confirm expected output and a safe SWR.
-- MOX keys the transmitter regardless of mode. Make sure your microphone, keyer, or audio source is configured before engaging MOX on a live frequency.
-- To transmit a clean carrier for SWR checks, use TUNE with the Tune Pwr slider instead of MOX. See [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md).
+- Watch the **RF Pwr** and **SWR** meters as soon as you key MOX. If SWR exceeds 2.5 (red zone), unkey immediately and investigate your antenna system.
+- Set **RF Power** to a low value before using MOX for the first time on a new band.
+- MOX keys the radio into full-power transmit in whatever mode is active. If you only need to check SWR or tune an ATU, use **TUNE** instead — it transmits a carrier at the lower **Tune Pwr** level.
 
 ## Troubleshooting
 
-- **MOX button does not respond** — The radio connection may be inactive. Check the connection status and reconnect via `Settings > Connect to Radio...`.
-- **MOX activates but RF Pwr reads zero** — RF Power slider may be set to 0. Increase the RF Power slider before keying.
-- **MOX stays red after clicking** — A SmartSDR protocol update from the radio may be holding TX state. Click MOX once more to toggle off; if the button remains red, check for a stuck PTT source on the radio.
+- **MOX button is unresponsive** — Confirm AetherSDR is connected to the radio. The TX Controls applet requires an active radio connection.
+- **Transmitter keys but no RF power is shown** — Check that **RF Power** is not set to 0 and that the correct TX profile is loaded in the **TX Profile** selector.
+- **Radio stays in transmit after clicking MOX a second time** — Another PTT source (footswitch, VOX, CAT command) may be holding the radio keyed. Check external PTT hardware and any connected CAT clients.
 
 ## Related
 
 - [TX Controls overview](overview.md)
 - [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md)
 - [Set RF output power](set-rf-output-power.md)
+- [Run the internal ATU](run-the-internal-atu.md)
 - [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)

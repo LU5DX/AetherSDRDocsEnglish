@@ -1,50 +1,44 @@
 # Enable iambic paddle keying
 
-Iambic paddle keying lets you use a dual-paddle key with the FLEX-8600's built-in iambic keyer. This page explains how to turn on the iambic mode from AetherSDR's Phone/CW applet.
+Enable the radio's built-in iambic keyer so that a dual-lever paddle connected to the FLEX-8600 keys CW using the iambic mode. This lets you set keying speed and break-in behavior from within AetherSDR.
 
 ## Before you start
 
-- The radio must be connected. The Phone/CW applet is not available without an active radio connection.
-- The active slice must be in a CW mode. The CW sub-panel only appears when the slice mode is CW; in voice modes the applet shows the Phone controls instead.
-- Your paddle must be physically connected to the radio's KEY jack.
+- AetherSDR must be connected to a FLEX-8600 radio.
+- The active slice must be in a CW mode. The Phone/CW applet automatically switches to the CW sub-panel when a CW slice is active.
+- A dual-lever paddle must be physically connected to the FLEX-8600's key jack.
 
 ## Steps
 
-1. Click the **P/CW** tray button on the right sidebar to open the Phone/CW applet. If the applet is already visible, skip this step.
-2. Confirm the CW sub-panel is showing. If you see mic and processor controls instead, switch the active slice to a CW mode first.
-3. Click **Iambic** to toggle it on. The button highlights when iambic mode is active.
+1. Click the **P/CW** tray button in the right sidebar to open the Phone/CW applet. If the applet is already visible, skip this step.
+2. Confirm the CW sub-panel is showing. If the active slice is in CW mode, the applet displays CW controls including **Iambic**, **Speed (CW)**, **Delay (CW)**, and **Breakin**.
+3. Click **Iambic** to enable the iambic paddle keyer. The button highlights when active.
 
 ## What each control does
 
-| Control | Description | Default | Range | Setting key |
+| Control | Description | Default | Valid range | Setting key |
 |---|---|---|---|---|
 | **Iambic** | Toggles the iambic paddle keyer on the radio. | — | On / Off | — |
-| **Speed (CW)** | Sets the keying speed. | — | 5–100 WPM | — |
-| **Delay (CW)** | Sets the CW break-in delay. | — | 0–2000 ms (step 10) | — |
+| **Speed (CW)** | Sets CW keying speed. | — | 5–100 WPM | — |
+| **Delay (CW)** | Sets CW break-in delay. | — | 0–2000 ms (step 10) | — |
 | **Breakin** | Toggles full break-in (QSK). | — | On / Off | — |
 | **Pitch < / >** | Steps the CW sidetone and decode pitch by 10 Hz. | 600 Hz | 100–6000 Hz | — |
-| **Sidetone** | Toggles the radio's CW sidetone monitor. | — | On / Off | — |
-| **Sidetone volume** | Sets the radio CW monitor volume. | — | 0–100 | — |
-| **Local STn** | Toggles a client-side low-latency CW sidetone (~10 ms latency). | Off | On / Off | `CwLocalSidetoneEnabled` |
-| **Local sidetone volume** | Sets the local sidetone volume independently of the radio monitor. | 50 | 0–100 | `CwLocalSidetoneVolume` |
-| **Follow (local pitch)** | When on, the local sidetone pitch tracks the radio CW pitch. When off, the manual pitch slider is enabled. | On | On / Off | `CwLocalSidetonePitchFollow` |
-| **Local sidetone pitch** | Manual pitch for the local sidetone in Hz; only active when Follow is off. | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` |
 
 ## Tips
 
-- For the fastest audible feedback while paddling, enable **Local STn** in addition to or instead of **Sidetone**. The local sidetone is generated client-side at approximately 10 ms latency, compared to the DAX-fed radio monitor which carries more audio pipeline delay.
-- If you want the local sidetone pitch to match what the radio decodes, leave **Follow (local pitch)** on. Turn it off only if you want to set a different pitch for your ear.
+- For low-latency sidetone feedback when using a paddle, enable **Local STn** in the same CW sub-panel. The client-side sidetone has approximately 10 ms latency, which is significantly less than the radio's DAX-fed monitor path. See [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md).
+- Adjust **Speed (CW)** before enabling **Iambic** to avoid sending at an unexpected rate. See [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md).
+- If you want full QSK operation, also enable **Breakin**. To set a hang time instead, disable **Breakin** and set **Delay (CW)** to a non-zero value. See [Set CW break-in delay](set-cw-break-in-delay.md).
 
 ## Troubleshooting
 
-- **CW sub-panel is not visible** — The active slice is not in CW mode. Change the slice mode to CW; the applet switches automatically.
-- **Iambic button is visible but paddle does not key** — Verify the paddle is connected to the radio's KEY jack and that the radio firmware recognizes the connection. AetherSDR only sets the keyer mode; the physical connection is handled by the radio.
+- **The CW sub-panel is not visible, only Phone controls appear** — The active slice is not in a CW mode. Switch the slice mode to CW or CW-USB/CW-LSB on the radio or in AetherSDR; the applet will switch automatically.
+- **Iambic button is present but the paddle does not key** — Verify the paddle is connected to the correct key jack on the FLEX-8600. The iambic keyer is a radio-side function; AetherSDR sends the enable command but physical keying depends on the hardware connection.
 
 ## Related
 
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
 - [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Set CW break-in delay](set-cw-break-in-delay.md)
+- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
-- [Make the local sidetone pitch follow the radio's CW pitch, or set it manually with the slider](make-the-local-sidetone-pitch-follow-the-radio-s-cw-pitch-or-set-it-manually-with-the-slider.md)

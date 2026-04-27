@@ -1,37 +1,36 @@
 # Bypass every RX stage at once
 
-Use the BYPASS control to mute the entire RX DSP chain in one click — useful for a quick A/B check of what the client-side processing is doing to incoming audio.
+Use the BYPASS button to disable all RX chain stages in a single click, without losing track of which stages were active. Clicking BYPASS again restores only the stages that were enabled before.
 
 ## Before you start
 
 - The Aetherial Audio Chain applet must be visible. If it is not, click the PUDU tray button in the right sidebar to show the container.
-- The RX chain must be the active view. If TX is currently shown, you need to switch to RX first.
+- You must be viewing the RX chain. The BYPASS button acts on whichever chain side is currently shown.
 
 ## Steps
 
-1. Click RX in the applet header row. The RX chain strip becomes visible, showing the EQ, GATE, COMP, TUBE, and PUDU stages between the RADIO and SPEAK status tiles.
-2. Click BYPASS. The button highlights in amber and every currently-enabled RX stage is disabled at once. The snapshot of which stages were on is saved internally.
-3. To restore the chain, click BYPASS again. Only the stages that were enabled before the bypass was applied are re-enabled.
+1. In the Aetherial Audio Chain applet header, click **RX**. The RX chain stages appear below.
+2. Click **BYPASS**. The button changes to its checked appearance (amber border and fill). Every stage in the RX chain is disabled immediately. AetherSDR snapshots which stages were enabled at the moment you clicked.
+3. To restore the previous stage states, click **BYPASS** again. Only the stages that were enabled before the bypass are re-enabled.
 
 ## What each control does
 
-| Control | Kind | Default | Behavior | Setting key |
+| Control | Kind | Default | Persisted key | Behavior |
 |---|---|---|---|---|
-| RX | Toggle button | Unchecked | Switches the applet to show and edit the RX DSP chain. Persists the active tab. | `PooDooAudioActiveTab` |
-| TX | Toggle button | Checked | Switches the applet to show and edit the TX DSP chain. Persists the active tab. | `PooDooAudioActiveTab` |
-| BYPASS | Toggle button | Unchecked | Checked: snapshots enabled RX stages and disables all of them. Unchecked: re-enables only the stages that were on before. TX and RX maintain separate snapshots. | None |
-| RX chain stage (EQ / GATE / COMP / TUBE / PUDU) | Drag handle | — | Single-click toggles bypass for that individual stage; double-click opens its frameless editor; drag reorders the chain. | `ClientCompRxChainStages` |
+| **RX** | Toggle button | Unchecked | `PooDooAudioActiveTab` | Switches the applet to show the RX chain. Required before BYPASS acts on RX stages. The last-active tab is saved as `TX` or `RX`. |
+| **BYPASS** | Toggle button | Unchecked | — | Checked: snapshots currently-enabled RX stages and disables all of them. Unchecked: re-enables only the stages that were on before. TX and RX maintain separate snapshots. |
+| RX chain stage (EQ / GATE / COMP / TUBE / PUDU) | Drag handle | — | `ClientCompRxChainStages` | Single-click toggles bypass on an individual stage. Stages toggled manually while BYPASS is active are preserved independently of the snapshot. |
 
 ## Tips
 
-- TX and RX keep entirely separate bypass snapshots. Engaging BYPASS on RX has no effect on the TX chain, and vice versa.
-- If you toggle an individual stage manually while BYPASS is active, that change is preserved outside the snapshot and will not be reversed when you lift the bypass.
-- The visual checked state of BYPASS tracks whichever side (TX or RX) is currently shown. Switching to TX while RX bypass is active will reflect the TX bypass state, not the RX one.
+- TX and RX keep separate BYPASS snapshots. Activating BYPASS on the RX chain does not affect the TX chain, and vice versa.
+- If you manually toggle an individual stage while BYPASS is checked, that change is preserved outside the snapshot and will not be reversed when you uncheck BYPASS.
+- The BYPASS checked state shown in the header tracks whichever chain side is currently visible. Switch to TX and back to RX to confirm the RX BYPASS state at a glance.
 
 ## Troubleshooting
 
-- **BYPASS appears checked after switching from RX to TX** — Each side has its own bypass state. What you see reflects the active chain. Switch back to RX to see or change the RX bypass state.
-- **Stages remain disabled after clicking BYPASS a second time** — A stage toggled manually while BYPASS was active sits outside the snapshot and will not be automatically restored. Click each affected stage individually to re-enable it.
+- **BYPASS appears checked but some stages are still active** — You may have toggled individual stages manually after engaging BYPASS. Those manual changes are independent of the snapshot. Uncheck and re-check BYPASS to take a fresh snapshot of the current stage states.
+- **Clicking BYPASS re-enables stages you did not expect** — The snapshot was taken when BYPASS was first checked. Only the stages that were enabled at that moment are restored. Any stages you disabled before engaging BYPASS will remain off.
 
 ## Related
 

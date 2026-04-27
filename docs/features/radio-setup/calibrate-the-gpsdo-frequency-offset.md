@@ -1,32 +1,33 @@
 # Calibrate the GPSDO frequency offset
 
-Use this page to adjust the frequency reference calibration on your FLEX-8600. Correcting the offset improves receive and transmit frequency accuracy across all bands.
+Use this page to correct the frequency reference of your FLEX-8600 using the built-in GPSDO calibration controls. Accurate frequency calibration reduces dial error across all bands.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The RX tab is not accessible while disconnected.
-- Identify a known-accurate reference signal to calibrate against (for example, a WWV carrier or GPS-disciplined standard).
+- AetherSDR must be connected to the radio. The RX tab in Radio Setup is only available when a radio connection is active.
+- Your radio must have a GPSDO installed and locked before calibration results will be meaningful.
 
 ## Steps
 
-1. Go to `Settings > Radio Setup...`.
+1. Open `Settings > Radio Setup...`.
 2. Click the **RX** tab.
-3. In **Cal Frequency (MHz):**, enter the frequency of your reference signal.
+3. In **Cal Frequency (MHz):**, enter the frequency of a known-accurate reference signal.
 4. Click **Start** to begin the calibration sweep.
-5. When the sweep completes, review the result. If you need to apply a manual correction instead, enter the desired value directly in **Freq Offset (ppb):**.
+5. When the sweep completes, review the measured offset shown in **Freq Offset (ppb):**.
+6. If you prefer to set the offset manually rather than using the sweep result, edit **Freq Offset (ppb):** directly.
 
 ## What each control does
 
-| Control | Description | Default | Valid range |
-|---|---|---|---|
-| **Cal Frequency (MHz):** | Frequency used for the calibration sweep. Set this to your reference signal's frequency. | — | — |
-| **Start** | Begins the frequency calibration sweep against the entered cal frequency. | — | — |
-| **Freq Offset (ppb):** | Manual frequency offset applied to the reference oscillator, in parts per billion. Adjust this if automatic calibration is not available. | — | — |
-| **10 MHz Reference Source:** | Selects whether the radio uses its internal oscillator or an external 10 MHz input as the frequency reference. | — | Internal \| External |
+| Control | Kind | Description |
+|---|---|---|
+| **Cal Frequency (MHz):** | Spinbox | The reference frequency used during the calibration sweep. Set this to a known-accurate signal — for example, a broadcast standard-frequency station. |
+| **Start** | Push button | Initiates the calibration sweep at the frequency entered in **Cal Frequency (MHz):**. |
+| **Freq Offset (ppb):** | Spinbox | The frequency offset applied to the radio's reference oscillator, in parts per billion. Can be set by the sweep or entered manually. |
+| **10 MHz Reference Source:** | Combo box | Selects whether the radio uses its **Internal** or an **External** 10 MHz reference. Valid values: `Internal` \| `External`. |
 
 ## Tips
 
-- If you have an external 10 MHz reference connected to the radio's rear-panel input, switch **10 MHz Reference Source:** to External before calibrating. This may make manual offset correction unnecessary.
+- If you intend to use an external 10 MHz reference instead of the GPSDO, set **10 MHz Reference Source:** to `External` before calibrating, so the offset applies to the correct source.
 
 ## Related
 

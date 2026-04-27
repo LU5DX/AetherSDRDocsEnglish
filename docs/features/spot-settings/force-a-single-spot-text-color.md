@@ -1,40 +1,36 @@
 # Force a single spot text color
 
-By default, AetherSDR colors each DX spot according to its source or mode. This page explains how to override that behavior and display all spot text in one color of your choosing.
+Override the per-spot colors assigned by your DX cluster source and render all spot labels in one chosen color instead. Useful when the default colors clash with your panadapter theme or are hard to read.
 
 ## Before you start
 
-- Spots must be enabled. If the "Spots:" toggle shows "Disabled", see [Turn spots on or off](turn-spots-on-or-off.md) first.
+- Spots must be enabled. If the `IsSpotsEnabled` toggle reads "Disabled", enable it first — see [Turn spots on or off](turn-spots-on-or-off.md).
 - Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter.
 
 ## Steps
 
-1. In the Spot Settings dialog, locate the "Override Colors:" row.
-2. Click the toggle button so it reads "Enabled". This activates `IsSpotsOverrideColorsEnabled` and forces all spot text to a single color.
-3. Click the small color swatch button immediately to the right of the "Enabled" toggle. A color picker dialog opens.
-4. Select the color you want and confirm. The swatch updates to reflect your choice, and all spot text on the panadapter changes immediately.
+1. In the Spot Settings dialog, locate the **Override Colors:** row.
+2. Click the toggle button so it reads **Enabled**. This persists as `IsSpotsOverrideColorsEnabled`.
+3. Click the color swatch button immediately to the right of **Enabled**. A color picker dialog opens.
+4. Select the color you want for all spot text labels, then click **OK**.
+5. The swatch updates to show your chosen color. All spots on the panadapter immediately render in that color. The chosen value is persisted as `SpotsOverrideColor`.
+
+To revert to per-spot colors, click the **Override Colors:** toggle again so it reads **Disabled**.
 
 ## What each control does
 
-| Control | What it does | Default | Setting key |
+| Control | Default | Persisted key | Behavior |
 |---|---|---|---|
-| Override Colors: toggle | Enables or disables single-color override for all spot text. | Disabled | `IsSpotsOverrideColorsEnabled` |
-| Spot text color picker | Opens the color picker dialog to select the override text color. | `#FFFF00` | `SpotsOverrideColor` |
+| **Override Colors:** toggle | Disabled | `IsSpotsOverrideColorsEnabled` | When Enabled, forces all spot text to a single color instead of source-assigned colors. |
+| Spot text color picker (swatch button) | `#FFFF00` | `SpotsOverrideColor` | Opens the color picker dialog. The selected color is applied to all spot labels when Override Colors is Enabled. |
 
 ## Tips
 
-- The color you pick is saved immediately. There is no separate Save button.
-- If you want high contrast, choose a color that differs from your panadapter background. Yellow (`#FFFF00`) is the default because it reads clearly on dark backgrounds.
-- The override applies to all spots regardless of their source (DX cluster, RBN, WSJTX, etc.).
-
-## Troubleshooting
-
-- **Toggle shows "Enabled" but spot colors have not changed** — Confirm that "Spots:" is set to "Enabled" in the same dialog. If spots are disabled, the override has no visible effect.
-- **Color picker closes without changing the swatch** — You dismissed the dialog without confirming a color. Click the swatch button again and select a color before closing.
+- The color picker only takes effect while **Override Colors:** reads **Enabled**. You can pre-select a color while the toggle is still Disabled; it will apply the next time you enable the override.
+- If spot text is still hard to read after setting the color, adjust the background contrast using the **Override Background:** controls — see [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md) and [Adjust spot background opacity](adjust-spot-background-opacity.md).
 
 ## Related
 
 - [Turn spots on or off](turn-spots-on-or-off.md)
 - [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md)
 - [Adjust spot background opacity](adjust-spot-background-opacity.md)
-- [Enlarge or shrink the spot font](enlarge-or-shrink-the-spot-font.md)

@@ -1,32 +1,34 @@
 # Set the TX audio high-cut frequency
 
-Use the Phone applet to raise or lower the upper edge of the TX audio passband. Narrowing the high-cut removes high-frequency hiss; widening it improves audio fidelity on modes that support it.
+Use the Phone applet to raise or lower the upper boundary of the TX audio passband. Narrowing the high-cut reduces transmitted bandwidth; raising it passes more high-frequency audio content.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The Phone applet requires an active radio connection.
-- Make sure the applet panel is visible. If it is not, click the PHNE tray button on the right sidebar, or go to `View > Applet Panel`.
+- AetherSDR must be connected to the radio. The Phone applet requires an active radio connection.
+- The radio must be in a phone mode (SSB, AM, or similar) for TX filter changes to have audible effect.
 
 ## Steps
 
-1. Click the **PHNE** tray button on the right sidebar to open the Phone applet.
-2. Locate the **High Cut** section in the TX filter area at the bottom of the applet.
-3. Click **>** to increase the high-cut frequency by 50 Hz, or click **<** to decrease it by 50 Hz.
-   - Alternatively, hover over the frequency value and scroll the mouse wheel to step in the same 50 Hz increments.
-4. Read the current value from the numeric display between the **<** and **>** buttons.
+1. If the Phone applet is not visible, click the **PHNE** tray button in the right sidebar to show it.
+2. Locate the **High Cut** column on the right side of the TX filter section, below the DEXP row.
+3. Click **>** to increase the high-cut frequency by 50 Hz, or click **<** to decrease it by 50 Hz. You can also scroll the mouse wheel over the value display to step in either direction.
+4. Read the current value in the numeric display between the **<** and **>** buttons.
 
 ## What each control does
 
-| Control | Default | Valid range | Notes |
+| Control | Description | Default | Valid range |
 |---|---|---|---|
-| **High Cut `<`** | — | Steps down by 50 Hz | Cannot go below (low-cut + 50) Hz |
-| **High Cut `>`** | — | Steps up by 50 Hz | Upper limit is 10000 Hz |
-| High Cut value display | 3300 Hz | (low-cut + 50) to 10000, step 50 Hz | Read-only numeric display; also accepts mouse wheel |
+| **High Cut `<`** | Decreases the TX filter high-cut frequency by one step. | — | — |
+| **High Cut `>`** | Increases the TX filter high-cut frequency by one step. | — | — |
+| High Cut value display | Shows the current high-cut frequency in Hz. | 3300 Hz | (low-cut + 50) to 10000 Hz, in 50 Hz steps |
+
+The high-cut frequency cannot be set below the current low-cut frequency plus 50 Hz. For example, if low-cut is set to 100 Hz, the minimum high-cut value is 150 Hz.
 
 ## Tips
 
-- The high-cut floor is always 50 Hz above the current low-cut value. If the high-cut will not step down further, lower the low-cut first.
-- For standard SSB voice, a high-cut of 2800–3000 Hz reduces splatter on adjacent channels while keeping speech intelligible.
+- Each click of **<** or **>** moves the frequency by exactly 50 Hz. For larger changes, hold the mouse button down or use the scroll wheel with rapid movement.
+- A typical SSB passband uses a low-cut of 50 Hz and a high-cut of 3300 Hz. Reducing high-cut to around 2700–2800 Hz can improve intelligibility in noisy conditions by removing high-frequency hiss.
+- The high-cut setting is not persisted by AetherSDR's local settings — it is sent directly to the radio and stored in the radio's active profile.
 
 ## Related
 

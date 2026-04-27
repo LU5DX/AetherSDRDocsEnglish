@@ -1,69 +1,50 @@
 # Measure RTT and packet drops during audio problems
 
-Use the Network Diagnostics dialog to read current round-trip time and per-category packet drop counts while you reproduce an audio problem. This lets you distinguish a network path issue from a local audio configuration issue.
+Use the Network Diagnostics dialog to read live round-trip time and per-category packet-drop counts while audio problems occur. This lets you distinguish network loss from other causes such as buffer starvation or jitter.
 
 ## Before you start
 
-- AetherSDR must be running. The dialog does not require an active radio connection, but most indicators will be empty until the radio is connected.
-- Reproduce or be ready to reproduce the audio problem so you can observe the values live.
+- AetherSDR must be running. The dialog does not require an active radio connection, but RTT and drop counters are only meaningful while connected.
+- Reproduce or wait for the audio problem to occur before reading the counters — drop counts accumulate since connect and RTT reflects the current moment.
 
 ## Steps
 
 1. Click `Settings > Network...` to open the Network Diagnostics dialog.
-2. Look at **Latency (RTT)** in the Network Status group. This shows the current round-trip time to the radio in milliseconds. Values below 1 ms are shown as `< 1 ms`.
-3. Look at **Max Latency (RTT)**. This shows the highest RTT recorded since the radio connected. A large gap between **Latency (RTT)** and **Max Latency (RTT)** indicates periodic spikes on the network path.
-4. Look at the **Audio** row under the Packet Loss (Sequence Gaps) group. The value shows dropped packets versus total packets and a percentage. Any non-zero percentage during audio problems points to packet loss on the UDP path.
-5. Check **FFT**, **Waterfall**, **Meters**, and **DAX** drop rows in the same group to determine whether loss is specific to the audio stream or affects all categories.
-6. Click Close when finished.
+2. Read `Latency (RTT)` for the current round-trip time to the radio.
+3. Read `Max Latency (RTT)` for the highest RTT recorded since the connection was established.
+4. Under the **Packet Loss (Sequence Gaps)** section, read the `Audio` drop counter. The value shows dropped packets, total packets, and a loss percentage.
+5. Check the `FFT`, `Waterfall`, `Meters`, and `DAX` drop rows in the same section to see whether loss is isolated to audio or affects all streams.
+6. Click `Close` when finished.
 
 ## What each control does
 
-| Indicator | Group | Meaning |
-|---|---|---|
-| **Status** | Network Status | Overall link state. |
-| **Target Radio IP** | Network Status | IP address of the connected radio. Shows `Not connected` when no radio is connected. |
-| **Selected Source** | Network Status | Local network interface or bind path used for the connection. |
-| **Local TCP** | Network Status | Local TCP endpoint in use. |
-| **Local UDP** | Network Status | Local UDP endpoint in use. |
-| **First UDP Packet** | Network Status | Whether the first UDP packet has been received (`Yes` or `No`). |
-| **Latency (RTT)** | Network Status | Current round-trip time, updated every second. |
-| **Max Latency (RTT)** | Network Status | Highest RTT seen since connect. |
-| **Audio** (rate) | Incoming Stream Rates | Audio stream ingress rate in kbps. |
-| **FFT** (rate) | Incoming Stream Rates | FFT stream ingress rate in kbps. |
-| **Waterfall** (rate) | Incoming Stream Rates | Waterfall stream ingress rate in kbps. |
-| **Meters** (rate) | Incoming Stream Rates | Meters stream ingress rate in kbps. |
-| **DAX** (rate) | Incoming Stream Rates | DAX stream ingress rate in kbps. |
-| **Total RX** | Incoming Stream Rates | Aggregate inbound bytes per second across all categories. |
-| **Total TX** | Incoming Stream Rates | Aggregate outbound bytes per second. |
-| **Audio** (drops) | Packet Loss (Sequence Gaps) | Audio dropped packets / total packets (percentage). Inferred from VITA sequence number gaps. |
-| **FFT** (drops) | Packet Loss (Sequence Gaps) | FFT dropped packets / total packets (percentage). |
-| **Waterfall** (drops) | Packet Loss (Sequence Gaps) | Waterfall dropped packets / total packets (percentage). |
-| **Meters** (drops) | Packet Loss (Sequence Gaps) | Meters dropped packets / total packets (percentage). |
-| **DAX** (drops) | Packet Loss (Sequence Gaps) | DAX dropped packets / total packets (percentage). |
-| **RX Buffer Now** | Audio Playback | Current audio buffer fill in bytes and milliseconds. |
-| **RX Buffer Peak** | Audio Playback | Peak audio buffer fill since connect. |
-| **Underruns (total)** | Audio Playback | Cumulative audio buffer underrun count. |
-| **Underruns (last sec)** | Audio Playback | Underruns recorded in the most recent one-second interval. |
-| **Audio Arrival Gap** | Audio Playback | Current inter-packet arrival timing. |
-| **Max Arrival Gap** | Audio Playback | Largest inter-packet arrival gap seen since connect. |
-| **Network Jitter** | Audio Playback | Smoothed jitter estimate for the audio stream. |
+| Indicator | Meaning |
+|---|---|
+| `Latency (RTT)` | Current round-trip time to the radio. Displays `< 1 ms` when below 1 ms. |
+| `Max Latency (RTT)` | Highest RTT seen since connect. Displays `< 1 ms` when below 1 ms. |
+| `Audio` (Packet Loss) | Dropped packets / total packets (loss %) for the audio stream, inferred from missing VITA sequence numbers. |
+| `FFT` (Packet Loss) | Same metric for the FFT stream. |
+| `Waterfall` (Packet Loss) | Same metric for the waterfall stream. |
+| `Meters` (Packet Loss) | Same metric for the meters stream. |
+| `DAX` (Packet Loss) | Same metric for the DAX stream. |
+| `Status` | Overall link state. |
 
-All values refresh once per second.
+All counters refresh once per second.
 
 ## Tips
 
-- Zero drops in the Packet Loss group does not rule out the problem. Large swings in the rate rows under Incoming Stream Rates can indicate bursty delivery without sequence-number gaps. Check **Audio Arrival Gap** and **Network Jitter** in the Audio Playback group to detect timing problems that do not show as drops.
-- If **Underruns (total)** is climbing while **RX Buffer Now** is near zero, the audio playback side is starving. This points to a local audio configuration issue rather than network packet loss. See [Diagnose audio underruns and jitter](../../troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md).
-- If drops appear across all categories (Audio, FFT, Waterfall, Meters), the problem is likely the network path rather than radio-side audio processing.
+- Zero loss in the Packet Loss section does not rule out the problem. Jitter and bursty late delivery can cause audio breaks without triggering sequence-number gaps. If drops are zero but audio is still broken, check `Underruns (total)`, `Underruns (last sec)`, `Audio Arrival Gap`, `Max Arrival Gap`, and `Jitter Estimate` in the **Audio Playback** section.
+- `Max Latency (RTT)` is more useful than the current RTT for catching transient spikes that have already passed.
+- Loss that appears on all stream categories simultaneously points to a shared network path problem rather than an audio-specific issue.
 
 ## Troubleshooting
 
-- **All indicators show empty or zero immediately after opening the dialog** — The radio is not connected. Connect to the radio first, then reopen the dialog via `Settings > Network...`.
-- **Latency (RTT) shows `< 1 ms` but audio is still poor** — RTT reflects TCP ping timing. UDP audio packet timing is separate. Check **Audio Arrival Gap**, **Max Arrival Gap**, and **Network Jitter** for UDP delivery problems.
+- **All drop counters show 0 / 0** — No VITA packets have been received in that category. Confirm the radio is connected and transmitting the relevant streams.
+- **RTT reads `< 1 ms` but audio is broken** — Network latency is not the cause. See the Audio Playback section for underrun and jitter data.
 
 ## Related
 
-- [Check per-category data rates (audio, FFT, waterfall, meters, DAX)](check-per-category-data-rates-audio-fft-waterfall-meters-dax.md)
 - [Diagnose audio underruns and jitter](../../troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md)
-- [Verify the radio's IP and local bind address](verify-the-radio-s-ip-and-local-bind-address.md)
+- [Check per-category data rates (audio, FFT, waterfall, meters, DAX)](check-per-category-data-rates-audio-fft-waterfall-meters-dax.md)
 - [Network Diagnostics overview](overview.md)
+- [Verify the radio's IP and local bind address](verify-the-radio-s-ip-and-local-bind-address.md)

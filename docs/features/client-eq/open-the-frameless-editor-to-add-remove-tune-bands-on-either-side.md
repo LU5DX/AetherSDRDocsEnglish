@@ -1,52 +1,57 @@
 # Open the Frameless Editor to Add / Remove / Tune Bands on Either Side
 
-The frameless editor is where you add, remove, and adjust individual EQ bands for the TX or RX path. The applet tiles show the resulting curve read-only; all editing happens in this floating window.
+The frameless editor is where you do all active EQ work: adding and removing bands, dragging them to new frequencies and gains, adjusting Q, switching filter types, and selecting a filter family. The applet tiles are view-only; this floating window is the editing surface.
 
 ## Before you start
 
 - The Aetherial Audio (TXDSP) parent container must be visible in the applet panel.
-- The EQ stage for the side you want to edit (TX or RX) must be enabled. If it is not yet enabled, see [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md).
+- The TX or RX EQ stage you want to edit must exist in the CHAIN widget. If the stage is not yet in the chain, add it there first.
 
 ## Steps
 
-1. Locate the CHAIN widget inside the Aetherial Audio (TXDSP) container.
-2. Double-click the EQ stage on the side you want to edit — the TX stage to open "Aetherial Parametric EQ — TX", or the RX stage to open "Aetherial Parametric EQ — RX".
-3. The frameless editor opens at its default size (900 × 520 px). The title bar shows which path is active.
-4. To **add a band**, click an empty slot in the icon row along the top of the canvas area.
-5. To **remove a band**, select it in the icon row or by clicking its handle on the canvas, then use the remove control in that row.
-6. To **tune a band**:
-   - Drag a peak or shelf node on the canvas horizontally to adjust frequency, vertically to adjust gain.
-   - Hold Shift and drag to adjust Q.
-   - Drag an HP or LP node horizontally to adjust frequency; drag vertically to adjust Q.
-   - Click a band icon to cycle its filter type.
-7. To change the filter family used for HP/LP cascade math, select an option from the dropdown in the top-right strip of the editor: **Butterworth**, **Chebyshev**, **Bessel**, or **Elliptic**.
-8. To switch to the other path without closing the editor, double-click the opposite EQ stage in the CHAIN widget. The editor title and content update to reflect the new path.
-9. Close the editor by clicking the close button in the editor's title bar. Band settings are saved automatically to `ClientEqTxBands` or `ClientEqRxBands`.
+1. Locate the CHAIN widget for the side you want to edit (TX or RX).
+2. Double-click the EQ stage in the CHAIN widget for that side.
+   - Double-clicking the TX EQ stage opens the editor titled **Aetherial Parametric EQ — TX**.
+   - Double-clicking the RX EQ stage opens the editor titled **Aetherial Parametric EQ — RX**.
+3. The frameless editor window appears at its default size (900 × 520 px). Its title bar shows which side is active.
+4. To **add a band**, use the icon row along the top of the canvas area. Click the relevant band-type icon to insert a band at a default position.
+5. To **remove a band**, select it in the canvas or parameter row and use the remove control in the icon row.
+6. To **tune a band**, drag it directly on the canvas:
+   - For peak and shelf bands: drag to adjust frequency and gain simultaneously.
+   - For HP/LP bands: drag to adjust frequency and Q.
+   - Hold **Shift** while dragging to adjust Q alone.
+   - Click a band's icon to cycle through filter types.
+7. To change the **filter family** applied to HP/LP cascade math, open the drop-down in the top strip and select one of: **Butterworth**, **Chebyshev**, **Bessel**, or **Elliptic**.
+8. To freeze the analyzer's peak trace while tuning, click **Peak Hold**. Click it again to resume normal decay.
+9. To discard all edits and return to defaults, click **Reset**. This restores the default band count and parameters and sets the filter family back to Butterworth. The reset saves immediately.
+10. To close the editor, use the close button in the editor's frameless title bar. The applet tiles continue showing the summed curve for their respective sides.
 
 ## What each control does
 
-| Control | Description | Notes |
-|---|---|---|
-| Canvas | Interactive frequency-response display. Drag band nodes to tune. | Editing target; the applet tile is view-only. |
-| Icon row | One icon per band. Click to select or cycle filter type. | Rebuilds when bands are added or removed. |
-| Parameter row | Numeric readout and entry for the selected band's frequency, gain, and Q. | Updates live during canvas drags. |
-| Filter family dropdown | Sets HP/LP cascade math for the active path. Options: **Butterworth**, **Chebyshev**, **Bessel**, **Elliptic**. Default: Butterworth. | Applies only to HP and LP band types; peaks and shelves use fixed second-order topology. |
-| Output fader | Vertical slider and meter on the right edge. Sets master output gain for the active path. | Adjusts `setMasterGain` for the bound EQ; value saved on change. |
-| Title bar | Displays "Aetherial Parametric EQ — TX" or "— RX". Drag to move the window. | One shared editor instance; title flips when the path changes. |
+| Control | What it does | Default | Persisted key |
+|---|---|---|---|
+| Canvas (drag — peak/shelf) | Adjusts frequency and gain for the selected band | Per-band defaults | `ClientEqRxBands` / `ClientEqTxBands` |
+| Canvas (drag — HP/LP) | Adjusts frequency and Q for the selected band | Per-band defaults | `ClientEqRxBands` / `ClientEqTxBands` |
+| Canvas (Shift + drag) | Adjusts Q only for the selected band | — | `ClientEqRxBands` / `ClientEqTxBands` |
+| Band icon (click) | Cycles the selected band through available filter types | — | `ClientEqRxBands` / `ClientEqTxBands` |
+| Filter family drop-down | Sets the math topology for HP/LP cascades: Butterworth (maximally flat passband), Chebyshev (steeper transition, 1 dB passband ripple), Bessel (linear phase, gentler rolloff), Elliptic (steepest transition, ripple in both bands) | Butterworth | `ClientEqRxBands` / `ClientEqTxBands` |
+| Peak Hold | Freezes the analyzer's per-bin peak trace at its highest observed level | Off (unchecked) | — |
+| Reset | Restores all bands to their default values, resets band count to default, sets filter family to Butterworth, and saves immediately | — | `ClientEqRxBands` / `ClientEqTxBands` |
 
 ## Tips
 
-- The editor reuses a single window instance for both paths. The title bar label is the reliable indicator of which side you are currently editing.
-- The live FFT analyzer inside the editor runs at 25 Hz while the editor is open and stops automatically when you close it.
-- Interaction hints printed at the top of the editor ("Drag peak/shelf = freq + gain · drag HP/LP = freq + Q · Shift + drag for Q · click icon to cycle type") summarize the canvas gestures.
+- The editor is a single shared window reused for both sides. Opening it on the TX side while it is already showing the RX side flips its title and content to TX. You cannot have TX and RX editors open simultaneously.
+- Changes save immediately through the audio engine. Closing the editor does not discard unsaved work.
+- Bypass is not controlled from inside the editor. To enable or bypass an EQ stage, use the CHAIN widget's single-click gesture on that stage.
 
 ## Troubleshooting
 
-- **The EQ stage double-click does nothing** — The EQ stage may be bypassed or the Aetherial Audio container may not be fully loaded. Verify the stage is enabled via the CHAIN widget, then try again.
-- **Band changes are not audible** — Check that `ClientEqRxEnabled` or `ClientEqTxEnabled` is on for the relevant path. A bypassed stage passes audio unmodified regardless of band settings.
+- **Double-clicking the EQ stage does nothing** — the stage may not be fully initialized if no radio connection is active. Connect to a FLEX-8600 and try again.
+- **Peak Hold button stays lit after you stop using it** — click **Peak Hold** again to uncheck it and resume normal analyzer decay.
 
 ## Related
 
+- [Aetherial Parametric EQ (TX / RX) overview](overview.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
 - [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)

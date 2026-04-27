@@ -1,19 +1,18 @@
 # Adjust TCI RX gain per channel
 
-The TCI Server applet provides four independent RX gain sliders — one per channel — so you can control the audio level that TCI clients receive from each active slice.
+The TCI Server applet provides a gain slider for each of its four RX channels. Adjusting these lets you match the audio level that TCI clients (such as Log4OM or SunSDR tools) receive from each slice.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio. The TCI applet requires an active radio connection.
-- The TCI server must be running (Enable toggled on). See [Enable the TCI server for Log4OM / SunSDR clients](enable-the-tci-server-for-log4om-sunsdr-clients.md).
-- Each RX channel you want to adjust must have a slice assigned to it. Unassigned channels show `—` in the slice indicator.
+- The radio must be connected. The TCI applet requires an active radio connection.
+- The TCI Server applet must be visible. If the applet panel is not showing, click the **TCI** tray button on the right sidebar to reveal it.
 
 ## Steps
 
-1. Click the TCI tray button on the right sidebar to open the TCI Server applet.
-2. Locate the **RX1**, **RX2**, **RX3**, or **RX4** row for the channel you want to adjust. The label to the right of the channel name shows which slice is assigned (for example, `Slice A`), or `—` if no slice is assigned.
-3. Drag the meter/slider on that row left to reduce gain or right to increase gain. The valid range is 0.0 to 1.0. The default is 0.5.
-4. Release the drag. The new value is saved immediately to the corresponding setting (`TciRxGain1`, `TciRxGain2`, `TciRxGain3`, or `TciRxGain4`).
+1. Click the **TCI** tray button on the right sidebar to open the TCI Server applet.
+2. Locate the **RX1**, **RX2**, **RX3**, or **RX4** row for the channel you want to adjust. The slice assignment label next to the channel name (for example, `Slice A`) shows which slice is driving that channel. A `—` means no slice is currently assigned.
+3. Drag the meter/slider for that row left or right to set the gain. The value is saved immediately.
+4. Repeat for any other RX channels you want to adjust.
 
 ## What each control does
 
@@ -23,19 +22,21 @@ The TCI Server applet provides four independent RX gain sliders — one per chan
 | RX2 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain2` |
 | RX3 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain3` |
 | RX4 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain4` |
-| Slice indicator | `—` | `—` or `Slice <letter>` | — |
+| Slice assignment label | — | — or `Slice <letter>` | *(not persisted)* |
 
-The meter portion of each RX row displays a live signal level using exponential smoothing — fast attack, slow decay — so brief peaks are visible without the reading being erratic.
-
-The slice indicator for each RX channel follows the DAX channel assignment. If you reassign a slice to a different DAX channel, the RX indicator updates automatically.
+Each meter/slider also displays a live RX level using exponential smoothing — fast attack, slow decay — so the bar reflects signal activity on that channel while the drag position sets the gain.
 
 ## Tips
 
-- Channels with no slice assigned (`—`) carry no audio. Adjusting the gain on an unassigned channel has no audible effect until a slice is assigned to that DAX channel.
-- Gain values are stored as two decimal places (for example, `0.75`). They persist across restarts; you do not need to re-enter them each session.
+- The slice assignment labels (for example, `Slice A`) follow the DAX channel mapping. If a slice's DAX channel assignment changes, the label updates automatically.
+- Gain values are persisted as two-decimal floats (for example, `0.75`). They are restored the next time AetherSDR starts.
+
+## Troubleshooting
+
+- **A channel shows `—` and passes no audio to the TCI client** — No slice is assigned to that DAX channel. Assign a slice to the corresponding DAX channel in your radio setup so TCI RX audio is routed to that channel.
 
 ## Related
 
+- [TCI Server overview](overview.md)
 - [Adjust TCI TX gain](adjust-tci-tx-gain.md)
 - [Enable the TCI server for Log4OM / SunSDR clients](enable-the-tci-server-for-log4om-sunsdr-clients.md)
-- [TCI Server overview](overview.md)

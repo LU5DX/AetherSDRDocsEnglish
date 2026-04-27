@@ -1,43 +1,45 @@
 # Fine-tune the C1/L/C2 relays with the mousewheel
 
-Use the mousewheel over the C1, L, or C2 relay bars to step relay positions up or down by hand. This lets you nudge the tuner network after an autotune or set a starting point manually.
+After an autotune, you can nudge the C1, L, and C2 relay bank positions one step at a time using the mousewheel. This lets you manually walk the tuner through adjacent relay positions to chase a lower SWR without triggering a full retune.
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- A 4O3A Tuner Genius XL must be detected; the TUN tray button appears on the right sidebar only when one is present.
-- The TGXL must be connected via a direct TGXL connection. Mousewheel scrolling on the relay bars is disabled when only a radio-mediated connection is active.
+- A Tuner Genius XL (TGXL) must be detected by AetherSDR. The Tuner applet is hidden until that happens.
+- A **direct TGXL connection** must be active. Mousewheel scrolling on the relay bars is disabled when AetherSDR is communicating with the TGXL only through the radio (non-direct mode).
+- Open the Tuner applet by clicking the **TUN** tray button on the right sidebar.
 
 ## Steps
 
-1. Click the TUN tray button on the right sidebar to open the Tuner applet.
-2. Confirm that the C1, L, and C2 relay bars are visible in the lower-left section of the applet.
-3. Hover the mouse pointer over the C1, L, or C2 bar you want to adjust.
-4. Scroll the mousewheel up to increment the relay position, or scroll down to decrement it.
-5. Repeat for each bar you want to adjust.
+1. Confirm the Tuner applet is visible. If not, click the **TUN** tray button.
+2. Verify a direct TGXL connection is active. If the relay bars do not respond to scrolling, the direct connection is not established — see [Tuner overview](overview.md).
+3. Position your mouse cursor over the **C1** bar.
+4. Scroll the mousewheel up to increase the C1 relay position by one step, or down to decrease it by one step.
+5. Repeat on the **L** bar to adjust the inductance relay bank.
+6. Repeat on the **C2** bar to adjust the second capacitor relay bank.
+7. Watch the **SWR** gauge after each step to assess the effect.
 
 ## What each control does
 
-| Control | What it shows | Valid range | Default |
-|---------|---------------|-------------|---------|
-| C1 | C1 relay bank position | 0–255 | 0 |
-| L | L relay bank position | 0–255 | 0 |
-| C2 | C2 relay bank position | 0–255 | 0 |
-
-None of these controls persist a setting key; the values reflect the live state reported by the TGXL.
+| Control | What it shows | Valid range | Default | Setting key |
+|---------|--------------|-------------|---------|-------------|
+| **C1** | C1 relay bank position | 0–255 | 0 | — |
+| **L** | L relay bank position | 0–255 | 0 | — |
+| **C2** | C2 relay bank position | 0–255 | 0 | — |
+| **SWR** | TGXL-reported SWR | 1.0–3.0 (red above 2.5) | — | — |
 
 ## Tips
 
-- Mousewheel adjustment is available only when a direct TGXL connection is active. If scrolling the bars has no effect, check your TGXL connection status.
-- The relay bars update in real time as the TGXL acknowledges each step. Watch the SWR gauge while scrolling to find a lower SWR manually.
-- To reset to a known network state, run an autotune first, then use the mousewheel to fine-tune from the result.
+- Scrolling adjusts the relay position one step per wheel detent. There is no coarse/fine mode; each scroll event sends one increment or decrement to the TGXL.
+- If you want to return to a known-good position, run a fresh autotune using the **TUNE** button rather than stepping back manually.
 
 ## Troubleshooting
 
-- **Scrolling the relay bar does nothing** — The direct TGXL connection is not active. Mousewheel input is disabled when only a radio-mediated connection is present. Verify the direct TGXL connection and try again.
+- **Scrolling the mousewheel over a relay bar does nothing** — The direct TGXL connection is not active. Mousewheel scroll is enabled only when the direct connection is present. Check the connection state in the Tuner overview.
+- **Relay bar values change but SWR does not update** — The **SWR** gauge reflects TGXL-reported values via the direct connection. If the meter is frozen, the direct connection may have dropped.
 
 ## Related
 
+- [Tuner overview](overview.md)
 - [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
 - [Read SWR immediately after a tune](read-swr-immediately-after-a-tune.md)
 - [Put the tuner in OPERATE, BYPASS, or STANDBY](put-the-tuner-in-operate-bypass-or-standby.md)

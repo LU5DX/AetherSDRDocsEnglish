@@ -1,53 +1,42 @@
 # Set Floor to avoid unnatural silence between words
 
-The **Floor** knob sets the maximum attenuation the gate is allowed to apply when it closes. Raising Floor above its default keeps a small amount of audio passing during pauses, which prevents the unnatural dead silence that a hard cut produces between words or phrases.
+A fully closed gate produces complete silence, which can sound unnatural during pauses in speech. The Floor knob limits how deep the gate can cut, so background audio is reduced rather than eliminated entirely.
 
 ## Before you start
 
-- The TX gate must be enabled. The "Aetherial TX Gate" sub-container is hidden until the Gate stage is active — see [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
-- Open the "Aetherial TX Gate" sub-container inside the Aetherial Audio (TXDSP) parent container, or double-click the GATE stage in the CHAIN widget to open the floating "Aetherial Gate — TX" editor.
+- The TX Gate or RX gate stage must be enabled in the CHAIN widget. The ClientGateApplet is hidden until the Gate stage is active.
+- Open the **Aetherial TX Gate** sub-container (TX side) inside the Aetherial Audio (TXDSP) parent container, or open the floating editor by double-clicking the GATE stage in the CHAIN widget.
 
 ## Steps
 
-1. Locate the **Floor** knob — the rightmost of the five knobs below the transfer curve.
-2. Turn **Floor** clockwise (toward 0 dB) to reduce the depth of attenuation. The gate will cut audio only as far as the Floor value when it closes.
-3. Watch the Gain-reduction bar while you pause speaking. The amber fill should stop growing at the point that corresponds to your Floor setting. A tick mark on the bar indicates −15.0 dB, which is the default.
-4. Speak a sentence, then pause. Adjust **Floor** until pauses sound natural — present but quiet, not silent.
+1. Locate the **Floor** knob in the five-knob row at the bottom of the **Aetherial TX Gate** applet.
+2. Turn **Floor** clockwise to raise the floor (less attenuation, less silence) or counter-clockwise to lower it (more attenuation, deeper cut).
+3. Watch the **Gain-reduction bar** while pausing speech. The amber fill should stop growing before it reaches the floor you set — the bar will not extend beyond the Floor value.
+4. Speak normally and pause. Confirm that pauses sound like reduced background rather than dead silence.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key (TX / RX) |
-|---|---|---|---|
-| Floor | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` |
-| Thresh | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
-| Ratio | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` |
-| Attack | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` / `ClientGateRxAttackMs` |
-| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
-| Gain-reduction bar | — | 0 to 40 dB GR displayed | — |
+| Control | Default | Valid range | Persisted key | Behavior |
+|---|---|---|---|---|
+| Floor | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate is allowed to apply. Higher values (closer to 0 dB) preserve more audio during closure; lower values allow a deeper cut. |
+| Gain-reduction bar | — | 0 to 40 dB GR | — | Horizontal amber strip, right-filled. Shows the current depth of attenuation. A tick mark at -15 dB indicates the default Floor position. |
 
-Floor controls the maximum attenuation applied when the gate is closed. At −80.0 dB the gate can cut almost completely; at 0 dB the gate applies no attenuation at all, effectively bypassing the gain-reduction action.
-
-The Gain-reduction bar fills amber from the right. The tick at −15 dB marks the default Floor position. When Floor is set shallower than −15 dB, the amber fill will stop before the tick during normal pauses.
+For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floor knob in the **Aetherial AGC-T** applet works identically.
 
 ## Tips
 
-- A Floor value between −20.0 dB and −10.0 dB is a practical starting range for most microphones. Start at the default −15.0 dB and adjust by ear.
-- If room noise is audible during pauses even with Floor raised, lower **Thresh** so the gate closes only on genuine silence, then bring Floor back up to control the residual level. See [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md).
-- The same Floor knob and `ClientGateRxFloorDb` setting exist on the RX side ("Aetherial AGC-T"). Adjusting Floor there controls how much band noise is allowed through during quiet periods on receive. See [Use AGC-T on RX to suppress band noise below a chosen floor](use-agc-t-on-rx-to-suppress-band-noise-below-a-chosen-floor.md).
-- Changes take effect immediately and are saved automatically. No Apply or OK button is required.
+- The default Floor of -15.0 dB is marked by the tick on the gain-reduction bar. If attenuation at that value still sounds abrupt, try raising Floor to -10.0 dB or -6.0 dB.
+- Floor only caps the attenuation ceiling — it does not change when or how fast the gate opens or closes. If the gate is opening and closing too sharply, also adjust Release. See [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md).
+- Setting Floor to 0.0 dB disables all attenuation, effectively bypassing the gate's effect without disabling it in the chain.
 
 ## Troubleshooting
 
-- **Pauses still sound completely silent after raising Floor** — confirm the gate is not also being overridden by a very high Ratio. A Ratio near 10:1 acts as a hard gate regardless of Floor. Lower Ratio toward 2.0:1 for softer behavior. See [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md).
-- **The Floor knob has no effect** — the gate stage may be bypassed. Check the CHAIN widget and re-enable the Gate stage if it is greyed out. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
-- **Gain-reduction bar fills all the way during pauses despite a raised Floor** — the bar displays raw gain-reduction signal from the engine; if Floor is set but the bar still reads maximum, verify that the correct side (TX vs. RX) is being adjusted.
+- **The gain-reduction bar fills all the way regardless of Floor** — confirm you are adjusting the Floor knob on the correct side (TX or RX). The TX and RX applets have fully independent state and separate persisted keys.
+- **Pauses still sound completely silent** — Floor may be set lower than -40.0 dB on the scale, or Ratio is very high (approaching 10:1), making the gate behave like a hard cut. Raise Floor toward -15.0 dB and consider lowering Ratio. See [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md).
 
 ## Related
 
-- [Aetherial TX Gate / Aetherial AGC-T (RX) overview](overview.md)
-- [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
-- [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
 - [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md)
+- [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
-- [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md)
-- [Use AGC-T on RX to suppress band noise below a chosen floor](use-agc-t-on-rx-to-suppress-band-noise-below-a-chosen-floor.md)
+- [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)

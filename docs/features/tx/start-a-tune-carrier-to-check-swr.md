@@ -1,48 +1,51 @@
 # Start a tune carrier to check SWR
 
-Use the TUNE function to transmit a steady carrier at reduced power, then read the SWR meter to verify your antenna system before making a contact.
+Send a continuous carrier at reduced power to read SWR on your antenna system. Use this before a QSO or after changing antennas to confirm a good match.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. See `Settings > Connect to Radio...` if not connected.
-- The TX Controls applet must be visible. If it is not, click the **TX** tray button on the right sidebar.
-- Set an appropriate tune power level. The default is 10 (out of 100). See [Set tune-carrier power](set-tune-carrier-power.md) if you need to change it.
-- Confirm you are permitted to transmit on the current frequency (correct band, licence class, and any required inhibit settings).
+- AetherSDR must be connected to the radio. The TX Controls applet is only active with a live radio connection.
+- Make sure you are clear to transmit on the frequency (the band must be open to your station legally).
+- Set the tune power to a level appropriate for your antenna system. The default is 10; see [Set tune-carrier power](set-tune-carrier-power.md).
 
 ## Steps
 
-1. Open the TX Controls applet by clicking the **TX** tray button on the right sidebar if it is not already open.
-2. Check the **Tune Pwr** slider. The default value is 10. Adjust if needed by dragging the slider.
+1. Click the TX tray button in the right sidebar to open the TX Controls applet if it is not already visible.
+2. Check the **Tune Pwr** slider. The default is 10 (out of 100). Adjust if needed before transmitting.
 3. Click **TUNE**.
-4. The button label changes to **TUNING...** and the button background turns red. The radio is now transmitting a continuous carrier.
-5. Read the **SWR** meter. The scale runs from 1.0 to 3.0; the display turns red above 2.5.
-6. Click **TUNE** again to stop the carrier. The button label returns to **TUNE**.
+   - The button label changes to **TUNING...** and the button background turns red while the carrier is active.
+   - The **SWR** gauge updates in real time. The scale runs from 1.0 to 3.0; readings above 2.5 are shown in red.
+   - The **RF Pwr** gauge shows forward power at the exciter output.
+4. Read the SWR value from the **SWR** gauge.
+5. Click **TUNE** again to stop the carrier.
+   - The button label returns to **TUNE** and the red background clears.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Behaviour |
+| Control | Kind | Default | Range | Description |
 |---|---|---|---|---|
-| **Tune Pwr** | Slider | 10 | 0–100 | Sets the power level of the tune carrier. |
-| **TUNE** | Button | — | — | Click to start the tune carrier; click again to stop. Label shows **TUNING...** with a red background while active. |
-| **SWR** | Meter | — | 1.0–3.0 (red above 2.5) | Displays standing wave ratio at the exciter during transmission. |
-| **RF Pwr** | Meter | — | 0–120 W barefoot; 0–600 W Aurora 500W (red above 100 W / 500 W) | Displays forward power at the exciter output during the tune carrier. |
+| **TUNE** | Push button | — | — | Starts or stops the tune carrier. Label shows **TUNING...** with a red background while active. |
+| **Tune Pwr** | Slider | 10 | 0–100 | Sets the tune carrier power level sent to the radio. |
+| **RF Pwr** | Meter | — | 0–120 W (red above 100 W) | Displays forward power at the exciter output during transmission. |
+| **SWR** | Meter | — | 1.0–3.0 (red above 2.5) | Displays standing wave ratio at the exciter. |
 
 ## Tips
 
-- Keep **Tune Pwr** low (10 or below) to protect your finals and any downstream amplifier while checking SWR.
-- The tune carrier runs at the **Tune Pwr** level, not the **RF Power** level. Changing **RF Power** during a tune has no effect on carrier power.
-- If you want to suppress a specific TX output line during tuning, use `Settings > Inhibit during TUNE` to select ACC TX, TX1, TX2, or TX3 before clicking **TUNE**.
+- Keep **Tune Pwr** low (10 or less) when testing an unknown antenna system. Raise it only after confirming a reasonable SWR.
+- The **SWR** gauge turns red above 2.5. If it pegs at 3.0, stop the carrier and check your feedline and antenna connections before continuing.
+- To run the internal ATU instead of checking SWR manually, click **ATU** after the tune carrier confirms the antenna is usable. See [Run the internal ATU](run-the-internal-atu.md).
+- If you want to inhibit specific TX outputs (ACC TX, TX1, TX2, TX3) during tuning, configure them at `Settings > Inhibit during TUNE`.
 
 ## Troubleshooting
 
-- **TUNE button has no effect** — Verify the radio connection is active. The TX Controls applet requires a live radio connection; the **TX** tray button and all controls are disabled when the radio is offline.
-- **SWR reads high immediately** — Check antenna connection, coax, and any switch positions. A reading at or above 2.5 triggers the red zone on the SWR meter.
-- **TUNING... does not stop** — Click **TUNE** a second time to send the stop command. If the button does not respond, check for a network interruption to the radio.
+- **TUNE button does nothing** — The applet requires an active radio connection. Check that AetherSDR shows the radio as connected before attempting to transmit.
+- **SWR gauge does not move during TUNE** — Forward power may be at or near zero. Verify the **Tune Pwr** slider is above 0 and that the correct antenna port is selected for the current band.
+- **Carrier does not stop** — Click **TUNE** once more. If the button remains in **TUNING...** state, check the radio connection; a dropped connection can leave the transmit state unacknowledged.
 
 ## Related
 
 - [Set tune-carrier power](set-tune-carrier-power.md)
-- [Set RF output power](set-rf-output-power.md)
 - [Run the internal ATU](run-the-internal-atu.md)
+- [Recall an ATU memory](recall-an-atu-memory.md)
+- [Set RF output power](set-rf-output-power.md)
 - [Toggle MOX to manually key the transmitter](toggle-mox-to-manually-key-the-transmitter.md)
-- [TX Controls overview](overview.md)

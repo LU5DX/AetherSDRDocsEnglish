@@ -1,44 +1,37 @@
 # Select the RX or TX antenna for this slice
 
-Each slice has an independent RX antenna and TX antenna. Use the RX Controls applet to change either without affecting other slices.
+The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for receiving and transmitting on each slice independently. Use this when you have multiple antennas connected and need to route a specific slice to a specific port.
 
 ## Before you start
 
-- Connect to a FLEX-8600 radio. The antenna controls require an active radio connection.
-- Open the RX Controls applet. It is always visible in the Applet Panel (right sidebar). If the panel is hidden, click the `RX` tray button on the right sidebar to show it.
-- If you have more than one slice, select the correct slice using the A–H tab row at the top of the applet.
+- AetherSDR must be connected to the radio. The antenna controls are unavailable without a live connection.
+- The antenna list is populated from the radio's own port configuration. Confirm your antennas are connected and recognized by the radio before changing these settings.
 
 ## Steps
 
-### Change the RX antenna
-
-1. Locate the blue antenna label in the header row of the RX Controls applet. It shows the current RX antenna (for example, `ANT1`).
-2. Click the blue label. A menu opens listing all antennas reported by the radio.
-3. Click the antenna you want to use for receive. A checkmark appears next to the current selection.
-
-### Change the TX antenna
-
-1. Locate the red antenna label in the header row, immediately to the right of the blue RX antenna label. It shows the current TX antenna (for example, `ANT1`).
-2. Click the red label. A menu opens listing TX-capable antennas. Antenna ports with names beginning with `RX` are not shown, as they are receive-only.
-3. Click the antenna you want to use for transmit.
+1. Open the RX Controls applet. If it is not visible, click the **RX** tray button on the right sidebar.
+2. If you have more than one slice, click the slice tab (A through H) for the slice you want to change.
+3. **To change the RX antenna:** Click the blue antenna label near the top of the applet (shows the current RX antenna, e.g. **ANT1**). A menu appears listing all available antenna ports. Click the port you want. A checkmark shows the current selection.
+4. **To change the TX antenna:** Click the red antenna label next to the RX antenna label (also shows the current TX antenna, e.g. **ANT1**). A menu appears listing TX-capable antenna ports. Click the port you want.
 
 ## What each control does
 
-| Control | Color | Default | Valid values | Behavior |
-|---|---|---|---|---|
-| RX antenna button | Blue label | ANT1 | Antenna names from the radio's `ant_list` | Opens a menu; selecting an entry sets the RX antenna for this slice. |
-| TX antenna button | Red label | ANT1 | Antenna names from the radio's `ant_list`, excluding ports prefixed `RX` | Opens a menu; selecting an entry sets the TX antenna for this slice. RX-only ports are filtered out. |
+| Control | Default | Valid values | Behavior |
+|---|---|---|---|
+| **ANT1** (RX antenna, blue label) | ANT1 | Antenna ports from the radio's ant_list | Opens a menu; selecting an entry sets the RX antenna for this slice. |
+| **ANT1** (TX antenna, red label) | ANT1 | TX-capable ports from the radio's ant_list | Opens a menu; selecting an entry sets the TX antenna for this slice. Ports whose names begin with `RX` are excluded. |
 
 ## Tips
 
-- The RX and TX antenna selections are per-slice. Changing the antenna on slice A does not affect slice B.
-- The available antenna names come from the radio's reported `ant_list`. If an expected antenna is missing, verify the hardware connection and the radio firmware.
-- RX-only ports (those whose names begin with `RX`) appear in the RX antenna menu but are excluded from the TX antenna menu.
+- The RX antenna label is shown in blue; the TX antenna label is shown in red. This is the only visual distinction between the two controls, as they appear side by side in the header row.
+- Antenna ports whose names begin with `RX` are filtered out of the TX antenna menu. They will still appear in the RX antenna menu.
+- Each slice has its own independent RX and TX antenna assignment. Changing the antenna on slice A does not affect slice B.
 
 ## Troubleshooting
 
-- **An antenna I expect is not listed** — The list is populated from the radio's `ant_list` at connection time. Reconnect to the radio and check that the antenna port is enabled in the radio's own configuration.
-- **A port I want for TX does not appear in the TX menu** — Ports whose names begin with `RX` are filtered out of the TX antenna menu. These ports are hardware receive-only and cannot transmit.
+- **An expected antenna port does not appear in the menu** — The list comes directly from the radio's ant_list. Verify the port is configured and recognized in the radio's own settings. AetherSDR cannot add ports that the radio has not reported.
+- **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only.
+- **Both labels are greyed out or unresponsive** — AetherSDR is not connected to the radio. Reconnect via `Settings > Connect to Radio...`.
 
 ## Related
 

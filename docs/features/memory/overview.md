@@ -1,41 +1,64 @@
 # Memory Channels overview
 
-The Memory Channels dialog lets you store, organize, and recall radio frequencies along with their associated mode and filter settings. Use it to build a personal channel list, tune quickly to saved frequencies, and share or back up your memories via import and export.
+The Memory Channels dialog lets you store, organize, and recall radio frequencies along with their associated operating parameters. Use it to build a library of repeaters, net frequencies, DX spots, or any frequency you tune to regularly.
 
 ## Before you start
 
-- A radio connection is required. The dialog will not populate without an active connection to the FLEX-8600.
-- Open the dialog via `Settings > Memory...`.
+- AetherSDR must be connected to a FLEX-8600 radio. The dialog requires an active radio connection.
 
 ## How it works
 
-AetherSDR stores memories on the radio. Each memory holds a frequency and a set of operating parameters. When you open `Settings > Memory...`, the dialog fetches the current memory list from the radio and displays it in a table. Changes you make — adding, editing, or removing memories — are sent to the radio immediately.
+Open the dialog with `Settings > Memory...`. The dialog displays all memories stored on the radio in a scrollable table. From here you can add new memories, edit existing ones, tune to a stored frequency, or manage your memory list in bulk.
 
-The table supports multiple simultaneous selections. Use Shift-click to select a range and Ctrl-click (Command-click on macOS) to add or remove individual rows. Double-clicking any row tunes the active slice to that memory directly, without pressing Tune.
+**Filtering and searching**
 
-You can narrow the list using the Search field, the Profile filter, or by clicking a column header to sort. These filters affect only what is displayed; they do not modify the stored memories.
+The top of the dialog provides two filters that work together. The Search: field narrows the table to rows whose name matches the text you type; press Enter or use the clear button to reset it. The Profile: combo box filters by the currently active global profile. Both filters apply simultaneously.
 
-## What each control does
+**The memory table**
 
-| Control | What it does |
+Each row represents one stored memory. The columns are:
+
+| Column | What it stores |
 |---|---|
-| **Search:** | Filters the table to show only memories whose name matches the text you type. Press Enter to confirm, or use the clear button to reset. |
-| **Profile:** | Filters the table to show only memories belonging to the selected global profile. |
-| **Memory table** | Displays all stored memories. Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Supports extended (multi-row) selection and inline editing. |
-| **Add** | Creates a new memory using the current VFO frequency and settings. |
-| **Edit** | Enters inline-edit mode on the selected memory row, allowing you to change any field directly in the table. |
-| **Tune** | Tunes the active slice to the selected memory's frequency and mode. |
-| **Select All** | Selects every row in the table. |
-| **Import...** | Imports memories from a file into the radio. |
-| **Export...** | Exports the selected memories to a file for backup or sharing. |
-| **Remove** | Deletes the selected memories after asking for confirmation. |
-| **Selection count** | Shows the number of currently selected rows as `<N> selected`. |
+| Group | Organizational group name |
+| Owner | Owner tag |
+| Frequency | Stored frequency in MHz |
+| Name | Memory label |
+| Mode | Operating mode (e.g. USB, FM, CW) |
+| Step | Tuning step |
+| FM TX Offset Dir | FM repeater offset direction |
+| Repeater Offset | Repeater offset in MHz |
+| Tone Mode | CTCSS/DCS tone mode |
+| Tone Value | Tone frequency or code |
+| Squelch | Squelch enabled/disabled |
+| Squelch Level | Squelch threshold level |
+| RX Filter Low | Low edge of receive filter in Hz |
+| RX Filter High | High edge of receive filter in Hz |
+| RTTY Mark | RTTY mark frequency |
+| RTTY Shift | RTTY shift |
+| DIGL Offset | Digital lower sideband offset |
+| DIGU Offset | Digital upper sideband offset |
+
+Click a column header to sort by that column. Click again to reverse the sort order. Multiple rows can be selected using Shift-click for a range or Ctrl-click (Command-click on macOS) to add or remove individual rows. Double-clicking a row tunes the active slice to that memory immediately.
+
+**Buttons**
+
+| Button | What it does |
+|---|---|
+| Add | Creates a new memory at the current VFO frequency. |
+| Edit | Enters inline-edit mode on the selected memory row. |
+| Tune | Tunes the active slice to the selected memory. |
+| Select All | Selects every row in the table. |
+| Import... | Imports memories from a file. |
+| Export... | Exports the selected memories to a file. |
+| Remove | Deletes the selected memories after asking for confirmation. |
+
+The selection count indicator at the bottom right of the button row shows how many rows are currently selected.
 
 ## Tips
 
-- Double-clicking a row in the memory table tunes the active slice immediately, without needing to press Tune.
-- Sorting is available by clicking column headers. Click the same header again to reverse the sort order.
-- The Search field updates the table as you type, so you do not need to press Enter to filter; Enter activates the currently highlighted row.
+- The Search: field has a clear button on the right side; click it to remove the filter without clearing the Profile: selection.
+- Sorting and filtering do not delete or reorder the memories on the radio; they only change what is visible in the table.
 
 ## Related
 
@@ -48,3 +71,4 @@ You can narrow the list using the Search field, the Profile filter, or by clicki
 - [Import memories from a CSV/JSON file](import-memories-from-a-csv-json-file.md)
 - [Export memories for backup or sharing](export-memories-for-backup-or-sharing.md)
 - [Sort memory table by column header](sort-memory-table-by-column-header.md)
+- [Recall an FM repeater memory and restore offset and CTCSS tone](recall-an-fm-repeater-memory-and-restore-offset-and-ctcss-tone.md)

@@ -1,55 +1,53 @@
 # Change CW pitch / sidetone frequency
 
-This page explains how to adjust the CW pitch — the tone frequency used for sidetone and CW decode — both on the radio and for the client-side local sidetone. You would do this to match your preferred listening pitch or to align the local sidetone with a non-default radio pitch.
+The CW pitch controls set the tone frequency used for sidetone monitoring and CW decode. Two independent pitch settings exist: the radio's pitch (sent to the FLEX-8600) and the local sidetone pitch (generated client-side by AetherSDR).
 
 ## Before you start
 
-- AetherSDR must be connected to a FLEX-8600 radio.
-- The active slice must be in a CW mode. The Phone/CW applet automatically switches to CW controls when CW mode is active.
-- Open the Phone/CW applet by clicking the **P/CW** tray button on the right sidebar, if it is not already visible.
+- Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
+- Set the active slice to a CW mode. The CW sub-panel is only visible when the active slice is in CW mode; the Phone sub-panel is shown otherwise.
+- Open the Phone/CW applet by clicking the **P/CW** tray button in the right sidebar if it is not already visible.
 
 ## Steps
 
 ### Change the radio CW pitch
 
-1. In the CW sub-panel, locate the **Pitch < / >** spinbox.
+1. Locate **Pitch < / >** in the CW sub-panel. It is a spinbox with two arrow buttons.
 2. Click **<** to decrease the pitch by 10 Hz, or **>** to increase it by 10 Hz.
-3. The valid range is 100–6000 Hz in steps of 10 Hz. The default is 600 Hz.
-
-This pitch setting is sent to the radio and also controls CW decode.
+3. The new pitch is sent to the radio immediately. Valid range: 100–6000 Hz, step 10 Hz. Default: 600 Hz.
 
 ### Change the local sidetone pitch
 
-The local sidetone pitch can either follow the radio pitch automatically or be set to an independent value.
+The local sidetone has its own pitch control, which by default follows the radio pitch automatically.
 
-**To follow the radio pitch (default):**
-
-1. Confirm that **Follow (local pitch)** is on (the button appears active). This is the default state.
-2. The local sidetone pitch will track the radio **Pitch < / >** value automatically. No further action is needed.
-
-**To set a manual local sidetone pitch:**
-
-1. Click **Follow (local pitch)** to turn it off.
-2. The **Local sidetone pitch** slider becomes enabled.
-3. Drag the **Local sidetone pitch** slider to your desired frequency. The valid range is 100–2000 Hz. The default is 600 Hz.
+1. Check whether **Follow (local pitch)** is enabled (button appears highlighted/checked). If it is on, the local sidetone pitch tracks the radio pitch automatically — no further action is needed.
+2. To set a manual pitch, click **Follow (local pitch)** to turn it off.
+3. Adjust the **Local sidetone pitch** slider to the desired frequency. Valid range: 100–2000 Hz. Default: 600 Hz. The setting is persisted as `CwLocalSidetonePitchHz`.
+4. To restore automatic tracking, click **Follow (local pitch)** again to turn it back on. The setting is persisted as `CwLocalSidetonePitchFollow`.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Persisted setting |
+| Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
-| **Pitch < / >** | Spinbox | 600 Hz | 100–6000 Hz (step 10 Hz) | — |
-| **Follow (local pitch)** | Toggle button | On | On / Off | `CwLocalSidetonePitchFollow` |
-| **Local sidetone pitch** | Slider | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` |
+| **Pitch < / >** | 600 Hz | 100–6000 Hz (step 10) | — | Steps the radio CW sidetone/decode pitch by 10 Hz per click; sent to the FLEX-8600. |
+| **Follow (local pitch)** | On | On / Off | `CwLocalSidetonePitchFollow` | When on, local sidetone pitch mirrors the radio pitch. When off, the **Local sidetone pitch** slider is enabled for manual control. |
+| **Local sidetone pitch** | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` | Sets the client-side sidetone tone frequency in Hz. Only active when **Follow (local pitch)** is off. |
 
 ## Tips
 
-- The **Local sidetone pitch** slider is disabled while **Follow (local pitch)** is on. Turn **Follow (local pitch)** off first to enable the slider.
-- The local sidetone pitch is independent of the radio sidetone monitor. If you use the local sidetone (Local STn) for low-latency monitoring, set the pitch here rather than through the radio's sidetone path.
-- The internal tone generator clamps the pitch to 100–4000 Hz regardless of what the slider displays above 4000 Hz.
+- The **Pitch < / >** control affects both the audible sidetone on the radio and the frequency used by the CW decoder. Adjust it to match your personal pitch preference.
+- When **Follow (local pitch)** is on, you only need to change the radio pitch with **Pitch < / >** — the local sidetone updates automatically.
+- The local sidetone (**Local STn**) operates at approximately 10 ms latency and works with paddle, straight key, and CWX-generated transmissions. If you are not hearing a local sidetone at all, verify that **Local STn** is enabled.
+
+## Troubleshooting
+
+- **Local sidetone pitch slider is greyed out** — **Follow (local pitch)** is on. Click **Follow (local pitch)** to turn it off before adjusting the slider.
+- **Pitch < / > has no effect on the local sidetone pitch** — **Follow (local pitch)** is off. Either turn **Follow (local pitch)** back on, or manually update **Local sidetone pitch** to match.
+- **CW sub-panel is not visible** — The active slice is not in a CW mode. Switch the slice to CW; the applet switches automatically.
 
 ## Related
 
-- [Make the local sidetone pitch follow the radio's CW pitch, or set it manually with the slider](make-the-local-sidetone-pitch-follow-the-radio-s-cw-pitch-or-set-it-manually-with-the-slider.md)
 - [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+- [Make the local sidetone pitch follow the radio's CW pitch, or set it manually with the slider](make-the-local-sidetone-pitch-follow-the-radio-s-cw-pitch-or-set-it-manually-with-the-slider.md)
 - [Set the local sidetone volume independently of the radio monitor](set-the-local-sidetone-volume-independently-of-the-radio-monitor.md)
+- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)

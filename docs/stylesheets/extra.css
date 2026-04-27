@@ -271,7 +271,7 @@
 }
 
 .md-tabs__list::after {
-  content: "docs · v0.9.0";
+  content: "docs · v0.9.1";
   margin-left: auto;
   display: inline-flex;
   align-items: center;

@@ -1,36 +1,35 @@
 # Shift Bias to tweak the even / odd harmonic balance
 
-The Bias knob shifts the operating point on the tube transfer curve, changing the ratio of even to odd harmonics in the saturated signal. Use it to move from a symmetrical, odd-harmonic character toward a warmer, even-harmonic one — or anywhere in between.
+The Bias knob shifts the operating point on the tube transfer curve, changing the ratio of even to odd harmonics in the saturated signal. Use it to move between a warmer, rounder character and a grittier, more asymmetric one.
 
 ## Before you start
 
-- The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md) if the stage is currently bypassed.
-- The applet must be visible. If it is not, open the Aetherial Audio (TXDSP) parent container and locate the "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container.
+- The Tube stage must be enabled on the side you want to adjust (TX or RX). See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
+- The applet is visible inside the Aetherial Audio (TXDSP) parent container — "Aetherial Mic-PreAmp" for TX, "Aetherial Dynamic Tube" for RX.
+- Some Drive applied (Drive > 0.0 dB) makes harmonic changes from Bias audible. See [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md).
 
 ## Steps
 
-1. Locate the five-knob row at the bottom of the applet: Drive, Tone, Bias, Output, Mix.
-2. Find the knob labeled **Bias** — the third knob in the row.
-3. Turn the **Bias** knob to the desired value. The label beneath the knob displays the current value as a percentage (for example, `50 %`).
-4. Watch the transfer curve above the knob row. The curve's operating point shifts as you turn the knob, visualising the change in harmonic balance.
-5. The live input ball on the transfer curve moves in real time, showing where the current input level sits on the new curve.
-
-To open the larger floating editor for finer control, double-click the TUBE stage in the CHAIN widget on the matching side. The editor is titled "Aetherial Tube — TX" or "Aetherial Tube — RX". The Bias knob is available there as well, and both the applet and the editor stay in sync.
+1. Locate the "Aetherial Mic-PreAmp" (TX) or "Aetherial Dynamic Tube" (RX) sub-container in the Aetherial Audio (TXDSP) parent container, or double-click the TUBE stage in the CHAIN widget to open the floating editor titled "Aetherial Tube — TX" or "Aetherial Tube — RX".
+2. Find the **Bias** knob in the five-knob row (Drive, Tone, Bias, Output, Mix).
+3. Turn the Bias knob. The label updates in real time, showing the current value as a percentage (for example, `50 %`).
+4. Watch the transfer curve: as Bias increases, the curve shifts asymmetrically, increasing even harmonics relative to odd ones.
+5. Stop at the value that gives the harmonic balance you want. The setting is saved automatically.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
+| Control | Default | Valid range | Persisted setting key |
 |---|---|---|---|
 | Bias (TX) | 0 % | 0 % to 100 % (internal: 0.0 to 1.0) | `ClientTubeTxBiasAmount` |
 | Bias (RX) | 0 % | 0 % to 100 % (internal: 0.0 to 1.0) | `ClientTubeRxBiasAmount` |
 
-At 0 % the operating point is centred, producing a predominantly odd-harmonic character. Increasing Bias moves the operating point off-centre, introducing even harmonics. The transfer curve in the applet reflects this shift visually.
+The TX and RX instances are fully independent. Adjusting Bias on one side does not affect the other.
 
 ## Tips
 
-- Bias interacts with Drive. Higher Drive values push more signal into the curve, so the effect of a given Bias setting becomes more pronounced. Set Drive first, then fine-tune Bias.
-- The applet knobs and the floating editor knobs share the same state and sync within approximately 33 ms of any change made in either location.
-- Changes are saved immediately to `ClientTubeTxBiasAmount` or `ClientTubeRxBiasAmount` after each knob movement.
+- The transfer curve display and its live input ball update as you turn Bias, so you can see the operating point shift without transmitting or receiving a signal.
+- Changes made in the floating editor and in the docked applet stay in sync. A 30 Hz timer keeps both views current, so you can adjust from either location.
+- At 0 % Bias the tube operates symmetrically, favouring odd harmonics. Increasing Bias introduces asymmetry and raises even harmonics. The audible character changes most noticeably when Drive is several dB above its default.
 
 ## Related
 

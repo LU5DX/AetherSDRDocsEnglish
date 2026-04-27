@@ -1,6 +1,6 @@
-# Pick Opus vs uncompressed audio for SmartLink
+# Pick Opus vs Uncompressed Audio for SmartLink
 
-Choose how AetherSDR compresses audio over a SmartLink or LAN connection. Selecting the right codec reduces bandwidth on slow or high-latency links, or preserves full audio quality on fast local networks.
+Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus reduces bandwidth at the cost of a small amount of compression; uncompressed PCM preserves full fidelity when bandwidth allows. Auto lets the radio choose.
 
 ## Before you start
 
@@ -11,34 +11,34 @@ Choose how AetherSDR compresses audio over a SmartLink or LAN connection. Select
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Audio** tab.
-3. Locate the **Audio Compression (SmartLink):** control.
-4. Click the button to cycle to the desired mode: **Auto**, **Uncompressed**, or **Opus**.
-5. Close the dialog. The setting is saved immediately to `AudioCompression`.
+3. Under **Audio Compression (SmartLink):**, click **Auto**, **Uncompressed**, or **Opus** to select the codec.
+   - **Auto** — the radio negotiates the codec automatically (default).
+   - **Uncompressed** — sends raw PCM audio; uses more bandwidth.
+   - **Opus** — sends Opus-encoded audio; lower bandwidth, slight compression.
+4. Close the dialog. The setting takes effect immediately and is saved.
 
 ## What each control does
 
-| Control | Default | Valid values | Setting key | Behavior |
-|---|---|---|---|---|
-| **Audio Compression (SmartLink):** | Auto | Auto / Uncompressed / Opus | `AudioCompression` | Selects the audio codec used over SmartLink or LAN. Auto lets the radio negotiate the codec. Uncompressed sends raw audio. Opus applies lossy compression to reduce bandwidth. |
-| **Audio Boost:** | — | On / Off | `AudioBoost` | Enables extra gain on the client audio path. |
-| **Audio Buffer:** | — | 50–1000 ms | `AudioBuffer` | Increases the client-side buffer to absorb jitter on VPN or SmartLink connections. |
-| **Recording: Radio Side / Client Side** | — | Radio Side / Client Side | `RecordMode` | Picks whether recordings are captured at the radio or on the client PC. |
-| **Save to:** | — | Folder path | `RecordDir` | Sets the folder where recordings are written. |
-| **Auto-record on TX** | — | Checked / Unchecked | `AutoRecordTx` | Automatically starts recording whenever the radio transmits. |
-| **Idle timeout:** | — | Seconds | `RecordIdleTimeout` | Stops a recording after this many seconds of silence. |
+| Control | Default | Valid values | Setting key |
+|---|---|---|---|
+| **Audio Compression (SmartLink):** Auto / Uncompressed / Opus | Auto | Auto, Uncompressed, Opus | `AudioCompression` |
+| **Audio Boost:** | — | Enabled / Disabled | `AudioBoost` |
+| **Audio Buffer:** | — | 50–1000 ms | `AudioBuffer` |
+| **Recording:** Radio Side / Client Side | — | Radio Side, Client Side | `RecordMode` |
+| **Save to:** | — | Folder path | `RecordDir` |
+| **Auto-record on TX** | — | Checked / Unchecked | `AutoRecordTx` |
+| **Idle timeout:** | — | seconds | `RecordIdleTimeout` |
 
 ## Tips
 
-- Use **Opus** when connecting over the internet or a VPN where bandwidth is limited. Opus significantly reduces the audio data rate compared to uncompressed.
-- Use **Uncompressed** on a fast local network when audio fidelity is the priority and bandwidth is not a concern.
-- **Auto** is suitable for most users and allows the radio firmware to choose the codec based on the connection type.
-- If audio breaks up or drops on a remote connection, increase **Audio Buffer:** before changing the codec. The valid range is 50–1000 ms.
+- On a fast local LAN, **Uncompressed** avoids any codec artefacts and is the better choice for critical listening or digital mode decoding.
+- On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts. Pair it with a larger **Audio Buffer:** value (50–1000 ms) to absorb jitter.
+- If audio sounds thin or quiet over SmartLink, try enabling **Audio Boost:** alongside Opus.
 
 ## Troubleshooting
 
-- **Audio Compression control is greyed out or the Audio tab does not appear** — The radio is not connected. Connect to the radio first, then reopen `Settings > Radio Setup...`.
-- **Audio is choppy after switching to Uncompressed** — The link does not have enough bandwidth for uncompressed audio. Switch to **Opus** or increase **Audio Buffer:**.
-- **Opus is selected but audio quality is poor** — Increase **Audio Buffer:** to compensate for jitter, or check the network path for packet loss.
+- **Audio Compression buttons are greyed out or missing** — the Audio tab only builds after you click it, and only when a radio is connected. Verify the connection, then click the Audio tab again.
+- **Audio quality is poor even with Uncompressed selected** — check network bandwidth and latency. Consider increasing **Audio Buffer:** to reduce underruns. See [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md).
 
 ## Related
 

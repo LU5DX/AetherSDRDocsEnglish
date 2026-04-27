@@ -4,33 +4,43 @@ Open the Memory Channels dialog to find a stored frequency and send it directly 
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Memory Channels dialog requires an active radio connection.
+- AetherSDR must be connected to a FLEX-8600 radio. The Memory Channels dialog requires an active radio connection.
 - At least one memory must already be stored. See [Add a memory at current frequency](add-a-memory-at-current-frequency.md) if you have none.
 
 ## Steps
 
 1. Click `Settings > Memory...` to open the Memory Channels dialog.
-2. Optional: Type a name in the **Search:** field to narrow the list, or select a group from the **Profile:** combo box to filter by profile.
-3. Click the row in the memory table that contains the frequency you want to tune to. The row highlights and the selection count at the bottom right updates to show `1 selected`.
-4. Click **Tune**.
+2. Locate the memory you want. Use the `Search:` field to filter by name, or use the `Profile:` combo box to narrow the list by profile.
+3. Click the row in the memory table to select it.
+4. Click `Tune`.
 
-The active slice tunes immediately to the stored frequency, mode, and filter settings from that memory.
+The active slice tunes to the frequency, mode, and filter settings stored in that memory.
+
+**Shortcut:** Double-click any row in the memory table to tune immediately without clicking `Tune`.
+
+## What each control does
+
+| Control | Behavior |
+|---|---|
+| `Search:` | Filters the memory table to rows whose name matches the text you type. Press Enter or clear the field to reset. |
+| `Profile:` | Filters the table to memories belonging to the selected global profile. |
+| Memory table | Displays all stored memories. Columns include Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, and DIGU Offset. Click a column header to sort by that column. |
+| `Tune` | Tunes the active slice to the selected memory. Requires exactly one row to be selected. |
 
 ## Tips
 
-- Double-clicking any row in the memory table tunes the active slice to that memory without clicking **Tune**.
-- If you need to tune to a memory that is buried in a long list, use the **Search:** field to filter by name first. The table updates as you type. Press Enter after typing to tune the currently highlighted row directly.
-- On Linux and Windows, Ctrl-click selects or deselects individual rows without clearing the rest of the selection. Only the first selected row is used when you click **Tune** or double-click.
+- If you cannot see the memory you want, check whether `Profile:` is set to a filter that excludes it. Set `Profile:` to show all entries.
+- On Linux and Windows, hold Ctrl and click to select individual rows without deselecting others. On macOS, use Command-click. Only the first selected memory is used when you click `Tune`.
 
 ## Troubleshooting
 
-- **Tune does nothing** — Confirm the radio is connected. The dialog requires an active radio connection. Check that exactly one row is selected in the table.
-- **The memory you want is not visible** — A filter may be active. Clear the **Search:** field using its clear button and set **Profile:** back to its default (no filter) to show all memories.
+- **`Tune` has no effect or is disabled** — Confirm that a single row is selected in the memory table and that AetherSDR is connected to the radio.
+- **The memory you want does not appear in the table** — The `Search:` or `Profile:` filter may be hiding it. Clear the `Search:` field and set `Profile:` to show all entries.
 
 ## Related
 
-- [Memory Channels overview](overview.md)
 - [Add a memory at current frequency](add-a-memory-at-current-frequency.md)
+- [Recall an FM repeater memory and restore offset and CTCSS tone](recall-an-fm-repeater-memory-and-restore-offset-and-ctcss-tone.md)
 - [Search memories by name](search-memories-by-name.md)
 - [Filter memories by profile](filter-memories-by-profile.md)
-- [Edit a memory's name, mode or offset inline](edit-a-memory-s-name-mode-or-offset-inline.md)
+- [Memory Channels overview](overview.md)

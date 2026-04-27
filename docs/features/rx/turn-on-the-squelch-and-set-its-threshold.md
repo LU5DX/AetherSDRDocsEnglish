@@ -1,37 +1,38 @@
 # Turn on the squelch and set its threshold
 
-Squelch silences the slice audio when the received signal falls below a set level. This is useful on FM, AM, or any mode where you want the speaker quiet between transmissions.
+Use the squelch controls in the RX Controls applet to silence the audio output when no signal is present. This is most useful on FM and noisy HF frequencies where you want audio only when a signal opens the squelch.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. The RX Controls applet requires an active radio connection.
-- The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
+- Identify which slice you want to apply squelch to.
 
 ## Steps
 
-1. In the RX Controls applet, select the slice you want to adjust by clicking its tab (A through H) if more than one slice is active.
-2. Move the squelch level slider to set the threshold. The default is 20, and the valid range is 0–100. A higher value means the signal must be stronger to open the squelch.
-3. Click SQL to enable the squelch. The button highlights when squelch is active.
-4. Adjust the squelch level slider until the audio opens reliably on signals you want to hear and closes between them.
-5. To disable squelch, click SQL again.
+1. Open the RX Controls applet by clicking the **RX** tray button on the right sidebar if it is not already visible.
+2. If you have multiple slices, click the appropriate slice tab (**A** through **H**) at the top of the applet to select the target slice.
+3. Set the squelch threshold by dragging the **Squelch level** slider to the desired level. A higher value requires a stronger signal to open the squelch.
+4. Click **SQL** to enable the squelch. The button activates and the squelch takes effect at the level set in step 3.
+
+To disable the squelch, click **SQL** again to deactivate it.
 
 ## What each control does
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| SQL | Off | On / Off | Enables squelch at the current slider level. Audio is muted when the signal is below the threshold. |
-| Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. Higher values require a stronger signal to open the squelch. |
+| **SQL** | Off | On / Off | Enables squelch at the current slider level. Has no effect when not checked. |
+| **Squelch level** | 20 | 0–100 | Sets the squelch threshold. Higher values require a stronger signal to open the squelch. Takes effect only when **SQL** is on. |
 
 ## Tips
 
-- Set the squelch level slider before clicking SQL so the audio does not cut in and out while you are adjusting.
-- If you cannot find a level that opens reliably on weak signals but stays closed on noise, try lowering the value toward 0 in small increments.
-- The squelch level slider has no effect when SQL is off.
+- Adjust the **Squelch level** slider before clicking **SQL** so you can hear where the threshold sits relative to background noise.
+- If the squelch never opens on a signal you can hear, lower the **Squelch level** value.
+- If the squelch never closes between signals, raise the **Squelch level** value.
 
 ## Troubleshooting
 
-- **Audio stays muted after clicking SQL** — The squelch level is set too high for the incoming signal. Lower the squelch level slider until the audio opens.
-- **Squelch never closes on noise** — The squelch level is too low. Increase the slider value until the audio mutes between transmissions.
+- **Audio is silent even with SQL off** — Check whether the slice is muted. The mute toggle (🔊 / 🔇) is separate from squelch. Click the mute button to unmute if needed. Also verify the **AF gain** slider is not at 0.
+- **Squelch level set but has no effect** — The **Squelch level** slider only controls the threshold; the squelch circuit is inactive until **SQL** is enabled. Confirm **SQL** is checked.
 
 ## Related
 

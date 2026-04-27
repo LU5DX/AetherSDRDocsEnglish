@@ -1,34 +1,36 @@
-# Check radio serial, hardware version, region and options
+# Check Radio Serial, Hardware Version, Region and Options
 
-The Radio tab in Radio Setup displays read-only hardware identity fields reported directly by the radio: chassis serial number, hardware version, regulatory region, and licensed options. Use this page when you need to confirm what hardware you have connected or verify which options are active.
+The Radio tab in Radio Setup shows identifying information reported directly by the radio — serial number, hardware version, regulatory region, and licensed options. Use this page to verify what hardware and options your radio has before troubleshooting or contacting support.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. These fields are populated by the radio at connection time and are read-only.
+- AetherSDR must be connected to the radio. The Radio tab fields are populated from live radio data.
 
 ## Steps
 
 1. Click `Settings > Radio Setup...`.
-2. Click the **Radio** tab if it is not already selected.
-3. In the **Radio Information** group, read the following fields:
-   - **Radio SN** — chassis serial number.
-   - **HW Version** — hardware version string reported by the radio.
-   - **Region** — regulatory region (defaults to `USA` if the radio reports none).
-   - **Options** — licensed options active on this radio.
+2. The dialog opens on the **Radio** tab by default.
+3. Read the values in the **Radio Information** group:
+   - **Radio SN** — the chassis serial number.
+   - **HW Version** — the hardware version string reported by the radio.
+   - **Region** — the radio's regulatory region (defaults to `USA` if the radio does not report one).
+   - **Options** — the licensed options active on this radio (for example, `GPS`, `PGXL`).
 
 ## What each control does
 
 | Label | Kind | Behavior |
 |---|---|---|
-| Radio SN | Indicator | Chassis serial number. Read-only; set by the radio. |
-| HW Version | Indicator | Hardware version string. Read-only; set by the radio. |
-| Region | Indicator | Regulatory region. Defaults to `USA` if the radio reports an empty value. |
-| Options | Indicator | Licensed options active on this radio (for example, GPS, PGXL). Read-only; set by the radio. |
+| Radio SN | Indicator (read-only) | Chassis serial number as reported by the radio. |
+| HW Version | Indicator (read-only) | Hardware version string prefixed with `v`. |
+| Region | Indicator (read-only) | Regulatory region. Displays `USA` if the radio reports none. |
+| Options | Indicator (read-only) | Licensed radio options. |
 
-## Troubleshooting
+All four fields are read-only. No persisted settings keys are associated with them.
 
-- **All fields show blank or dashes** — the radio has not yet reported its identity. Confirm the radio is fully connected and online, then close and reopen `Settings > Radio Setup...`.
-- **Region shows `USA` but the radio is configured for a different region** — the radio firmware reported an empty region string; AetherSDR substitutes `USA` as the default display value. Check the radio firmware and region settings in SmartSDR if the displayed value is unexpected.
+## Tips
+
+- If **Radio SN** is blank, the radio has not yet sent its chassis serial. Disconnect and reconnect to the radio.
+- **Options** reflects what the radio itself reports. If you have recently purchased a license upgrade, power-cycle the radio and reconnect so it fetches the updated options.
 
 ## Related
 

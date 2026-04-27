@@ -1,24 +1,26 @@
-# Bypass the gate from the chain
+# Bypass the Gate from the Chain
 
-The CHAIN widget controls whether the Gate stage is active or bypassed for the TX and RX audio paths. Bypassing removes the gate from signal processing without changing any of its tuned parameters.
+The CHAIN widget controls whether the Gate stage is active in the audio processing chain. Bypassing it lets you disable the TX or RX gate entirely without changing any of its tuning knobs, so you can compare gated and ungated audio or temporarily silence the stage.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to bypass the gate, but the Gate stage must already be enabled in the CHAIN widget before bypass is meaningful.
-- Locate the CHAIN widget for the side you want to bypass (TX or RX) inside the Aetherial Audio (TXDSP) parent container in the applet panel.
+- Open the Aetherial Audio (TXDSP) parent container in the Applet Panel. The "Aetherial TX Gate" (TX) and "Aetherial AGC-T" (RX) sub-containers are hidden until the Gate stage is enabled via the CHAIN widget.
+- Know which side you want to bypass — TX (affects your transmitted audio) or RX (affects received audio).
 
 ## Steps
 
-1. Find the CHAIN widget for the path you want to affect — TX or RX.
-2. Single-click the **GATE** stage in the CHAIN widget.
-   - A single click toggles the bypass state of that stage. When bypassed, the gate is removed from the chain; `ClientGateTxEnabled` (TX) or `ClientGateRxEnabled` (RX) is set to disabled accordingly.
-3. To re-enable the gate, single-click the **GATE** stage again.
+1. Locate the CHAIN widget for the side you want to change — TX or RX — inside the Aetherial Audio (TXDSP) parent container in the Applet Panel.
+2. Single-click the GATE stage in the CHAIN widget to toggle the gate bypass on that side.
+   - When the stage is enabled, the "Aetherial TX Gate" or "Aetherial AGC-T" sub-container becomes visible and the gate is active in the chain.
+   - When the stage is bypassed, the sub-container is hidden and no gain reduction is applied.
+3. To re-enable the stage, single-click the GATE stage in the CHAIN widget again.
+
+The bypass state is persisted as `ClientGateTxEnabled` (TX side) or `ClientGateRxEnabled` (RX side) and restored on the next application launch.
 
 ## Tips
 
-- Bypassing via the CHAIN widget leaves all five knob values — Thresh, Ratio, Attack, Release, and Floor — unchanged. Your tuning is preserved and takes effect immediately when you re-enable the stage.
-- Double-clicking the **GATE** stage in the CHAIN widget opens the floating gate editor ("Aetherial Gate — TX" or "Aetherial Gate — RX") rather than toggling bypass. Use single-click only to bypass.
-- The "Aetherial TX Gate" and "Aetherial AGC-T" sub-containers are hidden when the Gate stage is not enabled. If the sub-container disappears after bypass, this is expected behavior.
+- Bypassing from the CHAIN widget does not reset any of the five tuning knobs — Thresh, Ratio, Attack, Release, and Floor values are preserved.
+- To open the floating gate editor for detailed tuning without bypassing, double-click the GATE stage in the CHAIN widget instead of single-clicking.
 
 ## Related
 

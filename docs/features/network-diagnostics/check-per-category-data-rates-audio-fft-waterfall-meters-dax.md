@@ -1,49 +1,50 @@
 # Check per-category data rates (audio, FFT, waterfall, meters, DAX)
 
-The Network Diagnostics dialog shows live ingress rates for each stream category — Audio, FFT, Waterfall, Meters, and DAX — updated once per second. Use this to identify which stream type is consuming bandwidth or receiving no data during reception problems.
+The Network Diagnostics dialog shows live ingress rates for each stream category — Audio, FFT, Waterfall, Meters, and DAX — updated every second. Use this to confirm that each stream is delivering data at the expected rate and to identify which category is consuming bandwidth or dropping packets.
 
 ## Before you start
 
-- AetherSDR must be running. The dialog opens whether or not a radio is connected, but rates will read 0 kbps until a connection is established.
+- AetherSDR must be running. The dialog opens whether or not a radio is connected, but rate values are meaningful only when connected.
 
 ## Steps
 
 1. Click `Settings > Network...`.
 2. Locate the **Incoming Stream Rates** group on the right side of the dialog.
-3. Read the per-category values: **Audio**, **FFT**, **Waterfall**, **Meters**, and **DAX** each show a current rate in kbps, updated every second.
-4. To check how many packets were dropped for each category, locate the **Packet Loss (Sequence Gaps)** group on the lower left. It lists **Audio**, **FFT**, **Waterfall**, **Meters**, and **DAX** drop counts in the format `errors / total packets (%)`.
-5. When finished, click Close.
+3. Read the per-category rate indicators: **Audio**, **FFT**, **Waterfall**, **Meters**, and **DAX**. Each shows the current ingress rate in kbps, recalculated once per second.
+4. Locate the **Packet Loss (Sequence Gaps)** group below the left column.
+5. Read the corresponding **Audio**, **FFT**, **Waterfall**, **Meters**, and **DAX** drop indicators. Each shows dropped packets, total packets, and a loss percentage in the form `errors / total (pct%)`.
+6. When finished, click Close.
 
 ## What each control does
 
-| Indicator | Location | Meaning |
+| Indicator | Group | Meaning |
 |---|---|---|
-| **Audio** (rate) | Incoming Stream Rates | Ingress rate for the receive audio stream, in kbps. |
+| **Audio** (rate) | Incoming Stream Rates | Ingress rate for the receiver audio stream, in kbps. |
 | **FFT** (rate) | Incoming Stream Rates | Ingress rate for panadapter FFT data, in kbps. |
-| **Waterfall** (rate) | Incoming Stream Rates | Ingress rate for waterfall tile data, in kbps. |
+| **Waterfall** (rate) | Incoming Stream Rates | Ingress rate for waterfall data, in kbps. |
 | **Meters** (rate) | Incoming Stream Rates | Ingress rate for meter data, in kbps. |
-| **DAX** (rate) | Incoming Stream Rates | Ingress rate for DAX audio streams, in kbps. |
-| **Total RX** | Incoming Stream Rates | Aggregate inbound rate across all streams, in kbps. |
-| **Total TX** | Incoming Stream Rates | Aggregate outbound rate, in kbps. |
-| **Audio** (drops) | Packet Loss (Sequence Gaps) | Audio packet errors vs. total packets received, with percentage. |
-| **FFT** (drops) | Packet Loss (Sequence Gaps) | FFT packet errors vs. total packets received, with percentage. |
-| **Waterfall** (drops) | Packet Loss (Sequence Gaps) | Waterfall packet errors vs. total packets received, with percentage. |
-| **Meters** (drops) | Packet Loss (Sequence Gaps) | Meter packet errors vs. total packets received, with percentage. |
-| **DAX** (drops) | Packet Loss (Sequence Gaps) | DAX packet errors vs. total packets received, with percentage. |
+| **DAX** (rate) | Incoming Stream Rates | Ingress rate for DAX audio data, in kbps. |
+| **Total RX** | Incoming Stream Rates | Aggregate receive rate across all stream categories, in kbps. |
+| **Total TX** | Incoming Stream Rates | Aggregate transmit rate, in kbps. |
+| **Audio** (drops) | Packet Loss (Sequence Gaps) | Dropped vs. total audio packets, with loss percentage. |
+| **FFT** (drops) | Packet Loss (Sequence Gaps) | Dropped vs. total FFT packets, with loss percentage. |
+| **Waterfall** (drops) | Packet Loss (Sequence Gaps) | Dropped vs. total waterfall packets, with loss percentage. |
+| **Meters** (drops) | Packet Loss (Sequence Gaps) | Dropped vs. total meter packets, with loss percentage. |
+| **DAX** (drops) | Packet Loss (Sequence Gaps) | Dropped vs. total DAX packets, with loss percentage. |
 
-Rates are expressed in kbps and are recalculated from byte-count deltas each second. Drop counts are inferred from missing VITA sequence numbers.
+All rate values are computed from the byte-count delta over the preceding one-second interval and expressed as kbps. Drop counts are inferred from missing VITA-49 sequence numbers.
 
 ## Tips
 
-- A category showing 0 kbps while the radio is connected and that stream should be active points to a configuration or routing problem on that specific stream, not a general network failure.
-- Large swings in a category rate from second to second can indicate bursty delivery even when the drop count is zero. Check **Waterfall** and **FFT** rates together: if waterfall is bursty but FFT is steady, the issue is likely with waterfall tile scheduling rather than the network path.
-- The drop percentage is only meaningful once **total packets** is non-zero. A display of `0 / 0` means no packets have been received for that category yet.
+- A rate of 0 kbps for a category that should be active (for example, **Audio** while a slice is open) indicates the stream has stopped arriving. Check the **Status** indicator in the **Network Status** group first.
+- Large swings in a category rate from second to second can indicate bursty delivery even when the drop count remains at zero.
+- Zero drops in the **Packet Loss** group does not rule out jitter or late-arriving bursts. If audio is choppy but drops show zero, check the **Audio Playback** group for underruns and jitter.
 
 ## Troubleshooting
 
-- **All rates show 0 kbps** — The radio is not connected or no streams have been started. Confirm connection status in the **Network Status** group: **Target Radio IP** should show an IP address, not "Not connected".
-- **DAX rate shows 0 kbps but other streams are active** — DAX audio bridging may not be enabled. Check `Settings > Autostart DAX with AetherSDR` or start DAX manually from the applet panel.
-- **Drop count climbs on one category while others stay at zero** — Loss is specific to that stream type. This can indicate the radio is sending more data than the network path can sustain for that particular stream; try reducing the FFT or waterfall update rate in radio settings.
+- **All category rates show 0 kbps** — The radio is not streaming. Confirm the connection is active by checking **Status** and **Target Radio IP** in the **Network Status** group. Reconnect via `Settings > Connect to Radio...` if needed.
+- **DAX rate shows 0 kbps while DAX is expected** — DAX streaming may not be enabled. Verify DAX is started; on supported platforms, check `Settings > Autostart DAX with AetherSDR`.
+- **Drop percentage is non-zero on one category only** — Loss is isolated to that stream. This can indicate the radio is overloaded for that specific data type or that a network queue is preferentially dropping UDP packets of that size.
 
 ## Related
 

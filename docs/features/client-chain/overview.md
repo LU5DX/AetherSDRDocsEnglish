@@ -1,100 +1,51 @@
 # Aetherial Audio Chain overview
 
-The Aetherial Audio Chain is AetherSDR's client-side DSP pipeline. It lets you shape both your transmitted and received audio through a sequence of processing stages that you can reorder, bypass individually, or bypass all at once — without touching the radio's own DSP settings.
+The Aetherial Audio Chain applet gives you a visual, interactive view of AetherSDR's client-side DSP signal processing. Use it to monitor, bypass, reorder, and edit the stages that shape your transmitted and received audio before it reaches the radio or your speakers.
 
 ## Before you start
 
-- Open the Aetherial Audio container by clicking the PUDU tray button in the right applet panel. The chain applet is always visible as the top section of that container when it is enabled.
-- A radio connection is not required to configure the chain, but audio processing only takes effect when audio is flowing.
+- The Aetherial Audio container must be visible. Click the tray button labelled "PUDU" in the right sidebar to toggle it. The chain applet appears as the top section of that container.
+- No radio connection is required to view or edit the chains.
 
 ## How it works
 
-The applet presents two independent processing chains — TX and RX — in a horizontal strip of stage tiles. Use the TX and RX toggle buttons to switch which chain is shown and edited. Only one chain is visible at a time; both retain their own stage order, bypass states, and editor settings independently.
+The applet presents two independent DSP chains — TX and RX — as a horizontal strip of stage tiles. Only one chain is shown at a time. Use the TX and RX buttons to switch between them.
 
-### TX chain
+**TX chain** processes audio on the transmit path through these stages in order: EQ, COMP, GATE, DESS, TUBE, PUDU, VERB.
 
-The TX chain runs left to right through up to seven stages:
+**RX chain** processes received audio through: EQ, GATE, COMP, TUBE, PUDU. The RX strip is bookended by three non-interactive status tiles — RADIO, DSP, and SPEAK — that show at a glance whether the receive path is live end to end.
 
-| Stage | Description |
-|---|---|
-| EQ | Parametric equalizer applied to outgoing audio |
-| COMP | Compressor |
-| GATE | Noise gate |
-| DESS | De-esser |
-| TUBE | Tube saturation |
-| PUDU | PooDoo™ voice processing |
-| VERB | Reverb |
+Each stage tile supports three interactions:
 
-### RX chain
-
-The RX chain runs through up to five user-controllable stages, bracketed by three read-only status tiles:
-
-| Stage / Tile | Description |
-|---|---|
-| RADIO status tile | Indicates whether PC Audio (the standard SSB stream) is enabled |
-| EQ | Receive equalizer |
-| GATE | AGC-T gate |
-| COMP | AGC-C compressor |
-| TUBE | Dynamic tube |
-| PUDU | PooDoo™ receive processing |
-| DSP status tile | Mirrors the active noise reducer (e.g. NR2, NR4, BNR); shows DSP when none is active |
-| SPEAK status tile | Indicates whether AetherSDR's audio output is unmuted |
-
-The RADIO, DSP, and SPEAK tiles are non-interactive indicators. They appear only when the RX chain is shown.
-
-### Interacting with stages
-
-Each stage tile supports three interactions, summarised in the hint line below the chain:
-
-- **Single-click** — toggles bypass on that stage only.
+- **Single-click** — toggles bypass for that stage only.
 - **Double-click** — opens the stage's frameless floating editor.
-- **Drag** — reorders the chain. A vertical cyan bar between tiles shows where the stage will land before you release. TX and RX use separate drag types, so a TX stage cannot be accidentally dropped into the RX chain.
+- **Drag** — reorders the stage within its chain. A vertical cyan bar shows where the stage will land before you release. The TX and RX chains are ordered independently; a drag on one chain has no effect on the other.
 
-### Global BYPASS
+A static hint below the chain reads: *Click to bypass · Double click to edit · Drag to reorder*.
 
-BYPASS disables every stage on the currently shown chain at once. When you check BYPASS, AetherSDR snapshots which stages were enabled and turns them all off. Unchecking BYPASS re-enables exactly those stages. Stages you toggle manually while BYPASS is checked are not included in the snapshot. TX and RX maintain separate bypass snapshots; the checked state shown tracks whichever side is currently visible.
-
-### Post-PUDU TX monitor
-
-Two small icon buttons to the right of the TX/RX toggles let you record and play back a short capture of your transmit audio as it exits the PUDU stage:
-
-- The **⏺** (Record) button captures up to 30 seconds of post-PUDU TX audio. Click it again to stop early; playback starts automatically. It pulses red while recording. It is enabled only when the mic input is set to PC and DAX is off, and playback is not already running.
-- The **▶** (Play) button plays back the last capture. Click it again to cancel. It pulses green while playing. It is enabled only once a recording exists and recording is not active.
-
-Both buttons are hidden when the RX chain is shown.
-
-### TX activity indicator
-
-While you are transmitting (MOX active), the TX chain strip pulses red to confirm the live transmit path.
+The chain order and individual stage states are persisted separately for TX and RX via `ClientCompTxChainStages` and `ClientCompRxChainStages`. The last-active tab (TX or RX) is persisted via `PooDooAudioActiveTab`. The container's visibility is persisted via `Applet_TXDSP`.
 
 ## What each control does
 
-| Control | Kind | Default | Persisted setting | Notes |
+| Control | Kind | Default | Behavior | Setting key |
 |---|---|---|---|---|
-| TX | Toggle button | Checked | `PooDooAudioActiveTab` | Shows and edits the TX chain. Amber highlight when selected. Last-active tab persists as `TX` or `RX`. |
-| RX | Toggle button | Unchecked | `PooDooAudioActiveTab` | Shows and edits the RX chain, including the RADIO / DSP / SPEAK status tiles. |
-| BYPASS | Toggle button | Unchecked | — | Snapshots and disables all currently-enabled stages on the active chain. Uncheck to restore them. TX and RX snapshots are independent. |
-| ⏺ (Record) | Toggle button | Unchecked | — | Records up to 30 s of post-PUDU TX audio. Click again to stop. Pulses red while active. TX only. |
-| ▶ (Play) | Toggle button | Unchecked | — | Plays back the captured audio. Click again to cancel. Pulses green while active. TX only. |
-| TX / RX chain stage tiles | Drag handles | — | `ClientCompTxChainStages` / `ClientCompRxChainStages` | Single-click to bypass, double-click to edit, drag to reorder. |
-| RADIO status tile | Indicator | — | — | Greens when PC Audio is enabled. RX mode only. |
-| DSP status tile | Indicator | — | — | Shows the active noise reducer short name (e.g. NR2, NR4, BNR), or DSP when none is on. RX mode only. |
-| SPEAK status tile | Indicator | — | — | Greens when AetherSDR's audio output is unmuted. RX mode only. |
-
-The `Applet_TXDSP` setting controls whether the Aetherial Audio container (which hosts this applet) is shown at all.
+| TX | Toggle button | Checked | Shows and makes the TX chain active for editing. Displays amber when selected. | `PooDooAudioActiveTab` |
+| RX | Toggle button | Unchecked | Shows and makes the RX chain active for editing. Displays amber when selected. | `PooDooAudioActiveTab` |
+| BYPASS | Toggle button | Unchecked | Checked: snapshots currently enabled stages on the active side and disables all of them. Unchecked: re-enables only the stages that were on before. TX and RX maintain separate snapshots. | — |
+| Record (⏺) | Toggle button | Unchecked | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. Pulses red while recording. Only visible in TX mode. Enabled when MIC source is PC, DAX is off, and playback is not running. | — |
+| Play (▶) | Toggle button | Unchecked | Plays back the captured PUDU audio. Click again to cancel. Pulses green while playing. Only visible in TX mode. Enabled once a recording exists and recording is not active. | — |
+| TX chain stage tile | Drag handle | — | Single-click bypasses the stage; double-click opens its editor; drag reorders the TX chain. | — |
+| RX chain stage tile | Drag handle | — | Single-click bypasses the stage; double-click opens its editor; drag reorders the RX chain. | — |
+| RADIO status tile | Indicator | — | Greens when PC Audio is enabled. Only visible in RX mode. | — |
+| DSP status tile | Indicator | — | Mirrors the active client-side noise reducer (e.g. NR2, NR4, BNR). Shows generic "DSP" when none is active. Only visible in RX mode. | — |
+| SPEAK status tile | Indicator | — | Greens when AetherSDR's audio output is unmuted. Only visible in RX mode. | — |
 
 ## Tips
 
-- TX and RX chain orders are saved independently. Reordering one chain does not affect the other.
-- You can drag stages into any order you want on either chain. The cyan drop indicator shows the exact insertion point before you release.
-- The post-PUDU recorder is useful for checking how your processing chain sounds without needing a second station. Make sure your mic source is set to PC and DAX is off before recording, or the Record button will remain disabled.
-- BYPASS is per-chain. Checking BYPASS while viewing TX does not affect the RX chain's bypass state.
-
-## Troubleshooting
-
-- **The ⏺ (Record) button is greyed out** — The mic input is not set to PC, DAX is enabled, or playback is currently running. Check your audio input settings and ensure DAX is off before attempting to record.
-- **Dragging a TX stage does not land on the RX strip** — This is by design. The two chains use incompatible drag types to prevent accidental cross-chain drops.
-- **BYPASS is checked but some stages are still bypassed after unchecking** — Stages you toggled manually while BYPASS was active are not part of the snapshot and will not be automatically restored. Re-enable them individually.
+- The BYPASS button preserves a snapshot of which stages were enabled. If you manually toggle individual stages while BYPASS is checked, those manual changes are preserved outside the snapshot and will not be automatically restored when you uncheck BYPASS.
+- The TX endpoint indicator pulses red while you are transmitting (MOX active), giving a live confirmation that the TX chain is processing audio.
+- Switching from TX to RX and back does not affect either chain's stage states or BYPASS snapshot. Each side is fully independent.
+- The Record button tooltip reads: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off)." If the button is greyed out, check your MIC source setting and DAX state first.
 
 ## Related
 

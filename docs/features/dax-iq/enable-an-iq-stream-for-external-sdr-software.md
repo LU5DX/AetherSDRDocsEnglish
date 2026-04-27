@@ -1,38 +1,38 @@
 # Enable an IQ stream for external SDR software
 
-The DAX IQ applet lets you activate up to four IQ streams from your FLEX-8600 and route them to external SDR software. Enable a channel here to start the stream on the radio; your external application then connects to that stream to receive IQ samples.
+The DAX IQ applet lets you activate one or more of four IQ streams on your FLEX-8600 so that external SDR software can receive raw IQ data from the radio. Each stream can be independently enabled with its own sample rate.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The DAX IQ applet requires an active radio connection.
-- The applet panel must be visible. If it is not, click `View > Applet Panel` to show it.
+- AetherSDR must be connected to a FLEX-8600 radio. IQ streams are not available without an active radio connection.
+- The DAX IQ applet is hidden by default. You must open it before you can enable a stream.
 
 ## Steps
 
-1. Click the **IQ** tray button on the right sidebar to open the DAX IQ applet.
-2. Locate the row for the channel you want — **IQ 1**, **IQ 2**, **IQ 3**, or **IQ 4**.
-3. Select a sample rate from the rate combo box in that row. The default is **48k**. Available rates are 24k, 48k, 96k, and 192k.
-4. Click the **Off** button at the right end of the row. The button changes to **On** and the stream becomes active on the radio.
-5. Configure your external SDR software to connect to the corresponding DAX IQ channel. The level meter in that row will show signal activity once samples are flowing.
+1. Click the **IQ** tray button on the right sidebar to show the DAX IQ applet.
+2. In the row for the channel you want (IQ 1 through IQ 4), select a sample rate from the rate combo box. The default is **48k**. Available rates are **24k**, **48k**, **96k**, and **192k**.
+3. Click the **Off** button in that channel's row. The button label changes to **On** and the button style changes to indicate the stream is active.
+4. Configure your external SDR software to connect to the corresponding DAX IQ channel.
 
 ## What each control does
 
-| Control | Description | Default | Valid values |
+| Control | Default | Valid values | Persisted key |
 |---|---|---|---|
-| Rate combo box (IQ 1–4) | Sets the IQ sample rate for the channel. The combo syncs to the radio-reported rate when a stream is active. | 48k | 24k (24000), 48k (48000), 96k (96000), 192k (192000) |
-| Level meter (IQ 1–4) | Shows the RMS level of the active IQ stream, scaled 0–100. Resets to 0 on disconnect or disable. | 0 | 0–100 |
-| Off / On toggle (IQ 1–4) | Enables or disables the IQ stream for that channel. | Off | Off, On |
+| Rate combo box (IQ 1–4) | `48k` | `24k` (24000), `48k` (48000), `96k` (96000), `192k` (192000) | `DaxIqRate1` – `DaxIqRate4` |
+| Off/On toggle (IQ 1–4) | `Off` | `Off`, `On` | `DaxIqEnabled1` – `DaxIqEnabled4` |
+| Level meter (IQ 1–4) | 0 | 0–100 (scaled from RMS × 200) | — |
 
 ## Tips
 
-- IQ streams are per-session and are not persisted by the radio. However, AetherSDR saves the enabled state for each channel locally (keys `DaxIqEnabled1` through `DaxIqEnabled4`) and restores active streams automatically about 1.5 seconds after reconnecting to the radio.
-- The rate combo box is also saved locally per channel (`DaxIqRate1` through `DaxIqRate4`), so your preferred sample rate is restored on next launch.
-- If you scroll the applet panel without meaning to change values, AetherSDR's controls-lock mechanism prevents accidental rate changes while scrolling.
+- Your sample rate selection is persisted across sessions. When you reconnect to the radio, AetherSDR waits briefly for the session to settle before re-enabling any streams that were active in the previous session.
+- The rate combo box syncs back to the radio-reported rate once a stream is active. If the radio overrides your selection, the combo will reflect the radio's value.
+- The level meter resets to 0 whenever a stream is disabled or the radio disconnects.
 
 ## Troubleshooting
 
-- **Button shows "On" after reconnect but no samples arrive in the external application** — AetherSDR requests streams approximately 1.5 seconds after connecting to allow session setup to complete. Wait a moment, then check that your external software is connected to the correct DAX IQ channel number.
-- **Rate combo shows a different value than selected** — When a stream is active, the combo syncs to the rate reported by the radio, which may override your selection. Disable the stream, change the rate, then re-enable it.
+- **The IQ tray button is not visible** — The applet panel may be hidden. Go to `View > Applet Panel` to show it, then click the **IQ** tray button.
+- **The button switches to On but no data arrives in external software** — The stream request may have been sent before the radio was ready. Disable the stream by clicking **On** to return it to **Off**, wait a moment, then click **Off** again to re-enable it.
+- **The rate combo reverts after enabling** — The radio has reported a different sample rate for the active stream. The combo syncs to the radio-reported value; select your preferred rate before enabling the stream.
 
 ## Related
 

@@ -1,50 +1,53 @@
 # Profile Manager overview
 
-The Profile Manager lets you create, load, rename, and delete Global, Transmit, and Microphone profiles stored on the radio. Use it to save and recall complete radio states without reconfiguring settings by hand.
+The Profile Manager lets you create, load, rename, and delete the three profile types stored on the FLEX-8600: Global, Transmit, and Microphone. Use it to save and restore complete radio states, switch between operating configurations, and control whether transmit changes are saved automatically.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Profile Manager is unavailable when disconnected.
+- AetherSDR must be connected to the radio. The Profile Manager requires an active radio connection.
 
 ## How it works
 
-Open the Profile Manager from `Profiles > Profile Manager...`. The dialog contains four tabs — **Global**, **Transmit**, **Microphone**, and **Auto-Save** — each covering a separate profile category.
+Open the Profile Manager from `Profiles > Profile Manager...`. The dialog contains four tabs — **Global**, **Transmit**, **Microphone**, and **Auto-Save** — plus a **Close** button at the bottom.
 
-**Global, Transmit, and Microphone tabs** share the same layout:
+**Global, Transmit, and Microphone tabs**
 
-- Type a name in **Profile name** to identify a new profile before saving, or select an existing entry in **Profile list** to fill the field automatically.
-- The **Profile list** shows all profiles in that category. The currently active profile is highlighted.
-- Click **Load** (or double-click a list entry) to apply the selected profile to the radio immediately.
-- Click **Save** to write the radio's current state under the name shown in **Profile name**. If the name matches an existing profile, that profile is overwritten.
-- Click **Delete** to remove the selected profile. A confirmation prompt appears before the profile is deleted.
+Each of these three tabs has the same layout:
 
-**Auto-Save tab** controls whether transmit and microphone changes accumulate automatically:
+- A **Profile name** text field at the top. Type a name here before saving a new profile, or select an existing profile from the list to populate this field automatically.
+- **Load**, **Save**, and **Delete** buttons. Load and Delete are disabled until you select a profile in the list. Selecting a profile also copies its name into the **Profile name** field.
+- A **Profile list** showing all saved profiles for that category. The active profile is highlighted. Double-clicking a profile in the list loads it immediately, equivalent to selecting it and clicking **Load**.
 
-- When **Auto-save profile changes** is checked, any change to TX or mic settings is written back to the active profile without a manual Save. This setting is stored as `AutoSaveTransmitProfile`.
+When you click **Save**, the radio saves the current state under the name in the **Profile name** field. If the field is empty, the currently selected profile name is used instead.
 
-Click **Close** to dismiss the dialog. Any changes already sent to the radio remain in effect.
+When you click **Delete**, a confirmation dialog appears before the profile is removed.
+
+The profile list updates automatically when the radio reports a change, so additions or deletions made elsewhere are reflected without reopening the dialog.
+
+**Auto-Save tab**
+
+The Auto-Save tab contains a single checkbox and a short description. When **Auto-save profile changes** is checked, changes to TX and microphone settings are written back to the active profile automatically. This state is persisted as `AutoSaveTransmitProfile`. When unchecked, you must use **Save** explicitly to preserve any changes.
 
 ## What each control does
 
-| Control | Where | Behavior | Setting key |
+| Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| Global (tab) | Tab bar | Switches to global profile management. | — |
-| Transmit (tab) | Tab bar | Switches to transmit profile management. | — |
-| Microphone (tab) | Tab bar | Switches to microphone profile management. | — |
-| Auto-Save (tab) | Tab bar | Switches to auto-save configuration. | — |
-| Profile name | Global / Transmit / Microphone tabs | Name used when creating or overwriting a profile. Populated automatically when you select a list entry. | — |
-| Profile list | Global / Transmit / Microphone tabs | All profiles for the active category. Active profile is highlighted. | — |
-| Load | Global / Transmit / Microphone tabs | Applies the selected profile to the radio. Also triggered by double-clicking a list entry. | — |
-| Save | Global / Transmit / Microphone tabs | Saves current radio state under the name in Profile name. | — |
-| Delete | Global / Transmit / Microphone tabs | Deletes the selected profile after confirmation. | — |
-| Auto-save profile changes | Auto-Save tab | When enabled, TX and mic changes are written back to the active profile automatically. | `AutoSaveTransmitProfile` |
-| Close | Bottom of dialog | Closes the dialog. | — |
+| Global (tab) | Tab | Manages global profiles. | — |
+| Transmit (tab) | Tab | Manages transmit profiles. | — |
+| Microphone (tab) | Tab | Manages microphone profiles. | — |
+| Auto-Save (tab) | Tab | Controls automatic profile saving. | — |
+| Profile name | Text field | Name used when saving a new profile. Populated automatically when a profile is selected. | — |
+| Profile list | List | All profiles for this category; active one highlighted. | — |
+| Load | Button | Loads the selected profile onto the radio. Disabled when nothing is selected. | — |
+| Save | Button | Saves the current radio state under the typed name, or the selected name if the field is empty. | — |
+| Delete | Button | Deletes the selected profile after confirmation. Disabled when nothing is selected. | — |
+| Auto-save profile changes | Checkbox | When enabled, TX and mic changes are written back to the active profile automatically. | `AutoSaveTransmitProfile` |
+| Close | Button | Closes the dialog. | — |
 
 ## Tips
 
-- Load and Delete are disabled until you select a profile from the list. Select an entry first.
-- The Profile list updates automatically if the radio reports a change while the dialog is open — you do not need to close and reopen it.
-- The dynamic list under `Profiles >` in the menu bar shows active global profiles and lets you load them without opening the Profile Manager.
+- Double-clicking a profile in the list loads it immediately without needing to click **Load**.
+- The **Profile name** field is filled in when you select a profile, so you can load or overwrite a profile without retyping its name.
 
 ## Related
 

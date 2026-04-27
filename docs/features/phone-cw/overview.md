@@ -1,59 +1,59 @@
 # Phone/CW overview
 
-The Phone/CW applet is a mode-aware transmit control panel. It shows microphone, processor, and monitor controls when the active slice is in a voice mode, and automatically switches to CW controls — including keyer, sidetone, and pitch — when the active slice is in CW mode.
-
-## Before you start
-
-- AetherSDR must be connected to the radio. The applet requires an active radio connection.
-- The applet is always present in the Applet Panel (right sidebar). If the panel is hidden, enable it via `View > Applet Panel`. Toggle the applet open or closed with the `P/CW` tray button.
+The Phone/CW applet is a mode-aware transmit panel that provides microphone, processor, and monitor controls in voice modes, and automatically switches to CW controls when the active slice is in a CW mode. Open it to adjust transmit audio, set keying parameters, or configure the local low-latency CW sidetone.
 
 ## How it works
 
-The applet contains two sub-panels stacked behind each other. AetherSDR switches between them automatically based on the active slice mode:
+The applet is always present in the Applet Panel on the right sidebar. Toggle it using the **P/CW** tray button. It contains two sub-panels managed by a stacked layout:
 
-- **Phone sub-panel** — active in voice modes (SSB, AM, FM). Shows mic metering, mic source and gain, speech processor, DAX, and TX monitor controls.
-- **CW sub-panel** — active when the slice is in CW mode. Shows ALC metering, keyer speed and delay, break-in, iambic, radio sidetone, and the client-side local sidetone path.
+- **Phone sub-panel** — visible when the active slice is in a voice mode (SSB, AM, FM, and similar).
+- **CW sub-panel** — visible when the active slice is in a CW mode.
 
-### Phone sub-panel controls
+AetherSDR switches between sub-panels automatically as you change the slice mode. You do not switch them manually.
 
-| Control | What it does | Default | Range / Values | Setting key |
-|---|---|---|---|---|
-| Level | Mic input peak meter (dBFS). Reads –150 when the radio is not transmitting and met_in_rx is off. | — | –40 to +10 dBFS (red above 0) | — |
-| Compression | Speech compression meter (reversed fill — bar fills from the right). | — | –25 to 0 dB | — |
-| Mic profile | Loads a named mic processing profile from the radio's profile list. | — | Populated from radio | — |
-| Mic source | Selects the microphone input source. | — | MIC, BAL, LINE, ACC, PC | — |
-| Mic gain | Adjusts mic input level. When source is PC, the value is kept client-side because the radio always reports mic_level=0 for that source. | 50 | 0–100 | `PcMicGain` |
-| +ACC | Enables the accessory mic input mix. Checkable. | — | On / Off | — |
-| PROC | Toggles the speech processor. Checkable. | — | On / Off | — |
-| NOR/DX/DX+ | Three-position processor level slider. | 0 (NOR) | 0 = NOR, 1 = DX, 2 = DX+ | — |
-| DAX | Enables DAX as the TX audio source. Checkable. | — | On / Off | — |
-| MON | Enables the TX sideband monitor. Checkable. | — | On / Off | — |
-| Monitor volume | Sets the sideband monitor volume. | — | 0–100 | — |
+### Phone sub-panel
 
-### CW sub-panel controls
+| Control | Kind | What it does | Default | Range / Options | Setting key |
+|---|---|---|---|---|---|
+| Level | Meter | Shows microphone input peak level in dBFS. Reads -150 when the meter is inactive and not transmitting. | — | -40 to +10 dBFS (red above 0) | — |
+| Compression | Meter | Shows speech compression amount in dB (reversed fill — higher compression fills left). | — | -25 to 0 dB | — |
+| Mic profile | Combo box | Loads the named mic processing profile from the radio's profile list. | — | Populated from radio | — |
+| Mic source | Combo box | Selects the microphone input source. | — | MIC, BAL, LINE, ACC, PC | — |
+| Mic gain | Slider | Adjusts mic input level. When source is PC, the value is kept client-side because the radio always reports level 0 for PC sources. | 50 | 0–100 | `PcMicGain` |
+| +ACC | Toggle button | Enables the accessory mic input mix. | — | On / Off | — |
+| PROC | Toggle button | Toggles the speech processor. | — | On / Off | — |
+| NOR/DX/DX+ | Slider | Sets the speech processor level. Three positions: NOR (0), DX (1), DX+ (2). | NOR (0) | 0, 1, 2 | — |
+| DAX | Toggle button | Enables DAX as the TX audio source. | — | On / Off | — |
+| MON | Toggle button | Enables the sideband TX monitor. | — | On / Off | — |
+| Monitor volume | Slider | Sets the sideband monitor volume. | — | 0–100 | — |
 
-| Control | What it does | Default | Range / Values | Setting key |
-|---|---|---|---|---|
-| ALC | ALC reading meter. Red above 80. | — | 0–100 | — |
-| Delay | CW break-in delay in milliseconds. | — | 0–2000 ms (step 10) | — |
-| Speed | CW keying speed. | — | 5–100 WPM | — |
-| Breakin | Toggles full break-in (QSK). Checkable. | — | On / Off | — |
-| Iambic | Toggles the iambic paddle keyer. Checkable. | — | On / Off | — |
-| Pitch < / > | Steps the CW sidetone and decode pitch by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | — |
-| Sidetone | Toggles the radio CW sidetone monitor (DAX-fed). Checkable. | — | On / Off | — |
-| Sidetone volume | Sets the radio CW monitor volume. | — | 0–100 | — |
-| L / R pan | CW monitor pan. | 50 | 0–100 | — |
-| Local STn | Enables the client-side low-latency CW sidetone (~10 ms latency), generated independently of the radio's DAX-fed monitor. Works with paddle, straight key, and CWX text. Checkable. | Off | On / Off | `CwLocalSidetoneEnabled` |
-| Local sidetone volume | Volume of the local sidetone, independent of the radio sidetone gain. | 50 | 0–100 | `CwLocalSidetoneVolume` |
-| Follow | When on, the local sidetone pitch tracks the radio's CW pitch setting. When off, the manual pitch slider is active. Checkable. | On | On / Off | `CwLocalSidetonePitchFollow` |
-| Local sidetone pitch | Manual pitch for the local sidetone in Hz. Only adjustable when Follow is off. | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` |
+### CW sub-panel
+
+| Control | Kind | What it does | Default | Range / Options | Setting key |
+|---|---|---|---|---|---|
+| ALC | Meter | Shows the automatic level control reading. Red above 80. | — | 0–100 | — |
+| Delay | Slider | Sets CW break-in delay in milliseconds. | — | 0–2000 ms (step 10) | — |
+| Speed | Slider | Sets CW keying speed. | — | 5–100 WPM | — |
+| Breakin | Toggle button | Toggles full break-in (QSK). | — | On / Off | — |
+| Iambic | Toggle button | Toggles the iambic paddle keyer. | — | On / Off | — |
+| Pitch < / > | Spin box | Steps the CW sidetone and decode pitch by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | — |
+| Sidetone | Toggle button | Toggles the radio CW sidetone monitor (DAX-fed). | — | On / Off | — |
+| Sidetone volume | Slider | Sets the radio CW monitor volume. | — | 0–100 | — |
+| L / R pan | Slider | CW monitor pan position. | 50 | 0–100 | — |
+| Local STn | Toggle button | Toggles the client-side low-latency CW sidetone generated by AetherSDR's audio engine (~10 ms latency). Independent of the radio's DAX-fed monitor. Works for paddle, straight key, and CWX-generated transmissions. | Off | On / Off | `CwLocalSidetoneEnabled` |
+| Local sidetone volume | Slider | Sets the local sidetone volume independently of the radio monitor gain. | 50 | 0–100 | `CwLocalSidetoneVolume` |
+| Follow | Toggle button | When on, the local sidetone pitch follows the radio's CW pitch setting. When off, the manual pitch slider is enabled. | On | On / Off | `CwLocalSidetonePitchFollow` |
+| Local sidetone pitch | Slider | Manual override for the local sidetone pitch in Hz. Only active when Follow is off. | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` |
+
+### Radio sidetone vs. local sidetone
+
+The radio sidetone (Sidetone / Sidetone volume) is routed through the radio's DAX monitor path and has latency typical of network audio. The local sidetone (Local STn) is generated entirely within AetherSDR's audio engine with approximately 10 ms latency, making it more suitable for paddle and straight-key operation. Both can be active simultaneously.
 
 ## Tips
 
-- The Phone and CW sub-panels switch automatically. You do not need to select them manually — changing the slice mode is sufficient.
-- The local sidetone (Local STn) and the radio sidetone (Sidetone) are independent. You can run both simultaneously or use either alone.
-- When Mic source is set to PC, the Mic gain value is stored in `PcMicGain` on the client. The radio does not retain it.
-- Follow is on by default, so the local sidetone pitch stays in sync with the radio CW pitch without manual adjustment.
+- The `PcMicGain` value is stored client-side only. If you switch mic source away from PC and back, AetherSDR restores the saved value rather than reading from the radio.
+- The local sidetone pitch slider is grayed out while Follow is on. Turn Follow off before attempting to set a manual pitch.
+- Local STn responds to CWX-generated text as well as hardware keying, so you can use it as the sole sidetone source during keyboard CW.
 
 ## Related
 
