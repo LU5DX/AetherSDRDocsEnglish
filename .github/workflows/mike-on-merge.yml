@@ -1,0 +1,82 @@
+# Auto-deploy con mike cuando se mergea una PR de regen a main.
+#
+# Trigger: push a main que toque docs/, mkdocs.yml u overrides/.
+# (Las PRs del fork del engine pipeline van a producir estos pushes.)
+#
+# Hace:
+#   1. Detecta el tag de la versión leyendo el commit message (formato:
+#      "regen for AetherSDR vX.Y.Z" o similar). Como fallback acepta input
+#      manual via workflow_dispatch.
+#   2. Corre mike deploy --push --update-aliases <ver> latest
+#   3. Notifica via Discord (vía webhook del engine, secret compartido si
+#      se configura; opcional)
+#
+# Requiere: el repo tiene que tener Pages source = gh-pages branch (ya
+# configurado el 2026-04-26).
+
+name: Mike Deploy on Merge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'overrides/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión a deployar (ej. 0.9.1, sin v prefix). Si vacío, intenta detectar del commit.'
+        required: false
+
+permissions:
+  contents: write   # para push a gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0    # mike necesita historia completa
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install mike + mkdocs stack
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs-material pymdown-extensions mkdocs-awesome-pages-plugin mike
+
+      - name: Detect version
+        id: version
+        env:
+          INPUT: ${{ inputs.version }}
+        run: |
+          if [ -n "$INPUT" ]; then
+            VERSION="$INPUT"
+          else
+            # Buscar "vX.Y.Z" o "X.Y.Z" en el último commit message
+            MSG=$(git log -1 --pretty=%B)
+            VERSION=$(echo "$MSG" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+' | head -1 | sed 's/^v//')
+          fi
+          if [ -z "$VERSION" ]; then
+            echo "::error::No pude detectar versión del commit ni del input. Abortando."
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "::notice::Deploying version: $VERSION"
+
+      - name: Configure git for mike
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Mike deploy
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          mike deploy --push --update-aliases "$VERSION" latest
+          mike set-default --push latest
