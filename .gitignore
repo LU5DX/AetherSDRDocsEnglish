@@ -10,4 +10,4 @@ __pycache__/
 # Internal authoring tooling — not for the published repo
 /_generator/
 _generator/update-*.log
-update-*.log
+*-v[0-9]*.log
