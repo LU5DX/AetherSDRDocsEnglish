@@ -270,28 +270,6 @@
   align-items: center;
 }
 
-.md-tabs__list::after {
-  content: "docs · v0.9.1";
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 12px;
-  border-radius: 999px;
-  background: #1f2937;                      /* charcoal */
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  font-family: var(--md-text-font, sans-serif);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-@media screen and (max-width: 76.1875em) {
-  /* Tabs row hides on mobile in Material; the badge goes with it. */
-  .md-tabs__list::after { display: none; }
-}
 
 /* ── Accessibility: improve tab link contrast (WCAG AA) ─────────────────── */
 .md-tabs__link {
