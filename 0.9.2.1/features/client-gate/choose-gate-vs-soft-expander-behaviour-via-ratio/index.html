@@ -4047,17 +4047,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17341,17 +17330,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17428,8 +17406,6 @@
 <th>Control</th>
 <th>Default</th>
 <th>Valid range</th>
-<th>Persisted key (TX / RX)</th>
-<th>Behaviour</th>
 </tr>
 </thead>
 <tbody>
@@ -17437,47 +17413,59 @@
 <td><strong>Ratio</strong></td>
 <td>2.0</td>
 <td>1.0 to 10.0</td>
-<td><code>ClientGateTxRatio</code> / <code>ClientGateRxRatio</code></td>
-<td>Displayed as X.X:1. Lower values expand softly; higher values gate hard.</td>
 </tr>
 <tr>
 <td><strong>Thresh</strong></td>
 <td>-40.0 dB</td>
 <td>-80.0 to 0.0 dB</td>
-<td><code>ClientGateTxThresholdDb</code> / <code>ClientGateRxThresholdDb</code></td>
-<td>Level below which attenuation begins.</td>
 </tr>
 <tr>
 <td><strong>Return</strong></td>
 <td>2.0 dB</td>
 <td>0.0 to 20.0 dB</td>
-<td><code>ClientGateTxReturnDb</code> / <code>ClientGateRxReturnDb</code></td>
-<td>Displayed as X.XX dB. Sets the hysteresis deadband: the gate opens above Thresh and does not close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible.</td>
 </tr>
 <tr>
 <td><strong>Floor</strong></td>
 <td>-15.0 dB</td>
 <td>-80.0 to 0.0 dB</td>
-<td><code>ClientGateTxFloorDb</code> / <code>ClientGateRxFloorDb</code></td>
-<td>Maximum attenuation the gate is allowed to apply, regardless of ratio.</td>
 </tr>
 <tr>
 <td><strong>Gain-reduction bar</strong></td>
 <td>—</td>
 <td>0 to 40 dB GR</td>
-<td>—</td>
-<td>Amber strip, right-filled. The tick at -15 dB marks the default Floor value.</td>
 </tr>
 <tr>
 <td>Transfer curve</td>
 <td>—</td>
 <td>—</td>
-<td>—</td>
-<td>Shows the static transfer curve with a live ball at the current input level. A soft-cyan band on the input axis marks the Return deadband when Return is greater than zero.</td>
+</tr>
+<tr>
+<td>Flip (Expander / Gate)</td>
+<td>Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'.</td>
+<td>Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.'</td>
+</tr>
+<tr>
+<td>Peek (lookahead)</td>
+<td>Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.</td>
+<td>Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.</td>
+</tr>
+<tr>
+<td>Attack</td>
+<td>Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.</td>
+<td>Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.</td>
+<td>Editor-only control. Label 'X.X ms'.</td>
+</tr>
+<tr>
+<td>## Tips</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
 <ul>
 <li>A ratio of 2.0:1 (the default) is a conservative starting point suitable for most TX use. Raise it only if low-level noise is still audible when you are not speaking.</li>
 <li>At ratios above approximately 8.0:1 the gate behaves almost like an on/off switch. Pair this with a carefully set <strong>Thresh</strong> to avoid clipping the leading edge of words.</li>

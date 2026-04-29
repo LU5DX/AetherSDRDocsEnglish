@@ -4187,17 +4187,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17341,17 +17330,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17433,8 +17411,6 @@
 <th>Knob</th>
 <th>Default</th>
 <th>Valid range</th>
-<th>Persisted key (TX / RX)</th>
-<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
@@ -17442,19 +17418,39 @@
 <td>Return</td>
 <td>2.0 dB</td>
 <td>0.0 – 20.0 dB</td>
-<td><code>ClientGateTxReturnDb</code> / <code>ClientGateRxReturnDb</code></td>
-<td>Sets the hysteresis deadband in dB. The gate opens above Thresh and does not close until input drops below Thresh − Return. Uses linear mapping. The transfer curve draws a soft-cyan band to visualise the deadband.</td>
 </tr>
 <tr>
 <td>Release</td>
 <td>100 ms</td>
 <td>5 – 2000 ms</td>
-<td><code>ClientGateTxReleaseMs</code> / <code>ClientGateRxReleaseMs</code></td>
-<td>Sets how quickly the gate closes after input falls below Thresh − Return. Uses exponential mapping.</td>
+</tr>
+<tr>
+<td>Flip (Expander / Gate)</td>
+<td>Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'.</td>
+<td>Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.'</td>
+</tr>
+<tr>
+<td>Peek (lookahead)</td>
+<td>Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.</td>
+<td>Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.</td>
+</tr>
+<tr>
+<td>Attack</td>
+<td>Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.</td>
+<td>Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.</td>
+<td>Editor-only control. Label 'X.X ms'.</td>
+</tr>
+<tr>
+<td>## Tips</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The gain-reduction bar maxes at 40 dB and the tick mark at the −15 dB position corresponds to the default Floor value. Use this tick as a visual reference: if the amber fill rarely reaches the tick, your Floor setting is the governing limit, not the ratio or timing.</li>
 <li>Changes made in the docked applet knobs and the floating editor are kept in sync automatically. You do not need to reopen either view after adjusting one.</li>

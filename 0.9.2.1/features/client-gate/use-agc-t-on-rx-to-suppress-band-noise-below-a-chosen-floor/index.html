@@ -4215,17 +4215,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17341,17 +17330,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17432,8 +17410,6 @@
 <th>Control</th>
 <th>Default</th>
 <th>Valid range</th>
-<th>Persisted key</th>
-<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
@@ -17441,54 +17417,64 @@
 <td>Thresh</td>
 <td>-40.0 dB</td>
 <td>-80.0 to 0.0 dB</td>
-<td><code>ClientGateRxThresholdDb</code></td>
-<td>Level below which attenuation begins. Lower values let more signal through before the gate acts.</td>
 </tr>
 <tr>
 <td>Ratio</td>
 <td>2.0</td>
 <td>1.0 to 10.0</td>
-<td><code>ClientGateRxRatio</code></td>
-<td>Expansion ratio below threshold. Higher values produce a harder gate-like cut; lower values give a gentler slope. Displayed as X.X:1.</td>
 </tr>
 <tr>
 <td>Return</td>
 <td>2.0 dB</td>
 <td>0.0 to 20.0 dB</td>
-<td><code>ClientGateRxReturnDb</code></td>
-<td>Hysteresis deadband. The gate opens above Thresh and does not close until input drops below Thresh − Return. Prevents chatter near the threshold. The transfer curve draws a soft-cyan band over this range. Displayed as X.XX dB.</td>
 </tr>
 <tr>
 <td>Release</td>
 <td>100 ms</td>
 <td>5 to 2000 ms</td>
-<td><code>ClientGateRxReleaseMs</code></td>
-<td>How quickly the gate closes after input falls below Thresh − Return. Uses exponential mapping.</td>
 </tr>
 <tr>
 <td>Floor</td>
 <td>-15.0 dB</td>
 <td>-80.0 to 0.0 dB</td>
-<td><code>ClientGateRxFloorDb</code></td>
-<td>Maximum attenuation the gate may apply. Prevents complete silence during noise.</td>
 </tr>
 <tr>
 <td>Transfer curve</td>
 <td>—</td>
 <td>—</td>
-<td>—</td>
-<td>Plots the static expander curve. A live ball shows current input level relative to the threshold. A soft-cyan band between Thresh − Return and Thresh visualises the Return deadband when Return is greater than 0.</td>
 </tr>
 <tr>
 <td>Gain-reduction bar</td>
 <td>—</td>
 <td>0 to 40 dB GR</td>
-<td>—</td>
-<td>Amber strip filling from the right shows current attenuation depth. The tick at -15 dB marks the default Floor.</td>
+</tr>
+<tr>
+<td>Flip (Expander / Gate)</td>
+<td>Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'.</td>
+<td>Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.'</td>
+</tr>
+<tr>
+<td>Peek (lookahead)</td>
+<td>Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.</td>
+<td>Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.</td>
+</tr>
+<tr>
+<td>Attack</td>
+<td>Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.</td>
+<td>Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.</td>
+<td>Editor-only control. Label 'X.X ms'.</td>
+</tr>
+<tr>
+<td>## Tips</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Start with Thresh at -40.0 dB and raise it slowly until the gain-reduction bar fills solidly during band noise but opens cleanly when a signal appears.</li>
 <li>Set Floor to -15.0 dB initially. Reduce it (more negative) only if the residual noise is still distracting. Avoid very low Floor values, as they can make the audio sound unnatural between signals.</li>

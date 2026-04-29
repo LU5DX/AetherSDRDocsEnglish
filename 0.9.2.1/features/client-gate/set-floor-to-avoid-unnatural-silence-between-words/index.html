@@ -17427,8 +17427,6 @@
 <th>Control</th>
 <th>Default</th>
 <th>Valid range</th>
-<th>Persisted key</th>
-<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
@@ -17436,22 +17434,36 @@
 <td>Floor</td>
 <td>-15.0 dB</td>
 <td>-80.0 to 0.0 dB</td>
-<td><code>ClientGateTxFloorDb</code></td>
-<td>Maximum attenuation the gate is allowed to apply. Higher values (closer to 0 dB) preserve more audio during closure; lower values allow a deeper cut.</td>
 </tr>
 <tr>
 <td>Return</td>
 <td>2.0 dB</td>
 <td>0.0 to 20.0 dB</td>
-<td><code>ClientGateTxReturnDb</code></td>
-<td>Sets the hysteresis deadband. The gate opens above Thresh and does not close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. The transfer-curve widget draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible.</td>
 </tr>
 <tr>
 <td>Gain-reduction bar</td>
 <td>—</td>
 <td>0 to 40 dB GR</td>
-<td>—</td>
-<td>Horizontal amber strip, right-filled. Shows the current depth of attenuation. A tick mark at -15 dB indicates the default Floor position.</td>
+</tr>
+<tr>
+<td>Flip (Expander / Gate)</td>
+<td>Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'.</td>
+<td>Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.'</td>
+</tr>
+<tr>
+<td>Peek (lookahead)</td>
+<td>Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.</td>
+<td>Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.</td>
+</tr>
+<tr>
+<td>Attack</td>
+<td>Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.</td>
+<td>Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.</td>
+<td>Editor-only control. Label 'X.X ms'.</td>
 </tr>
 </tbody>
 </table>
