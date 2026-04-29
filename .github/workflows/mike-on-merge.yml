@@ -61,18 +61,25 @@ jobs:
             VERSION=$(echo "$MSG" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
           fi
           if [ -z "$VERSION" ]; then
-            echo "::error::Could not detect version from commit or input. Aborting."
-            exit 1
+            if [ -n "$INPUT" ]; then
+              echo "::error::No version provided via workflow_dispatch input. Aborting."
+              exit 1
+            fi
+            echo "::notice::No version found in commit message — skipping mike deploy."
+            echo "version=" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "::notice::Deploying version: $VERSION"
 
       - name: Configure git for mike
+        if: steps.version.outputs.version != ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Mike deploy
+        if: steps.version.outputs.version != ''
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
