@@ -1,0 +1,354 @@
+/* ─── AetherSDR landing page ──────────────────────────────────────────────
+   Scroll-coupled parallax modeled on https://squidfunk.github.io/mkdocs-material/
+
+   The hero is 100vh, in document flow, with overflow:hidden. Inside it,
+   two absolutely-positioned layers (background + alien audience) are
+   translated by JavaScript at different speeds as the user scrolls.
+   The whole hero scrolls away with the page once you're past it; the
+   tile grid below appears underneath, exactly like Material's homepage.
+*/
+
+:root {
+  --aether-bg-deep:    #050818;
+  --aether-bg-mid:     #0a0e27;
+  --aether-violet:     #5b21b6;
+  --aether-violet-2:   #7c3aed;
+  --aether-cyan:       #06b6d4;
+  --aether-cyan-2:     #67e8f9;
+  --aether-text:       #f0f4f8;
+  --aether-text-dim:   #cbd5e1;
+}
+
+/* ── Hero shell ───────────────────────────────────────────────────────
+   In document flow, exactly one viewport tall, clips its parallax
+   children. Scrolls away naturally with the page. */
+
+.aether-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;            /* contain bg + UI to the hero */
+  isolation: isolate;
+  background-color: var(--aether-bg-deep);
+}
+
+/* ── Layer 1: AetherSDR UI screenshot, slowest drift ────────────────── */
+
+/* Static gradient + starfield backdrop. No parallax — it's the deep
+   void. The UI image is its own positioned element below this. */
+.aether-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--aether-bg-deep);
+  background-image:
+    /* Vignette so text in the lower-left stays legible */
+    linear-gradient(180deg, transparent 0%, rgba(5, 8, 24, 0.55) 80%, rgba(5, 8, 24, 0.85) 100%),
+    linear-gradient(90deg, rgba(5, 8, 24, 0.7) 0%, transparent 50%),
+    /* Atmospheric tint */
+    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 58, 237, 0.30), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6, 182, 212, 0.20), transparent 70%),
+    /* Starfield fallback */
+    url('../assets/hero-stars.svg');
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* AetherSDR UI screenshot as its own positioned <img>. Sized so it
+   sits BELOW the Material header and inside the visible viewport,
+   never extending behind the header band. Parallax-fast so it rises
+   away as the user scrolls. */
+.aether-ui {
+  position: absolute;
+  /* 4vh below the top to clear the Material header */
+  top: 4vh;
+  left: 50%;
+  /* Width-driven sizing: the image renders at its natural aspect
+     ratio at this width. No max-height constraint, so the image is
+     never letterboxed inside an oversized box. */
+  width: min(90vw, 1500px);
+  height: auto;
+  z-index: 1;
+  filter: drop-shadow(0 12px 40px rgba(6, 182, 212, 0.35));
+  pointer-events: none;
+  will-change: transform;
+  transform: translateX(-50%) translateY(var(--parallax-y, 0));
+}
+
+/* ── Layer 2: alien audience, fastest drift (closest to camera) ─────── */
+
+/* ── Hero content — bottom-left, in front of all parallax layers.
+   Uses parallax-speed > 1 (data-parallax-speed="1.30" in the HTML),
+   so it "rises" faster than the UI screen behind it — classic
+   foreground behavior. */
+
+.aether-hero__content {
+  position: absolute;
+  z-index: 3;
+  bottom: 6vh;
+  left: 4vw;
+  text-align: left;
+  max-width: min(580px, 90vw);
+  color: var(--aether-text);
+  will-change: transform;
+  transform: translateY(var(--parallax-y, 0));
+}
+
+.aether-hero__title {
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg, #c4b5fd 0%, var(--aether-cyan-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 30px rgba(124, 58, 237, 0.4);
+}
+
+.aether-hero__subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  margin: 0 0 1.25rem;
+  color: #a5b4fc;
+  letter-spacing: 0.01em;
+}
+
+.aether-hero__lede {
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+  color: var(--aether-text-dim);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.aether-hero__radios {
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+  color: rgba(165, 180, 252, 0.85);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.aether-hero__cta {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.aether-hero .md-button {
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  backdrop-filter: blur(6px);
+  background-color: rgba(15, 23, 42, 0.55);
+}
+
+.aether-hero .md-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
+}
+
+.aether-hero .md-button--primary {
+  background: linear-gradient(135deg,
+    var(--aether-violet-2) 0%, var(--aether-cyan) 100%);
+  border: none;
+  color: white;
+  backdrop-filter: none;
+}
+
+/* ── Scroll hint at the very bottom ──────────────────────────────── */
+
+.aether-hero__scroll-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 14px;
+  z-index: 2;
+}
+
+.aether-hero__scroll-hint span {
+  display: block;
+  width: 3px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  margin: 5px auto 0;
+  animation: aether-scroll-hint 2s infinite;
+}
+
+@keyframes aether-scroll-hint {
+  0%   { transform: translateY(0); opacity: 0.7; }
+  60%  { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0.7; }
+}
+
+/* ── Tile grid below the hero (in normal flow, appears as user scrolls) */
+
+.aether-home-below {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem 6rem;
+  background: var(--md-default-bg-color);
+}
+
+.aether-tiles {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.aether-tile {
+  display: block;
+  padding: 1.5rem 1.5rem 1.65rem;
+  border-radius: 14px;
+  background: var(--md-code-bg-color, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(255, 255, 255, 0.08));
+  color: inherit !important;
+  text-decoration: none;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.aether-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--aether-cyan);
+  box-shadow: 0 12px 28px rgba(6, 182, 212, 0.2);
+}
+
+.aether-tile h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c4b5fd, var(--aether-cyan-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.aether-tile p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the centering transform for .aether-ui, kill the parallax */
+  .aether-ui { transform: translateX(-50%) !important; }
+  .aether-hero__content { transform: none !important; }
+  .aether-hero__scroll-hint span { animation: none; }
+}
+
+/* ── Polish for doc pages ─────────────────────────────────────────────── */
+
+.md-typeset code { border-radius: 4px; }
+.md-typeset table:not([class]) th { font-weight: 600; }
+
+/* ── Docs-as-of version badge in the navigation tabs row ───────────────
+   Sits at the right end of the tabs row (next to Troubleshooting),
+   reusing existing horizontal space so the header doesn't grow taller.
+   Single source of truth for the docs version — bump the `content`
+   value when regenerating against a new AetherSDR release. The future
+   _generator/update.py script edits this same string. */
+
+.md-tabs__list {
+  align-items: center;
+}
+
+.md-tabs__list::after {
+  content: "docs · v0.9.1";
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #1f2937;                      /* charcoal */
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  font-family: var(--md-text-font, sans-serif);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 76.1875em) {
+  /* Tabs row hides on mobile in Material; the badge goes with it. */
+  .md-tabs__list::after { display: none; }
+}
+
+/* ── Accessibility: improve tab link contrast (WCAG AA) ─────────────────── */
+.md-tabs__link {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+  color: #ffffff !important;
+  opacity: 0.85 !important;
+}
+
+/* ── Sidebar: collapsible section styling ──────────────────────────────────
+   With navigation.sections removed, top-level folders become collapsible
+   groups. Color the section labels with the accent so they pop, and give
+   the active page a clear left-border indicator like PyMdown's site. */
+
+/* Section title (collapsible group label) */
+.md-nav--primary .md-nav__item--nested > .md-nav__link {
+  color: var(--aether-cyan-2);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.md-nav--primary .md-nav__item--nested > .md-nav__link:hover {
+  color: var(--aether-violet-2);
+}
+
+/* Currently-open section label */
+.md-nav--primary .md-nav__item--nested > .md-nav__link[aria-expanded="true"],
+.md-nav--primary .md-nav__item--active > .md-nav__link {
+  color: var(--aether-violet-2);
+}
+
+/* Active page: left-border accent */
+.md-nav__link--active {
+  border-left: 2px solid var(--aether-cyan);
+  padding-left: 0.5rem !important;
+  color: var(--aether-text) !important;
+}
+
+/* Smooth chevron rotation on expand/collapse */
+.md-nav__icon {
+  transition: transform 200ms ease;
+}
+
+/* ── Section icons in sidebar ──────────────────────────────────────────── */
+.md-nav__section-icon {
+  display: inline-flex;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  vertical-align: -0.125em;
+  color: var(--aether-cyan);
+}
+.md-nav__section-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
