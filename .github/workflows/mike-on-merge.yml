@@ -58,7 +58,7 @@ jobs:
           else
             # Look for "vX.Y.Z" or "X.Y.Z" in the most recent commit message
             MSG=$(git log -1 --pretty=%B)
-            VERSION=$(echo "$MSG" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+' | head -1 | sed 's/^v//')
+            VERSION=$(echo "$MSG" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
           fi
           if [ -z "$VERSION" ]; then
             echo "::error::Could not detect version from commit or input. Aborting."
