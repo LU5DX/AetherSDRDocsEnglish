@@ -21,17 +21,19 @@ The new chain order is saved automatically to `ClientCompTxChainStages`.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Setting key |
-|---|---|---|---|---|
-| **TX** | Toggle button | Shows and enables editing of the TX DSP chain. Must be selected to drag TX stages. | Checked | `PooDooAudioActiveTab` |
-| **RX** | Toggle button | Switches the strip to the RX chain. Drag operations on the RX strip do not affect TX order. | Unchecked | `PooDooAudioActiveTab` |
-| TX chain stage (**EQ / COMP / GATE / DESS / TUBE / PUDU / VERB**) | Drag handle | Single-click toggles bypass for that stage. Double-click opens its frameless floating editor. Drag left or right to reorder. | — | — |
-| **BYPASS** | Toggle button | Disables every stage on the currently shown chain side at once. Does not affect stage order. | Unchecked | — |
+| Control | Kind | Behavior |
+|---|---|---|
+| **TX** | Toggle button | Shows and enables editing of the TX DSP chain. Must be selected to drag TX stages. |
+| **RX** | Toggle button | Switches the strip to the RX chain. Drag operations on the RX strip do not affect TX order. |
+| TX chain stage (**EQ / COMP / GATE / DESS / TUBE / PUDU / VERB**) | Drag handle | Single-click toggles bypass for that stage. Double-click opens its frameless floating editor. Drag left or right to reorder. |
+| **BYPASS** | Toggle button | Disables every stage on the currently shown chain side at once. Does not affect stage order. |
+| RX chain stage (**EQ / AGC-T / AGC-C / TUBE / PUDU**) | Drag handle | Single-click toggles bypass for the RX stage. Double-click opens its frameless floating editor in RX mode. Drag left or right to reorder the RX chain. Order is independent of the TX chain. |
 
 ## Tips
 
 - The hint text below the chain reads "Click to bypass · Double click to edit · Drag to reorder" as a quick reminder of all three interactions.
 - TX and RX chain orders are fully independent. Reordering the TX chain has no effect on `ClientCompRxChainStages`.
+- The RX chain stage labels are **AGC-T** (gate) and **AGC-C** (compressor). These correspond to the gate and compressor functions respectively.
 - A single-click on a stage tile toggles its bypass state, not a reorder. Make sure you are dragging, not clicking, when you intend to move a stage.
 - If **BYPASS** is currently checked when you reorder, the stage positions still update. The bypass snapshot is based on which stages were enabled, not their position.
 

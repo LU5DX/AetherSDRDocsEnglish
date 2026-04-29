@@ -12,19 +12,34 @@ The Output knob applies a post-tube gain trim to the processed signal. Use it to
 1. Locate the **Output** knob in the five-knob row (fourth from the left: Drive, Tone, Bias, **Output**, Mix).
 2. Turn **Output** clockwise to increase the post-tube level, or counter-clockwise to reduce it.
 3. Release the knob when the output level matches your target. The label under the knob updates in real time and shows the current value in dB (for example, `0.0 dB`).
+4. Optionally, watch the **OUT** level meter on the far right of the floating editor to confirm the post-saturation peak level. The meter is only visible in the floating editor, not in the docked applet tile.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted setting key |
 |---|---|---|---|
-| Output (TX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeTxOutputGainDb` |
-| Output (RX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeRxOutputGainDb` |
+| Output (TX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeTxOutputDb` |
+| Output (RX) | 0.0 dB | −24.0 to 12.0 dB | `ClientTubeRxOutputDb` |
 
 Output is a post-tube make-up or trim gain. It acts after the Drive, Bias, and Tone stages, so it adjusts the final level without affecting the saturation character.
+
+## Output level meter
+
+The floating editor includes an **OUT** peak level meter (the `ClientLevelMeter` widget) positioned at the far right of the editor panel. It shows the post-saturation peak level with fast-attack and slow-release ballistics and uses the following colour bands:
+
+| Colour | Level range |
+|---|---|
+| Green | −60 to −12 dB |
+| Lime | −12 to −6 dB |
+| Amber | −6 to −3 dB |
+| Red | Above −3 dB |
+
+The meter is not present in the docked applet tile. It updates continuously alongside the knob controls whenever the floating editor is open.
 
 ## Tips
 
 - If raising Drive increases loudness more than desired, reduce Output by a matching amount to keep the net level consistent.
+- Use the **OUT** meter in the floating editor to verify that the post-tube signal stays below −3 dB (red) under normal operating conditions.
 - Changes made in the floating editor and the docked applet stay in sync. A 30 Hz polling timer keeps both views updated, so adjusting Output in one location is reflected immediately in the other.
 
 ## Related

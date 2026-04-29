@@ -23,6 +23,10 @@ The panadapter closes immediately. The remaining panadapters expand to fill the 
 
 - **The × button is not visible** — The radio is either disconnected or only one panadapter is open. AetherSDR hides the × button in both cases. Connect to the radio and add a second panadapter before trying again.
 
+## CW decode text context menu
+
+Right-clicking anywhere inside the CW decode text area opens a context menu. In addition to the standard text editing commands (Select All, Copy, and so on), the menu includes a **Clear** item. Choosing **Clear** erases the entire CW decode buffer immediately. This is equivalent to clicking the **CLR** button in the CW panel toolbar.
+
 ## Related
 
 - [Panadapter overview](overview.md)

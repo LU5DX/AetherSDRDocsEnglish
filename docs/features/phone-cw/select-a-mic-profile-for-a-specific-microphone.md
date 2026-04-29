@@ -25,6 +25,12 @@ Use the "Mic profile" combo box in the Phone/CW applet to load a named microphon
 - The available profile names come from the radio, not from AetherSDR. To create or rename profiles, use the radio's own profile management. In AetherSDR you can also open `Profiles > Profile Manager...` to manage transmit profiles.
 - Selecting a profile does not change the "Mic source" or "Mic gain" settings; adjust those separately if needed.
 
+## CW sidetone behavior (v0.9.2.1)
+
+In v0.9.2.1 the separate "Local STn" button, local sidetone volume slider, "Follow" pitch toggle, and manual local pitch slider have been removed. The single **Sidetone** toggle and **Sidetone volume** slider in the CW panel now control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. There are no longer any independent local-sidetone controls or associated settings keys (`CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, `CwLocalSidetonePitchHz`).
+
+Pitch and pan continue to follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically; no manual override is needed or available.
+
 ## Related
 
 - [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)

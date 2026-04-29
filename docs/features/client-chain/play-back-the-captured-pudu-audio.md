@@ -18,10 +18,11 @@ This page explains how to play back audio you have already recorded with the pos
 
 ## What each control does
 
-| Control | Behavior | Notes |
-|---|---|---|
-| **Play (▶)** | Starts playback of the captured PUDU audio; click again to cancel. | Hidden in RX mode. Enabled only when a recording exists and recording is not active. Pulses green while playing. |
-| **Record (⏺)** | Disabled during playback. | Re-enabled automatically when playback ends. |
+| Control                                              | Behavior                                                                                                                               | Notes                                                                                                                                                                                                                                                                  |
+|------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Play (▶)**                                         | Starts playback of the captured PUDU audio; click again to cancel.                                                                     | Hidden in RX mode. Enabled only when a recording exists and recording is not active. Pulses green while playing.                                                                                                                                                       |
+| **Record (⏺)**                                       | Disabled during playback.                                                                                                              | Re-enabled automatically when playback ends.                                                                                                                                                                                                                           |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU)   | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips.    |
 
 ## Tips
 

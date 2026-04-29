@@ -14,11 +14,14 @@ To open or close the applet, click the **WAVE** tray button in row 1 of the righ
 
 ## What each control does
 
-| Control | Behavior | Notes |
-|---|---|---|
-| Waveform display | Renders the min/max envelope per pixel column with peak and RMS envelope traces over a fixed 100 ms window. | No persisted setting key. |
-| Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again. | A **PAUSED** badge appears in the footer. Default state is live. |
-| Double-click on display | Clears the ring buffer for the active direction (RX or TX) and resets the display to empty. | Does not affect the opposite direction's buffer. |
+| Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Waveform display        | Renders the min/max envelope per pixel column with peak and RMS envelope traces over a fixed 100 ms window.                                                                                      | No persisted setting key.                                                                                               |
+| Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again.                                                                                           | A **PAUSED** badge appears in the footer. Default state is live.                                                        |
+| Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | Does not clear the buffer. To reset the display, use the WaveformWidget::clear() slot or reconnect.                     |
+| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as 'Graph', 'Envelope', 'History', or 'Bands'. |
+| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner.                                                                          | Located in the settings drawer. Default 170% (1.7x).                                                                   |
+| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems.                                                                                                          | Located in the settings drawer.                                                                                         |
 
 ## Indicators
 
@@ -32,7 +35,7 @@ To open or close the applet, click the **WAVE** tray button in row 1 of the righ
 - The waveform color and line width follow the `DisplayFftFillColor` and `DisplayFftLineWidth` display settings used elsewhere in AetherSDR. Valid line width range is 1.0 to 3.0 px; default is 2.0.
 - Grid lines can be suppressed via `DisplayShowGrid`. When enabled, the display draws major and minor grid lines behind the trace.
 - Single-click to pause is particularly useful for catching a transient: click immediately after the event, inspect the frozen waveform, then click again to resume.
-- Double-click only clears the buffer for the currently active direction. The opposite direction's buffer is preserved.
+- Double-click on the display toggles the settings drawer. To clear the waveform buffer, use the WaveformWidget::clear() slot or reconnect to the audio engine.
 
 ## Related
 

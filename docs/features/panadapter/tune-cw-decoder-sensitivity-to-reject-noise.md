@@ -20,7 +20,7 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 | Control | Default | Range | Persisted key | Behavior |
 |---|---|---|---|---|
 | **Sens** slider | 30 | 0–100 | `CwDecoderSensitivity` | Maps 0–100 to an internal cost threshold of 1.0–0.1. Higher values mean stricter filtering: only high-confidence characters are shown. |
-| CW decode text | — | — | — | Read-only rolling display coloured by confidence: green (highest), yellow, orange, red (lowest). |
+| CW decode text | — | — | — | Read-only rolling display coloured by confidence: green (highest), yellow, orange, red (lowest). Right-click anywhere in the text area to open a context menu; select **Clear** from that menu to clear the decode buffer without leaving the keyboard. |
 | CW stats label | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed the decoder is currently tracking. |
 
 ## Tips
@@ -28,6 +28,7 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 - Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.
 - Character colour is a quick confidence gauge: if most output is green, the current sensitivity is well matched to signal conditions. If the display goes blank entirely, the slider is set too high — move it left until characters return.
 - The **Lo** and **Hi** pitch sliders (default 500 Hz and 700 Hz, range 300–1200 Hz) constrain which pitches the decoder searches. Narrowing that range to match the received signal's sidetone pitch can reduce false triggers independently of **Sens**.
+- Right-clicking the CW decode text area also gives access to the standard text actions (Select All, Copy, and so on) alongside the **Clear** option.
 
 ## Troubleshooting
 

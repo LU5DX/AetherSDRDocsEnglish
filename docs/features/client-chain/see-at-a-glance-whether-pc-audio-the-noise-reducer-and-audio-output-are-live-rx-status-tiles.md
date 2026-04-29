@@ -20,11 +20,12 @@ No further interaction is needed. The tiles update automatically as conditions c
 
 ## What each control does
 
-| Tile | Kind | Behavior | Visible |
-|------|------|----------|---------|
-| **RADIO** | Indicator | Greens when PC Audio is enabled. | RX mode only |
-| **DSP** | Indicator | Label rotates to the active noise reducer's short name (`NR2`, `NR4`, `BNR`); shows `DSP` when none is active. Greens when a noise reducer is on. | RX mode only |
-| **SPEAK** | Indicator | Greens when AetherSDR's audio output is unmuted. | RX mode only |
+| Tile | Kind | Behavior |
+|---|---|---|
+| **RADIO** | Indicator | Greens when PC Audio is enabled. |
+| **DSP** | Indicator | Label rotates to the active noise reducer's short name (`NR2`, `NR4`, `BNR`); shows `DSP` when none is active. Greens when a noise reducer is on. |
+| **SPEAK** | Indicator | Greens when AetherSDR's audio output is unmuted. |
+| RX chain stage (**EQ** / **AGC-T** / **AGC-C** / **TUBE** / **PUDU**) | Drag handle | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All five RX stages are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 None of the three tiles are interactive. Single-click, double-click, and drag have no effect on them.
 
@@ -32,6 +33,7 @@ None of the three tiles are interactive. Single-click, double-click, and drag ha
 
 - The last-active tab (TX or RX) is restored on next launch via the persisted setting `PooDooAudioActiveTab`. If you want the RX status tiles visible by default, leave the **RX** tab selected when you close AetherSDR.
 - The **DSP** tile label changing to a specific name (such as `NR2`) is the quickest way to confirm that a noise reducer is actually engaged, without opening `Settings > AetherDSP Settings...`.
+- The gate and compressor stages in the RX chain are labelled **AGC-T** and **AGC-C** respectively. These correspond to the Gate and Comp stages internally.
 
 ## Related
 

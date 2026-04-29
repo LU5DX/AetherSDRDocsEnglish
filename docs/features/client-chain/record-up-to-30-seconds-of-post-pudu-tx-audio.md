@@ -19,14 +19,15 @@ Use the built-in monitor recorder to capture and immediately play back how your 
 
 ## What each control does
 
-| Control | Default | Behavior | Notes |
-|---|---|---|---|
-| **⏺** (record) | Unchecked | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. | Pulses red while recording. Disabled when mic input is not ready or playback is running. Hidden in RX mode. |
-| **▶** (play) | Unchecked | Plays back the captured audio. Click again to cancel. | Pulses green while playing. Enabled only after a recording exists and recording is not active. Hidden in RX mode. |
+| Control | Default | Behavior |
+|---|---|---|
+| **⏺** (record) | Unchecked | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. |
+| **▶** (play) | Unchecked | Plays back the captured audio. Click again to cancel. |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | — | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 ## Tips
 
-- The recorder captures audio at the point after the PUDU stage in the TX chain. To hear the effect of a specific stage, bypass or unbypas that stage, make a recording, and compare playback.
+- The recorder captures audio at the point after the PUDU stage in the TX chain. To hear the effect of a specific stage, bypass or unbypass that stage, make a recording, and compare playback.
 - You do not need to transmit to a receiver — the monitor records audio from the client-side DSP output directly.
 - If you want to compare settings, stop the current recording, adjust a stage, record again, and play back to compare.
 

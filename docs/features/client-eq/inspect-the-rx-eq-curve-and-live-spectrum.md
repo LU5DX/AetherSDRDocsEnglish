@@ -14,26 +14,36 @@ The "Aetherial RX EQ" applet gives you a compact, always-visible view of the RX 
 3. Look at the analyzer / curve area — the 110 px tall display showing the frequency grid.
 4. The summed EQ response curve shows the cumulative frequency response of all enabled RX bands. A flat line means no net shaping; a shaped line reflects the active band settings stored in `ClientEqRxBands`.
 5. The live analyzer overlay running across the same area shows the real-time FFT of audio passing through the RX path. When audio is present, the overlay is active; when no audio passes through, the overlay is idle.
-6. To inspect in more detail or edit bands, double-click the RX EQ stage in the CHAIN widget to open the floating "Aetherial Parametric EQ — RX" editor.
+6. The peak-hold trace appears as an off-white line drawn on top of the analyzer overlay. It tracks the per-frequency maximum level seen and decays at approximately 10 dB/sec between updates. Use it to spot resonances and harsh peaks while tuning.
+7. To inspect in more detail or edit bands, double-click the RX EQ stage in the CHAIN widget to open the floating "Aetherial Parametric EQ — RX" editor.
 
 ## What each control does
 
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Analyzer / curve area | Displays the summed EQ response curve and live FFT analyzer overlay for the RX path. View-only in this applet. | — | — |
-| Summed EQ response | Shows the cumulative frequency response of all enabled RX bands. | flat | `ClientEqRxBands` |
-| Live analyzer overlay | Real-time FFT of audio passing through the RX path. | idle | — |
-| RX EQ enabled state | Whether the RX EQ stage is active. Controlled from the CHAIN widget or the floating editor, not from within this applet. | — | `ClientEqRxEnabled` |
+| Control               | Behavior                                                                                                                                                                                                                                                                                                                         | Default |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| Analyzer / curve area | Displays the summed EQ response curve, live FFT analyzer overlay, and peak-hold trace for the RX path. View-only in this applet.                                                                                                                                                                                                 | —       |
+| Summed EQ response    | Shows the cumulative frequency response of all enabled RX bands. Dims to grey when the EQ stage is bypassed.                                                                                                                                                                                                                    | flat    |
+| Live analyzer overlay | Real-time FFT of audio passing through the RX path, displayed as a cyan gradient fill.                                                                                                                                                                                                                                           | idle    |
+| Peak-hold trace       | Off-white line overlaid on the analyzer showing the per-frequency maximum level seen since the last reset. Decays at approximately 10 dB/sec while running normally. Freezes at the highest observed level per bin when Peak Hold is enabled in the floating editor. Helps identify resonances and harsh peaks while tuning.      | decaying |
+| RX EQ enabled state   | Whether the RX EQ stage is active. Controlled from the CHAIN widget or the floating editor, not from within this applet.                                                                                                                                                                                                         | —       |
+| Peak Hold             | Toggle button in the floating editor header strip. When checked (amber background), the peak-hold trace stops decaying — every frequency's highest observed level is held until the button is toggled off. Toggle off to resume normal decay. Located in the floating editor only, not in the docked applet tile.                 | unchecked |
+| Filter family         | Combo box in the floating editor header strip. Selects the HP/LP cascade mathematics: Butterworth (maximally flat passband), Chebyshev (steeper rolloff with 1 dB passband ripple), Bessel (linear phase / gentler rolloff), or Elliptic (steepest transition with ripple in both bands). Applies only to HP and LP filter types; peak and shelf bands use their own fixed 2nd-order topology regardless. Persisted as `ClientEqRxFilterFamily`. | Butterworth |
+| Reset                 | Push button in the floating editor header strip. Resets all bands to the default 10-band template, restores the default band count, and resets the filter family to Butterworth. Saves immediately. Tooltip: "Reset all bands to default values". Located in the floating editor only.                                           | —       |
+| Output Fader          | Vertical combined fader + level meter on the right edge of the floating editor. Drag to set post-EQ master gain; scroll wheel adjusts in 0.5 dB steps; double-click resets to 0 dB. The level bar behind the handle shows the smoothed post-EQ peak in real time with the same green-amber-red gradient as the Tube level meter. Persisted as `ClientEqRxMasterGain`. Tooltip: "Output gain (dB). Drag to set, wheel for fine step, double-click to reset to 0 dB." Located in the floating editor only — not in the docked applet tile. | 0 dB    |
 
 ## Tips
 
 - The analyzer / curve area is view-only in the applet. To add, remove, or tune bands, open the floating editor by double-clicking the RX EQ stage in the CHAIN widget.
+- To freeze the peak-hold trace while you tune a resonance, open the floating editor and click **Peak Hold**. The button background turns amber when active. Click it again to resume normal decay.
+- Use the **Reset** button in the floating editor to return all bands, the band count, and the filter family to their defaults in one step. The reset saves immediately.
+- The **Filter family** setting affects only HP and LP band types. Peak and shelf bands always use a fixed 2nd-order topology regardless of this setting.
 - If you want to float, pop out, or hide the "Aetherial RX EQ" sub-container, right-click its titlebar for those options.
 
 ## Troubleshooting
 
 - **The "Aetherial RX EQ" sub-container is not visible** — The applet is hidden until the RX EQ stage is enabled. Enable the stage from the CHAIN widget or the floating editor. Check that `ClientEqRxEnabled` is set.
 - **The live analyzer overlay appears idle even during reception** — Audio must be passing through the RX path for the FFT to run. Confirm the radio is connected and audio routing is active.
+- **The peak-hold trace is not moving or decaying** — Check that **Peak Hold** is not enabled in the floating editor. If the button has an amber background, click it to resume normal decay.
 
 ## Related
 

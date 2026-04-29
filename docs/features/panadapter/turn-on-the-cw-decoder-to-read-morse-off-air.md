@@ -29,14 +29,14 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 | **CLR** | Clears the CW decode buffer. | — | — | — |
 | **× (close CW)** | Hides the CW decode panel. | — | — | — |
 | **CW stats label** | Indicator showing detected pitch and speed. Read-only. | — | `<Hz>  <WPM>` | — |
-| **CW decode text** | Rolling read-only display of decoded characters, coloured by confidence. | — | — | — |
+| **CW decode text** | Rolling read-only display of decoded characters, coloured by confidence. Right-click opens a context menu with a **Clear** option in addition to the standard text actions. | — | — | — |
 
 ## Tips
 
 - If the text area fills with low-confidence (orange or red) characters, increase **Sens** to filter them out. Start around 50 and raise until noise characters disappear.
 - Narrow the pitch search range with **Lo** and **Hi** to match the sidetone of the station you are copying. This reduces false triggers from nearby signals.
 - Once the **CW stats label** settles on a stable pitch and speed, enable **🔒P (Lock Pitch)** and **🔒S (Lock Speed)** to prevent the decoder from drifting to another signal.
-- Use **CLR** before a new QSO to keep the text area readable.
+- Use **CLR** before a new QSO to keep the text area readable. You can also right-click the **CW decode text** area and choose **Clear** from the context menu.
 
 ## Troubleshooting
 

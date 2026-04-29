@@ -10,20 +10,20 @@ This page explains how to drag RX DSP stages into a new order inside the Aetheri
 ## Steps
 
 1. In the Aetherial Audio Chain header row, click "RX" to show the RX chain strip. The RX button turns amber when selected.
-2. Locate the stage you want to move. The RX chain contains up to five stages: EQ, GATE, COMP, TUBE, and PUDU, bookended by the non-interactive RADIO, DSP, and SPEAK status tiles.
+2. Locate the stage you want to move. The RX chain contains up to five stages: EQ, AGC-T, AGC-C, TUBE, and PUDU, bookended by the non-interactive RADIO, DSP, and SPEAK status tiles.
 3. Click and hold the stage tile you want to reorder.
 4. Drag it left or right along the chain strip. A vertical cyan bar appears between tiles to show where the stage will land.
 5. Release to drop the stage in the new position. The chain reorders immediately and the new order is saved to `ClientCompRxChainStages`.
 
 ## What each control does
 
-| Control | Kind | Behavior | Persisted key |
-|---|---|---|---|
-| RX | Toggle button | Shows the RX chain strip; becomes the active side for drag-reorder, bypass, and editing. Default: unchecked. | `PooDooAudioActiveTab` |
-| RX chain stage (EQ / GATE / COMP / TUBE / PUDU) | Drag handle | Single-click toggles bypass; double-click opens the frameless editor; drag reorders the chain. | `ClientCompRxChainStages` |
-| RADIO status tile | Indicator | Non-interactive left bookend; greens when PC Audio is enabled. Not draggable. | — |
-| DSP status tile | Indicator | Non-interactive tile showing the active noise reducer short name (e.g. NR2, NR4, BNR) or generic "DSP". Not draggable. | — |
-| SPEAK status tile | Indicator | Non-interactive right bookend; greens when AetherSDR's audio output is unmuted. Not draggable. | — |
+| Control                                            | Kind                                                                                                                                   | Behavior                                                                                                                                                                                                                                                            |
+|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RX                                                 | Toggle button                                                                                                                          | Shows the RX chain strip; becomes the active side for drag-reorder, bypass, and editing. Default: unchecked.                                                                                                                                                        |
+| RADIO status tile                                  | Indicator                                                                                                                              | Non-interactive left bookend; greens when PC Audio is enabled. Not draggable.                                                                                                                                                                                       |
+| DSP status tile                                    | Indicator                                                                                                                              | Non-interactive tile showing the active noise reducer short name (e.g. NR2, NR4, BNR) or generic "DSP". Not draggable.                                                                                                                                              |
+| SPEAK status tile                                  | Indicator                                                                                                                              | Non-interactive right bookend; greens when AetherSDR's audio output is unmuted. Not draggable.                                                                                                                                                                      |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type 'application/x-aethersdr-rx-chain-stage' prevents stray drops between the two strips. |
 
 ## Tips
 
@@ -34,7 +34,7 @@ This page explains how to drag RX DSP stages into a new order inside the Aetheri
 ## Troubleshooting
 
 - **Dragging a stage has no effect** — Confirm the "RX" button is checked (amber). If the TX chain strip is visible, drops are ignored by the RX chain.
-- **The RADIO, DSP, or SPEAK tiles move unexpectedly** — These tiles are status indicators and are not draggable. Only the five named stage tiles (EQ, GATE, COMP, TUBE, PUDU) can be reordered.
+- **The RADIO, DSP, or SPEAK tiles move unexpectedly** — These tiles are status indicators and are not draggable. Only the five named stage tiles (EQ, AGC-T, AGC-C, TUBE, PUDU) can be reordered.
 - **Reordered chain reverts after restart** — This should not happen if `ClientCompRxChainStages` is being written. Verify AetherSDR has write access to its settings storage location.
 
 ## Related

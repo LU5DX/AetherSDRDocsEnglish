@@ -24,12 +24,14 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 | Lo (pitch min) | Sets the lower bound of the pitch range the decoder searches. | 500 Hz | Valid range: 300–1200 Hz. Clamped ≤ Hi. |
 | Hi (pitch max) | Sets the upper bound of the pitch range the decoder searches. | 700 Hz | Valid range: 300–1200 Hz. Clamped ≥ Lo. |
 | Sens | Filters low-confidence decodes. Higher values are stricter. | 30 | Range: 0–100. Persisted as `CwDecoderSensitivity`. |
+| CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | — | Added in v0.9.2.1. Equivalent to clicking CLR. |
 
 ## Tips
 
 - Lock pitch and speed independently. You can lock only one if the other is still settling.
 - Narrow the Lo and Hi pitch range sliders around the signal frequency before locking pitch. A tighter search window reduces the chance the decoder latches onto the wrong signal in the first place.
 - If the decoded text becomes garbled after locking, the signal pitch or speed may have drifted. Click the active lock button to release it, wait for the stats label to re-stabilise, then lock again.
+- To clear the decode buffer without moving the mouse to the CLR button, right-click the decoded text area and choose **Clear** from the context menu.
 
 ## Troubleshooting
 

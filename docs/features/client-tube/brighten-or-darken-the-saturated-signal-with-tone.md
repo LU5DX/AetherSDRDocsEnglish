@@ -22,16 +22,31 @@ Use the Tone knob to tilt the spectral character of the saturated signal — neg
 | Tone (TX) | 0.00 | −1.0 to 1.0 | `ClientTubeTxTone` | Negative values darken, positive values brighten the saturated signal. |
 | Tone (RX) | 0.00 | −1.0 to 1.0 | `ClientTubeRxTone` | Same behavior as TX Tone, applied to the receive path. |
 
+## Output level meter
+
+The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX**) includes an **OUT** level meter in the far-right column. This meter shows the post-saturation peak level and uses fast-attack / slow-release ballistics.
+
+| Level range | Meter color |
+|---|---|
+| −60 to −12 dB | Green |
+| −12 to −6 dB | Lime |
+| −6 to −3 dB | Amber |
+| Above −3 dB | Red |
+
+The meter is only visible in the floating editor. It does not appear on the docked applet tile in the Applet Panel.
+
 ## Tips
 
 - Tone interacts with Drive: a high Drive value produces more saturation harmonics, so Tone adjustments become more audible as Drive increases. Dial in Drive first, then use Tone to shape the result.
 - If you have the floating editor open alongside the applet, both reflect the same value. Changes made in one sync to the other within approximately 33 ms.
 - A Tone value of 0.00 leaves the spectral balance of the saturated signal unchanged.
+- Watch the **OUT** meter in the floating editor to catch post-saturation clipping. If the meter reaches red, reduce the **Output** knob or lower **Drive**.
 
 ## Troubleshooting
 
 - **Tone knob has no audible effect** — the tube stage may be bypassed. Confirm the stage is active in the CHAIN widget on the matching side. Also check that Mix is above 0 %; a fully dry signal (Mix at 0 %) passes through the tube model but blends none of the wet output.
 - **Knob position does not match what you expect after reloading** — the value is saved automatically each time the knob changes. If `ClientTubeTxTone` or `ClientTubeRxTone` is missing or corrupted in your settings file, the value reverts to the default of 0.00.
+- **OUT meter is not visible** — the meter only appears in the floating editor. Double-click the TUBE stage in the CHAIN widget to open it.
 
 ## Related
 

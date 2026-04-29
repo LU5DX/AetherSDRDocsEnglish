@@ -15,11 +15,11 @@ Use the BYPASS button to disable all RX chain stages in a single click, without 
 
 ## What each control does
 
-| Control | Kind | Default | Persisted key | Behavior |
-|---|---|---|---|---|
-| **RX** | Toggle button | Unchecked | `PooDooAudioActiveTab` | Switches the applet to show the RX chain. Required before BYPASS acts on RX stages. The last-active tab is saved as `TX` or `RX`. |
-| **BYPASS** | Toggle button | Unchecked | — | Checked: snapshots currently-enabled RX stages and disables all of them. Unchecked: re-enables only the stages that were on before. TX and RX maintain separate snapshots. |
-| RX chain stage (EQ / GATE / COMP / TUBE / PUDU) | Drag handle | — | `ClientCompRxChainStages` | Single-click toggles bypass on an individual stage. Stages toggled manually while BYPASS is active are preserved independently of the snapshot. |
+| Control                                            | Kind                                                                                                                                    | Default   |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| **RX**                                             | Toggle button                                                                                                                           | Unchecked |
+| **BYPASS**                                         | Toggle button                                                                                                                           | Unchecked |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 ## Tips
 

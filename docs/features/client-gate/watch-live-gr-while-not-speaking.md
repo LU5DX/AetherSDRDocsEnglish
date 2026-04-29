@@ -22,10 +22,11 @@ The gain-reduction meter and transfer curve update in real time even when you ar
 |---|---|---|---|---|
 | Transfer curve | Indicator | — | — | — |
 | Input ball | Indicator | — | Below threshold / above threshold | — |
+| Hysteresis band | Indicator | — | Absent (Return = 0) / soft-cyan vertical band | — |
 | Gain-reduction bar | Meter | — | 0 to 40 dB GR | — |
 | Thresh | Knob | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
 | Ratio | Knob | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` |
-| Attack | Knob | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` / `ClientGateRxAttackMs` |
+| Return | Knob | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | Release | Knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
 | Floor | Knob | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` |
 
@@ -33,16 +34,21 @@ The gain-reduction meter and transfer curve update in real time even when you ar
 
 **Transfer curve / Input ball:** The static curve shows the expander's input-to-output relationship. The live ball tracks the current input level, moving below or above the threshold knee in real time.
 
+**Hysteresis band:** A soft-cyan vertical band drawn on the transfer curve between (Thresh − Return) and Thresh. It makes the gate's sticky zone visible: the gate opens when the input rises above Thresh and does not close again until the input falls below Thresh − Return. The band is absent when Return is set to 0.
+
+**Return knob:** Sets the hysteresis deadband width in dB. Increasing Return prevents the gate from chattering when the input hovers near the threshold. The label displays in the format X.XX dB.
+
 ## Tips
 
 - The meter updates approximately every 33 ms, so the bar tracks gain reduction closely enough to catch brief noise events.
 - Knob changes made in the floating Gate editor are reflected in the applet within the same 33 ms poll cycle, so you can leave the applet visible as a live meter while tuning in the editor.
 - A bar that never fully empties while you are silent means the gate is always attenuating — the input never rises above Thresh even when you stop speaking. This is normal and expected behavior for a noise gate at rest.
+- If the gate chatters — opens and closes rapidly while you are speaking near the threshold — increase Return to widen the hysteresis deadband. The cyan band on the transfer curve grows wider as you do so, giving you a visual indication of how much deadband is in effect.
 
 ## Related
 
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
-- [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md)
+- [Tune return / release for natural open/close](tune-attack-release-for-natural-open-close.md)
 - [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md)

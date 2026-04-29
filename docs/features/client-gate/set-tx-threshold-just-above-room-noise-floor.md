@@ -15,7 +15,7 @@ Setting Thresh correctly tells the TX gate where your room's background noise en
 4. Turn the Thresh knob slowly clockwise until the amber Gain-reduction bar begins to fill consistently while you are silent. This is the noise floor.
 5. Back Thresh off by 2–3 dB so the gate closes firmly on noise without clipping the leading edge of your voice. The input ball should sit clearly below the threshold line when you are silent.
 6. Speak at normal volume. Confirm the Gain-reduction bar drops to zero (no fill) immediately when you start talking, indicating the gate has opened.
-7. Return to silence. Confirm the amber fill returns promptly. If the gate is slow to close, reduce Release. See [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md).
+7. Return to silence. Confirm the amber fill returns promptly. If the gate is slow to close, reduce Release. See [Tune release for natural close](tune-attack-release-for-natural-open-close.md).
 
 ## What each control does
 
@@ -23,16 +23,17 @@ Setting Thresh correctly tells the TX gate where your room's background noise en
 |---|---|---|---|---|
 | Thresh | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` | Level below which the gate starts attenuating. Set this just above the room noise floor. |
 | Ratio | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` | Higher values produce a harder cut; lower values produce a softer downward expansion. |
-| Attack | 0.5 ms | 0.1 to 100.0 ms | `ClientGateTxAttackMs` | How quickly the gate opens when input rises above Thresh. |
-| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | How quickly the gate closes after input falls below Thresh. |
+| Return | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` | Hysteresis deadband. The gate opens above Thresh and does not close again until the input drops below Thresh − Return. Prevents rapid chatter near the threshold. The Transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. |
+| Release | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | How quickly the gate closes after input falls below Thresh − Return. |
 | Floor | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate may apply. Prevents complete silence between words. |
 
-The Transfer curve plots the static input/output relationship and shows a live input ball at the current signal level. The Gain-reduction bar is an amber horizontal strip, right-filled, scaled 0 to 40 dB; a tick marks the −15 dB default Floor position.
+The Transfer curve plots the static input/output relationship and shows a live input ball at the current signal level. When Return is greater than zero, a soft-cyan vertical band appears on the curve between (Thresh − Return) and Thresh, marking the range where the gate's open/closed state is sticky. The Gain-reduction bar is an amber horizontal strip, right-filled, scaled 0 to 40 dB; a tick marks the −15 dB default Floor position.
 
 ## Tips
 
 - Set Thresh during your worst-case noise condition (loudest fan, most background activity). A threshold calibrated to a quiet room will let noise through when conditions change.
-- If the gate chops the start of words, lower Attack or reduce Thresh by 1–2 dB so the gate opens faster or triggers earlier.
+- If the gate chops the start of words, lower Thresh by 1–2 dB so the gate triggers earlier.
+- Increase Return if the gate chatters or flutters when your voice level hovers near the threshold. The wider the deadband, the more stable the open/close behaviour.
 - The Gain-reduction bar and the input ball update live at approximately 30 Hz, so short noise bursts will be visible even if brief.
 - Changes to any knob are saved immediately and survive a restart. You do not need to confirm or apply separately.
 
@@ -40,7 +41,8 @@ The Transfer curve plots the static input/output relationship and shows a live i
 
 - **The applet is not visible** — The GATE stage is not enabled. Single-click the GATE stage in the CHAIN widget to enable it, or double-click to open the floating editor and enable it there.
 - **The Gain-reduction bar never fills while silent** — Thresh is set below the noise floor. Raise Thresh until consistent amber fill appears during silence.
-- **The gate chops the beginning of words** — Thresh is too close to your voice level, or Attack is too slow. Lower Thresh slightly or reduce the Attack value.
+- **The gate chops the beginning of words** — Thresh is too close to your voice level. Lower Thresh slightly.
+- **The gate chatters or flutters near the threshold** — Increase Return to widen the hysteresis deadband. The cyan band on the Transfer curve grows as you raise Return, showing the sticky zone.
 - **The gate does not close between words** — Thresh is too low for the current noise floor. Raise Thresh until the bar fills reliably during pauses.
 
 ## Related

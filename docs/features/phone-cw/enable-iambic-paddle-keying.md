@@ -26,7 +26,7 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 
 ## Tips
 
-- For low-latency sidetone feedback when using a paddle, enable **Local STn** in the same CW sub-panel. The client-side sidetone has approximately 10 ms latency, which is significantly less than the radio's DAX-fed monitor path. See [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md).
+- For low-latency sidetone feedback when using a paddle, enable **Sidetone** in the CW sub-panel. As of v0.9.2.1, the single **Sidetone** button and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone (approximately 10 ms latency) in lockstep. Pitch and pan follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. See [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md).
 - Adjust **Speed (CW)** before enabling **Iambic** to avoid sending at an unexpected rate. See [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md).
 - If you want full QSK operation, also enable **Breakin**. To set a hang time instead, disable **Breakin** and set **Delay (CW)** to a non-zero value. See [Set CW break-in delay](set-cw-break-in-delay.md).
 
@@ -39,6 +39,5 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 
 - [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Set CW break-in delay](set-cw-break-in-delay.md)
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)

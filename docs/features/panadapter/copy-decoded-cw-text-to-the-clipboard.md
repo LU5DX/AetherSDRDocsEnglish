@@ -24,6 +24,10 @@ All text in the decode buffer is copied to the clipboard, including any text tha
 
 Only the text currently visible in the scroll area is copied.
 
+### Clear the buffer from the right-click menu
+
+As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere in the CW decode text area to open it. The menu contains the standard text editing actions followed by a separator and a **Clear** item. Click **Clear** to erase the decode buffer. This is equivalent to clicking `CLR`.
+
 ## What each control does
 
 | Control | What it does | Default | Range | Setting key |
@@ -31,13 +35,14 @@ Only the text currently visible in the scroll area is copied.
 | `CPY ALL` | Copies the full decoded text buffer to the clipboard. | — | — | — |
 | `CPY VIS` | Copies only the text currently visible in the scroll area to the clipboard. | — | — | — |
 | `CLR` | Clears the CW decode buffer entirely. Text cannot be recovered after clearing. | — | — | — |
+| Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`. | — | — | — |
 | Sens | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30 | 0–100 | `CwDecoderSensitivity` |
 
 ## Tips
 
 - Use `CPY VIS` when you want only a specific exchange or callsign that is visible on screen, without the surrounding session noise.
 - Use `CPY ALL` when logging a full QSO or saving a complete decode session.
-- Click `CLR` before a new QSO to keep the buffer relevant. Note that clearing the buffer also removes text that `CPY ALL` would have captured.
+- Click `CLR` (or right-click the text area and choose **Clear**) before a new QSO to keep the buffer relevant. Note that clearing the buffer also removes text that `CPY ALL` would have captured.
 - Decoded text is colour-coded by confidence: green is highest confidence, then yellow, orange, and red. Raising the Sens slider suppresses red and orange characters from appearing in the buffer. See [Tune CW decoder sensitivity to reject noise](tune-cw-decoder-sensitivity-to-reject-noise.md).
 
 ## Related

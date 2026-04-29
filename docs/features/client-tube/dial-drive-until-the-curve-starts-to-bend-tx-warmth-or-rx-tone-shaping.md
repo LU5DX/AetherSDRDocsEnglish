@@ -13,7 +13,7 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 2. Look at the transfer curve display at the top of the applet. At Drive 0.0 dB the curve is a straight diagonal line — no saturation.
 3. Turn the Drive knob clockwise. Watch the transfer curve: the shoulders begin to compress and bend as Drive increases. The live input ball moves along the curve and shows which part of the curve your current signal level is hitting.
 4. Stop increasing Drive when the curve shows the amount of bend you want. Subtle warmth appears with light bend; heavier saturation comes from pushing Drive further toward 24.0 dB.
-5. If the saturated output is noticeably louder or quieter than the dry signal, trim the Output knob to compensate.
+5. If the saturated output is noticeably louder or quieter than the dry signal, trim the Output knob to compensate. The floating editor's OUT meter (far right column) shows the post-saturation peak level and helps you judge the trim.
 
 ## What each control does
 
@@ -21,9 +21,9 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 |---|---|---|---|
 | Drive | 0.0 dB | 0.0 – 24.0 dB | `ClientTubeTxDriveDb` / `ClientTubeRxDriveDb` |
 | Tone | 0.00 | −1.0 – 1.0 | `ClientTubeTxTone` / `ClientTubeRxTone` |
-| Bias | 0 % | 0 – 100 % | `ClientTubeTxBiasAmount` / `ClientTubeRxBiasAmount` |
-| Output | 0.0 dB | −24.0 – 12.0 dB | `ClientTubeTxOutputGainDb` / `ClientTubeRxOutputGainDb` |
-| Mix | 100 % | 0 – 100 % | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
+| Bias | 0 % | 0 – 100 % | `ClientTubeTxBias` / `ClientTubeRxBias` |
+| Output | 0.0 dB | −24.0 – 12.0 dB | `ClientTubeTxOutputDb` / `ClientTubeRxOutputDb` |
+| Dry/Wet | 100 % | 0 – 100 % | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
 
 **Transfer curve** — Indicator. Draws the tube transfer curve in real time. The shape changes as you adjust Drive, Bias, and model selection. The live input ball rides the curve at the current signal level, showing the active saturation regime. No persisted key.
 
@@ -35,19 +35,23 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 
 **Output** — Post-tube make-up or trim gain. Use this to match the saturated level to the dry level.
 
-**Mix** — Dry/wet blend. At 100 % only the saturated signal passes. Reducing Mix blends in the original dry signal for parallel saturation.
+**Dry/Wet** — Dry/wet blend. At 100 % only the saturated signal passes. Reducing Dry/Wet blends in the original dry signal for parallel saturation.
+
+**Output level meter** — Indicator. Visible only in the floating editor ("Aetherial Tube — TX" or "— RX"), in the far-right column labelled OUT. Shows post-saturation peak level with fast-attack / slow-release ballistics. Colour zones: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), red (above −3 dB). No persisted key.
 
 ## Tips
 
 - Start with Drive at 0.0 dB and increase slowly. The transfer curve is the most direct visual guide to how much saturation you are adding.
 - The TX and RX sides are fully independent. Adjustments to the TX tube do not affect the RX tube and vice versa.
 - The floating editor (opened by double-clicking the TUBE stage in the CHAIN widget) and the docked applet knobs stay in sync — changes in one are reflected in the other within approximately 30 ms.
-- If you want to hear the effect without committing to it, reduce Mix toward 0 % to blend back to dry while keeping your Drive setting in place.
+- If you want to hear the effect without committing to it, reduce Dry/Wet toward 0 % to blend back to dry while keeping your Drive setting in place.
+- Use the OUT meter in the floating editor to confirm that the post-saturation level is where you expect it before closing the editor.
 
 ## Troubleshooting
 
 - **Transfer curve does not bend when Drive is increased** — The Tube stage may not be enabled for that side. Enable it through the CHAIN widget. The applet is hidden until the stage is active.
 - **Knobs in the applet do not match the floating editor** — The applet syncs from the engine on a polling timer. Wait a moment; they should align within about 30 ms. If they remain out of sync, the audio engine may not be connected — check that the radio connection is active.
+- **OUT meter is not visible** — The output level meter only appears in the floating editor, not in the docked applet tile. Open the floating editor by double-clicking the TUBE stage in the CHAIN widget.
 
 ## Related
 

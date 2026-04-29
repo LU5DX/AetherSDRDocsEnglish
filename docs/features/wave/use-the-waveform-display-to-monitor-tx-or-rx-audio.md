@@ -18,20 +18,23 @@ The Waveform applet shows a time-domain oscilloscope view of the active TX or RX
 
 ## What each control does
 
-| Control | Behavior | Default | Notes |
-|---|---|---|---|
-| Waveform display | Renders the min/max envelope per pixel column with peak and RMS envelope curves. Time window is fixed at 100 ms. | Live | Shows RX or TX depending on the active direction. |
-| Click on display | Toggles pause. The display freezes on a snapshot of the buffer until clicked again. | Live | A `PAUSED` badge appears in the footer while paused. |
-| Double-click on display | Clears the ring buffer for the active direction (RX or TX). Resets the display to empty. | — | Does not affect the other direction's buffer. |
-| Direction tint | Cool tint = RX audio. Warm tint = TX audio. | — | Changes automatically when the radio switches between transmit and receive. |
-| Clipping highlight | Columns containing samples at or above 0.98 full scale are drawn in red. A `CLIP N` count appears in the header. | No clipping | No action required; highlight appears automatically. |
-| PAUSED badge | Shown in the footer when the display is frozen. | Not shown (live) | Click the display once to resume. |
-| No-audio placeholder | Replaces the trace when no samples have arrived for more than 1 second. | — | Disappears as soon as audio resumes. |
+| Control                 | Behavior                                                                                                                                                                                         | Default                                                                                                                  |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Waveform display        | Renders the min/max envelope per pixel column with peak and RMS envelope curves. Time window is fixed at 100 ms.                                                                                 | Live                                                                                                                     |
+| Click on display        | Toggles pause. The display freezes on a snapshot of the buffer until clicked again.                                                                                                              | Live                                                                                                                     |
+| Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | —                                                                                                                        |
+| Direction tint          | Cool tint = RX audio. Warm tint = TX audio.                                                                                                                                                      | —                                                                                                                        |
+| Clipping highlight      | Columns containing samples at or above 0.98 full scale are drawn in red. A `CLIP N` count appears in the header.                                                                                 | No clipping                                                                                                              |
+| PAUSED badge            | Shown in the footer when the display is frozen.                                                                                                                                                  | Not shown (live)                                                                                                         |
+| No-audio placeholder    | Replaces the trace when no samples have arrived for more than 1 second.                                                                                                                          | —                                                                                                                        |
+| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Scope. Located in the collapsible settings drawer below the waveform. Persisted as `Graph`, `Envelope`, `History`, or `Bands`. |
+| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner. Range: 1.0x–6.0x.                                                        | 1.7x (170%). Located in the settings drawer.                                                                             |
+| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems. Range: 5–30 Hz.                                                                                          | 24 Hz. Located in the settings drawer.                                                                                   |
 
 ## Tips
 
 - The header readout always labels the source (`RX` or `TX`) so you do not need to rely on the tint alone when working in low-light conditions.
-- The tooltip on the display reads "Click to pause/resume waveform capture" as a quick reminder of the click behavior.
+- Double-click the display to open the settings drawer and adjust the view mode, zoom level, or frame rate without leaving the applet.
 - A radio connection is not required for the Waveform applet to open, but live audio data requires an active audio path.
 
 ## Troubleshooting
