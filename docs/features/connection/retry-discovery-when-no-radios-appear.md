@@ -9,7 +9,7 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 
 ## Steps
 
-1. In the "Connect to a Radio" panel, confirm that **On This Network** is the selected mode. If it is not, click **On This Network**.
+1. In the "Connect to a Radio" panel, confirm that **Local** is the selected mode. If it is not, click **Local**.
 2. If the "No local radios found yet" callout is visible, click **Retry Discovery**.
 3. Wait a few seconds for AetherSDR to listen for discovery packets. If your radio is found, it appears in the **Available radios** list.
 4. Select your radio in the **Available radios** list, then click **Connect Selected Radio**.
@@ -18,11 +18,13 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| **On This Network** | Mode button | Switches to local LAN discovery mode. | `ConnectionMode` |
+| **Local** | Mode button | Switches to local LAN discovery mode. | `ConnectionMode` |
+| **SmartLink** | Mode button | Switches to SmartLink remote connection mode. | `ConnectionMode` |
+| **Manual** | Mode button | Switches to manual IP connection mode. | `ConnectionMode` |
 | **No local radios found yet** | Indicator | Shown when discovery returns no results. Replaces the radio list. | — |
 | **Retry Discovery** | Button | Re-runs the LAN discovery scan immediately. | — |
 | **Connect Selected Radio** | Button | Connects to the radio highlighted in the **Available radios** list. | — |
-| **Connect by IP** | Button | Shortcut to the manual IP connection mode. | `ConnectionMode` |
+| **Connect by IP** | Button | Shortcut to the Manual connection mode. | `ConnectionMode` |
 | **Remote with SmartLink** | Button | Shortcut to the SmartLink connection mode. | `ConnectionMode` |
 | **Open Network Diagnostics** | Button | Opens the network diagnostics display to inspect connectivity. | — |
 

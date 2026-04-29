@@ -23,8 +23,40 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | □ (maximize) | Push button | — | — | — |
 | × (close) | Push button | — | — | — |
 | Sens | Slider | 30 | 0 – 100 | `CwDecoderSensitivity` |
+| 🔒P (Lock Pitch) | Toggle button | — | — | — |
+| 🔒S (Lock Speed) | Toggle button | — | — | — |
+| Lo (pitch min) | Slider | 500 Hz | 300 – 1200 Hz | — |
+| Hi (pitch max) | Slider | 700 Hz | 300 – 1200 Hz | — |
+| CPY ALL | Push button | — | — | — |
+| CPY VIS | Push button | — | — | — |
+| CLR | Push button | — | — | — |
+| ✕ (close CW) | Push button | — | — | — |
+| CW decode text | Read-only text field | — | — | — |
 
 The ⬈ / ↩, □, and × buttons are hidden in single-panadapter mode. They appear only when more than one panadapter is open.
+
+## CW decode panel
+
+The CW decode panel appears beneath the spectrum when enabled. It requires PC audio routing to function — a "(requires PC Audio)" reminder is shown when audio is not yet routed.
+
+Decoded text is coloured by confidence level:
+
+| Colour | Cost threshold |
+|---|---|
+| Green | below 0.15 |
+| Yellow | 0.15 – below 0.35 |
+| Orange | 0.35 – below 0.60 |
+| Red | 0.60 and above |
+
+The **Sens** slider maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Higher values filter out lower-confidence decodes.
+
+The **Lo** and **Hi** sliders set the pitch search range. Lo is clamped to be no greater than Hi, and Hi is clamped to be no less than Lo.
+
+Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click **CPY VIS** to copy only the text currently visible in the scroll area. Click **CLR** to clear the decode buffer. Click **✕ (close CW)** to hide the panel.
+
+### Right-click menu on the CW decode text area
+
+Right-clicking inside the CW decode text area opens a context menu. In addition to the standard text actions (Select All, Copy, and so on), the menu includes a **Clear** item. Selecting **Clear** has the same effect as clicking the **CLR** button — it clears the decode buffer.
 
 ## Tips
 

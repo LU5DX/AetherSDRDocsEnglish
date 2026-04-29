@@ -48,13 +48,14 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
 | CLR | Button | — | — | — | Clears the CW decode buffer. |
 | × (close CW) | Button | — | — | — | Hides the CW decode panel. |
-| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, coloured by confidence: green (highest confidence) through yellow and orange to red (lowest). |
+| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, coloured by confidence: green (highest confidence) through yellow and orange to red (lowest). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
 
 ## Tips
 
 - The Lo and Hi pitch sliders constrain the frequency range the decoder searches. Narrowing this range around the expected CW tone reduces false decodes on a busy band.
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
+- You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
 
 ## Related
 

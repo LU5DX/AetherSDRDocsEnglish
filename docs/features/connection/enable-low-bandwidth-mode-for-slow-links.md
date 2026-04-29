@@ -12,7 +12,7 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 1. Open the connection panel. It appears automatically before a radio is connected. If a radio is already connected, click `Settings > Connect to Radio...` and disconnect first.
 2. Locate the **Use low bandwidth mode** checkbox near the bottom of the connection panel.
 3. Check **Use low bandwidth mode** to enable reduced-rate streams.
-4. Proceed to connect using your preferred mode — **On This Network**, **Remote with SmartLink**, or **Connect by IP** — as normal.
+4. Proceed to connect using your preferred mode — **Local**, **SmartLink**, or **Manual** — as normal.
 
 ## What each control does
 

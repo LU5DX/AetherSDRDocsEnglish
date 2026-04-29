@@ -12,19 +12,19 @@ After using BYPASS to silence every stage in the TX or RX chain, you can bring b
 
 1. In the Aetherial Audio Chain header row, confirm BYPASS is checked. While BYPASS is active, all stages are visually disabled.
 2. Click TX or RX to ensure the chain side you want to edit is shown.
-3. Locate the stage tile you want to re-enable in the horizontal strip (for TX: EQ, COMP, GATE, DESS, TUBE, PUDU, VERB; for RX: EQ, GATE, COMP, TUBE, PUDU).
+3. Locate the stage tile you want to re-enable in the horizontal strip (for TX: EQ, COMP, GATE, DESS, TUBE, PUDU, VERB; for RX: EQ, AGC-T, AGC-C, TUBE, PUDU).
 4. Single-click that stage tile. This toggles bypass off for that stage alone, re-enabling it while all other stages remain bypassed.
 5. Repeat step 4 for any additional stages you want to bring back individually.
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Persisted key |
-|---|---|---|---|---|
-| TX | Toggle button | Switches the chain view to the TX DSP chain. TX and RX keep independent stage states and BYPASS snapshots. | Checked | `PooDooAudioActiveTab` |
-| RX | Toggle button | Switches the chain view to the RX DSP chain. | Unchecked | `PooDooAudioActiveTab` |
-| BYPASS | Toggle button | When checked, snapshots the currently-enabled stages and disables all of them. When unchecked, restores only the stages that were on before. Stages toggled manually while BYPASS is active are preserved outside the snapshot. | Unchecked | — |
-| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor. Drag reorders the chain. | — | `ClientCompTxChainStages` |
-| RX chain stage (EQ / GATE / COMP / TUBE / PUDU) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor. Drag reorders the RX chain. | — | `ClientCompRxChainStages` |
+| Control | Kind | Behavior |
+|---|---|---|
+| TX | Toggle button | Switches the chain view to the TX DSP chain. TX and RX keep independent stage states and BYPASS snapshots. |
+| RX | Toggle button | Switches the chain view to the RX DSP chain. |
+| BYPASS | Toggle button | When checked, snapshots the currently-enabled stages and disables all of them. When unchecked, restores only the stages that were on before. Stages toggled manually while BYPASS is active are preserved outside the snapshot. |
+| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor. Drag reorders the chain. |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor in RX mode. Drag reorders the RX chain. All five RX stages are fully implemented. Order is independent of the TX chain. |
 
 ## Tips
 

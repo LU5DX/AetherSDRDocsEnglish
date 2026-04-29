@@ -24,13 +24,15 @@ SmartLink lets you reach a FLEX-8600 at a remote location over the internet. Thi
 | `SmartLink account: Email` | Your FlexRadio account email address. | `SmartLinkEmail` |
 | `SmartLink account: Password` | Your SmartLink password. Not saved after the session ends. | — |
 | `Sign In` | Authenticates with SmartLink and retrieves the list of remote radios. | — |
-| `Remote radios` | Lists the WAN radios available to your account after sign-in. | — |
+| `Remote radios` | Lists the WAN radios available to your account after sign-in. The list has a fixed display height; if you have many remote radios, scroll within the list to see all of them. | — |
+| `Connect Remote Radio` | Starts a WAN connection to the radio selected in the `Remote radios` list. | — |
 | `Sign Out` | Ends the current SmartLink session. | — |
 
 ## Tips
 
 - `SmartLinkEmail` is persisted, so your email address is pre-filled on the next launch. Your password is never stored.
 - After signing in, the status label below the account group shows your name, callsign, or confirmation that you are signed in, depending on what your account profile contains.
+- The `Remote radios` list is sized to show a compact view of available radios. Scroll within the list if the entry you want is not immediately visible.
 
 ## Troubleshooting
 

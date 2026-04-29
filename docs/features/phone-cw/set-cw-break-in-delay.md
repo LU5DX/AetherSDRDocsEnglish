@@ -31,5 +31,4 @@ The CW break-in delay controls how long the radio waits after the last keypress 
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
 - [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)

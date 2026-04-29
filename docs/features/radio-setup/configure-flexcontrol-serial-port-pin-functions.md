@@ -42,16 +42,39 @@ Use this page to assign a function and polarity to the DTR and RTS output pins o
 | **Auto-detect on startup** | Automatically detects the FlexControl knob at launch. | Unchecked | Checked / Unchecked |
 | **Invert tuning direction** | Reverses the direction of FlexControl tuning. | Unchecked | Checked / Unchecked |
 
+## Frequency calibration changes in v0.9.2.1
+
+The **RX** tab frequency calibration section has been revised. Previously, the **Cal Frequency (MHz)** field and **Start** button were only shown when no GPSDO was detected. Starting in v0.9.2.1, those controls are always visible regardless of whether a GPSDO is installed.
+
+The status message at the top of the calibration group changes depending on hardware:
+
+- GPSDO installed — shown in green: *GPSDO installed. Manual frequency offset calibration available.*
+- No GPSDO — shown in amber: *Manual frequency offset calibration available.*
+
+The **Start** button now provides inline status feedback next to the button. While a calibration is in progress the button is disabled and its label changes to **Busy**. The status label shows the current stage (for example, *Starting…*) and updates as the calibration proceeds. The button is re-enabled when the calibration completes or fails.
+
+Before starting calibration, AetherSDR now resets the stored frequency error to zero (`radio set freq_error_ppb=0`) before sending `radio pll_start`. If the **Cal Frequency (MHz)** field is empty when you click **Start**, the status label shows *Enter cal frequency* in amber and the calibration does not start.
+
+### Updated RX tab calibration controls
+
+| Control | What it does | Notes |
+|---|---|---|
+| **Cal Frequency (MHz):** | Frequency used for manual calibration. | Now always shown, with or without GPSDO. |
+| **Start** | Starts the frequency calibration sweep. | Disabled and labelled **Busy** while active. Validates that a cal frequency has been entered before proceeding. |
+| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. | Reset to 0 automatically when **Start** is clicked. |
+
 ## Tips
 
 - If you open Radio Setup through `Settings > Radio Setup...` rather than `Settings > FlexControl...`, the Serial tab appears at the far right of the tab bar. Scroll or widen the dialog if the tab is not visible.
 - The Serial tab is built lazily — it is not constructed until you first click it, so there is a brief pause the first time you select it.
+- On the RX tab, if you have a GPSDO installed you can still run a manual calibration. Enter the reference frequency in **Cal Frequency (MHz)** and click **Start**.
 
 ## Troubleshooting
 
 - **Serial tab is missing** — AetherSDR was built without `HAVE_SERIALPORT`. The `Settings > FlexControl...` menu item will also be absent. Use a build that includes serial port support.
 - **Port does not appear in the list** — Click **Refresh** to rescan. On Linux, confirm your user account has read/write permission on the device node (typically the `dialout` or `uucp` group).
 - **FlexControl knob is not detected** — Confirm the correct port is selected and the baud rate matches the FlexControl device. Click **Detect** again after verifying the connection.
+- **Start button stays disabled after a calibration attempt** — Check that the **Cal Frequency (MHz)** field contains a valid frequency. An empty field prevents the calibration from starting and the button will not re-enable until you dismiss and reopen the dialog or the previous calibration completes.
 
 ## Related
 

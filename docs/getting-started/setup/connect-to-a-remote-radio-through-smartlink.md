@@ -27,8 +27,8 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 | **Password** field | Your SmartLink password. Not saved between sessions. | — |
 | **Sign In** | Authenticates with SmartLink and populates the **Remote radios** list. | — |
 | **Sign Out** | Logs out of SmartLink and clears the radio list. | — |
-| **Remote radios** list | Shows all FLEX-8600 radios registered to your SmartLink account that are currently online. | — |
-| **Connect Remote Radio** | Starts a WAN connection to the radio selected in the **Remote radios** list. | — |
+| **Remote radios** list | Shows all FLEX-8600 radios registered to your SmartLink account that are currently online. The list has a fixed display height; if you have many radios, scroll within the list. | — |
+| **Connect Remote Radio** | Starts a WAN connection to the radio selected in the **Remote radios** list. This button appears below the list, outside the radios group. | — |
 | **Use low bandwidth mode** checkbox | Enables reduced-rate audio and data streams. Use this on slow or metered internet connections. | `LowBandwidthMode` |
 
 ## Tips

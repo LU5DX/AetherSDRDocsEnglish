@@ -1,6 +1,6 @@
 # Bypass the tube from either chain
 
-Use this procedure to enable or disable the tube saturator on the TX chain, the RX chain, or both, without changing any of the five tuning knobs. Bypassing lets you compare the processed and unprocessed signal instantly and leaves all settings intact.
+Use this procedure to enable or disable the tube saturator on the TX chain, the RX chain, or both, without changing any of the tuning knobs. Bypassing lets you compare the processed and unprocessed signal instantly and leaves all settings intact.
 
 ## Before you start
 
@@ -27,11 +27,12 @@ The bypass state is persisted immediately. TX state is saved to `ClientTubeTxEna
 ## Tips
 
 - Double-clicking the TUBE stage in the CHAIN widget opens the floating editor ("Aetherial Tube — TX" or "Aetherial Tube — RX") instead of toggling bypass. Use a single click for bypass only.
-- All five knob values (Drive, Tone, Bias, Output, Mix) are unaffected by bypass. You can re-enable the tube at any time and the previous settings are restored.
+- All knob values (Drive, Tone, Bias, Output, Dry/Wet, Envelope, Attack, Release) are unaffected by bypass. You can re-enable the tube at any time and the previous settings are restored.
 - The transfer curve and live input ball in the applet tile continue to reflect the current knob positions even while bypassed.
+- The floating editor includes an **Output level meter** (labelled **OUT**) on the far right. It shows post-saturation peak level with fast-attack/slow-release ballistics and is colour-coded: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), and red (above −3 dB). The meter is not visible in the docked applet tile.
 
 ## Related
 
 - [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
 - [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
-- [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
+- [Parallel-blend saturation with Dry/Wet](parallel-blend-saturation-with-mix.md)

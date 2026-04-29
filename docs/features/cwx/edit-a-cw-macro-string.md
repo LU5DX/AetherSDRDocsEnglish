@@ -27,7 +27,17 @@ The CWX panel stores up to 12 macro strings, one for each function key F1 throug
 ## Tips
 
 - To send a macro immediately after editing, click **Send** in the bottom bar to return to the send view, then press the corresponding F-key.
+- Pressing **Setup** while **Live** is active turns off live sending and returns to the send view before showing the macro editor. Any text already keyed character-by-character is not retransmitted.
 - Pressing Escape aborts any in-progress CW transmission without affecting stored macro text.
+
+## How Send and Live interact (v0.9.2.1)
+
+The behavior of the **Send** button changed in v0.9.2.1.
+
+- If **Live** is **off** when you click **Send**, the panel submits the typed buffer immediately as before.
+- If **Live** is **on** when you click **Send**, the panel first turns off live sending and returns to the normal send view. The buffer is **not** retransmitted. This prevents characters that were already keyed live, one at a time, from being sent again.
+
+The **Live** button is now a toggle. Its checked state reflects the live-sending state held by the radio model, so the button stays in sync if the state changes from outside the panel (for example, from a macro or a remote command).
 
 ## Related
 

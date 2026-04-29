@@ -30,6 +30,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - If the previously saved interface is unavailable, the `Source warning label` shows the saved interface name (or ID) and the last known IPv4 address. Choose a different interface from `Advanced: Source path` before connecting.
 - On a machine with only one network interface, the `Advanced: Source path` selection has no practical effect. It is most useful on machines with separate wired, wireless, and VPN interfaces.
 - If you are on a slow link such as a cellular or satellite connection, enable `Use low bandwidth mode` on the same page before clicking `Connect by IP`.
+- In v0.9.2.1 the SmartLink remote radios list has a fixed maximum height. If you have many remote radios, scroll within the list to reach entries that are not immediately visible.
 
 ## Troubleshooting
 

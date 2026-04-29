@@ -1,45 +1,43 @@
-# Set the local sidetone volume independently of the radio monitor
+# Set the CW sidetone volume
 
-The local sidetone in AetherSDR is generated client-side by AudioEngine, with approximately 10 ms latency, making it independent of the radio's DAX-fed monitor. This page explains how to adjust its volume without affecting the radio's sidetone or monitor level.
+In AetherSDR v0.9.2.1, the local client-side sidetone and the radio's DAX-fed sidetone monitor are controlled together by a single set of controls. The separate Local STn button, Local sidetone volume slider, Follow toggle, and Local sidetone pitch slider have been removed. The **Sidetone** toggle and **Sidetone volume** slider in the CW sub-panel now drive both the radio's monitor and the client-side low-latency sidetone generator (~10 ms latency) in lockstep. Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio.
 - The active slice must be in a CW mode. The Phone/CW applet automatically switches to the CW sub-panel when a CW mode is selected.
-- Local sidetone must be enabled. Click the `P/CW` tray button in the right sidebar to open the Phone/CW applet, then enable Local STn. See [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md) if you have not done this yet.
 
 ## Steps
 
 1. Click the `P/CW` tray button in the right sidebar to open the Phone/CW applet.
 2. Confirm the CW sub-panel is visible. If the active slice is in a CW mode, the panel switches to CW controls automatically.
-3. Locate the Local STn toggle button. Confirm it is active (enabled).
-4. Drag the Local sidetone volume slider left or right to set the desired level. The range is 0–100, with a default of 50.
+3. Click **Sidetone** to enable sidetone monitoring. This enables both the radio's DAX-fed monitor and the client-side low-latency sidetone generator at the same time.
+4. Drag the **Sidetone volume** slider left or right to set the desired level. The range is 0–100. Both the radio-side monitor level (`mon_gain_cw`) and the local sidetone generator volume change together.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting key |
+| Control | Default | Valid range | Notes |
 |---|---|---|---|
-| Local STn | Off | On / Off | `CwLocalSidetoneEnabled` |
-| Local sidetone volume | 50 | 0–100 | `CwLocalSidetoneVolume` |
-| Follow (local pitch) | On | On / Off | `CwLocalSidetonePitchFollow` |
-| Local sidetone pitch | 600 | 100–2000 Hz | `CwLocalSidetonePitchHz` |
+| Sidetone | Off | On / Off | Controls both the radio monitor and local sidetone generator in lockstep. |
+| Sidetone volume | — | 0–100 | Sets `mon_gain_cw` and local sidetone volume simultaneously. |
+| L / R pan (CW) | 50 | 0–100 | Applies constant-power pan to both the radio monitor and local sidetone. Double-click to recenter. |
+| Pitch < / > | 600 Hz | 100–6000 Hz (step 10) | Follows the radio's `cw_pitch` setting automatically. |
 
-**Local STn** — Enables or disables the client-side low-latency sidetone generator. When off, no local audio is produced regardless of the volume slider position.
+**Sidetone** — Toggles CW sidetone monitoring. When enabled, the radio's DAX-fed monitor and the client-side sidetone generator (~10 ms latency) are both active. When disabled, neither produces audio.
 
-**Local sidetone volume** — Sets the volume of the local sidetone only. It has no effect on the radio's Sidetone volume slider or the MON monitor level.
+**Sidetone volume** — Sets the volume of both the radio monitor and the local sidetone generator with a single slider. There is no longer a separate volume control for each.
 
-**Follow (local pitch)** — When on, the local sidetone pitch tracks the radio's CW pitch setting. When off, the Local sidetone pitch slider becomes active for manual control.
+**L / R pan (CW)** — Sets the stereo pan position. The same pan value is applied to both the radio monitor and the local sidetone generator using constant-power panning. The pan always reflects the radio's `mon_pan_cw` setting. Double-click the slider to return it to center (50).
 
-**Local sidetone pitch** — Sets the local sidetone tone frequency in Hz. Only adjustable when Follow is off.
+**Pitch < / >** — Steps the CW sidetone and decode pitch by 10 Hz per click. Pitch is always synchronized with the radio's `cw_pitch` setting and applies to both the radio monitor and the local sidetone generator automatically. No separate follow toggle or manual pitch slider is needed.
 
 ## Tips
 
-- The Local sidetone volume slider and the Sidetone volume slider are fully independent. Adjust each separately to balance the local (~10 ms latency) and radio monitor audio.
-- Local STn works for paddle, straight key, and CWX-generated transmissions.
+- Because the radio monitor and the local sidetone generator are now linked, you cannot set different volume levels for each. If you hear doubled or phased audio, confirm that your system audio output and the radio's DAX audio output are not both routed to the same speakers or headphones simultaneously.
+- Local sidetone generation remains active for paddle, straight key, and CWX-generated transmissions whenever **Sidetone** is enabled.
+- The approximately 10 ms local sidetone latency is unchanged. At higher WPM, this remains preferable to the radio's round-trip DAX latency.
 
 ## Related
 
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
-- [Make the local sidetone pitch follow the radio's CW pitch, or set it manually with the slider](make-the-local-sidetone-pitch-follow-the-radio-s-cw-pitch-or-set-it-manually-with-the-slider.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)

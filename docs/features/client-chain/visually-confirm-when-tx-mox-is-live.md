@@ -17,10 +17,11 @@ The TX endpoint indicator pulses red while your slice is transmitting. When you 
 
 ## What each control does
 
-| Label | Kind | Behavior | Persisted setting |
-|---|---|---|---|
-| `TX` | Toggle button | Shows the TX DSP chain. Default: checked. Part of an exclusive pair with `RX`; appears amber when selected. | `PooDooAudioActiveTab` = `TX` |
-| TX endpoint indicator | Indicator | Pulses red while the radio is transmitting on the active slice (driven by MOX state). Idle when not transmitting. | — |
+| Label                                              | Kind                                                                                                                                   | Behavior                                                                                                                                                                                                                                                            |
+|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `TX`                                               | Toggle button                                                                                                                          | Shows the TX DSP chain. Default: checked. Part of an exclusive pair with `RX`; appears amber when selected.                                                                                                                                                         |
+| TX endpoint indicator                              | Indicator                                                                                                                              | Pulses red while the radio is transmitting on the active slice (driven by MOX state). Idle when not transmitting.                                                                                                                                                   |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 ## Tips
 

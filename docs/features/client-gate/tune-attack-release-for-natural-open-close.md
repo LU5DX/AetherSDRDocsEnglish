@@ -1,6 +1,6 @@
-# Tune Attack / Release for Natural Open/Close
+# Tune Return / Release for Natural Open/Close
 
-Adjust the Attack and Release knobs to control how quickly the gate opens when you speak and how quickly it closes when you stop. Correct timing prevents clipped syllable starts and abrupt cut-offs between words.
+Adjust the Return and Release knobs to control the gate's hysteresis deadband and how quickly it closes when audio falls below threshold. Correct settings prevent rapid chatter near the threshold and abrupt cut-offs between words.
 
 ## Before you start
 
@@ -10,32 +10,34 @@ Adjust the Attack and Release knobs to control how quickly the gate opens when y
 
 ## Steps
 
-1. Locate the knob row at the bottom of the applet. Find the knob labeled **Attack** (third knob from the left on TX; same position on RX).
-2. Turn **Attack** toward the left (lower values) to make the gate open faster on loud transients; turn it right (higher values) to slow the opening and smooth abrupt entries. The default is 0.5 ms. Valid range is 0.1 to 100.0 ms.
-3. Watch the transfer curve's live input ball. When you start speaking, the ball should move above the threshold and the gain-reduction bar should clear promptly without a clipped leading edge.
-4. Locate the knob labeled **Release** (fourth knob from the left).
-5. Turn **Release** toward the right (higher values) to make the gate close more slowly after audio falls below threshold — this softens the tail between words. Turn it left to close faster and cut background noise more aggressively. The default is 100 ms. Valid range is 5 to 2000 ms.
-6. Speak a phrase with natural pauses and watch the gain-reduction bar. The amber fill should grow smoothly during silence and retract cleanly when speech resumes, with no pumping or sudden jumps.
-7. If the gate snaps shut mid-word, increase **Release**. If background noise bleeds through between sentences, decrease **Release**.
-8. If the first syllable of each word is attenuated, decrease **Attack**. If the gate chatters open on breath noise before speech, increase **Attack**.
+1. Locate the knob row at the bottom of the applet. Find the knob labeled **Return** (third knob from the left on TX; same position on RX).
+2. Turn **Return** toward the right (higher values) to widen the hysteresis deadband — the gate opens when input rises above Thresh and will not close again until input drops below Thresh − Return. Turn it left (toward 0.0 dB) to reduce the deadband so the gate closes sooner after the signal drops. The default is 2.0 dB. Valid range is 0.0 to 20.0 dB.
+3. Watch the transfer curve. A soft-cyan vertical band appears between (Thresh − Return) and Thresh, showing the sticky zone. A wider band means the gate stays open across a larger signal range before closing.
+4. Watch the live input ball on the transfer curve. When your signal level hovers near the threshold, the ball should sit inside the cyan band without causing the gate to chatter open and closed.
+5. Locate the knob labeled **Release** (fourth knob from the left).
+6. Turn **Release** toward the right (higher values) to make the gate close more slowly after audio falls below Thresh − Return — this softens the tail between words. Turn it left to close faster and cut background noise more aggressively. The default is 100 ms. Valid range is 5 to 2000 ms.
+7. Speak a phrase with natural pauses and watch the gain-reduction bar. The amber fill should grow smoothly during silence and retract cleanly when speech resumes, with no pumping or sudden jumps.
+8. If the gate snaps shut mid-word, increase **Release**. If background noise bleeds through between sentences, decrease **Release**.
+9. If the gate chatters rapidly open and closed on signals near the threshold, increase **Return** to widen the deadband.
 
 ## What each control does
 
 | Knob | Default | Valid range | Persisted key (TX / RX) | Behavior |
 |---|---|---|---|---|
-| Attack | 0.5 ms | 0.1 – 100.0 ms | `ClientGateTxAttackMs` / `ClientGateRxAttackMs` | Sets how quickly the gate opens when input rises above threshold. Uses exponential mapping. |
-| Release | 100 ms | 5 – 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` | Sets how quickly the gate closes after input falls below threshold. Uses exponential mapping. |
+| Return | 2.0 dB | 0.0 – 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` | Sets the hysteresis deadband in dB. The gate opens above Thresh and does not close until input drops below Thresh − Return. Uses linear mapping. The transfer curve draws a soft-cyan band to visualise the deadband. |
+| Release | 100 ms | 5 – 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` | Sets how quickly the gate closes after input falls below Thresh − Return. Uses exponential mapping. |
 
 ## Tips
 
 - The gain-reduction bar maxes at 40 dB and the tick mark at the −15 dB position corresponds to the default Floor value. Use this tick as a visual reference: if the amber fill rarely reaches the tick, your Floor setting is the governing limit, not the ratio or timing.
 - Changes made in the docked applet knobs and the floating editor are kept in sync automatically. You do not need to reopen either view after adjusting one.
 - For SSB voice, a Release of 150–300 ms typically avoids the gate closing during brief inter-word pauses. For CW audio tones, a much shorter Release (10–30 ms) gives a cleaner result.
+- If the cyan hysteresis band disappears, Return is set to 0.0 dB and the gate has no deadband. Any signal that dips below Thresh will immediately start the closing sequence.
 
 ## Troubleshooting
 
-- **First syllable of each word is cut off** — Attack is too slow. Turn the **Attack** knob left toward 0.1 ms so the gate opens before the transient passes.
-- **Gate chatters or flutters between open and closed** — Release is too short, or Thresh is set near the signal level. Increase **Release** or lower **Thresh** slightly so the gate does not re-trigger on breath and room noise.
+- **Gate chatters or flutters between open and closed** — Release is too short, or Return is too narrow. Increase **Return** so the gate stays open across small signal fluctuations near the threshold, or increase **Release** to slow the closing time.
+- **Gate stays open too long after speech ends** — Return is too wide or Release is too long. Reduce **Return** so the gate closes sooner after the signal drops, or turn **Release** left to shorten the tail.
 - **Background noise audible between words** — Release is too long. Turn **Release** left to shorten the tail. Also verify that **Floor** is set to a sufficiently negative value to attenuate noise while closed.
 - **Knob position does not match what was set in the floating editor** — The applet syncs from the engine approximately every 33 ms. Wait one moment; the knob position will update to reflect the current engine value.
 

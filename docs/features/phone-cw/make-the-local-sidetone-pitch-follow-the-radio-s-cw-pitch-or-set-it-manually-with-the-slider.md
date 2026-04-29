@@ -1,46 +1,60 @@
-# Make the local sidetone pitch follow the radio's CW pitch, or set it manually with the slider
+# CW sidetone pitch, volume, and enable in v0.9.2.1
 
-Control whether the client-side local CW sidetone uses the radio's current CW pitch automatically, or plays at a fixed frequency you choose with a slider. This is useful when you want the local sidetone to stay in sync with the radio's decode pitch, or when you prefer a specific pitch regardless of what the radio is set to.
+In v0.9.2.1 the separate **Local STn**, **Local sidetone volume**, **Follow (local pitch)**, and **Local sidetone pitch** controls have been removed. The client-side low-latency CW sidetone (CwSidetoneGenerator, ~10 ms latency) is now controlled entirely by the same **Sidetone** toggle and **Sidetone volume** slider that control the radio's DAX-fed monitor. Pitch and pan are always taken automatically from the radio's `cw_pitch` and `mon_pan_cw` settings; there is no manual override.
+
+If you were previously using the separate local sidetone controls, see [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md) for the current workflow.
 
 ## Before you start
 
 - The active slice must be in a CW mode so that the CW sub-panel is visible in the Phone/CW applet.
-- Local STn must be enabled. If it is not, click Local STn in the Phone/CW applet to turn it on. See [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md).
 
 ## Steps
 
-### To make the pitch follow the radio's CW pitch
+### To enable the CW sidetone (both radio monitor and local generator)
 
 1. Open the Phone/CW applet by clicking the **P/CW** tray button in the right sidebar.
-2. Confirm that **Follow (local pitch)** is checked (lit). This is the default state.
-3. No further action is needed. The local sidetone pitch now tracks whatever value is set in the **Pitch < / >** spinbox.
+2. Click **Sidetone** to turn it on. Both the radio's DAX-fed monitor and the client-side CwSidetoneGenerator start simultaneously.
 
-### To set the pitch manually
+### To disable the CW sidetone
 
-1. Open the Phone/CW applet by clicking the **P/CW** tray button in the right sidebar.
-2. Click **Follow (local pitch)** to turn it off. The **Local sidetone pitch** slider becomes enabled.
-3. Drag the **Local sidetone pitch** slider to the frequency you want. The valid range is 100–2000 Hz; the default is 600 Hz.
+1. Click **Sidetone** again. Both the radio monitor and the local generator stop.
+
+### To adjust sidetone volume
+
+1. Drag the **Sidetone volume** slider (0–100). The same value is applied to the radio's `mon_gain_cw` setting and to the local sidetone generator volume simultaneously.
+
+### To adjust sidetone pitch
+
+1. Use the **Pitch < / >** spinbox to step the pitch in 10 Hz increments (100–6000 Hz). The local sidetone generator follows this value automatically; there is no separate local pitch control.
+
+### To adjust sidetone stereo pan
+
+1. Drag the **L / R pan (CW)** slider (0–100, default 50 = centre). The same pan value is sent to the radio (`mon_pan_cw`) and applied as constant-power pan to the local sidetone generator.
+2. Double-click the slider to return it to centre (50).
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
-| **Follow (local pitch)** | On | On / Off | `CwLocalSidetonePitchFollow` | When on, local sidetone pitch tracks the radio's CW pitch. When off, the manual slider is enabled. |
-| **Local sidetone pitch** | 600 Hz | 100–2000 Hz | `CwLocalSidetonePitchHz` | Sets the local sidetone frequency in Hz. Only adjustable when Follow (local pitch) is off. |
+| **Sidetone** | — | On / Off | — | Toggles both the radio's DAX-fed CW monitor and the client-side CwSidetoneGenerator in lockstep. |
+| **Sidetone volume** | — | 0–100 | — | Sets `mon_gain_cw` on the radio and the local sidetone generator volume simultaneously. |
+| **Pitch < / >** | 600 Hz | 100–6000 Hz (step 10) | — | Sets the CW sidetone/decode pitch on the radio; local generator always follows. |
+| **L / R pan (CW)** | 50 | 0–100 | — | Sets `mon_pan_cw` on the radio and applies constant-power pan to the local generator. Double-click recenters to 50. |
 
 ## Tips
 
-- The radio's CW pitch is set with the **Pitch < / >** spinbox, which steps in 10 Hz increments over 100–6000 Hz. If you use Follow (local pitch), the local sidetone will reflect changes to that spinbox immediately.
-- The local sidetone generator clamps its tone to 100–4000 Hz internally, so values above 4000 Hz set via the radio pitch will be clamped when Follow is on.
+- Because pitch and pan are always derived from the radio's `cw_pitch` and `mon_pan_cw` settings, the local sidetone and the radio monitor are always in agreement — no manual synchronization is needed.
+- The local CwSidetoneGenerator has approximately 10 ms latency, which makes it suitable for high-speed paddle work where the radio's round-trip DAX latency is noticeable.
+- There are no longer any `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz` settings. If you have scripts or configuration files that reference these keys, they can be removed.
 
 ## Troubleshooting
 
-- **Local sidetone pitch slider is grayed out and cannot be moved** — Follow (local pitch) is on. Click **Follow (local pitch)** to turn it off, which enables the slider.
-- **Pitch does not change when you move the radio Pitch < / > spinbox** — Follow (local pitch) may be off. Click **Follow (local pitch)** to turn it on.
+- **No sidetone heard even though Sidetone is on** — Check that your audio output device is selected correctly in AetherSDR's audio settings. Also confirm that **Sidetone volume** is above 0.
+- **Sidetone pitch does not match what you expect** — The pitch is controlled solely by the **Pitch < / >** spinbox. Adjust it there; the local generator will follow immediately.
+- **Pan has no effect** — Confirm your audio output is configured for stereo. Mono output devices will not reflect pan changes.
 
 ## Related
 
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)
-- [Set the local sidetone volume independently of the radio monitor](set-the-local-sidetone-volume-independently-of-the-radio-monitor.md)
-- [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+- [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
+- [Set CW speed and break-in delay](set-cw-speed-and-break-in-delay.md)

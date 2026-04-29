@@ -29,7 +29,7 @@ Common reasons discovery returns nothing include guest Wi-Fi AP isolation, VPN s
 
 ### Remote with SmartLink
 
-Use this mode when the radio is at a different location. Enter your FlexRadio account email in **SmartLink account: Email** (persisted as `SmartLinkEmail`) and your password in **SmartLink account: Password** (not persisted), then click **Sign In**. After authentication, AetherSDR populates the **Remote radios** list with the WAN radios available to your account. Select a radio and click **Connect Remote Radio**. To end the session, click **Sign Out**.
+Use this mode when the radio is at a different location. Enter your FlexRadio account email in **SmartLink account: Email** (persisted as `SmartLinkEmail`) and your password in **SmartLink account: Password** (not persisted), then click **Sign In**. After authentication, AetherSDR populates the **Remote radios** list with the WAN radios available to your account. The list has a fixed height; if you have many remote radios, scroll within the list to find the one you want. Select a radio and click **Connect Remote Radio**. To end the session, click **Sign Out**.
 
 ### Connect by IP (Manual mode)
 
@@ -68,7 +68,7 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 | **SmartLink account: Password** | SmartLink | Account password (not saved between sessions). | — | — |
 | **Sign In** | SmartLink | Authenticates with SmartLink. | — | — |
 | **Sign Out** | SmartLink | Logs out of SmartLink. | — | — |
-| **Remote radios** | SmartLink | Lists WAN radios available to the account. | — | — |
+| **Remote radios** | SmartLink | Lists WAN radios available to the account. Scrollable; fixed display height. | — | — |
 | **Connect Remote Radio** | SmartLink | Starts a WAN connection to the selected radio. | — | — |
 | **Radio IP address** | Manual | IP address of the radio to connect to. | `ManualRadioIp` | — |
 | **Advanced: Source path** | Manual | Selects the local NIC for the connection. | `ManualBindSource` | — |

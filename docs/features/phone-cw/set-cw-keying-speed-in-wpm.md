@@ -23,11 +23,10 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 ## Tips
 
 - The Speed (CW) slider operates the radio's keyer speed. Changes take effect immediately and apply to the paddle, straight key, and any CWX text transmissions.
-- If you use the local low-latency sidetone (Local STn), its pitch and the radio keyer speed work independently — adjusting speed here does not affect sidetone pitch.
+- The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone in lockstep. Adjusting speed does not affect sidetone pitch; pitch always follows the radio's `cw_pitch` setting automatically.
 
 ## Related
 
 - [Set CW break-in delay](set-cw-break-in-delay.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
-- [Enable the low-latency local CW sidetone (Local STn) for fast paddle / straight-key / CWX work](enable-the-low-latency-local-cw-sidetone-local-stn-for-fast-paddle-straight-key-cwx-work.md)

@@ -11,15 +11,16 @@ The Aetherial Audio Chain applet shows either the TX or RX DSP chain at a time. 
 
 1. Locate the header row at the top of the Aetherial Audio Chain applet. It contains the buttons TX, RX, and BYPASS.
 2. Click TX to display and edit the TX DSP chain (Parametric EQ, Compressor, Gate, De-Ess, Tube, PUDU, Reverb).
-3. Click RX to display and edit the RX DSP chain (RX EQ, AGC-T, AGC-C, Dynamic Tube, RX PUDU), which also shows the RADIO, DSP, and SPEAK status tiles.
+3. Click RX to display and edit the RX DSP chain (EQ, AGC-T, AGC-C, TUBE, PUDU), which also shows the RADIO, DSP, and SPEAK status tiles.
 4. The selected button turns amber. The chain strip below updates immediately to show the chosen side.
 
 ## What each control does
 
-| Control | Kind | Default | Persisted key | Behavior |
-|---|---|---|---|---|
-| TX | Toggle button | Checked | `PooDooAudioActiveTab` | Shows and makes editable the TX DSP chain. Amber when selected. |
-| RX | Toggle button | Unchecked | `PooDooAudioActiveTab` | Shows and makes editable the RX DSP chain. Amber when selected. |
+| Control                                            | Kind                                                                                                                                   | Default                                                                                                                                                                                                                                                             |
+|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TX                                                 | Toggle button                                                                                                                          | Checked                                                                                                                                                                                                                                                             |
+| RX                                                 | Toggle button                                                                                                                          | Unchecked                                                                                                                                                                                                                                                           |
+| RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 TX and RX form an exclusive pair — only one can be active at a time. The active tab is saved as `PooDooAudioActiveTab` with the value `TX` or `RX` and is restored on next launch.
 
@@ -30,6 +31,7 @@ The TX and RX chains are fully independent: each has its own stage order, per-st
 - The BYPASS button always acts on the currently shown side only. Switching from TX to RX and clicking BYPASS bypasses only the RX chain; the TX chain's bypass state is unchanged.
 - The record (⏺) and play (▶) monitor buttons are hidden when RX is selected — they are TX-only features.
 - The hint text below the chain strip, "Click to bypass · Double click to edit · Drag to reorder", applies equally to both the TX and RX chains.
+- The RX stage tiles are labelled AGC-T (gate) and AGC-C (compressor). These labels appear on the stage tiles themselves and in any stage editor titles.
 
 ## Related
 

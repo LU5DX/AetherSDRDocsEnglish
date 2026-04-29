@@ -9,21 +9,28 @@ Use the CWX panel to type a CW message and transmit it immediately. This is the 
 
 ## Steps
 
-1. In the CWX panel, click **Send** to make sure the send view is active. The **Send** button is in the bottom bar of the panel.
+1. In the CWX panel, make sure **Live** is off. If **Live** is active (button checked), click it to toggle it off before typing a buffered message.
 2. Click inside the **Send text area** — the text field at the bottom of the send view. The placeholder text reads "Type CW message...".
 3. Type your message. Use standard ASCII characters. Refer to the prosign legend displayed in the panel for prosign shortcuts (=, +, (, &, $).
-4. Press **Enter** to transmit the buffer. The radio begins sending immediately.
+4. Click **Send** or press **Enter** to transmit the buffer. The radio begins sending immediately.
 5. To abort transmission at any time, press **Escape**. This clears the buffer and stops the send.
 
 After transmission, the sent text appears in the **Send history scroll** area above the text field as a timestamped bubble.
+
+## How Send behaves depending on Live mode
+
+The **Send** button behaves differently depending on whether **Live** is currently on:
+
+- **Live is off** — Clicking **Send** submits the contents of the text field as a buffer and transmits it.
+- **Live is on** — Clicking **Send** first turns **Live** off and returns the panel to the send view. The buffer is *not* retransmitted; this prevents text that was already keyed character-by-character in live mode from being sent a second time. After clicking **Send** in this state, type your message and click **Send** again to transmit.
 
 ## What each control does
 
 | Control | What it does | Setting key |
 |---|---|---|
-| **Send** | Switches to the send view showing the history and text field. | — |
-| **Live** | Switches to the live send view. | — |
-| **Setup** | Switches to the macro editor and QSK setup view. | — |
+| **Send** | Submits the typed buffer for transmission when **Live** is off. If **Live** is on, turns **Live** off and returns to the send view without retransmitting. | — |
+| **Live** | Toggles live send mode on or off. While on, characters are keyed as you type them. Turning on **Live** also deselects **Setup** and shows the send view. | — |
+| **Setup** | Switches to the macro editor and QSK setup view. Turning on **Setup** also turns **Live** off. | — |
 | **Speed:** | Sets CW send speed in WPM. Range: 5–100 WPM. Default: 20 WPM. | `CwxSpeedWpm` |
 | Send text area | Type your CW message here. Press Enter to send. | — |
 | Send history scroll | Displays previous sent buffers with timestamps. Read-only. | — |
@@ -36,10 +43,12 @@ After transmission, the sent text appears in the **Send history scroll** area ab
 - F1–F12 send pre-written macros while a CW mode slice is active. The keyboard shortcuts work application-wide in CW and CWL modes. See [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md).
 - Pressing **Escape** clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
 - Adjust **Speed:** in the bottom bar without switching views. The spinbox is visible in both the send and setup views.
+- When you reconnect to a radio, the **Live** button reflects the radio's current live state automatically.
 
 ## Troubleshooting
 
 - **CWX panel does not appear** — Confirm the active slice is set to CW, CWL, or CWU mode. The panel requires a CW mode slice and an active radio connection.
+- **Clicking Send does not transmit** — If **Live** was on, the first click on **Send** only turns **Live** off. Click **Send** a second time (or press **Enter**) to transmit the buffer.
 - **Pressing Enter does nothing** — Click inside the Send text area first to give it focus, then press Enter.
 - **Escape does not stop transmission** — Escape fires an application-wide shortcut. If a dialog or text widget captures the key first, click away from it and press Escape again.
 

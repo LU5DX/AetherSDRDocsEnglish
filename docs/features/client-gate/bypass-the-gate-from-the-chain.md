@@ -19,7 +19,7 @@ The bypass state is persisted as `ClientGateTxEnabled` (TX side) or `ClientGateR
 
 ## Tips
 
-- Bypassing from the CHAIN widget does not reset any of the five tuning knobs — Thresh, Ratio, Attack, Release, and Floor values are preserved.
+- Bypassing from the CHAIN widget does not reset any of the five tuning knobs — Thresh, Ratio, Return, Release, and Floor values are preserved.
 - To open the floating gate editor for detailed tuning without bypassing, double-click the GATE stage in the CHAIN widget instead of single-clicking.
 
 ## Related

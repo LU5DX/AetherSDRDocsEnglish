@@ -24,10 +24,24 @@ The Mix knob blends the dry (unprocessed) signal with the fully saturated tube o
 
 Mix operates as a linear dry/wet blend. The knob label displays the value as a percentage (e.g. `50 %`).
 
+## Monitoring post-saturation level with the Output meter
+
+The floating Aetherial Tube editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX**) includes an **OUT** level meter on the far right of the editor window. The meter shows the post-saturation peak level with fast-attack / slow-release ballistics and is not visible on the docked applet tile.
+
+| Color | Level range |
+|---|---|
+| Green | −60 dB to −12 dB |
+| Lime | −12 dB to −6 dB |
+| Amber | −6 dB to −3 dB |
+| Red | Above −3 dB |
+
+Use the meter to check that the saturated signal is not clipping before it reaches downstream processing. If the meter is consistently amber or red, reduce the **Drive** knob or trim the **Output** knob.
+
 ## Tips
 
 - Mix adjustments made in the floating Aetherial Tube editor are reflected on the applet knob within approximately 33 ms, and vice versa. You do not need to reopen the editor after changing Mix in the applet.
 - Mix applies after the tube stage but before nothing else in the chain — set Drive first to taste, then use Mix to dial back the intensity without losing the harmonic shape you dialed in.
+- The **OUT** meter is only available in the floating editor. Open the editor by double-clicking the applet tile if you need to monitor post-saturation levels while adjusting Mix.
 
 ## Related
 

@@ -40,6 +40,16 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 - **Compression gauge shows 0 dB with PROC on** — The radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
 - **NOR/DX/DX+ slider snaps back** — The slider has three valid positions (0, 1, 2). Dragging between snap points causes it to land on the nearest integer; this is expected behavior.
 
+## CW sidetone behavior (v0.9.1 and later)
+
+The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator in lockstep. There is no longer a separate **Local STn** button, separate local volume slider, or **Follow** pitch toggle. Those controls have been removed.
+
+- Enabling **Sidetone** turns on both the radio-side monitor and the client-side generator simultaneously.
+- Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and the local generator volume to the same value.
+- Pitch and stereo pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. No manual override or follow toggle is needed.
+
+If you have settings from a previous version that reference `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz`, those keys are no longer read or written by AetherSDR and can be ignored.
+
 ## Related
 
 - [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)

@@ -18,7 +18,7 @@ Both copies share identical controls and indicators. Settings for each side are 
 
 ### Signal flow
 
-The gate is a **downward expander**. When the input level falls below the Thresh point, the gate attenuates the signal. The amount of attenuation depends on Ratio, and the deepest cut allowed is set by Floor. Attack controls how quickly the gate opens when the signal rises above Thresh; Release controls how quickly it closes again when the signal falls back below it.
+The gate is a **downward expander**. When the input level falls below the Thresh point, the gate attenuates the signal. The amount of attenuation depends on Ratio, and the deepest cut allowed is set by Floor. Return sets a hysteresis deadband: the gate opens when the signal rises above Thresh and does not close again until the signal drops below Thresh − Return. Release controls how quickly the gate closes once the signal falls below that lower boundary.
 
 Setting Ratio to a low value (near 1.0:1) produces a gentle soft-expander effect that gradually reduces level. Setting Ratio to a high value (near 10.0:1) produces a hard gate that cuts aggressively.
 
@@ -32,27 +32,36 @@ The controls listed below appear identically in both the TX and RX applets. The 
 
 | Control | Kind | Default | Valid range | TX setting key | Behavior |
 |---|---|---|---|---|---|
-| Transfer curve | Indicator | — | — | — | Plots the static expander transfer curve. A live ball marks the current input level and shows whether the gate is open or closed. |
+| Transfer curve | Indicator | — | — | — | Plots the static expander transfer curve. A live ball marks the current input level and shows whether the gate is open or closed. A soft-cyan vertical band between (Thresh − Return) and Thresh visualises the Return hysteresis deadband when Return is greater than zero. |
 | Gain-reduction bar | Meter | — | 0 to 40 dB GR | — | Horizontal amber strip, right-filled. Scale maxes at 40 dB. A tick at −15 dB marks the default soft-expander floor. |
 | Thresh | Knob | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` | Level below which the gate starts attenuating. |
 | Ratio | Knob | 2.0:1 | 1.0 to 10.0 | `ClientGateTxRatio` | Higher values give a harder gate cut; lower values act as a soft downward expander. |
-| Return | Knob | 2.0 dB | 0.0 to 20.0 dB | — | Hysteresis above Thresh at which the gate reopens. |
-| Release | Knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | How quickly the gate closes after input falls below threshold. |
+| Return | Knob | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` | Sets the hysteresis deadband. The gate opens above Thresh and does not close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. Displayed as X.XX dB. The transfer curve draws a soft-cyan band over this zone. |
+| Release | Knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | How quickly the gate closes after input falls below Thresh − Return. |
 | Floor | Knob | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` | Maximum attenuation the gate is allowed to apply. |
 
 The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (TX) and `ClientGateRxEnabled` (RX).
+
+## Visual indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| Input ball | Below threshold / above threshold | Shows whether the gate is currently open or closed. |
+| Hysteresis band | Absent (Return = 0) / soft-cyan vertical band | Visualises the Return deadband on the transfer-curve input axis — the gate's sticky zone between (Thresh − Return) and Thresh. |
+| Gain-reduction strip | Empty / amber fill / −15 dB tick | Depth of attenuation while the gate is closed. |
 
 ## Tips
 
 - Watch the gain-reduction bar while not speaking (TX) or during a band-noise-only moment (RX). If the bar is not filling, Thresh is set below the noise floor and the gate is not triggering. See [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md).
 - The −15 dB tick on the gain-reduction bar marks the Floor default. If the bar fills fully past that tick, Floor is set deeper than −15 dB or Ratio is high enough to push reduction beyond it.
+- Use the cyan hysteresis band on the transfer curve to judge whether the Return value is wide enough to prevent chatter without making the gate sluggish to close.
 - Changes to any knob take effect immediately and are saved automatically. No Apply button is needed.
 
 ## Troubleshooting
 
 - **Applet is not visible** — The Gate stage has not been enabled on that side. Enable it via the CHAIN widget or the floating editor for the TX or RX side.
 - **Gate is not attenuating noise between words** — Thresh may be set too low, below the room noise floor. Raise Thresh until the gain-reduction bar shows movement during silence. See [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md).
-- **Gate cuts into the start of speech** — Attack is too slow relative to your speech onset, or Thresh is too high. Lower Thresh slightly or reduce Attack. See [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md).
+- **Gate chatters rapidly near the threshold** — Return is set too low. Increase Return so the gate does not reopen until the signal is clearly above Thresh, widening the deadband shown by the cyan band on the transfer curve.
 - **Unnatural silence between words** — Floor is set too deep. Raise Floor toward 0 dB so some residual audio passes through during closed periods. See [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md).
 - **Knob positions in the tile do not match the floating editor** — The tile syncs every ~33 ms. If they appear mismatched immediately after opening the editor, wait one update cycle or move a knob to force a sync.
 
@@ -61,7 +70,6 @@ The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Use AGC-T on RX to suppress band noise below a chosen floor](use-agc-t-on-rx-to-suppress-band-noise-below-a-chosen-floor.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
-- [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md)
 - [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md)

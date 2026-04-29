@@ -29,17 +29,30 @@ To send a macro using the on-screen buttons instead of the keyboard:
 | Delay: | Inter-macro delay in milliseconds. | 5 ms | 0–2000 ms | `CwxDelay` |
 | QSK | Enables full break-in (QSK) mode. | Off | On / Off | `CwxQsk` |
 
+## How Send and Live interact
+
+The **Send** button behavior changed in v0.9.2.1. Its action now depends on whether **Live** mode is currently active:
+
+- **Live is off** — Clicking **Send** submits the contents of the send text area immediately, exactly as pressing Enter does.
+- **Live is on** — Clicking **Send** first turns off Live mode and returns the panel to the normal send view. The buffer is **not** retransmitted. This prevents text that was already keyed character-by-character in Live mode from being sent a second time.
+
+The **Live** button is now a toggle. Clicking it again while Live is active turns Live mode off. When a connected model changes the live state externally (for example, from another panel or a radio event), the **Live** button updates automatically to reflect the current state.
+
+Clicking **Setup** always turns off Live mode before showing the macro editor view.
+
 ## Tips
 
 - The F1–F12 shortcuts are application-wide. You do not need to click inside the CWX panel first — the keys work as long as AetherSDR has focus and the active slice is in CW or CWL mode.
 - Pressing Escape during a macro send is the fastest way to abort. Because the radio transitions between transmit and ready states rapidly during CW, Escape works regardless of the radio's current transmit state.
 - Adjust **Speed:** in the bottom bar before sending if you need to change the WPM for the current session.
+- If you were sending live and want to re-send the same text, type it again in the send text area after clicking **Send** to exit Live mode, then click **Send** a second time (or press Enter).
 
 ## Troubleshooting
 
 - **Pressing F1–F12 does nothing** — Confirm the active slice is in CW or CWL mode. The shortcuts are suppressed in all other modes. If another application has captured the function keys, bring AetherSDR to the foreground.
 - **Macro sends but produces no audio or RF** — The macro text for that slot may be empty. Click **Setup** and check the text field next to the F-key in question. See [Edit a CW macro string](edit-a-cw-macro-string.md).
 - **Transmission does not stop after pressing Escape** — Click inside the AetherSDR window to ensure it has keyboard focus, then press Escape again.
+- **Clicked Send but the buffer was not transmitted** — If Live mode was active when you clicked **Send**, the panel exits Live mode without sending. Click **Send** once more (or press Enter) to transmit the buffer.
 
 ## Related
 

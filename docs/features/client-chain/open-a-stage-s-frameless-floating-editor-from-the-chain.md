@@ -10,19 +10,19 @@ Double-clicking a stage tile in the Aetherial Audio Chain opens that stage's fra
 ## Steps
 
 1. If the chain is not already showing the side you want, click **TX** or **RX** in the header row of the Aetherial Audio Chain to switch to that chain.
-2. Locate the stage tile you want to edit. TX chain tiles are labelled **EQ**, **COMP**, **GATE**, **DESS**, **TUBE**, **PUDU**, and **VERB**. RX chain tiles are labelled **EQ**, **GATE**, **COMP**, **TUBE**, and **PUDU**.
+2. Locate the stage tile you want to edit. TX chain tiles are labelled **EQ**, **COMP**, **GATE**, **DESS**, **TUBE**, **PUDU**, and **VERB**. RX chain tiles are labelled **EQ**, **AGC-T**, **AGC-C**, **TUBE**, and **PUDU**.
 3. Double-click the stage tile. The frameless floating editor for that stage opens.
 
 A single click bypasses the stage instead of opening the editor. Make sure to double-click.
 
 ## What each control does
 
-| Control | Kind | Behavior | Persisted setting |
-|---|---|---|---|
-| **TX** | Toggle button | Shows the TX DSP chain. Amber when selected. | `PooDooAudioActiveTab` (`TX`) |
-| **RX** | Toggle button | Shows the RX DSP chain. Amber when selected. | `PooDooAudioActiveTab` (`RX`) |
-| TX chain stage (**EQ** / **COMP** / **GATE** / **DESS** / **TUBE** / **PUDU** / **VERB**) | Stage tile | Single-click toggles bypass. Double-click opens the frameless floating editor. Drag reorders the chain. | `ClientCompTxChainStages` |
-| RX chain stage (**EQ** / **GATE** / **COMP** / **TUBE** / **PUDU**) | Stage tile | Single-click toggles bypass. Double-click opens the frameless floating editor in RX mode. Drag reorders the chain. | `ClientCompRxChainStages` |
+| Control                                                                                    | Kind          | Behavior                                                                                                                        |
+|--------------------------------------------------------------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------|
+| **TX**                                                                                     | Toggle button | Shows the TX DSP chain. Amber when selected.                                                                                    |
+| **RX**                                                                                     | Toggle button | Shows the RX DSP chain. Amber when selected.                                                                                    |
+| TX chain stage (**EQ** / **COMP** / **GATE** / **DESS** / **TUBE** / **PUDU** / **VERB**) | Stage tile    | Single-click toggles bypass. Double-click opens the frameless floating editor. Drag reorders the chain.                         |
+| RX chain stage (**EQ** / **AGC-T** / **AGC-C** / **TUBE** / **PUDU**)                     | Stage tile    | Single-click toggles bypass. Double-click opens the frameless floating editor in RX mode. Drag reorders the RX chain independently of the TX chain. |
 
 ## Tips
 

@@ -21,27 +21,30 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 |---|---|---|---|---|
 | **Ratio** | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` | Displayed as X.X:1. Lower values expand softly; higher values gate hard. |
 | **Thresh** | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` | Level below which attenuation begins. |
+| **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` | Displayed as X.XX dB. Sets the hysteresis deadband: the gate opens above Thresh and does not close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. |
 | **Floor** | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` | Maximum attenuation the gate is allowed to apply, regardless of ratio. |
 | **Gain-reduction bar** | — | 0 to 40 dB GR | — | Amber strip, right-filled. The tick at -15 dB marks the default Floor value. |
-| Transfer curve | — | — | — | Shows the static transfer curve with a live ball at the current input level. |
+| Transfer curve | — | — | — | Shows the static transfer curve with a live ball at the current input level. A soft-cyan band on the input axis marks the Return deadband when Return is greater than zero. |
 
 ## Tips
 
 - A ratio of 2.0:1 (the default) is a conservative starting point suitable for most TX use. Raise it only if low-level noise is still audible when you are not speaking.
 - At ratios above approximately 8.0:1 the gate behaves almost like an on/off switch. Pair this with a carefully set **Thresh** to avoid clipping the leading edge of words.
-- The transfer curve updates in real time as you move **Ratio**. Use the live input ball to confirm the curve shape matches your intent before transmitting.
-- Changes to **Ratio** take effect immediately and are saved automatically. No Apply or Save button is required.
+- Use the **Return** knob to eliminate gate chatter. If the gate flickers open and closed rapidly when you pause speaking, increase **Return** so the gate stays open until the input level drops well clear of the threshold. The cyan band on the transfer curve widens as you increase **Return**, showing the sticky zone directly.
+- The transfer curve updates in real time as you move **Ratio** or **Return**. Use the live input ball to confirm the curve shape and hysteresis band match your intent before transmitting.
+- Changes to any knob take effect immediately and are saved automatically. No Apply or Save button is required.
 
 ## Troubleshooting
 
 - **Ratio knob has no effect on the sound** — Confirm the gate stage is enabled. A bypassed gate passes audio unmodified regardless of knob settings. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - **Hard-gate ratio cuts too deep and creates unnatural silences** — Lower **Floor** toward 0 dB to reduce the maximum attenuation, or reduce **Ratio** toward the soft-expander range.
 - **Soft-expander ratio does not suppress noise enough** — Raise **Ratio** or lower **Thresh** so attenuation begins at a higher input level.
+- **Gate chatters or flickers at the threshold** — Increase **Return** so the gate stays open until the signal drops further below the threshold. Watch the cyan hysteresis band on the transfer curve widen as you do so.
 
 ## Related
 
 - [Aetherial TX Gate / Aetherial AGC-T (RX) overview](overview.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
-- [Tune attack / release for natural open/close](tune-attack-release-for-natural-open-close.md)
+- [Tune release for natural gate close](tune-release-for-natural-gate-close.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
