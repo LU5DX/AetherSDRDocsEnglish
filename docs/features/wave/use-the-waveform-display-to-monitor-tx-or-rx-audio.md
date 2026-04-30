@@ -35,6 +35,7 @@ The Waveform applet shows a time-domain oscilloscope view of the active TX or RX
 
 - The header readout always labels the source (`RX` or `TX`) so you do not need to rely on the tint alone when working in low-light conditions.
 - Double-click the display to open the settings drawer and adjust the view mode, zoom level, or frame rate without leaving the applet.
+- The Waveform applet resizes vertically with its container. You can drag the applet panel divider to give the waveform more or less vertical space.
 - A radio connection is not required for the Waveform applet to open, but live audio data requires an active audio path.
 
 ## Troubleshooting

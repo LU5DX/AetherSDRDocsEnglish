@@ -53,6 +53,14 @@ Use this page to configure the USB serial adapters connected to your FLEX-8600 a
 | **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. | Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | |
 | **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | |
+| **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. | Label changed from **Browse .ssdr...** in v0.9.3. When an update is available, download the SmartSDR installer from flexradio.com, then click **Select Installer...** to stage it. |
+| **APD (tab)** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. | Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
+| **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. | Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
+| **Equalizer Reset (APD)** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | |
+| **Themes (tab)** | UI customization tab — currently hosts the Slice Colors section. | |
+| **Use Aether defaults / Custom colors** | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. | Backed by `SliceColorManager::useCustomColors()`. |
+| **Slice A–H color buttons** | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. | Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
+| **Reset All to Defaults (Themes)** | Resets all custom slice colors to the built-in AetherSDR palette. | |
 
 ## RX tab — frequency calibration (v0.9.2.1)
 
@@ -83,21 +91,26 @@ In both cases the **Cal Frequency (MHz):**, **Start**, and **Freq Offset (ppb):*
 | **Freq Offset (ppb):** | Manual frequency offset correction in parts per billion. | |
 | **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External. Available options depend on installed hardware. | Lock status (Locked / Unlocked) is shown alongside the selector and updates live. |
 
-## Tips
+## Firmware update (v0.9.3)
 
-- If a cable shows **Unplugged**, check the physical USB connection and reopen the dialog. The list reflects the state at the time the tab was built.
-- Assign only one PTT cable at a time if you want predictable transmit keying behavior.
-- BCD and bit cables share many of the same serial parameters; configure **Speed**, **Data Bits**, **Parity**, **Stop Bits**, and **Flow** to match the expectations of the external device receiving the data.
-- When running frequency calibration, ensure the reference signal is stable and at the exact frequency entered before clicking **Start**. Clicking **Start** with an unstable or absent reference will produce an inaccurate offset correction.
+In v0.9.3, the firmware update workflow changed. AetherSDR no longer downloads the installer automatically. When **Check for Update** reports that a newer version is available, download the SmartSDR installer from flexradio.com yourself, then use **Select Installer...** to stage it locally.
 
-## Troubleshooting
+### Supported installer formats
 
-- **Cable shows Unplugged even though it is connected** — The USB adapter may not have been present when the tab loaded. Close Radio Setup, ensure the adapter is recognized by the OS, then reopen `Settings > USB Cables...`.
-- **Enabled toggle has no effect** — Confirm the radio is connected. The USB Cables tab requires an active radio connection; controls do not send commands without it.
-- **BCD or bit outputs are inverted** — Check the **Polarity** setting for the cable and toggle it to match your external device's logic levels.
-- **Start button stays disabled after calibration** — If the connection to the radio drops during a calibration sweep, the button may remain in the Busy state. Close and reopen Radio Setup to reset the dialog.
+| Format | Extension | Notes |
+|---|---|---|
+| WiX MSI installer | `.msi` | FlexRadio v4.2 and later. |
+| Self-extracting EXE installer | `.exe` | Older SmartSDR releases. |
+| Pre-extracted firmware file | `.ssdr` | Direct firmware file, if you already have one. |
 
-## Related
+The firmware stager auto-detects the format from the first 8 bytes of the file (OLE/MSI magic vs PE/COFF MZ header) and extracts the `.ssdr` payload without requiring any external tools.
 
-- [Radio Setup overview](overview.md)
-- [Configure FlexControl serial port pin functions](configure-flexcontrol-serial-port-pin-functions.md)
+### Firmware update procedure
+
+1. Open `Settings > Radio Setup...` and click the **Radio** tab.
+2. Click **Check for Update**. AetherSDR queries the update server and reports the result in the status label.
+   - If the firmware is current, the label shows "Firmware is up to date."
+   - If an update is available, the label instructs you to download the SmartSDR installer from flexradio.com.
+3. Download the SmartSDR installer from flexradio.com.
+4. Click **Select Installer...**. In the file picker, select the `.msi`, `.exe`, or `.ssdr` file you downloaded. The stager begins extracting and staging the firmware immediately; progress is shown in the progress bar and status label.
+5.

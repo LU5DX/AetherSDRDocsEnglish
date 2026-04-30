@@ -30,14 +30,13 @@ As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere i
 
 ## What each control does
 
-| Control | What it does | Default | Range | Setting key |
-|---|---|---|---|---|
-| `CPY ALL` | Copies the full decoded text buffer to the clipboard. | — | — | — |
-| `CPY VIS` | Copies only the text currently visible in the scroll area to the clipboard. | — | — | — |
-| `CLR` | Clears the CW decode buffer entirely. Text cannot be recovered after clearing. | — | — | — |
-| Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`. | — | — | — |
-| Sens | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30 | 0–100 | `CwDecoderSensitivity` |
-
+| Control                 | What it does                                                                                 | Default |
+|-------------------------|----------------------------------------------------------------------------------------------|---------|
+| `CPY ALL`               | Copies the full decoded text buffer to the clipboard.                                        | —       |
+| `CPY VIS`               | Copies only the text currently visible in the scroll area to the clipboard.                  | —       |
+| `CLR`                   | Clears the CW decode buffer entirely. Text cannot be recovered after clearing.               | —       |
+| Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`.     | —       |
+| Sens                    | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30      |
 ## Tips
 
 - Use `CPY VIS` when you want only a specific exchange or callsign that is visible on screen, without the surrounding session noise.

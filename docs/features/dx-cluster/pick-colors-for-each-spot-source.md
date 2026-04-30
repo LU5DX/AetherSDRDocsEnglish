@@ -57,16 +57,54 @@ SpotCollector does not have a dedicated spot-color picker in SpotHub. See the Di
 
 ## What each control does
 
-| Control | Tab | Saved setting | Purpose |
-|---|---|---|---|
-| **Spot Color:** | Cluster | `ClusterSpotColor` | Color for all spots received from the DX cluster telnet feed. |
-| **Spot Color:** | RBN | `RbnSpotColor` | Color for all spots received from the Reverse Beacon Network. |
-| **CQ color** | WSJT-X | `WsjtxColorCQ` | Color for WSJT-X decodes that are CQ calls. |
-| **POTA color** | WSJT-X | `WsjtxColorPOTA` | Color for WSJT-X decodes that are CQ POTA calls. |
-| **Calling Me color** | WSJT-X | `WsjtxColorCallingMe` | Color for WSJT-X decodes addressed to your callsign. |
-| **Default color** | WSJT-X | `WsjtxColorDefault` | Color for all other WSJT-X decodes. |
-| **Spot Color:** | POTA | `PotaSpotColor` | Color for spots received from the POTA activation feed. |
-| **Spot Color:** | FreeDV | `FreeDvSpotColor` | Color for spots received from the FreeDV QSO reporter. |
+| Control | Tab | Saved setting |
+|---|---|---|
+| **Spot Color:** | Cluster | `ClusterSpotColor` |
+| **Spot Color:** | RBN | `RbnSpotColor` |
+| **CQ color** | WSJT-X | `WsjtxColorCQ` |
+| **POTA color** | WSJT-X | `WsjtxColorPOTA` |
+| **Calling Me color** | WSJT-X | `WsjtxColorCallingMe` |
+| **Default color** | WSJT-X | `WsjtxColorDefault` |
+| **Spot Color:** | POTA | `PotaSpotColor` |
+| **Spot Color:** | FreeDV | `FreeDvSpotColor` |
+| **Enable FreeDV Reporter reporting when RADE is active** | FreeDV | `FreeDvAutoReport` |
+| **Callsign:** | FreeDV — Station Reporting | `FreeDvMyCallsign` |
+| **Use radio (callsign)** | FreeDV — Station Reporting | `FreeDvUseRadioCallsign` |
+| **Grid Square:** | FreeDV — Station Reporting | `FreeDvMyGrid` |
+| **Use GPS (grid)** | FreeDV — Station Reporting | `FreeDvUseGpsGrid` |
+| **Station Msg:** | FreeDV — Station Reporting | `FreeDvMyMessage` |
+
+## FreeDV Reporter — Station Reporting
+
+v0.9.3 adds a **Station Reporting** group inside the **FreeDV** tab. When enabled, AetherSDR broadcasts your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
+
+> **Note:** Station Reporting is present only if AetherSDR was built with WebSocket support (`HAVE_WEBSOCKETS`). On Windows builds it additionally requires `HAVE_RADE`.
+
+### Enable reporting
+
+1. Click the **FreeDV** tab in SpotHub.
+2. In the **Station Reporting** group, fill in a valid callsign and grid square (see below) before enabling the checkbox.
+3. Check **Enable FreeDV Reporter reporting when RADE is active**.
+   - If either the callsign or grid square field is blank when you check the box, a warning dialog appears and the checkbox reverts to unchecked. Fill both fields first, then try again.
+4. The setting is saved to `FreeDvAutoReport`.
+
+### Callsign field
+
+- The **Callsign:** field (`FreeDvMyCallsign`) sets the callsign reported to the public map.
+- When **Use radio** is checked (default), the field is pre-filled from the radio's configured callsign and locked read-only. The field updates automatically if you change the callsign in Radio Setup.
+- Uncheck **Use radio** to type a callsign manually. The value is saved to `FreeDvMyCallsign` and uppercased on exit.
+- **Use radio** is saved to `FreeDvUseRadioCallsign`.
+
+### Grid Square field
+
+- The **Grid Square:** field (`FreeDvMyGrid`) sets the Maidenhead locator reported to the public map.
+- On radio models with GPS hardware, a **Use GPS** checkbox appears. When checked (default), the field is pre-filled from the radio's GPS module and locked read-only.
+- Uncheck **Use GPS** to type a grid square manually. The value is saved to `FreeDvMyGrid` and uppercased on exit.
+- **Use GPS** is saved to `FreeDvUseGpsGrid`. The checkbox is hidden on radio models that have no GPS hardware.
+
+### Station message
+
+- The optional **Station Msg:** field (`FreeDvMyMessage`) accepts free text that appears beside your callsign on the public FreeDV Reporter map. Leave it blank if you have nothing to add.
 
 ## Tips
 

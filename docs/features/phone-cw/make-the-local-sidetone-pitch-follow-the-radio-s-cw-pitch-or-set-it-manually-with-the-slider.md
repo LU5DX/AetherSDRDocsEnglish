@@ -34,12 +34,12 @@ If you were previously using the separate local sidetone controls, see [Listen t
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Sidetone** | — | On / Off | — | Toggles both the radio's DAX-fed CW monitor and the client-side CwSidetoneGenerator in lockstep. |
-| **Sidetone volume** | — | 0–100 | — | Sets `mon_gain_cw` on the radio and the local sidetone generator volume simultaneously. |
-| **Pitch < / >** | 600 Hz | 100–6000 Hz (step 10) | — | Sets the CW sidetone/decode pitch on the radio; local generator always follows. |
-| **L / R pan (CW)** | 50 | 0–100 | — | Sets `mon_pan_cw` on the radio and applies constant-power pan to the local generator. Double-click recenters to 50. |
+| Control             | Default | Valid range           |
+|---------------------|---------|-----------------------|
+| **Sidetone**        | —       | On / Off              |
+| **Sidetone volume** | —       | 0–100                 |
+| **Pitch < / >**     | 600 Hz  | 100–6000 Hz (step 10) |
+| **L / R pan (CW)**  | 50      | 0–100                 |
 
 ## Tips
 
@@ -50,8 +50,11 @@ If you were previously using the separate local sidetone controls, see [Listen t
 ## Troubleshooting
 
 - **No sidetone heard even though Sidetone is on** — Check that your audio output device is selected correctly in AetherSDR's audio settings. Also confirm that **Sidetone volume** is above 0.
+- **Sidetone does not start on Windows until you key the radio** — This was a known issue in v0.9.2 and earlier. In v0.9.3 the sidetone stream starts immediately on connect (#2105). If you are running an older version, upgrade to v0.9.3 or later.
+- **Mic level gauge does not appear on connect when using PC as the mic source** — This was a known issue in v0.9.2 and earlier. In v0.9.3 the gauge appears immediately on connect when the mic source is set to PC (#2086). If you are running an older version, upgrade to v0.9.3 or later.
 - **Sidetone pitch does not match what you expect** — The pitch is controlled solely by the **Pitch < / >** spinbox. Adjust it there; the local generator will follow immediately.
 - **Pan has no effect** — Confirm your audio output is configured for stereo. Mono output devices will not reflect pan changes.
+- **Phone panel does not update immediately when VOX is toggled via keyboard shortcut** — This was a known issue in v0.9.2 and earlier. In v0.9.3 the Phone panel refreshes instantly when VOX is toggled via keyboard shortcut (#2084). If you are running an older version, upgrade to v0.9.3 or later.
 
 ## Related
 

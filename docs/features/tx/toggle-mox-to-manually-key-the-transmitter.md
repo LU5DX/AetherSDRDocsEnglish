@@ -16,13 +16,12 @@ MOX lets you key the transmitter without a footswitch or PTT line. Use it to che
 
 ## What each control does
 
-| Control | Behavior | Default | Range |
-|---------|----------|---------|-------|
-| **MOX** | Toggles manual transmit on or off. Button goes red while the transmitter is keyed. | Off | Off / On (red) |
-| **RF Power** | Sets the transmit RF power level sent to the radio. | 100 | 0–100 |
-| **RF Pwr** meter | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W). | — | 0–120 W / 0–600 W |
-| **SWR** meter | Displays standing wave ratio at the exciter. Turns red above 2.5. | — | 1.0–3.0 |
-
+| Control          | Behavior                                                                                               | Default |
+|------------------|--------------------------------------------------------------------------------------------------------|---------|
+| **MOX**          | Toggles manual transmit on or off. Button goes red while the transmitter is keyed.                     | Off     |
+| **RF Power**     | Sets the transmit RF power level sent to the radio.                                                    | 100     |
+| **RF Pwr** meter | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W). | —       |
+| **SWR** meter    | Displays standing wave ratio at the exciter. Turns red above 2.5.                                      | —       |
 ## Tips
 
 - Watch the **RF Pwr** and **SWR** meters as soon as you key MOX. If SWR exceeds 2.5 (red zone), unkey immediately and investigate your antenna system.

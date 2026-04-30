@@ -15,12 +15,11 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 
 ## What each control does
 
-| Control | Description | Default | Valid range |
-|---|---|---|---|
-| **RF Power** slider | Sets the transmit RF power level sent to the radio. | 100 | 0–100 |
-| **RF Pwr** meter | Displays actual forward power at the exciter output. | — | 0–120 W (barefoot); 0–600 W (Aurora 500 W); red above 100 W / 500 W |
-| **SWR** meter | Displays standing wave ratio at the exciter. | — | 1.0–3.0; red above 2.5 |
-
+| Control             | Description                                          | Default |
+|---------------------|------------------------------------------------------|---------|
+| **RF Power** slider | Sets the transmit RF power level sent to the radio.  | 100     |
+| **RF Pwr** meter    | Displays actual forward power at the exciter output. | —       |
+| **SWR** meter       | Displays standing wave ratio at the exciter.         | —       |
 ## Tips
 
 - The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W.

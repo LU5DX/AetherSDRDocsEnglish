@@ -36,20 +36,19 @@ Right-clicking anywhere in the decoded text area opens a context menu. In additi
 
 ## Controls reference
 
-| Control | Type | Default | Description |
-|---|---|---|---|
-| CW stats label | Indicator | — | Shows the detected CW pitch and speed in the format `<hz> Hz  <wpm> WPM`. |
-| Sens | Slider | 30 (range 0–100) | Filters low-confidence decodes. Higher values are stricter. Maps 0–100 to a cost threshold of 1.0–0.1. Setting key: `CwDecoderSensitivity`. |
-| 🔒P (Lock Pitch) | Toggle button | — | Locks the CW decoder pitch to the current tuned frequency. |
-| 🔒S (Lock Speed) | Toggle button | — | Locks the CW decoder speed to the current WPM. |
-| Lo (pitch min) | Slider | 500 Hz (range 300–1200 Hz) | Sets the minimum pitch the CW decoder searches. Clamped to be no greater than the Hi value. |
-| Hi (pitch max) | Slider | 700 Hz (range 300–1200 Hz) | Sets the maximum pitch the CW decoder searches. Clamped to be no less than the Lo value. |
-| CPY ALL | Button | — | Copies the full decoded text to the clipboard. |
-| CPY VIS | Button | — | Copies only the text currently visible in the scroll area to the clipboard. |
-| CLR | Button | — | Clears the CW decode buffer. |
-| ✕ (close CW) | Button | — | Hides the CW decode panel. |
-| CW decode text | Read-only text field | — | Rolling display of decoded CW coloured by confidence: green (cost < 0.15), yellow (< 0.35), orange (< 0.60), red (≥ 0.60). Right-click for the context menu. |
-
+| Control         | Type                 | Default                    |
+|-----------------|----------------------|----------------------------|
+| CW stats label  | Indicator            | —                          |
+| Sens            | Slider               | 30 (range 0–100)           |
+| 🔒P (Lock Pitch) | Toggle button        | —                          |
+| 🔒S (Lock Speed) | Toggle button        | —                          |
+| Lo (pitch min)  | Slider               | 500 Hz (range 300–1200 Hz) |
+| Hi (pitch max)  | Slider               | 700 Hz (range 300–1200 Hz) |
+| CPY ALL         | Button               | —                          |
+| CPY VIS         | Button               | —                          |
+| CLR             | Button               | —                          |
+| ✕ (close CW)    | Button               | —                          |
+| CW decode text  | Read-only text field | —                          |
 ## Notes
 
 - The CW decode panel requires PC audio routing to function. If audio is not configured the panel shows the reminder `(requires PC Audio)`.

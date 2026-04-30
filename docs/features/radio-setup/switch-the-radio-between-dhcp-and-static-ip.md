@@ -35,6 +35,47 @@ Use this page to change how the FLEX-8600 obtains its network address — either
 | **Connect / Disconnect (TGXL)** | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
 | **Connect / Disconnect (Antenna Genius)** | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Select Installer...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects the format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
+| **APD (tab)** | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
+| **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
+| **Equalizer Reset (APD)** | Push button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
+| **Themes (tab)** | Tab | UI customization tab — currently hosts the Slice Colors section. |
+| **Use Aether defaults / Custom colors** | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
+| **Slice A–H color buttons** | Push buttons | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
+| **Reset All to Defaults (Themes)** | Push button | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Firmware update (Radio tab)
+
+The **Radio** tab includes controls to check for firmware updates and stage a firmware file for upload.
+
+### How to update firmware in v0.9.3
+
+1. Click **Check for Update**. AetherSDR queries the FlexRadio update server. If an update is available, the status label shows the version number and instructs you to download the SmartSDR installer from flexradio.com.
+2. Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
+3. Click **Select Installer...** to open the file picker. Select the installer you downloaded, or a pre-extracted `.ssdr` file if you already have one. The stager detects the file format automatically and extracts the firmware without external tools. The status label updates to show preparation progress.
+4. When staging is complete, click **Upload Firmware** to transfer the firmware to the radio. A progress bar and status label track the upload.
+
+> **Note:** In v0.9.3 the button formerly labeled **Browse .ssdr...** was renamed to **Select Installer...** and the file picker now accepts `.msi`, `.exe`, and `.ssdr` files. The **Check for Update** button no longer switches to a download button when an update is found; you download the installer manually from flexradio.com and stage it locally.
+
+### Firmware tab controls
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Radio SN** | Indicator (read-only) | Chassis serial number. |
+| **Model** | Indicator (read-only) | Radio model. |
+| **HW Version** | Indicator (read-only) | Hardware version string. |
+| **Region** | Indicator (read-only) | Radio regulatory region. |
+| **Options** | Indicator (read-only) | Shows licensed radio options. |
+| **FlexControl** | Indicator (read-only) | Detected state of FlexControl hardware. |
+| **multiFLEX** | Indicator (read-only) | multiFLEX enabled state. |
+| **Nickname** | Text field | User-friendly radio nickname. |
+| **Callsign** | Text field | Station callsign. |
+| **Station Name** | Text field (`StationName`) | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if left empty. Sent to the radio as `client station <name>`. |
+| **License Info** | Indicator (read-only) | Displays subscription, expiration, Radio ID, and licensed version from the radio. |
+| **Remote On** | Push button | Enables remote wake / remote-on. |
+| **Check for Update** | Push button | Queries the FlexRadio update server for available firmware. If an update is available, the status label shows the version and directs you to download the installer manually. |
+| **Select Installer...** | Push button | Opens a file picker accepting `.msi`, `.exe`, or `.ssdr` files. The stager auto-detects the format and extracts the firmware. |
+| **Upload Firmware** | Push button | Starts the firmware upload to the radio with a progress bar and status label. |
 
 ## Frequency calibration (RX tab)
 
@@ -65,17 +106,4 @@ If the **Cal Frequency (MHz):** field is empty when you click **Start**, the sta
 
 ## Tips
 
-- The **IP Address / Mask / MAC Address** indicators show what the radio is currently using. Record these values before making changes so you can revert if needed.
-- The **Enforce Private IP Connections:** toggle on the same tab rejects connections from non-RFC1918 addresses. If you assign a static IP, confirm it falls within a private range (e.g. 192.168.x.x, 10.x.x.x) if that toggle is enabled.
-
-## Troubleshooting
-
-- **Cannot find the radio after clicking Apply** — The radio has moved to its new address. Use `Settings > Connect to Radio...` to discover and reconnect to it on the updated address.
-- **IP Address:, Mask:, and Gateway: fields are not editable** — The toggle is set to DHCP. Click **DHCP / Static** to switch to static mode first.
-- **Start button stays disabled after calibration** — If the dialog is closed or the radio disconnects while calibration is running, the button state is discarded. Reopen Radio Setup and try again.
-- **Status label shows "Enter cal frequency"** — Type a valid frequency in MHz in the **Cal Frequency (MHz):** field before clicking **Start**.
-
-## Related
-
-- [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md)
-- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)
+- The **IP Address / Mask / MAC Address** indicators show what the radio is currently using. Record

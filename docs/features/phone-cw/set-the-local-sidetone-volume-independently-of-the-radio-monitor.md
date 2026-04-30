@@ -16,20 +16,26 @@ In AetherSDR v0.9.2.1, the local client-side sidetone and the radio's DAX-fed si
 
 ## What each control does
 
-| Control | Default | Valid range | Notes |
-|---|---|---|---|
-| Sidetone | Off | On / Off | Controls both the radio monitor and local sidetone generator in lockstep. |
-| Sidetone volume | — | 0–100 | Sets `mon_gain_cw` and local sidetone volume simultaneously. |
-| L / R pan (CW) | 50 | 0–100 | Applies constant-power pan to both the radio monitor and local sidetone. Double-click to recenter. |
-| Pitch < / > | 600 Hz | 100–6000 Hz (step 10) | Follows the radio's `cw_pitch` setting automatically. |
+| Control         | Default | Valid range           |
+|-----------------|---------|-----------------------|
+| Sidetone        | —       | On / Off              |
+| Sidetone volume | —       | 0–100                 |
+| L / R pan (CW)  | 50      | 0–100                 |
+| Pitch < / >     | 600 Hz  | 100–6000 Hz (step 10) |
 
-**Sidetone** — Toggles CW sidetone monitoring. When enabled, the radio's DAX-fed monitor and the client-side sidetone generator (~10 ms latency) are both active. When disabled, neither produces audio.
+**Sidetone** — Toggles CW sidetone monitoring. When enabled, the radio's DAX-fed monitor and the client-side sidetone generator (~10 ms latency) are both active. When disabled, neither produces audio. On Windows, the sidetone stream starts immediately on connect (v0.9.3, #2105 — AudioEngine init order fix).
 
 **Sidetone volume** — Sets the volume of both the radio monitor and the local sidetone generator with a single slider. There is no longer a separate volume control for each.
 
 **L / R pan (CW)** — Sets the stereo pan position. The same pan value is applied to both the radio monitor and the local sidetone generator using constant-power panning. The pan always reflects the radio's `mon_pan_cw` setting. Double-click the slider to return it to center (50).
 
 **Pitch < / >** — Steps the CW sidetone and decode pitch by 10 Hz per click. Pitch is always synchronized with the radio's `cw_pitch` setting and applies to both the radio monitor and the local sidetone generator automatically. No separate follow toggle or manual pitch slider is needed.
+
+## Phone panel notes
+
+**Level gauge** — Shows microphone input peak level in dBFS (range −40 to +10 dBFS; red above 0). The gauge is suppressed to −150 when `met_in_rx` is off and the radio is not transmitting, except when the mic source is set to **PC**: in that case the gauge uses client-side metering and appears immediately on connect regardless of the `met_in_rx` state (v0.9.3, #2086).
+
+**VOX** — When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes instantly to reflect the new state (v0.9.3, #2084).
 
 ## Tips
 

@@ -12,6 +12,8 @@ Two separate ring buffers — one for RX and one for TX — run in parallel. The
 
 To open or close the applet, click the **WAVE** tray button in row 1 of the right sidebar. The applet is on by default and is inserted immediately after the EQ button on first run after upgrading to v0.9.1.
 
+The applet no longer enforces a fixed height; it resizes vertically with the layout.
+
 ## What each control does
 
 | Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |

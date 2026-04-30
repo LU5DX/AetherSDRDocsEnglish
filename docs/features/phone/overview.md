@@ -21,17 +21,16 @@ The Phone applet is organized into four functional areas:
 
 ## What each control does
 
-| Control | Kind | Default | Range | Persisted key |
-|---|---|---|---|---|
-| AM Carrier | Slider | — | 0–100 | — |
-| VOX | Toggle button | — | On/Off | — |
-| VOX level | Slider | — | 0–100 | — |
-| Delay | Slider | — | 0–100 | — |
-| DEXP | Toggle button | — | On/Off | `DexpEnabled` |
-| DEXP threshold | Slider | 0 | 0–100 | `DexpLevel` |
-| Low Cut < / > | Spinbox | 50 Hz | 0 to (high-cut − 50 Hz), step 50 Hz | — |
-| High Cut < / > | Spinbox | 3300 Hz | (low-cut + 50 Hz) to 10000 Hz, step 50 Hz | — |
-
+| Control        | Kind                                                                | Default                                                                                                                                   |
+|----------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| AM Carrier     | Slider                                                              | —                                                                                                                                         |
+| VOX            | Toggles voice-operated transmit; calls TransmitModel::setVoxEnable. | v0.9.3: setVoxEnable now emits phoneStateChanged so the Phone panel updates immediately when VOX is toggled by keyboard shortcut (#2084). |
+| VOX level      | Slider                                                              | —                                                                                                                                         |
+| Delay          | Slider                                                              | —                                                                                                                                         |
+| DEXP           | Toggle button                                                       | —                                                                                                                                         |
+| DEXP threshold | Slider                                                              | 0                                                                                                                                         |
+| Low Cut < / >  | Spinbox                                                             | 50 Hz                                                                                                                                     |
+| High Cut < / > | Spinbox                                                             | 3300 Hz                                                                                                                                   |
 ## Tips
 
 - The **DEXP** and **DEXP threshold** controls persist their values locally via `DexpEnabled` and `DexpLevel` even though the radio rejects the commands on firmware v1.4.0.0. The saved values will apply automatically if a future firmware version resolves the error.

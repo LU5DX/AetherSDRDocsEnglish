@@ -22,3 +22,39 @@ To disconnect a device, click **Disconnect** on its row.
 - [Radio Setup overview](../../features/radio-setup/overview.md)
 - [Manually connect to an AG over a remote network](manually-connect-to-an-ag-over-a-remote-network.md)
 - [Change network MTU for VPN/remote setups](../../features/radio-setup/change-network-mtu-for-vpn-remote-setups.md)
+
+---
+
+# Radio Setup — Firmware Update (v0.9.3 changes)
+
+## Selecting a firmware file
+
+In v0.9.3 the **Browse .ssdr...** button has been renamed to **Select Installer...**. The button now accepts three file types in addition to pre-extracted firmware:
+
+| File type | Extension | Notes |
+|---|---|---|
+| SmartSDR WiX installer | `.msi` | FlexRadio v4.2 and later |
+| SmartSDR self-extracting installer | `.exe` | Older SmartSDR releases |
+| Extracted firmware file | `.ssdr` | As in previous AetherSDR versions |
+
+The firmware stager detects the format automatically from the first 8 bytes of the file (OLE/MSI magic versus PE/COFF MZ header) and extracts the `.ssdr` payload without requiring any external tools.
+
+### To stage firmware from a local installer
+
+1. Download the SmartSDR installer from flexradio.com.
+2. Open `Settings > Radio Setup...`.
+3. Click the **Radio** tab.
+4. Click **Select Installer...**.
+5. In the file picker, select the `.msi`, `.exe`, or `.ssdr` file.
+6. AetherSDR extracts and stages the firmware. Watch the progress bar and status line for progress and any errors.
+7. When staging is complete, click **Upload Firmware** to send the firmware to the radio.
+
+## Check for Update behavior change
+
+When **Check for Update** finds a newer firmware version, AetherSDR now displays an informational message rather than offering an in-app download:
+
+> Update available: v*X.Y.Z*  
+> Download the SmartSDR installer from flexradio.com,  
+> then click 'Select Installer...' to stage it.
+
+Download the installer from flexradio.com independently, then use **Select Installer...** as described above.

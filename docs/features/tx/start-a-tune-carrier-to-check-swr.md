@@ -22,13 +22,12 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 
 ## What each control does
 
-| Control | Kind | Default | Range | Description |
-|---|---|---|---|---|
-| **TUNE** | Push button | — | — | Starts or stops the tune carrier. Label shows **TUNING...** with a red background while active. |
-| **Tune Pwr** | Slider | 10 | 0–100 | Sets the tune carrier power level sent to the radio. |
-| **RF Pwr** | Meter | — | 0–120 W (red above 100 W) | Displays forward power at the exciter output during transmission. |
-| **SWR** | Meter | — | 1.0–3.0 (red above 2.5) | Displays standing wave ratio at the exciter. |
-
+| Control      | Kind        | Default |
+|--------------|-------------|---------|
+| **TUNE**     | Push button | —       |
+| **Tune Pwr** | Slider      | 10      |
+| **RF Pwr**   | Meter       | —       |
+| **SWR**      | Meter       | —       |
 ## Tips
 
 - Keep **Tune Pwr** low (10 or less) when testing an unknown antenna system. Raise it only after confirming a reasonable SWR.

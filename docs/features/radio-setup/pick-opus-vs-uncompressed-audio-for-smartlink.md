@@ -38,6 +38,38 @@ Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus re
 | **Cal Frequency (MHz):** | — | Frequency used for manual calibration. Available regardless of whether a GPSDO is installed. If the field is empty when you click **Start**, a warning appears and calibration does not begin. |
 | **Start** | — | Sets the calibration frequency, resets `freq_error_ppb` to 0, then starts the radio PLL calibration sweep. The button is disabled and labelled **Busy** while calibration is running. |
 | **Freq Offset (ppb):** | — | Manual frequency offset in parts per billion. |
+| **Select Installer...** | — | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
+| **APD (tab)** | — | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
+| **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | INTERNAL | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
+| **Equalizer Reset (APD)** | — | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
+| **Themes (tab)** | — | UI customization tab — currently hosts the Slice Colors section. |
+| **Use Aether defaults / Custom colors** | Use Aether defaults | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
+| **Slice A–H color buttons** | — | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
+| **Reset All to Defaults (Themes)** | — | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Firmware update — changes in v0.9.3
+
+The **Browse .ssdr...** button on the **Radio** tab has been renamed to **Select Installer...**. It now accepts three file types in addition to a pre-extracted `.ssdr` file:
+
+- `.msi` — the WiX-based SmartSDR installer used by FlexRadio from v4.2 onward.
+- `.exe` — the older self-extracting installer.
+- `.ssdr` — a firmware file you have already extracted yourself.
+
+The firmware stager examines the first 8 bytes of the selected file to determine its format (OLE/MSI magic or PE/COFF MZ header) and extracts the `.ssdr` payload automatically without requiring any external tools. Progress is shown in the status area below the buttons.
+
+When **Check for Update** reports that a newer firmware version is available, AetherSDR no longer offers to download the installer automatically. Instead the status area displays:
+
+> Update available: v*X.Y.Z*  
+> Download the SmartSDR installer from flexradio.com, then click 'Select Installer...' to stage it.
+
+To update firmware:
+
+1. Open `Settings > Radio Setup...` and click the **Radio** tab.
+2. Click **Check for Update**. Note the version number shown in the status area.
+3. Download the SmartSDR installer for that version from flexradio.com.
+4. Click **Select Installer...** and choose the downloaded `.msi`, `.exe`, or `.ssdr` file.
+5. AetherSDR stages the firmware. Watch the progress bar and status label.
+6. When staging is complete, click **Upload Firmware** to transfer the firmware to the radio.
 
 ## RX tab — frequency calibration changes in v0.9.2.1
 
@@ -57,6 +89,7 @@ When you click **Start**:
 - On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts. Pair it with a larger **Audio Buffer:** value (50–1000 ms) to absorb jitter.
 - If audio sounds thin or quiet over SmartLink, try enabling **Audio Boost:** alongside Opus.
 - If a GPSDO is installed, frequency calibration is rarely needed, but the controls are still available if you want to verify or manually trim the offset.
+- When staging firmware from a full SmartSDR `.msi` or `.exe` installer, staging may take a few seconds longer than loading a pre-extracted `.ssdr` file directly.
 
 ## Troubleshooting
 
@@ -64,10 +97,11 @@ When you click **Start**:
 - **Audio quality is poor even with Uncompressed selected** — check network bandwidth and latency. Consider increasing **Audio Buffer:** to reduce underruns. See [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md).
 - **Start button shows "Busy" and does not return** — if the PLL sweep does not complete, close and reopen the Radio Setup dialog to reset the button state, then try again.
 - **"Enter cal frequency" warning appears when clicking Start** — type a valid frequency (in MHz) into the **Cal Frequency (MHz):** field before clicking **Start**.
+- **Select Installer... stages nothing / progress bar stays at zero** — confirm the file is a valid SmartSDR `.msi`, `.exe`, or `.ssdr`. Corrupted or partially downloaded installers will cause staging to fail. Re-download the file from flexradio.com and try again.
+- **APD tab is not visible** — the **APD** tab only appears on FLEX-8x00 series radios running SmartSDR 4.2.18 or later. It is not available on 6000-series radios or earlier firmware.
 
 ## Related
 
 - [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
 - [Choose PC input/output audio devices](choose-pc-input-output-audio-devices.md)
-- [Enable auto-record on TX and pick a save folder](enable-auto-record-on-tx-and-pick-a-save-folder.md)
-- [Change network MTU for VPN/remote setups](change-network-mtu-for-vpn-remote-setups.md)
+- [Enable auto-record on TX and pick a save folder](enable-auto-record-on-tx-

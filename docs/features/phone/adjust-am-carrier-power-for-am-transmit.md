@@ -15,10 +15,9 @@ Use this page to set the AM carrier power level when transmitting in AM mode. Ad
 
 ## What each control does
 
-| Control | Description | Valid range | Default |
-|---|---|---|---|
-| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. | 0–100 | None stored; reflects radio state |
-
+| Control               | Description                                        | Valid range |
+|-----------------------|----------------------------------------------------|-------------|
+| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. | 0–100       |
 ## Tips
 
 - The numeric label next to the slider shows the current value in real time. Use it to set a precise level without guessing the slider position.

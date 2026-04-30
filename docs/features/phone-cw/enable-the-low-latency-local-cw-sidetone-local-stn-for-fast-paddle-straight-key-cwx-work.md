@@ -20,12 +20,12 @@ Use this feature when the radio's sidetone path introduces too much delay for co
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| **Sidetone** | Off | On / Off | Enables the CW sidetone. Controls both the radio's DAX-fed monitor and the client-side CwSidetoneGenerator in lockstep. |
-| **Sidetone volume** | — | 0–100 | Sets the sidetone playback volume. Applies to both `mon_gain_cw` on the radio and the local sidetone generator simultaneously. |
-| **L / R pan (CW)** | 50 | 0–100 | Sets stereo pan for the CW monitor. Applied to both the radio and the local sidetone generator using constant-power pan. Double-click to recentre. |
-| **Pitch < / >** | 600 Hz | 100–6000 Hz (step 10) | Steps the CW sidetone and decode pitch. Pitch always follows the radio's `cw_pitch` setting automatically. |
+| Control             | Default | Valid range           |
+|---------------------|---------|-----------------------|
+| **Sidetone**        | Off     | On / Off              |
+| **Sidetone volume** | —       | 0–100                 |
+| **L / R pan (CW)**  | 50      | 0–100                 |
+| **Pitch < / >**     | 600 Hz  | 100–6000 Hz (step 10) |
 
 ## Tips
 
@@ -36,8 +36,9 @@ Use this feature when the radio's sidetone path introduces too much delay for co
 ## Troubleshooting
 
 - **Sidetone button is not visible** — The CW sub-panel only appears when the active slice is in a CW mode. Switch the slice mode to CW and the applet will update automatically.
-- **No audio from the sidetone despite Sidetone being enabled** — Check that your system audio output device is configured and not muted. The local sidetone plays through the client system's audio, not the radio's speaker output.
+- **No audio from the sidetone despite Sidetone being enabled** — Check that your system audio output device is configured and not muted. The local sidetone plays through the client system's audio, not the radio's speaker output. On Windows, if the sidetone does not start immediately after connecting, verify that no other application is holding exclusive access to the audio device; this initialization ordering issue was fixed in v0.9.3 (#2105).
 - **Sidetone pitch is not what you expect** — Pitch follows the radio's `cw_pitch` setting. Adjust the **Pitch < / >** spinbox to change it.
+- **Level gauge does not appear on connect** — If your mic source is set to **PC**, the Level gauge now appears immediately on connect as of v0.9.3 (#2086). If the gauge is still missing, confirm that the mic source is set to **PC** in the **Mic source** selector and that AetherSDR is connected to the radio.
 
 ## Related
 

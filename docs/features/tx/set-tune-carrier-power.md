@@ -15,10 +15,9 @@ The "Tune Pwr" slider sets the power level of the continuous carrier transmitted
 
 ## What each control does
 
-| Control | Description | Default | Valid range |
-|---|---|---|---|
-| Tune Pwr | Sets the power level of the tune carrier in watts. | 10 | 0–100 |
-
+| Control  | Description                                        | Default |
+|----------|----------------------------------------------------|---------|
+| Tune Pwr | Sets the power level of the tune carrier in watts. | 10      |
 ## Tips
 
 - Set "Tune Pwr" to the minimum level that allows your ATU to find a match. Many operators use 10–20 W for ATU tuning.

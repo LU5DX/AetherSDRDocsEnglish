@@ -18,10 +18,10 @@ To disable the squelch, click **SQL** again to deactivate it.
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| **SQL** | Off | On / Off | Enables squelch at the current slider level. Has no effect when not checked. |
-| **Squelch level** | 20 | 0–100 | Sets the squelch threshold. Higher values require a stronger signal to open the squelch. Takes effect only when **SQL** is on. |
+| Control           | Default | Valid range |
+|-------------------|---------|-------------|
+| **SQL**           | Off     | On / Off    |
+| **Squelch level** | 20      | 0–100       |
 
 ## Tips
 
@@ -33,6 +33,7 @@ To disable the squelch, click **SQL** again to deactivate it.
 
 - **Audio is silent even with SQL off** — Check whether the slice is muted. The mute toggle (🔊 / 🔇) is separate from squelch. Click the mute button to unmute if needed. Also verify the **AF gain** slider is not at 0.
 - **Squelch level set but has no effect** — The **Squelch level** slider only controls the threshold; the squelch circuit is inactive until **SQL** is enabled. Confirm **SQL** is checked.
+- **SQL button is greyed out** — Squelch is not available in CW, DIGU, DIGL, or NT modes. In CW mode the radio manages squelch internally. In digital modes (DIGU, DIGL, NT) audio is routed via DAX and squelch is not meaningful. Switch to a mode that supports squelch, or use the **AF gain** slider to control audio level instead.
 
 ## Related
 

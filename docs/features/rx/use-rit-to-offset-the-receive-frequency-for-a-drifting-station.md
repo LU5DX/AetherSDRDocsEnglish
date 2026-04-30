@@ -19,17 +19,33 @@ RIT (Receive Incremental Tuning) shifts the receive frequency by a small amount 
 
 ## What each control does
 
-| Control | Kind | Default | Behavior |
-|---|---|---|---|
-| RIT | Toggle button | Off | Enables or disables Receive Incremental Tuning. |
-| RIT offset | Spinbox | `+0 Hz` | Displays the current RIT offset. Use `<` / `>` or the mousewheel to adjust in 10 Hz steps. |
-| RIT 0 | Push button | — | Zeroes the RIT offset without disabling RIT. |
+| Control    | Kind          | Default |
+|------------|---------------|---------|
+| RIT        | Toggle button | Off     |
+| RIT offset | Spinbox       | `+0 Hz` |
+| RIT 0      | Push button   | —       |
 
 ## Tips
 
 - RIT affects only the receive frequency. Your transmit frequency stays on the VFO. If you also need to offset your transmit frequency, use XIT instead of or alongside RIT.
 - The 10 Hz minimum step suits SSB and CW work. For a station drifting slowly, a few presses of `>` or a short mousewheel scroll is usually enough.
 - Clicking RIT 0 before turning RIT off is good practice. It means RIT is already zeroed if you re-enable it later.
+
+## Slice tab and badge colours (v0.9.3)
+
+From v0.9.3, the slice tab buttons (A..H) and the Slice badge in the top-left corner of the applet both take their colour from the SliceColorManager singleton rather than a fixed colour table. This means:
+
+- Per-slice colours are customisable and persist across sessions.
+- The same colour is reflected in the slice tab buttons, the Slice badge, VFO widgets, and meter strips wherever the slice is displayed.
+- No action is required on your part; the colours update automatically when a slice is connected or its colour is changed.
+
+## NT mode behaviour
+
+From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls applet:
+
+- **Filter width presets** apply the digital (DIG) preset list to NT slices, the same as DIGU and DIGL.
+- **Filter width display** calculates the NT filter width using the upper edge (hi), consistent with DIGU and FDV handling.
+- **Squelch** is disabled for NT slices. Because audio is routed via DAX in digital modes, the squelch control is not meaningful. The SQL button and squelch level slider are greyed out when NT is the active mode. If squelch was on when you switched to NT, it is turned off automatically and restored when you leave NT.
 
 ## Related
 

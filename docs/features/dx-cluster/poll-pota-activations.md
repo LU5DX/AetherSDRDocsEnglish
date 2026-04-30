@@ -20,14 +20,36 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
-|---|---|---|---|
-| **Server:** | Indicator | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable. | — |
-| **Poll Interval:** | Spinbox | Seconds between POTA API polls. | `PotaPollInterval` |
-| **Start / Stop** | Push button | Starts or stops POTA polling. | — |
-| **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. | `PotaAutoStart` |
-| **POTA Activations** | Text field | Read-only console showing the activation feed. | — |
-| **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. | `PotaSpotColor` |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Server:** | Indicator | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable. |
+| **Poll Interval:** | Spinbox | Seconds between POTA API polls. Persisted as `PotaPollInterval`. |
+| **Start / Stop** | Push button | Starts or stops POTA polling. |
+| **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`. |
+| **POTA Activations** | Text field | Read-only console showing the activation feed. |
+| **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`. |
+
+## FreeDV Reporter controls (FreeDV tab)
+
+The following controls appear in the **Station Reporting** group box on the **FreeDV** tab. They are only present in builds compiled with `HAVE_WEBSOCKETS`.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Enable FreeDV Reporter reporting when RADE is active** | Checkbox | Reports your station to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. If either the callsign or grid square field is blank when you check this box, a warning dialog appears and the checkbox reverts to unchecked. Persisted as `FreeDvAutoReport`. On Windows, also requires a build compiled with `HAVE_RADE`. |
+| **Callsign:** | Text field | Callsign sent to the FreeDV Reporter map. Becomes read-only when **Use radio** is checked. Persisted as `FreeDvMyCallsign`. |
+| **Use radio** | Checkbox | Pre-fills the **Callsign:** field from the radio's configured callsign and locks the field read-only. Updates automatically if the callsign changes in Radio Setup. Persisted as `FreeDvUseRadioCallsign`. Default: enabled. |
+| **Grid Square:** | Text field | Maidenhead grid square sent to the FreeDV Reporter map. Becomes read-only when **Use GPS** is checked. Persisted as `FreeDvMyGrid`. |
+| **Use GPS** | Checkbox | Pre-fills the **Grid Square:** field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Persisted as `FreeDvUseGpsGrid`. Default: enabled. |
+| **Station Msg:** | Text field | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Persisted as `FreeDvMyMessage`. |
+
+### Enabling FreeDV Reporter reporting
+
+Before enabling **Enable FreeDV Reporter reporting when RADE is active**, AetherSDR resolves your effective callsign and grid square in this order:
+
+1. If **Use radio** is checked and the radio has a non-empty callsign configured, that callsign is used. Otherwise the text entered in **Callsign:** is used.
+2. If **Use GPS** is shown and checked and the radio's GPS module provides a non-empty grid square, that grid is used. Otherwise the text entered in **Grid Square:** is used.
+
+If either the resolved callsign or grid square is empty, AetherSDR displays a warning and leaves the checkbox unchecked. Fill in both fields before trying again.
 
 ## Tips
 
@@ -40,6 +62,7 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 - **Status stays at Stopped after clicking Start** — The application cannot reach `api.pota.app`. Check your internet connection and confirm no firewall or proxy is blocking outbound HTTP.
 - **No spots appear on the panadapter despite Polling status** — Verify that **Spots:** on the **Display** tab is **Enabled**. Also check that the current band is not filtered out in the **Spot List** tab's **Bands:** checkboxes.
 - **POTA Activations console is empty** — There may be no active POTA activations at this time, or the poll has not yet completed. Wait for the next poll interval to elapse.
+- **FreeDV Reporter checkbox immediately unchecks** — Either the **Callsign:** or **Grid Square:** field is empty. Enter a valid callsign and Maidenhead grid square (or enable **Use radio** / **Use GPS** if the radio supplies them), then check the box again.
 
 ## Related
 

@@ -16,14 +16,13 @@ Use the Phone applet to raise or lower the upper boundary of the TX audio passba
 
 ## What each control does
 
-| Control | Description | Default | Valid range |
-|---|---|---|---|
-| **High Cut `<`** | Decreases the TX filter high-cut frequency by one step. | — | — |
-| **High Cut `>`** | Increases the TX filter high-cut frequency by one step. | — | — |
-| High Cut value display | Shows the current high-cut frequency in Hz. | 3300 Hz | (low-cut + 50) to 10000 Hz, in 50 Hz steps |
+| Control                | Description                                             | Default |
+|------------------------|---------------------------------------------------------|---------|
+| **High Cut `<`**       | Decreases the TX filter high-cut frequency by one step. | —       |
+| **High Cut `>`**       | Increases the TX filter high-cut frequency by one step. | —       |
+| High Cut value display | Shows the current high-cut frequency in Hz.             | 3300 Hz |
 
 The high-cut frequency cannot be set below the current low-cut frequency plus 50 Hz. For example, if low-cut is set to 100 Hz, the minimum high-cut value is 150 Hz.
-
 ## Tips
 
 - Each click of **<** or **>** moves the frequency by exactly 50 Hz. For larger changes, hold the mouse button down or use the scroll wheel with rapid movement.

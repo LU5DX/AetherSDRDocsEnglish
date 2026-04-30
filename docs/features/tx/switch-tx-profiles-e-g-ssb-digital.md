@@ -17,10 +17,9 @@ The radio loads the selected profile immediately. No confirmation step is requir
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid values |
-|---|---|---|---|---|
-| **TX Profile** | Drop-down | Selects and loads a transmit profile from the radio. The list is populated by the radio. | — | Populated from the radio's profile list |
-
+| Control        | Kind      | Behavior                                                                                 |
+|----------------|-----------|------------------------------------------------------------------------------------------|
+| **TX Profile** | Drop-down | Selects and loads a transmit profile from the radio. The list is populated by the radio. |
 ## Tips
 
 - You can also load a profile from the menu bar without opening the TX Controls applet. Go to `Profiles` and click the profile name in the checkable list below the separator.

@@ -16,16 +16,37 @@ This page explains how to select an external 10 MHz reference clock on a connect
 
 ## What each control does
 
-| Control | Kind | Valid range |
+| Control | Kind | Valid range / Behavior |
 |---|---|---|
 | `10 MHz Reference Source:` | Combo box | `Auto` \| `TCXO` \| `GPSDO` \| `External`. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
-| TX Follows Active Slice | Push button | TX follows the active slice. Mutually exclusive with Active Slice Follows TX. Disabled automatically during Split operation. |
-| Active Slice Follows TX | Push button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with TX Follows Active Slice. |
-| Voice / CW / Digital filter sharpness sliders | Slider (0–3) | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
-| Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| Connect / Disconnect (TGXL) | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
-| Connect / Disconnect (PGXL) | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| `TX Follows Active Slice` | Push button | TX follows the active slice. Mutually exclusive with `Active Slice Follows TX`. Disabled automatically during Split operation. |
+| `Active Slice Follows TX` | Push button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with `TX Follows Active Slice`. |
+| `Voice / CW / Digital filter sharpness sliders` | Slider (0–3) | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
+| `Auto (Voice / CW / Digital)` | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
+| `Connect / Disconnect (TGXL)` | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
+| `Connect / Disconnect (PGXL)` | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
+| `Connect / Disconnect (Antenna Genius)` | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| `Select Installer...` | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label was `Browse .ssdr...` before v0.9.3. |
+| `APD` (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (`INTERNAL` / `RX_A` / `RX_B` / `XVTA` / `XVTB`) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
+| `ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)` | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Default `INTERNAL`. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to `INTERNAL` if the radio reports an unrecognised value. |
+| `Equalizer Reset (APD)` | Push button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
+| `Themes` (tab) | Tab | UI customization tab — currently hosts the Slice Colors section. |
+| `Use Aether defaults / Custom colors` | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
+| `Slice A–H color buttons` | Push button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when `Use Aether defaults` is selected. Up to 8 slices (`kSliceColorCount`). |
+| `Reset All to Defaults (Themes)` | Push button | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Firmware update (Radio tab)
+
+Starting in v0.9.3, the firmware update workflow no longer downloads installer files automatically. When `Check for Update` finds a newer version, the status label instructs you to download the SmartSDR installer from flexradio.com and then use `Select Installer...` to stage it locally. The button previously labelled `Browse .ssdr...` is now labelled `Select Installer...` and accepts `.msi`, `.exe`, and `.ssdr` files.
+
+### How to update firmware
+
+1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
+2. Click the `Radio` tab.
+3. Click `Check for Update`. AetherSDR contacts FlexRadio's update server and reports the latest available version in the status label.
+4. If an update is available, download the SmartSDR installer from flexradio.com.
+5. Click `Select Installer...` and choose the downloaded `.msi`, `.exe`, or pre-extracted `.ssdr` file. AetherSDR auto-detects the format and extracts the firmware. The status label shows preparation progress.
+6. When staging completes, click `Upload Firmware`. A progress bar and status label track the upload.
 
 ## Frequency calibration (RX tab)
 
@@ -56,6 +77,7 @@ As of v0.9.2.1, the frequency calibration controls on the RX tab are always visi
 
 - **Radio frequency appears unstable or offset after switching to External** — The REF IN signal may be absent, too low in level, or not exactly 10 MHz. Verify the external source is running and properly connected before selecting `External`. Switch back to `Internal` while diagnosing.
 - **Start button remains disabled / shows "Busy" indefinitely** — This can occur if the radio does not respond to the `radio pll_start` command. Disconnect and reconnect to the radio, then try again.
+- **`Select Installer...` shows a preparation error** — Ensure the file is a genuine SmartSDR installer or `.ssdr` file and has not been corrupted during download. Re-download from flexradio.com and try again.
 
 ## Related
 

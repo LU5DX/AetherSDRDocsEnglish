@@ -15,12 +15,11 @@ VOX (voice-operated transmit) automatically keys the transmitter when your audio
 
 ## What each control does
 
-| Control | Kind | What it does | Default | Range | Persisted key |
-|---|---|---|---|---|---|
-| VOX | Toggle button | Enables or disables voice-operated transmit | — | On / Off | — |
-| VOX level | Slider | Sets the audio threshold required to activate transmit | — | 0–100 | — |
-| Delay | Slider | Sets the hang time before the radio returns to receive after audio drops below the threshold | — | 0–100 | — |
-
+| Control   | Kind                                                                | What it does                                                                                                                              |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| VOX       | Toggles voice-operated transmit; calls TransmitModel::setVoxEnable. | v0.9.3: setVoxEnable now emits phoneStateChanged so the Phone panel updates immediately when VOX is toggled by keyboard shortcut (#2084). |
+| VOX level | Slider                                                              | Sets the audio threshold required to activate transmit                                                                                    |
+| Delay     | Slider                                                              | Sets the hang time before the radio returns to receive after audio drops below the threshold                                              |
 ## Tips
 
 - If the radio keys up unintentionally on background noise, increase the VOX level slider value.

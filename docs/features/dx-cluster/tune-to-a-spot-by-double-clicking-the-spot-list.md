@@ -22,6 +22,27 @@ The Spot List tab in SpotHub shows every live spot from all active sources in a 
 | Bands: | Per-band checkboxes. Uncheck a band to hide its spots from the table. | — |
 | Clear | Removes all spots currently shown in the table. | — |
 | Spot table | Sortable table of all live spots. Double-click a row to tune. Columns: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, Source. | — |
+| Enable FreeDV Reporter reporting when RADE is active | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or unresolvable the checkbox refuses to enable and shows a warning. | `FreeDvAutoReport` |
+| Callsign: (FreeDV Reporter) | Callsign to report to the FreeDV Reporter map. Read-only when "Use radio" is checked. When "Use radio" is checked, the field updates automatically if the callsign changes in Radio Setup. | `FreeDvMyCallsign` |
+| Use radio (callsign) | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. | `FreeDvUseRadioCallsign` |
+| Grid Square: (FreeDV Reporter) | Maidenhead grid square to report. Read-only when "Use GPS" is checked. | `FreeDvMyGrid` |
+| Use GPS (grid) | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
+| Station Msg: (FreeDV Reporter) | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+
+## Enabling FreeDV Reporter broadcasting
+
+The "Enable FreeDV Reporter reporting when RADE is active" checkbox broadcasts your station's activity to the public community map at qso.freedv.org. Because the map is shared, AetherSDR validates your settings before enabling it:
+
+1. Open `Settings > SpotHub...` and click the "FreeDV" tab.
+2. In the "Station Reporting" group, set your callsign and grid square:
+   - If "Use radio" is checked, the callsign is read from the radio. If the radio has no callsign configured, enter one manually after unchecking "Use radio".
+   - If "Use GPS" is shown and checked, the grid is read from the radio's GPS module. Otherwise, type a valid Maidenhead grid square (for example, `EM72`) into the "Grid Square:" field.
+3. Optionally, enter a short message in "Station Msg:" to display beside your callsign on the map.
+4. Check "Enable FreeDV Reporter reporting when RADE is active".
+   - If either the callsign or grid square cannot be resolved to a non-blank value, AetherSDR shows a warning dialog and leaves the checkbox unchecked. Correct the missing field and try again.
+5. AetherSDR begins reporting automatically whenever the RADE modem is active.
+
+> **Note:** This feature requires a build with `HAVE_WEBSOCKETS` enabled. On Windows, `HAVE_RADE` must also be present in the build to avoid compile errors.
 
 ## Tips
 

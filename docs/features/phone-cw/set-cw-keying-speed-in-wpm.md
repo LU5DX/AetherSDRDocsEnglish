@@ -16,14 +16,15 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Speed (CW) | Sets CW keying speed sent to the radio's internal keyer. | — | 5–100 WPM | — |
+| Control    | Description                                              | Default |
+|------------|----------------------------------------------------------|---------|
+| Speed (CW) | Sets CW keying speed sent to the radio's internal keyer. | —       |
 
 ## Tips
 
 - The Speed (CW) slider operates the radio's keyer speed. Changes take effect immediately and apply to the paddle, straight key, and any CWX text transmissions.
 - The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone in lockstep. Adjusting speed does not affect sidetone pitch; pitch always follows the radio's `cw_pitch` setting automatically.
+- The **Level** gauge appears immediately on connect when the mic source is set to PC. When the mic source is PC, the gauge uses client-side metering and is not suppressed by the `met_in_rx` setting, even when not transmitting.
 
 ## Related
 

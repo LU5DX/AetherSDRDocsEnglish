@@ -17,20 +17,19 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 
 ## What each control does
 
-| Control | What it does | Default | Range / unit | Persisted key |
-|---|---|---|---|---|
-| **Sens** slider | Filters low-confidence characters. Higher values reject more uncertain decodes. | 30 | 0–100 | `CwDecoderSensitivity` |
-| **🔒P (Lock Pitch)** toggle | Locks the decoder to the current detected pitch so it stops searching. | Off | On / Off | — |
-| **🔒S (Lock Speed)** toggle | Locks the decoder to the current detected speed (WPM). | Off | On / Off | — |
-| **Lo** slider | Minimum pitch the decoder searches. Clamped to be ≤ **Hi**. | 500 Hz | 300–1200 Hz | — |
-| **Hi** slider | Maximum pitch the decoder searches. Clamped to be ≥ **Lo**. | 700 Hz | 300–1200 Hz | — |
-| **CPY ALL** | Copies the entire decoded text buffer to the clipboard. | — | — | — |
-| **CPY VIS** | Copies only the text currently visible in the scroll area to the clipboard. | — | — | — |
-| **CLR** | Clears the CW decode buffer. | — | — | — |
-| **× (close CW)** | Hides the CW decode panel. | — | — | — |
-| **CW stats label** | Indicator showing detected pitch and speed. Read-only. | — | `<Hz>  <WPM>` | — |
-| **CW decode text** | Rolling read-only display of decoded characters, coloured by confidence. Right-click opens a context menu with a **Clear** option in addition to the standard text actions. | — | — | — |
-
+| Control                    | What it does                                                                                                                                                                | Default |
+|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **Sens** slider            | Filters low-confidence characters. Higher values reject more uncertain decodes.                                                                                             | 30      |
+| **🔒P (Lock Pitch)** toggle | Locks the decoder to the current detected pitch so it stops searching.                                                                                                      | Off     |
+| **🔒S (Lock Speed)** toggle | Locks the decoder to the current detected speed (WPM).                                                                                                                      | Off     |
+| **Lo** slider              | Minimum pitch the decoder searches. Clamped to be ≤ **Hi**.                                                                                                                 | 500 Hz  |
+| **Hi** slider              | Maximum pitch the decoder searches. Clamped to be ≥ **Lo**.                                                                                                                 | 700 Hz  |
+| **CPY ALL**                | Copies the entire decoded text buffer to the clipboard.                                                                                                                     | —       |
+| **CPY VIS**                | Copies only the text currently visible in the scroll area to the clipboard.                                                                                                 | —       |
+| **CLR**                    | Clears the CW decode buffer.                                                                                                                                                | —       |
+| **× (close CW)**           | Hides the CW decode panel.                                                                                                                                                  | —       |
+| **CW stats label**         | Indicator showing detected pitch and speed. Read-only.                                                                                                                      | —       |
+| **CW decode text**         | Rolling read-only display of decoded characters, coloured by confidence. Right-click opens a context menu with a **Clear** option in addition to the standard text actions. | —       |
 ## Tips
 
 - If the text area fills with low-confidence (orange or red) characters, increase **Sens** to filter them out. Start around 50 and raise until noise characters disappear.

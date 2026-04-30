@@ -17,13 +17,12 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 
 ## What each control does
 
-| Control | Kind | Behavior | Default |
-|---|---|---|---|
-| MEM | Toggle button | Toggles ATU memory recall on/off. When on, the radio applies a stored tuner solution rather than running a new tune cycle. Disabled when TGXL is in OPERATE mode. | Off |
-| Mem | Indicator | Lights green when the ATU is using a memory. Dim when memory recall is off or no memory is in use. | Dim |
-| Success | Indicator | Lights green when ATU status is Successful or OK. | Dim |
-| Byp | Indicator | Lights orange when the ATU is in Bypass or ManualBypass. | Dim |
-
+| Control | Kind          | Behavior                                                                                                                                                          |
+|---------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MEM     | Toggle button | Toggles ATU memory recall on/off. When on, the radio applies a stored tuner solution rather than running a new tune cycle. Disabled when TGXL is in OPERATE mode. |
+| Mem     | Indicator     | Lights green when the ATU is using a memory. Dim when memory recall is off or no memory is in use.                                                                |
+| Success | Indicator     | Lights green when ATU status is Successful or OK.                                                                                                                 |
+| Byp     | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                          |
 ## Tips
 
 - If **Byp** lights orange after enabling **MEM**, the ATU has fallen back to bypass. Run a fresh tune cycle with **ATU** to build a new memory for the current frequency.
