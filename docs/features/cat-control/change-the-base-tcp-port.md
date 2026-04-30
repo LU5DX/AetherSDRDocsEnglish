@@ -21,18 +21,21 @@ The CAT Control applet runs up to four rigctld-compatible TCP servers on consecu
 |---|---|---|---|---|---|
 | `Base:` | Text field | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels A, B, C, D bind to base, base+1, base+2, base+3. Out-of-range values snap to `4532`. If `Enable TCP` is on, servers restart with the new port immediately. |
 | `Enable TCP` | Toggle button | Off | — | — | Starts or stops all four rigctld TCP servers. Also persists the current base port to `CatTcpPort` when toggled. |
-| A/B/C/D rows | Indicator | `(stopped)` | — | — | Shows per-channel TCP status as `:<port> (N clients)` when a server is running, or `(stopped)` when it is not. |
+| `Enable TTY` | Toggle button | Off | — | — | Starts or stops all four PTY symlinks at `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. Linux and macOS only. |
+| A/B/C/D rows | Indicator | `(stopped)` | — | — | Shows per-channel TCP status as `:<port> (N clients)` when a server is running, or `(stopped)` when it is not. Also shows the PTY symlink path for each channel when TTY is enabled. Channel badges are colour-coded by slice. |
 
 ## Tips
 
 - Choose a base port that leaves the next three consecutive ports free. For example, a base of `4532` uses `4532`, `4533`, `4534`, and `4535`.
 - If you change the port while `Enable TCP` is off, the servers will start on the new port the next time you click `Enable TCP`.
+- On Linux and macOS, click `Enable TTY` to expose each channel as a virtual serial port. Point your logging software to the corresponding `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D` symlink instead of a TCP socket.
 
 ## Troubleshooting
 
 - **Servers do not restart after changing the port** — Confirm you pressed Enter or Tab to finish editing the `Base:` field. Clicking away without committing the edit may not apply the change.
 - **Port field snaps back to 4532** — The value entered was outside the 1024–65535 range. Enter a value within that range.
 - **Server fails to start on the new port** — Another application may already be using that port or one of the three consecutive ports. Choose a different base port.
+- **PTY symlinks do not appear** — `Enable TTY` is available on Linux and macOS only. Confirm you clicked `Enable TTY` and that AetherSDR has write access to `/tmp`.
 
 ## Related
 

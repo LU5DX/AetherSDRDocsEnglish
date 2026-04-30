@@ -31,6 +31,25 @@ Use this page to add a transverter definition to your FLEX-8600 so AetherSDR kno
 | Connect / Disconnect (TGXL) | Button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | Connect / Disconnect (PGXL) | Button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
 | Connect / Disconnect (Antenna Genius) | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| Select Installer... | Button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. When an update is available, the status label instructs you to download the SmartSDR installer from flexradio.com and then use this button to stage it. Label changed from **Browse .ssdr...** in v0.9.3. |
+| APD (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
+| ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. Default: INTERNAL. |
+| Equalizer Reset (APD) | Button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
+| Themes (tab) | Tab | UI customization tab — currently hosts the Slice Colors section. |
+| Use Aether defaults / Custom colors | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. |
+| Slice A–H color buttons | Button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
+| Reset All to Defaults (Themes) | Button | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Firmware update (Radio tab)
+
+Use the controls in the **Radio** tab to check for and apply firmware updates.
+
+1. Click **Check for Update**. AetherSDR queries the FlexRadio update server.
+   - If firmware is up to date, the status label shows the current version in green.
+   - If an update is available, the status label shows the version number and instructs you to download the SmartSDR installer from flexradio.com.
+2. Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
+3. Click **Select Installer...** and choose the downloaded installer or a pre-extracted `.ssdr` file. The stager detects the file format automatically and extracts the firmware without external tools. A progress indicator appears while staging completes.
+4. Click **Upload Firmware** to transfer the staged firmware to the radio.
 
 ## Frequency calibration (RX tab)
 
@@ -55,6 +74,9 @@ The **Start** button now validates the cal frequency field before sending any co
 - Each transverter gets its own nested tab inside the XVTR tab. If you have multiple transverters, use those tabs to switch between entries.
 - If you need to return to this dialog later to adjust a transverter, reopen `Settings > Radio Setup...` and go directly to the **XVTR** tab.
 - On the **RX** tab, always enter a known accurate reference frequency in **Cal Frequency (MHz):** before clicking **Start**. Leaving the field empty cancels the sweep.
+- When **Check for Update** reports a new firmware version, download the SmartSDR installer from flexradio.com before clicking **Select Installer...**. AetherSDR no longer downloads the installer automatically.
+- The **APD** tab appears only on FLEX-8x00 radios running SmartSDR 4.2.18 or later. If you do not see it, your radio model or firmware version does not support configurable APD.
+- Custom slice colors set on the **Themes** tab apply immediately to VFO widgets, panadapter overlays, and CAT channel badges. Select **Use Aether defaults** and click **Reset All to Defaults** to return to the standard palette.
 
 ## Related
 

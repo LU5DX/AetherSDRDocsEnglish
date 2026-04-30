@@ -17,10 +17,18 @@ The FLEX-8600 supports up to eight simultaneous receive slices. The A..H tab row
 
 ## What each control does
 
-| Control | Behavior | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Slice tabs (A..H) | Selects which slice the RX Controls applet is bound to. | — | 1–8 tabs, capped by the radio's maximum slice count | — |
-| Slice badge | Displays the letter of the currently bound slice, coloured by slice identity. | A | A / B / C / D / E / F / G / H | — |
+| Control           | Behavior                                                                       | Default                                                                                                                                                                                       |
+|-------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Slice tabs (A..H) | Selects which slice the RX applet is bound to; emits sliceActivationRequested. | Row hidden if maxSlices <= 1. Button border and active background follow per-slice color from SliceColorManager (v0.9.3+).                                                                    |
+| Slice badge       | Displays the letter of the currently bound slice.                              | Color driven by SliceColorManager singleton (v0.9.3+). Customizable per-slice colors persist across sessions and are reflected here, in the slice tab buttons, VFO widgets, and meter strips. |
+
+## NT mode behavior
+
+v0.9.3 adds `NT` as a recognized digital mode alongside `DIGU` and `DIGL`. The following behaviors apply to NT mode:
+
+- **Filter width presets** use the same preset list as DIGU and DIGL (100–2000 Hz range).
+- **Filter width display** calculates bandwidth from the high edge, matching the USB/DIGU/FDV convention.
+- **Squelch** is disabled when NT mode is active. Audio is routed via DAX, so the squelch control is not meaningful. If squelch was on when you switched to NT, AetherSDR saves its state and turns it off automatically. Switching away from NT restores the previous squelch state.
 
 ## Tips
 

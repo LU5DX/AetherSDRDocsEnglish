@@ -21,12 +21,12 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 
 ## What each control does
 
-| Control | Kind | Default | Range | Persisted key |
-|---|---|---|---|---|
-| **PROC** | Toggle button | Off | On / Off | — |
-| **NOR/DX/DX+** | Slider | 0 (NOR) | 0 = NOR, 1 = DX, 2 = DX+ | — |
-| **Level** | Meter | — | −40 to +10 dBFS (red above 0) | — |
-| **Compression** | Meter | — | −25 to 0 dB (reversed fill) | — |
+| Control         | Kind          | Default |
+|-----------------|---------------|---------|
+| **PROC**        | Toggle button | Off     |
+| **NOR/DX/DX+**  | Slider        | 0 (NOR) |
+| **Level**       | Meter         | —       |
+| **Compression** | Meter         | —       |
 
 ## Tips
 
@@ -39,6 +39,8 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 - **PROC button is not visible** — The applet is showing the CW panel. The Phone panel, including **PROC**, appears only when the active slice is in a phone mode, not CW.
 - **Compression gauge shows 0 dB with PROC on** — The radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
 - **NOR/DX/DX+ slider snaps back** — The slider has three valid positions (0, 1, 2). Dragging between snap points causes it to land on the nearest integer; this is expected behavior.
+- **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge now appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
+- **Phone panel does not refresh when VOX is toggled by keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later if the Phone panel fails to update immediately when VOX is toggled via a keyboard shortcut.
 
 ## CW sidetone behavior (v0.9.1 and later)
 
@@ -47,8 +49,13 @@ The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control b
 - Enabling **Sidetone** turns on both the radio-side monitor and the client-side generator simultaneously.
 - Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and the local generator volume to the same value.
 - Pitch and stereo pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. No manual override or follow toggle is needed.
+- On Windows, the sidetone audio stream now starts immediately on connect rather than requiring a manual action (v0.9.3, fix #2105).
 
 If you have settings from a previous version that reference `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz`, those keys are no longer read or written by AetherSDR and can be ignored.
+
+## Level gauge behavior (v0.9.3)
+
+When **Mic source** is set to **PC**, the **Level** gauge uses client-side metering and is not suppressed by the radio's `met_in_rx` flag. The gauge appears immediately on connect and shows the PC microphone input level whether or not the radio is transmitting. For all other mic sources, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
 
 ## Related
 

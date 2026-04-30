@@ -17,15 +17,14 @@ Use the internal automatic antenna tuner (ATU) to find a low-SWR match on your c
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Range |
-|---|---|---|---|---|
-| ATU | Push button | Starts the internal ATU tuning cycle. Disabled when TGXL is in OPERATE mode. | — | — |
-| MEM | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode. | — | — |
-| Tune Pwr | Slider | Sets the tune-carrier power level sent to the radio during tuning. | 10 | 0–100 |
-| Success | Indicator | Lights green when the ATU tuning result is successful or OK. | dim | dim / green |
-| Byp | Indicator | Lights orange when the ATU is in Bypass or ManualBypass. | dim | dim / orange |
-| Mem | Indicator | Lights green when the ATU is using a stored memory. | dim | dim / green |
-
+| Control  | Kind          | Behavior                                                                     |
+|----------|---------------|------------------------------------------------------------------------------|
+| ATU      | Push button   | Starts the internal ATU tuning cycle. Disabled when TGXL is in OPERATE mode. |
+| MEM      | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.     |
+| Tune Pwr | Slider        | Sets the tune-carrier power level sent to the radio during tuning.           |
+| Success  | Indicator     | Lights green when the ATU tuning result is successful or OK.                 |
+| Byp      | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                     |
+| Mem      | Indicator     | Lights green when the ATU is using a stored memory.                          |
 ## Tips
 
 - If `Byp` lights after the tuning cycle, the ATU was unable to find a match and has bypassed itself. Check your antenna system and SWR before transmitting at full power.

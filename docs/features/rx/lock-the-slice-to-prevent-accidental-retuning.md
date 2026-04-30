@@ -16,14 +16,23 @@ The tune-lock feature prevents a slice from responding to frequency changes. Use
 
 ## What each control does
 
-| Control | Default | Behavior |
-|---|---|---|
-| 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
+| Control | Default      | Behavior                                                                                                                |
+|---------|--------------|-------------------------------------------------------------------------------------------------------------------------|
+| 🔓 / 🔒   | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
 
 ## Tips
 
 - The lock state applies per slice. You can lock slice A while slice B remains freely tunable.
 - The lock button is always visible in the header row regardless of the current mode.
+- From v0.9.3, the slice tab buttons and the slice badge both use per-slice colors managed by SliceColorManager. Colors are customizable per slice and persist across sessions. The same color is reflected in the slice tab buttons, the slice badge, VFO widgets, and meter strips.
+
+## NT mode
+
+Version 0.9.3 adds the `NT` mode alongside the existing digital modes (`DIGU`, `DIGL`). It behaves identically to other digital modes in the following ways:
+
+- **Filter presets** — NT shares the DIG filter preset set (100–2000 Hz). The filter width label updates accordingly.
+- **Filter width calculation** — The filter width display measures the high-edge offset, the same as USB and DIGU.
+- **Squelch** — The SQL button and squelch slider are disabled in NT mode. Because audio is routed via DAX in digital modes, squelch is not meaningful. If squelch was active when you switched into NT mode, AetherSDR turns it off automatically and restores it when you leave NT mode.
 
 ## Related
 

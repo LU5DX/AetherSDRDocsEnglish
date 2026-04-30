@@ -27,25 +27,27 @@ AetherSDR provides a radio-side monitor (available in both Phone and CW modes) a
 
 ## What each control does
 
-| Control | What it does | Default | Range | Setting key |
-|---|---|---|---|---|
-| MON | Enables the TX sideband monitor (Phone panel). | — | On / Off | — |
-| Monitor volume | Sets sideband monitor playback level. | — | 0–100 | — |
-| Sidetone | Enables the CW monitor. Controls both the radio's DAX-fed monitor and the client-side low-latency sidetone generator in lockstep. | — | On / Off | — |
-| Sidetone volume | Sets the CW monitor playback level for both the radio-side monitor and the local sidetone generator simultaneously. | — | 0–100 | — |
-| L / R pan (CW) | Sets CW monitor stereo pan; applies to both the radio monitor and the local sidetone generator. Double-click to recentre. | 50 | 0–100 | — |
+| Control         | What it does                                                                                                                                                      | Default |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| MON             | Enables the TX sideband monitor (Phone panel).                                                                                                                    | —       |
+| Monitor volume  | Sets sideband monitor playback level.                                                                                                                             | —       |
+| Sidetone        | Toggles CW sidetone monitor. Also enables/disables the client-side low-latency CwSidetoneGenerator in lockstep. Both the radio's DAX-fed monitor and the local PortAudio sidetone are controlled by this single button. Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` automatically. v0.9.3: sidetone stream now starts immediately on connect on Windows (#2105 — AudioEngine init order fix). | —       |
+| Sidetone volume | Sets the CW monitor playback level for both the radio-side monitor and the local sidetone generator simultaneously.                                               | —       |
+| L / R pan (CW)  | Sets CW monitor stereo pan; applies to both the radio monitor and the local sidetone generator. Double-click to recentre.                                         | 50      |
 
 ## Tips
 
 - The Sidetone button and Sidetone volume slider control both audio paths (radio DAX monitor and client-side generator) together. There is no separate control to enable or adjust the local sidetone independently.
 - Pitch always follows the radio's CW pitch setting automatically. Use the Pitch < / > spinbox to change the radio's CW pitch, and both the decode pitch and sidetone pitch will update accordingly.
 - The MON button and the Sidetone button are separate controls on separate panels. MON applies to voice modes; Sidetone applies to CW mode.
+- When the mic source is set to PC, the Level gauge appears immediately on connect. In other mic source modes, the gauge is suppressed when `met_in_rx` is off and the radio is not transmitting.
 
 ## Troubleshooting
 
 - **MON or Sidetone button has no effect** — Confirm the radio is connected and the active slice mode matches the panel being shown (Phone vs. CW). The applet switches panels automatically based on the active slice mode.
-- **Sidetone produces no audio** — Check that your system audio output is configured correctly. The client-side sidetone is generated locally by AetherSDR; confirm the Sidetone button is active.
+- **Sidetone produces no audio** — Check that your system audio output is configured correctly. The client-side sidetone is generated locally by AetherSDR; confirm the Sidetone button is active. On Windows, the sidetone stream now starts immediately on connect (v0.9.3, #2105).
 - **Sidetone pitch is wrong** — Pitch is derived automatically from the radio's `cw_pitch` setting. Adjust the pitch using the Pitch < / > spinbox on the CW panel.
+- **Level gauge does not appear on connect** — If the mic source is set to PC, the Level gauge should appear immediately on connect (v0.9.3, #2086). For other mic sources, the gauge is suppressed until `met_in_rx` is enabled or the radio begins transmitting.
 
 ## Related
 

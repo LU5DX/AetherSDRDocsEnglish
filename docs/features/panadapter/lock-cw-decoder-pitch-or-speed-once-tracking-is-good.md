@@ -16,16 +16,15 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 
 ## What each control does
 
-| Control | What it does | Default | Notes |
-|---|---|---|---|
-| CW stats label | Displays the currently detected pitch and speed in the format `<hz> Hz  <wpm> WPM`. | — | Read-only indicator. |
-| 🔒P (Lock Pitch) | Locks the decoder pitch to the frequency shown in the CW stats label at the moment you click. | Unlocked | Toggle button; highlighted when active. |
-| 🔒S (Lock Speed) | Locks the decoder speed to the WPM shown in the CW stats label at the moment you click. | Unlocked | Toggle button; highlighted when active. |
-| Lo (pitch min) | Sets the lower bound of the pitch range the decoder searches. | 500 Hz | Valid range: 300–1200 Hz. Clamped ≤ Hi. |
-| Hi (pitch max) | Sets the upper bound of the pitch range the decoder searches. | 700 Hz | Valid range: 300–1200 Hz. Clamped ≥ Lo. |
-| Sens | Filters low-confidence decodes. Higher values are stricter. | 30 | Range: 0–100. Persisted as `CwDecoderSensitivity`. |
-| CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | — | Added in v0.9.2.1. Equivalent to clicking CLR. |
-
+| Control                       | What it does                                                                                                                                                          | Default  |
+|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| CW stats label                | Displays the currently detected pitch and speed in the format `<hz> Hz  <wpm> WPM`.                                                                                   | —        |
+| 🔒P (Lock Pitch)               | Locks the decoder pitch to the frequency shown in the CW stats label at the moment you click.                                                                         | Unlocked |
+| 🔒S (Lock Speed)               | Locks the decoder speed to the WPM shown in the CW stats label at the moment you click.                                                                               | Unlocked |
+| Lo (pitch min)                | Sets the lower bound of the pitch range the decoder searches.                                                                                                         | 500 Hz   |
+| Hi (pitch max)                | Sets the upper bound of the pitch range the decoder searches.                                                                                                         | 700 Hz   |
+| Sens                          | Filters low-confidence decodes. Higher values are stricter.                                                                                                           | 30       |
+| CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | —        |
 ## Tips
 
 - Lock pitch and speed independently. You can lock only one if the other is still settling.

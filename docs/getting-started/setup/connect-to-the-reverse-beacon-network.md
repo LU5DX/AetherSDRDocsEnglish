@@ -21,17 +21,44 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 
 ## What each control does
 
-| Control | Behavior | Setting key | Default / Range |
-|---|---|---|---|
-| **Server:** | RBN telnet hostname | `RbnHost` | — |
-| **Port:** | RBN telnet port | `RbnPort` | 1–65535 |
-| **Callsign:** | Login callsign sent to RBN | `RbnCallsign` | — |
-| **Rate Limit:** | Maximum RBN spots accepted per second | `RbnRateLimit` | — |
-| **Connect / Disconnect** | Toggles the RBN telnet session | — | Starts as Connect |
-| **Auto-connect on startup** | Connects to RBN automatically on launch | `RbnAutoConnect` | — |
-| **RBN Console** | Read-only display of raw RBN traffic | — | — |
-| **Send** | Sends a typed command to the RBN session | — | — |
-| **Spot Color:** | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor` | — |
+| Control | Behavior | Setting key |
+|---|---|---|
+| **Server:** | RBN telnet hostname | `RbnHost` |
+| **Port:** | RBN telnet port | `RbnPort` |
+| **Callsign:** | Login callsign sent to RBN | `RbnCallsign` |
+| **Rate Limit:** | Maximum RBN spots accepted per second | `RbnRateLimit` |
+| **Connect / Disconnect** | Toggles the RBN telnet session | — |
+| **Auto-connect on startup** | Connects to RBN automatically on launch | `RbnAutoConnect` |
+| **RBN Console** | Read-only display of raw RBN traffic | — |
+| **Send** | Sends a typed command to the RBN session | — |
+| **Spot Color:** | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor` |
+
+## FreeDV Reporter station reporting
+
+The **FreeDV** tab contains a **Station Reporting** section that lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is build-gated by `HAVE_WEBSOCKETS`; on Windows it also requires the `HAVE_RADE` inner guard.
+
+### Controls
+
+| Control | Behavior | Setting key |
+|---|---|---|
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station reporting to the public FreeDV Reporter map whenever the RADE modem is active. The checkbox refuses to enable if either the callsign or grid square field resolves to an empty value. | `FreeDvAutoReport` |
+| **Callsign:** | Callsign reported to the FreeDV Reporter map. Becomes read-only when **Use radio** is checked. | `FreeDvMyCallsign` |
+| **Use radio** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. When the radio's callsign changes (for example, in Radio Setup), the field updates automatically. | `FreeDvUseRadioCallsign` |
+| **Grid Square:** | Maidenhead grid square reported. Becomes read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
+| **Use GPS** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
+| **Station Msg:** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+
+### Enabling station reporting
+
+1. Click the **FreeDV** tab inside `Settings > SpotHub...`.
+2. In the **Station Reporting** group, enter or confirm your **Callsign:**. Check **Use radio** to pull it from the radio automatically.
+3. Enter or confirm your **Grid Square:**. On radios with GPS hardware, check **Use GPS** to populate it automatically.
+4. Optionally fill in **Station Msg:** with a short free-text note.
+5. Check **Enable FreeDV Reporter reporting when RADE is active**.
+   - If either the callsign or grid square resolves to an empty value, a warning dialog appears and the checkbox reverts to unchecked. Fill in the missing field and try again.
+   - When enabled, the setting persists as `FreeDvAutoReport`.
+
+> **Note:** The FreeDV Reporter map is a public, community-shared resource. AetherSDR blocks enabling this feature if the callsign or grid square is blank to prevent placeholder values such as `N0CALL` or `AA00` from appearing on the map.
 
 ## Tips
 
@@ -45,6 +72,7 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 - **Connect button returns to Connect immediately with an error in the console** — The hostname or port is wrong, or the RBN server is unreachable. Verify `RbnHost` and `RbnPort` and check your network connection.
 - **No spots appear on the panadapter after connecting** — Confirm that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also check that the band you are monitoring is not hidden in the **Spot List** tab band filter checkboxes.
 - **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate.
+- **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square value could not be resolved. Enter values in the **Callsign:** and **Grid Square:** fields, or enable **Use radio** and **Use GPS** so AetherSDR can read them from the radio.
 
 ## Related
 

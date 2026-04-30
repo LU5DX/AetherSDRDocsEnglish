@@ -20,11 +20,11 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 
 ## What each control does
 
-| Control | What it does | Default | Step / Range |
-|---|---|---|---|
-| XIT | Toggles Transmit Incremental Tuning on or off. | Off | — |
-| XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz | 10 Hz per step |
-| XIT 0 | Resets the XIT offset to +0 Hz without turning XIT off. | — | — |
+| Control    | What it does                                                                                   | Default |
+|------------|------------------------------------------------------------------------------------------------|---------|
+| XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
+| XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
+| XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
 
 ## Tips
 
@@ -36,6 +36,18 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 
 - **XIT controls are greyed out** — The radio is not connected. Use `Settings > Connect to Radio...` to establish a connection, then try again.
 - **TX frequency is not shifting as expected** — Confirm the correct slice is selected using the slice tabs (A..H). XIT acts only on the currently bound slice.
+
+## Slice tab and badge colors (v0.9.3)
+
+Starting in v0.9.3, the slice tab buttons (A..H) and the slice badge in the top-left of the applet are colored by the SliceColorManager. Each slice has its own color that persists across sessions. The same color is reflected in the VFO widgets and meter strips for that slice. Colors are not configurable from within the RX Controls applet itself; they are managed centrally by SliceColorManager and apply consistently across all widgets that reference a given slice.
+
+## NT mode behavior
+
+The NT mode is treated as a digital mode by the RX Controls applet. Specifically:
+
+- NT follows the same filter width presets and step sizes as DIGU and DIGL.
+- The filter width label calculates bandwidth the same way as DIGU (using the high-edge value).
+- The SQL button and squelch level slider are disabled when NT is active, because audio is routed via DAX and squelch is not meaningful. If squelch was on when you switched to NT, it is turned off automatically and the previous state is saved for restoration when you leave NT mode.
 
 ## Related
 

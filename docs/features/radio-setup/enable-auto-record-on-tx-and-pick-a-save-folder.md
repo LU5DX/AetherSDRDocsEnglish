@@ -33,6 +33,42 @@ When auto-record on TX is enabled, AetherSDR starts recording audio automaticall
 | **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. | Connect |
 | **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | Connect |
 | **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | Connect |
+| **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer), or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. Label changed from **Browse .ssdr...** in v0.9.3. | — |
+| **APD (tab)** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. | — |
+| **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. | INTERNAL |
+| **Equalizer Reset (APD)** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — |
+| **Themes (tab)** | UI customization tab — currently hosts the Slice Colors section. | — |
+| **Use Aether defaults / Custom colors** | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. | Use Aether defaults |
+| **Slice A–H color buttons** | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. | — |
+| **Reset All to Defaults (Themes)** | Resets all custom slice colors to the built-in AetherSDR palette. | — |
+
+## Firmware update (Radio tab)
+
+The **Radio** tab includes firmware update controls. In v0.9.3 the workflow for staging a firmware file changed.
+
+### Checking for updates
+
+1. Click the **Radio** tab in Radio Setup.
+2. Click **Check for Update**. AetherSDR queries the FlexRadio update server.
+3. If an update is available, the status label shows the available version and instructs you to download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
+4. If firmware is current, the status label confirms the installed version.
+
+> **Note:** In v0.9.3 the one-click download button was removed. You must download the SmartSDR installer from flexradio.com yourself, then stage it using **Select Installer...**.
+
+### Staging and uploading firmware
+
+1. Download the SmartSDR installer from flexradio.com. Supported file types are .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer), or a pre-extracted .ssdr firmware file.
+2. Click **Select Installer...**. A file picker opens filtered to those file types.
+3. Select the downloaded file. AetherSDR automatically detects the format and extracts the .ssdr without external tools. A progress bar and status label show extraction progress.
+4. When staging completes successfully, click **Upload Firmware** to transfer the firmware to the radio.
+
+### Firmware update controls
+
+| Control | What it does |
+|---|---|
+| **Check for Update** | Queries the FlexRadio update server and reports whether a newer firmware version is available. |
+| **Select Installer...** | Opens a file picker accepting .msi, .exe, or .ssdr files. The stager auto-detects format and extracts the .ssdr. Changed from **Browse .ssdr...** in v0.9.3. |
+| **Upload Firmware** | Transfers the staged firmware to the radio. A progress bar and status label track the upload. |
 
 ## Frequency calibration (RX tab)
 
@@ -62,15 +98,18 @@ In v0.9.2.1 the calibration controls are available regardless of whether a GPSDO
 
 - If you use SmartLink or a VPN, consider whether **Radio Side** or **Client Side** better matches where you want the files stored. Radio-side recordings stay on the FLEX-8600; client-side recordings go to the folder set in **Save to:**.
 - Set **Idle timeout:** to a low value (a few seconds) if you want each transmission captured as a separate file. A higher value merges pauses within a QSO into one file.
+- When staging firmware, .msi and .exe installers are accepted directly — you do not need to extract the .ssdr file manually.
 
 ## Troubleshooting
 
 - **No files appear in the save folder after transmitting** — Confirm **Auto-record on TX** is checked and that the path in **Save to:** exists and is writable. If the folder does not exist, AetherSDR cannot create the file.
 - **Save to: field shows no path** — Click **...** and select a folder explicitly. Leaving the field empty may prevent recording from starting.
 - **Start button stays disabled after clicking** — Check that **Cal Frequency (MHz):** contains a valid frequency value. The button re-enables automatically when calibration finishes or fails.
+- **Upload Firmware button is disabled after clicking Select Installer...** — The stager is still extracting the .ssdr from the installer. Wait for the progress bar to complete and the status label to confirm the firmware is ready, then click **Upload Firmware**.
+- **APD tab is not visible** — The APD tab only appears on FLEX-8x00 series radios running SmartSDR 4.2.18 or later firmware. If the tab is absent, your radio model or firmware version does not support configurable APD.
 
 ## Related
 
 - [Choose PC input/output audio devices](choose-pc-input-output-audio-devices.md)
 - [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
-- [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)
+- [Pick Opus vs

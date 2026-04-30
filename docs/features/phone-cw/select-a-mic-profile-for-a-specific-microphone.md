@@ -16,9 +16,9 @@ Use the "Mic profile" combo box in the Phone/CW applet to load a named microphon
 
 ## What each control does
 
-| Control | Kind | Behavior | Default | Valid values | Setting key |
-|---|---|---|---|---|---|
-| Mic profile | Combo box | Loads the named mic processing profile on the radio. | — | Populated from the radio's mic profile list. | — |
+| Control     | Kind      | Behavior                                             |
+|-------------|-----------|------------------------------------------------------|
+| Mic profile | Combo box | Loads the named mic processing profile on the radio. |
 
 ## Tips
 
@@ -30,6 +30,22 @@ Use the "Mic profile" combo box in the Phone/CW applet to load a named microphon
 In v0.9.2.1 the separate "Local STn" button, local sidetone volume slider, "Follow" pitch toggle, and manual local pitch slider have been removed. The single **Sidetone** toggle and **Sidetone volume** slider in the CW panel now control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. There are no longer any independent local-sidetone controls or associated settings keys (`CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, `CwLocalSidetonePitchHz`).
 
 Pitch and pan continue to follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically; no manual override is needed or available.
+
+## Changes in v0.9.3
+
+### Level gauge — PC mic source exception
+
+Previously the Level gauge was suppressed to −150 dBFS whenever `met_in_rx` was off and the radio was not transmitting, regardless of mic source. Starting in v0.9.3, this suppression no longer applies when the selected mic source is **PC**. Because PC-source metering is driven by client-side audio rather than the radio's `met_in_rx` flag, the gauge now appears immediately on connect when the mic source is set to PC (#2086).
+
+No change in behavior occurs for hardware mic sources (MIC, BAL, LINE, ACC); those continue to be suppressed when `met_in_rx` is off and the radio is not transmitting.
+
+### VOX toggle now refreshes the Phone panel instantly
+
+Toggling VOX via a keyboard shortcut now causes the Phone panel to refresh immediately. Previously, the panel did not update until some other UI event occurred. This was corrected by having the VOX setters emit `phoneStateChanged` (#2084).
+
+### Sidetone stream on Windows
+
+On Windows, the client-side sidetone stream (CwSidetoneGenerator) now starts correctly as soon as AetherSDR connects to the radio. A bug in the AudioEngine initialization order prevented the stream from starting until the applet was interacted with manually (#2105).
 
 ## Related
 

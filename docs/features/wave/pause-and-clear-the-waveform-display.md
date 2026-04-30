@@ -34,6 +34,7 @@ The waveform display can be frozen so you can inspect a transient in detail, or 
 - Pause is direction-aware: the snapshot preserves whichever side (RX or TX) was active at the moment you clicked. The direction tint and the RX/TX label in the header remain visible so you can tell which path you are inspecting.
 - Double-clicking toggles the settings drawer, not the buffer. To clear the buffer, use the `WaveformWidget::clear()` slot or reconnect to reset.
 - The display shows a 100 ms time window. Pausing is most useful when you need to measure a brief event that would otherwise scroll off before you can examine it.
+- As of v0.9.3, the Waveform applet no longer has a fixed vertical size. You can resize it vertically by dragging the applet panel border.
 
 ## Troubleshooting
 

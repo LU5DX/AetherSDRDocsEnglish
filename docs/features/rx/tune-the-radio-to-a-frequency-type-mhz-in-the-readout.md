@@ -19,12 +19,24 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 
 ## What each control does
 
-| Control | Behavior | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| **Frequency label** | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. | `0.000.000` | — | — |
-| **Frequency edit** | Text field. Enter a frequency in MHz and press Enter to tune and recenter. Escape cancels. | — | 0.001–54.000 MHz (up to 450.000 MHz when the slice is on a transverter antenna) | — |
-| **STEP** | Sets the step size used when nudging the frequency with the `<` / `>` buttons or the mouse wheel. | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | — |
-| **Filter width presets** | Click a preset button to apply that filter bandwidth for the current mode. Right-click a preset to save the current width into that slot. | — | USB/LSB: 1800–3300 Hz; AM/SAM: 5600–14000 Hz; CW: 50–400 Hz; DIG: 100–2000 Hz; RTTY: 250–1000 Hz | `FilterPresets` |
+| Control                  | Behavior                                                                                                                                  | Default     |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| **Frequency label**      | Displays the current VFO frequency with dotted grouping. Click to enter edit mode.                                                        | `0.000.000` |
+| **Frequency edit**       | Text field. Enter a frequency in MHz and press Enter to tune and recenter. Escape cancels.                                                | —           |
+| **STEP**                 | Sets the step size used when nudging the frequency with the `<` / `>` buttons or the mouse wheel.                                         | 100 Hz      |
+| **Filter width presets** | Click a preset button to apply that filter bandwidth for the current mode. Right-click a preset to save the current width into that slot. Buttons are hidden in FM, NFM, DFM, and NT modes. | —           |
+
+## Slice tab and badge colors
+
+From v0.9.3, slice tab buttons and the **Slice badge** indicator take their border, active background, and text color from the SliceColorManager singleton rather than a fixed color table. Colors are configurable per slice, persist across sessions, and are reflected consistently in the slice tab buttons, the Slice badge, VFO widgets, and meter strips.
+
+## NT mode
+
+v0.9.3 adds the **NT** mode to the mode selector. NT behaves as a digital mode in the following ways:
+
+- It uses the same filter width presets and step sizes as DIGU and DIGL.
+- Filter width is calculated from the high-edge value (same as USB, DIGU, and FDV).
+- The **SQL** button and squelch level slider are disabled while NT is active, and any active squelch is turned off automatically (same behavior as DIGU and DIGL).
 
 ## Tips
 
@@ -37,6 +49,7 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 - **The Frequency edit field does not appear when I click the readout** — The slice may be locked. Check whether the lock icon shows 🔒. If so, click it to unlock, then click the frequency readout again.
 - **The frequency I typed was ignored** — You may have pressed Escape instead of Enter, or entered a value outside the valid range (0.001–54.000 MHz on a standard antenna, up to 450.000 MHz on a transverter antenna). Re-enter the value and press Enter.
 - **The panadapter did not follow the new frequency** — Check that `View > Pan Follows VFO` is enabled.
+- **The SQL button is greyed out after switching to NT mode** — This is expected. NT is a digital mode; squelch is disabled automatically, the same as for DIGU and DIGL.
 
 ## Related
 

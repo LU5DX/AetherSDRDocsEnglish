@@ -22,15 +22,14 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Behavior |
-|---|---|---|---|---|
-| RF Power | Slider | 100 | 0–100 | Sets transmit RF power level. |
-| Tune Pwr | Slider | 10 | 0–100 | Sets tune-carrier power level (not used during MOX, but set it before switching modes). |
-| TX Profile | Drop-down | — | Populated from radio | Loads the selected transmit profile. |
-| MOX | Toggle button | Off | Off / On (red) | Keys the transmitter manually. Button turns red while TX is active. |
-| RF Pwr | Meter | — | 0–120 W; red > 100 W | Displays forward power at the exciter output. |
-| SWR | Meter | — | 1.0–3.0; red > 2.5 | Displays standing wave ratio at the exciter. |
-
+| Control    | Kind          | Default |
+|------------|---------------|---------|
+| RF Power   | Slider        | 100     |
+| Tune Pwr   | Slider        | 10      |
+| TX Profile | Drop-down     | —       |
+| MOX        | Toggle button | Off     |
+| RF Pwr     | Meter         | —       |
+| SWR        | Meter         | —       |
 ## Tips
 
 - Keep SWR below 2.5 during the test. The SWR meter turns red above 2.5 as a visual warning.

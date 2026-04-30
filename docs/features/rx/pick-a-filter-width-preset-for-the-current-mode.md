@@ -18,32 +18,35 @@ Use the filter width preset buttons in the RX Controls applet to quickly apply a
 
 ## What each control does
 
-| Control | Behavior | Default presets by mode | Persisted key |
-|---|---|---|---|
-| Filter width presets | Click to apply a preset bandwidth to the current slice. Right-click to save the current filter width as a preset. Hidden in FM, NFM, and DFM modes. | See table below | `FilterPresets` |
-| Filter width label | Read-only indicator showing the current filter bandwidth (for example, `2.7K`, `500`, `6.0K`). Updates when a preset is applied or when the passband edges are dragged. | — | — |
-| Filter passband widget | Drag the low or high edge to set a custom passband. Use presets for standard widths. | — | — |
+| Control                | Behavior                                                                                                                                                                | Default presets by mode |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| Filter width presets   | Click to apply a preset bandwidth to the current slice. Right-click to save the current filter width as a preset. Hidden in FM, NFM, and DFM modes.                     | See table below         |
+| Filter width label     | Read-only indicator showing the current filter bandwidth (for example, `2.7K`, `500`, `6.0K`). Updates when a preset is applied or when the passband edges are dragged. | —                       |
+| Filter passband widget | Drag the low or high edge to set a custom passband. Use presets for standard widths.                                                                                    | —                       |
+| Mode                   | Preset widths (Hz)                                                                                                                                                      |                         |
+| ---                    | ---                                                                                                                                                                     |                         |
+| USB, LSB               | 1800, 2100, 2400, 2700, 2900, 3300                                                                                                                                      |                         |
+| AM, SAM                | 5600, 6000, 8000, 10000, 12000, 14000                                                                                                                                   |                         |
+| CW                     | 50, 100, 250, 400                                                                                                                                                       |                         |
+| DIGU, DIGL, NT         | 100, 300, 600, 1000, 1500, 2000                                                                                                                                         |                         |
+| RTTY                   | 250, 300, 350, 400, 500, 1000                                                                                                                                           |                         |
+| FM, NFM, DFM           | No presets (buttons hidden)                                                                                                                                             |                         |
 
-**Default preset values by mode:**
+## Slice tab and badge colors (v0.9.3)
 
-| Mode | Preset widths (Hz) |
-|---|---|
-| USB, LSB | 1800, 2100, 2400, 2700, 2900, 3300 |
-| AM, SAM | 5600, 6000, 8000, 10000, 12000, 14000 |
-| CW | 50, 100, 250, 400 |
-| DIGU, DIGL | 100, 300, 600, 1000, 1500, 2000 |
-| RTTY | 250, 300, 350, 400, 500, 1000 |
-| FM, NFM, DFM | No presets (buttons hidden) |
+Starting in v0.9.3, slice tab buttons and the slice badge use per-slice colors managed by the `SliceColorManager` singleton rather than a fixed color table. The active border, background highlight on the tab buttons, and the badge background all reflect the color assigned to that slice. Colors persist across sessions and are also reflected in VFO widgets and meter strips. No action is required; the colors update automatically when a slice is connected.
 
 ## Tips
 
 - If you need a width that does not match any preset, drag the edges of the filter passband widget to set an arbitrary value, then right-click a preset button to save that width for future use.
 - Presets are per mode. Switching modes reshapes the filter and displays the preset buttons for the new mode.
+- NT mode uses the same filter presets and squelch behavior as DIGU and DIGL. Squelch is disabled in NT mode and squelch off is sent to the radio automatically if squelch was previously enabled.
 
 ## Troubleshooting
 
 - **Preset buttons are not visible** — The active mode is FM, NFM, or DFM. These modes do not expose filter presets. Change the mode using the Mode combo to a mode that supports presets (for example, USB or CW).
 - **Right-click on a preset button does nothing visible** — Confirm the slice is connected to the radio. The RX applet requires an active radio connection to save preset values.
+- **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
 
 ## Related
 

@@ -20,14 +20,13 @@ When you have more than one panadapter open, you can detach any of them into a s
 
 ## What each control does
 
-| Control | Description | Default | Notes |
-|---|---|---|---|
-| **⬈** (pop-out) | Detaches the panadapter into a floating window. | — | Hidden in single-panadapter mode. |
-| **↩** (dock) | Returns the floating panadapter to the main layout. | — | Appears in place of ⬈ while the window is floating. |
-| **□** (maximize) | Expands this panadapter to fill the main area. | — | Hidden in single-panadapter mode. |
-| **×** (close) | Closes this panadapter. | — | Hidden in single-panadapter mode. |
-| Slice title | Indicator showing which slice is bound to this panadapter (Slice A through Slice H). | Slice A | Read-only. |
-
+| Control          | Description                                                                          | Default |
+|------------------|--------------------------------------------------------------------------------------|---------|
+| **⬈** (pop-out)  | Detaches the panadapter into a floating window.                                      | —       |
+| **↩** (dock)     | Returns the floating panadapter to the main layout.                                  | —       |
+| **□** (maximize) | Expands this panadapter to fill the main area.                                       | —       |
+| **×** (close)    | Closes this panadapter.                                                              | —       |
+| Slice title      | Indicator showing which slice is bound to this panadapter (Slice A through Slice H). | Slice A |
 ## CW decode panel
 
 When the CW decode panel is open, it appears below the spectrum and waterfall. The panel decodes Morse code from PC audio routed to AetherSDR.

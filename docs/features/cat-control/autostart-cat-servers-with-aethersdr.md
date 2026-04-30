@@ -40,7 +40,7 @@ The channel rows (A, B, C, D) will update from `(stopped)` to `:<port> (0 client
 | `Enable TCP` | Toggle button | Off | — | — | Starts or stops all four rigctld TCP servers on Base through Base+3. Also persists the current base port to `CatTcpPort`. |
 | `Enable TTY` | Toggle button | Off | — | — | Starts or stops all four PTY symlinks under `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. |
 | `Base` | Text field | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Out-of-range values snap back to `4532`. If TCP servers are already running, they restart on the new port immediately. |
-| A/B/C/D channel rows | Indicator | `(stopped)` | — | — | Shows the channel badge, TCP status (port and client count), and PTY path for each of the four channels. |
+| A/B/C/D channel rows | Indicator | `(stopped)` | — | — | Shows the channel badge, TCP status (port and client count), and PTY path for each of the four channels. Channel badges are colour-coded using the slice colour assigned to that channel. |
 
 ## Tips
 
@@ -52,6 +52,7 @@ The channel rows (A, B, C, D) will update from `(stopped)` to `:<port> (0 client
 - **Servers do not start after launch even though autostart is enabled** — The radio must be connected before the servers become active. Confirm the connection state in the title bar and retry once connected.
 - **PTY symlinks do not appear** — The `Enable TTY` autostart is only functional on Linux and macOS. On Windows, `Enable TTY` has no effect.
 - **Port already in use** — If another application occupies a port in the Base–Base+3 range, the corresponding server will fail silently. Change the `Base` value in the CAT Control applet to an unused port range and re-enable TCP.
+- **Channel badge colours appear incorrect** — Slice colours are managed dynamically. If badges show unexpected colours, disconnect and reconnect to the radio so that slice colour assignments are refreshed.
 
 ## Related
 

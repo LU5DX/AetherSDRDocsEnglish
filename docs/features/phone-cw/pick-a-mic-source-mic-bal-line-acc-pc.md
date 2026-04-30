@@ -17,10 +17,10 @@ The selection takes effect immediately on the radio.
 
 ## What each control does
 
-| Control | Description | Default | Valid values | Setting key |
-|---|---|---|---|---|
-| **Mic source** | Selects the microphone input source sent to the radio. | — | `MIC`, `BAL`, `LINE`, `ACC`, `PC` | — |
-| **Mic gain** | Adjusts the microphone input level. When the source is `PC`, the value is stored client-side because the radio always reports a level of 0 for PC sources. | 50 | 0–100 | `PcMicGain` |
+| Control        | Description                                                                                                                                                | Default |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **Mic source** | Selects the microphone input source sent to the radio.                                                                                                     | —       |
+| **Mic gain**   | Adjusts the microphone input level. When the source is `PC`, the value is stored client-side because the radio always reports a level of 0 for PC sources. | 50      |
 
 **Source descriptions:**
 
@@ -45,15 +45,18 @@ Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings aut
 
 ## Tips
 
-- When using `PC` as the source, the **Level** meter in the applet is suppressed while not transmitting. Transmit briefly to confirm audio is passing.
+- When using `PC` as the source, the **Level** meter appears immediately when AetherSDR connects to the radio, because PC mic metering runs client-side independently of the radio's `met_in_rx` setting. The meter is not suppressed between transmissions for PC sources.
 - To mix in the accessory port alongside your primary source, enable the **+ACC** toggle button after selecting your main source.
 - At higher CW speeds, the client-side sidetone path (~10 ms latency) is more usable than the radio's DAX-fed monitor. Because the **Sidetone** toggle controls both paths together, enabling sidetone always activates the low-latency path automatically.
+- When VOX is toggled via keyboard shortcut, the Phone panel refreshes instantly to reflect the new VOX state (v0.9.3).
+- On Windows, the CW sidetone stream starts immediately on connect (v0.9.3). If sidetone is enabled before connecting, no additional steps are required after the connection is established.
 
 ## Troubleshooting
 
 - **Mic source combo shows no selection or resets** — The list is populated from the radio's reported inputs. If the combo is empty, verify the radio connection is active (`Settings > Connect to Radio...`).
-- **Level meter reads nothing when source is PC** — This is expected. The radio reports `mic_level=0` for PC sources; the gain is managed by `PcMicGain` on the client side.
+- **Level meter reads nothing when source is PC** — This is not expected behavior in v0.9.3. The **Level** gauge should appear immediately on connect when the mic source is `PC`. If it does not, verify that AetherSDR is running v0.9.3 or later. For non-PC sources, the meter is suppressed to −150 dBFS when not transmitting and `met_in_rx` is off; this is normal.
 - **Sidetone pitch does not match expectation** — Pitch follows the radio's `cw_pitch` setting automatically. Adjust pitch using the **Pitch < / >** spinbox, which writes directly to the radio.
+- **Sidetone does not start on connect (Windows)** — This was a known issue in versions before v0.9.3 caused by AudioEngine initialization order. Update to v0.9.3 or later to resolve it.
 
 ## Related
 

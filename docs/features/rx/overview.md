@@ -14,8 +14,8 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Behavior |
 |---|---|---|
-| Slice tabs (A..H) | — | Select which slice the applet controls. The tab row is hidden when the radio has only one slice. |
-| Slice badge | A | Displays the letter of the active slice, coloured by slice identity. Read-only. |
+| Slice tabs (A..H) | — | Select which slice the applet controls. The tab row is hidden when the radio has only one slice. Button borders and active backgrounds follow the per-slice color set in SliceColorManager. |
+| Slice badge | A | Displays the letter of the active slice. Color is driven by SliceColorManager; customizable per-slice colors persist across sessions and are reflected here, in the slice tab buttons, VFO widgets, and meter strips. Read-only. |
 | 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock. A locked slice ignores frequency changes from the panadapter and other sources. |
 | TX (badge) | — | Click to designate this slice as the TX slice. |
 
@@ -23,7 +23,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY | Sets slice mode. Changing mode reshapes filter and step presets automatically. |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, NT, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. |
 | Frequency label | 0.000.000 | — | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. |
 | Frequency edit | — | 0.001–54.000 MHz (up to 450.000 MHz on XVTR) | Type a frequency in MHz and press Enter to tune and re-center. Press Escape to cancel and restore the previous frequency. |
 | STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. |
@@ -57,7 +57,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 | 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Mutes or unmutes the slice audio output. |
 | AF gain | 70 | 0–100 | Adjusts the slice audio output level. |
 | L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Double-click to reset to centre (50). |
-| SQL | — | — | Enables squelch at the level set by the squelch slider. |
+| SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in DIGU, DIGL, NT, CW, and CWL modes. |
 | Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. |
 
 ### RIT and XIT
@@ -96,6 +96,7 @@ These controls are visible only when the slice mode is FM, NFM, or DFM.
 - The L / R pan slider has a centre-mark dot on the groove to help you find 50 by eye. Double-clicking always resets it to 50 regardless of the current position.
 - Right-clicking a filter preset button saves the current filter width into that slot, letting you customise presets per mode. These are stored in `FilterPresets` and survive application restarts.
 - The Frequency edit field accepts kHz and Hz auto-scaling, so you do not need to type leading zeros for sub-MHz values.
+- Per-slice colors are managed by SliceColorManager. Changes you make to slice colors are reflected consistently across the slice tab buttons, the slice badge, VFO widgets, and meter strips, and persist across sessions.
 
 ## Related
 

@@ -23,27 +23,37 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 
 ## What each control does
 
-| Control | Default | Valid range / options | Notes |
-|---|---|---|---|
-| Mode combo | USB | FM, NFM, DFM (among others) | Filter width presets are hidden for all FM family modes. |
-| Tone mode (FM) | Off | Off, CTCSS TX | Visible only when mode is FM, NFM, or DFM. |
-| CTCSS tone value | — | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) | Enabled only when Tone mode is set to CTCSS TX. |
-| Offset (FM) | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1 | Sets the magnitude of the repeater offset. |
-| − (offset down) | — | toggle | TX frequency is placed below the RX frequency. |
-| Simplex | checked | toggle | TX and RX frequencies are equal. |
-| + (offset up) | — | toggle | TX frequency is placed above the RX frequency. |
-| REV | — | toggle | Inverts the configured offset sign; use to listen on a reversed repeater pair. |
+| Control          | Default | Valid range / options                     |
+|------------------|---------|-------------------------------------------|
+| Mode combo       | USB     | FM, NFM, DFM (among others)               |
+| Tone mode (FM)   | Off     | Off, CTCSS TX                             |
+| CTCSS tone value | —       | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
+| Offset (FM)      | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1                 |
+| − (offset down)  | —       | toggle                                    |
+| Simplex          | checked | toggle                                    |
+| + (offset up)    | —       | toggle                                    |
+| REV              | —       | toggle                                    |
 
 ## Tips
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.
 - FM family modes hide the filter width preset buttons. This is expected; filter width for FM is fixed by the mode itself.
+- Slice tab buttons and the slice badge are color-coded per slice using SliceColorManager (v0.9.3+). The colors persist across sessions and are reflected in the slice tabs, the slice badge, VFO widgets, and meter strips.
 
 ## Troubleshooting
 
 - **Repeater does not respond to your transmissions** — Confirm the CTCSS tone value matches what the repeater expects, and that Tone mode is set to **CTCSS TX** rather than **Off**.
 - **TX frequency appears wrong** — Check that the offset direction button (**−**, **Simplex**, or **+**) matches the repeater's published offset direction, and that the Offset (FM) value is set to the correct magnitude (e.g. 0.6 MHz for a typical 2 m repeater).
 - **Tone mode and CTCSS controls are not visible** — The slice mode must be **FM**, **NFM**, or **DFM**. These controls are hidden in all other modes.
+- **Squelch controls are greyed out** — Squelch is disabled automatically when the slice mode is **DIGU**, **DIGL**, **NT**, **CW**, or **CWL**. Switch to an FM or SSB mode to enable the squelch controls.
+
+## NT mode notes
+
+The **NT** mode is treated as a digital mode in the RX Controls applet (v0.9.3+). This has the following effects:
+
+- NT uses the same filter width presets and step sizes as DIGU and DIGL.
+- The filter width indicator calculates bandwidth the same way as USB (using the upper passband edge).
+- Squelch is disabled while NT is active. If squelch was on when you switched to NT, it is turned off automatically and restored when you leave the mode.
 
 ## Related
 

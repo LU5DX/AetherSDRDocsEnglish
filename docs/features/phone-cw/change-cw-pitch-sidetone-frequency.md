@@ -23,6 +23,8 @@ The client-side sidetone generator always follows this pitch value automatically
 1. Click **Sidetone** in the CW sub-panel to toggle it on or off.
 2. Both the radio's DAX-fed monitor and the client-side low-latency sidetone generator are enabled or disabled together by this single button.
 
+On Windows, the sidetone stream now starts immediately on connect (v0.9.3, #2105).
+
 ### Adjust sidetone volume
 
 1. Move the **Sidetone volume** slider to the desired level. Valid range: 0–100.
@@ -30,22 +32,25 @@ The client-side sidetone generator always follows this pitch value automatically
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Pitch < / >** | 600 Hz | 100–6000 Hz (step 10) | — | Steps the radio CW sidetone/decode pitch by 10 Hz per click; sent to the FLEX-8600. The client-side sidetone pitch always follows this value automatically. |
-| **Sidetone** | — | On / Off | — | Toggles both the radio's DAX-fed sidetone monitor and the client-side low-latency sidetone generator in lockstep. |
-| **Sidetone volume** | — | 0–100 | — | Sets both the radio monitor volume (`mon_gain_cw`) and the client-side sidetone generator volume simultaneously. |
-| **L / R pan (CW)** | 50 | 0–100 | — | Sets CW monitor stereo pan on the radio and applies constant-power pan to the client-side sidetone generator. Follows `mon_pan_cw` automatically. Double-click recenters to 50 (centre). |
+| Control             | Default | Valid range           |
+|---------------------|---------|-----------------------|
+| **Pitch < / >**     | 600 Hz  | 100–6000 Hz (step 10) |
+| **Sidetone**        | —       | On / Off              |
+| **Sidetone volume** | —       | 0–100                 |
+| **L / R pan (CW)**  | 50      | 0–100                 |
 
 ## Tips
 
 - The **Pitch < / >** control affects both the audible sidetone on the radio and the frequency used by the CW decoder. Adjust it to match your personal pitch preference. The client-side sidetone always tracks it automatically.
 - Because pitch and pan follow the radio settings automatically, you only need to adjust **Pitch < / >** and **L / R pan (CW)** in one place — both the radio monitor and the local generator update together.
 - The client-side sidetone generator operates at approximately 10 ms latency and works with paddle, straight key, and CWX-generated transmissions. If you are not hearing a sidetone at all, verify that **Sidetone** is enabled.
+- When **Mic source** is set to **PC**, the **Level** gauge reflects client-side metering and remains active regardless of the radio's met_in_rx setting.
 
 ## Troubleshooting
 
 - **No sidetone is audible** — Confirm **Sidetone** is enabled and **Sidetone volume** is above zero. Both the radio monitor and the client-side generator are controlled by these two controls.
+- **Sidetone does not start on connect (Windows)** — This was resolved in v0.9.3 (#2105). Ensure you are running v0.9.3 or later.
+- **Level gauge does not appear on connect** — If **Mic source** is set to **PC**, the gauge should appear immediately on connect as of v0.9.3 (#2086). For other mic sources, the gauge is suppressed when met_in_rx is off and the radio is not transmitting.
 - **Pitch change has no effect** — Confirm the active slice is in a CW mode. The CW sub-panel and its pitch control are only active in CW modes.
 - **CW sub-panel is not visible** — The active slice is not in a CW mode. Switch the slice to CW; the applet switches automatically.
 

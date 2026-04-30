@@ -24,6 +24,31 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 | **DXCC Coloring** | Master toggle. Colors panadapter spots by worked/confirmed/needed DXCC status. | `DxccColoringEnabled` |
 | **Log File (ADIF):** | Opens a file picker. The chosen ADIF file is read to populate DXCC status. | `DxccAdifPath` |
 | **Auto-Reload Log:** | When enabled, re-reads the ADIF file whenever it changes on disk. | `DxccAutoReload` |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
+| **Callsign: (FreeDV Reporter)** | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updates if the radio's configured callsign changes while **Use radio (callsign)** is checked. | `FreeDvMyCallsign` |
+| **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled. | `FreeDvUseRadioCallsign` |
+| **Grid Square: (FreeDV Reporter)** | Maidenhead grid square to report. Read-only when **Use GPS (grid)** is checked. | `FreeDvMyGrid` |
+| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Defaults to enabled. | `FreeDvUseGpsGrid` |
+| **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+
+## FreeDV Reporter reporting
+
+The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
+
+### Requirements before enabling
+
+- A non-empty callsign must be available, either from the radio (when **Use radio (callsign)** is checked) or entered manually in the **Callsign:** field.
+- A non-empty Maidenhead grid square must be available, either from the radio's GPS (when **Use GPS (grid)** is checked, on supported hardware) or entered manually in the **Grid Square:** field.
+- If either value is missing when you check **Enable FreeDV Reporter reporting when RADE is active**, a warning dialog appears and the checkbox reverts to unchecked.
+
+### Steps
+
+1. Open `Settings > SpotHub...` and click the **FreeDV** tab.
+2. In the **Station Reporting** group, confirm **Use radio (callsign)** is checked if you want AetherSDR to pull the callsign from the radio automatically. Uncheck it and type a callsign in **Callsign:** to enter one manually.
+3. If your radio has GPS hardware, confirm **Use GPS (grid)** is checked to populate **Grid Square:** automatically. Otherwise uncheck it and type your Maidenhead grid square (up to six characters) in **Grid Square:**.
+4. Optionally type a short message in **Station Msg:** to display beside your callsign on the map.
+5. Check **Enable FreeDV Reporter reporting when RADE is active** (`FreeDvAutoReport`). If callsign or grid is missing, a warning appears — fill in the missing field and try again.
+6. To have reporting start automatically each time AetherSDR launches, enable **Auto-start on startup (FreeDV)** (`FreeDvAutoStart`).
 
 ## Tips
 
@@ -31,12 +56,16 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 - The **Log File (ADIF):** button stores the path persistently. You do not need to re-select the file after restarting AetherSDR.
 - Enabling **Auto-Reload Log:** removes the need to reopen the dialog after logging a new contact — the spot colors on the panadapter update as soon as your logger writes to the file.
 - DXCC coloring is independent of per-source spot colors. If **Override Colors:** is also active, see [Pick colors for each spot source](pick-colors-for-each-spot-source.md) for how those settings interact.
+- When **Use radio (callsign)** is checked, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
+- Reporter broadcasting is build-gated by `HAVE_WEBSOCKETS`. On Windows it additionally requires `HAVE_RADE`. If the **Station Reporting** group or the enable checkbox is absent, your build does not include the required components.
 
 ## Troubleshooting
 
 - **DXCC stats shows 0 QSOs after selecting a file** — The file may not be valid ADIF, may be empty, or may use an encoding AetherSDR cannot read. Export a fresh ADIF from your logger and try again.
 - **Spot colors do not change after enabling DXCC Coloring** — Confirm the **Spots:** toggle on the **Display** tab is enabled (`IsSpotsEnabled`). Also check that **Override Colors:** (`IsSpotsOverrideColorsEnabled`) is not active, as it forces a single color for all spots regardless of DXCC status.
 - **New contacts are not reflected on spots** — Enable **Auto-Reload Log:** so AetherSDR detects file changes, or manually re-select the log file with **Log File (ADIF):** to trigger a fresh import.
+- **Warning appears when enabling FreeDV Reporter** — Either the callsign or grid square field is blank. Fill in both fields (or check **Use radio (callsign)** / **Use GPS (grid)** to populate them from the radio) before enabling the checkbox.
+- **Station Reporting group is not visible** — The FreeDV and reporting features require a build with `HAVE_WEBSOCKETS` support. On Windows, `HAVE_RADE` is also required. Contact your package maintainer if you need these features.
 
 ## Related
 

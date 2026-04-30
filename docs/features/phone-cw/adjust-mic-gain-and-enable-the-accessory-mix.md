@@ -18,12 +18,12 @@ Use this page to set the microphone input level and mix in the accessory input a
 
 ## What each control does
 
-| Control | What it does | Default | Range / Values | Setting key |
-|---|---|---|---|---|
-| **Mic gain** | Sets the microphone input level. When Mic source is PC, the value is persisted locally. | 50 | 0–100 | `PcMicGain` (PC source only) |
-| **+ACC** | Enables the accessory mic input mix alongside the selected primary source. | — | On / Off | — |
-| **Level** gauge | Shows microphone input peak level in dBFS. Turns red above 0 dBFS. | — | −40 to +10 dBFS | — |
-| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). | — | −25 to 0 dB | — |
+| Control               | What it does                                                                                          | Default |
+|-----------------------|-------------------------------------------------------------------------------------------------------|---------|
+| **Mic gain**          | Sets the microphone input level. When Mic source is PC, the value is persisted locally.               | 50      |
+| **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                            | —       |
+| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                    | —       |
+| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). | —       |
 
 ## CW sidetone controls
 
@@ -47,7 +47,7 @@ If you previously used the **Local STn** button independently of the main **Side
 |---|---|---|---|---|
 | **Delay (CW)** | Sets the CW break-in delay. | — | 0–2000 ms (step 10) | — |
 | **Speed (CW)** | Sets the CW keying speed in words per minute. | — | 5–100 WPM | — |
-| **Sidetone** | Toggles CW sidetone. Enables/disables both the radio's DAX-fed monitor and the client-side low-latency generator in lockstep. | — | On / Off | — |
+| **Sidetone** | Toggles CW sidetone. Enables/disables both the radio's DAX-fed monitor and the client-side low-latency generator in lockstep. On Windows, the sidetone stream now starts immediately on connect (v0.9.3, #2105). | — | On / Off | — |
 | **Sidetone volume** | Sets CW monitor volume. Controls both `mon_gain_cw` on the radio and the local sidetone generator volume simultaneously. | — | 0–100 | — |
 | **L / R pan (CW)** | Sets CW monitor stereo pan. Applies to both the radio-side monitor and the local sidetone generator. Double-click to recenter. | 50 | 0–100 | — |
 | **Pitch < / >** | Steps the CW sidetone and decode pitch by 10 Hz. Pitch is also followed automatically from the radio's `cw_pitch` setting. | 600 Hz | 100–6000 Hz (step 10) | — |
@@ -57,7 +57,7 @@ If you previously used the **Local STn** button independently of the main **Side
 
 ## Tips
 
-- The **Level** gauge is suppressed to −150 dBFS when the radio is not transmitting and monitor-in-receive is off. This is normal; the gauge becomes active when you transmit.
+- The **Level** gauge is suppressed to −150 dBFS when the radio is not transmitting and monitor-in-receive is off. This is normal; the gauge becomes active when you transmit. When **Mic source** is set to PC, the gauge uses client-side metering and is not subject to this suppression — it appears immediately on connect (v0.9.3, #2086).
 - If you use the PC source, note that the `PcMicGain` value is not sent to the radio — it is managed entirely by AetherSDR. Switching away from the PC source and back restores the saved value.
 - The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where the radio's round-trip DAX latency becomes noticeable. Because both are controlled by the single **Sidetone** toggle, there is no risk of one being active without the other.
 - Double-click **L / R pan (CW)** to return the pan position to center (50).
@@ -66,7 +66,9 @@ If you previously used the **Local STn** button independently of the main **Side
 
 - **Mic gain slider snaps back or reads 0 after adjusting** — You are using the PC source and the radio is reporting `mic_level=0`. This is expected behavior; AetherSDR holds the value in `PcMicGain` and does not write it to the radio. The slider position is correct.
 - **+ACC has no effect** — Confirm the radio is in a voice mode and the Phone sub-panel is active. The +ACC control is only present in the Phone sub-panel; it is not available when CW mode is active.
-- **Level gauge shows no movement while speaking** — The gauge suppresses to −150 dBFS when not transmitting and monitor-in-receive is off. Key the radio or enable the TX monitor to see live levels.
+- **Level gauge shows no movement while speaking** — If Mic source is not PC, the gauge suppresses to −150 dBFS when not transmitting and monitor-in-receive is off. Key the radio or enable the TX monitor to see live levels. If Mic source is PC, the gauge should be active immediately on connect; if it is not, verify the PC audio device is selected and AetherSDR is connected to the radio.
+- **Phone panel does not refresh when VOX is toggled via keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later.
+- **Sidetone not audible immediately after connecting on Windows** — This was resolved in v0.9.3 (#2105) by fixing the AudioEngine initialization order. Update to v0.9.3 or later.
 - **Local STn / Follow controls are missing after upgrading to v0.9.2.1** — These controls were removed in v0.9.2.1. Use the **Sidetone** toggle and **Sidetone volume** slider; they now control both the radio-side and local sidetone together. Pitch and pan follow the radio automatically and no longer require a separate follow toggle.
 
 ## Related

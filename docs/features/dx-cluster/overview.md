@@ -40,23 +40,57 @@ The **Spot List** tab shows a unified, sortable table of all live spots from all
 
 The **Display** tab controls how spots appear on the panadapter.
 
-| Control | Setting key | Default | What it does |
+| Control | Setting key | Default |
+|---|---|---|
+| **Spots:** | `IsSpotsEnabled` | Enabled |
+| **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled |
+| **Auto Mode:** | `SpotsAutoMode` | — |
+| **Levels:** | `SpotsStackLevels` | — |
+| **Position:** | `SpotsPosition` | — |
+| **Font Size:** | `SpotsFontSize` | — |
+| **Spot Lifetime:** | `SpotsLifetime` | — |
+| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | — |
+| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | — |
+| **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | — |
+| **Background Opacity:** | `SpotsOverrideBgOpacity` | 48 |
+| **DXCC Coloring** | `DxccColoringEnabled` | — |
+| **Log File (ADIF):** | `DxccAdifPath` | — |
+| **Auto-Reload Log:** | `DxccAutoReload` | — |
+| **Clear All Spots** | — | — |
+
+### FreeDV Reporter reporting
+
+The **FreeDV** tab includes a **Station Reporting** section that lets AetherSDR broadcast your station activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is only present in builds compiled with WebSocket support.
+
+#### Enable reporting
+
+1. Open the **FreeDV** tab.
+2. Fill in a valid callsign and grid square in the **Callsign:** and **Grid Square:** fields (see below). The checkbox refuses to enable if either field is blank or unresolvable.
+3. Check **Enable FreeDV Reporter reporting when RADE is active** (`FreeDvAutoReport`). If the callsign or grid cannot be resolved, a warning dialog appears and the checkbox reverts to unchecked.
+
+> **Note:** Reporter data is published to a community-shared public map. Do not enable reporting with placeholder values.
+
+#### Callsign field
+
+| Control | Setting key | Default | Notes |
 |---|---|---|---|
-| **Spots:** | `IsSpotsEnabled` | Enabled | Master toggle for the spot overlay. Disable to hide all spots without disconnecting sources. |
-| **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled | Overlays stored memory channels on the panadapter alongside spots. |
-| **Auto Mode:** | `SpotsAutoMode` | — | Automatically adjusts spot density based on the current panadapter zoom level. |
-| **Levels:** | `SpotsStackLevels` | — | Number of vertical rows used when spots at nearby frequencies would overlap. |
-| **Position:** | `SpotsPosition` | — | Vertical placement of the spot overlay on the panadapter. |
-| **Font Size:** | `SpotsFontSize` | — | Text size of spot labels. |
-| **Spot Lifetime:** | `SpotsLifetime` | — | How long a spot remains visible before fading, in seconds. |
-| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | — | Forces all spot labels to a single text color, ignoring per-source colors. |
-| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | — | Enables a custom background color behind spot labels. |
-| **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | — | Selects an automatic contrast color for spot backgrounds. |
-| **Background Opacity:** | `SpotsOverrideBgOpacity` | 48 | Opacity of the spot background. |
-| **DXCC Coloring** | `DxccColoringEnabled` | — | Colors spots by worked, confirmed, or needed DXCC entity status, derived from a loaded ADIF log. |
-| **Log File (ADIF):** | `DxccAdifPath` | — | Opens a file picker to load an ADIF log for DXCC coloring. |
-| **Auto-Reload Log:** | `DxccAutoReload` | — | Watches the ADIF file for changes and re-reads it automatically when updated. |
-| **Clear All Spots** | — | — | Immediately removes every spot currently tracked across all sources. |
+| **Callsign:** | `FreeDvMyCallsign` | — | The callsign sent to the FreeDV Reporter map. Field is read-only when **Use radio** is checked. |
+| **Use radio** | `FreeDvUseRadioCallsign` | True | Pre-fills the callsign from the radio's configured callsign and locks the field read-only. Updates automatically if you change the callsign in Radio Setup. |
+
+When **Use radio** is checked, the field displays the radio's callsign. Uncheck it to enter a callsign manually.
+
+#### Grid Square field
+
+| Control | Setting key | Default | Notes |
+|---|---|---|---|
+| **Grid Square:** | `FreeDvMyGrid` | — | Maidenhead grid square sent to the FreeDV Reporter map. Field is read-only when **Use GPS** is checked. |
+| **Use GPS** | `FreeDvUseGpsGrid` | True | Pre-fills the grid from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. |
+
+#### Station message
+
+| Control | Setting key | Default | Notes |
+|---|---|---|---|
+| **Station Msg:** | `FreeDvMyMessage` | — | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. |
 
 ## Tips
 
@@ -64,12 +98,14 @@ The **Display** tab controls how spots appear on the panadapter.
 - WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (15 or 7.5 seconds) if you want spots to clear between periods.
 - The **Calling Me** filter in the WSJT-X tab highlights decodes specifically addressed to your callsign, which makes it easy to see when a station is responding to your CQ.
 - **Auto Mode:** is useful during contests or DXpeditions when spot density varies significantly across bands and zoom levels.
+- Before enabling **Enable FreeDV Reporter reporting when RADE is active**, confirm your callsign and grid square are correctly set. The checkbox will not enable if either value is blank.
 
 ## Troubleshooting
 
 - **Cluster or RBN connects but no spots appear on the panadapter** — Check that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also verify the relevant band checkboxes on the **Spot List** tab are checked.
 - **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
 - **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
+- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can be activated. If **Use radio** is checked but the radio has no configured callsign, or **Use GPS** is checked but GPS has no fix, enter values manually after unchecking those options.
 - **DXCC coloring is not working** — Ensure an ADIF file has been loaded via **Log File (ADIF):** and that **DXCC Coloring** is enabled. The DXCC stats indicator shows how many QSOs were imported from the file.
 
 ## Related
@@ -84,4 +120,4 @@ The **Display** tab controls how spots appear on the panadapter.
 - [Auto-reload ADIF log when updated by a logger](auto-reload-adif-log-when-updated-by-a-logger.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source
+- [Pick colors for each spot source](pick-colors-for-each-spot-source)
