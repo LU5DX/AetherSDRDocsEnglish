@@ -27,21 +27,56 @@ The Slice Troubleshooting dialog captures a snapshot of every transverter config
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| `Issue Summary` tab | Tab | Plain-language bullet list of detected problems, including XVTR validity issues. |
-| `JSON` tab | Tab | Full JSON snapshot containing all transverter entries with RF, IF, offset, and validity fields. |
-| `Refresh Snapshot` | Button | Re-reads slice and transverter state from the radio into the snapshot. |
-| `Copy Summary` | Button | Copies the issue summary to the clipboard. |
-| `Copy JSON` | Button | Copies the full JSON snapshot to the clipboard. |
-| `Export JSON...` | Button | Saves the full JSON snapshot to a file. |
-| `Close` | Button | Closes the dialog. |
+| Control             | Kind   | Behavior                                                                                        |
+|---------------------|--------|-------------------------------------------------------------------------------------------------|
+| `Issue Summary` tab | Tab    | Plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, and XVTR validity issues. |
+| `JSON` tab          | Tab    | Full JSON snapshot (schema version 3) containing slices, DAX channels, audio devices, client DSP, control devices, TX band settings, and all transverter entries with RF, IF, offset, and validity fields. |
+| `Refresh Snapshot`  | Button | Re-reads slice state into the snapshot.                                                         |
+| `Copy Summary`      | Button | Copies the issue summary to the clipboard.                                                      |
+| `Copy JSON`         | Button | Copies the full JSON snapshot to the clipboard.                                                 |
+| `Export JSON...`    | Button | Saves the full JSON snapshot to a file.                                                         |
+| `Close`             | Button | Closes the dialog.                                                                              |
+
+## Remote audio RX fields in the snapshot
+
+v0.9.4 adds remote audio RX state to both the radio-level and per-slice sections of the Issue Summary and JSON snapshot. These fields help diagnose problems where AetherSDR has requested a remote audio stream from the radio but audio is not flowing.
+
+### Radio-level remote audio RX
+
+In the Issue Summary, look for the line beginning **Remote audio RX:**. It reports the following:
+
+| Field              | Meaning                                                                 |
+|--------------------|-------------------------------------------------------------------------|
+| `stream_id`        | The stream identifier assigned by the radio, or `—` if none.           |
+| `stream_expected`  | Whether AetherSDR expects this stream to exist (`Yes` / `No`).         |
+| `create_pending`   | Whether a create request is still outstanding (`Yes` / `No`).          |
+| `status_seen`      | Whether a status update for this stream has been received (`Yes` / `No`). |
+| `owned_by_us`      | Whether this client owns the stream (`Yes` / `No`).                    |
+| `compression`      | The compression type in use, or `—` if not reported.                   |
+
+A second line, **Remote audio route note:**, contains a plain-language note about the routing state, or `—` if none was generated.
+
+### Per-slice radio stream route
+
+In the Issue Summary, look for the line beginning **Radio stream route: remote_audio_rx**. It reports the following:
+
+| Field                           | Meaning                                                                   |
+|---------------------------------|---------------------------------------------------------------------------|
+| `remote_audio_rx_stream_id`     | The stream identifier for this slice's remote audio RX, or `—` if none.  |
+| `remote_audio_rx_expected`      | Whether the stream is expected to exist.                                  |
+| `remote_audio_rx_create_pending`| Whether a create request is still outstanding.                            |
+| `remote_audio_rx_remove_requested` | Whether a remove request has been sent but not yet confirmed.          |
+| `remote_audio_rx_status_seen`   | Whether a status update for this stream has been received.                |
+| `remote_audio_rx_owned_by_us`   | Whether this client owns the stream.                                      |
+
+If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false, the radio has not yet confirmed the stream. If `create_pending` is true for an extended period, the create request may not have reached the radio.
 
 ## Tips
 
 - If `has_is_valid` is `No` for a transverter, the radio did not report a validity flag for that entry at all. This is distinct from `is_valid` being `No`, which means the radio reported the entry as explicitly invalid.
 - Click `Refresh Snapshot` after adjusting transverter settings in SmartSDR or on the radio before re-reading the values. The snapshot is not updated automatically.
 - The `offset_mhz` field should equal `rf_freq_mhz` minus `if_freq_mhz`. If it does not match your transverter configuration, that discrepancy is a likely cause of frequency errors on the slice.
+- When investigating missing audio, check the remote audio RX fields first. If `owned_by_us` is `No` and `stream_expected` is `Yes`, another client may have taken ownership of the stream.
 
 ## Related
 

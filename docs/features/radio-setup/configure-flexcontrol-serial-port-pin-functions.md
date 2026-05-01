@@ -122,10 +122,14 @@ The APD system samples the outgoing RF signal and uses the feedback to train a p
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos** | Selects the feedback path the radio uses to sample outgoing RF for APD training on that TX antenna. | INTERNAL | INTERNAL, RX_A, RX_B, XVTA, XVTB |
 | **Equalizer Reset** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — | — |
 
-## Tips
+## ShackSwitch support changes in v0.9.4
 
-- If you open Radio Setup through `Settings > Radio Setup...` rather than `Settings > FlexControl...`, the Serial tab appears at the far right of the tab bar. Scroll or widen the dialog if the tab is not visible.
-- The Serial tab is built lazily — it is not constructed until you first click it, so there is a brief pause the first time you select it.
-- On the RX tab, if you have a GPSDO installed you can still run a manual calibration. Enter the reference frequency in **Cal Frequency (MHz)** and click **Start**.
-- The **APD** tab appears and disappears dynamically as the radio reports its capabilities. If you connect a different radio that does not support configurable APD, the tab hides without requiring a restart.
-- The **Themes** tab color changes take effect immediately
+The **Peripherals** tab gains a dedicated ShackSwitch row and a **⚙ Web UI** button in v0.9.4. Previously, the Antenna Genius row would show a connected state even when the connected device was a ShackSwitch. The two devices are now handled separately.
+
+### Antenna Genius row behavior change
+
+The **Antenna Genius (AG)** Connect/Disconnect row now shows a connected status only when the connected device is a genuine Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row shows as disconnected and the ShackSwitch row shows as connected instead.
+
+### ShackSwitch row
+
+A new **ShackSwitch** row has been added below the Antenna Genius row. It follows the

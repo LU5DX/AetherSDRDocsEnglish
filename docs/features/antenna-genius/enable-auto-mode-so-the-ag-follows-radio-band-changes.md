@@ -32,6 +32,7 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 
 - **AUTO button does not respond to clicks** — The applet is not connected. Check that the status label reads "Connected — \<name\> v\<version\>" before enabling AUTO. If not connected, see the pages below.
 - **Band indicator shows "—" after enabling AUTO** — The AG has not yet received a band report from the radio. Tune to a frequency within a recognized band to trigger an update.
+- **A ShackSwitch device appears in the Device combo but the applet does not auto-connect to it** — ShackSwitch devices are handled by a separate applet and are intentionally skipped during Antenna Genius auto-connect. Use the ShackSwitch applet to connect to that device.
 
 ## Related
 

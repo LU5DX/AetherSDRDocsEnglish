@@ -31,7 +31,9 @@ This page explains how to load a firmware image onto your FLEX-8600 using the Ra
 | Auto (Voice / CW / Digital) | Toggle | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | Connect / Disconnect (TGXL) | Button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. |
 | Connect / Disconnect (PGXL) | Button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| Connect / Disconnect (Antenna Genius) | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the connected device is a genuine Antenna Genius (not a ShackSwitch). |
+| Connect / Disconnect (ShackSwitch) | Button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the 'ShackSwitch' field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from Connected status if Antenna Genius (non-ShackSwitch) is the connected device. |
+| ⚙ Web UI (ShackSwitch) | Button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | APD (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
 | Equalizer Reset (APD) | Button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
@@ -76,6 +78,7 @@ The calibration activity is logged to the protocol log at debug level, including
 - The firmware status area is empty until a file is staged or an upload begins. If you see no progress bar after clicking **Upload Firmware**, confirm that a file was successfully staged with **Select Installer...** first.
 - If **Start** shows "Enter cal frequency" in amber, type a frequency value in the **Cal Frequency (MHz)** field before clicking **Start** again.
 - Even with a GPSDO installed, you can run a manual calibration pass if you need to verify or override the automatic correction.
+- To open the ShackSwitch web interface, click **⚙ Web UI** in the ShackSwitch row of the Peripherals tab. If the device has not yet been connected, enter its IP address in the `SS_ManualIp` field first.
 
 ## Troubleshooting
 
@@ -83,8 +86,5 @@ The calibration activity is logged to the protocol log at debug level, including
 - **Radio tab controls are unpopulated or grayed out** — AetherSDR is not connected to the radio. Establish a connection via `Settings > Connect to Radio...` before opening Radio Setup.
 - **Start button stays labeled Busy** — The radio did not respond to the `radio pll_start` command. Check the protocol log for the relevant run identifier, verify the radio is connected and not transmitting, then try again.
 - **APD tab is not visible** — The connected radio does not report `apd configurable=1`. The APD tab is only available on FLEX-8x00 series radios running SmartSDR 4.2.18 or later firmware.
-
-## Related
-
-- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)
-- [Radio Setup overview](overview.md)
+- **⚙ Web UI opens the wrong address or does nothing** — Verify that `SS_ManualIp` contains the correct IP for the ShackSwitch. If the beacon advertises a `webPort` of 1024 or below, AetherSDR falls back to `SS_WebPort` or port 5000. Set `SS_WebPort` in settings if your device uses a non-default web port.
+- **Antenna Genius row shows no Connected

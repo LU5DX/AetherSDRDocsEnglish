@@ -1,21 +1,42 @@
-# Connect TGXL, PGXL or Antenna Genius by IP
+# Connect TGXL, PGXL, Antenna Genius, or ShackSwitch by IP
 
-Use this page to manually connect a TGXL, PGXL, or Antenna Genius device to AetherSDR when automatic discovery has not picked up the device.
+Use this page to manually connect a TGXL, PGXL, Antenna Genius, or ShackSwitch device to AetherSDR when automatic discovery has not picked up the device.
 
 ## Before you start
 
 - AetherSDR must already be connected to a FLEX-8600 radio. The Peripherals tab is only available when a radio connection is active.
-- Have the IP address of the TGXL, PGXL, or Antenna Genius device ready.
+- Have the IP address of the TGXL, PGXL, Antenna Genius, or ShackSwitch device ready.
 
 ## Steps
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Peripherals** tab.
-3. Locate the row for the device you want to connect (TGXL, PGXL, or Antenna Genius).
+3. Locate the row for the device you want to connect (TGXL, PGXL, Antenna Genius, or ShackSwitch).
 4. Enter the device's IP address in the field for that device.
 5. Click **Connect** for that device.
 
 To disconnect a device, click **Disconnect** on its row.
+
+## Peripherals tab — device rows
+
+| Device | Default port | Notes |
+|---|---|---|
+| TGXL | 9010 | Required to recover TUNE on firmware 4.2+. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort`. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. |
+| PGXL | 9008 | Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
+| Antenna Genius (AG) | 9007 | Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows **Connected** status only when the connected device is a non-ShackSwitch Antenna Genius. |
+| ShackSwitch | 9007 | Uses the AG UDP/TCP protocol. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an IP. The row is hidden from **Connected** status if an Antenna Genius (non-ShackSwitch) is the connected device. |
+
+## Opening the ShackSwitch web interface
+
+Each ShackSwitch row includes a **⚙ Web UI** button. Clicking it opens the ShackSwitch device's local web configuration interface in the system browser.
+
+AetherSDR determines the port for the web interface as follows:
+
+1. If the connected ShackSwitch beacon advertises a `webPort` greater than 1024, that port is used.
+2. Otherwise, the value stored in `SS_WebPort` is used.
+3. If neither is available, port 5000 is used as the fallback.
+
+The button uses the IP address stored in `SS_ManualIp`. If that field is empty and a ShackSwitch is currently connected, the live peer address is used instead. The button does nothing if no IP address can be determined.
 
 ## Related
 
