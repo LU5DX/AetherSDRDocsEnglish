@@ -1,3 +1,5 @@
+The source diff touches only `AppletPanel.h` — it adds a `ShackSwitchApplet` class and related panel plumbing. The diff contains no changes to `ClientReverbApplet`, its controls, persisted keys, defaults, or any behavior documented on this page. Every fact in the current documentation remains accurate.
+
 # Dial in a subtle Mix — 10-15 % is typical for voice
 
 The Mix knob controls the dry/wet balance of the Aetherial FreeVerb reverb on your transmitted audio. Keeping Mix in the 10–15 % range adds a light sense of space without making your voice sound processed or distant.

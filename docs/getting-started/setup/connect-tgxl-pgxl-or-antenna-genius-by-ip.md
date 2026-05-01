@@ -33,7 +33,7 @@ Each ShackSwitch row includes a **⚙ Web UI** button. Clicking it opens the Sha
 AetherSDR determines the port for the web interface as follows:
 
 1. If the connected ShackSwitch beacon advertises a `webPort` greater than 1024, that port is used.
-2. Otherwise, the value stored in `SS_WebPort` is used.
+2. Otherwise, the value stored in `SS_ManualPort` is used.
 3. If neither is available, port 5000 is used as the fallback.
 
 The button uses the IP address stored in `SS_ManualIp`. If that field is empty and a ShackSwitch is currently connected, the live peer address is used instead. The button does nothing if no IP address can be determined.

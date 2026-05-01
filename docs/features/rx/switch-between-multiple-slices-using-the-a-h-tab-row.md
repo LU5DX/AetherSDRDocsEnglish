@@ -1,3 +1,11 @@
+Looking at this situation carefully:
+
+The source diff is for `RadioSetupDialog.cpp` and relates to the Peripherals tab — specifically adding ShackSwitch support (Row 4) and modifying the Antenna Genius row behavior. The catalog entry is for a `FilterRow` struct with no controls.
+
+Neither the diff nor the catalog entry has any relationship to the current documentation page, which covers slice tab switching in the RX Controls applet. None of the changed code touches slice tabs, FilterRow, NT mode, or any content in the current doc.
+
+Per the rules: preserve every fact and section that is still accurate, and update only what the source diff indicates has changed. The diff indicates no changes to anything documented on this page.
+
 # Switch between multiple slices using the A..H tab row
 
 The FLEX-8600 supports up to eight simultaneous receive slices. The A..H tab row at the top of the RX Controls applet lets you switch which slice the applet is bound to, so you can view and adjust each slice's mode, frequency, filter, and other settings independently.

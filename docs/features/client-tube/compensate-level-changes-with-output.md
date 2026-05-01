@@ -1,3 +1,5 @@
+Looking at the diff, the changes are to `VfoWidget.cpp` and relate to NRL button visibility on 6000-series hardware. The catalog entry is for `LevelBar` with no controls, and the current documentation is about the Output knob/tube stage — none of this documentation is affected by the diff. The documentation should be returned unchanged.
+
 # Compensate level changes with Output
 
 The Output knob applies a post-tube gain trim to the processed signal. Use it to compensate for the level increase or decrease that Drive and Bias introduce, so the tube stage does not unintentionally push levels up or down in the rest of the chain.

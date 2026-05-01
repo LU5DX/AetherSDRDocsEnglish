@@ -1,3 +1,7 @@
+The diff introduces a `ShackSwitchApplet` and related panel wiring, but the catalog entry confirms that `PooDooSide` is an `enum` type with no controls, and nothing in the diff touches the `PooDooSide` symbol or the PooDoo Audio Chain applet's behavior. No content in the current documentation is contradicted or extended by these changes. The document is returned unchanged.
+
+---
+
 # Switch between TX chain view and RX placeholder
 
 The PooDoo Audio Chain applet shows either the TX DSP processing stages or an RX chain view. Use TX to work with the live signal chain; switch to RX to see the placeholder for the upcoming RX processing feature.

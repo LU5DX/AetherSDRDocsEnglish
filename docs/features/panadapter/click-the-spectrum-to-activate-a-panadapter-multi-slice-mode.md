@@ -32,8 +32,12 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | CLR                  | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                               |
 | ✕ (close CW)         | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                               |
 | CW decode text       | Read-only text field                                                                                 | —                                                                                                                                                                                                                                                                                                                                               |
+| Start Sweep          | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                               |
+| Clear Sweep          | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                               |
+| PWR (sweep power)    | Slider                                                                                               | 1 W                                                                                                                                                                                                                                                                                                                                             |
 
 The ⬈ / ↩, □, and × buttons are hidden in single-panadapter mode. They appear only when more than one panadapter is open.
+
 ## CW decode panel
 
 The CW decode panel appears beneath the spectrum when enabled. It requires PC audio routing to function — a "(requires PC Audio)" reminder is shown when audio is not yet routed.
@@ -56,6 +60,33 @@ Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click
 ### Right-click menu on the CW decode text area
 
 Right-clicking inside the CW decode text area opens a context menu. In addition to the standard text actions (Select All, Copy, and so on), the menu includes a **Clear** item. Selecting **Clear** has the same effect as clicking the **CLR** button — it clears the decode buffer.
+
+## ANT panel SWR sweep controls
+
+The ANT panel includes controls for running a low-power SWR sweep across the current TX band and displaying the result on the panadapter.
+
+- **Start Sweep** — runs a low-power tune sweep across the current TX band and plots SWR on the panadapter. The sweep uses the slice associated with the current panel and the power level set by the PWR slider. When a TGXL antenna tuner is in use, the sweep automatically bypasses the tuner before sweeping and restores the original tuner state when it finishes or is aborted.
+- **Clear Sweep** — removes the displayed SWR sweep trace from the panadapter.
+- **PWR slider** — sets the carrier power used during the sweep. Range is 1 W to 10 W. The current value is shown as a read-only label to the right of the slider. The slider can also be set programmatically via `setSwrSweepPowerWatts`; the label updates automatically.
+
+### SWR sweep phases
+
+The sweep progresses through the following internal phases. These are not directly visible in the UI but determine what the radio is doing at each point during the sweep:
+
+| Phase | Description |
+|---|---|
+| Idle | No sweep in progress. |
+| WaitingForTgxlBypass | Waiting for the TGXL tuner to confirm bypass mode before RF starts. |
+| TgxlBypassSettle | Allowing a settle period after the TGXL bypass is confirmed. |
+| Sweeping | Stepping through sweep frequencies and collecting SWR samples. |
+| StoppingTune | Waiting for the radio to stop the tune carrier after the sweep completes or is aborted. |
+| RestoringTgxl | Restoring the TGXL tuner to its original operate/bypass state. |
+
+SWR readings can be sourced from the radio's own forward/reflected power meters or from the TGXL tuner's meter, depending on which is available for the connected antenna port.
+
+## DSP row visibility (extended DSP, #2177)
+
+The NRL noise-reduction row (DSP row 4) is available on both 6000-series and 8000-series firmware and is always visible regardless of whether extended DSP is enabled. The NRS (row 5), RNN (row 6), and NRF (row 8) rows remain hidden unless the connected radio reports extended DSP support.
 
 ## Tips
 

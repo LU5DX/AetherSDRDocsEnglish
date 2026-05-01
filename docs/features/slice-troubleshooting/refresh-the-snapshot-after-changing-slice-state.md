@@ -1,3 +1,5 @@
+The diff changes are internal implementation details (moving variable declarations and adding fields to the `rxRoute` JSON object in the diagnostics snapshot). These changes affect what data appears in the JSON snapshot under `rx_route` — specifically, seven new `remote_audio_rx_*` fields are now included. The documentation should reflect that the JSON snapshot now captures additional remote audio RX state fields. No controls were added or removed (the catalog entry confirms `"controls": []`).
+
 # Refresh the snapshot after changing slice state
 
 After you change slice settings — such as adjusting audio routing, toggling mute, or switching antennas — the Slice Troubleshooting dialog does not update automatically. Use **Refresh Snapshot** to re-read the current slice state so the Issue Summary and JSON reflect your changes.
@@ -49,6 +51,20 @@ For each slice, the summary reports:
 - Engine RX volume, mute state, and whether RX audio is streaming.
 - **Radio stream route:** Reports the remote audio RX stream ID, whether the stream is expected, whether creation or removal is pending, whether a status message has been seen, and whether this client owns the stream.
 - TX input route, microphone selection, DAX TX mode, and related settings.
+
+## What the JSON snapshot includes
+
+The `rx_route` object in the JSON snapshot includes the following remote audio RX fields:
+
+| Field                                    | Description                                                                 |
+|------------------------------------------|-----------------------------------------------------------------------------|
+| `remote_audio_rx_stream_id`              | The stream ID assigned to the remote audio RX stream.                       |
+| `remote_audio_rx_stream_id_known`        | Whether the stream ID is currently known to this client.                    |
+| `remote_audio_rx_create_pending`         | Whether a stream creation request is pending.                               |
+| `remote_audio_rx_remove_requested`       | Whether a stream removal has been requested.                                |
+| `remote_audio_rx_status_seen`            | Whether a status message for the stream has been received.                  |
+| `remote_audio_rx_owned_by_us`            | Whether this client owns the remote audio RX stream.                        |
+| `remote_audio_rx_expected`               | Whether a remote audio RX stream is expected to exist.                      |
 
 ## Status indicator
 

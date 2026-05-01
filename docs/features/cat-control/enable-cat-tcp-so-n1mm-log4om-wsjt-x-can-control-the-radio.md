@@ -1,3 +1,5 @@
+The diff touches only `AppletPanel.h` — it adds a `ShackSwitchApplet` class and its associated button and visibility method. Nothing in that diff changes the `CatControlApplet` class, its controls, its behavior, its ports, or any fact documented on this page. The current documentation remains fully accurate.
+
 # Enable CAT TCP so N1MM, Log4OM, WSJT-X can control the radio
 
 The CAT Control applet runs up to four rigctld-compatible TCP servers, one per slice channel (A–D), so external logging and contest software can control the radio over a network socket. Use this page to start those servers and point your logging software at the correct port.

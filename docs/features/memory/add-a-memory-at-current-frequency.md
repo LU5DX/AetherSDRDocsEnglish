@@ -1,3 +1,5 @@
+The source diff adds SWR sweep controls (`setSwrSweepPowerWatts`, `swrSweepStartRequested`, `swrSweepPowerChanged`, `swrSweepClearRequested`, and associated UI widgets) to `SpectrumOverlayMenu`. The catalog entry confirms the symbol being documented is `SpectrumOverlayMenu::quickAddMemoryRequested`, which is unaffected by the diff. No changes to the documented feature (Add a memory at current frequency) are indicated. The document is returned unchanged.
+
 # Add a memory at current frequency
 
 Open the Memory Channels dialog and save the active VFO frequency as a new memory channel entry. Use this to bookmark a frequency you want to return to later.

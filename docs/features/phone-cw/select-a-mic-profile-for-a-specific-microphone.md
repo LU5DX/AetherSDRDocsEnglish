@@ -47,6 +47,12 @@ Toggling VOX via a keyboard shortcut now causes the Phone panel to refresh immed
 
 On Windows, the client-side sidetone stream (CwSidetoneGenerator) now starts correctly as soon as AetherSDR connects to the radio. A bug in the AudioEngine initialization order prevented the stream from starting until the applet was interacted with manually (#2105).
 
+## Changes in v0.9.4
+
+### Tune power changes now emit a state update
+
+Previously, calling `setTunePower` sent the `transmit set tunepower=` command to the radio but did not emit `stateChanged`, so any UI controls bound to tune power could remain out of sync until the next unrelated state update. In v0.9.4, `setTunePower` only updates the stored value and emits `stateChanged` when the value actually changes, then unconditionally sends the command to the radio. UI controls reflecting tune power now update immediately when the value is set.
+
 ## Related
 
 - [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)

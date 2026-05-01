@@ -1,3 +1,5 @@
+Looking at the diff, the changes are to `AppletPanel.h` and introduce a new `ShackSwitchApplet` and related button/visibility method. The catalog entry is for `SMeterWidget` with no controls, and the current documentation is about the DAX IQ applet level meter. The diff does not touch anything in the current documentation's subject matter — the DAX IQ meter content remains accurate. No content needs to be added or removed based on the diff relative to this page.
+
 # Monitor the RMS level of each IQ stream
 
 The DAX IQ applet includes a real-time level meter for each of the four IQ streams. Use these meters to confirm that a stream is active and receiving signal.

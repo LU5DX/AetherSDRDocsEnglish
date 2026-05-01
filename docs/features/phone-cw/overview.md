@@ -51,6 +51,10 @@ The local sidetone is suitable for paddle, straight-key, and CWX-generated trans
 
 When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes immediately to reflect the new VOX state (#2084). In earlier versions the panel did not update until some other UI event occurred.
 
+## ShackSwitch applet (v0.9.4)
+
+The Applet Panel now hosts a **ShackSwitch** applet alongside the existing applets. When a ShackSwitch device is detected, its button and applet become visible automatically. When the device is no longer present, they are hidden. No manual configuration is required to show or hide this applet — AetherSDR manages visibility through the `setShackSwitchVisible` method based on device presence.
+
 ## Tips
 
 - The `PcMicGain` value is stored client-side only. If you switch mic source away from PC and back, AetherSDR restores the saved value rather than reading from the radio.

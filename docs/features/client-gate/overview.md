@@ -45,6 +45,7 @@ The controls listed below appear identically in both the TX and RX applets. The 
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
 
 The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (TX) and `ClientGateRxEnabled` (RX).
+
 ## Visual indicators
 
 | Indicator | States | Meaning |

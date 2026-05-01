@@ -1,3 +1,5 @@
+The diff touches `SpectrumOverlayMenu` — adding SWR sweep controls and signals — which is unrelated to the `AetherDSP Settings` page (which covers `SpectrumOverlayMenu::nr4Toggled` only incidentally and describes DSP dialog tabs). The catalog entry confirms the symbol is `nr4Toggled` with no controls. Nothing in the diff changes anything described in this document. The page is accurate as-is.
+
 # AetherDSP Settings overview
 
 AetherDSP Settings gives you fine-grained control over AetherSDR's client-side noise-reduction engines. Use this dialog to tune the tradeoff between noise suppression and speech fidelity across four configurable engines: NR2, NR4, MNR, and DFNR.

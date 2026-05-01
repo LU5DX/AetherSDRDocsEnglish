@@ -5,7 +5,7 @@ Use this page to assign a function and polarity to the DTR and RTS output pins o
 ## Before you start
 
 - The radio must be connected. The Serial tab requires an active radio connection.
-- The Serial tab is only present when AetherSDR was built with serial port support (`HAVE_SERIALPORT`). If you do not see a Serial tab or a `Settings > FlexControl...` menu item, your build does not include this feature.
+- The Serial tab is only present when AetherSDR was built with serial port support (`HAVE_SERIALPORT`), or on Windows (where `Q_OS_WIN` is defined). If you do not see a Serial tab or a `Settings > FlexControl...` menu item, your build does not include this feature.
 - Know the device path of your serial port (for example, `/dev/ttyUSB0` on Linux or `COM3` on Windows).
 
 ## Steps
@@ -132,4 +132,4 @@ The **Antenna Genius (AG)** Connect/Disconnect row now shows a connected status 
 
 ### ShackSwitch row
 
-A new **ShackSwitch** row has been added below the Antenna Genius row. It follows the
+A new **ShackSwitch**

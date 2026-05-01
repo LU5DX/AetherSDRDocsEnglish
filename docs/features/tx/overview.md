@@ -46,6 +46,10 @@ None of the TX Controls settings are persisted by AetherSDR; values follow the r
 
 APD moves through three states in sequence: **Cal** (calibrating) → **Avail** (calibration ready, not yet applied) → **Active** (equalizer applied to the transmitted signal).
 
+## ShackSwitch applet
+
+V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, the Applet Panel shows its tray button and applet automatically. Both are hidden when no ShackSwitch device is present. No manual configuration is required to show or hide this applet.
+
 ## Tips
 
 - Keep **Tune Pwr** low (the default is 10) to avoid stressing the antenna or amplifier during ATU tuning.

@@ -71,6 +71,20 @@ Filter width presets are the one setting that persists across sessions, stored u
 | XIT 0 | — | Zeroes the XIT offset immediately. |
 | XIT offset | +0 Hz | Adjust with the left/right buttons or mouse wheel in 10 Hz steps. |
 
+### Noise reduction and DSP filter buttons
+
+The following DSP filter buttons are visible in non-FM modes. Button availability depends on the radio series.
+
+| Button | Availability | Behavior |
+|---|---|---|
+| NR | All series | Enables noise reduction. Hidden in FM family modes. |
+| NR2 | All series | Enables noise reduction mode 2. Hidden in FM family modes. |
+| NB | All series | Enables noise blanker. Hidden in FM family modes. |
+| NRL | All series (including 6000-series) | Enables noise reduction (NRL algorithm). Hidden in FM family modes. Available on 6000-series radios as of V0.9.4; previously required 8000-series firmware. |
+| NRS | 8000-series only | Enables NRS noise reduction. Hidden in FM family modes. |
+| RNN | 8000-series only | Enables RNN noise reduction. Hidden in CW and FM family modes. |
+| NRF | 8000-series only | Enables NRF noise reduction. Hidden in FM family modes. |
+
 ### Indicators
 
 | Indicator | States | Meaning |
@@ -91,23 +105,51 @@ These controls are visible only when the slice mode is FM, NFM, or DFM.
 | + (offset up) | — | — | Sets the TX frequency above the RX frequency by the offset amount. |
 | REV | — | — | Inverts the offset direction to work a reversed repeater pair. |
 
+## Peripherals tab — manual IP connect
+
+The Peripherals tab in the Radio Setup dialog lets you manually connect to external devices by IP address. The following rows are available.
+
+### Antenna Genius (AG) — row 3
+
+Connects to an Antenna Genius device at the specified IP and port. The "Connected" status is shown only when the connected device is an Antenna Genius proper. If the connection is actually to a ShackSwitch, the AG row shows as disconnected and the ShackSwitch row shows as connected instead.
+
+### ShackSwitch — row 4 (added in V0.9.4)
+
+| Control | Setting key | Default | Behavior |
+|---|---|---|---|
+| IP address field | `SS_ManualIp` | — | Enter the IP address of the ShackSwitch. |
+| Port field | `SS_ControlPort` | 9007 | Port used for the AG control protocol. Always connects on port 9007 regardless of the value entered. |
+| Connect button | — | — | Connects to the ShackSwitch at the specified IP on port 9007 using the AG control protocol. |
+| Disconnect button | — | — | Disconnects from the ShackSwitch. |
+| Connected status | — | — | Shows "Connected" only when the active connection is to a ShackSwitch device. |
+| ⚙ Web UI button | `SS_ManualIp`, `SS_WebPort` | port 5000 | Opens the ShackSwitch web interface in your browser. Uses the live peer address if a ShackSwitch is currently connected. Uses `SS_WebPort` from settings if set and greater than 1024, otherwise falls back to the device's advertised `webPort` if valid (>1024), then defaults to port 5000. Does nothing if no IP address can be determined. |
+
+Both the AG and ShackSwitch rows share the underlying `AntennaGeniusModel` connection. Connecting to one will reflect as disconnected in the other.
+
+## AppletPanel accessors and visibility methods
+
+The following accessor methods and visibility helpers are available on `AppletPanel`. They are used internally and by code that coordinates device presence with applet state.
+
+### Applet accessors
+
+| Method | Returns | Description |
+|---|---|---|
+| `tciApplet()` | `TciApplet*` | Returns the TCI applet instance. |
+| `daxIqApplet()` | `DaxIqApplet*` | Returns the DAX IQ applet instance. |
+| `agApplet()` | `AntennaGeniusApplet*` | Returns the Antenna Genius applet instance. |
+| `ssApplet()` | `ShackSwitchApplet*` | Returns the ShackSwitch applet instance. Added in V0.9.4. |
+| `meterApplet()` | `MeterApplet*` | Returns the meter applet instance. |
+| `mqttApplet()` | `MqttApplet*` | Returns the MQTT applet instance. Available only in HAVE_MQTT builds. |
+
+### Visibility helpers
+
+| Method | Description |
+|---|---|
+| `setAgVisible(bool visible)` | Shows or hides the Antenna Genius button and applet based on device presence. |
+| `setShackSwitchVisible(bool visible)` | Shows or hides the ShackSwitch applet based on device presence. Added in V0.9.4. |
+| `resetOrder()` | Resets applet order to the default arrangement. |
+
 ## Tips
 
 - The L / R pan slider has a centre-mark dot on the groove to help you find 50 by eye. Double-clicking always resets it to 50 regardless of the current position.
-- Right-clicking a filter preset button saves the current filter width into that slot, letting you customise presets per mode. These are stored in `FilterPresets` and survive application restarts.
-- The Frequency edit field accepts kHz and Hz auto-scaling, so you do not need to type leading zeros for sub-MHz values.
-- Per-slice colors are managed by SliceColorManager. Changes you make to slice colors are reflected consistently across the slice tab buttons, the slice badge, VFO widgets, and meter strips, and persist across sessions.
-
-## Related
-
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
-- [Pick a filter width preset for the current mode](pick-a-filter-width-preset-for-the-current-mode.md)
-- [Select the RX or TX antenna for this slice](select-the-rx-or-tx-antenna-for-this-slice.md)
-- [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md)
-- [Use RIT to offset the receive frequency for a drifting station](use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
-- [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
-- [Work an FM repeater with CTCSS tone and +/- offset](work-an-fm-repeater-with-ctcss-tone-and-offset.md)
-- [Lock the slice to prevent accidental retuning](lock-the-slice-to-prevent-accidental-retuning.md)
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
-- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+- Right-clicking a filter preset button saves the current filter width into that slot, letting you customise presets per mode. These are stored in

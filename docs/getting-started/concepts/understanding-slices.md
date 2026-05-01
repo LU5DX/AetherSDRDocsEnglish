@@ -47,6 +47,29 @@ Both are independent per slice.
 
 To prevent accidental retuning, click the 🔓 button in the RX Controls applet. The icon changes to 🔒 and the slice ignores frequency changes until unlocked.
 
+## SWR sweep overlay
+
+V0.9.4 adds a SWR sweep overlay that draws SWR versus frequency data directly on the panadapter spectrum. When a sweep is active, each data point maps its frequency (in MHz) to a horizontal position on the spectrum and plots the corresponding SWR value as a line overlay. The overlay is drawn on both the GPU-accelerated and software-rendered painting paths.
+
+The overlay has three states:
+
+| State | Description |
+|-------|-------------|
+| No data | Overlay is not drawn. Call `clearSwrSweepPoints()` to return to this state. |
+| Sweep in progress | Overlay is drawn and a cursor marks the current sweep frequency. Set `running = true` and supply `currentFreqMhz` when calling `setSwrSweepPoints()`. |
+| Sweep complete | Overlay is drawn without a cursor marker. Set `running = false` when calling `setSwrSweepPoints()`. |
+
+An optional source label (for example, the name of the antenna tuner or analyser providing the data) can be passed via the `sourceLabel` parameter and is displayed on the overlay.
+
+To update the overlay, call `setSwrSweepPoints()` with a vector of `SwrSweepPoint` values. Each point carries:
+
+- `freqMhz` — frequency of the measurement, in MHz (default `0.0`).
+- `swr` — SWR value at that frequency (default `1.0`).
+
+Points with non-finite `freqMhz` or `swr` values are silently skipped. Points whose mapped x-coordinate falls outside the visible spectrum area are not drawn.
+
+To remove the overlay, call `clearSwrSweepPoints()`.
+
 ## Tips
 
 - The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter.

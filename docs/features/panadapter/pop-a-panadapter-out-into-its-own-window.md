@@ -1,3 +1,5 @@
+The diff touches only internal implementation details in `MainWindow.h` — private methods, internal state structs, enums, and timers related to an SWR sweep feature and an AG manual connect timer. None of these changes affect the `PanadapterApplet` catalog entry (which lists no controls) or any user-visible behavior described in the current documentation. All existing content remains accurate.
+
 # Pop a panadapter out into its own window
 
 When you have more than one panadapter open, you can detach any of them into a separate floating window. This is useful for placing the panadapter on a second monitor or resizing it independently from the main AetherSDR layout.
@@ -27,6 +29,7 @@ When you have more than one panadapter open, you can detach any of them into a s
 | **□** (maximize) | Expands this panadapter to fill the main area.                                       | —       |
 | **×** (close)    | Closes this panadapter.                                                              | —       |
 | Slice title      | Indicator showing which slice is bound to this panadapter (Slice A through Slice H). | Slice A |
+
 ## CW decode panel
 
 When the CW decode panel is open, it appears below the spectrum and waterfall. The panel decodes Morse code from PC audio routed to AetherSDR.

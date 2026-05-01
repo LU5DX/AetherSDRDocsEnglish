@@ -31,6 +31,7 @@ The Phone applet is organized into four functional areas:
 | DEXP threshold | Slider                                                              | 0                                                                                                                                         |
 | Low Cut < / >  | Spinbox                                                             | 50 Hz                                                                                                                                     |
 | High Cut < / > | Spinbox                                                             | 3300 Hz                                                                                                                                   |
+
 ## Tips
 
 - The **DEXP** and **DEXP threshold** controls persist their values locally via `DexpEnabled` and `DexpLevel` even though the radio rejects the commands on firmware v1.4.0.0. The saved values will apply automatically if a future firmware version resolves the error.

@@ -49,6 +49,7 @@ Right-clicking anywhere in the decoded text area opens a context menu. In additi
 | CLR             | Button               | —                          |
 | ✕ (close CW)    | Button               | —                          |
 | CW decode text  | Read-only text field | —                          |
+
 ## Notes
 
 - The CW decode panel requires PC audio routing to function. If audio is not configured the panel shows the reminder `(requires PC Audio)`.

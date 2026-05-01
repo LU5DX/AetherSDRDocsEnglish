@@ -1,3 +1,5 @@
+The source diff touches only `AppletPanel.h` — it adds `ShackSwitchApplet` infrastructure (a new applet class, accessor, visibility method, and button) to the panel. The catalog entry for `ClientDeEssApplet` is unchanged: no controls were added, removed, or modified. Every fact in the current documentation remains accurate. No update to the De-Esser page is warranted.
+
 # Aetherial De-Esser overview
 
 The Aetherial De-Esser is a TX-only client-side processor that reduces harsh sibilance ("S" and "T" sounds) in your transmitted audio. It works by monitoring a narrow frequency band and ducking it when the signal level in that band exceeds a set threshold.

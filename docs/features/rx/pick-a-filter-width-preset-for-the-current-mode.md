@@ -32,6 +32,22 @@ Use the filter width preset buttons in the RX Controls applet to quickly apply a
 | RTTY                   | 250, 300, 350, 400, 500, 1000                                                                                                                                           |                         |
 | FM, NFM, DFM           | No presets (buttons hidden)                                                                                                                                             |                         |
 
+## Noise reduction and DSP filter button visibility
+
+The following table summarises which noise-reduction and DSP filter buttons are visible based on radio series and mode.
+
+| Button | 6000-series | 8000-series (extended DSP) | Hidden when |
+|--------|-------------|---------------------------|-------------|
+| NR     | Yes         | Yes                       | FM mode     |
+| NR2    | Yes         | Yes                       | FM mode     |
+| NB     | Yes         | Yes                       | FM mode     |
+| NRL    | Yes         | Yes                       | FM mode     |
+| NRS    | No          | Yes                       | FM mode     |
+| RNN    | No          | Yes                       | CW or FM mode |
+| NRF    | No          | Yes                       | FM mode     |
+
+Prior to V0.9.4, the NRL button was only shown on 8000-series radios (extended DSP). Starting in V0.9.4, NRL is also available on 6000-series radios. NRS, RNN, and NRF remain 8000-series only.
+
 ## Slice tab and badge colors (v0.9.3)
 
 Starting in v0.9.3, slice tab buttons and the slice badge use per-slice colors managed by the `SliceColorManager` singleton rather than a fixed color table. The active border, background highlight on the tab buttons, and the badge background all reflect the color assigned to that slice. Colors persist across sessions and are also reflected in VFO widgets and meter strips. No action is required; the colors update automatically when a slice is connected.
@@ -46,6 +62,7 @@ Starting in v0.9.3, slice tab buttons and the slice badge use per-slice colors m
 
 - **Preset buttons are not visible** — The active mode is FM, NFM, or DFM. These modes do not expose filter presets. Change the mode using the Mode combo to a mode that supports presets (for example, USB or CW).
 - **Right-click on a preset button does nothing visible** — Confirm the slice is connected to the radio. The RX applet requires an active radio connection to save preset values.
+- **NRL button is not visible on a 6000-series radio** — Confirm you are running V0.9.4 or later. Earlier versions restricted NRL to 8000-series radios only.
 - **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
 
 ## Related

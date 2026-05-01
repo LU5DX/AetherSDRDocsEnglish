@@ -57,6 +57,29 @@ If you have settings from a previous version that reference `CwLocalSidetoneEnab
 
 When **Mic source** is set to **PC**, the **Level** gauge uses client-side metering and is not suppressed by the radio's `met_in_rx` flag. The gauge appears immediately on connect and shows the PC microphone input level whether or not the radio is transmitting. For all other mic sources, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
 
+## NRL noise reduction availability (v0.9.4)
+
+The NRL (noise reduction, row 4) DSP mode is now available on 6000-series radios as well as 8000-series radios. In previous releases, NRL was hidden unless the connected radio reported extended DSP firmware. It now remains visible regardless of firmware capability. NRS (row 5), RNN (row 6), and NRF (row 8) continue to require 8000-series firmware and are hidden on other hardware (#2177).
+
+## SWR sweep controls (v0.9.4)
+
+The ANT panel in the Spectrum Overlay Menu includes two new buttons and a power slider for running an SWR sweep across the current TX band.
+
+| Control              | Kind          | Range  | Default | Description                                                                                     |
+|----------------------|---------------|--------|---------|-------------------------------------------------------------------------------------------------|
+| **Start Sweep**      | Button        | —      | —       | Runs a low-power tune sweep across the current TX band and plots SWR on the panadapter.         |
+| **Clear Sweep**      | Button        | —      | —       | Removes the SWR sweep trace from the panadapter display.                                        |
+| **PWR** (sweep power) | Slider       | 1–10 W | 1 W     | Sets the carrier power level used during the sweep. Adjust before clicking **Start Sweep**.     |
+
+To run a sweep:
+
+1. Open the Spectrum Overlay Menu and select the **ANT** panel.
+2. Set the desired sweep carrier power with the **PWR** slider. The current wattage is shown to the right of the slider.
+3. Click **Start Sweep**. The panel closes and the sweep runs; the result is plotted on the panadapter.
+4. Click **Clear Sweep** to remove the trace when finished.
+
+The **PWR** slider value is kept in sync if the sweep power is changed from another source (for example, a connected controller).
+
 ## Related
 
 - [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)

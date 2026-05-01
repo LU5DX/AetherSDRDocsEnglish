@@ -1,3 +1,11 @@
+Looking at the diff, the changes are to `SpectrumOverlayMenu` — specifically adding SWR sweep controls (a start button, clear button, power slider, and power label), plus related signals and a setter method. However, the catalog entry is for `SpectrumOverlayMenu::quickAddMemoryRequested`, which is not touched by the diff at all, and the current documentation page covers memory channel overlays on the panadapter.
+
+The diff does not change anything related to `quickAddMemoryRequested`, the memory overlay toggle, or any of the controls documented on this page. All documented controls and behaviors remain accurate. The SWR sweep additions are a separate area of the menu and do not affect this page's scope.
+
+No changes are needed to the documentation. Returning the complete document unchanged.
+
+---
+
 # Overlay memory channels on the panadapter
 
 Memory channels stored in your FLEX-8600 can be displayed as spot-like markers on the panadapter, making it easy to see saved frequencies in context with live signals. This page explains how to turn that overlay on and adjust it alongside other spot settings.

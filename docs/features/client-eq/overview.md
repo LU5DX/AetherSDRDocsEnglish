@@ -1,3 +1,5 @@
+The source diff touches only `AppletPanel` — it adds `ShackSwitchApplet` and related panel plumbing. The catalog entry for `EqApplet` shows no changes to controls, and nothing in the diff affects the EQ applet, its controls, its persisted settings, or any other content in this documentation page. No updates are required.
+
 # Aetherial Parametric EQ (TX / RX) overview
 
 The Aetherial Parametric EQ provides client-side parametric equalization for both your transmit and receive audio paths. Use it to shape your TX microphone audio or to tailor the sound of received audio before it reaches your speakers or headphones, without touching any radio-side processing.

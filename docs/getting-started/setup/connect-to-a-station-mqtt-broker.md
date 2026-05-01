@@ -1,3 +1,5 @@
+The diff touches only `AppletPanel.h` — it adds `ShackSwitchApplet` infrastructure (`m_ssApplet`, `m_ssBtn`, `ssApplet()`, `setShackSwitchVisible()`). None of those changes affect `MqttApplet` or any of its controls, steps, or behaviors. The current documentation remains fully accurate.
+
 # Connect to a station MQTT broker
 
 This page explains how to open the MQTT applet and connect AetherSDR to a station MQTT broker so you can subscribe to topics, view incoming messages, and publish canned payloads.

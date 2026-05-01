@@ -31,6 +31,7 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 - If the Device combo contains a discovered device, clicking Connect connects to that device, not the Manual IP. Clear or ignore the combo selection if you want the Manual IP to take effect via the Connect button. Pressing Enter in the Manual IP field always uses the typed address regardless of the combo state.
 - Port B is hidden automatically if the connected Antenna Genius reports only one radio port.
 - Auto-connect on discovery applies only to Antenna Genius devices. If a ShackSwitch is discovered on the same network, it is not auto-connected from this applet; it is handled by the ShackSwitch applet instead.
+- If the connected device is identified as a ShackSwitch, AetherSDR uses the `SS_ManualPort` setting as a fallback when the web UI port cannot be determined from the device (`webPort` reports 0).
 
 ## Troubleshooting
 

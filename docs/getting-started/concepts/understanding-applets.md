@@ -41,12 +41,15 @@ If you have rearranged applets and want to return to the default layout:
 | `Pop Out Applet Panel` | `View` menu | Floats the applet panel into a separate window or docks it back. Shortcut: `Ctrl+Shift+S`. Checkable. |
 | `Reset Applet Order` | `View` menu | Restores the applet panel to its default applet order. |
 | Tray buttons | Top of applet panel | Each button shows or hides one applet inside the panel (for example, RX, TX, TCI). |
+| `AG` tray button | Top of applet panel | Shows or hides the AntennaGenius applet. Visible only when an AntennaGenius device is connected. |
+| `SS` tray button | Top of applet panel | Shows or hides the ShackSwitch applet. Visible only when a ShackSwitch device is connected. |
 
 ## Tips
 
 - If you are running AetherSDR on a small display, use `View > Minimal Mode` (`Ctrl+M`) together with hiding the applet panel to maximize panadapter space.
 - When the applet panel is popped out, you can move it to a second monitor independently of the main window.
 - If tray buttons or applets appear in an unexpected order after an update, use `View > Reset Applet Order` to restore the defaults.
+- The ShackSwitch (`SS`) tray button appears after the AntennaGenius (`AG`) button. It is only shown when a ShackSwitch device is present.
 
 ## Related
 

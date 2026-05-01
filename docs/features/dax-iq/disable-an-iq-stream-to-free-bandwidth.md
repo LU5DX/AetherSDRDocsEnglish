@@ -1,3 +1,5 @@
+Looking at the source diff, the changes are to `SpectrumOverlayMenu` (SWR sweep controls), not to `daxIqChannelChanged` or the DAX IQ channel functionality documented on this page. The catalog entry confirms `daxIqChannelChanged` has no controls changed. Nothing in this diff affects the content of the current documentation page.
+
 # Disable an IQ stream to free bandwidth
 
 Each active DAX IQ stream consumes radio DSP resources and network bandwidth. Disabling a stream you are not using releases that capacity for other slices, audio streams, or IQ channels.

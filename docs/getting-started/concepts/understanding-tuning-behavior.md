@@ -54,6 +54,50 @@ A few actions always hard-center regardless of the rules above:
 
 These are command-style actions where you're asking for a clean reset, so they're deliberately more assertive than contextual tuning.
 
+## SWR sweep
+
+V0.9.4 adds a built-in SWR sweep that steps a transmit slice across a range of frequencies, samples forward power at each step, and plots the resulting SWR curve on the panadapter overlay.
+
+### How the sweep works
+
+1. AetherSDR selects the target slice — either the one you specify or the currently active slice.
+2. If a TGXL amplifier is connected, the sweep requests bypass mode and waits for it to settle before keying the transmitter.
+3. The sweep steps through the frequency list. At each step it commands the slice to the target frequency, waits a configurable settle time, then reads the SWR meter (from the radio or from the TGXL, depending on what is available).
+4. When all steps are complete, the sweep restores the original frequency, panadapter center, and panadapter bandwidth. If a TGXL was bypassed, its original operate/bypass state is restored.
+5. The SWR curve is drawn as an overlay on the panadapter. It remains visible until you start a new sweep or clear it explicitly.
+
+If the sweep is aborted — for example, because you disconnect mid-sweep or manually cancel it — AetherSDR still attempts to restore the slice and TGXL state before exiting.
+
+### SWR sweep states
+
+The sweep moves through the following internal phases. You will not normally need to track these, but they appear in diagnostic logs.
+
+| Phase | Meaning |
+|---|---|
+| Idle | No sweep in progress. |
+| WaitingForTgxlBypass | Bypass command sent to the TGXL; waiting for confirmation. |
+| TgxlBypassSettle | TGXL confirmed bypass; waiting the settle delay before keying RF. |
+| Sweeping | Stepping through frequencies and collecting samples. |
+| StoppingTune | Sweep complete or aborted; waiting for the transmitter to stop. |
+| RestoringTgxl | Transmitter stopped; restoring TGXL to its original state. |
+
+### SWR meter source
+
+AetherSDR automatically selects the meter source:
+
+- **Radio** — used when no TGXL is present, or when the TGXL does not provide its own SWR reading.
+- **TGXL** — used when a TGXL is connected and reports SWR data directly.
+
+The source label is recorded with the sweep result and shown in the overlay.
+
+### Notes and limitations
+
+- The sweep temporarily locks the slice frequency and panadapter controls. Other slices on the same panadapter are unaffected.
+- The applet panel and pan stack are suspended during the sweep to reduce UI load; they are re-enabled when the sweep finishes.
+- Sweep transmit power defaults to 1 W. You can specify a higher power when starting the sweep programmatically; keep power low to avoid stressing an unmatched load across the whole sweep range.
+- If the TGXL does not confirm bypass within the timeout window, the sweep aborts and logs a timeout reason. The TGXL is not left in an unknown state — AetherSDR records whether a restore is needed and acts accordingly.
+- A deferred manual connect timer is cancelled automatically on disconnect, so a pending AG manual connect will not fire after you go offline.
+
 ## Tips
 
 - **Feels jumpy when scrolling?** Make sure you're using wheel or trackpad scroll, not click-tune. Scroll is incremental; clicks are jumps.
@@ -67,6 +111,8 @@ These are command-style actions where you're asking for a clean reset, so they'r
 - **Clicking a spot sometimes recenters and sometimes doesn't.** Ordinary cluster spots only recenter if the target was off-screen. Memory spots always recenter. If the behavior surprises you, check whether the spot is a memory spot or a regular cluster/band-stack entry.
 - **My off-screen active slice is showing but not centered.** That's the reveal-off-screen policy. Use **Center Slice** explicitly to snap to it.
 - **Cross-panadapter clicks feel stuttery.** The active-slice switch is deliberately deferred to prevent UI churn mid-gesture. If you want to work on a specific panadapter, click once to activate its slice, then tune.
+- **The SWR sweep aborted with a TGXL timeout message.** The TGXL did not confirm bypass in time. Check that the TGXL is powered and connected, then retry. The radio and TGXL state will have been restored before the abort completed.
+- **The SWR overlay disappeared after I switched bands.** Starting a new sweep or switching bands clears the previous overlay. Re-run the sweep on the new band to generate a fresh plot.
 
 ## Related
 

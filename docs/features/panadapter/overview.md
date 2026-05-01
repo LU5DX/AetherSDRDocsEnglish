@@ -17,6 +17,8 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 
 **CW decode panel.** An optional panel can appear beneath the waterfall. It runs an off-air Morse decoder and displays decoded text in a rolling read-only field, colour-coded by decoder confidence. The panel is hidden by default and is enabled from the CW mode controls. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
 
+**SWR sweep.** A built-in SWR sweep function steps the transmitter across a range of frequencies and plots the measured SWR. The sweep temporarily takes control of the slice frequency and tune power, then restores all settings when it finishes or is aborted. When a TGXL amplifier is connected, the sweep automatically places it in bypass mode for the duration of the sweep and restores it afterwards.
+
 ## What each control does
 
 ### Title bar
@@ -50,12 +52,39 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | × (close CW) | Button | — | — | — | Hides the CW decode panel. |
 | CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, coloured by confidence: green (highest confidence) through yellow and orange to red (lowest). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
 
+## SWR sweep
+
+The SWR sweep steps the transmitter across a user-defined frequency range and plots the measured SWR as an overlay on the panadapter. Use it to locate the resonant point of an antenna or check tuner performance across a band segment.
+
+**How the sweep runs.** When you start a sweep, AetherSDR records the current slice frequency, panadapter centre and bandwidth, and tune power. If a TGXL amplifier is active on the slice, the sweep waits for TGXL to enter bypass mode before transmitting. The sweep then steps through each frequency, waits a configurable settle time, samples SWR, and advances. On completion — or if you abort — all original settings are restored. If TGXL bypass restoration times out, the sweep finishes but logs a warning.
+
+**SWR source.** The sweep reads SWR from either the radio's internal meter or, when a TGXL is present and available, from the TGXL meter. The source used is shown in the overlay label.
+
+**Sweep phases.** The sweep moves through the following internal phases in order:
+
+| Phase | What is happening |
+|---|---|
+| Idle | No sweep active. |
+| WaitingForTgxlBypass | Sent bypass request to TGXL; waiting for confirmation. |
+| TgxlBypassSettle | TGXL confirmed bypass; waiting the settle interval before RF starts. |
+| Sweeping | Stepping through frequencies and collecting SWR samples. |
+| StoppingTune | Sweep complete; stopping the tune transmit. |
+| RestoringTgxl | Returning TGXL to its original operate/bypass state. |
+
+**Inputs are locked during a sweep.** Frequency controls, tune power, and TGXL operate/bypass controls are disabled while a sweep is running. They are re-enabled automatically when the sweep finishes or is aborted.
+
+**Overlay.** During and after the sweep, a SWR curve is drawn over the panadapter spectrum. A marker indicates the frequency currently being measured while the sweep is in progress. The overlay is cleared automatically if you start a new sweep, or you can clear it manually.
+
+**Deferred AG manual connect.** A timer manages deferred AG manual connection attempts. The timer is cancelled automatically on disconnect, preventing stale connection attempts from completing after the radio link is dropped.
+
 ## Tips
 
 - The Lo and Hi pitch sliders constrain the frequency range the decoder searches. Narrowing this range around the expected CW tone reduces false decodes on a busy band.
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
 - You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
+- Run the SWR sweep at the lowest power level sufficient to get a reliable reading. The sweep accepts a power value in watts; 1 W is the default.
+- If a TGXL is in use, do not abort the sweep immediately after it starts. Allow the bypass phase to complete so the amplifier is not inadvertently left in an inconsistent state.
 
 ## Related
 

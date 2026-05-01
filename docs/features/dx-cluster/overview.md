@@ -92,6 +92,36 @@ When **Use radio** is checked, the field displays the radio's callsign. Uncheck 
 |---|---|---|---|
 | **Station Msg:** | `FreeDvMyMessage` | — | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. |
 
+## SWR sweep overlay
+
+V0.9.4 adds a SWR sweep overlay that plots SWR versus frequency directly on the panadapter. An external source (for example, an antenna analyzer integration) supplies the data by calling `setSwrSweepPoints()`. The panadapter renders the curve via the internal `drawSwrSweep()` layer.
+
+### Supplying sweep data
+
+Call `setSwrSweepPoints()` with a vector of `SwrSweepPoint` values. Each point carries two fields:
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `freqMhz` | `double` | `0.0` | Frequency of the measurement in MHz. |
+| `swr` | `float` | `1.0` | SWR value at that frequency. |
+
+The method signature is:
+
+```
+setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `points` | `QVector<SwrSweepPoint>` | — | The sweep data to display. |
+| `running` | `bool` | `false` | Pass `true` while a sweep is in progress to indicate a live, incomplete trace. |
+| `currentFreqMhz` | `double` | `-1.0` | The frequency currently being swept. Pass `-1.0` to suppress the cursor. |
+| `sourceLabel` | `QString` | *(empty)* | Optional label identifying the source of the sweep data, shown on the overlay. |
+
+### Clearing sweep data
+
+Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
+
 ## Tips
 
 - RBN produces a very high spot rate. Set **Rate Limit:** to a value your display can handle before connecting, to avoid flooding the panadapter.
@@ -99,6 +129,7 @@ When **Use radio** is checked, the field displays the radio's callsign. Uncheck 
 - The **Calling Me** filter in the WSJT-X tab highlights decodes specifically addressed to your callsign, which makes it easy to see when a station is responding to your CQ.
 - **Auto Mode:** is useful during contests or DXpeditions when spot density varies significantly across bands and zoom levels.
 - Before enabling **Enable FreeDV Reporter reporting when RADE is active**, confirm your callsign and grid square are correctly set. The checkbox will not enable if either value is blank.
+- Call `clearSwrSweepPoints()` after a sweep completes if you do not want the finished trace to persist on the panadapter.
 
 ## Troubleshooting
 
@@ -106,18 +137,4 @@ When **Use radio** is checked, the field displays the radio's callsign. Uncheck 
 - **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
 - **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
 - **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can be activated. If **Use radio** is checked but the radio has no configured callsign, or **Use GPS** is checked but GPS has no fix, enter values manually after unchecking those options.
-- **DXCC coloring is not working** — Ensure an ADIF file has been loaded via **Log File (ADIF):** and that **DXCC Coloring** is enabled. The DXCC stats indicator shows how many QSOs were imported from the file.
-
-## Related
-
-- [Connect to a DX cluster](../../getting-started/setup/connect-to-a-dx-cluster.md)
-- [Connect to the Reverse Beacon Network](../../getting-started/setup/connect-to-the-reverse-beacon-network.md)
-- [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
-- [Enable SpotCollector UDP feed](enable-spotcollector-udp-feed.md)
-- [Poll POTA activations](poll-pota-activations.md)
-- [Enable FreeDV QSO reporter WebSocket](enable-freedv-qso-reporter-websocket.md)
-- [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
-- [Auto-reload ADIF log when updated by a logger](auto-reload-adif-log-when-updated-by-a-logger.md)
-- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
-- [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source)
+- **DXCC coloring is not working** — Ensure an ADIF file has been loaded via **Log File (ADIF):** and that **DXCC Coloring** is enabled. The DXCC stats indicator shows

@@ -1,3 +1,5 @@
+The source diff introduces a `ShackSwitchApplet` and its associated button (`m_ssBtn`) and visibility method (`setShackSwitchVisible`). The catalog entry is for `SMeterWidget` with no control changes. The diff touches `AppletPanel.h`, not the Meters applet itself — the gauges, thresholds, and all existing content remain accurate. The only documentation update warranted is noting that a ShackSwitch applet panel now exists as a peer of the Meters applet in the applet panel.
+
 # Meters overview
 
 The Meters applet displays real-time hardware telemetry from the connected FLEX-8600: PA temperature, DC supply voltage, and main cooling fan speed. Use it to watch radio health during operation without leaving the main AetherSDR window.
@@ -38,6 +40,10 @@ None of the gauges have persisted settings or user-adjustable controls. There ar
 - A PA Temp reading that regularly reaches the red zone (above 70 °C) during long transmissions may indicate inadequate ventilation around the radio.
 - The +13.8V gauge red threshold is 15 V. Readings consistently above that value suggest a power supply regulation issue worth investigating.
 - Main Fan speed will read zero until the radio publishes the MAINFAN meter. This is normal for the first few seconds after connecting.
+
+## Applet panel neighbors
+
+As of V0.9.4, the applet panel also hosts a **ShackSwitch** applet. Its tray button and panel are shown or hidden automatically based on whether a ShackSwitch device is detected. The ShackSwitch applet has no effect on Meters applet behavior.
 
 ## Related
 
