@@ -39,6 +39,7 @@ Buttons are also disabled and dim when the same antenna is already selected on t
 
 - **All buttons are dim after connecting** — The applet may not yet have received band information from the radio. Confirm the radio is tuned to a valid band and that the status label shows "Connected". If the applet was opened before the radio was on a band, change bands once to trigger a refresh.
 - **Colours do not update when changing bands** — The band-follow update requires an active connection to the Antenna Genius device. Verify the status label still reads "Connected — \<name\> v\<version\>" and that no error is displayed.
+- **A ShackSwitch device is not auto-connecting here** — ShackSwitch devices discovered over UDP are handled by the ShackSwitch applet, not the Antenna Genius applet. If you see a ShackSwitch appear in the Device combo but it does not auto-connect, open the ShackSwitch applet to manage it.
 
 ## Related
 

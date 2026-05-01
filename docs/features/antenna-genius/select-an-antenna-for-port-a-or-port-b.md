@@ -40,6 +40,7 @@ Use the Antenna Genius applet to assign a specific antenna to Port A or Port B o
 - **Port B section is not visible** — The connected device reports only one radio port. Port B is hidden automatically in this case and is not available.
 - **Antenna buttons are not shown** — The device is not yet connected, or the antenna list has not loaded. Confirm the status label reads **Connected —** and wait a moment for the list to populate.
 - **Clicking an antenna button has no effect** — The button may be disabled because that antenna is already selected on the other port. Choose a different antenna or deselect it on the other port first.
+- **A ShackSwitch device is discovered but does not appear in the Antenna Genius applet** — ShackSwitch devices are excluded from auto-connection in the Antenna Genius applet and are handled by the ShackSwitch applet instead. Open the ShackSwitch applet to connect to that device.
 
 ## Related
 

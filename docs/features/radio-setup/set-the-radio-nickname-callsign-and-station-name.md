@@ -31,7 +31,9 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 | **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. | — |
 | **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. | Connect |
 | **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | Connect |
-| **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | Connect |
+| **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected status if a ShackSwitch (not a standard Antenna Genius) is the connected device. | Connect |
+| **Connect / Disconnect (ShackSwitch)** | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row is hidden from the Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. | Connect |
+| **⚙ Web UI (ShackSwitch)** | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. | — |
 | **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. Label changed from **Browse .ssdr...** in v0.9.3. | — |
 | **APD (tab)** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. | — |
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. | INTERNAL |
@@ -113,16 +115,8 @@ In both cases the **Cal Frequency (MHz)** field and the **Start** button are alw
 | **Freq Offset (ppb)** | Manual frequency offset in parts per billion. | — |
 | **10 MHz Reference Source** | Selects oscillator reference: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Lock status (Locked / Unlocked) updates live alongside the selector. | Auto |
 
-## Tips
+## Connecting to peripherals (Peripherals tab)
 
-- If **Nickname** is left blank, AetherSDR pre-fills the field with the radio's reported name from the network.
-- **Station Name** defaults to the OS hostname when no value has been saved. To restore the default, clear the field and press Tab — then re-enter the hostname manually if needed.
-- Changes to **Nickname** and **Callsign** are pushed to the radio the moment you leave each field. No separate Save or Apply step is required.
-- **Station Name** is saved locally in AetherSDR's settings and also sent to the radio as the client station identifier for multiFLEX.
-- Prior to v0.9.2.1, the **Cal Frequency** field and **Start** button were hidden when a GPSDO was installed. They are now always available.
-- In v0.9.3, **Select Installer...** replaces the former **Browse .ssdr...** button and accepts .msi and .exe installer packages in addition to pre-extracted .ssdr files. If you have a previously downloaded .ssdr file it still works — select it the same way.
+The **Peripherals** tab provides manual IP connection for external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. Each device has its own row with a Connect/Disconnect button and an IP address field. AetherSDR saves the IP and port for each device and auto-reconnects on startup.
 
-## Related
-
-- [Check radio serial, hardware version, region and options](check-radio-serial-hardware-version-region-and-options.md)
-- [Radio Setup overview](overview.md)
+### To connect to a ShackSwitch

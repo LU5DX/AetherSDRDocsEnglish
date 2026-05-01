@@ -34,7 +34,9 @@ Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus re
 | **Auto (Voice / CW / Digital)** | — | Enabled / Disabled. Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **Connect / Disconnect (TGXL)** | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Connect / Disconnect (Antenna Genius)** | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the connected device is a non-ShackSwitch Antenna Genius. |
+| **Connect / Disconnect (ShackSwitch)** | Connect | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the 'ShackSwitch' field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from 'Connected' status if Antenna Genius (non-ShackSwitch) is the connected device. |
+| **⚙ Web UI (ShackSwitch)** | — | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's webPort if > 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | **Cal Frequency (MHz):** | — | Frequency used for manual calibration. Available regardless of whether a GPSDO is installed. If the field is empty when you click **Start**, a warning appears and calibration does not begin. |
 | **Start** | — | Sets the calibration frequency, resets `freq_error_ppb` to 0, then starts the radio PLL calibration sweep. The button is disabled and labelled **Busy** while calibration is running. |
 | **Freq Offset (ppb):** | — | Manual frequency offset in parts per billion. |
@@ -83,25 +85,20 @@ When you click **Start**:
 4. The **Start** button is disabled and shows **Busy** for the duration of the sweep.
 5. A status label next to the button updates as the sweep progresses and shows the result when complete.
 
+## Peripherals tab — ShackSwitch changes in v0.9.4
+
+The **Antenna Genius** row now shows a Connected status only when the device identified on the connection is a non-ShackSwitch Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row hides its Connected indicator and the **ShackSwitch** row shows Connected instead.
+
+A new **⚙ Web UI** button has been added to the ShackSwitch row. Click it to open the ShackSwitch device's built-in web configuration interface in your system browser. The URL is constructed as follows:
+
+1. AetherSDR uses the IP from `SS_ManualIp`, or if that is empty and a ShackSwitch is currently connected, the live peer address.
+2. The port is taken from the beacon's `webPort` field when that value is greater than 1024. If not, AetherSDR falls back to the `SS_WebPort` setting or port 5000.
+
+If no IP address is available (not connected and `SS_ManualIp` is empty), clicking **⚙ Web UI** does nothing.
+
 ## Tips
 
 - On a fast local LAN, **Uncompressed** avoids any codec artefacts and is the better choice for critical listening or digital mode decoding.
 - On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts. Pair it with a larger **Audio Buffer:** value (50–1000 ms) to absorb jitter.
 - If audio sounds thin or quiet over SmartLink, try enabling **Audio Boost:** alongside Opus.
 - If a GPSDO is installed, frequency calibration is rarely needed, but the controls are still available if you want to verify or manually trim the offset.
-- When staging firmware from a full SmartSDR `.msi` or `.exe` installer, staging may take a few seconds longer than loading a pre-extracted `.ssdr` file directly.
-
-## Troubleshooting
-
-- **Audio Compression buttons are greyed out or missing** — the Audio tab only builds after you click it, and only when a radio is connected. Verify the connection, then click the Audio tab again.
-- **Audio quality is poor even with Uncompressed selected** — check network bandwidth and latency. Consider increasing **Audio Buffer:** to reduce underruns. See [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md).
-- **Start button shows "Busy" and does not return** — if the PLL sweep does not complete, close and reopen the Radio Setup dialog to reset the button state, then try again.
-- **"Enter cal frequency" warning appears when clicking Start** — type a valid frequency (in MHz) into the **Cal Frequency (MHz):** field before clicking **Start**.
-- **Select Installer... stages nothing / progress bar stays at zero** — confirm the file is a valid SmartSDR `.msi`, `.exe`, or `.ssdr`. Corrupted or partially downloaded installers will cause staging to fail. Re-download the file from flexradio.com and try again.
-- **APD tab is not visible** — the **APD** tab only appears on FLEX-8x00 series radios running SmartSDR 4.2.18 or later. It is not available on 6000-series radios or earlier firmware.
-
-## Related
-
-- [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
-- [Choose PC input/output audio devices](choose-pc-input-output-audio-devices.md)
-- [Enable auto-record on TX and pick a save folder](enable-auto-record-on-tx-

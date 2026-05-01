@@ -30,7 +30,9 @@ The Radio tab in Radio Setup shows identifying information reported directly by 
 | Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | Connect / Disconnect (TGXL) | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | Connect / Disconnect (PGXL) | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| Connect / Disconnect (Antenna Genius) | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows "Connected" only when the connected device is a non-ShackSwitch Antenna Genius. If a ShackSwitch is the connected device, this row's status is hidden. |
+| Connect / Disconnect (ShackSwitch) | Push button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. The row shows "Connected" only when the connected device is identified as a ShackSwitch; the row is hidden from "Connected" status if a non-ShackSwitch Antenna Genius is the connected device. |
+| ⚙ Web UI (ShackSwitch) | Push button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. The button reads the IP from `SS_ManualIp` or, if empty, from the live peer address when the connected device is a ShackSwitch. |
 | Select Installer... | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
 | APD (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
@@ -82,16 +84,28 @@ A status label appears to the right of the Start button and updates throughout t
 
 The Start button is re-enabled and its label reverts to **Start** when the calibration sequence completes or fails.
 
+## Peripherals tab — ShackSwitch web interface (v0.9.4)
+
+In v0.9.4 the Peripherals tab adds a dedicated **⚙ Web UI** button next to the ShackSwitch row. Click it to open the ShackSwitch device's built-in configuration web page in your system browser.
+
+The button determines the URL as follows:
+
+1. If the ShackSwitch is currently connected and its discovery beacon advertises a `webPort` greater than 1024, that port is used.
+2. Otherwise the stored `SS_WebPort` setting is used.
+3. If neither is available, port 5000 is used as a fallback.
+
+The IP address is taken from `SS_ManualIp`. If that field is empty and the connected device is a ShackSwitch, the live peer address is used instead. The button takes no action if no IP address can be determined.
+
+Also in v0.9.4, the **Connect / Disconnect (Antenna Genius)** row now hides its "Connected" status when a ShackSwitch is the device actually connected through the Antenna Genius model. The ShackSwitch row shows "Connected" in that case instead.
+
+**To open the ShackSwitch web interface:**
+
+1. Click `Settings > Radio Setup...`.
+2. Select the **Peripherals** tab.
+3. Ensure the ShackSwitch is connected (the ShackSwitch row shows "Connected").
+4. Click **⚙ Web UI**. Your default browser opens the device's configuration page.
+
 ## Tips
 
 - If **Radio SN** is blank, the radio has not yet sent its chassis serial. Disconnect and reconnect to the radio.
-- **Options** reflects what the radio itself reports. If you have recently purchased a license upgrade, power-cycle the radio and reconnect so it fetches the updated options.
-- When running calibration, ensure the reference signal is present at the antenna input and that **Cal Frequency (MHz)** exactly matches the reference transmitter's frequency before clicking **Start**.
-- The **APD** tab appears only on FLEX-8x00 radios running SmartSDR 4.2.18 or later. If you do not see the tab, your radio model or firmware version does not support configurable APD.
-- To customize slice colors, open the **Themes** tab, select **Custom colors**, then click the lettered button for each slice you want to change.
-
-## Related
-
-- [Radio Setup overview](overview.md)
-- [Set the radio nickname, callsign and station name](set-the-radio-nickname-callsign-and-station-name.md)
-- [Upload a new firmware .ssdr to the radio](upload-a-new-firmware-ssdr-to-the-radio.md)
+- **Options** reflects what the radio itself reports. If you have recently purchased a license

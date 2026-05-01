@@ -21,10 +21,20 @@ Use this page to save the JSON snapshot from the Slice Troubleshooting dialog to
 - If you have made changes to slice settings since opening the dialog, click `Refresh Snapshot` again before exporting to capture the latest state.
 - If you only need to paste the snapshot into a web form or email rather than attach a file, use `Copy JSON` instead of `Export JSON...`.
 
+## What the Issue Summary includes
+
+The **Issue Summary** tab displays a plain-language bullet list of detected problems. As of v0.9.4, the summary includes two additional remote audio RX entries:
+
+- **Remote audio RX** — reports the stream ID, whether a stream is expected, whether creation is pending, whether a status message has been seen, whether the stream is owned by this client, and the compression setting in use.
+- **Remote audio route note** — a free-text routing note that may indicate why a remote audio RX stream is not functioning as expected.
+
+Each slice audio route section also now includes a **Radio stream route** line that reports the remote audio RX stream ID along with its expected, create-pending, remove-requested, status-seen, and owned-by-us flags. Review these lines first when diagnosing remote audio RX problems before contacting support.
+
 ## Troubleshooting
 
 - **The status label shows no confirmation after clicking `Export JSON...`** — You may have cancelled the file save dialog without choosing a location. Click `Export JSON...` again and confirm the save.
 - **`Export JSON...` is unavailable** — The dialog requires an active radio connection. Verify AetherSDR is connected to the radio before opening the dialog.
+- **The remote audio RX fields all show placeholders** — AetherSDR has not yet received a status message from the radio for that stream. Click `Refresh Snapshot` after the radio has had a moment to send stream status, then check the **Issue Summary** tab again.
 
 ## Related
 

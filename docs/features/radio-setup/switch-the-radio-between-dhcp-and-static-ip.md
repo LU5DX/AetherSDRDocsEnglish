@@ -34,7 +34,9 @@ Use this page to change how the FLEX-8600 obtains its network address — either
 | **Auto (Voice / CW / Digital)** | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **Connect / Disconnect (TGXL)** | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Connect / Disconnect (Antenna Genius)** | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from Connected status if a ShackSwitch (not a standard Antenna Genius) is the connected device. |
+| **Connect / Disconnect (ShackSwitch)** | Push button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from Connected status if a standard Antenna Genius (non-ShackSwitch) is the connected device. |
+| **⚙ Web UI (ShackSwitch)** | Push button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | **Select Installer...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects the format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
 | **APD (tab)** | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
@@ -95,15 +97,4 @@ The **RX** tab provides manual frequency offset calibration and 10 MHz reference
 
 ### How calibration works in v0.9.2.1
 
-1. Enter the known reference frequency in **Cal Frequency (MHz):**.
-2. Click **Start**. AetherSDR sends `radio set cal_freq=<value>` and `radio set freq_error_ppb=0` to the radio, then issues `radio pll_start` to begin the sweep.
-3. The **Start** button is disabled and labeled **Busy** until the sequence completes or fails.
-4. The status label beside the button updates in real time. When calibration finishes the button re-enables and the label shows the result.
-
-If the **Cal Frequency (MHz):** field is empty when you click **Start**, the status label shows *Enter cal frequency* in amber and calibration does not start.
-
-> **Note:** Prior to v0.9.2.1, the calibration controls were hidden when a GPSDO was detected. They are now always available.
-
-## Tips
-
-- The **IP Address / Mask / MAC Address** indicators show what the radio is currently using. Record
+1. Enter the known reference frequency in **

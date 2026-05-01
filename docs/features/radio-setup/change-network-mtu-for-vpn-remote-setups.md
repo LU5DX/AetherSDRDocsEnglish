@@ -27,8 +27,10 @@ The Network MTU setting controls the maximum packet size the radio sends over th
 | Auto (Voice / CW / Digital) | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. | — |
 | Connect / Disconnect (TGXL) | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. | — |
 | Connect / Disconnect (PGXL) | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | — |
-| Connect / Disconnect (Antenna Genius) | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | — |
-| Select Installer... | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. Label changed from **Browse .ssdr...** in v0.9.3. | — |
+| Connect / Disconnect (Antenna Genius) | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the connected device is an Antenna Genius proper (not a ShackSwitch). | — |
+| Connect / Disconnect (ShackSwitch) | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. The row is hidden from Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. | — |
+| ⚙ Web UI (ShackSwitch) | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. | — |
+| Select Installer... | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer) or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. | — |
 | APD (tab) | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. | — |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. | INTERNAL |
 | Equalizer Reset (APD) | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — |
@@ -104,20 +106,24 @@ In v0.9.2.1 the RX tab frequency calibration controls are available regardless o
 - The calibration sequence logs the cal frequency and run ID to the debug protocol log (`lcProtocol`). You can view this in the AetherSDR log viewer if diagnostic logging is enabled.
 - If the Radio Setup dialog is closed while a calibration is running, the in-flight callback is discarded safely; no partial state is applied.
 
-## Tips
+## Connecting to a ShackSwitch (Peripherals tab)
 
-- If you are unsure what MTU to use, start at 1400 bytes and increase until you see packet loss or audio dropouts, then step back down by 10–20 bytes.
-- The **Audio Buffer:** setting (found on the **Audio** tab) can help absorb jitter on VPN links independently of the MTU setting. See [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md).
+The ShackSwitch antenna switch uses the same AG UDP/TCP control protocol as the Antenna Genius. In v0.9.4, the Peripherals tab gained a dedicated ShackSwitch row separate from the Antenna Genius row, along with a **⚙ Web UI** button.
 
-## Troubleshooting
+### Connect manually
 
-- **Apply has no visible effect** — Confirm the radio is still connected. If the connection dropped, reconnect via `Settings > Connect to Radio...` and repeat the steps.
-- **Audio breaks up after changing MTU** — The new value may still be too large for the path. Lower **Network MTU:** by another 20–50 bytes and click **Apply** again.
-- **Start button stays disabled after calibration** — If the dialog was closed and reopened during a sweep, click **Start** again with the desired cal frequency. The previous run was discarded cleanly.
-- **Select Installer... shows no progress** — Ensure the file is a valid SmartSDR `.msi`, `.exe`, or `.ssdr`. Files from other sources will not be recognised by the firmware stager.
+1. Open `Settings > Radio Setup...`.
+2. Click the **Peripherals** tab.
+3. Locate the **ShackSwitch** row.
+   - If the radio has already discovered the ShackSwitch via UDP beacon, the IP field is pre-filled.
+   - Otherwise, type the ShackSwitch IP address into the IP field.
+4. Click **Connect**.
+   - AetherSDR connects on port 9007 using the AG control protocol.
+   - The IP is saved to `SS_ManualIp` and the port to `SS_ControlPort` so AetherSDR reconnects automatically on the next startup.
+5. The row shows a Connected status. The Antenna Genius row will show as not connected for the same session because the two rows are mutually exclusive — only one can show Connected at a time.
 
-## Related
+### Open the ShackSwitch web interface
 
-- [Switch the radio between DHCP and static IP](switch-the-radio-between-dhcp-and-static-ip.md)
-- [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
-- [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)
+1. Confirm the ShackSwitch is connected (Connected status shown in the ShackSwitch row).
+2. Click **⚙ Web UI**.
+   - Aet

@@ -30,7 +30,9 @@ Use this page to cap transmit power on a per-band basis and choose how the Tune 
 | Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **Connect / Disconnect (TGXL)** | Button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Connect / Disconnect (Antenna Genius)** | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the connected device is an Antenna Genius (non-ShackSwitch). If a ShackSwitch is the connected device, this row is hidden from Connected status. |
+| **Connect / Disconnect (ShackSwitch)** | Button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an IP. Row shows Connected status only when the connected device is a ShackSwitch. |
+| **⚙ Web UI (ShackSwitch)** | Button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | **Select Installer...** | Button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
 | **APD** (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. Default: INTERNAL. |
@@ -39,6 +41,22 @@ Use this page to cap transmit power on a per-band basis and choose how the Tune 
 | Use Aether defaults / Custom colors | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
 | Slice A–H color buttons | Button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
 | **Reset All to Defaults (Themes)** | Button | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Connecting peripheral devices (Peripherals tab)
+
+The **Peripherals** tab provides manual IP connection for external devices including the TGXL, PGXL, Antenna Genius, and ShackSwitch. Each device has its own row with **Connect** / **Disconnect** buttons and a status indicator.
+
+### ShackSwitch
+
+The ShackSwitch row behaves as follows:
+
+- Enter the ShackSwitch IP address and click **Connect**. AetherSDR saves the address to `SS_ManualIp` and port to `SS_ControlPort` and connects using the AG UDP/TCP protocol on port 9007.
+- If the radio has already discovered the ShackSwitch via UDP beacon, the IP field may be pre-filled.
+- The row shows a Connected status only when the connected device is identified as a ShackSwitch. If a standard Antenna Genius is connected instead, the ShackSwitch row does not show Connected, and the Antenna Genius row does.
+- Click **⚙ Web UI** to open the ShackSwitch's local web interface in your system browser. AetherSDR determines the port as follows:
+  1. Uses the `webPort` advertised in the beacon if it is greater than 1024.
+  2. Falls back to the value stored in `SS_WebPort`.
+  3. Falls back to port 5000.
 
 ## Firmware update (Radio tab)
 
@@ -97,9 +115,4 @@ The **RX** tab contains controls for manual frequency offset calibration and 10 
 - **TX Band Settings** is also accessible directly from `Settings > TX Band Settings...` without opening Radio Setup first.
 - The **Max Power:** spin box on the TX tab sets a radio-level cap. Per-band limits set inside **TX Band Settings** operate on top of this cap.
 - When running frequency calibration, ensure no other station is transmitting on the reference frequency before clicking **Start**.
-- When **Check for Update** reports an available firmware version, AetherSDR no longer downloads the installer automatically. Download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
-
-## Related
-
-- [Radio Setup overview](overview.md)
-- [Upload a new firmware .ssdr to the radio](upload-a-new-firmware-ssdr-to-the-radio.md)
+- When **Check for Update** reports an available firmware version,

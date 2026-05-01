@@ -32,7 +32,7 @@ The dialog remembers its size and position between sessions.
 | **XVTR** | Per-transverter configuration; create or remove transverter entries. |
 | **APD** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna feedback port selection and equalizer reset. Visible only on FLEX-8x00 radios reporting `apd configurable=1` (SmartSDR 4.2.18+ firmware). |
 | **USB Cables** | Assign USB serial adapters to CAT, BCD, bit, and PTT cable types and configure their serial parameters. |
-| **Peripherals** | Manual IP connection to external devices: TGXL, PGXL, and Antenna Genius. |
+| **Peripherals** | Manual IP connection to external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. |
 | **Themes** | Slice color scheme: switch between built-in AetherSDR palette and custom per-slice colors (A–H). |
 | **Serial** | FlexControl serial port selection, line parameters, pin function assignments (DTR/RTS), paddle swap, auto-open, and tuning knob detection. (Visible only when serial port support is built in.) |
 
@@ -63,7 +63,9 @@ The following controls have persisted settings keys or notable behaviors.
 | **Idle timeout:** | Audio | Seconds of silence (10–3600) after which an active recording stops automatically. Default: 120 s. Stored as `QsoRecordingIdleTimeout`. |
 | **Connect / Disconnect (TGXL)** | Peripherals | Opens/closes a direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Peripherals | Opens/closes a direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected state if a ShackSwitch (rather than a standard Antenna Genius) is the device currently connected. |
+| **Connect / Disconnect (ShackSwitch)** | Peripherals | Opens/closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden when a standard Antenna Genius (non-ShackSwitch) is the connected device. |
+| **⚙ Web UI (ShackSwitch)** | Peripherals | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024; otherwise falls back to `SS_WebPort` or port 5000. |
 | **Use Aether defaults / Custom colors** | Themes | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. Default: Use Aether defaults. |
 | **Slice A–H color buttons** | Themes | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
 | **Reset All to Defaults** | Themes | Resets all custom slice colors to the built-in AetherSDR palette. |
@@ -82,14 +84,3 @@ In v0.9.3 the firmware update workflow changed. AetherSDR no longer downloads th
    - EXE installer (`*.exe`)
    - Extracted firmware (`*.ssdr`)
    - All files (`*`)
-4. Select the file you downloaded. AetherSDR reads the first 8 bytes to detect the format (OLE/MSI magic vs PE/COFF MZ vs raw `.ssdr`) and extracts the firmware automatically without external tools. A status label shows "Preparing firmware from *filename*..." while extraction runs.
-5. When staging completes, click **Upload Firmware**. A progress bar and status label track the upload.
-
-> **Note:** If you already have a `.ssdr` file extracted from a previous installation, you can select it directly in step 3 — no installer is required.
-
-## RX tab — frequency calibration
-
-In v0.9.2.1 the RX tab layout was revised. The calibration controls are now always visible regardless of whether a GPSDO is installed. A status label at the top of the group changes color and text to reflect the hardware present:
-
-- **GPSDO installed** — label shown in green: "GPSDO installed. Manual frequency offset calibration available."
--

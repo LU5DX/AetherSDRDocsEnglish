@@ -32,7 +32,9 @@ The NVIDIA BNR (Broadcast Noise Removal) container applies AI-based noise suppre
 | **Auto (Voice / CW / Digital)** | Button | Enables automatic filter-level selection for that mode and disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **Connect / Disconnect (TGXL)** | Button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| **Connect / Disconnect (Antenna Genius)** | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the device identified on that connection is an Antenna Genius (not a ShackSwitch). |
+| **Connect / Disconnect (ShackSwitch)** | Button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. The row is hidden from Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. |
+| **⚙ Web UI (ShackSwitch)** | Button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | **Select Installer...** | Button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label was **Browse .ssdr...** in versions prior to v0.9.3. |
 | **APD** tab | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
@@ -99,14 +101,24 @@ When GPSDO hardware is present, the label at the top of the group reads "GPSDO i
 - Clicking **Start** resets `freq_error_ppb` to 0 before beginning the sweep, so any previously stored offset is cleared at the start of each run.
 - Calibration state is tracked per dialog instance. Closing and reopening the dialog resets the status display; any in-progress radio-side calibration continues independently.
 
-## Tips
+## ShackSwitch web interface (Peripherals tab)
 
-- Click **Check Status** after clicking **Start** or **Stop** if the status dot does not update on its own, to confirm the container reached the expected state.
-- If the **Start** button remains in the **Busy** state after an unexpected disconnect, close and reopen `Settings > Radio Setup...` to reset the button.
+In v0.9.4 the **Peripherals** tab gained a **⚙ Web UI** button on the ShackSwitch row. Use it to open the ShackSwitch's built-in configuration page in your system browser without having to look up the device's IP address manually.
 
-## Related
+### Steps
 
-- [Choose PC input/output audio devices](choose-pc-input-output-audio-devices.md)
-- [Pick Opus vs uncompressed audio for SmartLink](pick-opus-vs-uncompressed-audio-for-smartlink.md)
-- [Turn on audio boost or enlarge the audio buffer for remote operation](turn-on-audio-boost-or-enlarge-the-audio-buffer-for-remote-operation.md)
-- [Enable auto-record on TX and pick a save folder](enable-auto-record-on-tx-and-pick-a-save-folder.md)
+1. Open `Settings > Radio Setup...`.
+2. Click the **Peripherals** tab.
+3. Locate the **ShackSwitch** row.
+4. Click **⚙ Web UI**. AetherSDR determines the correct address and port and opens the page in your default browser.
+
+### How the address and port are resolved
+
+AetherSDR uses the following order of preference to build the URL:
+
+1. The IP address stored in `SS_ManualIp`. If that is empty and the ShackSwitch is currently connected, the live peer address is used instead.
+2. The port advertised in the ShackSwitch beacon (`webPort`), provided it is greater than 1024.
+3. If the beacon port is not usable, the value stored in `SS_WebPort`.
+4. If neither is set, port 5000 is used as a final fallback.
+
+If

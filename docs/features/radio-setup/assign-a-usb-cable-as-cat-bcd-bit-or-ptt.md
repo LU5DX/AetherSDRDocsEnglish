@@ -52,7 +52,9 @@ Use this page to configure the USB serial adapters connected to your FLEX-8600 a
 | **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. | Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. | Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
 | **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | |
-| **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | |
+| **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows **Connected** status only when the connected device is a standard Antenna Genius, not a ShackSwitch. | |
+| **Connect / Disconnect (ShackSwitch)** | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. | ShackSwitch is detected by the 'ShackSwitch' field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from **Connected** status if Antenna Genius (non-ShackSwitch) is the connected device. |
+| **⚙ Web UI (ShackSwitch)** | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. | |
 | **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. | Label changed from **Browse .ssdr...** in v0.9.3. When an update is available, download the SmartSDR installer from flexradio.com, then click **Select Installer...** to stage it. |
 | **APD (tab)** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. | Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. | Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
@@ -103,14 +105,4 @@ In v0.9.3, the firmware update workflow changed. AetherSDR no longer downloads t
 | Self-extracting EXE installer | `.exe` | Older SmartSDR releases. |
 | Pre-extracted firmware file | `.ssdr` | Direct firmware file, if you already have one. |
 
-The firmware stager auto-detects the format from the first 8 bytes of the file (OLE/MSI magic vs PE/COFF MZ header) and extracts the `.ssdr` payload without requiring any external tools.
-
-### Firmware update procedure
-
-1. Open `Settings > Radio Setup...` and click the **Radio** tab.
-2. Click **Check for Update**. AetherSDR queries the update server and reports the result in the status label.
-   - If the firmware is current, the label shows "Firmware is up to date."
-   - If an update is available, the label instructs you to download the SmartSDR installer from flexradio.com.
-3. Download the SmartSDR installer from flexradio.com.
-4. Click **Select Installer...**. In the file picker, select the `.msi`, `.exe`, or `.ssdr` file you downloaded. The stager begins extracting and staging the firmware immediately; progress is shown in the progress bar and status label.
-5.
+The firmware stager auto-detects the format from the first 8

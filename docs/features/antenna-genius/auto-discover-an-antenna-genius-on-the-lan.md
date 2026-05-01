@@ -18,14 +18,14 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 
 | Control | What it does | Default | Setting key |
 |---|---|---|---|
-| **Device combo** | Lists all Antenna Genius units discovered via UDP. Auto-selects and connects to the first device found. | — | — |
+| **Device combo** | Lists all Antenna Genius units discovered via UDP. Auto-selects and connects to the first device found, unless that device is a ShackSwitch (which is handled by the ShackSwitch applet). | — | — |
 | **Connect / Disconnect** | Connects to the selected device in the combo, or disconnects if already connected. Label switches between **Connect** and **Disconnect** to reflect current state. | Connect | — |
 | **Manual IP** | Enter an IPv4 or IPv6 address and press Enter to connect directly to port 9007. Used when the device is not on the local LAN. The last-used value is restored on next launch. | — | `AG_ManualIp` |
 | Status label | Shows discovery and connection state: **No device found**, **Device found**, **Connected — \<name\> v\<version\>**, **Disconnected**, **Error: \<msg\>**, or **Invalid IP address**. | No device found | — |
 
 ## Tips
 
-- If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first one found. Select a different entry and click **Connect** to switch.
+- If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first discovered device that is not a ShackSwitch. Select a different entry and click **Connect** to switch.
 - Port B controls are hidden automatically when the connected device reports only one radio port.
 
 ## Troubleshooting
@@ -33,6 +33,7 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 - **Status label stays at "No device found"** — Verify the Antenna Genius is powered on and on the same subnet. Firewalls or managed switches that block UDP broadcast traffic will prevent discovery. If the device is on a different network, use **Manual IP** instead.
 - **Status label shows "Invalid IP address"** — The text entered in **Manual IP** could not be parsed as a valid IPv4 or IPv6 address. Correct the address and press Enter again.
 - **Status label shows "Error: \<msg\>"** — The connection attempt was made but the device refused or dropped it. Check that no other client is holding an exclusive connection to the Antenna Genius.
+- **A ShackSwitch on the LAN is not auto-connecting here** — ShackSwitch devices discovered via UDP are intentionally skipped by the Antenna Genius applet. Use the ShackSwitch applet to connect to and control a ShackSwitch.
 
 ## Related
 

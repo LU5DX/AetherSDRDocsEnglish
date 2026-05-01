@@ -30,12 +30,14 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 - AetherSDR saves the last-used address to `AG_ManualIp` when you press Enter. The field is pre-filled with that address the next time you open the applet.
 - If the Device combo contains a discovered device, clicking Connect connects to that device, not the Manual IP. Clear or ignore the combo selection if you want the Manual IP to take effect via the Connect button. Pressing Enter in the Manual IP field always uses the typed address regardless of the combo state.
 - Port B is hidden automatically if the connected Antenna Genius reports only one radio port.
+- Auto-connect on discovery applies only to Antenna Genius devices. If a ShackSwitch is discovered on the same network, it is not auto-connected from this applet; it is handled by the ShackSwitch applet instead.
 
 ## Troubleshooting
 
 - **Status label shows "Invalid IP address"** — The text entered in **Manual IP** is not a valid IPv4 or IPv6 address. Correct the address and press Enter again.
 - **Status label shows "Error: \<msg\>"** — AetherSDR reached the network layer but could not complete the connection. Verify that port 9007 is open and the Antenna Genius is powered on and reachable at the address you entered.
 - **AG tray button never appears** — The applet remains hidden until a connection is established. Check the status label inside the applet panel for error details. If the panel itself is not visible, enable it via `View > Applet Panel`.
+- **A discovered device is not auto-connecting** — If the first device discovered on the LAN is a ShackSwitch, the Antenna Genius applet will not auto-connect to it. The ShackSwitch applet handles that device. Check whether a separate Antenna Genius device is present on your network.
 
 ## Related
 

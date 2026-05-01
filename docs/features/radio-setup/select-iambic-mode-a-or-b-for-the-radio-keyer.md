@@ -65,11 +65,11 @@ Displays network addresses and lets you adjust network settings.
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle button | — | Rejects connections from non-RFC 1918 peers. |
-| **Network MTU:** | Spinbox | 1450 | Sets the maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000. Stored in `NetworkMtu`. Default 1450 is safe for most VPN/SD-WAN tunnels. |
-| **DHCP / Static** | Toggle button | — | Switches between DHCP and static IP addressing. |
-| **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. Active only when Static mode is selected. |
-| **Apply** | Push button | — | Pushes the current network configuration to the radio. |
+| **Enforce Private IP Connections:** | Toggle button | — | Rejects non-RFC1918 peers. |
+| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000 bytes. Stored in `NetworkMtu`. |
+| **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
+| **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
+| **Apply** | Push button | — | Pushes the network configuration to the radio. |
 
 ---
 
@@ -178,4 +178,5 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Save to:** | Text field | — | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in `QsoRecordingDir`. |
 | **...** | Push button | — | Opens a folder browser for the recording directory. |
 | **Auto-record on TX** | Checkbox | False | Automatically records while transmitting. Stored in `QsoRecordingAutoRecord`. |
-| **Idle timeout:** | Spinbox | 120 | Seconds of silence before recording stops. Range: 10–3600 s. Stored in `QsoRecording
+| **Idle timeout:** | Spinbox | 120 | Seconds of silence before recording stops. Range: 10–3600 s. Stored in `QsoRecordingIdleTimeout`. |
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Push button |

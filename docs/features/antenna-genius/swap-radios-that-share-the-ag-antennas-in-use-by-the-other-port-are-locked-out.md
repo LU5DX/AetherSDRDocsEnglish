@@ -39,6 +39,7 @@ When two radios share one Antenna Genius, each radio connects to a separate port
 - **An antenna button remains dimmed even after I clicked the other port's button to deselect it** — confirm the deselect took effect by checking that the antenna indicator for the other port now shows "—". If the indicator still shows the antenna name, the click may not have registered; click the lit button on the other port once more.
 - **Port B section is not visible** — the connected AG device reports only one radio port. Port B sharing is not available on single-port devices.
 - **Status label shows "Disconnected" or "Error: \<msg\>"** — antenna buttons cannot be changed while disconnected. Reconnect using Connect or by re-entering the IP in Manual IP and pressing Enter. Invalid addresses produce a red "Invalid IP address" status. The last-used manual IP is stored in `AG_ManualIp` and restored on next launch.
+- **A ShackSwitch device appears in the Device combo but does not auto-connect** — ShackSwitch devices discovered on the LAN are excluded from automatic connection in the Antenna Genius applet. They are handled by the ShackSwitch applet instead. Select the correct Antenna Genius device from the Device combo and click Connect, or enter its IP in Manual IP and press Enter.
 
 ## Related
 
