@@ -1,5 +1,3 @@
-The diff touches only internal implementation details in `MainWindow.h` — private methods, internal state structs, enums, and timers related to an SWR sweep feature and an AG manual connect timer. None of these changes affect the `PanadapterApplet` catalog entry (which lists no controls) or any user-visible behavior described in the current documentation. All existing content remains accurate.
-
 # Pop a panadapter out into its own window
 
 When you have more than one panadapter open, you can detach any of them into a separate floating window. This is useful for placing the panadapter on a second monitor or resizing it independently from the main AetherSDR layout.
@@ -75,3 +73,4 @@ Right-clicking inside the **CW decode text** area opens a context menu. The menu
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Click the spectrum to activate a panadapter (multi-slice mode)](click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
 - [Panadapter overview](overview.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

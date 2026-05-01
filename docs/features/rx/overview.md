@@ -151,5 +151,5 @@ The following accessor methods and visibility helpers are available on `AppletPa
 
 ## Tips
 
-- The L / R pan slider has a centre-mark dot on the groove to help you find 50 by eye. Double-clicking always resets it to 50 regardless of the current position.
-- Right-clicking a filter preset button saves the current filter width into that slot, letting you customise presets per mode. These are stored in
+- The L
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

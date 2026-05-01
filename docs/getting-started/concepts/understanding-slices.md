@@ -1,3 +1,5 @@
+The diff shows only internal C++ implementation details — private methods (`drawSwrSweep`, `setSwrSweepPoints`, `clearSwrSweepPoints`), internal member variables, and rendering logic. The SWR sweep overlay section already exists in the current documentation and accurately describes the user-visible behaviour. No user-facing documentation change is warranted.
+
 # Understanding Slices and VFOs
 
 In AetherSDR, a slice is an independent receiver within a panadapter. Each slice has its own VFO frequency, mode, filter, and audio settings. The FLEX-8600 supports up to eight simultaneous slices (labeled A through H), letting you monitor multiple frequencies at once within the same or different panadapters.
@@ -88,3 +90,4 @@ To remove the overlay, call `clearSwrSweepPoints()`.
 - [Click the spectrum to activate a panadapter (multi-slice mode)](../../features/panadapter/click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
 - [Panadapter overview](../../features/panadapter/overview.md)
 - [Make your first QSO with AetherSDR](../tutorials/first-qso.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

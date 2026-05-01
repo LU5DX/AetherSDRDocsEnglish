@@ -1,3 +1,5 @@
+The diff adds `webPort` to `AgDeviceInfo` and two new methods (`isShackSwitch`, `lastRadioBand`) to the model class. The `webPort` field is already documented in the Tips section ("If the connected device is identified as a ShackSwitch, AetherSDR uses the `SS_ManualPort` setting as a fallback when the web UI port cannot be determined from the device (`webPort` reports 0)."). The new methods are internal/private-facing and do not introduce any new user-visible controls, properties, or behaviors beyond what is already documented. No documentation update is warranted.
+
 # Manually connect to an AG over a remote network
 
 Use this page to connect AetherSDR to an Antenna Genius that is not on the local LAN — for example, across a VPN or a routed network — by entering its IP address directly. UDP discovery only works on the local subnet, so a manual IP entry is required for remote devices.
@@ -47,3 +49,4 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Select an antenna for Port A or Port B](../../features/antenna-genius/select-an-antenna-for-port-a-or-port-b.md)
 - [Enable AUTO mode so the AG follows radio band changes](../../features/antenna-genius/enable-auto-mode-so-the-ag-follows-radio-band-changes.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

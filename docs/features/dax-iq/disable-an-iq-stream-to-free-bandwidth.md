@@ -1,5 +1,3 @@
-Looking at the source diff, the changes are to `SpectrumOverlayMenu` (SWR sweep controls), not to `daxIqChannelChanged` or the DAX IQ channel functionality documented on this page. The catalog entry confirms `daxIqChannelChanged` has no controls changed. Nothing in this diff affects the content of the current documentation page.
-
 # Disable an IQ stream to free bandwidth
 
 Each active DAX IQ stream consumes radio DSP resources and network bandwidth. Disabling a stream you are not using releases that capacity for other slices, audio streams, or IQ channels.
@@ -39,3 +37,4 @@ Each active DAX IQ stream consumes radio DSP resources and network bandwidth. Di
 - [Enable an IQ stream for external SDR software](enable-an-iq-stream-for-external-sdr-software.md)
 - [Monitor the RMS level of each IQ stream](monitor-the-rms-level-of-each-iq-stream.md)
 - [Pick the IQ sample rate (24k/48k/96k/192k)](pick-the-iq-sample-rate-24k-48k-96k-192k.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

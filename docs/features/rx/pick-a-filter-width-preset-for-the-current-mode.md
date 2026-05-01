@@ -1,3 +1,5 @@
+The source diff shows that the NRL button visibility change (making it available on 6000-series radios) is already fully documented in the current page — the table, the explanatory paragraph, and the troubleshooting entry all accurately reflect the v0.9.4 behavior. The `ModeFilterPresets` struct has no controls. No user-visible documentation change is warranted.
+
 # Pick a filter width preset for the current mode
 
 Use the filter width preset buttons in the RX Controls applet to quickly apply a standard passband width for the active mode. Presets are saved per mode in `FilterPresets`.
@@ -70,3 +72,4 @@ Starting in v0.9.3, slice tab buttons and the slice badge use per-slice colors m
 - [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
 - [RX Controls overview](overview.md)
 - [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

@@ -1,5 +1,3 @@
-The diff changes are internal implementation details (moving variable declarations and adding fields to the `rxRoute` JSON object in the diagnostics snapshot). These changes affect what data appears in the JSON snapshot under `rx_route` — specifically, seven new `remote_audio_rx_*` fields are now included. The documentation should reflect that the JSON snapshot now captures additional remote audio RX state fields. No controls were added or removed (the catalog entry confirms `"controls": []`).
-
 # Refresh the snapshot after changing slice state
 
 After you change slice settings — such as adjusting audio routing, toggling mute, or switching antennas — the Slice Troubleshooting dialog does not update automatically. Use **Refresh Snapshot** to re-read the current slice state so the Issue Summary and JSON reflect your changes.
@@ -83,3 +81,4 @@ After you click **Copy Summary**, **Copy JSON**, or **Export JSON...**, a status
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
 - [Copy the full JSON snapshot to the clipboard](copy-the-full-json-snapshot-to-the-clipboard.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

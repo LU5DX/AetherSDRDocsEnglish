@@ -1,5 +1,3 @@
-The diff touches only `AppletPanel.h` — it adds `ShackSwitchApplet` infrastructure (`m_ssApplet`, `m_ssBtn`, `ssApplet()`, `setShackSwitchVisible()`). None of those changes affect `MqttApplet` or any of its controls, steps, or behaviors. The current documentation remains fully accurate.
-
 # Connect to a station MQTT broker
 
 This page explains how to open the MQTT applet and connect AetherSDR to a station MQTT broker so you can subscribe to topics, view incoming messages, and publish canned payloads.
@@ -61,3 +59,4 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 - [Publish a canned message with a button (e.g. rotator preset)](../../features/mqtt/publish-a-canned-message-with-a-button-e-g-rotator-preset.md)
 - [Add or remove custom publish buttons](../../features/mqtt/add-or-remove-custom-publish-buttons.md)
 - [Enable TLS with a custom CA certificate](../../features/mqtt/enable-tls-with-a-custom-ca-certificate.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

@@ -1,5 +1,3 @@
-The source diff adds SWR sweep controls (`setSwrSweepPowerWatts`, `swrSweepStartRequested`, `swrSweepPowerChanged`, `swrSweepClearRequested`, and associated UI widgets) to `SpectrumOverlayMenu`. The catalog entry confirms the symbol being documented is `SpectrumOverlayMenu::quickAddMemoryRequested`, which is unaffected by the diff. No changes to the documented feature (Add a memory at current frequency) are indicated. The document is returned unchanged.
-
 # Add a memory at current frequency
 
 Open the Memory Channels dialog and save the active VFO frequency as a new memory channel entry. Use this to bookmark a frequency you want to return to later.
@@ -38,3 +36,4 @@ A new row appears in the memory table populated with the current VFO frequency. 
 - [Search memories by name](search-memories-by-name.md)
 - [Delete one or more memories](delete-one-or-more-memories.md)
 - [Memory Channels overview](overview.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

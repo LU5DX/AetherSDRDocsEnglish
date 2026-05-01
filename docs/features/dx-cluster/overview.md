@@ -1,3 +1,5 @@
+The diff introduces only internal/private implementation details (`SwrSweepPoint` struct, `setSwrSweepPoints`, `clearSwrSweepPoints`, `drawSwrSweep`, and related private members) that are already fully documented in the current page under the **SWR sweep overlay** section. No user-visible behavior has changed relative to what is already documented. The current documentation accurately reflects all user-facing functionality introduced by this diff.
+
 # SpotHub overview
 
 SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources and displaying them as overlays on the panadapter. Use it to connect to traditional DX clusters, the Reverse Beacon Network, WSJT-X, SpotCollector, POTA, and FreeDV — all from one dialog.
@@ -136,5 +138,5 @@ Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 - **Cluster or RBN connects but no spots appear on the panadapter** — Check that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also verify the relevant band checkboxes on the **Spot List** tab are checked.
 - **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
 - **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
-- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can be activated. If **Use radio** is checked but the radio has no configured callsign, or **Use GPS** is checked but GPS has no fix, enter values manually after unchecking those options.
-- **DXCC coloring is not working** — Ensure an ADIF file has been loaded via **Log File (ADIF):** and that **DXCC Coloring** is enabled. The DXCC stats indicator shows
+- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

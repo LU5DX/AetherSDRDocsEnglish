@@ -1,5 +1,3 @@
-The source diff touches only `AppletPanel.h` — it adds a `ShackSwitchApplet` class and related panel plumbing. The diff contains no changes to `ClientReverbApplet`, its controls, persisted keys, defaults, or any behavior documented on this page. Every fact in the current documentation remains accurate.
-
 # Dial in a subtle Mix — 10-15 % is typical for voice
 
 The Mix knob controls the dry/wet balance of the Aetherial FreeVerb reverb on your transmitted audio. Keeping Mix in the 10–15 % range adds a light sense of space without making your voice sound processed or distant.
@@ -40,3 +38,4 @@ The Mix knob controls the dry/wet balance of the Aetherial FreeVerb reverb on yo
 - [Tune decay to taste without muddying speech](tune-decay-to-taste-without-muddying-speech.md)
 - [Reduce the high-end sparkle of the tail with Damp](reduce-the-high-end-sparkle-of-the-tail-with-damp.md)
 - [Offset reflections from the dry signal with Pre](offset-reflections-from-the-dry-signal-with-pre.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

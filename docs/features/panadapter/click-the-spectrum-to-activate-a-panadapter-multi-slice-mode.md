@@ -100,3 +100,4 @@ The NRL noise-reduction row (DSP row 4) is available on both 6000-series and 800
 - [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md)
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

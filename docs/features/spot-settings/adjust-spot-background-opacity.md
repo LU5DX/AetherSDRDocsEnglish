@@ -11,8 +11,7 @@ Use this page to control how transparent or opaque the background behind spot la
 
 1. In the Spot Settings dialog, locate the **Background Opacity:** row.
 2. Drag the slider left to decrease opacity (more transparent) or right to increase it (more opaque).
-3. The numeric readout next to the slider updates immediately to reflect the current value.
-4. Close the dialog. The change is saved automatically to `SpotsOverrideBgOpacity`.
+3. The numeric readout next to the slider updates immediately to reflect the current value.4. Close the dialog. The change is saved automatically to `SpotsOverrideBgOpacity`.
 
 ## What each control does
 
@@ -40,3 +39,4 @@ Use this page to control how transparent or opaque the background behind spot la
 - [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md)
 - [Force a single spot text color](force-a-single-spot-text-color.md)
 - [Turn spots on or off](turn-spots-on-or-off.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

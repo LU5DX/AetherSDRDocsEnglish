@@ -1,3 +1,5 @@
+The diff shows an internal model change (`setTunePower` guard and `stateChanged` emit) that is already documented in the "Changes in v0.9.4" section of the current document. The catalog entry (`micStateChanged`, no controls) is unrelated to this diff and introduces no new user-visible behavior. No documentation update is warranted.
+
 # Select a mic profile for a specific microphone
 
 Use the "Mic profile" combo box in the Phone/CW applet to load a named microphone processing profile stored on the radio. Different microphones often need different EQ and processing settings; switching profiles applies the correct configuration for the connected mic without adjusting each parameter manually.
@@ -58,3 +60,4 @@ Previously, calling `setTunePower` sent the `transmit set tunepower=` command to
 - [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
 - [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
 - [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

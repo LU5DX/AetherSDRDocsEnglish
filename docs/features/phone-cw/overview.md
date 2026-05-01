@@ -73,3 +73,4 @@ The Applet Panel now hosts a **ShackSwitch** applet alongside the existing apple
 - [Set CW break-in delay](set-cw-break-in-delay.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

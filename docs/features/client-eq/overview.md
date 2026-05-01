@@ -1,5 +1,3 @@
-The source diff touches only `AppletPanel` — it adds `ShackSwitchApplet` and related panel plumbing. The catalog entry for `EqApplet` shows no changes to controls, and nothing in the diff affects the EQ applet, its controls, its persisted settings, or any other content in this documentation page. No updates are required.
-
 # Aetherial Parametric EQ (TX / RX) overview
 
 The Aetherial Parametric EQ provides client-side parametric equalization for both your transmit and receive audio paths. Use it to shape your TX microphone audio or to tailor the sound of received audio before it reaches your speakers or headphones, without touching any radio-side processing.
@@ -70,3 +68,4 @@ Bypass is handled from the CHAIN widget, not from inside the editor. See [Bypass
 - [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

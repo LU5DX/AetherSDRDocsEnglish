@@ -1,5 +1,3 @@
-The diff introduces a `ShackSwitchApplet` class and related panel wiring, but the catalog entry for `PooDooSide` shows no changes to controls, types, or behaviors. Nothing in the diff touches the `PooDooSide` enum or the Poodoo applet in any way. The current documentation remains fully accurate.
-
 # Pick Aphex (Even) vs Behringer (Odd) character
 
 Choose between two harmonic-enhancement algorithms in the PUDU exciter: Even mode (Aphex-lineage) for a warmer, asymmetric character, or Odd mode (Behringer-lineage) for a brighter, symmetric sound. The choice applies independently to the TX and RX chains.
@@ -40,3 +38,4 @@ Only one of `Even` or `Odd` can be active at a time. Selecting one deselects the
 - [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
 - [Add air with Doo Harmonics](add-air-with-doo-harmonics.md)
 - [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

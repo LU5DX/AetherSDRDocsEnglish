@@ -1,5 +1,3 @@
-The source diff shows an internal build-system change only (`QElapsedTimer` is now also included on Windows without the full `HAVE_SERIALPORT` flag). This has no effect on any user-visible controls, behaviors, or steps described in the documentation. No content changes are required.
-
 # Enable iambic paddle keying
 
 Enable the radio's built-in iambic keyer so that a dual-lever paddle connected to the FLEX-8600 keys CW using the iambic mode. This lets you set keying speed and break-in behavior from within AetherSDR.
@@ -44,3 +42,4 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 - [Set CW break-in delay](set-cw-break-in-delay.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
 - [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

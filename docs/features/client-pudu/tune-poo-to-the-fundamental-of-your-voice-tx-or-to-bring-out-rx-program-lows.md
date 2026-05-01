@@ -1,5 +1,3 @@
-The source diff adds a `ShackSwitchApplet` class and related UI elements to `AppletPanel.h`. None of those changes are relevant to the `PooDooSide` enum or to the Poo/Tune documentation page. The current documentation remains fully accurate. Returning it unchanged.
-
 # Tune Poo to the fundamental of your voice (TX) or to bring out RX program lows
 
 The **Poo / Tune** knob sets the centre frequency of the low-frequency saturation band. On TX, aim it at the fundamental of your voice to add body and warmth at the right pitch. On RX, move it toward the dominant low-frequency content of the incoming audio to bring out program lows.
@@ -46,3 +44,4 @@ The **Poo / Tune** knob uses linear mapping across its 50–160 Hz range. The di
 - [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
 - [Blend the Poo enhancement with Mix](blend-the-poo-enhancement-with-mix.md)
 - [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

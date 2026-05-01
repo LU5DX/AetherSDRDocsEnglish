@@ -1,5 +1,3 @@
-The diff touches only `AppletPanel.h` — it adds a `ShackSwitchApplet` class and related wiring. The catalog entry confirms `ClientDeEssApplet` has no controls changes. Nothing in the diff affects the de-esser documentation, so the document is returned unchanged.
-
 # Watch live GR while reading a sibilant phrase
 
 The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while you transmit or speak. Use this procedure to watch the meter respond as you read a sibilant phrase, so you can confirm the de-esser is catching your "S" and "T" sounds before going on air.
@@ -50,3 +48,4 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 - [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md)
 - [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md)
 - [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

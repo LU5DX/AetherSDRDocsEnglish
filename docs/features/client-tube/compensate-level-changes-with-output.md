@@ -1,5 +1,3 @@
-Looking at the diff, the changes are to `VfoWidget.cpp` and relate to NRL button visibility on 6000-series hardware. The catalog entry is for `LevelBar` with no controls, and the current documentation is about the Output knob/tube stage — none of this documentation is affected by the diff. The documentation should be returned unchanged.
-
 # Compensate level changes with Output
 
 The Output knob applies a post-tube gain trim to the processed signal. Use it to compensate for the level increase or decrease that Drive and Bias introduce, so the tube stage does not unintentionally push levels up or down in the rest of the chain.
@@ -49,3 +47,4 @@ The meter is not present in the docked applet tile. It updates continuously alon
 - [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - [Aetherial Mic-PreAmp (TX) / Aetherial Dynamic Tube (RX) overview](overview.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->
