@@ -1,5 +1,3 @@
-The source diff shows that the NRL button visibility change (making it available on 6000-series radios) is already fully documented in the current page — the table, the explanatory paragraph, and the troubleshooting entry all accurately reflect the v0.9.4 behavior. The `ModeFilterPresets` struct has no controls. No user-visible documentation change is warranted.
-
 # Pick a filter width preset for the current mode
 
 Use the filter width preset buttons in the RX Controls applet to quickly apply a standard passband width for the active mode. Presets are saved per mode in `FilterPresets`.

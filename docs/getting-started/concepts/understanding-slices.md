@@ -1,4 +1,4 @@
-The diff shows only internal C++ implementation details — private methods (`drawSwrSweep`, `setSwrSweepPoints`, `clearSwrSweepPoints`), internal member variables, and rendering logic. The SWR sweep overlay section already exists in the current documentation and accurately describes the user-visible behaviour. No user-facing documentation change is warranted.
+The diff shows only internal implementation details of the SWR sweep overlay — the rendering functions, positioning logic, and drawing code. The user-facing behavior, API, and documentation for the SWR sweep overlay is already fully and accurately described in the current documentation (which already references v0.9.4 and documents `setSwrSweepPoints()`, `clearSwrSweepPoints()`, `SwrSweepPoint`, all parameters, and all three overlay states). The catalog entry shows `VfoPos` struct with no controls. No user-visible documentation change is warranted.
 
 # Understanding Slices and VFOs
 

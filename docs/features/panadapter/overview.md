@@ -97,3 +97,4 @@ The SWR sweep steps the transmitter across a user-defined frequency range and pl
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Click the spectrum to activate a panadapter (multi-slice mode)](click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
 - [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->

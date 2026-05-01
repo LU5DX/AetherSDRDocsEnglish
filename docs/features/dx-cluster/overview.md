@@ -1,5 +1,3 @@
-The diff introduces only internal/private implementation details (`SwrSweepPoint` struct, `setSwrSweepPoints`, `clearSwrSweepPoints`, `drawSwrSweep`, and related private members) that are already fully documented in the current page under the **SWR sweep overlay** section. No user-visible behavior has changed relative to what is already documented. The current documentation accurately reflects all user-facing functionality introduced by this diff.
-
 # SpotHub overview
 
 SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources and displaying them as overlays on the panadapter. Use it to connect to traditional DX clusters, the Reverse Beacon Network, WSJT-X, SpotCollector, POTA, and FreeDV — all from one dialog.

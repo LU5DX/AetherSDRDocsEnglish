@@ -1,3 +1,5 @@
+The diff shows only internal C++ infrastructure changes (new private class forward declaration, private member pointers, and an internal method added to `AppletPanel`). The `PhoneCwApplet` catalog entry has no controls changes. The current documentation already contains the ShackSwitch section added for v0.9.4. No user-visible documentation change is warranted.
+
 # Phone/CW overview
 
 The Phone/CW applet is a mode-aware transmit panel that provides microphone, processor, and monitor controls in voice modes, and automatically switches to CW controls when the active slice is in a CW mode. Open it to adjust transmit audio or set keying parameters.
