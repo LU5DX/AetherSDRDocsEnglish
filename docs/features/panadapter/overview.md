@@ -75,8 +75,6 @@ The SWR sweep steps the transmitter across a user-defined frequency range and pl
 
 **Overlay.** During and after the sweep, a SWR curve is drawn over the panadapter spectrum. A marker indicates the frequency currently being measured while the sweep is in progress. The overlay is cleared automatically if you start a new sweep, or you can clear it manually.
 
-**Deferred AG manual connect.** A timer manages deferred AG manual connection attempts. The timer is cancelled automatically on disconnect, preventing stale connection attempts from completing after the radio link is dropped.
-
 ## Tips
 
 - The Lo and Hi pitch sliders constrain the frequency range the decoder searches. Narrowing this range around the expected CW tone reduces false decodes on a busy band.

@@ -152,4 +152,5 @@ The following accessor methods and visibility helpers are available on `AppletPa
 ## Tips
 
 - The L
+<!-- docmesh:
 <!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->
