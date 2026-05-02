@@ -1,0 +1,34 @@
+# Reset all EQ bands to the default 10-band template
+
+Use this procedure to discard all EQ band edits for a TX or RX equalizer and return it to the factory 10-band configuration. This also resets the band count and filter family to their defaults.
+
+## Before you start
+
+- The floating editor for the EQ path you want to reset (TX or RX) must be open. See [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md) if it is not already open.
+
+## Steps
+
+1. In the floating editor title bar, confirm you are on the correct path — the window title reads either "Aetherial Parametric EQ — TX" or "Aetherial Parametric EQ — RX".
+2. Click Reset in the editor header strip.
+
+All bands are immediately replaced with the default 10-band template. The band count is restored to 10, and the Filter family combo is reset to Butterworth. The settings are saved immediately.
+
+## What each control does
+
+| Control | Default | Behavior after reset |
+|---|---|---|
+| Reset | — | Replaces all bands with the default 10-band template, restores the default band count, and sets Filter family to Butterworth. Saves immediately. |
+| Filter family | Butterworth | Reset to Butterworth. Applies to HP and LP filter types only; peak and shelf bands are unaffected by this selector. Persisted as `ClientEqTxFilterFamily` (TX) or `ClientEqRxFilterFamily` (RX). |
+| Band count | 10 | Restored to 10 by Reset. Persisted as `ClientEqTxBandCount` (TX) or `ClientEqRxBandCount` (RX). |
+
+## Tips
+
+- Reset affects only the path shown in the current editor window. To reset the other path, open the other editor and repeat.
+- The Output Fader (post-EQ master gain, persisted as `ClientEqTxMasterGain` or `ClientEqRxMasterGain`) is not changed by Reset. Double-click the fader to return it to 0 dB separately if needed.
+
+## Related
+
+- [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
+- [Change the HP/LP filter family (Butterworth, Chebyshev, Bessel, Elliptic)](change-the-hp-lp-filter-family-butterworth-chebyshev-bessel-elliptic.md)
+- [Adjust post-EQ output gain with the Output Fader](adjust-post-eq-output-gain-with-the-output-fader.md)
+- [Change a band's filter type by clicking its icon in the icon row](change-a-band-s-filter-type-by-clicking-its-icon-in-the-icon-row.md)
