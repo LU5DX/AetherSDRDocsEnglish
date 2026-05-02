@@ -39,6 +39,15 @@ From v0.9.3, the slice tab buttons (A..H) and the Slice badge in the top-left co
 - The same colour is reflected in the slice tab buttons, the Slice badge, VFO widgets, and meter strips wherever the slice is displayed.
 - No action is required on your part; the colours update automatically when a slice is connected or its colour is changed.
 
+## Slice tab behaviour on reconnect (v0.9.5.1)
+
+From v0.9.5.1, the slice tab row is rebuilt correctly whenever the number of available slices changes across a disconnect and reconnect cycle. Specifically:
+
+- When the radio reports a different slice count on reconnect, the existing tab buttons are torn down completely before new ones are created. The static Slice badge is restored and visible while no tabs are present.
+- Click signal handlers are connected only once per applet lifetime, regardless of how many times the radio connects or reconnects. This prevents duplicate events from firing when a slice tab is clicked after a reconnect.
+
+No action is required on your part. If you reconnect to a radio with a different slice configuration, the tab row updates automatically.
+
 ## NT mode behaviour
 
 From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls applet:
@@ -46,6 +55,17 @@ From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls
 - **Filter width presets** apply the digital (DIG) preset list to NT slices, the same as DIGU and DIGL.
 - **Filter width display** calculates the NT filter width using the upper edge (hi), consistent with DIGU and FDV handling.
 - **Squelch** is disabled for NT slices. Because audio is routed via DAX in digital modes, the squelch control is not meaningful. The SQL button and squelch level slider are greyed out when NT is the active mode. If squelch was on when you switched to NT, it is turned off automatically and restored when you leave NT.
+
+## Filter width presets (v0.9.5.1)
+
+From v0.9.5.1, filter preset entries can store either a plain width value or an explicit lo:hi passband pair. This matches the storage format used by VfoWidget (#2259). The behaviour from your perspective is:
+
+- Presets you saved in earlier versions (plain width values) continue to load and work without any changes.
+- When a preset is saved from a custom passband position, both the low and high filter edges are stored. When that preset is recalled, the passband is restored to exactly the same position, not just the same width.
+- The `FilterPresets` setting in AppSettings uses the format `lo:hi` for passband-aware entries and a plain integer for width-only entries. Multiple entries are comma-separated, for example: `300:3000,100:2900,2700`.
+- At most six presets are shown in the RX Controls applet regardless of how many are stored.
+
+Right-click a filter preset button to save the current filter width (and passband position, if applicable) as that preset. Click a preset button to apply it.
 
 ## Related
 

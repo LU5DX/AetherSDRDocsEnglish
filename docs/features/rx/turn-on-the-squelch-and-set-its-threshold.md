@@ -34,6 +34,7 @@ To disable the squelch, click **SQL** again to deactivate it.
 - **Audio is silent even with SQL off** — Check whether the slice is muted. The mute toggle (🔊 / 🔇) is separate from squelch. Click the mute button to unmute if needed. Also verify the **AF gain** slider is not at 0.
 - **Squelch level set but has no effect** — The **Squelch level** slider only controls the threshold; the squelch circuit is inactive until **SQL** is enabled. Confirm **SQL** is checked.
 - **SQL button is greyed out** — Squelch is not available in CW, DIGU, DIGL, or NT modes. In CW mode the radio manages squelch internally. In digital modes (DIGU, DIGL, NT) audio is routed via DAX and squelch is not meaningful. Switch to a mode that supports squelch, or use the **AF gain** slider to control audio level instead.
+- **Slice tabs look wrong after reconnecting** — In v0.9.5.1, slice tab buttons are fully rebuilt whenever the radio reconnects or the number of available slices changes. If the tab row appears incorrect, disconnect and reconnect to the radio; the tabs will reset to match the current hardware slice count.
 
 ## Related
 

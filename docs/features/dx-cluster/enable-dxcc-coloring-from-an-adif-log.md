@@ -24,6 +24,7 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 | **DXCC Coloring** | Master toggle. Colors panadapter spots by worked/confirmed/needed DXCC status. | `DxccColoringEnabled` |
 | **Log File (ADIF):** | Opens a file picker. The chosen ADIF file is read to populate DXCC status. | `DxccAdifPath` |
 | **Auto-Reload Log:** | When enabled, re-reads the ADIF file whenever it changes on disk. | `DxccAutoReload` |
+| **Auto Mode:** | Auto-selects spot density based on zoom level. Defaults to enabled. | `SpotAutoSwitchMode` |
 | **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
 | **Callsign: (FreeDV Reporter)** | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updates if the radio's configured callsign changes while **Use radio (callsign)** is checked. | `FreeDvMyCallsign` |
 | **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled. | `FreeDvUseRadioCallsign` |
@@ -56,6 +57,7 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 - The **Log File (ADIF):** button stores the path persistently. You do not need to re-select the file after restarting AetherSDR.
 - Enabling **Auto-Reload Log:** removes the need to reopen the dialog after logging a new contact — the spot colors on the panadapter update as soon as your logger writes to the file.
 - DXCC coloring is independent of per-source spot colors. If **Override Colors:** is also active, see [Pick colors for each spot source](pick-colors-for-each-spot-source.md) for how those settings interact.
+- **Auto Mode:** (`SpotAutoSwitchMode`) defaults to enabled as of v0.9.5.1. If you previously disabled it, check the current state on the **Display** tab after upgrading.
 - When **Use radio (callsign)** is checked, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
 - Reporter broadcasting is build-gated by `HAVE_WEBSOCKETS`. On Windows it additionally requires `HAVE_RADE`. If the **Station Reporting** group or the enable checkbox is absent, your build does not include the required components.
 

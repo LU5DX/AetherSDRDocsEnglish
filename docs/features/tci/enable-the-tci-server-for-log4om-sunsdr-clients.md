@@ -16,17 +16,16 @@ The TCI applet runs a WebSocket server that exposes radio control and audio to t
 
 ## What each control does
 
-| Control | Default | Range / States | Persisted key |
-|---|---|---|---|
-| **Port** text field | `50001` | 1024–65535; invalid values snap to `50001` | `TciPort` |
-| **Enable** toggle | Off | Off / On (green) | — |
-| **RX1**–**RX4** gain meter/slider | `0.5` | 0.0–1.0 | `TciRxGain1`–`TciRxGain4` |
-| **TX** gain meter/slider | `0.5` | 0.0–1.0 | `TciTxGain` |
-| RX/TX slice-assignment labels | `—` | `—` or `Slice <letter>` | — |
-| Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` | — |
+| Control                           | Default     | Range / States                                      |
+|-----------------------------------|-------------|-----------------------------------------------------|
+| **Port** text field               | `50001`     | 1024–65535; invalid values snap to `50001`          |
+| **Enable** toggle                 | Off         | Off / On (green)                                    |
+| **RX1**–**RX4** gain meter/slider | `0.5`       | 0.0–1.0                                             |
+| **TX** gain meter/slider          | `0.5`       | 0.0–1.0                                             |
+| RX/TX slice-assignment labels     | `—`         | `—` or `Slice <letter>`                             |
+| Server status indicator           | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` |
 
 The RX1–RX4 rows show which slice drives each TCI channel. The label reads `Slice A`, `Slice B`, and so on, based on the DAX channel assignment of each slice. The TX row shows the currently active TX slice.
-
 ## Tips
 
 - To start the TCI server automatically every time AetherSDR launches, go to `Settings > Autostart TCI with AetherSDR` and enable that item. See [Autostart TCI on launch](autostart-tci-on-launch.md).

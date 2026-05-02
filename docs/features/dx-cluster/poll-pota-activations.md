@@ -51,6 +51,10 @@ Before enabling **Enable FreeDV Reporter reporting when RADE is active**, Aether
 
 If either the resolved callsign or grid square is empty, AetherSDR displays a warning and leaves the checkbox unchecked. Fill in both fields before trying again.
 
+## Auto Mode default change
+
+As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled**. The setting is persisted as `SpotAutoSwitchMode`. If you previously left this at its default, it will now be active after a fresh installation. Existing installations retain whatever value was last saved.
+
 ## Tips
 
 - POTA spots appear in the unified **Spot List** tab alongside spots from other sources. The **Source** column identifies them.

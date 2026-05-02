@@ -54,6 +54,10 @@ If either value is missing when you attempt to enable **Enable FreeDV Reporter r
    - If either the callsign or grid square is blank, a warning dialog appears. Fill in the missing value and try again.
 6. Reporting is now active whenever the RADE modem is running.
 
+## Auto Mode default change
+
+As of v0.9.5.1, **Auto Mode:** (`SpotAutoSwitchMode`) defaults to **Enabled** for new installations. If you are upgrading and want to retain the previous behavior, open the **Display** tab and set **Auto Mode:** to **Disabled**.
+
 ## Tips
 
 - Spots received from SpotCollector appear alongside spots from other sources in the **Spot List** tab. The **Source** column identifies them.

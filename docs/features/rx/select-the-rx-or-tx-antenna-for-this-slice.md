@@ -28,6 +28,25 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 - Each slice has its own independent RX and TX antenna assignment. Changing the antenna on slice A does not affect slice B.
 - From v0.9.3, the slice tab buttons and the slice badge use per-slice colors managed by SliceColorManager. These colors persist across sessions and are also reflected in VFO widgets and meter strips. The colors are not configurable from the antenna controls page; they apply applet-wide.
 
+## Slice tab behavior
+
+In v0.9.5.1, the slice tab row gained more robust lifecycle management to fix issues seen across radio reconnects (#2254).
+
+- When the radio reports a different number of slices than the current tab row contains, AetherSDR tears down all existing tab buttons (`clearSliceButtons()`) before rebuilding the row. Previously, the row was only built once per session.
+- `clearSliceButtons()` removes all generated tab buttons, hides the tab row, and restores the static slice badge. This is also the state shown when the radio is disconnected.
+- The signal connection between the button group and `sliceActivationRequested` is now created only once per session, regardless of how many times the tab row is rebuilt. This prevents duplicate signal handlers accumulating across reconnects.
+
+## Filter preset storage format
+
+From v0.9.5.1, filter presets saved via right-clicking a **Filter width presets** button can store either a plain width or a specific passband edge pair (#2259). This matches the format used by VfoWidget.
+
+- A **plain width** entry is stored as a single integer (e.g. `2700`). When applied, the radio places the passband symmetrically according to the current mode.
+- A **lo:hi edge** entry is stored as two integers separated by a colon (e.g. `300:3000`). When applied, AetherSDR sets the low and high passband edges exactly as saved.
+
+Both formats can coexist in the same preset list for a given mode. The setting key is `FilterPresets_<mode>` (e.g. `FilterPresets_USB`). Up to six presets are shown in the RX Controls applet for each mode.
+
+If a saved entry is malformed or has a high edge that does not exceed the low edge, AetherSDR skips that entry silently when loading presets.
+
 ## NT mode behavior
 
 NT is a digital mode added in v0.9.3. Its behavior within the RX Controls applet matches other digital modes (DIGU/DIGL) in the following ways:
@@ -42,6 +61,8 @@ NT is a digital mode added in v0.9.3. Its behavior within the RX Controls applet
 - **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only.
 - **Both labels are greyed out or unresponsive** — AetherSDR is not connected to the radio. Reconnect via `Settings > Connect to Radio...`.
 - **SQL button is greyed out after switching to NT mode** — NT is a digital mode. AetherSDR disables squelch in all digital modes (DIGU, DIGL, NT) because audio is routed via DAX and squelch has no meaningful effect. Switch to a non-digital mode to re-enable squelch.
+- **Slice tab row shows wrong tabs after reconnecting** — In earlier versions, the tab row was built only once and could become stale after a reconnect. From v0.9.5.1, AetherSDR rebuilds the tab row whenever the number of slices changes. If the row still appears incorrect, disconnect and reconnect via `Settings > Connect to Radio...`.
+- **A filter preset applies a different passband than expected** — Presets saved before v0.9.5.1 are stored as plain widths and remain valid. Presets saved from v0.9.5.1 onward may store exact lo:hi edges. If a preset behaves unexpectedly, right-click the preset button to overwrite it with the current passband.
 
 ## Related
 

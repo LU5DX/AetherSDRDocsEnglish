@@ -18,14 +18,13 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| `Settings > Autostart TCI with AetherSDR` (checkable menu item) | Off | On / Off | `AutoStartTCI` |
-| Port | `50001` | 1024–65535 | `TciPort` |
-| Enable (toggle button in TCI Server applet) | Off | On / Off | — |
-| RX1–RX4 gain+meter | 0.5 | 0.0–1.0 | `TciRxGain1` – `TciRxGain4` |
-| TX gain+meter | 0.5 | 0.0–1.0 | `TciTxGain` |
-
+| Control                                                         | Default                                              | Valid range                                                                                                                                                                                                                                                         |
+|-----------------------------------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Settings > Autostart TCI with AetherSDR` (checkable menu item) | Off                                                  | On / Off                                                                                                                                                                                                                                                            |
+| Port                                                            | `50001`                                              | 1024–65535                                                                                                                                                                                                                                                          |
+| Enable (toggle button in TCI Server applet)                     | Off                                                  | On / Off                                                                                                                                                                                                                                                            |
+| RX1–RX4 gain+meter                                              | 0.5                                                  | 0.0–1.0                                                                                                                                                                                                                                                             |
+| TX gain+meter                                                   | Drags set the TCI TX gain and emit tciTxGainChanged. | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). |
 ## Tips
 
 - Enabling autostart also sets `AutoStartTCI` to `True`. Toggling Enable in the TCI Server applet writes the same key, so both controls stay in sync.

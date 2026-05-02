@@ -16,14 +16,13 @@ Set the output gain that the TCI server applies to the transmit audio stream bef
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key |
-|---|---|---|---|
-| TX gain+meter | 0.5 | 0.0–1.0 | `TciTxGain` |
+| Control       | Default                                              | Valid range                                                                                                                                                                                                                                                         |
+|---------------|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TX gain+meter | Drags set the TCI TX gain and emit tciTxGainChanged. | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). |
 
 The **TX gain+meter** is a combined meter and slider. The meter portion reflects the live TX audio level from the active TX slice. The slider position sets the gain applied to that audio before it is sent to TCI clients.
 
 The slice label next to **TX:** (for example, `Slice A` or `—`) is read-only. It shows which slice is currently assigned as the TX slice and updates automatically when the TX slice changes.
-
 ## Tips
 
 - If no slice label appears next to **TX:** (it shows `—`), no TX slice is assigned. Assign a TX slice on the radio before adjusting TX gain.

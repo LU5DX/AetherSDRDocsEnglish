@@ -25,7 +25,7 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | Control | Setting key | Behavior |
 |---|---|---|
 | **Spots:** | `IsSpotsEnabled` | Master toggle for the spot overlay on the panadapter. |
-| **Auto Mode:** | `SpotsAutoMode` | Automatically adjusts spot density based on zoom level. Overrides Levels. |
+| **Auto Mode:** | `SpotsAutoMode` | Automatically adjusts spot density based on zoom level. Overrides Levels. Default is now Enabled. |
 | **Levels:** | `SpotsStackLevels` | Number of vertical stacking rows for spot labels. |
 | **Position:** | `SpotsPosition` | Vertical position of the spot label band on the panadapter. |
 | **Font Size:** | `SpotsFontSize` | Size of the text in each spot label. |
@@ -55,7 +55,7 @@ The FreeDV tab is only present in builds compiled with `HAVE_WEBSOCKETS`. On Win
 ## Tips
 
 - If spot labels overlap badly on a crowded band, increase **Levels:** to add more stacking rows, or decrease **Spot Lifetime:** so old spots clear sooner.
-- **Auto Mode:** is useful when you switch between zoomed-in and zoomed-out views frequently. Disable it if you want manual control over density.
+- **Auto Mode:** is enabled by default as of v0.9.5.1. Disable it if you want manual control over density via the **Levels:** slider.
 - WSJT-X spots have their own per-source lifetime setting (**Spot Life:** on the WSJT-X tab, stored as `WsjtxSpotLife`). The **Spot Lifetime:** slider on the Display tab applies to all other sources.
 - When **Use radio (callsign)** is active, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
 

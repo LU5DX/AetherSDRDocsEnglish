@@ -22,6 +22,7 @@ The Spot List tab in SpotHub shows every live spot from all active sources in a 
 | Bands: | Per-band checkboxes. Uncheck a band to hide its spots from the table. | — |
 | Clear | Removes all spots currently shown in the table. | — |
 | Spot table | Sortable table of all live spots. Double-click a row to tune. Columns: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, Source. | — |
+| Auto Mode: | Auto-selects spot density based on zoom. Enabled by default. | `SpotAutoSwitchMode` |
 | Enable FreeDV Reporter reporting when RADE is active | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or unresolvable the checkbox refuses to enable and shows a warning. | `FreeDvAutoReport` |
 | Callsign: (FreeDV Reporter) | Callsign to report to the FreeDV Reporter map. Read-only when "Use radio" is checked. When "Use radio" is checked, the field updates automatically if the callsign changes in Radio Setup. | `FreeDvMyCallsign` |
 | Use radio (callsign) | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. | `FreeDvUseRadioCallsign` |
@@ -50,6 +51,7 @@ The "Enable FreeDV Reporter reporting when RADE is active" checkbox broadcasts y
 - Sort by "Band" to group all spots on a given band together before double-clicking.
 - Spots are added newest-first; the table holds a maximum of the most recent spots across all sources.
 - Hiding bands with the "Bands:" checkboxes affects only the Spot List view, not the panadapter overlay.
+- "Auto Mode:" is enabled by default. If spot density on the panadapter looks cluttered at a wide zoom level, try disabling it and adjusting the "Levels:" slider manually.
 
 ## Related
 

@@ -60,6 +60,10 @@ The **FreeDV** tab contains a **Station Reporting** section that lets AetherSDR 
 
 > **Note:** The FreeDV Reporter map is a public, community-shared resource. AetherSDR blocks enabling this feature if the callsign or grid square is blank to prevent placeholder values such as `N0CALL` or `AA00` from appearing on the map.
 
+## Auto Mode default change
+
+In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** for new installations. The setting persists as `SpotAutoSwitchMode`. Existing installations where the value has been saved explicitly are not affected.
+
 ## Tips
 
 - The **RBN Console** is read-only and shows raw telnet lines as they arrive. Use the **Send** command line below it to issue filter commands directly to the RBN server (e.g., `set/skimmer` or band-filter commands supported by the RBN).
@@ -73,6 +77,7 @@ The **FreeDV** tab contains a **Station Reporting** section that lets AetherSDR 
 - **No spots appear on the panadapter after connecting** — Confirm that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also check that the band you are monitoring is not hidden in the **Spot List** tab band filter checkboxes.
 - **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate.
 - **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square value could not be resolved. Enter values in the **Callsign:** and **Grid Square:** fields, or enable **Use radio** and **Use GPS** so AetherSDR can read them from the radio.
+- **Auto Mode: is now Enabled after upgrading** — v0.9.5.1 changed the default for `SpotAutoSwitchMode` from `False` to `True`. If you prefer the previous behavior, open `Settings > SpotHub...`, click the **Display** tab, and click **Auto Mode:** to set it to **Disabled**.
 
 ## Related
 

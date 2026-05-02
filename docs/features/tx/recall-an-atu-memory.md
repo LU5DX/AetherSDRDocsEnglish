@@ -21,18 +21,37 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 |---------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | MEM     | Toggle button | Toggles ATU memory recall on/off. When on, the radio applies a stored tuner solution rather than running a new tune cycle. Disabled when TGXL is in OPERATE mode. |
 | Mem     | Indicator     | Lights green when the ATU is using a memory. Dim when memory recall is off or no memory is in use.                                                                |
+| ATU     | Push button   | Starts or bypasses the internal ATU tuning cycle depending on current status and frequency. See [ATU button behavior](#atu-button-behavior) below. Disabled when TGXL is in OPERATE mode. |
 | Success | Indicator     | Lights green when ATU status is Successful or OK.                                                                                                                 |
 | Byp     | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                          |
+
+## ATU button behavior
+
+Starting with v0.9.5.1, the **ATU** button toggles between tuning and bypass on a per-frequency basis, matching the behavior of SmartSDR.
+
+| Situation | Result of clicking ATU |
+|-----------|------------------------|
+| No prior successful tune, or frequency has changed since the last tune | Starts a fresh ATU tune cycle. |
+| ATU status is Successful or OK **and** the transmit frequency has not changed since that tune completed | Switches the ATU to bypass. |
+| ATU is in Bypass or ManualBypass | Starts a fresh ATU tune cycle. |
+
+**Key points:**
+
+- The radio remembers the frequency at which the ATU last reported a successful tune. If you change frequency between clicks, the button always starts a new tune cycle rather than bypassing, even if the previous status was Successful or OK.
+- After the ATU enters bypass, the stored tuned frequency is cleared. The next click will start a fresh tune cycle regardless of frequency.
+
 ## Tips
 
 - If **Byp** lights orange after enabling **MEM**, the ATU has fallen back to bypass. Run a fresh tune cycle with **ATU** to build a new memory for the current frequency.
 - The **Mem** indicator and the **Success** indicator can both be lit at the same time; **Mem** confirms a memory is in use, while **Success** confirms the stored solution is valid.
+- To bypass the ATU without running a new tune cycle, click **ATU** a second time at the same frequency where the last successful tune occurred. The **Byp** indicator will light orange to confirm bypass is active.
 
 ## Troubleshooting
 
 - **MEM button is greyed out and cannot be clicked** — The TGXL is in OPERATE mode. Memory recall cannot be toggled in this mode. Check the TGXL operating mode before proceeding.
 - **Mem indicator stays dim after clicking MEM** — No stored ATU memory exists for the current frequency. Run a full ATU tune cycle first using **ATU**, then try **MEM** again.
 - **Byp lights orange instead of Mem going green** — The ATU has entered bypass because no usable memory was found. Use **ATU** to tune and store a new solution.
+- **ATU button starts a new tune instead of bypassing** — The transmit frequency changed since the last successful tune. The button will not bypass until you are back on the exact frequency that was tuned. Tune again at the current frequency first.
 
 ## Related
 
