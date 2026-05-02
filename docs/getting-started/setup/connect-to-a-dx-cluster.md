@@ -70,6 +70,10 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 | **Use GPS** | Copies the grid from the radio's GPS and locks the field read-only. Visible only on GPS-capable radio models. | `FreeDvUseGpsGrid` |
 | **Station Msg:** | Optional free-text status line shown on the public map. | `FreeDvMyMessage` |
 
+## Display tab: Auto Mode default changed
+
+As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotAutoSwitchMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto Mode:**.
+
 ## Tips
 
 - While connected, type a cluster command in the field next to **Send** and click **Send** to interact with the cluster directly (for example, `set/dx` or `sh/dx 20`).

@@ -30,17 +30,30 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 | MOX        | Toggle button | Off     |
 | RF Pwr     | Meter         | —       |
 | SWR        | Meter         | —       |
+
 ## Tips
 
 - Keep SWR below 2.5 during the test. The SWR meter turns red above 2.5 as a visual warning.
 - Select a TX profile that has microphone processing disabled before running a two-tone test. Processing can distort the two-tone envelope and produce misleading IMD readings.
 - If you have ATU memories available, consider recalling a known-good memory before keying to ensure the antenna is matched. See [Recall an ATU memory](recall-an-atu-memory.md).
 
+## ATU button behavior (v0.9.5.1)
+
+The **ATU** button now toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
+
+- **First click on a new frequency** — starts a fresh ATU tune cycle. The **Success** indicator lights green when the tuner finds a match.
+- **Second click at the same frequency** — if the ATU status is already Successful or OK and you have not changed frequency since the last tune, clicking **ATU** again switches the tuner to bypass. The **Byp** indicator lights orange.
+- **Click after a frequency change** — always starts a fresh tune cycle, even if the previous status was Successful or OK.
+- **After bypass** — the internally stored tuned frequency is cleared. The next click will start a fresh tune cycle regardless of frequency.
+
+The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
+
 ## Troubleshooting
 
 - **MOX keys but RF Pwr reads zero** — The two-tone audio source may not be reaching the radio's input, or the mode is not SSB. Confirm the audio routing and mode selection before re-keying.
 - **SWR immediately goes red when MOX is pressed** — The antenna is unmatched. Click MOX to unkey, then run the ATU or check the feedline before continuing. See [Run the internal ATU](run-the-internal-atu.md).
 - **RF Pwr meter pegs at full scale** — RF Power slider is set too high for the connected antenna and amplifier. Click MOX to unkey, then reduce the RF Power slider before re-keying.
+- **ATU button starts a new tune instead of bypassing** — The transmit frequency changed since the last successful tune. This is expected. The button will only switch to bypass when the current frequency matches the frequency at which the ATU last reported a successful tune.
 
 ## Related
 

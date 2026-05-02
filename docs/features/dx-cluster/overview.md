@@ -44,7 +44,7 @@ The **Display** tab controls how spots appear on the panadapter.
 |---|---|---|
 | **Spots:** | `IsSpotsEnabled` | Enabled |
 | **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled |
-| **Auto Mode:** | `SpotsAutoMode` | — |
+| **Auto Mode:** | `SpotsAutoMode` | Enabled |
 | **Levels:** | `SpotsStackLevels` | — |
 | **Position:** | `SpotsPosition` | — |
 | **Font Size:** | `SpotsFontSize` | — |
@@ -57,6 +57,8 @@ The **Display** tab controls how spots appear on the panadapter.
 | **Log File (ADIF):** | `DxccAdifPath` | — |
 | **Auto-Reload Log:** | `DxccAutoReload` | — |
 | **Clear All Spots** | — | — |
+
+**Auto Mode:** defaults to Enabled as of v0.9.5.1. The `SpotAutoSwitchMode` setting key now defaults to `True`. If you previously relied on Auto Mode being off by default, check this setting after upgrading.
 
 ### FreeDV Reporter reporting
 
@@ -92,32 +94,48 @@ When **Use radio** is checked, the field displays the radio's callsign. Uncheck 
 |---|---|---|---|
 | **Station Msg:** | `FreeDvMyMessage` | — | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. |
 
+## SWR sweep overlay
+
+V0.9.4 adds a SWR sweep overlay that plots SWR versus frequency directly on the panadapter. An external source (for example, an antenna analyzer integration) supplies the data by calling `setSwrSweepPoints()`. The panadapter renders the curve via the internal `drawSwrSweep()` layer.
+
+### Supplying sweep data
+
+Call `setSwrSweepPoints()` with a vector of `SwrSweepPoint` values. Each point carries two fields:
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `freqMhz` | `double` | `0.0` | Frequency of the measurement in MHz. |
+| `swr` | `float` | `1.0` | SWR value at that frequency. |
+
+The method signature is:
+
+```
+setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `points` | `QVector<SwrSweepPoint>` | — | The sweep data to display. |
+| `running` | `bool` | `false` | Pass `true` while a sweep is in progress to indicate a live, incomplete trace. |
+| `currentFreqMhz` | `double` | `-1.0` | The frequency currently being swept. Pass `-1.0` to suppress the cursor. |
+| `sourceLabel` | `QString` | *(empty)* | Optional label identifying the source of the sweep data, shown on the overlay. |
+
+### Clearing sweep data
+
+Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
+
 ## Tips
 
 - RBN produces a very high spot rate. Set **Rate Limit:** to a value your display can handle before connecting, to avoid flooding the panadapter.
 - WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (15 or 7.5 seconds) if you want spots to clear between periods.
 - The **Calling Me** filter in the WSJT-X tab highlights decodes specifically addressed to your callsign, which makes it easy to see when a station is responding to your CQ.
-- **Auto Mode:** is useful during contests or DXpeditions when spot density varies significantly across bands and zoom levels.
+- **Auto Mode:** defaults to Enabled in v0.9.5.1. It automatically adjusts spot density as you zoom the panadapter in and out, which is useful during contests or DXpeditions when spot density varies significantly across bands and zoom levels.
 - Before enabling **Enable FreeDV Reporter reporting when RADE is active**, confirm your callsign and grid square are correctly set. The checkbox will not enable if either value is blank.
+- Call `clearSwrSweepPoints()` after a sweep completes if you do not want the finished trace to persist on the panadapter.
 
 ## Troubleshooting
 
 - **Cluster or RBN connects but no spots appear on the panadapter** — Check that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also verify the relevant band checkboxes on the **Spot List** tab are checked.
 - **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
 - **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
-- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can be activated. If **Use radio** is checked but the radio has no configured callsign, or **Use GPS** is checked but GPS has no fix, enter values manually after unchecking those options.
-- **DXCC coloring is not working** — Ensure an ADIF file has been loaded via **Log File (ADIF):** and that **DXCC Coloring** is enabled. The DXCC stats indicator shows how many QSOs were imported from the file.
-
-## Related
-
-- [Connect to a DX cluster](../../getting-started/setup/connect-to-a-dx-cluster.md)
-- [Connect to the Reverse Beacon Network](../../getting-started/setup/connect-to-the-reverse-beacon-network.md)
-- [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
-- [Enable SpotCollector UDP feed](enable-spotcollector-udp-feed.md)
-- [Poll POTA activations](poll-pota-activations.md)
-- [Enable FreeDV QSO reporter WebSocket](enable-freedv-qso-reporter-websocket.md)
-- [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
-- [Auto-reload ADIF log when updated by a logger](auto-reload-adif-log-when-updated-by-a-logger.md)
-- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
-- [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source)
+- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can remain checked. Verify the **Call

@@ -106,6 +106,10 @@ v0.9.3 adds a **Station Reporting** group inside the **FreeDV** tab. When enable
 
 - The optional **Station Msg:** field (`FreeDvMyMessage`) accepts free text that appears beside your callsign on the public FreeDV Reporter map. Leave it blank if you have nothing to add.
 
+## Auto Mode default changed in v0.9.5.1
+
+The **Auto Mode:** toggle on the **Display** tab now defaults to **Enabled** for new installations. If you are upgrading from an earlier version and `SpotAutoSwitchMode` was not previously set, AetherSDR will treat it as enabled after the update. To disable it, open the **Display** tab and click **Auto Mode:** until it shows **Disabled**.
+
 ## Tips
 
 - If all per-source colors are too subtle to distinguish, use **Override Colors:** on the **Display** tab to force a single text color across every source, saved to `IsSpotsOverrideColorsEnabled` and `SpotsOverrideColor`.

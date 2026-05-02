@@ -19,22 +19,26 @@ The Phone applet is organized into four functional areas:
 
 **TX audio filter** shapes the transmitted audio passband. **Low Cut** adjusts the low-frequency cutoff of the TX filter (default 50 Hz, range 0 Hz up to 50 Hz below the current high-cut value, in 50 Hz steps). **High Cut** adjusts the high-frequency cutoff (default 3300 Hz, range 50 Hz above the current low-cut value up to 10000 Hz, in 50 Hz steps). Use the **<** and **>** buttons on each control or the mouse wheel to step the value.
 
+Each step snaps to the nearest multiple of 50 Hz in the chosen direction rather than adding or subtracting 50 Hz from the current value. For example, if the current low-cut value is 87 Hz, pressing **>** moves it to 100 Hz and pressing **<** moves it to 50 Hz. This means a single button press will correct a non-multiple-of-50 value to the grid before continuing to step along it.
+
 ## What each control does
 
-| Control        | Kind                                                                | Default                                                                                                                                   |
-|----------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| AM Carrier     | Slider                                                              | —                                                                                                                                         |
-| VOX            | Toggles voice-operated transmit; calls TransmitModel::setVoxEnable. | v0.9.3: setVoxEnable now emits phoneStateChanged so the Phone panel updates immediately when VOX is toggled by keyboard shortcut (#2084). |
-| VOX level      | Slider                                                              | —                                                                                                                                         |
-| Delay          | Slider                                                              | —                                                                                                                                         |
-| DEXP           | Toggle button                                                       | —                                                                                                                                         |
-| DEXP threshold | Slider                                                              | 0                                                                                                                                         |
-| Low Cut < / >  | Spinbox                                                             | 50 Hz                                                                                                                                     |
-| High Cut < / > | Spinbox                                                             | 3300 Hz                                                                                                                                   |
+| Control        | Kind          | Default  |
+|----------------|---------------|----------|
+| AM Carrier     | Slider        | —        |
+| VOX            | Toggle button | —        |
+| VOX level      | Slider        | —        |
+| Delay          | Slider        | —        |
+| DEXP           | Toggle button | —        |
+| DEXP threshold | Slider        | 0        |
+| Low Cut < / >  | Spinbox       | 50 Hz    |
+| High Cut < / > | Spinbox       | 3300 Hz  |
+
 ## Tips
 
 - The **DEXP** and **DEXP threshold** controls persist their values locally via `DexpEnabled` and `DexpLevel` even though the radio rejects the commands on firmware v1.4.0.0. The saved values will apply automatically if a future firmware version resolves the error.
 - You can adjust **Low Cut** and **High Cut** with the mouse wheel when hovering over the value display, in addition to using the **<** and **>** buttons.
+- Because the **<** and **>** buttons snap to the 50 Hz grid, pressing a button once from an off-grid value corrects to the grid rather than moving a full step beyond it. This is expected behavior.
 
 ## Troubleshooting
 

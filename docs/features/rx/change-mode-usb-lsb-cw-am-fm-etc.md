@@ -13,32 +13,38 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 2. If your radio has more than one slice active, click the appropriate slice tab (**A** through **H**) to bind the applet to the slice you want to change.
 3. Click the **Mode combo** drop-down. The current mode is shown (default: **USB**).
 4. Select the desired mode from the list:
-   - **USB**, **LSB**, **CW**, **AM**, **SAM**, **FM**, **NFM**, **DFM**, **DIGU**, **DIGL**, **RTTY**, **NT**
+   - **USB**, **LSB**, **CW**, **AM**, **SAM**, **FM**, **NFM**, **DFM**, **DIGU**, **DIGL**, **RTTY**
    - (RADE appears only in builds with RADE support enabled.)
 5. The slice switches to the selected mode. The filter width presets and tuning step sizes update automatically to suit the new mode.
 
 ## What each control does
 
-| Control                    | Default          | Valid values                                                                                                                                    |
-|----------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY, NT (+ RADE if available)                                                               |
-| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL/NT: 100–2000 Hz; RTTY: 250–1000 Hz          |
-| **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)                 |
-| **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                                |
+| Control                    | Default          | Valid values                                                                                                                          |
+|----------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available)                                                         |
+| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz  |
+| **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)       |
+| **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                      |
 
 ## Tips
 
 - FM, NFM, and DFM modes do not show filter width preset buttons. The filter is fixed for those modes.
-- After switching to FM or NFM, the CTCSS tone and repeater offset controls (Tone mode, Offset, −, Simplex, +, REV) become visible. See [Work an FM repeater with CTCSS tone and +/- offset](work-an-fm-repeater-with-ctcss-tone-and-offset.md) for details.
+- After switching to FM or NFM, the CTCSS tone and repeater offset controls (**Tone mode**, **Offset**, **−**, **Simplex**, **+**, **REV**) become visible. See [Work an FM repeater with CTCSS tone and +/- offset](work-an-fm-repeater-with-ctcss-tone-and-offset.md) for details.
 - After switching to CW, the **QSK** indicator in the header becomes relevant. Its state is controlled from the CW applet, not from RX Controls.
 - AGC mode controls are hidden when an FM family mode is active.
-- NT mode behaves like a digital mode: it uses the same filter presets as DIGU/DIGL, the squelch controls are disabled (audio is routed via DAX), and the filter width label is calculated the same way as for USB/DIGU.
+- Filter presets are now stored in a `lo:hi` format (e.g. `300:3000`) as well as the older plain-width format. Both formats are read correctly. If you have saved custom presets from an earlier version, they continue to work without any action on your part.
+
+## Slice tab behaviour (v0.9.5.1)
+
+When the radio reports a change in the number of available slices, the A..H tab row is now rebuilt correctly instead of being skipped. The previous behaviour kept the old buttons if any were already present; v0.9.5.1 tears down and recreates the buttons whenever the slice count changes (`clearSliceButtons()`, #2254). On disconnect the tab row is hidden and the static **Slice badge** is restored automatically.
+
+Signal connections for slice button clicks are also guarded so that reconnecting to the radio does not attach duplicate handlers.
 
 ## Troubleshooting
 
 - **Mode combo is missing or grayed out** — The applet is not connected to the radio. Check the connection via `Settings > Connect to Radio...`.
 - **Filter preset buttons disappeared after changing mode** — This is expected when switching to FM, NFM, or DFM. Those modes do not use filter presets.
-- **SQL button is grayed out after switching to NT** — This is expected. NT is treated as a digital mode; squelch is disabled and audio goes via DAX.
+- **Slice tabs show the wrong number of buttons after reconnecting** — This was a known issue fixed in v0.9.5.1 (#2254). Update to the current release if you see stale tab buttons.
 
 ## Related
 

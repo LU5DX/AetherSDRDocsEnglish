@@ -28,14 +28,13 @@ When the server is running but no clients are connected, the status reads the po
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Port | Port the TCI WebSocket server listens on. Out-of-range values snap to `50001`. | `50001` | 1024–65535 | `TciPort` |
-| Enable | Starts or stops the TCI server. | Off | On / Off | — |
-| Server status | Displays `(stopped)`, `:<port> (N clients)`, or `(port in use)`. Turns red on bind failure. | `(stopped)` | — | — |
-| RX1–RX4 gain+meter | Gain slider and level meter for each TCI RX channel. | 0.5 | 0.0–1.0 | `TciRxGain1`–`TciRxGain4` |
-| TX gain+meter | Gain slider and level meter for the TCI TX channel. | 0.5 | 0.0–1.0 | `TciTxGain` |
-
+| Control            | Description                                                                                 | Default                                                                                                                                                                                                                                                             |
+|--------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Port               | Port the TCI WebSocket server listens on. Out-of-range values snap to `50001`.              | `50001`                                                                                                                                                                                                                                                             |
+| Enable             | Starts or stops the TCI server.                                                             | Off                                                                                                                                                                                                                                                                 |
+| Server status      | Displays `(stopped)`, `:<port> (N clients)`, or `(port in use)`. Turns red on bind failure. | `(stopped)`                                                                                                                                                                                                                                                         |
+| RX1–RX4 gain+meter | Gain slider and level meter for each TCI RX channel.                                        | 0.5                                                                                                                                                                                                                                                                 |
+| TX gain+meter      | Drags set the TCI TX gain and emit tciTxGainChanged.                                        | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). |
 ## Tips
 
 - The client count updates automatically whenever a client connects or disconnects — no need to refresh.

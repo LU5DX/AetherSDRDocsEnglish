@@ -60,6 +60,7 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 - If you want FreeDV spots to stand out from DX cluster or RBN spots, set a unique color using **Spot Color:** before connecting.
 - If **Use radio** is checked, updating your callsign in Radio Setup immediately refreshes the **Callsign:** field without reopening SpotHub.
 - Reporter broadcasting only activates while the RADE modem is running. You can leave the checkbox enabled at all times; no data is sent when RADE is idle.
+- **Auto Mode:** on the **Display** tab defaults to **Enabled** as of v0.9.5.1. Spot density adjusts automatically as you zoom the panadapter without any manual configuration. If you previously disabled **Auto Mode:** and saved settings from an earlier version, check whether the new default is appropriate for your workflow. The setting is saved to `SpotAutoSwitchMode`.
 
 ## Troubleshooting
 

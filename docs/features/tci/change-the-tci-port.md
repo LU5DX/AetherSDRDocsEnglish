@@ -17,12 +17,11 @@ The TCI server listens on a configurable port. Change the port when the default 
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Port** field | `50001` | 1024–65535 | `TciPort` | Sets the WebSocket port. Out-of-range values snap to `50001`. If the server is enabled, changing the port restarts the server immediately. |
-| **Enable** | Off | On / Off | — | Starts or stops the TCI server. If the port is already in use, the toggle snaps back to off and the status shows `(port in use)`. |
-| Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` | — | Shows current server state. Turns red on bind failure. |
-
+| Control                 | Default     | Valid range                                         |
+|-------------------------|-------------|-----------------------------------------------------|
+| **Port** field          | `50001`     | 1024–65535                                          |
+| **Enable**              | Off         | On / Off                                            |
+| Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` |
 ## Tips
 
 - If you change the port while the server is enabled, the restart is immediate. Connected clients will be disconnected and must reconnect to the new port.

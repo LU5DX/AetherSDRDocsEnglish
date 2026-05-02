@@ -20,6 +20,7 @@ The radio loads the selected profile immediately. No confirmation step is requir
 | Control        | Kind      | Behavior                                                                                 |
 |----------------|-----------|------------------------------------------------------------------------------------------|
 | **TX Profile** | Drop-down | Selects and loads a transmit profile from the radio. The list is populated by the radio. |
+
 ## Tips
 
 - You can also load a profile from the menu bar without opening the TX Controls applet. Go to `Profiles` and click the profile name in the checkable list below the separator.
@@ -29,6 +30,26 @@ The radio loads the selected profile immediately. No confirmation step is requir
 
 - **TX Profile drop-down is empty** — No transmit profiles exist on the radio. Open `Profiles > Profile Manager...` to create one.
 - **TX Profile drop-down is not responding** — AetherSDR is not connected to the radio. Connect first via `Settings > Connect to Radio...`.
+
+## ATU button behavior (v0.9.5.1)
+
+Starting with v0.9.5.1, the **ATU** button works as a per-frequency toggle that mirrors the behavior of SmartSDR:
+
+| Situation | What the ATU button does |
+|---|---|
+| No previous successful tune, or frequency has changed since the last tune | Starts a new ATU tuning cycle. |
+| ATU status is **Success** (or **OK**) and the transmit frequency has not changed since the last tune | Switches the tuner to bypass. |
+| ATU is in bypass | The next click starts a fresh tuning cycle. |
+
+In practice this means:
+
+1. Click **ATU** on a new frequency — the tuner runs a full tune cycle.
+2. When the **Success** indicator lights green, click **ATU** again on the same frequency — the tuner switches to bypass.
+3. Change frequency and click **ATU** — the tuner always starts a fresh cycle, even if the previous status was successful.
+
+The **Byp** indicator lights orange whenever the tuner is in bypass. The **Success** indicator lights green when the tune was successful and the tuner is holding that match.
+
+> **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL amplifier is in OPERATE mode.
 
 ## Related
 

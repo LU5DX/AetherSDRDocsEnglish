@@ -30,6 +30,7 @@ AetherSDR now watches the file at `DxccAdifPath` for changes. Each time your log
 | `Grid Square: (FreeDV Reporter)` | Maidenhead grid square to report (up to six characters). Read-only when `Use GPS` is checked. | `FreeDvMyGrid` |
 | `Use GPS (grid)` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
 | `Station Msg: (FreeDV Reporter)` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+| `Auto Mode:` | Toggle. When enabled, automatically selects spot density based on panadapter zoom level. Defaults to enabled as of v0.9.5.1. | `SpotAutoSwitchMode` |
 
 ## FreeDV Reporter reporting
 
@@ -73,6 +74,7 @@ AetherSDR saves the setting to `FreeDvAutoReport` and begins reporting to qso.fr
 - If your logger writes a temporary file and then renames it into place, the file watcher may not detect every save. Point your logger to write directly to the file at the path stored in `DxccAdifPath` for reliable detection.
 - For large ADIF files, AetherSDR reads only the last 500 lines on each reload to avoid blocking the UI.
 - If you change the radio's callsign in Radio Setup while `Use radio` is checked, the `Callsign:` field in the FreeDV Reporter section updates automatically.
+- `Auto Mode:` defaults to enabled in v0.9.5.1. If spot density on the panadapter changes unexpectedly when you zoom, check whether `Auto Mode:` is on and disable it to use a fixed density instead.
 
 ## Troubleshooting
 

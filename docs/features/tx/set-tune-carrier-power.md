@@ -18,11 +18,33 @@ The "Tune Pwr" slider sets the power level of the continuous carrier transmitted
 | Control  | Description                                        | Default |
 |----------|----------------------------------------------------|---------|
 | Tune Pwr | Sets the power level of the tune carrier in watts. | 10      |
+
 ## Tips
 
 - Set "Tune Pwr" to the minimum level that allows your ATU to find a match. Many operators use 10–20 W for ATU tuning.
 - The "Tune Pwr" setting is independent of "RF Power", which controls normal transmit power. Adjusting one does not affect the other.
 - You can set per-band tune power defaults in `Settings > TX Band Settings...`.
+
+## ATU button behavior
+
+As of v0.9.5.1, the ATU button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
+
+The exact action taken when you click ATU depends on the current tuner status and your transmit frequency:
+
+| Situation | What ATU click does |
+|---|---|
+| No successful tune exists for the current frequency | Starts a fresh ATU tune cycle. |
+| ATU reports a successful match and transmit frequency has not changed since that tune | Switches the ATU to bypass. |
+| ATU reports a successful match but transmit frequency has changed since that tune | Starts a fresh ATU tune cycle. |
+| ATU is already in bypass | Starts a fresh ATU tune cycle. |
+
+In practice this means:
+
+1. Click ATU on a new frequency. The radio runs a tune cycle. The Success indicator lights green when a match is found.
+2. Click ATU again without changing frequency. The tuner enters bypass. The Byp indicator lights orange and the Success indicator goes dim.
+3. Change frequency and click ATU. The radio runs a fresh tune cycle regardless of the previous result.
+
+The ATU button and MEM button are both disabled when TGXL is in OPERATE mode.
 
 ## Related
 

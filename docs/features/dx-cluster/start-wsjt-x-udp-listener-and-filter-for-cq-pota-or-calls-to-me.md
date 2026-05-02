@@ -83,6 +83,10 @@ When you check **Enable FreeDV Reporter reporting when RADE is active**, AetherS
 
 If either resolved value is empty the checkbox is automatically unchecked and a dialog prompts you to supply the missing information. This prevents blank or placeholder values from being broadcast to the shared community map.
 
+## Auto Mode default changed
+
+As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** (stored as `SpotAutoSwitchMode`). In previous versions the default was Disabled. If you have not changed this setting, AetherSDR will now automatically select spot density based on the current panadapter zoom level immediately after a fresh install or settings reset.
+
 ## Tips
 
 - If none of the three filter checkboxes (**CQ**, **CQ POTA**, **Calling Me**) are checked, all decoded transmissions are shown on the panadapter regardless of content.

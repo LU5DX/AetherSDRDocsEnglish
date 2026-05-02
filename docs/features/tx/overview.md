@@ -35,22 +35,37 @@ None of the TX Controls settings are persisted by AetherSDR; values follow the r
 | **Mem** | Indicator | Dim | Dim / green | Lights green when the ATU is recalling a saved memory. |
 | **TUNE** | Button | — | TUNE / TUNING... | Starts a tune carrier. Label changes to "TUNING..." with a red background while active. Click again to stop. |
 | **MOX** | Toggle button | — | Off / on (red) | Toggles manual transmit. Button turns red while the transmitter is keyed. |
-| **ATU** | Button | — | — | Starts the internal ATU tuning cycle. Disabled when TGXL is in OPERATE mode. |
+| **ATU** | Button | — | — | Starts an ATU tune cycle or switches the tuner to bypass, depending on current state and frequency. See [ATU button behaviour](#atu-button-behaviour) below. Disabled when TGXL is in OPERATE mode. |
 | **MEM** | Toggle button | — | Off / on | Toggles ATU memory recall on or off. Disabled when TGXL is in OPERATE mode. |
 | **APD** | Toggle button | — | Off / on | Toggles Adaptive Pre-Distortion on the radio. |
 | **Active** | Indicator | Dim | Dim / green | Lit when APD is on and the equalizer is actively applied. |
 | **Cal** | Indicator | Dim | Dim / green | Lit when APD is on and still calibrating. |
 | **Avail** | Indicator | Dim | Dim / green | Lit when APD is on and a calibration is available but not yet applied. |
 
+### ATU button behaviour
+
+The **ATU** button now toggles between starting a tune cycle and bypassing the tuner, matching SmartSDR's per-frequency behaviour:
+
+- **First click (or any click after a frequency change)** — starts a fresh ATU tune cycle.
+- **Second click at the same frequency** — if the ATU reports a successful or OK match and you have not changed frequency since that tune completed, clicking **ATU** again switches the tuner to bypass.
+- **After a bypass** — the tuned-frequency record is cleared. The next click always starts a fresh tune cycle.
+
+If you change frequency between clicks, the button always starts a new tune cycle regardless of the previous ATU status.
+
 ### APD status progression
 
 APD moves through three states in sequence: **Cal** (calibrating) → **Avail** (calibration ready, not yet applied) → **Active** (equalizer applied to the transmitted signal).
+
+## ShackSwitch applet
+
+V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, the Applet Panel shows its tray button (**SS**) and applet automatically. Both are hidden when no ShackSwitch device is present. No manual configuration is required to show or hide this applet.
 
 ## Tips
 
 - Keep **Tune Pwr** low (the default is 10) to avoid stressing the antenna or amplifier during ATU tuning.
 - Watch the **SWR** meter after a tune cycle. The **Success** indicator confirms the ATU found a match, but the SWR meter shows you the actual result.
 - The **RF Pwr** meter scale changes automatically between 0–120 W (barefoot FLEX-8600) and 0–600 W (Aurora 500W); the red threshold adjusts accordingly.
+- After a successful tune, clicking **ATU** a second time at the same frequency bypasses the tuner. To retune, change frequency or click **ATU** again after the bypass.
 
 ## Related
 
@@ -64,3 +79,4 @@ APD moves through three states in sequence: **Cal** (calibrating) → **Avail** 
 - [Enable APD to linearise the transmitter](enable-apd-to-linearise-the-transmitter.md)
 - [Run a Two-Tone Tune](run-a-two-tone-tune.md)
 - [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-01 -->

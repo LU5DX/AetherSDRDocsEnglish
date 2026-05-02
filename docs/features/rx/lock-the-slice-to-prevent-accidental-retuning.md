@@ -26,6 +26,23 @@ The tune-lock feature prevents a slice from responding to frequency changes. Use
 - The lock button is always visible in the header row regardless of the current mode.
 - From v0.9.3, the slice tab buttons and the slice badge both use per-slice colors managed by SliceColorManager. Colors are customizable per slice and persist across sessions. The same color is reflected in the slice tab buttons, the slice badge, VFO widgets, and meter strips.
 
+## Slice tab behavior on reconnect (v0.9.5.1)
+
+When the radio disconnects or the number of available slices changes, AetherSDR now tears down all generated slice tab buttons and restores the static slice badge automatically (`clearSliceButtons()`, #2254). On reconnect, the tab row is rebuilt to match the new slice count. If the count has not changed, the existing buttons are reused without a rebuild.
+
+Signal connections between the slice button group and the `sliceActivationRequested` handler are guarded so that reconnecting to the radio does not accumulate duplicate signal handlers.
+
+## Filter preset storage format (v0.9.5.1)
+
+Filter presets saved for a given mode (setting key `FilterPresets`) now support two storage formats:
+
+- **Width only** — a plain integer representing the filter bandwidth in Hz (for example, `2700`). This is the legacy format and continues to work.
+- **Lo:Hi** — a colon-separated pair of low-edge and high-edge offsets in Hz (for example, `-1400:1300`). This format preserves an asymmetric passband exactly as you set it by dragging the filter passband widget edges.
+
+When you right-click a filter preset button to save the current width, AetherSDR writes the `lo:hi` form when the passband is asymmetric (#2259). Presets saved in the old width-only format are read and applied as centred passbands, exactly as before.
+
+Up to six presets are stored and displayed per mode in the RX Controls applet. Buttons are hidden for FM, NFM, and DFM modes.
+
 ## NT mode
 
 Version 0.9.3 adds the `NT` mode alongside the existing digital modes (`DIGU`, `DIGL`). It behaves identically to other digital modes in the following ways:

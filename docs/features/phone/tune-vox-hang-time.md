@@ -20,11 +20,30 @@ The VOX hang time controls how long the radio stays in transmit after your voice
 | **Delay** slider | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
 
 No setting key is persisted for the Delay slider; the value is sent directly to the radio.
+
 ## Tips
 
 - A Delay value that is too low causes the transmitter to drop in and out between words. Raise the value until tail drop-outs stop.
 - A Delay value that is too high keeps the transmitter keyed well after you finish speaking, blocking other stations. Lower the value until the hang is just long enough to cover normal pauses.
 - The VOX level threshold and Delay interact: a more sensitive (lower) VOX level may require a shorter Delay, and vice versa.
+
+## TX filter cut-point stepping behavior
+
+As of v0.9.5.1, the **Low Cut < / >** and **High Cut < / >** buttons snap the filter frequency to the nearest multiple of 50 Hz in the chosen direction, rather than adding or subtracting a fixed 50 Hz from the current value.
+
+For example, if the low-cut is currently set to 87 Hz:
+
+- Pressing **>** (increase) moves it to **100 Hz** (the next multiple of 50 above 87).
+- Pressing **<** (decrease) moves it to **50 Hz** (the next multiple of 50 below 87).
+
+This means a single button press always lands on a clean 50 Hz boundary regardless of the starting value. The mousewheel on each spinbox follows the same snap behavior. The radio accepts any integer Hz value, so the snapping is a UI convenience only and does not restrict what the radio will accept.
+
+| Control            | Description                                                              | Default | Valid range                          |
+|--------------------|--------------------------------------------------------------------------|---------|--------------------------------------|
+| **Low Cut < / >**  | Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary. | 50 Hz   | 0 to (high-cut − 50), step 50 Hz    |
+| **High Cut < / >** | Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary.| 3300 Hz | (low-cut + 50) to 10000, step 50 Hz |
+
+Neither control has a persisted setting key; values are sent directly to the radio.
 
 ## Related
 

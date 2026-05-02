@@ -21,6 +21,10 @@ All spots are removed from the panadapter and the spot list instantly. Connected
 - To clear only the spot list table, go to the `Spot List` tab and click `Clear`. This empties the table display but the effect on the panadapter overlay follows the same live spot data.
 - If spots reappear immediately and you want a clean slate for longer, reduce `Spot Lifetime:` on the `Display` tab (`SpotsLifetime`) or disconnect the relevant source before clearing.
 
+## Auto Mode default change
+
+As of v0.9.5.1, `Auto Mode:` (`SpotAutoSwitchMode`) defaults to **Enabled**. In previous versions it defaulted to Disabled. If you have not previously saved this setting, AetherSDR will now automatically switch the radio mode when you click a spot on the panadapter. To turn this off, open the `Display` tab and click `Auto Mode:` to set it to Disabled.
+
 ## FreeDV Reporter reporting
 
 The FreeDV tab includes a **Station Reporting** section that lets AetherSDR broadcast your activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active.

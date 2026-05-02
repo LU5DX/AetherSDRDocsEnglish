@@ -16,16 +16,15 @@ The TCI Server applet provides a gain slider for each of its four RX channels. A
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| RX1 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain1` |
-| RX2 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain2` |
-| RX3 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain3` |
-| RX4 gain meter/slider | 0.5 | 0.0 – 1.0 | `TciRxGain4` |
-| Slice assignment label | — | — or `Slice <letter>` | *(not persisted)* |
+| Control                | Default | Valid range           |
+|------------------------|---------|-----------------------|
+| RX1 gain meter/slider  | 0.5     | 0.0 – 1.0             |
+| RX2 gain meter/slider  | 0.5     | 0.0 – 1.0             |
+| RX3 gain meter/slider  | 0.5     | 0.0 – 1.0             |
+| RX4 gain meter/slider  | 0.5     | 0.0 – 1.0             |
+| Slice assignment label | —       | — or `Slice <letter>` |
 
 Each meter/slider also displays a live RX level using exponential smoothing — fast attack, slow decay — so the bar reflects signal activity on that channel while the drag position sets the gain.
-
 ## Tips
 
 - The slice assignment labels (for example, `Slice A`) follow the DAX channel mapping. If a slice's DAX channel assignment changes, the label updates automatically.
