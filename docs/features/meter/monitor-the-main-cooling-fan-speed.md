@@ -35,3 +35,4 @@ The gauge bar is cyan in the normal operating range and turns red above 2500 rpm
 - [Meters overview](overview.md)
 - [Watch PA temperature during long overs](watch-pa-temperature-during-long-overs.md)
 - [Check the radio's DC supply voltage](check-the-radio-s-dc-supply-voltage.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

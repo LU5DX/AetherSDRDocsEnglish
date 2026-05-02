@@ -1,3 +1,5 @@
+The diff shows internal C++ refactoring only (moving a variable declaration earlier in `buildAudioDevicesSnapshot`, resetting meter model fields in `setTgxlHandle`). The user-visible output of the Issue Summary and JSON tabs — including the remote audio RX fields — is already fully documented in the current page. No user-facing behavior has changed.
+
 # Read a plain-language list of suspected slice problems
 
 The Slice Troubleshooting dialog analyzes your current slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) binding state and presents a plain-language summary of detected problems. Use this when you suspect a configuration issue — such as missing audio, a stuck mute, a missing antenna, an invalid transverter, or a broken remote audio stream — and want a quick diagnosis without reading raw data.
@@ -50,3 +52,4 @@ The Issue Summary bullet list covers the following areas:
 - [Capture a slice snapshot for support](capture-a-slice-snapshot-for-support.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
 - [Inspect each transverter's RF/IF, offset and validity flags for XVTR diagnosis](inspect-each-transverter-s-rf-if-offset-and-validity-flags-for-xvtr-diagnosis.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

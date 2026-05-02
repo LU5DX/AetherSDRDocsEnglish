@@ -53,7 +53,7 @@ When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes immed
 
 ## ShackSwitch applet (v0.9.4)
 
-The Applet Panel now hosts a **ShackSwitch** applet alongside the existing applets. When a ShackSwitch device is detected, its button and applet become visible automatically. When the device is no longer present, they are hidden. No manual configuration is required to show or hide this applet — AetherSDR manages visibility through the `setShackSwitchVisible` method based on device presence.
+The Applet Panel now hosts a **ShackSwitch** applet alongside the existing applets. When a ShackSwitch device is detected, its button (**SS**) and applet become visible automatically. When the device is no longer present, they are hidden. No manual configuration is required to show or hide this applet — AetherSDR manages visibility based on device presence.
 
 ## Tips
 

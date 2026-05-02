@@ -1,3 +1,5 @@
+The diff shows changes to `DeviceDiagnostics.cpp`, `SliceTroubleshootingDialog.cpp`, and `MeterModel.cpp`. The `SliceTroubleshootingDialog.cpp` changes add remote audio RX fields to the Issue Summary — but the current documentation already contains a `## What the Issue Summary includes` section that fully documents both the radio-level remote audio RX and the per-slice radio stream route additions introduced by exactly these changes. The `MeterModel.cpp` change is an internal state reset with no user-visible behavior change. The `DeviceDiagnostics.cpp` change adds fields to the JSON snapshot's `rx_route` object, which is reflected in the existing documentation via the summary section. No documentation update is warranted.
+
 # Copy the full JSON snapshot to the clipboard
 
 The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) bindings. This page explains how to copy that snapshot to the clipboard so you can paste it into a support ticket, forum post, or bug report.
@@ -59,3 +61,4 @@ These entries appear alongside the existing audio device, DSP, and TX route info
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

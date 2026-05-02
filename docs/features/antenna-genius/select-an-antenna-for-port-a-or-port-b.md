@@ -50,3 +50,4 @@ Use the Antenna Genius applet to assign a specific antenna to Port A or Port B o
 - [Enable AUTO mode so the AG follows radio band changes](enable-auto-mode-so-the-ag-follows-radio-band-changes.md)
 - [Spot which antennas cannot TX on the current band (amber or dim)](spot-which-antennas-cannot-tx-on-the-current-band-amber-or-dim.md)
 - [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

@@ -1,3 +1,9 @@
+The diff contains no user-visible behavior changes relative to what is already documented:
+
+- The SWR sweep controls (Start Sweep, Clear Sweep, PWR slider, `setSwrSweepPowerWatts`) are already fully documented in the current page.
+- The NRL row 4 visibility change is already documented in the "DSP row visibility" section.
+- The remaining diff is internal implementation (widget styling, signal/slot wiring, private member declarations).
+
 # Click the spectrum to activate a panadapter (multi-slice mode)
 
 In a multi-panadapter layout, only one panadapter is active at a time. Clicking the spectrum area of an inactive panadapter brings it into focus so that your controls, slices, and tuning apply to it.

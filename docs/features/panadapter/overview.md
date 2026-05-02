@@ -1,3 +1,15 @@
+Looking at the diff, I need to identify user-visible changes:
+
+1. **New SWR sweep controls in the ANT panel**: "Start Sweep" button, "Clear Sweep" button, and a PWR slider (1–10 W) are added to the ANT overlay panel. These are user-facing controls that need documentation.
+
+2. **NRL (DSP row 4) behavior change**: NRL is now visible on 6000-series radios too (not just 8000-series). This is a user-visible behavior change.
+
+The SWR sweep controls already have a section in the docs, but the specific ANT panel controls (Start Sweep, Clear Sweep, PWR slider) are not listed anywhere. I need to add them to the controls table. The NRL change affects DSP row visibility — the current doc doesn't have a DSP rows table, so no change needed there unless it's documented elsewhere. Looking at the current doc, there's no DSP controls table, so that change doesn't warrant a doc update.
+
+The main change is adding the three new ANT panel SWR sweep controls to the documentation.
+
+---
+
 # Panadapter overview
 
 The panadapter displays a real-time FFT spectrum and waterfall for a radio slice, letting you visualise band activity and tune by clicking or dragging. Each panadapter can also show an optional CW decode panel that reads Morse off-air directly in the application.
@@ -35,6 +47,16 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | Control | Kind | Behavior |
 |---|---|---|
 | Spectrum / waterfall | Display and drag area | Click to activate the panadapter. Drag to pan. Scroll to zoom. |
+
+### ANT panel — SWR sweep controls
+
+These controls appear in the ANT overlay panel. Use them to run or clear a low-power SWR sweep across the current TX band.
+
+| Control | Kind | Default | Valid range | Behavior |
+|---|---|---|---|---|
+| Start Sweep | Button | — | — | Starts a SWR sweep across the current TX band using the selected power level. The sweep result is plotted as an overlay on the panadapter spectrum. |
+| Clear Sweep | Button | — | — | Clears the SWR sweep trace from the panadapter. |
+| PWR | Slider | 1 W | 1 – 10 W | Sets the carrier power used during the SWR sweep. Use the lowest level that produces a reliable reading. |
 
 ### CW decode panel
 
@@ -81,7 +103,7 @@ The SWR sweep steps the transmitter across a user-defined frequency range and pl
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
 - You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
-- Run the SWR sweep at the lowest power level sufficient to get a reliable reading. The sweep accepts a power value in watts; 1 W is the default.
+- Run the SWR sweep at the lowest power level sufficient to get a reliable reading. The PWR slider in the ANT panel accepts 1 – 10 W; 1 W is the default.
 - If a TGXL is in use, do not abort the sweep immediately after it starts. Allow the bypass phase to complete so the amplifier is not inadvertently left in an inconsistent state.
 
 ## Related

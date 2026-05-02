@@ -15,10 +15,12 @@ Use this page to assign a function and polarity to the DTR and RTS output pins o
 3. Set the serial line parameters using the **Baud**, **Data**, **Parity**, and **Stop** combo boxes to match your device's requirements.
 4. For the **DTR** pin, select the desired function from the **DTR** function combo box, then select the active polarity from the adjacent **Polarity** combo box.
 5. For the **RTS** pin, repeat the same two selections — function and polarity — using the **RTS** function and **Polarity** combo boxes.
-6. If your paddle connections are reversed, check **Paddle Swap (swap dit/dah)**.
-7. To have AetherSDR open this port automatically each time it starts, check **Auto-open serial port on startup**.
-8. If you are connecting a FlexControl tuning knob, click **Detect** under **FlexControl Tuning Knob** to identify the device. Click **Close** to release it.
-9. To have AetherSDR detect the FlexControl knob automatically on startup, check **Auto-detect on startup**. To reverse the tuning direction, check **Invert tuning direction**.
+6. For the **CTS** pin, select the desired input function from the **CTS** function combo box, then select the active polarity from the adjacent **Polarity** combo box. Use this to wire a foot switch, straight key, or iambic paddle dit input to CTS.
+7. For the **DSR** pin, repeat the same two selections — input function and polarity — using the **DSR** function and **Polarity** combo boxes. Use this for the iambic paddle dah input or a second PTT/CW key source.
+8. If your paddle connections are reversed, check **Paddle Swap (swap dit/dah)**.
+9. To have AetherSDR open this port automatically each time it starts, check **Auto-open serial port on startup**.
+10. If you are connecting a FlexControl tuning knob, click **Detect** under **FlexControl Tuning Knob** to identify the device. Click **Close** to release it.
+11. To have AetherSDR detect the FlexControl knob automatically on startup, check **Auto-detect on startup**. To reverse the tuning direction, check **Invert tuning direction**.
 
 ## What each control does
 
@@ -31,10 +33,14 @@ Use this page to assign a function and polarity to the DTR and RTS output pins o
 | **Data** | Number of data bits. | — | Per combo box options |
 | **Parity** | Parity setting. | — | Per combo box options |
 | **Stop** | Number of stop bits. | — | Per combo box options |
-| **DTR: Function** | Assigns a signal function to the DTR output pin. | — | Per combo box options |
-| **DTR: Polarity** | Sets active-high or active-low polarity for DTR. | — | Per combo box options |
-| **RTS: Function** | Assigns a signal function to the RTS output pin. | — | Per combo box options |
-| **RTS: Polarity** | Sets active-high or active-low polarity for RTS. | — | Per combo box options |
+| **DTR: Function** | Assigns a signal function to the DTR output pin. | None | None, PTT, CW Key, CW PTT |
+| **DTR: Polarity** | Sets active-high or active-low polarity for DTR. | — | Active High / Active Low |
+| **RTS: Function** | Assigns a signal function to the RTS output pin. | None | None, PTT, CW Key, CW PTT |
+| **RTS: Polarity** | Sets active-high or active-low polarity for RTS. | — | Active High / Active Low |
+| **CTS: Function** | Assigns an input function to the CTS pin so a foot switch, straight key, or iambic paddle wired to CTS can control PTT or CW keying. | None | None, PTT Input, CW Key Input, CW Dit Input, CW Dah Input |
+| **CTS: Polarity** | Sets active-high or active-low polarity for the CTS input. | — | Active High / Active Low |
+| **DSR: Function** | Assigns an input function to the DSR pin so a foot switch, straight key, or iambic paddle wired to DSR can control PTT or CW keying. | None | None, PTT Input, CW Key Input, CW Dit Input, CW Dah Input |
+| **DSR: Polarity** | Sets active-high or active-low polarity for the DSR input. | — | Active High / Active Low |
 | **Paddle Swap (swap dit/dah)** | Reverses dit and dah paddle inputs. | Unchecked | Checked / Unchecked |
 | **Auto-open serial port on startup** | Reopens the configured port when AetherSDR launches. | Unchecked | Checked / Unchecked |
 | **FlexControl Tuning Knob: Detect** | Detects a connected FlexControl knob. | — | — |
@@ -112,24 +118,5 @@ The APD system samples the outgoing RF signal and uses the feedback to train a p
 ### Steps
 
 1. Open `Settings > Radio Setup...`. If the **APD** tab is not visible, your radio or firmware does not support configurable APD.
-2. For each TX antenna (**ANT1**, **ANT2**, **XVTA**, **XVTB**), select the feedback sample port from the corresponding combo box. Choose **INTERNAL** when transmitting directly into the radio's own load or antenna. Choose **RX_A**, **RX_B**, **XVTA**, or **XVTB** when a directional coupler on that receive input samples the output of an external amplifier.
-3. To clear all accumulated APD training data and restart adaptation from scratch, click **Equalizer Reset**.
-
-### APD tab controls
-
-| Control | What it does | Default | Valid values |
-|---|---|---|---|
-| **ANT1 / ANT2 / XVTA / XVTB sampler combos** | Selects the feedback path the radio uses to sample outgoing RF for APD training on that TX antenna. | INTERNAL | INTERNAL, RX_A, RX_B, XVTA, XVTB |
-| **Equalizer Reset** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — | — |
-
-## ShackSwitch support changes in v0.9.4
-
-The **Peripherals** tab gains a dedicated ShackSwitch row and a **⚙ Web UI** button in v0.9.4. Previously, the Antenna Genius row would show a connected state even when the connected device was a ShackSwitch. The two devices are now handled separately.
-
-### Antenna Genius row behavior change
-
-The **Antenna Genius (AG)** Connect/Disconnect row now shows a connected status only when the connected device is a genuine Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row shows as disconnected and the ShackSwitch row shows as connected instead.
-
-### ShackSwitch row
-
-A new **ShackSwitch**
+2. For each TX antenna (**ANT1**, **ANT2**, **XVTA**, **XVTB**), select the feedback sample port from the corresponding combo box. Choose **INTERNAL** when transmitting directly into the radio's own load or antenna. Choose **RX_A**, **RX_B**, **XVTA**, or **XVT
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

@@ -53,6 +53,7 @@ The ShackSwitch row behaves as follows:
 - Enter the ShackSwitch IP address and click **Connect**. AetherSDR saves the address to `SS_ManualIp` and port to `SS_ControlPort` and connects using the AG UDP/TCP protocol on port 9007.
 - If the radio has already discovered the ShackSwitch via UDP beacon, the IP field may be pre-filled.
 - The row shows a Connected status only when the connected device is identified as a ShackSwitch. If a standard Antenna Genius is connected instead, the ShackSwitch row does not show Connected, and the Antenna Genius row does.
+- When a UDP beacon arrives after the initial connection, AetherSDR uses the updated beacon data (including `webPort` and antenna port count) to enrich the connected device record. No reconnection is required.
 - Click **⚙ Web UI** to open the ShackSwitch's local web interface in your system browser. AetherSDR determines the port as follows:
   1. Uses the `webPort` advertised in the beacon if it is greater than 1024.
   2. Falls back to the value stored in `SS_WebPort`.
@@ -113,6 +114,5 @@ The **RX** tab contains controls for manual frequency offset calibration and 10 
 ## Tips
 
 - **TX Band Settings** is also accessible directly from `Settings > TX Band Settings...` without opening Radio Setup first.
-- The **Max Power:** spin box on the TX tab sets a radio-level cap. Per-band limits set inside **TX Band Settings** operate on top of this cap.
-- When running frequency calibration, ensure no other station is transmitting on the reference frequency before clicking **Start**.
-- When **Check for Update** reports an available firmware version,
+- The **Max Power:** spin box on the TX tab sets a radio-level cap. Per-band limits set inside **TX Band Settings
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

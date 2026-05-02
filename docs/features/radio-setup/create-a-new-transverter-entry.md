@@ -1,3 +1,5 @@
+The diff contains only internal implementation changes (adding `QDesktopServices`/`QUrl` includes, blank lines, internal `isRealAg` lambda refactor, `webPort` parsing from the discovery datagram, and late-enrichment logic in `AntennaGeniusModel`). None of these alter any user-visible control, behavior, setting key, or documented feature — the ShackSwitch row, ⚙ Web UI button, and all related documentation were already present in the current document. The Serial tab note about v0.9.4 deferred builder and CTS/DSR input assignment is also already documented. No user-facing documentation change is warranted.
+
 # Create a new transverter entry
 
 Use this page to add a transverter definition to your FLEX-8600 so AetherSDR knows the IF-to-RF frequency offset and operating parameters for your transverter band.
@@ -86,3 +88,4 @@ The **Start** button now validates the cal frequency field before sending any co
 
 - [Radio Setup overview](overview.md)
 - [Set per-band TX max power and tune mode](set-per-band-tx-max-power-and-tune-mode.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

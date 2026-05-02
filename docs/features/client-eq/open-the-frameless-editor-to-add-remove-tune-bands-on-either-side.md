@@ -1,3 +1,5 @@
+The diff touches only `AppletPanel.cpp` and `AppletPanel.h` — it adds a `ShackSwitchApplet` and a new "SS" button to the applet panel. This is entirely unrelated to the `ClientEqApplet` documentation page. No user-visible behavior of the Parametric EQ is changed.
+
 # Open the Frameless Editor to Add / Remove / Tune Bands on Either Side
 
 The frameless editor is where you do all active EQ work: adding and removing bands, dragging them to new frequencies and gains, adjusting Q, switching filter types, and selecting a filter family. The applet tiles are view-only; this floating window is the editing surface.
@@ -58,3 +60,4 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 - [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
 - [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)
 - [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

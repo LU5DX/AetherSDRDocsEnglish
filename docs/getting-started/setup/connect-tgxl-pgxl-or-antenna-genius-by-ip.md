@@ -23,8 +23,8 @@ To disconnect a device, click **Disconnect** on its row.
 |---|---|---|
 | TGXL | 9010 | Required to recover TUNE on firmware 4.2+. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort`. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. |
 | PGXL | 9008 | Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Antenna Genius (AG) | 9007 | Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows **Connected** status only when the connected device is a non-ShackSwitch Antenna Genius. |
-| ShackSwitch | 9007 | Uses the AG UDP/TCP protocol. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an IP. The row is hidden from **Connected** status if an Antenna Genius (non-ShackSwitch) is the connected device. |
+| Antenna Genius (AG) | 9007 | Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows **Connected** status only when the connected device is a non-ShackSwitch Antenna Genius. Auto-connect on discovery is suppressed for ShackSwitch units; those are handled by the ShackSwitch row instead. |
+| ShackSwitch | 9007 | Uses the AG UDP/TCP protocol. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon, or by a serial number starting with `G0JKN`. Auto-discovery via UDP also works without manually entering an IP. The row is hidden if an Antenna Genius (non-ShackSwitch) is the connected device. When a ShackSwitch is detected, the saved `AG_ManualIp` value is cleared so the AG row does not auto-connect to the ShackSwitch on the next startup. |
 
 ## Opening the ShackSwitch web interface
 
@@ -33,10 +33,12 @@ Each ShackSwitch row includes a **⚙ Web UI** button. Clicking it opens the Sha
 AetherSDR determines the port for the web interface as follows:
 
 1. If the connected ShackSwitch beacon advertises a `webPort` greater than 1024, that port is used.
-2. Otherwise, the value stored in `SS_ManualPort` is used.
+2. Otherwise, the value stored in `SS_WebPort` is used.
 3. If neither is available, port 5000 is used as the fallback.
 
 The button uses the IP address stored in `SS_ManualIp`. If that field is empty and a ShackSwitch is currently connected, the live peer address is used instead. The button does nothing if no IP address can be determined.
+
+The `webPort` value is populated from the AG discovery beacon's `webport` field. If a beacon arrives after the initial connection is established, AetherSDR updates the connected device record with the latest `webPort` and other fields automatically — no reconnection is required.
 
 ## Related
 
@@ -79,3 +81,4 @@ When **Check for Update** finds a newer firmware version, AetherSDR now displays
 > then click 'Select Installer...' to stage it.
 
 Download the installer from flexradio.com independently, then use **Select Installer...** as described above.
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

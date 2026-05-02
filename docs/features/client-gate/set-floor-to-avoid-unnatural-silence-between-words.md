@@ -1,3 +1,5 @@
+The diff adds a `ShackSwitchApplet` ("SS") to `AppletPanel` — this is an entirely separate applet unrelated to `ClientGateApplet`. No controls, behaviors, settings, or indicators documented on this page are affected.
+
 # Set Floor to avoid unnatural silence between words
 
 A fully closed gate produces complete silence, which can sound unnatural during pauses in speech. The Floor knob limits how deep the gate can cut, so background audio is reduced rather than eliminated entirely.
@@ -46,3 +48,4 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

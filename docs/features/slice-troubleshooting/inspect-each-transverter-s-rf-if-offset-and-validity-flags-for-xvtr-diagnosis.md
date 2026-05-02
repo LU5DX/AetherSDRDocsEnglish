@@ -60,14 +60,14 @@ A second line, **Remote audio route note:**, contains a plain-language note abou
 
 In the Issue Summary, look for the line beginning **Radio stream route: remote_audio_rx**. It reports the following:
 
-| Field                           | Meaning                                                                   |
-|---------------------------------|---------------------------------------------------------------------------|
-| `remote_audio_rx_stream_id`     | The stream identifier for this slice's remote audio RX, or `—` if none.  |
-| `remote_audio_rx_expected`      | Whether the stream is expected to exist.                                  |
-| `remote_audio_rx_create_pending`| Whether a create request is still outstanding.                            |
-| `remote_audio_rx_remove_requested` | Whether a remove request has been sent but not yet confirmed.          |
-| `remote_audio_rx_status_seen`   | Whether a status update for this stream has been received.                |
-| `remote_audio_rx_owned_by_us`   | Whether this client owns the stream.                                      |
+| Field                              | Meaning                                                                   |
+|------------------------------------|---------------------------------------------------------------------------|
+| `remote_audio_rx_stream_id`        | The stream identifier for this slice's remote audio RX, or `—` if none.  |
+| `remote_audio_rx_expected`         | Whether the stream is expected to exist.                                  |
+| `remote_audio_rx_create_pending`   | Whether a create request is still outstanding.                            |
+| `remote_audio_rx_remove_requested` | Whether a remove request has been sent but not yet confirmed.             |
+| `remote_audio_rx_status_seen`      | Whether a status update for this stream has been received.                |
+| `remote_audio_rx_owned_by_us`      | Whether this client owns the stream.                                      |
 
 If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false, the radio has not yet confirmed the stream. If `create_pending` is true for an extended period, the create request may not have reached the radio.
 
@@ -84,3 +84,4 @@ If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

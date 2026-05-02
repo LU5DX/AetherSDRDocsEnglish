@@ -39,3 +39,4 @@ None of these controls have persisted settings keys. They are read-only telemetr
 - [Meters overview](overview.md)
 - [Check the radio's DC supply voltage](check-the-radio-s-dc-supply-voltage.md)
 - [Monitor the main cooling fan speed](monitor-the-main-cooling-fan-speed.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

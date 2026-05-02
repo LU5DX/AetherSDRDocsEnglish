@@ -58,3 +58,4 @@ If you have rearranged applets and want to return to the default layout:
 - [Reset Applet Order](../../reference/menu-actions/reset-applet-order.md)
 - [Enable Minimal Mode](../../reference/menu-actions/enable-minimal-mode.md)
 - [Understanding slices and VFOs](understanding-slices.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

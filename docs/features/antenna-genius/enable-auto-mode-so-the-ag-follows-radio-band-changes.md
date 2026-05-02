@@ -33,6 +33,7 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 - **AUTO button does not respond to clicks** — The applet is not connected. Check that the status label reads "Connected — \<name\> v\<version\>" before enabling AUTO. If not connected, see the pages below.
 - **Band indicator shows "—" after enabling AUTO** — The AG has not yet received a band report from the radio. Tune to a frequency within a recognized band to trigger an update.
 - **A ShackSwitch device appears in the Device combo but the applet does not auto-connect to it** — ShackSwitch devices are handled by a separate applet and are intentionally skipped during Antenna Genius auto-connect. Use the ShackSwitch applet to connect to that device.
+- **Manually connected device shows the wrong number of ports immediately after connecting** — If the UDP beacon has not yet arrived when the connection is established, AetherSDR infers the port count from the firmware version (two ports for firmware V2.0, one port for V1.0). The correct count is applied automatically once a beacon is received. No action is required.
 
 ## Related
 
@@ -40,3 +41,4 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 - [Auto-discover an Antenna Genius on the LAN](auto-discover-an-antenna-genius-on-the-lan.md)
 - [Manually connect to an AG over a remote network](../../getting-started/setup/manually-connect-to-an-ag-over-a-remote-network.md)
 - [Select an antenna for Port A or Port B](select-an-antenna-for-port-a-or-port-b.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

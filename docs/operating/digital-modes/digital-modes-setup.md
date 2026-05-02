@@ -81,3 +81,4 @@ This page explains how to connect WSJT-X, fldigi, or similar digital-mode softwa
 - [Change the base TCP port](../../features/cat-control/change-the-base-tcp-port.md)
 - [Set DAX RX gain per channel](../../features/dax/set-dax-rx-gain-per-channel.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](../../features/dx-cluster/start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

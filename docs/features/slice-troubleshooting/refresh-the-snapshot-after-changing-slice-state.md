@@ -33,6 +33,8 @@ The **Issue Summary** tab includes the following categories of information. Each
 ### Radio-level audio and hardware state
 
 - Headphone gain, headphone mute, and front speaker mute status.
+- Remote audio RX stream ID, whether a stream is expected, whether creation is pending, whether a status message has been seen, whether this client owns the stream, and the compression setting in use.
+- Remote audio route note: a plain-language note about the remote audio RX routing state, if one is available.
 - Oscillator setting, lock state, external reference, and TCXO status.
 
 ### Remote audio RX state

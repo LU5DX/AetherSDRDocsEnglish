@@ -28,7 +28,7 @@ The antenna buttons in the Antenna Genius applet are colour-coded to show TX and
 | Port B antenna buttons | Amber | Antenna selected; RX only on the current band — no TX. |
 | Port B antenna buttons | Dim | No permission on the current band. |
 
-Buttons are also disabled and dim when the same antenna is already selected on the other port. See [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md) for details on that case.
+Buttons are also disabled and dim when the same antenna is already selected on the other port. This conflict check does not apply to ShackSwitch, which is a single-radio device. See [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md) for details on that case.
 
 ## Tips
 
@@ -40,6 +40,7 @@ Buttons are also disabled and dim when the same antenna is already selected on t
 - **All buttons are dim after connecting** — The applet may not yet have received band information from the radio. Confirm the radio is tuned to a valid band and that the status label shows "Connected". If the applet was opened before the radio was on a band, change bands once to trigger a refresh.
 - **Colours do not update when changing bands** — The band-follow update requires an active connection to the Antenna Genius device. Verify the status label still reads "Connected — \<name\> v\<version\>" and that no error is displayed.
 - **A ShackSwitch device is not auto-connecting here** — ShackSwitch devices discovered over UDP are handled by the ShackSwitch applet, not the Antenna Genius applet. If you see a ShackSwitch appear in the Device combo but it does not auto-connect, open the ShackSwitch applet to manage it.
+- **Connected via manual IP and the antenna count or name looks wrong immediately after connecting** — When you connect by IP before a UDP beacon has been received, the applet infers the port count from the firmware version and fills in the full device details as soon as a beacon arrives. Wait a few seconds for the beacon; the antenna buttons will refresh automatically once the device information is complete.
 
 ## Related
 
@@ -47,3 +48,4 @@ Buttons are also disabled and dim when the same antenna is already selected on t
 - [Select an antenna for Port A or Port B](select-an-antenna-for-port-a-or-port-b.md)
 - [Enable AUTO mode so the AG follows radio band changes](enable-auto-mode-so-the-ag-follows-radio-band-changes.md)
 - [Swap radios that share the AG (antennas in use by the other port are locked out)](swap-radios-that-share-the-ag-antennas-in-use-by-the-other-port-are-locked-out.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

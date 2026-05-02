@@ -48,7 +48,7 @@ APD moves through three states in sequence: **Cal** (calibrating) → **Avail** 
 
 ## ShackSwitch applet
 
-V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, the Applet Panel shows its tray button and applet automatically. Both are hidden when no ShackSwitch device is present. No manual configuration is required to show or hide this applet.
+V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, the Applet Panel shows its tray button (**SS**) and applet automatically. Both are hidden when no ShackSwitch device is present. No manual configuration is required to show or hide this applet.
 
 ## Tips
 
@@ -68,3 +68,4 @@ V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, 
 - [Enable APD to linearise the transmitter](enable-apd-to-linearise-the-transmitter.md)
 - [Run a Two-Tone Tune](run-a-two-tone-tune.md)
 - [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->

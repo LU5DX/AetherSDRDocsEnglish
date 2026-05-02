@@ -89,6 +89,8 @@ When you click **Start**:
 
 The **Antenna Genius** row now shows a Connected status only when the device identified on the connection is a non-ShackSwitch Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row hides its Connected indicator and the **ShackSwitch** row shows Connected instead.
 
+A new **ShackSwitch** row has been added to the Peripherals tab. Enter the ShackSwitch IP address and click **Connect** to open a connection on port 9007 using the AG control protocol. The IP is saved to `SS_ManualIp`. If the ShackSwitch has already been discovered via UDP beacon, the IP field is pre-filled.
+
 A new **⚙ Web UI** button has been added to the ShackSwitch row. Click it to open the ShackSwitch device's built-in web configuration interface in your system browser. The URL is constructed as follows:
 
 1. AetherSDR uses the IP from `SS_ManualIp`, or if that is empty and a ShackSwitch is currently connected, the live peer address.
@@ -99,6 +101,5 @@ If no IP address is available (not connected and `SS_ManualIp` is empty), clicki
 ## Tips
 
 - On a fast local LAN, **Uncompressed** avoids any codec artefacts and is the better choice for critical listening or digital mode decoding.
-- On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts. Pair it with a larger **Audio Buffer:** value (50–1000 ms) to absorb jitter.
-- If audio sounds thin or quiet over SmartLink, try enabling **Audio Boost:** alongside Opus.
-- If a GPSDO is installed, frequency calibration is rarely needed, but the controls are still available if you want to verify or manually trim the offset.
+- On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts.
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

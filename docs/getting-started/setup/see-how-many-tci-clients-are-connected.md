@@ -1,3 +1,5 @@
+The diff introduces a new `ShackSwitchApplet` and internal `RadioModel` refactoring (private methods, a pending-pan-statuses map, `RadioStatusOwnership` include). None of these changes affect the documented behavior of `TciApplet` — its controls, settings, indicators, or user-facing interactions are unchanged.
+
 # See how many TCI clients are connected
 
 The TCI Server applet shows a live client count in its status indicator. Use this to confirm that Log4OM, SunSDR tools, or any other TCI client has successfully connected.
@@ -54,3 +56,4 @@ When the server is running but no clients are connected, the status reads the po
 - [Change the TCI port](../../features/tci/change-the-tci-port.md)
 - [Autostart TCI on launch](../../features/tci/autostart-tci-on-launch.md)
 - [TCI Server overview](../../features/tci/overview.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

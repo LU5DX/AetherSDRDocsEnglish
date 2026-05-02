@@ -1,3 +1,5 @@
+The diff shows internal refactoring only (variable reordering in `DeviceDiagnostics.cpp`, reset of private member variables in `MeterModel.cpp`) and the remote audio RX diagnostics in the summary/JSON that are **already documented** in the current page. No new user-visible behavior has been introduced that isn't already covered. Returning the document unchanged.
+
 # Slice Troubleshooting
 
 The Slice Troubleshooting dialog captures a snapshot of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) bindings on the connected radio and checks for likely configuration problems. Use it to diagnose audio, mute, antenna, transverter, and remote audio routing issues, or to collect diagnostic data before contacting support.
@@ -45,3 +47,4 @@ The snapshot reflects radio state at the moment it was taken. If you change slic
 - [Copy the full JSON snapshot to the clipboard](copy-the-full-json-snapshot-to-the-clipboard.md)
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
 - [Inspect each transverter's RF/IF, offset and validity flags for XVTR diagnosis](inspect-each-transverter-s-rf-if-offset-and-validity-flags-for-xvtr-diagnosis.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

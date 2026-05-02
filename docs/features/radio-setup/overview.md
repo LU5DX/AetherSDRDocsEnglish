@@ -34,7 +34,7 @@ The dialog remembers its size and position between sessions.
 | **USB Cables** | Assign USB serial adapters to CAT, BCD, bit, and PTT cable types and configure their serial parameters. |
 | **Peripherals** | Manual IP connection to external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. |
 | **Themes** | Slice color scheme: switch between built-in AetherSDR palette and custom per-slice colors (A–H). |
-| **Serial** | FlexControl serial port selection, line parameters, pin function assignments (DTR/RTS), paddle swap, auto-open, and tuning knob detection. (Visible only when serial port support is built in.) |
+| **Serial** | FlexControl serial port selection, line parameters, output pin function assignments (DTR/RTS → PTT/CW Key/CW PTT), input pin function assignments (CTS/DSR → PTT Input/CW Key/Dit/Dah), paddle swap, auto-open, and tuning knob detection. (Visible only when serial port support is built in.) |
 
 ## What each control does
 
@@ -66,6 +66,7 @@ The following controls have persisted settings keys or notable behaviors.
 | **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected state if a ShackSwitch (rather than a standard Antenna Genius) is the device currently connected. |
 | **Connect / Disconnect (ShackSwitch)** | Peripherals | Opens/closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden when a standard Antenna Genius (non-ShackSwitch) is the connected device. |
 | **⚙ Web UI (ShackSwitch)** | Peripherals | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024; otherwise falls back to `SS_WebPort` or port 5000. |
+| **CTS / DSR: Function / Polarity** | Serial | Assigns an input function to the CTS or DSR pin so a foot switch, straight key, or iambic paddle wired to those pins can control PTT or CW keying. Valid functions: None, PTT Input, CW Key Input, CW Dit Input, CW Dah Input. Active High/Low polarity is set independently per pin. Stored as `SerialCtsFunction` / `SerialCtsPolarity` and `SerialDsrFunction` / `SerialDsrPolarity`. Added in v0.9.4. |
 | **Use Aether defaults / Custom colors** | Themes | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. Default: Use Aether defaults. |
 | **Slice A–H color buttons** | Themes | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
 | **Reset All to Defaults** | Themes | Resets all custom slice colors to the built-in AetherSDR palette. |
@@ -76,11 +77,5 @@ In v0.9.3 the firmware update workflow changed. AetherSDR no longer downloads th
 
 1. Click **Check for Update**. AetherSDR queries the update server.
    - If the firmware is current, the status label shows "Firmware is up to date (v*x.x.x*)." in green.
-   - If an update is available, the status label shows the new version number and instructs you to download the SmartSDR installer from flexradio.com.
-2. Download the SmartSDR installer from [flexradio.com](https://www.flexradio.com) to your computer. The installer can be a `.msi` file (FlexRadio v4.2+ WiX installer), a `.exe` file (older self-extracting installer), or a pre-extracted `.ssdr` firmware file.
-3. Click **Select Installer...**. A file picker opens with the filter:
-   - SmartSDR installer or firmware (`*.msi *.exe *.ssdr`)
-   - MSI installer (`*.msi`)
-   - EXE installer (`*.exe`)
-   - Extracted firmware (`*.ssdr`)
-   - All files (`*`)
+   - If an update is available, the status label shows the new version number and
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

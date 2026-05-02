@@ -1,3 +1,5 @@
+The diff shows two user-visible changes: the JSON snapshot and Issue Summary now include remote audio RX stream state fields. However, the current documentation already describes both of these additions explicitly — the "What the Issue Summary includes" section already covers radio-level remote audio RX and per-slice radio stream route, and the JSON tab description already mentions "remote audio RX stream state." The MeterModel.cpp change is an internal bug fix with no user-visible documentation impact. No documentation update is warranted.
+
 # Capture a slice snapshot for support
 
 The Slice Troubleshooting dialog captures a point-in-time snapshot of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) bindings on the connected radio. Use it to gather information before filing a bug report or asking for support, or to share with AI-assisted troubleshooting tools.
@@ -52,3 +54,4 @@ The Issue Summary tab reports problems across several areas. From v0.9.4, the su
 - [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
 - [Inspect each transverter's RF/IF, offset and validity flags for XVTR diagnosis](inspect-each-transverter-s-rf-if-offset-and-validity-flags-for-xvtr-diagnosis.md)
+<!-- docmesh:llm version=v0.9.4 date=2026-05-02 -->

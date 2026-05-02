@@ -1,3 +1,5 @@
+The diff introduces `SwrSweepPoint`, `setSwrSweepPoints()`, `clearSwrSweepPoints()`, and `drawSwrSweep()` — all of which are already documented in the current page under the "SWR sweep overlay" section. The existing documentation accurately describes all user-visible behavior introduced by this diff. No update is warranted.
+
 # SpotHub overview
 
 SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources and displaying them as overlays on the panadapter. Use it to connect to traditional DX clusters, the Reverse Beacon Network, WSJT-X, SpotCollector, POTA, and FreeDV — all from one dialog.
@@ -137,4 +139,4 @@ Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 - **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
 - **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
 - **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox
-<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->
+<!-- docmesh:llm version=v0.9.

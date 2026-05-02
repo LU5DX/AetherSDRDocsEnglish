@@ -4,7 +4,7 @@ The Meters applet shows a live +13.8V supply voltage gauge sourced directly from
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Meters applet requires an active radio connection.
+- AetherSDK must be connected to the radio. The Meters applet requires an active radio connection.
 - The applet panel must be visible. If it is hidden, enable it via `View > Applet Panel`.
 
 ## Steps
@@ -35,3 +35,4 @@ The gauge bar fills cyan in the normal operating range and turns red when the re
 - [Meters overview](overview.md)
 - [Watch PA temperature during long overs](watch-pa-temperature-during-long-overs.md)
 - [Monitor the main cooling fan speed](monitor-the-main-cooling-fan-speed.md)
+<!-- docmesh:llm version=V0.9.4 date=2026-05-01 -->
