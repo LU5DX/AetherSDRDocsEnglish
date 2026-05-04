@@ -15,9 +15,9 @@ Use this page to set the AM carrier power level when transmitting in AM mode. Ad
 
 ## What each control does
 
-| Control               | Description                                        | Valid range |
-|-----------------------|----------------------------------------------------|-------------|
-| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. | 0–100       |
+| Control | Description | Valid range |
+|---|---|---|
+| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. | 0–100 |
 | **VOX** button | Toggles voice-operated transmit on or off. | — |
 | **VOX level** slider | Sets the VOX activation threshold. | 0–100 |
 | **Delay** slider | Sets the VOX hang time before returning to receive. | 0–100 |
@@ -27,7 +27,6 @@ Use this page to set the AM carrier power level when transmitting in AM mode. Ad
 | **High Cut < / >** | Adjusts the TX filter high-cut frequency in 50 Hz steps by snapping to the nearest 50 Hz multiple in the chosen direction. Default: 3300 Hz. | (low-cut + 50) to 10000 |
 
 > **Note — DEXP firmware limitation:** The **DEXP** toggle and **DEXP threshold** slider are non-functional on firmware v1.4.0.0. The radio returns error `0x5000002D` when these controls are used.
-
 ## How Low Cut and High Cut stepping works
 
 As of v0.9.5.1, the **Low Cut < / >** and **High Cut < / >** buttons snap the filter frequency to the next multiple of 50 Hz in the chosen direction, rather than adding or subtracting a fixed 50 Hz from the current value. For example, if the current low-cut value is 87 Hz, clicking `>` sets it to 100 Hz and clicking `<` sets it to 50 Hz. You can also adjust either control with the mouse wheel. The radio accepts any integer Hz value; the snapping behaviour is a UI convenience only.

@@ -19,12 +19,11 @@ RIT (Receive Incremental Tuning) shifts the receive frequency by a small amount 
 
 ## What each control does
 
-| Control    | Kind          | Default |
-|------------|---------------|---------|
-| RIT        | Toggle button | Off     |
-| RIT offset | Spinbox       | `+0 Hz` |
-| RIT 0      | Push button   | —       |
-
+| Control | Kind | Default |
+|---|---|---|
+| RIT | Toggle button | Off |
+| RIT offset | Spinbox | `+0 Hz` |
+| RIT 0 | Push button | — |
 ## Tips
 
 - RIT affects only the receive frequency. Your transmit frequency stays on the VFO. If you also need to offset your transmit frequency, use XIT instead of or alongside RIT.

@@ -16,10 +16,9 @@ The tune-lock feature prevents a slice from responding to frequency changes. Use
 
 ## What each control does
 
-| Control | Default      | Behavior                                                                                                                |
-|---------|--------------|-------------------------------------------------------------------------------------------------------------------------|
-| 🔓 / 🔒   | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
-
+| Control | Default | Behavior |
+|---|---|---|
+| 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
 ## Tips
 
 - The lock state applies per slice. You can lock slice A while slice B remains freely tunable.

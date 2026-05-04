@@ -20,19 +20,18 @@ To stop broadcasting, uncheck **Enable FreeDV Reporter reporting when RADE is ac
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Start / Stop** | Connects or disconnects the FreeDV WebSocket. After an unexpected drop the client auto-reconnects with exponential backoff; the status shows **Connecting...** during each attempt. Auto-reconnect stops only when you press **Stop**. |
-| **Auto-Start: ON / OFF** | Automatically starts the FreeDV WebSocket connection when AetherSDR launches. Default: OFF. |
-| **Enable FreeDV Reporter reporting when RADE is active** | Broadcasts your station to the public FreeDV Reporter map whenever RADE mode is active. Requires a callsign and grid square. Default: unchecked. |
-| **Callsign:** | Your callsign sent to FreeDV Reporter. Read-only when **Use radio** is checked. |
-| **Use radio** | Populates the **Callsign:** field automatically from the connected radio. Default: checked. |
-| **Grid Square:** | Your Maidenhead grid square sent to FreeDV Reporter (up to 6 characters). Read-only when **Use GPS** is checked. |
-| **Use GPS** | Populates **Grid Square:** from the radio's GPS hardware automatically. Only shown on radios that have GPS hardware (e.g. FLEX-8000 class, Aurora). Default: checked. |
-| **Station Msg:** | Optional free-text message shown next to your station on the FreeDV Reporter map. |
-| **Spot Color:** | Sets the color of FreeDV spot labels on the panadapter. Default: dark orange (#FF8C00). |
-| **FreeDV Spots** | Read-only console showing incoming FreeDV activity from qso.freedv.org. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **Start / Stop** | Connects or disconnects the FreeDV WebSocket. After an unexpected drop the client auto-reconnects with exponential backoff; the status shows **Connecting...** during each attempt. Auto-reconnect stops only when you press **Stop**. |  |
+| **Auto-Start: ON / OFF** | Automatically starts the FreeDV WebSocket connection when AetherSDR launches. Default: OFF. |  |
+| **Enable FreeDV Reporter reporting when RADE is active** | Broadcasts your station to the public FreeDV Reporter map whenever RADE mode is active. Requires a callsign and grid square. Default: unchecked. |  |
+| **Callsign:** | Your callsign sent to FreeDV Reporter. Read-only when **Use radio** is checked. |  |
+| **Use radio** | Populates the **Callsign:** field automatically from the connected radio. Default: checked. |  |
+| **Grid Square:** | Your Maidenhead grid square sent to FreeDV Reporter (up to 6 characters). Read-only when **Use GPS** is checked. |  |
+| **Use GPS** | Populates **Grid Square:** from the radio's GPS hardware automatically. Only shown on radios that have GPS hardware (e.g. FLEX-8000 class, Aurora). Default: checked. |  |
+| **Station Msg:** | Optional free-text message shown next to your station on the FreeDV Reporter map. |  |
+| **Spot Color:** | Sets the color of FreeDV spot labels on the panadapter. Default: dark orange (#FF8C00). |  |
+| **FreeDV Spots** | Read-only console showing incoming FreeDV activity from qso.freedv.org. |  |
 ## Tips
 
 - If the callsign or grid square is empty when you try to enable reporting, the checkbox will refuse to activate. Fill in both fields first.

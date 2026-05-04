@@ -19,13 +19,12 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 
 ## What each control does
 
-| Control                    | Default          | Valid values                                                                                                                          |
-|----------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available)                                                         |
-| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz  |
-| **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)       |
-| **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                      |
-
+| Control | Default | Valid values |
+|---|---|---|
+| **Mode combo** | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available) |
+| **Filter width presets** | Mode-dependent | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz |
+| **STEP** | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz) |
+| **Filter passband widget** | — | Drag lo/hi edges |
 ## Tips
 
 - FM, NFM, and DFM modes do not show filter width preset buttons. The filter is fixed for those modes.

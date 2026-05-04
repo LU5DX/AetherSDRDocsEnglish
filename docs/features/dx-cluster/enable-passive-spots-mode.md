@@ -13,11 +13,10 @@ Passive spots mode lets AetherSDR receive and render DX spots on the panadapter 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Spots:** | Master toggle for the spot overlay on the panadapter. Must be Enabled for spots to appear regardless of passive mode. |
-| **Passive Spots:** | When Enabled, receives and renders spots without sending spot-add commands to the radio. Default: Disabled. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **Spots:** | Master toggle for the spot overlay on the panadapter. Must be Enabled for spots to appear regardless of passive mode. |  |
+| **Passive Spots:** | When Enabled, receives and renders spots without sending spot-add commands to the radio. Default: Disabled. |  |
 ## Tips
 
 - Enable passive spots mode on every secondary client that shares the same radio. Leave it disabled on the one client responsible for submitting spots to avoid duplication.

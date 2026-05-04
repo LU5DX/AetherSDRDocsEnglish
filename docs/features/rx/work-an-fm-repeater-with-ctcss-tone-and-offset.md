@@ -23,17 +23,16 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 
 ## What each control does
 
-| Control          | Default | Valid range / options                     |
-|------------------|---------|-------------------------------------------|
-| Mode combo       | USB     | FM, NFM, DFM (among others)               |
-| Tone mode (FM)   | Off     | Off, CTCSS TX                             |
-| CTCSS tone value | —       | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
-| Offset (FM)      | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1                 |
-| − (offset down)  | —       | toggle                                    |
-| Simplex          | checked | toggle                                    |
-| + (offset up)    | —       | toggle                                    |
-| REV              | —       | toggle                                    |
-
+| Control | Default | Valid range / options |
+|---|---|---|
+| Mode combo | USB | FM, NFM, DFM (among others) |
+| Tone mode (FM) | Off | Off, CTCSS TX |
+| CTCSS tone value | — | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
+| Offset (FM) | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1 |
+| − (offset down) | — | toggle |
+| Simplex | checked | toggle |
+| + (offset up) | — | toggle |
+| REV | — | toggle |
 ## Tips
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.

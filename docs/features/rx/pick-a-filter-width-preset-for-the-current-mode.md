@@ -18,20 +18,19 @@ Use the filter width preset buttons in the RX Controls applet to quickly apply a
 
 ## What each control does
 
-| Control                | Behavior                                                                                                                                                                | Default presets by mode |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| Filter width presets   | Click to apply a preset bandwidth to the current slice. Right-click to save the current filter width as a preset. Hidden in FM, NFM, and DFM modes.                     | See table below         |
-| Filter width label     | Read-only indicator showing the current filter bandwidth (for example, `2.7K`, `500`, `6.0K`). Updates when a preset is applied or when the passband edges are dragged. | —                       |
-| Filter passband widget | Drag the low or high edge to set a custom passband. Use presets for standard widths.                                                                                    | —                       |
-| Mode                   | Preset widths (Hz)                                                                                                                                                      |                         |
-| ---                    | ---                                                                                                                                                                     |                         |
-| USB, LSB               | 1800, 2100, 2400, 2700, 2900, 3300                                                                                                                                      |                         |
-| AM, SAM                | 5600, 6000, 8000, 10000, 12000, 14000                                                                                                                                   |                         |
-| CW                     | 50, 100, 250, 400                                                                                                                                                       |                         |
-| DIGU, DIGL, NT         | 100, 300, 600, 1000, 1500, 2000                                                                                                                                         |                         |
-| RTTY                   | 250, 300, 350, 400, 500, 1000                                                                                                                                           |                         |
-| FM, NFM, DFM           | No presets (buttons hidden)                                                                                                                                             |                         |
-
+| Control | Behavior | Default presets by mode |
+|---|---|---|
+| Filter width presets | Click to apply the preset filter width (or custom lo/hi edges if saved); right-click opens a menu with 'Set Custom Edges…' (dialog to pin exact lo/hi Hz) and 'Reset to Default'. | Persisted per-mode as 'FilterPresets_USB', 'FilterPresets_CW', etc. Entries stored as bare width (e.g. '2700') or 'lo:hi' when custom edges have been set (#2259). Buttons hidden for FM/NFM/DFM modes. |
+| Filter width label | Read-only indicator showing the current filter bandwidth (for example, `2.7K`, `500`, `6.0K`). Updates when a preset is applied or when the passband edges are dragged. | — |
+| Filter passband widget | Drag the low or high edge to set a custom passband. Use presets for standard widths. | — |
+| Mode | Preset widths (Hz) |  |
+| --- | --- |  |
+| USB, LSB | 1800, 2100, 2400, 2700, 2900, 3300 |  |
+| AM, SAM | 5600, 6000, 8000, 10000, 12000, 14000 |  |
+| CW | 50, 100, 250, 400 |  |
+| DIGU, DIGL, NT | 100, 300, 600, 1000, 1500, 2000 |  |
+| RTTY | 250, 300, 350, 400, 500, 1000 |  |
+| FM, NFM, DFM | No presets (buttons hidden) |  |
 ## Filter preset storage format (v0.9.5.1)
 
 Starting in v0.9.5.1, filter presets stored in `FilterPresets` can represent either a plain bandwidth or a fully specified passband with explicit low and high edge offsets. Both formats are accepted when loading saved presets.

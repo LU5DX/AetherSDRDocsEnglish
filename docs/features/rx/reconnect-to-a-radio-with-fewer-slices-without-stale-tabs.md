@@ -16,18 +16,17 @@ When you switch from a radio with more slices (for example, a FLEX-6700 with up 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Slice tabs (A..H)** | Selects which slice the RX applet is bound to. Buttons are torn down and rebuilt on every connection (`clearSliceButtons()`), so tabs from a previous higher-slice radio never linger. The row is hidden when the radio supports only one slice. |
-| **Slice badge** | Displays the letter (A–H) of the currently bound slice, coloured by slice identity. |
-| **🔓 / 🔒** | Toggles tune-lock on the active slice. A locked slice ignores incoming frequency changes. |
-| **ANT1 (RX antenna)** | Selects the receive antenna from the radio's antenna list. |
-| **ANT1 (TX antenna)** | Selects the transmit antenna; RX-only ports (prefixed `RX`) are filtered out. |
-| **Mode combo** | Sets the slice mode (USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY; RADE if built with `HAVE_RADE`). |
-| **Frequency label** | Displays the current VFO frequency. Click to enter edit mode. |
-| **Frequency edit** | Type a frequency in MHz and press Enter to tune. Escape cancels and restores the previous frequency. |
-| **TX (badge)** | Click to designate this slice as the TX slice. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **Slice tabs (A..H)** | Selects which slice the RX applet is bound to. Buttons are torn down and rebuilt on every connection (`clearSliceButtons()`), so tabs from a previous higher-slice radio never linger. The row is hidden when the radio supports only one slice. |  |
+| **Slice badge** | Displays the letter (A–H) of the currently bound slice, coloured by slice identity. |  |
+| **🔓 / 🔒** | Toggles tune-lock on the active slice. A locked slice ignores incoming frequency changes. |  |
+| **ANT1 (RX antenna)** | Selects the receive antenna from the radio's antenna list. |  |
+| **ANT1 (TX antenna)** | Selects the transmit antenna; RX-only ports (prefixed `RX`) are filtered out. |  |
+| **Mode combo** | Sets the slice mode (USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY; RADE if built with `HAVE_RADE`). |  |
+| **Frequency label** | Displays the current VFO frequency. Click to enter edit mode. |  |
+| **Frequency edit** | Type a frequency in MHz and press Enter to tune. Escape cancels and restores the previous frequency. |  |
+| **TX (badge)** | Click to designate this slice as the TX slice. |  |
 ## Tips
 
 - If you reconnect repeatedly between radios of different sizes, the tab row always reflects the current radio — no manual cleanup is needed.

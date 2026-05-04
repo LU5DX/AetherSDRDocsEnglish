@@ -16,11 +16,10 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 
 ## What each control does
 
-| Control                           | Default | Valid values                               |
-|-----------------------------------|---------|--------------------------------------------|
-| **ANT1** (RX antenna, blue label) | ANT1    | Antenna ports from the radio's ant_list    |
-| **ANT1** (TX antenna, red label)  | ANT1    | TX-capable ports from the radio's ant_list |
-
+| Control | Default | Valid values |
+|---|---|---|
+| **ANT1** (RX antenna, blue label) | ANT1 | Antenna ports from the radio's ant_list |
+| **ANT1** (TX antenna, red label) | ANT1 | TX-capable ports from the radio's ant_list |
 ## Tips
 
 - The RX antenna label is shown in blue; the TX antenna label is shown in red. This is the only visual distinction between the two controls, as they appear side by side in the header row.

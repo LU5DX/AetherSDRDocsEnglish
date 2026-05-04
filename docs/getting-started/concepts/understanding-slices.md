@@ -55,11 +55,11 @@ V0.9.4 adds a SWR sweep overlay that draws SWR versus frequency data directly on
 
 The overlay has three states:
 
-| State             | Description                                                                                                                                           | Notes |
-|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
-| No data           | Overlay is not drawn. Call `clearSwrSweepPoints()` to return to this state.                                                                           |       |
-| Sweep in progress | Overlay is drawn and a cursor marks the current sweep frequency. Set `running = true` and supply `currentFreqMhz` when calling `setSwrSweepPoints()`. |       |
-| Sweep complete    | Overlay is drawn without a cursor marker. Set `running = false` when calling `setSwrSweepPoints()`.                                                   |       |
+| State | Description | Notes |
+|---|---|---|
+| No data | Overlay is not drawn. Call `clearSwrSweepPoints()` to return to this state. |  |
+| Sweep in progress | Overlay is drawn and a cursor marks the current sweep frequency. Set `running = true` and supply `currentFreqMhz` when calling `setSwrSweepPoints()`. |  |
+| Sweep complete | Overlay is drawn without a cursor marker. Set `running = false` when calling `setSwrSweepPoints()`. |  |
 
 An optional source label (for example, the name of the antenna tuner or analyser providing the data) can be passed via the `sourceLabel` parameter and is displayed on the overlay.
 

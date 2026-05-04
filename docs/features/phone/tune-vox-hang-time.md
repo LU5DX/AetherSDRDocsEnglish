@@ -15,12 +15,11 @@ The VOX hang time controls how long the radio stays in transmit after your voice
 
 ## What each control does
 
-| Control          | Description                                                                                                    | Valid range |
-|------------------|----------------------------------------------------------------------------------------------------------------|-------------|
-| **Delay** slider | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
+| Control | Description | Valid range |
+|---|---|---|
+| **Delay** slider | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100 |
 
 No setting key is persisted for the Delay slider; the value is sent directly to the radio.
-
 ## Tips
 
 - A Delay value that is too low causes the transmitter to drop in and out between words. Raise the value until tail drop-outs stop.

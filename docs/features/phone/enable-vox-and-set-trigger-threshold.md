@@ -13,17 +13,16 @@ Click the PHNE tray button on the right sidebar. The Phone applet opens in the A
 
 ## What each control does
 
-| Control | Kind | What it does | Notes |
-|---|---|---|---|
-| AM Carrier | Slider (0–100) | Sets the AM carrier power level. The current value is shown as a number next to the slider (for example, `48`). | — |
-| VOX | Toggle button | Toggles voice-operated transmit. The button lights green when active. | — |
-| VOX level | Slider (0–100) | Sets the audio threshold required to activate transmit. Move right to require a stronger signal; move left to key on quieter audio. | — |
-| Delay | Slider (0–100) | Sets the VOX hang time before the radio returns to receive after audio drops below the threshold. | — |
-| DEXP | Toggle button | Toggles the downward expander (noise gate). Persists to `DexpEnabled`. | Non-functional on firmware v1.4.0.0 — the radio returns error `0x5000002D`. |
-| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. Persists to `DexpLevel`. | Subject to the same firmware limitation as the DEXP toggle. |
-| Low Cut < / > | Spinbox | Adjusts the TX filter low-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: 0 Hz up to (high-cut − 50 Hz). | — |
-| High Cut < / > | Spinbox | Adjusts the TX filter high-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: (low-cut + 50 Hz) up to 10000 Hz. | — |
-
+| Control | Kind | What it does |
+|---|---|---|
+| AM Carrier | Slider (0–100) | Sets the AM carrier power level. The current value is shown as a number next to the slider (for example, `48`). |
+| VOX | Toggle button | Toggles voice-operated transmit. The button lights green when active. |
+| VOX level | Slider (0–100) | Sets the audio threshold required to activate transmit. Move right to require a stronger signal; move left to key on quieter audio. |
+| Delay | Slider (0–100) | Sets the VOX hang time before the radio returns to receive after audio drops below the threshold. |
+| DEXP | Toggle button | Toggles the downward expander (noise gate). Persists to `DexpEnabled`. |
+| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. Persists to `DexpLevel`. |
+| Low Cut < / > | < / > or mousewheel snaps TX filter low-cut to the next 50 Hz multiple in the chosen direction (e.g. at 87 Hz: up → 100, down → 50). | Snaps to multiples of 50 Hz rather than stepping by a fixed amount, so odd radio-reported values realign cleanly. |
+| High Cut < / > | < / > or mousewheel snaps TX filter high-cut to the next 50 Hz multiple in the chosen direction (max 10000 Hz). | Same snap-to-multiple logic as Low Cut. |
 ## Enable VOX and set the trigger threshold
 
 1. Open the Phone applet by clicking the PHNE tray button on the right sidebar.

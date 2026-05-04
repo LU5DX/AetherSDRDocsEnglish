@@ -22,12 +22,11 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 
 ## What each control does
 
-| Control               | Default | Valid range                             |
-|-----------------------|---------|-----------------------------------------|
-| **Low Cut** **<**     | —       | Snaps down to next lower 50 Hz multiple |
-| **Low Cut** **>**     | —       | Snaps up to next higher 50 Hz multiple  |
-| Low Cut value display | 50 Hz   | 0 Hz to (high-cut − 50 Hz), step 50 Hz |
-
+| Control | Default | Valid range |
+|---|---|---|
+| **Low Cut** **<** | — | Snaps down to next lower 50 Hz multiple |
+| **Low Cut** **>** | — | Snaps up to next higher 50 Hz multiple |
+| Low Cut value display | 50 Hz | 0 Hz to (high-cut − 50 Hz), step 50 Hz |
 ## Tips
 
 - The low-cut value cannot be set higher than the current high-cut frequency minus 50 Hz. If you are near that limit, lower the high-cut first or raise it to create room.

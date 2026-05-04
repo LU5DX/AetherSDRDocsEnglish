@@ -19,13 +19,12 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 
 ## What each control does
 
-| Control                  | Behavior                                                                                                                                                                                    | Default     |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| **Frequency label**      | Displays the current VFO frequency with dotted grouping. Click to enter edit mode.                                                                                                          | `0.000.000` |
-| **Frequency edit**       | Text field. Enter a frequency in MHz and press Enter to tune and recenter. Escape cancels.                                                                                                  | —           |
-| **STEP**                 | Sets the step size used when nudging the frequency with the `<` / `>` buttons or the mouse wheel.                                                                                           | 100 Hz      |
-| **Filter width presets** | Click a preset button to apply that filter bandwidth for the current mode. Right-click a preset to save the current width into that slot. Buttons are hidden in FM, NFM, and DFM modes. | —           |
-
+| Control | Behavior | Default |
+|---|---|---|
+| **Frequency label** | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. | `0.000.000` |
+| **Frequency edit** | Text field. Enter a frequency in MHz and press Enter to tune and recenter. Escape cancels. | — |
+| **STEP** | Sets the step size used when nudging the frequency with the `<` / `>` buttons or the mouse wheel. | 100 Hz |
+| **Filter width presets** | Click a preset button to apply that filter bandwidth for the current mode. Right-click a preset to save the current width into that slot. Buttons are hidden in FM, NFM, and DFM modes. | — |
 ## Slice tab and badge colors
 
 From v0.9.3, slice tab buttons and the **Slice badge** indicator take their border, active background, and text color from the SliceColorManager singleton rather than a fixed color table. Colors are configurable per slice, persist across sessions, and are reflected consistently in the slice tab buttons, the Slice badge, VFO widgets, and meter strips.

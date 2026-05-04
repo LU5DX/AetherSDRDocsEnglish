@@ -23,11 +23,11 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | Control | Setting key | Behavior |
 |---|---|---|
 | **Spots:** | `IsSpotsEnabled` | Master toggle for the spot overlay on the panadapter. |
-| **Auto Mode:** | `SpotsAutoMode` | Automatically adjusts spot density based on zoom level. Overrides Levels. Default is now Enabled. |
-| **Levels:** | `SpotsStackLevels` | Number of vertical stacking rows for spot labels. |
-| **Position:** | `SpotsPosition` | Vertical position of the spot label band on the panadapter. |
-| **Font Size:** | `SpotsFontSize` | Size of the text in each spot label. |
-| **Spot Lifetime:** | `SpotsLifetime` | Seconds a spot label remains visible before fading. |
+| **Auto Mode:** | `SpotAutoSwitchMode` | Automatically switches the slice mode when you click a spot that carries mode information (e.g. CW, FT8, RTTY). Default: Enabled. |
+| **Levels:** | `SpotsMaxLevel` | Number of vertical stacking rows for spot labels. |
+| **Position:** | `SpotsStartingHeightPercentage` | Vertical position of the spot label band on the panadapter. |
+| **Font Size:** | `SpotFontSize` | Size of the text in each spot label. |
+| **Spot Lifetime:** | `DxClusterSpotLifetimeSec` | Seconds a spot label remains visible before fading. Uses a non-linear scale (seconds → minutes → hours). |
 | **Enable FreeDV Reporter reporting when RADE is active** | `FreeDvAutoReport` | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square or the checkbox refuses to enable. If either field is blank when you check it, a warning dialog appears and the checkbox reverts to unchecked. |
 | **Callsign: (FreeDV Reporter)** | `FreeDvMyCallsign` | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updated when the radio's callsign changes and **Use radio** is active. |
 | **Use radio (callsign)** | `FreeDvUseRadioCallsign` | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Default: enabled. |
@@ -35,6 +35,7 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | **Use GPS (grid)** | `FreeDvUseGpsGrid` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. |
 | **Station Msg: (FreeDV Reporter)** | `FreeDvMyMessage` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. |
 | **Total Spots:** | — | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
+
 ## FreeDV Reporter reporting
 
 The **FreeDV (tab)** in SpotHub contains a **Station Reporting** group. When **Enable FreeDV Reporter reporting when RADE is active** is checked, AetherSDR reports your station to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is running.

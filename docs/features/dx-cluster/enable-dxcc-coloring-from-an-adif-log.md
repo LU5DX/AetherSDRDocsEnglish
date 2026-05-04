@@ -31,7 +31,6 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 | **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Defaults to enabled. | `FreeDvUseGpsGrid` |
 | **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
 | Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
-
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.

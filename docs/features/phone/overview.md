@@ -23,17 +23,16 @@ Each step snaps to the nearest multiple of 50 Hz in the chosen direction rather 
 
 ## What each control does
 
-| Control        | Kind          | Default  |
-|----------------|---------------|----------|
-| AM Carrier     | Slider        | —        |
-| VOX            | Toggle button | —        |
-| VOX level      | Slider        | —        |
-| Delay          | Slider        | —        |
-| DEXP           | Toggle button | —        |
-| DEXP threshold | Slider        | 0        |
-| Low Cut < / >  | Spinbox       | 50 Hz    |
-| High Cut < / > | Spinbox       | 3300 Hz  |
-
+| Control | Kind | Default |
+|---|---|---|
+| AM Carrier | Slider | — |
+| VOX | Toggle button | — |
+| VOX level | Slider | — |
+| Delay | Slider | — |
+| DEXP | Toggle button | — |
+| DEXP threshold | Slider | 0 |
+| Low Cut < / > | < / > or mousewheel snaps TX filter low-cut to the next 50 Hz multiple in the chosen direction (e.g. at 87 Hz: up → 100, down → 50). | Snaps to multiples of 50 Hz rather than stepping by a fixed amount, so odd radio-reported values realign cleanly. |
+| High Cut < / > | < / > or mousewheel snaps TX filter high-cut to the next 50 Hz multiple in the chosen direction (max 10000 Hz). | Same snap-to-multiple logic as Low Cut. |
 ## Tips
 
 - The **DEXP** and **DEXP threshold** controls persist their values locally via `DexpEnabled` and `DexpLevel` even though the radio rejects the commands on firmware v1.4.0.0. The saved values will apply automatically if a future firmware version resolves the error.

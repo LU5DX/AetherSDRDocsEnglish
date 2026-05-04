@@ -58,7 +58,6 @@ The **Display** tab controls how spots appear on the panadapter.
 | Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 
 **Auto Mode** defaults to **Enabled** (`SpotAutoSwitchMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
-
 ### Sources
 
 **Cluster tab** — Connects to a DX cluster via a telnet session. You provide the hostname (`ClusterHost`), port (`ClusterPort`, 1–65535), and login callsign (`ClusterCallsign`). The **Cluster Console** shows raw telnet traffic. You can type cluster commands in the command line field and send them with Send. Spot color is set via **Spot Color:**, persisted as `ClusterSpotColor`.
