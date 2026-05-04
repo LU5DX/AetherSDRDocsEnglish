@@ -13,10 +13,9 @@ The Transmit Model exposes an APD toggle that instructs the radio to apply adapt
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **APD** | Enables or disables adaptive pre-distortion on the radio. Hidden on radios that do not report `apd configurable=1`. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **APD** | Enables or disables adaptive pre-distortion on the radio. Hidden on radios that do not report `apd configurable=1`. |  |
 ## Tips
 
 - APD works on the transmitted signal in real time. You do not need to retune or reload a TX profile after toggling it.

@@ -18,13 +18,12 @@
 To disconnect cleanly, click **Disconnect**. AetherSDR sends a stream-remove command and waits for the radio to acknowledge it before closing the TCP socket. This prevents stale session entries on the radio when you reconnect.
 
 ## What each control does
-
 | Control | Behavior |
 |---|---|
 | Radio IP address | Sets the TCP destination the connection is opened to. |
 | Local bind address | Controls which NIC AetherSDR uses to source the TCP and UDP traffic. Set to **Automatic** to let AetherSDR choose, or enter a specific interface IP for multi-NIC machines. |
 | Connect | Opens the TCP control connection and registers the UDP stream port with the radio. |
-| Disconnect | Sends a `stream remove` command, waits for acknowledgement (up to 2 seconds), then closes the TCP socket cleanly. |
+| Disconnect | Sends a `stream remove` command, waits for acknowledgement (up to 2 seconds), then closes the TCP socket cleanly. A disconnect marker is also written to the session log before the socket closes. |
 
 ## Tips
 

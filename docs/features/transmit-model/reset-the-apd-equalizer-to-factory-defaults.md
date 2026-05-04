@@ -13,10 +13,9 @@ The Transmit Model manages adaptive pre-distortion (APD) state for the connected
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **APD** | Enables or disables adaptive pre-distortion on the radio. Default is off. Hidden on radios that do not report `apd configurable=1`. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **APD** | Enables or disables adaptive pre-distortion on the radio. Default is off. Hidden on radios that do not report `apd configurable=1`. |  |
 ## Tips
 
 - The APD row does not appear on all radios. If you cannot see it, your hardware does not support adaptive pre-distortion and no reset is required.

@@ -10,12 +10,11 @@ The Spot List tab in SpotHub shows a unified table of all live spots from every 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Bands:** (per-band checkboxes) | Each checkbox toggles visibility of spots for that band in the spot table. Available bands: 160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m. All checkboxes default to checked (all bands visible). |
-| **Spot table** | Sortable table of spots from all sources. Displays only spots whose band is currently checked. Double-click a row to tune to that frequency. |
-| **Clear** | Empties the current spot list immediately. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **Bands:** (per-band checkboxes) | Each checkbox toggles visibility of spots for that band in the spot table. Available bands: 160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m. All checkboxes default to checked (all bands visible). |  |
+| **Spot table** | Sortable table of spots from all sources. Displays only spots whose band is currently checked. Double-click a row to tune to that frequency. |  |
+| **Clear** | Empties the current spot list immediately. |  |
 ## Tips
 
 - Band filter settings persist across sessions. Each band is saved individually (e.g. `SpotBandFilter_40m`, `SpotBandFilter_20m`).

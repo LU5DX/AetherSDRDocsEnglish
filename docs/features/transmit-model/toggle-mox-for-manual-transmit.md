@@ -10,10 +10,9 @@ The **MOX** button lets you key the transmitter manually, independent of VOX or 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **MOX** | Toggles manual transmit on or off. Sends `xmit 1` or `xmit 0` to the radio. Default: off. The button turns red immediately before the radio confirms the TX state (optimistic update). |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **MOX** | Toggles manual transmit on or off. Sends `xmit 1` or `xmit 0` to the radio. Default: off. The button turns red immediately before the radio confirms the TX state (optimistic update). |  |
 ## Tips
 
 - MOX overrides receive regardless of VOX or other keying sources — remember to click it off before walking away from the radio.

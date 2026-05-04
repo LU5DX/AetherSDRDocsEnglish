@@ -12,11 +12,10 @@ The TX audio filter edges define the low- and high-frequency boundaries of the t
 
 ## What each control does
 
-| Control | Default | Valid Range | Behavior |
-|---|---|---|---|
-| **Low Cut** | 50 Hz | 0–10000 Hz | Sets the TX audio low-frequency cutoff in Hz. Step buttons snap to the nearest 50 Hz multiple. |
-| **High Cut** | 3300 Hz | 0–10000 Hz | Sets the TX audio high-frequency cutoff in Hz. Step buttons snap to the nearest 50 Hz multiple. |
-
+| Control | Default | Valid Range |
+|---|---|---|
+| **Low Cut** | 50 Hz | 0–10000 Hz |
+| **High Cut** | 3300 Hz | 0–10000 Hz |
 ## Tips
 
 - Keep **Low Cut** below **High Cut**; reversing the values produces no usable audio passband.

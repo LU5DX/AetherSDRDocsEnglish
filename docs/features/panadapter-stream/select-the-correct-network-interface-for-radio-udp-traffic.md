@@ -9,18 +9,16 @@ AetherSDR's `RadioConnection` class manages both the TCP control connection to y
 - Close any existing connection to the radio before changing the bind address.
 
 ## Steps
-
 1. Open **Settings > Network** and locate the **Local Bind Address** field.
-2. Enter the IP address of the network interface that faces the radio (for example, `192.168.1.50`). Leave the field blank to let AetherSDR select the address automatically.
-3. Click **Connect**. AetherSDR binds the UDP port to the specified interface and registers it with the radio using the `client udpport` command.
+2. Enter the IP address of the network interface that faces the radio (for example, `192.168.1.50`). Leave the field blank to let AetherSDR determine the bind address from the active TCP session, or fall back to automatic selection if that is not available.
+3. Click **Connect**. AetherSDR binds the UDP port to the resolved interface and registers it with the radio using the `client udpport` command.
 4. If the radio reports that the port or IP pair is already registered by another client, AetherSDR automatically rebinds to an OS-assigned (ephemeral) UDP port and re-registers. No action is required from you, but reconnecting resolves the conflict if it persists.
 
 ## What each control does
-
 | Control | Behavior |
 |---|---|
-| **Local Bind Address** (blank) | AetherSDR probes the active TCP session to determine the best local interface automatically. Use this on single-NIC machines. |
-| **Local Bind Address** (explicit IP) | Binds the UDP socket to the specified IP address. Required when multiple NICs are present and the automatic selection picks the wrong interface. |
+| **Local Bind Address** (blank) | AetherSDR probes the active TCP session to determine the OS-observed source address of the connection, then reuses that address for UDP binding. If that probe fails, AetherSDR falls back to fully automatic selection. Use this on single-NIC machines. |
+| **Local Bind Address** (explicit IP) | Binds the UDP socket to the specified IP address. Required when multiple NICs are present and the automatic selection picks the wrong interface. Takes priority over session-probed address selection. |
 | **Connect** | Opens the TCP control connection and registers the local UDP port with the radio so stream data is directed to this machine. |
 
 ## Tips

@@ -10,12 +10,11 @@ The Transmit Model controls whether your transmitted signal is visible in the wa
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **MOX** | Toggles manual transmit on or off. Sends `xmit 1` or `xmit 0` to the radio. The button turns red immediately before the radio confirms the TX state. While active, the TX signal is visible in the waterfall. |
-| **RF Power:** | Sets the radio's RF transmit power as a percentage of maximum (0–100). Affects the strength of the TX signal shown in the waterfall. Default: 100. |
-| **TUNE** | Starts or stops a tune carrier. Label changes to **TUNING...** and turns red while a tune is in progress. The tune carrier is also visible in the waterfall during this time. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **MOX** | Toggles manual transmit on or off. Sends `xmit 1` or `xmit 0` to the radio. The button turns red immediately before the radio confirms the TX state. While active, the TX signal is visible in the waterfall. |  |
+| **RF Power:** | Sets the radio's RF transmit power as a percentage of maximum (0–100). Affects the strength of the TX signal shown in the waterfall. Default: 100. |  |
+| **TUNE** | Starts or stops a tune carrier. Label changes to **TUNING...** and turns red while a tune is in progress. The tune carrier is also visible in the waterfall during this time. |  |
 ## Tips
 
 - The MOX button uses an optimistic update — it turns red before the radio confirms TX state, so the waterfall overlay may appear a moment before the radio is fully keyed.

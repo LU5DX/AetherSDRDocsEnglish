@@ -16,13 +16,12 @@ The FreeDV tab in SpotHub connects to the qso.freedv.org WebSocket feed. If the 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **Start / Stop (FreeDV)** | Connects or disconnects the FreeDV WebSocket. During an unexpected drop, the client auto-reconnects with exponential backoff and the status shows **Connecting...** during each attempt. If reporting is active and credentials need refreshing (e.g. after a RADE mode toggle), the client transparently reconnects with updated credentials. |
-| **Auto-Start: ON / OFF (FreeDV)** | When ON, automatically establishes the FreeDV WebSocket connection each time AetherSDR launches. Default: OFF. |
-| **Status indicator** | Shows the current state: **Disconnected**, **Connecting...**, or **Connected**. Displays **Connecting...** during both the initial connect and every auto-reconnect attempt after an unexpected drop. |
-| **FreeDV Spots** | Read-only console showing incoming FreeDV activity. Populates once the connection is established. |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **Start / Stop (FreeDV)** | Connects or disconnects the FreeDV WebSocket. During an unexpected drop, the client auto-reconnects with exponential backoff and the status shows **Connecting...** during each attempt. If reporting is active and credentials need refreshing (e.g. after a RADE mode toggle), the client transparently reconnects with updated credentials. |  |
+| **Auto-Start: ON / OFF (FreeDV)** | When ON, automatically establishes the FreeDV WebSocket connection each time AetherSDR launches. Default: OFF. |  |
+| **Status indicator** | Shows the current state: **Disconnected**, **Connecting...**, or **Connected**. Displays **Connecting...** during both the initial connect and every auto-reconnect attempt after an unexpected drop. |  |
+| **FreeDV Spots** | Read-only console showing incoming FreeDV activity. Populates once the connection is established. |  |
 ## Tips
 
 - If the status stays on **Connecting...** for an extended period, press **Start / Stop (FreeDV)** once to stop, then press it again to force a clean reconnect attempt.

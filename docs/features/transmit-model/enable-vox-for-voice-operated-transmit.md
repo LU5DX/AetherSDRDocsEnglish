@@ -9,11 +9,10 @@ The Transmit Model controls VOX (voice-operated transmit), which keys the radio 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **VOX** | Enables voice-operated transmit. The radio keys TX automatically when audio exceeds the VOX level threshold. Default: off. |
-| **Delay:** | Sets the VOX hang time before the radio returns to receive after audio drops below threshold. Range: 0–100 (actual milliseconds = value × 20). Default: 50 (1000 ms). |
-
+| Control | Behavior | Notes |
+|---|---|---|
+| **VOX** | Enables voice-operated transmit. The radio keys TX automatically when audio exceeds the VOX level threshold. Default: off. |  |
+| **Delay:** | Sets the VOX hang time before the radio returns to receive after audio drops below threshold. Range: 0–100 (actual milliseconds = value × 20). Default: 50 (1000 ms). |  |
 ## Tips
 
 - If the radio drops back to receive too quickly between words, increase **Delay:** to give yourself more time between syllables.

@@ -35,7 +35,6 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | **Use GPS (grid)** | `FreeDvUseGpsGrid` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. |
 | **Station Msg: (FreeDV Reporter)** | `FreeDvMyMessage` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. |
 | **Total Spots:** | — | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
-
 ## FreeDV Reporter reporting
 
 The **FreeDV (tab)** in SpotHub contains a **Station Reporting** group. When **Enable FreeDV Reporter reporting when RADE is active** is checked, AetherSDR reports your station to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is running.
