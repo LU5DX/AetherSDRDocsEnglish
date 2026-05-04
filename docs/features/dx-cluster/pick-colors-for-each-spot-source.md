@@ -57,23 +57,22 @@ SpotCollector does not have a dedicated spot-color picker in SpotHub. See the Di
 
 ## What each control does
 
-| Control | Tab | Saved setting |
-|---|---|---|
-| **Spot Color:** | Cluster | `ClusterSpotColor` |
-| **Spot Color:** | RBN | `RbnSpotColor` |
-| **CQ color** | WSJT-X | `WsjtxColorCQ` |
-| **POTA color** | WSJT-X | `WsjtxColorPOTA` |
-| **Calling Me color** | WSJT-X | `WsjtxColorCallingMe` |
-| **Default color** | WSJT-X | `WsjtxColorDefault` |
-| **Spot Color:** | POTA | `PotaSpotColor` |
-| **Spot Color:** | FreeDV | `FreeDvSpotColor` |
-| **Enable FreeDV Reporter reporting when RADE is active** | FreeDV | `FreeDvAutoReport` |
-| **Callsign:** | FreeDV — Station Reporting | `FreeDvMyCallsign` |
-| **Use radio (callsign)** | FreeDV — Station Reporting | `FreeDvUseRadioCallsign` |
-| **Grid Square:** | FreeDV — Station Reporting | `FreeDvMyGrid` |
-| **Use GPS (grid)** | FreeDV — Station Reporting | `FreeDvUseGpsGrid` |
-| **Station Msg:** | FreeDV — Station Reporting | `FreeDvMyMessage` |
-
+| Control                                                  | Tab                        | Saved setting            |
+|----------------------------------------------------------|----------------------------|--------------------------|
+| **Spot Color:**                                          | Cluster                    | `ClusterSpotColor`       |
+| **Spot Color:**                                          | RBN                        | `RbnSpotColor`           |
+| **CQ color**                                             | WSJT-X                     | `WsjtxColorCQ`           |
+| **POTA color**                                           | WSJT-X                     | `WsjtxColorPOTA`         |
+| **Calling Me color**                                     | WSJT-X                     | `WsjtxColorCallingMe`    |
+| **Default color**                                        | WSJT-X                     | `WsjtxColorDefault`      |
+| **Spot Color:**                                          | POTA                       | `PotaSpotColor`          |
+| **Spot Color:**                                          | FreeDV                     | `FreeDvSpotColor`        |
+| **Enable FreeDV Reporter reporting when RADE is active** | FreeDV                     | `FreeDvAutoReport`       |
+| **Callsign:**                                            | FreeDV — Station Reporting | `FreeDvMyCallsign`       |
+| **Use radio (callsign)**                                 | FreeDV — Station Reporting | `FreeDvUseRadioCallsign` |
+| **Grid Square:**                                         | FreeDV — Station Reporting | `FreeDvMyGrid`           |
+| **Use GPS (grid)**                                       | FreeDV — Station Reporting | `FreeDvUseGpsGrid`       |
+| **Station Msg:**                                         | FreeDV — Station Reporting | `FreeDvMyMessage`        |
 ## FreeDV Reporter — Station Reporting
 
 v0.9.3 adds a **Station Reporting** group inside the **FreeDV** tab. When enabled, AetherSDR broadcasts your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.

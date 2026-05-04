@@ -30,22 +30,21 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---|---|---|
-| **Address:** | UDP bind address for incoming WSJT-X messages. | `WsjtxAddress` |
-| **Port:** | UDP port number. Must match WSJT-X reporting port. | `WsjtxPort` |
-| **Start / Stop** | Starts or stops the UDP listener. | — |
-| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch. | `WsjtxAutoStart` |
-| **CQ** | Passes only CQ transmissions to the panadapter. | `WsjtxFilterCQ` |
-| **CQ POTA** | Passes only CQ POTA transmissions. | `WsjtxFilterPOTA` |
-| **Calling Me** | Passes only decodes addressed to your callsign. | `WsjtxFilterCallingMe` |
-| **CQ color** | Color for CQ spots on the panadapter. | `WsjtxColorCQ` |
-| **POTA color** | Color for CQ POTA spots. | `WsjtxColorPOTA` |
-| **Calling Me color** | Color for spots calling your callsign. | `WsjtxColorCallingMe` |
-| **Default color** | Color for spots that match no active filter. | `WsjtxColorDefault` |
-| **Spot Life:** | Seconds a WSJT-X spot remains on the panadapter before fading. | `WsjtxSpotLife` |
-| **WSJT-X Decodes** | Read-only console showing decoded transmissions as they arrive. | — |
-
+| Control                            | Behavior                                                        | Setting key            |
+|------------------------------------|-----------------------------------------------------------------|------------------------|
+| **Address:**                       | UDP bind address for incoming WSJT-X messages.                  | `WsjtxAddress`         |
+| **Port:**                          | UDP port number. Must match WSJT-X reporting port.              | `WsjtxPort`            |
+| **Start / Stop**                   | Starts or stops the UDP listener.                               | —                      |
+| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch.                    | `WsjtxAutoStart`       |
+| **CQ**                             | Passes only CQ transmissions to the panadapter.                 | `WsjtxFilterCQ`        |
+| **CQ POTA**                        | Passes only CQ POTA transmissions.                              | `WsjtxFilterPOTA`      |
+| **Calling Me**                     | Passes only decodes addressed to your callsign.                 | `WsjtxFilterCallingMe` |
+| **CQ color**                       | Color for CQ spots on the panadapter.                           | `WsjtxColorCQ`         |
+| **POTA color**                     | Color for CQ POTA spots.                                        | `WsjtxColorPOTA`       |
+| **Calling Me color**               | Color for spots calling your callsign.                          | `WsjtxColorCallingMe`  |
+| **Default color**                  | Color for spots that match no active filter.                    | `WsjtxColorDefault`    |
+| **Spot Life:**                     | Seconds a WSJT-X spot remains on the panadapter before fading.  | `WsjtxSpotLife`        |
+| **WSJT-X Decodes**                 | Read-only console showing decoded transmissions as they arrive. | —                      |
 ## FreeDV Reporter station reporting
 
 The **FreeDV** tab contains a **Station Reporting** group that lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at `qso.freedv.org`. This section is only present in builds compiled with `HAVE_WEBSOCKETS`; on Windows it additionally requires `HAVE_RADE`.

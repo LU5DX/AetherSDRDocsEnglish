@@ -19,19 +19,18 @@ AetherSDR now watches the file at `DxccAdifPath` for changes. Each time your log
 
 ## What each control does
 
-| Control | Description | Setting key |
-|---|---|---|
-| `DXCC Coloring` | Master toggle for coloring spots by worked/confirmed/needed status. Auto-reload has no effect when this is off. | `DxccColoringEnabled` |
-| `Log File (ADIF):` | Opens a file picker to select the ADIF log. The chosen path is persisted. | `DxccAdifPath` |
-| `Auto-Reload Log:` | Toggle. When enabled, AetherSDR watches the file for changes and reloads it automatically. | `DxccAutoReload` |
-| `Enable FreeDV Reporter reporting when RADE is active` | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
-| `Callsign: (FreeDV Reporter)` | Callsign to report to the FreeDV Reporter map. Read-only when `Use radio` is checked. When `Use radio` is checked, the field is kept in sync automatically if the callsign is changed in Radio Setup. | `FreeDvMyCallsign` |
-| `Use radio (callsign)` | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled. | `FreeDvUseRadioCallsign` |
-| `Grid Square: (FreeDV Reporter)` | Maidenhead grid square to report (up to six characters). Read-only when `Use GPS` is checked. | `FreeDvMyGrid` |
-| `Use GPS (grid)` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
-| `Station Msg: (FreeDV Reporter)` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-| `Auto Mode:` | Toggle. When enabled, automatically selects spot density based on panadapter zoom level. Defaults to enabled as of v0.9.5.1. | `SpotAutoSwitchMode` |
-
+| Control                                                | Description                                                                                                                                                                                                                                                      | Setting key              |
+|--------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| `DXCC Coloring`                                        | Master toggle for coloring spots by worked/confirmed/needed status. Auto-reload has no effect when this is off.                                                                                                                                                  | `DxccColoringEnabled`    |
+| `Log File (ADIF):`                                     | Opens a file picker to select the ADIF log. The chosen path is persisted.                                                                                                                                                                                        | `DxccAdifPath`           |
+| `Auto-Reload Log:`                                     | Toggle. When enabled, AetherSDR watches the file for changes and reloads it automatically.                                                                                                                                                                       | `DxccAutoReload`         |
+| `Enable FreeDV Reporter reporting when RADE is active` | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport`       |
+| `Callsign: (FreeDV Reporter)`                          | Callsign to report to the FreeDV Reporter map. Read-only when `Use radio` is checked. When `Use radio` is checked, the field is kept in sync automatically if the callsign is changed in Radio Setup.                                                            | `FreeDvMyCallsign`       |
+| `Use radio (callsign)`                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled.                                                                                                                                            | `FreeDvUseRadioCallsign` |
+| `Grid Square: (FreeDV Reporter)`                       | Maidenhead grid square to report (up to six characters). Read-only when `Use GPS` is checked.                                                                                                                                                                    | `FreeDvMyGrid`           |
+| `Use GPS (grid)`                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                           | `FreeDvUseGpsGrid`       |
+| `Station Msg: (FreeDV Reporter)`                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                          | `FreeDvMyMessage`        |
+| `Auto Mode:`                                           | Toggle. When enabled, automatically selects spot density based on panadapter zoom level. Defaults to enabled as of v0.9.5.1.                                                                                                                                     | `SpotAutoSwitchMode`     |
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group inside the `FreeDV` tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.

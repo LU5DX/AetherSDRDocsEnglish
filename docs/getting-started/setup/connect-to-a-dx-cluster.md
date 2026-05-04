@@ -21,23 +21,22 @@ AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster and show inco
 
 ## What each control does
 
-| Control | Description | Setting key |
-|---|---|---|
-| **Server:** | Hostname or IP address of the DX cluster telnet server. | `ClusterHost` |
-| **Port:** | Telnet port. Valid range: 1–65535. | `ClusterPort` |
-| **Callsign:** | Login callsign sent to the cluster on connect. | `ClusterCallsign` |
-| **Connect / Disconnect** | Toggles the telnet connection. Label shows current action. | — |
-| **Auto-connect on startup** | Connects to the cluster automatically when AetherSDR launches. | `ClusterAutoConnect` |
-| **Cluster Console** | Read-only display of raw telnet traffic from the cluster. | — |
-| **Send** (command line) | Sends a typed command to the cluster while connected. | — |
-| **Spot Color:** | Opens a color picker for cluster spot overlays on the panadapter. | `ClusterSpotColor` |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport` |
-| **Callsign:** (FreeDV Reporter) | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked. | `FreeDvMyCallsign` |
-| **Use radio** (callsign) | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default. | `FreeDvUseRadioCallsign` |
-| **Grid Square:** (FreeDV Reporter) | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
-| **Use GPS** (grid) | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
-| **Station Msg:** (FreeDV Reporter) | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-
+| Control                                                  | Description                                                                                                                                                                                                                                             | Setting key              |
+|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| **Server:**                                              | Hostname or IP address of the DX cluster telnet server.                                                                                                                                                                                                 | `ClusterHost`            |
+| **Port:**                                                | Telnet port. Valid range: 1–65535.                                                                                                                                                                                                                      | `ClusterPort`            |
+| **Callsign:**                                            | Login callsign sent to the cluster on connect.                                                                                                                                                                                                          | `ClusterCallsign`        |
+| **Connect / Disconnect**                                 | Toggles the telnet connection. Label shows current action.                                                                                                                                                                                              | —                        |
+| **Auto-connect on startup**                              | Connects to the cluster automatically when AetherSDR launches.                                                                                                                                                                                          | `ClusterAutoConnect`     |
+| **Cluster Console**                                      | Read-only display of raw telnet traffic from the cluster.                                                                                                                                                                                               | —                        |
+| **Send** (command line)                                  | Sends a typed command to the cluster while connected.                                                                                                                                                                                                   | —                        |
+| **Spot Color:**                                          | Opens a color picker for cluster spot overlays on the panadapter.                                                                                                                                                                                       | `ClusterSpotColor`       |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport`       |
+| **Callsign:** (FreeDV Reporter)                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked.                                                                | `FreeDvMyCallsign`       |
+| **Use radio** (callsign)                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default.                                                                                                                                    | `FreeDvUseRadioCallsign` |
+| **Grid Square:** (FreeDV Reporter)                       | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked.                                                                                                                                                         | `FreeDvMyGrid`           |
+| **Use GPS** (grid)                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                  | `FreeDvUseGpsGrid`       |
+| **Station Msg:** (FreeDV Reporter)                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                 | `FreeDvMyMessage`        |
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org while the RADE modem is active.

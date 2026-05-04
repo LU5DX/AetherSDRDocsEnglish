@@ -40,26 +40,25 @@ The **Spot List** tab shows a unified, sortable table of all live spots from all
 
 The **Display** tab controls how spots appear on the panadapter.
 
-| Control | Setting key | Default |
-|---|---|---|
-| **Spots:** | `IsSpotsEnabled` | Enabled |
-| **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled |
-| **Auto Mode:** | `SpotsAutoMode` | Enabled |
-| **Levels:** | `SpotsStackLevels` | — |
-| **Position:** | `SpotsPosition` | — |
-| **Font Size:** | `SpotsFontSize` | — |
-| **Spot Lifetime:** | `SpotsLifetime` | — |
-| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | — |
-| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | — |
-| **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | — |
-| **Background Opacity:** | `SpotsOverrideBgOpacity` | 48 |
-| **DXCC Coloring** | `DxccColoringEnabled` | — |
-| **Log File (ADIF):** | `DxccAdifPath` | — |
-| **Auto-Reload Log:** | `DxccAutoReload` | — |
-| **Clear All Spots** | — | — |
+| Control                          | Setting key                                   | Default  |
+|----------------------------------|-----------------------------------------------|----------|
+| **Spots:**                       | `IsSpotsEnabled`                              | Enabled  |
+| **Memories:**                    | `IsMemoriesShownOnPanadapter`                 | Disabled |
+| **Auto Mode:**                   | `SpotsAutoMode`                               | Enabled  |
+| **Levels:**                      | `SpotsStackLevels`                            | —        |
+| **Position:**                    | `SpotsPosition`                               | —        |
+| **Font Size:**                   | `SpotsFontSize`                               | —        |
+| **Spot Lifetime:**               | `SpotsLifetime`                               | —        |
+| **Override Colors:**             | `IsSpotsOverrideColorsEnabled`                | —        |
+| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled`      | —        |
+| **Override Background: Auto**    | `IsSpotsOverrideToAutoBackgroundColorEnabled` | —        |
+| **Background Opacity:**          | `SpotsOverrideBgOpacity`                      | 48       |
+| **DXCC Coloring**                | `DxccColoringEnabled`                         | —        |
+| **Log File (ADIF):**             | `DxccAdifPath`                                | —        |
+| **Auto-Reload Log:**             | `DxccAutoReload`                              | —        |
+| **Clear All Spots**              | —                                             | —        |
 
 **Auto Mode:** defaults to Enabled as of v0.9.5.1. The `SpotAutoSwitchMode` setting key now defaults to `True`. If you previously relied on Auto Mode being off by default, check this setting after upgrading.
-
 ### FreeDV Reporter reporting
 
 The **FreeDV** tab includes a **Station Reporting** section that lets AetherSDR broadcast your station activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is only present in builds compiled with WebSocket support.

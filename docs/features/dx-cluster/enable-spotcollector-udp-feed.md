@@ -18,19 +18,18 @@ AetherSDR can receive DX spots broadcast by Ham Radio Deluxe's SpotCollector ove
 
 ## What each control does
 
-| Control | Description | Setting key |
-|---|---|---|
-| **UDP Port:** | UDP port AetherSDR listens on for SpotCollector broadcasts. Valid range: 1–65535. | `SpotCollectorPort` |
-| **Start / Stop** | Starts or stops the UDP listener. | — |
-| **Auto-start on startup** | Starts the listener automatically on launch. | `SpotCollectorAutoStart` |
-| **SpotCollector Spots** | Read-only console showing spots received from SpotCollector. | — |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square — if either field is blank or unresolvable, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
-| **Callsign: (FreeDV Reporter)** | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. When **Use radio** is checked, the field is populated from the radio's configured callsign and updates automatically if that callsign changes. | `FreeDvMyCallsign` |
-| **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. | `FreeDvUseRadioCallsign` |
-| **Grid Square: (FreeDV Reporter)** | Maidenhead grid square to report. Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
-| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
-| **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-
+| Control                                                  | Description                                                                                                                                                                                                                                                  | Setting key              |
+|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| **UDP Port:**                                            | UDP port AetherSDR listens on for SpotCollector broadcasts. Valid range: 1–65535.                                                                                                                                                                            | `SpotCollectorPort`      |
+| **Start / Stop**                                         | Starts or stops the UDP listener.                                                                                                                                                                                                                            | —                        |
+| **Auto-start on startup**                                | Starts the listener automatically on launch.                                                                                                                                                                                                                 | `SpotCollectorAutoStart` |
+| **SpotCollector Spots**                                  | Read-only console showing spots received from SpotCollector.                                                                                                                                                                                                 | —                        |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square — if either field is blank or unresolvable, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport`       |
+| **Callsign: (FreeDV Reporter)**                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. When **Use radio** is checked, the field is populated from the radio's configured callsign and updates automatically if that callsign changes.                       | `FreeDvMyCallsign`       |
+| **Use radio (callsign)**                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only.                                                                                                                                                             | `FreeDvUseRadioCallsign` |
+| **Grid Square: (FreeDV Reporter)**                       | Maidenhead grid square to report. Read-only when **Use GPS** is checked.                                                                                                                                                                                     | `FreeDvMyGrid`           |
+| **Use GPS (grid)**                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                       | `FreeDvUseGpsGrid`       |
+| **Station Msg: (FreeDV Reporter)**                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                      | `FreeDvMyMessage`        |
 ## FreeDV Reporter reporting
 
 The **FreeDV** tab contains a **Station Reporting** group that controls whether AetherSDR broadcasts your station's activity to the public FreeDV Reporter map at qso.freedv.org.

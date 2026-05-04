@@ -19,19 +19,18 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---|---|---|
-| **DXCC Coloring** | Master toggle. Colors panadapter spots by worked/confirmed/needed DXCC status. | `DxccColoringEnabled` |
-| **Log File (ADIF):** | Opens a file picker. The chosen ADIF file is read to populate DXCC status. | `DxccAdifPath` |
-| **Auto-Reload Log:** | When enabled, re-reads the ADIF file whenever it changes on disk. | `DxccAutoReload` |
-| **Auto Mode:** | Auto-selects spot density based on zoom level. Defaults to enabled. | `SpotAutoSwitchMode` |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
-| **Callsign: (FreeDV Reporter)** | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updates if the radio's configured callsign changes while **Use radio (callsign)** is checked. | `FreeDvMyCallsign` |
-| **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled. | `FreeDvUseRadioCallsign` |
-| **Grid Square: (FreeDV Reporter)** | Maidenhead grid square to report. Read-only when **Use GPS (grid)** is checked. | `FreeDvMyGrid` |
-| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Defaults to enabled. | `FreeDvUseGpsGrid` |
-| **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-
+| Control                                                  | Behavior                                                                                                                                                                                                                                                         | Setting key              |
+|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| **DXCC Coloring**                                        | Master toggle. Colors panadapter spots by worked/confirmed/needed DXCC status.                                                                                                                                                                                   | `DxccColoringEnabled`    |
+| **Log File (ADIF):**                                     | Opens a file picker. The chosen ADIF file is read to populate DXCC status.                                                                                                                                                                                       | `DxccAdifPath`           |
+| **Auto-Reload Log:**                                     | When enabled, re-reads the ADIF file whenever it changes on disk.                                                                                                                                                                                                | `DxccAutoReload`         |
+| **Auto Mode:**                                           | Auto-selects spot density based on zoom level. Defaults to enabled.                                                                                                                                                                                              | `SpotAutoSwitchMode`     |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; if either field is blank or resolves to empty, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport`       |
+| **Callsign: (FreeDV Reporter)**                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updates if the radio's configured callsign changes while **Use radio (callsign)** is checked.                                                   | `FreeDvMyCallsign`       |
+| **Use radio (callsign)**                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Defaults to enabled.                                                                                                                                            | `FreeDvUseRadioCallsign` |
+| **Grid Square: (FreeDV Reporter)**                       | Maidenhead grid square to report. Read-only when **Use GPS (grid)** is checked.                                                                                                                                                                                  | `FreeDvMyGrid`           |
+| **Use GPS (grid)**                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Defaults to enabled.                                                                                                      | `FreeDvUseGpsGrid`       |
+| **Station Msg: (FreeDV Reporter)**                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                          | `FreeDvMyMessage`        |
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
