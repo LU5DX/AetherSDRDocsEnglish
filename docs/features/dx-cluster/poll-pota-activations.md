@@ -20,14 +20,15 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 
 ## What each control does
 
-| Control                   | Kind          | Behavior                                                                                 |
-|---------------------------|---------------|------------------------------------------------------------------------------------------|
-| **Server:**               | Indicator     | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable.       |
-| **Poll Interval:**        | Spinbox       | Seconds between POTA API polls. Persisted as `PotaPollInterval`.                         |
-| **Start / Stop**          | Push button   | Starts or stops POTA polling.                                                            |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Server:** | Indicator | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable. |
+| **Poll Interval:** | Spinbox | Seconds between POTA API polls. Persisted as `PotaPollInterval`. |
+| **Start / Stop** | Push button | Starts or stops POTA polling. |
 | **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`. |
-| **POTA Activations**      | Text field    | Read-only console showing the activation feed.                                           |
-| **Spot Color:**           | Push button   | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`.     |
+| **POTA Activations** | Text field | Read-only console showing the activation feed. |
+| **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`. |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 ## FreeDV Reporter controls (FreeDV tab)
 
 The following controls appear in the **Station Reporting** group box on the **FreeDV** tab. They are only present in builds compiled with `HAVE_WEBSOCKETS`.
@@ -61,11 +62,11 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - If spots are not visible on the panadapter, confirm that the **Spots:** master toggle on the **Display** tab is set to **Enabled** (`IsSpotsEnabled`).
 
 ## Troubleshooting
-
 - **Status stays at Stopped after clicking Start** — The application cannot reach `api.pota.app`. Check your internet connection and confirm no firewall or proxy is blocking outbound HTTP.
 - **No spots appear on the panadapter despite Polling status** — Verify that **Spots:** on the **Display** tab is **Enabled**. Also check that the current band is not filtered out in the **Spot List** tab's **Bands:** checkboxes.
 - **POTA Activations console is empty** — There may be no active POTA activations at this time, or the poll has not yet completed. Wait for the next poll interval to elapse.
 - **FreeDV Reporter checkbox immediately unchecks** — Either the **Callsign:** or **Grid Square:** field is empty. Enter a valid callsign and Maidenhead grid square (or enable **Use radio** / **Use GPS** if the radio supplies them), then check the box again.
+- **Auto Mode: defaults to Enabled on new installations** — As of V0.9.5.1, **Auto Mode:** defaults to **Enabled**. If you prefer that clicking a spot does not automatically switch the slice mode, set **Auto Mode:** to **Disabled** on the **Display** tab and the preference will be saved.
 
 ## Related
 
@@ -74,3 +75,4 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-03 -->

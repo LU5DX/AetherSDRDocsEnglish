@@ -17,19 +17,20 @@ AetherSDR can receive DX spots broadcast by Ham Radio Deluxe's SpotCollector ove
 6. To have the listener start automatically every time AetherSDR launches, enable **Auto-start on startup**. This is saved as `SpotCollectorAutoStart`.
 
 ## What each control does
-
-| Control                                                  | Description                                                                                                                                                                                                                                                  | Setting key              |
-|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| **UDP Port:**                                            | UDP port AetherSDR listens on for SpotCollector broadcasts. Valid range: 1–65535.                                                                                                                                                                            | `SpotCollectorPort`      |
-| **Start / Stop**                                         | Starts or stops the UDP listener.                                                                                                                                                                                                                            | —                        |
-| **Auto-start on startup**                                | Starts the listener automatically on launch.                                                                                                                                                                                                                 | `SpotCollectorAutoStart` |
-| **SpotCollector Spots**                                  | Read-only console showing spots received from SpotCollector.                                                                                                                                                                                                 | —                        |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square — if either field is blank or unresolvable, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport`       |
-| **Callsign: (FreeDV Reporter)**                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. When **Use radio** is checked, the field is populated from the radio's configured callsign and updates automatically if that callsign changes.                       | `FreeDvMyCallsign`       |
-| **Use radio (callsign)**                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only.                                                                                                                                                             | `FreeDvUseRadioCallsign` |
-| **Grid Square: (FreeDV Reporter)**                       | Maidenhead grid square to report. Read-only when **Use GPS** is checked.                                                                                                                                                                                     | `FreeDvMyGrid`           |
-| **Use GPS (grid)**                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                       | `FreeDvUseGpsGrid`       |
-| **Station Msg: (FreeDV Reporter)**                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                      | `FreeDvMyMessage`        |
+| Control | Description | Setting key |
+|---|---|---|
+| **UDP Port:** | UDP port AetherSDR listens on for SpotCollector broadcasts. Valid range: 1–65535. | `SpotCollectorPort` |
+| **Start / Stop** | Starts or stops the UDP listener. | — |
+| **Auto-start on startup** | Starts the listener automatically on launch. | `SpotCollectorAutoStart` |
+| **SpotCollector Spots** | Read-only console showing spots received from SpotCollector. | — |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square — if either field is blank or unresolvable, the checkbox refuses to enable and displays a warning. | `FreeDvAutoReport` |
+| **Callsign: (FreeDV Reporter)** | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. When **Use radio** is checked, the field is populated from the radio's configured callsign and updates automatically if that callsign changes. | `FreeDvMyCallsign` |
+| **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. | `FreeDvUseRadioCallsign` |
+| **Grid Square: (FreeDV Reporter)** | Maidenhead grid square to report. Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
+| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
+| **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+| **Auto Mode:** | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default is **Enabled**. | `SpotAutoSwitchMode` |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 ## FreeDV Reporter reporting
 
 The **FreeDV** tab contains a **Station Reporting** group that controls whether AetherSDR broadcasts your station's activity to the public FreeDV Reporter map at qso.freedv.org.
@@ -58,9 +59,9 @@ If either value is missing when you attempt to enable **Enable FreeDV Reporter r
 As of v0.9.5.1, **Auto Mode:** (`SpotAutoSwitchMode`) defaults to **Enabled** for new installations. If you are upgrading and want to retain the previous behavior, open the **Display** tab and set **Auto Mode:** to **Disabled**.
 
 ## Tips
-
 - Spots received from SpotCollector appear alongside spots from other sources in the **Spot List** tab. The **Source** column identifies them.
 - If the panadapter spot overlay is not visible, check that **Spots:** is set to **Enabled** on the **Display** tab.
+- **Auto Mode** defaults to **Enabled**. When you click a spot that includes mode information (e.g. CW, FT8, RTTY), the slice mode switches automatically. Disable it on the **Display** tab if you prefer to switch modes manually.
 
 ## Troubleshooting
 
@@ -75,3 +76,4 @@ As of v0.9.5.1, **Auto Mode:** (`SpotAutoSwitchMode`) defaults to **Enabled** fo
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-03 -->

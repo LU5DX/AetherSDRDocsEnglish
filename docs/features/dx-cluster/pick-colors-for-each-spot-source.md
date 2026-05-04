@@ -10,11 +10,10 @@ AetherSDR can display spots from up to six sources simultaneously. Assigning a d
 ## Steps
 
 ### DX Cluster spot color
-
 1. In SpotHub, click the **Cluster** tab.
 2. Click the **Spot Color:** button.
 3. Choose a color in the color picker that opens and confirm your selection.
-4. The new color is saved to `ClusterSpotColor` and applied immediately to cluster spots on the panadapter.
+4. The new color is saved to `DxClusterSpotColor` and applied immediately to cluster spots on the panadapter.
 
 ### RBN spot color
 
@@ -56,23 +55,24 @@ WSJT-X supports four separate colors, one per decode category.
 SpotCollector does not have a dedicated spot-color picker in SpotHub. See the Display tab options below if you need a uniform override for all sources.
 
 ## What each control does
-
-| Control                                                  | Tab                        | Saved setting            |
-|----------------------------------------------------------|----------------------------|--------------------------|
-| **Spot Color:**                                          | Cluster                    | `ClusterSpotColor`       |
-| **Spot Color:**                                          | RBN                        | `RbnSpotColor`           |
-| **CQ color**                                             | WSJT-X                     | `WsjtxColorCQ`           |
-| **POTA color**                                           | WSJT-X                     | `WsjtxColorPOTA`         |
-| **Calling Me color**                                     | WSJT-X                     | `WsjtxColorCallingMe`    |
-| **Default color**                                        | WSJT-X                     | `WsjtxColorDefault`      |
-| **Spot Color:**                                          | POTA                       | `PotaSpotColor`          |
-| **Spot Color:**                                          | FreeDV                     | `FreeDvSpotColor`        |
-| **Enable FreeDV Reporter reporting when RADE is active** | FreeDV                     | `FreeDvAutoReport`       |
-| **Callsign:**                                            | FreeDV — Station Reporting | `FreeDvMyCallsign`       |
-| **Use radio (callsign)**                                 | FreeDV — Station Reporting | `FreeDvUseRadioCallsign` |
-| **Grid Square:**                                         | FreeDV — Station Reporting | `FreeDvMyGrid`           |
-| **Use GPS (grid)**                                       | FreeDV — Station Reporting | `FreeDvUseGpsGrid`       |
-| **Station Msg:**                                         | FreeDV — Station Reporting | `FreeDvMyMessage`        |
+| Control | Tab | Saved setting |
+|---|---|---|
+| **Spot Color:** | Cluster | `ClusterSpotColor` |
+| **Spot Color:** | RBN | `RbnSpotColor` |
+| **CQ color** | WSJT-X | `WsjtxColorCQ` |
+| **POTA color** | WSJT-X | `WsjtxColorPOTA` |
+| **Calling Me color** | WSJT-X | `WsjtxColorCallingMe` |
+| **Default color** | WSJT-X | `WsjtxColorDefault` |
+| **Spot Color:** | POTA | `PotaSpotColor` |
+| **Spot Color:** | FreeDV | `FreeDvSpotColor` |
+| **Enable FreeDV Reporter reporting when RADE is active** | FreeDV | `FreeDvAutoReport` |
+| **Callsign:** | FreeDV — Station Reporting | `FreeDvMyCallsign` |
+| **Use radio (callsign)** | FreeDV — Station Reporting | `FreeDvUseRadioCallsign` |
+| **Grid Square:** | FreeDV — Station Reporting | `FreeDvMyGrid` |
+| **Use GPS (grid)** | FreeDV — Station Reporting | `FreeDvUseGpsGrid` |
+| **Station Msg:** | FreeDV — Station Reporting | `FreeDvMyMessage` |
+| **Auto Mode:** | Display | `SpotAutoSwitchMode` — default changed to **Enabled** in V0.9.5.1 |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 ## FreeDV Reporter — Station Reporting
 
 v0.9.3 adds a **Station Reporting** group inside the **FreeDV** tab. When enabled, AetherSDR broadcasts your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
@@ -122,3 +122,4 @@ The **Auto Mode:** toggle on the **Display** tab now defaults to **Enabled** for
 - [Enable FreeDV QSO reporter WebSocket](enable-freedv-qso-reporter-websocket.md)
 - [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-03 -->

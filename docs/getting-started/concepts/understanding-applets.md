@@ -34,13 +34,13 @@ If you have rearranged applets and want to return to the default layout:
 2. Click `Reset Applet Order`. The applets return to their default positions within the panel.
 
 ## What each control does
-
 | Control | Where | What it does |
 |---|---|---|
 | `Applet Panel` | `View` menu | Toggles visibility of the applet panel. Checkable. |
 | `Pop Out Applet Panel` | `View` menu | Floats the applet panel into a separate window or docks it back. Shortcut: `Ctrl+Shift+S`. Checkable. |
 | `Reset Applet Order` | `View` menu | Restores the applet panel to its default applet order. |
 | Tray buttons | Top of applet panel | Each button shows or hides one applet inside the panel (for example, RX, TX, TCI). |
+| Scroll handle | Applet panel scroll area | Appears when the panel content overflows. Dims automatically after a short delay when you stop scrolling. |
 
 ## Tips
 
@@ -55,3 +55,4 @@ If you have rearranged applets and want to return to the default layout:
 - [Reset Applet Order](../../reference/menu-actions/reset-applet-order.md)
 - [Enable Minimal Mode](../../reference/menu-actions/enable-minimal-mode.md)
 - [Understanding slices and VFOs](understanding-slices.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-03 -->

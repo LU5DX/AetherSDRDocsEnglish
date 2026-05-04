@@ -20,23 +20,24 @@ AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster and show inco
 7. To reconnect automatically every time AetherSDR starts, enable **Auto-connect on startup**. This saves to `ClusterAutoConnect`.
 
 ## What each control does
-
-| Control                                                  | Description                                                                                                                                                                                                                                             | Setting key              |
-|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| **Server:**                                              | Hostname or IP address of the DX cluster telnet server.                                                                                                                                                                                                 | `ClusterHost`            |
-| **Port:**                                                | Telnet port. Valid range: 1–65535.                                                                                                                                                                                                                      | `ClusterPort`            |
-| **Callsign:**                                            | Login callsign sent to the cluster on connect.                                                                                                                                                                                                          | `ClusterCallsign`        |
-| **Connect / Disconnect**                                 | Toggles the telnet connection. Label shows current action.                                                                                                                                                                                              | —                        |
-| **Auto-connect on startup**                              | Connects to the cluster automatically when AetherSDR launches.                                                                                                                                                                                          | `ClusterAutoConnect`     |
-| **Cluster Console**                                      | Read-only display of raw telnet traffic from the cluster.                                                                                                                                                                                               | —                        |
-| **Send** (command line)                                  | Sends a typed command to the cluster while connected.                                                                                                                                                                                                   | —                        |
-| **Spot Color:**                                          | Opens a color picker for cluster spot overlays on the panadapter.                                                                                                                                                                                       | `ClusterSpotColor`       |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport`       |
-| **Callsign:** (FreeDV Reporter)                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked.                                                                | `FreeDvMyCallsign`       |
-| **Use radio** (callsign)                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default.                                                                                                                                    | `FreeDvUseRadioCallsign` |
-| **Grid Square:** (FreeDV Reporter)                       | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked.                                                                                                                                                         | `FreeDvMyGrid`           |
-| **Use GPS** (grid)                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                  | `FreeDvUseGpsGrid`       |
-| **Station Msg:** (FreeDV Reporter)                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                 | `FreeDvMyMessage`        |
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | Hostname or IP address of the DX cluster telnet server. | `ClusterHost` |
+| **Port:** | Telnet port. Valid range: 1–65535. | `ClusterPort` |
+| **Callsign:** | Login callsign sent to the cluster on connect. | `ClusterCallsign` |
+| **Connect / Disconnect** | Toggles the telnet connection. Label shows current action. | — |
+| **Auto-connect on startup** | Connects to the cluster automatically when AetherSDR launches. | `ClusterAutoConnect` |
+| **Cluster Console** | Read-only display of raw telnet traffic from the cluster. | — |
+| **Send** (command line) | Sends a typed command to the cluster while connected. | — |
+| **Spot Color:** | Opens a color picker for cluster spot overlays on the panadapter. | `ClusterSpotColor` |
+| **Auto Mode:** | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Enabled by default. | `SpotAutoSwitchMode` |
+| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport` |
+| **Callsign:** (FreeDV Reporter) | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked. | `FreeDvMyCallsign` |
+| **Use radio** (callsign) | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default. | `FreeDvUseRadioCallsign` |
+| **Grid Square:** (FreeDV Reporter) | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
+| **Use GPS** (grid) | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
+| **Station Msg:** (FreeDV Reporter) | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+| **Total Spots:** | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org while the RADE modem is active.
@@ -74,11 +75,11 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotAutoSwitchMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto Mode:**.
 
 ## Tips
-
 - While connected, type a cluster command in the field next to **Send** and click **Send** to interact with the cluster directly (for example, `set/dx` or `sh/dx 20`).
 - Spot overlays appear on the panadapter only when the master **Spots:** toggle on the **Display** tab is enabled (default: Enabled, saved to `IsSpotsEnabled`).
 - To review recent cluster traffic from before you opened SpotHub, scroll up in the **Cluster Console** — AetherSDR loads up to the last 500 lines from the cluster log file when the dialog opens.
 - If your radio's callsign changes in Radio Setup while **Use radio** is checked, the **Callsign:** field in the FreeDV Reporter section updates automatically.
+- **Auto Mode** now defaults to Enabled. When you click a spot that carries mode information (e.g. CW, FT8, RTTY), AetherSDR automatically switches the slice to that mode unless you disable Auto Mode on the **Display** tab.
 
 ## Troubleshooting
 
@@ -97,3 +98,4 @@ As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous r
 - [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md)
 - [Enable DXCC coloring from an ADIF log](../../features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md)
 - [Clear all spots from the panadapter](../../features/dx-cluster/clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=V0.9.5.1 date=2026-05-03 -->

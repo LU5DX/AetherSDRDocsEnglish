@@ -30,21 +30,23 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 
 ## What each control does
 
-| Control                            | Behavior                                                        | Setting key            |
-|------------------------------------|-----------------------------------------------------------------|------------------------|
-| **Address:**                       | UDP bind address for incoming WSJT-X messages.                  | `WsjtxAddress`         |
-| **Port:**                          | UDP port number. Must match WSJT-X reporting port.              | `WsjtxPort`            |
-| **Start / Stop**                   | Starts or stops the UDP listener.                               | —                      |
-| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch.                    | `WsjtxAutoStart`       |
-| **CQ**                             | Passes only CQ transmissions to the panadapter.                 | `WsjtxFilterCQ`        |
-| **CQ POTA**                        | Passes only CQ POTA transmissions.                              | `WsjtxFilterPOTA`      |
-| **Calling Me**                     | Passes only decodes addressed to your callsign.                 | `WsjtxFilterCallingMe` |
-| **CQ color**                       | Color for CQ spots on the panadapter.                           | `WsjtxColorCQ`         |
-| **POTA color**                     | Color for CQ POTA spots.                                        | `WsjtxColorPOTA`       |
-| **Calling Me color**               | Color for spots calling your callsign.                          | `WsjtxColorCallingMe`  |
-| **Default color**                  | Color for spots that match no active filter.                    | `WsjtxColorDefault`    |
-| **Spot Life:**                     | Seconds a WSJT-X spot remains on the panadapter before fading.  | `WsjtxSpotLife`        |
-| **WSJT-X Decodes**                 | Read-only console showing decoded transmissions as they arrive. | —                      |
+| Control | Behavior | Setting key |
+|---|---|---|
+| **Address:** | UDP bind address for incoming WSJT-X messages. | `WsjtxAddress` |
+| **Port:** | UDP port number. Must match WSJT-X reporting port. | `WsjtxPort` |
+| **Start / Stop** | Starts or stops the UDP listener. | — |
+| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch. | `WsjtxAutoStart` |
+| **CQ** | Passes only CQ transmissions to the panadapter. | `WsjtxFilterCQ` |
+| **CQ POTA** | Passes only CQ POTA transmissions. | `WsjtxFilterPOTA` |
+| **Calling Me** | Passes only decodes addressed to your callsign. | `WsjtxFilterCallingMe` |
+| **CQ color** | Color for CQ spots on the panadapter. | `WsjtxColorCQ` |
+| **POTA color** | Color for CQ POTA spots. | `WsjtxColorPOTA` |
+| **Calling Me color** | Color for spots calling your callsign. | `WsjtxColorCallingMe` |
+| **Default color** | Color for spots that match no active filter. | `WsjtxColorDefault` |
+| **Spot Life:** | Seconds a WSJT-X spot remains on the panadapter before fading. | `WsjtxSpotLife` |
+| **WSJT-X Decodes** | Read-only console showing decoded transmissions as they arrive. | — |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
+
 ## FreeDV Reporter station reporting
 
 The **FreeDV** tab contains a **Station Reporting** group that lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at `qso.freedv.org`. This section is only present in builds compiled with `HAVE_WEBSOCKETS`; on Windows it additionally requires `HAVE_RADE`.
@@ -83,8 +85,7 @@ When you check **Enable FreeDV Reporter reporting when RADE is active**, AetherS
 If either resolved value is empty the checkbox is automatically unchecked and a dialog prompts you to supply the missing information. This prevents blank or placeholder values from being broadcast to the shared community map.
 
 ## Auto Mode default changed
-
-As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** (stored as `SpotAutoSwitchMode`). In previous versions the default was Disabled. If you have not changed this setting, AetherSDR will now automatically select spot density based on the current panadapter zoom level immediately after a fresh install or settings reset.
+As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** (stored as `SpotAutoSwitchMode`). In previous versions the default was Disabled. If you have not changed this setting, AetherSDR will now automatically switch the slice mode when you click a spot that includes mode information (e.g. CW, FT8, RTTY) immediately after a fresh install or settings reset.
 
 ## Tips
 
@@ -110,3 +111,4 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Poll POTA activations](poll-pota-activations.md)
 - [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)
+<!-- docmesh:llm version=v0.9.5.1 date=2026-05-04 -->

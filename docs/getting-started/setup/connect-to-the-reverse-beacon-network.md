@@ -21,17 +21,18 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 
 ## What each control does
 
-| Control                     | Behavior                                             | Setting key      |
-|-----------------------------|------------------------------------------------------|------------------|
-| **Server:**                 | RBN telnet hostname                                  | `RbnHost`        |
-| **Port:**                   | RBN telnet port                                      | `RbnPort`        |
-| **Callsign:**               | Login callsign sent to RBN                           | `RbnCallsign`    |
-| **Rate Limit:**             | Maximum RBN spots accepted per second                | `RbnRateLimit`   |
-| **Connect / Disconnect**    | Toggles the RBN telnet session                       | —                |
-| **Auto-connect on startup** | Connects to RBN automatically on launch              | `RbnAutoConnect` |
-| **RBN Console**             | Read-only display of raw RBN traffic                 | —                |
-| **Send**                    | Sends a typed command to the RBN session             | —                |
-| **Spot Color:**             | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor`   |
+| Control | Behavior | Setting key |
+|---|---|---|
+| **Server:** | RBN telnet hostname | `RbnHost` |
+| **Port:** | RBN telnet port | `RbnPort` |
+| **Callsign:** | Login callsign sent to RBN | `RbnCallsign` |
+| **Rate Limit:** | Maximum RBN spots accepted per second | `RbnRateLimit` |
+| **Connect / Disconnect** | Toggles the RBN telnet session | — |
+| **Auto-connect on startup** | Connects to RBN automatically on launch | `RbnAutoConnect` |
+| **RBN Console** | Read-only display of raw RBN traffic | — |
+| **Send** | Sends a typed command to the RBN session | — |
+| **Spot Color:** | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor` |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 ## FreeDV Reporter station reporting
 
 The **FreeDV** tab contains a **Station Reporting** section that lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is build-gated by `HAVE_WEBSOCKETS`; on Windows it also requires the `HAVE_RADE` inner guard.
