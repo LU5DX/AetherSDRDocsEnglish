@@ -52,8 +52,9 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 | **Grid Square:** | Text field | Maidenhead grid square to report. Read-only when **Use GPS** is checked. Saved to `FreeDvMyGrid`. |
 | **Use GPS** | Checkbox | Pre-fills **Grid Square:** from the radio's GPS module and locks the field read-only. Shown only on radio models with GPS hardware. Saved to `FreeDvUseGpsGrid`. Default: enabled on GPS-capable models. |
 | **Station Msg:** | Text field | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Saved to `FreeDvMyMessage`. |
-| **Auto Mode:** | Toggle button | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: **Enabled**. Saved to `SpotAutoSwitchMode`. |
+| **Auto Mode:** | Toggle button | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: **Enabled** (as of v0.9.5.1). Saved to `SpotAutoSwitchMode`. |
 | Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
+
 ## Tips
 
 - Incoming activity appears in the **FreeDV Spots** console as well as in the unified spot table on the **Spot List** tab.

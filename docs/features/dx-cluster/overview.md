@@ -9,10 +9,55 @@ SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources 
 - Have an ADIF log file available if you want DXCC coloring.
 
 ## How it works
-
 SpotHub aggregates spots from up to six independent sources. Each source runs independently — you can enable any combination simultaneously. All incoming spots are merged into a unified list and rendered as frequency markers on the panadapter.
 
 Spots from each source are color-coded separately so you can distinguish their origin at a glance. A global display layer (the **Display** tab) controls how all spots appear on the panadapter, regardless of source.
+
+### Sources
+
+**Cluster tab** — Connects to a DX cluster via a telnet session. You provide the hostname (`ClusterHost`), port (`ClusterPort`, 1–65535), and login callsign (`ClusterCallsign`). The **Cluster Console** shows raw telnet traffic. You can type cluster commands in the command line field and send them with Send. Spot color is set via **Spot Color:**, persisted as `ClusterSpotColor`.
+
+**RBN tab** — Connects to the Reverse Beacon Network via telnet. Configuration mirrors the Cluster tab: `RbnHost`, `RbnPort` (1–65535), `RbnCallsign`. The **Rate Limit:** spinbox (`RbnRateLimit`) caps the number of spots accepted per second, which is useful because RBN traffic volume can be very high. The **RBN Console** shows raw traffic. Spot color is set via **Spot Color:** (`RbnSpotColor`).
+
+**WSJT-X tab** — Listens for UDP datagrams broadcast by a running WSJT-X instance. Set the bind address (`WsjtxAddress`) and port (`WsjtxPort`, 1–65535), then click Start. Three checkboxes filter which decodes appear as spots: **CQ** (`WsjtxFilterCQ`), **CQ POTA** (`WsjtxFilterPOTA`), and **Calling Me** (`WsjtxFilterCallingMe`). Each category has its own color picker: CQ color (`WsjtxColorCQ`), POTA color (`WsjtxColorPOTA`), Calling Me color (`WsjtxColorCallingMe`), and Default color (`WsjtxColorDefault`). **Spot Life:** (`WsjtxSpotLife`) controls how long WSJT-X spots remain on the panadapter. The **WSJT-X Decodes** console shows the raw decode stream.
+
+**SpotCollector tab** — Listens on a UDP port for spot broadcasts from Ham Radio Deluxe SpotCollector. Set **UDP Port:** (`SpotCollectorPort`, 1–65535) and click Start. The **SpotCollector Spots** console shows received spots.
+
+**POTA tab** — Polls `api.pota.app` over HTTP at a configurable interval (**Poll Interval:**, `PotaPollInterval`). The server address is fixed and shown as an indicator. The **POTA Activations** console shows the activation feed. Spot color is set via **Spot Color:** (`PotaSpotColor`).
+
+**FreeDV tab** — Connects to the FreeDV QSO Reporter via WebSocket at `qso.freedv.org`. The server address is fixed. The **FreeDV Spots** console shows activity. Spot color is set via **Spot Color:** (`FreeDvSpotColor`). This tab is only present in builds that include WebSocket support.
+
+### Auto-connect and auto-start
+
+Each source has an **Auto-connect on startup** or **Auto-start on startup** toggle. When enabled, that source connects or starts automatically every time AetherSDR launches, without manual intervention. The persisted keys are `ClusterAutoConnect`, `RbnAutoConnect`, `WsjtxAutoStart`, `SpotCollectorAutoStart`, `PotaAutoStart`, and `FreeDvAutoStart`.
+
+### Spot List tab
+
+The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency.
+
+### Display tab
+The **Display** tab controls how spots appear on the panadapter.
+
+| Control | Setting key | Default |
+|---|---|---|
+| **Spots:** | `IsSpotsEnabled` | Enabled |
+| **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled |
+| **Auto Mode:** | `SpotAutoSwitchMode` | Enabled |
+| **Levels:** | `SpotsStackLevels` | — |
+| **Position:** | `SpotsPosition` | — |
+| **Font Size:** | `SpotsFontSize` | — |
+| **Spot Lifetime:** | `SpotsLifetime` | — |
+| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | — |
+| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | — |
+| **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | — |
+| **Background Opacity:** | `SpotsOverrideBgOpacity` | 48 |
+| **DXCC Coloring** | `DxccColoringEnabled` | — |
+| **Log File (ADIF):** | `DxccAdifPath` | — |
+| **Auto-Reload Log:** | `DxccAutoReload` | — |
+| **Clear All Spots** | — | — |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
+
+**Auto Mode** defaults to **Enabled** (`SpotAutoSwitchMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
 
 ### Sources
 
@@ -59,6 +104,7 @@ The **Display** tab controls how spots appear on the panadapter.
 | Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when 'Clear All Spots' is pressed. |
 
 **Auto Mode** now defaults to **Enabled** (`SpotAutoSwitchMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
+
 ### FreeDV Reporter reporting
 
 The **FreeDV** tab includes a **Station Reporting** section that lets AetherSDR broadcast your station activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is only present in builds compiled with WebSocket support.
