@@ -30,7 +30,7 @@ Alternatively, adjust **Mix** directly from the docked applet tile without openi
 
 ## Troubleshooting
 
-- **Adjusting Dry/Wet has no audible effect** — confirm the Tube stage is enabled. If the stage is bypassed in the CHAIN widget, the signal passes through unprocessed regardless of the Dry/Wet setting.
+- **Adjusting Dry/Wet has no audible effect** — confirm the Tube stage is enabled. If the stage is bypassed in the CHAIN widget, the signal passes through unprocessed regardless of the Dry/Wet setting. When the stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity as a visual reminder that the stage is inactive.
 - **Level changes when moving Dry/Wet** — this is expected. Use the **Output** knob (range −24.0 to 12.0 dB, default 0.00 dB) to trim the post-saturation level. See [Compensate level changes with Output](compensate-level-changes-with-output.md).
 
 ## Related

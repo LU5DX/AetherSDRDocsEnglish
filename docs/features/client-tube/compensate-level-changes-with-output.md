@@ -36,11 +36,16 @@ The floating editor includes an **OUT** peak level meter (the `ClientLevelMeter`
 
 The meter is not present in the docked applet tile. It updates continuously alongside the knob controls whenever the floating editor is open.
 
+## Bypass dim
+
+When the tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of normal). This matches the dim effect used on the EQ curve tile and gives a clear at-a-glance indication that the stage is not processing audio. The tile returns to full opacity as soon as the stage is re-enabled.
+
 ## Tips
 
 - If raising Drive increases loudness more than desired, reduce Output by a matching amount to keep the net level consistent.
 - Use the **OUT** meter in the floating editor to verify that the post-tube signal stays below −3 dB (red) under normal operating conditions.
 - Changes made in the floating editor and the docked applet stay in sync. A 30 Hz polling timer keeps both views updated, so adjusting Output in one location is reflected immediately in the other.
+- When the applet tile appears dimmed, the tube stage is bypassed. Re-enable it before making Output adjustments, otherwise the trim has no effect on the live signal.
 
 ## Related
 

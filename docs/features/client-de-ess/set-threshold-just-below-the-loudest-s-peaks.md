@@ -10,7 +10,7 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 ## Steps
 
-1. Open the de-esser controls: double-click the DESS stage in the CHAIN widget to open the floating "Aetherial De-Esser — TX" editor, or work directly on the Thresh knob in the docked applet.
+1. Open the de-esser controls: open the Aetherial Audio Channel Strip, or work directly on the Thresh knob in the docked applet.
 2. Start speaking into your microphone, repeating a sibilant phrase — something with repeated 'S' and 'T' sounds works well.
 3. Watch the Gain-reduction bar. If it shows a soft-red fill during normal vowels and consonants (not just on 'S' peaks), the threshold is too low. If it never moves during loud 'S' sounds, the threshold is too high.
 4. Turn the Thresh knob clockwise to raise the threshold (toward 0.0 dB) until the Gain-reduction bar stays empty during normal speech.
@@ -28,6 +28,10 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second.
 
+## Bypass dimming
+
+When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect applied to the EQ curve when that stage is bypassed. Full opacity is restored as soon as the stage is re-enabled.
+
 ## Tips
 
 - The threshold interacts with Amount (`ClientDeEssTxAmountDb`). Set the threshold first, then dial Amount to taste. See [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md).
@@ -39,6 +43,7 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 - **Gain-reduction bar fills continuously, even on vowels** — Thresh is set too low. Raise it (clockwise) until the bar is empty during non-sibilant speech.
 - **Gain-reduction bar never moves, even on hard 'S' sounds** — Thresh is set too high, or the sibilance band (Freq, Q) is not centred on the problem frequencies. Raise the band level by lowering Thresh, or revisit Freq. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md).
 - **De-esser appears to do nothing at all** — confirm the DESS stage is enabled in the CHAIN widget. See [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md).
+- **Applet tile appears dimmed** — the DESS stage is currently bypassed in the CHAIN widget. Single-click the stage in the CHAIN widget to re-enable it and restore full brightness.
 
 ## Related
 

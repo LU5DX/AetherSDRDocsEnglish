@@ -18,12 +18,11 @@ The profile is stored immediately. The **Profile:** drop-down is refreshed to in
 
 ## What each control does
 
-| Control | What it does | Setting key |
-|---|---|---|
-| **Profile:** | Editable combo box. Type a new name to create a profile, or pick an existing name from the drop-down to overwrite it. | — |
-| **Save** | Saves the current bindings under the name shown in **Profile:**. Does nothing if the field is empty. | — |
-| **Load** | Replaces the current bindings with those stored under the selected profile name. | — |
-
+| Control      | What it does                                                                                                          | Setting key |
+|--------------|-----------------------------------------------------------------------------------------------------------------------|-------------|
+| **Profile:** | Editable combo box. Type a new name to create a profile, or pick an existing name from the drop-down to overwrite it. | —           |
+| **Save**     | Saves the current bindings under the name shown in **Profile:**. Does nothing if the field is empty.                  | —           |
+| **Load**     | Replaces the current bindings with those stored under the selected profile name.                                      | —           |
 ## Tips
 
 - Typing a name that already exists in **Profile:** and clicking **Save** overwrites that profile without a confirmation prompt.

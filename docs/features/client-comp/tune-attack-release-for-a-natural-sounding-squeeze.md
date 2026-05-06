@@ -5,6 +5,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 ## Before you start
 
 - The Aetherial Compressor (TX) or Aetherial AGC-C (RX) applet must be visible. The tile is hidden until its stage is enabled via the CHAIN widget. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile is not showing.
+- When a compressor stage is bypassed, the entire tile renders at reduced opacity (approximately 55% of full brightness). This is a visual indicator only and does not affect your knob settings.
 - Decide whether you are tuning the TX path ("Aetherial Compressor" sub-container) or the RX path ("Aetherial AGC-C" sub-container). Both have independent Attack and Release knobs with the same ranges and behavior.
 
 ## Steps
@@ -31,6 +32,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 - The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
 - A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
+- If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
 - Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the Knee and Limiter controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 - Both Attack and Release are saved immediately when you move a knob; no explicit save step is needed.
 
@@ -39,6 +41,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 - **Audible pumping or breathing on every syllable** — Release is too fast. Increase the Release value. Try 200–500 ms as a starting range.
 - **Gain never fully recovers between words; everything sounds squashed** — Release is too slow, or Ratio is too high. Decrease Release and check that Ratio is not set above 6:1 for normal voice work.
 - **Loud transients still clip even with a fast Attack** — Attack cannot be set to 0 ms; the minimum is 0.1 ms. If clipping persists, enable the limiter in the full editor. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- **The tile is dimmed and the compressor does not seem to be doing anything** — The stage is bypassed. Enable it via the CHAIN widget. The tile returns to full brightness when the stage is active.
 - **Knob value resets unexpectedly** — Another source (such as a profile load) may have overwritten `ClientCompTxAttackMs` or `ClientCompTxReleaseMs`. Retune and the new value will persist immediately.
 
 ## Related

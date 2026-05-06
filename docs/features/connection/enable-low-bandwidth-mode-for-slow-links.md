@@ -16,14 +16,18 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 
 ## What each control does
 
-| Control | Kind | Default | Persisted key | Behavior |
-|---|---|---|---|---|
-| Use low bandwidth mode | Checkbox | (not set) | `LowBandwidthMode` | When checked, AetherSDR requests reduced-rate audio and data streams from the radio to suit slow or congested links. |
+| Control | Kind | Default |
+|---|---|---|
+| Use low bandwidth mode | Checkbox | (not set) |
+| Connect to last radio on start up | Checkbox. When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Stored as `AutoConnectToLastRadio`. | True (checked). New in v0.9.7. Existing users keep previous behavior automatically. |
+| Radio IP address | Editable combo box. Stores up to three recently used IP addresses. Select a previous address from the drop-down or type a new one. The field replaces the plain text entry used in earlier versions. Stored as `ManualRadioIp`; recent entries stored as `RecentConnectByIpAddresses`. | (not set) |
 
 ## Tips
 
-- Enable this setting before initiating the connection. The mode is negotiated at connect time.
+- Enable **Use low bandwidth mode** before initiating the connection. The mode is negotiated at connect time.
 - If audio still breaks up after enabling low-bandwidth mode, check your VPN or routing path using `Settings > Network...`.
+- The **Radio IP address** field now remembers up to three recent addresses. If you previously saved an IP under the legacy `LastRoutedRadioIp` setting, AetherSDR migrates it automatically the first time you open the connection panel.
+- To prevent AetherSDR from connecting automatically at startup — for example, when you want to choose a different radio — uncheck **Connect to last radio on start up**.
 
 ## Related
 

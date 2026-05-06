@@ -23,7 +23,7 @@ Use this page to correct the frequency reference of your FLEX-8600 using the bui
 | **Cal Frequency (MHz):** | Spinbox | The reference frequency used during the calibration sweep. Set this to a known-accurate signal — for example, a broadcast standard-frequency station. The field must not be empty before clicking **Start**; if it is empty, a warning is shown and the sweep does not start. |
 | **Start** | Push button | Initiates the calibration sweep at the frequency entered in **Cal Frequency (MHz):**. Before starting, AetherSDR resets the current frequency error to zero (`freq_error_ppb=0`) so the sweep begins from a clean baseline. The button is disabled and shows **Busy** while the sweep is in progress. |
 | **Freq Offset (ppb):** | Spinbox | The frequency offset applied to the radio's reference oscillator, in parts per billion. Can be set by the sweep or entered manually. |
-| **10 MHz Reference Source:** | Combo box | Selects the oscillator reference source. Valid values: `Auto` \| `TCXO` \| `GPSDO` \| `External`. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is displayed alongside the combo box and updates live. |
+| **10 MHz Reference Source:** | Combo box | Selects the oscillator reference source. Valid values: `Auto` \| `TCXO` \| `GPSDO` \| `External 10 MHz`. Options shown depend on hardware installed and on the states reported by the radio at the time the tab is built. The combo is populated dynamically: TCXO and External 10 MHz entries appear whenever the radio reports their presence or when they match the current setting or active state; GPSDO appears when a GPSDO is detected or when the current setting or state is `gpsdo`. If the radio reports a source that is not yet in the list, it is added automatically. Lock status is displayed alongside the combo box and updates live (see [Oscillator status label](#oscillator-status-label)). |
 | **TX Follows Active Slice** | Push button | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. |
 | **Active Slice Follows TX** | Push button | Switches the active slice when TX moves externally (for example, from WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. |
 | **Voice / CW / Digital filter sharpness sliders** | Slider | Sets filter sharpness (0 = lowest latency to 3 = sharpest) per mode. The slider is disabled when **Auto** is enabled for that mode. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
@@ -41,6 +41,30 @@ Use this page to correct the frequency reference of your FLEX-8600 using the bui
 | **Use Aether defaults / Custom colors** | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. |
 | **Slice A–H color buttons** | Push button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
 | **Reset All to Defaults (Themes)** | Push button | Resets all custom slice colors to the built-in AetherSDR palette. |
+
+## Oscillator status label
+
+Starting with v0.9.7, the lock status label beside **10 MHz Reference Source:** displays richer information than the previous plain `<SOURCE> Locked / Unlocked` text.
+
+The label is built as follows:
+
+- If the radio has not yet reported an oscillator state, the label reads **Waiting for oscillator status** in a neutral blue-grey colour.
+- If the active state differs from the configured setting (for example, **Auto** is selected but the radio has chosen **GPSDO**), the label shows the transition: `Auto -> GPSDO`.
+- If both the setting and the state are known and match, only the active source name is shown.
+- **Locked** or **Unlocked** is always appended after the source name.
+- If the source is **External 10 MHz** but the radio reports that no external signal is present, the label appends **(not detected)**.
+
+Colour coding:
+
+| Colour | Meaning |
+|---|---|
+| Green (`#00c040`) | Oscillator is locked. |
+| Red (`#c04040`) | Oscillator is unlocked. |
+| Blue-grey (`#8aa8c0`) | Oscillator state not yet received from the radio. |
+
+The label updates live as the radio reports state changes. No action is required to refresh it.
+
+The **External** option in the combo box is now labelled **External 10 MHz** (changed from **External** in v0.9.7) to match the label used in the status text.
 
 ## Calibration status messages
 
@@ -72,26 +96,4 @@ In v0.9.3 the firmware update flow changed. AetherSDR no longer downloads and st
 
 The **Check for Update** button no longer relabels itself as a download trigger after detecting an available update.
 
-## ShackSwitch web interface (v0.9.4)
-
-In v0.9.4, a **⚙ Web UI** button was added to the ShackSwitch row in the **Peripherals** tab. Click it to open the ShackSwitch device's local configuration page in your default system browser.
-
-Port resolution order:
-
-1. If the ShackSwitch beacon advertises a `webPort` greater than 1024, that port is used.
-2. Otherwise, the value stored in `SS_WebPort` is used.
-3. If neither is available, port 5000 is used as a fallback.
-
-The button reads the IP from `SS_ManualIp`. If that setting is empty and a ShackSwitch is currently connected, the live peer address is used instead. If no IP can be determined, the button does nothing.
-
-Also in v0.9.4, the **Antenna Genius** row in the **Peripherals** tab now correctly hides its Connected status when a ShackSwitch (rather than a true Antenna Genius) is the device actually connected through the AG protocol stack.
-
-## Tips
-
-- If you intend to use an external 10 MHz reference instead of the GPSDO, set **10 MHz Reference Source:** to `External` before calibrating, so the offset applies to the correct source.
-- The sweep resets `freq_error_ppb` to zero before starting. If you have a manually entered offset that you want to preserve, note it down before clicking **Start**.
-
-## Related
-
-- [Switch to an external 10 MHz reference](switch-to-an-external-10-mhz-reference.md)
-- [Radio Setup overview](overview.md)
+## ShackSwitch

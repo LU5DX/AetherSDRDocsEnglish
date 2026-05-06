@@ -25,7 +25,6 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 | XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
 | XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
 | XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
-
 ## Tips
 
 - RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.

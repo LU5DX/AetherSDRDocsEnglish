@@ -6,11 +6,11 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 
 - The Aetherial De-Esser must be enabled via the CHAIN widget. The applet is hidden until the De-Ess stage is active.
 - Your microphone must be routed through the TX audio chain and producing signal — either by keying the radio or by using a monitor/test mode so audio flows through the DSP.
-- Open the "Aetherial De-Esser" sub-container inside the Aetherial Audio (TXDSP) parent container, or double-click the DESS stage in the CHAIN widget to open the floating "Aetherial De-Esser — TX" editor.
+- Open the "Aetherial De-Esser" sub-container inside the Aetherial Audio (TXDSP) parent container. Bypass and editing are both handled through the Aetherial Audio Channel Strip — there is no separate floating editor for the de-esser in v0.9.7.
 
 ## Steps
 
-1. Ensure the De-Ess stage is enabled in the CHAIN widget. The applet will be visible once the stage is active.
+1. Ensure the De-Ess stage is enabled in the CHAIN widget. The applet will be visible once the stage is active. When the stage is bypassed, the entire tile dims to approximately 55% opacity.
 2. Locate the **Gain-reduction bar** — the horizontal strip directly below the sidechain response curve.
 3. Key your radio or activate your audio path so microphone audio flows through the TX DSP.
 4. Speak a phrase containing heavy sibilance — for example, "She sells seashells by the seashore" — at your normal microphone level and distance.
@@ -35,12 +35,14 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 - The meter runs at approximately 30 Hz, so short, sharp transients may appear as brief flashes. This is normal.
 - Keep the **Amount** knob at its default of −6.0 dB while watching the meter for the first time. Dial it down only after you have confirmed the meter is triggering on the right sounds.
 - If the ball on the sidechain response curve sits far from where your sibilance peaks, use **Freq** to move it. The meter will only show GR when energy in the current **Freq** band crosses **Thresh**.
+- When the De-Ess stage is bypassed in the CHAIN widget, the entire applet tile dims visibly. If the tile appears faded, confirm the stage is not bypassed before interpreting the meter.
 
 ## Troubleshooting
 
 - **Gain-reduction bar never moves** — The de-esser is not triggering. Check that the De-Ess stage is enabled in the CHAIN widget, that audio is flowing through the TX DSP, and that **Thresh** is not set too high (too close to 0.0 dB) for your microphone level.
 - **Gain-reduction bar is pegged to the right on every syllable, including non-sibilant speech** — **Thresh** is set too low. Raise it toward 0.0 dB until ordinary vowels no longer trigger the meter.
 - **Bar moves but you hear no effect on air** — **Amount** may be set too close to 0.0 dB. Lower it toward −24.0 dB for more audible reduction, or confirm the stage is not bypassed in the CHAIN widget.
+- **Applet tile appears dimmed** — The De-Ess stage is bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it. The tile will return to full opacity when the stage is active.
 
 ## Related
 

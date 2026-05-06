@@ -51,9 +51,17 @@ The Pan slider center position (50) is stereo centre. Double-click the Pan slide
 
 ### DSP tab
 
+The DSP tab contains buttons for noise reduction and filtering algorithms supplied directly by the radio. Client-side DSP modules (NR2, NR4, MNR, BNR, DFNR, and RN2) have been moved out of this panel; toggle them from the spectrum overlay menu or the AetherDSP applet.
+
 | Control | Default | Notes |
 |---|---|---|
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | off | Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons | off | Button availability depends on radio series and build. APF is only visible in CW mode. |
+
+#### DSP level slider
+
+A shared level slider appears below the button grid. It targets whichever leveled DSP button was most recently enabled — NR, NB, ANF, NRL, NRS, NRF, or ANFL. The label to the left of the slider shows the name of the current target. The numeric value is shown to the right.
+
+The slider row remains in the layout at all times. When no leveled DSP is active (or only RNN, ANFT, or APF are on), the row fades out and does not respond to interaction. It becomes fully visible again as soon as a leveled DSP is turned on.
 
 ### X/RIT tab
 
@@ -85,6 +93,7 @@ Clicking the slice badge in the header row collapses the panel. Clicking anywher
 - In collapsed mode, scroll-wheel anywhere over the strip tunes the slice by the current step size.
 - Momentum (inertial) scroll events on macOS are ignored to prevent unintended tuning after a trackpad gesture ends.
 - The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
+- Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are no longer in the DSP tab. Access them from the spectrum overlay menu or the AetherDSP applet.
 
 ## Related
 

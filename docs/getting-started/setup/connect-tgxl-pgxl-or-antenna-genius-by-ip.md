@@ -79,3 +79,36 @@ When **Check for Update** finds a newer firmware version, AetherSDR now displays
 > then click 'Select Installer...' to stage it.
 
 Download the installer from flexradio.com independently, then use **Select Installer...** as described above.
+
+---
+
+# Radio Setup — RX Tab: 10 MHz Reference Source (v0.9.7 changes)
+
+## Oscillator source combo box
+
+The **10 MHz Reference Source:** combo box in the **RX** tab has been updated in v0.9.7. The list of available sources is now built dynamically based on hardware present and the radio's reported oscillator state, rather than being fixed at the time the dialog opens.
+
+### Available options
+
+| Label | Internal value | When shown |
+|---|---|---|
+| Auto | `auto` | Always shown |
+| TCXO | `tcxo` | Shown when TCXO hardware is present, oscillator status has been received, or the current or saved setting is `tcxo` |
+| GPSDO | `gpsdo` | Shown when GPSDO hardware is present or the current or saved setting is `gpsdo` |
+| External 10 MHz | `external` | Shown when an external reference is present, oscillator status has been received, or the current or saved setting is `external` |
+
+Previously, the external reference option appeared in the combo as **External**. It now appears as **External 10 MHz**.
+
+### Lock status display
+
+The lock status label beside the combo now shows richer information than the plain `<STATE> Locked / Unlocked` text used previously.
+
+| Situation | Example text shown |
+|---|---|
+| Oscillator status not yet received | `Waiting for oscillator status` |
+| Auto mode has resolved to a source | `Auto -> GPSDO Locked` |
+| Saved setting differs from active state | `TCXO -> GPSDO Locked` |
+| Setting and state agree | `GPSDO Locked` |
+| External selected but reference not detected | `External 10 MHz Unlocked (not detected)` |
+
+The label color updates automatically: green (`#00c040`) when locked, red (`#c04040`) when unlocked, and grey (`#8aa8c0`) while waiting for status.

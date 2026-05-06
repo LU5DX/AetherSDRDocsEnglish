@@ -19,6 +19,7 @@ All spots are immediately removed from the panadapter. New spots will continue t
 - **Clear All Spots** does not affect incoming spots from your DX cluster or other sources. Spots will reappear as new ones are received.
 - The **Total Spots:** indicator at the bottom of the Spot Settings dialog shows the count of live spots currently tracked. After clearing, this count will reflect only spots received after the clear action.
 - To stop spots from appearing entirely, use the **Spots:** toggle to set it to **Disabled** instead. See [Turn spots on or off](turn-spots-on-or-off.md).
+- The **Spot Lines:** toggle controls whether vertical lines are drawn from the spectrum baseline up to each spot label. This setting is independent of **Clear All Spots**. If the panadapter feels visually busy during a contest, set **Spot Lines:** to **Disabled** before or after clearing spots to reduce clutter without removing the spot labels themselves.
 
 ## Related
 

@@ -4,7 +4,7 @@ The Release knob controls how quickly the gate closes after audio drops below th
 
 ## Before you start
 
-- The gate stage must be enabled on the TX or RX side. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) if the gate is currently bypassed.
+- The gate stage must be enabled on the TX or RX side. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) if the gate is currently bypassed. When the gate stage is bypassed, the entire applet tile dims to approximately 55% opacity — this is normal and indicates the DSP stage is inactive.
 - Open the Aetherial TX Gate or Aetherial AGC-T applet so the knobs are visible. The applet appears inside the Aetherial Audio (TXDSP) parent container once the gate stage is active.
 
 ## Steps
@@ -28,6 +28,7 @@ The knob uses an exponential mapping (5 × 400^n), so small movements at the low
 - Release interacts with **Return**: a larger Return deadband delays the start of the release phase. If the gate seems to hang open, check **Return** before shortening **Release** further.
 - The gain-reduction bar updates approximately every 33 ms. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
 - Changes take effect immediately and are saved automatically. No radio connection is required to adjust this setting.
+- If the applet tile appears dimmed, the gate stage is bypassed and no processing is occurring. Re-enable the stage before making adjustments. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 
 ## Related
 

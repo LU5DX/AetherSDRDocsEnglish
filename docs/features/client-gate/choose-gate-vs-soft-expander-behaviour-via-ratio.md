@@ -6,6 +6,7 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 
 - The gate stage must be enabled on the side you want to adjust (TX or RX). If the applet is not visible, enable the gate via the CHAIN widget or double-click the GATE stage to open the floating editor.
 - Open the **Aetherial TX Gate** sub-container (TX) or the **Aetherial AGC-T** sub-container (RX) inside the Aetherial Audio (TXDSP) parent container in the Applet Panel.
+- When a gate stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This visual cue matches the dim effect used on the EQ curve and confirms that the stage is not processing audio. Re-enable the stage to restore full opacity and active processing.
 
 ## Steps
 
@@ -27,8 +28,9 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 | Transfer curve         | —                                                                                                                                                                                                           | —                                                                                                                                                                                                                                                                   |
 | Flip (Expander / Gate) | Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'. | Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.' |
 | Peek (lookahead)       | Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.                                                  | Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.                                                                                                         |
-| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                   |
+| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                  |
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
+
 ## Tips
 
 - A ratio of 2.0:1 (the default) is a conservative starting point suitable for most TX use. Raise it only if low-level noise is still audible when you are not speaking.
@@ -39,7 +41,7 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 
 ## Troubleshooting
 
-- **Ratio knob has no effect on the sound** — Confirm the gate stage is enabled. A bypassed gate passes audio unmodified regardless of knob settings. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
+- **Ratio knob has no effect on the sound** — Confirm the gate stage is enabled. A bypassed gate passes audio unmodified regardless of knob settings; the applet tile will appear dimmed to approximately 55 % opacity when bypassed. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - **Hard-gate ratio cuts too deep and creates unnatural silences** — Lower **Floor** toward 0 dB to reduce the maximum attenuation, or reduce **Ratio** toward the soft-expander range.
 - **Soft-expander ratio does not suppress noise enough** — Raise **Ratio** or lower **Thresh** so attenuation begins at a higher input level.
 - **Gate chatters or flickers at the threshold** — Increase **Return** so the gate stays open until the signal drops further below the threshold. Watch the cyan hysteresis band on the transfer curve widen as you do so.

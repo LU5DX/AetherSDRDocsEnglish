@@ -46,6 +46,16 @@ In practice this means:
 
 The ATU button and MEM button are both disabled when TGXL is in OPERATE mode.
 
+## MOX button and Quindar tones (v0.9.7)
+
+As of v0.9.7, clicking MOX routes through the Quindar-tone coordinator rather than keying the transmitter directly. This means:
+
+- On **engage**: if Quindar is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays before the transmitter is keyed.
+- On **disengage**: the BK-tone plays after the transmitter unkeys.
+- If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is identical to previous versions — the transmitter keys and unkeys immediately.
+
+The MOX button itself continues to show blue (receive) and red (transmitting) as before. No configuration is needed in the TX Controls applet; Quindar tone behavior is controlled entirely from the Audio Channel Strip.
+
 ## Related
 
 - [Start a tune carrier to check SWR](start-a-tune-carrier-to-check-swr.md)

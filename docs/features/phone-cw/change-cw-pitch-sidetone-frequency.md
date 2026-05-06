@@ -39,20 +39,35 @@ On Windows, the sidetone stream now starts immediately on connect (v0.9.3, #2105
 | **Sidetone volume** | —       | 0–100                 |
 | **L / R pan (CW)**  | 50      | 0–100                 |
 
+## RADE mode and the mic level slider
+
+When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending a mic level command to the radio. This mirrors the behavior of the **PC** mic source, where the radio does not use the mic level value. Both cases store their gain in `PcMicGain`.
+
+While RADE is active:
+
+- The **Mic gain** slider reads from and saves to `PcMicGain` and does not send `mic_level` commands to the radio.
+- The **Level** gauge remains active during receive. RADE provides client-side metering independent of the radio's `met_in_rx` setting, so you can monitor your audio level before transmitting.
+- When RADE mode is turned off, the slider reverts to reflecting the radio's mic level, and the **Level** gauge returns to its normal suppression behavior when `met_in_rx` is off and the radio is not transmitting.
+
 ## Tips
 
 - The **Pitch < / >** control affects both the audible sidetone on the radio and the frequency used by the CW decoder. Adjust it to match your personal pitch preference. The client-side sidetone always tracks it automatically.
 - Because pitch and pan follow the radio settings automatically, you only need to adjust **Pitch < / >** and **L / R pan (CW)** in one place — both the radio monitor and the local generator update together.
 - The client-side sidetone generator operates at approximately 10 ms latency and works with paddle, straight key, and CWX-generated transmissions. If you are not hearing a sidetone at all, verify that **Sidetone** is enabled.
-- When **Mic source** is set to **PC**, the **Level** gauge reflects client-side metering and remains active regardless of the radio's met_in_rx setting.
+- When **Mic source** is set to **PC**, the **Level** gauge reflects client-side metering and remains active regardless of the radio's `met_in_rx` setting. The same applies when RADE mode is active.
+- The **Compression** gauge reads 0 dB during receive. It only shows a value while the radio's interlock reports TRANSMITTING and the speech processor is enabled. This prevents stale readings from appearing between transmissions.
+- With **Breakin** off, keys are queued and the radio does not go to TX until you engage PTT manually. With **Breakin** on (QSK), key edges trigger TX immediately and the break-in delay holds the relay open between elements. There is no longer an automatic PTT envelope that overrides this setting.
 
 ## Troubleshooting
 
 - **No sidetone is audible** — Confirm **Sidetone** is enabled and **Sidetone volume** is above zero. Both the radio monitor and the client-side generator are controlled by these two controls.
 - **Sidetone does not start on connect (Windows)** — This was resolved in v0.9.3 (#2105). Ensure you are running v0.9.3 or later.
-- **Level gauge does not appear on connect** — If **Mic source** is set to **PC**, the gauge should appear immediately on connect as of v0.9.3 (#2086). For other mic sources, the gauge is suppressed when met_in_rx is off and the radio is not transmitting.
+- **Level gauge does not appear on connect** — If **Mic source** is set to **PC** or RADE mode is active, the gauge should appear immediately on connect. For other mic sources without RADE, the gauge is suppressed when `met_in_rx` is off and the radio is not transmitting.
+- **Compression gauge shows 0 dB during receive** — This is expected behavior from v0.9.7 onward. The gauge is gated on the radio's interlock TRANSMITTING state and only shows a value while transmitting with the speech processor enabled.
+- **Breakin does not engage QSK** — Confirm **Breakin** is enabled in the CW sub-panel. From v0.9.7, the keyboard and MIDI keying paths fully honor this setting; no automatic PTT envelope overrides it.
 - **Pitch change has no effect** — Confirm the active slice is in a CW mode. The CW sub-panel and its pitch control are only active in CW modes.
 - **CW sub-panel is not visible** — The active slice is not in a CW mode. Switch the slice to CW; the applet switches automatically.
+- **Mic gain slider does not update the radio in RADE mode** — This is correct. In RADE mode the slider controls client-side RADE gain only and stores the value in `PcMicGain`. The radio's mic level setting is not affected.
 
 ## Related
 

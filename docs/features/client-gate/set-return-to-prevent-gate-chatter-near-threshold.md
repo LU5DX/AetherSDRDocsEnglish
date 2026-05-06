@@ -26,6 +26,10 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 
 The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh whenever Return is greater than 0.0 dB. This band is the gate's sticky zone — signals inside it leave the gate in whatever state it is already in.
 
+## Bypassed appearance
+
+When the gate stage is bypassed, the entire applet tile dims to reduced opacity. This matches the dim effect used on the equaliser curve and provides an at-a-glance reminder that the gate is not processing audio. Re-enable the gate stage to restore full opacity and resume processing. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
+
 ## Tips
 
 - If you raise Return so high that the gate stays open through long pauses in speech, reduce it in small steps (0.5 dB at a time) until pauses close the gate naturally.
@@ -37,6 +41,7 @@ The transfer curve draws a soft-cyan vertical band between (Thresh − Return) a
 - **Chatter persists after increasing Return** — Thresh may be set too close to a noisy signal that fluctuates widely. Lower Thresh slightly so the gate opens only on clear speech, then re-tune Return.
 - **Gate stays open permanently** — Return is set wider than the gap between your signal level and the noise floor. Reduce Return until the gate closes reliably during silence.
 - **Cyan band is not visible on the transfer curve** — Return is set to 0.0 dB. Any value above 0.0 dB will render the band.
+- **Applet tile appears dimmed** — The gate stage is bypassed. Enable the gate stage to restore full opacity and active processing.
 
 ## Related
 

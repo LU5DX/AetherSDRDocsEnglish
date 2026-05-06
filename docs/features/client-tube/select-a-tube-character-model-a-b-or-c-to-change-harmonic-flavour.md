@@ -4,7 +4,7 @@ The tube character selector chooses which of three distinct saturation curves th
 
 ## Before you start
 
-- The Tube stage must be enabled on the side you want to adjust (TX or RX). If the stage is bypassed, the model selection still persists but you will not hear a difference until you enable it.
+- The Tube stage must be enabled on the side you want to adjust (TX or RX). If the stage is bypassed, the model selection still persists but you will not hear a difference until you enable it. When the stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity as a visual indicator; it returns to full opacity when the stage is re-enabled.
 - Open the floating editor for the relevant side: double-click the TUBE stage in the CHAIN widget on the TX or RX side to open the "Aetherial Tube — TX" or "Aetherial Tube — RX" editor. The model selector is only available in the floating editor, not in the docked applet tile.
 
 ## Steps
@@ -24,11 +24,16 @@ The tube character selector chooses which of three distinct saturation curves th
 
 A, B, and C are mutually exclusive. Selecting one deselects the others. The same setting key (`ClientTubeTxModel` for TX, `ClientTubeRxModel` for RX) stores the choice for its respective side; TX and RX selections are fully independent.
 
+## Bypass dim behaviour
+
+When the tube stage is bypassed, the docked applet tile renders at reduced opacity (approximately 55 %). This matches the dim effect used on the EQ curve elsewhere in the chain. The tile returns to full opacity as soon as the stage is re-enabled. The dim is applied to the entire tile, including the transfer curve and all knobs. It is a visual indicator only and does not affect the persisted settings.
+
 ## Tips
 
 - The transfer curve display updates in real time when you switch models. Use this together with the live input ball to see how heavily your current Drive and Bias settings are bending the new curve before committing.
 - The TX and RX sides maintain independent model selections. Changing the model in "Aetherial Tube — TX" has no effect on "Aetherial Tube — RX" and vice versa.
 - After switching models, the harmonic mix may change noticeably at high Drive or Bias settings. If the level changes, adjust the Output knob to compensate.
+- If the docked tile appears dimmed, the tube stage is currently bypassed. Re-enable it before evaluating how a model change sounds.
 
 ## Related
 

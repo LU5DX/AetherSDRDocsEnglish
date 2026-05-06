@@ -5,7 +5,7 @@ The Amount knob sets the maximum attenuation the de-esser applies when sibilance
 ## Before you start
 
 - The Aetherial De-Esser (DESS) stage must be enabled in the CHAIN widget. The applet is hidden until the stage is active.
-- Open the Aetherial De-Esser applet or the floating editor. To open the editor, double-click the DESS stage in the CHAIN widget (titled "Aetherial De-Esser — TX").
+- Open the Aetherial De-Esser applet via the Aetherial Audio Channel Strip. The floating editor (previously accessible by double-clicking the DESS stage) no longer exists; all controls are available directly in the applet.
 - Set Freq and Thresh first so the de-esser is already triggering on the right band. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md) and [Set threshold just below the loudest 'S' peaks](set-threshold-just-below-the-loudest-s-peaks.md).
 
 ## Steps
@@ -24,6 +24,10 @@ The Amount knob sets the maximum attenuation the de-esser applies when sibilance
 | Amount | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied to the sibilance band when signal exceeds the threshold. More negative = more reduction. 0 dB disables attenuation entirely. |
 | Gain-reduction bar | — | 0 to 24 dB GR | — | Horizontal soft-red strip showing current gain reduction in real time. Scale maxes at 24 dB; a tick marks −6 dB. Refreshed approximately 30 times per second. |
 
+## Bypass dimming
+
+When the DESS stage is bypassed via a single click in the CHAIN widget, the entire applet renders at reduced opacity (55 %). This matches the dim effect used on the EQ curve and gives a clear visual indication that the stage is inactive. Click the CHAIN widget again to re-enable the stage and restore full opacity.
+
 ## Tips
 
 - −6 dB (the default) is a reasonable starting point for most voices. The tick on the Gain-reduction bar marks this level, making it easy to use as a reference during adjustment.
@@ -36,6 +40,7 @@ The Amount knob sets the maximum attenuation the de-esser applies when sibilance
 - **Audio sounds hollow or lisping on every "S"** — Amount is set too low (too much attenuation). Raise it toward 0 dB in 2 dB steps while speaking until naturalness returns.
 - **Gain-reduction bar never moves** — The de-esser is not triggering. Check that Thresh is set below your actual sibilance level and that the DESS stage is enabled. See [Set threshold just below the loudest 'S' peaks](set-threshold-just-below-the-loudest-s-peaks.md).
 - **Gain-reduction bar pins at 24 dB constantly** — Thresh is set too low, causing the de-esser to trigger on all speech, not just sibilance. Raise Thresh first, then re-evaluate Amount.
+- **Applet appears faded or dim** — The DESS stage is bypassed. Click the stage in the CHAIN widget once to re-enable it.
 
 ## Related
 

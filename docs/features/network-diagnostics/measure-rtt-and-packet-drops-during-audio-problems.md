@@ -18,29 +18,62 @@ Use the Network Diagnostics dialog to read live round-trip time and per-category
 
 ## What each control does
 
-| Indicator | Meaning |
-|---|---|
-| `Latency (RTT)` | Current round-trip time to the radio. Displays `< 1 ms` when below 1 ms. |
-| `Max Latency (RTT)` | Highest RTT seen since connect. Displays `< 1 ms` when below 1 ms. |
-| `Audio` (Packet Loss) | Dropped packets / total packets (loss %) for the audio stream, inferred from missing VITA sequence numbers. |
-| `FFT` (Packet Loss) | Same metric for the FFT stream. |
-| `Waterfall` (Packet Loss) | Same metric for the waterfall stream. |
-| `Meters` (Packet Loss) | Same metric for the meters stream. |
-| `DAX` (Packet Loss) | Same metric for the DAX stream. |
-| `Status` | Overall link state. |
+| Indicator                 | Meaning                                                                                                                                                                      | Notes                                                                             |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| `Latency (RTT)`           | Current round-trip time to the radio. Displays `< 1 ms` when below 1 ms.                                                                                                     |                                                                                   |
+| `Max Latency (RTT)`       | Highest RTT seen since connect. Displays `< 1 ms` when below 1 ms.                                                                                                           |                                                                                   |
+| `Audio` (Packet Loss)     | Dropped packets / total packets (loss %) for the audio stream, inferred from missing VITA sequence numbers.                                                                  |                                                                                   |
+| `FFT` (Packet Loss)       | Same metric for the FFT stream.                                                                                                                                              |                                                                                   |
+| `Waterfall` (Packet Loss) | Same metric for the waterfall stream.                                                                                                                                        |                                                                                   |
+| `Meters` (Packet Loss)    | Same metric for the meters stream.                                                                                                                                           |                                                                                   |
+| `DAX` (Packet Loss)       | Same metric for the DAX stream.                                                                                                                                              |                                                                                   |
+| `Status`                  | Overall link quality, color-coded green (Excellent) through red (Poor).                                                                                                      |                                                                                   |
+| Overview (tab)            | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). |                                                                                   |
+| Details (tab)             | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                                                       |                                                                                   |
+| Latency (tab)             | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                           |                                                                                   |
+| Rates (tab)               | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                               |                                                                                   |
+| Packet Loss (tab)         | Full-width time-series graph of packet loss % per stream category.                                                                                                           |                                                                                   |
+| Audio (tab)               | Full-width time-series graph of playback buffer fill (ms) and underruns/s.                                                                                                   |                                                                                   |
+| Logs (tab)                | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                     | Timeframe selector is hidden while this tab is active.                            |
+| Timeframe                 | Selects how far back the time-series charts display history. Default is 5 minutes; options are 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, and 1 week.                   | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
+| Filter Categories (Logs)  | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                |                                                                                   |
+| Select All (Logs)         | Shows all log categories in the viewer.                                                                                                                                      |                                                                                   |
+| Deselect All (Logs)       | Hides all log categories from the viewer.                                                                                                                                    |                                                                                   |
+| Live / Paused (Logs)      | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                  |                                                                                   |
+| Close                     | Closes the dialog.                                                                                                                                                           |                                                                                   |
 
 All counters refresh once per second.
+
+## Logs tab
+
+The Logs tab tails the AetherSDR log file in real time. The full path to the file being tailed is shown above the log viewer.
+
+Log lines are syntax-highlighted by log level and category:
+
+- Timestamps are shown in muted blue-grey.
+- `DBG` lines are muted; `INF` lines are highlighted in light blue; `WRN` lines in amber; `CRT` and `FTL` lines in red.
+- Category names are shown in bold.
+- Numeric values (decimal, hex) are highlighted in green; protocol tokens (UDP, TCP, RX, TX, VITA-49, and similar) in light purple.
+
+To filter the log output:
+
+1. Click the **Logs** tab.
+2. Use the **Filter Categories** checkboxes to select which categories appear. Click **Select All** to show every category or **Deselect All** to clear them.
+3. To pause scrolling, scroll up in the viewer. The button switches to **Paused**. Click **Live** to resume auto-scrolling and jump to the newest line.
 
 ## Tips
 
 - Zero loss in the Packet Loss section does not rule out the problem. Jitter and bursty late delivery can cause audio breaks without triggering sequence-number gaps. If drops are zero but audio is still broken, check `Underruns (total)`, `Underruns (last sec)`, `Audio Arrival Gap`, `Max Arrival Gap`, and `Jitter Estimate` in the **Audio Playback** section.
 - `Max Latency (RTT)` is more useful than the current RTT for catching transient spikes that have already passed.
 - Loss that appears on all stream categories simultaneously points to a shared network path problem rather than an audio-specific issue.
+- Use the **Timeframe** selector to zoom the time-series charts in or out. Narrower timeframes (1 minute) make recent spikes easier to see; wider timeframes (1 hour or more) help identify recurring patterns.
+- Use the **Logs** tab with appropriate category filters to correlate raw log events with the metrics shown in the other tabs.
 
 ## Troubleshooting
 
 - **All drop counters show 0 / 0** — No VITA packets have been received in that category. Confirm the radio is connected and transmitting the relevant streams.
 - **RTT reads `< 1 ms` but audio is broken** — Network latency is not the cause. See the Audio Playback section for underrun and jitter data.
+- **Logs tab shows no output** — Check that at least one category checkbox is selected. Click **Select All** to restore all categories.
 
 ## Related
 

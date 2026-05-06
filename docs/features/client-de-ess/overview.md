@@ -5,7 +5,7 @@ The Aetherial De-Esser is a TX-only client-side processor that reduces harsh sib
 ## Before you start
 
 - The De-Esser is a TX-only stage. It has no effect on received audio.
-- The applet is hidden until the De-Ess stage is enabled. Enable it via the CHAIN widget inside the Aetherial Audio (TXDSP) parent container, or from the floating editor.
+- The applet is hidden until the De-Ess stage is enabled. Enable it via the CHAIN widget inside the Aetherial Audio (TXDSP) parent container.
 - No radio connection is required to configure the de-esser.
 
 ## How it works
@@ -17,7 +17,7 @@ The applet displays two live indicators while you transmit:
 - **Sidechain response curve** — shows the bandpass filter shape with a ball marker at the current centre frequency. As you adjust **Freq** and **Q**, the curve and ball update immediately.
 - **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show how much attenuation is being applied at any moment. The scale runs from 0 to 24 dB; a tick marks the −6 dB point. The meter refreshes approximately 30 times per second.
 
-To open the full floating editor, double-click the DESS stage in the CHAIN widget. The editor window is titled "Aetherial De-Esser — TX". To bypass the de-esser without changing any settings, use the single-click gesture on the DESS stage in the CHAIN widget.
+When the de-esser stage is bypassed, the entire applet tile renders at reduced opacity (approximately 55%) to give a clear visual indication that the stage is inactive. This matches the dim behaviour used by the EQ curve. To bypass or re-enable the de-esser, use the single-click gesture on the DESS stage in the CHAIN widget. Editing is done through the Aetherial Audio Channel Strip.
 
 ## What each control does
 
@@ -38,6 +38,7 @@ Enabled state is persisted as `ClientDeEssTxEnabled`.
 - A **Q** of 2.00 is a reasonable starting point. Increase it to isolate a narrow problem band; decrease it if the sibilance is spread across a wider range.
 - Set **Thresh** so the gain-reduction bar only moves on genuine "S" and "T" sounds, not on normal vowels or consonants.
 - The −6 dB tick on the gain-reduction bar marks the default **Amount** value. Keeping reduction near that tick usually produces transparent results. Larger amounts are available but can make the effect audible as pumping or lisping.
+- When the stage is bypassed, the applet tile dims noticeably. If the tile appears dim and you are not hearing de-essing, check that the DESS stage is not bypassed in the CHAIN widget.
 
 ## Related
 

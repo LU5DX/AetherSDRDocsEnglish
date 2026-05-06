@@ -71,20 +71,25 @@ The calibration activity is logged to the protocol log at debug level, including
 | **Start** | Button | Resets the frequency error to 0 ppb, then starts the calibration sweep. Disabled and labeled **Busy** while a sweep is running. |
 | **Freq Offset (ppb)** | Spinbox | Manual frequency offset in parts per billion. Adjust after calibration if fine-trimming is needed. |
 
+### 10 MHz Reference Source
+
+The **10 MHz Reference Source:** combo box selects the oscillator reference used by the radio. In v0.9.7 the combo and its status label were updated with the following behavior:
+
+- The combo is populated dynamically based on hardware reported by the radio. **Auto** is always present. **TCXO** appears when the radio reports `tcxoPresent` or when the current setting or active state is TCXO. **GPSDO** appears when `gpsdoPresent` is reported or the current setting or state is GPSDO. **External 10 MHz** appears when `extPresent` is reported, when oscillator status has been received from the radio, or when the current setting or state is External.
+- The value `ext` reported by the radio is normalized to `external` internally before display, so the combo always shows **External 10 MHz** rather than a raw `ext` string.
+- The status label beside the combo reflects both the configured setting and the radio's active oscillator state:
+  - When **Auto** is selected and the radio has resolved to a specific source, the label reads, for example, `Auto -> GPSDO`.
+  - When a specific source is selected but the radio is actively using a different one, the label reads, for example, `TCXO -> GPSDO`.
+  - Otherwise the label shows the active source name only.
+  - The label appends **Locked** (green) or **Unlocked** (red) to reflect lock state. If the active source is External and the radio reports no external signal is present, the label also appends **(not detected)**.
+  - While the radio has not yet reported oscillator status, the label reads `Waiting for oscillator status` in blue-grey.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **10 MHz Reference Source:** | Combo box | Selects oscillator reference source. Options shown depend on hardware installed and live radio state. Sends `radio oscillator <value>` when changed. Valid values: `auto`, `tcxo`, `gpsdo`, `external`. |
+| Oscillator status label | Indicator | Shows the resolved source, lock state, and (for External) whether a signal is detected. Updates live as the radio reports changes. |
+
 ## Tips
 
 - If you only want to check whether a newer version exists rather than uploading a specific file, use **Check for Update** first. The status area will tell you the available version and direct you to download the installer from flexradio.com.
-- **Select Installer...** accepts `.msi`, `.exe`, and `.ssdr` files. You do not need to extract a `.ssdr` from an installer manually — AetherSDR handles that automatically.
-- The firmware status area is empty until a file is staged or an upload begins. If you see no progress bar after clicking **Upload Firmware**, confirm that a file was successfully staged with **Select Installer...** first.
-- If **Start** shows "Enter cal frequency" in amber, type a frequency value in the **Cal Frequency (MHz)** field before clicking **Start** again.
-- Even with a GPSDO installed, you can run a manual calibration pass if you need to verify or override the automatic correction.
-- To open the ShackSwitch web interface, click **⚙ Web UI** in the ShackSwitch row of the Peripherals tab. If the device has not yet been connected, enter its IP address in the `SS_ManualIp` field first.
-
-## Troubleshooting
-
-- **Upload Firmware does nothing** — No firmware file has been staged. Click **Select Installer...**, select the `.msi`, `.exe`, or `.ssdr` file, wait for the status message to confirm the file is ready, then click **Upload Firmware**.
-- **Radio tab controls are unpopulated or grayed out** — AetherSDR is not connected to the radio. Establish a connection via `Settings > Connect to Radio...` before opening Radio Setup.
-- **Start button stays labeled Busy** — The radio did not respond to the `radio pll_start` command. Check the protocol log for the relevant run identifier, verify the radio is connected and not transmitting, then try again.
-- **APD tab is not visible** — The connected radio does not report `apd configurable=1`. The APD tab is only available on FLEX-8x00 series radios running SmartSDR 4.2.18 or later firmware.
-- **⚙ Web UI opens the wrong address or does nothing** — Verify that `SS_ManualIp` contains the correct IP for the ShackSwitch. If the beacon advertises a `webPort` of 1024 or below, AetherSDR falls back to `SS_WebPort` or port 5000. Set `SS_WebPort` in settings if your device uses a non-default web port.
-- **Antenna Genius row shows no Connected
+- **Select Installer...** accepts `.msi`, `.exe`, and `.ssdr` files. You do not need to extract

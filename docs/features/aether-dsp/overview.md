@@ -11,6 +11,8 @@ AetherDSP Settings gives you fine-grained control over AetherSDR's client-side n
 
 Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six tabs — **NR2**, **NR4**, **MNR**, **DFNR**, **RN2**, and **BNR** — each covering a different noise-reduction engine. Settings are saved immediately when you change any control; no Apply or OK button is required.
 
+Starting with v0.9.7, the controls inside the dialog are provided by an embedded `AetherDspWidget`. The dialog's external behavior and all persisted setting keys are unchanged.
+
 ### NR2 tab
 
 NR2 is a frequency-domain musical-noise-reduction engine. Its parameters control how aggressively noise is suppressed and how the engine identifies speech versus noise.

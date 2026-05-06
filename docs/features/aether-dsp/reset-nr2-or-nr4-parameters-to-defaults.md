@@ -53,6 +53,7 @@ All NR4 controls return to the values in the table below.
 
 - **Reset Defaults** affects only the tab where you click it. Resetting NR2 does not alter NR4 settings, and vice versa.
 - Changes take effect immediately. If NR2 or NR4 is active on a receive slice at the time, you will hear the engine revert to its default behaviour as soon as you click **Reset Defaults**.
+- In v0.9.7 the AetherDSP Settings dialog delegates all controls to an embedded `AetherDspWidget`. The tabs, sliders, and buttons described in this article remain identical from an operator's perspective; only the internal implementation has changed.
 
 ## Related
 

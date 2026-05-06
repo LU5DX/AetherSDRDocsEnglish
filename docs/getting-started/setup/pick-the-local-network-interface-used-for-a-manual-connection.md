@@ -10,7 +10,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 ## Steps
 
 1. In the ConnectionPanel, click `Connect by IP` to switch to the Manual mode page.
-2. Enter the radio's IP address in the `Radio IP address` field. This value is saved as `ManualRadioIp`.
+2. Enter the radio's IP address in the `Radio IP address` field. This value is saved as `ManualRadioIp`. If you have connected to this radio before, you can open the `Radio IP address` drop-down and select it from the list of recent addresses instead of typing it again.
 3. Locate the `Advanced: Source path` combo box below the IP address field.
 4. Open the combo box and select the local network interface you want to use for this connection. The selected interface is saved as `ManualBindSource`.
 5. If the interface you saved previously is no longer available, a `Source warning label` appears beneath the combo box indicating the saved source is stale or unreachable. Select a currently available interface before proceeding.
@@ -20,9 +20,10 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 
 | Control | What it does | Persisted key |
 |---|---|---|
-| `Radio IP address` | The IP address or hostname of the radio to connect to. | `ManualRadioIp` |
+| `Radio IP address` | The IP address or hostname of the radio to connect to. Displayed as an editable combo box; the drop-down lists up to three recently used addresses. | `ManualRadioIp` |
 | `Advanced: Source path` | Selects the local NIC that AetherSDR binds to when opening the connection. Leave on the default automatic entry unless you need to force a specific interface. | `ManualBindSource` |
 | `Use low bandwidth mode` | Reduces stream data rates for slow or congested links. | `LowBandwidthMode` |
+| `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 | `Connect by IP` (button) | Starts the manual connection using the IP and source path configured above. | — |
 
 ## Tips
@@ -30,6 +31,8 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - If the previously saved interface is unavailable, the `Source warning label` shows the saved interface name (or ID) and the last known IPv4 address. Choose a different interface from `Advanced: Source path` before connecting.
 - On a machine with only one network interface, the `Advanced: Source path` selection has no practical effect. It is most useful on machines with separate wired, wireless, and VPN interfaces.
 - If you are on a slow link such as a cellular or satellite connection, enable `Use low bandwidth mode` on the same page before clicking `Connect by IP`.
+- The `Radio IP address` field keeps the three most recently used addresses. Select a previous address from the drop-down to avoid retyping it.
+- If you uncheck `Connect to last radio on start up`, AetherSDR opens the connection dialog on every launch and waits for you to select a radio manually.
 - In v0.9.2.1 the SmartLink remote radios list has a fixed maximum height. If you have many remote radios, scroll within the list to reach entries that are not immediately visible.
 
 ## Troubleshooting

@@ -48,12 +48,19 @@ When the ATU enters bypass, the tuned-frequency record is also cleared, so the n
 
 This change has no effect on the **MEM** button or the ATU status indicators (**Success**, **Byp**, **Mem**), which continue to behave as described below.
 
+## MOX and Quindar tones (v0.9.7)
+
+Starting with v0.9.7, clicking **MOX** routes through the Quindar-tone coordinator rather than keying the transmitter directly. When the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays on PTT engage and the BK-tone plays on PTT disengage. When Quindar is disabled or the active TX slice is not on a phone mode, the behavior is identical to previous versions.
+
+This change affects only the **MOX** button in the TX Controls applet. Hardware PTT, VOX, and other PTT sources are not affected.
+
 ## Troubleshooting
 
 - **TUNE button does nothing** — The applet requires an active radio connection. Check that AetherSDR shows the radio as connected before attempting to transmit.
 - **SWR gauge does not move during TUNE** — Forward power may be at or near zero. Verify the **Tune Pwr** slider is above 0 and that the correct antenna port is selected for the current band.
 - **Carrier does not stop** — Click **TUNE** once more. If the button remains in **TUNING...** state, check the radio connection; a dropped connection can leave the transmit state unacknowledged.
 - **ATU button bypasses the tuner instead of retuning** — This is expected behavior when the ATU already holds a successful match at the current frequency. Change frequency or wait for the tuner to clear its result, then click **ATU** again to start a fresh tune cycle.
+- **MOX keys the transmitter but no Quindar tones are heard** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode (USB, LSB, AM, FM, or similar). Quindar tones do not play on CW or digital modes.
 
 ## Related
 

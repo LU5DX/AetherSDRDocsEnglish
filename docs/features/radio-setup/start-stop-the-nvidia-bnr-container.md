@@ -87,38 +87,36 @@ A status label appears beside **Start** and provides inline feedback throughout 
 
 When GPSDO hardware is present, the label at the top of the group reads "GPSDO installed. Manual frequency offset calibration available." (green). Without GPSDO the label reads "Manual frequency offset calibration available." (amber). In both cases the controls below the label behave identically.
 
+### 10 MHz Reference Source combo (v0.9.7)
+
+In v0.9.7 the **10 MHz Reference Source:** combo box and the lock-status label beside it were updated to provide richer display.
+
+**Combo box population:** The list of available sources is now built dynamically each time the **RX** tab opens, based on what the radio reports. A source is included if the radio currently has it selected, if it is actively in use, or if the corresponding hardware is present. The always-present entry is **Auto**. Additional entries appear as follows:
+
+| Entry | Shown when |
+|---|---|
+| TCXO | Radio reports TCXO hardware present, or TCXO is the current setting or active state. |
+| GPSDO | Radio reports GPSDO hardware present, or GPSDO is the current setting or active state. |
+| External 10 MHz | Radio reports an external reference detected, or External is the current setting or active state, or oscillator status has been received. |
+
+Note: the entry previously labelled **External** is now labelled **External 10 MHz**.
+
+**Lock-status label:** The label to the right of the combo shows the current oscillator state in a richer format than before:
+
+| Condition | Label text (examples) |
+|---|---|
+| No status received yet | Waiting for oscillator status |
+| Auto mode, radio resolved to a source | Auto -> GPSDO Locked |
+| Setting differs from active state | TCXO -> GPSDO Locked |
+| Setting matches active state | GPSDO Locked |
+| Active source unlocked | GPSDO Unlocked |
+| External selected, no signal detected | External 10 MHz Unlocked (not detected) |
+
+The label color remains green when locked and red when unlocked. Before any status arrives from the radio the label is shown in a muted blue-grey.
+
 ### To calibrate frequency offset
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **RX** tab.
 3. Enter a known-accurate reference frequency in **Cal Frequency (MHz)** (for example, a WWV or WWVH carrier).
-4. Verify the value is correct. If the field is empty, the status label shows "Enter cal frequency" and calibration does not start.
-5. Click **Start**. The button label changes to **Busy** and is disabled until the calibration sequence completes.
-6. Watch the status label for progress. When calibration finishes, the button re-enables and **Freq Offset (ppb)** reflects the measured correction.
-
-### Notes
-
-- Clicking **Start** resets `freq_error_ppb` to 0 before beginning the sweep, so any previously stored offset is cleared at the start of each run.
-- Calibration state is tracked per dialog instance. Closing and reopening the dialog resets the status display; any in-progress radio-side calibration continues independently.
-
-## ShackSwitch web interface (Peripherals tab)
-
-In v0.9.4 the **Peripherals** tab gained a **⚙ Web UI** button on the ShackSwitch row. Use it to open the ShackSwitch's built-in configuration page in your system browser without having to look up the device's IP address manually.
-
-### Steps
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **Peripherals** tab.
-3. Locate the **ShackSwitch** row.
-4. Click **⚙ Web UI**. AetherSDR determines the correct address and port and opens the page in your default browser.
-
-### How the address and port are resolved
-
-AetherSDR uses the following order of preference to build the URL:
-
-1. The IP address stored in `SS_ManualIp`. If that is empty and the ShackSwitch is currently connected, the live peer address is used instead.
-2. The port advertised in the ShackSwitch beacon (`webPort`), provided it is greater than 1024.
-3. If the beacon port is not usable, the value stored in `SS_WebPort`.
-4. If neither is set, port 5000 is used as a final fallback.
-
-If
+4. Verify the value is correct. If the field is empty, the status label shows "Enter cal frequency" and calibration

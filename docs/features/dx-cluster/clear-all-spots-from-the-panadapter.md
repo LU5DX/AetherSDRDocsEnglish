@@ -16,14 +16,33 @@ Remove every spot currently shown on the panadapter in one action. Use this when
 All spots are removed from the panadapter and the spot list instantly. Connected sources are not disconnected and will continue delivering new spots.
 
 ## Tips
-
 - To remove spots band by band rather than all at once, use the `Spot List` tab. Check or uncheck individual bands under `Bands:` to hide spots for a specific band without discarding them permanently.
 - To clear only the spot list table, go to the `Spot List` tab and click `Clear`. This empties the table display but the effect on the panadapter overlay follows the same live spot data.
 - If spots reappear immediately and you want a clean slate for longer, reduce `Spot Lifetime:` on the `Display` tab (`SpotsLifetime`) or disconnect the relevant source before clearing.
+- `Auto Mode:` is now enabled by default. When you double-click a spot that includes mode information (e.g. CW, FT8, RTTY), the slice mode switches automatically unless you disable this toggle.
 
 ## Auto Mode default change
 
 As of v0.9.5.1, `Auto Mode:` (`SpotAutoSwitchMode`) defaults to **Enabled**. In previous versions it defaulted to Disabled. If you have not previously saved this setting, AetherSDR will now automatically switch the radio mode when you click a spot on the panadapter. To turn this off, open the `Display` tab and click `Auto Mode:` to set it to Disabled.
+
+## Spot Lines
+
+As of v0.9.7, the `Display` tab includes a `Spot Lines:` toggle (setting key `IsSpotsLinesEnabled`). When enabled, AetherSDR draws a vertical line from the spectrum up to each spot label so the exact frequency is easy to read. The toggle defaults to **Enabled**.
+
+Disable `Spot Lines:` during contests or when the band is busy to reduce visual clutter on the panadapter.
+
+### Steps
+
+1. Open `Settings > SpotHub...` and click the `Display` tab.
+2. Click `Spot Lines:` to toggle between **Enabled** and **Disabled**.
+
+The change takes effect immediately on the panadapter without restarting any spot source.
+
+## Tuning to a spot by double-clicking the spot list
+
+Double-clicking a row in the spot table on the `Spot List` tab tunes the active slice to the spot frequency. As of v0.9.7, AetherSDR also reads any mode information embedded in the spot comment and forwards it alongside the frequency. If a recognizable mode (such as CW, FT8, or SSB) is found in the comment, and `Auto Mode:` is enabled on the `Display` tab, the slice mode switches to match the spot automatically.
+
+No additional configuration is required. The behavior activates whenever you double-click a spot row.
 
 ## FreeDV Reporter reporting
 
@@ -41,13 +60,13 @@ The setting is saved as `FreeDvAutoReport`.
 
 ### Station Reporting fields
 
-| Field | Setting key | Description |
-|---|---|---|
-| `Callsign:` | `FreeDvMyCallsign` | Callsign reported to the FreeDV Reporter map. The field is read-only when `Use radio` is checked. |
-| `Use radio` | `FreeDvUseRadioCallsign` | Pre-fills the callsign from the radio's configured callsign and locks the field. Defaults to enabled. When the callsign is later changed in Radio Setup, the field updates automatically. |
-| `Grid Square:` | `FreeDvMyGrid` | Maidenhead grid square (up to 6 characters) reported to the map. The field is read-only when `Use GPS` is checked. |
-| `Use GPS` | `FreeDvUseGpsGrid` | Pre-fills the grid from the radio's GPS module and locks the field. Only shown on radio models that have GPS hardware. Defaults to enabled. |
-| `Station Msg:` | `FreeDvMyMessage` | Optional free-text message shown beside your callsign on the public map. |
+| Field          | Setting key                                                                                                     | Description                                                                                                                                                                               |
+|----------------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Callsign:`    | `FreeDvMyCallsign`                                                                                              | Callsign reported to the FreeDV Reporter map. The field is read-only when `Use radio` is checked.                                                                                         |
+| `Use radio`    | `FreeDvUseRadioCallsign`                                                                                        | Pre-fills the callsign from the radio's configured callsign and locks the field. Defaults to enabled. When the callsign is later changed in Radio Setup, the field updates automatically. |
+| `Grid Square:` | `FreeDvMyGrid`                                                                                                  | Maidenhead grid square (up to 6 characters) reported to the map. The field is read-only when `Use GPS` is checked.                                                                        |
+| `Use GPS`      | `FreeDvUseGpsGrid`                                                                                              | Pre-fills the grid from the radio's GPS module and locks the field. Only shown on radio models that have GPS hardware. Defaults to enabled.                                               |
+| `Station Msg:` | `FreeDvMyMessage`                                                                                               | Optional free-text message shown beside your callsign on the public map.                                                                                                                  |
 
 ### How AetherSDR resolves the callsign and grid
 
@@ -63,3 +82,4 @@ If either resolved value is empty, enabling the checkbox is blocked and a warnin
 - [SpotHub overview](overview.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
+<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->

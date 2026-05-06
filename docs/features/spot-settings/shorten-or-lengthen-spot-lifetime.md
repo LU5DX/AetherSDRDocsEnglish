@@ -16,14 +16,16 @@ Use the **Spot Lifetime:** slider in Spot Settings to control how long DX spots 
 
 ## What each control does
 
-| Control | Behavior | Default | Range | Setting key |
-|---|---|---|---|---|
-| **Spot Lifetime:** slider | Sets how long a spot remains on the panadapter before it fades. The scale is non-linear: the lower portion steps in 5-second increments (10 sec – 55 sec), the middle portion steps in 5-minute increments (5 min – 55 min), and the upper portion steps in 1-hour increments (1 hr – 24 hrs / 1 day). | 30 min | 10 sec – 24 hrs | `SpotsLifetime` |
+| Control                       | Behavior                                                                                                                                                                                                                                                                                               | Default |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **Spot Lifetime:** slider     | Sets how long a spot remains on the panadapter before it fades. The scale is non-linear: the lower portion steps in 5-second increments (10 sec – 55 sec), the middle portion steps in 5-minute increments (5 min – 55 min), and the upper portion steps in 1-hour increments (1 hr – 24 hrs / 1 day). | 30 min  |
+| **Spot Lines:** toggle button | Draws vertical lines from the spectrum baseline up to each spot label. Click to toggle between Enabled and Disabled. Disable during contests to reduce visual clutter. Saved to `IsSpotsLinesEnabled`. Added in v0.9.7 (#2349).                                                                         | Enabled |
 
 ## Tips
 
 - The slider uses a non-linear scale. Small movements near the left end adjust lifetime by seconds; movements near the right end adjust by hours. Position the slider carefully when targeting a specific value.
 - The displayed label rounds to the nearest step: values under 60 seconds show as `sec`, values under 1 hour show as `min` or `mins`, and values of 1 hour or more show as `hr`, `hrs`, or `1 day`.
+- If vertical lines make the panadapter feel cluttered during a contest, click **Spot Lines:** to set it to Disabled. The change takes effect immediately and is saved automatically.
 
 ## Troubleshooting
 

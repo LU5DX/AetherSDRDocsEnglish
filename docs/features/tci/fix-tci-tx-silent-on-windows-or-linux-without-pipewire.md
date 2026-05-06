@@ -23,16 +23,15 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key |
-|---|---|---|---|
-| **Port** | `50001` | 1024–65535 | `TciPort` |
-| **Enable** | Off | On / Off | — |
-| **TX gain+meter** | `0.5` | 0.0–1.0 | `TciTxGain` |
-| **RX1 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain1` |
-| **RX2 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain2` |
-| **RX3 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain3` |
-| **RX4 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain4` |
-
+| Control            | Default | Valid range |
+|--------------------|---------|-------------|
+| **Port**           | `50001` | 1024–65535  |
+| **Enable**         | Off     | On / Off    |
+| **TX gain+meter**  | `0.5`   | 0.0–1.0     |
+| **RX1 gain+meter** | `0.5`   | 0.0–1.0     |
+| **RX2 gain+meter** | `0.5`   | 0.0–1.0     |
+| **RX3 gain+meter** | `0.5`   | 0.0–1.0     |
+| **RX4 gain+meter** | `0.5`   | 0.0–1.0     |
 ## Tips
 
 - Out-of-range port values snap back to `50001` automatically.

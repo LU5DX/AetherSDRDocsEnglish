@@ -21,11 +21,29 @@ The **Damp** knob controls how quickly high frequencies fade within the reverb t
 |---------|---------|-------|---------------|----------|
 | Damp | 50 % | 0 % – 100 % | `ClientReverbTxDamping` | Higher values damp high frequencies faster in the reverb tail. Linear mapping. |
 
+## Live visualisation
+
+Starting in v0.9.7, the Aetherial FreeVerb editor displays a compact real-time diagram (90 px tall) above the knob row. It updates immediately as you adjust any knob and shows three overlaid elements:
+
+| Element | Colour | What it represents |
+|---------|--------|--------------------|
+| Dry sine packet | Cyan, gradient-faded to the right | The unprocessed signal passing through |
+| First-order reflections | Yellow | Early reflections; spacing set by Size, amplitude by Mix and Damp |
+| Reverberant tail | Magenta | The full reverb tail; length set by Decay, brightness by Damp |
+
+The visualisation is purely informational. It does not affect audio processing.
+
+### How Damp appears in the visualisation
+
+- Raising **Damp** causes the magenta tail to decay more steeply and reduces the amplitude of successive yellow reflection bursts.
+- Lowering **Damp** produces a flatter magenta decay curve and more even yellow reflection amplitudes.
+
 ## Tips
 
 - A value around 50–70 % suits most voice work. It softens the tail without making the reverb sound muffled.
 - If the tail sounds dull or indistinct, lower **Damp** toward 20–30 % to let more high-frequency content through.
 - **Damp** interacts with **Decay**: a long decay with low damping produces a bright, lingering tail that can mask speech. Raise **Damp** if you also raise Decay.
+- Use the live visualisation to confirm the interaction between **Damp** and **Decay** before transmitting.
 
 ## Related
 

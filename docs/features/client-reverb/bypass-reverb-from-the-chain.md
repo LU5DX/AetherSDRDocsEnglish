@@ -16,10 +16,25 @@ The VERB stage indicator changes to show it is inactive. The "Aetherial FreeVerb
 
 To re-enable reverb, single-click the VERB stage again. The sub-container reappears and processing resumes with the previously saved settings.
 
+## Live reverb visualisation
+
+Starting in v0.9.7, the Aetherial FreeVerb applet includes a compact live visualisation panel (90 px tall) that updates in real time as you adjust the knobs. It is displayed directly inside the "Aetherial FreeVerb — TX" editor above the knob row and requires no configuration.
+
+The visualisation shows three overlaid elements against a dark background:
+
+| Element | Colour | What it represents |
+|---|---|---|
+| Dry sine packet | Cyan | The unprocessed signal. Fades toward the right as Mix increases. |
+| First-order reflections | Yellow | Early reflections. Spacing and count respond to Size; amplitude decay responds to Damp. |
+| Reverberant tail | Magenta | The full reverb tail. Length follows Decay; high-frequency roll-off follows Damp; onset position follows Pre. |
+
+All five knobs feed the visualisation directly. Changes to Size, Decay, Damp, Pre, or Mix are reflected immediately — you do not need to transmit to see the effect.
+
 ## Tips
 
 - Bypassing via the CHAIN widget is non-destructive. Your Size, Decay, Damp, Pre, and Mix values are not reset when the stage is disabled.
 - To inspect or adjust knob values while reverb is bypassed, double-click the VERB stage to open the floating "Aetherial FreeVerb — TX" editor. Changes made there take effect the next time the stage is enabled.
+- Use the live visualisation to set Decay and Mix before going on air. A short Decay (0.3–1.2 s) with a low Mix (10–15 %) keeps voice intelligible.
 
 ## Related
 

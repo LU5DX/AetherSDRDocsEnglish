@@ -104,20 +104,21 @@ The **Start** button is safe to use while a GPSDO is installed; the GPSDO refere
 
 If you navigate away from the **RX** tab or close Radio Setup while calibration is running, the in-progress callbacks are discarded safely — no partial state is written.
 
-## ShackSwitch changes in v0.9.4
+## 10 MHz reference source changes in v0.9.7
 
-The **Peripherals** tab gains explicit ShackSwitch support in v0.9.4.
+The **10 MHz Reference Source:** combo box on the **RX** tab has been updated. The option list and the lock status label are now populated dynamically based on what hardware the radio reports as present or active.
 
-### Antenna Genius row behavior
+### Option list behavior
 
-The **Connect / Disconnect (Antenna Genius)** row now shows a Connected status only when the connected device is a true Antenna Genius. If a ShackSwitch is connected instead, the Antenna Genius row no longer reports Connected — the ShackSwitch row reflects that state instead.
+Previously the combo was populated once when the RX tab was built, and only included options for hardware detected at that moment (TCXO, GPSDO, External). Starting in v0.9.7 the list is refreshed whenever the radio's oscillator state changes:
 
-### ShackSwitch row
+- **Auto** is always present.
+- **TCXO** appears when the radio reports TCXO hardware present, when the current setting or active state is TCXO, or whenever the radio has reported any oscillator status at all.
+- **GPSDO** appears when the radio reports GPSDO hardware present, or when the current setting or active state is GPSDO.
+- **External 10 MHz** appears when the radio reports an external reference present, when the current setting or active state is external, or whenever the radio has reported any oscillator status at all.
 
-A dedicated **Connect / Disconnect (ShackSwitch)** row has been added. It connects to the ShackSwitch on port 9007 using the AG control protocol. The IP address is saved to `SS_ManualIp` and the port to `SS_ControlPort`. AetherSDR can also discover a ShackSwitch automatically via the UDP broadcast beacon without using this row.
+The previously used label **External** has been renamed **External 10 MHz**.
 
-### Web UI button
+### Lock status label
 
-A **⚙ Web UI** button appears beside the ShackSwitch row. Click it to open the ShackSwitch's local web interface in your system browser. AetherSDR determines the port as follows:
-
-1. If the device beacon advertises a `webPort` greater than 1024, that port is used.
+The lock

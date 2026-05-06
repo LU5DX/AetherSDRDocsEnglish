@@ -109,6 +109,18 @@ An MMSE-Wiener noise reducer with asymmetric gain smoothing, available only on m
 
 MNR is not available on Linux or Windows. The **MNR** tab is still present but **Enable MNR (macOS only)** will have no effect on non-macOS systems.
 
+---
+
+### RN2 — RNNoise
+
+The **RN2** tab is informational only. RNNoise has no adjustable parameters in AetherDSP Settings. Enable or disable the engine from the overlay menu.
+
+---
+
+### BNR — NVIDIA
+
+The **BNR** tab is informational only. BNR intensity is controlled from the overlay menu, not from AetherDSP Settings.
+
 ## Tips
 
 - Run only one noise-reduction engine at a time. Chaining multiple engines can cause speech artefacts and adds CPU load.

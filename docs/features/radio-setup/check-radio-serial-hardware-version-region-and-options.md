@@ -84,28 +84,26 @@ A status label appears to the right of the Start button and updates throughout t
 
 The Start button is re-enabled and its label reverts to **Start** when the calibration sequence completes or fails.
 
-## Peripherals tab — ShackSwitch web interface (v0.9.4)
+## RX tab — 10 MHz reference source (v0.9.7)
 
-In v0.9.4 the Peripherals tab adds a dedicated **⚙ Web UI** button next to the ShackSwitch row. Click it to open the ShackSwitch device's built-in configuration web page in your system browser.
+In v0.9.7 the **10 MHz Reference Source:** combo box and its accompanying lock-status label were updated to handle a wider range of oscillator states reported by the radio.
 
-The button determines the URL as follows:
+**Combo box population:** The list of available sources is now built dynamically each time the tab opens or the radio's oscillator state changes. Sources appear in the combo only if the radio reports the relevant hardware as present, if the current setting or active state uses that source, or if oscillator status has been received (in which case TCXO and External 10 MHz are always included as options). The fixed options from earlier versions — which could show sources the radio did not have — are no longer used.
 
-1. If the ShackSwitch is currently connected and its discovery beacon advertises a `webPort` greater than 1024, that port is used.
-2. Otherwise the stored `SS_WebPort` setting is used.
-3. If neither is available, port 5000 is used as a fallback.
+| Source value | Label shown in combo |
+|---|---|
+| `auto` | Auto |
+| `tcxo` | TCXO |
+| `gpsdo` | GPSDO |
+| `external` / `ext` | External 10 MHz |
 
-The IP address is taken from `SS_ManualIp`. If that field is empty and the connected device is a ShackSwitch, the live peer address is used instead. The button takes no action if no IP address can be determined.
+**Lock-status label:** The label to the right of the combo now shows richer state information:
 
-Also in v0.9.4, the **Connect / Disconnect (Antenna Genius)** row now hides its "Connected" status when a ShackSwitch is the device actually connected through the Antenna Genius model. The ShackSwitch row shows "Connected" in that case instead.
-
-**To open the ShackSwitch web interface:**
-
-1. Click `Settings > Radio Setup...`.
-2. Select the **Peripherals** tab.
-3. Ensure the ShackSwitch is connected (the ShackSwitch row shows "Connected").
-4. Click **⚙ Web UI**. Your default browser opens the device's configuration page.
-
-## Tips
-
-- If **Radio SN** is blank, the radio has not yet sent its chassis serial. Disconnect and reconnect to the radio.
-- **Options** reflects what the radio itself reports. If you have recently purchased a license
+| Condition | Text shown | Color |
+|---|---|---|
+| No oscillator status received yet | "Waiting for oscillator status" | Grey-blue |
+| Source locked | `<source> Locked` | Green (`#00c040`) |
+| Source unlocked | `<source> Unlocked` | Red (`#c04040`) |
+| Auto mode has selected a source | `Auto -> <resolved source> Locked/Unlocked` | Green or red |
+| Setting and active state differ | `<setting> -> <active> Locked/Unlocked` | Green or red |
+| External selected but no signal detected | `External 10 MHz

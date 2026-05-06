@@ -80,6 +80,26 @@ In v0.9.3, the firmware staging workflow changed. AetherSDR no longer downloads 
 
 In v0.9.2.1 the RX tab frequency calibration controls are available regardless of whether a GPSDO is installed. Previously, the **Cal Frequency (MHz):**, **Start**, and **Freq Offset (ppb):** controls were hidden when a GPSDO was detected. Now all calibration fields are always shown; a status label at the top of the group indicates whether a GPSDO is present (green text) or not (amber text).
 
+### 10 MHz reference source
+
+The **10 MHz Reference Source:** combo box on the RX tab selects the oscillator reference used by the radio. In v0.9.7 the combo and its lock-status label were updated with the following behavior changes:
+
+- The combo is populated dynamically. Only sources supported by the connected hardware appear. **TCXO** and **External 10 MHz** entries are shown when the radio reports those sources as present or when the current or active oscillator state involves them, even if the hardware-present flags are not yet reported. **Auto** is always available.
+- The label beside the combo now shows the resolved source as well as the lock state. When **Auto** is selected and the radio has chosen a specific source, the label reads `Auto -> <source>`. When a specific source is selected and the radio is using a different one, the label reads `<selected> -> <active>`. When the setting and state agree, only the active source is shown.
+- Lock state is appended: `Locked` (green) or `Unlocked` (red).
+- If **External 10 MHz** is selected or active but no external reference is detected, the label appends `(not detected)`.
+- While the radio has not yet reported oscillator status, the label reads `Waiting for oscillator status` in grey.
+- The combo label for the external source changed from **External** to **External 10 MHz**.
+
+#### 10 MHz Reference Source combo options
+
+| Option | When shown |
+|---|---|
+| Auto | Always. |
+| TCXO | When oscillator status has been received, or when the radio reports `tcxoPresent`, or when the current or active setting is `tcxo`. |
+| GPSDO | When the radio reports `gpsdoPresent`, or when the current or active setting is `gpsdo`. |
+| External 10 MHz | When oscillator status has been received, or when the radio reports `extPresent`, or when the current or active setting is `external`. |
+
 ### Calibration procedure
 
 1. Open `Settings > Radio Setup...`.
@@ -98,32 +118,4 @@ In v0.9.2.1 the RX tab frequency calibration controls are available regardless o
 |---|---|
 | Starting… | The sweep command has been sent to the radio. |
 | Busy | PLL calibration is in progress. |
-| Enter cal frequency | The **Cal Frequency (MHz):** field was empty when **Start** was clicked. Enter a value and try again. |
-
-### Notes
-
-- Clicking **Start** with an empty **Cal Frequency (MHz):** field shows an amber "Enter cal frequency" warning and does not send any commands.
-- The calibration sequence logs the cal frequency and run ID to the debug protocol log (`lcProtocol`). You can view this in the AetherSDR log viewer if diagnostic logging is enabled.
-- If the Radio Setup dialog is closed while a calibration is running, the in-flight callback is discarded safely; no partial state is applied.
-
-## Connecting to a ShackSwitch (Peripherals tab)
-
-The ShackSwitch antenna switch uses the same AG UDP/TCP control protocol as the Antenna Genius. In v0.9.4, the Peripherals tab gained a dedicated ShackSwitch row separate from the Antenna Genius row, along with a **⚙ Web UI** button.
-
-### Connect manually
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **Peripherals** tab.
-3. Locate the **ShackSwitch** row.
-   - If the radio has already discovered the ShackSwitch via UDP beacon, the IP field is pre-filled.
-   - Otherwise, type the ShackSwitch IP address into the IP field.
-4. Click **Connect**.
-   - AetherSDR connects on port 9007 using the AG control protocol.
-   - The IP is saved to `SS_ManualIp` and the port to `SS_ControlPort` so AetherSDR reconnects automatically on the next startup.
-5. The row shows a Connected status. The Antenna Genius row will show as not connected for the same session because the two rows are mutually exclusive — only one can show Connected at a time.
-
-### Open the ShackSwitch web interface
-
-1. Confirm the ShackSwitch is connected (Connected status shown in the ShackSwitch row).
-2. Click **⚙ Web UI**.
-   - Aet
+| Enter cal frequency | The **Cal Frequency (MHz):** field was

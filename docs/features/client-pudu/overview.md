@@ -9,14 +9,14 @@ The Aetherial Poodoo applet is the harmonic-enhancement stage at the centre of t
 
 ## How it works
 
-Each Poodoo instance processes audio in two parallel bands, referred to as **Poo** (low-frequency) and **Doo** (high-frequency). The character of the processing is set by the mode you choose:
+Each Poodoo instance processes audio in two parallel bands, referred to as **Body** (low-frequency) and **Clarity** (high-frequency). The character of the processing is set by the mode you choose:
 
 - **Even** mode uses Aphex-lineage asymmetric shaping — predominantly even harmonics, warmer in character, with Big Bottom low-frequency saturation.
 - **Odd** mode uses Behringer-lineage symmetric tanh shaping — pure odd harmonics, brighter in character, with a feed-forward bass compressor.
 
-Both bands produce a wet signal that is blended back with the dry signal using their respective Mix knobs. The animated PooDoo logo pulses with the brightness of the processed (wet) signal RMS, giving a visual indication of how much enhancement is active.
+Both bands produce a wet signal that is blended back with the dry signal using their respective Mix knobs. The animated AetherVoice™ logo pulses with the brightness of the processed (wet) signal RMS, giving a visual indication of how much enhancement is active.
 
-The TX and RX instances are opened by double-clicking the PUDU stage in the CHAIN widget on the corresponding side. The floating editor is titled "Aetherial Poodoo — TX" or "Aetherial Poodoo — RX". You can also right-click the "Aetherial TX Poodoo" or "Aetherial RX Poodoo" sub-container titlebar to float, pop out, or hide it. Bypass is handled from the CHAIN widget directly; there is no separate Enable button inside the applet.
+The TX and RX instances are opened by double-clicking the PUDU stage in the CHAIN widget on the corresponding side. The floating editor is titled "Aetherial Poodoo — TX" or "Aetherial Poodoo — RX". You can also right-click the "Aetherial TX Poodoo" or "Aetherial RX Poodoo" sub-container titlebar to float, pop out, or hide it. Bypass is handled from the CHAIN widget directly; there is no separate Enable button inside the applet. When the stage is bypassed, the entire applet tile dims to reduced opacity to indicate that DSP is inactive.
 
 All settings are persisted independently for the TX and RX sides.
 
@@ -29,7 +29,7 @@ All settings are persisted independently for the TX and RX sides.
 | Even | Selects Aphex-lineage asymmetric shaping. Lit amber when active. Exclusive with Odd. | `ClientPuduTxMode` / `ClientPuduRxMode` |
 | Odd | Selects Behringer-lineage symmetric tanh shaping. Exclusive with Even. | `ClientPuduTxMode` / `ClientPuduRxMode` |
 
-### Poo group (low-frequency processor)
+### Body group (low-frequency processor)
 
 | Control | Default | Range | Behavior | TX setting key | RX setting key |
 |---|---|---|---|---|---|
@@ -37,7 +37,7 @@ All settings are persisted independently for the TX and RX sides.
 | Poo / Tune | 100 Hz | 50 – 160 Hz | Centres the low-frequency focus band. Linear mapping. | `ClientPuduTxPooTuneHz` | `ClientPuduRxPooTuneHz` |
 | Poo / Mix | 30 % | 0 – 100 % | Blends the enhanced low band back with the dry signal. Linear mapping. | `ClientPuduTxPooMix` | `ClientPuduRxPooMix` |
 
-### Doo group (high-frequency processor)
+### Clarity group (high-frequency processor)
 
 | Control | Default | Range | Behavior | TX setting key | RX setting key |
 |---|---|---|---|---|---|
@@ -49,7 +49,7 @@ All settings are persisted independently for the TX and RX sides.
 
 | Indicator | Behavior |
 |---|---|
-| PooDoo logo | Animated logo. Brightness pulses with the processed (wet) signal RMS. |
+| AetherVoice™ logo | Animated logo. Brightness pulses with the processed (wet) signal RMS. Tile dims to 55 % opacity when the PUDU stage is bypassed. |
 
 ## Tips
 
@@ -57,6 +57,7 @@ All settings are persisted independently for the TX and RX sides.
 - Poo / Tune uses a linear mapping across 50 – 160 Hz. For a typical male voice TX, tune toward the lower end of that range; for RX program material, tune to taste by ear.
 - Doo / Tune uses a logarithmic mapping, so the knob gives finer resolution at lower frequencies within the 1 – 10 kHz range.
 - The TX and RX instances are fully independent. You can run Even on TX and Odd on RX, or different Drive and Air amounts on each side.
+- When the PUDU stage is bypassed from the CHAIN widget, the applet tile dims visually. This matches the dim behaviour on the EQ curve and confirms at a glance that no DSP is being applied.
 
 ## Related
 

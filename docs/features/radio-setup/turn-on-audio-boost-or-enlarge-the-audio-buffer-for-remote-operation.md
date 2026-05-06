@@ -91,19 +91,15 @@ In v0.9.2.1 the RX tab calibration section was revised. The **Cal Frequency (MHz
 | **Cal Frequency (MHz):** | Enter the known-accurate reference frequency in MHz to use for calibration. The field must not be empty before clicking Start. |
 | **Start** | Begins the frequency calibration sequence. AetherSDR resets the frequency error to 0 ppb, then sends `radio pll_start` to the radio. The button is disabled and labelled **Busy** while calibration is running. A status label beside the button reports progress (Starting…, and subsequent states). |
 | **Freq Offset (ppb):** | Displays or manually sets the current frequency offset in parts per billion. |
-| **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Lock status (Locked / Unlocked) updates live beside the control. |
+| **10 MHz Reference Source:** | Selects the oscillator reference. Available options depend on installed hardware. The status label beside the control updates live and shows the active source, lock state, and any resolution in progress (see below). |
 
-### How to run a frequency calibration
+### 10 MHz Reference Source — status label behavior (v0.9.7 change)
 
-1. Click `Settings > Radio Setup...`.
-2. Click the **RX** tab.
-3. Enter a known-accurate reference frequency in **Cal Frequency (MHz):**.
-4. Click **Start**. The button changes to **Busy** and the status label shows **Starting…**.
-5. Wait for the status label to indicate completion. The button re-enables automatically.
-6. If needed, review the resulting value in **Freq Offset (ppb):**.
+In v0.9.7 the lock status label beside **10 MHz Reference Source:** was revised to show richer state information.
 
-> **Note:** If you leave **Cal Frequency (MHz):** empty and click **Start**, the status label shows **Enter cal frequency** and the sequence does not run.
+The label text is determined as follows:
 
-## Tips
-
-- Start with a modest buffer increase (200–300 ms) before going higher. Very large values make the audio noticeably sluggish during QSOs.
+- If the radio has not yet reported oscillator state, the label shows **Waiting for oscillator status**.
+- If **Auto** is selected and the radio has resolved to a specific source, the label shows **Auto -> \<resolved source\>** followed by **Locked** or **Unlocked**.
+- If a specific source is selected but the radio is actively using a different source, the label shows **\<selected source\> -> \<active source\>** followed by **Locked** or **Unlocked**.
+- Otherwise the label shows the active source name followed by **Locked** or **Unlocked

@@ -18,6 +18,16 @@ The controls appear in two places that stay synchronized at approximately 30 Hz:
 
 Turning any knob in either view immediately updates the other. Settings are persisted automatically when you change a knob.
 
+### Live reverb visualisation
+
+The floating editor includes a compact live visualisation (90 px tall) that updates in real time as you turn the knobs. It depicts three signal components against a dark grid background:
+
+- **Cyan** — the dry signal packet, gradient-faded toward the right.
+- **Yellow** — first-order reflections, spaced and damped according to the current Size and Damp values.
+- **Magenta** — the reverberant tail, whose length and decay envelope track the Decay and Damp knobs.
+
+The Pre knob shifts the point at which reflections and the tail begin relative to the dry signal. The Mix knob scales the amplitude of both the wet components and the fade of the dry packet. The visualisation matches the layout used by the strip-side reverb panel, so the two views read consistently.
+
 ## What each control does
 
 | Knob | Default | Valid range | Behavior | Setting key |
@@ -35,7 +45,8 @@ The enabled/disabled state of the stage is persisted as `ClientReverbTxEnabled`.
 - For voice, a Mix of 10–15 % is typical. The default of 15 % is a reasonable starting point.
 - High Decay values (above 3 s) can muddy speech. Start at the default 1.20 s and increase only if the room effect sounds too short.
 - Raising Damp reduces high-frequency sparkle in the tail, which can help reverb sit behind speech rather than on top of it.
-- The floating editor ("Aetherial FreeVerb — TX") provides larger knobs for precise adjustment. Its position and size are saved automatically between sessions.
+- The floating editor ("Aetherial FreeVerb — TX") provides larger knobs and the live visualisation for precise adjustment. Its position and size are saved automatically between sessions.
+- Use the live visualisation to get a rough sense of tail length and reflection density before transmitting. The magenta tail length gives a visual approximation of how Decay and Damp interact.
 
 ## Related
 

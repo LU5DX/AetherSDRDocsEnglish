@@ -16,6 +16,10 @@ The gain-reduction meter and transfer curve update in real time even when you ar
 5. Watch the input ball on the Transfer curve. The ball sits in the lower-left region of the curve when the gate is closed (input below threshold) and moves up and to the right when the gate opens.
 6. Note how far the bar fills. If it reaches or exceeds the -15 dB tick mark, the gate is applying at least 15 dB of attenuation — the default Floor value.
 
+## Bypass dimming
+
+When the gate stage is bypassed, the entire applet tile renders at reduced opacity (approximately 55% of full brightness). This matches the dim effect used on the EQ curve and gives an at-a-glance indication that the stage is not processing audio. The applet returns to full brightness as soon as the stage is re-enabled.
+
 ## What each control does
 
 | Control                | Kind                                                                                                                                                                                                        | Default                                                                                                                                                                                                                                                             |
@@ -41,12 +45,14 @@ The gain-reduction meter and transfer curve update in real time even when you ar
 **Hysteresis band:** A soft-cyan vertical band drawn on the transfer curve between (Thresh − Return) and Thresh. It makes the gate's sticky zone visible: the gate opens when the input rises above Thresh and does not close again until the input falls below Thresh − Return. The band is absent when Return is set to 0.
 
 **Return knob:** Sets the hysteresis deadband width in dB. Increasing Return prevents the gate from chattering when the input hovers near the threshold. The label displays in the format X.XX dB.
+
 ## Tips
 
 - The meter updates approximately every 33 ms, so the bar tracks gain reduction closely enough to catch brief noise events.
 - Knob changes made in the floating Gate editor are reflected in the applet within the same 33 ms poll cycle, so you can leave the applet visible as a live meter while tuning in the editor.
 - A bar that never fully empties while you are silent means the gate is always attenuating — the input never rises above Thresh even when you stop speaking. This is normal and expected behavior for a noise gate at rest.
 - If the gate chatters — opens and closes rapidly while you are speaking near the threshold — increase Return to widen the hysteresis deadband. The cyan band on the transfer curve grows wider as you do so, giving you a visual indication of how much deadband is in effect.
+- If the applet tile appears dimmed, the gate stage is bypassed and no processing is active. Re-enable the stage to restore full brightness and resume attenuation.
 
 ## Related
 

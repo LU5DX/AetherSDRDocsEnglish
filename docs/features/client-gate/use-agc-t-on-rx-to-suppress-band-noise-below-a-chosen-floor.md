@@ -18,6 +18,7 @@ The Aetherial AGC-T (RX) applet applies a client-side downward expander to your 
 7. Turn the **Floor** knob to set the maximum attenuation the gate is allowed to apply. The default -15.0 dB leaves a faint residual noise rather than cutting to silence. Range: -80.0 to 0.0 dB. Saved as `ClientGateRxFloorDb`.
 8. Turn the **Release** knob to control how quickly the gate closes after the input drops below Thresh minus the Return value. Default: 100 ms; range: 5 to 2000 ms. Saved as `ClientGateRxReleaseMs`. A longer release sounds more natural; a shorter release closes more tightly between signals.
 9. Observe the **Gain-reduction bar** while band noise is present with no signal. The amber strip fills from the right as gain reduction is applied. The tick mark at -15 dB indicates the default Floor position. Adjust Thresh and Floor until the bar stays filled during noise and empties promptly when a signal appears.
+10. When the Gate stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This visual cue confirms the stage is inactive; the knob settings are preserved and take effect again as soon as you re-enable the stage.
 
 ## What each control does
 
@@ -32,8 +33,9 @@ The Aetherial AGC-T (RX) applet applies a client-side downward expander to your 
 | Gain-reduction bar     | —                                                                                                                                                                                                           | 0 to 40 dB GR                                                                                                                                                                                                                                                       |
 | Flip (Expander / Gate) | Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'. | Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.' |
 | Peek (lookahead)       | Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.                                                  | Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.                                                                                                         |
-| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                   |
+| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                  |
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
+
 ## Tips
 
 - Start with Thresh at -40.0 dB and raise it slowly until the gain-reduction bar fills solidly during band noise but opens cleanly when a signal appears.
@@ -42,6 +44,7 @@ The Aetherial AGC-T (RX) applet applies a client-side downward expander to your 
 - The soft-cyan band on the **Transfer curve** gives immediate visual feedback as you adjust Return — a wider band means a larger hysteresis deadband.
 - Changes made in the floating **Aetherial Gate — RX** editor and in the applet tile stay synchronized — the tile polls the engine approximately every 33 ms and updates its knobs to match.
 - The AGC-T operates entirely client-side and requires no radio connection to configure.
+- When the Gate stage is bypassed, the applet tile renders at reduced opacity (approximately 55 %). This matches the dim behaviour of the EQ curve when its stage is bypassed and makes it easy to see at a glance which processing stages are active.
 
 ## Troubleshooting
 
@@ -50,6 +53,7 @@ The Aetherial AGC-T (RX) applet applies a client-side downward expander to your 
 - **Signals are being cut along with the noise** — Thresh is set too high. Lower Thresh so that only the noise floor triggers attenuation and desired signals open the gate.
 - **The gate sounds abrupt or choppy between signals** — Increase the Release value to allow the gate to close more gradually after each signal.
 - **The gate chatters rapidly near the threshold** — Increase the Return value to widen the hysteresis deadband so the gate does not reopen and reclose on signal edges near Thresh.
+- **The applet tile appears dimmed and the gate is not processing audio** — The Gate stage is bypassed. The reduced-opacity tile is intentional. Re-enable the stage via the CHAIN widget to restore full processing and full opacity.
 
 ## Related
 

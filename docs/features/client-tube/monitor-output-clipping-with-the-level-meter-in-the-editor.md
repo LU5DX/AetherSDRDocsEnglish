@@ -28,6 +28,7 @@ The floating Tube editor includes a live output level meter that shows the post-
 - The meter reflects the signal after the tube stage. Reducing Drive affects harmonic character as well as level; reducing Output trims level only without changing the saturation curve.
 - The Dry/Wet knob (persisted as `ClientTubeTxDryWet` or `ClientTubeRxDryWet`) blends the dry signal back in. At values below 100 %, the meter will read lower because the unprocessed signal is mixed with the saturated output, which can mask how hard the tube itself is being driven.
 - Changes made in the floating editor are reflected on the docked applet tile knobs within approximately 33 ms via the sync timer, and vice versa.
+- When the Tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of full brightness). This visual dim matches the behavior of the EQ curve tile and gives a clear at-a-glance indication that the stage is inactive. The opacity returns to 100 % as soon as the stage is re-enabled.
 
 ## Related
 

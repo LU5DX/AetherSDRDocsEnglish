@@ -15,6 +15,16 @@ The Size knob controls the modelled room dimensions in the Aetherial FreeVerb TX
 2. Turn the Size knob left for a smaller, tighter room character; turn it right for a larger, more spacious hall feel.
 3. The knob label updates in real time and shows the current value as a percentage (for example, `50 %`).
 
+## Live visualisation
+
+The "Aetherial FreeVerb — TX" editor includes a compact waveform display (90 px tall) that updates in real time as you adjust any of the five knobs. It shows three overlaid signal layers:
+
+- **Cyan** — the dry sine packet. Its amplitude decreases as Mix is raised.
+- **Yellow** — first-order reflections. Spacing and count reflect the Size and Damp settings.
+- **Magenta** — the reverberant tail. Length tracks Decay; damping of high frequencies tracks Damp; onset position tracks Pre-delay.
+
+The display uses a dark background with a subtle grid. No interaction is required; it updates automatically whenever a knob value changes.
+
 ## What each control does
 
 | Label | Default | Range | Setting key | Behavior |
@@ -28,6 +38,7 @@ The Size knob controls the modelled room dimensions in the Aetherial FreeVerb TX
 ## Tips
 
 - Size and Decay interact closely. A large Size with a short Decay sounds unnatural; if you increase Size significantly, consider raising Decay to match.
+- The live visualisation in the floating editor gives immediate feedback on how Size, Decay, Damp, Pre-delay, and Mix interact before you transmit.
 - Both the compact applet knob and the floating "Aetherial FreeVerb — TX" editor control the same underlying parameters and stay in sync automatically.
 - Double-clicking a knob resets it to its default value.
 

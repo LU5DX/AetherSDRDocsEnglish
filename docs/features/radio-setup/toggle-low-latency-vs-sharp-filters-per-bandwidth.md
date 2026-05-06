@@ -85,7 +85,7 @@ In v0.9.2.1 the frequency calibration controls on the **RX** tab are available r
 | **Cal Frequency (MHz)** | Spinbox | Frequency used for calibration. Must not be empty before clicking Start. |
 | **Start** | Push button | Resets the frequency error to 0 ppb, applies the calibration frequency, and starts the PLL calibration sweep. Disabled and labelled "Busy" while a calibration is in progress. |
 | **Freq Offset (ppb)** | Spinbox | Manual frequency offset in parts per billion. |
-| **10 MHz Reference Source** | Combo box | Selects oscillator reference: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+| **10 MHz Reference Source** | Combo box | Selects oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Options shown depend on installed hardware and the radio's reported oscillator state. If Auto is selected and the radio has resolved to a specific source, the status label shows the resolved source (for example, "Auto -> GPSDO"). If the selected source differs from the active state, both are shown (for example, "GPSDO -> TCXO"). Lock status (Locked / Unlocked) is appended to the label and updates live. If External 10 MHz is selected but no external reference is detected, the label additionally shows "(not detected)". The label color is green when locked and red when unlocked. |
 
 ## Tips
 
@@ -94,8 +94,6 @@ In v0.9.2.1 the frequency calibration controls on the **RX** tab are available r
 - If **Start** does not become active after entering a calibration frequency, check that the Cal Frequency field is not empty.
 - When **Check for Update** reports an available update, AetherSDR no longer downloads the installer for you. Download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
 - To open the ShackSwitch web interface directly from AetherSDR, click **⚙ Web UI** in the Peripherals tab. AetherSDR uses the IP from `SS_ManualIp` or the active connection, and the port from the beacon's `webPort` field (if greater than 1024), `SS_WebPort`, or port 5000 as a fallback.
+- The **10 MHz Reference Source** status label on the RX tab now shows the full resolution path when Auto mode is active and when the active source differs from the configured source. Check this label to confirm the radio has locked to the intended reference.
 
 ## Related
-
-- [Radio Setup overview](overview.md)
-- [Select iambic mode A or B for the radio keyer](select-iambic-mode-a-or-b-for-the-radio-keyer.md)

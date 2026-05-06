@@ -17,13 +17,13 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 
 ## What each control does
 
-| Control | Kind          | Behavior                                                                                                                                                          |
-|---------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MEM     | Toggle button | Toggles ATU memory recall on/off. When on, the radio applies a stored tuner solution rather than running a new tune cycle. Disabled when TGXL is in OPERATE mode. |
-| Mem     | Indicator     | Lights green when the ATU is using a memory. Dim when memory recall is off or no memory is in use.                                                                |
+| Control | Kind          | Behavior                                                                                                                                                                                  |
+|---------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MEM     | Toggle button | Toggles ATU memory recall on/off. When on, the radio applies a stored tuner solution rather than running a new tune cycle. Disabled when TGXL is in OPERATE mode.                         |
+| Mem     | Indicator     | Lights green when the ATU is using a memory. Dim when memory recall is off or no memory is in use.                                                                                        |
 | ATU     | Push button   | Starts or bypasses the internal ATU tuning cycle depending on current status and frequency. See [ATU button behavior](#atu-button-behavior) below. Disabled when TGXL is in OPERATE mode. |
-| Success | Indicator     | Lights green when ATU status is Successful or OK.                                                                                                                 |
-| Byp     | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                          |
+| Success | Indicator     | Lights green when ATU status is Successful or OK.                                                                                                                                         |
+| Byp     | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                                                  |
 
 ## ATU button behavior
 
@@ -40,6 +40,12 @@ Starting with v0.9.5.1, the **ATU** button toggles between tuning and bypass on 
 - The radio remembers the frequency at which the ATU last reported a successful tune. If you change frequency between clicks, the button always starts a new tune cycle rather than bypassing, even if the previous status was Successful or OK.
 - After the ATU enters bypass, the stored tuned frequency is cleared. The next click will start a fresh tune cycle regardless of frequency.
 
+## MOX and Quindar tones (v0.9.7)
+
+Starting with v0.9.7, clicking **MOX** routes through the Quindar-tone coordinator rather than directly toggling transmit. When the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K tone plays on PTT engage and the BK tone plays on PTT disengage. When Quindar is disabled or the active TX slice is not on a phone mode, the behavior is identical to previous versions.
+
+No additional configuration is required in the TX Controls applet. Enable or disable Quindar tones from the Audio Channel Strip's QUIN control.
+
 ## Tips
 
 - If **Byp** lights orange after enabling **MEM**, the ATU has fallen back to bypass. Run a fresh tune cycle with **ATU** to build a new memory for the current frequency.
@@ -52,6 +58,7 @@ Starting with v0.9.5.1, the **ATU** button toggles between tuning and bypass on 
 - **Mem indicator stays dim after clicking MEM** — No stored ATU memory exists for the current frequency. Run a full ATU tune cycle first using **ATU**, then try **MEM** again.
 - **Byp lights orange instead of Mem going green** — The ATU has entered bypass because no usable memory was found. Use **ATU** to tune and store a new solution.
 - **ATU button starts a new tune instead of bypassing** — The transmit frequency changed since the last successful tune. The button will not bypass until you are back on the exact frequency that was tuned. Tune again at the current frequency first.
+- **MOX engages but no Quindar tones play** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode. Quindar tones do not play on CW or digital modes.
 
 ## Related
 

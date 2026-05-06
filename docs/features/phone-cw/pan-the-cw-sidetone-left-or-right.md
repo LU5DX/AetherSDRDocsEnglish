@@ -18,14 +18,33 @@ Use the L / R pan control in the Phone/CW applet to shift the CW sidetone to the
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| L / R pan (CW) | 50 (centre) | 0–100 | Sets the stereo pan position for the CW sidetone. Applies constant-power pan to both the radio-side monitor (`mon_pan_cw`) and the client-side sidetone generator in lockstep. Double-click recenters to 50. |
+| Control        | Default     | Valid range |
+|----------------|-------------|-------------|
+| L / R pan (CW) | 50 (centre) | 0–100       |
 
 ## Tips
 
 - The pan position always follows the radio's `mon_pan_cw` setting. If another client or the radio itself changes `mon_pan_cw`, the slider will update automatically.
 - Double-clicking the slider is the fastest way to restore a centered sidetone without guessing the midpoint.
+
+## RADE mode and the mic level slider (v0.9.7)
+
+When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending `mic_level` to the radio. The slider value is stored in `PcMicGain` — the same setting used when the mic source is **PC** — and is not forwarded to the radio while RADE is active. This prevents the RADE gain adjustment from silently overwriting the hardware mic level setting on the radio.
+
+The **Level** meter remains active during RX when RADE is in use, allowing you to monitor your input level before transmitting ("Level Meter During Receive" behavior). When RADE mode is deactivated, the Level gauge is suppressed and the slider reverts to showing the radio's reported mic level.
+
+## Compression gauge behavior (v0.9.7)
+
+The **Compression** gauge is gated on the radio's interlock TRANSMITTING state. During RX the gauge reads 0 dB regardless of any residual meter data from the TX chain. The gauge only shows a compression reading while the radio is actively transmitting with the speech processor enabled. This prevents stale or misleading readings from appearing when you are not on the air.
+
+## Breakin behavior (v0.9.7)
+
+The **Breakin** toggle now fully honors the radio's `break_in` setting:
+
+- **Breakin ON (QSK):** key edges immediately trigger TX; the `break_in_delay` holds the relay open between elements and drops TX after the set delay.
+- **Breakin OFF:** keyed characters are queued and sent only while PTT is held manually. The radio does not switch to TX automatically.
+
+The previous auto-PTT envelope that forced TX regardless of the Breakin state and suppressed QSK hang time has been removed.
 
 ## Related
 

@@ -31,17 +31,32 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 | **Remote radios** | Lists SmartLink WAN radios available to the signed-in account. The list has a fixed display height; if you have many remote radios, scroll within the list to see all of them. | — |
 | **Use low bandwidth mode** | Reduces stream data rates for slow or metered links. | `LowBandwidthMode` |
 | **Connect Remote Radio** | Starts a WAN connection to the radio selected in **Remote radios**. | — |
+| **Connect to last radio on start up** | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
+
+## Connecting by IP (Manual mode)
+
+If your radio is on a VPN or a routed network that is not visible via LAN discovery, use Manual mode instead of SmartLink.
+
+1. Click **Connect by IP** on the Local page, or click the **Manual** mode button at the top of the connection screen.
+2. In the **Radio IP address** field, type the IP address of the radio. The field accepts IPv4 and IPv6 addresses. AetherSDR normalizes the address when you connect.
+3. The **Radio IP address** control is a drop-down as well as a text field. It stores up to three recently used addresses (saved as `RecentConnectByIpAddresses`). To reuse a previous address, click the drop-down arrow and select it from the list.
+4. If needed, select the local network interface to use in **Advanced: Source path**. A **Source warning label** appears beneath the selector if the chosen interface is stale or unreachable.
+5. Click **Connect by IP (manual)**. The **Manual result label** shows whether the probe succeeded or failed.
 
 ## Tips
 
 - `SmartLinkEmail` is persisted, so your email address is pre-filled the next time you open the connection screen. Your password is not persisted and must be entered each session.
 - If the **Remote radios** list is empty after signing in, the remote radio may not have SmartLink enabled, or it may be offline.
+- The **Radio IP address** drop-down remembers up to three recent addresses across sessions. If you previously used the `LastRoutedRadioIp` setting (from a version before v0.9.7), AetherSDR imports it automatically into the recent-address list on first launch.
+- **Connect to last radio on start up** is checked by default. If you work with multiple radios and want to choose explicitly each session, uncheck it.
 
 ## Troubleshooting
 
 - **Remote radios list is empty after Sign In** — The radio at the remote location may be offline or SmartLink may not be enabled on it. Confirm the radio is powered on and registered to the same FlexRadio account.
 - **Sign In fails or the status label shows an error** — Check that your email and password are correct. Verify that AetherSDR has outbound internet access and that no firewall or proxy is blocking the SmartLink connection.
 - **Audio is choppy or drops frequently** — Enable **Use low bandwidth mode** before connecting to reduce stream rates for the link.
+- **Manual connection fails or the Manual result label shows an error** — Confirm the IP address is correct and reachable from this machine. Check that the selected source interface in **Advanced: Source path** is active; dismiss any **Source warning label** by selecting a valid interface.
+- **AetherSDR connects to the wrong radio on startup** — Uncheck **Connect to last radio on start up** so the connection screen opens on every launch and you can select the intended radio.
 
 ## Related
 

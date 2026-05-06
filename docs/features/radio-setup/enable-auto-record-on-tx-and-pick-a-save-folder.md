@@ -85,30 +85,35 @@ In v0.9.2.1 the calibration controls are available regardless of whether a GPSDO
 | **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. |
 | **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |
 | **Freq Offset (ppb):** | Manual frequency offset in parts per billion. |
-| **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. A live lock status indicator (Locked / Unlocked) appears beside the selector. |
+| **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Options shown depend on installed hardware and the radio's reported oscillator state. A live lock status indicator appears beside the selector showing the active source and lock state (see below). |
+
+### 10 MHz reference source indicator
+
+In v0.9.7 the lock status label beside **10 MHz Reference Source:** was updated to show richer information. The label text and color update live as the radio reports oscillator state changes.
+
+**Label text format:**
+
+| Condition | Example text |
+|---|---|
+| Auto mode resolving to a source | `Auto -> GPSDO Locked` |
+| Setting overridden by radio | `TCXO -> GPSDO Locked` |
+| Source matches setting | `GPSDO Locked` |
+| External selected but not detected | `External 10 MHz Unlocked (not detected)` |
+| Waiting for first status report | `Waiting for oscillator status` |
+
+**Label color:**
+
+| State | Color |
+|---|---|
+| Locked | Green |
+| Unlocked | Red |
+| No status received yet | Grey/blue |
+
+The **10 MHz Reference Source:** combo box also populates more dynamically in v0.9.7. Options are added based on the hardware the radio reports as present, the current setting, and the active oscillator state. The **External** entry is labeled **External 10 MHz** (previously **External**). If the radio sends the value `ext` it is treated as equivalent to `external`.
 
 ### Starting a calibration
 
 1. Click the **RX** tab in Radio Setup.
 2. Enter the known reference frequency in **Cal Frequency (MHz):**.
 3. Click **Start**. The button shows **Busy** while the sweep runs. Watch the status label for progress and result.
-4. When calibration completes, the button re-enables and the status label shows the result.
-
-> **Note:** Leaving **Cal Frequency (MHz):** empty and clicking **Start** will show a warning ("Enter cal frequency") and will not begin calibration.
-
-## Connecting peripherals (Peripherals tab)
-
-The **Peripherals** tab provides manual IP connection for external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. Each device has its own row with **Connect** and **Disconnect** buttons and an IP address field.
-
-### ShackSwitch
-
-The ShackSwitch row shares the underlying AG connection with the Antenna Genius row. Only one of the two rows shows a Connected status at a time, depending on which device type is actually connected.
-
-- The **Antenna Genius** row shows Connected only when the connected device is a non-ShackSwitch Antenna Genius.
-- The **ShackSwitch** row shows Connected only when the connected device is a ShackSwitch.
-
-The **⚙ Web UI** button opens the ShackSwitch's built-in web configuration page directly in your system browser. AetherSDR determines the URL as follows:
-
-1. If the device beacon advertises a web port greater than 1024, that port is used.
-2. Otherwise the value stored in `SS_WebPort` is used.
-3. If neither is available, port 5000 
+4. When calibration completes, the button re-enables

@@ -1,20 +1,100 @@
-# Enable MNR on macOS and set its strength
+# AetherDSP Settings
 
-MNR is AetherSDR's MMSE-Wiener noise reduction engine, available on macOS only. This page shows how to turn it on and adjust how aggressively it suppresses noise.
+AetherDSP Settings is a dialog that lets you tune the client-side noise-reduction engines available in AetherSDR: NR2, NR4, MNR, DFNR, RN2, and BNR. Each engine has its own tab. Open the dialog from `Settings > AetherDSP Settings...`.
 
-## Before you start
+From v0.9.7 the dialog hosts an embedded `AetherDspWidget` that contains all controls. Existing signal connections to the dialog continue to work without change.
 
-- AetherSDR must be running on macOS. The "Enable MNR (macOS only)" checkbox is present only on macOS builds.
-- No radio connection is required to adjust these settings.
+---
 
-## Steps
+## NR2 tab
+
+NR2 is AetherSDR's musical-noise-reduction engine.
+
+### Steps
 
 1. Click `Settings > AetherDSP Settings...`.
-2. In the **AetherDSP Settings** dialog, click the **MNR** tab.
+2. Click the **NR2** tab.
+3. Select a **Gain Method** radio button.
+4. Select an **NPE Method** radio button.
+5. Check or uncheck **AE Filter (artifact elimination)** as needed.
+6. Drag **Reduction Depth:**, **Smoothing:**, and **Voice Threshold:** to the desired values.
+7. Click **Reset Defaults** to return all NR2 controls to their factory values.
+
+### What each control does
+
+| Control | Kind | Default | Valid range | Setting key |
+|---|---|---|---|---|
+| Gain Method | Radio button | Gamma | Linear / Log / Gamma / Trained | `NR2GainMethod` |
+| NPE Method | Radio button | OSMS | OSMS / MMSE / NSTAT | `NR2NpeMethod` |
+| AE Filter (artifact elimination) | Checkbox | On | On / Off | `NR2AeFilter` |
+| Reduction Depth: | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
+| Smoothing: | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
+| Voice Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| Reset Defaults | Button | — | — | — |
+
+`NR2GainMethod` is stored as an integer 0–3 (Linear=0, Log=1, Gamma=2, Trained=3). `NR2NpeMethod` is stored as an integer 0–2 (OSMS=0, MMSE=1, NSTAT=2). `NR2GainMax` is stored internally as value × 100.
+
+### Tips
+
+- **Gamma** gain method suits most SSB voice work. **Trained** can improve results on weak signals.
+- Raise **Voice Threshold:** if NR2 is suppressing speech. Lower it if noise breaks through during pauses.
+- Click **Reset Defaults** to restore: Gamma / OSMS / AE on / 1.50 / 0.85 / 0.20.
+
+---
+
+## NR4 tab
+
+NR4 uses the libspecbleach engine.
+
+### Steps
+
+1. Click `Settings > AetherDSP Settings...`.
+2. Click the **NR4** tab.
+3. Select a **Noise Estimation Method** radio button.
+4. Check or uncheck **Adaptive Noise Estimation** as needed.
+5. Adjust **Reduction (dB):**, **Smoothing (%):**, **Whitening (%):**, **Masking Depth:**, and **Suppression:** sliders.
+6. Click **Reset Defaults** to return all NR4 controls to their factory values.
+
+### What each control does
+
+| Control | Kind | Default | Valid range | Setting key |
+|---|---|---|---|---|
+| Noise Estimation Method | Radio button | SPP-MMSE | SPP-MMSE / Brandt / Martin | `NR4NoiseEstimationMethod` |
+| Adaptive Noise Estimation | Checkbox | On | On / Off | `NR4AdaptiveNoise` |
+| Reduction (dB): | Slider | 10.0 | 0.0–40.0 | `NR4ReductionAmount` |
+| Smoothing (%): | Slider | 0 | 0–100 | `NR4SmoothingFactor` |
+| Whitening (%): | Slider | 0 | 0–100 | `NR4WhiteningFactor` |
+| Masking Depth: | Slider | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
+| Suppression: | Slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
+| Reset Defaults | Button | — | — | — |
+
+`NR4NoiseEstimationMethod` is stored as an integer 0–2 (SPP-MMSE=0, Brandt=1, Martin=2). `NR4ReductionAmount` is stored internally as value × 10.
+
+### Tips
+
+- Leave **Adaptive Noise Estimation** on unless the noise floor is stable and you want to lock the estimate.
+- Increase **Whitening (%):** to flatten residual colored noise after reduction.
+- Click **Reset Defaults** to restore: SPP-MMSE / adaptive on / 10 dB / 0 / 0 / 0.50 / 0.50.
+
+---
+
+## MNR tab
+
+MNR is AetherSDR's MMSE-Wiener noise reduction engine, available on macOS only.
+
+### Before you start
+
+- AetherSDR must be running on macOS. The **Enable MNR (macOS only)** checkbox is present only on macOS builds.
+- No radio connection is required to adjust these settings.
+
+### Steps
+
+1. Click `Settings > AetherDSP Settings...`.
+2. Click the **MNR** tab.
 3. Check **Enable MNR (macOS only)** to activate the engine.
 4. Drag the **Strength** slider to set aggressiveness. 0 is the mildest setting; 100 is maximum noise reduction.
 
-## What each control does
+### What each control does
 
 | Control | Kind | Default | Valid range | Setting key |
 |---|---|---|---|---|
@@ -23,14 +103,55 @@ MNR is AetherSDR's MMSE-Wiener noise reduction engine, available on macOS only. 
 
 `MnrStrength` is persisted internally as a normalized value between 0.00 and 1.00.
 
-## Tips
+### Tips
 
 - Start with **Strength** at 100 and reduce it if you notice speech artifacts or a hollow sound. Lower values trade noise suppression for more natural voice reproduction.
 - Because MNR's initial enabled state is read live from the audio engine at dialog open time, the checkbox reflects the current engine state rather than a fixed saved default.
 
-## Troubleshooting
+### Troubleshooting
 
 - **The MNR tab is visible but "Enable MNR (macOS only)" has no effect** — confirm you are running AetherSDR on macOS. The checkbox label explicitly notes macOS-only availability; on other platforms the engine is not active regardless of this setting.
+
+---
+
+## RN2 tab
+
+The **RN2** tab displays information about the RNNoise engine. There are no adjustable parameters on this tab.
+
+---
+
+## BNR tab
+
+The **BNR** tab displays information about the NVIDIA noise-reduction engine. Intensity is controlled from the overlay menu, not from this dialog.
+
+---
+
+## DFNR tab
+
+DFNR uses the DeepFilterNet3 engine.
+
+### Steps
+
+1. Click `Settings > AetherDSP Settings...`.
+2. Click the **DFNR** tab.
+3. Drag **Attenuation Limit** to set the maximum noise attenuation. Set to 0 for passthrough; set to 100 for maximum attenuation.
+4. Drag **Post-Filter Beta** to apply additional post-filtering suppression. Leave at 0.00 if no extra suppression is needed.
+
+### What each control does
+
+| Control | Kind | Default | Valid range | Setting key |
+|---|---|---|---|---|
+| Attenuation Limit | Slider | 100 | 0–100 dB | `DfnrAttenLimit` |
+| Post-Filter Beta | Slider | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` |
+
+`DfnrPostFilterBeta` is stored internally as value × 100.
+
+### Tips
+
+- Reduce **Attenuation Limit** if DeepFilterNet3 is over-suppressing and causing artifacts on voice peaks.
+- Leave **Post-Filter Beta** at 0.00 unless residual noise remains after adjusting **Attenuation Limit**.
+
+---
 
 ## Related
 

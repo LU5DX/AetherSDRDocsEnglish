@@ -113,10 +113,4 @@ In both cases the **Cal Frequency (MHz)** field and the **Start** button are alw
 | **Cal Frequency (MHz)** | Reference frequency used for manual calibration. Always shown from v0.9.2.1 onward, regardless of GPSDO presence. | — |
 | **Start** | Starts the frequency calibration sweep. Disabled and labelled **Busy** while a calibration is running. | — |
 | **Freq Offset (ppb)** | Manual frequency offset in parts per billion. | — |
-| **10 MHz Reference Source** | Selects oscillator reference: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Lock status (Locked / Unlocked) updates live alongside the selector. | Auto |
-
-## Connecting to peripherals (Peripherals tab)
-
-The **Peripherals** tab provides manual IP connection for external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. Each device has its own row with a Connect/Disconnect button and an IP address field. AetherSDR saves the IP and port for each device and auto-reconnects on startup.
-
-### To connect to a ShackSwitch
+| **10 MHz Reference Source** | Selects oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Options shown depend on installed hardware and the oscillator state reported by the radio. The combo is populated dynamically: Auto is always present; TCXO appears when the radio reports a TCXO or oscillator status is available; GPSDO appears when a GPSDO is present; External 10 MHz appears when an external reference is detected or oscillator status is available. If the radio reports `ext` as the oscillator value, it is treated as `external`. Lock status updates live alongside the selector — green when locked, red when unlocked. When Auto is selected

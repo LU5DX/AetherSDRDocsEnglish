@@ -4,7 +4,7 @@ The Ratio knob controls how hard the compressor clamps peaks once the signal cro
 
 ## Before you start
 
-- The compressor stage must be enabled (bypass off) on the side you want to adjust. The applet tile stays hidden until the stage is active. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
+- The compressor stage must be enabled (bypass off) on the side you want to adjust. When the stage is bypassed, the entire applet tile dims to approximately 55% opacity to indicate it is inactive. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
 - Open the Aetherial Audio (TXDSP) parent container and expand the relevant sub-container: "Aetherial Compressor" for TX, or "Aetherial AGC-C" for RX.
 
 ## Steps
@@ -37,7 +37,7 @@ The Ratio knob uses a logarithmic mapping (`1 × 20^n`) so that low ratios (gent
 
 ## Troubleshooting
 
-- **Ratio knob has no audible effect** — The stage may still be in bypass. Confirm the compressor is enabled on the correct side (TX or RX) via the CHAIN widget. The applet tile is hidden while the stage is bypassed.
+- **Ratio knob has no audible effect** — The stage may still be in bypass. Confirm the compressor is enabled on the correct side (TX or RX) via the CHAIN widget. When the stage is bypassed, the applet tile dims to approximately 55% opacity; restore full opacity by enabling the stage.
 - **Gain-reduction bar is pinned at maximum** — The threshold is likely too low relative to the incoming signal level. Lower the ratio or raise the Thresh knob until the bar shows moderate, intermittent reduction.
 
 ## Related

@@ -16,15 +16,27 @@ The Aetherial Audio Chain applet shows either the TX or RX DSP chain at a time. 
 
 ## What each control does
 
-| Control                                            | Kind                                                                                                                                   | Default                                                                                                                                                                                                                                                             |
-|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TX                                                 | Toggle button                                                                                                                          | Checked                                                                                                                                                                                                                                                             |
-| RX                                                 | Toggle button                                                                                                                          | Unchecked                                                                                                                                                                                                                                                           |
+| Control | Kind | Default |
+|---|---|---|
+| TX | Toggle button | Checked |
+| RX | Toggle button | Unchecked |
 | RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 TX and RX form an exclusive pair — only one can be active at a time. The active tab is saved as `PooDooAudioActiveTab` with the value `TX` or `RX` and is restored on next launch.
 
 The TX and RX chains are fully independent: each has its own stage order, per-stage bypass state, and global BYPASS snapshot. Switching sides does not affect the other chain's state. The TX chain order is persisted as `ClientCompTxChainStages`; the RX chain order as `ClientCompRxChainStages`.
+
+## How double-click works on TX chain stages
+
+In v0.9.7, double-clicking any TX chain stage tile no longer opens a per-stage floating editor directly. Instead, it opens the Aetherial Audio Channel Strip — the unified TX DSP window. The individual stage editors remain accessible from within the channel strip. Double-clicking a TX stage tile is now the canonical way to open your TX audio settings.
+
+Double-clicking an RX chain stage tile continues to open that stage's own floating editor as before.
+
+## How the TX BYPASS button stays in sync
+
+In v0.9.7, the TX bypass state is owned by the audio engine rather than derived solely from the applet's internal snapshot. As a result, the BYPASS button on the chain applet and the BYPASS button on the Aetherial Audio Channel Strip always reflect the same state. Clicking BYPASS on either control updates the other automatically. When you switch to the TX side, the BYPASS button initialises its visual state from the engine's current bypass state.
+
+The RX BYPASS button continues to use the snapshot-based behaviour from previous releases.
 
 ## Tips
 
@@ -32,6 +44,7 @@ The TX and RX chains are fully independent: each has its own stage order, per-st
 - The record (⏺) and play (▶) monitor buttons are hidden when RX is selected — they are TX-only features.
 - The hint text below the chain strip, "Click to bypass · Double click to edit · Drag to reorder", applies equally to both the TX and RX chains.
 - The RX stage tiles are labelled AGC-T (gate) and AGC-C (compressor). These labels appear on the stage tiles themselves and in any stage editor titles.
+- If you click BYPASS on the channel strip while the chain applet is showing the TX side, the applet's BYPASS button updates immediately to match — no manual refresh is needed.
 
 ## Related
 

@@ -49,6 +49,7 @@ The following controls have persisted settings keys or notable behaviors.
 | **Active Slice Follows TX** | TX | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. Stored as `ActiveFollowsTxSlice`. |
 | **Iambic Mode: A / B** | Phone/CW | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. Default: A. |
 | **Decode:** | Phone/CW | Enables the CW decode overlay on the panadapter. Stored as `CwDecodeOverlay`. Default: enabled. |
+| **10 MHz Reference Source:** | RX | Selects the oscillator reference source. The combo box is populated dynamically: Auto is always present; TCXO, GPSDO, and External 10 MHz appear based on what the radio reports as installed or currently active. If the radio sends `ext` for the oscillator setting or state, AetherSDR normalises it to `external` before displaying. When the setting is Auto and the radio has selected a specific source, the label shows the resolution (for example, "Auto -> GPSDO"). Lock status (Locked / Unlocked) is shown in green or red beside the combo and updates live. If External 10 MHz is selected but no external reference is detected, "(not detected)" is appended to the status text. |
 | **Voice / CW / Digital filter sharpness sliders** | Filters | Sets filter sharpness (0 = lowest latency to 3 = sharpest) per mode. Slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
 | **Auto (Voice / CW / Digital)** | Filters | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos** | APD | Selects the feedback path used to sample outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. Default: INTERNAL. |
@@ -70,17 +71,8 @@ The following controls have persisted settings keys or notable behaviors.
 | **Slice A–H color buttons** | Themes | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
 | **Reset All to Defaults** | Themes | Resets all custom slice colors to the built-in AetherSDR palette. |
 
-## Firmware update (Radio tab)
+## 10 MHz Reference Source (RX tab)
 
-In v0.9.3 the firmware update workflow changed. AetherSDR no longer downloads the installer automatically. The button previously labeled **Browse .ssdr...** is now labeled **Select Installer...** and the check-for-update flow works as follows:
+The **10 MHz Reference Source:** combo box in the RX tab behaves differently in v0.9.7 compared to earlier releases. Previously it listed only the sources physically detected at dialog open time and showed a plain "Locked / Unlocked" label. The new behaviour is:
 
-1. Click **Check for Update**. AetherSDR queries the update server.
-   - If the firmware is current, the status label shows "Firmware is up to date (v*x.x.x*)." in green.
-   - If an update is available, the status label shows the new version number and instructs you to download the SmartSDR installer from flexradio.com.
-2. Download the SmartSDR installer from [flexradio.com](https://www.flexradio.com) to your computer. The installer can be a `.msi` file (FlexRadio v4.2+ WiX installer), a `.exe` file (older self-extracting installer), or a pre-extracted `.ssdr` firmware file.
-3. Click **Select Installer...**. A file picker opens with the filter:
-   - SmartSDR installer or firmware (`*.msi *.exe *.ssdr`)
-   - MSI installer (`*.msi`)
-   - EXE installer (`*.exe`)
-   - Extracted firmware (`*.ssdr`)
-   - All files (`*`)
+- **Dynamic population.** The combo always contains Auto. TCXO, GPSDO, and External 10 MHz are added whenever the radio reports them as present, as the current setting, or as the current oscillator state. Items are not removed while the dialog is open even if the radio stops reporting them momentarily

@@ -28,6 +28,7 @@ The bypass state is persisted immediately. TX state is saved to `ClientTubeTxEna
 
 - Double-clicking the TUBE stage in the CHAIN widget opens the floating editor ("Aetherial Tube — TX" or "Aetherial Tube — RX") instead of toggling bypass. Use a single click for bypass only.
 - All knob values (Drive, Tone, Bias, Output, Dry/Wet, Envelope, Attack, Release) are unaffected by bypass. You can re-enable the tube at any time and the previous settings are restored.
+- When the tube stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity. This matches the dim effect used by the EQ curve tile and gives a clear at-a-glance indication that processing is inactive. The tile returns to full opacity as soon as bypass is turned off.
 - The transfer curve and live input ball in the applet tile continue to reflect the current knob positions even while bypassed.
 - The floating editor includes an **Output level meter** (labelled **OUT**) on the far right. It shows post-saturation peak level with fast-attack/slow-release ballistics and is colour-coded: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), and red (above −3 dB). The meter is not visible in the docked applet tile.
 

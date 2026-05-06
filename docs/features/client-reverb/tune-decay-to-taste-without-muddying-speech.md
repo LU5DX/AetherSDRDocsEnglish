@@ -20,9 +20,21 @@ The Decay knob controls how long the reverb tail rings after each syllable. Sett
 
 | Label | Default | Range | Persisted key | Behavior |
 |-------|---------|-------|---------------|----------|
+| Size | 50 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxSize` | Sets the modelled room size. Uses linear mapping. |
 | Decay | 1.20 s | 0.3 to 5.0 s | `ClientReverbTxDecayS` | Sets the reverb tail length. Uses exponential mapping across its range (~16.7× from minimum to maximum). |
 | Damp | 50 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxDamping` | Higher values cause high frequencies to decay faster in the tail, reducing brightness and perceived smear. |
+| Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Pre-delay between the dry signal and the first reflections. Uses linear mapping. Label displays as `X ms`. |
 | Mix | 15 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxMix` | Dry/wet balance. A high Mix value amplifies the audible impact of every other parameter. |
+
+## Live visualisation
+
+Starting in v0.9.7, the applet panel and the floating "Aetherial FreeVerb — TX" editor both display a compact waveform diagram (90 px tall) that updates in real time as you move any knob. The diagram uses three colour-coded layers:
+
+- **Cyan** — the dry signal packet, gradient-faded toward the right. Its amplitude decreases as Mix increases.
+- **Yellow** — first-order reflections. Spacing and count respond to Size; amplitude per reflection decreases with higher Damp values.
+- **Magenta** — the reverberant tail. Its horizontal length reflects Decay, its high-frequency roll-off reflects Damp, and its overall amplitude reflects Mix.
+
+The visualisation is for orientation only; it does not represent a precise impulse-response measurement. Use your ears to make final adjustments.
 
 ## Tips
 

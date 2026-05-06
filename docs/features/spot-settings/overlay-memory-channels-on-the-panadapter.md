@@ -16,27 +16,33 @@ Memory channels stored in your FLEX-8600 can be displayed as spot-like markers o
 
 ## What each control does
 
-| Control | What it does | Default | Setting key |
-|---|---|---|---|
-| **Spots:** toggle | Master on/off for all spot and memory overlays. Memories will not appear if this is off. | Enabled | `IsSpotsEnabled` |
-| **Memories:** toggle | Shows or hides memory channel markers on the panadapter. | Disabled | `IsMemoriesShownOnPanadapter` |
-| **Levels:** slider | Number of vertical stacking rows used when spots or memories overlap. Range: 1–10. | 3 | `SpotsStackLevels` |
-| **Position:** slider | Vertical position of the overlay band on the panadapter, as a percentage from top. Range: 0–100. | 50 | `SpotsPosition` |
-| **Font Size:** slider | Text size for spot and memory labels. Range: 8–32. | 16 | `SpotsFontSize` |
-| **Spot Lifetime:** slider | How long spots remain before fading. Non-linear scale: 10–55 seconds, then 5–55 minutes, then 1–24 hours. | 30 min | `SpotsLifetime` |
-| **Override Colors:** toggle | Forces a single text color for all spots and memories instead of source-assigned colors. | Disabled | `IsSpotsOverrideColorsEnabled` |
-| Spot text color picker | Opens a color picker to choose the override text color. Default: `#FFFF00`. | `#FFFF00` | `SpotsOverrideColor` |
-| **Override Background: Enabled** toggle | Draws a colored background behind spot and memory text. | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` |
-| **Override Background: Auto** toggle | Automatically selects a background color for contrast rather than using the manual color. | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
-| Spot background color picker | Opens a color picker for the manual background color. Default: `#000000`. | `#000000` | `SpotsOverrideBgColor` |
-| **Background Opacity:** slider | Sets the transparency of the spot background. Range: 0–100. | 48 | `SpotsOverrideBgOpacity` |
-| **Clear All Spots** | Removes all spots from the panadapter immediately. Does not affect memories. | — | — |
+| Control                                 | What it does                                                                                                             | Default   |
+|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------|-----------|
+| **Spots:** toggle                       | Master on/off for all spot and memory overlays. Memories will not appear if this is off.                                 | Enabled   |
+| **Memories:** toggle                    | Shows or hides memory channel markers on the panadapter.                                                                 | Disabled  |
+| **Levels:** slider                      | Number of vertical stacking rows used when spots or memories overlap. Range: 1–10.                                       | 3         |
+| **Position:** slider                    | Vertical position of the overlay band on the panadapter, as a percentage from top. Range: 0–100.                         | 50        |
+| **Font Size:** slider                   | Text size for spot and memory labels. Range: 8–32.                                                                       | 16        |
+| **Spot Lifetime:** slider               | How long spots remain before fading. Non-linear scale: 10 seconds to 24 hours.                                           | —         |
+| **Override Colors:** toggle             | Forces a single text color for all spots and memories instead of source-assigned colors.                                 | Disabled  |
+| Spot text color picker                  | Opens a color picker to choose the override text color. Default: `#FFFF00`.                                              | `#FFFF00` |
+| **Override Background: Enabled** toggle | Draws a colored background behind spot and memory text.                                                                  | Enabled   |
+| **Override Background: Auto** toggle    | Automatically selects a background color for contrast rather than using the manual color.                                | Enabled   |
+| Spot background color picker            | Opens a color picker for the manual background color. Default: `#000000`.                                                | `#000000` |
+| **Background Opacity:** slider          | Sets the transparency of the spot background. Range: 0–100.                                                              | 48        |
+| **Spot Lines:** toggle                  | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. | Enabled   |
+| **Clear All Spots**                     | Removes all spots from the panadapter immediately. Does not affect memories.                                             | —         |
+
+### Total Spots indicator
+
+The **Total Spots:** label at the bottom of the dialog shows the count of live spots currently being tracked. It updates automatically as spots arrive or expire.
 
 ## Tips
 
 - Memory overlays share the same position, font, stacking, and color settings as DX spots. Adjust **Levels:** and **Position:** to prevent memory markers from obscuring signal peaks.
 - If memory markers are not visible even after enabling **Memories:**, confirm that the **Spots:** toggle is also set to "Enabled". The Spots master toggle controls all overlay rendering.
 - The **Override Background: Auto** toggle is active by default and selects contrast-appropriate background colors automatically. Disable it only if you want to set a specific background color with the background color picker.
+- During a contest, disable **Spot Lines:** to reduce visual clutter on the panadapter without hiding spot labels.
 
 ## Troubleshooting
 

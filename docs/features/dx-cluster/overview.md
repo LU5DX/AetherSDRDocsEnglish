@@ -9,7 +9,6 @@ SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources 
 - Have an ADIF log file available if you want DXCC coloring.
 
 ## How it works
-
 SpotHub aggregates spots from up to six independent sources. Each source runs independently — you can enable any combination simultaneously. All incoming spots are merged into a unified list and rendered as frequency markers on the panadapter.
 
 Spots from each source are color-coded separately so you can distinguish their origin at a glance. A global display layer (the **Display** tab) controls how all spots appear on the panadapter, regardless of source.
@@ -34,10 +33,9 @@ Each source has an **Auto-connect on startup** or **Auto-start on startup** togg
 
 ### Spot List tab
 
-The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency.
+The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
 
 ### Display tab
-
 The **Display** tab controls how spots appear on the panadapter.
 
 | Control | Setting key | Default |
@@ -56,9 +54,13 @@ The **Display** tab controls how spots appear on the panadapter.
 | **DXCC Coloring** | `DxccColoringEnabled` | — |
 | **Log File (ADIF):** | `DxccAdifPath` | — |
 | **Auto-Reload Log:** | `DxccAutoReload` | — |
+| **Spot Lines:** | `IsSpotsLinesEnabled` | Enabled |
 | **Clear All Spots** | — | — |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
 
-**Auto Mode:** defaults to Enabled as of v0.9.5.1. The `SpotAutoSwitchMode` setting key now defaults to `True`. If you previously relied on Auto Mode being off by default, check this setting after upgrading.
+**Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. Disable this during contests to reduce visual clutter. The setting is persisted as `IsSpotsLinesEnabled` and defaults to Enabled.
+
+**Auto Mode** defaults to **Enabled** (`SpotsAutoMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
 
 ### FreeDV Reporter reporting
 
@@ -125,17 +127,11 @@ setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
 Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 
 ## Tips
-
 - RBN produces a very high spot rate. Set **Rate Limit:** to a value your display can handle before connecting, to avoid flooding the panadapter.
 - WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (15 or 7.5 seconds) if you want spots to clear between periods.
 - The **Calling Me** filter in the WSJT-X tab highlights decodes specifically addressed to your callsign, which makes it easy to see when a station is responding to your CQ.
-- **Auto Mode:** defaults to Enabled in v0.9.5.1. It automatically adjusts spot density as you zoom the panadapter in and out, which is useful during contests or DXpeditions when spot density varies significantly across bands and zoom levels.
+- **Auto Mode:** defaults to Enabled. It automatically switches the slice mode when you double-click a spot that includes mode information (for example CW, FT8, or RTTY).
+- Double-clicking a spot in the **Spot List** now also forwards the mode hint from the spot comment, so the slice switches to CW, SSB, or the appropriate digital mode automatically — not just the frequency.
+- Disable **Spot Lines:** during contests to reduce visual clutter on the panadapter. Re-enable it afterward to restore the vertical line guides (`IsSpotsLinesEnabled`).
 - Before enabling **Enable FreeDV Reporter reporting when RADE is active**, confirm your callsign and grid square are correctly set. The checkbox will not enable if either value is blank.
 - Call `clearSwrSweepPoints()` after a sweep completes if you do not want the finished trace to persist on the panadapter.
-
-## Troubleshooting
-
-- **Cluster or RBN connects but no spots appear on the panadapter** — Check that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also verify the relevant band checkboxes on the **Spot List** tab are checked.
-- **WSJT-X spots are not received** — Confirm WSJT-X is configured to send UDP broadcasts to the same address and port shown in AetherSDR's WSJT-X tab, and that the listener is started (Start / Stop shows the running state).
-- **FreeDV tab is not visible** — This tab is only present in builds compiled with WebSocket support. Your installed build may not include it.
-- **FreeDV Reporter checkbox will not stay enabled** — Both a callsign and a grid square must be resolvable before the checkbox can remain checked. Verify the **Call

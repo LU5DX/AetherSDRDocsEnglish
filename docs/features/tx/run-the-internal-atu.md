@@ -17,14 +17,14 @@ Use the internal automatic antenna tuner (ATU) to find a low-SWR match on your c
 
 ## What each control does
 
-| Control  | Kind          | Behavior                                                                                                                                                                               |
-|----------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Control  | Kind          | Behavior                                                                                                                                  |
+|----------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | ATU      | Push button   | Starts or bypasses the ATU depending on context (see [ATU button behavior](#atu-button-behavior)). Disabled when TGXL is in OPERATE mode. |
-| MEM      | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                                                              |
-| Tune Pwr | Slider        | Sets the tune-carrier power level sent to the radio during tuning.                                                                                                                     |
-| Success  | Indicator     | Lights green when the ATU tuning result is successful or OK.                                                                                                                           |
-| Byp      | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                                               |
-| Mem      | Indicator     | Lights green when the ATU is using a stored memory.                                                                                                                                    |
+| MEM      | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                  |
+| Tune Pwr | Slider        | Sets the tune-carrier power level sent to the radio during tuning.                                                                        |
+| Success  | Indicator     | Lights green when the ATU tuning result is successful or OK.                                                                              |
+| Byp      | Indicator     | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                  |
+| Mem      | Indicator     | Lights green when the ATU is using a stored memory.                                                                                       |
 
 ## ATU button behavior
 
@@ -42,6 +42,10 @@ In practice:
 - Changing frequency resets the toggle, so the next click starts a fresh tune cycle regardless of the previous status.
 - Entering bypass clears the stored tuned frequency, so the next click always starts a fresh tune.
 
+## MOX and Quindar tones (v0.9.7)
+
+Starting in v0.9.7, clicking `MOX` routes through the Quindar-tone coordinator rather than toggling transmit directly. When the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, clicking `MOX` to engage transmit plays the K tone and clicking it again to disengage plays the BK tone. When Quindar is disabled or the active TX slice is not on a phone mode, `MOX` behaves as before and toggles transmit directly.
+
 ## Tips
 
 - If `Byp` lights after the tuning cycle, the ATU was unable to find a match and has bypassed itself. Check your antenna system and SWR before transmitting at full power.
@@ -53,6 +57,7 @@ In practice:
 - **ATU button is unresponsive** — The radio's TGXL is in OPERATE mode. ATU is disabled in this mode. Switch the TGXL out of OPERATE mode before attempting to tune.
 - **Success indicator does not light after tuning** — The ATU may have bypassed (check `Byp`) or the tune-carrier power may be too low for the ATU to work with your antenna. Increase `Tune Pwr` and try again.
 - **Clicking ATU bypasses instead of tuning** — The ATU status is Successful or OK and the TX frequency has not changed since the last tune. This is the expected second-click bypass behavior. Change frequency to force a fresh tune cycle, or leave the tuner in its current matched state.
+- **Quindar tones do not play on MOX** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode. Quindar tones are not played on CW or digital modes.
 
 ## Related
 

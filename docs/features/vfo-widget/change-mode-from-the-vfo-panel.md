@@ -24,10 +24,40 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 
 **Filter preset buttons** — appear on the same Mode tab. Each button applies a saved filter width. Right-click a button to save the current filter width into that slot. Presets are persisted in `FilterPresets`.
 
+## DSP tab controls
+
+The DSP tab shows buttons for noise reduction and filtering algorithms supplied directly by the radio. The following buttons are available:
+
+| Button | Description |
+|---|---|
+| NR | Noise reduction |
+| NB | Noise blanker |
+| ANF | Automatic notch filter |
+| APF | Audio peak filter (visible in CW mode only) |
+| NRL | Noise reduction level |
+| NRS | Spectral subtraction |
+| RNN | RNN noise reduction |
+| NRF | Spectral noise filter |
+| ANFL | LMS notch filter |
+| ANFT | FFT notch filter |
+
+All buttons default to off and toggle the corresponding algorithm on or off for the active slice.
+
+> **Note:** The client-side noise reduction modules NR2, NR4, MNR, BNR, DFNR, and RN2 are no longer accessible from the DSP tab. Toggle those algorithms from the spectrum overlay menu or from the AetherDSP applet.
+
+### DSP level slider
+
+When one or more leveled DSP algorithms (NR, NB, ANF, NRL, NRS, or NRF) are active, a level slider appears below the DSP button grid. The slider label shows which algorithm is currently targeted — the most recently enabled leveled DSP. The numeric value is displayed to the right of the slider.
+
+- Range: 0–100.
+- The slider retargets automatically when you enable a different leveled DSP button.
+- When no leveled DSP is active, or when only RNN, ANFT, or APF is on, the slider row fades out. It remains in the layout at all times to prevent the button grid from shifting.
+
 ## Tips
 
 - Changing mode may alter the active filter passband. Check the filter width label in the header row after switching modes, and apply a filter preset if needed.
 - The filter width label in the VFO panel header shows the current bandwidth. Click it to cycle through the filter preset buttons on the Mode tab.
+- To access NR2, NR4, MNR, BNR, DFNR, or RN2, right-click the spectrum display and open the overlay menu, or open the AetherDSP applet.
 
 ## Related
 

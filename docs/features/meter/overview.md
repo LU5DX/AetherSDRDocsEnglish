@@ -23,20 +23,22 @@ PA temperature and supply voltage are reported directly from the radio's hardwar
 
 ## What each control does
 
-| Gauge | What it shows | Valid range | Red above |
-|---|---|---|---|
-| **PA Temp** | Power amplifier temperature | 0–120 °C | 70 °C |
-| **+13.8V** | DC supply voltage | 10.0–16.0 V | 15 V |
-| **Main Fan** | Main cooling fan speed | 0–3000 rpm | 2500 rpm |
+| Gauge        | What it shows               | Valid range |
+|--------------|-----------------------------|-------------|
+| **PA Temp**  | Power amplifier temperature | 0–120 °C    |
+| **+13.8V**   | DC supply voltage           | 10.0–16.0 V |
+| **Main Fan** | Main cooling fan speed      | 0–3000 rpm  |
 
 None of the gauges have persisted settings or user-adjustable controls. There are no `AppSettings` keys associated with this applet.
+
+The label on the **+13.8V** gauge dynamically updates to reflect the live voltage value reported by the radio. For example, when the radio reports 13.82 V, the gauge label reads **+13.82V**. Prior to v0.9.7, the label always showed the static text **+13.8V** regardless of the actual reading.
 
 **Note:** PA current is not displayed. On FLEX-8000 series hardware the PA current meter is capped at 10 A, which causes the reading to clip under full PA draw, making it unreliable.
 
 ## Tips
 
 - A PA Temp reading that regularly reaches the red zone (above 70 °C) during long transmissions may indicate inadequate ventilation around the radio.
-- The +13.8V gauge red threshold is 15 V. Readings consistently above that value suggest a power supply regulation issue worth investigating.
+- The voltage gauge red threshold is 15 V. Readings consistently above that value suggest a power supply regulation issue worth investigating.
 - Main Fan speed will read zero until the radio publishes the MAINFAN meter. This is normal for the first few seconds after connecting.
 
 ## Related

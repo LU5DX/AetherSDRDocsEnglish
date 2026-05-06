@@ -22,18 +22,22 @@ This page explains how to play back audio you have already recorded with the pos
 |------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Play (▶)**                                         | Starts playback of the captured PUDU audio; click again to cancel.                                                                     | Hidden in RX mode. Enabled only when a recording exists and recording is not active. Pulses green while playing.                                                                                                                                                       |
 | **Record (⏺)**                                       | Disabled during playback.                                                                                                              | Re-enabled automatically when playback ends.                                                                                                                                                                                                                           |
+| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Single-click toggles bypass for the stage; double-click opens the Aetherial Audio Channel Strip (the unified TX DSP window); drag reorders the TX chain. | Double-clicking any TX stage tile now opens the channel strip rather than a per-stage floating editor. The per-stage editors remain accessible from within the channel strip itself. |
 | RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU)   | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips.    |
+| **BYPASS**                                           | Checked: snapshots the currently-enabled stages on the active side and disables all of them. Unchecked: re-enables the stages that were on before. | When the TX side is active, the BYPASS button state is synchronised with the engine's master TX bypass. Toggling BYPASS in the Aetherial Audio Channel Strip is reflected here, and vice versa. TX and RX maintain separate snapshots. |
 
 ## Tips
 
 - The Play (▶) button remains enabled while playback is running so you can cancel at any time by clicking it again.
 - If you want a new recording before listening, click **Record (⏺)** to capture up to 30 seconds of post-PUDU TX audio. Playback starts automatically when recording stops.
 - The Play (▶) button is hidden whenever the **RX** tab is active. Switch back to **TX** to access it.
+- Double-clicking any TX chain stage tile opens the Aetherial Audio Channel Strip, which gives access to all TX DSP controls in one window. To edit a specific stage in isolation, open the channel strip and use its own controls.
 
 ## Troubleshooting
 
 - **Play (▶) is greyed out** — No recording exists yet, or recording is currently in progress. Make a recording first using **Record (⏺)**, or wait for the current recording to finish.
 - **Play (▶) is not visible** — The **RX** tab is active. Click **TX** to switch to the TX chain view.
+- **BYPASS button state does not match what I set in the channel strip** — The BYPASS button on the chain applet and the BYPASS control in the Aetherial Audio Channel Strip share the same engine-owned TX bypass state. Switching to the RX side and back will restore the correct visual state.
 
 ## Related
 

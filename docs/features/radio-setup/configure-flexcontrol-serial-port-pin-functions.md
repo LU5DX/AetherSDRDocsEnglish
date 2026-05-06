@@ -83,6 +83,44 @@ Before starting calibration, AetherSDR now resets the stored frequency error to 
 | **Start** | Starts the frequency calibration sweep. | Disabled and labelled **Busy** while active. Validates that a cal frequency has been entered before proceeding. |
 | **Freq Offset (ppb):** | Manual frequency offset in parts per billion. | Reset to 0 automatically when **Start** is clicked. |
 
+## 10 MHz reference source changes in v0.9.7
+
+The **10 MHz Reference Source:** combo box on the **RX** tab has been updated to populate and display more accurately based on detected hardware and live oscillator state.
+
+Previously, the combo box listed only the options corresponding to hardware detected at the time the dialog opened (TCXO, GPSDO, External), and the lock status label showed only the raw oscillator state string followed by "Locked" or "Unlocked". Starting in v0.9.7, the combo box and status label behave as follows.
+
+### Combo box population
+
+The combo box is rebuilt dynamically. **Auto** is always present. Additional entries appear when any of the following is true for that source:
+
+- The radio has reported any oscillator status (the state field is non-empty) — in this case **TCXO** and **External 10 MHz** are always included.
+- The corresponding hardware is detected (`tcxoPresent`, `gpsdoPresent`, `extPresent`).
+- The source matches the current setting or the current oscillator state.
+
+The entry for an external reference is now labelled **External 10 MHz** instead of **External**.
+
+The combo box selects the entry matching the radio's current oscillator setting. If that setting is not in the list, it falls back to the current combo selection, then to **Auto**.
+
+### Lock status label
+
+The lock status label beside the combo box now shows a richer description:
+
+- When oscillator status has not yet been received: *Waiting for oscillator status* (shown in grey/blue).
+- When **Auto** is selected and the radio has resolved to a specific source: *Auto -> \<resolved source\>* (for example, *Auto -> GPSDO*).
+- When the setting and active state differ: *\<setting\> -> \<active state\>* (for example, *TCXO -> External 10 MHz*).
+- Otherwise: the active source name alone.
+
+In all cases the lock state is appended: *Locked* (shown in green) or *Unlocked* (shown in red). If the active source is **External 10 MHz** but no external reference is detected, *(not detected)* is appended after the lock state.
+
+The label color is green (`#00c040`) when locked, red (`#c04040`) when unlocked, and grey-blue (`#8aa8c0`) while waiting for status.
+
+### Updated RX tab reference source controls
+
+| Control | What it does | Notes |
+|---|---|---|
+| **10 MHz Reference Source:** | Selects the oscillator reference source. Sends `radio oscillator <value>` to the radio when changed. | **Auto**, **TCXO**, **GPSDO**, and **External 10 MHz** entries. Options shown depend on hardware detected and live oscillator state. The value `ext` reported by the radio is treated as equivalent to `external`. |
+| Lock status label | Shows the active source, resolution of Auto, and lock state. Updates live as the radio reports oscillator state changes. | Green = Locked; Red = Unlocked; Grey-blue = waiting for status. Appends *(not detected)* when External 10 MHz is active but no external reference signal is present. |
+
 ## Slice color themes (Themes tab)
 
 The **Themes** tab was added in v0.9.3 under Radio Setup. It hosts the **Slice Colors** section, which lets you replace the built-in AetherSDR slice colors with a fully custom per-slice palette.
@@ -100,36 +138,4 @@ The **Themes** tab was added in v0.9.3 under Radio Setup. It hosts the **Slice C
 |---|---|---|---|
 | **Use Aether defaults** | Uses the built-in AetherSDR slice color palette. | Selected | Slice color buttons are disabled when this is active. |
 | **Custom colors** | Enables per-slice color assignment. | — | Activates the A–H color buttons. |
-| **Slice A–H color buttons** | Click a lettered button to open a color picker for that slice. Changes apply immediately. | — | Up to 8 slices supported. Buttons disabled when **Use Aether defaults** is selected. |
-| **Reset All to Defaults** | Resets all custom slice colors to the built-in AetherSDR palette. | — | — |
-
-## External APD tab (FLEX-8x00 only)
-
-The **APD** tab configures the External Adaptive Pre-Distortion sampler. It is only visible when the connected radio reports `apd configurable=1`, which requires a FLEX-8x00 series radio running SmartSDR 4.2.18 or later firmware. The tab is hidden automatically for 6000-series radios and for any radio running firmware earlier than 4.2.18.
-
-The APD system samples the outgoing RF signal and uses the feedback to train a pre-distortion model that linearises the transmitter. When driving an external linear amplifier, you can select an external receive input as the feedback path instead of the radio's internal coupler.
-
-### Steps
-
-1. Open `Settings > Radio Setup...`. If the **APD** tab is not visible, your radio or firmware does not support configurable APD.
-2. For each TX antenna (**ANT1**, **ANT2**, **XVTA**, **XVTB**), select the feedback sample port from the corresponding combo box. Choose **INTERNAL** when transmitting directly into the radio's own load or antenna. Choose **RX_A**, **RX_B**, **XVTA**, or **XVTB** when a directional coupler on that receive input samples the output of an external amplifier.
-3. To clear all accumulated APD training data and restart adaptation from scratch, click **Equalizer Reset**.
-
-### APD tab controls
-
-| Control | What it does | Default | Valid values |
-|---|---|---|---|
-| **ANT1 / ANT2 / XVTA / XVTB sampler combos** | Selects the feedback path the radio uses to sample outgoing RF for APD training on that TX antenna. | INTERNAL | INTERNAL, RX_A, RX_B, XVTA, XVTB |
-| **Equalizer Reset** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — | — |
-
-## ShackSwitch support changes in v0.9.4
-
-The **Peripherals** tab gains a dedicated ShackSwitch row and a **⚙ Web UI** button in v0.9.4. Previously, the Antenna Genius row would show a connected state even when the connected device was a ShackSwitch. The two devices are now handled separately.
-
-### Antenna Genius row behavior change
-
-The **Antenna Genius (AG)** Connect/Disconnect row now shows a connected status only when the connected device is a genuine Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row shows as disconnected and the ShackSwitch row shows as connected instead.
-
-### ShackSwitch row
-
-A new **ShackSwitch** row has been added below the Antenna Genius row. It follows the
+| **Slice A–H color buttons

@@ -19,15 +19,25 @@ To revert to per-spot colors, click the **Override Colors:** toggle again so it 
 
 ## What each control does
 
-| Control | Default | Persisted key | Behavior |
-|---|---|---|---|
-| **Override Colors:** toggle | Disabled | `IsSpotsOverrideColorsEnabled` | When Enabled, forces all spot text to a single color instead of source-assigned colors. |
-| Spot text color picker (swatch button) | `#FFFF00` | `SpotsOverrideColor` | Opens the color picker dialog. The selected color is applied to all spot labels when Override Colors is Enabled. |
+| Control | Default | Persisted key |
+|---|---|---|
+| **Override Colors:** toggle | Disabled | `IsSpotsOverrideColorsEnabled` |
+| Spot text color picker (swatch button) | `#FFFF00` | `SpotsOverrideColor` |
+| **Spot Lines:** toggle | Enabled | `IsSpotsLinesEnabled` |
+
+## Spot Lines
+
+The **Spot Lines:** toggle draws a vertical line from the spectrum baseline up to each spot label. It is enabled by default.
+
+To hide spot lines, click the **Spot Lines:** toggle so it reads **Disabled**. This saves `IsSpotsLinesEnabled` as `False`. Disabling spot lines is useful during contests where many closely spaced spots create visual clutter on the panadapter.
+
+To restore spot lines, click the toggle again so it reads **Enabled**.
 
 ## Tips
 
 - The color picker only takes effect while **Override Colors:** reads **Enabled**. You can pre-select a color while the toggle is still Disabled; it will apply the next time you enable the override.
 - If spot text is still hard to read after setting the color, adjust the background contrast using the **Override Background:** controls — see [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md) and [Adjust spot background opacity](adjust-spot-background-opacity.md).
+- During contests, disabling **Spot Lines:** while keeping spots enabled reduces clutter without losing frequency labels.
 
 ## Related
 

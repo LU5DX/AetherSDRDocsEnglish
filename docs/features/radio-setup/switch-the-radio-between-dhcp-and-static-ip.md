@@ -93,8 +93,4 @@ The **RX** tab provides manual frequency offset calibration and 10 MHz reference
 | **Cal Frequency (MHz):** | Spinbox / text field | Frequency used for calibration. Must not be empty before starting. |
 | **Start** | Push button | Starts the frequency calibration sequence. Sets `cal_freq`, resets `freq_error_ppb` to 0, then triggers the radio PLL calibration. The button is disabled and shows **Busy** while calibration is running. A status label beside the button reports progress (Starting… / running / result). |
 | **Freq Offset (ppb):** | Spinbox | Manual frequency offset in parts per billion. Set to 0 automatically at the start of a calibration run. |
-| **10 MHz Reference Source:** | Combo box | Selects oscillator reference source: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Live lock status (Locked / Unlocked) is displayed alongside the combo. |
-
-### How calibration works in v0.9.2.1
-
-1. Enter the known reference frequency in **
+| **10 MHz Reference Source:** | Combo box | Selects oscillator reference source. The combo is populated dynamically based on hardware present and the radio's reported oscillator setting and state. Available options are: **Auto**, **TCXO** (shown when hardware is present or the radio is currently using TCXO), **GPSDO** (shown when a GPSDO

@@ -28,6 +28,8 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 | **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`. |
 | **POTA Activations** | Text field | Read-only console showing the activation feed. |
 | **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`. |
+| Total Spots: | Indicator | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
+| **Spot Lines:** | Toggle button | Draws vertical lines from the spectrum up to each spot label. Enabled by default. Disable during contests to reduce visual clutter. Persisted as `IsSpotsLinesEnabled`. New in v0.9.7. |
 
 ## FreeDV Reporter controls (FreeDV tab)
 
@@ -55,11 +57,16 @@ If either the resolved callsign or grid square is empty, AetherSDR displays a wa
 
 As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled**. The setting is persisted as `SpotAutoSwitchMode`. If you previously left this at its default, it will now be active after a fresh installation. Existing installations retain whatever value was last saved.
 
+## Tune to a spot by double-clicking the spot list
+
+As of v0.9.7, double-clicking a row in the **Spot List** tab tunes your radio to the spot frequency and also forwards a mode hint derived from the spot comment. AetherSDR will switch the active slice to CW, SSB, or the appropriate digital mode to match the spot, rather than only changing the frequency. If the spot comment contains no recognizable mode token, the slice mode is left unchanged.
+
 ## Tips
 
 - POTA spots appear in the unified **Spot List** tab alongside spots from other sources. The **Source** column identifies them.
-- Double-clicking a POTA spot row in the Spot List tunes your radio to that frequency. See [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md).
+- Double-clicking a POTA spot row in the Spot List tunes your radio to that frequency and switches the slice mode to match the spot where possible. See [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md).
 - If spots are not visible on the panadapter, confirm that the **Spots:** master toggle on the **Display** tab is set to **Enabled** (`IsSpotsEnabled`).
+- To reduce panadapter clutter during a contest, set **Spot Lines:** to **Disabled** on the **Display** tab. This hides the vertical lines while keeping spot labels visible.
 
 ## Troubleshooting
 
@@ -67,6 +74,8 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - **No spots appear on the panadapter despite Polling status** — Verify that **Spots:** on the **Display** tab is **Enabled**. Also check that the current band is not filtered out in the **Spot List** tab's **Bands:** checkboxes.
 - **POTA Activations console is empty** — There may be no active POTA activations at this time, or the poll has not yet completed. Wait for the next poll interval to elapse.
 - **FreeDV Reporter checkbox immediately unchecks** — Either the **Callsign:** or **Grid Square:** field is empty. Enter a valid callsign and Maidenhead grid square (or enable **Use radio** / **Use GPS** if the radio supplies them), then check the box again.
+- **Auto Mode: defaults to Enabled on new installations** — As of v0.9.5.1, **Auto Mode:** defaults to **Enabled**. If you prefer that clicking a spot does not automatically switch the slice mode, set **Auto Mode:** to **Disabled** on the **Display** tab and the preference will be saved.
+- **Double-clicking a spot switches to the wrong mode** — Mode is inferred from the spot comment text. If the comment does not contain a standard mode token, the slice mode is not changed. Edit the filter settings on the relevant source tab to improve comment quality, or switch the mode manually after tuning.
 
 ## Related
 
@@ -75,3 +84,4 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=v0.9.7 date=2026-05-03 -->

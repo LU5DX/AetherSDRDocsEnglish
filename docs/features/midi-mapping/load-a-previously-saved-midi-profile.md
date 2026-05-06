@@ -16,12 +16,11 @@ The current bindings are replaced with the bindings stored in the selected profi
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
-|---|---|---|---|
-| Profile: | Combo box | Picks a saved MIDI mapping profile to load or save. Editable. | — |
-| Load | Button | Replaces current bindings with those from the selected profile. | — |
-| Bindings table | List | Displays the bindings now active after the load. | — |
-
+| Control        | Kind      | Behavior                                                        |
+|----------------|-----------|-----------------------------------------------------------------|
+| Profile:       | Combo box | Picks a saved MIDI mapping profile to load or save. Editable.   |
+| Load           | Button    | Replaces current bindings with those from the selected profile. |
+| Bindings table | List      | Displays the bindings now active after the load.                |
 ## Tips
 
 - The Profile: combo box is editable. If you type a name that does not match a saved profile and click Load, nothing is loaded — no error is shown and the current bindings remain unchanged.

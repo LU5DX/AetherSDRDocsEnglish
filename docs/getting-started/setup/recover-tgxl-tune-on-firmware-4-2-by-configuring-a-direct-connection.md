@@ -33,11 +33,42 @@ AetherSDR saves the IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on a su
 - If the radio has already discovered the TGXL on the LAN, the IP address field is pre-filled. You only need to click `Connect`.
 - The saved `TGXL_ManualIp` and `TGXL_ManualPort` values persist across restarts, so you only need to perform this setup once.
 
+## 10 MHz reference source display (v0.9.7)
+
+The `10 MHz Reference Source:` combo box on the `RX` tab was updated in v0.9.7. The list of available sources and the lock-status label next to it now behave differently from earlier releases.
+
+### Source combo box
+
+The combo box is now populated dynamically based on the hardware present in the connected radio and the current oscillator setting and state reported by the radio. The following sources may appear:
+
+| Entry | When shown |
+|---|---|
+| Auto | Always shown. |
+| TCXO | Shown when the radio reports a TCXO is present, or when the current or reported state refers to TCXO. |
+| GPSDO | Shown when the radio reports a GPSDO is present, or when the current or reported state refers to GPSDO. |
+| External 10 MHz | Shown when the radio reports an external reference is present or active, or when the current or reported state refers to external. Note: the label changed from "External" to "External 10 MHz" in v0.9.7. |
+
+The combo selects the saved oscillator setting automatically when the dialog opens. If the saved setting is not in the list, the current reported state is tried; if that is also absent, Auto is selected.
+
+### Lock status label
+
+The status label next to the combo box was updated to show richer information:
+
+- When Auto is selected and the radio has switched to a specific source, the label reads **Auto -> \<source\>** followed by **Locked** or **Unlocked**.
+- When the requested source differs from the active source, the label reads **\<requested\> -> \<active\>** followed by **Locked** or **Unlocked**.
+- When the requested and active sources match, the label reads **\<source\> Locked** or **\<source\> Unlocked**.
+- When External 10 MHz is selected but no external reference is detected, the label appends **(not detected)**.
+- While waiting for the radio to report oscillator status, the label reads **Waiting for oscillator status**.
+
+The label color is green when locked and red when unlocked. Before the radio reports any oscillator state, the label is shown in a neutral gray.
+
 ## Troubleshooting
 
 - **`Connect` button does not change to `Disconnect`** — The TGXL is not reachable at the entered IP and port. Confirm the TGXL is powered on, check that port `9010` is not blocked by a firewall, and verify the IP address is correct.
 - **TUNE still does not work after connecting** — Confirm the `Disconnect` label is shown in the TGXL row, which confirms the direct connection is active. If the button reverted to `Connect`, the connection dropped; check network stability and reconnect.
 - **IP address field is empty and the radio has not discovered the TGXL** — Enter the TGXL's IP address manually. You can find it in your router's DHCP table or on the TGXL's front panel.
+- **10 MHz reference source combo shows only Auto** — The radio has not yet reported oscillator hardware status. Wait a moment for the connection to fully initialize, then reopen the dialog. If a known source such as GPSDO is not appearing, confirm the hardware is seated correctly and the radio firmware is 4.2 or later.
+- **Lock status shows "Waiting for oscillator status"** — The radio has not yet sent oscillator state. This clears automatically once the radio responds; no action is required.
 
 ## Related
 

@@ -35,12 +35,17 @@ Use this mode when the radio is at a different location. Enter your FlexRadio ac
 
 Use this mode for VPN or routed network connections where you already know the radio's IP address. Enter the address in **Radio IP address** (persisted as `ManualRadioIp`), then click **Connect by IP**.
 
-Two additional controls are available on this page:
+The **Radio IP address** field is an editable drop-down. AetherSDR stores up to three recently used addresses (persisted as `RecentConnectByIpAddresses`) and populates the drop-down with them when the panel opens. Click the drop-down arrow to select a previous address, or type a new one directly. Addresses are normalized before saving; duplicates are not stored. If a legacy `LastRoutedRadioIp` value exists from an earlier version, it is imported automatically the first time the panel opens.
+
+Three additional controls are available on this page:
 
 - **Advanced: Source path** — selects which local network interface (NIC) is used for the connection. The chosen interface is persisted as `ManualBindSource`. A **Source warning label** appears if the saved interface is unavailable or stale.
 - **Use low bandwidth mode** — reduces stream data rates for slow or congested links. Persisted as `LowBandwidthMode`.
+- **Network Diagnostics** — opens the network diagnostics tool if the connection fails.
 
-Click **Network Diagnostics** on this page to open the network diagnostics tool if the connection fails.
+### Startup behavior
+
+The **Connect to last radio on start up** checkbox controls whether AetherSDR connects automatically when it starts. When checked (the default), AetherSDR attempts to reconnect to the last used radio on startup and whenever it probes broadcast-discovery or routed-radio addresses. When unchecked, the connection panel opens at startup and you must select a radio manually each session. This preference is persisted as `AutoConnectToLastRadio`.
 
 ### Status indicators
 
@@ -52,30 +57,31 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 
 ## What each control does
 
-| Control | Mode | Behavior | Persisted key | Default |
-|---|---|---|---|---|
-| **On This Network** | — | Switches to local LAN discovery mode. | `ConnectionMode` | Local |
-| **Remote with SmartLink** | — | Switches to SmartLink remote mode. | `ConnectionMode` | — |
-| **Connect by IP** | — | Switches to manual IP entry mode. | `ConnectionMode` | — |
-| **Available radios** | Local | Lists radios found by LAN discovery. | — | — |
-| **Connect Selected Radio** | Local | Connects to the highlighted radio. | — | — |
-| **No local radios found yet** | Local | Indicator shown when discovery is empty. | — | — |
-| **Retry Discovery** | Local | Re-runs LAN discovery. | — | — |
-| **Remote with SmartLink** (shortcut) | Local | Switches to the SmartLink page. | — | — |
-| **Connect by IP** (shortcut) | Local | Switches to the Manual page. | — | — |
-| **Open Network Diagnostics** | Local | Opens the network diagnostics tool. | — | — |
-| **SmartLink account: Email** | SmartLink | FlexRadio account email address. | `SmartLinkEmail` | — |
-| **SmartLink account: Password** | SmartLink | Account password (not saved between sessions). | — | — |
-| **Sign In** | SmartLink | Authenticates with SmartLink. | — | — |
-| **Sign Out** | SmartLink | Logs out of SmartLink. | — | — |
-| **Remote radios** | SmartLink | Lists WAN radios available to the account. Scrollable; fixed display height. | — | — |
-| **Connect Remote Radio** | SmartLink | Starts a WAN connection to the selected radio. | — | — |
-| **Radio IP address** | Manual | IP address of the radio to connect to. | `ManualRadioIp` | — |
-| **Advanced: Source path** | Manual | Selects the local NIC for the connection. | `ManualBindSource` | — |
-| **Use low bandwidth mode** | Manual | Enables reduced-rate streams for slow links. | `LowBandwidthMode` | — |
-| **Network Diagnostics** | Manual | Opens the network diagnostics tool. | — | — |
-| **Connect by IP** (manual) | Manual | Initiates the manual/VPN connection. | — | — |
-| **Disconnect** | All | Disconnects from the current radio. | — | — |
+| Control | Mode | Behavior |
+|---|---|---|
+| **Local** | — | Switches to local LAN discovery mode. |
+| **SmartLink** | — | Switches to SmartLink remote mode. |
+| **Manual** | — | Switches to manual IP entry mode. |
+| **Available radios** | Local | Lists radios found by LAN discovery. |
+| **Connect Selected Radio** | Local | Connects to the highlighted radio. |
+| **No local radios found yet** | Local | Indicator shown when discovery is empty. |
+| **Retry Discovery** | Local | Re-runs LAN discovery. |
+| **Remote with SmartLink** (shortcut) | Local | Switches to the SmartLink page. |
+| **Connect by IP** (shortcut) | Local | Switches to the Manual page. |
+| **Open Network Diagnostics** | Local | Opens the network diagnostics tool. |
+| **SmartLink account: Email** | SmartLink | FlexRadio account email address. Persisted as `SmartLinkEmail`. |
+| **SmartLink account: Password** | SmartLink | Account password (not saved between sessions). |
+| **Sign In** | SmartLink | Authenticates with SmartLink. |
+| **Sign Out** | SmartLink | Logs out of SmartLink. |
+| **Remote radios** | SmartLink | Lists WAN radios available to the account. Scrollable; fixed display height. |
+| **Connect Remote Radio** | SmartLink | Starts a WAN connection to the selected radio. |
+| **Radio IP address** | Manual | Editable drop-down showing up to three recent addresses (persisted as `RecentConnectByIpAddresses`). Type a new address or select a previous one. Persisted as `ManualRadioIp`. |
+| **Advanced: Source path** | Manual | Selects the local NIC for the connection. Persisted as `ManualBindSource`. |
+| **Use low bandwidth mode** | Manual | Enables reduced-rate streams for slow links. Persisted as `LowBandwidthMode`. |
+| **Network Diagnostics** | Manual | Opens the network diagnostics tool. |
+| **Connect by IP** (manual) | Manual | Initiates the manual/VPN connection. |
+| **Connect to last radio on start up** | All | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection panel opens and the user must pick a radio manually each session. Defaults to checked. Persisted as `AutoConnectToLastRadio`. |
+| **Disconnect** | All | Disconnects from the current radio. |
 
 ## Related
 
