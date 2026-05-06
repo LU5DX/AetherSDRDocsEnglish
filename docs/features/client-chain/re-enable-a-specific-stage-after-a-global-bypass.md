@@ -22,14 +22,16 @@ After using BYPASS to silence every stage in the TX or RX chain, you can bring b
 |---|---|---|
 | TX | Toggle button | Switches the chain view to the TX DSP chain. TX and RX keep independent stage states and BYPASS snapshots. |
 | RX | Toggle button | Switches the chain view to the RX DSP chain. |
-| BYPASS | Toggle button | When checked, snapshots the currently-enabled stages and disables all of them. When unchecked, restores only the stages that were on before. Stages toggled manually while BYPASS is active are preserved outside the snapshot. |
-| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor. Drag reorders the chain. |
+| BYPASS | Toggle button | When checked, snapshots the currently-enabled stages and disables all of them. When unchecked, restores only the stages that were on before. Stages toggled manually while BYPASS is active are preserved outside the snapshot. On the TX side, bypass state is owned by the audio engine; the BYPASS button stays in sync with the engine automatically, including changes made from the Aetherial Audio Channel Strip. |
+| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens the Aetherial Audio Channel Strip (the unified TX DSP window). Drag reorders the chain. |
 | RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Stage tile | Single-click toggles bypass for that stage only. Double-click opens its frameless floating editor in RX mode. Drag reorders the RX chain. All five RX stages are fully implemented. Order is independent of the TX chain. |
 
 ## Tips
 
 - Manually re-enabling a stage while BYPASS is checked places that stage outside the bypass snapshot. If you later uncheck BYPASS to do a full restore, that stage's pre-bypass state (not its current state) is what gets applied. Re-enable only the stages you deliberately want active during bypass.
 - TX and RX maintain separate BYPASS snapshots. Enabling specific stages on the TX side does not affect the RX side's snapshot, and vice versa.
+- On the TX side, the BYPASS button reflects engine-owned state. If you toggle TX bypass from the Aetherial Audio Channel Strip, the BYPASS button in the chain applet updates automatically to match.
+- Double-clicking any TX stage tile now opens the Aetherial Audio Channel Strip rather than a per-stage floating editor. Individual stage editors are still accessible from within the Channel Strip itself.
 - The hint below the chain strip reads "Click to bypass · Double click to edit · Drag to reorder" and applies to both chain sides.
 
 ## Related

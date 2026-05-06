@@ -17,7 +17,6 @@ AetherSDR can receive DX spots broadcast by Ham Radio Deluxe's SpotCollector ove
 6. To have the listener start automatically every time AetherSDR launches, enable **Auto-start on startup**. This is saved as `SpotCollectorAutoStart`.
 
 ## What each control does
-
 | Control | Description | Setting key |
 |---|---|---|
 | **UDP Port:** | UDP port AetherSDR listens on for SpotCollector broadcasts. Valid range: 1–65535. | `SpotCollectorPort` |
@@ -30,6 +29,9 @@ AetherSDR can receive DX spots broadcast by Ham Radio Deluxe's SpotCollector ove
 | **Grid Square: (FreeDV Reporter)** | Maidenhead grid square to report. Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
 | **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
 | **Station Msg: (FreeDV Reporter)** | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+| **Auto Mode:** | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default is **Enabled**. | `SpotsAutoMode` |
+| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Default is **Enabled**. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
 
 ## FreeDV Reporter reporting
 
@@ -56,12 +58,17 @@ If either value is missing when you attempt to enable **Enable FreeDV Reporter r
 
 ## Auto Mode default change
 
-As of v0.9.5.1, **Auto Mode:** (`SpotAutoSwitchMode`) defaults to **Enabled** for new installations. If you are upgrading and want to retain the previous behavior, open the **Display** tab and set **Auto Mode:** to **Disabled**.
+As of v0.9.5.1, **Auto Mode:** (`SpotsAutoMode`) defaults to **Enabled** for new installations. If you are upgrading and want to retain the previous behavior, open the **Display** tab and set **Auto Mode:** to **Disabled**.
+
+## Tune to a spot by double-clicking
+
+Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also reads the mode hint from the spot comment and forwards it to the receiver, so the slice switches to the correct mode (for example CW or SSB) at the same time as the frequency changes. No additional configuration is required.
 
 ## Tips
-
 - Spots received from SpotCollector appear alongside spots from other sources in the **Spot List** tab. The **Source** column identifies them.
 - If the panadapter spot overlay is not visible, check that **Spots:** is set to **Enabled** on the **Display** tab.
+- **Auto Mode** defaults to **Enabled**. When you double-click a spot that includes mode information (e.g. CW, FT8, RTTY), the slice mode switches automatically. Disable it on the **Display** tab if you prefer to switch modes manually.
+- Use **Spot Lines:** on the **Display** tab to control whether vertical lines are drawn from the spectrum up to each spot label. Disable this during contests to reduce visual clutter.
 
 ## Troubleshooting
 
@@ -76,3 +83,4 @@ As of v0.9.5.1, **Auto Mode:** (`SpotAutoSwitchMode`) defaults to **Enabled** fo
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->

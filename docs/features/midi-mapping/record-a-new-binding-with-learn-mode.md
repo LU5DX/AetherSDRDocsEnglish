@@ -19,17 +19,16 @@ Use Learn mode to map a physical knob, fader, or button on your MIDI controller 
 
 ## What each control does
 
-| Control | Description |
-|---|---|
-| **Category** | Filters the Parameter list to a specific control category (All, RX, TX, Phone/CW, EQ, Global). |
-| **Parameter** | Selects the target parameter to bind. |
-| **Learn** | Starts listening for the next MIDI message and binds it to the selected parameter. Click again (shown as **Cancel Learn**) to abort. |
-| **Bindings table** | Displays all current bindings. Columns: Parameter, MIDI Source, Channel, Invert, Relative, and a delete button. |
-| **Invert** | Reverses the control direction for that binding row. |
-| **Relative** | Treats the assigned control as an endless encoder rather than an absolute value control. |
-| **× (delete row)** | Removes that individual binding. |
-| **Clear All** | Removes every binding at once. |
-
+| Control            | Description                                                                                                                          | Notes |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|-------|
+| **Category**       | Filters the Parameter list to a specific control category (All, RX, TX, Phone/CW, EQ, Global).                                       |       |
+| **Parameter**      | Selects the target parameter to bind.                                                                                                |       |
+| **Learn**          | Starts listening for the next MIDI message and binds it to the selected parameter. Click again (shown as **Cancel Learn**) to abort. |       |
+| **Bindings table** | Displays all current bindings. Columns: Parameter, MIDI Source, Channel, Invert, Relative, and a delete button.                      |       |
+| **Invert**         | Reverses the control direction for that binding row.                                                                                 |       |
+| **Relative**       | Treats the assigned control as an endless encoder rather than an absolute value control.                                             |       |
+| **× (delete row)** | Removes that individual binding.                                                                                                     |       |
+| **Clear All**      | Removes every binding at once.                                                                                                       |       |
 ## Tips
 
 - The **Activity indicator** in the MIDI Device section shows the most recent MIDI message received (channel, type, number, and value). Use it to confirm your controller is sending data before clicking Learn.

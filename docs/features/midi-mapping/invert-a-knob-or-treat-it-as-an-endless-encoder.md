@@ -18,11 +18,10 @@ After creating a MIDI binding, you can reverse its direction with Invert or tell
 
 ## What each control does
 
-| Control | Column in Bindings table | Behavior | Default |
-|---|---|---|---|
-| Invert | Invert | Reverses the direction of the control for that binding. Turn clockwise to decrease, counter-clockwise to increase, or vice versa. | Unchecked |
-| Relative | Relative | Treats the control as an endless encoder. Use this when your hardware knob sends incremental (relative) values rather than absolute positions (0–127). | Unchecked |
-
+| Control  | Column in Bindings table | Behavior                                                                                                                                               |
+|----------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Invert   | Invert                   | Reverses the direction of the control for that binding. Turn clockwise to decrease, counter-clockwise to increase, or vice versa.                      |
+| Relative | Relative                 | Treats the control as an endless encoder. Use this when your hardware knob sends incremental (relative) values rather than absolute positions (0–127). |
 ## Tips
 
 - Use Relative when your knob sends small increment/decrement values rather than an absolute position. If a knob jumps erratically when turned, enabling Relative usually corrects it.

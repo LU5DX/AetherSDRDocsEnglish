@@ -31,10 +31,15 @@ The Bias knob uses a linear mapping. The displayed value is a percentage. Intern
 - The Bias knob is also present in the docked applet tile (the compact five-knob row beneath the transfer curve), so you can make quick adjustments without opening the full editor.
 - Changes made in the docked tile and the floating editor stay in sync; a 30 Hz timer keeps both views updated.
 
+## Bypass dim
+
+When the Tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. The tile returns to full opacity as soon as the stage is re-enabled.
+
 ## Troubleshooting
 
 - **Bias knob has no audible effect** — Drive may be at or near 0.00 dB. Bias only shifts the operating point meaningfully when the curve is already bent. Increase Drive first.
 - **Level changes when Bias is adjusted** — This is expected. The asymmetry introduced by Bias can raise or lower the apparent output. Trim the Output knob to compensate.
+- **Docked tile appears dimmed** — The Tube stage is bypassed. Re-enable it on the TX or RX side. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
 
 ## Related
 

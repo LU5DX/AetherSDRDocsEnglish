@@ -22,6 +22,10 @@ The gate is a **downward expander**. When the input level falls below the Thresh
 
 Setting Ratio to a low value (near 1.0:1) produces a gentle soft-expander effect that gradually reduces level. Setting Ratio to a high value (near 10.0:1) produces a hard gate that cuts aggressively.
 
+### Bypass dimming
+
+When the gate stage is bypassed, the entire applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is not processing audio. The tile returns to full opacity as soon as the stage is re-enabled.
+
 ### Opening the applet
 
 Double-click the GATE stage in the CHAIN widget on the TX or RX side to open the matching frameless editor, titled **Aetherial Gate — TX** or **Aetherial Gate — RX**. The docked sub-container titlebars for **Aetherial TX Gate** and **Aetherial AGC-T** can be right-clicked to float, pop out, or hide the tile.
@@ -45,6 +49,7 @@ The controls listed below appear identically in both the TX and RX applets. The 
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
 
 The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (TX) and `ClientGateRxEnabled` (RX).
+
 ## Visual indicators
 
 | Indicator | States | Meaning |
@@ -52,17 +57,20 @@ The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (
 | Input ball | Below threshold / above threshold | Shows whether the gate is currently open or closed. |
 | Hysteresis band | Absent (Return = 0) / soft-cyan vertical band | Visualises the Return deadband on the transfer-curve input axis — the gate's sticky zone between (Thresh − Return) and Thresh. |
 | Gain-reduction strip | Empty / amber fill / −15 dB tick | Depth of attenuation while the gate is closed. |
+| Applet tile opacity | Full opacity (enabled) / ~55 % opacity (bypassed) | Indicates at a glance whether the gate stage is currently processing audio. |
 
 ## Tips
 
 - Watch the gain-reduction bar while not speaking (TX) or during a band-noise-only moment (RX). If the bar is not filling, Thresh is set below the noise floor and the gate is not triggering. See [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md).
 - The −15 dB tick on the gain-reduction bar marks the Floor default. If the bar fills fully past that tick, Floor is set deeper than −15 dB or Ratio is high enough to push reduction beyond it.
 - Use the cyan hysteresis band on the transfer curve to judge whether the Return value is wide enough to prevent chatter without making the gate sluggish to close.
+- When the tile appears dimmed, the gate stage is bypassed. Re-enable it via the CHAIN widget or the floating editor before expecting any attenuation.
 - Changes to any knob take effect immediately and are saved automatically. No Apply button is needed.
 
 ## Troubleshooting
 
 - **Applet is not visible** — The Gate stage has not been enabled on that side. Enable it via the CHAIN widget or the floating editor for the TX or RX side.
+- **Applet tile appears dimmed** — The gate stage is bypassed. The tile renders at reduced opacity when bypass is active. Enable the stage via the CHAIN widget or the floating editor to restore full processing and full tile brightness.
 - **Gate is not attenuating noise between words** — Thresh may be set too low, below the room noise floor. Raise Thresh until the gain-reduction bar shows movement during silence. See [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md).
 - **Gate chatters rapidly near the threshold** — Return is set too low. Increase Return so the gate does not reopen until the signal is clearly above Thresh, widening the deadband shown by the cyan band on the transfer curve.
 - **Unnatural silence between words** — Floor is set too deep. Raise Floor toward 0 dB so some residual audio passes through during closed periods. See [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md).

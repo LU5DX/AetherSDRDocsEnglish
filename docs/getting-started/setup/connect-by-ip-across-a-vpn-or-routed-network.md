@@ -12,20 +12,22 @@ Use this method when your FLEX-8600 is on a different subnet from your computer 
 
 1. Open the connection screen. It appears automatically before a radio is connected. If a radio is already connected, go to `Settings > Connect to Radio...` or disconnect first.
 2. Click **Connect by IP** in the mode button row at the top of the panel. The panel switches to the manual connection page. (Persisted as `ConnectionMode` = `ManualMode`.)
-3. In the **Radio IP address** field, type the IPv4 address of your FLEX-8600. This value is saved as `ManualRadioIp`.
+3. In the **Radio IP address** field, type the IPv4 address of your FLEX-8600, or select a recently used address from the drop-down list. AetherSDR stores up to three recent addresses. This value is saved as `ManualRadioIp`.
 4. If your computer has more than one network interface and you need to control which one is used for the connection, select the correct interface from **Advanced: Source path**. This is saved as `ManualBindSource`. If you are unsure, leave it on the default automatic selection.
 5. If the link is slow or metered, check **Use low bandwidth mode** to enable reduced-rate streams. This is saved as `LowBandwidthMode`.
-6. Click **Connect by IP** (the button at the bottom of the manual page). AetherSDR probes the address and shows the result in the manual result label below the button.
-7. Watch the status label. When it shows a connected state the radio is ready to use.
+6. If you do not want AetherSDR to connect automatically to the last used radio each time it starts, uncheck **Connect to last radio on start up**. This is saved as `AutoConnectToLastRadio`. The checkbox is enabled by default.
+7. Click **Connect by IP** (the button at the bottom of the manual page). AetherSDR probes the address and shows the result in the manual result label below the button.
+8. Watch the status label. When it shows a connected state the radio is ready to use.
 
 ## What each control does
 
 | Control | What it does | Persisted key |
 |---|---|---|
 | **Connect by IP** (mode button) | Switches the panel to the manual connection page. | `ConnectionMode` |
-| **Radio IP address** | The IPv4 address AetherSDR dials directly. | `ManualRadioIp` |
+| **Radio IP address** | The IPv4 address AetherSDR dials directly. Type a new address or select one of the last three used addresses from the drop-down. | `ManualRadioIp` |
 | **Advanced: Source path** | Selects the local network interface (NIC) used for the outgoing connection. | `ManualBindSource` |
 | **Use low bandwidth mode** | Reduces stream data rates for slow or metered links. | `LowBandwidthMode` |
+| **Connect to last radio on start up** | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 | **Connect by IP** (action button) | Starts the connection attempt to the entered IP address. | — |
 | **Network Diagnostics** | Opens the network diagnostics dialog from the manual page. | — |
 | Manual result label | Shows the outcome of the last connection probe (success or error text). | — |
@@ -33,8 +35,10 @@ Use this method when your FLEX-8600 is on a different subnet from your computer 
 
 ## Tips
 
+- The **Radio IP address** field keeps a drop-down history of the last three addresses you connected to successfully. Click the arrow to reselect a previous address without retyping it.
 - If the source warning label shows that your saved interface is unavailable, open **Advanced: Source path** and reselect the correct NIC for your VPN adapter. The warning appears when the previously saved interface is stale or unreachable.
 - If you land on the **On This Network** page and see "No local radios found yet", click **Connect by IP** in the callout to jump directly to the manual page.
+- If you previously connected using an older version of AetherSDR, your last used IP address is migrated automatically into the recent addresses history on first launch.
 
 ## Troubleshooting
 

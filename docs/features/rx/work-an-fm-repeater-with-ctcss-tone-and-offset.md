@@ -33,7 +33,6 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 | Simplex          | checked | toggle                                    |
 | + (offset up)    | —       | toggle                                    |
 | REV              | —       | toggle                                    |
-
 ## Tips
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.

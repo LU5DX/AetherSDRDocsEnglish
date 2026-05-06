@@ -13,12 +13,12 @@ Remove the Aetherial De-Esser from your TX audio path without changing any of it
 2. Find the **DESS** stage in the chain.
 3. Single-click the **DESS** stage to toggle bypass on or off.
 
-When bypassed, the stage is visually marked as inactive and the de-esser is removed from the TX audio path. Single-clicking again re-enables it. The `ClientDeEssTxEnabled` setting is updated immediately.
+When bypassed, the entire de-esser tile renders at reduced opacity (55 % of normal). Single-clicking again re-enables it and restores the tile to full opacity. The `ClientDeEssTxEnabled` setting is updated immediately.
 
 ## Tips
 
 - Bypassing does not reset any knob values. Freq, Q, Thresh, and Amount all retain their current settings when you re-enable the stage.
-- To open the full editor for detailed adjustments, double-click the **DESS** stage rather than single-clicking.
+- To adjust de-esser settings, open the Aetherial Audio Channel Strip rather than a separate editor window.
 
 ## Related
 

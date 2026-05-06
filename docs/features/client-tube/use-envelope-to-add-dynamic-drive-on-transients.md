@@ -6,6 +6,7 @@ The Envelope knob connects an envelope follower to the tube drive, so the amount
 
 - The Tube stage must be enabled for the side you want to adjust (TX or RX). If the applet is not visible, enable the stage via the CHAIN widget first.
 - Set Drive to a level where the transfer curve already shows some bend. Envelope modulates that drive; if Drive is at 0 dB the effect will be subtle.
+- When a Tube stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This visual cue matches the dim effect used on the EQ curve and confirms the DSP stage is inactive.
 
 ## Steps
 
@@ -24,18 +25,24 @@ The Envelope knob connects an envelope follower to the tube drive, so the amount
 | Attack | 5.00 ms | 0.1 to 30.0 ms | `ClientTubeTxAttackMs` / `ClientTubeRxAttackMs` | How quickly the follower responds to rising levels. Uses exponential scaling. Has no effect when Envelope is 0. |
 | Release | 35.00 ms | 10.0 to 500.0 ms | `ClientTubeTxReleaseMs` / `ClientTubeRxReleaseMs` | How quickly the follower recovers after levels fall. Uses exponential scaling. Has no effect when Envelope is 0. |
 
+## Bypass dimming
+
+When a Tube stage is bypassed, AetherSDR applies a `QGraphicsOpacityEffect` to the applet tile and renders it at 55 % opacity. The tile returns to full opacity as soon as the stage is re-enabled. This behavior applies to both the TX and RX tiles and requires no configuration.
+
 ## Tips
 
 - After setting a positive Envelope value, check the OUT meter in the editor. Peaks may be louder than the static Drive setting alone would produce; use the Output knob to compensate.
 - For natural-sounding TX mic grit, start with Envelope around +30 %, Attack at 5 ms, and Release at 50–80 ms, then adjust to taste.
 - Negative Envelope values behave like a dynamic saturation reducer — useful on RX to tame harsh peaks without removing tube character from quieter passages.
 - The Dry/Wet knob blends the fully processed signal (including envelope-modulated saturation) with the dry signal, so you can use high Envelope values without fully committing to the effect.
+- If a tile appears dimmed and controls are unresponsive, the stage is bypassed. Re-enable it via the CHAIN widget; the tile will return to full brightness.
 
 ## Troubleshooting
 
 - **Envelope knob has no audible effect** — Drive is likely at or near 0 dB. Set Drive to a value where the transfer curve visibly bends, then re-test Envelope.
 - **Effect sounds erratic or pumping** — Attack or Release values are too short for the program material. Increase Release toward 100 ms or more; increase Attack above 10 ms to ignore short transients.
 - **Output level spikes on transients** — Positive Envelope adds gain on peaks. Reduce Output to compensate, or reduce Envelope depth.
+- **Applet tile appears dim** — The Tube stage is bypassed. Enable the stage via the CHAIN widget to restore full opacity and DSP processing.
 
 ## Related
 

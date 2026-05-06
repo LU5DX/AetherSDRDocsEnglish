@@ -27,18 +27,21 @@ A fully closed gate produces complete silence, which can sound unnatural during 
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
 
 For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floor knob in the **Aetherial AGC-T** applet works identically.
+
 ## Tips
 
 - The default Floor of -15.0 dB is marked by the tick on the gain-reduction bar. If attenuation at that value still sounds abrupt, try raising Floor to -10.0 dB or -6.0 dB.
 - Floor only caps the attenuation ceiling — it does not change when or how fast the gate opens or closes. If the gate is opening and closing too sharply, also adjust **Release**. See [Tune release for natural open/close](tune-release-for-natural-open-close.md).
 - If the gate chatters — opening and closing rapidly on signals near the threshold — increase **Return** to widen the hysteresis deadband. The cyan band on the transfer curve grows wider as Return increases, making the sticky zone easy to judge visually.
 - Setting Floor to 0.0 dB disables all attenuation, effectively bypassing the gate's effect without disabling it in the chain.
+- When the Gate stage is disabled in the CHAIN widget, the entire applet tile dims to roughly half opacity. This matches the dim effect used on the EQ curve and provides a quick visual indication that the stage is bypassed without requiring you to check the CHAIN widget directly.
 
 ## Troubleshooting
 
 - **The gain-reduction bar fills all the way regardless of Floor** — confirm you are adjusting the Floor knob on the correct side (TX or RX). The TX and RX applets have fully independent state and separate persisted keys.
 - **Pauses still sound completely silent** — Floor may be set lower than -40.0 dB on the scale, or Ratio is very high (approaching 10:1), making the gate behave like a hard cut. Raise Floor toward -15.0 dB and consider lowering Ratio. See [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md).
 - **Gate chatters near the threshold** — the Attack knob is no longer present. Use the **Return** knob to add hysteresis instead. Increase Return until the gate stays open through brief dips in the input level.
+- **The applet tile looks faded or dim** — the Gate stage is bypassed in the CHAIN widget. The reduced opacity (approximately 55%) is intentional. Enable the Gate stage in the CHAIN widget to restore full brightness and DSP processing.
 
 ## Related
 

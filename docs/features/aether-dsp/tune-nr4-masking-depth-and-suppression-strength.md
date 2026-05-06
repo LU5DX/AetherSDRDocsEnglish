@@ -34,7 +34,7 @@ The NR4 engine's **Masking Depth:** and **Suppression:** sliders give you fine-g
 
 - **Speech sounds hollow or underwater after raising the sliders** — Both sliders at high values can over-suppress spectral components that overlap with speech. Reduce **Masking Depth:** first, then **Suppression:** until naturalness returns.
 - **Noise floor is still audible even at maximum settings** — Ensure **Adaptive Noise Estimation** is enabled so NR4 can continuously re-estimate the noise floor. Also consider increasing **Reduction (dB):** via [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md).
-- **Slider snaps back or refuses to move** — The sliders use a guarded input model. Click directly on the slider handle rather than clicking in the groove.
+- **Slider snaps back or refuses to move** — In v0.9.7 the dialog content was moved into an embedded `AetherDspWidget`. Click directly on the slider handle rather than clicking in the groove; the guarded input model is unchanged.
 
 ## Related
 

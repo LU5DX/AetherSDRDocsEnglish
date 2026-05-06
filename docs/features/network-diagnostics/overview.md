@@ -1,6 +1,6 @@
 # Network Diagnostics overview
 
-The Network Diagnostics dialog gives you a live, per-second view of the network link between AetherSDR and your FLEX-8600. Use it to confirm connection endpoints, measure latency, inspect per-stream data rates, and diagnose audio buffer problems.
+The Network Diagnostics dialog gives you a live, per-second view of the network link between AetherSDR and your FLEX-8600. Use it to confirm connection endpoints, measure latency, inspect per-stream data rates, diagnose audio buffer problems, and tail the application log.
 
 ## Before you start
 
@@ -10,7 +10,9 @@ The Network Diagnostics dialog gives you a live, per-second view of the network 
 
 Open the dialog with `Settings > Network...`. All indicators update once per second automatically. Click Close when finished.
 
-The dialog is divided into four groups:
+The dialog uses a tabbed layout. Seven tabs are available: **Overview**, **Details**, **Latency**, **Rates**, **Packet Loss**, **Audio**, and **Logs**. A **Timeframe** selector in the top-right corner of the tab bar controls how far back the time-series charts display history; it is hidden when the Logs tab is active.
+
+The Details tab organises all labeled indicators into four groups described below.
 
 ### Network Status
 
@@ -18,7 +20,7 @@ Connection path and TCP latency. Confirms which route AetherSDR is using to reac
 
 | Indicator | What it shows |
 |---|---|
-| Status | Overall link state. |
+| Status | Overall link quality, color-coded green → red. Possible states: Excellent, Very Good, Good, Fair, Poor. |
 | Target Radio IP | IP address of the connected radio. Shows "Not connected" when no radio is linked. |
 | Selected Source | Local network interface or bind path used for the connection. |
 | Local TCP | Local TCP endpoint (address and port). |
@@ -69,15 +71,34 @@ Speaker-side buffer health. If underruns increase while the buffer stays near ze
 
 ## Controls
 
-| Control | Behavior |
-|---|---|
-| Close | Closes the dialog. |
+| Control | Behavior | Notes |
+|---|---|---|
+| Overview (tab) | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). | |
+| Details (tab) | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups. | |
+| Latency (tab) | Full-width time-series graph of RTT, arrival gap and jitter in ms. | |
+| Rates (tab) | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps. | |
+| Packet Loss (tab) | Full-width time-series graph of packet loss % per stream category. | |
+| Audio (tab) | Full-width time-series graph of playback buffer fill (ms) and underruns/s. | |
+| Logs (tab) | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. | Timeframe selector is hidden while this tab is active. |
+| Timeframe | Selects how far back the time-series charts display history. Default is 5 minutes. Available options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week. | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
+| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories. | |
+| Select All (Logs) | Shows all log categories in the viewer. | |
+| Deselect All (Logs) | Hides all log categories from the viewer. | |
+| Live / Paused (Logs) | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail. | Default state is Live. |
+| Close | Closes the dialog. | |
+
+## Logs tab
+
+The Logs tab tails the AetherSDR log file in real time. The full path of the file being tailed is shown in the log path label at the top of the tab.
+
+Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by category name. Use the **Filter Categories** checkboxes to limit output to the categories you are interested in. Click **Select All** to restore all categories or **Deselect All** to clear the view. The **Live / Paused** toggle controls auto-scroll: scrolling up pauses the view automatically; click **Live** to resume and jump back to the newest output.
 
 ## Tips
 
 - The dialog can remain open while you operate. All values refresh every second without any interaction required.
 - Packet loss counts in the Packet Loss group are cumulative since the dialog was opened; close and reopen the dialog to reset the baseline.
 - Zero packet loss combined with rising underruns points to a jitter or timing problem rather than outright loss — check Audio Arrival Gap and Network Jitter in that case.
+- On the Rates tab the y-axis uses a logarithmic scale, which makes it easier to see low-rate streams (such as Meters) alongside the much higher RX total.
 
 ## Related
 

@@ -28,13 +28,15 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 
 - For low-latency sidetone feedback when using a paddle, enable **Sidetone** in the CW sub-panel. The single **Sidetone** button and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone (approximately 10 ms latency) in lockstep. Pitch and pan follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. On Windows, the sidetone stream now starts immediately on connect (v0.9.3, fix #2105). See [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md).
 - Adjust **Speed (CW)** before enabling **Iambic** to avoid sending at an unexpected rate. See [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md).
-- If you want full QSK operation, also enable **Breakin**. To set a hang time instead, disable **Breakin** and set **Delay (CW)** to a non-zero value. See [Set CW break-in delay](set-cw-break-in-delay.md).
+- If you want full QSK operation, also enable **Breakin**. In v0.9.7, **Breakin** is fully honored: with **Breakin** on, key edges trigger TX and `break_in_delay` holds the relay; with **Breakin** off, keys are queued and you engage PTT manually. The previous auto-PTT envelope that masked **Breakin** off and killed QSK hang time has been removed. To set a hang time instead, disable **Breakin** and set **Delay (CW)** to a non-zero value. See [Set CW break-in delay](set-cw-break-in-delay.md).
 
 ## Troubleshooting
 
 - **The CW sub-panel is not visible, only Phone controls appear** — The active slice is not in a CW mode. Switch the slice mode to CW or CW-USB/CW-LSB on the radio or in AetherSDR; the applet will switch automatically.
 - **Iambic button is present but the paddle does not key** — Verify the paddle is connected to the correct key jack on the FLEX-8600. The iambic keyer is a radio-side function; AetherSDR sends the enable command but physical keying depends on the hardware connection.
-- **The Level gauge does not appear after connecting with mic source set to PC** — In v0.9.3 the Level gauge appears immediately on connect when the mic source is PC (#2086). If the gauge is missing, confirm the mic source is set to **PC** in the **Mic source** selector and that you are running v0.9.3 or later. When the source is PC, the meter uses client-side metering and is not suppressed by the `met_in_rx` setting.
+- **The Level gauge does not appear after connecting with mic source set to PC** — In v0.9.3 the Level gauge appears immediately on connect when the mic source is PC (#2086). If the gauge is missing, confirm the mic source is set to **PC** in the **Mic source** selector and that you are running v0.9.3 or later. When the source is PC, the meter uses client-side metering and is not suppressed by the `met_in_rx` setting. The same client-side metering applies when RADE mode is active, and the Level gauge remains visible during RX in that case.
+- **The Compression gauge shows a non-zero reading during receive** — In v0.9.7, the Compression gauge is gated on the radio's interlock TRANSMITTING state. It reads 0 dB during RX. If you see a non-zero reading at rest, confirm you are running v0.9.7 or later.
+- **Breakin OFF does not queue keys correctly; PTT drops unexpectedly** — The auto-PTT envelope that previously overrode the **Breakin** setting was removed in v0.9.7. If you observe this behavior, confirm you are running v0.9.7 or later and that the radio's `break_in` setting matches the **Breakin** button state in the applet.
 
 ## Related
 

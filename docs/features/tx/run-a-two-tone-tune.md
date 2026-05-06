@@ -22,20 +22,21 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## What each control does
 
-| Control    | Kind          | Default |
-|------------|---------------|---------|
-| RF Power   | Slider        | 100     |
-| Tune Pwr   | Slider        | 10      |
-| TX Profile | Drop-down     | —       |
-| MOX        | Toggle button | Off     |
-| RF Pwr     | Meter         | —       |
-| SWR        | Meter         | —       |
+| Control    | Kind                                                        | Default                                                                                                                                                                                   |
+|------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Power   | Slider                                                      | 100                                                                                                                                                                                       |
+| Tune Pwr   | Slider                                                      | 10                                                                                                                                                                                        |
+| TX Profile | Drop-down                                                   | —                                                                                                                                                                                         |
+| MOX        | Toggles manual transmit; button goes red while TX is keyed. | In v0.9.7, click routes through `requestPttOn`/`requestPttOff` so Quindar tones (K/BK) play on engage/disengage in phone modes when the QUIN chip is enabled in the Audio Channel Strip. |
+| RF Pwr     | Meter                                                       | —                                                                                                                                                                                         |
+| SWR        | Meter                                                       | —                                                                                                                                                                                         |
 
 ## Tips
 
 - Keep SWR below 2.5 during the test. The SWR meter turns red above 2.5 as a visual warning.
 - Select a TX profile that has microphone processing disabled before running a two-tone test. Processing can distort the two-tone envelope and produce misleading IMD readings.
 - If you have ATU memories available, consider recalling a known-good memory before keying to ensure the antenna is matched. See [Recall an ATU memory](recall-an-atu-memory.md).
+- In v0.9.7, if the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, clicking **MOX** will play the Quindar K-tone on engage and the BK-tone on disengage. If Quindar is disabled or the TX slice is not on a phone mode, **MOX** behaves as in earlier versions.
 
 ## ATU button behavior (v0.9.5.1)
 
@@ -54,6 +55,7 @@ The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 - **SWR immediately goes red when MOX is pressed** — The antenna is unmatched. Click MOX to unkey, then run the ATU or check the feedline before continuing. See [Run the internal ATU](run-the-internal-atu.md).
 - **RF Pwr meter pegs at full scale** — RF Power slider is set too high for the connected antenna and amplifier. Click MOX to unkey, then reduce the RF Power slider before re-keying.
 - **ATU button starts a new tune instead of bypassing** — The transmit frequency changed since the last successful tune. This is expected. The button will only switch to bypass when the current frequency matches the frequency at which the ATU last reported a successful tune.
+- **Quindar tones play unexpectedly when clicking MOX** — The QUIN chip is enabled in the Audio Channel Strip and the TX slice is on a phone mode. If you do not want Quindar tones during this test, disable the QUIN chip in the Audio Channel Strip before keying.
 
 ## Related
 

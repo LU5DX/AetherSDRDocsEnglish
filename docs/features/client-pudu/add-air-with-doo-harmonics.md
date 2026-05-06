@@ -9,9 +9,9 @@ Use the Doo / Air knob to add harmonic excitement and presence to the high-frequ
 
 ## Steps
 
-1. Locate the **Doo** group — the three knobs on the right side of the applet, under the "Doo" bracket label.
+1. Locate the **Clarity** group — the three knobs on the right side of the applet, under the "Clarity" bracket label.
 2. Turn the **Air** knob to set the amount of harmonic content added at the high-frequency band. The value is shown in dB below the knob.
-3. Watch the PooDoo logo pulse increase as the wet-signal level rises. Use this as a rough indicator of how much processing is being applied.
+3. Watch the AetherVoice™ logo pulse increase as the wet-signal level rises. Use this as a rough indicator of how much processing is being applied.
 4. If the result is too aggressive, reduce **Air** or lower **Doo / Mix** to blend the effect back with the dry signal.
 
 Settings are saved automatically. The value persists in `ClientPuduTxDooHarmonicsDb` (TX) or `ClientPuduRxDooHarmonicsDb` (RX).
@@ -32,7 +32,7 @@ Settings are saved automatically. The value persists in `ClientPuduTxDooHarmonic
 
 ## Troubleshooting
 
-- **Air knob has no audible effect** — The PUDU stage may be bypassed. Check that the stage is enabled in the CHAIN widget. See [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md).
+- **Air knob has no audible effect** — The PUDU stage may be bypassed. When the stage is bypassed the entire applet tile dims to reduced opacity. Check that the stage is enabled in the CHAIN widget. See [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md).
 - **Effect sounds harsh at moderate Air values** — Lower **Doo / Mix** to reduce the wet blend rather than cutting **Air** entirely. See [Blend the Doo excitement with Mix](blend-the-doo-excitement-with-mix.md).
 
 ## Related

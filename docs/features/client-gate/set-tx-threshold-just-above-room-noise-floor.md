@@ -6,6 +6,7 @@ Setting Thresh correctly tells the TX gate where your room's background noise en
 
 - The TX gate stage must be enabled in the CHAIN widget on the TX side. If it is not enabled, the applet is hidden and knob changes have no effect. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - Open the "Aetherial TX Gate" sub-container inside the Aetherial Audio (TXDSP) parent container, or double-click the GATE stage in the CHAIN widget to open the floating "Aetherial Gate — TX" editor.
+- When the gate stage is bypassed, the entire applet tile renders at reduced opacity (approximately 55% of full brightness). This is a visual indicator only — knob positions are preserved and take effect as soon as the stage is re-enabled.
 
 ## Steps
 
@@ -32,6 +33,7 @@ Setting Thresh correctly tells the TX gate where your room's background noise en
 | Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
 
 The Transfer curve plots the static input/output relationship and shows a live input ball at the current signal level. When Return is greater than zero, a soft-cyan vertical band appears on the curve between (Thresh − Return) and Thresh, marking the range where the gate's open/closed state is sticky. The Gain-reduction bar is an amber horizontal strip, right-filled, scaled 0 to 40 dB; a tick marks the −15 dB default Floor position.
+
 ## Tips
 
 - Set Thresh during your worst-case noise condition (loudest fan, most background activity). A threshold calibrated to a quiet room will let noise through when conditions change.
@@ -43,6 +45,7 @@ The Transfer curve plots the static input/output relationship and shows a live i
 ## Troubleshooting
 
 - **The applet is not visible** — The GATE stage is not enabled. Single-click the GATE stage in the CHAIN widget to enable it, or double-click to open the floating editor and enable it there.
+- **The applet tile appears dimmed** — The gate stage is bypassed. The tile renders at reduced opacity when the stage is disabled. Re-enable the GATE stage in the CHAIN widget to restore full brightness and resume processing.
 - **The Gain-reduction bar never fills while silent** — Thresh is set below the noise floor. Raise Thresh until consistent amber fill appears during silence.
 - **The gate chops the beginning of words** — Thresh is too close to your voice level. Lower Thresh slightly.
 - **The gate chatters or flutters near the threshold** — Increase Return to widen the hysteresis deadband. The cyan band on the Transfer curve grows as you raise Return, showing the sticky zone.

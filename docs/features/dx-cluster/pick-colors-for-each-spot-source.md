@@ -10,7 +10,6 @@ AetherSDR can display spots from up to six sources simultaneously. Assigning a d
 ## Steps
 
 ### DX Cluster spot color
-
 1. In SpotHub, click the **Cluster** tab.
 2. Click the **Spot Color:** button.
 3. Choose a color in the color picker that opens and confirm your selection.
@@ -56,7 +55,6 @@ WSJT-X supports four separate colors, one per decode category.
 SpotCollector does not have a dedicated spot-color picker in SpotHub. See the Display tab options below if you need a uniform override for all sources.
 
 ## What each control does
-
 | Control | Tab | Saved setting |
 |---|---|---|
 | **Spot Color:** | Cluster | `ClusterSpotColor` |
@@ -73,6 +71,9 @@ SpotCollector does not have a dedicated spot-color picker in SpotHub. See the Di
 | **Grid Square:** | FreeDV — Station Reporting | `FreeDvMyGrid` |
 | **Use GPS (grid)** | FreeDV — Station Reporting | `FreeDvUseGpsGrid` |
 | **Station Msg:** | FreeDV — Station Reporting | `FreeDvMyMessage` |
+| **Auto Mode:** | Display | `SpotsAutoMode` — default changed to **Enabled** in v0.9.5.1 |
+| **Spot Lines:** | Display | `IsSpotsLinesEnabled` — new in v0.9.7 |
+| Total spots count | Status bar | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
 
 ## FreeDV Reporter — Station Reporting
 
@@ -108,11 +109,27 @@ v0.9.3 adds a **Station Reporting** group inside the **FreeDV** tab. When enable
 
 ## Auto Mode default changed in v0.9.5.1
 
-The **Auto Mode:** toggle on the **Display** tab now defaults to **Enabled** for new installations. If you are upgrading from an earlier version and `SpotAutoSwitchMode` was not previously set, AetherSDR will treat it as enabled after the update. To disable it, open the **Display** tab and click **Auto Mode:** until it shows **Disabled**.
+The **Auto Mode:** toggle on the **Display** tab now defaults to **Enabled** for new installations. If you are upgrading from an earlier version and `SpotsAutoMode` was not previously set, AetherSDR will treat it as enabled after the update. To disable it, open the **Display** tab and click **Auto Mode:** until it shows **Disabled**.
+
+## Spot Lines (new in v0.9.7)
+
+The **Spot Lines:** toggle on the **Display** tab controls whether vertical lines are drawn from the spectrum baseline up to each spot label on the panadapter. The setting is saved to `IsSpotsLinesEnabled` and defaults to **Enabled**.
+
+To turn off spot lines:
+
+1. Open SpotHub: `Settings > SpotHub...`
+2. Click the **Display** tab.
+3. Click **Spot Lines:** until it shows **Disabled**.
+
+Disabling spot lines reduces visual clutter during contests or when spot density is high.
+
+## Tuning from the Spot List (updated in v0.9.7)
+
+Double-clicking a row in the **Spot List** tab tunes the active receiver to that spot's frequency. Starting with v0.9.7, AetherSDR also passes the spot's mode hint to the receiver, so the mode (for example CW or SSB) switches automatically to match the spot rather than only changing frequency.
 
 ## Tips
 
-- If all per-source colors are too subtle to distinguish, use **Override Colors:** on the **Display** tab to force a single text color across every source, saved to `IsSpotsOverrideColorsEnabled` and `SpotsOverrideColor`.
+- If all per-source colors are too subtle to distinguish, use **Override Colors:** on the **Display** tab to force a single text color across every source, saved to `IsSpotsOverrideColorsEnabled`.
 - DXCC coloring (enabled with **DXCC Coloring** on the **Display** tab) can override per-source colors to indicate worked, confirmed, or needed status. If your spot colors are not appearing as set, check whether `DxccColoringEnabled` is active.
 
 ## Related
@@ -123,3 +140,4 @@ The **Auto Mode:** toggle on the **Display** tab now defaults to **Enabled** for
 - [Enable FreeDV QSO reporter WebSocket](enable-freedv-qso-reporter-websocket.md)
 - [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
+<!-- docmesh:llm version=v0.9.7 date=2026-05-03 -->

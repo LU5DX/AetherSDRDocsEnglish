@@ -12,8 +12,8 @@ Enable or disable the Aetherial Compressor (TX) or Aetherial AGC-C (RX) without 
 1. Locate the CHAIN widget for the side you want to affect (TX or RX).
 2. Single-click the **COMP** stage in the CHAIN widget.
    - One click toggles the bypass state for that stage.
-   - When bypassed, the stage is inactive and the Aetherial Compressor (TX) or Aetherial AGC-C (RX) sub-container tile hides itself.
-   - When enabled (bypass off), the tile becomes visible and the compressor processes audio.
+   - When bypassed, the stage is inactive and the Aetherial Compressor (TX) or Aetherial AGC-C (RX) applet tile dims to reduced opacity (approximately 55% of normal brightness), matching the dim effect used by the EQ curve when its stage is bypassed.
+   - When enabled (bypass off), the tile returns to full opacity and the compressor processes audio.
 3. To re-enable, single-click the **COMP** stage again.
 
 ## What each control does
@@ -27,7 +27,7 @@ Enable or disable the Aetherial Compressor (TX) or Aetherial AGC-C (RX) without 
 
 - Bypassing does not reset any knob values. Thresh, Ratio, Attack, Release, and Makeup all remain at their last positions when you re-enable the stage.
 - Double-clicking the **COMP** stage opens the full Compressor editor rather than toggling bypass. Use a single click for bypass only.
-- The gain-reduction bar in the applet tile reads zero when bypassed, since no processing is occurring. Use this as a quick confirmation that bypass is active.
+- The gain-reduction bar in the applet tile reads zero when bypassed, since no processing is occurring. The dimmed tile appearance provides an additional at-a-glance confirmation that bypass is active.
 
 ## Related
 

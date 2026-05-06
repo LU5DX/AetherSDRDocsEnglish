@@ -4,7 +4,7 @@ This page explains how to set the threshold level at which the Aetherial Compres
 
 ## Before you start
 
-- The compressor must be enabled (bypass off) on the side you want to adjust. A bypassed stage hides the applet tile. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile is not visible.
+- The compressor must be enabled (bypass off) on the side you want to adjust. When the stage is bypassed, the applet tile remains visible but is dimmed to approximately 55% opacity. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile appears dimmed or if you need to re-enable the stage.
 - The Aetherial Audio (TXDSP) parent container must be visible in the applet panel. If the applet panel is hidden, click `View > Applet Panel` to show it.
 
 ## Steps
@@ -29,11 +29,13 @@ This page explains how to set the threshold level at which the Aetherial Compres
 - Start with the default of −18.0 dB and lower the threshold gradually while speaking (TX) or listening to a typical signal (RX) until the gain-reduction bar shows a few dB of amber fill.
 - If you want threshold changes to take effect alongside knee and limiter adjustments, open the full editor by double-clicking the COMP stage in the CHAIN widget. Knee and limiter ceiling controls are only available there.
 - The envelope ball on the transfer curve gives immediate visual feedback: if the ball never leaves the lower-left straight segment, the threshold is set above your typical signal level and the compressor is not acting.
+- When the stage is bypassed, the entire applet tile dims to roughly half brightness. This is a visual indicator only and does not affect any saved knob values.
 
 ## Troubleshooting
 
 - **The Thresh knob is present but the gain-reduction bar stays empty regardless of threshold position** — The compressor stage may still be bypassed, or the audio engine is not running. Confirm the stage is enabled via the CHAIN widget and that audio is flowing.
-- **The applet tile is not visible** — The stage is bypassed or the parent Aetherial Audio (TXDSP) container is collapsed. Enable the compressor from the CHAIN widget; the tile appears automatically.
+- **The applet tile appears dimmed** — The compressor stage is bypassed. Enable it from the CHAIN widget to restore full brightness and restore active processing. The tile remains visible while bypassed, unlike previous releases where it was hidden.
+- **The applet tile is not visible at all** — The parent Aetherial Audio (TXDSP) container is collapsed. Expand it in the applet panel to reveal the tile.
 
 ## Related
 

@@ -40,6 +40,7 @@ Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus re
 | **Cal Frequency (MHz):** | — | Frequency used for manual calibration. Available regardless of whether a GPSDO is installed. If the field is empty when you click **Start**, a warning appears and calibration does not begin. |
 | **Start** | — | Sets the calibration frequency, resets `freq_error_ppb` to 0, then starts the radio PLL calibration sweep. The button is disabled and labelled **Busy** while calibration is running. |
 | **Freq Offset (ppb):** | — | Manual frequency offset in parts per billion. |
+| **10 MHz Reference Source:** | Auto | Selects the oscillator reference source. Options shown depend on hardware installed (TCXO / GPSDO / External 10 MHz). The combo populates dynamically: TCXO and External 10 MHz entries appear whenever the radio reports oscillator status, the relevant hardware is present, or the current or configured value matches that source. GPSDO appears when a GPSDO is detected or the configured value is `gpsdo`. The lock status label beside the combo updates live and reflects Auto resolution (for example, **Auto -> GPSDO Locked**) and whether an external reference is detected. |
 | **Select Installer...** | — | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label changed from **Browse .ssdr...** in v0.9.3. |
 | **APD (tab)** | — | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | INTERNAL | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
@@ -85,20 +86,15 @@ When you click **Start**:
 4. The **Start** button is disabled and shows **Busy** for the duration of the sweep.
 5. A status label next to the button updates as the sweep progresses and shows the result when complete.
 
-## Peripherals tab — ShackSwitch changes in v0.9.4
+## RX tab — oscillator source changes in v0.9.7
 
-The **Antenna Genius** row now shows a Connected status only when the device identified on the connection is a non-ShackSwitch Antenna Genius. If a ShackSwitch is the connected device, the Antenna Genius row hides its Connected indicator and the **ShackSwitch** row shows Connected instead.
+The **10 MHz Reference Source:** combo and its lock status label have been reworked.
 
-A new **⚙ Web UI** button has been added to the ShackSwitch row. Click it to open the ShackSwitch device's built-in web configuration interface in your system browser. The URL is constructed as follows:
+**Combo population.** The list of available sources is now built dynamically each time the dialog opens or the radio reports oscillator status, rather than being fixed at dialog construction. The rules are:
 
-1. AetherSDR uses the IP from `SS_ManualIp`, or if that is empty and a ShackSwitch is currently connected, the live peer address.
-2. The port is taken from the beacon's `webPort` field when that value is greater than 1024. If not, AetherSDR falls back to the `SS_WebPort` setting or port 5000.
+- **Auto** is always present.
+- **TCXO** appears when the radio reports any oscillator status, when `tcxoPresent` is true, or when the current or configured value is `tcxo`.
+- **GPSDO** appears when `gpsdoPresent` is true or the current or configured value is `gpsdo`.
+- **External 10 MHz** appears when the radio reports any oscillator status, when `extPresent` is true, or when the current or configured value is `external`. Note: the label has changed from **External** to **External 10 MHz**.
 
-If no IP address is available (not connected and `SS_ManualIp` is empty), clicking **⚙ Web UI** does nothing.
-
-## Tips
-
-- On a fast local LAN, **Uncompressed** avoids any codec artefacts and is the better choice for critical listening or digital mode decoding.
-- On a slow or congested link (VPN, cellular SmartLink), **Opus** reduces audio dropouts. Pair it with a larger **Audio Buffer:** value (50–1000 ms) to absorb jitter.
-- If audio sounds thin or quiet over SmartLink, try enabling **Audio Boost:** alongside Opus.
-- If a GPSDO is installed, frequency calibration is rarely needed, but the controls are still available if you want to verify or manually trim the offset.
+The combo pre-selects the value that matches the radio's current configured setting (`oscSetting`). If that value is not in the list, the previously selected item is used; if neither is present, **Auto** is selected.

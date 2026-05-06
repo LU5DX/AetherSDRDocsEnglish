@@ -13,33 +13,33 @@ AetherSDR switches between sub-panels automatically as you change the slice mode
 
 ### Phone sub-panel
 
-| Control        | Kind          | What it does                                                                                                                                                                                                                             |
-|----------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Level          | Meter         | Shows microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting. Exception: when mic source is PC, the gauge uses client-side metering and is not suppressed by met_in_rx (#2086). |
-| Compression    | Meter         | Shows speech compression amount in dB (reversed fill — higher compression fills left).                                                                                                                                                   |
-| Mic profile    | Combo box     | Loads the named mic processing profile from the radio's profile list.                                                                                                                                                                    |
-| Mic source     | Combo box     | Selects the microphone input source.                                                                                                                                                                                                     |
-| Mic gain       | Slider        | Adjusts mic input level. When source is PC, the value is kept client-side because the radio always reports level 0 for PC sources.                                                                                                       |
-| +ACC           | Toggle button | Enables the accessory mic input mix.                                                                                                                                                                                                     |
-| PROC           | Toggle button | Toggles the speech processor.                                                                                                                                                                                                            |
-| NOR/DX/DX+     | Slider        | Sets the speech processor level. Three positions: NOR (0), DX (1), DX+ (2).                                                                                                                                                             |
-| DAX            | Toggle button | Enables DAX as the TX audio source.                                                                                                                                                                                                      |
-| MON            | Toggle button | Enables the sideband TX monitor.                                                                                                                                                                                                         |
-| Monitor volume | Slider        | Sets the sideband monitor volume.                                                                                                                                                                                                        |
+| Control        | Kind          | What it does                                                                                                                                                                                                                                                                                                                                                   |
+|----------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Level          | Meter         | Shows microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting. Exception: when mic source is PC, or when RADE mode is active, the gauge uses client-side metering and is not suppressed by met_in_rx. When RADE is active, the Level gauge continues to show signal during RX ("Level Meter During Receive"). |
+| Compression    | Meter         | Shows speech compression amount in dB. Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX to prevent confusing stale readings from the TX chain. Driven via the `updateCompression()` slot, independent of the mic level path.                                                                                |
+| Mic profile    | Combo box     | Loads the named mic processing profile from the radio's profile list.                                                                                                                                                                                                                                                                                          |
+| Mic source     | Combo box     | Selects the microphone input source.                                                                                                                                                                                                                                                                                                                           |
+| Mic gain       | Slider        | Adjusts mic input level. When source is PC, or when RADE mode is active, the value is kept client-side (stored as `PcMicGain`) because the radio always reports level 0 for PC sources and does not use this value for RADE TX. In RADE mode, moving the slider adjusts client-side RADE gain only and does not send a mic level command to the radio.         |
+| +ACC           | Toggle button | Enables the accessory mic input mix.                                                                                                                                                                                                                                                                                                                           |
+| PROC           | Toggle button | Toggles the speech processor.                                                                                                                                                                                                                                                                                                                                  |
+| NOR/DX/DX+     | Slider        | Sets the speech processor level. Three positions: NOR (0), DX (1), DX+ (2).                                                                                                                                                                                                                                                                                   |
+| DAX            | Toggle button | Enables DAX as the TX audio source.                                                                                                                                                                                                                                                                                                                            |
+| MON            | Toggle button | Enables the sideband TX monitor.                                                                                                                                                                                                                                                                                                                               |
+| Monitor volume | Slider        | Sets the sideband monitor volume.                                                                                                                                                                                                                                                                                                                              |
 
 ### CW sub-panel
 
-| Control | Kind | What it does | Default | Range / Options | Setting key |
-|---|---|---|---|---|---|
-| ALC | Meter | Shows the automatic level control reading. Red above 80. | — | 0–100 | — |
-| Delay | Slider | Sets CW break-in delay in milliseconds. | — | 0–2000 ms (step 10) | — |
-| Speed | Slider | Sets CW keying speed. | — | 5–100 WPM | — |
-| Breakin | Toggle button | Toggles full break-in (QSK). | — | On / Off | — |
-| Iambic | Toggle button | Toggles the iambic paddle keyer. | — | On / Off | — |
-| Pitch < / > | Spin box | Steps the CW sidetone and decode pitch by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | — |
-| Sidetone | Toggle button | Toggles both the radio CW sidetone monitor (DAX-fed) and the client-side low-latency CW sidetone generator in lockstep. On Windows, the sidetone stream now starts immediately on connect (#2105). | — | On / Off | — |
-| Sidetone volume | Slider | Sets both the radio CW monitor volume (mon_gain_cw) and the client-side sidetone generator volume in lockstep. | — | 0–100 | — |
-| L / R pan (CW) | Slider | CW monitor pan position. Applies constant-power pan to both the radio monitor and the local sidetone generator. Double-click to recenter. | 50 | 0–100 | — |
+| Control         | Kind          | What it does                                                                                                                                                                                                                                                                                                                    | Default  | Range / Options        | Setting key |
+|-----------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|------------------------|-------------|
+| ALC             | Meter         | Shows the automatic level control reading. Red above 80.                                                                                                                                                                                                                                                                        | —        | 0–100                  | —           |
+| Delay           | Slider        | Sets CW break-in delay in milliseconds.                                                                                                                                                                                                                                                                                         | —        | 0–2000 ms (step 10)    | —           |
+| Speed           | Slider        | Sets CW keying speed.                                                                                                                                                                                                                                                                                                           | —        | 5–100 WPM              | —           |
+| Breakin         | Toggle button | Toggles full break-in (QSK). With Breakin ON, key edges trigger TX and the break-in delay holds the relay. With Breakin OFF, keys are queued and the operator engages PTT manually. The previous auto-PTT envelope that masked Breakin OFF and interfered with QSK hang time has been removed in v0.9.7.                         | —        | On / Off               | —           |
+| Iambic          | Toggle button | Toggles the iambic paddle keyer.                                                                                                                                                                                                                                                                                                | —        | On / Off               | —           |
+| Pitch < / >     | Spin box      | Steps the CW sidetone and decode pitch by 10 Hz.                                                                                                                                                                                                                                                                                | 600 Hz   | 100–6000 Hz (step 10)  | —           |
+| Sidetone        | Toggle button | Toggles both the radio CW sidetone monitor (DAX-fed) and the client-side low-latency CW sidetone generator in lockstep. On Windows, the sidetone stream now starts immediately on connect (#2105).                                                                                                                              | —        | On / Off               | —           |
+| Sidetone volume | Slider        | Sets both the radio CW monitor volume (mon_gain_cw) and the client-side sidetone generator volume in lockstep.                                                                                                                                                                                                                  | —        | 0–100                  | —           |
+| L / R pan (CW)  | Slider        | CW monitor pan position. Applies constant-power pan to both the radio monitor and the local sidetone generator. Double-click to recenter.                                                                                                                                                                                        | 50       | 0–100                  | —           |
 
 ### Sidetone behaviour (v0.9.1+)
 
@@ -47,16 +47,30 @@ The **Sidetone** toggle and **Sidetone volume** slider control both the radio's 
 
 The local sidetone is suitable for paddle, straight-key, and CWX-generated transmissions where network round-trip latency would make the radio's DAX-fed monitor unusable at higher speeds.
 
+The sidetone bus is shared with Quindar tones. Sidetone and Quindar tones are mutually exclusive at the mode level.
+
+### Break-in behaviour (v0.9.7)
+
+The CW keyboard and MIDI paths now fully honor the radio's `break_in` setting. With **Breakin** ON (QSK), key edges trigger TX and the break-in delay holds the relay open between elements. With **Breakin** OFF, keyed characters are queued and you engage PTT manually before sending. An auto-PTT envelope present in earlier versions that masked the Breakin OFF state and eliminated QSK hang time has been removed.
+
+### RADE mode interaction (v0.9.7)
+
+When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending a mic level command to the radio. The slider value is stored under the `PcMicGain` setting, shared with the PC mic source path. The radio's mic level setting is not overwritten while RADE is active.
+
+The **Level** gauge continues to show signal level during RX when RADE is active, regardless of the `met_in_rx` setting. When RADE deactivates, the gauge reverts to normal suppression behavior and is reset to -150 dBFS immediately.
+
 ### VOX and keyboard shortcut behaviour (v0.9.3)
 
 When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes immediately to reflect the new VOX state (#2084). In earlier versions the panel did not update until some other UI event occurred.
 
 ## Tips
 
-- The `PcMicGain` value is stored client-side only. If you switch mic source away from PC and back, AetherSDR restores the saved value rather than reading from the radio.
-- When mic source is PC, the Level gauge uses client-side metering and appears immediately on connect, regardless of the met_in_rx setting.
+- The `PcMicGain` value is stored client-side only. It is used both when mic source is PC and when RADE mode is active. If you switch mic source away from PC and back, AetherSDR restores the saved value rather than reading from the radio.
+- When mic source is PC, or when RADE mode is active, the Level gauge uses client-side metering and appears immediately on connect, regardless of the `met_in_rx` setting.
+- The **Compression** gauge reads 0 dB during RX. This is intentional — it prevents stale TX chain readings from being displayed while receiving.
 - Because pitch and pan always follow the radio settings automatically, adjust CW pitch using the **Pitch < / >** spin box and pan using the **L / R pan (CW)** slider — both the radio monitor and the local sidetone update together.
 - The **Sidetone** toggle enables or disables the local sidetone at the same time as the radio monitor. You cannot enable one independently of the other.
+- With **Breakin** OFF, key presses are queued but TX is not triggered automatically. Engage PTT manually before beginning to send.
 
 ## Related
 

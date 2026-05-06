@@ -10,7 +10,7 @@ Choose between two harmonic-enhancement algorithms in the PUDU exciter: Even mod
 ## Steps
 
 1. Locate the correct applet — "Aetherial TX Poodoo™" for transmit or "Aetherial RX Poodoo™" for receive — inside the Aetherial Audio (TXDSP) parent container in the applet panel.
-2. Find the two mode buttons directly below the PooDoo logo: `Even` and `Odd`.
+2. Find the two mode buttons directly below the AetherVoice™ logo: `Even` and `Odd`.
 3. Click `Even` to select Aphex-lineage asymmetric shaping — predominantly even harmonics, warmer, with Big Bottom LF saturation. The button highlights in amber when active.
 4. Click `Odd` to select Behringer-lineage symmetric tanh shaping — pure odd harmonics, brighter, with a feed-forward bass compressor.
 5. Repeat on the other applet if you want the same character on both chains.
@@ -29,12 +29,13 @@ Only one of `Even` or `Odd` can be active at a time. Selecting one deselects the
 ## Tips
 
 - Even mode suits voice signals where warmth and low-end body are the goal. Odd mode suits situations where added presence and brightness are preferred.
-- The PooDoo logo pulses with the processed (wet) signal RMS, so you can see the exciter reacting as you switch modes without monitoring audio.
-- All six Poo and Doo knobs remain active regardless of which mode is selected; their effect on the signal changes character depending on the mode chosen.
+- The AetherVoice™ logo pulses with the processed (wet) signal RMS, so you can see the exciter reacting as you switch modes without monitoring audio.
+- When the PUDU stage is bypassed, the entire applet tile dims to approximately 55% opacity, matching the dim effect applied to the EQ curve. This is a visual indicator only and does not affect your settings.
+- All six Body and Clarity knobs remain active regardless of which mode is selected; their effect on the signal changes character depending on the mode chosen.
 
 ## Related
 
 - [Aetherial TX Poodoo / Aetherial RX Poodoo overview](overview.md)
-- [Dial Poo Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
-- [Add air with Doo Harmonics](add-air-with-doo-harmonics.md)
+- [Dial Body Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
+- [Add air with Clarity Harmonics](add-air-with-doo-harmonics.md)
 - [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md)

@@ -12,16 +12,17 @@ Use this page to control how transparent or opaque the background behind spot la
 1. In the Spot Settings dialog, locate the **Background Opacity:** row.
 2. Drag the slider left to decrease opacity (more transparent) or right to increase it (more opaque).
 3. The numeric readout next to the slider updates immediately to reflect the current value.
-4. Close the dialog. The change is saved automatically to `SpotsOverrideBgOpacity`.
+4. Close the dialog. The change is saved automatically to `SpotsBackgroundOpacity`.
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key |
-|---|---|---|---|
-| **Background Opacity:** slider | 48 | 0 – 100 | `SpotsOverrideBgOpacity` |
-| **Override Background: Enabled** toggle | Enabled | Enabled / Disabled | `IsSpotsOverrideBackgroundColorsEnabled` |
-| **Override Background: Auto** toggle | Enabled | Enabled / Disabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
-| Spot background color picker | `#000000` | Any color | `SpotsOverrideBgColor` |
+| Control | Default | Valid range |
+|---|---|---|
+| **Background Opacity:** slider | 48 | 0 – 100 |
+| **Override Background: Enabled** toggle | Enabled | Enabled / Disabled |
+| **Override Background: Auto** toggle | Enabled | Enabled / Disabled |
+| Spot background color picker | `#000000` | Any color |
+| **Spot Lines:** toggle | Enabled | Enabled / Disabled |
 
 ## Tips
 
@@ -29,6 +30,7 @@ Use this page to control how transparent or opaque the background behind spot la
 - A value of 100 makes the background fully opaque. This can obscure weak signals beneath a spot label.
 - When "Override Background: Auto" is Enabled, AetherSDR picks the background color automatically for contrast. The opacity slider still applies on top of that auto-selected color.
 - If you want a specific background color, disable "Override Background: Auto" first, then use the spot background color picker to choose a color before adjusting opacity.
+- The **Spot Lines:** toggle controls whether vertical lines are drawn from the spectrum baseline up to each spot label. This setting is stored in `IsSpotsLinesEnabled`. Disable it during contests to reduce visual clutter.
 
 ## Troubleshooting
 

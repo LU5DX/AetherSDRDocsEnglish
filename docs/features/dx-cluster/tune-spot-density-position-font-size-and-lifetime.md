@@ -9,7 +9,6 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 - The master spot overlay must be on. On the Display tab, confirm `IsSpotsEnabled` is active (the "Spots:" toggle reads Enabled).
 
 ## Steps
-
 1. Open `Settings > SpotHub...`.
 2. Click the **Display** tab.
 3. Confirm **Spots:** is set to Enabled. If it is not, click it to enable the overlay.
@@ -17,25 +16,37 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 5. To move the spot labels up or down on the panadapter, drag the **Position:** slider.
 6. To change the text size of spot labels, drag the **Font Size:** slider.
 7. To set how long a spot remains visible before it disappears, drag the **Spot Lifetime:** slider. The value is in seconds.
-8. If you want AetherSDR to automatically adjust spot density based on the current panadapter zoom level, click **Auto Mode:** to enable it. When Auto Mode is on, the **Levels:** slider has no effect.
-9. Close the dialog. Changes take effect immediately.
+8. **Auto Mode:** is enabled by default. When on, AetherSDR automatically switches the slice mode when you click a spot that carries mode information (e.g. CW, FT8, RTTY). Click **Auto Mode:** to toggle this behaviour.
+9. To show or hide the vertical lines drawn from the spectrum up to each spot label, click **Spot Lines:**. The button toggles between Enabled and Disabled. Disable this during contests to reduce visual clutter.
+10. Close the dialog. Changes take effect immediately.
 
 ## What each control does
-
 | Control | Setting key | Behavior |
 |---|---|---|
 | **Spots:** | `IsSpotsEnabled` | Master toggle for the spot overlay on the panadapter. |
-| **Auto Mode:** | `SpotsAutoMode` | Automatically adjusts spot density based on zoom level. Overrides Levels. Default is now Enabled. |
+| **Auto Mode:** | `SpotsAutoMode` | Automatically selects spot density based on zoom level. Default: Enabled. |
 | **Levels:** | `SpotsStackLevels` | Number of vertical stacking rows for spot labels. |
 | **Position:** | `SpotsPosition` | Vertical position of the spot label band on the panadapter. |
 | **Font Size:** | `SpotsFontSize` | Size of the text in each spot label. |
 | **Spot Lifetime:** | `SpotsLifetime` | Seconds a spot label remains visible before fading. |
+| **Spot Lines:** | `IsSpotsLinesEnabled` | Draws vertical lines from the spectrum up to each spot label. Default: Enabled. Disable during contests to reduce visual clutter. New in v0.9.7. |
+| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | Forces a single text color for all spots. |
+| **Override Background: Enabled / Auto** | `IsSpotsOverrideBackgroundColorsEnabled` / `IsSpotsOverrideToAutoBackgroundColorEnabled` | Enables a custom spot background color and auto-contrast mode. |
+| **Background Opacity:** | `SpotsOverrideBgOpacity` | Opacity of the spot background color. Default: 48. |
+| **DXCC Coloring** | `DxccColoringEnabled` | Colors spots by worked/confirmed/needed status. |
+| **Log File (ADIF):** | `DxccAdifPath` | Loads an ADIF log file to drive DXCC coloring. |
+| **Auto-Reload Log:** | `DxccAutoReload` | Re-reads the ADIF file automatically when it changes on disk. |
 | **Enable FreeDV Reporter reporting when RADE is active** | `FreeDvAutoReport` | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square or the checkbox refuses to enable. If either field is blank when you check it, a warning dialog appears and the checkbox reverts to unchecked. |
 | **Callsign: (FreeDV Reporter)** | `FreeDvMyCallsign` | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio (callsign)** is checked. Automatically updated when the radio's callsign changes and **Use radio** is active. |
 | **Use radio (callsign)** | `FreeDvUseRadioCallsign` | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Default: enabled. |
 | **Grid Square: (FreeDV Reporter)** | `FreeDvMyGrid` | Maidenhead grid square to report. Read-only when **Use GPS (grid)** is checked. |
 | **Use GPS (grid)** | `FreeDvUseGpsGrid` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. |
 | **Station Msg: (FreeDV Reporter)** | `FreeDvMyMessage` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. |
+| **Total Spots:** | — | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
+
+## Double-clicking a spot to tune
+
+Double-clicking a row in the Spot List table tunes the active slice to the spot frequency. As of v0.9.7, AetherSDR also forwards the mode extracted from the spot comment (for example CW, FT8, or SSB) so the slice mode switches automatically to match the spot, not only the frequency.
 
 ## FreeDV Reporter reporting
 
@@ -53,9 +64,8 @@ Optionally, type a short message in **Station Msg:** to display alongside your c
 The FreeDV tab is only present in builds compiled with `HAVE_WEBSOCKETS`. On Windows, the reporting checkbox additionally requires `HAVE_RADE` to be defined.
 
 ## Tips
-
 - If spot labels overlap badly on a crowded band, increase **Levels:** to add more stacking rows, or decrease **Spot Lifetime:** so old spots clear sooner.
-- **Auto Mode:** is enabled by default as of v0.9.5.1. Disable it if you want manual control over density via the **Levels:** slider.
+- Disable **Spot Lines:** during contests or on very busy bands to reduce visual clutter without hiding the spot labels themselves.
 - WSJT-X spots have their own per-source lifetime setting (**Spot Life:** on the WSJT-X tab, stored as `WsjtxSpotLife`). The **Spot Lifetime:** slider on the Display tab applies to all other sources.
 - When **Use radio (callsign)** is active, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
 
@@ -65,6 +75,7 @@ The FreeDV tab is only present in builds compiled with `HAVE_WEBSOCKETS`. On Win
 - **Changing Levels: has no effect** — **Auto Mode:** is likely enabled. Click **Auto Mode:** to disable it, then adjust **Levels:** manually.
 - **"Enable FreeDV Reporter" checkbox keeps reverting to unchecked** — Both a callsign and a grid square must be set before enabling. Fill in the **Callsign:** and **Grid Square:** fields (or enable **Use radio** and **Use GPS** if the radio provides those values), then check the box again.
 - **The FreeDV tab or the reporting checkbox is not visible** — Your build of AetherSDR was compiled without `HAVE_WEBSOCKETS` (tab not present) or without `HAVE_RADE` on Windows (checkbox not present).
+- **Double-clicking a spot does not switch the slice mode** — Confirm the spot comment contains a recognisable mode string. Mode extraction relies on the comment text supplied by the spot source; spots with no mode information in the comment will still tune the frequency but will not change the mode.
 
 ## Related
 
@@ -72,3 +83,4 @@ The FreeDV tab is only present in builds compiled with `HAVE_WEBSOCKETS`. On Win
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
+<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->

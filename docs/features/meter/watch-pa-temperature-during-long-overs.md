@@ -17,17 +17,18 @@ The bar fills from left to right as temperature rises. The bar turns yellow abov
 
 ## What each control does
 
-| Label | Range | Red threshold | Behavior |
-|-------|-------|---------------|----------|
-| PA Temp | 0–120 °C | > 70 °C | Displays the PA temperature reported by the radio. Bar is green below 55 °C, yellow from 55–70 °C, red above 70 °C. |
-| +13.8V | 10.0–16.0 V | > 15 V | Displays the supply voltage. |
-| Main Fan | 0–3000 rpm | > 2500 rpm | Displays the main cooling fan speed. |
+| Label    | Range        | Red threshold | Notes                                                                                                      |
+|----------|--------------|---------------|------------------------------------------------------------------------------------------------------------|
+| PA Temp  | 0–120 °C     | > 70 °C       |                                                                                                            |
+| +13.8V   | 10.0–16.0 V  | > 15 V        | The gauge label updates dynamically to show the live radio-reported voltage (e.g. `+13.82V`) instead of the static `+13.8V` placeholder. |
+| Main Fan | 0–3000 rpm   | > 2500 rpm    |                                                                                                            |
 
 None of these controls have persisted settings keys. They are read-only telemetry displays.
 
 ## Tips
 
 - The gauge uses smoothed ballistics, so brief peaks are visible without causing flicker. Sustained red-zone readings indicate a genuine thermal condition, not a transient spike.
+- The supply voltage gauge label reflects the live voltage value reported by the radio. The label updates each time a new reading arrives, so it always shows the current voltage to two decimal places (for example, `+13.82V`).
 - PA current is not shown. On FLEX-8000 series hardware the PA current meter clips under full PA draw, so it has been intentionally omitted.
 
 ## Troubleshooting

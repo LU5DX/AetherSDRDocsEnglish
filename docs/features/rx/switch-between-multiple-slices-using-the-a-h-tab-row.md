@@ -17,11 +17,10 @@ The FLEX-8600 supports up to eight simultaneous receive slices. The A..H tab row
 
 ## What each control does
 
-| Control           | Behavior                                                                       | Notes                                                                                                                                                                                                                                                     |
+| Control           | Behavior                                                                       | Notes                                                                                                                                                                                                                                                       |
 |-------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Slice tabs (A..H) | Selects which slice the RX applet is bound to; emits sliceActivationRequested. | Row hidden if maxSlices <= 1. `clearSliceButtons()` tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Slice button click connections are guarded against duplicate signal handlers across reconnects. |
+| Slice tabs (A..H) | Selects which slice the RX applet is bound to; emits sliceActivationRequested. | Row hidden if maxSlices <= 1. clearSliceButtons() tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Slice button click connections are guarded against duplicate signal handlers across reconnects. |
 | Slice badge       | Displays the letter of the currently bound slice.                              | Coloured by slice identity.                                                                                                                                                                                                                                 |
-
 ## NT mode behavior
 
 v0.9.3 adds `NT` as a recognized digital mode alongside `DIGU` and `DIGL`. The following behaviors apply to NT mode:

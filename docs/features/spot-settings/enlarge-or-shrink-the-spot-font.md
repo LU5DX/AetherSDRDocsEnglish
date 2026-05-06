@@ -17,14 +17,16 @@ Use this page to make spot callsign text larger or smaller on the panadapter. Ad
 
 ## What each control does
 
-| Control | Description | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| **Font Size:** | Sets the text size of spot callsigns and labels rendered on the panadapter. | 16 | 8 – 32 (points) | `SpotsFontSize` |
+| Control | Description | Default |
+|---|---|---|
+| **Font Size:** | Sets the text size of spot callsigns and labels rendered on the panadapter. Range is 8–32 points. Stored in `SpotFontSize`. | 16 |
+| **Spot Lines:** | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Stored in `IsSpotsLinesEnabled`. New in v0.9.7. | Enabled |
 
 ## Tips
 
 - A font size of 16 is the default. Values toward 8 reduce clutter when many spots are visible; values toward 32 help when viewing the panadapter from a distance.
 - Font size applies to all spots simultaneously. There is no per-spot size override.
+- Disabling **Spot Lines:** can significantly reduce visual clutter during contests when a large number of spots are active.
 
 ## Related
 

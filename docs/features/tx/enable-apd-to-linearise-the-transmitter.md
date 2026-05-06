@@ -19,12 +19,12 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---------|------|----------|
-| APD | Toggle button | Enables or disables adaptive pre-distortion on the radio. Green when on, unlit when off. |
-| Active | Indicator | Lit green when APD is on and the equaliser is actively applied to the signal. |
-| Cal | Indicator | Lit green when APD is on and the radio is still calibrating. |
-| Avail | Indicator | Lit green when APD is on and a calibration is available but not yet applied. |
+| Control | Kind          | Behavior                                                                                 |
+|---------|---------------|------------------------------------------------------------------------------------------|
+| APD     | Toggle button | Enables or disables adaptive pre-distortion on the radio. Green when on, unlit when off. |
+| Active  | Indicator     | Lit green when APD is on and the equaliser is actively applied to the signal.            |
+| Cal     | Indicator     | Lit green when APD is on and the radio is still calibrating.                             |
+| Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
 The normal progression after enabling APD is: Cal → Avail → Active.
 
@@ -43,11 +43,25 @@ Starting with v0.9.5.1, the ATU button uses a per-frequency toggle that mirrors 
 
 The bypass state is cleared automatically when the transmit frequency changes, so the next click will start a new tune rather than bypassing. There is no change to the ATU button label or appearance; the **Success**, **Byp**, and **Mem** indicators below the button continue to reflect ATU status as before.
 
-| Indicator | Kind | Behavior |
-|-----------|------|----------|
-| Success | Indicator | Lights green when the ATU reports a successful or OK match. |
-| Byp | Indicator | Lights orange when the ATU is in bypass or manual bypass. |
-| Mem | Indicator | Lights green when the ATU is using a stored memory. |
+| Indicator | Kind      | Behavior                                                          |
+|-----------|-----------|-------------------------------------------------------------------|
+| Success   | Indicator | Lights green when the ATU reports a successful or OK match.       |
+| Byp       | Indicator | Lights orange when the ATU is in bypass or manual bypass.         |
+| Mem       | Indicator | Lights green when the ATU is using a stored memory.               |
+
+## MOX button and Quindar tones (v0.9.7)
+
+In v0.9.7, clicking MOX routes through the Quindar-tone coordinator rather than toggling the transmitter directly. This means:
+
+- **Engage (click MOX on):** if Quindar is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays before the transmitter keys.
+- **Disengage (click MOX off):** the BK-tone plays after the transmitter unkeys.
+- If Quindar is disabled, or the active TX slice is not on a phone mode, MOX behaves as before and keys the transmitter immediately.
+
+The button appearance is unchanged: the MOX button turns red while the transmitter is keyed and returns to its unlit state when the transmitter is off.
+
+| Control | Kind          | Behavior                                                                                                                                                      |
+|---------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MOX     | Toggle button | Toggles manual transmit. In v0.9.7, routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindar is enabled. Button goes red while TX is keyed. |
 
 ## Related
 

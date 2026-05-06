@@ -45,6 +45,12 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 | **Default color** | Color for spots that match no active filter. | `WsjtxColorDefault` |
 | **Spot Life:** | Seconds a WSJT-X spot remains on the panadapter before fading. | `WsjtxSpotLife` |
 | **WSJT-X Decodes** | Read-only console showing decoded transmissions as they arrive. | — |
+| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: Enabled. | `IsSpotsLinesEnabled` |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
+
+## Tuning from the Spot List
+
+Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also forwards any mode information extracted from the spot comment, so the slice automatically switches to the correct mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
 ## FreeDV Reporter station reporting
 
@@ -85,12 +91,16 @@ If either resolved value is empty the checkbox is automatically unchecked and a 
 
 ## Auto Mode default changed
 
-As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** (stored as `SpotAutoSwitchMode`). In previous versions the default was Disabled. If you have not changed this setting, AetherSDR will now automatically select spot density based on the current panadapter zoom level immediately after a fresh install or settings reset.
+As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** (stored as `SpotAutoSwitchMode`). In previous versions the default was Disabled. If you have not changed this setting, AetherSDR will now automatically switch the slice mode when you click a spot that includes mode information (e.g. CW, FT8, RTTY) immediately after a fresh install or settings reset.
+
+## Spot Lines control added (v0.9.7)
+
+The **Display** tab now includes a **Spot Lines:** toggle (stored as `IsSpotsLinesEnabled`; default Enabled). When enabled, AetherSDR draws a vertical line from the spectrum baseline up to each spot label, making it easier to locate the exact frequency of a spot. Disable this during contests or when the panadapter is crowded to reduce visual clutter.
 
 ## Tips
 
 - If none of the three filter checkboxes (**CQ**, **CQ POTA**, **Calling Me**) are checked, all decoded transmissions are shown on the panadapter regardless of content.
-- WSJT-X spots appear in the unified **Spot List** tab alongside spots from other sources. Double-click any row there to tune directly to that frequency.
+- WSJT-X spots appear in the unified **Spot List** tab alongside spots from other sources. Double-click any row there to tune directly to that frequency. AetherSDR will also switch the slice mode to match the spot's mode if one is present in the comment.
 - Spots from WSJT-X will only appear on the panadapter if the master **Spots:** toggle on the **Display** tab is enabled (stored as `IsSpotsEnabled`; default Enabled).
 - FT8 operates on a 15-second cycle. Keep **Spot Life:** at 15 seconds or a multiple thereof so spots expire cleanly between cycles.
 - FreeDV Reporter reporting is a community resource. Do not enable it with a test callsign or a placeholder grid square.
@@ -100,14 +110,6 @@ As of v0.9.5.1, the **Auto Mode:** toggle on the **Display** tab defaults to **E
 - **Status stays at Stopped / no decodes appear in the console** — Verify the address and port in AetherSDR match exactly what is configured in WSJT-X under **File > Settings > Reporting**. Confirm no firewall is blocking the UDP port. Click **Stop** then **Start** after correcting the values.
 - **Spots appear on the Spot List tab but not on the panadapter** — Open `Settings > SpotHub...`, go to the **Display** tab, and confirm **Spots:** is set to Enabled.
 - **"Calling Me" filter shows no spots** — WSJT-X must have your callsign entered in its settings and must be actively decoding transmissions directed to that callsign. Verify your callsign in WSJT-X under **File > Settings > General**.
+- **Double-clicking a spot does not change the slice mode** — Mode information is read from the spot comment. If the comment contains no recognizable mode string, only the frequency changes. Verify the spot source is including mode data in its comments.
 - **FreeDV Reporter checkbox unchecks itself immediately** — The callsign or grid square field is empty or was not resolved. Fill in both fields (or enable **Use radio** / **Use GPS** so they are populated from the radio) and try again.
-- **FreeDV Reporter section is not visible** — The build does not include WebSocket support (`HAVE_WEBSOCKETS`). Contact your package provider or build AetherSDR from source with WebSocket support enabled.
-
-## Related
-
-- [SpotHub overview](overview.md)
-- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
-- [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
-- [Poll POTA activations](poll-pota-activations.md)
-- [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md)
+- **FreeDV Reporter section is not visible**

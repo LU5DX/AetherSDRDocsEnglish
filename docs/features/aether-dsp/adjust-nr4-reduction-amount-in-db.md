@@ -1,38 +1,168 @@
-# Adjust NR4 Reduction Amount in dB
+# AetherDSP Settings
 
-The `NR4ReductionAmount` setting controls how many decibels of noise suppression NR4 (libspecbleach) applies. Raising it removes more noise; lowering it preserves more of the original signal character.
+The **AetherDSP Settings** dialog (`Settings > AetherDSP Settings...`) controls the client-side noise-reduction engines built into AetherSDR: NR2, NR4, MNR, RN2, BNR, and DFNR. Open it at any time; a radio connection is not required to change these parameters. All values are saved automatically when you close the dialog.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to change this setting.
-- Decide roughly how much suppression you need. The default of 10.0 dB suits most SSB conditions.
+- AetherSDR must be running.
+- Decide which noise-reduction engine is active for your slice before tuning its parameters. Adjusting a disabled engine has no audible effect.
 
-## Steps
+## Opening the dialog
+
+1. Click `Settings > AetherDSP Settings...`.
+2. The **AetherDSP Settings** dialog opens. Select the tab for the engine you want to adjust.
+
+---
+
+## NR2 tab
+
+NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its controls.
+
+### Controls
+
+| Control | Kind | Default | Valid range | Persisted key |
+|---|---|---|---|---|
+| **Gain Method** | Radio buttons | Gamma | Linear \| Log \| Gamma \| Trained | `NR2GainMethod` |
+| **NPE Method** | Radio buttons | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
+| **AE Filter (artifact elimination)** | Checkbox | Enabled | — | `NR2AeFilter` |
+| **Reduction Depth:** | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
+| **Smoothing:** | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
+| **Voice Threshold:** | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| **Reset Defaults** | Button | — | — | — |
+
+### Control descriptions
+
+**Gain Method** selects the gain-curve mapping NR2 uses. `NR2GainMethod` is stored as an integer: Linear = 0, Log = 1, Gamma = 2, Trained = 3. Gamma suits most voice modes.
+
+**NPE Method** selects the noise power estimator. `NR2NpeMethod` is stored as an integer: OSMS = 0, MMSE = 1, NSTAT = 2.
+
+**AE Filter (artifact elimination)** toggles the anti-artefact post-filter (`NR2AeFilter`). Leave this enabled unless you are specifically testing raw NR2 output.
+
+**Reduction Depth:** (`NR2GainMax`) sets the maximum reduction depth NR2 can apply. Higher values suppress more noise but can affect speech naturalness.
+
+**Smoothing:** (`NR2GainSmooth`) controls how quickly the noise estimate tracks signal changes. Higher values produce smoother but slower tracking.
+
+**Voice Threshold:** (`NR2Qspp`) sets the speech-presence-probability threshold below which NR2 treats audio as noise. Raise this if speech is being suppressed; lower it if noise breaks through during pauses.
+
+**Reset Defaults** restores the NR2 tab to its factory values: Gain Method = Gamma, NPE Method = OSMS, AE Filter = enabled, Reduction Depth = 1.50, Smoothing = 0.85, Voice Threshold = 0.20.
+
+### Steps — adjust NR2 reduction depth
+
+1. Open `Settings > AetherDSP Settings...`.
+2. Click the **NR2** tab.
+3. Drag the **Reduction Depth:** slider to the desired value (default 1.50).
+4. Close the dialog. The value is saved automatically.
+
+---
+
+## NR4 tab
+
+NR4 uses the libspecbleach library. Click the **NR4** tab to access its controls.
+
+### Controls
+
+| Control | Kind | Default | Valid range | Persisted key |
+|---|---|---|---|---|
+| **Noise Estimation Method** | Radio buttons | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
+| **Adaptive Noise Estimation** | Checkbox | Enabled | — | `NR4AdaptiveNoise` |
+| **Reduction (dB):** | Slider | 10.0 dB | 0.0–40.0 dB | `NR4ReductionAmount` |
+| **Smoothing (%):** | Slider | 0 | 0–100 | `NR4SmoothingFactor` |
+| **Whitening (%):** | Slider | 0 | 0–100 | `NR4WhiteningFactor` |
+| **Masking Depth:** | Slider | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
+| **Suppression:** | Slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
+| **Reset Defaults** | Button | — | — | — |
+
+### Control descriptions
+
+**Noise Estimation Method** selects the noise-floor estimator NR4 uses. `NR4NoiseEstimationMethod` is stored as an integer: SPP-MMSE = 0, Brandt = 1, Martin = 2.
+
+**Adaptive Noise Estimation** (`NR4AdaptiveNoise`) enables continuous re-estimation of the noise floor. Enable this when the noise floor varies rapidly.
+
+**Reduction (dB):** (`NR4ReductionAmount`) sets the maximum noise reduction NR4 applies in decibels. At 0.0 dB NR4 applies no attenuation; at 40.0 dB it applies the maximum available suppression. The default of 10.0 dB suits most SSB conditions.
+
+**Smoothing (%):** (`NR4SmoothingFactor`) applies time-domain smoothing to the NR4 noise estimate. If raising `NR4ReductionAmount` causes musical noise, try increasing this first.
+
+**Whitening (%):** (`NR4WhiteningFactor`) flattens the spectral shape of residual noise after suppression.
+
+**Masking Depth:** (`NR4MaskingDepth`) controls the spectral-masking depth.
+
+**Suppression:** (`NR4SuppressionStrength`) sets overall NR4 suppression strength.
+
+**Reset Defaults** restores the NR4 tab to its factory values: Noise Estimation Method = SPP-MMSE, Adaptive Noise Estimation = enabled, Reduction = 10.0 dB, Smoothing = 0, Whitening = 0, Masking Depth = 0.50, Suppression = 0.50.
+
+### Steps — adjust NR4 reduction amount
 
 1. Open `Settings > AetherDSP Settings...`.
 2. Click the **NR4** tab.
-3. Locate the **Reduction (dB):** slider.
-4. Drag the slider left to decrease suppression or right to increase it. The current value is displayed to the right of the slider.
-5. Close the dialog. The value is saved automatically.
+3. Drag the **Reduction (dB):** slider left to decrease suppression or right to increase it. The current value is shown to the right of the slider.
+4. Close the dialog. The value is saved automatically.
 
-## What each control does
+### Tips
 
-| Control | Default | Valid range | Persisted key |
-|---|---|---|---|
-| **Reduction (dB):** | 10.0 dB | 0.0–40.0 dB | `NR4ReductionAmount` |
+- Start near the default of 10.0 dB and increase in small steps while monitoring audio quality. Values above 25–30 dB can introduce processing artifacts on weaker signals.
+- **Smoothing (%):** and **Suppression:** interact with the reduction amount. If raising `NR4ReductionAmount` causes musical noise, try increasing smoothing first.
+- Enable **Adaptive Noise Estimation** when the noise floor varies rapidly so NR4 re-estimates the floor continuously.
 
-**Reduction (dB):** sets the maximum noise reduction NR4 will apply in decibels. At 0.0 dB, NR4 applies no attenuation. At 40.0 dB, it applies the maximum available suppression.
+---
 
-## Tips
+## MNR tab
 
-- Start near the default of 10.0 dB and increase in small steps while monitoring audio quality. High values (above 25–30 dB) can introduce processing artifacts on weaker signals.
-- **Smoothing (%):** (`NR4SmoothingFactor`) and **Suppression:** (`NR4SuppressionStrength`) interact with the reduction amount. If raising `NR4ReductionAmount` causes musical noise, try increasing smoothing first.
-- If the noise floor varies rapidly, enable **Adaptive Noise Estimation** (`NR4AdaptiveNoise`) so NR4 re-estimates the floor continuously rather than relying on a static measurement.
+MNR is the MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It is available on macOS only. Click the **MNR** tab to access its controls.
+
+### Controls
+
+| Control | Kind | Default | Valid range | Persisted key |
+|---|---|---|---|---|
+| **Enable MNR (macOS only)** | Checkbox | Read from audio engine | — | `MnrEnabled` |
+| **Strength** | Slider | 100 | 0–100 | `MnrStrength` |
+
+### Control descriptions
+
+**Enable MNR (macOS only)** (`MnrEnabled`) enables the MMSE-Wiener noise reduction engine. The initial state of the checkbox reflects the current state of the audio engine at the time the dialog opens.
+
+**Strength** (`MnrStrength`) adjusts MNR aggressiveness. 0 is mild suppression; 100 is maximum suppression. The value is persisted internally as a normalized 0.00–1.00 range.
+
+---
+
+## RN2 tab
+
+The **RN2** tab displays information about the RNNoise engine. There are no adjustable parameters on this tab.
+
+---
+
+## BNR tab
+
+The **BNR** tab displays information about the NVIDIA noise-reduction engine. BNR intensity is controlled from the overlay menu, not from this dialog.
+
+---
+
+## DFNR tab
+
+DFNR uses the DeepFilterNet3 neural network for noise reduction. Click the **DFNR** tab to access its controls.
+
+### Controls
+
+| Control | Kind | Default | Valid range | Persisted key |
+|---|---|---|---|---|
+| **Attenuation Limit** | Slider | 100 | 0–100 dB | `DfnrAttenLimit` |
+| **Post-Filter Beta** | Slider | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` |
+
+### Control descriptions
+
+**Attenuation Limit** (`DfnrAttenLimit`) sets the maximum noise attenuation DeepFilterNet3 may apply. At 0 the output is passed through unchanged; at 100 the maximum attenuation is applied.
+
+**Post-Filter Beta** (`DfnrPostFilterBeta`) applies an additional post-filter for extra suppression beyond what DeepFilterNet3 provides on its own. At 0.00 the post-filter is inactive. The value is stored internally multiplied by 100.
+
+---
 
 ## Troubleshooting
 
-- **Slider has no audible effect** — confirm that NR4 is the active noise-reduction engine for your slice. Enabling NR2 or another engine simultaneously may mask NR4's contribution.
-- **Speech sounds hollow or distorted at high reduction values** — lower **Reduction (dB):** and check that **Adaptive Noise Estimation** is enabled so the noise floor estimate stays accurate.
+- **Slider has no audible effect** — confirm that the engine whose tab you are adjusting is the active noise-reduction engine for your slice. Enabling another engine simultaneously may mask its contribution.
+- **Speech sounds hollow or distorted at high NR4 reduction values** — lower **Reduction (dB):** and enable **Adaptive Noise Estimation** so the noise floor estimate stays accurate.
+- **MNR controls are grayed out** — MNR is available on macOS only. On Linux and Windows the MNR tab is informational.
+- **Changes appear to reset** — each tab has a **Reset Defaults** button (NR2 and NR4). Verify you have not accidentally clicked it.
+
+---
 
 ## Related
 

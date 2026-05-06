@@ -5,7 +5,7 @@ Make-up gain compensates for the overall level lost when the compressor reduces 
 ## Before you start
 
 - The Aetherial Compressor (TX) or Aetherial AGC-C (RX) applet must be visible. Each tile stays hidden until its stage is enabled via the CHAIN widget.
-- The compressor must be enabled (not bypassed) on the side you want to adjust. Make-up gain has no audible effect when the compressor is bypassed.
+- The compressor must be enabled (not bypassed) on the side you want to adjust. Make-up gain has no audible effect when the compressor is bypassed. When a stage is bypassed, the entire applet tile dims to approximately 55 % opacity as a visual indicator that the compressor is out of the signal path.
 
 ## Steps
 
@@ -31,7 +31,7 @@ The **Makeup** knob uses a linear mapping. It adds a fixed amount of gain after 
 
 ## Troubleshooting
 
-- **Makeup knob has no audible effect** — The compressor stage is likely bypassed. Re-enable it via the CHAIN widget so the compressor is in the signal path. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
+- **Makeup knob has no audible effect** — The compressor stage is likely bypassed. The applet tile will appear dimmed (roughly 55 % opacity) when bypassed. Re-enable it via the CHAIN widget so the compressor is in the signal path. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
 - **Output is louder but peaks are clipping** — The make-up value combined with your signal level is exceeding headroom. Reduce **Makeup**, or open the full editor and enable the limiter with a suitable ceiling. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 
 ## Related

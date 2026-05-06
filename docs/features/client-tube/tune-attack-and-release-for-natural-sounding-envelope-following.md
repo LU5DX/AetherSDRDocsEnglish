@@ -34,12 +34,14 @@ Attack and Release set how quickly the envelope follower tracks rising and falli
 - For natural-sounding speech on TX, start with the defaults (Attack 5.00 ms, Release 35.00 ms) and lengthen Release first. Very short Release values can produce a pumping or chattering character.
 - For RX tone shaping, a longer Attack (10 ms or more) lets transient peaks pass through before the envelope follower engages, preserving initial consonants in received audio.
 - The live input ball on the transfer curve moves in real time. With Envelope set, you can see the operating point shifting as levels change, which helps confirm that Attack and Release feel right before going on air.
+- When the Tube stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity. This visual cue applies to both the TX and RX tiles and makes it easy to confirm at a glance that the stage is not processing audio. The tile returns to full opacity as soon as the stage is re-enabled.
 
 ## Troubleshooting
 
 - **Adjusting Attack or Release has no audible effect** — Envelope is likely set to 0 %. Set Envelope to a positive or negative value first; Attack and Release only apply when the envelope follower is active.
 - **The effect sounds too abrupt or chattery** — Release is set too low. Increase Release toward 100 ms or higher to smooth the recovery.
 - **Loud peaks cause the drive to snap on hard** — Attack is set too low. Increase Attack to 10–20 ms to slow the follower's response to transients.
+- **The docked tile looks faded and the stage is not processing** — The Tube stage is bypassed. The tile dims to 55 % opacity when bypassed. Re-enable the stage to restore full opacity and resume processing. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
 
 ## Related
 

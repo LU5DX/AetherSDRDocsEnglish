@@ -11,14 +11,15 @@ The CHAIN widget controls whether the Gate stage is active in the audio processi
 
 1. Locate the CHAIN widget for the side you want to change — TX or RX — inside the Aetherial Audio (TXDSP) parent container in the Applet Panel.
 2. Single-click the GATE stage in the CHAIN widget to toggle the gate bypass on that side.
-   - When the stage is enabled, the "Aetherial TX Gate" or "Aetherial AGC-T" sub-container becomes visible and the gate is active in the chain.
-   - When the stage is bypassed, the sub-container is hidden and no gain reduction is applied.
-3. To re-enable the stage, single-click the GATE stage in the CHAIN widget again.
+   - When the stage is enabled, the "Aetherial TX Gate" or "Aetherial AGC-T" sub-container becomes visible at full opacity and the gate is active in the chain.
+   - When the stage is bypassed, the sub-container dims to reduced opacity (approximately 55 % of full brightness) and no gain reduction is applied.
+3. To re-enable the stage, single-click the GATE stage in the CHAIN widget again. The sub-container returns to full opacity.
 
 The bypass state is persisted as `ClientGateTxEnabled` (TX side) or `ClientGateRxEnabled` (RX side) and restored on the next application launch.
 
 ## Tips
 
+- The dim effect when bypassed matches the visual treatment applied to the EQ curve when its stage is bypassed, giving a consistent visual cue across DSP stages.
 - Bypassing from the CHAIN widget does not reset any of the five tuning knobs — Thresh, Ratio, Return, Release, and Floor values are preserved.
 - To open the floating gate editor for detailed tuning without bypassing, double-click the GATE stage in the CHAIN widget instead of single-clicking.
 

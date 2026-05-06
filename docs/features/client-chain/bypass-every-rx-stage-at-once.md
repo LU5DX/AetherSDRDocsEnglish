@@ -15,10 +15,10 @@ Use the BYPASS button to disable all RX chain stages in a single click, without 
 
 ## What each control does
 
-| Control                                            | Kind                                                                                                                                    | Default   |
-|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| **RX**                                             | Toggle button                                                                                                                           | Unchecked |
-| **BYPASS**                                         | Toggle button                                                                                                                           | Unchecked |
+| Control | Kind | Default |
+|---|---|---|
+| **RX** | Toggle button | Unchecked |
+| **BYPASS** | Toggle button | Unchecked |
 | RX chain stage (EQ / AGC-T / AGC-C / TUBE / PUDU) | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All five RX stages (EQ, AGC-T/Gate, AGC-C/Comp, Tube, PUDU) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 ## Tips
@@ -26,11 +26,13 @@ Use the BYPASS button to disable all RX chain stages in a single click, without 
 - TX and RX keep separate BYPASS snapshots. Activating BYPASS on the RX chain does not affect the TX chain, and vice versa.
 - If you manually toggle an individual stage while BYPASS is checked, that change is preserved outside the snapshot and will not be reversed when you uncheck BYPASS.
 - The BYPASS checked state shown in the header tracks whichever chain side is currently visible. Switch to TX and back to RX to confirm the RX BYPASS state at a glance.
+- On the TX side, BYPASS state is owned by the audio engine and is shared with the Aetherial Audio Channel Strip. If you engage or disengage TX BYPASS from the Channel Strip, the BYPASS button in the Aetherial Audio Chain applet updates automatically to match, and vice versa.
 
 ## Troubleshooting
 
 - **BYPASS appears checked but some stages are still active** — You may have toggled individual stages manually after engaging BYPASS. Those manual changes are independent of the snapshot. Uncheck and re-check BYPASS to take a fresh snapshot of the current stage states.
 - **Clicking BYPASS re-enables stages you did not expect** — The snapshot was taken when BYPASS was first checked. Only the stages that were enabled at that moment are restored. Any stages you disabled before engaging BYPASS will remain off.
+- **The TX BYPASS button state does not match what you set in the Channel Strip** — The applet synchronises with the audio engine when the TX side is shown. Click **TX** to switch to the TX chain; the BYPASS button will reflect the current engine state immediately.
 
 ## Related
 

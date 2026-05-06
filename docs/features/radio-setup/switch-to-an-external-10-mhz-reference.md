@@ -12,13 +12,14 @@ This page explains how to select an external 10 MHz reference clock on a connect
 1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
 2. Click the `RX` tab.
 3. Locate the `10 MHz Reference Source:` combo box.
-4. Select `External` from the combo box. To return to the built-in oscillator, select `Internal`.
+4. Select `External 10 MHz` from the combo box. To return to the built-in oscillator, select `Auto`.
 
 ## What each control does
 
 | Control | Kind | Valid range / Behavior |
 |---|---|---|
-| `10 MHz Reference Source:` | Combo box | `Auto` \| `TCXO` \| `GPSDO` \| `External`. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+| `10 MHz Reference Source:` | Combo box | `Auto` \| `TCXO` \| `GPSDO` \| `External 10 MHz`. Options shown depend on hardware installed and on the current oscillator state reported by the radio. The combo is populated dynamically: `TCXO` appears when the hardware has a TCXO or when the radio currently reports TCXO as its active state; `GPSDO` appears when a GPSDO is present; `External 10 MHz` appears when an external reference is detected or currently active. Lock status is shown alongside the combo and updates live (see below). |
+| Lock status label | Indicator | Shows the current oscillator source and lock state. When `Auto` is selected, the label reads `Auto -> <active source>` to indicate what the radio has chosen. When the selected source differs from the active state, both are shown (e.g. `TCXO -> GPSDO`). Appends `Locked` (green) or `Unlocked` (red). If `External 10 MHz` is selected but no external signal is detected, the label appends `(not detected)`. While waiting for the radio to report status the label reads `Waiting for oscillator status` (grey). |
 | `TX Follows Active Slice` | Push button | TX follows the active slice. Mutually exclusive with `Active Slice Follows TX`. Disabled automatically during Split operation. |
 | `Active Slice Follows TX` | Push button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with `TX Follows Active Slice`. |
 | `Voice / CW / Digital filter sharpness sliders` | Slider (0–3) | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
@@ -70,33 +71,20 @@ As of v0.9.2.1, the frequency calibration controls on the RX tab are always visi
 4. Click `Start`. The button becomes disabled and shows "Busy". Watch the status label for progress.
 5. When the sweep finishes, the status label reports the result and the `Start` button re-enables.
 
-## ShackSwitch web interface
+## Oscillator source combo behavior (v0.9.7)
 
-v0.9.4 adds the `⚙ Web UI` button to the ShackSwitch row on the Peripherals tab. Click it to open the ShackSwitch's built-in web configuration interface in your system browser.
+In v0.9.7, the `10 MHz Reference Source:` combo box is populated dynamically based on the live state the radio reports, rather than solely on hardware-presence flags detected at dialog open time. The following rules apply:
 
-The button determines the URL as follows:
+- `Auto` is always present.
+- `TCXO` appears if the radio has a TCXO installed, or if the radio is currently reporting TCXO as its oscillator state, or if TCXO was previously selected.
+- `GPSDO` appears if a GPSDO is installed, or if the radio is currently reporting GPSDO as its oscillator state, or if GPSDO was previously selected.
+- `External 10 MHz` appears if an external reference is currently detected, or if the radio is reporting it as the active state, or if it was previously selected. The label was `External` in versions before v0.9.7.
 
-1. If the ShackSwitch is currently connected and its discovery beacon advertises a `webPort` greater than 1024, that port is used.
-2. Otherwise the value stored in `SS_WebPort` is used.
-3. If neither source provides a valid port, port 5000 is used.
+When the combo is opened before the radio has reported oscillator status, all options that match the current setting or a previously selected value are retained so no selection is lost.
 
-The IP address is taken from `SS_ManualIp`. If that setting is empty and a ShackSwitch is currently connected, the live peer address is used instead. The button does nothing if no IP address can be determined.
+The lock status label to the right of the combo also gains additional detail in v0.9.7:
 
-### How to open the ShackSwitch web interface
-
-1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
-2. Click the `Peripherals` tab.
-3. Confirm the ShackSwitch row shows "Connected", or enter the device IP and click `Connect (ShackSwitch)`.
-4. Click `⚙ Web UI`. The ShackSwitch configuration page opens in your default browser.
-
-## Tips
-
-- The `RX` tab also contains the `10 MHz Reference Source:` combo box. If you are using a GPS-disciplined oscillator, switch the reference source to `GPSDO` or `External` as appropriate before running calibration.
-- If the `Cal Frequency (MHz):` field is empty when you click `Start`, the status label will prompt you to enter a frequency. No commands are sent to the radio in that case.
-- The Antenna Genius and ShackSwitch rows on the Peripherals tab share the same underlying connection. Connecting to one disconnects the other. The row for the device type that is not currently connected is hidden from "Connected" status automatically.
-
-## Troubleshooting
-
-- **Radio frequency appears unstable or offset after switching to External** — The REF IN signal may be absent, too low in level, or not exactly 10 MHz. Verify the external source is running and properly connected before selecting `External`. Switch back to `Internal` while diagnosing.
-- **Start button remains disabled / shows "Busy" indefinitely** — This can occur if the radio does not respond to the `radio pll_start` command. Disconnect and reconnect to the radio, then try again.
-- **`Select Installer...` shows a preparation error** — Ensure the file is a genuine SmartSDR installer or `.ssdr` file and has not been corrupted during download. Re-download from flexradio.com
+- When `Auto` is the configured setting, the label shows `Auto -> <resolved source>` to make the radio's actual choice visible.
+- When the configured setting and the active state differ (for example, during a source transition), the label shows `<configured> -> <active>`.
+- If `External 10 MHz` is selected but the radio reports no external signal present, the label appends `(not detected)`.
+- Before the radio has sent any oscillator status, the

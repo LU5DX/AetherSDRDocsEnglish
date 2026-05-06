@@ -108,11 +108,4 @@ The **RX** tab contains controls for manual frequency offset calibration and 10 
 | **Cal Frequency (MHz):** | Spin box | Frequency used for calibration. Must not be empty before clicking **Start**. |
 | **Start** | Button | Begins calibration. Resets `freq_error_ppb` to 0, then issues `radio pll_start`. Disabled while busy. |
 | **Freq Offset (ppb):** | Spin box | Manual frequency offset in parts per billion. |
-| **10 MHz Reference Source:** | Combo box | Auto / TCXO / GPSDO / External. Options shown depend on installed hardware. Lock status updates live. |
-
-## Tips
-
-- **TX Band Settings** is also accessible directly from `Settings > TX Band Settings...` without opening Radio Setup first.
-- The **Max Power:** spin box on the TX tab sets a radio-level cap. Per-band limits set inside **TX Band Settings** operate on top of this cap.
-- When running frequency calibration, ensure no other station is transmitting on the reference frequency before clicking **Start**.
-- When **Check for Update** reports an available firmware version,
+| **10 MHz Reference Source:** | Combo box | Selects the oscillator reference. Available options depend on installed hardware. The combo is populated dynamically: Auto is always present; TCXO and External 10 MHz appear when the radio reports those sources are present or were previously active; GPSDO appears when a GPSDO is detected. The label "External" from earlier firmware versions is normalised to "External 10 MHz". The lock status indicator next to the combo updates live. When the selected source is Auto, the status text shows the resolved source (e.g. "Auto -> GPSDO"). When the configured source differs from the active source

@@ -15,6 +15,8 @@ You can open the full editor for either side by double-clicking the TUBE stage i
 
 The floating editor also includes an **OUT** level meter on its far right, showing post-saturation peak level. The meter is not visible in the docked tile.
 
+When a tube stage is bypassed via the CHAIN widget, the entire docked tile renders at reduced opacity (approximately 55 % of normal). This matches the dim effect used by the EQ curve when bypassed and gives a clear at-a-glance indication that the stage is inactive.
+
 To open the docked tile's context menu, right-click the **Aetherial Mic-PreAmp** or **Aetherial Dynamic Tube** sub-container titlebar. From there you can float, pop out, or hide the tile.
 
 ## What each control does
@@ -59,6 +61,7 @@ Bypass for each instance is controlled from the CHAIN widget, not from within th
 - Bias at 0 % produces a symmetrical curve. Raising it introduces asymmetry, shifting the harmonic content toward even-order harmonics.
 - Use Model A, B, or C to change the fundamental character of the tube curve before adjusting Drive and Bias.
 - Set Envelope to a positive value to make the saturation track transients — loud peaks drive the tube harder automatically. Use Attack and Release to control how quickly the follower reacts and recovers.
+- When a tube stage is bypassed, the docked tile dims visibly. If you notice the tile appears faded, check that the stage is enabled in the CHAIN widget before adjusting controls.
 
 ## Related
 

@@ -35,6 +35,10 @@ The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX
 
 The meter is only visible in the floating editor. It does not appear on the docked applet tile in the Applet Panel.
 
+## Bypass dimming
+
+When the tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect used on the EQ curve widget when that stage is bypassed. The opacity returns to full as soon as the stage is re-enabled. The floating editor is not affected by this dimming.
+
 ## Tips
 
 - Tone interacts with Drive: a high Drive value produces more saturation harmonics, so Tone adjustments become more audible as Drive increases. Dial in Drive first, then use Tone to shape the result.
@@ -47,6 +51,7 @@ The meter is only visible in the floating editor. It does not appear on the dock
 - **Tone knob has no audible effect** — the tube stage may be bypassed. Confirm the stage is active in the CHAIN widget on the matching side. Also check that Mix is above 0 %; a fully dry signal (Mix at 0 %) passes through the tube model but blends none of the wet output.
 - **Knob position does not match what you expect after reloading** — the value is saved automatically each time the knob changes. If `ClientTubeTxTone` or `ClientTubeRxTone` is missing or corrupted in your settings file, the value reverts to the default of 0.00.
 - **OUT meter is not visible** — the meter only appears in the floating editor. Double-click the TUBE stage in the CHAIN widget to open it.
+- **Applet tile appears dimmed** — the tube stage is bypassed. Enable the stage in the CHAIN widget to restore full opacity.
 
 ## Related
 

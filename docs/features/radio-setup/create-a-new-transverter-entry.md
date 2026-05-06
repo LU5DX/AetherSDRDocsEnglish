@@ -71,18 +71,42 @@ The **Start** button now validates the cal frequency field before sending any co
 | **Freq Offset (ppb):** | Manual frequency offset in parts per billion. Applied directly without running a sweep. |
 | Status label | Shows current calibration state: Starting, progress text, or error. Updates live during the sweep. |
 
+## 10 MHz reference source (RX tab)
+
+The **10 MHz Reference Source:** combo box on the **RX** tab selects which oscillator the radio uses as its frequency reference. Starting in v0.9.7, the combo and the lock-status label beside it behave differently from earlier releases.
+
+### Combo box population
+
+The combo is populated dynamically based on what the radio reports at the time the tab is built. Items appear according to the following rules:
+
+| Item label | When shown |
+|---|---|
+| Auto | Always present. |
+| TCXO | Present when the radio has reported any oscillator status, when the radio reports `tcxoPresent`, or when the current or active setting is `tcxo`. |
+| GPSDO | Present when the radio reports `gpsdoPresent`, or when the current or active setting is `gpsdo`. |
+| External 10 MHz | Present when the radio has reported any oscillator status, when the radio reports `extPresent`, or when the current or active setting is `external`. |
+
+The combo selects the item matching the radio's current `oscSetting`. If that value is not in the list, the combo falls back to the current selection, then to **Auto**.
+
+> In releases before v0.9.7 the combo showed only the items corresponding to hardware flags present at dialog-open time, and the **External** item was labelled **External** rather than **External 10 MHz**.
+
+### Lock-status label
+
+The label to the right of the combo shows the current oscillator state and lock condition. It updates when the radio pushes new status.
+
+| Condition | Label text | Color |
+|---|---|---|
+| No status received yet | Waiting for oscillator status | Grey |
+| Setting is Auto, radio has selected a source | Auto -> \<source\> Locked / Unlocked | Green (locked) / Red (unlocked) |
+| Setting differs from active state | \<setting\> -> \<active\> Locked / Unlocked | Green (locked) / Red (unlocked) |
+| Setting matches active state | \<source\> Locked / Unlocked | Green (locked) / Red (unlocked) |
+| External selected but no external signal detected | \<text\> (not detected) appended | Green (locked) / Red (unlocked) |
+
+The radio sends `ext` for the external source in some firmware responses. AetherSDR normalizes this to `external` before display, so the label always reads **External 10 MHz** rather than **Ext**.
+
 ## Tips
 
 - Each transverter gets its own nested tab inside the XVTR tab. If you have multiple transverters, use those tabs to switch between entries.
 - If you need to return to this dialog later to adjust a transverter, reopen `Settings > Radio Setup...` and go directly to the **XVTR** tab.
 - On the **RX** tab, always enter a known accurate reference frequency in **Cal Frequency (MHz):** before clicking **Start**. Leaving the field empty cancels the sweep.
-- When **Check for Update** reports a new firmware version, download the SmartSDR installer from flexradio.com before clicking **Select Installer...**. AetherSDR no longer downloads the installer automatically.
-- The **APD** tab appears only on FLEX-8x00 radios running SmartSDR 4.2.18 or later. If you do not see it, your radio model or firmware version does not support configurable APD.
-- Custom slice colors set on the **Themes** tab apply immediately to VFO widgets, panadapter overlays, and CAT channel badges. Select **Use Aether defaults** and click **Reset All to Defaults** to return to the standard palette.
-- To open the ShackSwitch web interface, click **⚙ Web UI** in the ShackSwitch row of the **Peripherals** tab. The button uses the device's advertised web port when available; if the beacon does not supply a valid port, it falls back to `SS_WebPort` or port 5000.
-- The **Antenna Genius** row hides its Connected status when a ShackSwitch is the active device. Use the **ShackSwitch** row to manage that connection instead.
-
-## Related
-
-- [Radio Setup overview](overview.md)
-- [Set per-band TX max power and tune mode](set-per-band-tx-max-power-and-tune-mode.md)
+- When **Check for Update** reports a new firmware version, download the SmartSDR installer from flexradio.com before

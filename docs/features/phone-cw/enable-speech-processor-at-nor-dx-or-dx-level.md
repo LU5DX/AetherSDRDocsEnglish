@@ -32,14 +32,14 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 
 - Set your mic gain before enabling the processor. A healthy **Level** reading before enabling **PROC** gives the processor useful signal to work with. See [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md).
 - Start at **NOR** and move to **DX** or **DX+** only if signal reports warrant it. Heavy processing on strong signals sounds distorted to the receiving station.
-- The **Compression** gauge reads 0 dB (no fill) when **PROC** is off or no audio is present.
+- The **Compression** gauge reads 0 dB (no fill) when **PROC** is off, when the radio is not transmitting, or when no audio is present.
 
 ## Troubleshooting
 
 - **PROC button is not visible** — The applet is showing the CW panel. The Phone panel, including **PROC**, appears only when the active slice is in a phone mode, not CW.
-- **Compression gauge shows 0 dB with PROC on** — The radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
+- **Compression gauge shows 0 dB with PROC on** — In v0.9.7 and later the **Compression** gauge is gated on the radio's interlock TRANSMITTING state: it intentionally reads 0 dB during receive to prevent stale readings from the TX chain. If the gauge still reads 0 dB while transmitting, the radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
 - **NOR/DX/DX+ slider snaps back** — The slider has three valid positions (0, 1, 2). Dragging between snap points causes it to land on the nearest integer; this is expected behavior.
-- **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge now appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
+- **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). When RADE mode is active, the **Level** gauge also appears during receive (see [Level gauge behavior](#level-gauge-behavior-v093)). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
 - **Phone panel does not refresh when VOX is toggled by keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later if the Phone panel fails to update immediately when VOX is toggled via a keyboard shortcut.
 
 ## CW sidetone behavior (v0.9.1 and later)
@@ -50,12 +50,33 @@ The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control b
 - Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and the local generator volume to the same value.
 - Pitch and stereo pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. No manual override or follow toggle is needed.
 - On Windows, the sidetone audio stream now starts immediately on connect rather than requiring a manual action (v0.9.3, fix #2105).
+- The sidetone bus is shared with Quindar tones. Sidetone and Quindar tones are mutually exclusive at the mode level.
 
 If you have settings from a previous version that reference `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz`, those keys are no longer read or written by AetherSDR and can be ignored.
 
+## Break-in behavior (v0.9.7)
+
+The **Breakin** toggle now fully honors the radio's `break_in` setting.
+
+- With **Breakin** on (QSK mode), key edges from the CW keyboard or MIDI keyer trigger transmit immediately; the `break_in_delay` value holds the relay open between characters as expected.
+- With **Breakin** off, keyed characters are queued and the operator engages PTT manually. The previous auto-PTT envelope that forced transmit regardless of this setting, and that eliminated QSK hang time, has been removed.
+
 ## Level gauge behavior (v0.9.3)
 
-When **Mic source** is set to **PC**, the **Level** gauge uses client-side metering and is not suppressed by the radio's `met_in_rx` flag. The gauge appears immediately on connect and shows the PC microphone input level whether or not the radio is transmitting. For all other mic sources, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
+When **Mic source** is set to **PC**, the **Level** gauge uses client-side metering and is not suppressed by the radio's `met_in_rx` flag. The gauge appears immediately on connect and shows the PC microphone input level whether or not the radio is transmitting.
+
+When RADE mode is active, the **Level** gauge behaves the same way: it uses client-side metering and is not suppressed by `met_in_rx`, so it shows the RADE input level during receive as well as transmit.
+
+For all other mic sources with RADE inactive, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
+
+## RADE mode behavior (v0.9.7)
+
+When AetherSDR activates RADE mode, the Phone/CW applet adjusts several behaviors automatically. No manual steps are required.
+
+- The **Mic gain** slider acts as a client-side RADE gain control. Its value is stored in `PcMicGain` and is not sent to the radio as `mic_level`. This prevents the slider from silently overwriting the hardware mic setting on the radio.
+- The `PcMicGain` setting is shared between PC mic source and RADE mode. Both paths are client-authoritative; the radio does not report a mic level for either.
+- The **Level** gauge shows RADE input level during receive (client-side metering, not gated by `met_in_rx`).
+- When RADE mode deactivates, the applet resynchronizes the **Mic gain** slider from the radio's reported value, and the **Level** gauge reverts to standard suppression behavior for the active mic source.
 
 ## Related
 

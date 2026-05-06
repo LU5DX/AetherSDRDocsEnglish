@@ -17,11 +17,10 @@ When you disconnect from one radio and connect to another that has fewer slices,
 
 ## What each control does
 
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Slice tabs (A..H) | Selects which slice the RX applet is bound to. The row is hidden when the radio's maximum slice count is 1 or fewer. On disconnect, all generated tab buttons are removed and the static slice badge is restored. | — | — |
-| Slice badge | Displays the letter of the currently bound slice. Shown at all times; the only slice indicator visible when the tab row is hidden. | A | — |
-
+| Control           | Behavior                                                                                                                           | Default                                                                                                                                                                                                                                                     |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Slice tabs (A..H) | Selects which slice the RX applet is bound to; emits sliceActivationRequested.                                                     | Row hidden if maxSlices <= 1. clearSliceButtons() tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Slice button click connections are guarded against duplicate signal handlers across reconnects. |
+| Slice badge       | Displays the letter of the currently bound slice. Shown at all times; the only slice indicator visible when the tab row is hidden. | A                                                                                                                                                                                                                                                           |
 ## Tips
 
 - Slice tab buttons are capped by the connected radio's hardware maximum. A radio that supports two slices will never show more than two tabs, regardless of what the previous radio had.

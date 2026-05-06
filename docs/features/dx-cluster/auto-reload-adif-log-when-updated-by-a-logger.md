@@ -30,7 +30,13 @@ AetherSDR now watches the file at `DxccAdifPath` for changes. Each time your log
 | `Grid Square: (FreeDV Reporter)` | Maidenhead grid square to report (up to six characters). Read-only when `Use GPS` is checked. | `FreeDvMyGrid` |
 | `Use GPS (grid)` | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
 | `Station Msg: (FreeDV Reporter)` | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-| `Auto Mode:` | Toggle. When enabled, automatically selects spot density based on panadapter zoom level. Defaults to enabled as of v0.9.5.1. | `SpotAutoSwitchMode` |
+| `Auto Mode:` | Toggle. When enabled, automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Defaults to **Enabled** as of v0.9.5.1. | `SpotAutoSwitchMode` |
+| `Spot Lines:` | Toggle. Draws vertical lines from the spectrum up to each spot label. Defaults to **Enabled**. Disable during contests to reduce visual clutter. New in v0.9.7. | `IsSpotsLinesEnabled` |
+| `Total Spots:` | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
+
+## Tuning from the Spot List
+
+Double-clicking a row in the Spot List tab tunes the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment. If a recognized mode (such as CW, FT8, or SSB) is present, the slice switches to that mode automatically, provided `Auto Mode:` is enabled on the Display tab.
 
 ## FreeDV Reporter reporting
 
@@ -74,7 +80,8 @@ AetherSDR saves the setting to `FreeDvAutoReport` and begins reporting to qso.fr
 - If your logger writes a temporary file and then renames it into place, the file watcher may not detect every save. Point your logger to write directly to the file at the path stored in `DxccAdifPath` for reliable detection.
 - For large ADIF files, AetherSDR reads only the last 500 lines on each reload to avoid blocking the UI.
 - If you change the radio's callsign in Radio Setup while `Use radio` is checked, the `Callsign:` field in the FreeDV Reporter section updates automatically.
-- `Auto Mode:` defaults to enabled in v0.9.5.1. If spot density on the panadapter changes unexpectedly when you zoom, check whether `Auto Mode:` is on and disable it to use a fixed density instead.
+- `Auto Mode:` defaults to **Enabled**. If the slice mode switches unexpectedly when you click a spot, open the Display tab and set `Auto Mode:` to Disabled.
+- `Spot Lines:` defaults to **Enabled**. During contests, disabling it reduces visual clutter on the panadapter.
 
 ## Troubleshooting
 
@@ -82,8 +89,11 @@ AetherSDR saves the setting to `FreeDvAutoReport` and begins reporting to qso.fr
 - **DXCC stats indicator shows 0 QSOs** — The ADIF file may not be readable or may be empty. Open the file in a text editor to confirm it contains valid ADIF records, then reload AetherSDR or re-select the file using `Log File (ADIF):`.
 - **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square is missing or empty. Fill in both fields (or enable `Use radio` / `Use GPS` so that the radio supplies the values) and then check the box again.
 - **FreeDV Reporter controls are not visible** — The build does not include WebSocket support. On Windows, RADE support may also be absent. Contact your build provider or rebuild with `HAVE_WEBSOCKETS` (and `HAVE_RADE` on Windows) enabled.
+- **Auto Mode was previously disabled and is now behaving differently after upgrading** — The default for `Auto Mode:` changed to **Enabled** in v0.9.5.1. If you want to keep the old behaviour, open the **Display** tab and set `Auto Mode:` to **Disabled**.
+- **Double-clicking a spot no longer tunes without switching mode** — As of v0.9.7, tuning from the Spot List also forwards mode information to the slice. If you do not want automatic mode switching, open the **Display** tab and set `Auto Mode:` to **Disabled**.
 
 ## Related
 
 - [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md)
 - [SpotHub overview](overview.md)
+<!-- docmesh:llm version=v0.9.7 date=2026-05-03 -->

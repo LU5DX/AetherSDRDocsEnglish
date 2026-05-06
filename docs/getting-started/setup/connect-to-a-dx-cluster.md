@@ -31,12 +31,19 @@ AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster and show inco
 | **Cluster Console** | Read-only display of raw telnet traffic from the cluster. | — |
 | **Send** (command line) | Sends a typed command to the cluster while connected. | — |
 | **Spot Color:** | Opens a color picker for cluster spot overlays on the panadapter. | `ClusterSpotColor` |
+| **Auto Mode:** | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Enabled by default. | `SpotsAutoMode` |
+| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. New in v0.9.7. | `IsSpotsLinesEnabled` |
 | **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport` |
 | **Callsign:** (FreeDV Reporter) | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked. | `FreeDvMyCallsign` |
 | **Use radio** (callsign) | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default. | `FreeDvUseRadioCallsign` |
 | **Grid Square:** (FreeDV Reporter) | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked. | `FreeDvMyGrid` |
 | **Use GPS** (grid) | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
 | **Station Msg:** (FreeDV Reporter) | Optional free-text message shown beside the callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
+| **Total Spots:** | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
+
+## Tuning to a spot by double-clicking
+
+Double-clicking a row in the **Spot List** tab tunes the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
 ## FreeDV Reporter reporting
 
@@ -72,7 +79,13 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 
 ## Display tab: Auto Mode default changed
 
-As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotAutoSwitchMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto Mode:**.
+As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotsAutoMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto Mode:**.
+
+## Display tab: Spot Lines (new in v0.9.7)
+
+The **Spot Lines:** toggle on the **Display** tab controls whether AetherSDR draws a vertical line from the spectrum baseline up to each spot label on the panadapter. The toggle defaults to **Enabled** and saves to `IsSpotsLinesEnabled`.
+
+Disable **Spot Lines:** during contests or when the panadapter is heavily populated with spots to reduce visual clutter.
 
 ## Tips
 
@@ -80,12 +93,15 @@ As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous r
 - Spot overlays appear on the panadapter only when the master **Spots:** toggle on the **Display** tab is enabled (default: Enabled, saved to `IsSpotsEnabled`).
 - To review recent cluster traffic from before you opened SpotHub, scroll up in the **Cluster Console** — AetherSDR loads up to the last 500 lines from the cluster log file when the dialog opens.
 - If your radio's callsign changes in Radio Setup while **Use radio** is checked, the **Callsign:** field in the FreeDV Reporter section updates automatically.
+- **Auto Mode** defaults to Enabled. When you double-click a spot that carries mode information (e.g. CW, FT8, RTTY), AetherSDR automatically switches the slice to that mode. As of v0.9.7, mode information is parsed from the spot comment using a shared resolver, so mode detection is consistent across all spot sources.
+- Disable **Spot Lines:** on the **Display** tab during contests to reduce panadapter clutter while keeping spot labels visible.
 
 ## Troubleshooting
 
 - **Status shows "Error: ..."** — The hostname or port is wrong, or the cluster server is unreachable. Verify the address and port, then click **Connect** again.
 - **Cluster Console is empty after connecting** — Some clusters require you to send your callsign as the first command. Type your callsign in the command field and click **Send**.
 - **Spots do not appear on the panadapter** — Open the **Display** tab and confirm **Spots:** is enabled.
+- **Double-clicking a spot does not switch mode** — Confirm **Auto Mode:** is enabled on the **Display** tab. Mode switching requires that the spot comment contains a recognizable mode token (e.g. CW, FT8, SSB).
 - **Enable FreeDV Reporter reporting when RADE is active checkbox cannot be checked** — A warning dialog will explain that the callsign or grid square is missing. Fill in both fields (or enable **Use radio** / **Use GPS** so they populate automatically) and try again.
 - **FreeDV tab is not visible** — Your build of AetherSDR was compiled without WebSocket support (`HAVE_WEBSOCKETS`). Contact your package provider for a build that includes FreeDV features.
 
@@ -98,3 +114,4 @@ As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous r
 - [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md)
 - [Enable DXCC coloring from an ADIF log](../../features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md)
 - [Clear all spots from the panadapter](../../features/dx-cluster/clear-all-spots-from-the-panadapter.md)
+<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->

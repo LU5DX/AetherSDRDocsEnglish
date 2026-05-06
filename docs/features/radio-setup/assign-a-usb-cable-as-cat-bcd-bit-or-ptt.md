@@ -91,7 +91,7 @@ In both cases the **Cal Frequency (MHz):**, **Start**, and **Freq Offset (ppb):*
 | **Cal Frequency (MHz):** | Frequency used for calibration, entered in MHz to six decimal places. | Sent to the radio as `radio set cal_freq=<value>`. |
 | **Start** | Begins the calibration sweep. Disabled and labelled **Busy** while a calibration is in progress. | Resets `freq_error_ppb` to 0 before starting. Requires a non-empty cal frequency. |
 | **Freq Offset (ppb):** | Manual frequency offset correction in parts per billion. | |
-| **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External. Available options depend on installed hardware. | Lock status (Locked / Unlocked) is shown alongside the selector and updates live. |
+| **10 MHz Reference Source:** | Selects the oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Available options depend on installed hardware and the current oscillator state reported by the radio. | The status label next to the selector updates live. When Auto is selected and the radio has resolved to a specific source, the label shows "Auto -> \<source\>" to indicate the active hardware. If an External 10 MHz source is selected but no external signal is detected, the label appends "(not detected)". Lock status (Locked / Unlocked) is shown in green or red respectively. The label reads "Waiting for oscillator status" until the radio reports its first oscillator state. |
 
 ## Firmware update (v0.9.3)
 
@@ -99,10 +99,4 @@ In v0.9.3, the firmware update workflow changed. AetherSDR no longer downloads t
 
 ### Supported installer formats
 
-| Format | Extension | Notes |
-|---|---|---|
-| WiX MSI installer | `.msi` | FlexRadio v4.2 and later. |
-| Self-extracting EXE installer | `.exe` | Older SmartSDR releases. |
-| Pre-extracted firmware file | `.ssdr` | Direct firmware file, if you already have one. |
-
-The firmware stager auto-detects the format from the first 8
+| Format

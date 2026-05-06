@@ -27,6 +27,35 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 - AF gain is per-slice. Adjusting one slice does not affect any other slice.
 - To silence a slice without moving the AF Gain slider, use the **Mute button** on the Audio tab instead. Muting does not change the stored gain value.
 
+## DSP tab changes in v0.9.7
+
+The DSP tab in the VFO panel now shows only radio-supplied noise reduction algorithms. The client-side algorithms that were previously accessible as buttons in this tab — NR2, RN2, NR4, MNR, BNR, and DFNR — have been moved out of the VFO panel. To enable those algorithms, use the spectrum overlay menu or the AetherDSP applet.
+
+The buttons remaining in the DSP tab are:
+
+| Button | Algorithm |
+|---|---|
+| NR | Noise reduction |
+| NB | Noise blanker |
+| ANF | Automatic notch filter |
+| APF | Audio peaking filter (CW mode only) |
+| NRL | Noise reduction level |
+| NRS | Spectral subtraction |
+| RNN | RNN noise reduction |
+| NRF | Spectral noise filter |
+| ANFL | LMS notch filter |
+| ANFT | FFT notch filter |
+
+### DSP level slider
+
+A shared level slider now appears below the DSP button grid. The slider retargets automatically to whichever leveled DSP algorithm was most recently enabled. The label to the left of the slider shows the name of the currently targeted algorithm, and the numeric value is shown to the right.
+
+The slider row remains laid out at all times. When no leveled algorithm is active — or when only RNN, ANFT, or APF is on — the slider row fades out and does not respond to clicks.
+
+| Control | Range | Behavior |
+|---|---|---|
+| DSP level slider | 0–100 | Sets the level for the most recently enabled leveled DSP algorithm. Retargets automatically when you switch algorithms. Hidden (faded) when no leveled algorithm is active. |
+
 ## Related
 
 - [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)

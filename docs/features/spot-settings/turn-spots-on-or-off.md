@@ -18,28 +18,49 @@ DX spots from cluster sources appear as overlays on the panadapter. This page ex
 
 ## What each control does
 
-| Label | Kind | Default | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Spots:** | Toggle button | Enabled | `IsSpotsEnabled` | Master on/off switch for DX spot display on the panadapter. |
-| **Memories:** | Toggle button | Disabled | `IsMemoriesShownOnPanadapter` | Shows radio memory channels as spot-like markers on the panadapter. |
-| **Levels:** | Slider | 3 | `SpotsStackLevels` | Number of vertical stacking rows used when spots overlap. Range: 1–10. |
-| **Position:** | Slider | 50 | `SpotsPosition` | Vertical position of the spot band on the panadapter. Range: 0–100. |
-| **Font Size:** | Slider | 16 | `SpotsFontSize` | Text size for spot labels. Range: 8–32. |
-| **Spot Lifetime:** | Slider | 30 min | `SpotsLifetime` | How long a spot remains visible before expiring. Steps range from 10 seconds to 24 hours. |
-| **Override Colors:** | Toggle button | Disabled | `IsSpotsOverrideColorsEnabled` | Forces all spot text to a single chosen color instead of source-assigned colors. |
-| Spot text color picker | Button | `#FFFF00` | `SpotsOverrideColor` | Opens a color picker to select the override text color. Active only when **Override Colors:** is **Enabled**. |
-| **Override Background: Enabled** | Toggle button | Enabled | `IsSpotsOverrideBackgroundColorsEnabled` | Draws a filled background behind each spot label. |
-| **Override Background: Auto** | Toggle button | Enabled | `IsSpotsOverrideToAutoBackgroundColorEnabled` | Automatically selects a background color for contrast rather than using the manually chosen color. |
-| Spot background color picker | Button | `#000000` | `SpotsOverrideBgColor` | Opens a color picker for the manual background color. Used when **Override Background: Auto** is **Disabled**. |
-| **Background Opacity:** | Slider | 48 | `SpotsOverrideBgOpacity` | Alpha level of the spot background. Range: 0–100. |
-| **Clear All Spots** | Button | — | — | Immediately removes all spots from the panadapter. Does not affect the enabled/disabled state. |
+| Label                            | Kind          | Default   | Setting key                              |
+|----------------------------------|---------------|-----------|------------------------------------------|
+| **Spots:**                       | Toggle button | Enabled   | `IsSpotsEnabled`                         |
+| **Memories:**                    | Toggle button | Disabled  | `IsMemorySpotsEnabled`                   |
+| **Levels:**                      | Slider        | 3         | `SpotsMaxLevel`                          |
+| **Position:**                    | Slider        | 50        | `SpotsStartingHeightPercentage`          |
+| **Font Size:**                   | Slider        | 16        | `SpotFontSize`                           |
+| **Spot Lifetime:**               | Slider        | —         | `DxClusterSpotLifetimeSec`               |
+| **Override Colors:**             | Toggle button | Disabled  | `IsSpotsOverrideColorsEnabled`           |
+| Spot text color picker           | Button        | `#FFFF00` | `SpotsOverrideColor`                     |
+| **Override Background: Enabled** | Toggle button | Enabled   | `IsSpotsOverrideBackgroundColorsEnabled` |
+| **Override Background: Auto**    | Toggle button | Enabled   | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
+| Spot background color picker     | Button        | `#000000` | `SpotsOverrideBgColor`                   |
+| **Background Opacity:**          | Slider        | 48        | `SpotsBackgroundOpacity`                 |
+| **Spot Lines:**                  | Toggle button | Enabled   | `IsSpotsLinesEnabled`                    |
+| **Clear All Spots**              | Button        | —         | —                                        |
 
 The **Total Spots:** indicator at the bottom of the dialog shows how many live spots are currently tracked.
+
+### Control details
+
+**Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. Disable this during contests to reduce visual clutter. This control was added in v0.9.7 (issue #2349).
+
+**Spot Lifetime:** uses a non-linear scale ranging from 10 seconds to 24 hours. The value is stored in seconds in `DxClusterSpotLifetimeSec`. On first read, any value previously saved under the old minutes-based key `DxClusterSpotLifetime` is automatically migrated.
+
+### Setting key changes in v0.9.7
+
+Several setting keys were renamed. If you reference these keys in scripts or external configuration tools, update them accordingly.
+
+| Control             | Old key                        | New key                          |
+|---------------------|--------------------------------|----------------------------------|
+| **Memories:**       | `IsMemoriesShownOnPanadapter`  | `IsMemorySpotsEnabled`           |
+| **Levels:**         | `SpotsStackLevels`             | `SpotsMaxLevel`                  |
+| **Position:**       | `SpotsPosition`                | `SpotsStartingHeightPercentage`  |
+| **Font Size:**      | `SpotsFontSize`                | `SpotFontSize`                   |
+| **Spot Lifetime:**  | `SpotsLifetime`                | `DxClusterSpotLifetimeSec`       |
+| **Background Opacity:** | `SpotsOverrideBgOpacity`   | `SpotsBackgroundOpacity`         |
 
 ## Tips
 
 - Toggling **Spots:** to **Disabled** does not clear buffered spots. When you re-enable it, spots that have not yet expired will reappear.
 - The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
+- Disable **Spot Lines:** during contests to keep the panadapter uncluttered while retaining spot labels.
 
 ## Related
 

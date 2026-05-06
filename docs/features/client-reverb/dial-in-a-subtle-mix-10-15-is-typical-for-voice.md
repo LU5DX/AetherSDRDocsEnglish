@@ -25,11 +25,26 @@ The Mix knob controls the dry/wet balance of the Aetherial FreeVerb reverb on yo
 | Damp | 50 % | 0–100 % (0.0 to 1.0) | `ClientReverbTxDamping` | Higher values damp high frequencies faster in the tail. |
 | Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Pre-delay between the dry signal and the first reflections. |
 
+## Live visualisation
+
+v0.9.7 adds a small reverb visualisation inside the "Aetherial FreeVerb — TX" editor. It appears as a 90-pixel-tall waveform display above the knob row and updates in real time as you turn any knob.
+
+The display uses three colour-coded layers:
+
+| Colour | What it represents |
+|--------|--------------------|
+| Cyan | Dry signal — a sine packet that fades toward the right as Mix increases. |
+| Yellow | First-order reflections — short bursts whose spacing widens with Size and whose amplitude falls off with Damp. |
+| Magenta | Reverberant tail — an exponentially decaying oscillation whose length tracks Decay and whose onset position tracks Pre. |
+
+The visualisation is read-only. It does not add or remove any processing; it reflects the current knob values only. The layout algorithm matches the reverb panel on the strip side, so the two views read consistently when both are open at the same time.
+
 ## Tips
 
 - The default Mix value is 15 %, which is already within the typical voice range. If you reset the knob to default, it returns to 15 %.
 - Both the compact applet knob and the floating editor knob stay in sync. Changes made in one are reflected in the other within approximately 33 ms.
 - Mix at 0 % passes only dry signal; the reverb stage is still active but inaudible. To remove it from the processing chain entirely, see [Bypass reverb from the chain](bypass-reverb-from-the-chain.md).
+- Use the live visualisation to get a quick read on how Decay and Damp interact: a long, bright tail in the display corresponds to a long, high-frequency-rich reverb in the transmitted audio.
 
 ## Related
 

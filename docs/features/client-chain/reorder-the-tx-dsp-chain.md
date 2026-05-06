@@ -25,8 +25,8 @@ The new chain order is saved automatically to `ClientCompTxChainStages`.
 |---|---|---|
 | **TX** | Toggle button | Shows and enables editing of the TX DSP chain. Must be selected to drag TX stages. |
 | **RX** | Toggle button | Switches the strip to the RX chain. Drag operations on the RX strip do not affect TX order. |
-| TX chain stage (**EQ / COMP / GATE / DESS / TUBE / PUDU / VERB**) | Drag handle | Single-click toggles bypass for that stage. Double-click opens its frameless floating editor. Drag left or right to reorder. |
-| **BYPASS** | Toggle button | Disables every stage on the currently shown chain side at once. Does not affect stage order. |
+| TX chain stage (**EQ / COMP / GATE / DESS / TUBE / PUDU / VERB**) | Drag handle | Single-click toggles bypass for that stage. Double-click opens the Aetherial Audio Channel Strip — the unified TX DSP window. Drag left or right to reorder. |
+| **BYPASS** | Toggle button | Disables every stage on the currently shown chain side at once. When the TX side is shown, the button state mirrors the engine-level TX bypass, which is also controllable from the Aetherial Audio Channel Strip. Does not affect stage order. |
 | RX chain stage (**EQ / AGC-T / AGC-C / TUBE / PUDU**) | Drag handle | Single-click toggles bypass for the RX stage. Double-click opens its frameless floating editor in RX mode. Drag left or right to reorder the RX chain. Order is independent of the TX chain. |
 
 ## Tips
@@ -36,11 +36,13 @@ The new chain order is saved automatically to `ClientCompTxChainStages`.
 - The RX chain stage labels are **AGC-T** (gate) and **AGC-C** (compressor). These correspond to the gate and compressor functions respectively.
 - A single-click on a stage tile toggles its bypass state, not a reorder. Make sure you are dragging, not clicking, when you intend to move a stage.
 - If **BYPASS** is currently checked when you reorder, the stage positions still update. The bypass snapshot is based on which stages were enabled, not their position.
+- Double-clicking any TX chain stage tile opens the Aetherial Audio Channel Strip, which provides the unified TX DSP editor. The **BYPASS** button in the channel strip and the **BYPASS** button on the chain applet control the same engine-level TX bypass state and stay in sync with each other automatically.
 
 ## Troubleshooting
 
 - **Drag does nothing or the drop is rejected** — Confirm **TX** is the selected mode button (amber highlight). Dragging is only active on the currently shown chain strip; if **RX** is selected, drops to the TX strip are not accepted.
 - **New order is lost after restart** — This should not happen if the drop completed successfully (cyan drop indicator appeared and you released over the strip). If it recurs, check that AetherSDR has write access to its settings storage.
+- **BYPASS button state does not match what I set in the channel strip** — The chain applet only mirrors the TX bypass state when the **TX** side is active. Switch to **TX** if the **RX** strip is currently shown.
 
 ## Related
 

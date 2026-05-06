@@ -52,11 +52,13 @@ Defaults and valid ranges for Knee and Limiter ceiling are not specified in the 
 - Changes made in the floating editor are reflected immediately in the applet tile's transfer curve and gain-reduction bar.
 - The TX and RX editors are fully independent. Opening one does not affect the other.
 - The floating editor is frameless. Drag its title bar to reposition it.
+- When the compressor stage is bypassed, the entire applet tile dims to approximately 55% opacity. This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is not processing audio.
 
 ## Troubleshooting
 
 - **Double-clicking COMP in the CHAIN widget does nothing** — The COMP stage may be bypassed or the audio engine may not be connected. Check that the stage is active and that AetherSDR has an audio engine running.
 - **Knee and limiter controls are not visible** — You may be looking at the applet tile rather than the floating editor. The tile does not expose knee or limiter controls. Double-click the COMP stage in the CHAIN widget to open the full editor.
+- **The applet tile appears dimmed** — The compressor stage is currently bypassed. Enable the COMP stage in the CHAIN widget to restore full opacity and resume processing.
 
 ## Related
 

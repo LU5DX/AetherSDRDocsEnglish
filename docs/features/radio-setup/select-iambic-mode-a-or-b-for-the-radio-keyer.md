@@ -154,7 +154,7 @@ In v0.9.2.1, the calibration controls became available regardless of whether a G
 | **Cal Frequency (MHz):** | Spinbox | — | Frequency used for calibration. Must not be empty before clicking Start. |
 | **Start** | Push button | — | Resets frequency error to 0 ppb, then starts the calibration sweep. Disabled and labelled Busy during an active calibration. |
 | **Freq Offset (ppb):** | Spinbox | — | Manual frequency offset in parts per billion. Applied directly without running a sweep. |
-| **10 MHz Reference Source:** | Combo box | Auto | Selects the oscillator reference source: Auto, TCXO, GPSDO, or External. Options shown depend on installed hardware. Lock status (Locked / Unlocked) is shown alongside and updates live. |
+| **10 MHz Reference Source:** | Combo box | Auto | Selects the oscillator reference source. The combo is populated dynamically based on installed hardware and the current oscillator state: **Auto**, **TCXO**, **GPSDO**, and **External 10 MHz** appear only when the corresponding hardware is detected or was previously selected. When **Auto** is active, the status label shows the resolved source (for example, *Auto -> GPSDO*). If the selected source differs from the active state, both are shown (for example, *GPSDO -> TCXO*). Lock status (**Locked** / **Unlocked**) is appended and updates live; if **External 10 MHz** is selected but no external signal is detected, *(not detected)* is appended. |
 
 ---
 
@@ -176,7 +176,4 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Audio Buffer:** | Text field | 200 | Audio buffer size in milliseconds for VPN/SmartLink jitter compensation. Range: 50–1000 ms. Stored in `AudioBufferMs`. |
 | **Recording: Radio Side / Client Side** | Push button | Radio Side | Selects radio-side or client-side recording. Stored in `RecordingMode`. |
 | **Save to:** | Text field | — | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in `QsoRecordingDir`. |
-| **...** | Push button | — | Opens a folder browser for the recording directory. |
-| **Auto-record on TX** | Checkbox | False | Automatically records while transmitting. Stored in `QsoRecordingAutoRecord`. |
-| **Idle timeout:** | Spinbox | 120 | Seconds of silence before recording stops. Range: 10–3600 s. Stored in `QsoRecordingIdleTimeout`. |
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Push button |
+| **...** | Push button | — |

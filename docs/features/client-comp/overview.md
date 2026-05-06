@@ -16,6 +16,8 @@ The applet tile for each instance shows:
 - A **transfer curve** — a static input/output plot with a live envelope ball that rides along the curve in real time, showing the current operating point.
 - A **gain-reduction bar** — a horizontal amber strip that fills from the right. The scale runs 0 to 20 dB of gain reduction. A tick marks the −6 dB point as a typical working reference. The strip refreshes at approximately 30 Hz.
 
+When a compressor stage is bypassed, its entire applet tile dims to approximately 55 % opacity. The tile returns to full opacity when the stage is re-enabled. This visual state matches the dim behavior used by the EQ curve applet.
+
 To open the full editor for either instance — which adds knee and limiter controls not available in the applet — double-click the COMP stage in the CHAIN widget on the TX or RX side. The editor opens titled **Aetherial Compressor — TX** or **Aetherial Compressor — RX** accordingly.
 
 ## What each control does
@@ -43,6 +45,7 @@ Additional settings managed only through the full editor:
 
 - The envelope ball on the transfer curve gives continuous visual feedback. If the ball sits well above the knee at rest, the threshold is set too low — raise Thresh until the ball only crosses the knee on peaks.
 - The −6 dB tick on the gain-reduction bar is a useful reference point. Consistent amber fill up to or slightly past that tick indicates active, moderate compression. Fill reaching the right edge of the bar means the compressor is working at or beyond 20 dB reduction.
+- When a stage is bypassed, the tile dims visibly. If the tile appears dim and controls are unresponsive, check that the COMP stage is not bypassed in the CHAIN widget.
 - The TX and RX instances are fully independent. Changes to Aetherial Compressor (TX) do not affect Aetherial AGC-C (RX) and vice versa.
 - Knee and limiter controls are not available in the applet tile. Open the full editor to access them.
 

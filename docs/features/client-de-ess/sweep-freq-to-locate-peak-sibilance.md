@@ -6,7 +6,7 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 
 - The Aetherial De-Esser must be enabled via the CHAIN widget in the Aetherial Audio (TXDSP) container. The applet is hidden until the DESS stage is active.
 - You need a live audio source — either transmitting or routing audio through the TX DSP chain — so the gain-reduction bar responds in real time.
-- Open the de-esser applet or the floating editor. To open the floating editor, double-click the DESS stage in the CHAIN widget. The editor is titled "Aetherial De-Esser — TX".
+- Open the de-esser applet. Bypass and enable are controlled by a single-click on the DESS stage in the CHAIN widget. Editing is done via the Aetherial Audio Channel Strip.
 
 ## Steps
 
@@ -29,6 +29,10 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 | Sidechain response curve | — | — | — | Draws the bandpass filter response. The live ball marks the current centre frequency. |
 | Gain-reduction bar | — | 0 to 24 dB GR | — | Horizontal soft-red strip, right-filled. A tick marks the -6 dB point. Refreshed at approximately 30 Hz. |
 
+## Bypass dim
+
+When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. The tile returns to full brightness as soon as the stage is re-enabled.
+
 ## Tips
 
 - Keep Q at its default of 2.00 during the initial sweep. A very narrow Q can cause you to sweep past the true peak without triggering the bar. Narrow the band with Q only after you have located the peak.
@@ -40,6 +44,7 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 - **Gain-reduction bar does not move during the sweep** — Thresh is above the level of your sibilance peaks. Lower Thresh until the bar begins to respond, then re-sweep.
 - **Bar stays near maximum across a wide Freq range** — Amount is set to a very large negative value and Thresh is very low. Raise Thresh slightly so the bar discriminates between frequencies rather than clamping at maximum everywhere.
 - **Applet is not visible** — The DESS stage has not been enabled in the CHAIN widget. Enable it there first; the applet remains hidden until the stage is active.
+- **Applet tile appears dimmed** — The DESS stage is currently bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it.
 
 ## Related
 

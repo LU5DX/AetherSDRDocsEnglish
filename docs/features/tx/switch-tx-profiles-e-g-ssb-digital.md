@@ -51,6 +51,17 @@ The **Byp** indicator lights orange whenever the tuner is in bypass. The **Succe
 
 > **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL amplifier is in OPERATE mode.
 
+## MOX button and Quindar tones (v0.9.7)
+
+Starting with v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the transmitter directly. The practical effect is:
+
+- When Quindar is enabled in the Audio Channel Strip and the active TX slice is on a phone mode (SSB, AM, FM, and so on), the K tone plays when **MOX** is clicked on and the BK tone plays when **MOX** is clicked off.
+- When Quindar is disabled, or the active TX slice is not on a phone mode, behavior is identical to previous versions — the transmitter keys and unkeys immediately.
+
+The **MOX** button appearance is unchanged: it turns red while TX is keyed and returns to its default color on release.
+
+> **Note:** Quindar tones are a feature of the Audio Channel Strip. Enable the **QUIN** control there before expecting tones to play on PTT.
+
 ## Related
 
 - [TX Controls overview](overview.md)

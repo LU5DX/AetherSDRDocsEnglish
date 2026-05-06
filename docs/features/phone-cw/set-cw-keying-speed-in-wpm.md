@@ -24,7 +24,10 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 
 - The Speed (CW) slider operates the radio's keyer speed. Changes take effect immediately and apply to the paddle, straight key, and any CWX text transmissions.
 - The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone in lockstep. Adjusting speed does not affect sidetone pitch; pitch always follows the radio's `cw_pitch` setting automatically.
-- The **Level** gauge appears immediately on connect when the mic source is set to PC. When the mic source is PC, the gauge uses client-side metering and is not suppressed by the `met_in_rx` setting, even when not transmitting.
+- The **Level** gauge appears immediately on connect when the mic source is set to PC, or when RADE mode is active. In both cases the gauge uses client-side metering and is not suppressed by the `met_in_rx` setting, even when not transmitting. When RADE mode is active, the gauge continues to show level during RX.
+- The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value while the radio's interlock reports a TRANSMITTING state and the speech processor is enabled, preventing stale TX-chain readings from appearing during receive.
+- The **Mic gain** slider behaves differently when RADE mode is active: it acts as client-side RADE gain and stores its value under `PcMicGain` rather than sending a mic level command to the radio. This prevents silently overwriting the hardware mic setting. The same `PcMicGain` setting is shared between PC source mode and RADE mode.
+- The **Breakin** toggle fully controls whether CW keyboard and MIDI key edges trigger TX. With Breakin on (QSK), key edges trigger TX and the break-in delay holds the relay. With Breakin off, keys are queued and you engage PTT manually. No automatic PTT envelope overrides this behavior.
 
 ## Related
 

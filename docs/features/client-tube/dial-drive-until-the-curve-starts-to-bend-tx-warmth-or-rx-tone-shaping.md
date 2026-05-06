@@ -52,6 +52,7 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - **Transfer curve does not bend when Drive is increased** — The Tube stage may not be enabled for that side. Enable it through the CHAIN widget. The applet is hidden until the stage is active.
 - **Knobs in the applet do not match the floating editor** — The applet syncs from the engine on a polling timer. Wait a moment; they should align within about 30 ms. If they remain out of sync, the audio engine may not be connected — check that the radio connection is active.
 - **OUT meter is not visible** — The output level meter only appears in the floating editor, not in the docked applet tile. Open the floating editor by double-clicking the TUBE stage in the CHAIN widget.
+- **Docked applet tile looks faded or dimmed** — When the Tube stage is bypassed, the entire docked tile is rendered at reduced opacity. This is expected behaviour and matches the dim effect applied to the EQ curve when that stage is bypassed. Re-enable the Tube stage through the CHAIN widget to restore full opacity.
 
 ## Related
 

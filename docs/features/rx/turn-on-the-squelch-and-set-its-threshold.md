@@ -22,7 +22,6 @@ To disable the squelch, click **SQL** again to deactivate it.
 |-------------------|---------|-------------|
 | **SQL**           | Off     | On / Off    |
 | **Squelch level** | 20      | 0–100       |
-
 ## Tips
 
 - Adjust the **Squelch level** slider before clicking **SQL** so you can hear where the threshold sits relative to background noise.

@@ -30,6 +30,35 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
 
+## Changes in v0.9.7
+
+### DSP tab — radio-side buttons only
+
+The **DSP tab** in the VFO panel now shows only buttons for DSP functions that the radio itself provides. The following buttons have been removed from the VFO panel DSP tab:
+
+- **NR2** (spectral noise reduction)
+- **RN2** (RNNoise noise suppression)
+- **BNR** (GPU neural denoising)
+- **NR4** (spectral bleach noise reduction)
+- **MNR** (macOS MMSE-Wiener noise reduction)
+- **DFNR** (DeepFilterNet3 neural noise reduction)
+
+These client-side DSP modules are now accessible from the spectrum overlay menu and the AetherDSP applet. Use those locations to enable or adjust them.
+
+The buttons that remain on the DSP tab are: **NR**, **NB**, **ANF**, **APF**, **NRL**, **NRS**, **RNN**, **NRF**, **ANFL**, and **ANFT**. The grid layout is four columns across three rows. The **APF** button is visible only when the slice is in a CW mode.
+
+### DSP tab — DSP level slider
+
+A shared level slider row has been added at the bottom of the DSP tab. The slider adjusts the processing depth of whichever supported DSP function was most recently enabled. The label to the left of the slider shows the name of the current target (for example, **NR** or **NB**). The numeric value is shown to the right.
+
+The slider targets the following functions: NR, NB, ANF, NRL, NRS, NRF, and ANFL. It does not target RNN, ANFT, or APF. When none of those functions is active, the slider row is still present in the layout but its contents are visually faded out to indicate that no target is selected. Clicking or dragging the slider while it is faded has no effect.
+
+| Control | Kind | Default | Valid range | Persisted setting |
+|---|---|---|---|---|
+| DSP level slider (DSP tab) | Slider | — | 0–100 | — |
+
+**DSP level slider** — Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state.
+
 ## Related
 
 - [VFO Panel overview](overview.md)

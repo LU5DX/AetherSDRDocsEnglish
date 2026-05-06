@@ -53,6 +53,13 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 | **Grid Square:** | Text field | Maidenhead grid square to report. Read-only when **Use GPS** is checked. Saved to `FreeDvMyGrid`. |
 | **Use GPS** | Checkbox | Pre-fills **Grid Square:** from the radio's GPS module and locks the field read-only. Shown only on radio models with GPS hardware. Saved to `FreeDvUseGpsGrid`. Default: enabled on GPS-capable models. |
 | **Station Msg:** | Text field | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Saved to `FreeDvMyMessage`. |
+| **Auto Mode:** | Toggle button | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: **Enabled** (as of v0.9.5.1). Saved to `SpotAutoSwitchMode`. |
+| **Spot Lines:** | Toggle button | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: **Enabled**. Saved to `IsSpotsLinesEnabled`. New in v0.9.7. |
+| Total Spots: | Indicator | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
+
+## Tuning to a spot by double-clicking the spot list
+
+Double-clicking a row in the **Spot List** tab tunes the active slice to the spot frequency. As of v0.9.7, AetherSDR also forwards the mode extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
 ## Tips
 
@@ -61,6 +68,7 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 - If **Use radio** is checked, updating your callsign in Radio Setup immediately refreshes the **Callsign:** field without reopening SpotHub.
 - Reporter broadcasting only activates while the RADE modem is running. You can leave the checkbox enabled at all times; no data is sent when RADE is idle.
 - **Auto Mode:** on the **Display** tab defaults to **Enabled** as of v0.9.5.1. Spot density adjusts automatically as you zoom the panadapter without any manual configuration. If you previously disabled **Auto Mode:** and saved settings from an earlier version, check whether the new default is appropriate for your workflow. The setting is saved to `SpotAutoSwitchMode`.
+- **Spot Lines:** is enabled by default. During contests, consider disabling it on the **Display** tab to reduce visual clutter on the panadapter. The setting is saved to `IsSpotsLinesEnabled`.
 
 ## Troubleshooting
 
@@ -69,6 +77,7 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 - **Spots appear in the console but not on the panadapter** — Verify that **Spots:** is set to **Enabled** on the **Display** tab of SpotHub.
 - **"Please set both a callsign and a grid square" warning appears** — Fill in both **Callsign:** and **Grid Square:** before checking **Enable FreeDV Reporter reporting when RADE is active**. If **Use radio** or **Use GPS** is checked but the radio has not yet provided those values, uncheck the corresponding option and enter the values manually.
 - **Use GPS checkbox is not visible** — Your radio model does not have GPS hardware. Enter a grid square manually in the **Grid Square:** field.
+- **Double-clicking a spot does not switch mode** — Mode information is parsed from the spot comment. If the comment does not contain a recognized mode token, only the frequency is applied. Check the spot's Comment column in the **Spot List** tab to confirm whether mode information is present.
 
 ## Related
 
@@ -76,3 +85,4 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
+<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->

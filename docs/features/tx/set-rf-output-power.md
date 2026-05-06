@@ -45,11 +45,23 @@ The **Byp** indicator lights orange when the tuner is in bypass. The **Success**
 
 > **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL transverter is in OPERATE mode.
 
+## Using the MOX button
+
+The **MOX** button manually keys the transmitter. When active, the button turns red.
+
+In v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the radio directly. This means:
+
+- On phone modes (SSB, AM, FM, and so on), if the **QUIN** chip is enabled in the Audio Channel Strip, the K-tone plays when you engage MOX and the BK-tone plays when you disengage it.
+- If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is identical to previous versions: the radio keys and unkeys immediately.
+
+No change to how you operate the button is required. The Quindar tones are controlled entirely by the **QUIN** setting in the Audio Channel Strip.
+
 ## Troubleshooting
 
 - **RF Pwr meter shows 0 W during transmit** — Confirm the radio is actually keyed. Check that MOX is active (the **MOX** button is red) or that your PTT line is asserted. Also verify the **RF Power** slider is not set to 0.
 - **Slider moves but forward power does not change** — The radio connection may have dropped. Check the connection status and reconnect via `Settings > Connect to Radio...` if needed.
 - **ATU button starts a fresh tune even though Success was lit** — Confirm you have not changed transmit frequency since the last tune. Any frequency change clears the stored tuned-frequency record and forces a new tune cycle.
+- **Quindar tones do not play when using MOX** — Confirm the active slice is set to a phone mode and that the **QUIN** chip is enabled in the Audio Channel Strip. Quindar tones are suppressed on non-phone modes regardless of the QUIN setting.
 
 ## Related
 

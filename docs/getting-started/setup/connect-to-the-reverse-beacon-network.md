@@ -32,6 +32,16 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 | **RBN Console** | Read-only display of raw RBN traffic | — |
 | **Send** | Sends a typed command to the RBN session | — |
 | **Spot Color:** | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor` |
+| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
+| Total Spots: | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
+
+## Double-clicking a spot now forwards mode hints
+
+Starting in v0.9.7, double-clicking a row in the **Spot List** tab tunes the receiver to the spot frequency and also switches the receiver mode to match the spot. For example, double-clicking a CW spot switches the receiver to CW, and double-clicking an FT8 spot switches it to the appropriate digital mode, rather than only changing the frequency. The mode is resolved from the spot comment by the `SpotModeResolver` logic shared across all spot sources.
+
+## Spot Lines
+
+The **Display** tab now includes a **Spot Lines:** toggle (new in v0.9.7). When **Enabled** (the default), AetherSDR draws a short vertical line from the spectrum trace up to each spot label on the panadapter, making it easier to see exactly which frequency a spot corresponds to. Set it to **Disabled** during contests or other high-spot-density operating sessions to reduce visual clutter. This persists as `IsSpotsLinesEnabled`.
 
 ## FreeDV Reporter station reporting
 
@@ -67,7 +77,7 @@ In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabl
 ## Tips
 
 - The **RBN Console** is read-only and shows raw telnet lines as they arrive. Use the **Send** command line below it to issue filter commands directly to the RBN server (e.g., `set/skimmer` or band-filter commands supported by the RBN).
-- If the panadapter becomes cluttered during a contest, lower **Rate Limit:** to reduce spot density without disconnecting.
+- If the panadapter becomes cluttered during a contest, lower **Rate Limit:** to reduce spot density without disconnecting. You can also disable **Spot Lines:** on the **Display** tab to reduce visual clutter further.
 - To change how spots look on the panadapter — size, position, lifetime, and stacking — see [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md).
 - RBN spots use the color set by **Spot Color:** on the RBN tab. To override all spot source colors with a single color, use the **Override Colors:** toggle on the **Display** tab.
 
@@ -75,7 +85,8 @@ In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabl
 
 - **Connect button returns to Connect immediately with an error in the console** — The hostname or port is wrong, or the RBN server is unreachable. Verify `RbnHost` and `RbnPort` and check your network connection.
 - **No spots appear on the panadapter after connecting** — Confirm that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also check that the band you are monitoring is not hidden in the **Spot List** tab band filter checkboxes.
-- **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate.
+- **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate. Alternatively, disable **Spot Lines:** (`IsSpotsLinesEnabled`) on the **Display** tab to make dense spot areas easier to read without reducing the number of spots shown.
+- **Double-clicking a spot changes frequency but does not change mode** — The spot comment may not contain a recognizable mode token. Mode switching depends on the spot comment containing a known mode string (e.g., `CW`, `FT8`, `SSB`). If the spotter did not include a mode in the comment, only the frequency changes.
 - **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square value could not be resolved. Enter values in the **Callsign:** and **Grid Square:** fields, or enable **Use radio** and **Use GPS** so AetherSDR can read them from the radio.
 - **Auto Mode: is now Enabled after upgrading** — v0.9.5.1 changed the default for `SpotAutoSwitchMode` from `False` to `True`. If you prefer the previous behavior, open `Settings > SpotHub...`, click the **Display** tab, and click **Auto Mode:** to set it to **Disabled**.
 

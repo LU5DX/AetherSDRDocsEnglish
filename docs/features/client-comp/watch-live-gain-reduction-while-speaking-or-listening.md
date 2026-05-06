@@ -5,7 +5,7 @@ The ClientCompApplet shows a live gain-reduction meter and an animated transfer 
 ## Before you start
 
 - The Aetherial Audio (TXDSP) parent container must be visible in the applet panel.
-- The compressor stage you want to monitor (TX or RX) must be enabled — the tile stays hidden while the stage is bypassed. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile is not visible.
+- The compressor stage you want to monitor (TX or RX) must be enabled — the tile renders at reduced opacity when the stage is bypassed. See [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md) if the tile appears dimmed.
 
 ## Steps
 
@@ -36,7 +36,7 @@ The ClientCompApplet shows a live gain-reduction meter and an animated transfer 
 
 ## Troubleshooting
 
-- **The tile is not visible** — The compressor stage is bypassed. Enable the stage from the CHAIN widget (single-click the COMP stage) or see [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
+- **The tile appears dimmed** — The compressor stage is bypassed. The tile now renders at approximately 55 % opacity when the stage is disabled, matching the dim effect used on the EQ curve. Enable the stage from the CHAIN widget (single-click the COMP stage) or see [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md).
 - **The Gain-reduction bar shows no movement during audio** — The input level is not reaching the threshold. Reduce the Thresh knob value or check that the correct audio device is active and producing signal.
 - **The envelope ball does not move** — The applet is not connected to an active audio engine. Verify the radio is connected and audio is flowing through the relevant TX or RX processing chain.
 

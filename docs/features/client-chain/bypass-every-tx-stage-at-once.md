@@ -30,11 +30,14 @@ Stage order and individual stage state are persisted via `ClientCompTxChainStage
 - TX and RX keep completely separate BYPASS snapshots. Engaging BYPASS on the TX chain has no effect on the RX chain, and vice versa.
 - If you manually toggle a stage while BYPASS is active, that manual change is preserved outside the snapshot and will not be reversed when you lift BYPASS.
 - The BYPASS checked state shown in the header tracks whichever chain is currently visible. If you switch to RX and back to TX, the TX BYPASS state is restored exactly as you left it.
+- In v0.9.7, TX bypass is owned by the audio engine rather than the applet snapshot. This means the BYPASS button in the Aetherial Audio Chain applet and the BYPASS button in the Aetherial Audio Channel Strip both reflect and control the same state. Clicking BYPASS in either location produces the same result.
+- Double-clicking any TX chain stage tile now opens the Aetherial Audio Channel Strip — the unified TX DSP editor window — rather than a per-stage floating editor. Individual stage editors remain accessible from within the channel strip.
 
 ## Troubleshooting
 
-- **BYPASS appears unchecked after switching from RX to TX** — This is expected. TX and RX track separate checked states. Check whether you engaged BYPASS while the RX chain was selected rather than the TX chain.
+- **BYPASS appears unchecked after switching from RX to TX** — This is expected. TX and RX track separate states. For the TX side, the displayed state now mirrors the engine's `isTxBypassed` value directly. Check whether you engaged BYPASS while the RX chain was selected rather than the TX chain.
 - **Clicking BYPASS re-enables fewer stages than expected** — Any stage you toggled off manually before clicking BYPASS was already disabled and was not part of the snapshot, so it will not be restored.
+- **BYPASS state in the applet does not match the channel strip** — Ensure you are running v0.9.7 or later. Earlier versions tracked TX bypass state only in the applet snapshot; v0.9.7 synchronises both controls through the audio engine.
 
 ## Related
 

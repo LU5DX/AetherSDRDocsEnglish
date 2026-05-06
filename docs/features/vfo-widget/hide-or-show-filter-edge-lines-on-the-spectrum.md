@@ -27,6 +27,7 @@ The state is saved immediately. When you reopen AetherSDR, the setting is restor
 
 - The setting is per-slice. Hiding filter edges on slice 0 does not affect slice 1 or any other slice.
 - If you have collapsed the VFO panel to frequency-only view, expand it first by clicking the collapsed strip to access the **Filter edges button**.
+- In v0.9.7, several noise reduction buttons that were previously in the DSP tab (NR2, RN2, BNR, NR4, MNR, and DFNR) have been moved out of the VFO panel. Those algorithms are now toggled from the spectrum overlay menu and the AetherDSP applet. If you do not see a button you used previously, look for it there.
 
 ## Related
 

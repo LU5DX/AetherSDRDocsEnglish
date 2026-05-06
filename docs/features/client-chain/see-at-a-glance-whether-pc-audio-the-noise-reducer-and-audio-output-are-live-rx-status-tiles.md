@@ -29,11 +29,24 @@ No further interaction is needed. The tiles update automatically as conditions c
 
 None of the three tiles are interactive. Single-click, double-click, and drag have no effect on them.
 
+## How TX BYPASS works in v0.9.7
+
+In v0.9.7, the TX BYPASS state is owned by the audio engine rather than tracked locally in the applet. This means the **BYPASS** button on the TX side stays in sync with the BYPASS control in the Aetherial Audio Channel Strip. Pressing **BYPASS** in either place reflects immediately in the other.
+
+The RX side is unaffected — RX bypass continues to use the snapshot mechanism described in [Bypass every RX stage at once](bypass-every-rx-stage-at-once.md).
+
+## How double-click works on TX chain stages in v0.9.7
+
+Previously, double-clicking a TX chain stage opened a per-stage floating editor directly. From v0.9.7, double-clicking any TX chain stage tile opens the **Aetherial Audio Channel Strip** — the unified TX DSP window. The per-stage editors remain accessible from within the channel strip itself.
+
+Double-clicking an RX chain stage continues to open the per-stage frameless floating editor for that stage, unchanged.
+
 ## Tips
 
 - The last-active tab (TX or RX) is restored on next launch via the persisted setting `PooDooAudioActiveTab`. If you want the RX status tiles visible by default, leave the **RX** tab selected when you close AetherSDR.
 - The **DSP** tile label changing to a specific name (such as `NR2`) is the quickest way to confirm that a noise reducer is actually engaged, without opening `Settings > AetherDSP Settings...`.
 - The gate and compressor stages in the RX chain are labelled **AGC-T** and **AGC-C** respectively. These correspond to the Gate and Comp stages internally.
+- Because TX bypass state is now engine-owned, the **BYPASS** button on the TX side will correctly reflect any bypass change made from the Aetherial Audio Channel Strip, even if the chain applet was not the source of that change.
 
 ## Related
 
