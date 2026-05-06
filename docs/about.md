@@ -1,9 +1,26 @@
 ---
-title: About this Documentation
+title: Support the Docs
 description: How AetherSDR documentation is built, the AI pipeline behind it, and how you can support the project.
 ---
 
-# About this Documentation
+# Support the Docs
+
+!!! tip "Every contribution helps"
+    If this documentation saved you time — or helped you get your radio on the air faster — your support keeps the pipeline running and the assistant improving.
+
+<div style="text-align:center; margin: 1.5rem 0;">
+  <a href="https://ko-fi.com/lu5dx" class="md-button" target="_blank" rel="noopener" style="margin: 0.3rem; font-size: 0.82rem;">
+    ☕ Buy me a coffee
+  </a>
+  <a href="https://paypal.me/lu5dx599" class="md-button" target="_blank" rel="noopener" style="margin: 0.3rem; font-size: 0.82rem;">
+    💙 Donate via PayPal
+  </a>
+  <a href="https://github.com/LU5DX" class="md-button" target="_blank" rel="noopener" style="margin: 0.3rem; font-size: 0.82rem;">
+    ⭐ Star on GitHub
+  </a>
+</div>
+
+---
 
 ## Built for a serious application
 
@@ -71,25 +88,6 @@ GitHub Pages hosts the documentation for free. Everything else does not:
 - **Railway deployment** — always-on backend for the assistant
 
 If you find this documentation useful — if it saved you an hour of digging through forums, or helped you get your radio on the air faster — your support genuinely helps keep this system running and makes it better over time.
-
----
-
-## Support the project
-
-!!! tip "Every contribution helps"
-    Even a small contribution offsets API costs and infrastructure expenses, and motivates continued improvements to both the docs and the assistant.
-
-<div style="text-align:center; margin: 2rem 0;">
-  <a href="https://ko-fi.com/lu5dx" class="md-button md-button--primary" target="_blank" rel="noopener" style="margin: 0.5rem;">
-    ☕ Buy me a coffee
-  </a>
-  <a href="https://paypal.me/lu5dx599" class="md-button md-button--primary" target="_blank" rel="noopener" style="margin: 0.5rem;">
-    💙 Donate via PayPal
-  </a>
-  <a href="https://github.com/LU5DX" class="md-button" target="_blank" rel="noopener" style="margin: 0.5rem;">
-    ⭐ Star on GitHub
-  </a>
-</div>
 
 ---
 
