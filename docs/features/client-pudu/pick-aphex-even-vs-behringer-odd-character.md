@@ -18,7 +18,6 @@ Choose between two harmonic-enhancement algorithms in the PUDU exciter: Even mod
 The selection is saved immediately to `ClientPuduTxMode` (TX) or `ClientPuduRxMode` (RX).
 
 ## What each control does
-
 | Control | Behavior | Default | Valid values | Setting key |
 |---|---|---|---|---|
 | `Even` | Selects Aphex-lineage asymmetric shaping. Exclusive with `Odd`. | — | Selected / unselected | `ClientPuduTxMode` / `ClientPuduRxMode` |
@@ -27,7 +26,6 @@ The selection is saved immediately to `ClientPuduTxMode` (TX) or `ClientPuduRxMo
 Only one of `Even` or `Odd` can be active at a time. Selecting one deselects the other.
 
 ## Tips
-
 - Even mode suits voice signals where warmth and low-end body are the goal. Odd mode suits situations where added presence and brightness are preferred.
 - The AetherVoice™ logo pulses with the processed (wet) signal RMS, so you can see the exciter reacting as you switch modes without monitoring audio.
 - When the PUDU stage is bypassed, the entire applet tile dims to approximately 55% opacity, matching the dim effect applied to the EQ curve. This is a visual indicator only and does not affect your settings.
@@ -39,3 +37,4 @@ Only one of `Even` or `Odd` can be active at a time. Selecting one deselects the
 - [Dial Body Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
 - [Add air with Clarity Harmonics](add-air-with-doo-harmonics.md)
 - [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md)
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

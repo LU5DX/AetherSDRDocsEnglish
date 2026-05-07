@@ -48,6 +48,54 @@ Toggling VOX via a keyboard shortcut now causes the Phone panel to refresh immed
 On Windows, the client-side sidetone stream (CwSidetoneGenerator) now starts correctly as soon as AetherSDR connects to the radio. A bug in the AudioEngine initialization order prevented the stream from starting until the applet was interacted with manually (#2105).
 
 ## Changes in v0.9.7
+### Compression gauge gated on transmit state
+
+The **Compression** gauge now reads 0 dB whenever the radio is not transmitting. Previously the gauge could show a stale non-zero reading during receive because it was driven directly by meter flow regardless of transmit state. Starting in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state (and requires the speech processor to be enabled): it only shows a live compression value while the radio is actually transmitting. This change is handled via the `updateCompression()` slot, which is independent of the mic level path.
+
+### Breakin now fully honors the radio's break_in setting
+
+The **Breakin** toggle now correctly controls QSK behavior end-to-end. In earlier versions, an internal auto-PTT envelope caused the keying path to force TX regardless of the **Breakin** setting, which masked Breakin OFF and eliminated QSK hang time. That envelope has been removed. The behavior is now:
+
+- **Breakin ON (QSK):** key edges trigger TX immediately; the break-in delay set by the **Delay (CW)** slider holds the relay after the last element.
+- **Breakin OFF:** keyed characters are queued; the operator engages PTT manually to transmit.
+
+### RADE mode support
+
+When RADE mode is active, the **Mic gain** slider and **Level** gauge switch to client-side behavior:
+
+- The **Mic gain** slider acts as a client-side RADE gain control and uses the `PcMicGain` setting, the same key used for the PC mic source. Slider changes are not sent to the radio as `mic_level` commands while RADE is active, preventing silent overwrite of the hardware mic setting.
+- The **Level** gauge remains active during receive (RX) when RADE is active, mirroring the existing PC mic exception introduced in v0.9.3. This allows the gauge to show input level even when `met_in_rx` is off and the radio is not transmitting.
+- When RADE deactivates, the slider reverts to showing the radio's `mic_level` value and the Level gauge is reset to −150 dBFS until the next transmit or `met_in_rx` event.
+
+The `PcMicGain` setting is shared between the PC mic source path and the RADE path; both are client-authoritative with respect to the radio.
+
+### Sidetone bus shared with Quindar tones
+
+The sidetone audio bus is now shared with Quindar tones. The two are mutually exclusive at the mode level: Quindar tones are active only outside CW mode, and the CW sidetone generator is active only in CW mode. No user action is required; the applet manages the switch automatically when the active slice mode changes.
+
+### Final brickwall limiter on TX path
+
+A brickwall limiter (`ClientFinalLimiter`) is now always present at the very end of the TX audio path, after the user-configurable DSP chain and PC mic gain. No sample can exceed the configured ceiling regardless of upstream processing. Enable the limiter and set its ceiling in **Settings → Audio → TX Limiter** (`ClientFinalLimiter*` keys in AppSettings).
+
+### TX test-tone generator
+
+A sine-wave test-tone generator (`ClientTxTestTone`) is now available at the head of the TX path. When enabled, it overrides microphone input before the DSP chain runs. Use it for setup and calibration. Access it from **Settings → Audio → TX Test Tone**.
+
+### Quindar tone generator
+
+A Quindar tone generator is now included in the TX path (#2262). It sits after the user DSP chain and PC mic gain but before the final brickwall limiter, so the tone is unaffected by Compressor/EQ but is still bounded by the configured ceiling. The tone is driven automatically by the PTT coordinator on phone modes and is bypassed on CW and digital modes. No user configuration is required for the tone itself; the Quindar local monitor sink can be started and stopped via **Settings → Audio → Quindar**.
+
+### Master TX bypass
+
+A master **BYPASS** button is now available in both the docked Chain applet and the channel strip. Engaging bypass snapshots all currently-enabled TX DSP stages and disables them. Disengaging bypass restores only the stages that were enabled before bypass was engaged; any stages turned on manually while bypass was active are left on. The current bypass state is reflected by the `txBypassChanged` signal.
+
+### Waveform scope shows actual transmitted envelope
+
+The strip's **Waveform CE-SSB** panel now listens to a post-chain scope feed (`txPostChainScopeReady`) that taps the audio stream after the user DSP chain, PC mic gain, and the final brickwall limiter — the exact int16 data packetised into VITA-49 and sent to the radio. Previously the scope tapped an earlier point in the chain and could not reflect limiter action.
+
+### saveClientReverbSettings emits clientReverbStateChanged
+
+`saveClientReverbSettings()` now emits `clientReverbStateChanged()` after persisting reverb parameters. UI surfaces bound to the reverb (strip panel, docked applet, floating editor) update from this single notification instead of polling on a timer. No user action is required.
 
 ### Compression gauge gated on transmit state
 
@@ -79,3 +127,4 @@ The sidetone audio bus is now shared with Quindar tones. The two are mutually ex
 - [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
 - [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
 - [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

@@ -32,8 +32,7 @@ Spots from each source are color-coded separately so you can distinguish their o
 Each source has an **Auto-connect on startup** or **Auto-start on startup** toggle. When enabled, that source connects or starts automatically every time AetherSDR launches, without manual intervention. The persisted keys are `ClusterAutoConnect`, `RbnAutoConnect`, `WsjtxAutoStart`, `SpotCollectorAutoStart`, `PotaAutoStart`, and `FreeDvAutoStart`.
 
 ### Spot List tab
-
-The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
+The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Comment, Spotter, Band, Mode, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
 
 ### Display tab
 The **Display** tab controls how spots appear on the panadapter.
@@ -135,3 +134,4 @@ Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 - Disable **Spot Lines:** during contests to reduce visual clutter on the panadapter. Re-enable it afterward to restore the vertical line guides (`IsSpotsLinesEnabled`).
 - Before enabling **Enable FreeDV Reporter reporting when RADE is active**, confirm your callsign and grid square are correctly set. The checkbox will not enable if either value is blank.
 - Call `clearSwrSweepPoints()` after a sweep completes if you do not want the finished trace to persist on the panadapter.
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

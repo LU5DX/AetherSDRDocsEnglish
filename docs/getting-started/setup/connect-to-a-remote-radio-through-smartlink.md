@@ -19,7 +19,6 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 7. Click **Connect Remote Radio**. AetherSDR establishes a WAN connection to the selected radio.
 
 ## What each control does
-
 | Control | Description | Persisted key |
 |---|---|---|
 | **Remote with SmartLink** mode button | Switches the panel to SmartLink mode. | `ConnectionMode` |
@@ -29,8 +28,9 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 | **Sign Out** | Logs out of SmartLink and clears the radio list. | — |
 | **Remote radios** list | Shows all FLEX-8600 radios registered to your SmartLink account that are currently online. The list has a fixed display height; if you have many radios, scroll within the list. | — |
 | **Connect Remote Radio** | Starts a WAN connection to the radio selected in the **Remote radios** list. This button appears below the list, outside the radios group. | — |
+| **Radio IP** combo box | Enter the IP address for a manual or VPN connection. The drop-down lists up to 3 previously used addresses so you can re-select one without retyping. Use the clear button (×) inside the field to erase the current entry. AetherSDR normalizes and deduplicates entries before saving. | `ManualRadioIp`, `RecentConnectByIpAddresses` |
 | **Use low bandwidth mode** checkbox | Enables reduced-rate audio and data streams. Use this on slow or metered internet connections. | `LowBandwidthMode` |
-| **Connect to last radio on start up** checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. Added in v0.9.7. | `AutoConnectToLastRadio` |
+| **Connect to last radio on start up** checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 
 ## Tips
 
@@ -52,3 +52,4 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Operating remotely over SmartLink](../../operating/remote/remote-operation-smartlink.md)
 - [Disconnect from the current radio](disconnect-from-the-current-radio.md)
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

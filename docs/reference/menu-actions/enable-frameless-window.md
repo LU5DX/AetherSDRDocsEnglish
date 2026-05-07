@@ -15,7 +15,6 @@
 Alternatively, press `Ctrl+Shift+F` to toggle the setting without opening the menu.
 
 ## What each control does
-
 | Control | Description | Default | Persisted key |
 |---|---|---|---|
 | `View > Frameless Window` | Toggles `Qt::FramelessWindowHint` on the main window. When on, the native OS window decorations are removed and replaced with AetherSDR's own 20px title bar. | On | `FramelessWindow` |
@@ -32,6 +31,10 @@ Alternatively, press `Ctrl+Shift+F` to toggle the setting without opening the me
 - The native OS window decorations are restored.
 - The custom title bar and bottom-right resize grip are hidden.
 
+**Controls visibility in embedded panels:**
+
+When an `EditorFramelessTitleBar` is embedded inside a host component (such as the AetherialAudioStrip), the minimize, maximize, and close buttons can be hidden while the title label remains visible. This happens automatically — you do not need to configure it. The host component owns its own window controls and suppresses the per-panel button trio.
+
 ## Tips
 
 - If your desktop environment or window manager conflicts with AetherSDR's custom title bar (for example, double title bars or missing window controls), turn Frameless Window off to fall back to native decorations.
@@ -46,3 +49,4 @@ Alternatively, press `Ctrl+Shift+F` to toggle the setting without opening the me
 
 - [Configure UI Scale](configure-ui-scale.md)
 - [Enable Minimal Mode](enable-minimal-mode.md)
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

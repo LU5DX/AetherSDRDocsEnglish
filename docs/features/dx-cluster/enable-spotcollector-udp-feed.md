@@ -61,8 +61,7 @@ If either value is missing when you attempt to enable **Enable FreeDV Reporter r
 As of v0.9.5.1, **Auto Mode:** (`SpotsAutoMode`) defaults to **Enabled** for new installations. If you are upgrading and want to retain the previous behavior, open the **Display** tab and set **Auto Mode:** to **Disabled**.
 
 ## Tune to a spot by double-clicking
-
-Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also reads the mode hint from the spot comment and forwards it to the receiver, so the slice switches to the correct mode (for example CW or SSB) at the same time as the frequency changes. No additional configuration is required.
+Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. AetherSDR also reads the mode hint from the spot comment and forwards it to the receiver, so the slice switches to the correct mode (for example CW or SSB) at the same time as the frequency changes. No additional configuration is required.
 
 ## Tips
 - Spots received from SpotCollector appear alongside spots from other sources in the **Spot List** tab. The **Source** column identifies them.
@@ -84,3 +83,4 @@ Double-clicking a row in the **Spot List** tab tunes the active slice to that sp
 - [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 <!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

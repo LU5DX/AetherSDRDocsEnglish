@@ -42,8 +42,7 @@ AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster and show inco
 | **Total Spots:** | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
 
 ## Tuning to a spot by double-clicking
-
-Double-clicking a row in the **Spot List** tab tunes the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
+Double-clicking a row in the **Spot List** tab tunes the active slice to the spot's frequency. AetherSDR also forwards mode information extracted from the spot comment using a shared mode resolver (`SpotModeResolver`), so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
 ## FreeDV Reporter reporting
 
@@ -88,17 +87,15 @@ The **Spot Lines:** toggle on the **Display** tab controls whether AetherSDR dra
 Disable **Spot Lines:** during contests or when the panadapter is heavily populated with spots to reduce visual clutter.
 
 ## Tips
-
 - While connected, type a cluster command in the field next to **Send** and click **Send** to interact with the cluster directly (for example, `set/dx` or `sh/dx 20`).
 - Spot overlays appear on the panadapter only when the master **Spots:** toggle on the **Display** tab is enabled (default: Enabled, saved to `IsSpotsEnabled`).
 - To review recent cluster traffic from before you opened SpotHub, scroll up in the **Cluster Console** — AetherSDR loads up to the last 500 lines from the cluster log file when the dialog opens.
 - If your radio's callsign changes in Radio Setup while **Use radio** is checked, the **Callsign:** field in the FreeDV Reporter section updates automatically.
-- **Auto Mode** defaults to Enabled. When you double-click a spot that carries mode information (e.g. CW, FT8, RTTY), AetherSDR automatically switches the slice to that mode. As of v0.9.7, mode information is parsed from the spot comment using a shared resolver, so mode detection is consistent across all spot sources.
+- **Auto Mode** defaults to Enabled. When you double-click a spot that carries mode information (e.g. CW, FT8, RTTY), AetherSDR automatically switches the slice to that mode. Mode information is parsed from the spot comment using a shared resolver (`SpotModeResolver`), so mode detection is consistent across all spot sources.
 - Disable **Spot Lines:** on the **Display** tab during contests to reduce panadapter clutter while keeping spot labels visible.
 
 ## Troubleshooting
-
-- **Status shows "Error: ..."** — The hostname or port is wrong, or the cluster server is unreachable. Verify the address and port, then click **Connect** again.
+- **Status shows "Error: ..."** — The hostname or port is wrong, or the cluster server is unreachable. Verify the address and port, then click **Connect** again. If a connection attempt was already in progress, wait for the timeout before trying again; AetherSDR will automatically retry with exponential backoff.
 - **Cluster Console is empty after connecting** — Some clusters require you to send your callsign as the first command. Type your callsign in the command field and click **Send**.
 - **Spots do not appear on the panadapter** — Open the **Display** tab and confirm **Spots:** is enabled.
 - **Double-clicking a spot does not switch mode** — Confirm **Auto Mode:** is enabled on the **Display** tab. Mode switching requires that the spot comment contains a recognizable mode token (e.g. CW, FT8, SSB).
@@ -115,3 +112,4 @@ Disable **Spot Lines:** during contests or when the panadapter is heavily popula
 - [Enable DXCC coloring from an ADIF log](../../features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md)
 - [Clear all spots from the panadapter](../../features/dx-cluster/clear-all-spots-from-the-panadapter.md)
 <!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

@@ -17,10 +17,9 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 6. Click `Connect by IP` to start the connection.
 
 ## What each control does
-
 | Control | What it does | Persisted key |
 |---|---|---|
-| `Radio IP address` | The IP address or hostname of the radio to connect to. Displayed as an editable combo box; the drop-down lists up to three recently used addresses. | `ManualRadioIp` |
+| `Radio IP address` | The IP address or hostname of the radio to connect to. Displayed as an editable combo box with a clear button; the drop-down lists up to three recently used addresses. | `RecentConnectByIpAddresses` |
 | `Advanced: Source path` | Selects the local NIC that AetherSDR binds to when opening the connection. Leave on the default automatic entry unless you need to force a specific interface. | `ManualBindSource` |
 | `Use low bandwidth mode` | Reduces stream data rates for slow or congested links. | `LowBandwidthMode` |
 | `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
@@ -46,3 +45,4 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - [Enable low-bandwidth mode for slow links](../../features/connection/enable-low-bandwidth-mode-for-slow-links.md)
 - [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)
 - [Connect to a remote radio through SmartLink](connect-to-a-remote-radio-through-smartlink.md)
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->

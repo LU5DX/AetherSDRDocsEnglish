@@ -49,8 +49,7 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 | Total Spots: | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
 
 ## Tuning from the Spot List
-
-Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also forwards any mode information extracted from the spot comment, so the slice automatically switches to the correct mode (for example, CW or SSB) to match the spot rather than only changing frequency.
+Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. AetherSDR also forwards any mode information extracted from the spot comment, so the slice automatically switches to the correct mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
 ## FreeDV Reporter station reporting
 
@@ -113,3 +112,4 @@ The **Display** tab now includes a **Spot Lines:** toggle (stored as `IsSpotsLin
 - **Double-clicking a spot does not change the slice mode** — Mode information is read from the spot comment. If the comment contains no recognizable mode string, only the frequency changes. Verify the spot source is including mode data in its comments.
 - **FreeDV Reporter checkbox unchecks itself immediately** — The callsign or grid square field is empty or was not resolved. Fill in both fields (or enable **Use radio** / **Use GPS** so they are populated from the radio) and try again.
 - **FreeDV Reporter section is not visible**
+<!-- auto-updated version=V0.9.7 date=2026-05-07 -->
