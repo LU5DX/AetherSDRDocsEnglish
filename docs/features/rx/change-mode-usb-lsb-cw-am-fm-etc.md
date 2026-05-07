@@ -32,12 +32,17 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 - After switching to CW, the **QSK** indicator in the header becomes relevant. Its state is controlled from the CW applet, not from RX Controls.
 - AGC mode controls are hidden when an FM family mode is active.
 - Filter presets are now stored in a `lo:hi` format (e.g. `300:3000`) as well as the older plain-width format. Both formats are read correctly. If you have saved custom presets from an earlier version, they continue to work without any action on your part.
+- The `stepFilterWidth()` method walks the per-mode preset list so widen/narrow shortcuts produce mode-correct edge geometry. This ensures that when you widen or narrow the filter using keyboard shortcuts, the filter stays within the appropriate preset boundaries for the current mode.
 
 ## Slice tab behaviour (v0.9.5.1)
 
 When the radio reports a change in the number of available slices, the A..H tab row is now rebuilt correctly instead of being skipped. The previous behaviour kept the old buttons if any were already present; v0.9.5.1 tears down and recreates the buttons whenever the slice count changes (`clearSliceButtons()`, #2254). On disconnect the tab row is hidden and the static **Slice badge** is restored automatically.
 
 Signal connections for slice button clicks are also guarded so that reconnecting to the radio does not attach duplicate handlers.
+
+## Filter width formatting (v0.9.8)
+
+The filter width readout in the RX Controls applet now uses mode-specific logic to display the correct labelled width. This readout is shared with the VFO panel for consistent formatting (#2197). The `formatFilterWidth()` static method applies mode-aware rules so that SSB and digital modes display the expected bandwidth label (e.g., "2.7K" for 2700 Hz USB, "500" for 500 Hz CW).
 
 ## Troubleshooting
 

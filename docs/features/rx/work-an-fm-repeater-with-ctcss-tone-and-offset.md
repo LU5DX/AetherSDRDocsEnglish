@@ -40,6 +40,8 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - Slice tab buttons and the slice badge are color-coded per slice using SliceColorManager (v0.9.3+). The colors persist across sessions and are reflected in the slice tabs, the slice badge, VFO widgets, and meter strips.
 - When the radio reports a different number of available slices than the tab row was built for, AetherSDR now tears down the existing slice tab buttons and rebuilds them for the new count before reconnecting click handlers (v0.9.5.1, #2254). This prevents stale buttons appearing after a reconnect or a change in hardware configuration.
 - Filter width presets are stored in the format `lo:hi` (passband edges in Hz) or as a plain width value, depending on whether the preset was saved with explicit edge positions. Both formats are read correctly when you reopen the applet or switch modes (#2259).
+- The filter width readout is shared with the VFO panel via `RxApplet::formatFilterWidth()`. In v0.9.8+, this method is now a public static function so both widgets produce identical, mode-aware formatting for SSB, digital, and AM modes (#2197).
+- The widen/narrow shortcuts (e.g. Ctrl+Shift+W, Ctrl+Shift+N) call `stepFilterWidth(int direction)`, which walks the per-mode filter preset list to find the next valid width and applies it with correct edge geometry for the current mode (#2208).
 
 ## Troubleshooting
 
@@ -48,6 +50,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - **Tone mode and CTCSS controls are not visible** — The slice mode must be **FM**, **NFM**, or **DFM**. These controls are hidden in all other modes.
 - **Squelch controls are greyed out** — Squelch is disabled automatically when the slice mode is **DIGU**, **DIGL**, **NT**, **CW**, or **CWL**. Switch to an FM or SSB mode to enable the squelch controls.
 - **Slice tab buttons appear incorrect after reconnecting** — If the slice tab row shows the wrong number of buttons or a stale layout after the radio reconnects, disconnect and reconnect manually. In v0.9.5.1 this is corrected automatically: the applet calls `clearSliceButtons()` to remove the old buttons and restore the static slice badge before rebuilding the tab row for the new slice count (#2254).
+- **Filter preset button does not change passband** — If the current width is not a standard preset value, the widen/narrow step may not change the passband. This is expected behavior; click a specific filter preset button or type a frequency to change the passband, then the widen/narrow shortcuts will work from the new width.
 
 ## NT mode notes
 

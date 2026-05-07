@@ -15,9 +15,36 @@ When screen space is limited, you can collapse the VFO panel to a compact strip 
 
 ## What each control does
 
-| Control | Default | Persisted setting |
-|---|---|---|
-| Collapse toggle | Expanded | `SliceFlagCollapsed_{N}` |
+| Control                      | Default                                                                                                                               | Persisted setting                                                                                                       |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Collapse toggle              | Expanded                                                                                                                              | `SliceFlagCollapsed_{N}`                                                                                                |
+| RX antenna button            | Opens antenna selection menu for the receive antenna of this slice.                                                                   | None                                                                                                                    |
+| TX antenna button            | Opens antenna selection menu for the transmit antenna of this slice.                                                                  | None                                                                                                                    |
+| Frequency display            | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab.                       | None                                                                                                                    |
+| Filter width label           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). | None |
+| AF Gain slider (Audio tab)   | 100                                                                                                                                   | None — reflects live radio state.                                                                                       |
+| Pan slider (Audio tab)       | 50                                                                                                                                    | None                                                                                                                    |
+| Mute button (Audio tab)      | Off                                                                                                                                   | None                                                                                                                    |
+| Squelch button + slider (Audio tab) | Off                                                                                                                           | None                                                                                                                    |
+| AGC combo (Audio tab)        | FAST                                                                                                                                  | None                                                                                                                    |
+| NR button (DSP tab)          | Off                                                                                                                                   | None                                                                                                                    |
+| NB button (DSP tab)          | Off                                                                                                                                   | None                                                                                                                    |
+| ANF button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
+| APF button (DSP tab)         | Off (visible in CW mode only)                                                                                                         | None                                                                                                                    |
+| NRL button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
+| NRS button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
+| RNN button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
+| NRF button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
+| ANFL button (DSP tab)        | Off                                                                                                                                   | None                                                                                                                    |
+| ANFT button (DSP tab)        | Off                                                                                                                                   | None                                                                                                                    |
+| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| Mode combo (Mode tab)        | USB                                                                                                                                   | None                                                                                                                    |
+| Filter preset buttons (Mode tab) | Applies a saved filter width preset. Right-click to save the current filter width into that slot.                                | `FilterPresets`                                                                                                         |
+| RIT / XIT buttons + labels (X/RIT tab) | Off                                                                                                                           | None                                                                                                                    |
+| DAX channel combo (DAX tab)  | Off                                                                                                                                   | None                                                                                                                    |
+| Marker thickness button      | 1 px                                                                                                                                  | `Slice{N}_MarkerWidth`                                                                                                  |
+| Filter edges button          | Shown                                                                                                                                 | `Slice{N}_FilterEdgesHidden`                                                                                            |
 
 The `SliceFlagCollapsed_{N}` setting is stored per slice, where `{N}` is the slice number. Collapsing one slice does not affect other slices.
 
@@ -34,7 +61,7 @@ The DSP tab in the VFO panel now shows only the noise reduction and filtering al
 
 These client-side processing algorithms are still available. Access them through the spectrum overlay menu or the AetherDSP applet.
 
-The buttons that remain in the DSP tab grid are arranged in a four-column layout:
+The buttons that remain in the DSP tab grid are arranged in a four-column layout. The ADSP and AetherVoice buttons are placed below the radio-side DSP buttons:
 
 | Position | Button |
 |---|---|
@@ -48,6 +75,8 @@ The buttons that remain in the DSP tab grid are arranged in a four-column layout
 | Row 1, Col 3 | NRF |
 | Row 2, Col 0 | ANFL |
 | Row 2, Col 1 | ANFT |
+| Row 3, Col 0 | ADSP |
+| Row 3, Cols 1-2 | AetherVoice (spans 2 columns) |
 
 ### DSP level slider
 
@@ -60,6 +89,8 @@ A shared level slider row appears below the DSP button grid. The slider targets 
 The slider row remains in the layout at all times. When no compatible algorithm is active — or when only RNN, ANFT, or APF is on — the slider row fades out and does not respond to input. Enabling a supported algorithm fades the row back in and retargets the slider to that algorithm.
 
 Algorithms that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
+
+The level slider now properly reflects the radio state on initial connection. When a leveled DSP algorithm is already active in the radio's saved profile, the slider appears immediately rather than requiring a manual toggle (#startup-slider, v0.9.8).
 
 ## Tips
 

@@ -1,41 +1,216 @@
-# Configure DFNR post-filter beta for extra suppression
+# AetherDSP Settings
 
-The DFNR tab in AetherDSP Settings lets you apply an additional post-filter on top of DeepFilterNet3's main noise reduction. Raising the Post-Filter Beta value increases suppression beyond what the attenuation limit alone provides, at the cost of some speech fidelity.
+The AetherDSP Settings dialog provides advanced control over all six client-side noise-reduction engines in AetherSDR: NR2, NR4, DFNR, MNR, RN2, and BNR. Each engine is selectable via a toggle row at the top of the dialog; clicking a toggle also activates or bypasses that engine.
 
-## Before you start
-
-- AetherDSP Settings can be opened without a radio connection, but the effect is only audible during live reception.
-- Verify that DeepFilterNet3 is already active in your slice receiver before adjusting these parameters. See [Set DeepFilterNet3 attenuation limit for strong or weak signals](set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals.md) for how to enable it and set the attenuation limit.
-
-## Steps
+## Opening AetherDSP Settings
 
 1. Open `Settings > AetherDSP Settings...`.
-2. Click the **DFNR** tab.
-3. Locate the **Post-Filter Beta** slider.
-4. Drag the slider right to increase post-filter suppression. The valid range is 0.00–0.30; the default is 0.00 (post-filter inactive).
-5. Release the slider. The value is saved immediately to `DfnrPostFilterBeta`.
-6. Monitor audio quality. If speech becomes hollow or distorted, reduce the value toward 0.00.
+2. The dialog opens as a frameless window with a custom 18 px title bar.
+3. The dialog can be opened without a radio connection, but the effect is only audible during live reception.
 
-## What each control does
+## Dialog layout and window controls
 
-| Control | Default | Valid range | Setting key | Behavior |
-|---|---|---|---|---|
-| **Attenuation Limit** | 100 | 0–100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum. |
-| **Post-Filter Beta** | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter on top of DeepFilterNet3 for extra suppression. Higher values suppress more residual noise. |
+The AetherDSP Settings dialog uses custom chrome matching the NetworkDiagnosticsDialog and AetherialAudioStrip:
+
+| Control | Description |
+|---------|-------------|
+| **Title bar** | 18 px blue-gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). |
+| **— (Minimize)** | Minimizes the dialog. |
+| **□ (Maximize)** | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore. |
+| **× (Close)** | Closes the dialog. |
+| **Drag-to-move** | Click and drag the title bar to move the dialog. |
+| **8-axis resize** | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone (6 px inner, 6 px outer). |
+
+## Selecting and activating noise-reduction engines
+
+The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both exclusive tab selectors and engine enable/disable controls. Click a toggle to select its settings page; the same click also activates or bypasses that engine.
+
+When NR2 is activated, AudioEngine enforces cascade exclusion, disabling DFNR and other mutually exclusive modules.
+
+## Tab: NR2 — Musical-noise reduction
+
+The NR2 engine uses spectral subtraction with gain curve mapping and noise power estimation.
+
+### Gain Method
+
+Selects the gain-curve mapping used by NR2.
+
+| Option | Description |
+|--------|-------------|
+| Linear | Linear gain curve |
+| Log | Logarithmic gain curve |
+| Gamma | Gamma-based gain curve (default) |
+| Trained | Pre-trained gain curve |
+
+Stored in setting `NR2GainMethod` as integer 0-3.
+
+### NPE Method
+
+Selects the noise power estimator.
+
+| Option | Description |
+|--------|-------------|
+| OSMS | Optimal smoothing and minimum statistics (default) |
+| MMSE | Minimum mean square error |
+| NSTAT | Noise statistic-based estimation |
+
+Stored in setting `NR2NpeMethod` as integer 0-2.
+
+### AE Filter (artifact elimination)
+
+- Toggle the anti-artefact post-filter.
+- Default: On (`True`).
+- Stored in setting `NR2AeFilter`.
+
+### Reduction:
+
+- Sets the maximum NR2 reduction depth.
+- Default: 1.50
+- Valid range: 0.50–2.00
+- Stored in setting `NR2GainMax` (value * 100).
+
+### Smoothing:
+
+- Controls how smoothly the noise estimate tracks changes.
+- Default: 0.85
+- Valid range: 0.50–0.98
+- Stored in setting `NR2GainSmooth`.
+
+### Threshold:
+
+- Sets the speech-presence-probability threshold.
+- Default: 0.20
+- Valid range: 0.05–0.50
+- Stored in setting `NR2Qspp`.
+
+### Reset Defaults (↺ icon)
+
+- Restores NR2 tab defaults: Gamma, OSMS, AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+- Rendered as a flat icon button with anticlockwise arrow (U+21BA).
+
+## Tab: NR4 — Libspecbleach noise reduction
+
+The NR4 engine uses the [libspecbleach](https://github.com/geraldmwangi/libspecbleach) library for spectral noise gating.
+
+### Noise Estimation:
+
+Selects the noise-floor estimator used by NR4.
+
+| Option | Description |
+|--------|-------------|
+| MMSE | Minimum mean square error (default) |
+| Brandt | Brandt noise estimator |
+| Martin | Martin noise estimator |
+
+Stored in setting `NR4NoiseEstimationMethod` as integer 0-2.
+
+### Adaptive Noise Estimation
+
+- Enables continuous re-estimation of the noise floor.
+- Default: On (`True`).
+- Stored in setting `NR4AdaptiveNoise`.
+
+### Reduction (dB):
+
+- Sets maximum NR4 noise reduction in dB.
+- Default: 10.0
+- Valid range: 0.0–40.0
+- Stored in setting `NR4ReductionAmount` (value * 10).
+
+### Smoothing (%):
+
+- Time-domain smoothing of the NR4 noise estimate.
+- Default: 0
+- Valid range: 0–100
+- Stored in setting `NR4SmoothingFactor`.
+
+### Whitening (%):
+
+- Flattens residual noise spectral shape.
+- Default: 0
+- Valid range: 0–100
+- Stored in setting `NR4WhiteningFactor`.
+
+### Masking Depth:
+
+- Controls spectral-masking depth.
+- Default: 0.50
+- Valid range: 0.00–1.00
+- Stored in setting `NR4MaskingDepth`.
+
+### Suppression:
+
+- Overall NR4 suppression strength.
+- Default: 0.50
+- Valid range: 0.00–1.00
+- Stored in setting `NR4SuppressionStrength`.
+
+### Reset Defaults (↺ icon)
+
+- Restores NR4 defaults: MMSE, Adaptive on, 10 dB, 0, 0, 0.50, 0.50.
+- Rendered as a flat icon button with anticlockwise arrow (U+21BA).
+
+## Tab: MNR — MMSE-Wiener noise reduction
+
+The MNR engine provides MMSE-Wiener noise reduction with asymmetric gain smoothing. **This tab is dimmed on Windows and Linux builds** — the engine has no backend on those platforms.
+
+### Enable MNR (macOS only)
+
+- Enables MMSE-Wiener noise reduction with asymmetric gain smoothing.
+- Initial state is read live from the audio engine.
+- Stored in setting `MnrEnabled`.
+
+### Strength
+
+- Adjusts MNR aggressiveness (0 mild, 100 max).
+- Default: 100
+- Valid range: 0–100
+- Stored in setting `MnrStrength` (normalized as 0.00–1.00).
+
+## Tab: RN2 — RNNoise
+
+The RN2 (RNNoise) tab is **purely informational** — no adjustable parameters are available. The toggle activates or bypasses the RNNoise engine, but settings are managed elsewhere.
+
+## Tab: BNR — NVIDIA Broadcast
+
+The BNR (NVIDIA) tab shows intensity controlled from the overlay menu. **The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.**
+
+## Tab: DFNR — DeepFilterNet3
+
+The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine.
+
+### Attenuation Limit
+
+- Sets maximum noise attenuation applied by DeepFilterNet3.
+- Default: 100
+- Valid range: 0–100 dB
+- 0 = passthrough; 100 = maximum.
+- Stored in setting `DfnrAttenLimit`.
+
+### Post-Filter Beta
+
+- Applies an additional post-filter for extra suppression beyond the attenuation limit.
+- Default: 0.00
+- Valid range: 0.00–0.30
+- Stored in setting `DfnrPostFilterBeta` (value * 100).
 
 ## Tips
 
 - Start with **Post-Filter Beta** at or below 0.10. Audible artefacts tend to appear before 0.30 is reached, especially on SSB voice signals.
 - If you need stronger overall attenuation without touching the post-filter, increase **Attenuation Limit** first, then add **Post-Filter Beta** only for residual noise that remains.
 - A value of 0.00 disables the post-filter entirely, leaving DeepFilterNet3's output unchanged.
+- For NR2, start with default values and adjust Reduction upward gradually while checking for musical artefacts.
 
 ## Troubleshooting
 
 - **Speech sounds hollow or phasey** — **Post-Filter Beta** is set too high. Reduce it toward 0.00 in small increments until naturalness returns.
-- **No audible change when moving the slider** — DeepFilterNet3 may not be active on the current slice. Confirm the DFNR engine is selected and that **Attenuation Limit** is above 0.
+- **No audible change when moving the slider** — The selected engine may not be active on the current slice. Confirm the engine toggle is selected and that parameters are not at minimum.
+- **NR2 produces musical noise** — Reduce **Reduction** or enable **AE Filter** to suppress artefacts.
+- **MNR or BNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR) is not available on your platform.
 
 ## Related
 
-- [Set DeepFilterNet3 attenuation limit for strong or weak signals](set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals.md)
-- [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
 - [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
+- [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
+- [Configure DFNR post-filter beta for extra suppression](configure-dfnr-post-filter-beta-for-extra-suppression.md)
+- [Set DeepFilterNet3 attenuation limit for strong or weak signals](set-deepfilternet3-attenuation-limit-for-strong-or-weak-signals.md)

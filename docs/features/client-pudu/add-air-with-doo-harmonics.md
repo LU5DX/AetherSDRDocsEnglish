@@ -1,17 +1,17 @@
 # Add air with Doo Harmonics
 
-Use the Doo / Air knob to add harmonic excitement and presence to the high-frequency band. This raises perceived "air" on TX to make your signal cut through, or on RX to improve intelligibility of incoming audio.
+Use the **Doo / Air** knob to add harmonic excitement and presence to the high-frequency band. This raises perceived "air" on TX to make your signal cut through, or on RX to improve intelligibility of incoming audio.
 
 ## Before you start
 
 - The PUDU stage must be enabled in the audio chain. If it is not visible, enable it via the CHAIN widget on the matching TX or RX side.
-- Open the Aetherial TX Poodoo™ or Aetherial RX Poodoo™ applet in the Applet Panel, or double-click the PUDU stage in the CHAIN widget to open the floating editor titled "Aetherial Poodoo™ — TX" or "Aetherial Poodoo™ — RX".
+- Open the Aetherial TX Voice Processor or Aetherial RX Poodoo™ applet in the Applet Panel, or double-click the PUDU stage in the CHAIN widget to open the floating editor titled "Aetherial Voice Processor — TX" or "Aetherial Voice Processor — RX".
 
 ## Steps
 
-1. Locate the **Clarity** group — the three knobs on the right side of the applet, under the "Clarity" bracket label.
+1. Locate the **Doo** group bracket — the three knobs on the right side of the applet, under the "Doo" bracket label.
 2. Turn the **Air** knob to set the amount of harmonic content added at the high-frequency band. The value is shown in dB below the knob.
-3. Watch the AetherVoice™ logo pulse increase as the wet-signal level rises. Use this as a rough indicator of how much processing is being applied.
+3. Watch the PooDoo logo pulse increase as the wet-signal level rises. Use this as a rough indicator of how much processing is being applied.
 4. If the result is too aggressive, reduce **Air** or lower **Doo / Mix** to blend the effect back with the dry signal.
 
 Settings are saved automatically. The value persists in `ClientPuduTxDooHarmonicsDb` (TX) or `ClientPuduRxDooHarmonicsDb` (RX).
@@ -37,7 +37,7 @@ Settings are saved automatically. The value persists in `ClientPuduTxDooHarmonic
 
 ## Related
 
-- [Aetherial TX Poodoo / Aetherial RX Poodoo overview](overview.md)
+- [Aetherial TX Voice Processor / Aetherial RX Poodoo overview](overview.md)
 - [Centre Doo on the presence band for your mic (TX) or for RX intelligibility](centre-doo-on-the-presence-band-for-your-mic-tx-or-for-rx-intelligibility.md)
 - [Blend the Doo excitement with Mix](blend-the-doo-excitement-with-mix.md)
 - [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md)

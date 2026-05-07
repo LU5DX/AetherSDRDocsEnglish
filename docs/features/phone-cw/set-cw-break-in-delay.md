@@ -13,18 +13,25 @@ The CW break-in delay controls how long the radio waits after the last keypress 
 2. Confirm the CW sub-panel is displayed. If the Phone controls are showing instead, switch the active slice to a CW mode using the mode selector in the main VFO area.
 3. Locate the **Delay (CW)** slider in the CW sub-panel.
 4. Drag the **Delay (CW)** slider left to decrease the delay or right to increase it. The value is applied to the radio immediately.
+5. Alternatively, click the value display next to the slider and type a number directly (0-2000 ms). Press Enter to apply the value.
 
 ## What each control does
 
-| Control    | Description                                                                                                   | Valid range         |
-|------------|---------------------------------------------------------------------------------------------------------------|---------------------|
-| Delay (CW) | Sets the CW break-in delay. The radio returns to receive this many milliseconds after the last keyed element. | 0–2000 ms (step 10) |
-| Breakin    | Toggles full break-in (QSK). With **Breakin** ON, key edges trigger TX and the break-in delay holds the relay before returning to receive. With **Breakin** OFF, keyed characters are queued and the operator engages PTT manually. | On / Off |
+| Control    | Description                                                                                                                                                                                                                                                                                                                     | Valid range                                                                                                                |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| Delay (CW) | Sets CW break-in delay; calls TransmitModel::setCwDelay. The adjacent QLineEdit accepts typed values (0-2000) (v0.9.8, #2429). In v0.9.8, setCwDelay was fixed to cache the value immediately so the radio emission doesn't snap the slider back (#2428). The QLineEdit uses QIntValidator to restrict input to the valid range. | 0-2000 ms (step 10)                                                                                                        |
+| Breakin    | Toggles full break-in (QSK). With **Breakin** ON, key edges trigger TX and the break-in delay holds the relay before returning to receive. With **Breakin** OFF, keyed characters are queued and the operator engages PTT manually.                                                                                             | On / Off                                                                                                                   |
 
 ## Tips
 
 - A delay of 0 ms with **Breakin** enabled gives full QSK operation. Increase the delay to reduce relay wear during fast sending.
 - The **Delay (CW)** slider steps in 10 ms increments. For fine adjustment, click the slider track and use the arrow keys (if keyboard shortcuts are enabled under `View > Keyboard Shortcuts`).
+- The value display is an editable QLineEdit. Click it to type a precise value, then press Enter. The slider will move to match.
+
+## Notes for v0.9.8
+
+- **Editable value fields:** The four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are now QLineEdit widgets with QIntValidator. Click any value and type a number directly for precise entry.
+- **Delay value caching fixed:** The setCwDelay function now caches the value immediately, preventing the radio emission from snapping the slider back to the previous value.
 
 ## Notes for v0.9.7
 

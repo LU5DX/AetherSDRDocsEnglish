@@ -24,10 +24,9 @@ There are two ways to reach the "Spot Lines:" toggle. Use whichever is more conv
 
 ## What each control does
 
-| Control | Default | Setting key | Behavior |
-|---|---|---|---|
-| **Spot Lines:** | Enabled | `IsSpotsLinesEnabled` | When Enabled, draws a vertical line from the spectrum baseline up to each spot label. When Disabled, spot labels appear without lines. |
-
+| Control         | Default | Setting key           |
+|-----------------|---------|-----------------------|
+| **Spot Lines:** | Enabled | `IsSpotsLinesEnabled` |
 ## Tips
 
 - Disable **Spot Lines:** before a contest session. With dozens or hundreds of spots on screen, removing the lines significantly reduces visual noise.

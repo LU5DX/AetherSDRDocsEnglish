@@ -19,14 +19,20 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key |
-|---|---|---|---|
-| Thresh | −30.0 dB | −60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` |
-| Gain-reduction bar | — | 0 to 24 dB GR | — |
+| Control            | Default  | Valid range     |
+|--------------------|----------|-----------------|
+| Thresh             | −30.0 dB | −60.0 to 0.0 dB |
+| Gain-reduction bar | —        | 0 to 24 dB GR   |
+| Attack             | 1.0 ms   | 0.1 to 30.0 ms  |
+| Release            | 100 ms   | 10.0 to 500.0 ms|
 
 **Thresh** — the level above which the de-esser begins attenuating the sibilance band. Raising this value (toward 0.0 dB) makes the de-esser act only on the very loudest sibilance. Lowering it (toward −60.0 dB) causes the de-esser to trigger on progressively quieter signals.
 
 **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second.
+
+**Attack** — how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+
+**Release** — how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
 
 ## Bypass dimming
 
@@ -52,3 +58,4 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 - [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md)
 - [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md)
 - [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md)
+- [Opening the RX de-esser panel](opening-the-rx-de-esser-panel.md)

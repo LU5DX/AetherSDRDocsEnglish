@@ -42,6 +42,22 @@ When you right-click a filter preset button to save the current width, AetherSDR
 
 Up to six presets are stored and displayed per mode in the RX Controls applet. Buttons are hidden for FM, NFM, and DFM modes.
 
+## Step filter width (v0.9.8)
+
+The filter width preset system now supports a `stepFilterWidth()` method that walks the per-mode preset list. This enables widen/narrow shortcuts that produce mode-correct edge geometry for all modes (LSB, CWL, DIGL, RTTY, AM, CW, USB).
+
+When you apply a widen or narrow operation:
+
+- AetherSDR finds the closest matching preset width to the current filter passband.
+- It then selects the next wider or narrower preset from the per-mode list.
+- The preset is applied through `applyFilterPreset()`, which uses the correct edge offsets for the current mode.
+
+This ensures that widening or narrowing a filter always stays within the mode-appropriate preset values and produces the correct passband geometry.
+
+## Filter width formatting (v0.9.8)
+
+The `formatFilterWidth()` method is now a public static function, shared with the VFO panel (`VfoWidget`). This ensures both the RX Controls applet and the VFO panel display identical filter width readouts. The method uses mode-aware logic so SSB and digital modes display the correct labelled width (#2197).
+
 ## NT mode
 
 Version 0.9.3 adds the `NT` mode alongside the existing digital modes (`DIGU`, `DIGL`). It behaves identically to other digital modes in the following ways:

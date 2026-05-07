@@ -7,6 +7,7 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 - The Aetherial De-Esser must be enabled via the CHAIN widget. The applet is hidden until the De-Ess stage is active.
 - Your microphone must be routed through the TX audio chain and producing signal — either by keying the radio or by using a monitor/test mode so audio flows through the DSP.
 - Open the "Aetherial De-Esser" sub-container inside the Aetherial Audio (TXDSP) parent container. Bypass and editing are both handled through the Aetherial Audio Channel Strip — there is no separate floating editor for the de-esser in v0.9.7.
+- The de-esser panel supports both TX and RX sides. The RX instance is titled "Aetherial De-Esser — RX" and is reachable through the Aetherial Audio Channel Strip.
 
 ## Steps
 
@@ -21,14 +22,25 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Sidechain response curve | — | — | — | Draws the bandpass filter response. A live ball marks the current centre frequency. |
-| Gain-reduction bar | — | 0 to 24 dB GR | — | Horizontal soft-red strip, right-filled. Refreshed at approximately 30 Hz. A tick marks the −6 dB point. |
-| Freq | 6000 Hz | 1000 to 12000 Hz | `ClientDeEssTxFrequencyHz` | Centre frequency of the sibilance band. Uses logarithmic mapping. |
-| Q | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` | Bandwidth of the sibilance band. Higher Q = narrower. |
-| Thresh | −30.0 dB | −60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which the de-esser begins attenuating the band. |
-| Amount | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied at peak sibilance. |
+| Control                  | Default  | Valid range      | Description                                                                                                                                 |
+|--------------------------|----------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Sidechain response curve | —        | —                | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency.                   |
+| Gain-reduction bar       | —        | 0 to 24 dB GR    | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the −6 dB typical amount. Refreshed ~30 Hz.                      |
+| Freq                     | 6000 Hz  | 1000 to 12000 Hz | Logarithmic mapping. Sets the centre frequency of the sibilance band. Label shows "6.0 kHz" above 1 kHz, "N Hz" below.                      |
+| Q                        | 2.00     | 0.5 to 5.0       | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows "X.XX".                                         |
+| Thresh                   | −30.0 dB | −60.0 to 0.0 dB  | Linear mapping. Level above which the de-esser starts attenuating the band.                                                                 |
+| Amount                   | −6.0 dB  | −24.0 to 0.0 dB  | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction.              |
+| Attack                   | 1.0 ms   | 0.1 to 30.0 ms   | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present only in the Channel Strip panel. |
+| Release                  | 100 ms   | 10.0 to 500.0 ms | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present only in the Channel Strip panel.      |
+
+**Note:** Attack and Release controls are available in the Channel Strip's StripDeEssPanel (both RX and TX instances). The docked ClientDeEssApplet omits these two knobs.
+
+## Indicators
+
+| Indicator              | States                         | Meaning                                                               |
+|------------------------|--------------------------------|-----------------------------------------------------------------------|
+| Centre-frequency ball  | Resting on curve peak          | Marks the currently-tuned sibilance centre frequency on the response curve. |
+| Gain-reduction strip   | Empty or soft-red fill         | Current attenuation applied to the sibilance band.                    |
 
 ## Tips
 
@@ -36,6 +48,7 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 - Keep the **Amount** knob at its default of −6.0 dB while watching the meter for the first time. Dial it down only after you have confirmed the meter is triggering on the right sounds.
 - If the ball on the sidechain response curve sits far from where your sibilance peaks, use **Freq** to move it. The meter will only show GR when energy in the current **Freq** band crosses **Thresh**.
 - When the De-Ess stage is bypassed in the CHAIN widget, the entire applet tile dims visibly. If the tile appears faded, confirm the stage is not bypassed before interpreting the meter.
+- To access the RX de-esser instance (titled "Aetherial De-Esser — RX"), open it from the Aetherial Audio Channel Strip rather than the docked applet panel.
 
 ## Troubleshooting
 

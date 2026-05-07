@@ -15,10 +15,10 @@ The Amplifier applet shows live forward power and SWR readings from a connected 
 
 ## What each control does
 
-| Control | What it shows | Range | Red zone |
-|---------|--------------|-------|----------|
-| Fwd Pwr | Forward power at the PGXL output | 0–2000 W | Above 1500 W |
-| SWR | Standing wave ratio at the PGXL output | 1.0–3.0 | Above 2.5 |
+| Control | What it shows                          | Range    |
+|---------|----------------------------------------|----------|
+| Fwd Pwr | Forward power at the PGXL output       | 0–2000 W |
+| SWR     | Standing wave ratio at the PGXL output | 1.0–3.0  |
 
 Both meters display as horizontal bar gauges. The filled bar turns red when the value enters the red zone. Tick labels are drawn along the top of each gauge at the following reference points:
 
@@ -26,7 +26,6 @@ Both meters display as horizontal bar gauges. The filled bar turns red when the 
 - **SWR:** 1, 1.5, 2, 2.5, 3
 
 Neither meter has a persisted settings key. Values are read-only telemetry from the PGXL.
-
 ## Tips
 
 - The bar gauges use smoothed animation. A brief lag between the actual value and the displayed bar is normal during fast-changing conditions such as the start of a transmission.

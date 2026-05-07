@@ -1,78 +1,129 @@
-# Select a mic profile for a specific microphone
+# Phone/CW applet
 
-Use the "Mic profile" combo box in the Phone/CW applet to load a named microphone processing profile stored on the radio. Different microphones often need different EQ and processing settings; switching profiles applies the correct configuration for the connected mic without adjusting each parameter manually.
+The Phone/CW applet is a mode-aware transmit panel. In voice modes (SSB, AM, FM) it shows microphone, processor, and monitor controls. When the active slice is in CW mode, it automatically switches to CW controls (delay, speed, sidetone, iambic, pitch).
 
-## Before you start
+## Opening the Phone/CW applet
 
-- AetherSDR must be connected to the radio. The "Mic profile" combo box is only populated when a connection is active.
-- The active slice must be in a voice mode (SSB, AM, FM). The Phone/CW applet shows the Phone sub-panel in voice modes; in CW mode the mic profile controls are not visible.
+Click the **P/CW** tray button in the right sidebar.
 
-## Steps
+## Phone panel controls (voice modes)
 
-1. Click the "P/CW" tray button in the right sidebar to open the Phone/CW applet, if it is not already visible.
-2. Confirm that the Phone sub-panel is displayed. If the applet shows CW controls, the active slice is in a CW mode — switch the slice to a voice mode first.
-3. Click the "Mic profile" combo box. The list is populated from the profiles stored on the radio.
-4. Select the profile name that matches your microphone. The profile loads immediately.
+| Control | Kind | Behavior |
+|---------|------|----------|
+| Level | Meter | Shows microphone input peak level in dBFS (-40 to +10 dBFS; red above 0). Suppressed to -150 dBFS when `met_in_rx` is off and not transmitting, except when the mic source is PC or RADE is active. |
+| Compression | Meter | Shows speech compression amount in dB (-25 to 0 dB, reversed fill). Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX (v0.9.7+). |
+| Mic profile | Combo box | Loads a named microphone processing profile from the radio. Click to select a profile; it loads immediately. |
+| Mic source | Combo box | Selects the microphone input source: MIC, BAL, LINE, ACC, or PC. Calls `TransmitModel::setMicSelection`. |
+| Mic gain | Slider (0-100) | Adjusts microphone input level. For the "PC" source, uses local `PcMicGain` persistence (the radio always reports mic_level=0 when source=PC). |
+| +ACC | Toggle | Enables the accessory microphone input mix. Calls `TransmitModel::setMicAcc`. |
+| PROC | Toggle | Toggles the speech processor. Calls `TransmitModel::setSpeechProcessorEnable`. |
+| NOR/DX/DX+ | Slider (0=NOR, 1=DX, 2=DX+) | Three-position processor level. Calls `TransmitModel::setSpeechProcessorLevel`. |
+| DAX | Toggle | Enables DAX as the TX audio source. Calls `TransmitModel::setDax`. |
+| MON | Toggle | Enables TX sidetone monitor. Calls `TransmitModel::setSbMonitor`. |
+| Monitor volume | Slider (0-100) | Sets sideband monitor volume. Calls `TransmitModel::setMonGainSb`. |
 
-## What each control does
+### Level gauge — PC mic source and RADE exceptions
 
-| Control     | Kind      | Behavior                                             |
-|-------------|-----------|------------------------------------------------------|
-| Mic profile | Combo box | Loads the named mic processing profile on the radio. |
+When the mic source is **PC** or **RADE** mode is active, the Level gauge remains active during receive (RX) even when `met_in_rx` is off and the radio is not transmitting. For hardware mic sources (MIC, BAL, LINE, ACC), the gauge is suppressed to -150 dBFS during RX unless `met_in_rx` is on.
 
-## Tips
+### Compression gauge behavior (v0.9.7+)
 
-- The available profile names come from the radio, not from AetherSDR. To create or rename profiles, use the radio's own profile management. In AetherSDR you can also open `Profiles > Profile Manager...` to manage transmit profiles.
-- Selecting a profile does not change the "Mic source" or "Mic gain" settings; adjust those separately if needed.
+The Compression gauge only shows a live value while the radio is actually transmitting and the speech processor is enabled. During receive it reads 0 dB. This prevents confusing stale readings from the TX chain.
 
-## CW sidetone behavior (v0.9.2.1)
+### RADE mode behavior (v0.9.7+)
 
-In v0.9.2.1 the separate "Local STn" button, local sidetone volume slider, "Follow" pitch toggle, and manual local pitch slider have been removed. The single **Sidetone** toggle and **Sidetone volume** slider in the CW panel now control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. There are no longer any independent local-sidetone controls or associated settings keys (`CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, `CwLocalSidetonePitchHz`).
+When RADE mode is active:
+- The **Mic gain** slider acts as a client-side RADE gain control using the `PcMicGain` setting. Slider changes are not sent to the radio as `mic_level` commands.
+- The **Level** gauge remains active during RX.
+- When RADE deactivates, the slider reverts to showing the radio's `mic_level` value and the Level gauge resets to -150 dBFS.
 
-Pitch and pan continue to follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically; no manual override is needed or available.
+## CW panel controls
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| ALC | Meter | Shows automatic level control reading (0-100; red above 80). |
+| Delay (CW) | Slider (0-2000 ms, step 10) + QLineEdit | Sets CW break-in delay. Drag the slider or click the value and type a number directly (0-2000). Calls `TransmitModel::setCwDelay`. Default: 500. In v0.9.8, value caching was fixed to prevent the slider from snapping back when the radio emits (#2428). |
+| Speed (CW) | Slider (5-100 WPM) + QLineEdit | Sets CW keying speed. Drag the slider or click the value and type a number directly (5-100). Calls `TransmitModel::setCwSpeed`. Default: 20. |
+| Sidetone | Toggle | Toggles CW sidetone monitor. Controls both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. Calls `TransmitModel::setCwSidetone`. |
+| Sidetone volume | Slider (0-100) + QLineEdit | Sets CW monitor volume for both the radio (mon_gain_cw) and the local sidetone generator. Drag the slider or click the value and type a number directly (0-100). Default: 50. |
+| L / R pan (CW) | Slider (0-100) | Sets CW monitor stereo pan. Applies constant-power pan to both the radio side and the local sidetone generator. Double-click recenters to 50 (centre). Default: 50. |
+| Breakin | Toggle | Toggles full break-in (QSK). Calls `TransmitModel::setCwBreakIn`. Fully honors the radio's break_in setting (v0.9.7+): with Breakin ON (QSK) key edges trigger TX immediately; with Breakin OFF keys are queued and the operator engages PTT manually. |
+| Iambic | Toggle | Toggles iambic paddle keyer. Calls `TransmitModel::setCwIambic`. |
+| Pitch < / > | QLineEdit with < / > buttons | Sets CW sidetone pitch. Type a value (100-6000 Hz) or click the buttons to step by 10 Hz. Calls `TransmitModel::setCwPitch`. Default: 600. |
+
+### Direct value entry (v0.9.8)
+
+In v0.9.8, the four CW value labels were replaced with QLineEdit widgets that accept typed numeric input:
+
+- **Delay (CW):** accepts 0-2000 (milliseconds)
+- **Speed (CW):** accepts 5-100 (WPM)
+- **Sidetone volume:** accepts 0-100
+- **Pitch < / >:** accepts 100-6000 (Hz)
+
+Click any value, type a number, and press Enter. The corresponding slider updates immediately. The slider continues to work as before; the edit field updates from the slider except while you are editing it.
+
+### Sidetone behavior (v0.9.1+)
+
+The single **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. There are no separate local-sidtone controls.
+
+Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically; no manual override is needed or available.
+
+### Sidetone bus sharing with Quindar tones (v0.9.7+)
+
+The sidetone audio bus is shared with Quindar tones. The two are mutually exclusive at the mode level: Quindar tones are active only outside CW mode, and the CW sidetone generator is active only in CW mode. The applet manages the switch automatically when the active slice mode changes.
+
+### Breakin behavior (v0.9.7+)
+
+- **Breakin ON (QSK):** key edges trigger TX immediately; the break-in delay set by the **Delay (CW)** slider holds the relay after the last element.
+- **Breakin OFF:** keyed characters are queued; the operator engages PTT manually to transmit.
+
+## Mic profile management
+
+To select a mic profile:
+
+1. Open the Phone/CW applet.
+2. Confirm the active slice is in a voice mode (SSB, AM, FM). In CW mode the mic profile controls are not visible.
+3. Click the **Mic profile** combo box. The list shows profiles stored on the radio.
+4. Select the profile name for your microphone. The profile loads immediately.
+
+The available profile names come from the radio. To create or rename profiles, use the radio's own profile management or open `Profiles > Profile Manager...` in AetherSDR. Selecting a profile does not change the **Mic source** or **Mic gain** settings; adjust those separately if needed.
 
 ## Changes in v0.9.3
 
 ### Level gauge — PC mic source exception
 
-Previously the Level gauge was suppressed to −150 dBFS whenever `met_in_rx` was off and the radio was not transmitting, regardless of mic source. Starting in v0.9.3, this suppression no longer applies when the selected mic source is **PC**. Because PC-source metering is driven by client-side audio rather than the radio's `met_in_rx` flag, the gauge now appears immediately on connect when the mic source is set to PC (#2086).
+When the mic source is PC, the Level gauge appears immediately on connect even when `met_in_rx` is off. Hardware mic sources continue to be suppressed during RX.
 
-No change in behavior occurs for hardware mic sources (MIC, BAL, LINE, ACC); those continue to be suppressed when `met_in_rx` is off and the radio is not transmitting.
+### VOX toggle refresh
 
-### VOX toggle now refreshes the Phone panel instantly
-
-Toggling VOX via a keyboard shortcut now causes the Phone panel to refresh immediately. Previously, the panel did not update until some other UI event occurred. This was corrected by having the VOX setters emit `phoneStateChanged` (#2084).
+Toggling VOX via a keyboard shortcut now refreshes the Phone panel immediately (#2084).
 
 ### Sidetone stream on Windows
 
-On Windows, the client-side sidetone stream (CwSidetoneGenerator) now starts correctly as soon as AetherSDR connects to the radio. A bug in the AudioEngine initialization order prevented the stream from starting until the applet was interacted with manually (#2105).
+On Windows, the client-side sidetone stream starts correctly as soon as AetherSDR connects to the radio (#2105).
 
 ## Changes in v0.9.7
 
 ### Compression gauge gated on transmit state
 
-The **Compression** gauge now reads 0 dB whenever the radio is not transmitting. Previously the gauge could show a stale non-zero reading during receive because it was driven directly by meter flow regardless of transmit state. Starting in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state (and requires the speech processor to be enabled): it only shows a live compression value while the radio is actually transmitting. This change is handled via the `updateCompression()` slot, which is independent of the mic level path.
+The Compression gauge only shows a live value while the radio is transmitting and the speech processor is enabled. During receive it reads 0 dB (#2084).
 
-### Breakin now fully honors the radio's break_in setting
+### Breakin fully honors radio setting
 
-The **Breakin** toggle now correctly controls QSK behavior end-to-end. In earlier versions, an internal auto-PTT envelope caused the keying path to force TX regardless of the **Breakin** setting, which masked Breakin OFF and eliminated QSK hang time. That envelope has been removed. The behavior is now:
-
-- **Breakin ON (QSK):** key edges trigger TX immediately; the break-in delay set by the **Delay (CW)** slider holds the relay after the last element.
-- **Breakin OFF:** keyed characters are queued; the operator engages PTT manually to transmit.
+The auto-PTT envelope that masked Breakin OFF has been removed. Breakin ON enables QSK; Breakin OFF requires manual PTT.
 
 ### RADE mode support
 
-When RADE mode is active, the **Mic gain** slider and **Level** gauge switch to client-side behavior:
-
-- The **Mic gain** slider acts as a client-side RADE gain control and uses the `PcMicGain` setting, the same key used for the PC mic source. Slider changes are not sent to the radio as `mic_level` commands while RADE is active, preventing silent overwrite of the hardware mic setting.
-- The **Level** gauge remains active during receive (RX) when RADE is active, mirroring the existing PC mic exception introduced in v0.9.3. This allows the gauge to show input level even when `met_in_rx` is off and the radio is not transmitting.
-- When RADE deactivates, the slider reverts to showing the radio's `mic_level` value and the Level gauge is reset to −150 dBFS until the next transmit or `met_in_rx` event.
-
-The `PcMicGain` setting is shared between the PC mic source path and the RADE path; both are client-authoritative with respect to the radio.
+RADE mode uses client-side mic gain and level gauge, sharing the `PcMicGain` setting with the PC mic source.
 
 ### Sidetone bus shared with Quindar tones
 
-The sidetone audio bus is now shared with Quindar tones. The two are mutually exclusive at the mode level: Quindar tones are active only outside CW mode, and the CW sidetone generator is active only in CW mode. No user action is required; the applet manages the switch automatically when the active slice mode changes.
+Quindar tones and CW sidetone share the audio bus; the applet manages the switch automatically.
+
+## Changes in v0.9.8
+
+- **Direct value entry:** The Delay, Speed, Sidetone volume, and Pitch labels are now QLineEdit widgets with QIntValidator. Click any value and type a number directly (#2429).
+- **Delay caching fix:** `setCwDelay` now caches the value immediately so the radio emission doesn't snap the slider back (#2428).
 
 ## Related
 

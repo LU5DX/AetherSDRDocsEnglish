@@ -42,6 +42,22 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 - **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). When RADE mode is active, the **Level** gauge also appears during receive (see [Level gauge behavior](#level-gauge-behavior-v093)). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
 - **Phone panel does not refresh when VOX is toggled by keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later if the Phone panel fails to update immediately when VOX is toggled via a keyboard shortcut.
 
+## CW panel controls (v0.9.8)
+
+In v0.9.8, the four value labels for CW parameters were replaced with QLineEdit widgets. The adjacent sliders and buttons remain unchanged. Click any value and type a number directly to set it. Values are clamped to the valid range when you press Enter or Tab.
+
+| Control               | Kind          | Default | Valid range       |
+|-----------------------|---------------|---------|-------------------|
+| **Delay (CW)**        | Slider + edit | 500     | 0–2000 ms         |
+| **Speed (CW)**        | Slider + edit | 20      | 5–100 WPM         |
+| **Sidetone volume**   | Slider + edit | 50      | 0–100             |
+| **Pitch < / >**       | Text + buttons| 600     | 100–6000 Hz       |
+
+- The **Delay (CW)**, **Speed (CW)**, and **Sidetone volume** QLineEdit widgets use `QIntValidator` to restrict input to the valid range.
+- The **Pitch < / >** widget (CwTriBtn) allows typing a value (100–6000) or clicking the < / > buttons to step by 10 Hz.
+- The **Delay (CW)** slider was fixed in v0.9.8 (#2428) so that `setCwDelay` caches the value immediately, preventing the radio emission from snapping the slider back.
+- The **Sidetone volume** slider controls both the radio-side (`mon_gain_cw`) and client-side sidetone generator volumes in lockstep.
+
 ## CW sidetone behavior (v0.9.1 and later)
 
 The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator in lockstep. There is no longer a separate **Local STn** button, separate local volume slider, or **Follow** pitch toggle. Those controls have been removed.

@@ -19,10 +19,20 @@ The bypass state is persisted: `ClientPuduTxEnabled` for the TX chain and `Clien
 
 ## Tips
 
-- Single-click in the CHAIN widget bypasses the stage. Double-click opens the frameless PUDU editor ("Aetherial Poodoo™ — TX" or "— RX") without changing the bypass state.
+- Single-click in the CHAIN widget bypasses the stage. Double-click opens the frameless PUDU editor ("Aetherial Voice Processor — TX" or "Aetherial Voice Processor — RX") without changing the bypass state.
 - When the stage is bypassed, the entire PUDU tile dims to reduced opacity (approximately 55 %), matching the dim effect used on the EQ curve display. This visual cue is consistent whether you bypass from the CHAIN widget or from within the editor.
-- The AetherVoice™ logo inside the editor pulses with the wet-signal RMS only when the stage is enabled. If the logo is static, the stage is bypassed.
+- The PooDoo logo inside the editor pulses with the wet-signal RMS only when the stage is enabled. If the logo is static, the stage is bypassed.
 - TX and RX bypass states are fully independent. You can bypass the TX PUDU while leaving RX PUDU active.
+
+## Opening the PUDU editor
+
+The PUDU editor can be opened separately for the TX and RX chains. Each opens a frameless floating window with its own independent state.
+
+1. In the CHAIN widget for the TX or RX chain, double-click the PUDU stage block.
+   - The TX editor opens with window title "Aetherial Voice Processor — TX".
+   - The RX editor opens with window title "Aetherial Voice Processor — RX".
+2. The editor shows six knobs in two groups, a mode selector (Even/Odd), and the PooDoo logo.
+3. Use the Close button at the top of the editor window to dismiss it.
 
 ## Knob groups
 

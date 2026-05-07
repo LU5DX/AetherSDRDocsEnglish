@@ -38,30 +38,29 @@ The **Spot List** tab shows a unified, sortable table of all live spots from all
 ### Display tab
 The **Display** tab controls how spots appear on the panadapter.
 
-| Control | Setting key | Default |
-|---|---|---|
-| **Spots:** | `IsSpotsEnabled` | Enabled |
-| **Memories:** | `IsMemoriesShownOnPanadapter` | Disabled |
-| **Auto Mode:** | `SpotsAutoMode` | Enabled |
-| **Levels:** | `SpotsStackLevels` | — |
-| **Position:** | `SpotsPosition` | — |
-| **Font Size:** | `SpotsFontSize` | — |
-| **Spot Lifetime:** | `SpotsLifetime` | — |
-| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | — |
-| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | — |
-| **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | — |
-| **Background Opacity:** | `SpotsOverrideBgOpacity` | 48 |
-| **DXCC Coloring** | `DxccColoringEnabled` | — |
-| **Log File (ADIF):** | `DxccAdifPath` | — |
-| **Auto-Reload Log:** | `DxccAutoReload` | — |
-| **Spot Lines:** | `IsSpotsLinesEnabled` | Enabled |
-| **Clear All Spots** | — | — |
-| Total Spots: | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
+| Control                          | Setting key                                                              | Default                                                                                       |
+|----------------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Spots:**                       | `IsSpotsEnabled`                                                         | Enabled                                                                                       |
+| **Memories:**                    | `IsMemoriesShownOnPanadapter`                                            | Disabled                                                                                      |
+| **Auto Mode:**                   | `SpotsAutoMode`                                                          | Enabled                                                                                       |
+| **Levels:**                      | `SpotsStackLevels`                                                       | —                                                                                             |
+| **Position:**                    | `SpotsPosition`                                                          | —                                                                                             |
+| **Font Size:**                   | `SpotsFontSize`                                                          | —                                                                                             |
+| **Spot Lifetime:**               | `SpotsLifetime`                                                          | —                                                                                             |
+| **Override Colors:**             | `IsSpotsOverrideColorsEnabled`                                           | —                                                                                             |
+| **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled`                                 | —                                                                                             |
+| **Override Background: Auto**    | `IsSpotsOverrideToAutoBackgroundColorEnabled`                            | —                                                                                             |
+| **Background Opacity:**          | `SpotsOverrideBgOpacity`                                                 | 48                                                                                            |
+| **DXCC Coloring**                | `DxccColoringEnabled`                                                    | —                                                                                             |
+| **Log File (ADIF):**             | `DxccAdifPath`                                                           | —                                                                                             |
+| **Auto-Reload Log:**             | `DxccAutoReload`                                                         | —                                                                                             |
+| **Spot Lines:**                  | `IsSpotsLinesEnabled`                                                    | Enabled                                                                                       |
+| **Clear All Spots**              | —                                                                        | —                                                                                             |
+| Total Spots:                     | Live readout of how many spots are currently tracked across all sources. | Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
 
 **Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. Disable this during contests to reduce visual clutter. The setting is persisted as `IsSpotsLinesEnabled` and defaults to Enabled.
 
 **Auto Mode** defaults to **Enabled** (`SpotsAutoMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
-
 ### FreeDV Reporter reporting
 
 The **FreeDV** tab includes a **Station Reporting** section that lets AetherSDR broadcast your station activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is only present in builds compiled with WebSocket support.

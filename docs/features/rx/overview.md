@@ -40,8 +40,10 @@ Filter width presets are the one setting that persists across sessions, stored u
 | Control | Default / range | Setting key | Behavior |
 |---|---|---|---|
 | Filter width presets | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIG: 100–2000 Hz; RTTY: 250–1000 Hz | `FilterPresets` | Click a button to apply that width. Right-click to save the current filter width as a preset. Buttons are hidden in FM, NFM, and DFM modes. Presets are stored as either a plain width value or a `lo:hi` passband pair; both formats are read and written correctly (v0.9.5.1, #2259). |
-| Filter width label | 2.7K | — | Shows the current filter bandwidth. Updates when a preset is applied or the passband is dragged. Read-only. |
+| Filter width label | 2.7K | — | Shows the current filter bandwidth. Updates when a preset is applied or the passband is dragged. Read-only. The formatting logic is shared with VfoWidget via `RxApplet::formatFilterWidth()` and uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). |
 | Filter passband widget | — | — | Drag the low or high edge to set a custom filter passband. |
+| Widen (shortcut action) | — | — | The `stepFilterWidth(+1)` method walks the per-mode preset list to widen the filter passband with mode-correct edge geometry. Accessible via keyboard shortcut (v0.9.8, #2208). |
+| Narrow (shortcut action) | — | — | The `stepFilterWidth(-1)` method walks the per-mode preset list to narrow the filter passband with mode-correct edge geometry. Accessible via keyboard shortcut (v0.9.8, #2208). |
 
 ### AGC
 
@@ -90,6 +92,7 @@ The following DSP filter buttons are visible in non-FM modes. Button availabilit
 | Indicator | States | Meaning |
 |---|---|---|
 | QSK | Grey / amber | Lights amber when CW full break-in is active. Controlled from the CW applet; read-only here. |
+| Filter width label | e.g. '2.7K', '3.3K', '500', '6.0K' | Current slice filter bandwidth. |
 
 ### FM repeater controls
 
@@ -147,4 +150,3 @@ The following accessor methods and visibility helpers are available on `AppletPa
 |---|---|
 | `setAgVisible(bool visible)` | Shows or hides the Antenna Genius button and applet based on device presence. |
 | `setShackSwitchVisible(bool visible)` | Shows or hides the ShackSwitch applet based on device presence. Added in V0.9.4. |
-|

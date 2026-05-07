@@ -19,12 +19,12 @@ Use this page to set the microphone input level and mix in the accessory input a
 
 ## What each control does
 
-| Control               | What it does                                                                                          | Default |
-|-----------------------|-------------------------------------------------------------------------------------------------------|---------|
-| **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio. | 50 |
-| **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                            | —       |
-| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                    | —       |
-| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. | — |
+| Control               | What it does                                                                                                                                                                                                                                                                      | Default |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio.                                                                                                                        | 50      |
+| **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                                                                                                                                                                                                        | —       |
+| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                                                                                                                                                                                                | —       |
+| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. | —       |
 
 ## CW sidetone controls
 
@@ -44,16 +44,20 @@ Prior to v0.9.2.1, the CW sub-panel included a separate **Local STn** toggle, a 
 
 If you previously used the **Local STn** button independently of the main **Sidetone** toggle, use the **Sidetone** toggle going forward. The local low-latency generator remains available and active whenever **Sidetone** is on.
 
+### v0.9.8 changes: QLineEdit value fields
+
+In v0.9.8 the four CW value labels (Delay, Speed, Sidetone Volume, and Pitch) are now editable text fields. Click any value and type a number directly. The slider moves to match when you press Enter or tab away. This matches SmartSDR behavior.
+
 ### CW sub-panel controls
 
 | Control | What it does | Default | Range / Values | Setting key |
 |---|---|---|---|---|
-| **Delay (CW)** | Sets the CW break-in delay. | — | 0–2000 ms (step 10) | — |
-| **Speed (CW)** | Sets the CW keying speed in words per minute. | — | 5–100 WPM | — |
+| **Delay (CW)** | Sets the CW break-in delay. Drag the slider or click the value field and type a number (0–2000). In v0.9.8, the value is cached immediately when typed so the radio emission doesn't snap the slider back (#2428). | 500 ms | 0–2000 ms (step 10) | — |
+| **Speed (CW)** | Sets the CW keying speed in words per minute. Drag the slider or click the value field and type a number (5–100). | 20 WPM | 5–100 WPM | — |
 | **Sidetone** | Toggles CW sidetone. Enables/disables both the radio's DAX-fed monitor and the client-side low-latency generator in lockstep. On Windows, the sidetone stream starts immediately on connect (v0.9.3, #2105). The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level). | — | On / Off | — |
-| **Sidetone volume** | Sets CW monitor volume. Controls both `mon_gain_cw` on the radio and the local sidetone generator volume simultaneously. | — | 0–100 | — |
+| **Sidetone volume** | Sets CW monitor volume. Controls both `mon_gain_cw` on the radio and the local sidetone generator volume simultaneously. Drag the slider or click the value field and type a number (0–100). | 50 | 0–100 | — |
 | **L / R pan (CW)** | Sets CW monitor stereo pan. Applies to both the radio-side monitor and the local sidetone generator. Double-click to recenter. | 50 | 0–100 | — |
-| **Pitch < / >** | Steps the CW sidetone and decode pitch by 10 Hz. Pitch is also followed automatically from the radio's `cw_pitch` setting. | 600 Hz | 100–6000 Hz (step 10) | — |
+| **Pitch < / >** | Sets the CW sidetone and decode pitch. Type a value (100–6000) in the text field or click the < and > buttons to step by 10 Hz. Pitch is also followed automatically from the radio's `cw_pitch` setting. | 600 Hz | 100–6000 Hz (step 10) | — |
 | **Breakin** | Toggles full break-in (QSK). In v0.9.7, the CW keyboard and MIDI paths fully honor this setting: with Breakin ON (QSK) key edges trigger TX and the break-in delay holds the relay; with Breakin OFF keys are queued and the operator engages PTT manually. The previous auto-PTT envelope that masked Breakin OFF and eliminated QSK hang time has been removed. | — | On / Off | — |
 | **Iambic** | Toggles the iambic paddle keyer. | — | On / Off | — |
 | **ALC** gauge | Shows the automatic level control reading. Turns red above 80. | — | 0–100 | — |
@@ -66,6 +70,7 @@ If you previously used the **Local STn** button independently of the main **Side
 - With **Breakin** off in v0.9.7, key presses are queued and TX is not engaged automatically. Engage PTT manually before sending. If you expect full QSK operation, confirm **Breakin** is lit before keying.
 - The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where the radio's round-trip DAX latency becomes noticeable. Because both are controlled by the single **Sidetone** toggle, there is no risk of one being active without the other.
 - Double-click **L / R pan (CW)** to return the pan position to center (50).
+- In v0.9.8, the Delay, Speed, Sidetone Volume, and Pitch value fields accept direct numeric input. Type a value and press Enter or tab away — the slider moves to match. The fields validate input and enforce the valid range automatically.
 
 ## Troubleshooting
 
@@ -78,6 +83,7 @@ If you previously used the **Local STn** button independently of the main **Side
 - **Phone panel does not refresh when VOX is toggled via keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later.
 - **Sidetone not audible immediately after connecting on Windows** — This was resolved in v0.9.3 (#2105) by fixing the AudioEngine initialization order. Update to v0.9.3 or later.
 - **Local STn / Follow controls are missing after upgrading to v0.9.2.1** — These controls were removed in v0.9.2.1. Use the **Sidetone** toggle and **Sidetone volume** slider; they now control both the radio-side and local sidetone together. Pitch and pan follow the radio automatically and no longer require a separate follow toggle.
+- **CW value field resets after typing** — Make sure you press Enter or tab away from the field after typing. The value is applied on the `editingFinished` signal, which fires when the field loses focus or Enter is pressed.
 
 ## Related
 

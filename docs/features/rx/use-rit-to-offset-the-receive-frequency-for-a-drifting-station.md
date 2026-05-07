@@ -66,6 +66,18 @@ From v0.9.5.1, filter preset entries can store either a plain width value or an 
 
 Right-click a filter preset button to save the current filter width (and passband position, if applicable) as that preset. Click a preset button to apply it.
 
+## Filter width stepping (v0.9.8)
+
+From v0.9.8, the `stepFilterWidth()` method walks the per-mode preset list to find the next narrower or wider filter preset. This means the widen/narrow shortcuts (if available) produce mode-correct edge geometry for all modes (LSB, CWL, DIGL, RTTY, AM, CW, USB) rather than applying a simple fixed offset. The filter width readout, shared with the VFO panel via `RxApplet::formatFilterWidth()`, uses mode-aware logic so SSB and digital modes display the correct labelled width.
+
+If you have widen or narrow keyboard shortcuts bound to `stepFilterWidth()`:
+
+- Pressing the widen shortcut selects the next wider preset in the current mode's filter preset list that is wider than the current width.
+- Pressing the narrow shortcut selects the next narrower preset.
+- If no wider/narrower preset exists, the key press is ignored.
+
+No action is required on your part; the stepping behaviour updates automatically in v0.9.8.
+
 ## Related
 
 - [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)

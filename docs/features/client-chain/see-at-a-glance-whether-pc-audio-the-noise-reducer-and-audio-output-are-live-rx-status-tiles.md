@@ -1,6 +1,6 @@
 # See at a glance whether PC Audio, the noise reducer, and audio output are live (RX status tiles)
 
-The RX chain view in the Aetherial Audio Chain applet includes three non-interactive status tiles — RADIO, DSP, and SPEAK — that show the live state of your receive signal path without requiring you to open any dialog.
+The RX chain view in the Aetherial Audio Chain applet includes three interactive and non-interactive status tiles — RADIO, ADSP, and SPEAK — that show the live state of your receive signal path without requiring you to open any dialog.
 
 ## Before you start
 
@@ -13,40 +13,41 @@ The RX chain view in the Aetherial Audio Chain applet includes three non-interac
 2. In the applet header, click **RX**. The RX chain strip replaces the TX chain strip, and the three status tiles appear on either side of the processing stages.
 3. Read the three tiles from left to right:
    - **RADIO** — greens when PC Audio (the standard SSB stream) is enabled on the radio.
-   - **DSP** — mirrors which client-side noise reducer is currently active. The label rotates to the active module's short name (for example, `NR2`, `NR4`, or `BNR`). When no noise reducer is on, the tile label falls back to `DSP`.
+   - **ADSP** — mirrors which client-side noise reducer is currently active. The label rotates to the active module's short name (for example, `NR2`, `NR4`, or `BNR`). When no noise reducer is on, the tile label falls back to `ADSP`. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog.
    - **SPEAK** — greens when AetherSDR's audio output is unmuted.
 
-No further interaction is needed. The tiles update automatically as conditions change.
+The RADIO and SPEAK tiles update automatically as conditions change.
 
 ## What each control does
 
-| Tile | Kind | Behavior |
-|---|---|---|
-| **RADIO** | Indicator | Greens when PC Audio is enabled. |
-| **DSP** | Indicator | Label rotates to the active noise reducer's short name (`NR2`, `NR4`, `BNR`); shows `DSP` when none is active. Greens when a noise reducer is on. |
-| **SPEAK** | Indicator | Greens when AetherSDR's audio output is unmuted. |
-| RX chain stage (**EQ** / **AGC-T** / **AGC-C** / **TUBE** / **PUDU**) | Drag handle | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All five RX stages are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
+| Tile                                                                  | Kind                                                                                                                                                                                                                                                                                                                                                                                   | Behavior                                                                                                                                                                                                                                                                                                                        |
+|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **RADIO**                                                             | Indicator                                                                                                                                                                                                                                                                                                                                                                              | Greens when PC Audio is enabled. Not interactive.                                                                                                                                                                                                                                                                               |
+| **ADSP**                                                              | Toggle button / indicator                                                                                                                                                                                                                                                                                                                                                              | Label rotates to the active noise reducer's short name (`NR2`, `NR4`, `BNR`); shows `ADSP` when none is active. Single-click bypasses the entire NR cluster; single-click again restores the prior NR state. Double-click opens AetherDSP Settings. Greens when a noise reducer is on.                                          |
+| **SPEAK**                                                             | Indicator                                                                                                                                                                                                                                                                                                                                                                              | Greens when AetherSDR's audio output is unmuted. Not interactive.                                                                                                                                                                                                                                                               |
+| RX chain stage (**EQ** / **AGC-G** / **AGC-C** / **DESS** / **TUBE** / **EVO**) | Drag handle                                                                                                                                                                                                                                                                                                                                                                            | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All six RX stages (EQ, AGC-G/Gate, AGC-C/Comp, DESS/DeEss, TUBE, EVO/Pudu) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
-None of the three tiles are interactive. Single-click, double-click, and drag have no effect on them.
+The RADIO and SPEAK tiles are not interactive. Single-click, double-click, and drag have no effect on them.
 
-## How TX BYPASS works in v0.9.7
+## How TX and RX BYPASS work in v0.9.8
 
-In v0.9.7, the TX BYPASS state is owned by the audio engine rather than tracked locally in the applet. This means the **BYPASS** button on the TX side stays in sync with the BYPASS control in the Aetherial Audio Channel Strip. Pressing **BYPASS** in either place reflects immediately in the other.
+In v0.9.8, the BYPASS state for both TX and RX is owned by the audio engine rather than tracked locally in the applet. This means the **BYPASS** button on either side stays in sync with the matching BYPASS control in the Aetherial Audio Channel Strip (TX) or the RX strip's internal controls. Pressing **BYPASS** in any location reflects immediately in the other.
 
-The RX side is unaffected — RX bypass continues to use the snapshot mechanism described in [Bypass every RX stage at once](bypass-every-rx-stage-at-once.md).
+When switching between TX and RX tabs, the **BYPASS** button visual updates to show the current engine-owned state for the newly active side. No separate snapshot management is needed for either chain.
 
-## How double-click works on TX chain stages in v0.9.7
+## How double-click works on TX chain stages in v0.9.8
 
-Previously, double-clicking a TX chain stage opened a per-stage floating editor directly. From v0.9.7, double-clicking any TX chain stage tile opens the **Aetherial Audio Channel Strip** — the unified TX DSP window. The per-stage editors remain accessible from within the channel strip itself.
+Double-clicking any TX chain stage tile opens the **Aetherial Audio Channel Strip** — the unified TX DSP window. The per-stage editors remain accessible from within the channel strip itself.
 
-Double-clicking an RX chain stage continues to open the per-stage frameless floating editor for that stage, unchanged.
+Double-clicking an RX chain stage opens the per-stage frameless floating editor for that stage.
 
 ## Tips
 
 - The last-active tab (TX or RX) is restored on next launch via the persisted setting `PooDooAudioActiveTab`. If you want the RX status tiles visible by default, leave the **RX** tab selected when you close AetherSDR.
-- The **DSP** tile label changing to a specific name (such as `NR2`) is the quickest way to confirm that a noise reducer is actually engaged, without opening `Settings > AetherDSP Settings...`.
-- The gate and compressor stages in the RX chain are labelled **AGC-T** and **AGC-C** respectively. These correspond to the Gate and Comp stages internally.
-- Because TX bypass state is now engine-owned, the **BYPASS** button on the TX side will correctly reflect any bypass change made from the Aetherial Audio Channel Strip, even if the chain applet was not the source of that change.
+- The **ADSP** tile label changing to a specific name (such as `NR2`) is the quickest way to confirm that a noise reducer is actually engaged, without opening `Settings > AetherDSP Settings...`.
+- The gate and compressor stages in the RX chain are labelled **AGC-G** and **AGC-C** respectively. These correspond to the Gate and Comp stages internally.
+- Because bypass state is now engine-owned for both sides, the **BYPASS** button will correctly reflect any bypass change made from other sources, even if the chain applet was not the source of that change.
+- The RX chain includes a fully implemented DESS (De-Esser) stage between AGC-C and TUBE.
 
 ## Related
 

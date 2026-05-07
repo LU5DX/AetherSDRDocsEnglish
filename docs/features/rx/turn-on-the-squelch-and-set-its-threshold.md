@@ -40,3 +40,4 @@ To disable the squelch, click **SQL** again to deactivate it.
 - [RX Controls overview](overview.md)
 - [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
 - [Work an FM repeater with CTCSS tone and +/- offset](work-an-fm-repeater-with-ctcss-tone-and-offset.md)
+- [Adjust filter width](adjust-filter-width.md)

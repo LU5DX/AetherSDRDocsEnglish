@@ -19,10 +19,12 @@ To disable squelch, click the **Squelch button** again.
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| Squelch button | Off | On / Off | Enables or disables squelch for this slice. |
-| Squelch slider | — | 0–100 | Sets the squelch threshold. Higher values require a stronger signal to open the squelch. |
+| Control                      | Default                                                                                                                               | Valid range                                                                                                             |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Squelch button               | Off                                                                                                                                   | On / Off                                                                                                                |
+| Squelch slider               | —                                                                                                                                     | 0–100                                                                                                                   |
+| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
 
 Neither the button state nor the slider position is persisted as an AetherSDR AppSettings key — both reflect live radio state.
 
@@ -31,35 +33,20 @@ Neither the button state nor the slider position is persisted as an AetherSDR Ap
 - Set the slider just above the noise floor to prevent the audio from cutting in and out on weak signals.
 - The squelch threshold interacts with the AGC setting. If you change the AGC mode using the **AGC combo**, you may need to readjust the squelch slider.
 
-## DSP tab changes in v0.9.7
+## DSP tab changes in v0.9.8
 
-The **DSP tab** of the VFO panel was reorganised in v0.9.7. The following buttons were removed from the VFO panel DSP grid:
+The **DSP tab** of the VFO panel received two new launcher buttons in v0.9.8:
 
-| Removed button | Reason |
+| New button | Behavior |
 |---|---|
-| NR2 | Moved to the spectrum overlay menu and the AetherDSP applet. |
-| RN2 | Moved to the spectrum overlay menu and the AetherDSP applet. |
-| BNR | Moved to the spectrum overlay menu and the AetherDSP applet. |
-| NR4 | Moved to the spectrum overlay menu and the AetherDSP applet. |
-| MNR | Moved to the spectrum overlay menu and the AetherDSP applet. |
-| DFNR | Moved to the spectrum overlay menu and the AetherDSP applet. |
+| ADSP button | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. Non-checkable button styled like a radio-side DSP toggle. |
+| AetherVoice button | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. Non-checkable button. |
 
-To toggle NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum display to open the spectrum overlay menu, or open the AetherDSP applet.
+Both buttons are placed at the end of the DSP button grid. ADSP occupies 1 column, and AetherVoice occupies the adjacent 2 columns.
 
-The buttons that remain in the VFO panel DSP tab are:
+### Startup DSP level synchronization
 
-| Button | Behavior |
-|---|---|
-| NR | Enables radio-side noise reduction. |
-| NB | Enables the noise blanker. |
-| ANF | Enables the automatic notch filter. |
-| APF | Enables the audio peak filter (visible in CW mode only). |
-| NRL | Enables LMS noise reduction. |
-| NRS | Enables spectral subtraction. |
-| RNN | Enables RNN noise reduction. |
-| NRF | Enables the spectral noise filter. |
-| ANFL | Enables the LMS notch filter. |
-| ANFT | Enables the FFT notch filter. |
+In v0.9.8, the DSP level slider synchronization was improved. When radio-side DSP buttons (NR, NB, ANF, NRL, NRS, NRF, ANFL) are enabled in the radio's saved profile, the corresponding DSP level slider is now pushed onto the shared level stack at startup. Previously, the level slider was missing until the user manually toggled the DSP button. This fixes issue #startup-slider.
 
 ### DSP level slider
 
@@ -80,6 +67,10 @@ Leveled DSP targets supported by the slider:
 | ANFL | `setAnflLevel` |
 
 The slider range is 0–100. The level value is not persisted as an AetherSDR AppSettings key — it reflects live radio state.
+
+## Filter width label fix in v0.9.8
+
+The **Filter width label** in the VFO panel now uses `RxApplet::formatFilterWidth` as its single source of truth. This fixes a 0.1 kHz offset that previously affected SSB and digital mode filter readouts (issues #794, #1225, #2197). The label now stays in sync with the RX applet's filter display.
 
 ## Related
 

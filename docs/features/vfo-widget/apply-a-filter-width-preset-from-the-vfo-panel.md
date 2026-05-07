@@ -21,12 +21,13 @@ To save the current filter width into a preset slot:
 
 ## What each control does
 
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Filter preset buttons (Mode tab) | Each button applies a saved filter width preset to the slice. Left-click to apply; right-click to save the current filter width into that slot. Custom low and high filter edges can be stored per slot via right-click. | — | `FilterPresets` |
-| Filter width label | Displays the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. | — | — |
-
-## DSP tab changes in v0.9.7
+| Control                          | Behavior                                                                                                                                                                                                                                       | Default                                                                                                                 |
+|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Filter preset buttons (Mode tab) | Each button applies a saved filter width preset to the slice. Left-click to apply; right-click to save the current filter width into that slot. Custom low and high filter edges can be stored per slot via right-click.                       | —                                                                                                                       |
+| Filter width label               | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |                                                                                                                         |
+| ADSP button (DSP tab)            | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8).                                                                                                          | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab)     | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                                                                                                                              | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+## DSP tab changes in v0.9.8
 
 The **DSP tab** now shows only radio-side noise reduction buttons. The following buttons have been removed from the VFO panel DSP tab:
 
@@ -39,7 +40,7 @@ The **DSP tab** now shows only radio-side noise reduction buttons. The following
 
 These client-side DSP modules are now accessed through the spectrum overlay menu and the AetherDSP applet. Toggle them there instead of from the VFO panel.
 
-The buttons that remain in the DSP tab are arranged in a four-column grid:
+The buttons that remain in the DSP tab are arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons:
 
 | Position | Button |
 |---|---|
@@ -53,13 +54,17 @@ The buttons that remain in the DSP tab are arranged in a four-column grid:
 | Row 2, col 4 | NRF |
 | Row 3, col 1 | ANFL |
 | Row 3, col 2 | ANFT |
+| Row 4, col 1 | ADSP |
+| Row 4, cols 2–3 | AetherVoice |
 
-A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
+A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. In v0.9.8, when a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
 
 | Control | Behavior | Default | Setting key |
 |---|---|---|---|
 | NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons (DSP tab) | Enables the corresponding radio-side noise reduction or filtering algorithm for this slice. APF is visible in CW mode only. | off | — |
-| DSP level slider (DSP tab) | Sets the processing level for the most recently activated leveled DSP algorithm. The label to the left identifies the current target. Hidden (faded) when no leveled algorithm is active. | — | — |
+| DSP level slider (DSP tab) | Sets the processing level for the most recently activated leveled DSP algorithm. The label to the left identifies the current target. Automatically activates on startup if the radio's saved profile has a leveled DSP enabled. Hidden (faded) when no leveled algorithm is active. | — | — |
+| ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Non-checkable push button. | — | — |
+| AetherVoice button (DSP tab) | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Non-checkable push button. Spans 2 columns in the 4-column DSP grid. | — | — |
 
 ## Tips
 
@@ -67,6 +72,7 @@ A shared **DSP level slider** row appears below the button grid. The slider reta
 - Preset slots are shared across all slices and modes. Overwriting a slot affects every slice that uses it.
 - Filter edge lines on the spectrum panadapter reflect the active filter width. If the lines are hidden, enable them with the Filter edges button in the VFO panel. See [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md).
 - To access NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum overlay or open the AetherDSP applet.
+- The DSP level slider now appears immediately on startup for any leveled DSP that was saved in the radio's profile, without requiring manual toggling.
 
 ## Related
 

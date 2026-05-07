@@ -1,47 +1,64 @@
-# Reset NR2 or NR4 parameters to defaults
+# AetherDSP Settings
 
-Use the **Reset Defaults** button on the NR2 or NR4 tab to restore all parameters for that engine to their factory values in a single click.
+Use the **AetherDSP Settings** dialog to tune the advanced parameters of AetherSDR's client-side noise-reduction engines (NR2, NR4, MNR, DFNR, RN2, BNR). The six DSP modules are selectable via a toggle row at the top; clicking a toggle also activates or bypasses that engine.
 
-## Before you start
-
-- AetherSDR must be running. A radio connection is not required to access AetherDSP Settings.
-
-## Steps
-
-### Reset NR2 defaults
+## Opening AetherDSP Settings
 
 1. Click `Settings > AetherDSP Settings...`.
-2. Click the **NR2** tab.
-3. Click **Reset Defaults**.
 
-All NR2 controls return to the values in the table below.
+The dialog opens with the currently active noise reduction tab selected.
 
-### Reset NR4 defaults
+## Dialog chrome (v0.9.8)
 
-1. Click `Settings > AetherDSP Settings...`.
-2. Click the **NR4** tab.
-3. Click **Reset Defaults**.
+The AetherDSP Settings dialog uses a frameless custom title bar with a blue-gradient background and the dialog title "AetherDSP Settings" in bold 10 px text. A grip glyph (⋮⋮) appears on the left. Three window-control buttons sit at the right:
 
-All NR4 controls return to the values in the table below.
+- **— (Minimize)** — Minimizes the dialog.
+- **□ (Maximize)** — Maximizes or restores the dialog. Double-clicking the title bar also toggles maximize/restore.
+- **× (Close)** — Closes the dialog.
 
-## What each control does
+Drag the title bar to move the dialog. Resize the dialog by dragging any edge or corner (8-axis resize, 12 px resize hit zone).
 
-### NR2 defaults restored by Reset Defaults
+## Tab selector behavior
+
+The six tabs at the top (NR2, NR4, MNR, DFNR, RN2, BNR) act as both tab selectors and engine enable/disable controls. Clicking a tab selects that page and activates the corresponding DSP engine. When a new engine is activated, AetherSDR cascades exclusion, disabling DFNR and other mutually exclusive modules.
+
+**Platform notes:**
+
+- **MNR (macOS only)** — The MNR tab is dimmed on Windows and Linux builds because the macOS MMSE-Wiener engine has no backend on those platforms.
+- **BNR** — The BNR tab is dimmed on builds without the NVIDIA Broadcast SDK.
+- **RN2** — The RN2 tab is purely informational and has no adjustable parameters.
+
+## NR2 tab
+
+Use the NR2 (musical-noise-reduction) engine for noise suppression that avoids musical artefacts.
+
+### Controls
 
 | Control | Default | Valid range | Setting key |
 |---|---|---|---|
 | Gain Method | Gamma | Linear \| Log \| Gamma \| Trained | `NR2GainMethod` |
 | NPE Method | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
 | AE Filter (artifact elimination) | Enabled | — | `NR2AeFilter` |
-| Reduction Depth: | 1.50 | 0.50–2.00 | `NR2GainMax` |
+| Reduction: | 1.50 | 0.50–2.00 | `NR2GainMax` |
 | Smoothing: | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
-| Voice Threshold: | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| Threshold: | 0.20 | 0.05–0.50 | `NR2Qspp` |
 
-### NR4 defaults restored by Reset Defaults
+### Reset NR2 defaults
+
+1. Select the **NR2** tab.
+2. Click **Reset Defaults** (↺ icon).
+
+All NR2 controls return to Gamma, OSMS, AE Filter enabled, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+
+## NR4 tab
+
+Use the NR4 (libspecbleach) engine for speech-focused noise reduction with adaptive noise estimation.
+
+### Controls
 
 | Control | Default | Valid range | Setting key |
 |---|---|---|---|
-| Noise Estimation Method | SPP-MMSE | SPP-MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
+| Noise Estimation: | MMSE | MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
 | Adaptive Noise Estimation | Enabled | — | `NR4AdaptiveNoise` |
 | Reduction (dB): | 10.0 | 0.0–40.0 dB | `NR4ReductionAmount` |
 | Smoothing (%): | 0 | 0–100 | `NR4SmoothingFactor` |
@@ -49,16 +66,50 @@ All NR4 controls return to the values in the table below.
 | Masking Depth: | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
 | Suppression: | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
 
+### Reset NR4 defaults
+
+1. Select the **NR4** tab.
+2. Click **Reset Defaults** (↺ icon).
+
+All NR4 controls return to MMSE, Adaptive Noise Estimation enabled, Reduction 10.0 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50.
+
+## MNR tab (macOS only)
+
+Use the MNR (macOS MMSE-Wiener) engine for noise reduction with asymmetric gain smoothing. This tab is only available on macOS builds.
+
+### Controls
+
+| Control | Default | Valid range | Setting key |
+|---|---|---|---|
+| Enable MNR (macOS only) | — | — | `MnrEnabled` |
+| Strength | 100 | 0–100 | `MnrStrength` |
+
+**Enable MNR** — Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. Initial state read live from AudioEngine.
+**Strength** — Adjusts MNR aggressiveness (0 mild, 100 max). Persisted as normalized 0.00–1.00.
+
+## DFNR tab
+
+Use the DeepFilterNet3 engine for neural-network-based noise reduction.
+
+### Controls
+
+| Control | Default | Valid range | Setting key |
+|---|---|---|---|
+| Attenuation Limit | 100 | 0–100 dB | `DfnrAttenLimit` |
+| Post-Filter Beta | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` |
+
+**Attenuation Limit** — Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum.
+**Post-Filter Beta** — Applies an additional post-filter for extra suppression. Slider stores value×100 internally.
+
 ## Tips
 
 - **Reset Defaults** affects only the tab where you click it. Resetting NR2 does not alter NR4 settings, and vice versa.
-- Changes take effect immediately. If NR2 or NR4 is active on a receive slice at the time, you will hear the engine revert to its default behaviour as soon as you click **Reset Defaults**.
-- In v0.9.7 the AetherDSP Settings dialog delegates all controls to an embedded `AetherDspWidget`. The tabs, sliders, and buttons described in this article remain identical from an operator's perspective; only the internal implementation has changed.
+- Changes take effect immediately. If a noise reduction engine is active on a receive slice at the time, you will hear the engine change behaviour as soon as you adjust any control.
+- The six DSP toggles act as exclusive selectors and engine enable/disable controls simultaneously. Activating one engine may disable other mutually exclusive modules.
 
 ## Related
 
-- [AetherDSP Settings overview](overview.md)
-- [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
+- [Tune NR2 reduction depth and threshold](tune-nr2-reduction-depth-and-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)
 - [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md)
