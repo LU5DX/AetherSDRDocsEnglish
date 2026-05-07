@@ -17,17 +17,20 @@ DAX (Digital Audio Exchange) routes a slice's received audio to a named audio ch
 
 ## What each control does
 
-| Control | Default | Valid values | Persisted setting key |
-|---|---|---|---|
-| DAX channel combo | Off | Off, 1–8 | — |
+| Control                      | Default                                                                                                                               | Valid values                                                                                                            |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| DAX channel combo            | Off                                                                                                                                   | Off, 1–8                                                                                                                |
+| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                       | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
 
 The DAX channel combo assigns a DAX audio channel to the current slice. Selecting a numbered channel routes the slice's received audio to that DAX channel. Selecting **Off** removes the assignment. This setting reflects live radio state and is not persisted locally by AetherSDR.
-
 ## DSP tab controls
 
-Starting in v0.9.7, the DSP tab in the VFO panel contains only radio-supplied noise reduction buttons. The client-side algorithms that were previously shown here — NR2, RN2, NR4, MNR, BNR, and DFNR — have been moved to the spectrum overlay menu and the AetherDSP applet. Toggle those algorithms from either of those locations.
+The DSP tab in the VFO panel contains radio-supplied noise reduction buttons and two client-side launcher buttons.
 
-The following buttons remain in the DSP tab grid:
+### Radio-side DSP buttons
+
+The following radio-side DSP buttons appear in the DSP tab grid:
 
 | Button | Algorithm |
 |---|---|
@@ -42,6 +45,15 @@ The following buttons remain in the DSP tab grid:
 | ANFL | LMS notch filter |
 | ANFT | FFT notch filter |
 
+### Client-side launcher buttons
+
+Two client-side launcher buttons appear at the end of the DSP grid:
+
+| Button | Behavior |
+|---|---|
+| **ADSP** | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| **AetherVoice** | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
+
 ### DSP level slider
 
 A shared level slider row appears below the button grid. The slider adjusts the strength of whichever leveled DSP button was most recently turned on. The label to the left of the slider shows the active target (for example, **NR** or **NB**). The numeric value is shown to the right.
@@ -49,6 +61,12 @@ A shared level slider row appears below the button grid. The slider adjusts the 
 The slider range is 0–100. When no leveled DSP is active — or when only RNN, ANFT, or APF is on — the slider row is dimmed and does not respond to input. The row remains in place at all times; it does not shift the button grid when its target changes.
 
 Algorithms that support the level slider: NR, NB, ANF, NRL, NRS, NRF, ANFL.
+
+Starting in v0.9.8, when a leveled DSP algorithm is enabled from the radio's saved profile on startup, the level slider is automatically populated without requiring a manual toggle.
+
+### Filter width label
+
+The filter width label shows the current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Starting in v0.9.8, this label uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts.
 
 ## Tips
 
@@ -60,8 +78,8 @@ Algorithms that support the level slider: NR, NB, ANF, NRL, NRS, NRF, ANFL.
 
 - **DAX channel combo has no effect / audio does not appear on the host** — Confirm the DAX audio bridge is running. Check `Settings > Autostart DAX with AetherSDR`. On macOS and PipeWire systems, the bridge must be active for DAX channels to appear as audio devices.
 - **DAX tab is not visible** — The VFO panel may be collapsed. Click the collapsed strip to expand it, then select the DAX tab.
-- **NR2, RN2, NR4, MNR, BNR, or DFNR buttons are not visible in the DSP tab** — These buttons were removed from the VFO panel in v0.9.7. Use the spectrum overlay menu or the AetherDSP applet to enable those algorithms.
 - **DSP level slider is dimmed** — No leveled DSP algorithm is currently active, or only RNN, ANFT, or APF is enabled. Turn on NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
+- **DSP level slider is missing on startup** — If a leveled DSP algorithm was enabled in the radio's saved profile, the slider is now automatically populated. If it still appears missing, toggle the algorithm off and on again.
 
 ## Related
 

@@ -19,10 +19,21 @@ The Amount knob sets the maximum attenuation the de-esser applies when sibilance
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Amount | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied to the sibilance band when signal exceeds the threshold. More negative = more reduction. 0 dB disables attenuation entirely. |
-| Gain-reduction bar | — | 0 to 24 dB GR | — | Horizontal soft-red strip showing current gain reduction in real time. Scale maxes at 24 dB; a tick marks −6 dB. Refreshed approximately 30 times per second. |
+| Control            | Default                                                                                                         | Valid range                                                                                             |
+|--------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| Amount             | −6.0 dB                                                                                                         | −24.0 to 0.0 dB                                                                                         |
+| Gain-reduction bar | —                                                                                                               | 0 to 24 dB GR                                                                                           |
+| Attack             | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+| Release            | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold.       | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+
+## RX and TX instances
+
+The Aetherial De-Esser has separate instances for transmit and receive:
+
+- **TX instance** — Labeled "Aetherial De-Esser" in the docked Applet Panel. Opens from the TX chain in the Aetherial Audio Channel Strip.
+- **RX instance** — Labeled "Aetherial De-Esser — RX" in its title bar. Reachable through the RX side of the Aetherial Audio Channel Strip. Uses its own dedicated window titled "Aetherial De-Esser — RX".
+
+Each instance has independent settings, persisted separately. RX settings save under `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, etc.
 
 ## Bypass dimming
 

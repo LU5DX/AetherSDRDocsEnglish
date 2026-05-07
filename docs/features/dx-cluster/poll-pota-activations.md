@@ -20,17 +20,16 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| **Server:** | Indicator | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable. |
-| **Poll Interval:** | Spinbox | Seconds between POTA API polls. Persisted as `PotaPollInterval`. |
-| **Start / Stop** | Push button | Starts or stops POTA polling. |
-| **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`. |
-| **POTA Activations** | Text field | Read-only console showing the activation feed. |
-| **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`. |
-| Total Spots: | Indicator | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
-| **Spot Lines:** | Toggle button | Draws vertical lines from the spectrum up to each spot label. Enabled by default. Disable during contests to reduce visual clutter. Persisted as `IsSpotsLinesEnabled`. New in v0.9.7. |
-
+| Control                   | Kind          | Behavior                                                                                                                                                                               |
+|---------------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Server:**               | Indicator     | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable.                                                                                                     |
+| **Poll Interval:**        | Spinbox       | Seconds between POTA API polls. Persisted as `PotaPollInterval`.                                                                                                                       |
+| **Start / Stop**          | Push button   | Starts or stops POTA polling.                                                                                                                                                          |
+| **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`.                                                                                               |
+| **POTA Activations**      | Text field    | Read-only console showing the activation feed.                                                                                                                                         |
+| **Spot Color:**           | Push button   | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`.                                                                                                   |
+| Total Spots:              | Indicator     | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed.                 |
+| **Spot Lines:**           | Toggle button | Draws vertical lines from the spectrum up to each spot label. Enabled by default. Disable during contests to reduce visual clutter. Persisted as `IsSpotsLinesEnabled`. New in v0.9.7. |
 ## FreeDV Reporter controls (FreeDV tab)
 
 The following controls appear in the **Station Reporting** group box on the **FreeDV** tab. They are only present in builds compiled with `HAVE_WEBSOCKETS`.

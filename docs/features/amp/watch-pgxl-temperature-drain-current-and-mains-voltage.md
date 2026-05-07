@@ -16,11 +16,10 @@ The Amplifier applet displays live heatsink temperature, drain current, and main
 
 ## What each control does
 
-| Control | What it shows | Red threshold | Valid range |
-|---|---|---|---|
-| Temp | PGXL heatsink temperature | > 80 °C | 0–100 °C |
-| Volts / Amps | Mains voltage (integer volts) and drain current (one decimal place, amps) | — | Integer volts; x.x A |
-
+| Control      | What it shows                                                             | Red threshold |
+|--------------|---------------------------------------------------------------------------|---------------|
+| Temp         | PGXL heatsink temperature                                                 | > 80 °C       |
+| Volts / Amps | Mains voltage (integer volts) and drain current (one decimal place, amps) | —             |
 ## Tips
 
 - The **Volts / Amps** indicator remains hidden until the PGXL sends its first telemetry update. If it does not appear, the amplifier may not yet be transmitting telemetry — verify the PGXL is powered and communicating with the radio.

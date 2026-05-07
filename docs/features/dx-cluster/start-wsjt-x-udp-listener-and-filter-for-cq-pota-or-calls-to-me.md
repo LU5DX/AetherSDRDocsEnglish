@@ -30,24 +30,23 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---|---|---|
-| **Address:** | UDP bind address for incoming WSJT-X messages. | `WsjtxAddress` |
-| **Port:** | UDP port number. Must match WSJT-X reporting port. | `WsjtxPort` |
-| **Start / Stop** | Starts or stops the UDP listener. | — |
-| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch. | `WsjtxAutoStart` |
-| **CQ** | Passes only CQ transmissions to the panadapter. | `WsjtxFilterCQ` |
-| **CQ POTA** | Passes only CQ POTA transmissions. | `WsjtxFilterPOTA` |
-| **Calling Me** | Passes only decodes addressed to your callsign. | `WsjtxFilterCallingMe` |
-| **CQ color** | Color for CQ spots on the panadapter. | `WsjtxColorCQ` |
-| **POTA color** | Color for CQ POTA spots. | `WsjtxColorPOTA` |
-| **Calling Me color** | Color for spots calling your callsign. | `WsjtxColorCallingMe` |
-| **Default color** | Color for spots that match no active filter. | `WsjtxColorDefault` |
-| **Spot Life:** | Seconds a WSJT-X spot remains on the panadapter before fading. | `WsjtxSpotLife` |
-| **WSJT-X Decodes** | Read-only console showing decoded transmissions as they arrive. | — |
-| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: Enabled. | `IsSpotsLinesEnabled` |
-| Total Spots: | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
-
+| Control                            | Behavior                                                                                                                                                               | Setting key            |
+|------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| **Address:**                       | UDP bind address for incoming WSJT-X messages.                                                                                                                         | `WsjtxAddress`         |
+| **Port:**                          | UDP port number. Must match WSJT-X reporting port.                                                                                                                     | `WsjtxPort`            |
+| **Start / Stop**                   | Starts or stops the UDP listener.                                                                                                                                      | —                      |
+| **Auto-start on startup (WSJT-X)** | Starts the listener automatically on launch.                                                                                                                           | `WsjtxAutoStart`       |
+| **CQ**                             | Passes only CQ transmissions to the panadapter.                                                                                                                        | `WsjtxFilterCQ`        |
+| **CQ POTA**                        | Passes only CQ POTA transmissions.                                                                                                                                     | `WsjtxFilterPOTA`      |
+| **Calling Me**                     | Passes only decodes addressed to your callsign.                                                                                                                        | `WsjtxFilterCallingMe` |
+| **CQ color**                       | Color for CQ spots on the panadapter.                                                                                                                                  | `WsjtxColorCQ`         |
+| **POTA color**                     | Color for CQ POTA spots.                                                                                                                                               | `WsjtxColorPOTA`       |
+| **Calling Me color**               | Color for spots calling your callsign.                                                                                                                                 | `WsjtxColorCallingMe`  |
+| **Default color**                  | Color for spots that match no active filter.                                                                                                                           | `WsjtxColorDefault`    |
+| **Spot Life:**                     | Seconds a WSJT-X spot remains on the panadapter before fading.                                                                                                         | `WsjtxSpotLife`        |
+| **WSJT-X Decodes**                 | Read-only console showing decoded transmissions as they arrive.                                                                                                        | —                      |
+| **Spot Lines:**                    | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: Enabled.                                      | `IsSpotsLinesEnabled`  |
+| Total Spots:                       | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | —                      |
 ## Tuning from the Spot List
 
 Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also forwards any mode information extracted from the spot comment, so the slice automatically switches to the correct mode (for example, CW or SSB) to match the spot rather than only changing frequency.

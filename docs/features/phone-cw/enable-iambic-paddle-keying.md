@@ -1,3 +1,47 @@
+# Phone/CW Applet
+
+## Overview
+
+The Phone/CW applet is a mode-aware transmit panel that shows microphone, processor, and monitor controls in voice modes, and automatically switches to CW controls (delay, speed, sidetone, iambic, pitch) when the active slice is in CW mode. In v0.9.8, the four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are now QLineEdit widgets with QIntValidator — click any value and type a number directly (SmartSDR parity). The single Sidetone toggle and volume slider drive both the radio's DAX-fed monitor and the client-side low-latency sidetone (CwSidetoneGenerator, ~10 ms latency) in lockstep — pitch and pan always follow the radio's cw_pitch and mon_pan_cw settings automatically (v0.9.1+). In v0.9.7, the Compression gauge is now gated on the radio's interlock TRANSMITTING state (not meter flow), so it reads 0 during RX; Breakin now fully honors the radio's break_in setting — no auto-PTT envelope forces TX any more; the sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
+
+## Phone Controls
+
+| Control        | Kind          | Description                                                                   | Default | Range               |
+|----------------|---------------|-------------------------------------------------------------------------------|---------|---------------------|
+| Level          | Meter         | Microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting. | —       | -40 to +10 dBFS (red > 0) |
+| Compression    | Meter         | Speech compression amount in dB (reversed fill). Gated on radio interlock TRANSMITTING state and speech processor enable; reads 0 dB during RX. | —       | -25 to 0 dB         |
+| Mic profile    | Combo box     | Load named mic processing profile; calls TransmitModel::loadMicProfile.       | —       | Populated from radio micProfileList() |
+| Mic source     | Combo box     | Select microphone input source; calls TransmitModel::setMicSelection.         | —       | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) |
+| Mic gain       | Slider        | Adjust mic input level. For 'PC' source uses local PcMicGain persistence (radio reports mic_level=0 when source=PC). | 50      | 0-100               |
+| +ACC           | Toggle button | Enable the accessory mic input mix; calls TransmitModel::setMicAcc.          | —       | —                   |
+| PROC           | Toggle button | Toggle the speech processor; calls TransmitModel::setSpeechProcessorEnable.   | —       | —                   |
+| NOR/DX/DX+     | Slider        | Three-position processor level; calls TransmitModel::setSpeechProcessorLevel. | 0       | 0 (NOR), 1 (DX), 2 (DX+) |
+| DAX            | Toggle button | Enable DAX as the TX audio source; calls TransmitModel::setDax.               | —       | —                   |
+| MON            | Toggle button | Enable TX sidetone monitor; calls TransmitModel::setSbMonitor.                | —       | —                   |
+| Monitor volume | Slider        | Set sideband monitor volume; calls TransmitModel::setMonGainSb.               | —       | 0-100               |
+
+## CW Controls
+
+| Control               | Kind          | Description                                                                                                                               | Default | Range               |
+|------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------|---------------------|
+| ALC                   | Meter         | Automatic level control reading.                                                                                                         | —       | 0-100 (red > 80)    |
+| Delay (CW)            | Slider + QLineEdit | Set CW break-in delay. Click the value and type a number directly (0–2000). Calls TransmitModel::setCwDelay. In v0.9.8, setCwDelay caches the value immediately. | 500     | 0-2000 ms (step 10) |
+| Speed (CW)            | Slider + QLineEdit | Set CW keying speed. Click the value and type a number directly (5–100). Calls TransmitModel::setCwSpeed.                              | 20      | 5-100 WPM           |
+| Sidetone              | Toggle button  | Toggle CW sidetone monitor. Also enables/disables the client-side low-latency CwSidetoneGenerator in lockstep (v0.9.1+). Both the radio's DAX-fed monitor and the local PortAudio sidetone are controlled by this single button. Pitch and pan follow radio's cw_pitch and mon_pan_cw automatically. | —       | —                   |
+| Sidetone volume        | Slider + QLineEdit | Set CW monitor volume. One slider controls both the radio-side (mon_gain_cw) and client-side sidetone volumes. Click the value and type a number directly (0–100). | 50      | 0-100               |
+| L / R pan (CW)        | Slider        | Set CW monitor stereo pan. Also applies constant-power pan to the local sidetone generator (v0.9.1+). Double-click recenters to 50 (centre). | 50      | 0-100               |
+| Breakin               | Toggle button  | Toggle full break-in (QSK). In v0.9.7, fully honors the radio's break_in setting: with Breakin ON key edges trigger TX and break_in_delay holds the relay; with Breakin OFF keys are queued and operator engages PTT manually. | —       | —                   |
+| Iambic                | Toggle button  | Toggle iambic paddle keyer; calls TransmitModel::setCwIambic.                                                                             | —       | —                   |
+| Pitch < / >           | QLineEdit with buttons | QLineEdit with < / > buttons (CwTriBtn). Type a value (100–6000) or click the buttons to step by 10 Hz. Calls TransmitModel::setCwPitch (v0.9.8, #2429). | 600     | 100-6000 Hz (step 10) |
+
+## Indicators
+
+| Indicator        | States         | Meaning                         |
+|------------------|----------------|---------------------------------|
+| Level gauge      | -40 .. +10 dBFS| Microphone peak level.          |
+| Compression gauge| -25 .. 0 dB    | Speech compression amount (reversed fill). |
+| ALC gauge        | 0..100         | Automatic level control (CW sub-panel).    |
+
 # Enable iambic paddle keying
 
 Enable the radio's built-in iambic keyer so that a dual-lever paddle connected to the FLEX-8600 keys CW using the iambic mode. This lets you set keying speed and break-in behavior from within AetherSDR.
@@ -14,21 +58,12 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 2. Confirm the CW sub-panel is showing. If the active slice is in CW mode, the applet displays CW controls including **Iambic**, **Speed (CW)**, **Delay (CW)**, and **Breakin**.
 3. Click **Iambic** to enable the iambic paddle keyer. The button highlights when active.
 
-## What each control does
-
-| Control         | Description                                      | Default |
-|-----------------|--------------------------------------------------|---------|
-| **Iambic**      | Toggles the iambic paddle keyer on the radio.    | —       |
-| **Speed (CW)**  | Sets CW keying speed.                            | —       |
-| **Delay (CW)**  | Sets CW break-in delay.                          | —       |
-| **Breakin**     | Toggles full break-in (QSK).                     | —       |
-| **Pitch < / >** | Steps the CW sidetone and decode pitch by 10 Hz. | 600 Hz  |
-
 ## Tips
 
 - For low-latency sidetone feedback when using a paddle, enable **Sidetone** in the CW sub-panel. The single **Sidetone** button and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone (approximately 10 ms latency) in lockstep. Pitch and pan follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. On Windows, the sidetone stream now starts immediately on connect (v0.9.3, fix #2105). See [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md).
 - Adjust **Speed (CW)** before enabling **Iambic** to avoid sending at an unexpected rate. See [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md).
 - If you want full QSK operation, also enable **Breakin**. In v0.9.7, **Breakin** is fully honored: with **Breakin** on, key edges trigger TX and `break_in_delay` holds the relay; with **Breakin** off, keys are queued and you engage PTT manually. The previous auto-PTT envelope that masked **Breakin** off and killed QSK hang time has been removed. To set a hang time instead, disable **Breakin** and set **Delay (CW)** to a non-zero value. See [Set CW break-in delay](set-cw-break-in-delay.md).
+- In v0.9.8, the Delay (CW), Speed (CW), Sidetone volume, and Pitch values are now editable QLineEdit widgets. Click any value and type a number directly. The sliders update automatically when you finish editing, and vice versa.
 
 ## Troubleshooting
 

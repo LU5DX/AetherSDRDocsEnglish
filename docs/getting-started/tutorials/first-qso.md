@@ -63,6 +63,7 @@ By default, **Connect to last radio on start up** is checked, so AetherSDR will 
 - To prevent accidentally retuning mid-QSO, click the 🔓 toggle in the RX Controls applet to lock the slice. The icon changes to 🔒.
 - The **L / R pan** slider (default **50**, range 0–100) lets you position this slice's audio in the stereo field. Double-click it to reset to centre.
 - If you operate split, use **XIT** in the RX Controls applet to offset your transmit frequency independently of the receive VFO.
+- Use the **widen** and **narrow** keyboard shortcuts to cycle through per-mode filter presets. The `stepFilterWidth(direction)` method walks the per-mode preset list, so the filter edge geometry is always correct for the active mode (USB, LSB, CW, AM, DIGL, etc.). For example, pressing a widen shortcut in CW mode steps through 50, 100, 250, 400 Hz presets, while in USB it steps through 1800, 2100, 2400, 2700, 2900, 3300 Hz presets.
 
 ## Troubleshooting
 

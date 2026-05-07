@@ -21,20 +21,19 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---|---|---|
-| **Server:** | RBN telnet hostname | `RbnHost` |
-| **Port:** | RBN telnet port | `RbnPort` |
-| **Callsign:** | Login callsign sent to RBN | `RbnCallsign` |
-| **Rate Limit:** | Maximum RBN spots accepted per second | `RbnRateLimit` |
-| **Connect / Disconnect** | Toggles the RBN telnet session | — |
-| **Auto-connect on startup** | Connects to RBN automatically on launch | `RbnAutoConnect` |
-| **RBN Console** | Read-only display of raw RBN traffic | — |
-| **Send** | Sends a typed command to the RBN session | — |
-| **Spot Color:** | Opens a color picker for RBN spots on the panadapter | `RbnSpotColor` |
-| **Spot Lines:** | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
-| Total Spots: | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | — |
-
+| Control                     | Behavior                                                                                                                                                               | Setting key           |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| **Server:**                 | RBN telnet hostname                                                                                                                                                    | `RbnHost`             |
+| **Port:**                   | RBN telnet port                                                                                                                                                        | `RbnPort`             |
+| **Callsign:**               | Login callsign sent to RBN                                                                                                                                             | `RbnCallsign`         |
+| **Rate Limit:**             | Maximum RBN spots accepted per second                                                                                                                                  | `RbnRateLimit`        |
+| **Connect / Disconnect**    | Toggles the RBN telnet session                                                                                                                                         | —                     |
+| **Auto-connect on startup** | Connects to RBN automatically on launch                                                                                                                                | `RbnAutoConnect`      |
+| **RBN Console**             | Read-only display of raw RBN traffic                                                                                                                                   | —                     |
+| **Send**                    | Sends a typed command to the RBN session                                                                                                                               | —                     |
+| **Spot Color:**             | Opens a color picker for RBN spots on the panadapter                                                                                                                   | `RbnSpotColor`        |
+| **Spot Lines:**             | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter.                                                        | `IsSpotsLinesEnabled` |
+| Total Spots:                | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. | —                     |
 ## Double-clicking a spot now forwards mode hints
 
 Starting in v0.9.7, double-clicking a row in the **Spot List** tab tunes the receiver to the spot frequency and also switches the receiver mode to match the spot. For example, double-clicking a CW spot switches the receiver to CW, and double-clicking an FT8 spot switches it to the appropriate digital mode, rather than only changing the frequency. The mode is resolved from the spot comment by the `SpotModeResolver` logic shared across all spot sources.

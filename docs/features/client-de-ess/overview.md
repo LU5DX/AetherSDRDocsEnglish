@@ -1,36 +1,63 @@
 # Aetherial De-Esser overview
 
-The Aetherial De-Esser is a TX-only client-side processor that reduces harsh sibilance ("S" and "T" sounds) in your transmitted audio. It works by monitoring a narrow frequency band and ducking it when the signal level in that band exceeds a set threshold.
+The Aetherial De-Esser is a client-side processor available in both TX and RX instances. It reduces harsh sibilance ("S" and "T" sounds) by monitoring a narrow frequency band and ducking it when the signal level in that band exceeds a set threshold.
 
 ## Before you start
 
-- The De-Esser is a TX-only stage. It has no effect on received audio.
-- The applet is hidden until the De-Ess stage is enabled. Enable it via the CHAIN widget inside the Aetherial Audio (TXDSP) parent container.
+- The de-esser is available as a standalone docked applet (TX only, labeled "Aetherial De-Esser") and through the Aetherial Audio Channel Strip (RX and TX).
+- The docked applet is hidden until the De-Ess stage is enabled. Enable it via the CHAIN widget inside the Aetherial Audio (TXDSP) parent container.
+- To open the RX instance, use the **Aetherial Audio Channel Strip** icon for the receive channel, then click the De-Ess stage. The panel opens with the title "Aetherial De-Esser — RX".
 - No radio connection is required to configure the de-esser.
 
 ## How it works
 
 The de-esser uses a sidechain design. A bandpass filter isolates the sibilance band defined by **Freq** and **Q**. When the level in that band exceeds the **Thresh** value, the de-esser attenuates the band by up to the **Amount** value. The rest of your audio passes through unaffected.
 
-The applet displays two live indicators while you transmit:
+The panel displays two live indicators while audio is active:
 
 - **Sidechain response curve** — shows the bandpass filter shape with a ball marker at the current centre frequency. As you adjust **Freq** and **Q**, the curve and ball update immediately.
 - **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show how much attenuation is being applied at any moment. The scale runs from 0 to 24 dB; a tick marks the −6 dB point. The meter refreshes approximately 30 times per second.
 
-When the de-esser stage is bypassed, the entire applet tile renders at reduced opacity (approximately 55%) to give a clear visual indication that the stage is inactive. This matches the dim behaviour used by the EQ curve. To bypass or re-enable the de-esser, use the single-click gesture on the DESS stage in the CHAIN widget. Editing is done through the Aetherial Audio Channel Strip.
+When the de-esser stage is bypassed, the entire panel renders at reduced opacity (approximately 55%) to give a clear visual indication that the stage is inactive. To bypass or re-enable the de-esser, use the single-click gesture on the DESS stage in the CHAIN widget.
+
+## TX and RX instances
+
+The de-esser has separate instances for transmit and receive:
+
+| Instance | How to access | Title bar label |
+|---|---|---|
+| TX (docked applet) | Click the De-Esser icon in the Applet Panel | "Aetherial De-Esser" |
+| TX (channel strip) | Open the TX channel strip, click De-Ess stage | "Aetherial De-Esser — TX" |
+| RX (channel strip) | Open the RX channel strip, click De-Ess stage | "Aetherial De-Esser — RX" |
+
+Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack, and Release. The docked applet omits Attack and Release knobs.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting | Description |
-|---|---|---|---|---|
-| **Freq** | 6000 Hz | 1000 – 12000 Hz | `ClientDeEssTxFrequencyHz` | Centre frequency of the sibilance band. Uses logarithmic scaling. Displays as "X.X kHz" at or above 1000 Hz. |
-| **Q** | 2.00 | 0.5 – 5.0 | `ClientDeEssTxQ` | Bandwidth of the sibilance band. Higher values produce a narrower band. Uses linear scaling. |
-| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | `ClientDeEssTxThresholdDb` | Level above which the de-esser begins attenuating the band. Set this just below your loudest sibilant peaks. |
-| **Amount** | −6.0 dB | −24.0 to 0.0 dB | `ClientDeEssTxAmountDb` | Maximum attenuation applied when sibilance is at its peak. Negative values represent reduction; 0 dB means no attenuation. |
-| **Sidechain response curve** | — | — | — | Live display of the bandpass filter shape. The ball marks the current centre frequency. |
-| **Gain-reduction bar** | — | 0 – 24 dB GR | — | Live meter showing current attenuation. Soft-red fill; tick at −6 dB. |
+| Control | Default | Valid range | Behavior |
+|---|---|---|---|
+| **Freq** | 6000 Hz | 1000 – 12000 Hz | Logarithmic mapping. Sets centre frequency of the sibilance band. Label shows "6.0 kHz" above 1 kHz, "N Hz" below. |
+| **Q** | 2.00 | 0.5 – 5.0 | Linear mapping. Sets bandwidth — higher Q = narrower. Label shows "X.XX". |
+| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | Linear mapping. Level above which de-esser starts attenuating. |
+| **Amount** | −6.0 dB | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation at peak sibilance. Negative values represent reduction. |
+| **Attack** | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. How quickly de-esser responds once sibilance crosses threshold. Only in Channel Strip panel (RX and TX). |
+| **Release** | 100 ms | 10.0 to 500.0 ms | Exponential mapping. How quickly gain returns after sibilance drops below threshold. Only in Channel Strip panel (RX and TX). |
 
-Enabled state is persisted as `ClientDeEssTxEnabled`.
+## Settings persistence
+
+Each instance saves and restores its control values from the settings database:
+
+| Setting key | Purpose |
+|---|---|
+| `ClientDeEssTxFrequencyHz` | TX centre frequency |
+| `ClientDeEssTxQ` | TX bandwidth factor |
+| `ClientDeEssTxThresholdDb` | TX sidechain threshold |
+| `ClientDeEssTxAmountDb` | TX maximum attenuation |
+| `ClientDeEssTxAttackMs` | TX attack time |
+| `ClientDeEssTxReleaseMs` | TX release time |
+| `ClientDeEssTxEnabled` | TX enabled state |
+
+RX settings use a parallel key set (`ClientDeEssRx*`). Settings are saved when you adjust any knob or close the panel.
 
 ## Tips
 
@@ -38,7 +65,8 @@ Enabled state is persisted as `ClientDeEssTxEnabled`.
 - A **Q** of 2.00 is a reasonable starting point. Increase it to isolate a narrow problem band; decrease it if the sibilance is spread across a wider range.
 - Set **Thresh** so the gain-reduction bar only moves on genuine "S" and "T" sounds, not on normal vowels or consonants.
 - The −6 dB tick on the gain-reduction bar marks the default **Amount** value. Keeping reduction near that tick usually produces transparent results. Larger amounts are available but can make the effect audible as pumping or lisping.
-- When the stage is bypassed, the applet tile dims noticeably. If the tile appears dim and you are not hearing de-essing, check that the DESS stage is not bypassed in the CHAIN widget.
+- Use different settings for TX and RX — you may need more aggressive de-essing on receive than on transmit, or vice versa.
+- When the stage is bypassed, the panel dims noticeably. If the panel appears dim and you are not hearing de-essing, check that the DESS stage is not bypassed in the CHAIN widget.
 
 ## Related
 

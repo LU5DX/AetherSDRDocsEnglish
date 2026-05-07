@@ -16,9 +16,11 @@ Use the marker thickness button to control how prominent the VFO marker line app
 
 ## What each control does
 
-| Control | Default | Valid values | Persisted setting |
-|---|---|---|---|
-| Marker thickness button | 1 px | Off, 1 px, 3 px | `Slice{N}_MarkerWidth` |
+| Control                      | Default                                                                                                                               | Valid values                                                                                                            |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Marker thickness button      | 1 px                                                                                                                                  | Off, 1 px, 3 px                                                                                                         |
+| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
 
 Each click advances to the next value in the cycle: **Off** → **1 px** → **3 px** → **Off**. The setting is persisted per slice, so slice 1 and slice 2 can have different thicknesses.
 
@@ -27,7 +29,7 @@ Each click advances to the next value in the cycle: **Off** → **1 px** → **3
 - Setting the marker to **Off** hides the vertical line entirely. The VFO panel and flag remain visible and functional.
 - If you run multiple slices on the same panadapter, increasing one marker to **3 px** can help distinguish it from adjacent slices.
 
-## DSP tab changes in v0.9.7
+## DSP tab changes in v0.9.8
 
 The DSP tab in the VFO panel now shows only radio-supplied noise reduction buttons. The following buttons have been removed from the VFO panel DSP tab:
 
@@ -46,9 +48,13 @@ The remaining DSP tab buttons are arranged in a four-column grid:
 |---|---|---|---|---|
 | 0 | NR | NB | ANF | APF |
 | 1 | NRL | NRS | RNN | NRF |
-| 2 | ANFL | ANFT | — | — |
+| 2 | ANFL | ANFT | ADSP | AetherVoice (2 cols) |
 
 The APF button remains hidden unless the slice is in a CW mode.
+
+Two new client-side launcher buttons appear in row 2 of the grid:
+- **ADSP** — Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). This button is styled like a radio-side DSP toggle but is non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog.
+- **AetherVoice** — Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). This button spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.
 
 ### DSP Level slider
 
@@ -67,6 +73,14 @@ The slider controls the level for these targets:
 | NRS | Spectral subtraction level |
 | NRF | Spectral noise filter level |
 | ANFL | LMS notch filter level |
+
+## DSP startup behavior (v0.9.8)
+
+When AetherSDR connects to the radio, any DSP that was enabled in the radio's saved profile now immediately pushes its level into the shared DSP level slider. Previously, the slider would be missing on launch for these DSPs until the user manually toggled them. This fix ensures the slider is always present and active when a leveled DSP is already enabled on the radio.
+
+## Filter width label fix (v0.9.8)
+
+The filter width label in the VFO panel now uses a single source of truth (`RxApplet::formatFilterWidth`) to generate its readout. This fixes a 0.1 kHz offset that affected SSB and digital mode readouts, and ensures the VFO panel and RX applet display identical filter width values.
 
 ## Related
 

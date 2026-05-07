@@ -60,14 +60,13 @@ The setting is saved as `FreeDvAutoReport`.
 
 ### Station Reporting fields
 
-| Field          | Setting key                                                                                                     | Description                                                                                                                                                                               |
-|----------------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Callsign:`    | `FreeDvMyCallsign`                                                                                              | Callsign reported to the FreeDV Reporter map. The field is read-only when `Use radio` is checked.                                                                                         |
-| `Use radio`    | `FreeDvUseRadioCallsign`                                                                                        | Pre-fills the callsign from the radio's configured callsign and locks the field. Defaults to enabled. When the callsign is later changed in Radio Setup, the field updates automatically. |
-| `Grid Square:` | `FreeDvMyGrid`                                                                                                  | Maidenhead grid square (up to 6 characters) reported to the map. The field is read-only when `Use GPS` is checked.                                                                        |
-| `Use GPS`      | `FreeDvUseGpsGrid`                                                                                              | Pre-fills the grid from the radio's GPS module and locks the field. Only shown on radio models that have GPS hardware. Defaults to enabled.                                               |
-| `Station Msg:` | `FreeDvMyMessage`                                                                                               | Optional free-text message shown beside your callsign on the public map.                                                                                                                  |
-
+| Field          | Setting key              | Description                                                                                                                                                                               |
+|----------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Callsign:`    | `FreeDvMyCallsign`       | Callsign reported to the FreeDV Reporter map. The field is read-only when `Use radio` is checked.                                                                                         |
+| `Use radio`    | `FreeDvUseRadioCallsign` | Pre-fills the callsign from the radio's configured callsign and locks the field. Defaults to enabled. When the callsign is later changed in Radio Setup, the field updates automatically. |
+| `Grid Square:` | `FreeDvMyGrid`           | Maidenhead grid square (up to 6 characters) reported to the map. The field is read-only when `Use GPS` is checked.                                                                        |
+| `Use GPS`      | `FreeDvUseGpsGrid`       | Pre-fills the grid from the radio's GPS module and locks the field. Only shown on radio models that have GPS hardware. Defaults to enabled.                                               |
+| `Station Msg:` | `FreeDvMyMessage`        | Optional free-text message shown beside your callsign on the public map.                                                                                                                  |
 ### How AetherSDR resolves the callsign and grid
 
 When you enable reporting, AetherSDR determines the effective callsign and grid square in this order:

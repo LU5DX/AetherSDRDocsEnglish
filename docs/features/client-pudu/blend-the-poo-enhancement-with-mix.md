@@ -5,13 +5,13 @@ The "Body / Mix" knob controls how much of the processed low-frequency signal is
 ## Before you start
 
 - PUDU must be enabled on the side you want to adjust. If the Body group is not visible, the PUDU stage may be bypassed — see [Bypass PUDU from either chain](bypass-pudu-from-either-chain.md).
-- Open the relevant applet: "Aetherial TX Poodoo™" for transmit, or "Aetherial RX Poodoo™" for receive. Double-click the PUDU stage in the CHAIN widget on the matching side to open the frameless editor if the applet is not already visible.
+- Open the relevant applet: "Aetherial TX Voice Processor" for transmit, or "Aetherial RX Poodoo™" for receive. Double-click the PUDU stage in the CHAIN widget on the matching side to open the frameless editor if the applet is not already visible.
 - When the PUDU stage is bypassed, the entire applet tile dims to approximately 55 % opacity. Full opacity is restored as soon as the stage is re-enabled.
 
 ## Steps
 
-1. Locate the **Body** group bracket in the applet. It contains three knobs: **Drive**, **Tune**, and **Mix**.
-2. Turn the **Mix** knob under the **Body** bracket to the desired blend level.
+1. Locate the **Poo** group bracket in the applet. It contains three knobs: **Drive**, **Tune**, and **Mix**.
+2. Turn the **Mix** knob under the **Poo** bracket to the desired blend level.
    - Turning toward 0 % passes the dry signal with no low-frequency enhancement.
    - Turning toward 100 % blends the full processed signal in.
 3. The value is saved automatically. No additional confirmation is needed.
@@ -20,20 +20,20 @@ The "Body / Mix" knob controls how much of the processed low-frequency signal is
 
 | Control | Default | Valid range | Persisted setting |
 |---|---|---|---|
-| **Body / Mix** (TX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduTxPooMix` |
-| **Body / Mix** (RX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduRxPooMix` |
+| **Poo / Mix** (TX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduTxPooMix` |
+| **Poo / Mix** (RX) | 30 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientPuduRxPooMix` |
 
 The knob display shows the value as a whole-number percentage (for example, "30 %"). Internally the value is stored as a linear fraction between 0.0 and 1.0.
 
 ## Tips
 
 - The TX and RX sides have fully independent Mix values. Adjusting one does not affect the other.
-- Watch the AetherVoice™ logo — its brightness pulses with the wet (processed) signal RMS. A noticeable increase in pulse intensity as you raise Mix confirms the low-frequency processing is audible in the blend.
-- Start at the default of 30 % and increase gradually. Heavy Mix values can thicken the low end to the point of muddiness, especially if **Body / Drive** is also high.
+- Watch the PooDoo logo — its brightness pulses with the wet (processed) signal RMS. A noticeable increase in pulse intensity as you raise Mix confirms the low-frequency processing is audible in the blend.
+- Start at the default of 30 % and increase gradually. Heavy Mix values can thicken the low end to the point of muddiness, especially if **Poo / Drive** is also high.
 
 ## Related
 
-- [Dial Body Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
-- [Tune Body to the fundamental of your voice (TX) or to bring out RX program lows](tune-poo-to-the-fundamental-of-your-voice-tx-or-to-bring-out-rx-program-lows.md)
-- [Blend the Clarity excitement with Mix](blend-the-doo-excitement-with-mix.md)
-- [Aetherial TX Poodoo / Aetherial RX Poodoo overview](overview.md)
+- [Dial Poo / Drive for LF thickness](dial-poo-drive-for-lf-thickness.md)
+- [Tune Poo to the fundamental of your voice (TX) or to bring out RX program lows](tune-poo-to-the-fundamental-of-your-voice-tx-or-to-bring-out-rx-program-lows.md)
+- [Blend the Doo excitement with Mix](blend-the-doo-excitement-with-mix.md)
+- [Aetherial TX Voice Processor / Aetherial RX Poodoo overview](overview.md)

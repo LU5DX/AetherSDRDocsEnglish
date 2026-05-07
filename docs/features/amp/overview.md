@@ -15,19 +15,18 @@ All telemetry is pushed from the radio in real time. The gauges update as the PG
 
 ## What each control does
 
-| Control | Kind | Behavior | Range | Red threshold |
-|---|---|---|---|---|
-| **Fwd Pwr** | Gauge | Shows PGXL forward power output. | 0–2000 W | > 1500 W |
-| **SWR** | Gauge | Shows PGXL SWR at the amplifier output. | 1.0–3.0 | > 2.5 |
-| **Temp** | Gauge | Shows PGXL heatsink temperature. | 0–100 °C | > 80 °C |
-| **Volts / Amps** | Text indicator | Displays mains voltage and drain current as `Volts: xxxV  Amps: x.xA`. Hidden until first telemetry arrives. | Integer volts, 0.1 A resolution | — |
-| **MEffA** | Text indicator | Displays the PGXL MEffA value. Hidden until the radio reports a value. | — | — |
-| **OPERATE** | Button | Toggles the amplifier between OPERATE and STANDBY. Hidden until the radio reports amplifier state. Shows **OPERATE** (green) when the PGXL is in IDLE, OPERATE, TRANSMIT_A, or TRANSMIT_B state. Shows **STANDBY** when the PGXL is in STANDBY, POWERUP, or FAULT state. | — | — |
+| Control          | Kind           | Behavior                                                                                                                                                                                                                                                                 |
+|------------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Fwd Pwr**      | Gauge          | Shows PGXL forward power output.                                                                                                                                                                                                                                         |
+| **SWR**          | Gauge          | Shows PGXL SWR at the amplifier output.                                                                                                                                                                                                                                  |
+| **Temp**         | Gauge          | Shows PGXL heatsink temperature.                                                                                                                                                                                                                                         |
+| **Volts / Amps** | Text indicator | Displays mains voltage and drain current as `Volts: xxxV  Amps: x.xA`. Hidden until first telemetry arrives.                                                                                                                                                             |
+| **MEffA**        | Text indicator | Displays the PGXL MEffA value. Hidden until the radio reports a value.                                                                                                                                                                                                   |
+| **OPERATE**      | Button         | Toggles the amplifier between OPERATE and STANDBY. Hidden until the radio reports amplifier state. Shows **OPERATE** (green) when the PGXL is in IDLE, OPERATE, TRANSMIT_A, or TRANSMIT_B state. Shows **STANDBY** when the PGXL is in STANDBY, POWERUP, or FAULT state. |
 
 The three gauges use a color-coded bar: green below the yellow threshold, yellow-amber in the caution zone, and red above the red threshold. Tick labels on each gauge are color-matched to their zone.
 
 None of the controls have persisted settings — all values come live from the PGXL.
-
 ## Related
 
 - [Put the PGXL amplifier in OPERATE](put-the-pgxl-amplifier-in-operate.md)

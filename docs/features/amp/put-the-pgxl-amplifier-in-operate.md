@@ -16,14 +16,13 @@ This page explains how to switch a connected Power Genius XL amplifier from STAN
 
 ## What each control does
 
-| Control | Behavior | Notes |
-|---|---|---|
-| OPERATE | When the button reads "OPERATE" (green), the PGXL is in IDLE, OPERATE, or a TRANSMIT state. Click it to send the amplifier to STANDBY. | Hidden until the first state update arrives from the radio. |
-| STANDBY | When the button reads "STANDBY" (default style), the PGXL is in STANDBY, POWERUP, or FAULT. Click it to send the amplifier to OPERATE. | Same button; label and color change with state. |
-| Fwd Pwr | Horizontal bar gauge showing forward power output. Range: 0–2000 W. Bar turns red above 1500 W. | |
-| SWR | Horizontal bar gauge showing SWR. Range: 1.0–3.0. Bar turns red above 2.5. | |
-| Temp | Horizontal bar gauge showing heatsink temperature. Range: 0–100 °C. Bar turns red above 80 °C. | |
-
+| Control | Behavior                                                                                                                               | Notes                                                                                                                                                                                                                                                              |
+|---------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OPERATE | Toggles the amplifier between OPERATE and STANDBY; emits operateToggled.                                                               | Hidden until setState arrives. Shows 'OPERATE' (green) for IDLE/OPERATE/TRANSMIT_* states, 'STANDBY' otherwise. In v0.9.8, setState is called from RadioModel::ampStateChanged (authoritative), preventing the button from staying stuck on the old label (#2437). |
+| STANDBY | When the button reads "STANDBY" (default style), the PGXL is in STANDBY, POWERUP, or FAULT. Click it to send the amplifier to OPERATE. | Same button; label and color change with state.                                                                                                                                                                                                                    |
+| Fwd Pwr | Horizontal bar gauge showing forward power output. Range: 0–2000 W. Bar turns red above 1500 W.                                        |                                                                                                                                                                                                                                                                    |
+| SWR     | Horizontal bar gauge showing SWR. Range: 1.0–3.0. Bar turns red above 2.5.                                                             |                                                                                                                                                                                                                                                                    |
+| Temp    | Horizontal bar gauge showing heatsink temperature. Range: 0–100 °C. Bar turns red above 80 °C.                                         |                                                                                                                                                                                                                                                                    |
 ## Tips
 
 - If the applet panel is not visible, go to `View > Applet Panel` to show it.

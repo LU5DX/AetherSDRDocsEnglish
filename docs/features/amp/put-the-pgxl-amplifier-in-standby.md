@@ -18,10 +18,9 @@ The button label changes to "STANDBY" and the green background is replaced with 
 
 ## What each control does
 
-| Control | Behavior | States |
-|---|---|---|
-| OPERATE | Toggles the amplifier between OPERATE and STANDBY. | Shows "OPERATE" (green) when the amplifier state is IDLE, OPERATE, or TRANSMIT_A/TRANSMIT_B. Shows "STANDBY" (default dark style) when the state is STANDBY, POWERUP, or FAULT. |
-
+| Control | Behavior                                                                 | States                                                                                                                                                                                                                                                             |
+|---------|--------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OPERATE | Toggles the amplifier between OPERATE and STANDBY; emits operateToggled. | Hidden until setState arrives. Shows 'OPERATE' (green) for IDLE/OPERATE/TRANSMIT_* states, 'STANDBY' otherwise. In v0.9.8, setState is called from RadioModel::ampStateChanged (authoritative), preventing the button from staying stuck on the old label (#2437). |
 ## Troubleshooting
 
 - **The AMP tray button is not visible** — The applet is hidden until a Power Genius XL is detected by the radio. Confirm the PGXL is powered on and connected to the Flex radio.

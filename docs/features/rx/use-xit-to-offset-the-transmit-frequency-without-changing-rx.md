@@ -25,6 +25,7 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 | XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
 | XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
 | XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
+
 ## Tips
 
 - RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.
@@ -60,6 +61,16 @@ In v0.9.5.1, filter presets saved by the `FilterPresets` setting can store eithe
 Both formats can appear in the same comma-separated `FilterPresets` value for a given mode. Entries that are malformed, have a high edge equal to or below the low edge, or are zero or negative are silently skipped.
 
 This change affects how custom filter presets are saved and loaded but does not change how you interact with the filter preset buttons. Right-click a preset button to save the current passband to that slot; click it to apply the preset. The lo:hi format is written automatically when you save a preset whose low edge differs from the mode default.
+
+## Filter width step behavior (v0.9.8)
+
+In v0.9.8, the `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband. This ensures that keyboard shortcuts or other controls that step through filter widths produce mode-correct edge geometry.
+
+When you use a widen/narrow action (such as from the Widen/Narrow buttons in the VFO panel), the applet searches the per-mode filter preset list for the preset closest to the current filter width. It then applies the next wider or narrower preset from that list. If the current width exactly matches a preset, the next preset in the chosen direction is applied directly.
+
+This behavior applies to all modes: LSB, CWL, DIGL, RTTY, AM, CW, and USB. FM-family modes (FM, NFM, DFM) do not have filter presets and ignore the step action.
+
+No configuration is needed. The step behavior uses the same `FilterPresets` setting that you can customize with right-click save.
 
 ## NT mode behavior
 

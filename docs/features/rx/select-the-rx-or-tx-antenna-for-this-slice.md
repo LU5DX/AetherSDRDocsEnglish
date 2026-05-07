@@ -20,12 +20,47 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 |-----------------------------------|---------|--------------------------------------------|
 | **ANT1** (RX antenna, blue label) | ANT1    | Antenna ports from the radio's ant_list    |
 | **ANT1** (TX antenna, red label)  | ANT1    | TX-capable ports from the radio's ant_list |
+| **Slice tabs (A..H)**             | None    | 1–8 buttons (capped by hardware max slices)|
+| **Slice badge**                   | A       | A/B/C/D/E/F/G/H                            |
+| **🔓 / 🔒**                       | 🔓       | Unlocked / locked                          |
+| **Mode combo**                    | USB     | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
+| **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)   |
+| **Frequency edit**                | None    | 0.001–54.000 MHz (450.000 MHz on XVTR)     |
+| **STEP**                          | 100 Hz  | Per-mode list of step sizes                |
+| **Filter width presets**          | None    | Per-mode preset widths                     |
+| **Filter passband widget**        | None    | Drag lo/hi edges to adjust passband        |
+| **Tone mode (FM)**                | Off     | Off, CTCSS TX                              |
+| **CTCSS tone value**              | None    | 41 standard EIA/TIA-603 tones (67.0–254.1 Hz) |
+| **Offset (FM)**                   | 0.0 MHz | 0.0–100.0 MHz (step 0.1)                  |
+| **− (offset down)**               | None    | Toggle                                     |
+| **Simplex**                       | Checked | Toggle                                     |
+| **+ (offset up)**                 | None    | Toggle                                     |
+| **REV**                           | None    | Toggle                                     |
+| **🔊 / 🔇 (mute)**               | 🔊       | Unmuted / muted                            |
+| **AF gain**                       | 70      | 0–100                                      |
+| **L / R pan**                     | 50      | 0–100                                      |
+| **SQL**                           | None    | Toggle                                     |
+| **Squelch level**                 | 20      | 0–100                                      |
+| **AGC mode**                      | Med     | Off, Slow, Med, Fast                       |
+| **AGC threshold**                 | 65      | 0–100                                      |
+| **RIT**                           | None    | Toggle                                     |
+| **RIT 0**                         | None    | Push button                                |
+| **RIT offset**                    | +0 Hz   | Step 10 Hz                                 |
+| **XIT**                           | None    | Toggle                                     |
+| **XIT 0**                         | None    | Push button                                |
+| **XIT offset**                    | +0 Hz   | Step 10 Hz                                 |
+| **TX (badge)**                    | None    | Click to set as TX slice                   |
+| **QSK**                           | None    | Amber when CW break-in active (read-only)  |
+| **Filter width (indicator)**      | 2.7K    | Current filter bandwidth                   |
+
 ## Tips
 
 - The RX antenna label is shown in blue; the TX antenna label is shown in red. This is the only visual distinction between the two controls, as they appear side by side in the header row.
 - Antenna ports whose names begin with `RX` are filtered out of the TX antenna menu. They will still appear in the RX antenna menu.
 - Each slice has its own independent RX and TX antenna assignment. Changing the antenna on slice A does not affect slice B.
 - From v0.9.3, the slice tab buttons and the slice badge use per-slice colors managed by SliceColorManager. These colors persist across sessions and are also reflected in VFO widgets and meter strips. The colors are not configurable from the antenna controls page; they apply applet-wide.
+- The filter width indicator shares mode-aware formatting logic with the VFO panel (`RxApplet::formatFilterWidth`), ensuring consistent readouts across both locations (#2197).
+- The `stepFilterWidth()` method walks the per-mode filter preset list so widen/narrow keyboard shortcuts produce mode-correct edge geometry (#2208). For example, widening from a 2.7 kHz USB filter selects the next larger preset (e.g. 2.9 kHz) with proper edge placement for USB mode rather than a symmetrical passband.
 
 ## Slice tab behavior
 

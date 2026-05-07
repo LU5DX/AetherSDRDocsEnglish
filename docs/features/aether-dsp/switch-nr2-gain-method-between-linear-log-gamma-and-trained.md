@@ -1,44 +1,133 @@
-# Switch NR2 gain method between Linear, Log, Gamma and Trained
+# AetherDSP Settings
 
-NR2's gain method controls how the engine maps its noise estimate to an actual reduction curve. Switching between Linear, Log, Gamma, and Trained lets you trade off between aggressive noise suppression and natural-sounding speech.
+The AetherDSP Settings dialog tunes the advanced parameters of AetherSDR's client-side noise-reduction engines (NR2, NR4, MNR, DFNR, RN2, BNR), letting operators dial in the tradeoff between noise suppression and speech fidelity. The six DSP modules are selectable via a toggle row at the top; clicking a toggle also activates or bypasses that engine.
 
-## Before you start
+## Opening the dialog
 
-- AetherSDR must be running. A radio connection is not required to change this setting.
-- NR2 must be active on the slice you want to affect. This dialog configures the NR2 engine parameters; enabling NR2 on a slice is done from the main UI.
+1. Click **Settings > AetherDSP Settings...**.
+2. The dialog opens as a frameless window with a custom title bar.
 
-## Steps
+The dialog can be moved by clicking and dragging the title bar. Double-click the title bar to toggle maximize/restore. Resize by clicking and dragging any edge or corner (6 px resize hit zone).
 
-1. Click `Settings > AetherDSP Settings...`.
-2. Click the **NR2** tab.
-3. In the **Gain Method** group, click one of the four radio buttons: **Linear**, **Log**, **Gamma**, or **Trained**.
+## Dialog controls
 
-The selection takes effect immediately and is saved to `NR2GainMethod`.
+The title bar contains three window control buttons:
 
-## What each control does
+| Button | Action |
+|--------|--------|
+| **— (Minimize)** | Minimizes the dialog. |
+| **□ (Maximize)** | Maximizes or restores the dialog. |
+| **× (Close)** | Closes the dialog. |
 
-| Control | Kind | Default | Valid values | Setting key | Behavior |
-|---|---|---|---|---|---|
-| **Gain Method** | Radio buttons | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects the gain-curve mapping used by NR2. Stored as integer 0–3 matching the order shown. |
+A grip glyph (⋮⋮) appears on the left side of the title bar for visual reference.
 
-### Gain method descriptions
+## DSP engine selection tabs
+
+Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine's page. Clicking a tab also activates or bypasses the corresponding engine.
+
+### Tab availability
+
+- **MNR** — Dimmed on Windows/Linux builds. The MNR engine has no backend on those platforms.
+- **BNR** — Dimmed on builds without the NVIDIA Broadcast SDK.
+- **RN2** — Purely informational; no adjustable parameters.
+
+## NR2 tab
+
+NR2 provides musical-noise reduction. Select it by clicking the **NR2** toggle.
+
+### NR2 controls
+
+| Control | Kind | Default | Range | Setting Key |
+|---------|------|---------|-------|-------------|
+| **Gain Method** | Radio buttons | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` (stored as integer 0-3) |
+| **NPE Method** | Radio buttons | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` (stored as integer 0-2) |
+| **AE Filter (artifact elimination)** | Checkbox | True | - | `NR2AeFilter` |
+| **Reduction:** | Slider | 1.50 | 0.50-2.00 | `NR2GainMax` (stored as value*100) |
+| **Smoothing:** | Slider | 0.85 | 0.50-0.98 | `NR2GainSmooth` |
+| **Threshold:** | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` |
+| **Reset Defaults (↺ icon)** | Push button | - | - | - |
+
+### Gain Method descriptions
 
 - **Linear** — Uses a linear audio amplitude scale for gain computation.
 - **Log** — Uses a logarithmic amplitude scale, which compresses dynamic range.
 - **Gamma** — Models gain on a gamma distribution that matches typical speech amplitude patterns. This is the default.
 - **Trained** — Applies a noise reduction model trained on real speech and noise samples.
 
+### NPE Method descriptions
+
+- **OSMS** — Optimal smoothing and minimum statistics.
+- **MMSE** — Minimum mean square error estimation.
+- **NSTAT** — Noise statistics-based estimator.
+
+### Reset Defaults (NR2)
+
+Restores NR2 tab to Gamma/OSMS/AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+
+## NR4 tab
+
+NR4 provides libspecbleach-based noise reduction. Select it by clicking the **NR4** toggle.
+
+### NR4 controls
+
+| Control | Kind | Default | Range | Setting Key |
+|---------|------|---------|-------|-------------|
+| **Noise Estimation:** | Radio buttons | MMSE | MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` (stored as integer 0-2) |
+| **Adaptive Noise Estimation** | Checkbox | True | - | `NR4AdaptiveNoise` |
+| **Reduction (dB):** | Slider | 10.0 | 0.0-40.0 | `NR4ReductionAmount` (stored as value*10) |
+| **Smoothing (%):** | Slider | 0 | 0-100 | `NR4SmoothingFactor` |
+| **Whitening (%):** | Slider | 0 | 0-100 | `NR4WhiteningFactor` |
+| **Masking Depth:** | Slider | 0.50 | 0.00-1.00 | `NR4MaskingDepth` |
+| **Suppression:** | Slider | 0.50 | 0.00-1.00 | `NR4SuppressionStrength` |
+| **Reset Defaults (↺ icon)** | Push button | - | - | - |
+
+### Reset Defaults (NR4)
+
+Restores NR4 tab to MMSE/adaptive on, Reduction 10 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50.
+
+## MNR tab (macOS only)
+
+MNR provides macOS MMSE-Wiener noise reduction with asymmetric gain smoothing. Click the **MNR** toggle to access its controls.
+
+**Note:** The MNR toggle is dimmed on Windows/Linux builds.
+
+### MNR controls
+
+| Control | Kind | Default | Range | Setting Key |
+|---------|------|---------|-------|-------------|
+| **Enable MNR (macOS only)** | Checkbox | - | - | `MnrEnabled` (initial state read live from AudioEngine) |
+| **Strength** | Slider | 100 | 0-100 | `MnrStrength` (persisted as normalized 0.00-1.00) |
+
+## DFNR tab
+
+DFNR provides DeepFilterNet3 noise reduction. Select it by clicking the **DFNR** toggle.
+
+### DFNR controls
+
+| Control | Kind | Default | Range | Setting Key |
+|---------|------|---------|-------|-------------|
+| **Attenuation Limit** | Slider | 100 | 0-100 dB | `DfnrAttenLimit` (0 = passthrough, 100 = maximum) |
+| **Post-Filter Beta** | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` (stored as value*100) |
+
+## RN2 tab
+
+RN2 uses the RNNoise engine. This tab is purely informational with no adjustable parameters.
+
+## BNR tab
+
+BNR uses the NVIDIA Broadcast SDK. Intensity control is available from the overlay menu. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+
 ## Tips
 
-- **Gamma** is the default and works well for most SSB voice contacts. Start here if you are unsure.
-- **Trained** may produce more natural-sounding speech on signals it was trained for, but results vary with signal type.
-- **Log** reduces the dynamic range of the gain curve, which can help with very uneven noise floors.
-- After changing the gain method, adjust **Reduction Depth:** (default 1.50, range 0.50–2.00) and **Voice Threshold:** (default 0.20, range 0.05–0.50) to match the new curve's characteristics. See [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md).
-- Click **Reset Defaults** on the NR2 tab to return the gain method to Gamma along with all other NR2 parameters to their defaults.
+- **NR2** — **Gamma** gain method with **OSMS** NPE is the default and works well for most SSB voice contacts. Start here if you are unsure.
+- **NR4** — **MMSE** noise estimation with adaptive noise enabled provides good baseline performance.
+- **DFNR** — Attenuation Limit at 100 delivers maximum suppression. Lower values allow more noise through.
+- **MNR** (macOS only) — Strength at 100 provides maximum aggressiveness. Reduce for more natural-sounding audio.
+- After changing gain method or NPE method, re-adjust the reduction, smoothing, and threshold sliders to match the new characteristics.
+- Each tab has its own **Reset Defaults** button to restore that engine's parameters to factory settings.
 
 ## Related
 
-- [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)
-- [Tune NR2 reduction depth and voice threshold](tune-nr2-reduction-depth-and-voice-threshold.md)
-- [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md)
 - [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
+- [Enable NR2 on a slice](enable-nr2-on-a-slice.md)
+- [Enable NR4 on a slice](enable-nr4-on-a-slice.md)

@@ -13,16 +13,33 @@ Turning on the CW sidetone in AetherSDR enables two paths at once: the radio's D
 2. Confirm the CW sub-panel is displayed. If the Phone sub-panel is showing, switch the active slice to a CW mode on the radio; the panel switches automatically.
 3. Click **Sidetone** to enable the sidetone. The button lights up when active.
 4. Adjust the **Sidetone volume** slider to a comfortable level. The slider controls both the radio-side monitor volume and the client-side tone generator volume simultaneously.
-5. Optionally, adjust **Pitch < / >** to set the sidetone frequency. The pitch follows the radio's `cw_pitch` setting automatically, but you can step it in 10 Hz increments using the **<** and **>** controls.
+5. Optionally, adjust **Pitch < / >** to set the sidetone frequency. The pitch follows the radio's `cw_pitch` setting automatically, but you can step it in 10 Hz increments using the **<** and **>** controls. You can also type a value directly (100–6000) in the QLineEdit field (v0.9.8).
+6. For **Delay (CW)**, **Speed (CW)**, and **Sidetone volume**, click the numeric value and type a new number directly. Press Enter or Tab to apply. The slider and the typed value stay in sync automatically (v0.9.8).
 
 ## What each control does
 
-| Control         | Kind          | Default     |
-|-----------------|---------------|-------------|
-| Sidetone        | Toggle button | —           |
-| Sidetone volume | Slider        | —           |
-| Pitch < / >     | Spinbox       | 600 Hz      |
-| L / R pan (CW)  | Slider        | 50 (centre) |
+| Control         | Kind                                                                                                                                                                                       | Default                                                                                           |
+|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| Delay (CW)      | Slider with QLineEdit (v0.9.8). Type a value (0–2000 ms) directly in the field, or drag the slider. Calls TransmitModel::setCwDelay.                                                       | 500 ms                                                                                            |
+| Speed (CW)      | Slider with QLineEdit (v0.9.8). Type a value (5–100 WPM) directly in the field, or drag the slider. Calls TransmitModel::setCwSpeed.                                                       | 20 WPM                                                                                            |
+| Sidetone        | Toggle button                                                                                                                                                                              | —                                                                                                 |
+| Sidetone volume | Slider with QLineEdit (v0.9.8). Type a value (0–100) directly in the field, or drag the slider. Calls TransmitModel::setMonGainCw. Also sets the local sidetone generator volume in lockstep. | 50                                                                                                |
+| Pitch < / >     | QLineEdit with < / > buttons (CwTriBtn). Type a value (100–6000) or click the buttons to step by 10 Hz. Calls TransmitModel::setCwPitch (v0.9.8, #2429).                                   | 600 Hz                                                                                            |
+| L / R pan (CW)  | Slider                                                                                                                                                                                     | 50 (centre)                                                                                       |
+| Breakin         | Toggle button                                                                                                                                                                              | —                                                                                                 |
+| Iambic          | Toggle button                                                                                                                                                                              | —                                                                                                 |
+| ALC             | Meter                                                                                                                                                                                      | 0–100 (red > 80)                                                                                  |
+
+## Direct value entry (v0.9.8)
+
+In v0.9.8 the four numeric value labels in the CW sub-panel were upgraded from read-only labels to editable QLineEdit fields:
+
+- **Delay (CW)** — Type any value from 0 to 2000 ms. Press Enter or Tab to apply. The adjacent slider moves to match.
+- **Speed (CW)** — Type any value from 5 to 100 WPM. Press Enter or Tab to apply. The adjacent slider moves to match.
+- **Sidetone volume** — Type any value from 0 to 100. Press Enter or Tab to apply. The adjacent slider moves to match.
+- **Pitch < / >** — Type any value from 100 to 6000 Hz. Press Enter or Tab to apply. The **<** and **>** buttons step by 10 Hz.
+
+When you type a value that is outside the valid range, the field clamps the value to the nearest valid boundary (SmartSDR parity).
 
 ## RADE mode and the mic level slider
 
@@ -37,6 +54,7 @@ When RADE mode is active, the **Mic gain** slider operates as a client-side gain
 - Double-clicking the **L / R pan (CW)** slider resets it to centre (50).
 - The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value when the radio's interlock reports the TRANSMITTING state and the speech processor (**PROC**) is enabled. This prevents stale readings from the TX chain being displayed while you are receiving.
 - With **Breakin** off, key presses are queued and TX must be engaged manually with PTT. With **Breakin** on (QSK), key edges trigger TX directly and `break_in_delay` controls the relay hang time. No automatic PTT envelope overrides this behaviour.
+- The **Delay (CW)** slider now updates its cached value immediately when dragged, preventing the radio from snapping the slider back to its previous position (v0.9.8, #2428).
 
 ## Troubleshooting
 
@@ -46,6 +64,7 @@ When RADE mode is active, the **Mic gain** slider operates as a client-side gain
 - **Compression gauge always shows 0** — This is expected during RX. The gauge is gated on the radio's interlock TRANSMITTING state. It will show compression only while you are transmitting with **PROC** enabled.
 - **Breakin OFF does not hold TX between characters** — With **Breakin** off, AetherSDR no longer applies an automatic PTT envelope. Engage PTT manually before sending and release it when finished.
 - **Mic gain slider has no effect in RADE mode** — In RADE mode the slider sets client-side gain stored as `PcMicGain` and does not send commands to the radio. Adjust the slider to the desired level; it takes effect on the local RADE audio path.
+- **Delay slider snaps back after dragging** — This bug was fixed in v0.9.8 (#2428). Update to the latest version if you experience this.
 
 ## Related
 

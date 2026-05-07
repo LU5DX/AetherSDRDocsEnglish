@@ -13,7 +13,7 @@ The applet presents two independent DSP chains — TX and RX — as a horizontal
 
 **TX chain** processes audio on the transmit path through these stages in order: EQ, COMP, GATE, DESS, TUBE, PUDU, VERB.
 
-**RX chain** processes received audio through: EQ, AGC-T, AGC-C, TUBE, PUDU. The RX strip is bookended by three non-interactive status tiles — RADIO, DSP, and SPEAK — that show at a glance whether the receive path is live end to end.
+**RX chain** processes received audio through: EQ, AGC-G, AGC-C, DESS, TUBE, EVO. The RX strip is bookended by three non-interactive status tiles — RADIO, ADSP, and SPEAK — that show at a glance whether the receive path is live end to end. All six RX stages are fully implemented.
 
 Each stage tile supports three interactions:
 
@@ -29,26 +29,26 @@ A static hint below the chain reads: *Click to bypass · Double click to edit ·
 
 **RX chain:** Double-clicking an RX stage tile opens that stage's own frameless floating editor directly, as before.
 
-### TX BYPASS and the channel strip
+### BYPASS and the audio engine
 
-The TX BYPASS button is synchronised with the BYPASS control in the Aetherial Audio Channel Strip. Clicking BYPASS in either location updates both. When you switch the applet to the TX side, the BYPASS button reflects the engine's current TX bypass state.
+The BYPASS button is synchronised with the BYPASS control in the Aetherial Audio Channel Strip on the TX side, and with the audio engine on both sides. Clicking BYPASS in either location updates both. When you switch the applet between TX and RX sides, the BYPASS button reflects the engine's current bypass state for that side.
 
 The chain order and individual stage states are persisted separately for TX and RX via `ClientCompTxChainStages` and `ClientCompRxChainStages`. The last-active tab (TX or RX) is persisted via `PooDooAudioActiveTab`. The container's visibility is persisted via `Applet_TXDSP`.
 
 ## What each control does
 
-| Control | Kind | Default |
-|---|---|---|
-| TX | Toggle button | Checked |
-| RX | Toggle button | Unchecked |
-| BYPASS | Toggle button | Unchecked |
-| Record (⏺) | Toggle button | Unchecked |
-| Play (▶) | Toggle button | Unchecked |
-| TX chain stage tile | Drag handle | — |
-| RX chain stage tile | Drag handle | — |
-| RADIO status tile | Indicator | — |
-| DSP status tile | Indicator | — |
-| SPEAK status tile | Indicator | — |
+| Control                                                 | Kind                                                                                                                                                                                                                                                                                                                                                                                   | Default                                                                                                                                                                                                                                                                            |
+|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TX                                                      | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Checked                                                                                                                                                                                                                                                                            |
+| RX                                                      | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Unchecked                                                                                                                                                                                                                                                                          |
+| BYPASS                                                  | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Unchecked                                                                                                                                                                                                                                                                          |
+| Record (⏺)                                              | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Unchecked                                                                                                                                                                                                                                                                          |
+| Play (▶)                                                | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Unchecked                                                                                                                                                                                                                                                                          |
+| TX chain stage tile                                     | Drag handle                                                                                                                                                                                                                                                                                                                                                                            | —                                                                                                                                                                                                                                                                                  |
+| RX chain stage tile                                     | Drag handle                                                                                                                                                                                                                                                                                                                                                                            | —                                                                                                                                                                                                                                                                                  |
+| RADIO status tile                                       | Indicator                                                                                                                                                                                                                                                                                                                                                                              | —                                                                                                                                                                                                                                                                                  |
+| ADSP status / bypass tile                               | Toggle button                                                                                                                                                                                                                                                                                                                                                                          | Unchecked                                                                                                                                                                                                                                                                          |
+| SPEAK status tile                                       | Indicator                                                                                                                                                                                                                                                                                                                                                                              | —                                                                                                                                                                                                                                                                                  |
 
 ### TX
 
@@ -62,7 +62,7 @@ Switches the applet to show and edit the RX DSP chain. Each side keeps independe
 
 Checked: snapshots the currently-enabled stages on the active side (TX or RX) and disables all of them. Unchecked: re-enables just the stages that were on before. TX and RX maintain separate snapshots.
 
-On the TX side, BYPASS state is owned by the audio engine and is kept in sync with the BYPASS control in the Aetherial Audio Channel Strip. The button reflects the engine's actual TX bypass state whenever you are viewing the TX chain.
+On both TX and RX sides, BYPASS state is owned by the audio engine and is kept in sync across the chain applet and any other UI controls that manage bypass (such as the Aetherial Audio Channel Strip). The button reflects the engine's actual bypass state whenever you are viewing either chain.
 
 Stages toggled manually while BYPASS is active are preserved outside the snapshot and will not be automatically restored when you uncheck BYPASS.
 
@@ -80,17 +80,17 @@ Plays back the captured PUDU audio. Click again to cancel. Only enabled once a r
 
 Single-click toggles bypass for that stage. Double-click opens the Aetherial Audio Channel Strip (the unified TX DSP window). Drag reorders the TX chain.
 
-### RX chain stage tile (EQ / AGC-T / AGC-C / TUBE / PUDU)
+### RX chain stage tile (EQ / AGC-G / AGC-C / DESS / TUBE / EVO)
 
-Single-click toggles bypass for that stage. Double-click opens the stage's frameless floating editor. Drag reorders the RX chain. All five RX stages are fully implemented. Order is independent of the TX chain. A distinct drag mime type (`application/x-aethersdr-rx-chain-stage`) prevents accidental drops between the two strips.
+Single-click toggles bypass for that stage. Double-click opens the stage's frameless floating editor. Drag reorders the RX chain. All six RX stages are fully implemented. Order is independent of the TX chain. A distinct drag mime type (`application/x-aethersdr-rx-chain-stage`) prevents accidental drops between the two strips.
 
 ### RADIO status tile
 
 Non-interactive. Only visible in RX mode. Turns green when PC Audio (the standard SSB stream) is enabled.
 
-### DSP status tile
+### ADSP status / bypass tile
 
-Non-interactive. Only visible in RX mode. Mirrors which client-side noise reducer is currently active; the label rotates to the active module's short name (for example, `NR2`, `NR4`, `BNR`). Falls back to `DSP` when no noise reducer is on.
+Interactive. Only visible in RX mode. Mirrors which client-side noise reducer is currently active. The label rotates to the active module's short name (for example, `NR2`, `NR4`, `BNR`). Falls back to `ADSP` when no noise reducer is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. Adopts the same blue-ring + green-LED-dot styling as implemented stage tiles. Snapshot restoration falls back to NR2 if no modules were active at bypass-time.
 
 ### SPEAK status tile
 
@@ -98,12 +98,13 @@ Non-interactive. Only visible in RX mode. Turns green when AetherSDR's audio out
 
 ## Tips
 
-- The BYPASS button on the TX side is synchronised with the Aetherial Audio Channel Strip. Clicking BYPASS in either place has the same effect.
+- The BYPASS button on both TX and RX sides is synchronised with the audio engine. Clicking BYPASS in any location that offers it has the same effect for the currently-active chain.
 - If you manually toggle individual stages while BYPASS is checked, those changes are preserved outside the snapshot and will not be automatically restored when you uncheck BYPASS.
 - The TX endpoint indicator pulses red while you are transmitting (MOX active), giving a live confirmation that the TX chain is processing audio.
 - Switching from TX to RX and back does not affect either chain's stage states or BYPASS snapshot. Each side is fully independent.
 - The Record button tooltip reads: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off)." If the button is greyed out, check your MIC source setting and DAX state first.
 - Double-clicking a TX stage tile now opens the full Aetherial Audio Channel Strip rather than a per-stage editor. Access individual stage editors from within the strip.
+- The ADSP tile's label updates dynamically to show which noise reducer module is currently active, or falls back to "ADSP" when no module is engaged.
 
 ## Related
 

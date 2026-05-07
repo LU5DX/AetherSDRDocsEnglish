@@ -1,44 +1,97 @@
-# Tune NR4 masking depth and suppression strength
+# AetherDSP Settings
 
-The NR4 engine's **Masking Depth:** and **Suppression:** sliders give you fine-grained control over how aggressively spectral masking is applied and how strongly noise is suppressed overall. Adjust these two parameters together to balance noise reduction against speech clarity.
+AetherDSP Settings provides advanced control over AetherSDR's client-side noise-reduction engines: NR2, NR4, MNR, DFNR, RN2, and BNR. Each engine is selectable via a toggle row at the top of the dialog; clicking a toggle both selects that engine's page and activates or bypasses the engine.
 
-## Before you start
-
-- Open AetherSDR and enable NR4 on the receiver you want to adjust.
-- Have a signal or noise source active so you can hear the effect of changes in real time.
-
-## Steps
+## Opening AetherDSP Settings
 
 1. Click `Settings > AetherDSP Settings...`.
-2. Click the **NR4** tab.
-3. Locate the **Masking Depth:** slider. Drag it left to reduce spectral masking or right to increase it. The default is **0.50**; the valid range is **0.00–1.00**.
-4. Locate the **Suppression:** slider directly below. Drag it left to reduce overall suppression or right to increase it. The default is **0.50**; the valid range is **0.00–1.00**.
-5. Listen to the result. If speech sounds over-processed or hollow, reduce one or both sliders. If residual noise is too audible, increase them.
-6. To undo all NR4 changes at once, click **Reset Defaults**. This restores **Masking Depth:** to **0.50** and **Suppression:** to **0.50**, along with the other NR4 defaults.
+2. The dialog opens as a frameless window with a custom title bar.
 
-## What each control does
+## Dialog controls
 
-| Control | Default | Range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls how deeply spectral masking is applied to noise bins. Higher values suppress more noise but can affect tonal quality. |
-| **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` | Sets the overall NR4 suppression strength. Higher values produce more aggressive noise reduction across the spectrum. |
+The AetherDSP Settings dialog uses a frameless custom chrome with resize and move capabilities added in v0.9.8.
+
+| Control | Behavior |
+|---------|----------|
+| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title |
+| — (Minimize) | Minimizes the dialog |
+| □ (Maximize) | Maximizes or restores the dialog |
+| × (Close) | Closes the dialog |
+| Drag-to-move | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore |
+| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate direction. 6 px resize hit zone around the inner content widget |
+
+## NR2 tab
+
+The NR2 (musical-noise-reduction) engine uses a spectral-subtraction approach with configurable gain methods and noise power estimators.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| Gain Method | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects gain-curve mapping. Stored as integer 0-3 |
+| NPE Method | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects noise power estimator. Stored as integer 0-2 |
+| AE Filter (artifact elimination) | Enabled | On/Off | `NR2AeFilter` | Toggles the anti-artefact post-filter |
+| Reduction: | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Slider stores value*100 internally |
+| Smoothing: | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes |
+| Threshold: | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets speech-presence-probability threshold |
+| Reset Defaults (↺ icon) | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, 1.50, 0.85, 0.20 |
+
+## NR4 tab
+
+The NR4 engine uses the libspecbleach library for noise reduction. It offers configurable noise estimation methods and spectral processing controls.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| Noise Estimation: | MMSE | MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` | Selects noise-floor estimator. Stored as integer 0-2 |
+| Adaptive Noise Estimation | Enabled | On/Off | `NR4AdaptiveNoise` | Enables continuous re-estimation of the noise floor |
+| Reduction (dB): | 10.0 | 0.0–40.0 | `NR4ReductionAmount` | Sets maximum NR4 noise reduction in dB. Slider stores value*10 |
+| Smoothing (%): | 0 | 0–100 | `NR4SmoothingFactor` | Time-domain smoothing of NR4 noise estimate |
+| Whitening (%): | 0 | 0–100 | `NR4WhiteningFactor` | Flattens residual noise spectral shape |
+| Masking Depth: | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls spectral-masking depth |
+| Suppression: | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` | Overall NR4 suppression strength |
+| Reset Defaults (↺ icon) | — | — | — | Restores NR4 defaults: MMSE, adaptive on, 10 dB, 0, 0, 0.50, 0.50 |
+
+## MNR tab (macOS only)
+
+The MNR (macOS MMSE-Wiener) engine is available only on macOS builds. It provides asymmetric gain smoothing for noise reduction.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| Enable MNR (macOS only) | Disabled | On/Off | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. Initial state read live from AudioEngine |
+| Strength | 100 | 0–100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). Persisted as normalized 0.00–1.00 |
+
+## DFNR tab
+
+The DFNR (DeepFilterNet3) engine uses a deep learning model for noise reduction.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| Attenuation Limit | 100 | 0–100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation (0 = passthrough, 100 = maximum) |
+| Post-Filter Beta | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. Slider stores value*100 internally |
+
+## RN2 tab
+
+The RN2 (RNNoise) tab is purely informational and has no adjustable parameters.
+
+## BNR tab
+
+The BNR (NVIDIA) tab's intensity is controlled from the overlay menu. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+
+## Engine selection and mutual exclusion
+
+The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both page selectors and engine enable/disable controls. When NR2 is activated, the AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules. Only one engine can be active at a time.
 
 ## Tips
 
-- **Masking Depth:** and **Suppression:** interact: raising both together produces maximum noise reduction but the highest risk of speech distortion. Raise them incrementally and test on a live or recorded signal.
-- If you also have **Reduction (dB):** set high, lowering **Suppression:** slightly can recover naturalness without losing much noise floor reduction.
-- The **Adaptive Noise Estimation** checkbox affects how quickly NR4 tracks a changing noise floor, which in turn affects how both sliders sound in practice. See [Enable or disable NR4 adaptive noise estimation](enable-or-disable-nr4-adaptive-noise-estimation.md).
-- Click **Reset Defaults** to return all NR4 parameters — not just these two sliders — to their factory values before experimenting again.
+- **Masking Depth:** and **Suppression:** on the NR4 tab interact: raising both together produces maximum noise reduction but the highest risk of speech distortion. Raise them incrementally and test on a live or recorded signal.
+- If speech sounds over-processed or hollow, reduce Masking Depth: first, then Suppression: until naturalness returns.
+- The **Adaptive Noise Estimation** checkbox affects how quickly NR4 tracks a changing noise floor, which in turn affects how both sliders sound in practice.
+- Click **Reset Defaults** on any tab to return all parameters on that tab to their factory values.
 
 ## Troubleshooting
 
 - **Speech sounds hollow or underwater after raising the sliders** — Both sliders at high values can over-suppress spectral components that overlap with speech. Reduce **Masking Depth:** first, then **Suppression:** until naturalness returns.
-- **Noise floor is still audible even at maximum settings** — Ensure **Adaptive Noise Estimation** is enabled so NR4 can continuously re-estimate the noise floor. Also consider increasing **Reduction (dB):** via [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md).
-- **Slider snaps back or refuses to move** — In v0.9.7 the dialog content was moved into an embedded `AetherDspWidget`. Click directly on the slider handle rather than clicking in the groove; the guarded input model is unchanged.
+- **Noise floor is still audible even at maximum settings** — Ensure **Adaptive Noise Estimation** is enabled so NR4 can continuously re-estimate the noise floor. Also consider increasing **Reduction (dB):** .
+- **Slider snaps back or refuses to move** — Click directly on the slider handle rather than clicking in the groove.
 
 ## Related
 
-- [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md)
-- [Enable or disable NR4 adaptive noise estimation](enable-or-disable-nr4-adaptive-noise-estimation.md)
-- [Reset NR2 or NR4 parameters to defaults](reset-nr2-or-nr4-parameters-to-defaults.md)
 - [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)

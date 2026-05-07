@@ -40,23 +40,22 @@ If either value is blank when you check **Enable FreeDV Reporter reporting when 
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| **Server:** | Indicator | Fixed endpoint: `qso.freedv.org (WebSocket)`. Read-only. |
-| **Start / Stop** | Push button | Connects or disconnects the FreeDV WebSocket. |
-| **Auto-start on startup** | Toggle button | Starts the FreeDV connection automatically on launch. Saved to `FreeDvAutoStart`. |
-| **FreeDV Spots** | Text field | Read-only console showing incoming FreeDV activity. |
-| **Spot Color:** | Push button | Opens a color picker for FreeDV spots on the panadapter. Saved to `FreeDvSpotColor`. |
-| **Enable FreeDV Reporter reporting when RADE is active** | Checkbox | Enables station-reporting to the public FreeDV Reporter map whenever the RADE modem is active. Refused if callsign or grid is blank. Saved to `FreeDvAutoReport`. Build-gated by `HAVE_WEBSOCKETS`; on Windows also requires `HAVE_RADE`. |
-| **Callsign:** | Text field | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Saved to `FreeDvMyCallsign`. |
-| **Use radio** | Checkbox | Pre-fills **Callsign:** from the radio's configured callsign and locks the field read-only. Syncs automatically when the radio callsign changes. Saved to `FreeDvUseRadioCallsign`. Default: enabled. |
-| **Grid Square:** | Text field | Maidenhead grid square to report. Read-only when **Use GPS** is checked. Saved to `FreeDvMyGrid`. |
-| **Use GPS** | Checkbox | Pre-fills **Grid Square:** from the radio's GPS module and locks the field read-only. Shown only on radio models with GPS hardware. Saved to `FreeDvUseGpsGrid`. Default: enabled on GPS-capable models. |
-| **Station Msg:** | Text field | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Saved to `FreeDvMyMessage`. |
-| **Auto Mode:** | Toggle button | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: **Enabled** (as of v0.9.5.1). Saved to `SpotAutoSwitchMode`. |
-| **Spot Lines:** | Toggle button | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: **Enabled**. Saved to `IsSpotsLinesEnabled`. New in v0.9.7. |
-| Total Spots: | Indicator | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed. |
-
+| Control                                                  | Kind          | Behavior                                                                                                                                                                                                                                  |
+|----------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Server:**                                              | Indicator     | Fixed endpoint: `qso.freedv.org (WebSocket)`. Read-only.                                                                                                                                                                                  |
+| **Start / Stop**                                         | Push button   | Connects or disconnects the FreeDV WebSocket.                                                                                                                                                                                             |
+| **Auto-start on startup**                                | Toggle button | Starts the FreeDV connection automatically on launch. Saved to `FreeDvAutoStart`.                                                                                                                                                         |
+| **FreeDV Spots**                                         | Text field    | Read-only console showing incoming FreeDV activity.                                                                                                                                                                                       |
+| **Spot Color:**                                          | Push button   | Opens a color picker for FreeDV spots on the panadapter. Saved to `FreeDvSpotColor`.                                                                                                                                                      |
+| **Enable FreeDV Reporter reporting when RADE is active** | Checkbox      | Enables station-reporting to the public FreeDV Reporter map whenever the RADE modem is active. Refused if callsign or grid is blank. Saved to `FreeDvAutoReport`. Build-gated by `HAVE_WEBSOCKETS`; on Windows also requires `HAVE_RADE`. |
+| **Callsign:**                                            | Text field    | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Saved to `FreeDvMyCallsign`.                                                                                                                      |
+| **Use radio**                                            | Checkbox      | Pre-fills **Callsign:** from the radio's configured callsign and locks the field read-only. Syncs automatically when the radio callsign changes. Saved to `FreeDvUseRadioCallsign`. Default: enabled.                                     |
+| **Grid Square:**                                         | Text field    | Maidenhead grid square to report. Read-only when **Use GPS** is checked. Saved to `FreeDvMyGrid`.                                                                                                                                         |
+| **Use GPS**                                              | Checkbox      | Pre-fills **Grid Square:** from the radio's GPS module and locks the field read-only. Shown only on radio models with GPS hardware. Saved to `FreeDvUseGpsGrid`. Default: enabled on GPS-capable models.                                  |
+| **Station Msg:**                                         | Text field    | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Saved to `FreeDvMyMessage`.                                                                                                                      |
+| **Auto Mode:**                                           | Toggle button | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: **Enabled** (as of v0.9.5.1). Saved to `SpotAutoSwitchMode`.                                                     |
+| **Spot Lines:**                                          | Toggle button | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: **Enabled**. Saved to `IsSpotsLinesEnabled`. New in v0.9.7.                                                      |
+| Total Spots:                                             | Indicator     | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed.                                                                    |
 ## Tuning to a spot by double-clicking the spot list
 
 Double-clicking a row in the **Spot List** tab tunes the active slice to the spot frequency. As of v0.9.7, AetherSDR also forwards the mode extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.

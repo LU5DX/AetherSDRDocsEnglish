@@ -1,6 +1,6 @@
 # AetherDSP Settings overview
 
-AetherDSP Settings gives you fine-grained control over AetherSDR's client-side noise-reduction engines. Use this dialog to tune the tradeoff between noise suppression and speech fidelity across four configurable engines: NR2, NR4, MNR, and DFNR.
+AetherDSP Settings gives you fine-grained control over AetherSDR's client-side noise-reduction engines. Use this dialog to tune the tradeoff between noise suppression and speech fidelity across six configurable engines: NR2, NR4, MNR, DFNR, RN2, and BNR.
 
 ## Before you start
 
@@ -9,9 +9,9 @@ AetherDSP Settings gives you fine-grained control over AetherSDR's client-side n
 
 ## How it works
 
-Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six tabs — **NR2**, **NR4**, **MNR**, **DFNR**, **RN2**, and **BNR** — each covering a different noise-reduction engine. Settings are saved immediately when you change any control; no Apply or OK button is required.
+Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six tabs — **NR2**, **NR4**, **MNR**, **DFNR**, **RN2**, and **BNR** — each covering a different noise-reduction engine. Clicking a tab also activates or bypasses that engine; the six DSP toggles act as exclusive selectors and engine enable/disable controls. Settings are saved immediately when you change any control; no Apply or OK button is required.
 
-Starting with v0.9.7, the controls inside the dialog are provided by an embedded `AetherDspWidget`. The dialog's external behavior and all persisted setting keys are unchanged.
+Starting with v0.9.8, the dialog has a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px.
 
 ### NR2 tab
 
@@ -19,20 +19,21 @@ NR2 is a frequency-domain musical-noise-reduction engine. Its parameters control
 
 | Control | Type | Default | Range | Persisted key |
 |---|---|---|---|---|
-| Gain Method | Radio buttons | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` |
-| NPE Method | Radio buttons | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` |
+| Gain Method | Radio buttons | Gamma | Linear \| Log \| Gamma \| Trained | `NR2GainMethod` |
+| NPE Method | Radio buttons | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
 | AE Filter (artifact elimination) | Checkbox | Enabled | — | `NR2AeFilter` |
-| Reduction Depth: | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
+| Reduction: | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
 | Smoothing: | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
-| Voice Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| Reset Defaults (↺ icon) | Push button | — | — | — (no key) |
 
 - **Gain Method** selects the gain-curve mapping applied during noise reduction. Gamma matches typical speech amplitude patterns; Trained uses a model built from real speech and noise samples.
 - **NPE Method** selects the noise power estimator. OSMS tracks the noise floor using a running minimum; MMSE minimizes expected estimation error; NSTAT adapts to noise that changes over time.
 - **AE Filter (artifact elimination)** toggles a post-filter that reduces ringing and musical artifacts common in frequency-domain processing.
-- **Reduction Depth:** sets the maximum suppression depth. Higher values suppress more noise but risk distorting speech.
+- **Reduction:** sets the maximum suppression depth. Higher values suppress more noise but risk distorting speech.
 - **Smoothing:** controls how quickly the noise estimate tracks changes. Higher values give steadier but slower adaptation.
-- **Voice Threshold:** sets the speech-presence-probability threshold. Lower values preserve quiet speech but may allow more noise through.
-- **Reset Defaults** restores NR2 to: Gamma, OSMS, AE Filter on, Reduction Depth 1.50, Smoothing 0.85, Voice Threshold 0.20.
+- **Threshold:** sets the speech-presence-probability threshold. Lower values preserve quiet speech but may allow more noise through.
+- **Reset Defaults** restores NR2 to: Gamma, OSMS, AE Filter on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
 
 ### NR4 tab
 
@@ -40,26 +41,27 @@ NR4 uses the libspecbleach library for spectral subtraction-based noise reductio
 
 | Control | Type | Default | Range | Persisted key |
 |---|---|---|---|---|
-| Noise Estimation Method | Radio buttons | SPP-MMSE | SPP-MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` |
+| Noise Estimation: | Radio buttons | MMSE | MMSE \| Brandt \| Martin | `NR4NoiseEstimationMethod` |
 | Adaptive Noise Estimation | Checkbox | Enabled | — | `NR4AdaptiveNoise` |
 | Reduction (dB): | Slider | 10.0 | 0.0–40.0 dB | `NR4ReductionAmount` |
 | Smoothing (%): | Slider | 0 | 0–100 | `NR4SmoothingFactor` |
 | Whitening (%): | Slider | 0 | 0–100 | `NR4WhiteningFactor` |
 | Masking Depth: | Slider | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
 | Suppression: | Slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
+| Reset Defaults (↺ icon) | Push button | — | — | — (no key) |
 
-- **Noise Estimation Method** selects how NR4 estimates the noise floor. SPP-MMSE balances noise estimation with speech preservation; Brandt uses recursive smoothing across critical bands; Martin uses running spectral minima.
+- **Noise Estimation:** selects the noise-floor estimator. MMSE balances noise estimation with speech preservation; Brandt uses recursive smoothing across critical bands; Martin uses running spectral minima.
 - **Adaptive Noise Estimation** enables continuous re-estimation of the noise floor as conditions change.
 - **Reduction (dB):** sets the maximum noise reduction in decibels.
 - **Smoothing (%):** applies time-domain smoothing to the noise estimate.
 - **Whitening (%):** flattens the spectral shape of residual noise.
 - **Masking Depth:** controls the depth of spectral masking applied.
 - **Suppression:** sets overall NR4 suppression strength.
-- **Reset Defaults** restores NR4 to: SPP-MMSE, Adaptive Noise Estimation on, Reduction 10.0 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50.
+- **Reset Defaults** restores NR4 to: MMSE, Adaptive Noise Estimation on, Reduction 10.0 dB, Smoothing 0, Whitening 0, Masking Depth 0.50, Suppression 0.50.
 
 ### MNR tab
 
-MNR is an MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It is available on macOS only.
+MNR is an MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It is available on macOS only; on Windows and Linux builds the MNR toggle is dimmed because the engine has no backend on those platforms.
 
 | Control | Type | Default | Range | Persisted key |
 |---|---|---|---|---|
@@ -87,12 +89,28 @@ The RN2 tab covers the RNNoise engine. It is informational only; there are no ad
 
 ### BNR tab
 
-The BNR tab covers NVIDIA noise reduction. Intensity is controlled from the overlay menu, not from this dialog.
+The BNR tab covers NVIDIA noise reduction. Intensity is controlled from the overlay menu, not from this dialog. On builds without the NVIDIA Broadcast SDK the BNR toggle is dimmed.
+
+## Window controls
+
+The dialog's frameless title bar (added in v0.9.8) provides these controls:
+
+| Control | Behavior |
+|---|---|
+| Grip glyph (⋮⋮) | Visual indicator only; click and drag any part of the title bar to move the dialog |
+| — (Minimize) | Minimizes the dialog |
+| □ (Maximize) | Maximizes or restores the dialog |
+| × (Close) | Closes the dialog |
+| Double-click title bar | Toggles maximize/restore |
+
+## Resizing
+
+Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. A 12 px resize hit zone extends inward from each edge.
 
 ## Tips
 
 - Changes take effect immediately; you can monitor the audio while adjusting sliders.
-- On the NR2 tab, reducing **Voice Threshold:** below its default (0.20) helps recover weak or low-power speech, but may increase noise breakthrough.
+- On the NR2 tab, reducing **Threshold:** below its default (0.20) helps recover weak or low-power speech, but may increase noise breakthrough.
 - On the NR4 tab, leaving **Smoothing (%):** and **Whitening (%):** at 0 gives the most natural-sounding output; increase them only if residual noise is objectionable.
 - Use **Reset Defaults** on the NR2 or NR4 tab to recover a known-good baseline before experimenting.
 
