@@ -24,11 +24,10 @@ Bypass every client-side noise reducer (NR2, NR4, MNR, DFNR, RN2, BNR) at once u
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| **ADSP tile** | Click to bypass the entire NR cluster. The label rotates to show the active module's short name (`NR2`, `NR4`, `BNR`) or `ADSP` when none is on. Double-click opens the AetherDSP Settings dialog. |
-| **BYPASS button** | Disables every stage on the current chain (TX or RX). Does not affect the ADSP bypass — they operate independently. |
-
+| Control           | Behavior                                                                                                                                                                                           | Notes |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| **ADSP tile**     | Click to bypass the entire NR cluster. The label rotates to show the active module's short name (`NR2`, `NR4`, `BNR`) or `ADSP` when none is on. Double-click opens the AetherDSP Settings dialog. |       |
+| **BYPASS button** | Disables every stage on the current chain (TX or RX). Does not affect the ADSP bypass — they operate independently.                                                                                |       |
 ## Tips
 
 - The ADSP bypass is independent of the **BYPASS** button. Bypassing all RX stages with **BYPASS** does not affect the ADSP tile's state, and vice versa.

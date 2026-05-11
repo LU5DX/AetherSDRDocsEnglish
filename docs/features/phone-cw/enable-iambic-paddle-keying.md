@@ -2,29 +2,30 @@
 
 ## Overview
 
-The Phone/CW applet is a mode-aware transmit panel that shows microphone, processor, and monitor controls in voice modes, and automatically switches to CW controls (delay, speed, sidetone, iambic, pitch) when the active slice is in CW mode. In v0.9.8, the four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are now QLineEdit widgets with QIntValidator — click any value and type a number directly (SmartSDR parity). The single Sidetone toggle and volume slider drive both the radio's DAX-fed monitor and the client-side low-latency sidetone (CwSidetoneGenerator, ~10 ms latency) in lockstep — pitch and pan always follow the radio's cw_pitch and mon_pan_cw settings automatically (v0.9.1+). In v0.9.7, the Compression gauge is now gated on the radio's interlock TRANSMITTING state (not meter flow), so it reads 0 during RX; Breakin now fully honors the radio's break_in setting — no auto-PTT envelope forces TX any more; the sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
+The Phone/CW applet is a mode-aware transmit panel that shows microphone, processor, and monitor controls in voice modes, and automatically switches to CW controls (delay, speed, sidetone, iambic, pitch) when the active slice is in CW mode. In v0.9.8, the four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are now QLineEdit widgets with QIntValidator — click any value and type a number directly (SmartSDR parity). The single Sidetone toggle and volume slider drive both the radio's DAX-fed monitor and the client-side low-latency sidetone (CwSidetoneGenerator, ~10 ms latency) in lockstep — pitch and pan always follow the radio's cw_pitch and mon_pan_cw settings automatically (v0.9.1+). In v0.9.7, the Compression gauge is now gated on the radio's interlock TRANSMITTING state (not meter flow), so it reads 0 during RX; Breakin now fully honors the radio's break_in setting — no auto-PTT envelope forces TX any more; the sidetone bus is shared with Quindar tones (mutually exclusive at the mode level). In v26.5.1, the ALC meter on both the Phone and CW sub-panels was rewired from HWALC (RCA voltage) to the software ALC meter (MeterModel::swAlcChanged, post-SSBMeter-peak dBFS, #2552) and a new CW-panel ALC gauge (identical to the Phone-panel ALC gauge) was added.
 
 ## Phone Controls
 
-| Control        | Kind          | Description                                                                   | Default | Range               |
-|----------------|---------------|-------------------------------------------------------------------------------|---------|---------------------|
-| Level          | Meter         | Microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting. | —       | -40 to +10 dBFS (red > 0) |
-| Compression    | Meter         | Speech compression amount in dB (reversed fill). Gated on radio interlock TRANSMITTING state and speech processor enable; reads 0 dB during RX. | —       | -25 to 0 dB         |
-| Mic profile    | Combo box     | Load named mic processing profile; calls TransmitModel::loadMicProfile.       | —       | Populated from radio micProfileList() |
-| Mic source     | Combo box     | Select microphone input source; calls TransmitModel::setMicSelection.         | —       | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) |
-| Mic gain       | Slider        | Adjust mic input level. For 'PC' source uses local PcMicGain persistence (radio reports mic_level=0 when source=PC). | 50      | 0-100               |
-| +ACC           | Toggle button | Enable the accessory mic input mix; calls TransmitModel::setMicAcc.          | —       | —                   |
-| PROC           | Toggle button | Toggle the speech processor; calls TransmitModel::setSpeechProcessorEnable.   | —       | —                   |
-| NOR/DX/DX+     | Slider        | Three-position processor level; calls TransmitModel::setSpeechProcessorLevel. | 0       | 0 (NOR), 1 (DX), 2 (DX+) |
-| DAX            | Toggle button | Enable DAX as the TX audio source; calls TransmitModel::setDax.               | —       | —                   |
-| MON            | Toggle button | Enable TX sidetone monitor; calls TransmitModel::setSbMonitor.                | —       | —                   |
-| Monitor volume | Slider        | Set sideband monitor volume; calls TransmitModel::setMonGainSb.               | —       | 0-100               |
+| Control           | Kind                                                                                                                                                              | Description                                                                                                                                     |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Level             | Meter                                                                                                                                                             | Microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting.                                             |
+| Compression       | Meter                                                                                                                                                             | Speech compression amount in dB (reversed fill). Gated on radio interlock TRANSMITTING state and speech processor enable; reads 0 dB during RX. |
+| Mic profile       | Combo box                                                                                                                                                         | Load named mic processing profile; calls TransmitModel::loadMicProfile.                                                                         |
+| Mic source        | Combo box                                                                                                                                                         | Select microphone input source; calls TransmitModel::setMicSelection.                                                                           |
+| Mic gain          | Slider                                                                                                                                                            | Adjust mic input level. For 'PC' source uses local PcMicGain persistence (radio reports mic_level=0 when source=PC).                            |
+| +ACC              | Toggle button                                                                                                                                                     | Enable the accessory mic input mix; calls TransmitModel::setMicAcc.                                                                             |
+| PROC              | Toggle button                                                                                                                                                     | Toggle the speech processor; calls TransmitModel::setSpeechProcessorEnable.                                                                     |
+| NOR/DX/DX+        | Slider                                                                                                                                                            | Three-position processor level; calls TransmitModel::setSpeechProcessorLevel.                                                                   |
+| DAX               | Toggle button                                                                                                                                                     | Enable DAX as the TX audio source; calls TransmitModel::setDax.                                                                                 |
+| MON               | Toggle button                                                                                                                                                     | Enable TX sidetone monitor; calls TransmitModel::setSbMonitor.                                                                                  |
+| Monitor volume    | Slider                                                                                                                                                            | Set sideband monitor volume; calls TransmitModel::setMonGainSb.                                                                                 |
+| ALC (Phone panel) | Meter                                                                                                                                                             | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
 
 ## CW Controls
 
 | Control               | Kind          | Description                                                                                                                               | Default | Range               |
 |------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------|---------------------|
-| ALC                   | Meter         | Automatic level control reading.                                                                                                         | —       | 0-100 (red > 80)    |
+| ALC (CW panel)        | Meter         | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Uses HGauge::setFillFromRight mode: empty at -20 dBFS, full at 0 dBFS. Added in v26.5.1 (#2552) as part of the SW ALC meter split. | —       | -20 to 0 dBFS (red > -3) |
 | Delay (CW)            | Slider + QLineEdit | Set CW break-in delay. Click the value and type a number directly (0–2000). Calls TransmitModel::setCwDelay. In v0.9.8, setCwDelay caches the value immediately. | 500     | 0-2000 ms (step 10) |
 | Speed (CW)            | Slider + QLineEdit | Set CW keying speed. Click the value and type a number directly (5–100). Calls TransmitModel::setCwSpeed.                              | 20      | 5-100 WPM           |
 | Sidetone              | Toggle button  | Toggle CW sidetone monitor. Also enables/disables the client-side low-latency CwSidetoneGenerator in lockstep (v0.9.1+). Both the radio's DAX-fed monitor and the local PortAudio sidetone are controlled by this single button. Pitch and pan follow radio's cw_pitch and mon_pan_cw automatically. | —       | —                   |
@@ -36,11 +37,12 @@ The Phone/CW applet is a mode-aware transmit panel that shows microphone, proces
 
 ## Indicators
 
-| Indicator        | States         | Meaning                         |
-|------------------|----------------|---------------------------------|
-| Level gauge      | -40 .. +10 dBFS| Microphone peak level.          |
-| Compression gauge| -25 .. 0 dB    | Speech compression amount (reversed fill). |
-| ALC gauge        | 0..100         | Automatic level control (CW sub-panel).    |
+| Indicator            | States                 | Meaning                                                        |
+|----------------------|------------------------|----------------------------------------------------------------|
+| Level gauge          | -40 .. +10 dBFS        | Microphone peak level.                                         |
+| Compression gauge    | -25 .. 0 dB            | Speech compression amount (reversed fill).                     |
+| ALC gauge (Phone)    | -20 .. 0 dBFS (fill from right) | Automatic level control — post-software-ALC SSB peak, read from MeterModel::swAlcChanged. |
+| ALC gauge (CW)       | -20 .. 0 dBFS (fill from right) | Mirror of the Phone-panel ALC gauge, identically scaled.       |
 
 # Enable iambic paddle keying
 
@@ -72,6 +74,7 @@ Enable the radio's built-in iambic keyer so that a dual-lever paddle connected t
 - **The Level gauge does not appear after connecting with mic source set to PC** — In v0.9.3 the Level gauge appears immediately on connect when the mic source is PC (#2086). If the gauge is missing, confirm the mic source is set to **PC** in the **Mic source** selector and that you are running v0.9.3 or later. When the source is PC, the meter uses client-side metering and is not suppressed by the `met_in_rx` setting. The same client-side metering applies when RADE mode is active, and the Level gauge remains visible during RX in that case.
 - **The Compression gauge shows a non-zero reading during receive** — In v0.9.7, the Compression gauge is gated on the radio's interlock TRANSMITTING state. It reads 0 dB during RX. If you see a non-zero reading at rest, confirm you are running v0.9.7 or later.
 - **Breakin OFF does not queue keys correctly; PTT drops unexpectedly** — The auto-PTT envelope that previously overrode the **Breakin** setting was removed in v0.9.7. If you observe this behavior, confirm you are running v0.9.7 or later and that the radio's `break_in` setting matches the **Breakin** button state in the applet.
+- **The ALC gauge reads meaningless values or does not respond** — In v26.5.1, the ALC meter was rewired from HWALC (RCA voltage) to the software ALC meter (MeterModel::swAlcChanged). If you see old, meaningless readings, confirm you are running v26.5.1 or later. A new ALC gauge on the CW panel matches the Phone-panel gauge; both read from the same source.
 
 ## Related
 

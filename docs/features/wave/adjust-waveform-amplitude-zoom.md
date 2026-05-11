@@ -1,6 +1,6 @@
-# Adjust waveform amplitude zoom
+# Adjust waveform amplitude zoom and time window
 
-The Zoom slider in the Waveform applet scales the amplitude axis of the waveform display. Increasing zoom stretches small signals vertically so they are easier to read; decreasing it prevents clipping artifacts from obscuring the trace on loud signals.
+The Zoom slider in the Waveform applet scales the amplitude axis of the waveform display. Increasing zoom stretches small signals vertically so they are easier to read; decreasing it prevents clipping artifacts from obscuring the trace on loud signals. The Window slider controls the time window shown in the waveform display.
 
 ## Before you start
 
@@ -10,29 +10,36 @@ The Zoom slider in the Waveform applet scales the amplitude axis of the waveform
 ## Steps
 
 1. Double-click the waveform display to open the settings drawer if it is not already open.
-2. Locate the Zoom row in the settings drawer.
-3. Drag the Zoom slider left to decrease zoom or right to increase zoom. The readout to the right of the slider updates immediately, showing the current value as a multiplier (for example, `1.7x`).
-4. Release the slider. The new value is saved automatically to `WaveApplet_ZoomPercent`.
+2. Locate the Zoom row or the Window row in the settings drawer.
+3. Adjust the desired slider:
+   - Drag the **Zoom** slider left to decrease zoom or right to increase zoom. The readout to the right of the slider updates immediately, showing the current value as a multiplier (for example, `1.7x`).
+   - Drag the **Window** slider left to decrease the time window or right to increase it. The readout to the right of the slider updates immediately, showing the current value in milliseconds or seconds (for example, `1 s` or `240 ms`).
+4. Release the slider. The new value is saved automatically to `WaveApplet_ZoomPercent` or `WaveApplet_TimeWindowMs`.
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key |
 |---|---|---|---|
 | Zoom | 170 (1.7x) | 100–600 (displayed as 1.0x–6.0x) | `WaveApplet_ZoomPercent` |
+| Window | 1 s | 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s | `WaveApplet_TimeWindowMs` |
 
-The slider value is an integer percentage. The waveform display divides it by 100 to produce the multiplier shown in the readout. A value of 100 means no zoom (1.0x); 600 is maximum zoom (6.0x).
+The Zoom slider value is an integer percentage. The waveform display divides it by 100 to produce the multiplier shown in the readout. A value of 100 means no zoom (1.0x); 600 is maximum zoom (6.0x).
+
+The Window slider selects from discrete time window steps. The first two notches provide sub-second detail (240 ms and 480 ms), followed by one-second increments from 1 second to 10 seconds. Each notch is a deliberate stop, not a continuous range.
 
 ## Tips
 
 - At high zoom levels, signals near full scale will produce clipping highlights (red column emphasis and a CLIP N counter in the header). If you see frequent clipping indicators after raising zoom, reduce the value until the trace fits within the display without hitting the edges.
-- The zoom setting applies equally to RX and TX paths. The direction tint (cool for RX, warm for TX) still distinguishes which path is active regardless of zoom level.
-- To inspect a transient at a higher zoom without missing it in real time, pause the display first by single-clicking the waveform, then adjust zoom while the snapshot is frozen.
+- The zoom and window settings apply equally to RX and TX paths. The direction tint (cool for RX, warm for TX) still distinguishes which path is active regardless of zoom level.
+- To inspect a transient at higher zoom without missing it in real time, pause the display first by single-clicking the waveform, then adjust zoom while the snapshot is frozen.
+- Use a shorter window (240 ms or 480 ms) to see fine details in fast waveforms. Use a longer window (5 s to 10 s) to see overall level changes over time.
 
 ## Troubleshooting
 
 - **The settings drawer is not visible** — Double-click the waveform display to toggle it open. The drawer is below the waveform trace.
 - **The Zoom slider snaps back after dragging** — This can happen if no audio is arriving and the display is showing the no-audio placeholder. The slider value is still saved; it takes effect as soon as audio resumes.
 - **Zoom resets after restarting AetherSDR** — Verify the value is being persisted. If the application closed abnormally, the `WaveApplet_ZoomPercent` setting may not have been written. Set the slider to the desired value after a clean launch.
+- **Window setting changed unexpectedly after update** — If upgrading from a previous version that used the `WaveApplet_TimeWindowSec` setting (1–20 s linear), the value is automatically migrated to the nearest discrete step in `WaveApplet_TimeWindowMs`. Verify the setting and adjust if needed.
 
 ## Related
 

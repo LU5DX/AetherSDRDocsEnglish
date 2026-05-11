@@ -21,6 +21,15 @@ To turn QSK off, click **QSK** again.
 |---------|----------|---------|-------------|
 | **QSK** | Toggles QSK (full break-in) on or off. | Off | `CwxQsk` |
 | **Delay:** | Inter-macro delay in milliseconds. | 5 | `CwxDelay` |
+| **Speed:** | CW speed in WPM. | 20 | `CwxSpeedWpm` |
+| **Send (view)** | Switches to the live send area with history and text field. | – | – |
+| **Live (view)** | Switches to the live send view. | – | – |
+| **Setup (view)** | Switches to the macro editor and QSK setup. | – | – |
+| **Send history scroll** | Shows previous send buffers with character highlighting. | – | – |
+| **Send text area** | Type CW characters; Enter sends the buffer. | – | – |
+| **F1 … F12 (macros)** | Sends the pre-written macro for that function key. | – | `CwxMacro_F1..F12` |
+| **F1 … F12 macro editors** | Setup view editors for each macro. | – | `CwxMacro_F1..F12` |
+| **Prosigns legend** | Shows shortcuts for common CW prosigns (=, +, (, &, $). | – | – |
 
 ## How Send and Live interact
 
@@ -31,6 +40,14 @@ In v0.9.2.1 the **Send** and **Live** buttons no longer act as a simple mutually
   - If **Live** is currently **off**, clicking **Send** submits the typed buffer immediately.
   - If **Live** is currently **on**, clicking **Send** first turns live mode off and returns the panel to the normal send view. The buffer is **not** retransmitted, because some characters may already have been keyed character-by-character.
 - Clicking **Setup** always turns live mode off before switching to the Setup view.
+
+## F1–F12 and Escape shortcut behavior
+
+The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts only when the CWX panel is visible. This prevents shortcut conflicts with the DVK (Digital Voice Keyer) panel, which registers its own set of F1–F12 shortcuts when visible.
+
+- While the CWX panel is visible: F1–F12 trigger the corresponding CW macros, and **Escape** clears the send buffer.
+- While the CWX panel is hidden (and the DVK panel is visible instead): F1–F12 trigger DVK macros instead.
+- The shortcuts are automatically enabled when the CWX panel is shown and disabled when it is hidden.
 
 ## Related
 

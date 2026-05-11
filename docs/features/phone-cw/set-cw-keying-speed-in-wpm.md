@@ -17,9 +17,11 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 
 ## What each control does
 
-| Control    | Description                                                                                                                 | Default |
-|------------|-----------------------------------------------------------------------------------------------------------------------------|---------|
-| Speed (CW) | Sets CW keying speed; calls TransmitModel::setCwSpeed. The adjacent QLineEdit accepts typed values (5–100) (v0.9.8, #2429). | 20 WPM  |
+| Control           | Description                                                                                                                                                       | Default                                                                                                                  |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Speed (CW)        | Sets CW keying speed; calls TransmitModel::setCwSpeed. The adjacent QLineEdit accepts typed values (5–100) (v0.9.8, #2429).                                       | 20 WPM                                                                                                                   |
+| ALC (Phone panel) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| ALC (CW panel)    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW.                                           | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
 
 ## Tips
 
@@ -32,6 +34,7 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 - The **Breakin** toggle fully controls whether CW keyboard and MIDI key edges trigger TX. With Breakin on (QSK), key edges trigger TX and the break-in delay holds the relay. With Breakin off, keys are queued and you engage PTT manually. No automatic PTT envelope overrides this behavior (v0.9.7).
 - The **Delay (CW)** slider value is cached immediately when changed, preventing the radio emission from snapping the slider back (v0.9.8, #2428).
 - The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
+- The ALC gauge appears on both the Phone and CW sub-panels. Both gauges read from the same MeterModel::swAlcChanged source, so SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape (v26.5.1, #2552). The previous HWALC meter (RCA voltage path) has been removed.
 
 ## Related
 

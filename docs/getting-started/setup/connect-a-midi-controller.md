@@ -25,11 +25,24 @@ This page explains how to select and connect a MIDI controller in AetherSDR so t
 | **Refresh** | Button | Rescans available MIDI ports and repopulates the **Port:** list. | — |
 | **Connect** | Button | Opens the selected MIDI port. Label changes to **Disconnect** while the port is open; clicking again closes it. | — |
 | **Auto-connect on startup** | Checkbox | When checked, AetherSDR reopens the last connected MIDI port on launch. | `MidiAutoConnect` |
+| **Category** | Drop-down | Filters the **Parameter** combo box to show only parameters from the selected category. Categories available: All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, Frequency. | — |
+| **Parameter** | Drop-down | Chooses the parameter to bind via MIDI. When **Category** is set to "Phone/CW", three momentary (Gate) actions are available: "Trigger straight key" (id: `cwkey`), "Trigger CW Left Paddle" (id: `cwdit`), "Trigger CW Right Paddle" (id: `cwdah`). Legacy dotted IDs (`cw.key`, `cw.dit`, `cw.dah`) are auto-migrated on read. | — |
+| **Learn** | Button | Starts listening for the next MIDI message and binds it to the selected parameter. | — |
+| **Bindings table** | List | Shows existing bindings with per-row **Invert**, **Relative**, and delete controls. Columns: Parameter, MIDI Source, Channel, Invert, Relative, (delete). | — |
+| **Invert** | Checkbox | Reverses the control direction for the row. | — |
+| **Relative** | Checkbox | Treats the control as an endless encoder. | — |
+| **× (delete row)** | Button | Removes that binding. | — |
+| **Clear All** | Button | Removes every binding. | — |
+| **Profile:** | Drop-down | Picks a saved MIDI mapping profile. | — |
+| **Save** | Button | Saves current bindings as a profile. | — |
+| **Load** | Button | Loads the selected profile. | — |
+| **Close** | Button | Closes the dialog. | — |
 | Port status | Indicator | Shows **Connected:** followed by the device name when the port is open, or **Disconnected** when closed. | — |
 | Activity indicator | Indicator | Displays the most recent MIDI message received (channel, type, number, and value). | — |
 
 ## Tips
 
+- Use the **Category** drop-down to narrow down the parameter list when creating bindings. Categories include Mode, Band, Filter, Slice, Display, and Frequency in addition to the original set.
 - If the port status shows **Connected** but the activity indicator never updates, check that your controller is set to transmit on a MIDI channel and that no other application has the port exclusively locked.
 - The activity indicator updates in real time. Use it to verify the correct port is selected before creating bindings.
 

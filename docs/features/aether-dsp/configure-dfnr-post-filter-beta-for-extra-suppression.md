@@ -5,7 +5,7 @@ The AetherDSP Settings dialog provides advanced control over all six client-side
 ## Opening AetherDSP Settings
 
 1. Open `Settings > AetherDSP Settings...`.
-2. The dialog opens as a frameless window with a custom 18 px title bar.
+2. The dialog opens with a frameless title bar based on the `FramelessWindow` setting. If frameless mode is disabled, the dialog uses native window chrome.
 3. The dialog can be opened without a radio connection, but the effect is only audible during live reception.
 
 ## Dialog layout and window controls
@@ -14,12 +14,18 @@ The AetherDSP Settings dialog uses custom chrome matching the NetworkDiagnostics
 
 | Control | Description |
 |---------|-------------|
-| **Title bar** | 18 px blue-gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). |
-| **— (Minimize)** | Minimizes the dialog. |
-| **□ (Maximize)** | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore. |
-| **× (Close)** | Closes the dialog. |
-| **Drag-to-move** | Click and drag the title bar to move the dialog. |
-| **8-axis resize** | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone (6 px inner, 6 px outer). |
+| **Title bar** | 18 px blue-gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). Visible only when frameless mode is enabled (default). |
+| **— (Minimize)** | Minimizes the dialog. Visible only when frameless mode is enabled. |
+| **□ (Maximize)** | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore. Visible only when frameless mode is enabled. |
+| **× (Close)** | Closes the dialog. Visible only when frameless mode is enabled. |
+| **Drag-to-move** | Click and drag the title bar to move the dialog. Works only in frameless mode. |
+| **8-axis resize** | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget. Only active in frameless mode. |
+
+### Frameless mode toggle
+
+- The dialog reads the `FramelessWindow` setting from `Settings > Appearance > Frameless Window` to determine whether to use frameless or native chrome.
+- Default: Frameless (True).
+- When frameless mode is off, the title bar with grip glyph and window control buttons (Minimize, Maximize, Close) are hidden; the operating system provides the title bar and window controls instead.
 
 ## Selecting and activating noise-reduction engines
 
@@ -91,6 +97,8 @@ Stored in setting `NR2NpeMethod` as integer 0-2.
 ## Tab: NR4 — Libspecbleach noise reduction
 
 The NR4 engine uses the [libspecbleach](https://github.com/geraldmwangi/libspecbleach) library for spectral noise gating.
+
+**Note:** On Windows, NR4 requires LLVM (clang-cl) to compile. If LLVM is not installed, the NR4 toggle is dimmed with a tooltip: "NR4 requires LLVM (clang-cl) on Windows. Install LLVM from llvm.org and rebuild to enable NR4."
 
 ### Noise Estimation:
 
@@ -207,6 +215,8 @@ The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine.
 - **No audible change when moving the slider** — The selected engine may not be active on the current slice. Confirm the engine toggle is selected and that parameters are not at minimum.
 - **NR2 produces musical noise** — Reduce **Reduction** or enable **AE Filter** to suppress artefacts.
 - **MNR or BNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR) is not available on your platform.
+- **NR4 tab is dimmed on Windows** — LLVM (clang-cl) is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
+- **Title bar or window controls missing** — Frameless mode is disabled. Enable it in `Settings > Appearance > Frameless Window` to restore custom chrome.
 
 ## Related
 

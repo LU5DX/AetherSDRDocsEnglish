@@ -6,6 +6,7 @@ Use the Network Diagnostics dialog to read live audio buffer health, underrun co
 
 - AetherSDR must be running. The dialog does not require an active radio connection, but the audio indicators are only meaningful while a radio is connected and streaming audio.
 - Reproduce the audio problem before opening the dialog so the counters and peak values reflect the fault condition.
+- The dialog window can be toggled between frameless and standard window decoration. This is controlled by the `FramelessWindow` setting in AetherSDR's configuration. When frameless mode is active, a title bar with drag-and-resize handles appears at the top of the dialog.
 
 ## Steps
 
@@ -72,6 +73,7 @@ The Logs tab provides a live tail of the AetherSDR log file directly inside the 
 - **Underruns (last sec) is non-zero but Underruns (total) is small** — The problem is intermittent. Leave the dialog open and wait for a longer observation period. Watch **Max Arrival Gap** for evidence of periodic bursts.
 - **Network Jitter is high but Audio drops show zero** — Packets are arriving late rather than being lost. Jitter directly reduces the effective buffer margin. Check for other UDP traffic competing on the same interface.
 - **Logs tab shows no output** — Confirm the log file path shown at the top of the tab is accessible. If no categories are checked, click **Select All (Logs)** to restore visibility.
+- **Dialog appears with standard window frame** — The `FramelessWindow` setting may be set to `False`. To enable frameless mode, set `FramelessWindow` to `True` in the AetherSDR configuration file. The dialog respects the setting each time it opens.
 
 ## Related
 

@@ -22,6 +22,26 @@ After creating a MIDI binding, you can reverse its direction with Invert or tell
 |----------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Invert   | Invert                   | Reverses the direction of the control for that binding. Turn clockwise to decrease, counter-clockwise to increase, or vice versa.                      |
 | Relative | Relative                 | Treats the control as an endless encoder. Use this when your hardware knob sends incremental (relative) values rather than absolute positions (0–127). |
+
+## Category filter
+
+The Category combo box above the Bindings table filters the Parameter combo box to a specific control category. In v26.5.1, the available categories are:
+
+- All
+- RX
+- TX
+- Phone/CW
+- EQ
+- Global
+- Mode
+- Band
+- Filter
+- Slice
+- Display
+- Frequency
+
+Select a category to narrow the list of parameters shown when creating a new binding.
+
 ## Tips
 
 - Use Relative when your knob sends small increment/decrement values rather than an absolute position. If a knob jumps erratically when turned, enabling Relative usually corrects it.

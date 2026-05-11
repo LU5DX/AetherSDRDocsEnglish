@@ -23,6 +23,9 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 |--------------------|----------|-----------------|
 | Thresh             | −30.0 dB | −60.0 to 0.0 dB |
 | Gain-reduction bar | —        | 0 to 24 dB GR   |
+| Freq               | 6000 Hz  | 1000 to 12000 Hz|
+| Q                  | 2.00     | 0.5 to 5.0      |
+| Amount             | −6.0 dB  | −24.0 to 0.0 dB |
 | Attack             | 1.0 ms   | 0.1 to 30.0 ms  |
 | Release            | 100 ms   | 10.0 to 500.0 ms|
 
@@ -30,9 +33,21 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second.
 
-**Attack** — how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+**Freq** — sets the centre frequency of the sibilance band (1000 to 12000 Hz, logarithmic mapping). Default 6000 Hz. Labels show "6.0 kHz" above 1 kHz and "N Hz" below.
 
-**Release** — how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+**Q** — sets the bandwidth of the sibilance band (0.5 to 5.0, linear mapping). Higher Q = narrower band. Default 2.00. Label format "X.XX".
+
+**Amount** — maximum attenuation applied at peak sibilance (−24.0 to 0.0 dB, linear mapping). Values are negative (or zero) because they represent reduction. Default −6.0 dB.
+
+**Attack** — how quickly the de-esser responds once sibilance crosses the threshold (0.1 to 30.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+
+**Release** — how quickly gain returns after sibilance drops below the threshold (10.0 to 500.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+
+## Sidechain response curve
+
+The Sidechain response curve indicator draws the bandpass filter response with a live ball at the current centre frequency. The frequency axis is labelled with major gridlines at 100, 500, 1k, 2k, 3k, 4k, 5k, 6k, 7k, 8k, 9k, 10k, 11k, and 12k Hz. These labels are drawn as high-performance static text objects cached after the first paint. The labels appear only when the curve widget is not in compact mode.
+
+The Centre-frequency ball rests on the curve peak, marking the currently-tuned sibilance centre frequency.
 
 ## Bypass dimming
 

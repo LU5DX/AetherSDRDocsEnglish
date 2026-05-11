@@ -49,6 +49,8 @@ Right-click a filter preset button to save the current filter width into that sl
 
 The Pan slider center position (50) is stereo centre. Double-click the Pan slider to reset it to centre. Audio controls reflect live radio state and are not persisted by AetherSDR.
 
+The squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes the audio feeds external decoders via DAX, where squelch would gate weak FSK signals. In CW mode the radio locks squelch on at a fixed level and rejects changes. When entering one of these modes while squelch is enabled, squelch is automatically turned off and restored when leaving that mode.
+
 ### DSP tab
 
 The DSP tab contains buttons for noise reduction and filtering algorithms supplied directly by the radio. Client-side DSP modules (NR2, NR4, MNR, BNR, DFNR, and RN2) can be accessed from the AetherDSP Settings dialog or the Aetherial Audio Channel Strip.
@@ -98,6 +100,7 @@ Clicking the slice badge in the header row collapses the panel. Clicking anywher
 - Momentum (inertial) scroll events on macOS are ignored to prevent unintended tuning after a trackpad gesture ends.
 - The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
 - Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
+- Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY audio feeds external decoders via DAX channels, and squelch could gate weak FSK signals. CW mode locks squelch on at a fixed level.
 
 ## Related
 

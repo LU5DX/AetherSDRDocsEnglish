@@ -20,22 +20,37 @@ Use this page to audition a DVK slot through your local speaker before sending i
 | Control | Behavior | Notes |
 |---|---|---|
 | F1 … F8 slot buttons | Selects the slot. If the slot is currently playing back on air, clicking again stops it. | Does not trigger preview. |
+| Slot name labels | Shows the name of each slot. | Default name is "Recording \<n\>". |
 | Slot duration labels | Shows recording length or "Empty". | A slot showing "Empty" cannot be previewed. |
 | Slot progress bars | Displays playback progress in blue during preview. | Hidden when idle. |
-| ◀ PREV | Starts preview of the selected slot through the local speaker. Click again to stop. | Does not transmit. |
+| ● REC | Starts recording into the selected slot. | |
 | ■ STOP | Stops any active recording, playback, or preview. | Also activated by Escape. |
+| ▶ PLAY | Plays the selected slot on air. | Does not preview. |
+| ◀ PREV | Starts preview of the selected slot through the local speaker. Click again to stop. | Does not transmit. |
+| Rename edit | Inline rename of a slot triggered via context menu. | |
 | Status: Idle / Recording / Playing | Shows the current DVK state at the bottom of the panel. | |
+
+## Keyboard shortcuts
+
+The DVK panel registers F1–F12 and Escape keyboard shortcuts when the panel is visible. These shortcuts are automatically disabled when the panel is hidden, preventing conflicts with other panels that use the same keys (such as the CWX panel).
+
+| Key | Action |
+|---|---|
+| F1–F12 | Select and play the corresponding slot (F1 = slot 1, F2 = slot 2, etc.). Slots beyond F8 (F9–F12) are non-functional in most configurations. |
+| Escape | Stops recording, playback, or preview. If a rename edit is active, cancels the rename instead. |
 
 ## Tips
 
 - If you click ◀ PREV on a slot that is already in preview, it stops the preview.
 - Pressing Escape stops an active preview without using the mouse.
-- The F-key buttons and F1–F8 keyboard shortcuts trigger on-air playback, not preview. Use ◀ PREV specifically when you do not want to transmit.
+- The F-key buttons and F1–F12 keyboard shortcuts trigger on-air playback, not preview. Use ◀ PREV specifically when you do not want to transmit.
+- Right-click a slot button to rename it or upload a WAV file.
 
 ## Troubleshooting
 
 - **◀ PREV has no effect** — The selected slot is empty. Check that the slot's duration label does not show "Empty". Record audio or upload a WAV file first, then retry.
 - **No audio heard during preview** — Preview routes audio to the local speaker. Verify your system audio output is correctly configured and not muted.
+- **F1–F12 keyboard shortcuts do not work** — The DVK panel must be visible. If the CWX panel or another panel is currently shown, the DVK shortcuts are disabled. Switch to the DVK panel to use its shortcuts.
 
 ## Related
 

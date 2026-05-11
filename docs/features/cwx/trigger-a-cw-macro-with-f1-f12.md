@@ -23,7 +23,7 @@ To send a macro using the on-screen buttons instead of the keyboard:
 
 | Control | Behavior | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| F1 … F12 (keyboard) | Sends the macro stored for that function key. Only active when the slice mode is CW or CWL. | — | — | `CwxMacro_F1` … `CwxMacro_F12` |
+| F1 … F12 (keyboard) | Sends the macro stored for that function key. Only active when the CWX panel is visible and the slice mode is CW or CWL. | — | — | `CwxMacro_F1` … `CwxMacro_F12` |
 | F1 … F12 (on-screen buttons) | Same as the keyboard keys; sends the corresponding macro. | — | — | `CwxMacro_F1` … `CwxMacro_F12` |
 | Speed: | CW send speed in WPM, applied to all macro sends. | 20 WPM | 5–100 WPM | `CwxSpeedWpm` |
 | Delay: | Inter-macro delay in milliseconds. | 5 ms | 0–2000 ms | `CwxDelay` |
@@ -42,14 +42,14 @@ Clicking **Setup** always turns off Live mode before showing the macro editor vi
 
 ## Tips
 
-- The F1–F12 shortcuts are application-wide. You do not need to click inside the CWX panel first — the keys work as long as AetherSDR has focus and the active slice is in CW or CWL mode.
+- The F1–F12 shortcuts are application-wide. They work only when the CWX panel is visible. If you switch to another panel that also uses F1–F12 (such as the DVK panel), the shortcuts are disabled to avoid ambiguity.
 - Pressing Escape during a macro send is the fastest way to abort. Because the radio transitions between transmit and ready states rapidly during CW, Escape works regardless of the radio's current transmit state.
 - Adjust **Speed:** in the bottom bar before sending if you need to change the WPM for the current session.
 - If you were sending live and want to re-send the same text, type it again in the send text area after clicking **Send** to exit Live mode, then click **Send** a second time (or press Enter).
 
 ## Troubleshooting
 
-- **Pressing F1–F12 does nothing** — Confirm the active slice is in CW or CWL mode. The shortcuts are suppressed in all other modes. If another application has captured the function keys, bring AetherSDR to the foreground.
+- **Pressing F1–F12 does nothing** — Confirm the active slice is in CW or CWL mode and the CWX panel is visible. The shortcuts are disabled when the panel is hidden or another panel using F1–F12 is visible. If another application has captured the function keys, bring AetherSDR to the foreground.
 - **Macro sends but produces no audio or RF** — The macro text for that slot may be empty. Click **Setup** and check the text field next to the F-key in question. See [Edit a CW macro string](edit-a-cw-macro-string.md).
 - **Transmission does not stop after pressing Escape** — Click inside the AetherSDR window to ensure it has keyboard focus, then press Escape again.
 - **Clicked Send but the buffer was not transmitted** — If Live mode was active when you clicked **Send**, the panel exits Live mode without sending. Click **Send** once more (or press Enter) to transmit the buffer.

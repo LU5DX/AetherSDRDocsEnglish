@@ -80,6 +80,16 @@ When one or more leveled DSP algorithms (NR, NB, ANF, NRL, NRS, NRF, or ANFL) ar
 - When no leveled DSP is active, or when only RNN, ANFT, or APF is on, the slider row fades out. It remains in the layout at all times to prevent the button grid from shifting.
 - On launch, any DSP enabled in the radio's saved profile now properly shows the level slider without requiring manual toggling (#startup-slider, v0.9.8).
 
+## Squelch behavior by mode
+
+The squelch button and slider in the Audio tab are automatically disabled in certain modes where squelch is not meaningful:
+
+- **Digital modes (DIGU, DIGL)** — Audio feeds external decoders via DAX. Squelch is disabled.
+- **RTTY mode** — Like digital modes, audio feeds external decoders. Squelch is disabled to prevent gating weak FSK signals (#2504, v26.5.1).
+- **CW mode** — The radio locks squelch on at a fixed level and rejects changes. Squelch is disabled.
+
+When squelch is disabled and was previously enabled, it is automatically turned off to avoid a stuck squelch state. The `m_savedSquelchOn` flag preserves the previous state so it can be restored when switching back to a voice mode.
+
 ## Tips
 
 - Changing mode may alter the active filter passband. Check the filter width label in the header row after switching modes, and apply a filter preset if needed.

@@ -33,6 +33,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 | Simplex          | checked | toggle                                    |
 | + (offset up)    | —       | toggle                                    |
 | REV              | —       | toggle                                    |
+
 ## Tips
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.
@@ -48,17 +49,18 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - **Repeater does not respond to your transmissions** — Confirm the CTCSS tone value matches what the repeater expects, and that Tone mode is set to **CTCSS TX** rather than **Off**.
 - **TX frequency appears wrong** — Check that the offset direction button (**−**, **Simplex**, or **+**) matches the repeater's published offset direction, and that the Offset (FM) value is set to the correct magnitude (e.g. 0.6 MHz for a typical 2 m repeater).
 - **Tone mode and CTCSS controls are not visible** — The slice mode must be **FM**, **NFM**, or **DFM**. These controls are hidden in all other modes.
-- **Squelch controls are greyed out** — Squelch is disabled automatically when the slice mode is **DIGU**, **DIGL**, **NT**, **CW**, or **CWL**. Switch to an FM or SSB mode to enable the squelch controls.
+- **Squelch controls are greyed out** — Squelch is disabled automatically when the slice mode is **DIGU**, **DIGL**, **NT**, **RTTY**, **CW**, or **CWL**. Switch to an FM or SSB mode to enable the squelch controls.
 - **Slice tab buttons appear incorrect after reconnecting** — If the slice tab row shows the wrong number of buttons or a stale layout after the radio reconnects, disconnect and reconnect manually. In v0.9.5.1 this is corrected automatically: the applet calls `clearSliceButtons()` to remove the old buttons and restore the static slice badge before rebuilding the tab row for the new slice count (#2254).
 - **Filter preset button does not change passband** — If the current width is not a standard preset value, the widen/narrow step may not change the passband. This is expected behavior; click a specific filter preset button or type a frequency to change the passband, then the widen/narrow shortcuts will work from the new width.
 
-## NT mode notes
+## NT mode and RTTY mode notes
 
-The **NT** mode is treated as a digital mode in the RX Controls applet (v0.9.3+). This has the following effects:
+The **NT** and **RTTY** modes are treated as digital modes in the RX Controls applet (v0.9.3+ for NT, v26.5.1 for RTTY). This has the following effects:
 
-- NT uses the same filter width presets and step sizes as DIGU and DIGL.
+- NT and RTTY use the same filter width presets and step sizes as DIGU and DIGL.
 - The filter width indicator calculates bandwidth the same way as USB (using the upper passband edge).
-- Squelch is disabled while NT is active. If squelch was on when you switched to NT, it is turned off automatically and restored when you leave the mode.
+- Squelch is disabled while NT or RTTY is active. If squelch was on when you switched to NT or RTTY, it is turned off automatically and restored when you leave the mode.
+- For RTTY mode specifically, squelch is disabled because it would notch out FSK characters and break decoding (#2504).
 
 ## Related
 

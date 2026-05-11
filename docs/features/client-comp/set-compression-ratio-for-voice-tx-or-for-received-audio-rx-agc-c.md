@@ -28,6 +28,14 @@ The Ratio knob controls how hard the compressor clamps peaks once the signal cro
 
 The Ratio knob uses a logarithmic mapping (`1 × 20^n`) so that low ratios (gentle compression, 1.0–4.0:1) occupy most of the knob travel and high ratios (hard limiting, up to 20.0:1) are compressed into the upper end.
 
+## Transfer curve display
+
+The compact-mode ClientCompCurveWidget draws the static input/output transfer curve with a live "ball" showing the current envelope level. Axis labels are rendered using cached QStaticText objects that rebuild automatically when the applet switches between compact and expanded views. In the applet, the curve is view-only; to edit Knee and limiter ceiling parameters, open the floating ClientCompEditor by double-clicking the COMP stage in the CHAIN widget.
+
+## Gain-reduction meter
+
+The horizontal amber strip fills from right to left, showing up to 20 dB of gain reduction. A tick mark at -6 dB indicates a typical working amount of reduction. The meter refreshes at approximately 30 Hz using MeterSmoother ballistics applied to the `ClientComp::gainReductionDb()` value.
+
 ## Tips
 
 - A ratio between 2.0:1 and 4.0:1 is typical for voice TX compression. Values above 10.0:1 approach limiting behavior.

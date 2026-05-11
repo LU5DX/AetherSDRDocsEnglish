@@ -19,7 +19,7 @@ The ClientCompApplet shows a live gain-reduction meter and an animated transfer 
 
 | Control | Kind | What you see | Notes |
 |---|---|---|---|
-| Transfer curve | Indicator | Static input/output curve with a live ball at the current envelope level. | View-only in the applet; editable in the floating editor. |
+| Transfer curve | Indicator | Static input/output curve with a live ball at the current envelope level. | View-only in the applet; editable in the floating editor. Axis labels use QStaticText with aggressive caching for smoother rendering, especially on HiDPI displays. |
 | Gain-reduction bar | Meter | Horizontal amber strip, right-filled. Scale runs 0 to 20 dB of gain reduction. A tick marks the -6 dB point. | Refreshed at approximately 30 Hz with smoothed ballistics. |
 | Thresh | Knob | Current threshold. Default -18.0 dB; range -60.0 to 0.0 dB. | TX: `ClientCompTxThresholdDb`. RX: `ClientCompRxThresholdDb`. |
 | Ratio | Knob | Current ratio. Default 3.0; range 1.0 to 20.0. Displayed as X.XX:1. | TX: `ClientCompTxRatio`. RX: `ClientCompRxRatio`. |
@@ -33,6 +33,7 @@ The ClientCompApplet shows a live gain-reduction meter and an animated transfer 
 - If the **Gain-reduction bar** is pegged at or near 20 dB continuously, the ratio or threshold is set very aggressively. Raise the Thresh value or lower the Ratio knob to ease the compression.
 - The envelope ball on the **Transfer curve** rests at the threshold line when no audio is present. During audio, it travels along the curve; a ball sitting in the bent portion of the curve confirms active compression.
 - Both the TX and RX tiles update independently. You can monitor both simultaneously if both sub-containers are expanded.
+- The transfer curve axis labels use cached static text for improved rendering performance. The cache rebuilds automatically when switching between compact and full display modes.
 
 ## Troubleshooting
 

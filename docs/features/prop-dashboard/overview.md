@@ -55,6 +55,10 @@ Two fixed learning notes explain the difference between auroral propagation and 
 - Hovering over a **Current Conditions** card shows a detailed tooltip explaining the metric's significance for HF propagation, including which bands are most affected.
 - The dashboard does not require a connected Flex radio. You can consult it before powering up your station.
 
+## Frameless mode
+
+The Propagation Dashboard supports frameless window mode. When frameless mode is enabled, a custom title bar is displayed at the top of the dialog. The dialog automatically respects the global `FramelessWindow` setting in the application preferences. To toggle this behavior, set `FramelessWindow` to `True` or `False` in `Settings > General > Frameless Window`. When switching between modes, the dialog preserves its geometry and visibility state.
+
 ## Related
 
 - [Check current solar flux, sunspot number and K-index](check-current-solar-flux-sunspot-number-and-k-index.md)

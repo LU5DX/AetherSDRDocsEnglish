@@ -11,7 +11,7 @@ The Digital Voice Keyer (DVK) lets you record, store, and play back up to 12 voi
 
 The DVK panel appears in the AetherSDR main window when a voice mode is active. It shows 12 slots arranged in a scrollable grid. Each slot displays an F-key button (F1 through F12), a name label, a duration label, and a progress bar that activates during recording or playback.
 
-Clicking an F-key button selects that slot and starts playback if the slot contains a recording. Clicking it again while it is playing stops playback. The same behavior is available from the keyboard using F1 through F12. Pressing Escape stops whichever operation is currently active.
+Clicking an F-key button selects that slot and starts playback if the slot contains a recording. Clicking it again while it is playing stops playback. The same behavior is available from the keyboard using F1 through F12, but only while the DVK panel is visible. The keyboard shortcuts are disabled when the DVK panel is hidden to avoid conflicts with other panels that use the same F-keys (such as the CWX panel). Pressing Escape stops whichever operation is currently active.
 
 The four transport buttons at the bottom of the panel — ● REC, ■ STOP, ▶ PLAY, and ◀ PREV — act on whichever slot is currently selected. A status indicator at the bottom of the panel shows the current DVK state: Idle, Recording, or Playing.
 
@@ -21,7 +21,7 @@ Slots can be populated by recording directly through the radio or by uploading a
 
 | Control | Behavior | Default |
 |---|---|---|
-| F1 … F12 slot buttons | Selects the slot and toggles playback on-air. Right-click the row to rename or upload a WAV. | — |
+| F1 … F8 slot buttons | Selects the slot and toggles playback on-air. Right-click the row to rename or upload a WAV. Keyboard shortcuts F1-F12 work only while the DVK panel is visible. | — |
 | Slot name labels | Shows the name assigned to each slot. | Recording 1 … Recording 12 |
 | Slot duration labels | Shows the recorded length of the slot, or "Empty" if the slot has no content. | Empty |
 | Slot progress bars | Shows live playback or recording progress. Hidden when the slot is idle. | — |
@@ -36,6 +36,7 @@ Slots can be populated by recording directly through the radio or by uploading a
 
 - Pressing an F-key while that slot is already playing stops playback, so the same key both starts and stops a slot.
 - Pressing Escape cancels an active rename without saving, or stops the current recording, playback, or preview if no rename is in progress.
+- The DVK panel and the CWX panel share the same F-key shortcuts, but only one panel can be visible at a time. The keyboard shortcuts are automatically enabled when the DVK panel is shown and disabled when it is hidden, ensuring no conflicts.
 - Progress bar color indicates the operation in progress: red for recording, green for playback, and blue for preview.
 
 ## Related

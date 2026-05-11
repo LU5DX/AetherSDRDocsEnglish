@@ -92,6 +92,10 @@ Algorithms that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
 
 The level slider now properly reflects the radio state on initial connection. When a leveled DSP algorithm is already active in the radio's saved profile, the slider appears immediately rather than requiring a manual toggle (#startup-slider, v0.9.8).
 
+### Squelch behavior in RTTY mode
+
+As of v26.5.1, the squelch button and slider are disabled in RTTY mode. The radio squelch gates weak FSK signals, which interferes with external decoders that expect a continuous audio stream via DAX. If squelch was enabled when switching to RTTY mode, it is automatically turned off. The saved squelch state is restored when switching back to a voice mode.
+
 ## Tips
 
 - In collapsed view, scrolling the mouse wheel over the strip tunes the slice frequency by the current step size — the same as scrolling over the frequency display in the full panel.

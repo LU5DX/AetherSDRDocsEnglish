@@ -47,6 +47,14 @@ From v0.9.5.1, the slice tab row is rebuilt correctly whenever the number of ava
 
 No action is required on your part. If you reconnect to a radio with a different slice configuration, the tab row updates automatically.
 
+## RADE mode behaviour
+
+When you select RADE from the mode combo, the slice is placed into RADE (Rapid Automatic Detection and Excitation) mode. If the same slice was previously in RADE and you switch to another mode, the RADE deactivation signal is only emitted if that slice was actually in RADE before the change. This prevents spurious deactivations when:
+
+- Changing modes on a non-RADE slice
+- Loading a profile at startup
+- Activating RADE from an external source such as the VFO widget
+
 ## NT mode behaviour
 
 From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls applet:
@@ -54,6 +62,15 @@ From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls
 - **Filter width presets** apply the digital (DIG) preset list to NT slices, the same as DIGU and DIGL.
 - **Filter width display** calculates the NT filter width using the upper edge (hi), consistent with DIGU and FDV handling.
 - **Squelch** is disabled for NT slices. Because audio is routed via DAX in digital modes, the squelch control is not meaningful. The SQL button and squelch level slider are greyed out when NT is the active mode. If squelch was on when you switched to NT, it is turned off automatically and restored when you leave NT.
+
+## RTTY mode squelch behaviour (v26.5.1)
+
+From v26.5.1, RTTY mode is added to the list of modes that automatically disable squelch. When you switch to RTTY mode:
+
+- The **SQL** button and **Squelch level** slider are disabled.
+- If squelch was on, it is turned off automatically and the saved state is restored when you leave RTTY.
+
+This prevents squelch from notching out FSK characters and breaking decoding (#2504).
 
 ## Filter width presets (v0.9.5.1)
 

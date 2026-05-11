@@ -31,6 +31,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 ## Tips
 
 - The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
+- The transfer curve display caches axis labels for performance. Labels rebuild automatically when you toggle compact mode (e.g., when switching between the applet tile and the floating editor). This ensures the font size (9 px in full mode, 7 px in compact mode) always matches the current display without any visual lag.
 - A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
 - If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
 - Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the Knee and Limiter controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).

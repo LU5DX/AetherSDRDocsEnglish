@@ -17,6 +17,13 @@ Use this page to manually connect a TGXL, PGXL, Antenna Genius, or ShackSwitch d
 
 To disconnect a device, click **Disconnect** on its row.
 
+### Clearing a saved IP address
+
+If you previously saved a manual IP address for a peripheral and want to remove it:
+
+- Clear the IP address field and click **Connect** (while disconnected). AetherSDR removes the saved `ManualIp` and `ManualPort` settings and will no longer auto-connect on startup.
+- If you clear the IP field and close the Radio Setup dialog (without clicking Connect or Disconnect), AetherSDR treats the cleared field the same way — it wipes the saved settings and disconnects the device if it was connected.
+
 ## Peripherals tab — device rows
 
 | Device | Default port | Notes |
@@ -112,3 +119,37 @@ The lock status label beside the combo now shows richer information than the pla
 | External selected but reference not detected | `External 10 MHz Unlocked (not detected)` |
 
 The label color updates automatically: green (`#00c040`) when locked, red (`#c04040`) when unlocked, and grey (`#8aa8c0`) while waiting for status.
+
+---
+
+# Radio Setup — Serial Tab: FlexControl Tuning Wheel Actions
+
+## Available wheel actions
+
+The FlexControl tuning knob can be assigned one or two custom actions (one per button press) in the **Serial** tab. Starting in v26.5.1, two new wheel actions are available:
+
+| Action | Behavior |
+|---|---|
+| `WheelRit` | Adjusts RIT (Receiver Incremental Tuning) |
+| `WheelXit` | Adjusts XIT (Transmitter Incremental Tuning) |
+
+These join the existing wheel actions: `WheelFrequency`, `WheelVolume`, and `WheelPower`.
+
+### To assign a wheel action
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Serial** tab.
+3. Locate the FlexControl row.
+4. Click the **Button n Action** combo box for the desired button.
+5. Select the wheel action from the list.
+6. Close the dialog. The action takes effect immediately.
+
+---
+
+# Radio Setup — Frameless Window Mode
+
+Starting in v26.5.1, the Radio Setup dialog uses a frameless window with a custom title bar when the application is running in frameless mode. This matches the look of other AetherSDR dialogs.
+
+- The custom title bar includes the dialog name ("Radio Setup") and standard window controls (minimize, close).
+- You can drag the dialog by its title bar.
+- The dialog automatically adapts to the `FramelessWindow` application setting.

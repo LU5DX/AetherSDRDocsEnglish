@@ -58,6 +58,18 @@ This ensures that widening or narrowing a filter always stays within the mode-ap
 
 The `formatFilterWidth()` method is now a public static function, shared with the VFO panel (`VfoWidget`). This ensures both the RX Controls applet and the VFO panel display identical filter width readouts. The method uses mode-aware logic so SSB and digital modes display the correct labelled width (#2197).
 
+## NT and RTTY mode squelch behavior (v26.5.1)
+
+Squelch is disabled in NT mode, RTTY mode, and the existing digital modes (`DIGU`, `DIGL`). This prevents squelch from gating weak FSK signals and notching out characters, which would break decoding (#2504). If squelch was active when you switched into RTTY or a digital mode, AetherSDR turns it off automatically and saves the state so it can be restored when you leave the mode. The squelch button and slider remain disabled while the mode is active.
+
+## RADE mode activation (v26.5.1)
+
+When you select RADE mode from the mode combo box, the slice mode is set immediately on the slice before issuing the `radeActivated` signal. When switching away from RADE mode to any other mode, the `radeActivated(false)` deactivation is only emitted if the slice was actually in RADE mode prior to the switch. This defense-in-depth logic prevents spurious deactivation signals in the following scenarios:
+
+- Swapping between non-RADE modes (e.g., USB to LSB) on a slice that was never in RADE — no deactivate signal is sent.
+- Rebinding a slice via `setSlice()` — the current mode is always read from the bound slice, not from a leftover flag.
+- Externally activated RADE (via VFO combo, profile load on startup, or `MainWindow::activateRADE`) — the slice's mode is `"RADE"` regardless of how it got there, so the deactivate is correctly sent.
+
 ## NT mode
 
 Version 0.9.3 adds the `NT` mode alongside the existing digital modes (`DIGU`, `DIGL`). It behaves identically to other digital modes in the following ways:

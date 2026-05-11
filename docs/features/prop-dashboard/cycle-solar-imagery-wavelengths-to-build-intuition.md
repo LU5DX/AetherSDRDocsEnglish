@@ -35,6 +35,12 @@ The Solar And Lunar panel in the HF Propagation Dashboard displays a live solar 
 - The **Flaring (94Å)** view highlights high-temperature plasma associated with flare activity. Cross-reference it with the **X-RAY** metric card to see whether any visible flare regions are producing elevated X-ray flux.
 - No radio connection is required to use this feature.
 
+## Dashboard window behavior
+
+The HF Propagation Dashboard supports frameless window mode. When frameless mode is enabled, the dialog displays a custom title bar with the text "HF Propagation Dashboard". The title bar is hidden when frameless mode is disabled (standard window chrome active).
+
+Frameless mode is controlled by the `FramelessWindow` setting in `AppSettings`. The dashboard respects the current setting automatically when opened.
+
 ## Related
 
 - [HF Propagation Dashboard overview](overview.md)

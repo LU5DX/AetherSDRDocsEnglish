@@ -16,6 +16,17 @@ Export your stored memory channels to a CSV file for safekeeping or to share wit
 5. In the file dialog that opens, confirm or change the destination path and filename. The default filename is in the form `AetherSDR_Memories_<date-time>_v<version>.csv` and is placed in your home `Documents` folder.
 6. Confirm the save. AetherSDR writes the selected memories to the CSV file.
 
+## Notes on the dialog window
+
+The Memory Channels dialog uses a frameless window design (added in v26.5.1). The title bar displays "Memory Channels" with a grip glyph on the left side. You can:
+
+- Click and drag the title bar to move the dialog.
+- Double-click the title bar to toggle between maximized and restored state.
+- Click any edge or corner and drag to resize the dialog. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide.
+- Click the minimize button (—) to minimize the dialog.
+- Click the maximize button (□) to maximize or restore the dialog.
+- Click the close button (×) to close the dialog. Press Escape to clear the search field first, then close the dialog on a second press.
+
 ## Tips
 
 - If you want to export only the memories belonging to a particular group, use the `Profile:` combo box to filter the table to that group first, then click `Select All` before clicking `Export...`.

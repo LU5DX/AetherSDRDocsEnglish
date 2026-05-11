@@ -21,7 +21,7 @@ This page explains how to set the threshold level at which the Aetherial Compres
 | Control | Default | Valid range | Persisted key (TX / RX) | Behavior |
 |---|---|---|---|---|
 | Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` / `ClientCompRxThresholdDb` | Sets the input level above which compression begins. Lower values engage the compressor earlier. Mapping is linear. |
-| Transfer curve | — | — | — | View-only display of the input/output gain relationship. The live envelope ball shows where the current signal sits on the curve. |
+| Transfer curve | — | — | — | View-only display of the input/output gain relationship. The live envelope ball shows where the current signal sits on the curve. Axis labels are drawn with QStaticText for efficient text caching; labels are rebuilt automatically when the applet switches between compact and full mode. |
 | Gain-reduction bar | — | 0 to 20 dB GR | — | Horizontal amber strip, right-filled. Shows how much attenuation the compressor is applying at this moment. The tick marks −6 dB. |
 
 ## Tips

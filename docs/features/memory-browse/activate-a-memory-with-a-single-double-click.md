@@ -18,17 +18,19 @@ The radio tunes to the memory's stored frequency immediately.
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| Memory table | Lists all stored memories that have a valid frequency, sorted by frequency. Double-click or press Enter to activate a row. |
-| Highlighted row | Indicates the memory closest to the currently tuned frequency. The panel scrolls automatically to keep this row visible. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories with a valid frequency loaded. |
+| Control                          | Behavior                                                                                                                 | Notes                                                                                                                          |
+|----------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Memory table                     | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory.                 | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
+| Highlighted row                  | Indicates the memory closest to the currently tuned frequency. The panel scrolls automatically to keep this row visible. |                                                                                                                                |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories with a valid frequency loaded.                                |                                                                                                                                |
+| Add Memory                       | Saves the current slice as a new memory entry. Anchored at the bottom of the panel, always visible.                      | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant. Click to save the current slice on this panadapter as a memory. |
 
 ## Tips
 
 - You can also press Enter to activate the currently selected row without reaching for the mouse.
 - The highlighted row tracks your current tuning automatically. If you tune across the band, the highlight moves to whichever stored memory is nearest your current frequency.
 - If a memory has no name, the table shows its group name instead. If neither exists, it shows a generated label such as "Memory 3".
+- The **Add Memory** button stays visible even when you scroll through a long list of memories because it is anchored at the bottom of the panel, outside the scrolling table area.
 
 ## Troubleshooting
 

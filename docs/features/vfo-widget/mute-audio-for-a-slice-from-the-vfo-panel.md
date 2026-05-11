@@ -25,18 +25,9 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
 | Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. | |
 | Mute button (Audio tab) | Toggle button | Off | Mutes audio output for this slice without changing the AF gain setting. | |
-| Squelch button + slider (Audio tab) | Toggle button | Off | Enables squelch for this slice. The adjacent slider sets the threshold. | |
+| Squelch button + slider (Audio tab) | Toggle button | Off | Enables squelch for this slice. The adjacent slider sets the threshold. | Squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes, audio feeds external decoders via DAX and squelch is not meaningful — it also gates weak FSK signals. In CW mode, the radio locks squelch on at a fixed level and rejects changes. |
 | AGC combo (Audio tab) | Combo box | FAST | Sets the AGC attack/release speed for this slice. | |
-| NR button (DSP tab) | Toggle button | Off | Enables the radio-side noise reduction algorithm. | |
-| NB button (DSP tab) | Toggle button | Off | Enables noise blanker. | |
-| ANF button (DSP tab) | Toggle button | Off | Enables automatic notch filter. | |
-| APF button (DSP tab) | Toggle button | Off | Enables audio peaking filter (CW mode only). | |
-| NRL button (DSP tab) | Toggle button | Off | Enables noise reduction level. | |
-| NRS button (DSP tab) | Toggle button | Off | Enables spectral subtraction. | |
-| RNN button (DSP tab) | Toggle button | Off | Enables RNN noise reduction. | |
-| NRF button (DSP tab) | Toggle button | Off | Enables spectral noise filter. | |
-| ANFL button (DSP tab) | Toggle button | Off | Enables LMS notch filter. | |
-| ANFT button (DSP tab) | Toggle button | Off | Enables FFT notch filter. | |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button | Off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. | Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 | ADSP button (DSP tab) | Push button | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Push button | — | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 | Mode combo (Mode tab) | Combo box | USB | Sets the demodulation mode for this slice. | |
@@ -72,6 +63,16 @@ Algorithms that support a level via this slider: NR, NB, ANF, NRL, NRS, NRF, ANF
 
 **Note:** In v0.9.8, the DSP level slider now appears on launch for any DSP algorithm that was enabled in the radio's saved profile. Previously, it was missing until the user manually toggled the DSP button.
 
+## Squelch behavior by mode
+
+The squelch button and slider are automatically disabled in certain modes:
+
+- **Digital modes (DIGU, DIGL):** Squelch is disabled because audio feeds external decoders via DAX — squelch is not meaningful and gates weak FSK signals.
+- **RTTY:** Squelch is disabled for the same reasons as digital modes, resolving an issue where squelch would gate weak FSK signals (#2504).
+- **CW:** Squelch is disabled because the radio locks squelch on at a fixed level and rejects changes.
+
+When squelch is disabled and was previously enabled, the system automatically turns squelch off for the slice and saves its state. When you switch back to a voice mode, squelch may be restored.
+
 ## Tips
 
 - Muting a slice does not reset the AF Gain slider. When you unmute, audio returns at the same level it was before.
@@ -80,6 +81,7 @@ Algorithms that support a level via this slider: NR, NB, ANF, NRL, NRS, NRF, ANF
 - The ADSP and AetherVoice buttons in the DSP tab are client-side launchers. They are styled like radio-side DSP toggles but are not checkable.
 - Use the **ADSP** button to open the AetherDSP Settings dialog for client-side noise reduction algorithms.
 - Use the **AetherVoice** button to open the Aetherial Audio Channel Strip for unified TX/RX DSP.
+- Squelch is automatically disabled in digital, RTTY, and CW modes. If you switch to one of these modes while squelch is on, the system will turn it off and save its state for restoration when you return to a voice mode.
 
 ## Related
 

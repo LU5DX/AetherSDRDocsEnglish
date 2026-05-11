@@ -16,7 +16,11 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 6. Press Tab or click away from the field to confirm.
 7. In the **Station Name** field, type the name that identifies this client to other multiFLEX stations.
 8. Press Tab or click away from the field to confirm.
-9. Click **Close** to dismiss the dialog.
+9. Click the window's close button or press Escape to dismiss the dialog.
+
+## Dialog window features
+
+The Radio Setup dialog uses a frameless window with a custom title bar that includes draggable areas and standard window controls. The frameless appearance respects the `FramelessWindow` application setting — when enabled (the default), the dialog lacks an OS title bar and instead uses AetherSDR's custom title bar. When disabled, the dialog uses the standard OS window decorations.
 
 ## What each control does
 
@@ -42,6 +46,21 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 | **Use Aether defaults / Custom colors** | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. | Use Aether defaults |
 | **Slice A–H color buttons** | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. | — |
 | **Reset All to Defaults (Themes)** | Resets all custom slice colors to the built-in AetherSDR palette. | — |
+| **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings. | 1450 |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN. | Auto |
+| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. | False |
+| **Audio Boost:** | Enables extra gain on the client audio path. | — |
+| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Stored as `AudioBufferMs`. | 200 |
+| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. | Radio Side |
+| **Save to:** | Folder for saved recordings (client-side only). | Documents/AetherSDR/Recordings |
+| **Auto-record on TX** | Automatically records while transmitting. | False |
+| **Idle timeout:** | Seconds of silence before recording stops. | 120 |
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Controls the NVIDIA Broadcast noise-removal container. | — |
+| **Iambic:** | Enables or disables the iambic keyer on the radio. | — |
+| **Iambic Mode: A / B** | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. | A |
+| **Decode:** | Enables the CW decode overlay on the panadapter. | True |
+| **Peripherals IP/port fields** | When the IP field is cleared while disconnected, clicking **Connect** does nothing — it instead removes any previously saved manual IP from settings, preventing auto-connection at startup. When the dialog is closed with a cleared IP field and a previously saved manual IP exists, the saved IP is automatically removed and the device is disconnected if currently connected. | — |
+| **FlexControl button actions** | Button action mapping includes new wheel actions: WheelRit and WheelXit. These map the FlexControl tuning knob to adjust RIT and XIT offsets respectively. | — |
 
 ## Firmware update (Radio tab)
 
@@ -108,9 +127,4 @@ In both cases the **Cal Frequency (MHz)** field and the **Start** button are alw
 
 ### RX tab controls
 
-| Control | Description | Default |
-|---|---|---|
-| **Cal Frequency (MHz)** | Reference frequency used for manual calibration. Always shown from v0.9.2.1 onward, regardless of GPSDO presence. | — |
-| **Start** | Starts the frequency calibration sweep. Disabled and labelled **Busy** while a calibration is running. | — |
-| **Freq Offset (ppb)** | Manual frequency offset in parts per billion. | — |
-| **10 MHz Reference Source** | Selects oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Options shown depend on installed hardware and the oscillator state reported by the radio. The combo is populated dynamically: Auto is always present; TCXO appears when the radio reports a TCXO or oscillator status is available; GPSDO appears when a GPSDO is present; External 10 MHz appears when an external reference is detected or oscillator status is available. If the radio reports `ext` as the oscillator value, it is treated as `external`. Lock status updates live alongside the selector — green when locked, red when unlocked. When Auto is selected
+| Control | Description

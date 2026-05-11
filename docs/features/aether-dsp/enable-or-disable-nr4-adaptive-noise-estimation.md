@@ -6,15 +6,17 @@ The AetherDSP Settings dialog tunes the advanced parameters of AetherSDR's clien
 
 - AetherSDR does not need to be connected to a radio to adjust DSP settings.
 - The selected NR engine must already be active on your receive slice for these changes to have an audible effect.
-- Some DSP engines (MNR, BNR, RN2) are platform-dependent or informational only. For details see [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md).
+- Some DSP engines (MNR, BNR, RN2, NR4) are platform-dependent or informational only. For details see [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md).
 
 ## Open AetherDSP Settings
 
 1. Open `Settings > AetherDSP Settings...`.
 
-The dialog appears as a frameless window with a custom title bar. Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Click and drag any edge or corner to resize the dialog.
+The dialog appearance depends on your FramelessWindow setting. By default, the dialog uses a frameless window with a custom title bar. Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Click and drag any edge or corner to resize the dialog.
 
-The title bar contains three window controls:
+When the FramelessWindow setting is disabled in `Settings > Preferences > Display`, the dialog uses a standard OS window frame with title bar. In this mode, the custom title bar and window controls are hidden, and the dialog cannot be resized by dragging edges.
+
+The custom title bar (frameless mode only) contains three window controls:
 - **— (Minimize)**: Minimizes the dialog.
 - **□ (Maximize)**: Maximizes or restores the dialog.
 - **× (Close)**: Closes the dialog.
@@ -24,7 +26,7 @@ The title bar contains three window controls:
 At the top of the dialog, six toggle tabs act as both selector and enable/disable controls:
 
 - **NR2** – Musical-noise-reduction engine
-- **NR4** – libspecbleach noise suppression
+- **NR4** – libspecbleach noise suppression (dimmed on Windows builds without LLVM/clang-cl)
 - **MNR** – macOS MMSE-Wiener (dimmed on Windows/Linux builds)
 - **DFNR** – DeepFilterNet3 neural noise suppression
 - **RN2** – RNNoise (informational only, no adjustable parameters)
@@ -75,6 +77,10 @@ The setting takes effect immediately and is saved automatically to `NR4AdaptiveN
 - If the noise floor varies rapidly — such as during band openings or with impulse noise — leave **Adaptive Noise Estimation** checked so NR4 can track the changing conditions.
 - The **Noise Estimation Method** selector (MMSE, Brandt, Martin) determines how NR4 builds its noise model regardless of whether adaptive mode is on or off. Changing the method can affect how well the static or adaptive estimate tracks your noise floor.
 - Click **Reset Defaults** on the NR4 tab to return all NR4 controls to their factory values (adaptive on, MMSE, 10 dB, 0, 0, 0.50, 0.50).
+
+### NR4 availability on Windows
+
+NR4 uses the libspecbleach library, which requires the clang-cl compiler on Windows. If the NR4 tab is dimmed, install LLVM from llvm.org and rebuild AetherSDR to enable NR4 support.
 
 ## MNR parameters (macOS only)
 

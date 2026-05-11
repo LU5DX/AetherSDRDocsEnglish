@@ -8,6 +8,8 @@ The single **Sidetone** toggle and **Sidetone volume** slider drive both the rad
 
 In v0.9.7, the **Compression** gauge is now gated on the radio's interlock TRANSMITTING state (not meter flow), so it reads 0 during receive. **Breakin** now fully honors the radio's `break_in` setting — no auto-PTT envelope forces TX any more. The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
 
+In v26.5.1, both the Phone and CW sub-panels now feature an **ALC** gauge driven by the software ALC meter (post-software-ALC SSB peak in dBFS), replacing the previous HWALC (RCA voltage) path that produced meaningless readings. The two gauges are identical mirrors of each other, ensuring SSB operators watching mic gain during receive see the same indicator CW operators use to verify clean keying envelope shape (#2552).
+
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
@@ -86,7 +88,8 @@ In v0.9.8, the `setCwDelay` method was fixed to cache the value immediately so t
 
 - **Level** gauge: Shows microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS). Suppressed to -150 when `met_in_rx` is off and not transmitting.
 - **Compression** gauge: Shows speech compression amount in dB (-25 to 0 dB, reversed fill). Gated on the radio's interlock TRANSMITTING state and speech processor enable. Reads 0 dB during receive (v0.9.7).
-- **ALC** gauge (CW sub-panel): Shows automatic level control reading (0–100, red above 80).
+- **ALC (Phone panel)** gauge: Shows automatic level control reading from the software ALC meter (post-software-ALC SSB peak in dBFS, range -20 to 0 dBFS, red above -3 dBFS). Fills from the right, with empty at -20 dBFS and full at 0 dBFS (#2552, v26.5.1).
+- **ALC (CW panel)** gauge: Identical mirror of the Phone-panel ALC gauge, both driven by the same source (`MeterModel::swAlcChanged`). Range, scale, and fill direction match the Phone panel version exactly (#2552, v26.5.1).
 
 ## What each control does
 
@@ -136,20 +139,11 @@ While RADE is active:
 - The **Compression** gauge reads 0 dB during receive. It only shows a value while the radio's interlock reports TRANSMITTING and the speech processor is enabled. This prevents stale readings from appearing between transmissions.
 - With **Breakin** off, keys are queued and the radio does not go to TX until you engage PTT manually. With **Breakin** on (QSK), key edges trigger TX immediately and the break-in delay holds the relay open between elements. There is no longer an automatic PTT envelope that overrides this setting (v0.9.7).
 - For CW value fields (**Delay**, **Speed**, **Sidetone volume**, **Pitch**), click the numeric field, type your value, and press Enter or Tab. The value is validated and applied to both the slider and the radio (v0.9.8).
+- The **ALC** gauge on both the Phone and CW panels reads from the same software ALC meter source (`swAlcChanged`). Operators using either Phone or CW modes see consistent ALC readings. The gauge fills from right to left: empty at -20 dBFS, full at 0 dBFS, with a red segment above -3 dBFS (#2552, v26.5.1).
 
 ## Troubleshooting
 
 - **No sidetone is audible** — Confirm **Sidetone** is enabled and **Sidetone volume** is above zero. Both the radio monitor and the client-side generator are controlled by these two controls.
 - **Sidetone does not start on connect (Windows)** — This was resolved in v0.9.3 (#2105). Ensure you are running v0.9.3 or later.
 - **Level gauge does not appear on connect** — If **Mic source** is set to **PC** or RADE mode is active, the gauge should appear immediately on connect. For other mic sources without RADE, the gauge is suppressed when `met_in_rx` is off and the radio is not transmitting.
-- **Compression gauge shows 0 dB during receive** — This is expected behavior from v0.9.7 onward. The gauge is gated on the radio's interlock TRANSMITTING state and only shows a value while transmitting with the speech processor enabled.
-- **Breakin does not engage QSK** — Confirm **Breakin** is enabled in the CW sub-panel. From v0.9.7, the keyboard and MIDI keying paths fully honor this setting; no automatic PTT envelope overrides it.
-- **Pitch change has no effect** — Confirm the active slice is in a CW mode. The CW sub-panel and its pitch control are only active in CW modes.
-- **CW sub-panel is not visible** — The active slice is not in a CW mode. Switch the slice to CW; the applet switches automatically.
-- **CW delay slider snaps back when adjusting** — This was resolved in v0.9.8 (#2428). Ensure you are running v0.9.8 or later.
-- **Typed CW value does not apply** — Press Enter or Tab after typing the value in the editable field. The value is validated and applied when `editingFinished` fires.
-- **Mic gain slider does not update the radio in RADE mode** — This is correct. In RADE mode the slider controls client-side RADE gain only and stores the value in `PcMicGain`. The radio's mic level setting is not affected.
-
-## Related
-
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+- **Compression gauge shows 0 dB during receive** — This is expected behavior from v0.9.7 onward. The gauge is gated on the radio's interlock TRANSMITTING state and only shows a value while transmitting with the speech processor

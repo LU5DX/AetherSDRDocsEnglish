@@ -29,6 +29,7 @@ The HF Propagation Dashboard includes a 3-day Kp forecast grid showing geomagnet
 
 ## Tips
 
+- The dialog supports frameless mode. To enable or disable frameless mode, set the `FramelessWindow` setting to `True` or `False` in your AetherSDR settings file.
 - A Kp of 5 or higher signals storm-level geomagnetic activity. Polar and high-latitude paths are most affected. Lower HF bands (40m, 80m) tend to hold up better than upper bands during geomagnetic storms.
 - The R1-R2 and R3+ rows reflect probability estimates per day, not certainty. Check the Kp cell colors across individual 3-hour periods to see when during the day risk is highest.
 - Hover over the **Current Conditions cards** (SFI, SN, A-index, K-index, X-ray) for tooltip explanations of each index.
@@ -36,6 +37,7 @@ The HF Propagation Dashboard includes a 3-day Kp forecast grid showing geomagnet
 ## Troubleshooting
 
 - **Forecast grid shows no data or stale values** — AetherSDR fetches forecast data from the internet. Verify your network connection is active and reopen the dialog.
+- **Window decoration appears or disappears unexpectedly** — The frameless mode setting controls whether the dialog has a native window frame. Change the `FramelessWindow` setting and reopen the dialog.
 
 ## Related
 

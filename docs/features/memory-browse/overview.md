@@ -19,17 +19,19 @@ Activating a memory — by double-clicking a row or pressing Enter on a selected
 
 ## What each control does
 
-| Control | Description |
-|---|---|
-| Memory table | Lists all memories with a valid frequency. Columns are **Frequency** (MHz, six decimal places) and **Name**. Sorted by frequency. Double-click or press Enter to activate a memory. |
-| Highlighted row | The row whose frequency is closest to the currently tuned frequency. The panel scrolls to keep this row centered whenever the tuned frequency changes. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. |
+| Control                          | Description                                                                                                                                            | Notes                                                                                                                          |
+|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Memory table                     | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory.                                               | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
+| Highlighted row                  | The row whose frequency is closest to the currently tuned frequency. The panel scrolls to keep this row centered whenever the tuned frequency changes. |                                                                                                                                |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded.                                                                                     |                                                                                                                                |
+| Add Memory                       | Saves the current slice as a new memory entry. Anchored at the bottom of the panel, always visible.                                                    | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant.                                                         |
 
 ## Tips
 
 - The Name column displays the memory's name if one is set, then the group name if no individual name exists, then a generated label of the form `Memory N` as a fallback.
 - Long names are truncated with an ellipsis. Hover over any row to see the full frequency or name in a tooltip.
 - Memories with a frequency of 0 MHz or below are excluded from the table entirely.
+- Click **Add Memory** to save the active slice on the current panadapter as a new memory entry. The button remains visible at the bottom of the panel regardless of scroll position.
 
 ## Related
 

@@ -44,6 +44,12 @@ Use the Network Diagnostics dialog to read live round-trip time and per-category
 
 All counters refresh once per second.
 
+## Frameless mode
+
+The Network Diagnostics dialog supports a frameless window mode that is controlled by the `FramelessWindow` setting in `Settings > Preferences > Advanced > Use frameless windows`. When enabled, the dialog has no title bar and can be dragged by its custom title bar area. The resize behavior (eight-axis cursor on edges and corners) remains active in frameless mode. When disabled, the dialog uses the standard OS window decoration with a regular title bar.
+
+The frameless mode setting is applied immediately when changed in Preferences; you do not need to reopen the dialog.
+
 ## Logs tab
 
 The Logs tab tails the AetherSDR log file in real time. The full path to the file being tailed is shown above the log viewer.
@@ -68,12 +74,14 @@ To filter the log output:
 - Loss that appears on all stream categories simultaneously points to a shared network path problem rather than an audio-specific issue.
 - Use the **Timeframe** selector to zoom the time-series charts in or out. Narrower timeframes (1 minute) make recent spikes easier to see; wider timeframes (1 hour or more) help identify recurring patterns.
 - Use the **Logs** tab with appropriate category filters to correlate raw log events with the metrics shown in the other tabs.
+- The frameless mode setting affects all AetherSDR frameless-capable dialogs. If the Network Diagnostics dialog does not show a title bar, check that `FramelessWindow` is enabled in Preferences.
 
 ## Troubleshooting
 
 - **All drop counters show 0 / 0** — No VITA packets have been received in that category. Confirm the radio is connected and transmitting the relevant streams.
 - **RTT reads `< 1 ms` but audio is broken** — Network latency is not the cause. See the Audio Playback section for underrun and jitter data.
 - **Logs tab shows no output** — Check that at least one category checkbox is selected. Click **Select All** to restore all categories.
+- **Dialog has no title bar and cannot be moved** — Frameless mode is enabled. Drag the dialog by clicking on the custom title bar area at the top. To disable frameless mode, go to `Settings > Preferences > Advanced` and uncheck `Use frameless windows`.
 
 ## Related
 
@@ -81,3 +89,4 @@ To filter the log output:
 - [Check per-category data rates (audio, FFT, waterfall, meters, DAX)](check-per-category-data-rates-audio-fft-waterfall-meters-dax.md)
 - [Network Diagnostics overview](overview.md)
 - [Verify the radio's IP and local bind address](verify-the-radio-s-ip-and-local-bind-address.md)
+- [Advanced preferences](../../preferences/advanced.md)

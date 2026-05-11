@@ -1,22 +1,56 @@
-# Connect to a local LAN radio
+# Connect to a Radio
 
-Use this page to connect AetherSDR to a FLEX-8600 that is on the same LAN as your computer. AetherSDR discovers the radio automatically using mDNS — no IP address required.
+Use the connection panel to connect AetherSDR to a FLEX-8600. You can connect to a radio on your local LAN, a remote radio through SmartLink, or a radio at a manual IP address (for VPN or routed network connections).
+
+The connection panel opens automatically when AetherSDR starts and no radio is connected. You can also open it at any time via `Settings > Connect to Radio...`.
 
 ## Before you start
 
-- The FLEX-8600 must be powered on and reachable on the same local network as your computer.
-- AetherSDR must be running. The connection screen appears automatically before any radio is connected, or after a disconnect.
-- Confirm that no VPN, guest Wi-Fi isolation, or host firewall is blocking mDNS/discovery traffic on your network.
+- The FLEX-8600 must be powered on and reachable on your network.
+- For LAN connections: Confirm that no VPN, guest Wi-Fi isolation, or host firewall is blocking mDNS/discovery traffic on your local network.
+- For SmartLink: Ensure you have a valid FlexRadio SmartLink account.
 
-## Steps
+## Connection modes
 
-1. Open the connection screen. It appears automatically at startup. You can also open it at any time via `Settings > Connect to Radio...`.
-2. Click **Local**. This is the default mode, so it may already be selected.
-3. Wait a few seconds for the **Available radios** list to populate. AetherSDR listens for discovery packets from the radio; this normally completes within a few seconds.
-4. Click your radio in the **Available radios** list to highlight it.
-5. Click **Connect Selected Radio**.
+The connection panel has three modes, selected by the radio buttons at the top:
 
-The status label at the bottom of the panel updates through connecting and then connected states as the link is established.
+- **Local** — Discovers and connects to radios on your local LAN.
+- **SmartLink** — Connects to remote radios through FlexRadio's SmartLink service.
+- **Manual** — Connects to a radio at a specific IP address, useful for VPN or routed network connections.
+
+The panel remembers your last mode and restores it on next launch.
+
+## Local mode steps
+
+1. Click **Local**.
+2. Wait a few seconds for the **Available radios** list to populate. AetherSDR listens for discovery packets from the radio; this normally completes within a few seconds.
+3. Click your radio in the **Available radios** list to highlight it.
+4. Click **Connect Selected Radio**.
+
+The status label at the bottom of the panel updates through searching, connecting, and then connected states as the link is established.
+
+## SmartLink mode steps
+
+1. Click **SmartLink**.
+2. Enter your SmartLink account email in the **SmartLink account: Email** field.
+3. Enter your account password in the **SmartLink account: Password** field.
+4. Click **Sign In**.
+5. Wait for the **Remote radios** list to populate with radios available to your account.
+6. Click a radio in the list to highlight it.
+7. Click **Connect Remote Radio**.
+
+To sign out of SmartLink, click **Sign Out**.
+
+## Manual mode steps
+
+1. Click **Manual**.
+2. Enter the IP address of the radio in the **Radio IP address** field.
+   - You can also click the drop-down arrow to select a previously used address.
+3. (Optional) Click **Advanced: Source path** to select a specific network interface.
+4. (Optional) Check **Use low bandwidth mode** if you are on a slow or metered link.
+5. Click **Connect by IP (manual)**.
+
+The status label shows the connection result, and the **Manual result label** provides additional detail.
 
 ## What each control does
 
@@ -24,11 +58,11 @@ The status label at the bottom of the panel updates through connecting and then 
 |---|---|---|
 | **Local / SmartLink / Manual** | Switches the panel among the three connection modes. Default mode on first launch is **Local**. | `ConnectionMode` |
 | **Available radios** | Lists FLEX-8600 radios discovered on the LAN via mDNS. Populated automatically; no input required. | — |
-| **Connect Selected Radio** | Connects to the highlighted radio. Enabled only when a radio is selected in the list. | — |
+| **Connect Selected Radio** | Connects to the highlighted LAN radio. Enabled only when a radio is selected in the list. | — |
 | **No local radios found yet** | Callout shown when discovery returns no results. Replaces the list until a radio is found or discovery is retried. | — |
 | **Retry Discovery** | Re-runs LAN discovery immediately. Appears inside the empty-state callout. | — |
-| **Connect by IP** | Shortcut to the **Manual** mode. Appears inside the empty-state callout. | `ConnectionMode` |
 | **Remote with SmartLink** | Shortcut to the **SmartLink** mode. Appears inside the empty-state callout. | `ConnectionMode` |
+| **Connect by IP** | Shortcut to the **Manual** mode. Appears inside the empty-state callout. | `ConnectionMode` |
 | **Open Network Diagnostics** | Opens the network diagnostics window. Appears inside the empty-state callout. | — |
 | **SmartLink account: Email** | Email address used to sign in to SmartLink. Saved between sessions. | `SmartLinkEmail` |
 | **SmartLink account: Password** | Password used to sign in to SmartLink. Not saved between sessions. | — |
@@ -46,11 +80,15 @@ The status label at the bottom of the panel updates through connecting and then 
 
 ## Recent IP addresses (Manual mode)
 
-Starting in v0.9.7, the **Radio IP address** field is a drop-down combo box that remembers the last three addresses you connected to successfully. Click the arrow to see the list and select a previous address, or type a new one directly in the field.
+The **Radio IP address** field is a drop-down combo box that remembers the last three addresses you connected to successfully. Click the arrow to see the list and select a previous address, or type a new one directly in the field.
 
 Addresses are normalised (trimmed and parsed through `QHostAddress`) before being stored so that equivalent forms of the same address are not saved as duplicates. The list is written to the `RecentConnectByIpAddresses` setting as a compact JSON array.
 
 If you are upgrading from a version prior to v0.9.7, the single address previously stored under `LastRoutedRadioIp` is automatically carried forward as the first entry in the new list. No manual migration is required.
+
+## Window appearance
+
+The connection panel is a frameless dialog with a custom title bar. The title bar shows "Connect to Radio" and includes standard window control buttons. This appearance can be controlled by the `FramelessWindow` setting.
 
 ## Tips
 

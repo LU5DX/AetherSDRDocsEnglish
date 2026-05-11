@@ -28,19 +28,28 @@ The **Send** button behaves differently depending on whether **Live** is current
 
 | Control | What it does | Setting key |
 |---|---|---|
-| **Send** | Submits the typed buffer for transmission when **Live** is off. If **Live** is on, turns **Live** off and returns to the send view without retransmitting. | — |
-| **Live** | Toggles live send mode on or off. While on, characters are keyed as you type them. Turning on **Live** also deselects **Setup** and shows the send view. | — |
-| **Setup** | Switches to the macro editor and QSK setup view. Turning on **Setup** also turns **Live** off. | — |
-| **Speed:** | Sets CW send speed in WPM. Range: 5–100 WPM. Default: 20 WPM. | `CwxSpeedWpm` |
+| **Send** (view) | Shows the live send area with history and text field. | — |
+| **Live** (view) | Shows the live send view. | — |
+| **Setup** (view) | Shows the macro editor and QSK setup. | — |
+| **Speed:** | Sets CW send speed in WPM. | `CwxSpeedWpm` |
 | Send text area | Type your CW message here. Press Enter to send. | — |
-| Send history scroll | Displays previous sent buffers with timestamps. Read-only. | — |
-| **Delay:** | Sets inter-macro delay in milliseconds. Range: 0–2000 ms. Default: 5 ms. Available in Setup view. | `CwxDelay` |
+| Send history scroll | Displays previous sent buffers with character highlighting. Read-only. | — |
+| **F1 … F12** (macros) | Sends the pre-written macro for that function key. | `CwxMacro_F1..F12` |
+| **F1 … F12** macro editors | Setup view editors for each macro. | `CwxMacro_F1..F12` |
+| **Delay:** | Sets inter-macro delay in milliseconds. Available in Setup view. | `CwxDelay` |
 | **QSK** | Enables QSK (full break-in). Available in Setup view. | `CwxQsk` |
-| Prosigns legend | Shows character shortcuts for common CW prosigns. Read-only. | — |
+| Prosigns legend | Shows character shortcuts for common CW prosigns (=, +, (, &, $). Read-only. | — |
+
+## Keyboard shortcuts
+
+F1–F12 and Escape shortcuts are active only while the CWX panel is visible. This prevents ambiguity with other panels that may register the same keys (such as the Digital Voice Keyboard panel). When you switch to a different panel in the splitter, CWX shortcuts are disabled automatically.
+
+- **F1–F12** — Send the pre-written macro for that function key while a CW mode slice is active.
+- **Escape** — Clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
 
 ## Tips
 
-- F1–F12 send pre-written macros while a CW mode slice is active. The keyboard shortcuts work application-wide in CW and CWL modes. See [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md).
+- F1–F12 send pre-written macros while a CW mode slice is active. See [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md).
 - Pressing **Escape** clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
 - Adjust **Speed:** in the bottom bar without switching views. The spinbox is visible in both the send and setup views.
 - When you reconnect to a radio, the **Live** button reflects the radio's current live state automatically.
@@ -51,6 +60,7 @@ The **Send** button behaves differently depending on whether **Live** is current
 - **Clicking Send does not transmit** — If **Live** was on, the first click on **Send** only turns **Live** off. Click **Send** a second time (or press **Enter**) to transmit the buffer.
 - **Pressing Enter does nothing** — Click inside the Send text area first to give it focus, then press Enter.
 - **Escape does not stop transmission** — Escape fires an application-wide shortcut. If a dialog or text widget captures the key first, click away from it and press Escape again.
+- **F1–F12 macros do not trigger** — Ensure the CWX panel tab is actively selected in the splitter. The shortcuts are disabled when the panel is hidden.
 
 ## Related
 

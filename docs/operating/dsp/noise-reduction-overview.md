@@ -6,7 +6,7 @@ AetherSDR provides six client-side noise-reduction engines. This page describes 
 
 - Open AetherDSP Settings via `Settings > AetherDSP Settings...`.
 - The NR engine you configure here is client-side only; it does not require a radio connection.
-- The dialog uses a frameless title bar introduced in v0.9.8. Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Click and drag any edge or corner to resize the dialog.
+- The dialog can be used in either frameless or native window mode, controlled by the `FramelessWindow` setting in `Settings > Application Settings... > General`. Close and reopen AetherDSP Settings for the change to take effect. In frameless mode the title bar provides drag-to-move and resize. In native mode the standard OS window chrome applies.
 
 ## Steps
 
@@ -21,12 +21,12 @@ The dialog provides standard window management via the title bar:
 
 | Control | Behavior |
 |---|---|
-| Title bar — AetherDSP Settings | Frameless 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title |
+| Title bar — AetherDSP Settings | Frameless 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Visible only in frameless mode. |
 | — (Minimize) | Minimizes the dialog |
 | □ (Maximize) | Maximizes or restores the dialog |
 | × (Close) | Closes the dialog |
-| Drag-to-move | Click and drag the title bar to move the dialog |
-| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction |
+| Drag-to-move | Click and drag the title bar to move the dialog (frameless mode only) |
+| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction (frameless mode only) |
 
 ## What each control does
 
@@ -91,6 +91,8 @@ A separate spectral-bleaching engine with its own noise estimator and additional
 
 **Reset Defaults (↺ icon)** restores: MMSE / Adaptive on / 10.0 dB / 0 / 0 / 0.50 / 0.50.
 
+**Platform note:** NR4 requires LLVM (clang-cl) on Windows. If the **NR4** toggle is disabled and shows a tooltip about LLVM, install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
+
 ---
 
 ### DFNR — DeepFilterNet3
@@ -150,7 +152,9 @@ The **BNR** tab is informational only. BNR intensity is controlled from the over
 - **NR4 is not reducing noise enough** — Increase **Reduction (dB):** and enable **Adaptive Noise Estimation** if it is off.
 - **DFNR removes weak signals along with the noise** — Lower **Attenuation Limit** from 100 toward 40–60 dB.
 - **MNR tab is present but has no effect** — MNR is macOS-only. On Linux or Windows, use NR2, NR4, or DFNR instead.
+- **NR4 toggle is disabled on Windows** — NR4 requires LLVM (clang-cl). Install LLVM from llvm.org and rebuild AetherSDR.
 - **NR2 or NR4 settings did not persist after restart** — Settings are saved automatically on each control change. If values revert, click **Reset Defaults (↺ icon)** and re-enter the desired values to force a save.
+- **Frameless window mode is active but title bar looks different** — Toggle the `FramelessWindow` setting in `Settings > Application Settings... > General`, then close and reopen the dialog.
 
 ## Related
 

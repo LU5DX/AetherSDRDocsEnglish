@@ -20,6 +20,14 @@ The CWX panel includes a built-in prosigns legend that shows which keyboard char
 | Prosigns legend | Indicator (read-only) | Displays the keyboard shortcuts for common CW prosigns: `=`, `+`, `(`, `&`, `$`. | — |
 | Send text area | Text field | Type your CW message here, using prosign shortcuts where needed. Press Enter to send. | — |
 | F1 … F12 macro editors | Text fields | Enter prosign shortcuts directly into macro text in the Setup view. | `CwxMacro_F1` – `CwxMacro_F12` |
+| Speed: | Spinbox | CW speed in WPM. | `CwxSpeedWpm` |
+| Delay: | Spinbox | Inter-macro delay. | `CwxDelay` |
+| QSK | Toggle button | Enables QSK (full break-in). | `CwxQsk` |
+| Send (view) | Push button | Shows the live send area with history and text field. | — |
+| Live (view) | Push button | Shows the live send view. | — |
+| Setup (view) | Push button | Shows the macro editor and QSK setup. | — |
+| Send history scroll | Indicator | Shows previous send buffers with character highlighting. | — |
+| F1 … F12 (macros) | Push buttons | Sends the pre-written macro for that function key. | `CwxMacro_F1` – `CwxMacro_F12` |
 
 ## How Send and Live interact
 
@@ -32,11 +40,19 @@ The **Live** button is now a toggle. Clicking it a second time turns Live mode o
 
 Clicking **Setup** always turns Live mode off before showing the macro editor view.
 
+## Keyboard shortcuts in the CWX panel
+
+The CWX panel registers the F1 through F12 keys and the Escape key as application-wide shortcuts. These shortcuts are **only active while the CWX panel is visible**. When you hide the panel or switch to another panel (such as the DVK panel), the shortcuts are automatically disabled to prevent conflicts with other panels that may use the same keys.
+
+- **F1 – F12:** Sends the corresponding macro string.
+- **Escape:** Clears the current send buffer.
+
 ## Tips
 
 - Prosign shortcuts work in both the live send text area and in the F-key macro editors. Type them as you would any other character.
 - To send a macro that contains a prosign, edit the macro string in the Setup view using the same shortcut characters, then trigger it with the corresponding F-key from the Send view.
 - If you switch from Live mode to Send mode and want to transmit the buffer contents, turn Live off first (click **Live** to toggle it off), then click **Send**.
+- The F1–F12 and Escape keyboard shortcuts are only active when the CWX panel is visible. If you cannot trigger a macro with an F-key, ensure the CWX panel is the active panel.
 
 ## Related
 

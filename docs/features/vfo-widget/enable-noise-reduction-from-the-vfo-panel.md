@@ -48,6 +48,17 @@ The slider state is correctly managed on startup: if a leveled DSP algorithm was
 
 The algorithms **NR2**, **RN2**, **NR4**, **MNR**, **BNR**, and **DFNR** are no longer in the VFO panel DSP tab. These client-side processing modules are available from the spectrum overlay menu and from the AetherDSP applet. Access them there to keep the VFO panel focused on radio-supplied DSP.
 
+## Notes about squelch
+
+Squelch is disabled (button and slider become non-functional) when the slice is in the following modes:
+- Digital modes (DIGU, DIGL)
+- RTTY
+- CW modes (CW, CWL)
+
+In digital and RTTY modes, squelch is not meaningful because the audio feeds external decoders via DAX. Additionally, squelch can gate weak FSK signals (#2504). In CW modes, the radio locks squelch on at a fixed level and rejects changes.
+
+If squelch was active when switching to one of these modes, it is automatically turned off. The saved state is restored when switching back to a supported mode.
+
 ## Tips
 
 - Multiple noise reduction buttons can be active at the same time.

@@ -56,7 +56,7 @@ The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (
 |---|---|---|
 | Input ball | Below threshold / above threshold | Shows whether the gate is currently open or closed. |
 | Hysteresis band | Absent (Return = 0) / soft-cyan vertical band | Visualises the Return deadband on the transfer-curve input axis — the gate's sticky zone between (Thresh − Return) and Thresh. |
-| Gain-reduction strip | Empty / amber fill / −15 dB tick | Depth of attenuation while the gate is closed. |
+| Gain-reduction strip | Empty / amber fill / −15 dB tick | Depth of attenuation while the gate is closed. Scale maxes at 40 dB; a tick at −15 dB marks the soft-expander default floor. |
 | Applet tile opacity | Full opacity (enabled) / ~55 % opacity (bypassed) | Indicates at a glance whether the gate stage is currently processing audio. |
 
 ## Tips
@@ -75,6 +75,7 @@ The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (
 - **Gate chatters rapidly near the threshold** — Return is set too low. Increase Return so the gate does not reopen until the signal is clearly above Thresh, widening the deadband shown by the cyan band on the transfer curve.
 - **Unnatural silence between words** — Floor is set too deep. Raise Floor toward 0 dB so some residual audio passes through during closed periods. See [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md).
 - **Knob positions in the tile do not match the floating editor** — The tile syncs every ~33 ms. If they appear mismatched immediately after opening the editor, wait one update cycle or move a knob to force a sync.
+- **Axis label clipping or jitter on the transfer curve** — This issue has been resolved in v26.5.1. The curve now uses cached static text for axis labels, improving rendering performance and preventing label movement during compact mode transitions.
 
 ## Related
 

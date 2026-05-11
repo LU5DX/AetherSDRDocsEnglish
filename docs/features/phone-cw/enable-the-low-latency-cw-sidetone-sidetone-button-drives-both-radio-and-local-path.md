@@ -18,17 +18,29 @@ Turning on the CW sidetone in AetherSDR enables two paths at once: the radio's D
 
 ## What each control does
 
-| Control         | Kind                                                                                                                                                                                       | Default                                                                                           |
-|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| Delay (CW)      | Slider with QLineEdit (v0.9.8). Type a value (0–2000 ms) directly in the field, or drag the slider. Calls TransmitModel::setCwDelay.                                                       | 500 ms                                                                                            |
-| Speed (CW)      | Slider with QLineEdit (v0.9.8). Type a value (5–100 WPM) directly in the field, or drag the slider. Calls TransmitModel::setCwSpeed.                                                       | 20 WPM                                                                                            |
-| Sidetone        | Toggle button                                                                                                                                                                              | —                                                                                                 |
-| Sidetone volume | Slider with QLineEdit (v0.9.8). Type a value (0–100) directly in the field, or drag the slider. Calls TransmitModel::setMonGainCw. Also sets the local sidetone generator volume in lockstep. | 50                                                                                                |
-| Pitch < / >     | QLineEdit with < / > buttons (CwTriBtn). Type a value (100–6000) or click the buttons to step by 10 Hz. Calls TransmitModel::setCwPitch (v0.9.8, #2429).                                   | 600 Hz                                                                                            |
-| L / R pan (CW)  | Slider                                                                                                                                                                                     | 50 (centre)                                                                                       |
-| Breakin         | Toggle button                                                                                                                                                                              | —                                                                                                 |
-| Iambic          | Toggle button                                                                                                                                                                              | —                                                                                                 |
-| ALC             | Meter                                                                                                                                                                                      | 0–100 (red > 80)                                                                                  |
+| Control             | Kind                                                                                                                                                                                          | Default                                                                                                                  |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Level               | Meter. Shows microphone input peak level in dBFS (Phone panel). Suppressed to -150 when met_in_rx is off and not transmitting.                                                                | —                                                                                                                        |
+| Compression         | Meter. Shows speech compression amount in dB (Phone panel). Reversed fill. Gated on radio's interlock TRANSMITTING state and speech processor enable.                                        | —                                                                                                                        |
+| ALC (Phone panel)   | Meter. Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS.                      | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| ALC (CW panel)      | Meter. Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS.         | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
+| Mic profile         | Combo box. Loads the named mic processing profile; calls TransmitModel::loadMicProfile.                                                                                                       | —                                                                                                                        |
+| Mic source          | Combo box. Selects microphone input source (MIC, BAL, LINE, ACC, PC, plus any from micInputList()); calls TransmitModel::setMicSelection.                                                     | —                                                                                                                        |
+| Mic gain            | Slider. Adjusts mic input level (0–100). For 'PC' source uses local PcMicGain persistence. Default: 50. Setting key: `PcMicGain`.                                                             | 50                                                                                                                       |
+| +ACC                | Toggle button. Enables the accessory mic input mix; calls TransmitModel::setMicAcc.                                                                                                           | —                                                                                                                        |
+| PROC                | Toggle button. Toggles the speech processor; calls TransmitModel::setSpeechProcessorEnable.                                                                                                   | —                                                                                                                        |
+| NOR/DX/DX+          | Slider. Three-position processor level (0=NOR, 1=DX, 2=DX+); calls TransmitModel::setSpeechProcessorLevel.                                                                                   | 0 (NOR)                                                                                                                  |
+| DAX                 | Toggle button. Enables DAX as the TX audio source; calls TransmitModel::setDax.                                                                                                               | —                                                                                                                        |
+| MON                 | Toggle button. Enables TX sidetone monitor; calls TransmitModel::setSbMonitor.                                                                                                                | —                                                                                                                        |
+| Monitor volume      | Slider. Sets sideband monitor volume (0–100); calls TransmitModel::setMonGainSb.                                                                                                              | —                                                                                                                        |
+| Delay (CW)          | Slider with QLineEdit (v0.9.8). Type a value (0–2000 ms) directly in the field, or drag the slider. Calls TransmitModel::setCwDelay.                                                          | 500 ms                                                                                                                   |
+| Speed (CW)          | Slider with QLineEdit (v0.9.8). Type a value (5–100 WPM) directly in the field, or drag the slider. Calls TransmitModel::setCwSpeed.                                                          | 20 WPM                                                                                                                   |
+| Sidetone            | Toggle button. Toggles CW sidetone monitor; calls TransmitModel::setCwSidetone. Also enables/disables the client-side CwSidetoneGenerator in lockstep (v0.9.1+).                              | —                                                                                                                        |
+| Sidetone volume     | Slider with QLineEdit (v0.9.8). Type a value (0–100) directly in the field, or drag the slider. Calls TransmitModel::setMonGainCw. Also sets the local sidetone generator volume in lockstep. | 50                                                                                                                       |
+| Pitch < / >         | QLineEdit with < / > buttons (CwTriBtn). Type a value (100–6000) or click the buttons to step by 10 Hz. Calls TransmitModel::setCwPitch (v0.9.8, #2429).                                      | 600 Hz                                                                                                                   |
+| L / R pan (CW)      | Slider. Sets CW monitor stereo pan (0–100); calls TransmitModel::setMonPanCw and applies constant-power pan to local sidetone generator (v0.9.1+).                                             | 50 (centre)                                                                                                              |
+| Breakin             | Toggle button. Toggles full break-in (QSK); calls TransmitModel::setCwBreakIn.                                                                                                                | —                                                                                                                        |
+| Iambic              | Toggle button. Toggles iambic paddle keyer; calls TransmitModel::setCwIambic.                                                                                                                 | —                                                                                                                        |
 
 ## Direct value entry (v0.9.8)
 
@@ -40,6 +52,16 @@ In v0.9.8 the four numeric value labels in the CW sub-panel were upgraded from r
 - **Pitch < / >** — Type any value from 100 to 6000 Hz. Press Enter or Tab to apply. The **<** and **>** buttons step by 10 Hz.
 
 When you type a value that is outside the valid range, the field clamps the value to the nearest valid boundary (SmartSDR parity).
+
+## ALC meters in v26.5.1
+
+In v26.5.1 both the Phone and CW sub-panels received identical ALC gauges that read from the software ALC meter (MeterModel::swAlcChanged). This replaces the previous hardware ALC (RCA voltage) path that produced meaningless readings.
+
+- Both gauges display in dBFS with a range of -20 to 0 dBFS.
+- The fill direction is right-to-left: empty at -20 dBFS, full at 0 dBFS.
+- A red zone appears above -3 dBFS.
+- Values outside the [-20, 0] range clamp to the nearest endpoint.
+- The single updateAlc() slot drives both gauges simultaneously, ensuring SSB and CW operators see the same post-ALC peak reading.
 
 ## RADE mode and the mic level slider
 
@@ -55,6 +77,7 @@ When RADE mode is active, the **Mic gain** slider operates as a client-side gain
 - The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value when the radio's interlock reports the TRANSMITTING state and the speech processor (**PROC**) is enabled. This prevents stale readings from the TX chain being displayed while you are receiving.
 - With **Breakin** off, key presses are queued and TX must be engaged manually with PTT. With **Breakin** on (QSK), key edges trigger TX directly and `break_in_delay` controls the relay hang time. No automatic PTT envelope overrides this behaviour.
 - The **Delay (CW)** slider now updates its cached value immediately when dragged, preventing the radio from snapping the slider back to its previous position (v0.9.8, #2428).
+- The ALC gauge on both panels reads the same meter source, so you can monitor ALC regardless of which sub-panel is visible.
 
 ## Troubleshooting
 
@@ -65,6 +88,7 @@ When RADE mode is active, the **Mic gain** slider operates as a client-side gain
 - **Breakin OFF does not hold TX between characters** — With **Breakin** off, AetherSDR no longer applies an automatic PTT envelope. Engage PTT manually before sending and release it when finished.
 - **Mic gain slider has no effect in RADE mode** — In RADE mode the slider sets client-side gain stored as `PcMicGain` and does not send commands to the radio. Adjust the slider to the desired level; it takes effect on the local RADE audio path.
 - **Delay slider snaps back after dragging** — This bug was fixed in v0.9.8 (#2428). Update to the latest version if you experience this.
+- **ALC gauge shows unexpected values** — Both ALC gauges now read from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). If you see readings outside the -20 to 0 dBFS range, the values clamp to the gauge limits. The previous HWALC (RCA voltage) path has been removed.
 
 ## Related
 

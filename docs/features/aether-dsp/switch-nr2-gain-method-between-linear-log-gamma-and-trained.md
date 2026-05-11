@@ -5,21 +5,20 @@ The AetherDSP Settings dialog tunes the advanced parameters of AetherSDR's clien
 ## Opening the dialog
 
 1. Click **Settings > AetherDSP Settings...**.
-2. The dialog opens as a frameless window with a custom title bar.
+2. The dialog opens. Depending on the **FramelessWindow** setting (default enabled), the dialog either appears as a frameless window with a custom title bar or with the standard OS window chrome.
 
-The dialog can be moved by clicking and dragging the title bar. Double-click the title bar to toggle maximize/restore. Resize by clicking and dragging any edge or corner (6 px resize hit zone).
+The dialog can be moved by clicking and dragging the title bar (frameless mode) or the OS title bar (standard mode). Double-click the title bar to toggle maximize/restore. Resize by clicking and dragging any edge or corner (6 px resize hit zone) when in frameless mode.
 
 ## Dialog controls
 
-The title bar contains three window control buttons:
+When in frameless mode, the title bar contains three window control buttons and a grip glyph:
 
 | Button | Action |
 |--------|--------|
+| **⋮⋮ (Grip glyph)** | Visual reference indicator on the left of the title bar. |
 | **— (Minimize)** | Minimizes the dialog. |
 | **□ (Maximize)** | Maximizes or restores the dialog. |
 | **× (Close)** | Closes the dialog. |
-
-A grip glyph (⋮⋮) appears on the left side of the title bar for visual reference.
 
 ## DSP engine selection tabs
 
@@ -28,6 +27,7 @@ Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine'
 ### Tab availability
 
 - **MNR** — Dimmed on Windows/Linux builds. The MNR engine has no backend on those platforms.
+- **NR4** — Dimmed on Windows builds compiled without LLVM (clang-cl). Requires LLVM from llvm.org to compile its C99 VLAs.
 - **BNR** — Dimmed on builds without the NVIDIA Broadcast SDK.
 - **RN2** — Purely informational; no adjustable parameters.
 

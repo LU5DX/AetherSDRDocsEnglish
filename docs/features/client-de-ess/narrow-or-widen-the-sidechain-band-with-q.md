@@ -8,7 +8,7 @@ The Q knob controls how wide or narrow the sidechain bandpass filter is around t
 - If the applet is not visible, open the Aetherial Audio Channel Strip, which hosts the de-esser controls directly. The separate "Aetherial De-Esser — TX" floating editor no longer exists.
 - To bypass the de-esser, single-click the DESS stage in the CHAIN widget. When bypassed, the entire applet tile dims to approximately 55 % opacity as a visual indicator.
 - Set the centre frequency with Freq before fine-tuning Q. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md).
-- The de-esser is available in two side-specific instances: TX (for transmitted audio) and RX (for received audio). The TX version is labeled "Aetherial De-Esser — TX" and the RX version "Aetherial De-Esser — RX". Both share identical controls and behaviour.
+- The de-esser is available in two side-specific instances: TX (for transmitted audio) and RX (for received audio). The TX version is labeled "Aetherial De-Esser" and the RX version "Aetherial De-Esser — RX". Both share identical controls and behaviour. The RX instance is reachable through the Aetherial Audio Channel Strip.
 
 ## Steps
 
@@ -23,10 +23,10 @@ The Q knob controls how wide or narrow the sidechain bandpass filter is around t
 | Control                  | Default | Valid range     | Behaviour                                                                                               |
 |--------------------------|---------|-----------------|---------------------------------------------------------------------------------------------------------|
 | **Q**                    | 2.00    | 0.5 to 5.0      | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label 'X.XX'.           |
-| Sidechain response curve | —       | —               | Compact-mode bandpass response. Draws the bandpass filter response with a live ball at the current centre frequency. |
+| Sidechain response curve | —       | —               | Compact-mode bandpass response. Draws the bandpass filter response with a live ball at the current centre frequency. Axis labels (100, 500, 1k, etc.) are rendered using QStaticText for improved performance. |
 | Gain-reduction bar       | —       | 0 to 24 dB GR   | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz. |
-| Attack                   | 1.0 ms  | 0.1 to 30.0 ms  | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in both TX and RX Channel Strip instances. |
-| Release                  | 100 ms  | 10.0 to 500.0 ms| Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in both TX and RX Channel Strip instances. |
+| Attack                   | 1.0 ms  | 0.1 to 30.0 ms  | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
+| Release                  | 100 ms  | 0.1 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
 
 ## Bypass dimming
 

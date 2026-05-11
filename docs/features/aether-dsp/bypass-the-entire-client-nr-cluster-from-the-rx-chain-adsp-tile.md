@@ -1,29 +1,119 @@
-# Bypass the entire client NR cluster from the RX chain ADSP tile
+# AetherDSP Settings
 
-Quickly disable all client-side noise reduction engines at once using the ADSP tile in the RX Chain strip, without opening the full AetherDSP Settings dialog.
+The AetherDSP Settings dialog provides advanced configuration for all client-side noise reduction engines in AetherSDR. It includes six DSP modules: NR2, NR4, MNR, DFNR, RN2, and BNR.
 
-## Before you start
+## Opening the dialog
 
-- Ensure a radio connection is active and you have an RX slice displayed.
-- Locate the RX Chain strip showing the processing tiles (ADSP, NB, etc.).
+- From the RX Chain strip, double-click the **ADSP** tile.
+- From the VFO DSP grid, click the **ADSP** button.
 
-## Steps
+## Dialog window
 
-1. Find the **ADSP** tile in the RX Chain strip.
-2. Double-click the **ADSP** tile. The AetherDSP Settings dialog opens.
-3. In the toggle row at the top, click any active (lit) noise reduction toggle (NR2, NR4, MNR, DFNR, RN2, or BNR) to deactivate it.
-4. Repeat step 3 for each lit toggle until all toggles are dimmed. No client NR engines are now active.
+The dialog has a frameless title bar with a grip glyph (⋮⋮) on the left. The title bar includes three buttons:
 
-The ADSP tile in the RX Chain strip updates to reflect the bypassed state.
+- — (Minimize) — Minimizes the dialog.
+- □ (Maximize) — Maximizes or restores the dialog.
+- × (Close) — Closes the dialog.
+
+Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize (6 px resize hit zone).
+
+### Frameless mode
+
+AetherDSP Settings uses frameless mode by default. To switch between frameless and native window decorations:
+
+1. Open **Settings > Appearance** from the main menu.
+2. Toggle **Frameless Windows** on or off.
+3. The change takes effect the next time AetherDSP Settings is opened.
+
+## Toggle row
+
+The top of the dialog contains six toggle buttons that serve as both tab selectors and engine enable/disable controls:
+
+- **NR2** — Musical-noise-reduction engine
+- **NR4** — libspecbleach spectral noise reduction
+- **MNR** — macOS MMSE-Wiener noise reduction (dimmed on Windows/Linux)
+- **DFNR** — DeepFilterNet3 neural noise reduction
+- **RN2** — RNNoise neural noise reduction (informational only, no adjustable parameters)
+- **BNR** — NVIDIA Broadcast neural denoising (dimmed without NVIDIA Broadcast SDK)
+
+Clicking a toggle activates that engine and selects its tab. Clicking it again deactivates the engine. Only one engine can be active at a time — NR2, NR4, and DFNR are mutually exclusive. MNR and BNR may stack in some builds.
+
+## NR2 tab
+
+Controls for the musical-noise-reduction engine.
+
+| Control | Type | Default | Range | Setting Key | Behavior |
+|---------|------|---------|-------|-------------|----------|
+| Gain Method | Radio button | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects gain-curve mapping (stored as integer 0-3). |
+| NPE Method | Radio button | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects noise power estimator (stored as integer 0-2). |
+| AE Filter (artifact elimination) | Checkbox | True | — | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
+| Reduction: | Slider | 1.50 | 0.50-2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. |
+| Smoothing: | Slider | 0.85 | 0.50-0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
+| Threshold: | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` | Sets speech-presence-probability threshold. |
+| Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR2 defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20). |
+
+## NR4 tab
+
+Controls for the libspecbleach spectral noise reduction engine.
+
+| Control | Type | Default | Range | Setting Key | Behavior |
+|---------|------|---------|-------|-------------|----------|
+| Noise Estimation: | Radio button | MMSE | MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` | Selects noise-floor estimator (stored as integer 0-2). |
+| Adaptive Noise Estimation | Checkbox | True | — | `NR4AdaptiveNoise` | Enables continuous re-estimation of the noise floor. |
+| Reduction (dB): | Slider | 10.0 | 0.0-40.0 | `NR4ReductionAmount` | Sets maximum NR4 noise reduction in dB. |
+| Smoothing (%): | Slider | 0 | 0-100 | `NR4SmoothingFactor` | Time-domain smoothing of NR4 noise estimate. |
+| Whitening (%): | Slider | 0 | 0-100 | `NR4WhiteningFactor` | Flattens residual noise spectral shape. |
+| Masking Depth: | Slider | 0.50 | 0.00-1.00 | `NR4MaskingDepth` | Controls spectral-masking depth. |
+| Suppression: | Slider | 0.50 | 0.00-1.00 | `NR4SuppressionStrength` | Overall NR4 suppression strength. |
+| Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR4 defaults (MMSE/adaptive on, 10 dB, 0, 0, 0.50, 0.50). |
+
+**Note:** NR4 requires LLVM (clang-cl) on Windows. The toggle is dimmed if LLVM is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
+
+## MNR tab
+
+Controls for the macOS MMSE-Wiener noise reduction engine. This tab and its controls are available only on macOS builds.
+
+| Control | Type | Default | Range | Setting Key | Behavior |
+|---------|------|---------|-------|-------------|----------|
+| Enable MNR (macOS only) | Checkbox | — | — | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. |
+| Strength | Slider | 100 | 0-100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). |
+
+## DFNR tab
+
+Controls for the DeepFilterNet3 neural noise reduction engine.
+
+**Note:** DeepFilterNet3 is an advanced neural-network-based noise reduction system that uses deep learning to suppress noise while preserving speech quality. It may require significant CPU resources.
+
+| Control | Type | Default | Range | Setting Key | Behavior |
+|---------|------|---------|-------|-------------|----------|
+| Attenuation Limit | Slider | 100 | 0-100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum suppression. |
+| Post-Filter Beta | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. |
+
+**Available in v26.5.1.** DFNR replaces earlier neural noise reduction implementations.
+
+## RN2 tab
+
+Selects the RNNoise neural noise reduction page. This tab is purely informational and has no adjustable parameters.
+
+## BNR tab
+
+Selects the NVIDIA Broadcast neural denoising page. Intensity is controlled from the overlay menu. The toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+
+## Bypassing all client NR engines
+
+To quickly disable all client-side noise reduction without opening the AetherDSP Settings dialog:
+
+1. Locate the **ADSP** tile in the RX Chain strip.
+2. Double-click the **ADSP** tile to open AetherDSP Settings.
+3. In the toggle row at the top, click each active (lit) noise reduction toggle to deactivate it.
+4. Continue until all toggles are dimmed.
+
+The ADSP tile updates to reflect the bypassed state. No client NR engines are now active, returning the audio to the raw sliced audio stream from the radio.
 
 ## Tips
 
-- Bypassing the entire cluster returns the audio to the raw sliced audio stream from the radio, with no client-side processing.
-- The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) also serve as tab selectors. Clicking a toggle both activates that engine and selects its tab — but only one engine can be active at a time (NR2, NR4, and DFNR are mutually exclusive; MNR and BNR may stack in some builds).
-- To quickly re-enable a single engine, click its toggle in the row.
-
-## Related
-
-- [AetherDSP Settings overview](overview.md)
-- [Open AetherDSP Settings from the VFO DSP grid ADSP button](open-aetherdsp-settings-from-the-vfo-dsp-grid-adsp-button.md)
-- [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
+- The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) serve as both tab selectors and engine enable/disable controls.
+- NR2, NR4, and DFNR are mutually exclusive — only one can be active at a time.
+- MNR and BNR may stack with other engines in some builds.
+- The Reset Defaults button (↺ icon) on each tab restores that engine's parameters to their default values.
+- Settings are persisted across sessions.

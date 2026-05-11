@@ -1,6 +1,6 @@
 # Browse the Radio's Stored Memories
 
-The Memory Browser is a read-only side panel that lists all memories stored on the connected FLEX-8600. Use it to scan stored frequencies at a glance and quickly tune to any entry.
+The Memory Browser is a side panel that lists all memories stored on the connected FLEX-8600. Use it to scan stored frequencies at a glance, quickly tune to any entry, or save the current slice as a new memory.
 
 ## Before you start
 
@@ -15,23 +15,27 @@ The Memory Browser is a read-only side panel that lists all memories stored on t
 3. Scroll through the list. Memories are sorted by frequency in ascending order. Entries with the same frequency are ordered by their internal index.
 4. Note the highlighted row. The row highlighted in a distinct background color is the memory whose frequency is closest to the current tuned frequency.
 5. To activate a memory, double-click its row, or select it and press Enter.
+6. To save the current slice as a new memory, click **Add Memory** at the bottom of the panel.
 
 ## What each control does
 
-| Control | Behavior | Notes |
-|---|---|---|
-| Memory table | Lists all stored memories with valid frequencies. Double-click or press Enter to activate a row. | Columns: Frequency, Name. Read-only; editing is disabled. |
-| Highlighted row | Marks the memory closest to the current tuned frequency. The panel scrolls automatically to keep it visible. | Updated whenever the tuned frequency changes. |
-| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded. | Disappears once memories are available. |
+| Control                          | Behavior                                                                                                     | Notes                                                                                                                          |
+|----------------------------------|--------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Memory table                     | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory.     | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
+| Highlighted row                  | Marks the memory closest to the current tuned frequency. The panel scrolls automatically to keep it visible. | Updated whenever the tuned frequency changes.                                                                                  |
+| "No memories are available yet." | Shown in place of the table when the radio has no memories loaded.                                           | Disappears once memories are available.                                                                                        |
+| Add Memory                       | Saves the current slice as a new memory entry. Anchored at the bottom of the panel, always visible.          | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant.                                                         |
 
 ## Tips
 
 - The **Name** column shows the memory's name if set. If no name is set but a group is assigned, the group name is shown instead. If neither is set, the entry appears as "Memory" followed by its index number.
 - Memories with a frequency of 0 or unset are excluded from the table entirely.
 - Long names and frequencies that exceed column width are truncated with an ellipsis. Hover over any cell to see the full value in a tooltip.
+- The **Add Memory** button stays visible regardless of how far you scroll in the memory table.
 
 ## Related
 
 - [Memory Browser overview](overview.md)
 - [Activate a memory with a single double-click](activate-a-memory-with-a-single-double-click.md)
 - [Jump to the memory closest to the current frequency](jump-to-the-memory-closest-to-the-current-frequency.md)
+- [Save the current slice as a memory](save-the-current-slice-as-a-memory.md)

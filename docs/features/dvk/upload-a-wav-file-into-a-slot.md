@@ -24,16 +24,32 @@ Load a pre-recorded WAV file from your computer into one of the Digital Voice Ke
 | Slot name labels | Shows the name assigned to the slot. | `Recording <n>` |
 | Slot duration labels | Displays the recording length, or "Empty" if the slot has no content. | Empty |
 | Slot progress bars | Shows live playback or record progress. Hidden when the slot is idle. | — |
+| ● REC | Starts recording into the selected slot. | — |
+| ■ STOP | Stops recording or playback. | — |
+| ▶ PLAY | Plays the selected slot. | — |
+| ◀ PREV | Previews the slot through the local speaker. | — |
+| Rename edit | Inline rename of a slot triggered via context menu. | — |
+
+## Keyboard shortcuts
+
+The DVK panel registers the following keyboard shortcuts, which are only active while the panel is visible. This prevents conflicts with other panels that also use F1–F12 (for example, the CWX panel).
+
+| Key | Action |
+|---|---|
+| F1 … F12 | Select and play the corresponding slot (F1 selects slot 1, F2 selects slot 2, etc.). The slot must contain a recording. |
+| Escape | Cancel an active rename operation. If no rename is in progress, stops any DVK recording or playback. |
 
 ## Tips
 
 - After the upload finishes, verify the slot duration label no longer shows "Empty" before transmitting.
 - You can rename the slot immediately after uploading by right-clicking the row again and selecting the rename option. See [Rename a slot](rename-a-slot.md).
+- Use the keyboard shortcuts (F1–F8) to quickly select and play stored messages on-air. The Escape key provides a convenient way to stop operation.
 
 ## Troubleshooting
 
 - **Slot duration still shows "Empty" after selecting a file** — The transfer to the radio may have failed. Check that the radio connection is still active, then try the upload again.
 - **The context menu does not appear** — Click somewhere else first to deselect any active control, then right-click directly on the slot row frame.
+- **Keyboard shortcuts (F1–F8, Escape) do not work** — Make sure the DVK panel is visible. The shortcuts are disabled when the panel is hidden to avoid conflicts with other panels.
 
 ## Related
 

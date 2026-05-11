@@ -18,6 +18,8 @@ Adjust the CW keying speed so the radio sends at the WPM rate you need. The spee
 | Control | Default | Valid range | Setting key | Behavior |
 |---|---|---|---|---|
 | **Speed:** | 20 | 5–100 WPM | `CwxSpeedWpm` | Sets the CW keying speed in words per minute. |
+| **Delay:** | 0 | 0–10000 ms | `CwxDelay` | Sets the inter-macro delay in milliseconds. |
+| **QSK** | Off | – | `CwxQsk` | Toggles QSK (full break-in) on or off. |
 
 ## How the Send, Live, and Setup buttons behave
 
@@ -35,11 +37,21 @@ The three view buttons in the top bar of the CWX panel changed behavior in v0.9.
 
 When a model is attached to the CWX panel (for example, after connecting to the radio), the **Live** button is updated to reflect the current Live state reported by the radio. This means if Live mode was active before a disconnect, the button will show the correct state when the connection is restored.
 
+## Keyboard shortcuts
+
+The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate automatically when the CWX panel is visible and deactivate when it is hidden. This prevents shortcut conflicts with other panels, such as the DVK macro panel, which uses the same F1–F12 keys for its own purposes.
+
+| Shortcut | Behavior |
+|---|---|
+| **F1–F12** | Sends the corresponding macro (F1–F12) when the active slice is in CW or CWL mode. |
+| **Escape** | Clears the current text buffer (aborts any transmission in progress). |
+
 ## Tips
 
 - The **Speed:** spinbox is visible in all three views (Send, Live, and Setup). You do not need to switch views to change speed.
 - Press Escape at any time to abort a transmission in progress without changing the speed setting.
 - If you are in Live mode and want to type ahead without transmitting, click **Send** to exit Live mode before continuing to type. The panel will not re-send any characters that were already transmitted.
+- The Prosigns legend shows shortcuts for common CW prosigns: = (BT), + (AR), ( (KN), & (AS), $ (SK).
 
 ## Related
 

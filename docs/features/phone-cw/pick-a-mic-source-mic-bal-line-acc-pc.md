@@ -17,10 +17,12 @@ The selection takes effect immediately on the radio.
 
 ## What each control does
 
-| Control        | Description                                                                                                                                                                                     | Default |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **Mic source** | Selects the microphone input source sent to the radio.                                                                                                                                          | —       |
-| **Mic gain**   | Adjusts the microphone input level. When the source is `PC`, or when RADE mode is active, the value is stored client-side in `PcMicGain` because the radio does not manage gain in those paths. | 50      |
+| Control            | Description                                                                                                                                                                                     | Default |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **Mic source**     | Selects the microphone input source sent to the radio.                                                                                                                                          | —       |
+| **Mic gain**       | Adjusts the microphone input level. When the source is `PC`, or when RADE mode is active, the value is stored client-side in `PcMicGain` because the radio does not manage gain in those paths. | 50      |
+| **ALC (Phone panel)** | Shows automatic level control reading from `MeterModel::swAlcChanged` (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). | — |
+| **ALC (CW panel)**     | Mirrors the Phone-panel ALC gauge; both read from `MeterModel::swAlcChanged` for consistent readings across voice and CW. Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses `HGauge::setFillFromRight` mode. | — |
 
 **Source descriptions:**
 
@@ -29,6 +31,7 @@ The selection takes effect immediately on the radio.
 - **LINE** — Line-level input.
 - **ACC** — Accessory port microphone input.
 - **PC** — Computer audio system. The radio does not report mic level for this source; AetherSDR stores the gain value locally in `PcMicGain`.
+
 ## RADE mode and mic gain
 
 When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending a mic level command to the radio. The slider value is stored in `PcMicGain`, the same setting used for the `PC` source. Moving the slider does not overwrite the radio's hardware mic level setting while RADE is active.
@@ -43,12 +46,12 @@ When the active slice is in a CW mode, the applet switches to the CW sub-panel. 
 
 ### CW value entry
 
-| Control | Description | Default | Valid range | Notes |
-|---|---|---|---|---|
-| **Delay** | CW break-in delay in milliseconds. Type a value directly in the text field or use the adjacent slider. | 500 ms | 0–2000 ms (step 10) | In v0.9.8, `setCwDelay` was fixed to cache the value immediately so the radio emission doesn't snap the slider back (#2428). |
-| **Speed** | CW keying speed in words per minute. Type a value directly or use the slider. | 20 WPM | 5–100 WPM | — |
-| **Sidetone volume** | CW monitor volume. Type a value directly or use the slider. Controls both the radio side (`mon_gain_cw`) and client-side sidetone generator in lockstep. | 50 | 0–100 | (v0.9.8, #2429) |
-| **Pitch** | CW sidetone and decode pitch. Type a value (100–6000) or click the **< / >** buttons to step by 10 Hz. | 600 Hz | 100–6000 Hz (step 10) | (v0.9.8, #2429) |
+| Control               | Description                                                                                                          | Default | Valid range           | Notes                                                                                          |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------|---------|-----------------------|------------------------------------------------------------------------------------------------|
+| **Delay**             | CW break-in delay in milliseconds. Type a value directly in the text field or use the adjacent slider.               | 500 ms  | 0–2000 ms (step 10)   | In v0.9.8, `setCwDelay` was fixed to cache the value immediately so the radio emission doesn't snap the slider back (#2428). |
+| **Speed**             | CW keying speed in words per minute. Type a value directly or use the slider.                                        | 20 WPM  | 5–100 WPM             | —                                                                                              |
+| **Sidetone volume**   | CW monitor volume. Type a value directly or use the slider. Controls both the radio side (`mon_gain_cw`) and client-side sidetone generator in lockstep. | 50      | 0–100                 | (v0.9.8, #2429)                                                                                |
+| **Pitch**             | CW sidetone and decode pitch. Type a value (100–6000) or click the **< / >** buttons to step by 10 Hz.               | 600 Hz  | 100–6000 Hz (step 10) | (v0.9.8, #2429)                                                                                |
 
 ### How typing works
 
@@ -61,14 +64,29 @@ When the active slice is in a CW mode, the applet switches to the CW sub-panel. 
 
 The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (~10 ms latency) in lockstep. There are no separate local sidetone controls; a single set of controls governs both paths.
 
-| Control | Description | Default | Valid values | Setting key |
-|---|---|---|---|---|
-| **Sidetone** | Enables or disables CW sidetone. Controls both the radio's DAX-fed monitor and the client-side sidetone generator simultaneously. | — | On / Off | — |
-| **Sidetone volume** | Sets the sidetone volume for both the radio side (`mon_gain_cw`) and the client-side generator. | — | 0–100 | — |
-| **L / R pan (CW)** | Sets stereo pan for the CW monitor and applies constant-power pan to the local sidetone generator. Double-click to recentre at 50. | 50 | 0–100 | — |
-| **Pitch < / >** | Steps the CW sidetone and decode pitch by 10 Hz, or type a value directly. | 600 Hz | 100–6000 Hz | — |
+| Control               | Description                                                                                                                                              | Default | Valid values | Setting key |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|---------|--------------|-------------|
+| **Sidetone**          | Enables or disables CW sidetone. Controls both the radio's DAX-fed monitor and the client-side sidetone generator simultaneously.                        | —       | On / Off     | —           |
+| **Sidetone volume**   | Sets the sidetone volume for both the radio side (`mon_gain_cw`) and the client-side generator.                                                          | —       | 0–100        | —           |
+| **L / R pan (CW)**    | Sets stereo pan for the CW monitor and applies constant-power pan to the local sidetone generator. Double-click to recentre at 50.                        | 50      | 0–100        | —           |
+| **Pitch < / >**       | Steps the CW sidetone and decode pitch by 10 Hz, or type a value directly.                                                                               | 600 Hz  | 100–6000 Hz  | —           |
 
 Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. There is no separate "Follow" toggle or manual pitch override slider; those controls were removed in v0.9.2.1.
+
+## Metering: ALC gauges (v26.5.1+)
+
+In v26.5.1 (#2552), both the Phone panel and CW panel received new, identical ALC gauges. These replace the previous HWALC (RCA voltage) path that produced meaningless readings.
+
+| Gauge               | Range        | Red zone | Fill direction | Source                                      |
+|---------------------|--------------|----------|----------------|---------------------------------------------|
+| **ALC (Phone panel)** | -20 to 0 dBFS | > -3 dBFS | Right-to-left  | `MeterModel::swAlcChanged` (post-software-ALC SSB peak) |
+| **ALC (CW panel)**    | -20 to 0 dBFS | > -3 dBFS | Right-to-left  | `MeterModel::swAlcChanged` (identical source)           |
+
+Key points:
+- Both gauges read from the same `MeterModel::swAlcChanged` source, ensuring consistent readings across voice and CW.
+- The gauge is empty at -20 dBFS and fills leftward toward 0 dBFS.
+- Values below -20 dBFS pin at the left end; values above 0 dBFS pin at the right end (full scale).
+- The red zone (> -3 dBFS) indicates excessive ALC; aim to keep the gauge reading below -3 dBFS for clean transmit.
 
 ## Tips
 
@@ -80,6 +98,7 @@ Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings aut
 - On Windows, the CW sidetone stream starts immediately on connect (v0.9.3). If sidetone is enabled before connecting, no additional steps are required after the connection is established.
 - The **Compression** gauge reads 0 dB during receive. This is intentional: in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state, so stale TX chain readings are not displayed between transmissions.
 - The **Breakin** button fully honors the radio's `break_in` setting as of v0.9.7. With **Breakin** on (QSK), key edges trigger TX and the break-in delay holds the relay. With **Breakin** off, keys are queued and PTT must be engaged manually. The previous behavior, where an auto-PTT envelope masked the **Breakin** off state and interfered with QSK hang time, has been removed.
+- The **ALC gauge** is present on both the Phone and CW sub-panels, so you can monitor ALC regardless of mode. In CW, the gauge helps verify a clean keying envelope shape.
 
 ## Troubleshooting
 
@@ -92,9 +111,9 @@ Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings aut
 - **Compression gauge shows a value during receive** — This should not occur in v0.9.7. The gauge is gated on the radio's interlock TRANSMITTING state and reads 0 during RX. If you see a non-zero reading while receiving, verify that you are running v0.9.7 or later.
 - **Breakin off does not prevent TX on key press** — This behavior was corrected in v0.9.7. Update to v0.9.7 or later. In earlier versions, an internal auto-PTT envelope could force TX regardless of the **Breakin** setting.
 - **Typed CW value resets immediately** — If you type a value in a CW text field and it resets before you press Enter, ensure you press Enter or Tab to commit the value. The fields only accept the typed value when editing is finished.
+- **ALC gauge shows 0 or no movement** — Verify you are running v26.5.1 or later. The ALC gauge was rewired from HWALC to SW ALC in that version (#2552). The gauge only updates when transmitting.
 
 ## Related
 
 - [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone.md)
-- [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
+- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone

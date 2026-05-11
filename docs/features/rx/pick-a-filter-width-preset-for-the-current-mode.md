@@ -31,7 +31,6 @@ Use the filter width preset buttons in the RX Controls applet to quickly apply a
 | DIGU, DIGL, NT         | 100, 300, 600, 1000, 1500, 2000                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                         |
 | RTTY                   | 250, 300, 350, 400, 500, 1000                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                         |
 | FM, NFM, DFM           | No presets (buttons hidden)                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                         |
-
 ## Narrowing and widening the filter passband via step
 
 The `stepFilterWidth(direction)` method lets you walk through the per-mode preset list from any application shortcut or key binding. Pass `+1` to widen the passband to the next larger preset, or `-1` to narrow to the next smaller preset. Because `stepFilterWidth` routes through `applyFilterPreset`, all modes — including LSB, CWL, DIGL, RTTY, AM, and CW — use the correct edge geometry for that mode rather than a symmetric assumption.
@@ -84,7 +83,7 @@ No user action is required. If the slice count changes (for example, after a dis
 - If you need a width that does not match any preset, drag the edges of the filter passband widget to set an arbitrary value, then right-click a preset button to save that width for future use.
 - When saving a preset by right-clicking a preset button, the passband is stored in lo:hi format if the current passband edges have been set explicitly, or in width-only format otherwise. Both formats are loaded correctly on all subsequent sessions.
 - Presets are per mode. Switching modes reshapes the filter and displays the preset buttons for the new mode.
-- NT mode uses the same filter presets and squelch behavior as DIGU and DIGL. Squelch is disabled in NT mode and squelch off is sent to the radio automatically if squelch was previously enabled.
+- NT and RTTY modes use the same filter presets and squelch behavior as DIGU and DIGL. Squelch is disabled in NT, DIGU, DIGL, and RTTY modes, and squelch off is sent to the radio automatically if squelch was previously enabled. RTTY mode was added to the auto-disable list in v26.5.1 to prevent squelch from notching out FSK characters (#2504).
 - Use the `stepFilterWidth` method from key bindings or macro scripts to widen and narrow the filter passband without clicking the preset buttons directly. The method always lands on a mode-appropriate preset.
 
 ## Troubleshooting
@@ -92,7 +91,7 @@ No user action is required. If the slice count changes (for example, after a dis
 - **Preset buttons are not visible** — The active mode is FM, NFM, or DFM. These modes do not expose filter presets. Change the mode using the Mode combo to a mode that supports presets (for example, USB or CW).
 - **Right-click on a preset button does nothing visible** — Confirm the slice is connected to the radio. The RX applet requires an active radio connection to save preset values.
 - **NRL button is not visible on a 6000-series radio** — Confirm you are running V0.9.4 or later. Earlier versions restricted NRL to 8000-series radios only.
-- **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
+- **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, RTTY, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT and RTTY) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
 - **Slice tab row is blank after reconnecting** — This could occur on versions prior to v0.9.5.1. Upgrade to v0.9.5.1 or later. The tab row is now rebuilt automatically when the slice count changes on reconnect.
 
 ## Related

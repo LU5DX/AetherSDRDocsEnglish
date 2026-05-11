@@ -72,6 +72,12 @@ The slider range is 0–100. The level value is not persisted as an AetherSDR Ap
 
 The **Filter width label** in the VFO panel now uses `RxApplet::formatFilterWidth` as its single source of truth. This fixes a 0.1 kHz offset that previously affected SSB and digital mode filter readouts (issues #794, #1225, #2197). The label now stays in sync with the RX applet's filter display.
 
+## Squelch behavior for RTTY mode (v26.5.1)
+
+Starting in v26.5.1, squelch is also disabled when the slice is set to RTTY mode. This change addresses issue #2504, where squelch was gating weak FSK signals used by external decoders via DAX. The squelch button and slider are automatically disabled when RTTY mode is active, matching the existing behavior for digital and CW modes.
+
+If squelch was enabled when switching to RTTY mode, AetherSDR saves the squelch state and restores it when you switch back to a voice or FM mode.
+
 ## Related
 
 - [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)

@@ -22,6 +22,16 @@ Shows speech compression amount in dB (-25 to 0 dB, with reversed fill).
 
 The gauge is gated on the radio's interlock TRANSMITTING state. During receive, the gauge reads 0 dB regardless of any residual meter data from the TX chain. The gauge only shows a compression reading while the radio is actively transmitting with the speech processor enabled. This prevents stale or misleading readings from appearing when you are not on the air.
 
+### ALC Meter (Phone panel)
+
+Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). The gauge reads the post-software-ALC SSB peak in dBFS, replacing the previous HWALC (RCA voltage) path that produced meaningless readings.
+
+- **Range:** -20 to 0 dBFS
+- **Red zone:** above -3 dBFS
+- **Fill direction:** right-to-left (empty at -20 dBFS, full at 0 dBFS)
+
+The Phone panel ALC gauge is mirrored by an identical gauge on the CW panel. Both gauges read from the same source, so SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape.
+
 ### Mic Profile
 
 Select the microphone processing profile. Click the combo box and choose a profile from the list, which is populated from the radio's available mic profiles.
@@ -60,10 +70,6 @@ Enable or disable the TX sidetone monitor. Click **MON** to toggle.
 
 Adjust the sideband monitor volume. Drag the slider to set the volume from 0 to 100.
 
-### ALC Meter
-
-Shows automatic level control reading on the CW panel. Range is 0 to 100, with red above 80.
-
 ## RADE mode and the mic level slider (v0.9.7)
 
 When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending `mic_level` to the radio. The slider value is stored in `PcMicGain` — the same setting used when the mic source is **PC** — and is not forwarded to the radio while RADE is active. This prevents the RADE gain adjustment from silently overwriting the hardware mic level setting on the radio.
@@ -71,6 +77,14 @@ When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gai
 The **Level** meter remains active during RX when RADE is in use, allowing you to monitor your input level before transmitting ("Level Meter During Receive" behavior). When RADE mode is deactivated, the Level gauge is suppressed and the slider reverts to showing the radio's reported mic level.
 
 ## CW panel controls
+
+### ALC Meter (CW panel)
+
+Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). This gauge is a mirror of the Phone-panel ALC gauge, identically scaled and reading from the same source.
+
+- **Range:** -20 to 0 dBFS
+- **Red zone:** above -3 dBFS
+- **Fill direction:** right-to-left (empty at -20 dBFS, full at 0 dBFS)
 
 ### Delay
 
@@ -165,7 +179,8 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 |-----------|---------------|---------|
 | Level gauge | -40 to +10 dBFS | Microphone peak level |
 | Compression gauge | -25 to 0 dB reversed fill | Speech compression amount |
-| ALC gauge | 0 to 100 | Automatic level control (CW) |
+| ALC gauge (Phone panel) | -20 to 0 dBFS (fill from right) | Automatic level control — post-software-ALC SSB peak, read from MeterModel::swAlcChanged |
+| ALC gauge (CW panel) | -20 to 0 dBFS (fill from right) | Mirror of the Phone-panel ALC gauge, identically scaled |
 
 ## What each control does
 
@@ -173,6 +188,7 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 |---------|---------|-------------|
 | Level meter | — | -40 to +10 dBFS (red > 0) |
 | Compression meter | — | -25 to 0 dB (reversed fill) |
+| ALC meter (Phone panel) | — | -20 to 0 dBFS (red > -3) |
 | Mic profile | — | populated from radio micProfileList() |
 | Mic source | — | MIC, BAL, LINE, ACC, PC |
 | Mic gain | 50 | 0–100 |
@@ -182,7 +198,7 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 | DAX | — | toggle |
 | MON | — | toggle |
 | Monitor volume | — | 0–100 |
-| ALC meter | — | 0–100 (red > 80) |
+| ALC meter (CW panel) | — | -20 to 0 dBFS (red > -3) |
 | Delay (CW) | 500 | 0–2000 ms (step 10) |
 | Speed (CW) | 20 | 5–100 WPM |
 | Sidetone | — | toggle |
@@ -198,6 +214,7 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 - The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
 - The Compression gauge only shows readings while the radio is actively transmitting with the speech processor enabled.
 - When RADE mode is active, the Mic gain slider controls client-side RADE gain, not the radio's mic level.
+- The ALC gauges on both panels read from the same software ALC source (MeterModel::swAlcChanged). Starting in v26.5.1 (#2552), this replaces the previous HWALC (RCA voltage) path that produced meaningless readings. The gauge range is -20 to 0 dBFS, filling right-to-left.
 
 ## Related
 

@@ -12,6 +12,8 @@ Open the dialog with `Settings > Network...`. All indicators update once per sec
 
 The dialog uses a tabbed layout. Seven tabs are available: **Overview**, **Details**, **Latency**, **Rates**, **Packet Loss**, **Audio**, and **Logs**. A **Timeframe** selector in the top-right corner of the tab bar controls how far back the time-series charts display history; it is hidden when the Logs tab is active.
 
+The dialog respects the **FramelessWindow** application setting. When enabled (the default), the dialog appears without a native title bar and supports window dragging and edge-based resizing. When disabled, the standard OS window chrome is shown. This setting is read at dialog creation; toggling it in the main application requires reopening the dialog.
+
 The Details tab organises all labeled indicators into four groups described below.
 
 ### Network Status
@@ -96,6 +98,7 @@ Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by c
 ## Tips
 
 - The dialog can remain open while you operate. All values refresh every second without any interaction required.
+- The dialog follows the `FramelessWindow` application setting. If you prefer standard OS title bars, change the setting in the main application preferences and reopen the dialog.
 - Packet loss counts in the Packet Loss group are cumulative since the dialog was opened; close and reopen the dialog to reset the baseline.
 - Zero packet loss combined with rising underruns points to a jitter or timing problem rather than outright loss — check Audio Arrival Gap and Network Jitter in that case.
 - On the Rates tab the y-axis uses a logarithmic scale, which makes it easier to see low-rate streams (such as Meters) alongside the much higher RX total.

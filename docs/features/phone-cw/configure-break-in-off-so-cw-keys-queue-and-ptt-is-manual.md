@@ -1,50 +1,52 @@
-# Configure break-in OFF so CW keys queue and PTT is manual
+# Configura e desativa a operação Break-in para que as teclas CW sejam enfileiradas e o PTT seja manual
 
-When Breakin is OFF, CW keyboard and MIDI key events are queued and sent to the radio without triggering TX automatically. You engage PTT manually to begin transmitting. Use this when you want full control over when the transmitter keys — for example, during contest operating or when running a linear amplifier that needs deliberate PTT sequencing.
+Quando o Breakin está DESLIGADO, os eventos de tecla CW do teclado e MIDI são enfileirados e enviados ao rádio sem acionar automaticamente a transmissão (TX). Você aciona o PTT manualmente para começar a transmitir. Use esta configuração quando quiser controle total sobre quando o transmissor chaveia — por exemplo, durante operações de concurso ou ao usar um amplificador linear que precisa de sequenciamento deliberado do PTT.
 
-## Before you start
+## Antes de começar
 
-- Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
-- Set the active slice to a CW mode so the applet switches to the CW panel. The Breakin control is only visible in the CW sub-panel.
+- Conecte-se a um rádio FLEX-8600. O applet Phone/CW requer uma conexão ativa com o rádio.
+- Defina o slice ativo para um modo CW para que o applet mude para o painel CW. O controle Breakin só é visível no subpainel CW.
 
-## Steps
+## Passos
 
-1. Open the Phone/CW applet. Click the **P/CW** tray button in the right sidebar, or confirm it is already visible in the Applet Panel.
-2. Verify the CW sub-panel is showing. If the Phone panel is displayed instead, change the active slice mode to CW on the radio.
-3. Locate the **Breakin** toggle button in the CW sub-panel.
-4. If **Breakin** is lit (active), click it to turn it off. The button will appear unlit when break-in is disabled.
-5. Key CW using your keyboard or MIDI controller. Characters are queued and sent to the radio, but the radio does not assert TX automatically.
-6. Press PTT manually to key the transmitter before or while the keyer sends the queued characters.
+1. Abra o applet Phone/CW. Clique no botão **P/CW** na barra lateral direita ou confirme que ele já está visível no Painel de Applets.
+2. Verifique se o subpainel CW está sendo exibido. Se o painel Phone for exibido, altere o modo do slice ativo para CW no rádio.
+3. Localize o botão de alternância **Breakin** no subpainel CW.
+4. Se **Breakin** estiver aceso (ativo), clique para desativá-lo. O botão aparecerá apagado quando o break-in estiver desabilitado.
+5. Chaveie CW usando seu teclado ou controlador MIDI. Os caracteres são enfileirados e enviados ao rádio, mas o rádio não ativa TX automaticamente.
+6. Pressione PTT manualmente para chavear o transmissor antes ou enquanto o keyer envia os caracteres enfileirados.
 
-## What each control does
+## O que cada controle faz
 
-| Control                | Behavior                                                                                                                                                                                                                                                                    | Default |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **Breakin**            | Toggles full break-in (QSK). When ON, key edges trigger TX and the break-in delay holds the relay open between characters. When OFF, keyed characters are queued and PTT must be engaged manually.                                                                          | —       |
-| **Delay (CW)**         | Sets the CW break-in hang time — how long the relay stays keyed after the last element. Relevant when Breakin is ON. The slider adjusts from 0 to 2000 ms in 10 ms steps. In v0.9.8, you can click the adjacent QLineEdit and type a value directly (0–2000).             | 500 ms  |
-| **Speed (CW)**         | Sets CW keying speed in words per minute. The slider adjusts from 5 to 100 WPM. In v0.9.8, you can click the adjacent QLineEdit and type a value directly (5–100).                                                                                                          | 20 WPM  |
-| **Sidetone**           | Toggles CW sidetone monitor. Controls both the radio's DAX-fed monitor and the client-side low-latency CwSidetoneGenerator in lockstep. Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically.                                          | —       |
-| **Sidetone volume**    | Sets CW monitor volume. Controls both the radio-side (`mon_gain_cw`) and client-side sidetone volumes in lockstep. The slider adjusts from 0 to 100. In v0.9.8, you can click the adjacent QLineEdit and type a value directly (0–100).                                      | 50      |
-| **L / R pan (CW)**     | Sets CW monitor stereo pan. Calls `TransmitModel::setMonPanCw` and applies constant-power pan to the local sidetone generator. Double-click recenters to 50 (centre).                                                                                                        | 50      |
-| **Iambic**             | Toggles iambic paddle keyer.                                                                                                                                                                                                                                                | —       |
-| **Pitch < / >**        | Sets CW sidetone pitch. Click the **<** or **>** buttons to step by 10 Hz, or click the QLineEdit and type a value directly (100–6000 Hz). Calls `TransmitModel::setCwPitch`. In v0.9.8, the QLineEdit accepts typed direct entry.                                            | 600 Hz  |
+| Controle            | Comportamento                                                                                                                                                                                                                                                                                   | Padrão                                                   |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| **Breakin**         | Alterna entre full break-in (QSK). Quando LIGADO, as bordas das teclas disparam TX e o atraso de break-in mantém o relé aberto entre caracteres. Quando DESLIGADO, os caracteres chaveados são enfileirados e o PTT deve ser engajado manualmente.                                                | —                                                        |
+| **Delay (CW)**      | Define o tempo de espera (hang time) do break-in CW — quanto tempo o relé permanece chaveado após o último elemento. Relevante quando Breakin está LIGADO. O slider ajusta de 0 a 2000 ms em passos de 10 ms. Na v0.9.8, você pode clicar no QLineEdit adjacente e digitar um valor diretamente (0–2000). | 500 ms                                                   |
+| **Speed (CW)**      | Define a velocidade de chaveamento CW em palavras por minuto. O slider ajusta de 5 a 100 WPM. Na v0.9.8, você pode clicar no QLineEdit adjacente e digitar um valor diretamente (5–100).                                                                                                            | 20 WPM                                                   |
+| **Sidetone**        | Alterna o monitor de sidetone CW. Controla tanto o monitor alimentado por DAX do rádio quanto o CwSidetoneGenerator local de baixa latência em conjunto. O tom e o pan seguem automaticamente as configurações `cw_pitch` e `mon_pan_cw` do rádio.                                                | —                                                        |
+| **Sidetone volume** | Define o volume do monitor CW. Controla tanto o volume do lado do rádio (`mon_gain_cw`) quanto o volume do gerador de sidetone local em conjunto. O slider ajusta de 0 a 100. Na v0.9.8, você pode clicar no QLineEdit adjacente e digitar um valor diretamente (0–100).                             | 50                                                       |
+| **L / R pan (CW)**  | Define o pan estéreo do monitor CW. Chama `TransmitModel::setMonPanCw` e aplica pan de potência constante ao gerador de sidetone local. Clique duas vezes para centralizar em 50 (centro).                                                                                                       | 50                                                       |
+| **Iambic**          | Alterna o keyer de paddle iâmbico.                                                                                                                                                                                                                                                              | —                                                        |
+| **Pitch < / >**     | Define o tom do sidetone CW. Clique nos botões **<** ou **>** para aumentar/diminuir em passos de 10 Hz, ou clique no QLineEdit e digite um valor diretamente (100–6000 Hz). Chama `TransmitModel::setCwPitch`. Na v0.9.8, o QLineEdit aceita entrada direta digitada.                            | 600 Hz                                                   |
+| ALC (no painel Phone)| Mostra a leitura do controle automático de nível (ALC) do MeterModel::swAlcChanged (pico SSB pós-ALC de software em dBFS). Preenche da direita para a esquerda: vazio em -20 dBFS, cheio em 0 dBFS.                                                                                             | Alterado de HWALC (tensão RCA) para SW ALC meter na v26.5.1 (#2552). Espelhado por um medidor idêntico no subpainel CW. |
+| ALC (no painel CW)  | Espelha o medidor ALC do painel Phone; ambos leem de MeterModel::swAlcChanged para leituras consistentes entre voz e CW.                                                                                                                                                                        | Adicionado na v26.5.1 (#2552) como parte da divisão do SW ALC meter. Usa o modo HGauge::setFillFromRight.               |
 
-## Tips
+## Dicas
 
-- With Breakin OFF, no auto-PTT envelope is applied. The radio will not transmit queued characters until you assert PTT. Drop PTT after the last character clears to return to RX.
-- If you are running an external amplifier, Breakin OFF gives you time to close the amplifier's T/R relay before the keyer begins sending.
-- To adjust how long the relay stays engaged between characters when you later switch Breakin back ON, use the **Delay (CW)** slider (0–2000 ms) or type a value in the adjacent QLineEdit.
+- Com Breakin DESLIGADO, nenhum envelope de PTT automático é aplicado. O rádio não transmitirá caracteres enfileirados até que você acione o PTT. Solte o PTT após o último caractere ser enviado para retornar ao RX.
+- Se você estiver usando um amplificador externo, Breakin DESLIGADO lhe dá tempo para fechar o relé T/R do amplificador antes do keyer começar a enviar.
+- Para ajustar quanto tempo o relé permanece engajado entre caracteres quando você posteriormente ligar Breakin novamente, use o slider **Delay (CW)** (0–2000 ms) ou digite um valor no QLineEdit adjacente.
 
-## Troubleshooting
+## Solução de problemas
 
-- **Radio transmits immediately when a key is pressed even though Breakin appears off** — This was a known issue in versions before v0.9.7, where an auto-PTT envelope overrode the Breakin setting. Confirm AetherSDR is at v0.9.7 or later.
-- **CW panel is not visible; Phone controls are shown instead** — The applet switches to the CW panel automatically only when the active slice is in a CW mode. Change the slice mode to CW on the radio.
-- **The Delay slider snaps back after typing a value** — This was fixed in v0.9.8 (#2428). The value is now cached immediately so the radio emission does not snap the slider back.
+- **O rádio transmite imediatamente quando uma tecla é pressionada, mesmo com Breakin aparentemente desligado** — Este era um problema conhecido em versões anteriores à v0.9.7, onde um envelope de PTT automático sobrepunha a configuração Breakin. Confirme se o AetherSDR está na v0.9.7 ou posterior.
+- **O painel CW não está visível; os controles Phone são mostrados** — O applet muda para o subpainel CW automaticamente apenas quando o slice ativo está em um modo CW. Altere o modo do slice para CW no rádio.
+- **O slider Delay volta após digitar um valor** — Isso foi corrigido na v0.9.8 (#2428). O valor agora é armazenado em cache imediatamente para que a emissão do rádio não force o slider de volta.
 
-## Related
+## Relacionados
 
-- [Set CW break-in delay](set-cw-break-in-delay.md)
-- [Use keyboard or MIDI to trigger straight key or iambic paddles](use-keyboard-or-midi-to-trigger-straight-key-or-iambic-paddles.md)
-- [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
-- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
-- [View Phone/CW applet controls](view-phone-cw-applet-controls.md)
+- [Ajustar o atraso de break-in CW](set-cw-break-in-delay.md)
+- [Usar teclado ou MIDI para acionar chave direta ou pás iâmbicas](use-keyboard-or-midi-to-trigger-straight-key-or-iambic-paddles.md)
+- [Habilitar chaveamento iâmbico de paddle](enable-iambic-paddle-keying.md)
+- [Definir velocidade de chaveamento CW em WPM](set-cw-keying-speed-in-wpm.md)
+- [Ver controles do applet Phone/CW](view-phone-cw-applet-controls.md)

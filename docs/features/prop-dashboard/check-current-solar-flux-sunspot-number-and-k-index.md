@@ -1,19 +1,21 @@
-# Check current solar flux, sunspot number and K-index
+# HF Propagation Dashboard
 
-The HF Propagation Dashboard shows live solar indices — Solar Flux Index (SFI), sunspot number, K-index, A-index, and X-ray class — in a set of metric cards. Use this page to get a quick read on current ionospheric conditions before calling CQ or chasing DX.
+The HF Propagation Dashboard provides an at-a-glance view of current HF/VHF propagation conditions, including solar indices, a 3-day Kp forecast with blackout and radiation risk assessments, HF day/night band conditions, solar and lunar imagery, and sporadic-E/aurora hints.
 
 ## Before you start
 
 - AetherSDR must be running. A radio connection is not required for this feature.
 - An active internet connection is needed to fetch live solar data.
 
-## Steps
+## Opening the dashboard
 
 1. Click `View > Propagation Conditions` to open the HF Propagation Dashboard.
-2. Read the **Current Conditions cards** at the top of the dialog. Five metric tiles are displayed: **SFI**, **SN**, **A-index**, **K-index**, and **X-ray**.
-3. Hover over any tile to read its tooltip. Each tooltip explains what the index measures and what the current value means for HF propagation.
 
 ## What each control does
+
+### Current Conditions cards
+
+Five metric tiles are displayed at the top of the dialog. Hover over any tile to read its tooltip explaining what the index measures and what the current value means for HF propagation.
 
 | Control | What it shows |
 |---|---|
@@ -25,13 +27,60 @@ The HF Propagation Dashboard shows live solar indices — Solar Flux Index (SFI)
 
 None of these controls have persisted settings keys — they are read-only indicators updated from live data.
 
+### 3-Day Forecast grid
+
+Shows the Kp forecast for each 3-hour UTC period across three days. Below the grid, summary rows display:
+
+- **Max Kp** - Highest predicted Kp value per day
+- **R1-R2** - Risk of minor-to-moderate radio blackouts
+- **R3+** - Risk of strong-to-extreme radio blackouts
+- **S1+** - Risk of solar radiation storms
+
+Additional summary labels under the forecast grid show:
+- **Geomagnetic field** status
+- **Solar wind** conditions
+- **Noise** levels
+- **X-ray** activity
+
+### Solar And Lunar panel
+
+Displays a live solar image. Click on the image to cycle through available wavelengths. The default label shows **Corona (193A)**. Below the solar image, the current Moon phase is displayed.
+
+### What To Look For
+
+Rotating plain-language learning notes about the current solar image appear in this section.
+
+### HF Band Conditions
+
+Shows day and night condition per band row. Four band rows are displayed with color-coded indicators showing propagation quality.
+
+### VHF Conditions
+
+Shows current VHF propagation openings with three states per indicator: **Closed** or **Open**.
+
+| Indicator | What it shows |
+|---|---|
+| **Aurora** | Current auroral propagation opening status |
+| **E-Skip NA** | Current sporadic-E opening status for North America |
+| **E-Skip EU** | Current sporadic-E opening status for Europe |
+
+### What These Mean (VHF)
+
+Two learning notes explain the difference between aurora and sporadic-E propagation modes.
+
+### Rationale
+
+A plain-language explanation of today's forecast appears at the bottom of the dashboard.
+
 ## Tips
 
 - The color of each tile value changes with severity: green indicates favorable or quiet conditions, yellow indicates elevated or unsettled conditions, and red indicates storm-level or major flare activity.
 - If a tile shows no value, the dashboard is still waiting for data from the network.
+- The dashboard supports frameless window mode. When enabled, a custom title bar is displayed with the window title "HF Propagation Dashboard". This mode respects the application's `FramelessWindow` setting.
+- Kp cells in the forecast grid are color-coded according to their severity level.
 
 ## Related
 
-- [HF Propagation Dashboard overview](overview.md)
+- [Check current solar flux, sunspot number and K-index](check-current-solar-flux-sunspot-number-and-k-index.md)
 - [See the 3-day Kp forecast and blackout risk](see-the-3-day-kp-forecast-and-blackout-risk.md)
 - [Decide which HF band is open for day or night work](decide-which-hf-band-is-open-for-day-or-night-work.md)
