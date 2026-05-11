@@ -52,6 +52,7 @@ These two controls exist only in the frameless strip editors (StripDeEssPanel). 
 
 - For typical SSB voices, **Attack 0.5–2 ms** and **Release 80–150 ms** works well. Very fast speech (e.g. contesting) may need shorter values at both ends.
 - The **-6 dB tick** on the gain-reduction bar marks the default Amount level — it's a useful reference for how much the de-esser is actually reducing.
+- The sidechain response curve now shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
 - Attack and Release settings are stored per path (TX and RX) and persist across sessions.
 
 ## Related

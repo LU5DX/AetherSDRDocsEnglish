@@ -10,12 +10,12 @@ The Radio Setup dialog is the central configuration window for your FLEX-8600. I
 
 Open Radio Setup from `Settings > Radio Setup...`. The dialog contains a row of tabs across the top; each tab covers a distinct area of configuration. Tabs other than Radio load their contents the first time you click them.
 
+The dialog is frameless on systems where `FramelessWindow` is enabled (default: True). A custom title bar with the text "Radio Setup" appears at the top. You can drag the title bar to move the dialog. The dialog remembers its size and position between sessions.
+
 You can also jump directly to specific tabs:
 
 - `Settings > USB Cables...` opens Radio Setup with the **USB Cables** tab active.
 - `Settings > FlexControl...` opens Radio Setup with the **Serial** tab active (only available when serial port support is built in).
-
-The dialog remembers its size and position between sessions.
 
 ### Tabs at a glance
 
@@ -62,10 +62,10 @@ The following controls have persisted settings keys or notable behaviors.
 | **Save to:** | Audio | Folder path where client-side recordings are saved. Stored as `QsoRecordingDir`. Defaults to `Documents/AetherSDR/Recordings`. |
 | **Auto-record on TX** | Audio | Automatically starts recording whenever the radio transmits. Stored as `QsoRecordingAutoRecord`. Default: disabled. |
 | **Idle timeout:** | Audio | Seconds of silence (10–3600) after which an active recording stops automatically. Default: 120 s. Stored as `QsoRecordingIdleTimeout`. |
-| **Connect / Disconnect (TGXL)** | Peripherals | Opens/closes a direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. |
-| **Connect / Disconnect (PGXL)** | Peripherals | Opens/closes a direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected state if a ShackSwitch (rather than a standard Antenna Genius) is the device currently connected. |
-| **Connect / Disconnect (ShackSwitch)** | Peripherals | Opens/closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden when a standard Antenna Genius (non-ShackSwitch) is the connected device. |
+| **Connect / Disconnect (TGXL)** | Peripherals | Opens/closes a direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has already discovered the TGXL, the discovered IP is pre-filled. If you clear the IP field and close the dialog, the saved manual IP and port are removed so the device no longer auto-connects. If you clear the IP field and click **Connect**, the saved settings are also removed and the connect is cancelled. |
+| **Connect / Disconnect (PGXL)** | Peripherals | Opens/closes a direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. Same IP-clearing behavior as TGXL. |
+| **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected state if a ShackSwitch (rather than a standard Antenna Genius) is the device currently connected. Same IP-clearing behavior as TGXL. |
+| **Connect / Disconnect (ShackSwitch)** | Peripherals | Opens/closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden when a standard Antenna Genius (non-ShackSwitch) is the connected device. Same IP-clearing behavior as TGXL. |
 | **⚙ Web UI (ShackSwitch)** | Peripherals | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024; otherwise falls back to `SS_WebPort` or port 5000. |
 | **Use Aether defaults / Custom colors** | Themes | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. Default: Use Aether defaults. |
 | **Slice A–H color buttons** | Themes | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices supported. |
@@ -75,4 +75,14 @@ The following controls have persisted settings keys or notable behaviors.
 
 The **10 MHz Reference Source:** combo box in the RX tab behaves differently in v0.9.7 compared to earlier releases. Previously it listed only the sources physically detected at dialog open time and showed a plain "Locked / Unlocked" label. The new behaviour is:
 
-- **Dynamic population.** The combo always contains Auto. TCXO, GPSDO, and External 10 MHz are added whenever the radio reports them as present, as the current setting, or as the current oscillator state. Items are not removed while the dialog is open even if the radio stops reporting them momentarily
+- **Dynamic population.** The combo always contains Auto. TCXO, GPSDO, and External 10 MHz are added whenever the radio reports them as present, as the current setting, or as the current oscillator state. Items are not removed while the dialog is open even if the radio stops reporting them momentarily.
+
+## Peripherals IP Field Clearing
+
+In the Peripherals tab, all three device rows (TGXL, PGXL, Antenna Genius/ShackSwitch) now support clearing a previously saved manual IP address:
+
+- **Clear the IP field and close the dialog.** If the IP field is empty when you close Radio Setup (by clicking the window close button or pressing Esc), any saved manual IP and port for that device are removed from settings. If the device is currently connected, it is disconnected. The result is that the device no longer auto-connects on the next startup.
+- **Clear the IP field and click Connect.** If the IP field is empty when you click **Connect**, the saved manual IP and port are removed and the connect is cancelled. This prevents accidentally clearing saved settings and then doing nothing.
+- **Clear the IP field and click Disconnect.** If you disconnect a device while the IP field is already empty, the saved manual IP and port are removed first.
+
+This behavior applies to all four device types in the Peripherals tab (TGXL, PGXL

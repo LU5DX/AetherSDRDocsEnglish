@@ -5,7 +5,7 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 ## Before you start
 
 - The gate stage must be enabled on the side you want to adjust (TX or RX). If the applet is not visible, enable the gate via the CHAIN widget or double-click the GATE stage to open the floating editor.
-- Open the **Aetherial TX Gate** sub-container (TX) or the **Aetherial AGC-T** sub-container (RX) inside the Aetherial Audio (TXDSP) parent container in the Applet Panel.
+- Open the **Aetherial TX Gate** sub-container (TX) or the **Aetherial AGC-G** sub-container (RX) inside the Aetherial Audio (TXDSP) parent container in the Applet Panel.
 - When a gate stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This visual cue matches the dim effect used on the EQ curve and confirms that the stage is not processing audio. Re-enable the stage to restore full opacity and active processing.
 
 ## Steps
@@ -18,18 +18,15 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 
 ## What each control does
 
-| Control                | Default                                                                                                                                                                                                     | Valid range                                                                                                                                                                                                                                                         |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Ratio**              | 2.0                                                                                                                                                                                                         | 1.0 to 10.0                                                                                                                                                                                                                                                         |
-| **Thresh**             | -40.0 dB                                                                                                                                                                                                    | -80.0 to 0.0 dB                                                                                                                                                                                                                                                     |
-| **Return**             | 2.0 dB                                                                                                                                                                                                      | 0.0 to 20.0 dB                                                                                                                                                                                                                                                      |
-| **Floor**              | -15.0 dB                                                                                                                                                                                                    | -80.0 to 0.0 dB                                                                                                                                                                                                                                                     |
-| **Gain-reduction bar** | —                                                                                                                                                                                                           | 0 to 40 dB GR                                                                                                                                                                                                                                                       |
-| Transfer curve         | —                                                                                                                                                                                                           | —                                                                                                                                                                                                                                                                   |
-| Flip (Expander / Gate) | Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'. | Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.' |
-| Peek (lookahead)       | Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.                                                  | Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.                                                                                                         |
-| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                  |
-| Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
+| Control                | Default   | Valid range     |
+|------------------------|-----------|-----------------|
+| **Thresh**             | -40.0 dB  | -80.0 to 0.0 dB |
+| **Ratio**              | 2.0       | 1.0 to 10.0     |
+| **Return**             | 2.0 dB    | 0.0 to 20.0 dB  |
+| **Release**            | 100 ms    | 5 to 2000 ms    |
+| **Floor**              | -15.0 dB  | -80.0 to 0.0 dB |
+| **Gain-reduction bar** | —         | 0 to 40 dB GR   |
+| Transfer curve         | —         | —               |
 
 ## Tips
 
@@ -48,7 +45,7 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 
 ## Related
 
-- [Aetherial TX Gate / Aetherial AGC-T (RX) overview](overview.md)
+- [Aetherial TX Gate / Aetherial AGC-G (RX) overview](overview.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Set Floor to avoid unnatural silence between words](set-floor-to-avoid-unnatural-silence-between-words.md)
 - [Tune release for natural gate close](tune-release-for-natural-gate-close.md)

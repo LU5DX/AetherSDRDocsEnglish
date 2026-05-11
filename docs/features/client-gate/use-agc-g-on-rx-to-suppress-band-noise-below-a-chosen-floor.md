@@ -30,17 +30,18 @@ The RX-side Aetherial AGC-G (client-side downward expander) attenuates received 
 |---------|---------|-------|-------------|----------|
 | Thresh | -40.0 dB | -80.0 to 0.0 dB | `ClientGateRxThresholdDb` | Level below which the gate starts attenuating. Linear mapping. |
 | Ratio | 2.0 | 1.0 to 10.0 | `ClientGateRxRatio` | Higher ratios give a harder, more gate-like cut; lower ratios act as a soft downward expander. Displayed as "X.X:1". |
-| Return | 2.0 dB | 0.0 to 20.0 dB | `ClientGateRxReturnDb` | Hysteresis deadband: gate opens above Thresh and stays open until input drops below Thresh − Return. Displayed as "X.XX dB". |
-| Release | 100 ms | 5 to 2000 ms | `ClientGateRxReleaseMs` | How quickly the gate closes after input falls below Thresh − Return. Exponential mapping. |
+| Return | 2.0 dB | 0.0 to 20.0 dB | `ClientGateRxReturnDb` | Hysteresis deadband: gate opens above Thresh and stays open until input drops below Thresh − Return. Displayed as "X.XX dB". The transfer-curve widget draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. |
+| Release | 100 ms | 5 to 2000 ms | `ClientGateRxReleaseMs` | How quickly the gate closes after input falls below Thresh − Return. Exponential mapping. Displayed as "X.X ms" below 100 ms, "X ms" above. |
 | Floor | -15.0 dB | -80.0 to 0.0 dB | `ClientGateRxFloorDb` | Maximum attenuation the gate is allowed to apply. Linear mapping. |
-| Gain-reduction bar | — | 0 to 40 dB GR | — | Amber horizontal strip, right-filled. A tick at -15 dB marks the default Floor. |
-| Transfer curve | — | — | — | Plots the expander's static transfer curve with a live input ball. Cyan band shows hysteresis zone. |
+| Gain-reduction bar | — | 0 to 40 dB GR | — | Amber horizontal strip, right-filled. Scale maxes at 40 dB; a tick at -15 dB marks the default Floor. |
+| Transfer curve | — | — | — | Plots the expander's static transfer curve and a live ball at the current input level. In compact mode (when the floating editor is used), axis labels are cached as static text and rendered at 7-pixel font size for improved performance. |
 
 ## Tips
 
 - Start with Thresh just above the highest level of background noise you want to suppress. Adjust while listening to a weak signal — the gate should open cleanly when the signal rises above the noise.
 - The Gain-reduction bar shows live attenuation depth. When no signal is present, it should show steady GR equal to your Floor setting. If it never reaches Floor, Thresh may be set too low or the band noise is too loud.
 - Tuning knobs here and in the floating editor stay in sync — changes in either place update the other live.
+- The transfer-curve display caches axis labels for efficient rendering. When switching between compact mode (floating editor) and full-size mode, labels automatically refresh at the appropriate font size.
 
 ## Related
 

@@ -47,6 +47,20 @@ The floating editor includes the five knobs shared with the applet tile plus two
 
 Defaults and valid ranges for Knee and Limiter ceiling are not specified in the available documentation; see the floating editor for current values.
 
+## Applet tile controls
+
+When the compressor is shown in the applet panel (compact mode), the following controls and indicators are available without opening the floating editor:
+
+| Element | Label | Kind | Behavior |
+|---|---|---|---|
+| Transfer curve | — | indicator | Draws the input/output transfer curve plus a live ball showing the current envelope level. View-only in the applet; editable in the floating editor. |
+| Gain-reduction bar | — | meter | Horizontal amber strip, right-filled. Scale maxes at 20 dB reduction; a tick at -6 dB marks a typical working amount. Refreshed ~30 Hz. |
+| Knob | Thresh | knob | Linear mapping. Sets the level above which compression starts. Default -18.0 dB, range -60.0 to 0.0 dB. Setting key: `ClientCompTxThresholdDb` (TX) or `ClientCompRxThresholdDb` (RX). |
+| Knob | Ratio | knob | Logarithmic mapping (1 * 20^n). Sets how hard peaks are held once threshold is crossed. Default 3.0, range 1.0 to 20.0. Label formatted as 'X.XX:1'. |
+| Knob | Attack | knob | Exponential mapping (0.1 * 3000^n). Sets how quickly the compressor clamps down after the threshold is crossed. Default 20.0 ms, range 0.1 to 300.0 ms. Label formatted 'X.X ms' below 10, 'X ms' above. |
+| Knob | Release | knob | Exponential mapping (5 * 400^n). Sets how quickly gain returns after the input drops back below threshold. Default 200 ms, range 5 to 2000 ms. Label formatted 'X ms'. |
+| Knob | Makeup | knob | Linear mapping. Adds back gain lost to compression. Default 0.0 dB, range -12.0 to 24.0 dB. Label shows explicit '+' sign for positive values. |
+
 ## Tips
 
 - Changes made in the floating editor are reflected immediately in the applet tile's transfer curve and gain-reduction bar.

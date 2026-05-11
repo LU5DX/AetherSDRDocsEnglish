@@ -5,7 +5,7 @@ The Release knob controls how quickly the gate closes after audio drops below th
 ## Before you start
 
 - The gate stage must be enabled on the TX or RX side. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) if the gate is currently bypassed. When the gate stage is bypassed, the entire applet tile dims to approximately 55% opacity — this is normal and indicates the DSP stage is inactive.
-- Open the Aetherial TX Gate or Aetherial AGC-T applet so the knobs are visible. The applet appears inside the Aetherial Audio (TXDSP) parent container once the gate stage is active.
+- Open the Aetherial TX Gate or Aetherial AGC-G (RX) applet so the knobs are visible. The applet appears inside the Aetherial Audio (TXDSP) parent container once the gate stage is active.
 
 ## Steps
 
@@ -21,6 +21,14 @@ The Release knob controls how quickly the gate closes after audio drops below th
 | **Release** | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
 
 The knob uses an exponential mapping (5 × 400^n), so small movements at the low end of the range produce finer timing adjustments, while the upper range covers long, gradual fade-outs. Release begins only after the input has fallen below Thresh − Return; the **Return** value therefore affects when the release phase starts.
+
+## Transfer curve display
+
+The transfer curve widget plots the expander's static transfer curve with a live ball at the current input level. A soft-cyan hysteresis-band overlay appears between (Thresh − Return) and Thresh, making the sticky zone visible. The widget uses compact-mode rendering when the applet is in its smaller state, with axis labels drawn using cached static text for improved performance.
+
+## Gain-reduction bar
+
+A horizontal amber strip, filled from the right, shows the depth of attenuation applied. The scale maxes at 40 dB gain reduction, with a tick at -15 dB marking the default Floor setting.
 
 ## Tips
 

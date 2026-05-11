@@ -25,6 +25,9 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 | **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz |
 | **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)     |
 | **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                   |
+| **SQL**                    | Off              | Toggle button to enable squelch. Auto-disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes. In RTTY and digital modes, squelch is also turned off automatically to prevent gating FSK signals (#2504). |
+| **Squelch level**          | 20               | Slider (0-100) to set squelch threshold. Disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes.                                     |
+
 ## Tips
 
 - FM, NFM, and DFM modes do not show filter width preset buttons. The filter is fixed for those modes.
@@ -33,6 +36,7 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 - AGC mode controls are hidden when an FM family mode is active.
 - Filter presets are now stored in a `lo:hi` format (e.g. `300:3000`) as well as the older plain-width format. Both formats are read correctly. If you have saved custom presets from an earlier version, they continue to work without any action on your part.
 - The `stepFilterWidth()` method walks the per-mode preset list so widen/narrow shortcuts produce mode-correct edge geometry. This ensures that when you widen or narrow the filter using keyboard shortcuts, the filter stays within the appropriate preset boundaries for the current mode.
+- When switching to RTTY or digital modes (DIGU, DIGL), the squelch is automatically disabled and turned off. This prevents the squelch from notching out FSK characters and breaking decoding (#2504).
 
 ## Slice tab behaviour (v0.9.5.1)
 

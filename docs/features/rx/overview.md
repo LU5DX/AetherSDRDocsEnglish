@@ -23,7 +23,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, NT, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, NT, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). |
 | Frequency label | 0.000.000 | — | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. |
 | Frequency edit | — | 0.001–54.000 MHz (up to 450.000 MHz on XVTR) | Type a frequency in MHz and press Enter to tune and re-center. Press Escape to cancel and restore the previous frequency. |
 | STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. |
@@ -59,7 +59,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 | 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Mutes or unmutes the slice audio output. |
 | AF gain | 70 | 0–100 | Adjusts the slice audio output level. |
 | L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Double-click to reset to centre (50). |
-| SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in DIGU, DIGL, NT, CW, and CWL modes. |
+| SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in DIGU, DIGL, NT, RTTY, CW, and CWL modes. RTTY was added to the disabled list in v26.5.1 (#2504) to prevent notching out FSK characters. |
 | Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. |
 
 ### RIT and XIT

@@ -17,9 +17,9 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 
 **Setup view** — Shows the 12 F-key macro editors, the Delay: control, and the QSK toggle. Edit macro text here and configure keyer timing options. Opening the Setup view always turns off live sending.
 
-**F1–F12 shortcuts** — When the active slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown.
+**F1–F12 shortcuts** — When the active slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown. These shortcuts are only active while the CWX panel is visible. If you switch to another panel that also uses F1–F12 (such as the DVK panel), the CWX shortcuts are automatically disabled to avoid conflicts.
 
-**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. This works application-wide whenever CWX is active.
+**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. This works only when the CWX panel is visible.
 
 ## What each control does
 
@@ -31,7 +31,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 | Speed: | CW send speed in WPM. Range: 5–100 WPM. Default: 20 WPM. | `CwxSpeedWpm` |
 | Send history scroll | Scrolling display of previous send buffers with per-character highlighting. Read-only. | — |
 | Send text area | Text entry field. Press Enter to send the typed buffer. | — |
-| F1 … F12 (macro buttons) | Sends the macro stored for that function key. Active via keyboard shortcut when slice is in CW or CWL mode. | `CwxMacro_F1` – `CwxMacro_F12` |
+| F1 … F12 (macro buttons) | Sends the macro stored for that function key. Active via keyboard shortcut when the CWX panel is visible and the slice is in CW or CWL mode. | `CwxMacro_F1` – `CwxMacro_F12` |
 | F1 … F12 macro editors | Text fields in the Setup view for writing or editing each macro string. | `CwxMacro_F1` – `CwxMacro_F12` |
 | Delay: | Inter-macro delay in milliseconds. Range: 0–2000 ms. Default: 5 ms. | `CwxDelay` |
 | QSK | Enables QSK full break-in when checked. | `CwxQsk` |
@@ -40,7 +40,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 ## Tips
 
 - Pressing Escape during a macro transmission clears the buffer immediately. Because the keyer state alternates rapidly between dits and dahs, Escape fires unconditionally rather than waiting for a specific transmit state, so it reliably stops sending.
-- F1–F12 keyboard shortcuts only fire when the active slice is in CW or CWL mode. Switching the slice to a non-CW mode disables them automatically.
+- F1–F12 keyboard shortcuts only fire when the CWX panel is visible and the active slice is in CW or CWL mode. Switching the slice to a non-CW mode, or hiding the CWX panel (for example, by opening the DVK panel), disables them automatically.
 - If you switch to the Setup view or click Send while Live is on, live sending is turned off automatically. You will not accidentally retransmit characters that the keyer has already sent.
 - The Live button state reflects the radio model directly. If the model reports that live sending is active when the panel first loads, the Live button will already appear pressed.
 

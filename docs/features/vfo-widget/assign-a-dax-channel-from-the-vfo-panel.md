@@ -24,6 +24,16 @@ DAX (Digital Audio Exchange) routes a slice's received audio to a named audio ch
 | AetherVoice button (DSP tab) | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                       | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
 
 The DAX channel combo assigns a DAX audio channel to the current slice. Selecting a numbered channel routes the slice's received audio to that DAX channel. Selecting **Off** removes the assignment. This setting reflects live radio state and is not persisted locally by AetherSDR.
+
+## Squelch behavior by mode
+
+The squelch button and slider are automatically disabled in modes where squelch is not meaningful or supported. Starting in v26.5.1:
+
+- **Squelch is disabled** in **Digital**, **RTTY**, and **CW** modes.
+  - **Digital / RTTY**: Audio feeds external decoders via DAX; squelch is not meaningful and can gate weak FSK signals (issue #2504).
+  - **CW**: The radio locks squelch on at a fixed level and rejects changes.
+- If squelch was enabled when switching into one of these modes, the radio turns it off automatically. The saved squelch state is preserved and will be restored if you switch back to a supported mode.
+
 ## DSP tab controls
 
 The DSP tab in the VFO panel contains radio-supplied noise reduction buttons and two client-side launcher buttons.
@@ -80,6 +90,7 @@ The filter width label shows the current filter bandwidth. Click to cycle throug
 - **DAX tab is not visible** — The VFO panel may be collapsed. Click the collapsed strip to expand it, then select the DAX tab.
 - **DSP level slider is dimmed** — No leveled DSP algorithm is currently active, or only RNN, ANFT, or APF is enabled. Turn on NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
 - **DSP level slider is missing on startup** — If a leveled DSP algorithm was enabled in the radio's saved profile, the slider is now automatically populated. If it still appears missing, toggle the algorithm off and on again.
+- **Squelch button is disabled** — You are in Digital, RTTY, or CW mode. Squelch is not available in these modes (digital and RTTY route audio through DAX; CW has radio-locked fixed squelch). Switch to a supported mode such as USB or AM to enable squelch controls.
 
 ## Related
 

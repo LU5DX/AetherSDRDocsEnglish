@@ -2,7 +2,7 @@
 
 AetherDSP Settings is a dialog that lets you tune the client-side noise-reduction engines available in AetherSDR: NR2, NR4, MNR, DFNR, RN2, and BNR. Each engine has its own tab. Open the dialog from `Settings > AetherDSP Settings...`.
 
-From v0.9.8 the dialog uses a custom frameless chrome with a gradient title bar, window-control buttons, 8-axis resize, and drag-to-move. The dialog hosts an embedded `AetherDspWidget` that contains all controls. Existing signal connections to the dialog continue to work without change.
+The dialog supports both frameless (custom chrome) and native window decoration modes. By default, the frameless mode is enabled, controlled by the `FramelessWindow` application setting (`Settings > Preferences > General > Frameless Window`). When frameless mode is active, the dialog uses a custom gradient title bar, window-control buttons, 8-axis resize, and drag-to-move. When frameless mode is disabled, the dialog uses the standard OS window chrome. The dialog hosts an embedded `AetherDspWidget` that contains all controls. Existing signal connections to the dialog continue to work without change.
 
 ---
 
@@ -44,7 +44,7 @@ NR2 is AetherSDR's musical-noise-reduction engine.
 
 ## NR4 tab
 
-NR4 uses the libspecbleach engine.
+NR4 uses the libspecbleach engine. On Windows, NR4 requires LLVM (clang-cl) to compile. If NR4 is not available on Windows, install LLVM from `llvm.org` and rebuild AetherSDR.
 
 ### Steps
 
@@ -75,6 +75,7 @@ NR4 uses the libspecbleach engine.
 - Leave **Adaptive Noise Estimation** on unless the noise floor is stable and you want to lock the estimate.
 - Increase **Whitening (%):** to flatten residual colored noise after reduction.
 - Click **Reset Defaults (↺ icon)** to restore: MMSE / adaptive on / 10 dB / 0 / 0 / 0.50 / 0.50.
+- If the NR4 tab is dimmed on Windows, install LLVM and rebuild to enable the engine.
 
 ---
 
@@ -155,7 +156,11 @@ DFNR uses the DeepFilterNet3 engine.
 
 ## Window controls
 
-The AetherDSP Settings dialog uses a custom frameless title bar introduced in v0.9.8.
+The AetherDSP Settings dialog supports two modes determined by the `FramelessWindow` setting (`Settings > Preferences > General > Frameless Window`). When frameless mode is enabled, the custom chrome from v0.9.8 is used. When disabled, the dialog uses the standard OS window decorations.
+
+### Frameless mode controls
+
+When frameless mode is active:
 
 ### Title bar
 

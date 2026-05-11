@@ -4,13 +4,15 @@ The Connect to a Radio panel is the starting point for every AetherSDR session. 
 
 ## Before you start
 
-- Your FLEX-8600 must be powered on and running firmware 4.1.5.
+- Your FLEX-8600 must be powered on and running firmware 4.2.
 - For SmartLink connections, you need a FlexRadio account and internet access on both ends.
 - For manual/VPN connections, you need the radio's IP address.
 
 ## How it works
 
-The panel appears in the main window whenever no radio is connected. You can also open it at any time via `Settings > Connect to Radio...`.
+The panel opens as a separate window whenever no radio is connected. It features a custom title bar with the text "Connect to Radio". You can drag the window by its title bar. The panel appears in the main window whenever no radio is connected. You can also open it at any time via `Settings > Connect to Radio...`.
+
+The panel uses a frameless window style by default, controlled by the `FramelessWindow` setting (default: True). When frameless mode is on, the custom title bar provides window dragging capability. Closing this window will close the connection panel.
 
 Three mode buttons across the top determine which connection method is active. Selecting a mode switches the panel below to show the relevant controls. AetherSDR persists your last-used mode in `ConnectionMode`.
 
@@ -42,6 +44,8 @@ Three additional controls are available on this page:
 - **Advanced: Source path** — selects which local network interface (NIC) is used for the connection. The chosen interface is persisted as `ManualBindSource`. A **Source warning label** appears if the saved interface is unavailable or stale.
 - **Use low bandwidth mode** — reduces stream data rates for slow or congested links. Persisted as `LowBandwidthMode`.
 - **Network Diagnostics** — opens the network diagnostics tool if the connection fails.
+
+When probing a manual IP address, AetherSDR collects detailed status information from the radio. It captures radio model, nickname, callsign, multiFlex support, and client connection data during a 400-millisecond peek window after the initial handshake. This information is used to populate the radio identity fields and verify the connection.
 
 ### Startup behavior
 

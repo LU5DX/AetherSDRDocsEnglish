@@ -80,6 +80,29 @@ The NT mode is treated as a digital mode by the RX Controls applet. Specifically
 - The filter width label calculates bandwidth the same way as DIGU (using the high-edge value).
 - The SQL button and squelch level slider are disabled when NT is active, because audio is routed via DAX and squelch is not meaningful. If squelch was on when you switched to NT, it is turned off automatically and the previous state is saved for restoration when you leave NT mode.
 
+## Squelch behavior in RTTY and digital modes (v26.5.1)
+
+Starting in v26.5.1, the squelch controls (SQL button and squelch level slider) are also disabled in RTTY mode, in addition to the existing digital modes (DIGU, DIGL) and NT mode. This change ensures that squelch does not notch out FSK characters, which would otherwise break decoding.
+
+When you switch to RTTY mode:
+- The SQL button and squelch level slider are automatically disabled.
+- If squelch was on when you switched to RTTY, it is turned off automatically and the previous state is saved for restoration when you leave RTTY or digital mode.
+- CW modes (CW, CWL) continue to have squelch disabled as before, with squelch state managed by the radio itself.
+
+## RADE mode safety (v26.5.1)
+
+In v26.5.1, the RADE (RADE) mode activation and deactivation logic was improved to prevent spurious deactivation signals. When you select RADE mode:
+
+1. The applet activates RADE on the correct slice and calls `m_slice->setMode(mode)` immediately.
+2. When switching away from RADE to another mode, the applet only emits a deactivation signal if the slice was actually in RADE mode before the switch. This prevents sending a false deactivation when:
+   - The user swaps between non-RADE modes on a slice that was never in RADE.
+   - RADE was activated externally (via the VFO widget combo, profile load on startup, or `MainWindow::activateRADE`).
+   - The slice is rebound to a different slice via `setSlice()`.
+
+The applet reads the slice's mode *before* calling `m_slice->setMode(mode)`, so it correctly sees the pre-change mode regardless of how RADE was activated.
+
+No action is required from you. The RADE mode activation and deactivation now behaves correctly in all scenarios.
+
 ## Related
 
 - [Use RIT to offset the receive frequency for a drifting station](use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)

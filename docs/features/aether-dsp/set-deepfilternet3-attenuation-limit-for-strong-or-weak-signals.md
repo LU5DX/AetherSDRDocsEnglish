@@ -11,12 +11,12 @@ The AetherDSP Settings dialog (opened via `Settings > AetherDSP Settings...`) tu
 
 | Control                        | Behavior                                                                                                   | Notes                                                                                   |
 |--------------------------------|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| Title bar — AetherDSP Settings | Frameless 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title.                 | Matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip.         |
+| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Title bar visibility is controlled by the FramelessWindow setting. | Matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip.        |
 | — (Minimize)                   | Minimizes the dialog.                                                                                      |                                                                                         |
 | □ (Maximize)                   | Maximizes or restores the dialog.                                                                          |                                                                                         |
 | × (Close)                      | Closes the dialog.                                                                                         |                                                                                         |
 | Drag-to-move                   | Click and drag the title bar to move the dialog.                                                           | Double-click the title bar to toggle maximize/restore.                                  |
-| 8-axis resize                  | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. | 12 px resize hit zone around the dialog edges.                                          |
+| 8-axis resize                  | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. | 12 px resize hit zone around the dialog edges (only when frameless mode is enabled).   |
 
 ## NR2 tab (Musical-Noise Reduction)
 
@@ -36,7 +36,7 @@ Selecting the NR2 tab activates or bypasses the NR2 engine. When NR2 is activate
 
 ## NR4 tab (libspecbleach)
 
-Selecting the NR4 tab activates or bypasses the NR4 engine.
+Selecting the NR4 tab activates or bypasses the NR4 engine. On Windows, NR4 requires LLVM (clang-cl) to be installed — the tab is dimmed with a tooltip when unavailable.
 
 ### NR4 controls
 
@@ -92,6 +92,7 @@ Selecting the BNR tab activates or bypasses the BNR engine. Intensity is control
 - **Audio sounds unaffected after moving the slider** — Confirm you are on the correct tab and that the corresponding noise reduction engine is active. Each engine has separate controls and is not affected by settings from other engines.
 - **MNR tab is dimmed** — MNR is only available on macOS builds.
 - **BNR tab is dimmed** — The NVIDIA Broadcast SDK is not detected on your system.
+- **NR4 tab is dimmed on Windows** — NR4 requires LLVM (clang-cl) to be installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 
 ## Related
 

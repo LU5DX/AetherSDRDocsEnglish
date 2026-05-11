@@ -16,42 +16,42 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 
 ## What each control does
 
-| Control                           | Default | Valid values                               |
-|-----------------------------------|---------|--------------------------------------------|
-| **ANT1** (RX antenna, blue label) | ANT1    | Antenna ports from the radio's ant_list    |
-| **ANT1** (TX antenna, red label)  | ANT1    | TX-capable ports from the radio's ant_list |
-| **Slice tabs (A..H)**             | None    | 1–8 buttons (capped by hardware max slices)|
-| **Slice badge**                   | A       | A/B/C/D/E/F/G/H                            |
-| **🔓 / 🔒**                       | 🔓       | Unlocked / locked                          |
-| **Mode combo**                    | USB     | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
-| **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)   |
-| **Frequency edit**                | None    | 0.001–54.000 MHz (450.000 MHz on XVTR)     |
-| **STEP**                          | 100 Hz  | Per-mode list of step sizes                |
-| **Filter width presets**          | None    | Per-mode preset widths                     |
-| **Filter passband widget**        | None    | Drag lo/hi edges to adjust passband        |
-| **Tone mode (FM)**                | Off     | Off, CTCSS TX                              |
-| **CTCSS tone value**              | None    | 41 standard EIA/TIA-603 tones (67.0–254.1 Hz) |
-| **Offset (FM)**                   | 0.0 MHz | 0.0–100.0 MHz (step 0.1)                  |
-| **− (offset down)**               | None    | Toggle                                     |
-| **Simplex**                       | Checked | Toggle                                     |
-| **+ (offset up)**                 | None    | Toggle                                     |
-| **REV**                           | None    | Toggle                                     |
-| **🔊 / 🔇 (mute)**               | 🔊       | Unmuted / muted                            |
-| **AF gain**                       | 70      | 0–100                                      |
-| **L / R pan**                     | 50      | 0–100                                      |
-| **SQL**                           | None    | Toggle                                     |
-| **Squelch level**                 | 20      | 0–100                                      |
-| **AGC mode**                      | Med     | Off, Slow, Med, Fast                       |
-| **AGC threshold**                 | 65      | 0–100                                      |
-| **RIT**                           | None    | Toggle                                     |
-| **RIT 0**                         | None    | Push button                                |
-| **RIT offset**                    | +0 Hz   | Step 10 Hz                                 |
-| **XIT**                           | None    | Toggle                                     |
-| **XIT 0**                         | None    | Push button                                |
-| **XIT offset**                    | +0 Hz   | Step 10 Hz                                 |
-| **TX (badge)**                    | None    | Click to set as TX slice                   |
-| **QSK**                           | None    | Amber when CW break-in active (read-only)  |
-| **Filter width (indicator)**      | 2.7K    | Current filter bandwidth                   |
+| Control                           | Default   | Valid values                                                                |
+|-----------------------------------|-----------|-----------------------------------------------------------------------------|
+| **ANT1** (RX antenna, blue label) | ANT1      | Antenna ports from the radio's ant_list                                     |
+| **ANT1** (TX antenna, red label)  | ANT1      | TX-capable ports from the radio's ant_list                                  |
+| **Slice tabs (A..H)**             | None      | 1–8 buttons (capped by hardware max slices)                                 |
+| **Slice badge**                   | A         | A/B/C/D/E/F/G/H                                                             |
+| **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
+| **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
+| **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
+| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
+| **STEP**                          | 100 Hz    | Per-mode list of step sizes                                                 |
+| **Filter width presets**          | None      | Per-mode preset widths                                                      |
+| **Filter passband widget**        | None      | Drag lo/hi edges to adjust passband                                         |
+| **Tone mode (FM)**                | Off       | Off, CTCSS TX                                                               |
+| **CTCSS tone value**              | None      | 41 standard EIA/TIA-603 tones (67.0–254.1 Hz)                               |
+| **Offset (FM)**                   | 0.0 MHz   | 0.0–100.0 MHz (step 0.1)                                                    |
+| **− (offset down)**               | None      | Toggle                                                                      |
+| **Simplex**                       | Checked   | Toggle                                                                      |
+| **+ (offset up)**                 | None      | Toggle                                                                      |
+| **REV**                           | None      | Toggle                                                                      |
+| **🔊 / 🔇 (mute)**                  | 🔊         | Unmuted / muted                                                             |
+| **AF gain**                       | 70        | 0–100                                                                       |
+| **L / R pan**                     | 50        | 0–100                                                                       |
+| **SQL**                           | None      | Toggle                                                                      |
+| **Squelch level**                 | 20        | 0–100                                                                       |
+| **AGC mode**                      | Med       | Off, Slow, Med, Fast                                                        |
+| **AGC threshold**                 | 65        | 0–100                                                                       |
+| **RIT**                           | None      | Toggle                                                                      |
+| **RIT 0**                         | None      | Push button                                                                 |
+| **RIT offset**                    | +0 Hz     | Step 10 Hz                                                                  |
+| **XIT**                           | None      | Toggle                                                                      |
+| **XIT 0**                         | None      | Push button                                                                 |
+| **XIT offset**                    | +0 Hz     | Step 10 Hz                                                                  |
+| **TX (badge)**                    | None      | Click to set as TX slice                                                    |
+| **QSK**                           | None      | Amber when CW break-in active (read-only)                                   |
+| **Filter width (indicator)**      | 2.7K      | Current filter bandwidth                                                    |
 
 ## Tips
 
@@ -81,20 +81,31 @@ Both formats can coexist in the same preset list for a given mode. The setting k
 
 If a saved entry is malformed or has a high edge that does not exceed the low edge, AetherSDR skips that entry silently when loading presets.
 
-## NT mode behavior
+## NT mode and RTTY mode behavior
 
-NT is a digital mode added in v0.9.3. Its behavior within the RX Controls applet matches other digital modes (DIGU/DIGL) in the following ways:
+NT and RTTY are digital modes. Their behavior within the RX Controls applet matches other digital modes (DIGU/DIGL) in the following ways:
 
-- **Filter presets** — NT uses the same filter preset widths as DIGU and DIGL (100–2000 Hz).
+- **Filter presets** — NT and RTTY use the same filter preset widths as DIGU and DIGL (100–2000 Hz).
 - **Filter width display** — The filter width indicator derives its value from the high edge of the passband, the same calculation used for USB, DIGU, and FDV modes.
-- **Squelch** — The **SQL** button and squelch level slider are disabled in NT mode. If squelch was active when you switched into NT mode, AetherSDR turns squelch off automatically and restores it when you switch back. This matches the behavior for DIGU and DIGL; CW mode is handled differently because the radio manages its squelch state directly.
+- **Squelch** — The **SQL** button and squelch level slider are disabled in NT mode and RTTY mode. If squelch was active when you switched into NT or RTTY mode, AetherSDR turns squelch off automatically and restores it when you switch back. This matches the behavior for DIGU and DIGL; CW mode is handled differently because the radio manages its squelch state directly. RTTY squelch disabling prevents gating weak FSK signals that would otherwise be notched out (#2504).
+
+## RADE mode activation
+
+From v26.5.1, RADE mode activation and deactivation logic is improved to prevent spurious deactivation signals in certain scenarios:
+
+- Switching to RADE mode from any other mode correctly activates RADE on the current slice.
+- When switching away from RADE mode, AetherSDR only emits a RADE deactivation signal if the slice was actually in RADE mode before the change. This prevents spurious deactivations when:
+  - Changing modes on a non-RADE slice
+  - Rebinding a slice via the slice tabs
+  - Loading profiles that set a non-RADE mode
+- The previous behavior could emit false deactivation signals in multi-pan setups or when rapidly switching modes, which has been resolved.
 
 ## Troubleshooting
 
 - **An expected antenna port does not appear in the menu** — The list comes directly from the radio's ant_list. Verify the port is configured and recognized in the radio's own settings. AetherSDR cannot add ports that the radio has not reported.
 - **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only.
 - **Both labels are greyed out or unresponsive** — AetherSDR is not connected to the radio. Reconnect via `Settings > Connect to Radio...`.
-- **SQL button is greyed out after switching to NT mode** — NT is a digital mode. AetherSDR disables squelch in all digital modes (DIGU, DIGL, NT) because audio is routed via DAX and squelch has no meaningful effect. Switch to a non-digital mode to re-enable squelch.
+- **SQL button is greyed out after switching to NT or RTTY mode** — NT and RTTY are digital modes. AetherSDR disables squelch in all digital modes (DIGU, DIGL, NT, RTTY) because audio is routed via DAX and squelch has no meaningful effect. Switch to a non-digital mode to re-enable squelch.
 - **Slice tab row shows wrong tabs after reconnecting** — In earlier versions, the tab row was built only once and could become stale after a reconnect. From v0.9.5.1, AetherSDR rebuilds the tab row whenever the number of slices changes. If the row still appears incorrect, disconnect and reconnect via `Settings > Connect to Radio...`.
 - **A filter preset applies a different passband than expected** — Presets saved before v0.9.5.1 are stored as plain widths and remain valid. Presets saved from v0.9.5.1 onward may store exact lo:hi edges. If a preset behaves unexpectedly, right-click the preset button to overwrite it with the current passband.
 

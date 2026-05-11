@@ -32,7 +32,7 @@ Use this page to map a physical button on your MIDI controller to the straight k
 | Refresh | Button | Rescans available MIDI ports | — |
 | Connect | Button | Opens or closes the selected MIDI port | — |
 | Auto-connect on startup | Checkbox | Reopens the MIDI port automatically on next launch | `MidiAutoConnect` |
-| Category | Combo box | Filters the Parameter list; select `Phone/CW` for CW keying actions | — |
+| Category | Combo box | Filters the Parameter list; categories include All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, and Frequency | — |
 | Parameter | Combo box | Chooses the target action to bind; CW options are `Trigger straight key`, `Trigger CW Left Paddle`, `Trigger CW Right Paddle` | — |
 | Learn | Button | Starts listening for the next MIDI message and binds it to the selected parameter; label becomes `Cancel Learn` while active | — |
 | Bindings table | List | Shows all current bindings with per-row Invert, Relative, and delete controls | — |

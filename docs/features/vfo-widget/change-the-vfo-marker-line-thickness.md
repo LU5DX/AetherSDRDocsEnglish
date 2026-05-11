@@ -74,6 +74,10 @@ The slider controls the level for these targets:
 | NRF | Spectral noise filter level |
 | ANFL | LMS notch filter level |
 
+## Squelch control behavior
+
+The squelch button and slider in the Audio tab are disabled in digital, RTTY, and CW modes. Digital and RTTY modes feed audio to external decoders via DAX, where squelch is not meaningful and can gate weak FSK signals. The radio locks squelch on at a fixed level in CW mode and rejects changes. When switching into one of these modes while squelch is enabled, squelch is automatically disabled and the saved state is retained in the radio for when you switch back to a voice mode.
+
 ## DSP startup behavior (v0.9.8)
 
 When AetherSDR connects to the radio, any DSP that was enabled in the radio's saved profile now immediately pushes its level into the shared DSP level slider. Previously, the slider would be missing on launch for these DSPs until the user manually toggled them. This fix ensures the slider is always present and active when a leveled DSP is already enabled on the radio.

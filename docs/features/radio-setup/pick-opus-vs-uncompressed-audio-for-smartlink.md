@@ -32,11 +32,10 @@ Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus re
 | **Active Slice Follows TX** | False | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. |
 | **Voice / CW / Digital filter sharpness sliders** | — | 0–3. Sets filter sharpness (0 = lowest latency to 3 = sharpest) per mode. Slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
 | **Auto (Voice / CW / Digital)** | — | Enabled / Disabled. Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| **Connect / Disconnect (TGXL)** | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
-| **Connect / Disconnect (PGXL)** | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the connected device is a non-ShackSwitch Antenna Genius. |
-| **Connect / Disconnect (ShackSwitch)** | Connect | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the 'ShackSwitch' field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from 'Connected' status if Antenna Genius (non-ShackSwitch) is the connected device. |
-| **⚙ Web UI (ShackSwitch)** | — | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's webPort if > 1024, otherwise falls back to `SS_WebPort` or port 5000. |
+| **Connect / Disconnect (TGXL)** | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. Clearing the IP field and clicking **Connect** removes the saved manual IP and port from settings. |
+| **Connect / Disconnect (PGXL)** | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. Clearing the IP field and clicking **Connect** removes the saved manual IP and port from settings. |
+| **Connect / Disconnect (Antenna Genius)** | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. Clearing the IP field and clicking **Connect** removes the saved manual IP and port from settings. |
+| **Connect / Disconnect (ShackSwitch)** | Connect | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. Clearing the IP field and clicking **Connect** removes the saved manual IP and port from settings. |
 | **Cal Frequency (MHz):** | — | Frequency used for manual calibration. Available regardless of whether a GPSDO is installed. If the field is empty when you click **Start**, a warning appears and calibration does not begin. |
 | **Start** | — | Sets the calibration frequency, resets `freq_error_ppb` to 0, then starts the radio PLL calibration sweep. The button is disabled and labelled **Busy** while calibration is running. |
 | **Freq Offset (ppb):** | — | Manual frequency offset in parts per billion. |
@@ -49,6 +48,25 @@ Select the audio codec AetherSDR uses over SmartLink or LAN connections. Opus re
 | **Use Aether defaults / Custom colors** | Use Aether defaults | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
 | **Slice A–H color buttons** | — | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
 | **Reset All to Defaults (Themes)** | — | Resets all custom slice colors to the built-in AetherSDR palette. |
+| **FlexControl: Tuning Knob actions** | — | Button actions available for mapping: StepUp, StepDown, Equal, ToggleTune, ToggleMute, ToggleLock, NextSlice, PrevSlice, ToggleAgc, VolumeUp, VolumeDown, WheelFrequency, WheelVolume, WheelPower, WheelRit, WheelXit. |
+
+## Peripherals tab — clearing saved IPs
+
+When the **Connect / Disconnect** button is clicked while the IP field is empty, the saved manual IP and port for that device are removed from settings. This prevents AetherSDR from auto-connecting to a device whose IP has been intentionally cleared.
+
+If you close the Radio Setup dialog with a cleared IP field and a previously-saved manual IP exists, AetherSDR automatically removes that saved IP and port from settings and disconnects the device if it is currently connected.
+
+## Dialog windowing changes in v26.5.1
+
+The Radio Setup dialog now uses a frameless window when the `FramelessWindow` setting is enabled. A custom title bar is shown at the top of the dialog, providing the standard window controls (close, minimize, maximize/restore). The title bar displays "Radio Setup".
+
+When frameless mode is active:
+- The title bar appears at the top of the dialog.
+- The body content area has reduced top margin (7px instead of 9px) to compensate for the title bar.
+- The dialog can be dragged by the title bar.
+- Resize handles are installed on all edges and corners via `FramelessResizer`.
+
+When frameless mode is disabled, the dialog uses the operating system's native window decoration and the custom title bar is hidden.
 
 ## Firmware update — changes in v0.9.3
 

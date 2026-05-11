@@ -20,16 +20,22 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 
 ## What each control does
 
-| Control                  | Default                                                                                                         | Valid range                                                                                             |
-|--------------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| Freq                     | 6000 Hz                                                                                                         | 1000 to 12000 Hz                                                                                        |
-| Q                        | 2.00                                                                                                            | 0.5 to 5.0                                                                                              |
-| Thresh                   | -30.0 dB                                                                                                        | -60.0 to 0.0 dB                                                                                         |
-| Amount                   | -6.0 dB                                                                                                         | -24.0 to 0.0 dB                                                                                         |
-| Attack                   | 1.0 ms                                                                                                          | 0.1 to 30.0 ms                                                                                          |
-| Release                  | 100 ms                                                                                                          | 10.0 to 500.0 ms                                                                                        |
-| Sidechain response curve | —                                                                                                               | —                                                                                                       |
-| Gain-reduction bar       | —                                                                                                               | 0 to 24 dB GR                                                                                           |
+| Control                  | Default | Valid range     |
+|--------------------------|---------|-----------------|
+| Freq                     | 6000 Hz | 1000 to 12000 Hz|
+| Q                        | 2.00    | 0.5 to 5.0      |
+| Thresh                   | -30.0 dB| -60.0 to 0.0 dB |
+| Amount                   | -6.0 dB | -24.0 to 0.0 dB |
+| Attack                   | 1.0 ms  | 0.1 to 30.0 ms  |
+| Release                  | 100 ms  | 10.0 to 500.0 ms|
+| Sidechain response curve | —       | —               |
+| Gain-reduction bar       | —       | 0 to 24 dB GR   |
+
+**Note:** The Attack and Release knobs appear only in the Channel Strip StripDeEssPanel (both RX and TX). The docked ClientDeEssApplet omits these controls.
+
+## Sidechain response curve axis labels
+
+The curve widget draws frequency-axis labels using QStaticText for improved rendering performance. Labels are rendered as "100", "500", "1k", "2k", etc. The label text is cached after the first paint and reused on subsequent redraws. The axis labels are hidden when the curve widget is in compact mode.
 
 ## Bypass dim
 
@@ -39,7 +45,9 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 
 The Aetherial De-Esser has separate settings for the TX and RX paths. The docked Applet Panel shows the TX copy labelled "Aetherial De-Esser". The RX copy, labelled "Aetherial De-Esser — RX", is reachable through the Aetherial Audio Channel Strip's StripDeEssPanel.
 
-The StripDeEssPanel in the Channel Strip can be opened for either TX or RX. When opened for TX, the window title reads "Aetherial De-Esser — TX". When opened for RX, the window title reads "Aetherial De-Esser — RX". Each instance independently saves and restores its own knob settings using separate settings keys.
+The StripDeEssPanel in the Channel Strip can be opened for either TX or RX. When opened for TX, the window title reads "Aetherial De-Esser — TX". When opened for RX, the window title reads "Aetherial De-Esser — RX". Each instance independently saves and restores its own knob settings using separate settings keys:
+- TX: `ClientDeEssTxFrequencyHz`, `ClientDeEssTxQ`, `ClientDeEssTxThresholdDb`, `ClientDeEssTxAmountDb`, `ClientDeEssTxAttackMs`, `ClientDeEssTxReleaseMs`
+- RX: `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, `ClientDeEssRxThresholdDb`, `ClientDeEssRxAmountDb`, `ClientDeEssRxAttackMs`, `ClientDeEssRxReleaseMs`
 
 ## Tips
 

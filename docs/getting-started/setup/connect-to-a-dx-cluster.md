@@ -21,25 +21,46 @@ AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster and show inco
 
 ## What each control does
 
-| Control                                                  | Description                                                                                                                                                                                                                                             | Setting key              |
-|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| **Server:**                                              | Hostname or IP address of the DX cluster telnet server.                                                                                                                                                                                                 | `ClusterHost`            |
-| **Port:**                                                | Telnet port. Valid range: 1–65535.                                                                                                                                                                                                                      | `ClusterPort`            |
-| **Callsign:**                                            | Login callsign sent to the cluster on connect.                                                                                                                                                                                                          | `ClusterCallsign`        |
-| **Connect / Disconnect**                                 | Toggles the telnet connection. Label shows current action.                                                                                                                                                                                              | —                        |
-| **Auto-connect on startup**                              | Connects to the cluster automatically when AetherSDR launches.                                                                                                                                                                                          | `ClusterAutoConnect`     |
-| **Cluster Console**                                      | Read-only display of raw telnet traffic from the cluster.                                                                                                                                                                                               | —                        |
-| **Send** (command line)                                  | Sends a typed command to the cluster while connected.                                                                                                                                                                                                   | —                        |
-| **Spot Color:**                                          | Opens a color picker for cluster spot overlays on the panadapter.                                                                                                                                                                                       | `ClusterSpotColor`       |
-| **Auto Mode:**                                           | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Enabled by default.                                                                                                                     | `SpotsAutoMode`          |
-| **Spot Lines:**                                          | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. New in v0.9.7.                                                                                                                          | `IsSpotsLinesEnabled`    |
-| **Enable FreeDV Reporter reporting when RADE is active** | Enables station-reporting to the public FreeDV Reporter map (qso.freedv.org) whenever the RADE modem is active. Requires a valid callsign and grid square; the checkbox refuses to enable and shows a warning if either field is blank or unresolvable. | `FreeDvAutoReport`       |
-| **Callsign:** (FreeDV Reporter)                          | Callsign to report to the FreeDV Reporter map. Read-only when **Use radio** is checked. Automatically updated if the radio's configured callsign changes while **Use radio** is checked.                                                                | `FreeDvMyCallsign`       |
-| **Use radio** (callsign)                                 | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Enabled by default.                                                                                                                                    | `FreeDvUseRadioCallsign` |
-| **Grid Square:** (FreeDV Reporter)                       | Maidenhead grid square to report (up to six characters). Read-only when **Use GPS** is checked.                                                                                                                                                         | `FreeDvMyGrid`           |
-| **Use GPS** (grid)                                       | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware.                                                                                                                  | `FreeDvUseGpsGrid`       |
-| **Station Msg:** (FreeDV Reporter)                       | Optional free-text message shown beside the callsign on the public FreeDV Reporter map.                                                                                                                                                                 | `FreeDvMyMessage`        |
-| **Total Spots:**                                         | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed.                                                                                  | —                        |
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | Hostname or IP address of the DX cluster telnet server. | `ClusterHost` |
+| **Port:** | Telnet port. Valid range: 1–65535. | `ClusterPort` |
+| **Callsign:** | Login callsign sent to the cluster on connect. | `ClusterCallsign` |
+| **Connect / Disconnect** | Toggles the telnet connection. Label shows current action. | — |
+| **Auto-connect on startup** | Connects to the cluster automatically when AetherSDR launches. | `ClusterAutoConnect` |
+| **Cluster Console** | Read-only display of raw telnet traffic from the cluster. | — |
+| **Send** (command line) | Sends a typed command to the cluster while connected. | — |
+| **Spot Color:** | Opens a color picker for cluster spot overlays on the panadapter. | `ClusterSpotColor` |
+| **Spots:** (Display tab) | Master toggle for DX spot overlay on the panadapter. Default: Enabled. | `IsSpotsEnabled` |
+| **Memories:** (Display tab) | Toggles memory-channel overlay on the panadapter. Default: Disabled. | `IsMemorySpotsEnabled` |
+| **Auto:** (Display tab) | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: Enabled. Setting key changed from `SpotsAutoMode` to `SpotAutoSwitchMode` in v26.5.1. | `SpotAutoSwitchMode` |
+| **Signals (Signal History)** (Display tab) | Gold markers for detected voice-width signals on the panadapter. New in v26.5.1 (#2426). Same toggle as View > Signal History Markers. | `SHistoryMarkersEnabled` |
+| **QRM (Signal History)** (Display tab) | Red markers for persistent carriers and wideband interference. New in v26.5.1 (#2426). Same toggle as View > QRM History Markers. | `SHistoryQrmEnabled` |
+| **Clear All** (Display tab) | Clears all DX spots, memory feed, Signal History markers and QRM markers from the spectrum. | — |
+| **Levels:** (Display tab) | Number of vertical stacking rows for spots (1–10). Default: 3. | `SpotsMaxLevel` |
+| **Position:** (Display tab) | Vertical position on panadapter (0–100). Default: 50. | `SpotsStartingHeightPercentage` |
+| **Font Size:** (Display tab) | Spot text size (8–32). Default: 16. | `SpotFontSize` |
+| **Spot Lifetime:** (Display tab) | Seconds before a spot fades away (10 sec – 24 hrs, non-linear steps). | `DxClusterSpotLifetimeSec` |
+| **Override Colors:** (Display tab) | Forces a single text color for all spots. | `IsSpotsOverrideColorsEnabled` |
+| **Spot text color picker** (Display tab) | Opens QColorDialog to pick spot text color. Default: #FFFF00. | `SpotsOverrideColor` |
+| **Override Background: Enabled** (Display tab) | Enables custom spot background color. Default: Enabled. | `IsSpotsOverrideBackgroundColorsEnabled` |
+| **Override Background: Auto** (Display tab) | Auto-picks background color for contrast. Default: Enabled. | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
+| **Spot background color picker** (Display tab) | Opens QColorDialog for spot background color. Default: #000000. | `SpotsOverrideBgColor` |
+| **Background Opacity:** (Display tab) | Opacity of spot background color (0–100). Default: 48. | `SpotsBackgroundOpacity` |
+| **Spot Lines:** (Display tab) | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Default: Enabled. New in v0.9.7 (#2349). | `IsSpotsLinesEnabled` |
+| **Total Spots:** (Display tab) | Live count of spots currently tracked across all sources. | — |
+| **DXCC Coloring (section)** (Display tab) | Section header for DXCC coloring controls in the left column below the divider. | — |
+| **DXCC Colors:** (Display tab) | Colors spots by worked/confirmed/needed DXCC status. Setting key changed from `DxccColoringEnabled` to `IsDxccColoringEnabled` in v26.5.1. | `IsDxccColoringEnabled` |
+| **Log File (ADIF):** (Display tab) | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Setting key changed from `DxccAdifPath` to `DxccAdifFilePath` in v26.5.1. | `DxccAdifFilePath` |
+| **Imported: (DXCC stats)** (Display tab) | Shows QSO count and entity count when a log is loaded. Format: '<N> QSOs / <M> entities'. | — |
+| **DXCC Color swatches (New DXCC / New Band / New Mode / Worked)** (Display tab) | Opens a color picker for each DXCC status category. New in v26.5.1 — replaces previous fixed DXCC color scheme. | `DxccColorNewEntity`, `DxccColorNewBand`, `DxccColorNewMode`, `DxccColorWorked` |
+| **Signal History (section)** (Display tab) | Section header for Signal History tunables in the right column below the divider. New in v26.5.1 (#2506). | — |
+| **Marker Lifetime:** (Display tab) | How long an inactive Signal History marker persists before being removed (15–300 sec). Default: 60 s. New in v26.5.1. | `SHistoryLifetimeS` |
+| **QRM Gate:** (Display tab) | How long a narrow carrier or wideband signal must persist before being classified as QRM (3–30 sec). Default: 6 s. New in v26.5.1. | `SHistoryQrmGateS` |
+| **Edge Threshold:** (Display tab) | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge (1.0–10.0 dB). Default: 3.0 dB. New in v26.5.1. | `SHistorySoftEdgeDb` |
+| **Signal History color swatches (Signals / QRM)** (Display tab) | Opens a color picker for the voice signal markers (gold) and QRM markers (red). New in v26.5.1. | `SHistoryColorSignals`, `SHistoryColorQrm` |
+| **Snap to Step:** (Display tab) | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default: Disabled. New in v26.5.1. | `SHistorySnapToStep` |
+
 ## Tuning to a spot by double-clicking
 
 Double-clicking a row in the **Spot List** tab tunes the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
@@ -78,7 +99,7 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 
 ## Display tab: Auto Mode default changed
 
-As of v0.9.5.1, the **Auto Mode:** toggle defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotsAutoMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto Mode:**.
+As of v0.9.5.1, the **Auto:** toggle on the **Display** tab defaults to **Enabled**. In previous releases the default was **Disabled**. `SpotAutoSwitchMode` is saved as `True` unless you have previously set it otherwise. If you preferred the old behavior, open the **Display** tab and disable **Auto:**.
 
 ## Display tab: Spot Lines (new in v0.9.7)
 
@@ -86,31 +107,19 @@ The **Spot Lines:** toggle on the **Display** tab controls whether AetherSDR dra
 
 Disable **Spot Lines:** during contests or when the panadapter is heavily populated with spots to reduce visual clutter.
 
-## Tips
+## Display tab: Signal History (new in v26.5.1)
 
-- While connected, type a cluster command in the field next to **Send** and click **Send** to interact with the cluster directly (for example, `set/dx` or `sh/dx 20`).
-- Spot overlays appear on the panadapter only when the master **Spots:** toggle on the **Display** tab is enabled (default: Enabled, saved to `IsSpotsEnabled`).
-- To review recent cluster traffic from before you opened SpotHub, scroll up in the **Cluster Console** — AetherSDR loads up to the last 500 lines from the cluster log file when the dialog opens.
-- If your radio's callsign changes in Radio Setup while **Use radio** is checked, the **Callsign:** field in the FreeDV Reporter section updates automatically.
-- **Auto Mode** defaults to Enabled. When you double-click a spot that carries mode information (e.g. CW, FT8, RTTY), AetherSDR automatically switches the slice to that mode. As of v0.9.7, mode information is parsed from the spot comment using a shared resolver, so mode detection is consistent across all spot sources.
-- Disable **Spot Lines:** on the **Display** tab during contests to reduce panadapter clutter while keeping spot labels visible.
+The **Display** tab now includes a **Signal History (section)** in the right column below the divider. This section consolidates all Signal History tunables:
 
-## Troubleshooting
+- **Signals (Signal History)** and **QRM (Signal History)** toggles control gold and red marker visibility.
+- **Marker Lifetime:** slider controls how long inactive markers persist (15–300 seconds).
+- **QRM Gate:** slider sets how long a signal must persist before being classified as QRM (3–30 seconds).
+- **Edge Threshold:** slider sets the dB threshold for edge refinement (1.0–10.0 dB).
+- **Snap to Step:** toggle rounds click-to-tune to the nearest step size.
+- Color swatches let you pick custom colors for Signals (gold) and QRM (red) markers.
 
-- **Status shows "Error: ..."** — The hostname or port is wrong, or the cluster server is unreachable. Verify the address and port, then click **Connect** again.
-- **Cluster Console is empty after connecting** — Some clusters require you to send your callsign as the first command. Type your callsign in the command field and click **Send**.
-- **Spots do not appear on the panadapter** — Open the **Display** tab and confirm **Spots:** is enabled.
-- **Double-clicking a spot does not switch mode** — Confirm **Auto Mode:** is enabled on the **Display** tab. Mode switching requires that the spot comment contains a recognizable mode token (e.g. CW, FT8, SSB).
-- **Enable FreeDV Reporter reporting when RADE is active checkbox cannot be checked** — A warning dialog will explain that the callsign or grid square is missing. Fill in both fields (or enable **Use radio** / **Use GPS** so they populate automatically) and try again.
-- **FreeDV tab is not visible** — Your build of AetherSDR was compiled without WebSocket support (`HAVE_WEBSOCKETS`). Contact your package provider for a build that includes FreeDV features.
+## Display tab: DXCC Coloring (updated in v26.5.1)
 
-## Related
+The **Display** tab now includes a **DXCC Coloring (section)** in the left column below the divider. This section replaces the previous fixed DXCC color scheme with customizable color swatches for each DXCC status category: New DXCC, New Band, New Mode, and Worked.
 
-- [SpotHub overview](../../features/dx-cluster/overview.md)
-- [Connect to the Reverse Beacon Network](connect-to-the-reverse-beacon-network.md)
-- [Tune to a spot by double-clicking the spot list](../../features/dx-cluster/tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Pick colors for each spot source](../../features/dx-cluster/pick-colors-for-each-spot-source.md)
-- [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md)
-- [Enable DXCC coloring from an ADIF log](../../features/dx-cluster/enable-dxcc-coloring-from-an-adif-log.md)
-- [Clear all spots from the panadapter](../../features/dx-cluster/clear-all-spots-from-the-panadapter.md)
-<!-- docmesh:llm version=V0.9.7 date=2026-05-03 -->
+The DXCC Coloring toggle and Log File (AD

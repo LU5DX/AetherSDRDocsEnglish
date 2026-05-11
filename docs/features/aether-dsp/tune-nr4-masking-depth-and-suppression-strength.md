@@ -5,20 +5,20 @@ AetherDSP Settings provides advanced control over AetherSDR's client-side noise-
 ## Opening AetherDSP Settings
 
 1. Click `Settings > AetherDSP Settings...`.
-2. The dialog opens as a frameless window with a custom title bar.
+2. The dialog opens. Its appearance depends on the **FramelessWindow** setting: if enabled (default), the dialog uses a custom frameless chrome; if disabled, the standard OS window frame is shown.
 
 ## Dialog controls
 
-The AetherDSP Settings dialog uses a frameless custom chrome with resize and move capabilities added in v0.9.8.
+The AetherDSP Settings dialog uses either a frameless custom chrome (when **FramelessWindow** is enabled) or the standard OS window chrome (when disabled). The resize and move behaviors adapt accordingly.
 
 | Control | Behavior |
 |---------|----------|
-| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title |
-| — (Minimize) | Minimizes the dialog |
-| □ (Maximize) | Maximizes or restores the dialog |
-| × (Close) | Closes the dialog |
-| Drag-to-move | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore |
-| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate direction. 6 px resize hit zone around the inner content widget |
+| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Visible only in frameless mode |
+| — (Minimize) | Minimizes the dialog. Visible only in frameless mode |
+| □ (Maximize) | Maximizes or restores the dialog. Visible only in frameless mode |
+| × (Close) | Closes the dialog. Visible only in frameless mode |
+| Drag-to-move | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore. Available only in frameless mode |
+| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate direction. 6 px resize hit zone around the inner content widget. Available only in frameless mode |
 
 ## NR2 tab
 
@@ -38,6 +38,8 @@ The NR2 (musical-noise-reduction) engine uses a spectral-subtraction approach wi
 
 The NR4 engine uses the libspecbleach library for noise reduction. It offers configurable noise estimation methods and spectral processing controls.
 
+**Note:** On Windows, NR4 requires LLVM (clang-cl) to be installed when compiling the source. If LLVM is not present, the NR4 toggle is dimmed and displays the tooltip "NR4 requires LLVM (clang-cl) on Windows. Install LLVM from llvm.org and rebuild to enable NR4."
+
 | Control | Default | Range | Setting Key | Behavior |
 |---------|---------|-------|-------------|----------|
 | Noise Estimation: | MMSE | MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` | Selects noise-floor estimator. Stored as integer 0-2 |
@@ -51,7 +53,7 @@ The NR4 engine uses the libspecbleach library for noise reduction. It offers con
 
 ## MNR tab (macOS only)
 
-The MNR (macOS MMSE-Wiener) engine is available only on macOS builds. It provides asymmetric gain smoothing for noise reduction.
+The MNR (macOS MMSE-Wiener) engine is available only on macOS builds. It provides asymmetric gain smoothing for noise reduction. The MNR toggle is dimmed on Windows and Linux builds — the engine has no backend on those platforms.
 
 | Control | Default | Range | Setting Key | Behavior |
 |---------|---------|-------|-------------|----------|
@@ -79,6 +81,10 @@ The BNR (NVIDIA) tab's intensity is controlled from the overlay menu. The BNR to
 
 The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both page selectors and engine enable/disable controls. When NR2 is activated, the AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules. Only one engine can be active at a time.
 
+## Frameless mode
+
+The dialog respects the **FramelessWindow** application setting (stored as `"True"` or `"False"` in `AppSettings`). When enabled, the dialog uses a custom frameless chrome with a gradient title bar, minimize/maximize/close buttons, drag-to-move, and 8-axis resize. When disabled, the standard OS window frame and controls are used. Changing this setting takes effect the next time the dialog is opened. The default value is `"True"`.
+
 ## Tips
 
 - **Masking Depth:** and **Suppression:** on the NR4 tab interact: raising both together produces maximum noise reduction but the highest risk of speech distortion. Raise them incrementally and test on a live or recorded signal.
@@ -91,6 +97,7 @@ The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both page selectors a
 - **Speech sounds hollow or underwater after raising the sliders** — Both sliders at high values can over-suppress spectral components that overlap with speech. Reduce **Masking Depth:** first, then **Suppression:** until naturalness returns.
 - **Noise floor is still audible even at maximum settings** — Ensure **Adaptive Noise Estimation** is enabled so NR4 can continuously re-estimate the noise floor. Also consider increasing **Reduction (dB):** .
 - **Slider snaps back or refuses to move** — Click directly on the slider handle rather than clicking in the groove.
+- **NR4 toggle is dimmed on Windows** — The NR4 engine requires LLVM (clang-cl) to compile its C99 VLAs. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 
 ## Related
 

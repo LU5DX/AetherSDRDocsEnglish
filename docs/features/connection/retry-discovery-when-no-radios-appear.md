@@ -28,7 +28,29 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 | **Remote with SmartLink** | Button | Shortcut to the SmartLink connection mode. |
 | **Open Network Diagnostics** | Button | Opens the network diagnostics display to inspect connectivity. |
 | **Radio IP address** | Combo box (editable) | Enter or select the IP address to use for a manual connection. The drop-down lists up to three recently used addresses. Saved as `ManualRadioIp`; recent entries are stored under `RecentConnectByIpAddresses`. |
+| **Advanced: Source path** | Combo box | Picks the local network interface used for the manual connection. Saved as `ManualBindSource`. |
+| **Use low bandwidth mode** | Checkbox | Enables reduced-rate streams for slow links. Saved as `LowBandwidthMode`. |
 | **Connect to last radio on start up** | Checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Saved as `AutoConnectToLastRadio`. Defaults to checked. |
+| **Disconnect** | Button | Disconnects from the current radio. |
+
+## Indicators
+
+| Indicator | Meaning |
+|---|---|
+| **Status label** | Shows the current connection state: searching, connecting, connected, or errored. |
+| **Manual result label** | Shows the result text after probing a manual IP (success or error). |
+| **Source warning label** | Warns when the selected source network interface is stale or unreachable. |
+
+## SmartLink connection
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **SmartLink account: Email** | Text field | Your SmartLink account email address. Saved as `SmartLinkEmail`. |
+| **SmartLink account: Password** | Text field | Your SmartLink account password (not persisted). |
+| **Sign In** | Button | Authenticates with SmartLink. |
+| **Sign Out** | Button | Logs out of SmartLink. |
+| **Remote radios** | List | Lists SmartLink WAN radios available to your account. |
+| **Connect Remote Radio** | Button | Starts a WAN connection to the selected remote radio. |
 
 ## Tips
 
@@ -37,6 +59,8 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 - Guest Wi-Fi networks commonly block device-to-device traffic. If you are on Wi-Fi, check whether your access point enforces client isolation.
 - The **Radio IP address** field retains up to three recently used addresses. Open the drop-down to reuse a previous address without retyping it.
 - If you share the computer with other operators or prefer to choose a radio explicitly each session, uncheck **Connect to last radio on start up**. AetherSDR will open the connection dialog on every launch instead of connecting automatically.
+- The **Advanced: Source path** control lets you choose which local network interface to use for manual/VPN connections. Select the NIC that has the best route to your radio.
+- Enable **Use low bandwidth mode** when connecting over a slow or unreliable link to reduce audio and data stream rates.
 
 ## Troubleshooting
 
@@ -44,6 +68,8 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 - **Radio appears briefly then disappears** — Network instability or a firewall dropping mDNS traffic intermittently. Check your firewall rules and retry. If the problem persists, use **Connect by IP** for a stable connection.
 - **Open Network Diagnostics shows no useful information** — Go to `Settings > Network...` to open the full network diagnostics display.
 - **AetherSDR connects to the wrong radio on startup** — Uncheck **Connect to last radio on start up** so the connection dialog opens on launch, then select the intended radio manually.
+- **Manual connection fails** — Check that the **Advanced: Source path** is set to a valid network interface. If the **Source warning label** is visible, select a different NIC or reconnect your network.
+- **SmartLink sign-in fails** — Verify your email and password are correct. If you have changed your SmartLink password recently, sign out and sign in again with the new credentials.
 
 ## Related
 

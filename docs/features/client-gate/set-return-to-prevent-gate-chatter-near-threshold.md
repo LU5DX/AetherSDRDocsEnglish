@@ -9,7 +9,7 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 
 ## Steps
 
-1. Open the **Aetherial TX Gate** sub-container (TX side) or the **Aetherial AGC-T** sub-container (RX side) inside the Aetherial Audio (TXDSP) parent container. Alternatively, double-click the GATE stage in the CHAIN widget to open the floating editor titled **Aetherial Gate — TX** or **Aetherial Gate — RX**.
+1. Open the **Aetherial TX Gate** sub-container (TX side) or the **Aetherial AGC-G** sub-container (RX side) inside the Aetherial Audio (TXDSP) parent container. Alternatively, double-click the GATE stage in the CHAIN widget to open the floating editor titled **Aetherial Gate — TX** or **Aetherial Gate — RX**.
 2. Locate the **Return** knob.
 3. Turn **Return** upward from its default of 2.00 dB until the chatter stops. Start with small increases — 3 to 5 dB is often sufficient for voice.
 4. Watch the transfer curve. A soft-cyan vertical band appears between (Thresh − Return) and Thresh, showing the hysteresis deadband. Widen or narrow it by adjusting **Return** until the band covers the range where your signal fluctuates.

@@ -138,4 +138,27 @@ The **Themes** tab was added in v0.9.3 under Radio Setup. It hosts the **Slice C
 |---|---|---|---|
 | **Use Aether defaults** | Uses the built-in AetherSDR slice color palette. | Selected | Slice color buttons are disabled when this is active. |
 | **Custom colors** | Enables per-slice color assignment. | — | Activates the A–H color buttons. |
-| **Slice A–H color buttons
+| **Slice A–H color buttons** | Open a color picker for each slice letter. | — | Changes apply immediately. |
+
+## Radio Setup dialog changes in v26.5.1
+
+The Radio Setup dialog now uses a frameless window with a custom title bar. This provides a modern appearance consistent with other AetherSDR dialogs.
+
+### Frameless window behavior
+
+- The dialog uses `Qt::FramelessWindowHint` when the application is in frameless mode.
+- A custom title bar is shown at the top of the dialog with the title "Radio Setup".
+- The title bar is hidden when frameless mode is disabled.
+- The dialog remains resizable; a frameless resize handle is installed.
+
+### Peripherals tab IP clearing
+
+The **Peripherals** tab now properly handles clearing a saved manual IP address for TGXL, PGXL, and Antenna Genius devices. When the **Connect** / **Disconnect** button is clicked, the following logic applies:
+
+- If connected and the IP field has been cleared, the saved manual IP and port are removed from settings before disconnecting. This ensures downstream handlers (for example, SmartSDR button visibility) see the cleared settings immediately.
+- If disconnected and the IP field is empty with a previously saved manual IP present, clicking the button clears the saved manual IP and port from settings so the device stops auto-connecting.
+- If disconnected and the IP field is empty with no saved manual IP, the button does nothing.
+
+### Save-on-close for peripheral IP fields
+
+When you close the Radio Setup dialog, any **Peripherals** tab rows that have a cleared IP field with

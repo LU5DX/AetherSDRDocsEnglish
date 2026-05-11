@@ -32,7 +32,7 @@ The setting takes effect immediately and is saved automatically to `NR2NpeMethod
 | — (Minimize)                   | Minimizes the dialog.                                                                                       |                                                                                                                |
 | □ (Maximize)                   | Maximizes or restores the dialog.                                                                           |                                                                                                                |
 | × (Close)                      | Closes the dialog.                                                                                          |                                                                                                                |
-| NR4 (tab)                      | Selects the NR4 (libspecbleach) page.                                                                       |                                                                                                                |
+| NR4 (tab)                      | Selects the NR4 (libspecbleach) page. NR4 is dimmed on Windows builds without LLVM (clang-cl).              |                                                                                                                |
 | Noise Estimation:              | Radio button (MMSE, Brandt, Martin)                                                                         | MMSE                                                                                                           |
 | Adaptive Noise Estimation      | Checkbox                                                                                                    | True                                                                                                           |
 | Reduction (dB):                | Slider, 0.0–40.0                                                                                            | 10.0                                                                                                           |
@@ -53,6 +53,11 @@ The setting takes effect immediately and is saved automatically to `NR2NpeMethod
 | 8-axis resize                  | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. | 12 px resize hit zone around the inner content widget.                                                         |
 
 `NR2NpeMethod` is stored as an integer: OSMS = 0, MMSE = 1, NSTAT = 2.
+
+## Notes
+
+- The title bar and resize handles are only available when **FramelessWindow** is enabled in settings (`Settings > General > FramelessWindow`). When disabled, the dialog uses the native window chrome with standard title bar and resize borders.
+- NR4 (libspecbleach) requires LLVM (clang-cl) on Windows. If NR4 is dimmed, install LLVM from llvm.org and rebuild AetherSDR to enable it.
 
 ## Tips
 

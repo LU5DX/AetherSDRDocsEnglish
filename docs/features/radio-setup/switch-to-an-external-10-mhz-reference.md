@@ -24,9 +24,9 @@ This page explains how to select an external 10 MHz reference clock on a connect
 | `Active Slice Follows TX` | Push button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with `TX Follows Active Slice`. |
 | `Voice / CW / Digital filter sharpness sliders` | Slider (0–3) | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
 | `Auto (Voice / CW / Digital)` | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| `Connect / Disconnect (TGXL)` | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
-| `Connect / Disconnect (PGXL)` | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| `Connect / Disconnect (Antenna Genius)` | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from "Connected" status when a ShackSwitch (rather than a standard Antenna Genius) is the connected device. |
+| `Connect / Disconnect (TGXL)` | Push button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects. |
+| `Connect / Disconnect (PGXL)` | Push button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects. |
+| `Connect / Disconnect (Antenna Genius)` | Push button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from "Connected" status when a ShackSwitch (rather than a standard Antenna Genius) is the connected device. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects. |
 | `Connect / Disconnect (ShackSwitch)` | Push button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from "Connected" status if an Antenna Genius (non-ShackSwitch) is the connected device. |
 | `⚙ Web UI (ShackSwitch)` | Push button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if > 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | `Select Installer...` | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label was `Browse .ssdr...` before v0.9.3. |
@@ -37,6 +37,18 @@ This page explains how to select an external 10 MHz reference clock on a connect
 | `Use Aether defaults / Custom colors` | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
 | `Slice A–H color buttons` | Push button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when `Use Aether defaults` is selected. Up to 8 slices (`kSliceColorCount`). |
 | `Reset All to Defaults (Themes)` | Push button | Resets all custom slice colors to the built-in AetherSDR palette. |
+| `FlexControl Tuning Knob: Detect / Close` | Push button | Detects or closes a FlexControl knob. |
+| `WheelRit` / `WheelXit` | Action mapping options | Available button action mappings for FlexControl wheels. WheelFrequency is the default. |
+| `Station Name` | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored as `StationName` in AppSettings. Sent to radio as 'client station <name>'. |
+| `Network MTU:` | Spinbox (576-9000) | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored as `NetworkMtu` in AppSettings. |
+| `Audio Compression (SmartLink):` | Push button (Auto/Uncompressed/Opus) | Selects audio codec for SmartLink/LAN. |
+| `Prevent system sleep while connected` | Checkbox | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored as `InhibitSleepWhileConnected`. |
+| `Audio Boost:` | Toggle button | Enables extra gain on the client audio path. Stored as `AudioBoost`. |
+| `Audio Buffer:` | Text field (50-1000 ms) | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Default 200. Stored as `AudioBufferMs`. |
+| `Recording: Radio Side / Client Side` | Push button | Picks radio-side or client-side recording. |
+| `Save to:` | Text field | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `QsoRecordingDir`. |
+| `Auto-record on TX` | Checkbox | Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`. |
+| `Idle timeout:` | Spinbox (10-3600 sec) | Seconds of silence before recording stops. Default 120. Stored as `QsoRecordingIdleTimeout`. |
 
 ## Firmware update (Radio tab)
 
@@ -77,14 +89,4 @@ In v0.9.7, the `10 MHz Reference Source:` combo box is populated dynamically bas
 
 - `Auto` is always present.
 - `TCXO` appears if the radio has a TCXO installed, or if the radio is currently reporting TCXO as its oscillator state, or if TCXO was previously selected.
-- `GPSDO` appears if a GPSDO is installed, or if the radio is currently reporting GPSDO as its oscillator state, or if GPSDO was previously selected.
-- `External 10 MHz` appears if an external reference is currently detected, or if the radio is reporting it as the active state, or if it was previously selected. The label was `External` in versions before v0.9.7.
-
-When the combo is opened before the radio has reported oscillator status, all options that match the current setting or a previously selected value are retained so no selection is lost.
-
-The lock status label to the right of the combo also gains additional detail in v0.9.7:
-
-- When `Auto` is the configured setting, the label shows `Auto -> <resolved source>` to make the radio's actual choice visible.
-- When the configured setting and the active state differ (for example, during a source transition), the label shows `<configured> -> <active>`.
-- If `External 10 MHz` is selected but the radio reports no external signal present, the label appends `(not detected)`.
-- Before the radio has sent any oscillator status, the
+- `GPSDO` appears if a GPSDO is installed, or if the radio is currently

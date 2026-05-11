@@ -12,12 +12,13 @@ Load a saved memory file into AetherSDR to populate your radio's memory channels
 1. Click `Settings > Memory...` to open the Memory Channels dialog.
 2. Click `Import...`.
 3. In the file picker that opens, navigate to your CSV or JSON file and select it.
-4. Confirm the selection. AetherSDR reads the file and adds the memories to the radio.
+4. Confirm the selection. AetherSDR reads the file and adds the memories to the radio. A progress dialog shows import progress, and a summary reports any skipped rows.
 
 ## Tips
 
 - After importing, use the `Search:` field or the `Profile:` combo box to verify that the imported memories appear with the expected names and groups.
 - If you want a backup before importing, click `Export...` first to save the current memories to a file.
+- The title bar features a grip glyph on the left and allows drag-to-move. Double-click the title bar to toggle maximize/restore. Minimize, maximize, and close buttons are in the upper-right corner.
 
 ## Troubleshooting
 

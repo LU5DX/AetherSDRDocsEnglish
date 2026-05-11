@@ -8,6 +8,7 @@ This page explains how to adjust AetherSDR's client-side noise-reduction engines
 - The selected noise reduction engine must already be active on a receiver slice for changes to take audible effect immediately.
 - MNR is only available on macOS builds. The MNR toggle is dimmed on Windows and Linux.
 - BNR is only available on builds with the NVIDIA Broadcast SDK. The BNR toggle is dimmed otherwise.
+- NR4 requires LLVM (clang-cl) on Windows. The NR4 toggle is dimmed on Windows builds compiled without LLVM. Install LLVM from llvm.org and rebuild to enable NR4.
 
 ## Opening the dialog
 
@@ -15,7 +16,7 @@ Click `Settings > AetherDSP Settings...`.
 
 ## Dialog overview
 
-The AetherDSP Settings dialog features a frameless custom title bar matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The title bar is 18 px tall with a blue-gradient background. From left to right it contains:
+The AetherDSP Settings dialog features a title bar that adapts to the **FramelessWindow** application setting. When frameless mode is enabled (default), a custom title bar matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip is displayed. The title bar is 18 px tall with a blue-gradient background. From left to right it contains:
 
 - A grip glyph (⋮⋮) — visual indicator only
 - The dialog title "AetherDSP Settings"
@@ -23,7 +24,7 @@ The AetherDSP Settings dialog features a frameless custom title bar matching the
 - **□** (Maximize) button — maximizes or restores the dialog
 - **×** (Close) button — closes the dialog
 
-Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize the dialog (8-axis resize with a 12 px hit zone).
+Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize the dialog (8-axis resize with a 6 px hit zone). When frameless mode is disabled, standard OS window decorations are used instead.
 
 The dialog stores its size and position between sessions.
 
@@ -39,7 +40,7 @@ When NR2 is activated, the AudioEngine cascades exclusion, disabling DFNR and ot
 Available engines:
 
 - **NR2** — Musical-noise-reduction engine
-- **NR4** — libspecbleach-based engine
+- **NR4** — libspecbleach-based engine (requires LLVM on Windows)
 - **MNR** — macOS MMSE-Wiener engine (macOS only)
 - **RN2** — RNNoise-based engine (informational only, no adjustable parameters)
 - **BNR** — NVIDIA Broadcast SDK engine (NVIDIA SDK only)
@@ -112,6 +113,7 @@ Under the DFNR tab, use these controls:
 - **Noise estimate reacts sluggishly or the noise floor sounds unstable** — Adjust **Smoothing:** (see Tips above). Also verify the selected **NPE Method** suits your noise type; NSTAT adapts better to non-stationary noise.
 - **MNR toggle is grayed out** — You are on Windows or Linux. MNR requires macOS.
 - **BNR toggle is grayed out** — The NVIDIA Broadcast SDK is not installed or not detected.
+- **NR4 toggle is grayed out on Windows** — LLVM (clang-cl) is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 - **Can't find the dialog after minimizing** — Check the taskbar/dock. The dialog minimizes like any other window.
 
 ## Related

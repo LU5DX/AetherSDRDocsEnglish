@@ -10,7 +10,7 @@ By default, AetherSDR reconnects to the last used radio every time it starts. Di
 ## Steps
 
 1. Click `Settings > Connect to Radio...`.
-2. In the "Connect to a Radio" panel, scroll to the bottom of the page.
+2. In the "Connect to Radio" dialog, scroll to the bottom of the page.
 3. Locate the checkbox labelled "Connect to last radio on start up".
 4. Uncheck "Connect to last radio on start up".
 
@@ -20,7 +20,7 @@ The setting is saved immediately to `AutoConnectToLastRadio`. The next time Aeth
 
 | Control | Default | Persisted setting | Behavior |
 |---|---|---|---|
-| "Connect to last radio on start up" checkbox | Checked (True) | `AutoConnectToLastRadio` | When checked, AetherSDR auto-connects to the last used radio on startup. When unchecked, the connection dialog opens on startup and you must select a radio manually. |
+| "Connect to last radio on start up" checkbox | Checked (True) | `AutoConnectToLastRadio` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and you must select a radio manually each session. |
 
 ## Tips
 

@@ -10,7 +10,7 @@ Use Learn mode to map a physical knob, fader, or button on your MIDI controller 
 ## Steps
 
 1. Open `Settings > MIDI Mapping...`.
-2. In the **Parameter Bindings** section, use the **Category** combo box to narrow the list — choose from All, RX, TX, Phone/CW, EQ, or Global.
+2. In the **Parameter Bindings** section, use the **Category** combo box to narrow the list — choose from All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, or Frequency.
 3. Use the **Parameter** combo box to select the target parameter you want to control.
 4. Click **Learn**. The button label changes to **Cancel Learn**.
 5. Move the knob, fader, or press the button on your MIDI controller that you want to assign. AetherSDR detects the incoming MIDI message and records the binding.
@@ -21,14 +21,23 @@ Use Learn mode to map a physical knob, fader, or button on your MIDI controller 
 
 | Control            | Description                                                                                                                          | Notes |
 |--------------------|--------------------------------------------------------------------------------------------------------------------------------------|-------|
-| **Category**       | Filters the Parameter list to a specific control category (All, RX, TX, Phone/CW, EQ, Global).                                       |       |
-| **Parameter**      | Selects the target parameter to bind.                                                                                                |       |
+| **Port:**          | Selects MIDI input device.                                                                                                           | Persisted as `MidiPort`. |
+| **Refresh**        | Rescans available MIDI ports.                                                                                                        |       |
+| **Connect**        | Opens/closes selected MIDI port. Port status is shown next to the button.                                                            |       |
+| **Auto-connect on startup** | Reopens MIDI port on launch.                                                                                                | Persisted as `MidiAutoConnect`. |
+| **Category**       | Filters the Parameter list to a specific control category (All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, Frequency). |       |
+| **Parameter**      | Selects the target parameter to bind.                                                                                                | In v0.9.7, three new momentary (Gate) actions were added in the Phone/CW category: "Trigger straight key", "Trigger CW Left Paddle", "Trigger CW Right Paddle". Legacy dotted IDs `cw.key`, `cw.dit`, `cw.dah` are auto-migrated on read. |
 | **Learn**          | Starts listening for the next MIDI message and binds it to the selected parameter. Click again (shown as **Cancel Learn**) to abort. |       |
 | **Bindings table** | Displays all current bindings. Columns: Parameter, MIDI Source, Channel, Invert, Relative, and a delete button.                      |       |
 | **Invert**         | Reverses the control direction for that binding row.                                                                                 |       |
 | **Relative**       | Treats the assigned control as an endless encoder rather than an absolute value control.                                             |       |
 | **× (delete row)** | Removes that individual binding.                                                                                                     |       |
 | **Clear All**      | Removes every binding at once.                                                                                                       |       |
+| **Profile:**       | Picks a saved MIDI mapping profile.                                                                                                  |       |
+| **Save**           | Saves current bindings as a profile.                                                                                                 |       |
+| **Load**           | Loads the selected profile.                                                                                                          |       |
+| **Close**          | Closes the dialog.                                                                                                                   |       |
+
 ## Tips
 
 - The **Activity indicator** in the MIDI Device section shows the most recent MIDI message received (channel, type, number, and value). Use it to confirm your controller is sending data before clicking Learn.

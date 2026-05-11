@@ -49,6 +49,7 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 - If the ball on the sidechain response curve sits far from where your sibilance peaks, use **Freq** to move it. The meter will only show GR when energy in the current **Freq** band crosses **Thresh**.
 - When the De-Ess stage is bypassed in the CHAIN widget, the entire applet tile dims visibly. If the tile appears faded, confirm the stage is not bypassed before interpreting the meter.
 - To access the RX de-esser instance (titled "Aetherial De-Esser — RX"), open it from the Aetherial Audio Channel Strip rather than the docked applet panel.
+- The frequency axis labels in the sidechain response curve use "100", "500", "1k", etc. for clarity and are rendered at 8-pixel font size. The curve widget caches these labels for improved rendering performance.
 
 ## Troubleshooting
 

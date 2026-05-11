@@ -39,6 +39,14 @@ The behavior of the **Send** button changed in v0.9.2.1.
 
 The **Live** button is now a toggle. Its checked state reflects the live-sending state held by the radio model, so the button stays in sync if the state changes from outside the panel (for example, from a macro or a remote command).
 
+## Function key shortcut behavior (v26.5.1)
+
+The CWX panel registers application-wide shortcuts for F1 through F12 and Escape. These shortcuts are only active while the CWX panel is visible.
+
+- When the CWX panel is shown, the shortcuts are enabled.
+- When the CWX panel is hidden (for example, when the DVK panel is shown in the splitter), the shortcuts are disabled.
+- This prevents shortcut conflicts with the DVK panel, which registers its own set of F1 through F12 shortcuts.
+
 ## Related
 
 - [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md)

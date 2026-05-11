@@ -5,12 +5,12 @@ The gain-reduction meter and transfer curve update in real time even when you ar
 ## Before you start
 
 - The Gate stage must be enabled on the side you want to observe. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md) if the applet is not visible.
-- The "Aetherial TX Gate" or "Aetherial AGC-T" sub-container must be open inside the Aetherial Audio (TXDSP) parent container.
+- The "Aetherial TX Gate" or "Aetherial AGC-G (RX)" sub-container must be open inside the Aetherial Audio (TXDSP) parent container.
 
 ## Steps
 
 1. Open the applet panel if it is not already visible: `View > Applet Panel`.
-2. Locate the "Aetherial TX Gate" sub-container (TX side) or "Aetherial AGC-T" sub-container (RX side).
+2. Locate the "Aetherial TX Gate" sub-container (TX side) or "Aetherial AGC-G (RX)" sub-container (RX side).
 3. Stay silent — do not speak or key the radio.
 4. Watch the amber Gain-reduction bar. While input stays below the Thresh level, the bar fills from the right, showing the depth of attenuation being applied.
 5. Watch the input ball on the Transfer curve. The ball sits in the lower-left region of the curve when the gate is closed (input below threshold) and moves up and to the right when the gate opens.
@@ -33,10 +33,6 @@ When the gate stage is bypassed, the entire applet tile renders at reduced opaci
 | Return                 | Knob                                                                                                                                                                                                        | 2.0 dB                                                                                                                                                                                                                                                              |
 | Release                | Knob                                                                                                                                                                                                        | 100 ms                                                                                                                                                                                                                                                              |
 | Floor                  | Knob                                                                                                                                                                                                        | -15.0 dB                                                                                                                                                                                                                                                            |
-| Flip (Expander / Gate) | Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'. | Editor-only control (floating ClientGateEditor). Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.' |
-| Peek (lookahead)       | Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely.                                                  | Editor-only control. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients.                                                                                                         |
-| Attack                 | Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh.                                                                                                         | Editor-only control. Label 'X.XX ms' below 10 ms, 'X.X ms' above.                                                                                                                                                                                                   |
-| Hold                   | Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material.                                  | Editor-only control. Label 'X.X ms'.                                                                                                                                                                                                                                |
 
 **Gain-reduction bar:** Horizontal amber strip, right-filled. Scale maxes at 40 dB. A tick at -15 dB marks the default Floor value. Empty means no attenuation; full right-fill means the gate is cutting at the maximum depth set by Floor.
 

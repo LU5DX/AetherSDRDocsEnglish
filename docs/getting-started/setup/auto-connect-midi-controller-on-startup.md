@@ -26,6 +26,27 @@ AetherSDR saves both `MidiPort` and `MidiAutoConnect` immediately. On the next l
 | **Connect** | Button | Opens or closes the selected MIDI port | — |
 | **Auto-connect on startup** | Checkbox | Reopens the saved MIDI port each time AetherSDR launches | `MidiAutoConnect` |
 
+## Using the MIDI Mapping dialog
+
+The **MIDI Controller Mapping** dialog lets you configure a MIDI controller. Use the **Category** combo box to filter the **Parameter** list. Available categories include:
+
+- All
+- RX
+- TX
+- Phone/CW
+- EQ
+- Global
+- Mode
+- Band
+- Filter
+- Slice
+- Display
+- Frequency
+
+Select a **Parameter** to assign, then click **Learn** to record a binding from your MIDI controller. The **Bindings table** shows existing bindings with per-row **Invert**, **Relative**, and delete (**×**) controls.
+
+Use the **Profile:** combo box, **Save**, and **Load** buttons to manage named mapping profiles.
+
 ## Tips
 
 - If you unplug and replug the controller, click **Refresh** to repopulate the **Port:** list before clicking **Connect**.
@@ -42,3 +63,4 @@ AetherSDR saves both `MidiPort` and `MidiAutoConnect` immediately. On the next l
 - [MIDI Controller Mapping overview](../../features/midi-mapping/overview.md)
 - [Record a new binding with Learn mode](../../features/midi-mapping/record-a-new-binding-with-learn-mode.md)
 - [Save the current mapping as a named profile](../../features/midi-mapping/save-the-current-mapping-as-a-named-profile.md)
+- [Triggers for CW straight key and paddles](../../features/midi-mapping/cw-triggers.md)

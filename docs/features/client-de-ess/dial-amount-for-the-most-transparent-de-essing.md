@@ -19,12 +19,16 @@ The Amount knob sets the maximum attenuation the de-esser applies when sibilance
 
 ## What each control does
 
-| Control            | Default                                                                                                         | Valid range                                                                                             |
-|--------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| Amount             | −6.0 dB                                                                                                         | −24.0 to 0.0 dB                                                                                         |
-| Gain-reduction bar | —                                                                                                               | 0 to 24 dB GR                                                                                           |
-| Attack             | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
-| Release            | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold.       | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+| Control            | Default     | Valid range     | Behavior                                                                                               |
+|--------------------|-------------|-----------------|--------------------------------------------------------------------------------------------------------|
+| Amount             | −6.0 dB     | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction. |
+| Gain-reduction bar | —           | 0 to 24 dB GR   | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the −6 dB typical amount. Refreshed ~30 Hz. |
+| Attack             | 1.0 ms      | 0.1 to 30.0 ms  | Exponential mapping (0.1 × 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+| Release            | 100 ms      | 10.0 to 500.0 ms| Exponential mapping (10 × 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+
+## Sidechain response curve
+
+The Sidechain response curve indicator shows the bandpass filter response with a live ball at the current centre frequency. In compact mode, the curve widget displays the response without frequency axis labels. The axis labels use `QStaticText` for efficient rendering and display frequencies as "100", "500", "1k", "2k", "3k", "4k", "5k", "6k", "8k", "10k", "12k" when not in compact mode.
 
 ## RX and TX instances
 

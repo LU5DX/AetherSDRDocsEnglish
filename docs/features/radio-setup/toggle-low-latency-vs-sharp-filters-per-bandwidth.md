@@ -25,12 +25,13 @@ The Filters tab in Radio Setup lets you choose between low-latency and sharp DSP
 | Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode and disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
 | TX Follows Active Slice | Push button | TX follows the active slice. Mutually exclusive with Active Slice Follows TX. Disabled automatically during Split operation. |
 | Active Slice Follows TX | Push button | Switches the active slice when TX moves externally (for example WSJT-X or CAT). Mutually exclusive with TX Follows Active Slice. |
-| Connect / Disconnect (TGXL) | Push button | Opens or closes a direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
+| Connect / Disconnect (TGXL) | Push button | Opens or closes a direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. If you clear the IP field while disconnected and click Connect, or clear the IP field then close the dialog, the saved manual IP and port are removed so the device stops auto-connecting on next startup. |
 | Connect / Disconnect (PGXL) | Push button | Opens or closes a direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Push button | Opens or closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from Connected status if a ShackSwitch (rather than an Antenna Genius) is the connected device. |
-| Connect / Disconnect (ShackSwitch) | Push button | Opens or closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the ShackSwitch field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden from Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. |
+| Connect / Disconnect (Antenna Genius) | Push button | Opens or closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+| Connect / Disconnect (ShackSwitch) | Push button | Opens or closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the ShackSwitch field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. |
 | ⚙ Web UI (ShackSwitch) | Push button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
 | Select Installer... | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. When an update is available, the status label instructs you to download the SmartSDR installer from flexradio.com and then click this button to stage it. Label changed from **Browse .ssdr...** in v0.9.3. |
+| Check for Update | Push button | Queries for firmware updates from the radio. |
 | APD (tab) | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
 | ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
 | Equalizer Reset (APD) | Push button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
@@ -38,6 +39,22 @@ The Filters tab in Radio Setup lets you choose between low-latency and sharp DSP
 | Use Aether defaults / Custom colors | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
 | Slice A–H color buttons | Push button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
 | Reset All to Defaults (Themes) | Push button | Resets all custom slice colors to the built-in AetherSDR palette. |
+| Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station <name>'. |
+| Network MTU | Spinbox | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576-9000. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`. |
+| Prevent system sleep while connected | Checkbox | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. |
+| Audio Boost | Toggle button | Enables extra gain on the client audio path. |
+| Audio Buffer | Text field | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50-1000 ms. Stored as `AudioBufferMs`. |
+| Recording Mode | Push button | Picks radio-side or client-side recording. |
+| Save to | Text field | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. |
+| Auto-record on TX | Checkbox | Automatically records while transmitting. |
+| Idle timeout | Spinbox | Seconds of silence before recording stops. Range 10-3600 sec. |
+| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | Controls the NVIDIA Broadcast noise-removal container. |
+| Audio Compression (SmartLink) | Push button | Selects audio codec for SmartLink/LAN: Auto, Uncompressed, or Opus. |
+| Serial tab | Tab | FlexControl serial port selection, baud/data/parity/stop, pin function assignment (DTR/RTS/CTS/DSR), paddle swap, auto-open, and button action mapping. Build-gated by `HAVE_SERIALPORT`. |
+| FlexControl Tuning Knob: Detect / Close | Push button | Detects or closes a FlexControl knob. |
+| Auto-detect on startup | Checkbox | Automatically detects FlexControl knob on startup. |
+| Invert tuning direction | Checkbox | Reverses FlexControl tuning direction. |
+| WheelFrequency / WheelVolume / WheelPower / WheelRit / WheelXit | Combo box | Available as FlexControl button action mappings. `WheelRit` and `WheelXit` were added in v26.5.1 for RIT and XIT tuning. |
 
 ## Firmware update workflow (v0.9.3)
 
@@ -92,8 +109,4 @@ In v0.9.2.1 the frequency calibration controls on the **RX** tab are available r
 - Low-latency filters reduce processing delay, which benefits real-time digital mode decoding and CW. Sharp filters provide steeper skirt selectivity, which is more useful for crowded SSB conditions.
 - The **Use Low Latency Filters for Digital Modes** checkbox applies across all bandwidths, so you do not need to toggle the per-bandwidth setting each time you switch to a digital mode.
 - If **Start** does not become active after entering a calibration frequency, check that the Cal Frequency field is not empty.
-- When **Check for Update** reports an available update, AetherSDR no longer downloads the installer for you. Download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
-- To open the ShackSwitch web interface directly from AetherSDR, click **⚙ Web UI** in the Peripherals tab. AetherSDR uses the IP from `SS_ManualIp` or the active connection, and the port from the beacon's `webPort` field (if greater than 1024), `SS_WebPort`, or port 5000 as a fallback.
-- The **10 MHz Reference Source** status label on the RX tab now shows the full resolution path when Auto mode is active and when the active source differs from the configured source. Check this label to confirm the radio has locked to the intended reference.
-
-## Related
+-

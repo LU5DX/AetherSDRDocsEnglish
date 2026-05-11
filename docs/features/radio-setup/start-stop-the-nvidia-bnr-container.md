@@ -1,64 +1,50 @@
-# Start/stop the NVIDIA BNR Container
+# Radio Setup Dialog
 
-The NVIDIA BNR (Broadcast Noise Removal) container applies AI-based noise suppression to your microphone audio. Use the controls on the Audio tab to start, stop, or check the state of the container without leaving AetherSDR.
+The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, and serial (FlexControl).
 
-## Before you start
+## Opening the dialog
 
-- AetherSDR must be connected to the radio. The Audio tab is not accessible when disconnected.
-- The NVIDIA Broadcast container must be installed on your system independently of AetherSDR. AetherSDR controls it but does not install it.
+1. Ensure AetherSDR is connected to the radio.
+2. Click `Settings > Radio Setup...`.
+3. The dialog opens as a frameless window with a custom title bar. You can drag the title bar to move the dialog and use the window edges to resize it.
 
-## Steps
+## Radio (tab)
 
-1. Open `Settings > Radio Setup...`.
-2. Click the **Audio** tab.
-3. Locate the **NVIDIA BNR** section near the bottom of the tab.
-4. To have the container start automatically each time AetherSDR launches, click **Autostart Container** so it is active.
-5. To start the container immediately, click **Start**.
-6. To stop a running container, click **Stop**.
-7. To query the current state without changing it, click **Check Status**. The colored status dot next to the controls updates to reflect Running, Stopped, or Unknown.
+The Radio tab displays radio information, identification, license information, and firmware update controls.
 
-## What each control does
+### Radio information
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Autostart Container** | Button | When active, AetherSDR starts the NVIDIA BNR container automatically on launch. |
-| **Start** | Button | Starts the NVIDIA BNR container immediately. |
-| **Stop** | Button | Stops a running NVIDIA BNR container immediately. |
-| **Check Status** | Button | Queries the container state and updates the status dot. |
-| NVIDIA BNR status dot | Indicator | Colored dot showing the container state: Running, Stopped, or Unknown. |
-| **TX Follows Active Slice** | Button | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. |
-| **Active Slice Follows TX** | Button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. |
-| Voice / CW / Digital filter sharpness sliders | Slider | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
-| **Auto (Voice / CW / Digital)** | Button | Enables automatic filter-level selection for that mode and disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| **Connect / Disconnect (TGXL)** | Button | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. |
-| **Connect / Disconnect (PGXL)** | Button | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| **Connect / Disconnect (Antenna Genius)** | Button | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row shows a Connected status only when the device identified on that connection is an Antenna Genius (not a ShackSwitch). |
-| **Connect / Disconnect (ShackSwitch)** | Button | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. The row is hidden from Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. |
-| **⚙ Web UI (ShackSwitch)** | Button | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. |
-| **Select Installer...** | Button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label was **Browse .ssdr...** in versions prior to v0.9.3. |
-| **APD** tab | Tab | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. |
-| ANT1 / ANT2 / XVTA / XVTB sampler combos (APD) | Combo box | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. |
-| **Equalizer Reset (APD)** | Button | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. |
-| **Themes** tab | Tab | UI customization tab — currently hosts the Slice Colors section. |
-| **Use Aether defaults / Custom colors** | Radio button | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. |
-| Slice A–H color buttons | Button | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. |
-| **Reset All to Defaults (Themes)** | Button | Resets all custom slice colors to the built-in AetherSDR palette. |
+| **Radio SN** | Indicator | Chassis serial number (read-only). |
+| **Region** | Indicator | Radio regulatory region (e.g., USA). |
+| **HW Version** | Indicator | Hardware version string. |
+| **Model** | Indicator | Radio model. |
+| **Nickname** | Text field | User-friendly radio nickname. |
+| **Callsign** | Text field | Station callsign. |
+| **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as `client station <name>`. |
+| **Remote On** | Button | Enables remote wake / remote-on. |
+| **Options** | Indicator | Shows licensed radio options. |
+| **FlexControl** | Indicator | Detected state of FlexControl hardware. |
+| **multiFLEX** | Indicator | multiFLEX enabled state. |
+| **License Info** | Indicator | Displays license details (Subscription / Expiration / Radio ID / Licensed version) from the radio. |
 
-## Firmware update (Radio tab)
+### Firmware update
 
-Use the controls on the **Radio** tab to check for firmware updates and upload firmware to the radio.
+| Control | Kind | Behavior |
+|---|---|---|
+| **Check for Update** | Button | Queries the FlexRadio update server for firmware updates. |
+| **Select Installer...** | Button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. |
+| **Upload Firmware** | Button | Starts firmware upload with progress bar and status. |
+| Firmware status | Indicator | Empty until a firmware upload begins, then progress and result text. |
 
-### Checking for updates
+#### Checking for updates
 
-1. Open `Settings > Radio Setup...`.
-2. Click the **Radio** tab.
-3. Click **Check for Update**. AetherSDR queries the FlexRadio update server.
+1. Click **Check for Update**. AetherSDR queries the FlexRadio update server.
    - If firmware is up to date, the status label reads "Firmware is up to date (v*x.x.x*)." in green.
    - If an update is available, the status label reads "Update available: v*x.x.x* — Download the SmartSDR installer from flexradio.com, then click **Select Installer...** to stage it." in amber.
 
-### Staging and uploading firmware
-
-In v0.9.3 the **Browse .ssdr...** button was renamed **Select Installer...** and now accepts the full SmartSDR installer as downloaded from FlexRadio, in addition to a pre-extracted `.ssdr` file.
+#### Staging and uploading firmware
 
 1. Download the SmartSDR installer from flexradio.com if you do not already have it locally.
 2. Click **Select Installer...**. A file picker opens that accepts:
@@ -68,16 +54,73 @@ In v0.9.3 the **Browse .ssdr...** button was renamed **Select Installer...** and
 3. Select the file. AetherSDR stages the firmware automatically. The stager detects the file format from the first 8 bytes and extracts the `.ssdr` payload without requiring any external tools. The status label shows "Preparing firmware from *filename*..." while staging is in progress.
 4. When staging completes, click **Upload Firmware**. A progress bar and status label track the upload.
 
-### Notes
+## Network (tab)
 
-- If the status label does not update after clicking **Select Installer...**, verify the selected file is a valid `.msi`, `.exe`, or `.ssdr`.
-- Do not disconnect from the radio while an upload is in progress.
+The Network tab displays radio network information and advanced network options.
 
-## Frequency calibration (RX tab)
+| Control | Kind | Behavior |
+|---|---|---|
+| **IP Address / Mask / MAC Address** | Indicator | Read-only network addresses. |
+| **Enforce Private IP Connections:** | Toggle | Rejects non-RFC1918 peers. |
+| **Network MTU:** | Spinbox | Sets maximum outgoing VITA-49 UDP packet size in bytes (576-9000, default 1450). Stored in AppSettings as `NetworkMtu`. Default 1450 is safe for most VPN/SD-WAN tunnels. |
+| **DHCP / Static** | Toggle | Switches between DHCP and Static IP modes. |
+| **IP Address: / Mask: / Gateway:** | Text fields | Static IP configuration fields (enabled in Static mode). |
+| **Apply** | Button | Pushes the network configuration to the radio. |
 
-In v0.9.2.1 the **RX** tab frequency calibration controls are available regardless of whether a GPSDO is installed. Previously, when a GPSDO was detected, the calibration fields were hidden and replaced with a message stating correction was not required. The tab now always shows the **Cal Frequency (MHz)** field and the **Start** button.
+## GPS (tab)
 
-A status label appears beside **Start** and provides inline feedback throughout the calibration sequence:
+The GPS tab displays GPS presence and live latitude/longitude/altitude/time/satellites information.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| GPS information | Indicator | Live GPS data when a GPS module is installed and has a fix. |
+
+## TX (tab)
+
+The TX tab controls TX timings, interlocks, max power, tune mode, waterfall display, slice/TX follow, and TX Band Settings.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **TX Band Settings** | Button | Opens the dedicated per-band power/tune dialog. |
+| **Timings (in ms)** | Spinbox | TX hang / delay timings. |
+| **Interlocks - TX REQ: RCA / Accessory** | Toggle | Enables RCA and accessory interlock inputs. |
+| **Max Power:** | Spinbox | Sets radio-level TX power cap (0-100%). |
+| **Tune Mode:** | Combo box | Selects how the tune button behaves. |
+| **Show TX in Waterfall:** | Toggle | Draws TX signal in the waterfall. |
+| **TX Follows Active Slice** | Button | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. Stored in AppSettings as `TxFollowsActiveSlice`. |
+| **Active Slice Follows TX** | Button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. Stored in AppSettings as `ActiveFollowsTxSlice`. |
+
+## Phone/CW (tab)
+
+The Phone/CW tab controls microphone, CW keyer, and RTTY defaults.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Enable/Disable the Level Meter During Receive** | Toggle | Shows mic level meter even in RX. |
+| **Iambic:** | Toggle | Enables or disables the iambic keyer on the radio. |
+| **Iambic Mode: A / B** | Button pair | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive. |
+| **Swap:** | Toggle | Swaps dit/dah. |
+| **Sideband:** | Combo box | Selects CW pitch sideband (LSB | USB). |
+| **CWX:** | Toggle | Enables CWX macro keying. |
+| **Decode:** | Toggle | Enables the CW decode overlay on the panadapter. Stored in AppSettings as `CwDecodeOverlay`. |
+| **RTTY Mark Default:** | Spinbox | Default RTTY mark frequency. |
+
+## RX (tab)
+
+The RX tab controls GPSDO frequency offset calibration and 10 MHz reference source selection.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Cal Frequency (MHz):** | Spinbox | Frequency used for manual calibration. |
+| **Start** | Button | Starts the frequency calibration sweep. |
+| **Freq Offset (ppb):** | Spinbox | Manual frequency offset in parts per billion. |
+| **10 MHz Reference Source:** | Combo box | Selects oscillator reference source. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is shown alongside and updates live. |
+
+### Frequency calibration
+
+The frequency calibration controls are available regardless of whether a GPSDO is installed.
+
+A status label appears beside **Start** and provides inline feedback:
 
 | Status text | Meaning |
 |---|---|
@@ -85,23 +128,20 @@ A status label appears beside **Start** and provides inline feedback throughout 
 | Busy | The **Start** button is disabled; calibration is in progress. |
 | (error text) | A problem was reported; check the value in **Cal Frequency (MHz)**. |
 
-When GPSDO hardware is present, the label at the top of the group reads "GPSDO installed. Manual frequency offset calibration available." (green). Without GPSDO the label reads "Manual frequency offset calibration available." (amber). In both cases the controls below the label behave identically.
+When GPSDO hardware is present, the label at the top of the group reads "GPSDO installed. Manual frequency offset calibration available." (green). Without GPSDO the label reads "Manual frequency offset calibration available." (amber).
 
-### 10 MHz Reference Source combo (v0.9.7)
+### 10 MHz Reference Source
 
-In v0.9.7 the **10 MHz Reference Source:** combo box and the lock-status label beside it were updated to provide richer display.
-
-**Combo box population:** The list of available sources is now built dynamically each time the **RX** tab opens, based on what the radio reports. A source is included if the radio currently has it selected, if it is actively in use, or if the corresponding hardware is present. The always-present entry is **Auto**. Additional entries appear as follows:
+The combo box is populated dynamically based on what the radio reports:
 
 | Entry | Shown when |
 |---|---|
+| Auto | Always present. |
 | TCXO | Radio reports TCXO hardware present, or TCXO is the current setting or active state. |
 | GPSDO | Radio reports GPSDO hardware present, or GPSDO is the current setting or active state. |
 | External 10 MHz | Radio reports an external reference detected, or External is the current setting or active state, or oscillator status has been received. |
 
-Note: the entry previously labelled **External** is now labelled **External 10 MHz**.
-
-**Lock-status label:** The label to the right of the combo shows the current oscillator state in a richer format than before:
+The lock-status label beside the combo shows the current oscillator state:
 
 | Condition | Label text (examples) |
 |---|---|
@@ -112,11 +152,60 @@ Note: the entry previously labelled **External** is now labelled **External 10 M
 | Active source unlocked | GPSDO Unlocked |
 | External selected, no signal detected | External 10 MHz Unlocked (not detected) |
 
-The label color remains green when locked and red when unlocked. Before any status arrives from the radio the label is shown in a muted blue-grey.
+The label color is green when locked, red when unlocked, and muted blue-grey before status arrives.
 
-### To calibrate frequency offset
+#### To calibrate frequency offset
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **RX** tab.
 3. Enter a known-accurate reference frequency in **Cal Frequency (MHz)** (for example, a WWV or WWVH carrier).
-4. Verify the value is correct. If the field is empty, the status label shows "Enter cal frequency" and calibration
+4. Verify the value is correct. If the field is empty, the status label shows "Enter cal frequency" and calibration cannot start.
+5. Click **Start**. The status label shows "Starting..." then "Busy" while the calibration sweep runs.
+6. When complete, the **Freq Offset (ppb)** field updates with the calculated offset.
+
+## Audio (tab)
+
+The Audio tab controls radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Line Out:** | Slider | Line-out gain. |
+| **Mute (Line Out)** | Button | Mutes line-out. |
+| **Headphone:** | Slider | Headphone gain. |
+| **Mute (Headphone)** | Button | Mutes headphone. |
+| **Front Speaker: / Mute** | Button | Mutes front speaker (model-specific). |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Button | Selects audio codec for SmartLink/LAN. Stored in AppSettings as `AudioCompression`. |
+| **Prevent system sleep while connected** | Checkbox | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored in AppSettings as `InhibitSleepWhileConnected`. |
+| **PC Audio Devices: Input: / Output:** | Combo box | Picks host audio in/out devices. |
+| **Audio Boost:** | Toggle | Enables extra gain on the client audio path. Stored in AppSettings as `AudioBoost`. |
+| **Audio Buffer:** | Text field | Increases audio buffer in milliseconds for VPN/SmartLink jitter (50-1000 ms, default 200). Stored in AppSettings as `AudioBufferMs`. |
+| **Recording: Radio Side / Client Side** | Button | Picks radio-side or client-side recording. Stored in AppSettings as `RecordingMode`. |
+| **Save to:** | Text field | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in AppSettings as `QsoRecordingDir`. |
+| **...** | Button | Browses for recording folder. |
+| **Auto-record on TX** | Checkbox | Automatically records while transmitting. Stored in AppSettings as `QsoRecordingAutoRecord`. |
+| **Idle timeout:** | Spinbox | Seconds of silence before recording stops (10-3600 sec, default 120). Stored in AppSettings as `QsoRecordingIdleTimeout`. |
+
+### NVIDIA BNR (Broadcast Noise Removal)
+
+The NVIDIA BNR container applies AI-based noise suppression to your microphone audio.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Autostart Container** | Button | When active, AetherSDR starts the NVIDIA BNR container automatically on launch. |
+| **Start** | Button | Starts the NVIDIA BNR container immediately. |
+| **Stop** | Button | Stops a running NVIDIA BNR container immediately. |
+| **Check Status** | Button | Queries the container state and updates the status dot. |
+| NVIDIA BNR status dot | Indicator | Colored dot showing the container state: Running, Stopped, or Unknown. |
+
+#### Before you start
+
+- AetherSDR must be connected to the radio. The Audio tab is not accessible when disconnected.
+- The NVIDIA Broadcast container must be installed on your system independently of AetherSDR. AetherSDR controls it but does not install it.
+
+#### Steps
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Audio** tab.
+3. Locate the **NVIDIA BNR** section near the bottom of the tab.
+4. To have the container start automatically each time AetherSDR launches, click **Autostart Container** so it is active.
+5. To start the

@@ -15,7 +15,7 @@ The de-esser uses a sidechain design. A bandpass filter isolates the sibilance b
 
 The panel displays two live indicators while audio is active:
 
-- **Sidechain response curve** — shows the bandpass filter shape with a ball marker at the current centre frequency. As you adjust **Freq** and **Q**, the curve and ball update immediately.
+- **Sidechain response curve** — shows the bandpass filter shape with a ball marker at the current centre frequency. As you adjust **Freq** and **Q**, the curve and ball update immediately. Frequency axis labels (100, 500, 1k, 2k, 4k, 8k, 12k) are rendered using cached text for performance.
 - **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show how much attenuation is being applied at any moment. The scale runs from 0 to 24 dB; a tick marks the −6 dB point. The meter refreshes approximately 30 times per second.
 
 When the de-esser stage is bypassed, the entire panel renders at reduced opacity (approximately 55%) to give a clear visual indication that the stage is inactive. To bypass or re-enable the de-esser, use the single-click gesture on the DESS stage in the CHAIN widget.

@@ -70,6 +70,7 @@ Log entries are syntax-highlighted by log level (DBG, INF, WRN, CRT/FTL) and by 
 - **First UDP Packet** resets on each new connection. Disconnect and reconnect if you want to re-verify delivery after changing network settings.
 - Use the **Timeframe** selector to narrow or widen the history shown across all time-series tabs. The default is 5 minutes.
 - The **Rates** tab uses a logarithmic scale so that low-bitrate streams (such as Meters) remain visible alongside the higher-bitrate RX total.
+- The dialog uses a frameless window by default. It can be toggled on or off by the application-wide `FramelessWindow` setting. When frameless mode is active, a title bar appears at the top of the dialog for dragging and closing. When frameless mode is off, the standard operating system window frame is shown instead.
 
 ## Troubleshooting
 

@@ -19,12 +19,14 @@ Use this page to set the microphone input level and mix in the accessory input a
 
 ## What each control does
 
-| Control               | What it does                                                                                                                                                                                                                                                                      | Default |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio.                                                                                                                        | 50      |
-| **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                                                                                                                                                                                                        | —       |
-| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                                                                                                                                                                                                | —       |
-| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. | —       |
+| Control               | What it does                                                                                                                                                                                                                                                                      | Default                                                                                                                  |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio.                                                                                                                        | 50                                                                                                                       |
+| **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                                                                                                                                                                                                        | —                                                                                                                        |
+| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                                                                                                                                                                                                | —                                                                                                                        |
+| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full right = no compression). In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. | —                                                                                                                        |
+| **ALC (Phone panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS.                                                                                                                 | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| **ALC (CW panel)**    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW.                                                                                                                                                           | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
 
 ## CW sidetone controls
 
@@ -60,7 +62,7 @@ In v0.9.8 the four CW value labels (Delay, Speed, Sidetone Volume, and Pitch) ar
 | **Pitch < / >** | Sets the CW sidetone and decode pitch. Type a value (100–6000) in the text field or click the < and > buttons to step by 10 Hz. Pitch is also followed automatically from the radio's `cw_pitch` setting. | 600 Hz | 100–6000 Hz (step 10) | — |
 | **Breakin** | Toggles full break-in (QSK). In v0.9.7, the CW keyboard and MIDI paths fully honor this setting: with Breakin ON (QSK) key edges trigger TX and the break-in delay holds the relay; with Breakin OFF keys are queued and the operator engages PTT manually. The previous auto-PTT envelope that masked Breakin OFF and eliminated QSK hang time has been removed. | — | On / Off | — |
 | **Iambic** | Toggles the iambic paddle keyer. | — | On / Off | — |
-| **ALC** gauge | Shows the automatic level control reading. Turns red above 80. | — | 0–100 | — |
+| **ALC (CW panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Mirrors the Phone-panel ALC gauge. | — | -20 to 0 dBFS (red > -3 dBFS) | — |
 
 ## Tips
 
@@ -71,6 +73,7 @@ In v0.9.8 the four CW value labels (Delay, Speed, Sidetone Volume, and Pitch) ar
 - The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where the radio's round-trip DAX latency becomes noticeable. Because both are controlled by the single **Sidetone** toggle, there is no risk of one being active without the other.
 - Double-click **L / R pan (CW)** to return the pan position to center (50).
 - In v0.9.8, the Delay, Speed, Sidetone Volume, and Pitch value fields accept direct numeric input. Type a value and press Enter or tab away — the slider moves to match. The fields validate input and enforce the valid range automatically.
+- In v26.5.1, the ALC gauge on both the Phone and CW panels was updated to use the software ALC meter (post-software-ALC SSB peak dBFS) instead of the previous HWALC (RCA voltage) path. Both gauges now read from the same MeterModel::swAlcChanged source, so the reading is consistent across voice and CW modes. The range is -20 to 0 dBFS, with the gauge filling from right to left. Values outside this range pin at the nearest end.
 
 ## Troubleshooting
 
@@ -82,12 +85,4 @@ In v0.9.8 the four CW value labels (Delay, Speed, Sidetone Volume, and Pitch) ar
 - **Breakin OFF has no effect — radio still keys on CW input** — This was a bug resolved in v0.9.7. The previous auto-PTT envelope forced TX regardless of the Breakin setting. Update to v0.9.7 or later. After updating, with **Breakin** off, engage PTT manually before sending CW.
 - **Phone panel does not refresh when VOX is toggled via keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later.
 - **Sidetone not audible immediately after connecting on Windows** — This was resolved in v0.9.3 (#2105) by fixing the AudioEngine initialization order. Update to v0.9.3 or later.
-- **Local STn / Follow controls are missing after upgrading to v0.9.2.1** — These controls were removed in v0.9.2.1. Use the **Sidetone** toggle and **Sidetone volume** slider; they now control both the radio-side and local sidetone together. Pitch and pan follow the radio automatically and no longer require a separate follow toggle.
-- **CW value field resets after typing** — Make sure you press Enter or tab away from the field after typing. The value is applied on the `editingFinished` signal, which fires when the field loses focus or Enter is pressed.
-
-## Related
-
-- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
-- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone.md)
-- [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+- **Local STn / Follow controls are

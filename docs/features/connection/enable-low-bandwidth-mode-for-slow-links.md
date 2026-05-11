@@ -18,9 +18,35 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 
 | Control | Kind | Default |
 |---|---|---|
+| Local / SmartLink / Manual (mode buttons) | Radio button | Local |
+| Available radios | List | (not set) |
+| Connect Selected Radio | Push button | — |
+| No local radios found yet | Indicator | — |
+| Retry Discovery | Push button | — |
+| Remote with SmartLink | Push button | — |
+| Connect by IP | Push button | — |
+| Open Network Diagnostics | Push button | — |
+| SmartLink account: Email | Text field | (not set) |
+| SmartLink account: Password | Text field | (not set) |
+| Sign In | Push button | — |
+| Sign Out | Push button | — |
+| Remote radios | List | (not set) |
+| Connect Remote Radio | Push button | — |
+| Radio IP address | Text field. Stores up to three recently used IP addresses. Select a previous address from the drop-down or type a new one. The field replaces the plain text entry used in earlier versions. Stored as `ManualRadioIp`; recent entries stored as `RecentConnectByIpAddresses`. | (not set) |
+| Network Diagnostics | Push button | — |
+| Connect by IP (manual) | Push button | — |
+| Advanced: Source path | Combo box | (not set) |
 | Use low bandwidth mode | Checkbox | (not set) |
 | Connect to last radio on start up | Checkbox. When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Stored as `AutoConnectToLastRadio`. | True (checked). New in v0.9.7. Existing users keep previous behavior automatically. |
-| Radio IP address | Editable combo box. Stores up to three recently used IP addresses. Select a previous address from the drop-down or type a new one. The field replaces the plain text entry used in earlier versions. Stored as `ManualRadioIp`; recent entries stored as `RecentConnectByIpAddresses`. | (not set) |
+| Disconnect | Push button | — |
+
+## Indicators
+
+| Indicator | Meaning |
+|---|---|
+| Status label | Current connection state (searching / connecting / connected / errored). |
+| Manual result label | Result text after probing a manual IP (success or error). |
+| Source warning label | Warns when the selected source NIC is stale or unreachable. |
 
 ## Tips
 
@@ -28,6 +54,8 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 - If audio still breaks up after enabling low-bandwidth mode, check your VPN or routing path using `Settings > Network...`.
 - The **Radio IP address** field now remembers up to three recent addresses. If you previously saved an IP under the legacy `LastRoutedRadioIp` setting, AetherSDR migrates it automatically the first time you open the connection panel.
 - To prevent AetherSDR from connecting automatically at startup — for example, when you want to choose a different radio — uncheck **Connect to last radio on start up**.
+- The connection panel now uses a frameless window with a custom title bar when **FramelessWindow** is enabled in settings (default: True). The **Connect to Radio** title appears in the window title bar. To resize the dialog, drag from any edge or corner.
+- When probing a manual IP, AetherSDR collects radio status information such as model, nickname, callsign, and MultiFlex status during the connection negotiation. This information appears in the radio list after a successful probe.
 
 ## Related
 

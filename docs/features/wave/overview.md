@@ -4,7 +4,7 @@ The Waveform applet is an audio oscilloscope that displays the time-domain wavef
 
 ## How it works
 
-The applet renders a scrolling 100 ms time window of mono audio. The display is continuously fed samples from the audio engine. Each pixel column shows the min/max envelope of the samples that fall within it, with separate peak and RMS envelope traces drawn over the top.
+The applet renders a scrolling time window of mono audio. The window duration is adjustable from 240 ms to 10 seconds via a discrete-step slider in the settings drawer. The display is continuously fed samples from the audio engine. Each pixel column shows the min/max envelope of the samples that fall within it, with separate peak and RMS envelope traces drawn over the top.
 
 The header line shows the current direction (RX or TX), RMS level in dBFS, and peak level in dBFS. The footer shows the sample rate, window duration, and time per division.
 
@@ -18,12 +18,24 @@ The applet no longer enforces a fixed height; it resizes vertically with the lay
 
 | Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Waveform display        | Renders the min/max envelope per pixel column with peak and RMS envelope traces over a fixed 100 ms window.                                                                                      | No persisted setting key.                                                                                               |
+| Waveform display        | Renders the min/max envelope per pixel column with peak and RMS envelope traces over the configured time window.                                                                                 | No persisted setting key.                                                                                               |
 | Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again.                                                                                           | A **PAUSED** badge appears in the footer. Default state is live.                                                        |
 | Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | Does not clear the buffer. To reset the display, use the WaveformWidget::clear() slot or reconnect.                     |
-| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as 'Graph', 'Envelope', 'History', or 'Bands'. |
-| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner.                                                                          | Located in the settings drawer. Default 170% (1.7x).                                                                   |
-| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems.                                                                                                          | Located in the settings drawer.                                                                                         |
+| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as `WaveApplet_ViewMode`.                      |
+| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner.                                                                          | Located in the settings drawer. Default 170% (1.7x). Persisted as `WaveApplet_ZoomPercent`.                             |
+| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems.                                                                                                          | Located in the settings drawer. Persisted as `WaveApplet_RefreshRateHz`.                                                |
+| Window                  | Sets the time window duration. Discrete steps: 240 ms, 480 ms, 1 s, then 1-second increments to 10 s.                                                                                           | Located in the settings drawer. Persisted as `WaveApplet_TimeWindowMs`. Default 1000 ms (1 s).                          |
+
+### Settings drawer controls
+
+The settings drawer contains the following controls:
+
+- **View** combo box — Selects waveform visualization mode. Options: Scope, Envelope, History, Bands. Persisted as `WaveApplet_ViewMode`.
+- **Zoom** slider — Amplitude scaling from 1.0x to 6.0x. Default 1.7x (170%). Persisted as `WaveApplet_ZoomPercent`.
+- **FPS** slider — Refresh rate from 5 to 30 Hz. Default 24 Hz. Persisted as `WaveApplet_RefreshRateHz`.
+- **Window** slider — Time window duration. Steps: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s. Default 1 s. Persisted as `WaveApplet_TimeWindowMs`.
+
+On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec`, your previous window setting is migrated to the nearest available step in the new discrete-step system.
 
 ## Indicators
 
@@ -38,6 +50,7 @@ The applet no longer enforces a fixed height; it resizes vertically with the lay
 - Grid lines can be suppressed via `DisplayShowGrid`. When enabled, the display draws major and minor grid lines behind the trace.
 - Single-click to pause is particularly useful for catching a transient: click immediately after the event, inspect the frozen waveform, then click again to resume.
 - Double-click on the display toggles the settings drawer. To clear the waveform buffer, use the WaveformWidget::clear() slot or reconnect to the audio engine.
+- The Window slider provides discrete steps only — it does not allow free-scrolling through millisecond values. Use the closest step that captures the time span you need.
 
 ## Related
 

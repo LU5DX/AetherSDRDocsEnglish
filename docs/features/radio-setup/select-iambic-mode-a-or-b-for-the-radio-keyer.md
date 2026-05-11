@@ -176,4 +176,31 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Audio Buffer:** | Text field | 200 | Audio buffer size in milliseconds for VPN/SmartLink jitter compensation. Range: 50–1000 ms. Stored in `AudioBufferMs`. |
 | **Recording: Radio Side / Client Side** | Push button | Radio Side | Selects radio-side or client-side recording. Stored in `RecordingMode`. |
 | **Save to:** | Text field | — | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in `QsoRecordingDir`. |
-| **...** | Push button | — |
+| **...** | Push button | — | Browses for recording folder. |
+| **Auto-record on TX** | Checkbox | False | Automatically records while transmitting. Stored in `QsoRecordingAutoRecord`. |
+| **Idle timeout:** | Spinbox | 120 | Seconds of silence before recording stops. Range: 10–3600 sec. Stored in `QsoRecordingIdleTimeout`. |
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Push buttons | — | Controls the NVIDIA Broadcast noise-removal container. A status dot shows Running (green), Stopped (red), or Unknown (gray). |
+
+---
+
+## Filters tab
+
+Configures low-latency or sharp filter options per bandwidth mode.
+
+| Control | Kind | Default | Behavior |
+|---|---|---|---|
+| **Voice / CW / Digital filter sharpness sliders** | Slider | — | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled for that mode. Command: `radio filter_sharpness <mode> level=<N>`. |
+| **Auto (Voice / CW / Digital)** | Toggle button | — | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Command: `radio filter_sharpness <mode> auto_level=1`. |
+| **Use Low Latency Filters for Digital Modes** | Checkbox | — | Forces low-latency filters in DIGU/DIGL. |
+
+---
+
+## XVTR tab
+
+Configures per-transverter settings.
+
+The tab contains a nested tab widget with one tab per configured transverter plus a **+** tab for adding new entries.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **RX Only:** | Toggle button | Forces

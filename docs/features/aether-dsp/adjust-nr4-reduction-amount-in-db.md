@@ -2,7 +2,7 @@
 
 The **AetherDSP Settings** dialog (`Settings > AetherDSP Settings...`) controls the client-side noise-reduction engines built into AetherSDR: NR2, NR4, MNR, RN2, BNR, and DFNR. Open it at any time; a radio connection is not required to change these parameters. All values are saved automatically when you close the dialog. The six DSP modules are selectable via a toggle row at the top; clicking a toggle also activates or bypasses that engine.
 
-The dialog uses a custom frameless title bar with window controls matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. Drag the title bar to move the dialog; double-click to toggle maximize/restore. Drag any edge or corner to resize.
+The dialog uses a custom frameless title bar with window controls matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip when the "FramelessWindow" application setting is enabled (the default). When disabled, the dialog uses the standard window frame provided by the operating system. Drag the title bar to move the dialog; double-click to toggle maximize/restore. Drag any edge or corner to resize. Resizing is only available in frameless mode.
 
 ## Before you start
 
@@ -59,7 +59,7 @@ NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its c
 
 ## NR4 tab
 
-NR4 uses the libspecbleach library. Click the **NR4** tab to access its controls.
+NR4 uses the libspecbleach library. On Windows, NR4 requires LLVM (clang-cl) to compile; if LLVM is not installed, the NR4 toggle is dimmed with a tooltip instructing you to install LLVM from llvm.org and rebuild. Click the **NR4** tab to access its controls.
 
 ### Controls
 
@@ -162,7 +162,9 @@ DFNR uses the DeepFilterNet3 neural network for noise reduction. Click the **DFN
 - **Slider has no audible effect** — confirm that the engine whose tab you are adjusting is the active noise-reduction engine for your slice. Enabling another engine simultaneously may mask its contribution.
 - **Speech sounds hollow or distorted at high NR4 reduction values** — lower **Reduction (dB):** and enable **Adaptive Noise Estimation** so the noise floor estimate stays accurate.
 - **MNR controls are grayed out** — MNR is available on macOS only. On Linux and Windows the MNR tab is informational.
+- **NR4 toggle is grayed out on Windows** — NR4 requires LLVM (clang-cl) to compile. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 - **Changes appear to reset** — each tab has a **Reset Defaults** button. Verify you have not accidentally clicked it.
+- **Dialog shows standard window frame instead of custom title bar** — the "FramelessWindow" application setting is disabled. Enable it to restore the custom chrome.
 
 ---
 

@@ -18,11 +18,32 @@ The profile is stored immediately. The **Profile:** drop-down is refreshed to in
 
 ## What each control does
 
-| Control      | What it does                                                                                                          | Setting key |
-|--------------|-----------------------------------------------------------------------------------------------------------------------|-------------|
-| **Profile:** | Editable combo box. Type a new name to create a profile, or pick an existing name from the drop-down to overwrite it. | —           |
-| **Save**     | Saves the current bindings under the name shown in **Profile:**. Does nothing if the field is empty.                  | —           |
-| **Load**     | Replaces the current bindings with those stored under the selected profile name.                                      | —           |
+| Control | What it does | Setting key |
+|---|---|---|
+| **Port:** | Selects MIDI input device. | `MidiPort` |
+| **Refresh** | Rescans available MIDI ports. | — |
+| **Connect** | Opens/closes selected MIDI port. | — |
+| **Auto-connect on startup** | Reopens MIDI port on launch. | `MidiAutoConnect` |
+| **Category** | Filters parameter combo to a control category. Available categories: All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, Frequency. | — |
+| **Parameter** | Chooses the target parameter for a new binding. In v26.5.1, three new momentary (Gate) actions are available in the Phone/CW category: "Trigger straight key" (id: cwkey), "Trigger CW Left Paddle" (id: cwdit), "Trigger CW Right Paddle" (id: cwdah). Legacy dotted IDs cw.key/cw.dit/cw.dah are auto-migrated on read. | — |
+| **Learn** | Starts listening for the next MIDI message and binds it to the selected parameter. | — |
+| **Bindings table** | Shows existing bindings with per-row Invert, Relative and delete controls. Columns: Parameter, MIDI Source, Channel, Invert, Relative, (delete). | — |
+| **Invert** | Reverses the control direction for the row. | — |
+| **Relative** | Treats the control as an endless encoder. | — |
+| **× (delete row)** | Removes that binding. | — |
+| **Clear All** | Removes every binding. | — |
+| **Profile:** | Editable combo box. Type a new name to create a profile, or pick an existing name from the drop-down to overwrite it. | — |
+| **Save** | Saves the current bindings under the name shown in **Profile:**. Does nothing if the field is empty. | — |
+| **Load** | Replaces the current bindings with those stored under the selected profile name. | — |
+| **Close** | Closes the dialog. | — |
+
+## Indicators
+
+| Indicator | Meaning |
+|---|---|
+| **Port status** | Shows "Opened" or "Closed" to indicate whether the MIDI port is currently open. |
+| **Activity indicator** | Shows the most recent MIDI message received. |
+
 ## Tips
 
 - Typing a name that already exists in **Profile:** and clicking **Save** overwrites that profile without a confirmation prompt.

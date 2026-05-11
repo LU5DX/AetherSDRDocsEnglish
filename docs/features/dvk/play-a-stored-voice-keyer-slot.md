@@ -30,17 +30,20 @@ Use the Digital Voice Keyer panel to transmit a stored recording on-air. Trigger
 | Slot progress bars | Shows live playback progress. Visible only during active playback. | Hidden |
 | **▶ PLAY** | Plays the selected slot. Has no effect if the slot is empty. | — |
 | **■ STOP** | Stops playback in progress. | — |
+| **◀ PREV** | Previews the slot through the local speaker without transmitting. | — |
+| **● REC** | Starts recording into the selected slot. | — |
 
 ## Tips
 
 - Clicking an **F1–F8** button while that slot is already playing stops playback rather than restarting it.
 - Pressing the matching F-key on your keyboard is equivalent to clicking the on-screen **F1–F8** button. F1 through F8 are supported.
 - To hear a slot through your local speaker without transmitting, use **◀ PREV** instead of **▶ PLAY**.
+- Keyboard shortcuts (F1–F8 and Escape) are active only while the DVK panel is visible. If you switch to the CWX panel in the same splitter area, the CWX panel takes over the same F-key shortcuts. Hiding the DVK panel automatically disables its shortcuts to avoid conflicts.
 
 ## Troubleshooting
 
 - **▶ PLAY does nothing** — The selected slot is empty. The duration label will read "Empty". Record audio or upload a WAV file into the slot first.
-- **F-key press has no effect** — The DVK panel must have keyboard focus, or the slot at that position is empty.
+- **F-key press has no effect** — The DVK panel must be visible in the main window. If the CWX panel is shown instead, its F-key shortcuts take priority. Make sure the DVK panel is the active panel in the splitter area.
 
 ## Related
 

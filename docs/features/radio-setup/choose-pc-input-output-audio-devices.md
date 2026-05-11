@@ -121,4 +121,30 @@ The previously used label **External** has been renamed **External 10 MHz**.
 
 ### Lock status label
 
-The lock
+The lock status label updates in real time next to the combo box and shows:
+
+- **Locked** (green) when the selected reference source is locked.
+- **Unlocked** (red) when the selected reference source is unlocked or the radio does not lock that source.
+
+## Radio Setup dialog changes in v26.5.1
+
+The Radio Setup dialog has been updated with a custom title bar and frameless window support.
+
+### Frameless window mode
+
+The Radio Setup dialog now uses a custom title bar when AetherSDR is running in frameless window mode. The title bar shows the window title "Radio Setup" and provides standard window controls (minimize, maximize, close).
+
+When **FramelessWindow** is enabled in settings (default: True):
+
+- The dialog uses a custom drawn title bar instead of the OS window chrome.
+- Resize handles are installed along all edges and corners for manual window resizing.
+- Dragging the title bar moves the window.
+
+When frameless mode is disabled, the dialog uses the standard OS window decoration.
+
+### Peripherals tab save-on-close behavior
+
+The **Connect / Disconnect** buttons on the **Peripherals** tab now have improved handling for empty IP address fields:
+
+- **Clearing a saved IP while connected:** If you clear the IP field and click **Disconnect**, the saved manual IP and port settings are wiped *before* the disconnect fires. This ensures downstream handlers (e.g. ShackSwitch button visibility) see the cleared settings immediately.
+- **Clearing a saved IP while disconnected:** If you clear a previously saved IP field and click **Connect** with an empty IP, the saved manual IP and port are removed from settings. The connect attempt is cancelled.

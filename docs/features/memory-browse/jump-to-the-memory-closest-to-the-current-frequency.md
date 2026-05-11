@@ -14,20 +14,23 @@ The Memory Browser automatically highlights the stored memory whose frequency is
 2. Tune the radio to any frequency using your normal method (VFO knob, panadapter click, or direct entry).
 3. Look at the memory table. The row whose frequency is closest to the current tuning is highlighted with a distinct background.
 4. The panel automatically scrolls the table so the highlighted row is centered in view. No additional action is required.
+5. To save the current slice as a new memory entry, click **Add Memory** at the bottom of the panel. This button remains visible regardless of scroll position.
 
 ## What each control does
 
-| Control | Behavior | Notes |
-|---|---|---|
-| Memory table | Lists all stored memories sorted by frequency, lowest to highest. | Columns: Frequency (MHz, six decimal places), Name. |
-| Highlighted row | Marks the memory closest to the current tuned frequency. | Ties are broken by memory index — the lower index wins. |
-| "No memories are available yet." | Shown in place of the table when the radio has no valid memories loaded. | Disappears as soon as at least one memory with a non-zero frequency is available. |
+| Control                          | Behavior                                                                                                 | Notes                                                                                                                          |
+|----------------------------------|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Memory table                     | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory. | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
+| Highlighted row                  | Marks the memory closest to the current tuned frequency.                                                 | Ties are broken by memory index — the lower index wins.                                                                        |
+| "No memories are available yet." | Shown in place of the table when the radio has no valid memories loaded.                                 | Disappears as soon as at least one memory with a non-zero frequency is available.                                              |
+| Add Memory                       | Saves the current slice as a new memory entry. Anchored at the bottom of the panel, always visible.      | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant. Tooltip: "Save the current slice on this panadapter as a memory." |
 
 ## Tips
 
 - The highlight updates whenever the tuned frequency changes. If you retune, the highlighted row moves to whichever memory is now closest.
 - Memories with a frequency of 0 MHz are excluded from the table entirely and cannot be selected as the closest match.
 - If a memory has no name, the panel displays its group name instead. If neither is set, it shows "Memory" followed by its index number.
+- The **Add Memory** button is outside the scrolling table area, so it stays visible at all times. This is especially useful when the memory list is long.
 
 ## Related
 

@@ -42,10 +42,18 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 
 **RIT / XIT buttons + labels** — Enable receiver (RIT) or transmitter (XIT) incremental tuning for this slice. When active, the label next to each button shows the current offset value. Scroll the mouse wheel over the button to adjust the offset in 10 Hz steps. Neither setting is persisted; state reflects live radio state.
 
+**Squelch button + slider (Audio tab)** — Enables squelch for this slice. The adjacent slider sets the threshold. Squelch is automatically disabled when the slice mode is CW, digital, or RTTY, because in those modes audio feeds external decoders via DAX where squelch would gate weak FSK signals (#2504). The button and slider are greyed out in those modes.
+
 ## Tips
 
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
+
+## Changes in v26.5.1
+
+### Squelch disabled in RTTY mode
+
+The squelch button and slider are now automatically disabled when the slice is in a RTTY mode, in addition to the existing digital and CW mode restrictions. When the mode is RTTY, the squelch button is greyed out and cannot be toggled, and the squelch slider is greyed out and cannot be adjusted. If squelch was previously enabled, it is automatically turned off when switching to RTTY mode. This prevents squelch from gating weak FSK signals that external RTTY decoders need to receive via DAX (#2504).
 
 ## Changes in v0.9.8
 

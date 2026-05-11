@@ -36,6 +36,10 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 
 The filter width label now uses `RxApplet::formatFilterWidth` as its single source of truth. This fixes a 0.1 kHz offset that previously affected SSB and digital mode readouts (#2197, v0.9.8). The label now stays in sync with the filter readout in the RX applet.
 
+## Squelch behavior for RTTY mode (v26.5.1)
+
+The squelch button and slider are now disabled in RTTY mode, in addition to digital and CW modes. This prevents squelch from gating weak FSK signals when the audio feeds external decoders via DAX (#2504).
+
 ## DSP tab changes in v0.9.7
 
 The DSP tab in the VFO panel now shows only radio-supplied noise reduction algorithms. The client-side algorithms that were previously accessible as buttons in this tab — NR2, RN2, NR4, MNR, BNR, and DFNR — have been moved out of the VFO panel. To enable those algorithms, use the spectrum overlay menu or the AetherDSP applet.

@@ -1,48 +1,96 @@
-# Log in to SmartLink to see remote radios
+# Connect to a Radio
 
-SmartLink lets you reach a FLEX-8600 at a remote location over the internet. This page covers how to sign in to your FlexRadio SmartLink account so that AetherSDR can list the radios available to it.
+The Connection Panel is the main screen for discovering and connecting to a FLEX-8600 radio. It provides three connection modes: Local (LAN discovery), SmartLink (remote via internet), and Manual (direct IP or VPN). The panel appears automatically when AetherSDR starts and no radio is connected, or you can open it at any time from `Settings > Connect to Radio...`.
 
 ## Before you start
 
-- You must have a FlexRadio account with SmartLink access. If you do not have one, create it at the FlexRadio website before continuing.
-- The remote radio must already be registered with SmartLink and powered on.
-- AetherSDR must not already be connected to a radio. The connection panel appears automatically when no radio is connected.
+- AetherSDR must not already be connected to a radio.
+- The panel now opens as a frameless dialog. You can drag it by the title bar at the top.
 
 ## Steps
 
-1. Open the connection panel. If AetherSDR is already showing the main interface, go to `Settings > Connect to Radio...`.
+### Connect to a local LAN radio
+
+1. Open the connection panel. By default, the Local tab is active.
+2. Wait for AetherSDR to discover radios on the local network. The `Available radios` list populates automatically.
+3. Select a radio from the list.
+4. Click `Connect Selected Radio`.
+
+### Connect to a remote radio through SmartLink
+
+1. Open the connection panel.
 2. Click `Remote with SmartLink`. The panel switches to the SmartLink page.
 3. Under **SmartLink account**, enter your FlexRadio account email in the `SmartLink account: Email` field.
 4. Enter your password in the `SmartLink account: Password` field. The password is not saved between sessions.
 5. Click `Sign In`. AetherSDR authenticates with SmartLink and, if successful, populates the `Remote radios` list with the radios available to your account.
+6. Select a radio from the `Remote radios` list.
+7. Click `Connect Remote Radio`.
+
+### Connect by IP address (manual or VPN)
+
+1. Open the connection panel.
+2. Click `Connect by IP` (from the Local page) or select the Manual page directly.
+3. In the `Radio IP address` field, enter the IP address or hostname of the radio.
+4. (Optional) Select a network interface from the `Advanced: Source path` drop-down to bind the connection to a specific NIC.
+5. (Optional) Check `Use low bandwidth mode` for reduced-rate streams on slow links.
+6. Click `Connect by IP (manual)`.
+
+### Additional controls
+
+- `Open Network Diagnostics` — Opens a diagnostics dialog for troubleshooting network connectivity.
+- `Retry Discovery` — Re-runs LAN discovery on the Local page.
+- `Disconnect` — Disconnects from the current radio and returns to the connection panel.
+- `Connect to last radio on start up` — When checked (default), AetherSDR automatically reconnects to the last used radio on startup. When unchecked, the connection panel opens each session.
 
 ## What each control does
 
 | Control | What it does | Persisted setting |
 |---|---|---|
-| `Remote with SmartLink` mode button | Switches the panel to the SmartLink page. | `ConnectionMode` |
+| Local / SmartLink / Manual mode buttons | Switch the panel among the three connection modes. | `ConnectionMode` |
+| `Available radios` | Lists LAN radios discovered via mDNS/Flex discovery. | — |
+| `Connect Selected Radio` | Connects to the highlighted LAN radio. | — |
+| `No local radios found yet` | Callout shown when discovery is empty. | — |
+| `Retry Discovery` | Re-runs LAN discovery. | — |
+| `Remote with SmartLink` | Shortcut to the SmartLink page. | — |
+| `Connect by IP` | Shortcut to the Manual page. | — |
+| `Open Network Diagnostics` | Opens the network diagnostics dialog. | — |
 | `SmartLink account: Email` | Your FlexRadio account email address. | `SmartLinkEmail` |
 | `SmartLink account: Password` | Your SmartLink password. Not saved after the session ends. | — |
 | `Sign In` | Authenticates with SmartLink and retrieves the list of remote radios. | — |
-| `Remote radios` | Lists the WAN radios available to your account after sign-in. The list has a fixed display height; if you have many remote radios, scroll within the list to see all of them. | — |
-| `Connect Remote Radio` | Starts a WAN connection to the radio selected in the `Remote radios` list. | — |
 | `Sign Out` | Ends the current SmartLink session. | — |
-| `Radio IP address` | The IP address or hostname to connect to when using Manual mode. The field is an editable combo box that remembers the last three addresses you connected to successfully. Select a previous address from the drop-down or type a new one. | `ManualRadioIp` |
-| `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
+| `Remote radios` | Lists the WAN radios available to your account after sign-in. | — |
+| `Connect Remote Radio` | Starts a WAN connection to the selected remote radio. | — |
+| `Radio IP address` | The IP address or hostname to connect to in Manual mode. Editable combo box that remembers the last three addresses you successfully connected to. | `ManualRadioIp` |
+| `Advanced: Source path` | Picks the local network interface used for the manual connection. | `ManualBindSource` |
+| `Use low bandwidth mode` | Enables reduced-rate streams for slow links. | `LowBandwidthMode` |
+| `Connect by IP (manual)` | Starts the manual/VPN connection. | — |
+| `Connect to last radio on start up` | When checked, auto-connects to the last used radio on startup. Defaults to checked. | `AutoConnectToLastRadio` |
+| `Disconnect` | Disconnects from the current radio. | — |
+
+## Status indicators
+
+| Indicator | Meaning |
+|---|---|
+| Status label | Current connection state: searching, connecting, connected, or errored. |
+| Manual result label | Result text after probing a manual IP (success or error). |
+| Source warning label | Warns when the selected source NIC is stale or unreachable. |
 
 ## Tips
 
+- The connection panel now appears as a frameless dialog. Drag it by the title bar at the top.
 - `SmartLinkEmail` is persisted, so your email address is pre-filled on the next launch. Your password is never stored.
-- After signing in, the status label below the account group shows your name, callsign, or confirmation that you are signed in, depending on what your account profile contains.
-- The `Remote radios` list is sized to show a compact view of available radios. Scroll within the list if the entry you want is not immediately visible.
-- The `Radio IP address` field on the Manual page now stores up to three recent addresses in `RecentConnectByIpAddresses`. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading to v0.9.7.
+- After signing in to SmartLink, the status label shows your name, callsign, or confirmation that you are signed in.
+- The `Remote radios` list is sized for compact display; scroll within the list if the radio you want is not immediately visible.
+- The `Radio IP address` field stores up to three recent addresses. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
+- On the Local page, you can quickly switch to SmartLink or Manual mode using the shortcut buttons.
 
 ## Troubleshooting
 
-- **`Remote radios` list is empty after sign-in** — The remote radio may be powered off, not registered with SmartLink, or associated with a different FlexRadio account. Confirm the radio is on and registered under the same account you used to sign in.
-- **`Sign In` produces an error** — Check that your email and password are correct. A typo in the email field is a common cause because the field has no auto-correct. Verify your credentials at the FlexRadio website.
-- **The SmartLink page is not reachable** — Firewall or VPN software on this machine may be blocking outbound SmartLink traffic. Use `Open Network Diagnostics` (available on the Local page) to check connectivity, or see [Connect by IP across a VPN or routed network](../../getting-started/setup/connect-by-ip-across-a-vpn-or-routed-network.md) if your setup requires a direct IP path instead.
-- **AetherSDR connects to the wrong radio on startup** — If `Connect to last radio on start up` is checked, AetherSDR will attempt to reconnect to whichever radio was used in the previous session. Uncheck this option if you want to choose a radio manually each time you launch the application.
+- **`Available radios` list is empty** — Ensure the radio is powered on and on the same local network. Click `Retry Discovery` to refresh the list.
+- **`Remote radios` list is empty after sign-in** — The remote radio may be powered off, not registered with SmartLink, or associated with a different FlexRadio account.
+- **`Sign In` produces an error** — Check that your email and password are correct. Verify your credentials at the FlexRadio website.
+- **Cannot connect by IP** — Ensure the radio is reachable on the network. Use `Open Network Diagnostics` to check connectivity.
+- **AetherSDR connects to the wrong radio on startup** — Uncheck `Connect to last radio on start up` if you want to choose a radio manually each session.
 
 ## Related
 

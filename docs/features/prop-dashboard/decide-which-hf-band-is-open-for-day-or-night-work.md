@@ -18,18 +18,27 @@ The HF Propagation Dashboard shows a band-by-band condition summary split into d
 
 | Control | Behavior |
 |---|---|
+| **Current Conditions cards** | Five metric tiles (SFI, SN, A-index, K-index, X-ray) with hover tooltips. |
+| **3-Day Forecast grid** | Shows Kp per 3-hour UTC period for each of three days, plus Max Kp, R1-R2, R3+ and S1+ risk rows. |
+| **Solar And Lunar panel** | Live solar image (click cycles wavelengths) and current Moon phase. Default label 'Corona (193A)'. |
+| **What To Look For** | Rotating plain-language learning notes about the current solar image. |
 | **HF Band Conditions** | Displays a condition rating for each of four HF band rows, split into day and night columns. |
 | Band condition value | Shows one of three states: **Good**, **Fair**, or **Poor**, color-coded green, amber, or orange respectively. |
+| **VHF Conditions** | Aurora, E-Skip NA, E-Skip EU states. |
+| **What These Mean (VHF)** | Two learning notes explaining aurora vs sporadic-E. |
 
 ## Tips
 
 - The **Current Conditions cards** at the top of the dialog show SFI, SN, A-index, K-index, and X-ray values. Cross-reference these with the band conditions: a high SFI (120 or above) generally supports upper HF bands, while a high K-index (5 or above) indicates storm-level geomagnetic activity that degrades many paths.
 - Hover over any metric card to read a plain-language tooltip explaining what that index means for HF propagation.
 - If the A-index is elevated (15 or above), band conditions may remain unsettled even if the current K-index looks quiet.
+- The **Solar And Lunar panel** lets you cycle through solar wavelengths by clicking the image. The default view is 'Corona (193A)'.
+- The **3-Day Forecast grid** includes color-coded Kp cells across UTC periods, plus NOAA blackout (R1-R2, R3+) and radiation storm (S1+) risk per day.
 
 ## Troubleshooting
 
 - **All band condition values appear blank or do not update** — the dashboard could not retrieve propagation data. Verify your internet connection and reopen the dialog.
+- **The dashboard window does not appear with a title bar or cannot be moved** — On some platforms, the dialog uses a frameless window style. Click and drag anywhere on the body area (except interactive controls) to reposition the window.
 
 ## Related
 

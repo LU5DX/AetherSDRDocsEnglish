@@ -113,7 +113,6 @@ To update the overlay, call `setSwrSweepPoints()` with a vector of `SwrSweepPoin
 Points with non-finite `freqMhz` or `swr` values are silently skipped. Points whose mapped x-coordinate falls outside the visible spectrum area are not drawn.
 
 To remove the overlay, call `clearSwrSweepPoints()`.
-
 ## Tips
 
 - The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter.

@@ -27,6 +27,7 @@ To save the current filter width into a preset slot:
 | Filter width label               | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |                                                                                                                         |
 | ADSP button (DSP tab)            | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8).                                                                                                          | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab)     | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                                                                                                                              | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+
 ## DSP tab changes in v0.9.8
 
 The **DSP tab** now shows only radio-side noise reduction buttons. The following buttons have been removed from the VFO panel DSP tab:
@@ -65,6 +66,17 @@ A shared **DSP level slider** row appears below the button grid. The slider reta
 | DSP level slider (DSP tab) | Sets the processing level for the most recently activated leveled DSP algorithm. The label to the left identifies the current target. Automatically activates on startup if the radio's saved profile has a leveled DSP enabled. Hidden (faded) when no leveled algorithm is active. | — | — |
 | ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Non-checkable push button. | — | — |
 | AetherVoice button (DSP tab) | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Non-checkable push button. Spans 2 columns in the 4-column DSP grid. | — | — |
+
+## Squelch behavior changes (v26.5.1)
+
+The squelch control in the **Audio tab** is now disabled for RTTY and digital modes, in addition to CW mode. This prevents the squelch from gating weak FSK signals that are fed to external decoders via DAX (#2504).
+
+When you switch a slice to DIGU, DIGL, or RTTY mode:
+
+- The Squelch button and slider become disabled.
+- If squelch was active, it is automatically turned off. The previous state is saved internally and restored if you switch back to a voice mode.
+
+This matches the existing behavior for CW mode, where the radio locks squelch on at a fixed level and rejects user changes.
 
 ## Tips
 
