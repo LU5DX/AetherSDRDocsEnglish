@@ -4,7 +4,7 @@ The Radio Setup dialog is the master per-radio configuration window. It is opene
 
 ## Dialog Layout
 
-The dialog window has a custom title bar in frameless mode (enabled by default when `FramelessWindow` setting is `True`). The title bar displays "Radio Setup" and includes standard window controls. The main content area contains a tabbed interface with the following tabs:
+The dialog window uses the persistent dialog framework, saving and restoring its geometry automatically between sessions. The main content area contains a tabbed interface with the following tabs:
 
 - **Radio** — Radio information, identification, license info and firmware update
 - **Network** — Radio network information and advanced network options
@@ -12,7 +12,7 @@ The dialog window has a custom title bar in frameless mode (enabled by default w
 - **TX** — TX timings, interlocks, max power, tune mode, waterfall display, slice/TX follow and TX Band Settings shortcut
 - **Phone/CW** — Microphone, CW keyer, RTTY defaults
 - **RX** — GPSDO frequency offset calibration and 10 MHz reference source
-- **Audio** — Radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container
+- **Antennas** — Antenna name configuration
 - **Filters** — Low-latency / Sharp filter options per bandwidth
 - **XVTR** — Per-transverter configuration
 - **USB Cables** — Assigns USB serial adapters to CAT, BCD, bit, and PTT cable types
@@ -20,13 +20,7 @@ The dialog window has a custom title bar in frameless mode (enabled by default w
 - **APD** — External Adaptive Pre-Distortion sampler configuration (FLEX-8x00 with SmartSDR 4.2.18+ only)
 - **Themes** — UI customization including slice colors
 
-The dialog geometry (position and size) is saved automatically when you close the dialog and restored on next open.
-
-## Window Frameless Mode
-
-The dialog supports frameless mode controlled by the `FramelessWindow` setting (default `True`). In frameless mode, a custom title bar is displayed. When disabled, the OS window chrome is used.
-
-- **FramelessWindow** — Setting key: `FramelessWindow`. Default: `True`. When enabled, the dialog uses a custom title bar; when disabled, uses native OS window decorations.
+The dialog geometry (position and size) is saved automatically when you close the dialog and restored on next open. The dialog inherits from `PersistentDialog` which handles geometry persistence under the key `RadioSetupDialogGeometry`.
 
 ---
 
@@ -114,11 +108,24 @@ The **TX** tab configures transmit timings, interlocks, power, tune mode, and sl
 
 | Control | What it does | Default | Range |
 |---|---|---|---|
-| **Timings (in ms)** | TX hang / delay timings | — | — |
+| **Timings** | TX hang / delay timings. Includes ACC TX, TX Delay, RCA TX1, and Timeout fields. | — | — |
 | **Interlocks - TX REQ: RCA / Accessory** | Enables RCA and accessory interlock inputs | — | — |
 | **Max Power:** | Sets radio-level TX power cap | — | 0-100 % |
 | **Tune Mode:** | Selects how the tune button behaves | — | — |
 | **Show TX in Waterfall:** | Draws TX signal in the waterfall | — | — |
+
+### Timing Fields
+
+The **Timings** section includes four fields:
+
+| Control | What it does | Notes |
+|---|---|---|
+| **ACC TX:** | ACC transmit delay in milliseconds | — |
+| **TX Delay:** | Transmit delay in milliseconds | — |
+| **RCA TX1:** | RCA TX1 delay in milliseconds | — |
+| **Timeout (sec):** | Interlock timeout displayed in seconds. The radio internally stores this value in milliseconds. | Enter the value in seconds; the dialog converts to milliseconds before sending to the radio. |
+
+> **Note:** The Timeout field previously displayed minutes but now shows seconds for finer resolution on short-cycle TOT settings.
 
 ### Slice/TX Follow
 
@@ -144,7 +151,7 @@ The **Phone/CW** tab configures microphone, CW keyer, and RTTY defaults.
 | **Decode:** | Enables the CW decode overlay on the panadapter | True | — | `CwDecodeOverlay` |
 | **RTTY Mark Default:** | Default RTTY mark frequency | — | — | — |
 
-> **Note:** In v0.9.1, Mode A and Mode B buttons were added beside the Iambic Enabled toggle. Mode A = Curtis A; Mode B = Curtis B. These also drive the local software iambic keyer (IambicKeyer) which mirrors the radio's iambic state for sub-5 ms sidetone.
+> **Note:** Mode A and Mode B buttons are available beside the Iambic Enabled toggle. Mode A = Curtis A; Mode B = Curtis B. These also drive the local software iambic keyer (IambicKeyer) which mirrors the radio's iambic state for sub-5 ms sidetone.
 
 ---
 
@@ -156,11 +163,11 @@ The calibration controls are available regardless of whether a GPSDO is installe
 
 ### Calibration Controls
 
-| Control | What it does |
-|---|---|
-| **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. |
-| **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |
-| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. |
+| Control | What it does | Notes |
+|---|---|---|
+| **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. | — |
+| **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. | — |
+| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. | — |
 
 ### 10 MHz Reference Source
 
@@ -199,61 +206,19 @@ The **10 MHz Reference Source:** combo box populates dynamically based on the ha
 
 ---
 
-## Audio Tab
+## Antennas Tab
 
-The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
-
-### Radio Audio Outputs
+The **Antennas** tab allows you to configure user-friendly names for each antenna port on the radio, replacing the default port labels (ANT1, ANT2, XVTA, XVTB, etc.) with custom identifiers that appear throughout the AetherSDR interface.
 
 | Control | What it does |
 |---|---|
-| **Line Out:** | Line-out gain slider |
-| **Mute (Line Out)** | Mutes line-out |
-| **Headphone:** | Headphone gain slider |
-| **Mute (Headphone)** | Mutes headphone |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific) |
+| **Antenna name fields** | One text field per antenna port. Enter a custom name (e.g., "HF Vertical", "6M Yagi", "160M Loop"). Names are sent to the radio and persisted in the radio's configuration. |
 
-### Audio Compression
+**To set an antenna name:**
 
-| Control | What it does | Default | Setting Key |
-|---|---|---|---|
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN | Auto | `AudioCompression` |
-
-### PC Audio Settings
-
-| Control | What it does | Default | Range | Setting Key |
-|---|---|---|---|---|
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle | False | — | `InhibitSleepWhileConnected` |
-| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices | — | — | — |
-| **Audio Boost:** | Enables extra gain on the client audio path | — | — | `AudioBoost` |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter | 200 | 50-1000 ms | `AudioBufferMs` |
-
-### Recording
-
-The **Recording** section controls audio capture.
-
-| Control | What it does | Default | Setting Key |
-|---|---|---|---|
-| **Recording: Radio Side / Client Side** | Selects whether audio is captured at the radio or at this PC | Radio Side | `RecordingMode` |
-| **Save to:** | Folder path where recording files are written. Defaults to Documents/AetherSDR/Recordings. | — | `QsoRecordingDir` |
-| **...** | Opens a folder browser to select the save location | — | — |
-| **Auto-record on TX** | When checked, recording starts automatically on each transmit and stops after the idle timeout elapses | False | `QsoRecordingAutoRecord` |
-| **Idle timeout:** | Seconds of silence before the recording stops after TX ends | 120 | 10-3600 sec | `QsoRecordingIdleTimeout` |
-
-**To enable auto-record on TX:**
-
-1. Click the **Audio** tab.
-2. Under **Recording:**, click either **Radio Side** or **Client Side** to select where audio is captured.
-3. In the **Save to:** field, type the full path to your recordings folder, or click **...** to browse.
-4. Check the **Auto-record on TX** checkbox.
-5. Set **Idle timeout:** to the desired value.
-6. Close the dialog. Settings take effect immediately.
-
-### NVIDIA BNR
-
-| Control | What it does |
-|---|---|
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Controls the NVIDIA Broadcast noise-removal container. A colored status dot indicates Running/Stopped/Unknown. |
+1. Click the **Antennas** tab in Radio Setup.
+2. For each antenna port, type the desired name in the corresponding text field.
+3. Press Enter or tab to the next field to commit the name to the radio.
 
 ---
 
@@ -262,4 +227,40 @@ The **Recording** section controls audio capture.
 The **Filters** tab configures low-latency and sharp filter options per bandwidth.
 
 | Control | What it does | Range |
-|---|---
+|---|---|---|
+| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. | 0-3 |
+| **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. | — |
+| **Use Low Latency Filters for Digital Modes** | Forces low-latency filters in DIGU/DIGL. | — |
+
+---
+
+## XVTR Tab
+
+The **XVTR** tab provides per-transverter configuration. It contains nested tabs, one per transverter, plus a '+' tab for creating new transverters.
+
+| Control | What it does |
+|---|---|
+| **RX Only:** | Forces RX-only on that transverter |
+| **Remove (xvtr)** | Deletes the transverter definition |
+| **Create New Transverter** | Adds a new transverter entry |
+
+---
+
+## USB Cables Tab
+
+The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
+
+| Control | What it does |
+|---|---|
+| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status |
+| **Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7)** | Per-cable serial parameters and behavior |
+
+---
+
+## Peripherals Tab
+
+The **Peripherals** tab allows manual IP connection to external devices (TGXL, PGXL, Antenna Genius).
+
+| Control | What it does | Notes |
+|---|---|---|
+| **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. | Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune`

@@ -1,9 +1,4 @@
-The diff contains no user-visible behavior changes relative to what is already documented:
-
-- The SWR sweep controls (Start Sweep, Clear Sweep, PWR slider, `setSwrSweepPowerWatts`) are already fully documented in the current page.
-- The NRL row 4 visibility change is already documented in the "DSP row visibility" section.
-- The remaining diff is internal implementation (widget styling, signal/slot wiring, private member declarations).
-
+```markdown
 # Click the spectrum to activate a panadapter (multi-slice mode)
 
 In a multi-panadapter layout, only one panadapter is active at a time. Clicking the spectrum area of an inactive panadapter brings it into focus so that your controls, slices, and tuning apply to it.
@@ -38,6 +33,7 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | CLR                  | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ✕ (close CW)         | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | CW decode text       | Read-only text field                                                                                 | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| CW stats label       | Indicator                                                                                            | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Start Sweep          | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Clear Sweep          | Push button                                                                                          | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | PWR (sweep power)    | Slider                                                                                               | 1 W                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -61,6 +57,12 @@ The **Sens** slider maps the 0 – 100 range to a cost threshold of 1.0 – 0.1.
 The **Lo** and **Hi** sliders set the pitch search range. Lo is clamped to be no greater than Hi, and Hi is clamped to be no less than Lo.
 
 Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click **CPY VIS** to copy only the text currently visible in the scroll area. Click **CLR** to clear the decode buffer. Click **✕ (close CW)** to hide the panel.
+
+### TX-side decoded text
+
+When the radio is transmitting, the decoder also decodes the keying from your transmitter and appends it to the CW decode text area in cyan (#5fc8ff). This allows you to see both incoming and outgoing CW in the same panel, colour-coded so you can distinguish your own sending from received signals. A space is inserted between receive and transmit runs to keep them visually separate.
+
+The same confidence filter (Sens slider) applies to TX-side text as to RX-side text.
 
 ### Right-click menu on the CW decode text area
 
@@ -105,4 +107,4 @@ The NRL noise-reduction row (DSP row 4) is available on both 6000-series and 800
 - [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md)
 - [Close an extra panadapter](close-an-extra-panadapter.md)
 - [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
-<!-- docmesh:llm version=v0.9.4 date=2026-05-01 -->
+```

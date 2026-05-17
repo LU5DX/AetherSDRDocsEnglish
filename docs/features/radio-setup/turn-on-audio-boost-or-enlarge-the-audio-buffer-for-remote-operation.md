@@ -1,6 +1,6 @@
 # AetherSDR Radio Setup Dialog
 
-The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, audio, filters, transverters, USB cables, peripherals, and optionally serial ports.
+The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, antennas, audio, filters, transverters, USB cables, peripherals, and optionally serial ports.
 
 ## Opening the Radio Setup dialog
 
@@ -8,9 +8,7 @@ The **Radio Setup** dialog is the master configuration window for per-radio sett
 
 ## Dialog layout
 
-The **Radio Setup** dialog now uses a frameless window design with a custom title bar. The title bar displays "Radio Setup" and provides standard window controls (minimize, maximize, close).
-
-The dialog remembers its size and position between sessions. Geometry is saved in `RadioSetupDialogGeometry` in the application settings.
+The **Radio Setup** dialog uses a persistent dialog that remembers its size and position between sessions. Geometry is saved in `RadioSetupDialogGeometry` in the application settings.
 
 ## Radio tab
 
@@ -43,15 +41,11 @@ Click **Remote On** to enable remote wake / remote-on capability for the radio.
 
 ### Firmware update
 
-The firmware update workflow uses the **Select Installer...** button (labelled **Browse .ssdr...** before v0.9.3).
-
 1. Click **Check for Update** to query the radio for available firmware versions.
 2. If an update is available, the status label displays the version and instructs you to download the SmartSDR installer from flexradio.com.
 3. Download the SmartSDR installer (.msi for v4.2+, .exe for older releases).
-4. Click **Select Installer...** and choose the downloaded installer or a pre-extracted .ssdr file in the file picker.
+4. Click **Browse .ssdr...** and choose the downloaded installer or a pre-extracted .ssdr file in the file picker.
 5. A progress bar and status label show the extraction progress. When staging completes, click **Upload Firmware** to transfer the firmware to the radio.
-
-The stager auto-detects the format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools.
 
 ## Network tab
 
@@ -93,7 +87,7 @@ Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 
 ### Timings
 
-Use the **Timings** spinboxes to set TX hang and delay timings in milliseconds.
+Use the **Timings** spinboxes to set TX hang and delay timings in milliseconds. The **Timeout (sec)** field displays the interlock timeout in seconds for readability; the radio stores this value internally in milliseconds.
 
 ### Interlocks
 
@@ -150,12 +144,10 @@ The **RX** tab provides frequency calibration and reference source selection.
 
 ### Frequency calibration
 
-The calibration section is always visible regardless of GPSDO presence. When a GPSDO is present, the status label confirms it in green; when absent, in amber.
-
 | Control | What it does |
 |---|---|
 | **Cal Frequency (MHz):** | Enter the known-accurate reference frequency in MHz to use for calibration |
-| **Start** | Begins the frequency calibration sequence. AetherSDR resets the frequency error to 0 ppb, then sends `radio pll_start` to the radio. The button shows **Busy** while calibration runs. |
+| **Start** | Begins the frequency calibration sweep |
 | **Freq Offset (ppb):** | Displays or manually sets the current frequency offset in parts per billion |
 
 ### 10 MHz Reference Source
@@ -164,12 +156,18 @@ The calibration section is always visible regardless of GPSDO presence. When a G
 |---|---|---|
 | **10 MHz Reference Source:** | Selects the oscillator reference source. Options depend on installed hardware. | Auto / TCXO / GPSDO / External |
 
-The lock status label beside the control updates live:
+The lock status label beside the control updates live.
 
-- If the radio has not yet reported oscillator state: **Waiting for oscillator status**
-- If **Auto** is selected and the radio resolved to a specific source: **Auto -> \<resolved source\>** followed by **Locked** or **Unlocked**
-- If a specific source is selected but a different source is active: **\<selected source\> -> \<active source\>** followed by **Locked** or **Unlocked**
-- Otherwise: active source name followed by **Locked** or **Unlocked**
+## Antennas tab
+
+The **Antennas** tab configures antenna names for each antenna port on the radio. This tab is lazy-built when first clicked.
+
+| Control | What it does |
+|---|---|
+| **ANT1:** | Enter a custom name for antenna port 1 |
+| **ANT2:** | Enter a custom name for antenna port 2 |
+| **XVTA:** | Enter a custom name for transverter port A |
+| **XVTB:** | Enter a custom name for transverter port B |
 
 ## Audio tab
 
@@ -305,7 +303,7 @@ Each detected cable provides the following parameters:
 
 ## Peripherals tab
 
-The **Peripherals** tab manages external devices via direct TCP connection (TGXL, PGXL, Antenna Genius, ShackSwitch).
+The **Peripherals** tab manages external devices via direct TCP connection (TGXL, PGXL, Antenna Genius).
 
 ### TGXL
 
@@ -313,4 +311,16 @@ Click **Connect** to open a direct TCP connection to the TGXL on port 9010. The 
 
 When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed.
 
-If the IP field is empty and the radio has discovered the TGXL, the discovered
+If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled.
+
+### PGXL
+
+Click **Connect** to open a direct TCP connection to the Power Genius XL (default port 9008). IP and port are saved to `PGXL_ManualIp` and `PGXL_ManualPort`.
+
+### Antenna Genius
+
+Click **Connect** to open a connection to the Antenna Genius (default port 9007). IP and port are saved to `AG_ManualIp` and `AG_ManualPort`.
+
+## APD tab
+
+The **APD** tab configures External Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). This tab is hidden unless the radio reports `apd configurable=

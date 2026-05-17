@@ -4,12 +4,12 @@ The **Timeframe** control sets how far back the time-series charts display histo
 
 ## Before you start
 
-- Open the Network Diagnostics dialog via `Settings > Network...`.
+- Open the Network Diagnostics dialog via `View > Network Diagnostics` or the toolbar button.
 - Navigate to any graph tab: **Overview**, **Latency**, **Rates**, **Packet Loss**, or **Audio**. The **Timeframe** control is hidden when the **Logs** tab is active.
 
 ## Steps
 
-1. Click `Settings > Network...` to open the Network Diagnostics dialog.
+1. Open the Network Diagnostics dialog via `View > Network Diagnostics` or the toolbar button.
 2. Select a graph tab — **Overview**, **Latency**, **Rates**, **Packet Loss**, or **Audio**.
 3. Locate the **Timeframe** combo box in the top-right corner of the tab bar.
 4. Click **Timeframe** and select the desired value from the drop-down list.

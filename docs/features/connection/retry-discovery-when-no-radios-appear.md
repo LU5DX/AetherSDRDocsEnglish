@@ -27,7 +27,7 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 | **Connect by IP** | Button | Shortcut to the Manual connection mode. |
 | **Remote with SmartLink** | Button | Shortcut to the SmartLink connection mode. |
 | **Open Network Diagnostics** | Button | Opens the network diagnostics display to inspect connectivity. |
-| **Radio IP address** | Combo box (editable) | Enter or select the IP address to use for a manual connection. The drop-down lists up to three recently used addresses. Saved as `ManualRadioIp`; recent entries are stored under `RecentConnectByIpAddresses`. |
+| **Radio IP address** | Text field | Enter the IP address to use for a manual connection. Saved as `ManualRadioIp`. |
 | **Advanced: Source path** | Combo box | Picks the local network interface used for the manual connection. Saved as `ManualBindSource`. |
 | **Use low bandwidth mode** | Checkbox | Enables reduced-rate streams for slow links. Saved as `LowBandwidthMode`. |
 | **Connect to last radio on start up** | Checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Saved as `AutoConnectToLastRadio`. Defaults to checked. |
@@ -57,7 +57,6 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 - The "No local radios found yet" callout also shows while discovery is still in progress immediately after launch. Wait a few seconds before concluding the radio is unreachable.
 - If the radio and computer are on different subnets or you are using a VPN, mDNS discovery packets will not cross the network boundary. Click **Connect by IP** instead and enter the radio's IP address directly.
 - Guest Wi-Fi networks commonly block device-to-device traffic. If you are on Wi-Fi, check whether your access point enforces client isolation.
-- The **Radio IP address** field retains up to three recently used addresses. Open the drop-down to reuse a previous address without retyping it.
 - If you share the computer with other operators or prefer to choose a radio explicitly each session, uncheck **Connect to last radio on start up**. AetherSDR will open the connection dialog on every launch instead of connecting automatically.
 - The **Advanced: Source path** control lets you choose which local network interface to use for manual/VPN connections. Select the NIC that has the best route to your radio.
 - Enable **Use low bandwidth mode** when connecting over a slow or unreliable link to reduce audio and data stream rates.

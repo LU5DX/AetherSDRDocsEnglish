@@ -54,7 +54,7 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 - If audio still breaks up after enabling low-bandwidth mode, check your VPN or routing path using `Settings > Network...`.
 - The **Radio IP address** field now remembers up to three recent addresses. If you previously saved an IP under the legacy `LastRoutedRadioIp` setting, AetherSDR migrates it automatically the first time you open the connection panel.
 - To prevent AetherSDR from connecting automatically at startup — for example, when you want to choose a different radio — uncheck **Connect to last radio on start up**.
-- The connection panel now uses a frameless window with a custom title bar when **FramelessWindow** is enabled in settings (default: True). The **Connect to Radio** title appears in the window title bar. To resize the dialog, drag from any edge or corner.
+- The connection panel now uses a frameless window with a custom title bar when **FramelessWindow** is enabled in settings (default: True). The **Connect to Radio** title appears in the window title bar. To resize the dialog, drag from any edge or corner. When the frameless window is hidden and then shown again, its previous geometry is preserved.
 - When probing a manual IP, AetherSDR collects radio status information such as model, nickname, callsign, and MultiFlex status during the connection negotiation. This information appears in the radio list after a successful probe.
 
 ## Related

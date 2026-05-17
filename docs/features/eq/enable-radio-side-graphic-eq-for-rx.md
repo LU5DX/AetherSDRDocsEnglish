@@ -20,7 +20,7 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 |---|---|---|---|---|
 | ON | Toggle button | Off (unchecked) | On / Off | Enables or disables the equalizer for the currently selected path. Green highlight when enabled. |
 | RX | Toggle button | Off (unchecked) | — | Selects the receive path for display and editing. Blue highlight when active. Mutually exclusive with TX. |
-| TX | Toggle button | On (checked) | — | Selects the transmit path. The applet opens on the TX view by default. |
+| TX | Toggle button | Varies (see notes) | — | Selects the transmit path. The applet opens on the TX view by default, but remembers your last selection across sessions. |
 | Reset arc | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. |
 | 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. |
@@ -33,7 +33,7 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 
 ## Tips
 
-- The applet always opens showing the TX path. Click RX before adjusting sliders to make sure you are editing receive bands, not transmit bands.
+- The applet remembers whether you last used the RX or TX view and restores that selection when reopened. On first launch, it opens showing the TX path. Click RX before adjusting sliders to make sure you are editing receive bands, not transmit bands.
 - To quickly compare equalized and flat receive audio, click ON repeatedly while listening. The radio applies or removes the EQ immediately.
 - To start fresh, click the Reset arc button. All RX bands return to 0 dB in one click.
 

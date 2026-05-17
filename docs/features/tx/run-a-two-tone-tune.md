@@ -16,7 +16,7 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 3. If you want to use a specific transmit profile (for example, a clean SSB profile without processing), select it from the **TX Profile** drop-down.
 4. Start the two-tone audio signal from your external source so it is feeding the radio's input.
 5. Click **MOX**. The button turns red and the radio keys up.
-6. Watch the **RF Pwr** meter (0–120 W, red above 100 W) and the **SWR** meter (1.0–3.0, red above 2.5). Adjust the **RF Power** slider while transmitting to reach your target output.
+6. Watch the **RF Pwr** meter (0–120 W, red above 100 W) and the **SWR** meter (1.0–3.0, red above 2.5). The RF Pwr meter includes a peak-hold bar that holds the peak level for 2 seconds before decaying toward the current power level. The peak-hold resets to zero immediately when you unkey. Adjust the **RF Power** slider while transmitting to reach your target output.
 7. When the test is complete, click **MOX** again to unkey the transmitter. The button returns to its unlit state.
 8. Stop the two-tone audio source.
 
@@ -49,6 +49,22 @@ The **ATU** button now toggles between starting a tune cycle and bypassing the t
 
 The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 
+## ATU button right-click menu (v26.5.2.1)
+
+Right-click the **ATU** button to show a context menu with two additional actions:
+
+- **Pre-tune bands…** — Opens the Pre-Tune dialog for running a sweep across selected bands. This action is only available when ATU memories are enabled. If memories are disabled, the menu item is grayed out with a tooltip suggesting you enable MEM first.
+- **Clear ATU memories…** — Clears all stored ATU memories after a confirmation dialog.
+
+## TUNE button right-click menu (v26.5.2.1)
+
+Right-click the **TUNE** button to select the carrier shape for the next tune cycle:
+
+- **Mono Tone** — Single tone, the default carrier shape.
+- **Two Tone** — Two-tone carrier for linearity testing.
+
+The selection is a one-shot and is not persisted across power cycles. The radio's tune mode reverts to single tone on its own across power cycles. A check mark next to either entry shows the radio's current tune mode.
+
 ## Troubleshooting
 
 - **MOX keys but RF Pwr reads zero** — The two-tone audio source may not be reaching the radio's input, or the mode is not SSB. Confirm the audio routing and mode selection before re-keying.
@@ -65,3 +81,5 @@ The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 - [Switch TX profiles (e.g. SSB, Digital)](switch-tx-profiles-e-g-ssb-digital.md)
 - [Run the internal ATU](run-the-internal-atu.md)
 - [Recall an ATU memory](recall-an-atu-memory.md)
+- [Pre-tune bands for the ATU](pre-tune-bands-for-the-atu.md)
+- [Clear ATU memories](clear-atu-memories.md)

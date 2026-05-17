@@ -26,6 +26,7 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 - The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W.
 - You can set per-band power limits independently of this slider. Go to `Settings > TX Band Settings...` to configure power, tune power, and inhibit settings for each band.
 - The **RF Power** slider controls the exciter output level, not a separate amplifier. If you are running an external amplifier, set this slider to the drive level your amplifier expects.
+- The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays smoothly toward the current power level. The peak immediately clears to zero when the transmitter unkeys.
 
 ## Using the ATU button
 
@@ -45,6 +46,22 @@ The **Byp** indicator lights orange when the tuner is in bypass. The **Success**
 
 > **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL transverter is in OPERATE mode.
 
+### ATU right-click menu
+
+Right-clicking the **ATU** button opens a context menu with two additional options:
+
+- **Pre-tune bands…** — Opens a dialog to run a pre-tune sweep across one or more bands. This option is only available when ATU memories are enabled (the **MEM** button is on).
+- **Clear ATU memories…** — Prompts for confirmation, then clears all stored ATU memories on the radio.
+
+## Using the TUNE button right-click menu
+
+Right-clicking the **TUNE** button opens a context menu to select the carrier shape for the next tune cycle. Two options are available:
+
+- **Mono Tone** — A single carrier tone.
+- **Two Tone** — Two simultaneous carrier tones.
+
+Selecting either option is a one-shot setting. The radio's tune mode is stored in volatile state and AetherSDR does not persist this choice across restarts. The currently active mode is shown with a check mark.
+
 ## Using the MOX button
 
 The **MOX** button manually keys the transmitter. When active, the button turns red.
@@ -55,6 +72,16 @@ In v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coor
 - If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is identical to previous versions: the radio keys and unkeys immediately.
 
 No change to how you operate the button is required. The Quindar tones are controlled entirely by the **QUIN** setting in the Audio Channel Strip.
+
+## Using the APD (Adaptive Pre-Distortion) cluster
+
+The **APD** toggle button enables or disables adaptive pre-distortion on the radio. When APD is on, three status indicators show the progress:
+
+- **Cal** (green) — APD is on and still calibrating.
+- **Avail** (green) — A calibration is available but not yet applied.
+- **Active** (green) — The equalizer is actively applied.
+
+The typical progression is Cal → Avail → Active. When APD is off, all three indicators are dim.
 
 ## Troubleshooting
 

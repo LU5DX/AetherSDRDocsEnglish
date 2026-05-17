@@ -23,7 +23,7 @@ Release entries are displayed as styled HTML in a scrollable browser. Each entry
 |---|---|---|
 | Release notes browser | Scrollable text area | Displays styled HTML release notes for versions newer than `LastSeenVersion`, up to five releases. |
 | `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen by updating `LastSeenVersion`. |
-| `Upgrade` | Button | Visible only when an upgrade is available. Opens the AetherSDR releases download page and closes the dialog. |
+| `Upgrade` | Button | Visible only when an upgrade is available. Opens the AetherSDR releases download page at https://github.com/aethersdr/AetherSDR/releases/latest and closes the dialog. |
 | `Skip this version` | Button | Visible only when an upgrade is available. Writes the current version to `LastSeenVersion` and closes the dialog, suppressing the upgrade prompt for this version. |
 | Hint | Footer indicator | Displays a short line of guidance below the header. |
 

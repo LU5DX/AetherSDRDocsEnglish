@@ -18,10 +18,10 @@ The multiFLEX Dashboard shows every SmartSDR client currently sharing your FLEX-
 
 | Control | What it does |
 |---|---|
-| `Enabled` / `Disabled` button | Shows the current multiFLEX state on the radio. Click to toggle multiFLEX on or off. |
+| `Enable` button | Enables or disables multiFLEX on the radio. Click to toggle multiFLEX on or off. |
 | Stations table | Lists every connected multiFLEX client. Columns: **LOCAL PTT**, **STATION**, **TX ANT**, **TX FREQ (MHz)**. Your own station is highlighted in blue. A checkmark (✔) in the **LOCAL PTT** column identifies which station currently holds PTT authority. |
 | `Enable` (PTT) | Appears when more than one station is connected and your station does not currently hold PTT. Click to claim local PTT authority for your station. |
-| Local PTT label | Text above the `Enable` button. When you hold PTT, it identifies the station that must claim PTT from their own client. When you do not hold PTT, it shows your station name and prompts you to claim. |
+| Local PTT label | Text indicating which station currently holds PTT. |
 | `Close` | Closes the dialog. |
 
 ## Tips
@@ -30,11 +30,12 @@ The multiFLEX Dashboard shows every SmartSDR client currently sharing your FLEX-
 - TX ANT and TX FREQ (MHz) show `----` if the radio has not yet reported that data for a given station.
 - The table updates automatically as stations connect or disconnect. You do not need to reopen the dialog.
 - If only one station is connected, the `Enable` (PTT) button and Local PTT label are hidden — they are not needed when you are the only client.
+- The dialog remembers its position and size between sessions.
 
 ## Troubleshooting
 
 - **`Settings > multiFLEX...` is grayed out or missing** — AetherSDR is not connected to a radio. Connect to a radio first, then reopen the menu.
-- **Stations table is empty** — multiFLEX may be disabled. Click the `Disabled` button to enable it, then check whether other stations appear.
+- **Stations table is empty** — multiFLEX may be disabled. Click `Enable` to enable it, then check whether other stations appear.
 - **TX ANT and TX FREQ show `----` for all stations** — The radio has not yet sent slice status for those clients. Wait a moment and the table will refresh automatically.
 
 ## Related

@@ -32,7 +32,7 @@ Use this page to audition a DVK slot through your local speaker before sending i
 
 ## Keyboard shortcuts
 
-The DVK panel registers F1–F12 and Escape keyboard shortcuts when the panel is visible. These shortcuts are automatically disabled when the panel is hidden, preventing conflicts with other panels that use the same keys (such as the CWX panel).
+The DVK panel registers F1–F12 and Escape keyboard shortcuts. Shortcut availability is controlled by the active slice's operating mode, not by panel visibility. This ensures the DVK shortcuts are enabled only when the active slice is in a compatible mode, and are mutually exclusive with the CWX panel's F1–F12 shortcuts to prevent key conflicts.
 
 | Key | Action |
 |---|---|
@@ -45,12 +45,13 @@ The DVK panel registers F1–F12 and Escape keyboard shortcuts when the panel is
 - Pressing Escape stops an active preview without using the mouse.
 - The F-key buttons and F1–F12 keyboard shortcuts trigger on-air playback, not preview. Use ◀ PREV specifically when you do not want to transmit.
 - Right-click a slot button to rename it or upload a WAV file.
+- Keyboard shortcuts work regardless of whether the DVK panel is currently visible, provided the active slice mode supports them.
 
 ## Troubleshooting
 
 - **◀ PREV has no effect** — The selected slot is empty. Check that the slot's duration label does not show "Empty". Record audio or upload a WAV file first, then retry.
 - **No audio heard during preview** — Preview routes audio to the local speaker. Verify your system audio output is correctly configured and not muted.
-- **F1–F12 keyboard shortcuts do not work** — The DVK panel must be visible. If the CWX panel or another panel is currently shown, the DVK shortcuts are disabled. Switch to the DVK panel to use its shortcuts.
+- **F1–F12 keyboard shortcuts do not work** — The active slice's operating mode may not support DVK shortcuts. Switch to a mode that supports DVK operation. If the CWX panel's F1–F12 shortcuts are enabled, the DVK shortcuts are automatically disabled.
 
 ## Related
 

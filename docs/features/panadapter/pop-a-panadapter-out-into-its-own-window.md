@@ -27,9 +27,12 @@ When you have more than one panadapter open, you can detach any of them into a s
 | **□** (maximize) | Expands this panadapter to fill the main area.                                       | —       |
 | **×** (close)    | Closes this panadapter.                                                              | —       |
 | Slice title      | Indicator showing which slice is bound to this panadapter (Slice A through Slice H). | Slice A |
+
+> **Note for Multi-Flex sessions:** When using multiple clients, the slice title matches the radio-provided index letter so the title corresponds to the slice badge.
+
 ## CW decode panel
 
-When the CW decode panel is open, it appears below the spectrum and waterfall. The panel decodes Morse code from PC audio routed to AetherSDR.
+When the CW decode panel is open, it appears below the spectrum and waterfall. The panel decodes Morse code from PC audio routed to AetherSDR. Both received (RX) and transmitted (TX) CW are decoded and displayed in the same panel, with different colors to distinguish them.
 
 > **Note:** CW decoding requires PC audio routing to be active. If no audio is routed, the panel shows the hint **(requires PC Audio)**.
 
@@ -47,7 +50,16 @@ When the CW decode panel is open, it appears below the spectrum and waterfall. T
 | **CPY VIS** | Copies only the text currently visible in the scroll area. | — | — |
 | **CLR** | Clears the CW decode buffer. | — | — |
 | **✕** (close CW) | Hides the CW decode panel. | — | — |
-| **CW decode text** | Read-only rolling display of decoded CW, coloured by decode confidence. | — | Green: cost < 0.15; Yellow: cost < 0.35; Orange: cost < 0.60; Red: cost ≥ 0.60. |
+| **CW decode text** | Read-only rolling display of decoded CW, coloured by decode confidence. | — | Green: cost < 0.15; Yellow: cost < 0.35; Orange: cost < 0.60; Red: cost ≥ 0.60. TX-originated text appears in cyan (#5fc8ff). |
+
+### CW decode text behaviour
+
+The CW decode panel now displays both received (RX) and transmitted (TX) Morse decoding in a single rolling text area:
+
+- **RX text** — Coloured by confidence as described above (green, yellow, orange, red).
+- **TX text** — Rendered in cyan (#5fc8ff) so you can distinguish your own sending from incoming CW.
+- **Boundary handling** — When switching between TX and RX, a space is inserted automatically so the colored runs do not visually merge.
+- **Source tracking** — The decoder tracks whether the last decoded text came from TX or RX to apply the correct separator logic.
 
 ### CW decode text context menu
 
@@ -59,6 +71,7 @@ Right-clicking inside the **CW decode text** area opens a context menu. The menu
 - The ⬈ and ↩ button labels change to reflect the current state: ⬈ when docked, ↩ when floating.
 - Use **Lo** and **Hi** together to bracket the pitch range for the signal you are copying. Narrowing the range reduces false decodes when multiple CW signals are present.
 - To clear decoded text quickly, right-click the decode text area and select **Clear** rather than reaching for the **CLR** button.
+- TX-side decoded text appears in cyan to help you distinguish your own sending from incoming CW, without needing a textual prefix.
 
 ## Troubleshooting
 

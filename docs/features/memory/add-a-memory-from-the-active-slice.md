@@ -20,17 +20,30 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 
 | Control | Label | Behavior |
 |---|---|---|
-| Add button | Add | Creates a new memory from the active slice's current settings. Shortcut: Ctrl+N. |
-| Edit button | Edit | Enables inline editing on the selected memory's Name field. Only enabled when exactly one memory is selected. Shortcut: F2 or Ctrl+E. |
+| Title bar | Memory Channels | Frameless 18 px gradient title bar with grip glyph on the left and the dialog title. Click and drag to move; double-click to toggle maximize/restore. |
+| Minimize button | — (Minimize) | Minimizes the dialog. |
+| Maximize button | □ (Maximize) | Maximizes or restores the dialog. |
+| Close button | × (Close) | Closes the dialog. Escape clears the search field first, then closes the dialog. |
+| Drag-to-move | — | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore. |
+| 8-axis resize | — | Click and drag any edge or corner to resize. Cursor changes to indicate resize direction. 12 px resize hit zone. |
 | Search field | Search: | Filters the table by memory name. Has a clear button; press Enter to submit. Ctrl+F focuses this field. |
 | Profile filter | Profile: | Filters memories by active global or transmit profile. Default: "All Memories". |
-| Memory table | — | Displays memory rows. Sortable by clicking column headers. Double-click to tune. Ctrl+Shift+A selects all rows. |
+| Memory table | — | Displays memory rows. Sortable by clicking column headers (Frequency, Name, Mode). Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Double-click to tune. Ctrl+Shift+A selects all rows. Ctrl+F focuses the search field. |
 | Selection count | — | Shows "<N> of <M> selected". |
+| Add button | Add | Creates a new memory from the active slice's current settings. Shortcut: Ctrl+N. |
+| Edit button | Edit | Enables inline editing on the selected memory's Name field. Only enabled when exactly one memory is selected. Shortcut: F2 or Ctrl+E. |
+| Tune button | Tune | Tunes the active slice to the selected memory. Only enabled when exactly one memory is selected. |
+| Select All button | Select All | Selects every visible row (respecting search/filter). Shortcut: Ctrl+Shift+A. |
+| Remove button | Remove | Deletes selected memories (with confirmation). Shows progress for batch removal. Button label changes to "Remove Selected" when more than one row is selected. Shortcut: Delete or Backspace. |
+| Import button | Import... | Imports memories from a CSV file with progress dialog. Shows import progress and a summary with any skipped rows. |
+| Export button | Export... | Exports selected (or filtered) memories to CSV. Validates generated CSV before saving. |
 
 ## Tips
 
 - The memory is automatically assigned a sequential index number. To rename it, select the row and click **Edit** or press **F2**.
 - The memory captures the active slice's frequency, mode, step, filter settings, and any FM repeater parameters (offset direction, offset, tone mode, tone value, squelch settings).
+- The dialog remembers its size and position between sessions.
+- The Add button always targets the active slice; there is no per-slice-letter selection.
 
 ## Related
 

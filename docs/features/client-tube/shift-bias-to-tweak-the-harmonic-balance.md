@@ -25,11 +25,24 @@ The Bias knob moves the operating point on the tube transfer curve, changing the
 
 The Bias knob uses a linear mapping. The displayed value is a percentage. Internally the setting is stored as a value from 0.0 to 1.0 in `ClientTubeTxBias` (TX side) or `ClientTubeRxBias` (RX side).
 
+## Inline value editing
+
+The single- and three-knob compact views and all knob-based editors now support inline value editing.
+
+1. Click the numeric value displayed below any knob. A text entry field replaces the value label.
+2. Type the desired value directly. You may include units (e.g., "5.00 ms", "-6 dB", "12.5") or just the number.
+3. Press Enter to commit the value. The knob immediately moves to the new setting.
+4. The field automatically accepts locale-aware number formats (comma decimal separators for locales where that is standard).
+5. If you type an invalid value, the knob reverts to its previous setting.
+
+**Note:** The inline editor is available on all ClientCompKnob instances across the application: Drive, Tone, Bias, Output, Dry/Wet, Envelope, Attack, Release, and any other knob-based control that displays its numeric value.
+
 ## Tips
 
 - Bias interacts with the selected tube character. Try each of A, B, and C to hear how the same Bias value produces different harmonic results with different models.
 - The Bias knob is also present in the docked applet tile (the compact five-knob row beneath the transfer curve), so you can make quick adjustments without opening the full editor.
 - Changes made in the docked tile and the floating editor stay in sync; a 30 Hz timer keeps both views updated.
+- To enter Bias values with the inline editor, click the percentage display (e.g., "0 %") beneath the knob and type a number between 0 and 100.
 
 ## Bypass dim
 
@@ -40,6 +53,7 @@ When the Tube stage is bypassed, the entire docked applet tile renders at reduce
 - **Bias knob has no audible effect** — Drive may be at or near 0.00 dB. Bias only shifts the operating point meaningfully when the curve is already bent. Increase Drive first.
 - **Level changes when Bias is adjusted** — This is expected. The asymmetry introduced by Bias can raise or lower the apparent output. Trim the Output knob to compensate.
 - **Docked tile appears dimmed** — The Tube stage is bypassed. Re-enable it on the TX or RX side. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
+- **Inline editor does not accept typed value** — Ensure you are typing a plain number or a number with optional decimal point and sign. Commas are allowed only in locales where they serve as decimal separators.
 
 ## Related
 

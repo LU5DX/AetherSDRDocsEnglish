@@ -142,14 +142,7 @@ The **Themes** tab was added in v0.9.3 under Radio Setup. It hosts the **Slice C
 
 ## Radio Setup dialog changes in v26.5.1
 
-The Radio Setup dialog now uses a frameless window with a custom title bar. This provides a modern appearance consistent with other AetherSDR dialogs.
-
-### Frameless window behavior
-
-- The dialog uses `Qt::FramelessWindowHint` when the application is in frameless mode.
-- A custom title bar is shown at the top of the dialog with the title "Radio Setup".
-- The title bar is hidden when frameless mode is disabled.
-- The dialog remains resizable; a frameless resize handle is installed.
+The Radio Setup dialog now uses a `PersistentDialog` base class that saves and restores its geometry automatically. The dialog no longer uses a frameless window with a custom title bar — it returns to a standard operating system window frame. The `PersistentDialog` saves the window geometry to the `RadioSetupDialogGeometry` setting on close and restores it on open. No manual saving or restoring of geometry is performed in the `closeEvent` or constructor.
 
 ### Peripherals tab IP clearing
 
@@ -161,4 +154,4 @@ The **Peripherals** tab now properly handles clearing a saved manual IP address 
 
 ### Save-on-close for peripheral IP fields
 
-When you close the Radio Setup dialog, any **Peripherals** tab rows that have a cleared IP field with
+When you close the Radio Setup dialog, the **closeEvent** persists any uncommitted "user cleared IP" edits from the Peripherals tab before the base class flushes

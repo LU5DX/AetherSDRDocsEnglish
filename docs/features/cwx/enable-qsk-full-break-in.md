@@ -33,7 +33,7 @@ To turn QSK off, click **QSK** again.
 
 ## How Send and Live interact
 
-In v0.9.2.1 the **Send** and **Live** buttons no longer act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
+In v26.5.2.1 the **Send** and **Live** buttons no longer act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
 
 - **Live** is a toggle. Click it once to enable live character-by-character keying; click it again to disable it. The button's checked state always reflects the model's live state, even if the state was changed externally.
 - **Send** behaves differently depending on whether **Live** is active when you click it:
@@ -41,13 +41,20 @@ In v0.9.2.1 the **Send** and **Live** buttons no longer act as a simple mutually
   - If **Live** is currently **on**, clicking **Send** first turns live mode off and returns the panel to the normal send view. The buffer is **not** retransmitted, because some characters may already have been keyed character-by-character.
 - Clicking **Setup** always turns live mode off before switching to the Setup view.
 
+## History bubble context menu
+
+Each sent message appears as a history bubble in the **Send history scroll** area. Right-click any bubble to open a context menu with the following actions:
+
+- **Resend** — Sends the selected message again and adds a new history bubble with the current timestamp.
+- **Clear History** — Removes all history bubbles from the scroll area.
+
 ## F1–F12 and Escape shortcut behavior
 
-The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts only when the CWX panel is visible. This prevents shortcut conflicts with the DVK (Digital Voice Keyer) panel, which registers its own set of F1–F12 shortcuts when visible.
+The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts. The shortcuts are enabled or disabled by the active slice's mode, not by panel visibility. This ensures the keys fire whether the CWX panel is visible or not, while preventing conflicts with the DVK (Digital Voice Keyer) panel.
 
-- While the CWX panel is visible: F1–F12 trigger the corresponding CW macros, and **Escape** clears the send buffer.
-- While the CWX panel is hidden (and the DVK panel is visible instead): F1–F12 trigger DVK macros instead.
-- The shortcuts are automatically enabled when the CWX panel is shown and disabled when it is hidden.
+- When the active slice is in CW, CWL, or CWU mode: F1–F12 trigger the corresponding CW macros, and **Escape** clears the send buffer.
+- When the active slice is in a voice mode: F1–F12 trigger DVK macros instead.
+- The shortcuts are automatically managed by the MainWindow based on the active slice's mode.
 
 ## Related
 

@@ -33,7 +33,7 @@ Use the Digital Voice Keyer panel to record your voice into one of up to 8 slots
 - Slot 1 is selected by default when the DVK panel first opens. If you click **● REC** without selecting a different slot, the recording goes into slot 1.
 - Pressing Escape cancels recording with the same effect as **■ STOP**.
 - You can rename a slot after recording by right-clicking its row and choosing rename from the context menu. The slot name label is editable inline.
-- F-key shortcuts (F1–F8 and Escape) are only active when the DVK panel is visible. If you also use the CWX panel, its F-key shortcuts are automatically disabled while the DVK panel is shown, and vice versa, preventing conflicts.
+- F-key shortcuts (F1–F8 and Escape) are active whenever the active slice is in a voice mode. The DVK panel does not need to be visible for the shortcuts to work. If you switch to a CW mode, DVK shortcuts are automatically disabled and CWX shortcuts become active instead, preventing conflicts.
 - F-key buttons only trigger playback if the slot already contains a recording. A slot that still shows **Empty** in the duration label will not play when its F-key is pressed.
 
 ## Troubleshooting
@@ -41,7 +41,7 @@ Use the Digital Voice Keyer panel to record your voice into one of up to 8 slots
 - **Duration label stays Empty after recording** — The radio may not have received audio. Check that the correct microphone input is selected in `Settings > Radio Setup...` and that the radio is not in a mode that disables the microphone.
 - **● REC does nothing when clicked** — No slot is selected. Click a slot row first, then click **● REC**.
 - **Status shows Recording but no audio is captured** — Verify the microphone is not muted at the operating system level and that the audio input device is routed correctly through the radio.
-- **F-keys do not respond in the DVK panel** — The panel must be visible for its F-key shortcuts to be active. If the panel is hidden or another panel (such as CWX) is shown instead, the shortcuts are automatically disabled to avoid conflicts.
+- **F-keys do not respond in the DVK panel** — The active slice must be in a voice mode for DVK F-key shortcuts to be active. If the slice is in CW mode, CWX keyboard shortcuts are active instead.
 
 ## Related
 

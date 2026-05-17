@@ -28,11 +28,18 @@ A, B, and C are mutually exclusive. Selecting one deselects the others. The same
 
 When the tube stage is bypassed, the docked applet tile renders at reduced opacity (approximately 55 %). This matches the dim effect used on the EQ curve elsewhere in the chain. The tile returns to full opacity as soon as the stage is re-enabled. The dim is applied to the entire tile, including the transfer curve and all knobs. It is a visual indicator only and does not affect the persisted settings.
 
+## Knob inline value editing
+
+All knob controls in the Aetherial Tube floating editor support inline value editing. Click a knob's displayed value text to open a small text entry field overlaid on the control. Type a numeric value and press Enter, or click elsewhere, to commit the value. The entered value is clamped to the knob's valid range. Press Escape to cancel editing and revert to the previous value.
+
+When the text entry field is focused, it shows a dark background with a cyan border to indicate edit mode. When not focused, it appears identical to the painted value text.
+
 ## Tips
 
 - The transfer curve display updates in real time when you switch models. Use this together with the live input ball to see how heavily your current Drive and Bias settings are bending the new curve before committing.
 - The TX and RX sides maintain independent model selections. Changing the model in "Aetherial Tube — TX" has no effect on "Aetherial Tube — RX" and vice versa.
 - After switching models, the harmonic mix may change noticeably at high Drive or Bias settings. If the level changes, adjust the Output knob to compensate.
+- Use inline value editing for precise numeric entry rather than dragging knobs. This is especially useful for setting exact values for Bias, Drive, Output, and Envelope parameters.
 - If the docked tile appears dimmed, the tube stage is currently bypassed. Re-enable it before evaluating how a model change sounds.
 
 ## Related

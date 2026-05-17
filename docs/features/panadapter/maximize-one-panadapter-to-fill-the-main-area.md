@@ -34,6 +34,10 @@ The CW decode panel appears beneath the spectrum and waterfall when enabled. It 
 
 Right-clicking anywhere in the decoded text area opens a context menu. In addition to the standard text actions (Select All, Copy, and so on), the menu contains a **Clear** entry. Click **Clear** to erase the entire CW decode buffer without leaving the text area. This is equivalent to clicking the **CLR** button in the panel toolbar.
 
+## TX-side decoded text
+
+When both the radio's transmitted keying and received audio are routed to the same CW decode panel, your own sending appears in cyan (`#5fc8ff`) while incoming CW appears in the standard confidence-based colors. A single space separates Tx and Rx runs of text so they do not visually merge. No leading space is added when the panel is empty or when the first decoded text is from the transmitter.
+
 ## Controls reference
 
 | Control         | Type                 | Default                    |
@@ -49,9 +53,15 @@ Right-clicking anywhere in the decoded text area opens a context menu. In additi
 | CLR             | Button               | —                          |
 | ✕ (close CW)    | Button               | —                          |
 | CW decode text  | Read-only text field | —                          |
+
 ## Notes
 
 - The CW decode panel requires PC audio routing to function. If audio is not configured the panel shows the reminder `(requires PC Audio)`.
+- The Sensitivity slider maps values 0–100 to a cost threshold of 1.0–0.1. Higher values filter out lower-confidence decodes.
+- The Lo and Hi pitch sliders clamp so that Lo can never exceed Hi, and Hi can never be less than Lo.
+- The Lock Pitch and Lock Speed toggle buttons freeze the decoder to the currently detected pitch or speed, preventing the decoder from tracking changes.
+- When the radio is transmitting, waterfall freeze is driven by the radio's interlock TRANSMITTING state across all connected clients (Multi-Flex), eliminating the 10–23 second TX-trail artifact after unkeying.
+- On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
 
 ## Related
 

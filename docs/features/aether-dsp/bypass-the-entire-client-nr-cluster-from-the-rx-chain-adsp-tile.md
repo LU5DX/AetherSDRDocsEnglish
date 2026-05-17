@@ -17,13 +17,7 @@ The dialog has a frameless title bar with a grip glyph (⋮⋮) on the left. The
 
 Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize (6 px resize hit zone).
 
-### Frameless mode
-
-AetherDSP Settings uses frameless mode by default. To switch between frameless and native window decorations:
-
-1. Open **Settings > Appearance** from the main menu.
-2. Toggle **Frameless Windows** on or off.
-3. The change takes effect the next time AetherDSP Settings is opened.
+The dialog position and size are automatically persisted across sessions using the setting key `AetherDspDialogGeometry`.
 
 ## Toggle row
 
@@ -88,8 +82,6 @@ Controls for the DeepFilterNet3 neural noise reduction engine.
 |---------|------|---------|-------|-------------|----------|
 | Attenuation Limit | Slider | 100 | 0-100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum suppression. |
 | Post-Filter Beta | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. |
-
-**Available in v26.5.1.** DFNR replaces earlier neural noise reduction implementations.
 
 ## RN2 tab
 

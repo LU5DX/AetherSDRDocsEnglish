@@ -25,6 +25,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 | `Use low bandwidth mode` | Reduces stream data rates for slow or congested links. | `LowBandwidthMode` |
 | `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 | `Connect by IP` (button) | Starts the manual connection using the IP and source path configured above. | — |
+| `Network Diagnostics` (button) | Opens the Network Diagnostics dialog to help troubleshoot connectivity issues. | — |
 
 ## Tips
 
@@ -34,6 +35,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - The `Radio IP address` field keeps the three most recently used addresses. Select a previous address from the drop-down to avoid retyping it.
 - If you uncheck `Connect to last radio on start up`, AetherSDR opens the connection dialog on every launch and waits for you to select a radio manually.
 - In v0.9.2.1 the SmartLink remote radios list has a fixed maximum height. If you have many remote radios, scroll within the list to reach entries that are not immediately visible.
+- The ConnectionPanel preserves its window geometry when toggling frameless mode.
 
 ## Troubleshooting
 

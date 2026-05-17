@@ -15,7 +15,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 | Control | Default | Behavior |
 |---|---|---|
 | Slice tabs (A..H) | — | Select which slice the applet controls. The tab row is hidden when the radio has only one slice. Button borders and active backgrounds follow the per-slice color set in SliceColorManager. On disconnect, `clearSliceButtons()` tears down all generated tab buttons and restores the static slice badge. Slice button click connections are guarded against duplicate signal handlers across reconnects (v0.9.5.1, #2254). |
-| Slice badge | A | Displays the letter of the active slice. Color is driven by SliceColorManager; customizable per-slice colors persist across sessions and are reflected here, in the slice tab buttons, VFO widgets, and meter strips. Read-only. |
+| Slice badge | A | Displays the letter of the active slice. The slice letter may be rendered as HTML (#2606). Color is driven by SliceColorManager; customizable per-slice colors persist across sessions and are reflected here, in the slice tab buttons, VFO widgets, and meter strips. Read-only. |
 | 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock. A locked slice ignores frequency changes from the panadapter and other sources. |
 | TX (badge) | — | Click to designate this slice as the TX slice. |
 
@@ -23,7 +23,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, NT, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). |
 | Frequency label | 0.000.000 | — | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. |
 | Frequency edit | — | 0.001–54.000 MHz (up to 450.000 MHz on XVTR) | Type a frequency in MHz and press Enter to tune and re-center. Press Escape to cancel and restore the previous frequency. |
 | STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. |
@@ -32,8 +32,8 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Behavior |
 |---|---|---|
-| ANT1 (RX antenna) | ANT1 | Opens a menu of available antennas from the radio's antenna list. Select to set the RX antenna for this slice. Label is blue. |
-| ANT1 (TX antenna) | ANT1 | Opens a menu of TX-capable antennas. RX-only ports (names starting with `RX`) are excluded. Label is red. |
+| ANT1 (RX antenna) | ANT1 | Opens a menu of available antennas. The menu is populated from the slice's `rxAntennaList()` if available, otherwise from the radio's antenna list. Menu items display a short label with the full antenna name in the tooltip and status tip. Selecting an item sets the RX antenna using the antenna's full name. Label is blue. |
+| ANT1 (TX antenna) | ANT1 | Opens a menu of TX-capable antennas. Only antennas with names starting with "ANT", "TX", or "XVTR" are included; RX-only ports (names starting with "RX") are excluded. Menu items display a short label with the full antenna name in the tooltip and status tip. Selecting an item sets the TX antenna using the antenna's full name. Label is red. |
 
 ### Filter
 
@@ -56,11 +56,11 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Mutes or unmutes the slice audio output. |
+| 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Mutes or unmutes the slice audio output. Mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute (#2489). |
 | AF gain | 70 | 0–100 | Adjusts the slice audio output level. |
 | L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Double-click to reset to centre (50). |
-| SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in DIGU, DIGL, NT, RTTY, CW, and CWL modes. RTTY was added to the disabled list in v26.5.1 (#2504) to prevent notching out FSK characters. |
-| Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. |
+| SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). |
+| Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. The manual squelch level persists across sessions client-side as `LastManualSquelchLevel` — this preserves your preference across mode cycles and launches since auto mode may clobber the slice's squelch value. |
 
 ### RIT and XIT
 
@@ -148,5 +148,4 @@ The following accessor methods and visibility helpers are available on `AppletPa
 
 | Method | Description |
 |---|---|
-| `setAgVisible(bool visible)` | Shows or hides the Antenna Genius button and applet based on device presence. |
-| `setShackSwitchVisible(bool visible)` | Shows or hides the ShackSwitch applet based on device presence. Added in V0.9.4. |
+| `setAgVisible(bool visible)` | Shows or hides the Antenna Genius button and applet based on device presence.

@@ -30,6 +30,7 @@ Every row in the bindings table is removed. The change is saved automatically.
 |------------------|-----------------------------------------|-------|
 | `×` (delete row) | Removes the single binding on that row. |       |
 | `Clear All`      | Removes every binding in the table.     |       |
+
 ## Tips
 
 - If you delete a binding by mistake, you can restore it by loading a previously saved profile. See [Load a previously saved MIDI profile](load-a-previously-saved-midi-profile.md).

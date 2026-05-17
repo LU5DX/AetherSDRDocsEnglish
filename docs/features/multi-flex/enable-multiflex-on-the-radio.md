@@ -1,6 +1,6 @@
 # Enable multiFLEX on the radio
 
-Use the multiFLEX Dashboard to turn multiFLEX on or off on the connected FLEX-8600. Enabling multiFLEX allows multiple client stations to share the radio simultaneously.
+Use the multiFLEX Dashboard to turn multiFLEX on or off on the connected FLEX-8600. Enabling multiFLEX allows multiple client stations to share the radio simultaneously. The dialog remembers its position and size between sessions.
 
 ## Before you start
 
@@ -9,14 +9,14 @@ Use the multiFLEX Dashboard to turn multiFLEX on or off on the connected FLEX-86
 ## Steps
 
 1. Click `Settings > multiFLEX...` to open the multiFLEX Dashboard.
-2. Click the toggle button in the center of the dialog. When multiFLEX is disabled, the button reads **Disabled**. When enabled, it reads **Enabled**.
+2. Click the **Enable** button to toggle multiFLEX on the radio. When multiFLEX is disabled, the button reads **Enable**. When enabled, it reads **Disable**.
 3. Click **Close** to dismiss the dialog.
 
 ## What each control does
 
 | Control | Behavior |
 |---|---|
-| **Enabled** / **Disabled** button | Toggles multiFLEX on or off on the radio. The button label and color reflect the current state: **Enabled** (green) or **Disabled** (red). |
+| **Enable** button | Toggles multiFLEX on or off on the radio. The button label reflects the current state: **Disable** when multiFLEX is active, **Enable** when it is off. |
 | Stations table | Lists every multiFLEX client currently connected to the radio. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). |
 | **Enable** (PTT) | Toggles local PTT authority for this station. Only shown when more than one client is connected and this station does not currently hold PTT. |
 | **Close** | Closes the multiFLEX Dashboard dialog. |
@@ -25,6 +25,7 @@ Use the multiFLEX Dashboard to turn multiFLEX on or off on the connected FLEX-86
 
 - Your station's entry in the Stations table is highlighted in blue. Other connected stations appear in the default color.
 - When only one client is connected, the LOCAL PTT controls are hidden automatically.
+- The dialog automatically restores its previous position and size when reopened within the same session.
 
 ## Related
 

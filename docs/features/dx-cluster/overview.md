@@ -15,13 +15,17 @@ Spots from each source are color-coded separately so you can distinguish their o
 
 ### Sources
 
-**Cluster tab** — Connects to a DX cluster via a telnet session. You provide the hostname (`ClusterHost`), port (`ClusterPort`, 1–65535), and login callsign (`ClusterCallsign`). The **Cluster Console** shows raw telnet traffic. You can type cluster commands in the command line field and send them with Send. Spot color is set via **Spot Color:**, persisted as `ClusterSpotColor`.
+**Cluster tab** — Connects to a DX cluster via a telnet session. You provide the hostname (`ClusterHost`), port (`ClusterPort`, 1–65535), and login callsign (`ClusterCallsign`). The **Cluster Console** shows raw telnet traffic. You can type cluster commands in the command line field and send them with **Send**. Spot color is set via **Spot Color:**, persisted as `ClusterSpotColor`.
+
+The **Startup Commands…** button opens an editor for cluster commands sent automatically after every login. Enter one command per line — for example `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`. The commands are persisted as `DxClusterStartupCommands` and replayed by the cluster client after each login.
 
 **RBN tab** — Connects to the Reverse Beacon Network via telnet. Configuration mirrors the Cluster tab: `RbnHost`, `RbnPort` (1–65535), `RbnCallsign`. The **Rate Limit:** spinbox (`RbnRateLimit`) caps the number of spots accepted per second, which is useful because RBN traffic volume can be very high. The **RBN Console** shows raw traffic. Spot color is set via **Spot Color:** (`RbnSpotColor`).
 
-**WSJT-X tab** — Listens for UDP datagrams broadcast by a running WSJT-X instance. Set the bind address (`WsjtxAddress`) and port (`WsjtxPort`, 1–65535), then click Start. Three checkboxes filter which decodes appear as spots: **CQ** (`WsjtxFilterCQ`), **CQ POTA** (`WsjtxFilterPOTA`), and **Calling Me** (`WsjtxFilterCallingMe`). Each category has its own color picker: CQ color (`WsjtxColorCQ`), POTA color (`WsjtxColorPOTA`), Calling Me color (`WsjtxColorCallingMe`), and Default color (`WsjtxColorDefault`). **Spot Life:** (`WsjtxSpotLife`) controls how long WSJT-X spots remain on the panadapter. The **WSJT-X Decodes** console shows the raw decode stream.
+The **Startup Commands…** button opens an editor for RBN-specific cluster commands sent automatically after every login. Enter one command per line. The commands are persisted as `RbnStartupCommands` and replayed independently from the DX cluster startup commands.
 
-**SpotCollector tab** — Listens on a UDP port for spot broadcasts from Ham Radio Deluxe SpotCollector. Set **UDP Port:** (`SpotCollectorPort`, 1–65535) and click Start. The **SpotCollector Spots** console shows received spots.
+**WSJT-X tab** — Listens for UDP datagrams broadcast by a running WSJT-X instance. Set the bind address (`WsjtxAddress`) and port (`WsjtxPort`, 1–65535), then click **Start**. Three checkboxes filter which decodes appear as spots: **CQ** (`WsjtxFilterCQ`), **CQ POTA** (`WsjtxFilterPOTA`), and **Calling Me** (`WsjtxFilterCallingMe`). Each category has its own color picker: CQ color (`WsjtxColorCQ`), POTA color (`WsjtxColorPOTA`), Calling Me color (`WsjtxColorCallingMe`), and Default color (`WsjtxColorDefault`). **Spot Life:** (`WsjtxSpotLife`) controls how long WSJT-X spots remain on the panadapter. The **WSJT-X Decodes** console shows the raw decode stream.
+
+**SpotCollector tab** — Listens on a UDP port for spot broadcasts from Ham Radio Deluxe SpotCollector. Set **UDP Port:** (`SpotCollectorPort`, 1–65535) and click **Start**. The **SpotCollector Spots** console shows received spots.
 
 **POTA tab** — Polls `api.pota.app` over HTTP at a configurable interval (**Poll Interval:**, `PotaPollInterval`). The server address is fixed and shown as an indicator. The **POTA Activations** console shows the activation feed. Spot color is set via **Spot Color:** (`PotaSpotColor`).
 
@@ -140,7 +144,4 @@ Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 
 ## Tips
 - RBN produces a very high spot rate. Set **Rate Limit:** to a value your display can handle before connecting, to avoid flooding the panadapter.
-- WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (15 or 7.5 seconds) if you want spots to clear between periods.
-- The **Calling Me** filter in the WSJT-X tab highlights decodes specifically addressed to your callsign, which makes it easy to see when a station is responding to your CQ.
-- **Auto:** defaults to Enabled. It automatically switches the slice mode when you double-click a spot that includes mode information (for example CW, FT8, or RTTY).
-- Double-clicking a spot in the **Spot List** now also forwards the mode hint from the spot comment, so the slice switches to CW, SSB
+- WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (

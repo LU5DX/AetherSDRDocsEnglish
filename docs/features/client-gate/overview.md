@@ -50,6 +50,12 @@ The controls listed below appear identically in both the TX and RX applets. The 
 
 The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (TX) and `ClientGateRxEnabled` (RX).
 
+## Inline value editing
+
+Knobs in the applet tile support direct numeric entry. Click the value text below a knob to activate a inline editor that looks identical to the painted value label. Type a number and press Enter or click elsewhere to commit the value. The value is clamped to the knob's valid range. Press Escape to cancel the edit and revert to the previous value.
+
+The inline editor is available on all knob controls in both the TX and RX applet tiles.
+
 ## Visual indicators
 
 | Indicator | States | Meaning |
@@ -66,6 +72,7 @@ The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (
 - Use the cyan hysteresis band on the transfer curve to judge whether the Return value is wide enough to prevent chatter without making the gate sluggish to close.
 - When the tile appears dimmed, the gate stage is bypassed. Re-enable it via the CHAIN widget or the floating editor before expecting any attenuation.
 - Changes to any knob take effect immediately and are saved automatically. No Apply button is needed.
+- To enter a precise numeric value, click the value text below any knob and type the number directly.
 
 ## Troubleshooting
 

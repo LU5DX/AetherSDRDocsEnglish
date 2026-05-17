@@ -22,10 +22,19 @@ The TCI server listens on a configurable port. Change the port when the default 
 | **Port** field          | `50001`     | 1024–65535                                          |
 | **Enable**              | Off         | On / Off                                            |
 | Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` |
+| **RX1** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
+| **RX2** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
+| **RX3** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
+| **RX4** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
+| **TX** gain+meter       | 0.5         | 0.0–1.0 (combined slider/meter)                     |
+| RX/TX slice-assignment labels | —     | `—` or `Slice <letter>` (rich text)                 |
+
 ## Tips
 
 - If you change the port while the server is enabled, the restart is immediate. Connected clients will be disconnected and must reconnect to the new port.
 - If the status shows `(port in use)` after clicking **Enable**, choose a different port number and try again.
+- RX and TX gain sliders control the TCI audio level for their respective channels. Drag to adjust; the value is persisted in `TciRxGain1`–`TciRxGain4` and `TciTxGain`.
+- Slice-assignment labels show which slice drives each RX/TX row. The slice letter may appear in rich text format for improved display.
 
 ## Troubleshooting
 

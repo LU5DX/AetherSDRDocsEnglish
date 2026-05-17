@@ -2,7 +2,7 @@
 
 AetherDSP Settings is a dialog that lets you tune the client-side noise-reduction engines available in AetherSDR: NR2, NR4, MNR, DFNR, RN2, and BNR. Each engine has its own tab. Open the dialog from `Settings > AetherDSP Settings...`.
 
-The dialog supports both frameless (custom chrome) and native window decoration modes. By default, the frameless mode is enabled, controlled by the `FramelessWindow` application setting (`Settings > Preferences > General > Frameless Window`). When frameless mode is active, the dialog uses a custom gradient title bar, window-control buttons, 8-axis resize, and drag-to-move. When frameless mode is disabled, the dialog uses the standard OS window chrome. The dialog hosts an embedded `AetherDspWidget` that contains all controls. Existing signal connections to the dialog continue to work without change.
+The dialog uses a custom gradient title bar, window-control buttons, 8-axis resize, and drag-to-move. The dialog hosts an embedded `AetherDspWidget` that contains all controls. Existing signal connections to the dialog continue to work without change.
 
 ---
 
@@ -156,11 +156,7 @@ DFNR uses the DeepFilterNet3 engine.
 
 ## Window controls
 
-The AetherDSP Settings dialog supports two modes determined by the `FramelessWindow` setting (`Settings > Preferences > General > Frameless Window`). When frameless mode is enabled, the custom chrome from v0.9.8 is used. When disabled, the dialog uses the standard OS window decorations.
-
-### Frameless mode controls
-
-When frameless mode is active:
+The AetherDSP Settings dialog uses a custom frameless title bar.
 
 ### Title bar
 
@@ -176,7 +172,7 @@ When frameless mode is active:
 ### 8-axis resize
 
 - Click and drag any edge or corner of the dialog to resize. The cursor changes to indicate the resize direction.
-- The resize hit zone extends 12 px from the edges of the dialog (the inner content widget has 6 px padding).
+- The resize hit zone extends 6 px from the edges of the inner content widget.
 
 ---
 

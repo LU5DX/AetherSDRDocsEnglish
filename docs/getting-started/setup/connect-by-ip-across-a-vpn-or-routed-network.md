@@ -45,6 +45,7 @@ Use this method when your FLEX-8600 is on a different subnet from your computer 
 - **Manual result label shows an error immediately after clicking Connect by IP** — The radio is not answering on that address. Confirm the IP is correct, that the VPN tunnel is up, and that no firewall on the radio's network is blocking TCP port 4992 (the SmartSDR command port).
 - **Source warning label says the saved source is unavailable** — Your VPN adapter has changed or is down. Re-establish the VPN connection, then reselect the adapter in **Advanced: Source path**.
 - **Connection probe succeeds but the radio never reaches a connected state** — The UDP data streams may be blocked. Check that your VPN or router permits bidirectional UDP traffic between your computer and the radio.
+- **The connection window opens in frameless mode and the geometry is not restored correctly when the window is shown again** — This issue has been resolved. The window geometry is now properly restored only when the window was previously visible.
 
 ## Related
 

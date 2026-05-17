@@ -12,7 +12,7 @@ The Connect to a Radio panel is the starting point for every AetherSDR session. 
 
 The panel opens as a separate window whenever no radio is connected. It features a custom title bar with the text "Connect to Radio". You can drag the window by its title bar. The panel appears in the main window whenever no radio is connected. You can also open it at any time via `Settings > Connect to Radio...`.
 
-The panel uses a frameless window style by default, controlled by the `FramelessWindow` setting (default: True). When frameless mode is on, the custom title bar provides window dragging capability. Closing this window will close the connection panel.
+The panel uses a frameless window style by default, controlled by the `FramelessWindow` setting (default: True). When frameless mode is on, the custom title bar provides window dragging capability. The panel restores its previous geometry when it becomes visible again after being hidden. Closing this window will close the connection panel.
 
 Three mode buttons across the top determine which connection method is active. Selecting a mode switches the panel below to show the relevant controls. AetherSDR persists your last-used mode in `ConnectionMode`.
 

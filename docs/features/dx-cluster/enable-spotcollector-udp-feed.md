@@ -51,6 +51,8 @@ AetherSDR can receive DX spots broadcast by Ham Radio Deluxe's SpotCollector ove
 | **Edge Threshold:**                                           | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Slider. Default 3.0 dB, range 1.0–10.0 dB. New in v26.5.1.                                                                                                | `SHistorySoftEdgeDb`                               |
 | **Signal History color swatches (Signals / QRM)**             | Opens a color picker for the voice signal markers (gold) and QRM markers (red). New in v26.5.1.                                                                                                                                                              | `SHistoryColorSignals` / `SHistoryColorQrm`        |
 | **Snap to Step:**                                             | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. New in v26.5.1. Default Disabled.                                                                                                   | `SHistorySnapToStep`                               |
+| **Startup Commands… (Cluster tab)**                           | Opens a dialog to edit cluster commands sent automatically after every login. One command per line — e.g. `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`. Settings key: `DxClusterStartupCommands`. New in v26.5.2.1 (#2683).                                         | `DxClusterStartupCommands`                         |
+| **Startup Commands… (RBN tab)**                               | Opens a dialog to edit RBN cluster commands sent automatically after every login. One command per line. Settings key: `RbnStartupCommands`. New in v26.5.2.1.                                                                                               | `RbnStartupCommands`                               |
 
 ## FreeDV Reporter reporting
 
@@ -87,24 +89,22 @@ Double-clicking a row in the **Spot List** tab tunes the active slice to that sp
 
 In v26.5.1, the SpotHub dialog was updated to support frameless window mode. When frameless mode is enabled (default), the dialog features a custom title bar and 8-axis edge resizing. The title bar displays "SpotHub" and can be used to drag the window. This provides a consistent appearance with other AetherSDR dialogs.
 
+## Startup commands for cluster and RBN
+
+Both the **Cluster** tab and the **RBN** tab include a **Startup Commands…** button. Click it to open a dialog where you can enter one command per line. These commands are sent to the cluster server automatically after every login.
+
+Typical commands include:
+- `SET/NAME` — set your name
+- `SET/QTH` — set your location
+- `ACCEPT/SPOT` — configure spot filtering
+
+The commands are stored independently for each source:
+- Cluster tab: stored as `DxClusterStartupCommands`
+- RBN tab: stored as `RbnStartupCommands`
+
 ## Tips
 - Spots received from SpotCollector appear alongside spots from other sources in the **Spot List** tab. The **Source** column identifies them.
 - If the panadapter spot overlay is not visible, check that **Spots:** is set to **Enabled** on the **Display** tab.
 - **Auto** defaults to **Enabled**. When you double-click a spot that includes mode information (e.g. CW, FT8, RTTY), the slice mode switches automatically. Disable it on the **Display** tab if you prefer to switch modes manually.
 - Use **Spot Lines:** on the **Display** tab to control whether vertical lines are drawn from the spectrum up to each spot label. Disable this during contests to reduce visual clutter.
-- The **Display** tab was reorganized in v26.5.1 (#2506). Signal History controls now appear in a dedicated section instead of separate sub-tabs. The tab has a top toggle row, common sliders, then a two-column layout with DXCC Coloring on the left and Signal History on the right.
-
-## Troubleshooting
-
-- **Status stays Stopped / no spots appear** — Verify that SpotCollector is actively broadcasting and that the UDP port in AetherSDR matches the port configured in SpotCollector. Check that no firewall is blocking UDP traffic on that port.
-- **Listener starts but the panadapter shows no spots** — Confirm that the master spot overlay is on: open the **Display** tab and check that **Spots:** is **Enabled**.
-- **FreeDV Reporter checkbox unchecks itself with a warning** — The callsign or grid square field is empty or could not be resolved. Fill in both fields (or enable **Use radio** / **Use GPS** if the radio can supply the values) before enabling reporting.
-
-## Related
-
-- [SpotHub overview](overview.md)
-- [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
-- [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
-- [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md)
-- [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
-<!-- docmesh
+- The **Display** tab was reorganized in v26.5.1 (#2506). Signal History controls now appear in a dedicated section instead of separate sub-tabs. The tab has a top toggle row, common

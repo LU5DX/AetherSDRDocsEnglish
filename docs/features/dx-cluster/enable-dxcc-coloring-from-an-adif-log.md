@@ -59,6 +59,22 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 
 Double-clicking a row in the **Spot List** tab tunes the active receiver to that spot's frequency. As of v0.9.7, AetherSDR also forwards the mode derived from the spot comment, so the receiver switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
+## Cluster and RBN Startup Commands
+
+The **Cluster** and **RBN** tabs each have a **Startup Commands…** button that opens an editor for commands sent automatically after every login to that source. New in v26.5.2.1 (#2683).
+
+### Steps
+
+1. Open `Settings > SpotHub...`.
+2. Click the **Cluster** tab or **RBN** tab.
+3. Click **Startup Commands…**.
+4. Type one command per line (for example, `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`).
+5. Click **Save**. The commands are stored separately for each source:
+   - Cluster tab uses the `DxClusterStartupCommands` setting key.
+   - RBN tab uses the `RbnStartupCommands` setting key.
+
+The commands replay after every connection, including reconnects.
+
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
@@ -88,11 +104,8 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 - The four DXCC color swatches (**New DXCC**, **New Band**, **New Mode**, **Worked**) replace the previous fixed color scheme. Customize each to suit your preference.
 - When **Use radio (callsign)** is checked, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
 - Reporter broadcasting is build-gated by `HAVE_WEBSOCKETS`. On Windows it additionally requires `HAVE_RADE`. If the **Station Reporting** group or the enable checkbox is absent, your build does not include the required components.
+- Startup commands are stored separately for the **Cluster** tab (`DxClusterStartupCommands`) and **RBN** tab (`RbnStartupCommands`). You can configure different commands for each source.
 
 ## Troubleshooting
 
-- **DXCC stats shows 0 QSOs after selecting a file** — The file may not be valid ADIF, may be empty, or may use an encoding AetherSDR cannot read. Export a fresh ADIF from your logger and try again.
-- **Spot colors do not change after enabling DXCC Colors** — Confirm the **Spots:** toggle on the **Display** tab is enabled (`IsSpotsEnabled`). Also check that **Override Colors:** (`IsSpotsOverrideColorsEnabled`) is not active, as it forces a single color for all spots regardless of DXCC status.
-- **New contacts are not reflected on spots** — AetherSDR auto-watches the ADIF file for changes, so spot colors should update automatically. If they do not, try re-selecting the log file with **Log File (ADIF):** to trigger a fresh import.
-- **Double-clicking a spot does not switch mode** — Mode is derived from the spot comment text. If the comment does not contain a recognizable mode token, only the frequency changes.
-- **Warning appears when enabling FreeDV Reporter** — Either the callsign or grid square field is blank. Fill in both fields (or check
+- **DXCC stats shows 0 QSOs after selecting a file** — The file

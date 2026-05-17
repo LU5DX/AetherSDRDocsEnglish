@@ -24,6 +24,8 @@ If the list stays empty, click **Retry Discovery**. If the radio is on a differe
 
 By default, **Connect to last radio on start up** is checked, so AetherSDR will automatically reconnect to the most recently used radio each time it starts. If you prefer to choose a radio manually at each startup, uncheck this option in the **Connect to a Radio** panel. The setting is saved immediately when you change it (`AutoConnectToLastRadio`).
 
+When connecting by IP manually, select the local network interface from the **Advanced: Source path** combo box. The **Source warning label** appears below this combo when the previously saved NIC is no longer reachable. Select a valid source interface before clicking **Connect by IP (manual)**.
+
 ### 2. Select the correct antenna
 
 1. In the right sidebar, click the **RX** tray button to open the RX Controls applet (it is visible by default).
@@ -73,6 +75,7 @@ By default, **Connect to last radio on start up** is checked, so AetherSDR will 
 - **SWR meter reads red (above 2.5)** — Do not continue transmitting at full power. Check antenna connections. Run the internal **ATU** to find a match, or reduce power until the issue is resolved.
 - **Frequency edit does not accept the value** — Ensure you are entering a value in MHz within the valid range (0.001–54.000 MHz). Press **Escape** to cancel and restore the previous frequency.
 - **Radio IP address drop-down shows a stale address** — The **Source warning label** appears below the **Advanced: Source path** combo when the previously saved NIC is no longer reachable. Select a valid source interface before clicking **Connect by IP (manual)**.
+- **The connection window is not visible or did not restore its previous size** — When entering or exiting frameless mode, the window restores its geometry only if it was previously visible. If the connection window appears in an unexpected position, resize or reposition it normally and it will remember those dimensions next time.
 
 ## Related
 

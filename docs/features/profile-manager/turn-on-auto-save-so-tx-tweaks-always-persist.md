@@ -22,12 +22,24 @@ To turn auto-save off, repeat the steps and uncheck **Auto-save profile changes*
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
+| **Global** | Tab | Manages global profiles. | — |
+| **Transmit** | Tab | Manages transmit profiles. Note: the radio cannot overwrite existing transmit profiles directly — the Save/Create button is labelled "Create" and creates a new profile only. Updates to existing profiles are captured by Auto-Save while the profile is active. | — |
+| **Microphone** | Tab | Manages microphone profiles. Note: the radio cannot overwrite existing microphone profiles directly — the Save/Create button is labelled "Create" and creates a new profile only. Updates to existing profiles are captured by Auto-Save while the profile is active. | — |
+| **Auto-Save** | Tab | Controls automatic profile saving. | — |
+| **Profile name** | Text field | Name used when saving a new profile. | — |
+| **Profile list** | List | All profiles for this category; active one highlighted. | — |
+| **Load** | Push button | Loads the selected profile onto the radio. | — |
+| **Save** (Global tab) | Push button | Saves the current radio state under the typed name (creates or overwrites). | — |
+| **Create** (Transmit and Microphone tabs) | Push button | Creates a new profile with the typed name. Does not overwrite an existing profile. | — |
+| **Delete** | Push button | Deletes the selected profile (with confirmation). | — |
 | **Auto-save profile changes** | Checkbox | When checked, TX and microphone setting changes are automatically saved to the active profile on the radio. When unchecked, changes are discarded unless you save manually. | `AutoSaveTransmitProfile` |
+| **Close** | Push button | Closes the dialog. | — |
 
 ## Tips
 
 - Auto-save applies to both TX and microphone settings, not just one category. If you want to experiment without overwriting your current profile, uncheck **Auto-save profile changes** first, make your changes, and evaluate before committing a manual save.
 - The checkbox reflects the current state reported by the radio when the dialog opens. If another client changed the setting on the radio, the checkbox updates to match.
+- On the Transmit and Microphone tabs, if you enter a name that already exists and click **Create**, a dialog explains the limitation and offers to enable Auto-Save so your changes to the existing profile are captured.
 
 ## Related
 

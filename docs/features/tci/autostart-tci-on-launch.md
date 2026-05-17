@@ -25,6 +25,12 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 | Enable (toggle button in TCI Server applet)                     | Off                                                  | On / Off                                                                                                                                                                                                                                                            |
 | RX1–RX4 gain+meter                                              | 0.5                                                  | 0.0–1.0                                                                                                                                                                                                                                                             |
 | TX gain+meter                                                   | Drags set the TCI TX gain and emit tciTxGainChanged. | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). |
+| RX/TX slice-assignment labels                                   | — (em dash)                                          | — or Slice letter                                                                                                                                                                                                                                                   |
+
+### RX/TX slice-assignment labels
+
+The RX1–RX4 and TX status labels show which slice currently drives each channel. The slice letter is now rendered as rich text (HTML) so that styled slice identifiers from `SliceLabel::richText` display correctly. The labels update automatically when slice assignments change.
+
 ## Tips
 
 - Enabling autostart also sets `AutoStartTCI` to `True`. Toggling Enable in the TCI Server applet writes the same key, so both controls stay in sync.
@@ -36,6 +42,7 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 - **`Settings > Autostart TCI with AetherSDR` is absent from the menu** — This build of AetherSDR does not include WebSocket support. TCI is unavailable.
 - **Server status shows `(port in use)` after launch** — Another process is already bound to the configured port. Change the port in the TCI Server applet's Port field, save, and restart AetherSDR. See [Change the TCI port](change-the-tci-port.md).
 - **Status stays `(stopped)` despite autostart being enabled** — The radio is not yet connected. The TCI server requires a radio connection. Connect to the radio; the server will start once the connection is established.
+- **Slice labels appear as raw HTML** — This indicates an older build without the rich-text fix. Update to v26.5.2.1 or later to ensure HTML-rendered slice letters display correctly (#2606).
 
 ## Related
 

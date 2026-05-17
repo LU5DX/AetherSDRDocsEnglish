@@ -90,6 +90,8 @@ If you are upgrading from a version prior to v0.9.7, the single address previous
 
 The connection panel is a frameless dialog with a custom title bar. The title bar shows "Connect to Radio" and includes standard window control buttons. This appearance can be controlled by the `FramelessWindow` setting.
 
+When the panel is hidden during a frameless mode toggle, its geometry is preserved only if the panel was visible at the time of the toggle.
+
 ## Tips
 
 - If the list is slow to populate, wait at least 10–15 seconds before using **Retry Discovery**. The radio sends periodic discovery packets and AetherSDR may not have received the first one yet.

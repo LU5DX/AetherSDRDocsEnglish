@@ -1,11 +1,11 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, and Themes.
+The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Antennas, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, and Themes.
 
 ## Opening the dialog
 
 1. Select `Settings > Radio Setup...` from the main menu.
-2. The dialog opens as a frameless window with a custom title bar on supported platforms. You can drag it by the title bar.
+2. The dialog opens as a persistent window that remembers its position and size between sessions. You can drag it by the title bar.
 3. Close the dialog by clicking the **X** button on the title bar or pressing `Escape`.
 
 ## Radio tab
@@ -78,17 +78,37 @@ The **TX** tab controls TX timings, interlocks, max power, tune mode, waterfall 
 
 Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 
-### TX controls
+### TX timings
 
 | Control | Default | Range | Behavior |
 |---|---|---|---|
-| **Timings (in ms)** | - | - | TX hang / delay timings. |
+| **ACC TX:** | - | - | ACC TX delay in milliseconds. |
+| **TX Delay:** | - | - | TX delay in milliseconds. |
+| **RCA TX1:** | - | - | RCA TX1 delay in milliseconds. |
+| **Timeout (sec):** | - | - | Interlock timeout displayed in whole seconds. The radio stores this value in milliseconds internally. |
+
+All timing fields accept integer values. Changes are applied when you finish editing each field.
+
+### Other TX controls
+
+| Control | Default | Range | Behavior |
+|---|---|---|---|
 | **Interlocks - TX REQ: RCA / Accessory** | Off | - | Enables RCA and accessory interlock inputs. |
 | **Max Power:** | - | 0-100 % | Sets radio-level TX power cap. |
 | **Tune Mode:** | - | - | Selects how the tune button behaves. |
 | **Show TX in Waterfall:** | Off | - | Draws TX signal in the waterfall. |
-| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with "Active Slice Follows TX". Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
-| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with "TX Follows Active Slice". Stored in `ActiveFollowsTxSlice` setting. |
+| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
+| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. |
+
+## Antennas tab
+
+The **Antennas** tab allows you to assign custom names to each antenna port on the radio. This tab is lazily built when first clicked.
+
+### Antenna name fields
+
+| Control | Behavior |
+|---|---|
+| **ANT1 - ANT8** | Text fields for assigning user-friendly names to each antenna port. Names are stored on the radio. |
 
 ## Phone/CW tab
 
@@ -123,7 +143,7 @@ The **RX** tab provides GPSDO frequency offset calibration and 10 MHz reference 
 
 ### Frequency calibration
 
-In v0.9.2.1 the calibration controls are available regardless of whether a GPSDO is installed. The status label at the top of the group reads:
+The calibration controls are available regardless of whether a GPSDO is installed. The status label at the top of the group reads:
 - **GPSDO installed. Manual frequency offset calibration available.** (green) — GPSDO present.
 - **Manual frequency offset calibration available.** (amber) — no GPSDO.
 
@@ -239,20 +259,4 @@ The **XVTR** tab provides per-transverter configuration.
 1. Click **Create New Transverter**.
 2. A new nested tab appears. Configure the fields for the new entry on that tab.
 3. To restrict the entry to receive only, set **RX Only:** to the enabled state.
-4. To delete an entry you no longer need, click **Remove** on that entry's tab.
-
-### Per-transverter controls
-
-| Control | Behavior |
-|---|---|
-| **RX Only:** | Forces the transverter to receive-only, preventing TX through it. |
-| **Remove** | Permanently deletes the selected transverter definition. |
-| **Create New Transverter** | Adds a new transverter entry and opens its configuration tab. |
-
-## USB Cables tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | Behavior |
-|---|---|
-| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status.
+4. To delete an entry you no longer

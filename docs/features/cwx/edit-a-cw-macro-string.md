@@ -39,13 +39,21 @@ The behavior of the **Send** button changed in v0.9.2.1.
 
 The **Live** button is now a toggle. Its checked state reflects the live-sending state held by the radio model, so the button stays in sync if the state changes from outside the panel (for example, from a macro or a remote command).
 
-## Function key shortcut behavior (v26.5.1)
+## Function key shortcut behavior (v26.5.2.1)
 
-The CWX panel registers application-wide shortcuts for F1 through F12 and Escape. These shortcuts are only active while the CWX panel is visible.
+The CWX panel registers application-wide shortcuts for F1 through F12 and Escape. These shortcuts are enabled and disabled by the main window based on the active slice's operating mode, not on panel visibility.
 
-- When the CWX panel is shown, the shortcuts are enabled.
-- When the CWX panel is hidden (for example, when the DVK panel is shown in the splitter), the shortcuts are disabled.
-- This prevents shortcut conflicts with the DVK panel, which registers its own set of F1 through F12 shortcuts.
+- When the active slice uses CW, CWL, or CWU mode, the shortcuts are enabled.
+- When the active slice uses any other mode (such as SSB or AM for the DVK panel), the shortcuts are disabled.
+- The shortcuts fire regardless of whether the CWX panel is visible, as long as the active slice is in a CW mode.
+- This prevents shortcut conflicts with the DVK panel, which registers its own set of F1 through F12 shortcuts for voice macros.
+
+## Context menu on send history bubbles (v26.5.2.1)
+
+Right-click any bubble in the send history scroll area to open a context menu with two options:
+
+- **Resend** — Sends the entire text from that bubble again. The bubble reappears at the bottom of the history as a new entry with the current timestamp.
+- **Clear History** — Removes all history bubbles from the scroll area. The spacer at the bottom of the history layout remains.
 
 ## Related
 

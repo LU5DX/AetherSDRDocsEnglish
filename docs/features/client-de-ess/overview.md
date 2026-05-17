@@ -43,6 +43,10 @@ Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack
 | **Attack** | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. How quickly de-esser responds once sibilance crosses threshold. Only in Channel Strip panel (RX and TX). |
 | **Release** | 100 ms | 10.0 to 500.0 ms | Exponential mapping. How quickly gain returns after sibilance drops below threshold. Only in Channel Strip panel (RX and TX). |
 
+### Inline value editing
+
+Each knob supports inline value editing. Click the displayed value text to open a small text entry field. Type a new value and press **Enter** or click outside the field to commit. The value is automatically clamped to the knob's valid range. Press **Escape** to cancel the edit and revert to the previous value. This feature works the same way in the docked applet and the channel strip panels.
+
 ## Settings persistence
 
 Each instance saves and restores its control values from the settings database:

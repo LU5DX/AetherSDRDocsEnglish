@@ -78,6 +78,28 @@ When AetherSDR disconnects from the radio and reconnects, or when the number of 
 
 No user action is required. If the slice count changes (for example, after a disconnect and reconnect cycle), the tab row updates automatically.
 
+## RX antenna selection improvements (v26.5.2.1)
+
+In v26.5.2.1, the RX antenna selection menu was improved to show the slice's dedicated RX antenna list when available, rather than the global antenna list from the panadapter status. If the slice has an RX antenna list, the menu displays those entries; otherwise it falls back to the global antenna list. Each menu item now:
+
+- Uses the antenna identifier as its underlying data value (`act->setData(ant)`)
+- Shows a human-readable label via `antennaMenuLabel()`
+- Shows the raw antenna identifier in the tooltip and status tip
+
+The TX antenna selection menu was also updated to use the `txAntennaOptions()` method and `antennaMenuLabel()`. Both menus now use `sel->data().toString()` when setting the antenna, so the label text is secondary to the antenna identifier.
+
+No configuration is needed. The menus update automatically when reconnected to the radio.
+
+## RADE mode deactivation logic change (v26.5.2.1)
+
+In v26.5.2.1, the RADE mode deactivation signal behavior was corrected. Previously, when switching out of RADE mode via the mode combo, the applet checked `m_slice->mode() == "RADE"` before emitting `radeActivated(false)`. This check no longer works correctly because RADE is a client-side only mode — the radio echoes back the real mode (DIGL/DIGU) immediately, so `mode()` never returns "RADE" at the point of the check. The stale check has been removed.
+
+The RADE option remains available in the mode combo only when `HAVE_RADE` is defined at build time.
+
+## Manual squelch level persistence (v26.5.2.1)
+
+Starting in v26.5.2.1, the manual squelch threshold is saved and restored across sessions via the application settings key `LastManualSquelchLevel`. This prevents the value from being clobbered by auto-mode squelch logic that the radio applies. The threshold is recalled when the RX Controls applet is constructed.
+
 ## Tips
 
 - If you need a width that does not match any preset, drag the edges of the filter passband widget to set an arbitrary value, then right-click a preset button to save that width for future use.

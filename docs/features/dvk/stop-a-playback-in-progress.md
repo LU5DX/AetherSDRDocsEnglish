@@ -5,7 +5,7 @@ The Digital Voice Keyer panel records and plays back up to 8 voice-keyer slots o
 ## Before you start
 
 - The radio must be connected. The DVK panel requires an active radio connection.
-- The DVK panel must be visible in the main window for keyboard shortcuts to work. When hidden, F-key shortcuts are automatically disabled to avoid conflicts with the CWX panel.
+- F1-F12 keyboard shortcuts are active based on the currently selected slice mode, regardless of DVK panel visibility. This ensures DVK shortcuts are mutually exclusive with CWX panel shortcuts and avoids shortcut conflicts.
 
 ## Understanding the DVK Panel
 
@@ -80,7 +80,7 @@ Playback stops immediately. The status indicator returns to "Status: Idle" and t
 
 | Key | Function | Notes |
 |---|---|---|
-| **F1** through **F8** | Select and play the corresponding slot | Shortcuts are only active when the DVK panel is visible. When hidden, these keys are available for other panels (such as the CWX panel). |
+| **F1** through **F8** | Select and play the corresponding slot | Shortcuts are active based on the active slice mode, regardless of panel visibility. This prevents conflicts with the CWX panel's F1-F12 shortcuts. |
 | **Escape** | Stop the current operation, or cancel an inline rename | If a rename text field is active, Escape cancels the rename instead of stopping playback. |
 
 ## Status Indicator
@@ -95,7 +95,7 @@ The status indicator at the bottom of the panel shows:
 
 - **■ STOP** works for recording and preview as well as playback. One button covers all three active states.
 - Pressing Escape only stops the active operation if no slot rename is currently open. If a rename text field is visible, Escape cancels the rename instead.
-- The DVK and CWX panels share F-key shortcuts but are mutually exclusive in the splitter view. The panel's shortcuts are automatically enabled when the panel is shown and disabled when hidden, preventing conflicts.
+- The DVK and CWX panels share F1-F12 shortcuts. Shortcuts are enabled or disabled based on the active slice mode so they fire regardless of panel visibility, while staying mutually exclusive to avoid Qt shortcut ambiguity.
 
 ## Related
 

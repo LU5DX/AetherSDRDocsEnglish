@@ -40,9 +40,17 @@ The **Live** button is now a toggle. Clicking it a second time turns Live mode o
 
 Clicking **Setup** always turns Live mode off before showing the macro editor view.
 
+## Send history bubble actions
+
+The send history scroll area displays each sent buffer as a bubble with a timestamp. You can interact with these bubbles using right-click:
+
+- **Right-click a history bubble** to open a context menu with two options:
+  - **Resend:** Sends the same text again as if you typed it fresh. The text appears as a new bubble in the history.
+  - **Clear History:** Removes all history bubbles from the scroll area. This action cannot be undone.
+
 ## Keyboard shortcuts in the CWX panel
 
-The CWX panel registers the F1 through F12 keys and the Escape key as application-wide shortcuts. These shortcuts are **only active while the CWX panel is visible**. When you hide the panel or switch to another panel (such as the DVK panel), the shortcuts are automatically disabled to prevent conflicts with other panels that may use the same keys.
+The CWX panel registers the F1 through F12 keys and the Escape key as application-wide shortcuts. The F1–F12 shortcuts are enabled or disabled based on the active slice's mode, managed by MainWindow. They fire regardless of whether the CWX panel is visible, as long as the active slice is in CW, CWL, or CWU mode. When the active slice switches to a different mode (such as SSB), the shortcuts are automatically disabled to prevent conflicts with other panels like the DVK panel.
 
 - **F1 – F12:** Sends the corresponding macro string.
 - **Escape:** Clears the current send buffer.
@@ -52,7 +60,9 @@ The CWX panel registers the F1 through F12 keys and the Escape key as applicatio
 - Prosign shortcuts work in both the live send text area and in the F-key macro editors. Type them as you would any other character.
 - To send a macro that contains a prosign, edit the macro string in the Setup view using the same shortcut characters, then trigger it with the corresponding F-key from the Send view.
 - If you switch from Live mode to Send mode and want to transmit the buffer contents, turn Live off first (click **Live** to toggle it off), then click **Send**.
-- The F1–F12 and Escape keyboard shortcuts are only active when the CWX panel is visible. If you cannot trigger a macro with an F-key, ensure the CWX panel is the active panel.
+- The F1–F12 keyboard shortcuts are active whenever the active slice is in a CW mode, regardless of whether the CWX panel is visible. If you cannot trigger a macro with an F-key, check that the active slice is in CW, CWL, or CWU mode.
+- To resend a previous buffer, right-click the history bubble and select **Resend**. The original text is preserved and sent again as a new entry in the history.
+- To clear the send history, right-click any bubble and select **Clear History**, or right-click the history area background if no bubbles are present.
 
 ## Related
 

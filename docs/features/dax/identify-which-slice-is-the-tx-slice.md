@@ -11,18 +11,19 @@ The DAX Applet shows a live TX assignment indicator that tells you which slice c
 
 1. Click the **DAX** tray button on the right sidebar to open the DAX Applet.
 2. Look at the **TX:** row at the bottom of the applet.
-3. Read the status indicator to the right of the **TX:** label. It shows either `—` (no TX slice assigned) or `Slice A` through `Slice H` (the slice currently holding TX privileges).
+3. Read the status indicator to the right of the **TX:** label. It shows either `—` (no TX slice assigned) or a slice letter `A` through `H` (the slice currently holding TX privileges). The slice letter is rendered in a colored box matching the slice's color.
 
 ## What each control does
 
 | Control | Description | Default | Valid states | Setting key |
 |---|---|---|---|---|
-| TX assignment indicator | Shows which slice currently has TX privileges. Updates automatically when TX is moved between slices. | `—` | `—` or `Slice A`–`Slice H` | none |
+| TX assignment indicator | Shows which slice currently has TX privileges. Updates automatically when TX is moved between slices. Slice letter is displayed in a colored box matching the slice's color. | `—` | `—` or colored slice letter `A`–`H` | none |
 
 ## Tips
 
 - The TX indicator updates in real time. If you transfer TX to another slice on the radio, the indicator changes immediately without any manual refresh.
 - The RX rows above the TX row show per-channel DAX assignments (`DAX 1:` through `DAX 4:`). These indicate which slice is routed to each DAX RX channel and are separate from the TX assignment.
+- The slice letter in the TX indicator is rendered as rich text, allowing the colored box display when the radio is connected.
 
 ## Related
 

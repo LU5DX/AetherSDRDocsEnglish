@@ -21,8 +21,16 @@ MOX lets you key the transmitter without a footswitch or PTT line. Use it to che
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
 | **MOX**          | Toggles manual transmit on or off. Button goes red while the transmitter is keyed. In v0.9.7, the click routes through the Quindar-tone coordinator so K/BK tones play on engage/disengage in phone modes when Quindar is enabled in the Audio Channel Strip. | Off     |
 | **RF Power**     | Sets the transmit RF power level sent to the radio.                                                                                                                                           | 100     |
-| **RF Pwr** meter | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W).                                                                                        | —       |
+| **Tune Pwr**     | Sets the tune-carrier power level.                                                                                                                                                            | 10      |
+| **RF Pwr** meter | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W). Peak-hold bar holds the peak PEP reading for 2 seconds, then decays to the current power level at a rate of 48 W/s (scaled proportionally for the Aurora 500W exciter). | —       |
 | **SWR** meter    | Displays standing wave ratio at the exciter. Turns red above 2.5.                                                                                                                             | —       |
+| **TX Profile**   | Selects a TX profile from those loaded on the radio.                                                                                                                                         | —       |
+| **TUNE**         | Starts or stops the tune carrier. Button text becomes **TUNING...** with a red background while active. Right-click to select the carrier shape (Mono Tone or Two Tone) for the next tune cycle. This selection is a one-shot and is not persisted across power cycles. | TUNE    |
+| **ATU**          | Starts an ATU tune cycle. Right-click to open a context menu with **Pre-tune bands…** and **Clear ATU memories…** options (see ATU button behavior below).                                      | —       |
+| **MEM**          | Toggles ATU memory recall on or off. Disabled when TGXL is in OPERATE mode.                                                                                                                   | Off     |
+| **ATU indicators** (Success, Byp, Mem) | **Success** lights green when ATU status is Successful or OK. **Byp** lights orange when ATU is in Bypass or ManualBypass. **Mem** lights green when ATU is using a memory. | Dim     |
+| **APD**          | Toggles adaptive pre-distortion on the radio.                                                                                                                                                 | Off     |
+| **APD status indicators** (Active, Cal, Avail) | **Active** lights green when APD is on and the equalizer is actively applied. **Cal** lights green when APD is on and still calibrating. **Avail** lights green when APD is on and a calibration is available but not yet applied. | Dim     |
 
 ## ATU button behavior
 
@@ -38,6 +46,22 @@ Entering bypass clears the remembered tuned frequency, so the next click always 
 
 The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 
+### ATU right-click context menu
+
+Right-clicking the **ATU** button opens a context menu with two options:
+
+- **Pre-tune bands…** — Opens the ATU pre-tune dialog to run a sweep across selected bands. This option is only available when MEM is enabled. If MEM is off, the option is grayed out with a tooltip: "Enable MEM before running the pre-tune sweep."
+- **Clear ATU memories…** — Opens a confirmation dialog. Clicking Yes clears all stored ATU memories on the radio.
+
+## TUNE right-click menu
+
+Right-clicking the **TUNE** button opens a context menu to select the carrier shape for the next tune cycle:
+
+- **Mono Tone** — A single tone carrier.
+- **Two Tone** — Two-tone test signal.
+
+The selection is a one-shot applied to the next Tune button press only. The radio's tune mode reverts to single tone across power cycles; AetherSDR does not persist this choice in AppSettings.
+
 ## Tips
 
 - Watch the **RF Pwr** and **SWR** meters as soon as you key MOX. If SWR exceeds 2.5 (red zone), unkey immediately and investigate your antenna system.
@@ -45,6 +69,7 @@ The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 - MOX keys the radio into full-power transmit in whatever mode is active. If you only need to check SWR or tune an ATU, use **TUNE** instead — it transmits a carrier at the lower **Tune Pwr** level.
 - After a successful ATU tune, clicking **ATU** again on the same frequency puts the tuner into bypass. To re-tune after changing bands or frequencies, simply click **ATU** once on the new frequency.
 - If Quindar tones are enabled in the Audio Channel Strip, switching to a digital or CW mode suppresses the K/BK tones automatically. MOX itself behaves the same regardless of mode.
+- The peak-hold bar on the **RF Pwr** meter holds the peak reading for 2 seconds, then decays to the current power level. The peak is cleared immediately when you unkey.
 
 ## Troubleshooting
 
@@ -53,6 +78,7 @@ The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 - **Radio stays in transmit after clicking MOX a second time** — Another PTT source (footswitch, VOX, CAT command) may be holding the radio keyed. Check external PTT hardware and any connected CAT clients.
 - **ATU button starts a new tune instead of bypassing** — The transmit frequency has changed since the last successful tune. The ATU button will always start a fresh tune cycle when the frequency differs from the frequency at which the tuner last reported a successful match.
 - **Quindar tones do not play when clicking MOX** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is on a phone mode (SSB, AM, FM). Quindar tones are not generated on CW or digital modes.
+- **Pre-tune bands option is grayed out** — Enable the **MEM** button first. The pre-tune sweep requires ATU memories to be active.
 
 ## Related
 

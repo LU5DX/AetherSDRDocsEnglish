@@ -38,7 +38,7 @@ The HF Propagation Dashboard shows a band-by-band condition summary split into d
 ## Troubleshooting
 
 - **All band condition values appear blank or do not update** — the dashboard could not retrieve propagation data. Verify your internet connection and reopen the dialog.
-- **The dashboard window does not appear with a title bar or cannot be moved** — On some platforms, the dialog uses a frameless window style. Click and drag anywhere on the body area (except interactive controls) to reposition the window.
+- **The dashboard window does not reposition correctly between sessions** — the dialog saves and restores its geometry automatically. If the position is incorrect, resize or move the window to a new location, then close and reopen it to save the updated geometry.
 
 ## Related
 

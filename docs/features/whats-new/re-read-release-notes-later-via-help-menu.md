@@ -18,7 +18,7 @@ The What's New — AetherSDR dialog opens automatically after an upgrade, but yo
 |---|---|---|
 | Release notes browser | Scrollable view | Displays release entries as styled HTML. When opened via `Help > What's New...`, shows all entries for the current version. |
 | `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen (persisted as `LastSeenVersion`). |
-| `Upgrade` | Button | Shown only when an upgrade is available. Opens the download page. |
+| `Upgrade` | Button | Shown only when an upgrade is available. Opens the download page at `https://github.com/aethersdr/AetherSDR/releases/latest` and closes the dialog. |
 | `Skip this version` | Button | Shown only when an upgrade is available. Records the current version in `LastSeenVersion` and dismisses the dialog without upgrading. |
 | Hint | Indicator | Footer line with brief guidance. |
 

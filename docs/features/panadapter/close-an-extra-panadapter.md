@@ -27,6 +27,22 @@ The panadapter closes immediately. The remaining panadapters expand to fill the 
 
 Right-clicking anywhere inside the CW decode text area opens a context menu. In addition to the standard text editing commands (Select All, Copy, and so on), the menu includes a **Clear** item. Choosing **Clear** erases the entire CW decode buffer immediately. This is equivalent to clicking the **CLR** button in the CW panel toolbar.
 
+## CW decode TX/RX coloring
+
+In the CW decode panel, received text and transmitted (self-sent) text are rendered in different colors so you can distinguish your own sending from incoming CW. The colors are:
+
+- **Green**: Confidence cost < 0.15 (high confidence)
+- **Yellow**: Confidence cost < 0.35
+- **Orange**: Confidence cost < 0.60
+- **Red**: Confidence cost >= 0.60 (low confidence)
+- **Cyan** (`#5fc8ff`): Text decoded from your own transmitted keying
+
+When switching between transmit and receive, a space is automatically inserted to prevent the colored text runs from merging together.
+
+## Slice title with Multi-Flex
+
+In Multi-Flex sessions, the slice title shown in the panadapter title bar uses the radio-provided index letter so the title matches the slice badge. This ensures consistency when multiple clients are connected to the same radio.
+
 ## Related
 
 - [Panadapter overview](overview.md)

@@ -9,6 +9,15 @@ This page helps you adjust the Attack and Release knobs on the RX-side or TX-sid
 - For RX: open the Aetherial Audio Channel Strip and double-click DESS in the RX chain to open the RX De-Ess editor, which includes Attack and Release.
 - The Attack and Release knobs are only present in the **StripDeEssPanel** (inside the Channel Strip), not in the docked ClientDeEssApplet.
 
+## Inline value editing
+
+All knobs in the De-Ess editor now support inline numeric entry for precise adjustment:
+
+1. Click the value text displayed below any knob to enter edit mode. The value area shows a subtle dark inset with a cyan border to indicate edit mode.
+2. Type a numeric value. Locale-aware parsing is supported (e.g., "12,5" works in comma-decimal locales). Optional units or descriptive text (e.g., "12.5 ms" or "−6 dB") are stripped and parsed correctly.
+3. Press **Enter** or click elsewhere to commit the value. The value is clamped to the knob's valid range.
+4. Press **Escape** while editing to cancel and revert to the previous value.
+
 ## Steps
 
 1. Open the De-Ess editor that includes Attack and Release:
@@ -54,6 +63,7 @@ These two controls exist only in the frameless strip editors (StripDeEssPanel). 
 - The **-6 dB tick** on the gain-reduction bar marks the default Amount level — it's a useful reference for how much the de-esser is actually reducing.
 - The sidechain response curve now shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
 - Attack and Release settings are stored per path (TX and RX) and persist across sessions.
+- To enter precise values, click any knob's value text to activate the inline editor. Type the desired number (with or without units) and press Enter to commit.
 
 ## Related
 

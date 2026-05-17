@@ -22,10 +22,11 @@ The TCI applet runs a WebSocket server that exposes radio control and audio to t
 | **Enable** toggle                 | Off         | Off / On (green)                                    |
 | **RX1**–**RX4** gain meter/slider | `0.5`       | 0.0–1.0                                             |
 | **TX** gain meter/slider          | `0.5`       | 0.0–1.0                                             |
-| RX/TX slice-assignment labels     | `—`         | `—` or `Slice <letter>`                             |
+| RX/TX slice-assignment labels     | `—`         | `—` or `Slice <letter>` (may show HTML formatting)  |
 | Server status indicator           | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` |
 
-The RX1–RX4 rows show which slice drives each TCI channel. The label reads `Slice A`, `Slice B`, and so on, based on the DAX channel assignment of each slice. The TX row shows the currently active TX slice.
+The RX1–RX4 rows show which slice drives each TCI channel. The label reads `Slice A`, `Slice B`, and so on, based on the DAX channel assignment of each slice. The TX row shows the currently active TX slice. Slice labels now use rich text formatting (`#2606`).
+
 ## Tips
 
 - To start the TCI server automatically every time AetherSDR launches, go to `Settings > Autostart TCI with AetherSDR` and enable that item. See [Autostart TCI on launch](autostart-tci-on-launch.md).

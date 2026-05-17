@@ -25,3 +25,4 @@ All spots from every source (DX cluster, RBN, WSJT-X, SpotCollector, POTA, FreeD
 - [Tune spot density, position, font size and lifetime](tune-spot-density-position-font-size-and-lifetime.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - [Connect to a DX cluster](../../getting-started/setup/connect-to-a-dx-cluster.md)
+- [Edit startup commands for DX cluster and RBN connections](edit-startup-commands-for-dx-cluster-and-rbn-connections.md)

@@ -12,14 +12,14 @@ The AetherDSP Settings dialog tunes the advanced parameters of AetherSDR's clien
 
 1. Open `Settings > AetherDSP Settings...`.
 
-The dialog appearance depends on your FramelessWindow setting. By default, the dialog uses a frameless window with a custom title bar. Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Click and drag any edge or corner to resize the dialog.
+The dialog appears with a frameless 18 px gradient title bar showing a grip glyph (⋮⋮) on the left and the dialog title. Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Click and drag any edge or corner to resize the dialog. The 6 px resize hit zone surrounds the inner content widget; the cursor changes to indicate the resize direction.
 
-When the FramelessWindow setting is disabled in `Settings > Preferences > Display`, the dialog uses a standard OS window frame with title bar. In this mode, the custom title bar and window controls are hidden, and the dialog cannot be resized by dragging edges.
-
-The custom title bar (frameless mode only) contains three window controls:
+The title bar contains three window controls:
 - **— (Minimize)**: Minimizes the dialog.
 - **□ (Maximize)**: Maximizes or restores the dialog.
 - **× (Close)**: Closes the dialog.
+
+The dialog geometry is persisted automatically to the `AetherDspDialogGeometry` setting and restored on next launch.
 
 ## Select a DSP engine
 

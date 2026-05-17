@@ -18,6 +18,7 @@ If you are running v0.9.7 and still see a persistent trail after unkeying, work 
 ## Tips
 
 - In a multi-operator (multiFLEX) session, any connected client transmitting will trigger the waterfall freeze on your panadapter. This is expected behavior.
+- On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
 
 ## Troubleshooting
 

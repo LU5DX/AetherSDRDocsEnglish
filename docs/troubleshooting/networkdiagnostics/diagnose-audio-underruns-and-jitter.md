@@ -6,47 +6,77 @@ Use the Network Diagnostics dialog to read live audio buffer health, underrun co
 
 - AetherSDR must be running. The dialog does not require an active radio connection, but the audio indicators are only meaningful while a radio is connected and streaming audio.
 - Reproduce the audio problem before opening the dialog so the counters and peak values reflect the fault condition.
-- The dialog window can be toggled between frameless and standard window decoration. This is controlled by the `FramelessWindow` setting in AetherSDR's configuration. When frameless mode is active, a title bar with drag-and-resize handles appears at the top of the dialog.
+- The dialog window geometry is saved and restored automatically between sessions.
 
 ## Steps
 
 1. Click `Settings > Network...` to open the Network Diagnostics dialog.
-2. Locate the **Audio Playback** group in the lower-right area of the dialog.
-3. Read **RX Buffer Now** to see how many bytes (and milliseconds) of audio are currently held in the playback buffer.
-4. Read **RX Buffer Peak** to see the highest buffer fill recorded since the dialog was opened.
-5. Read **Underruns (total)** to see the cumulative count of buffer underruns since the audio engine started.
-6. Read **Underruns (last sec)** to see how many underruns occurred in the most recent one-second window. A non-zero value here while audio is actively streaming indicates an ongoing problem.
-7. Read **Audio Arrival Gap** to see the current inter-packet arrival interval. A value significantly larger than the expected packet period indicates bursty delivery.
-8. Read **Max Arrival Gap** to see the worst-case arrival gap recorded since the dialog was opened.
-9. Read **Network Jitter** to see the smoothed jitter estimate for the audio stream.
-10. If underruns are rising but **RX Buffer Now** stays near zero, the buffer is starving — see the tips below.
-11. Click **Close** when finished.
+2. Use the tab bar at the top to select the view you need:
+   - **Overview** – Health cards and summary time-series charts.
+   - **Details** – Scrollable grid of all labeled metrics.
+   - **Latency** – RTT, arrival gap, and jitter chart.
+   - **Rates** – Per-stream incoming bitrate chart.
+   - **Packet Loss** – Per-category packet loss percentage chart.
+   - **Audio** – Playback buffer fill and underrun rate chart.
+   - **Logs** – Live tail of the AetherSDR log file.
+3. On the **Details** tab, locate the **Audio Playback** group.
+4. Read **RX Buffer Now** to see how many bytes (and milliseconds) of audio are currently held in the playback buffer.
+5. Read **RX Buffer Peak** to see the highest buffer fill recorded since the dialog was opened.
+6. Read **Underruns (total)** to see the cumulative count of buffer underruns since the audio engine started.
+7. Read **Underruns (last sec)** to see how many underruns occurred in the most recent one-second window. A non-zero value here while audio is actively streaming indicates an ongoing problem.
+8. Read **Audio Arrival Gap** to see the current inter-packet arrival interval. A value significantly larger than the expected packet period indicates bursty delivery.
+9. Read **Max Arrival Gap** to see the worst-case arrival gap recorded since the dialog was opened.
+10. Read **Network Jitter** to see the smoothed jitter estimate for the audio stream.
+11. If underruns are rising but **RX Buffer Now** stays near zero, the buffer is starving — see the tips below.
+12. Click **Close** when finished.
 
 ## What each control does
 
-| Indicator                | Meaning                                                                                                                                                                      | Notes                                                                             |
-|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| **RX Buffer Now**        | Current audio buffer fill, shown in bytes and milliseconds.                                                                                                                  |                                                                                   |
-| **RX Buffer Peak**       | Highest buffer fill seen since the dialog was opened.                                                                                                                        |                                                                                   |
-| **Underruns (total)**    | Cumulative count of audio buffer underruns since the audio engine started.                                                                                                   |                                                                                   |
-| **Underruns (last sec)** | Number of underruns that occurred in the last one-second interval.                                                                                                           |                                                                                   |
-| **Audio Arrival Gap**    | Time between consecutive incoming audio packet arrivals.                                                                                                                     |                                                                                   |
-| **Max Arrival Gap**      | Largest arrival gap recorded since the dialog was opened.                                                                                                                    |                                                                                   |
-| **Network Jitter**       | Smoothed estimate of audio stream jitter.                                                                                                                                    |                                                                                   |
-| Overview (tab)           | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). |                                                                                   |
-| Details (tab)            | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                                                       |                                                                                   |
-| Latency (tab)            | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                           |                                                                                   |
-| Rates (tab)              | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                               |                                                                                   |
-| Packet Loss (tab)        | Full-width time-series graph of packet loss % per stream category.                                                                                                           |                                                                                   |
-| Audio (tab)              | Full-width time-series graph of playback buffer fill (ms) and underruns/s.                                                                                                   |                                                                                   |
-| Logs (tab)               | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                     | Timeframe selector is hidden while this tab is active.                            |
-| Timeframe                | Selects how far back the time-series charts display history. Default is 5 minutes. Valid values: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.                     | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
-| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                |                                                                                   |
-| Select All (Logs)        | Shows all log categories in the viewer.                                                                                                                                      |                                                                                   |
-| Deselect All (Logs)      | Hides all log categories from the viewer.                                                                                                                                    |                                                                                   |
-| Live / Paused (Logs)     | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                  |                                                                                   |
+### Tabs
+
+| Tab             | Behavior                                                                                                                                       |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Overview**    | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). |
+| **Details**     | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                        |
+| **Latency**     | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                            |
+| **Rates**       | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                |
+| **Packet Loss** | Full-width time-series graph of packet loss % per stream category.                                                                            |
+| **Audio**       | Full-width time-series graph of playback buffer fill (ms) and underruns/s.                                                                    |
+| **Logs**        | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. Timeframe selector is hidden while this tab is active. |
+
+### Controls
+
+| Control                    | Type        | Default   | Behavior                                                                                                                                 |
+|----------------------------|-------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| **Timeframe**              | Combo box   | 5 minutes | Selects how far back the time-series charts display history. Options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week. Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
+| **Filter Categories (Logs)** | Checkboxes | –         | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.            |
+| **Select All (Logs)**      | Push button | –         | Shows all log categories in the viewer.                                                                                                 |
+| **Deselect All (Logs)**    | Push button | –         | Hides all log categories from the viewer.                                                                                               |
+| **Live / Paused (Logs)**   | Toggle button | Live    | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.             |
+| **Close**                  | Push button | –         | Closes the dialog.                                                                                                                      |
+
+### Indicators
 
 All indicators refresh once per second.
+
+| Indicator               | Meaning                                                                                                  |
+|--------------------------|----------------------------------------------------------------------------------------------------------|
+| **Status**              | Overall link quality, color-coded green → red. States: Excellent, Very Good, Good, Fair, Poor.           |
+| **Target Radio IP**     | IP of connected radio, or "Not connected".                                                              |
+| **Selected Source**     | Local NIC/bind path used for the connection.                                                            |
+| **Local TCP**           | Local TCP endpoint.                                                                                     |
+| **Local UDP**           | Local UDP endpoint.                                                                                     |
+| **First UDP Packet**    | Whether the first UDP packet has been received since connect. States: Yes, No.                          |
+| **Latency (RTT)**       | Current round-trip time.                                                                                |
+| **Max Latency (RTT)**   | Highest RTT seen since connect.                                                                         |
+| **Audio / FFT / Waterfall / Meters / DAX rates** | Per-category ingress rate in kbps.                                                   |
+| **Total RX / Total TX** | Aggregate bytes per second in each direction.                                                           |
+| **Audio / FFT / Waterfall / Meters / DAX drops** | Per-category dropped-packet counts and percentage.                                   |
+| **RX Buffer Now / Peak**| Current and peak audio buffer fill in bytes and ms.                                                      |
+| **Underruns (total / last sec)** | Audio underrun counters.                                                                        |
+| **Audio Arrival Gap / Max Arrival Gap** | Inter-packet arrival timing.                                                           |
+| **Network Jitter**      | Smoothed jitter estimate of audio stream in ms.                                                         |
+| **Log path label**      | Shows the full path of the log file being tailed.                                                       |
 
 ## Using the Logs tab
 
@@ -73,7 +103,6 @@ The Logs tab provides a live tail of the AetherSDR log file directly inside the 
 - **Underruns (last sec) is non-zero but Underruns (total) is small** — The problem is intermittent. Leave the dialog open and wait for a longer observation period. Watch **Max Arrival Gap** for evidence of periodic bursts.
 - **Network Jitter is high but Audio drops show zero** — Packets are arriving late rather than being lost. Jitter directly reduces the effective buffer margin. Check for other UDP traffic competing on the same interface.
 - **Logs tab shows no output** — Confirm the log file path shown at the top of the tab is accessible. If no categories are checked, click **Select All (Logs)** to restore visibility.
-- **Dialog appears with standard window frame** — The `FramelessWindow` setting may be set to `False`. To enable frameless mode, set `FramelessWindow` to `True` in the AetherSDR configuration file. The dialog respects the setting each time it opens.
 
 ## Related
 

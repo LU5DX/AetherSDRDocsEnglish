@@ -64,6 +64,25 @@ Two client-side launcher buttons appear at the end of the DSP grid:
 | **ADSP** | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | **AetherVoice** | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 
+### Client-side noise reduction toggles
+
+The following client-side noise reduction buttons appear in the DSP tab when enabled by the radio series and build:
+
+| Button | Algorithm |
+|---|---|
+| NR2 | Client-side noise reduction algorithm 2 |
+| NR4 | Client-side noise reduction algorithm 4 |
+| RN2 | Client-side noise reduction algorithm RN2 |
+| MNR | Client-side noise reduction algorithm MNR |
+| DFNR | Client-side noise reduction algorithm DFNR |
+| BNR | Client-side noise reduction algorithm BNR |
+| NRL | Noise reduction level |
+| NRS | Spectral subtraction |
+| RNN | RNN noise reduction |
+| NRF | Spectral noise filter |
+
+Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
+
 ### DSP level slider
 
 A shared level slider row appears below the button grid. The slider adjusts the strength of whichever leveled DSP button was most recently turned on. The label to the left of the slider shows the active target (for example, **NR** or **NB**). The numeric value is shown to the right.
@@ -77,6 +96,28 @@ Starting in v0.9.8, when a leveled DSP algorithm is enabled from the radio's sav
 ### Filter width label
 
 The filter width label shows the current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Starting in v0.9.8, this label uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts.
+
+### RX and TX antenna menus
+
+The **RX antenna button** opens a menu to select the receive antenna for this slice. The **TX antenna button** opens a menu to select the transmit antenna. Starting in v26.5.2, these menus use the slice's radio-provided antenna list when available, falling back to the global antenna list. TX antenna options automatically exclude RX-only antenna ports. Each menu item shows its raw antenna name as a tooltip.
+
+### Marker controls
+
+The **Marker thickness button** cycles the VFO marker line through Off, 1 px, and 3 px. The setting is persisted per slice as `Slice{N}_MarkerWidth`.
+
+The **Filter edges button** toggles the filter edge lines on the spectrum passband. The setting is persisted per slice as `Slice{N}_FilterEdgesHidden`.
+
+### Collapse toggle
+
+The **Collapse toggle** collapses the VFO panel to a compact frequency-only strip. The setting is persisted per slice as `SliceFlagCollapsed_{N}`.
+
+### Slice badge
+
+The slice badge shows the slice letter. Starting in v26.5.2, the badge supports rich text formatting, allowing special characters (issue #2606).
+
+### Frequency entry
+
+Click the frequency display to begin direct frequency entry. Type the frequency in MHz and press Enter or Tab. Starting in v26.5.2, on XVTR bands the frequency range is extended to 50000.0 MHz. For 2m/70cm bands (100-999 MHz range), a bare integer like 1446 is automatically interpreted as 144.6 MHz by inserting a decimal after the third digit. For 23cm and microwave bands, a bare integer represents MHz directly.
 
 ## Tips
 

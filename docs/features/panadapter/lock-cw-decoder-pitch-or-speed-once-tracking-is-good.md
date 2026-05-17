@@ -25,6 +25,15 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 | Hi (pitch max)                | Sets the upper bound of the pitch range the decoder searches.                                                                                                         | 700 Hz   |
 | Sens                          | Filters low-confidence decodes. Higher values are stricter.                                                                                                           | 30       |
 | CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | —        |
+
+## TX-side decoded CW display
+
+The CW decoder can also display your own transmitted keying alongside incoming signals. This is useful for monitoring your sending quality or for off-air practice.
+
+- Your transmitted CW is shown in cyan to distinguish it from received text.
+- When switching from transmit to receive, a space is inserted to separate the burst from the following received text.
+- TX-side decodes use the same confidence filter (Sens) as received decodes.
+
 ## Tips
 
 - Lock pitch and speed independently. You can lock only one if the other is still settling.
@@ -36,6 +45,7 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 
 - **CW stats label is blank or not updating** — The decoder has not acquired a signal. Check that PC audio is routed correctly (the hint label reads `(requires PC Audio)`), that the signal falls within the Lo–Hi pitch range, and that Sens is not set so high that all decodes are rejected.
 - **Locked pitch produces no output after tuning away and back** — Locking pitch holds the decoder to the frequency at the time of locking. If you retuned the VFO, the signal pitch seen by the decoder may have shifted. Release 🔒P, retune, and re-lock once the stats label stabilises.
+- **TX-side decoded text not appearing** — Ensure PC audio is routed for both receive and transmit paths. The CW decoder only generates TX output when audio is available from your transmitted keying.
 
 ## Related
 

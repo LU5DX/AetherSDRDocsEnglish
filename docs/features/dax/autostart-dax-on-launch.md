@@ -29,10 +29,18 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 | DAX 4 gain+meter | Combined level meter and gain slider for DAX RX channel 4. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain4` |
 | TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
 
+## Indicator meanings
+
+| Indicator | States | Meaning |
+|---|---|---|
+| DAX 1..4 assignment | — or Slice A..H | The slice (if any) currently assigned to this DAX channel. Displays the slice letter in the active radio model's color. |
+| TX assignment | — or Slice A..H | The slice currently holding TX privileges (drives DAX TX). Displays the slice letter in the active radio model's color. |
+
 ## Tips
 
 - The **Enable** button and **Settings > Autostart DAX with AetherSDR** both write the same `AutoStartDAX` key. Clicking either one updates the shared setting.
 - Gain values for all four RX channels and the TX channel are saved independently. Adjusting them before enabling autostart means they will be restored at the same levels on the next launch.
+- Slice assignment indicators now display the slice letter in the active radio model's color (rich text format) for improved visibility. This affects both DAX RX channel assignments and TX assignment indicators.
 
 ## Troubleshooting
 

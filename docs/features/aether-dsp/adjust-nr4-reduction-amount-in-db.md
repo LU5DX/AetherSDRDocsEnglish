@@ -2,7 +2,7 @@
 
 The **AetherDSP Settings** dialog (`Settings > AetherDSP Settings...`) controls the client-side noise-reduction engines built into AetherSDR: NR2, NR4, MNR, RN2, BNR, and DFNR. Open it at any time; a radio connection is not required to change these parameters. All values are saved automatically when you close the dialog. The six DSP modules are selectable via a toggle row at the top; clicking a toggle also activates or bypasses that engine.
 
-The dialog uses a custom frameless title bar with window controls matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip when the "FramelessWindow" application setting is enabled (the default). When disabled, the dialog uses the standard window frame provided by the operating system. Drag the title bar to move the dialog; double-click to toggle maximize/restore. Drag any edge or corner to resize. Resizing is only available in frameless mode.
+The dialog uses a custom frameless title bar with window controls matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. Dialog position and size are persisted automatically between sessions. Drag the title bar to move the dialog; double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize (6 px resize hit zone around the inner content widget).
 
 ## Before you start
 
@@ -164,7 +164,6 @@ DFNR uses the DeepFilterNet3 neural network for noise reduction. Click the **DFN
 - **MNR controls are grayed out** — MNR is available on macOS only. On Linux and Windows the MNR tab is informational.
 - **NR4 toggle is grayed out on Windows** — NR4 requires LLVM (clang-cl) to compile. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 - **Changes appear to reset** — each tab has a **Reset Defaults** button. Verify you have not accidentally clicked it.
-- **Dialog shows standard window frame instead of custom title bar** — the "FramelessWindow" application setting is disabled. Enable it to restore the custom chrome.
 
 ---
 

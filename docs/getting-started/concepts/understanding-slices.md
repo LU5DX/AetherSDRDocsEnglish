@@ -27,9 +27,9 @@ In multi-slice mode, each panadapter can contain one or more slice markers. Clic
 
 ## Switching between slices
 
-The RX Controls applet shows a row of tabs labeled **A** through **H** (up to the radio's maximum slice count). Click a tab to bind the RX Controls applet to that slice. The **Slice badge** indicator in the applet updates to show the active slice letter, colored by slice identity.
+The RX Controls applet shows a row of tabs labeled **A** through **H** (up to the radio's maximum slice count). Click a tab to bind the RX Controls applet to that slice. The **Slice badge** indicator in the applet updates to show the active slice letter, colored by slice identity. The badge supports rich text rendering for the slice letter.
 
-The tab row is hidden when only one slice is in use.
+The tab row is hidden when only one slice is in use. When the radio is disconnected, `clearSliceButtons()` tears down all tab buttons and restores the static slice badge.
 
 ## The TX slice
 
@@ -55,6 +55,10 @@ Adjust the **AF gain** slider (0–100) to set the slice audio output volume. Us
 
 Enable the squelch by clicking the **SQL** button, then adjust the **Squelch level** slider (0–100) to set the threshold. The squelch only takes effect when SQL is toggled on.
 
+Squelch is automatically disabled in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters and break decoding.
+
+The Manual squelch threshold is persisted client-side across sessions. When auto-squelch mode is active, the radio may overwrite the slice's squelch level with algorithm-suggested values, so AetherSDR remembers your last manual preference and restores it.
+
 ## AGC
 
 Select the AGC mode from the **AGC mode** combo box: Off, Slow, Med, or Fast. The **AGC threshold** slider adjusts the AGC threshold level. When AGC mode is Off, the slider sets the off-level instead. The mode combo is hidden in FM family modes (FM, NFM, DFM).
@@ -71,11 +75,21 @@ When operating in FM, NFM, or DFM mode, the FM duplex controls appear:
 - **+ (offset up)** — Click to set TX frequency above RX.
 - **REV** — Click to invert the TX offset sign for a reversed repeater pair.
 
+## Antenna selection
+
+### RX antenna
+
+Click the **ANT1 (RX antenna)** button to open a menu listing available receive antennas. Selecting an antenna calls `setRxAntenna()` on the slice. The menu is populated from the slice's `rxAntennaList()` when available, otherwise from the panadapter's antenna list. Each menu item carries the antenna token as its data value and shows a display label with tooltip and status tip.
+
+### TX antenna
+
+Click the **ANT1 (TX antenna)** button to open a menu listing TX-capable antennas. RX-only antenna ports (prefix "RX") are filtered out. Selecting an antenna calls `setTxAntenna()` on the slice. Each menu item carries the antenna token as its data value and shows a display label with tooltip and status tip.
+
 ## Filter width presets
 
 Click a **Filter width presets** button to apply a preset filter width. Right-click a preset button to save the current filter width as a preset. Presets are per-mode and hidden for FM/NFM/DFM modes.
 
-The **Filter width label** indicator displays the current filter bandwidth (e.g., "2.7K", "3.3K", "500", "6.0K"). The filter width readout is shared with the VFO panel for consistent display.
+The **Filter width label** indicator displays the current filter bandwidth (e.g., "2.7K", "3.3K", "500", "6.0K"). The filter width readout is shared with the VFO panel for consistent display, using mode-aware logic so SSB/digital modes display the correct labelled width.
 
 Use the **Filter passband widget** to drag the low and high edges and adjust the filter passband manually.
 
@@ -85,7 +99,7 @@ Use the **Widen** and **Narrow** commands to step through the per-mode filter pr
 
 ## Mute
 
-Click the 🔊 / 🔇 button to mute or unmute the slice audio output.
+Click the 🔊 / 🔇 button to mute or unmute the slice audio output. Per the Radio-Authoritative Settings Policy, mute state is NOT saved or restored on reconnect — the radio is the source of truth for audio mute.
 
 ## QSK indicator
 
@@ -113,14 +127,15 @@ To update the overlay, call `setSwrSweepPoints()` with a vector of `SwrSweepPoin
 Points with non-finite `freqMhz` or `swr` values are silently skipped. Points whose mapped x-coordinate falls outside the visible spectrum area are not drawn.
 
 To remove the overlay, call `clearSwrSweepPoints()`.
+
 ## Tips
 
-- The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter.
+- The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter. The frequency editor supports up to 450 MHz when the slice is on an XVTR antenna.
 - The **STEP** spinbox controls how far the VFO moves per scroll-wheel click or per press of the **<** / **>** buttons. Step sizes are per-mode — for example, SSB steps are 1, 10, 50, 100, 500, 1000, 2000, or 3000 Hz; CW steps are 1, 5, 10, 50, 100, 200, or 400 Hz.
 - The default step size is 100 Hz (index 2 in the per-mode list).
 - Pressing Escape in the frequency edit field cancels the entry, restores the previous frequency, and dismisses the editor.
 - The **AF gain** and **L / R pan** sliders have a default value of 70 and 50 (centre) respectively.
-- The **Squelch level** default is 20.
+- The **Squelch level** default is 20. The manual squelch level is remembered across sessions.
 - The **AGC threshold** default is 65.
 
 ## Related

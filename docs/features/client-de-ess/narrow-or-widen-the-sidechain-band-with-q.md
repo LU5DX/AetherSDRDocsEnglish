@@ -26,7 +26,18 @@ The Q knob controls how wide or narrow the sidechain bandpass filter is around t
 | Sidechain response curve | —       | —               | Compact-mode bandpass response. Draws the bandpass filter response with a live ball at the current centre frequency. Axis labels (100, 500, 1k, etc.) are rendered using QStaticText for improved performance. |
 | Gain-reduction bar       | —       | 0 to 24 dB GR   | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz. |
 | Attack                   | 1.0 ms  | 0.1 to 30.0 ms  | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
-| Release                  | 100 ms  | 0.1 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
+| Release                  | 100 ms  | 10.0 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
+
+## Value entry via inline text editor
+
+As of v26.5.2.1, all knobs in the Aetherial De-Esser support direct numeric entry through an inline text editor:
+
+1. **Activate the editor**: Click any knob's current value text. The value area gains focus and a subtle dark inset with a cyan border appears, indicating edit mode.
+2. **Enter a value**: Type the desired numeric value. The editor accepts locale-aware decimal formats (e.g., "12,5" in comma-decimal locales) and tolerates extra characters such as unit labels (e.g., "2.00" or "2.00 ms").
+3. **Commit the value**: Press **Enter** or click anywhere outside the editor. The value is clamped to the knob's valid range and applied immediately.
+4. **Cancel**: Press **Escape** to revert to the previous value without committing.
+
+This feature provides precise, one-step adjustment without rotating the knob, especially useful for recalling saved settings or matching a known value.
 
 ## Bypass dimming
 
@@ -38,6 +49,7 @@ When the DESS stage is bypassed via a single-click in the CHAIN widget, the enti
 - Very high Q values (above 4.0) can make the de-esser miss slightly off-centre sibilants. If GR stops triggering reliably, lower Q slightly or re-sweep Freq.
 - The response curve gives immediate visual feedback — use it to judge whether the bell is too broad or too sharp before committing to a setting.
 - Settings are saved independently for TX and RX instances via separate setting keys: `ClientDeEssTxQ` for TX and `ClientDeEssRxQ` for RX.
+- Use the inline value editor (click the current value) for precise numeric entry when you know the exact Q you need.
 
 ## Related
 

@@ -1,29 +1,94 @@
-# Fix a static/stale spectrum in a popped-out panadapter on macOS
+# Panadapter Applet
 
-On macOS, popping a panadapter out into a floating window can leave the spectrum frozen — the FFT and waterfall stop updating even though the radio is still connected. This is a known Metal/GPU surface issue that AetherSDR resolves automatically as of v0.9.5.1.
+## Overview
 
-## Before you start
+The Panadapter applet provides a container for a single panadapter display (FFT spectrum + waterfall) with a title bar and an optional CW decode panel underneath for off-air Morse decoding.
 
-- AetherSDR v0.9.5.1 or later is installed. Earlier versions do not contain the fix.
-- You are running macOS with a FLEX-8600 connected.
-- You have more than one panadapter open (the ⬈ / ↩ pop-out button is hidden in single-pan mode).
+## Title Bar Controls
 
-## Steps
+The title bar contains the following controls (visible only in multi-pan mode):
+
+| Control | Type | Behavior |
+|---------|------|----------|
+| Slice title | Indicator | Shows which slice is bound to this panadapter (Slice A..Slice H). Uses rich text formatting for the slice letter. |
+| ⬈ / ↩ (pop-out/dock) | Push button | Pops the panadapter out into a floating window or docks it back. In v0.9.5.1+, GPU resources are reset on each float/dock cycle for macOS compatibility. Floating window is frameless — drag via the title strip. |
+| □ (maximize) | Push button | Maximizes this panadapter in a multi-pan layout. |
+| × (close) | Push button | Closes this panadapter. |
+
+## Spectrum and Waterfall
+
+The main spectrum/waterfall area provides:
+- Click to activate the panadapter
+- Drag to tune
+- Scroll to zoom
+
+**TX-freeze behavior (v0.9.7+):** The waterfall freeze/unfreeze is driven by the radio's interlock TRANSMITTING state rather than the local MOX edge, eliminating the 10–23 second TX-trail artifact after unkeying. In Multi-Flex setups, any client transmitting triggers the freeze.
+
+**Reconnect behavior:** On radio reconnect, the desired panadapter FPS and waterfall line duration are automatically reasserted to prevent dropping to the radio's default 10 Hz (#2465).
+
+## CW Decode Panel
+
+The CW decode panel provides off-air Morse decoding with the following controls:
+
+### Decoder Controls
+
+| Control | Type | Default | Range | Behavior |
+|---------|------|---------|-------|----------|
+| Sens | Slider | 30 | 0-100 | Filters low-confidence decodes; higher = stricter. Maps 0-100 to cost threshold 1.0-0.1. |
+| 🔒P (Lock Pitch) | Toggle button | — | — | Locks the CW decoder pitch to the current tuned frequency. |
+| 🔒S (Lock Speed) | Toggle button | — | — | Locks the CW decoder speed to the current WPM. |
+| Lo (pitch min) | Slider | 500 | 300-1200 Hz | Minimum pitch the CW decoder searches; clamped ≤ Hi. |
+| Hi (pitch max) | Slider | 700 | 300-1200 Hz | Maximum pitch the CW decoder searches; clamped ≥ Lo. |
+
+### Display Controls
+
+| Control | Type | Behavior |
+|---------|------|----------|
+| CW stats label | Indicator | Shows detected CW pitch and speed (e.g., "700 Hz 25 WPM"). |
+| CPY ALL | Push button | Copies the full decoded text to the clipboard. |
+| CPY VIS | Push button | Copies only the text currently visible in the scroll area. |
+| CLR | Push button | Clears the CW decode buffer. |
+| ✕ (close CW) | Push button | Hides the CW decode panel. |
+
+### Decoded Text Display
+
+The read-only rolling display shows decoded CW with color coding by confidence:
+- **Green:** < 0.15 confidence cost
+- **Yellow:** < 0.35 confidence cost
+- **Orange:** < 0.60 confidence cost
+- **Red:** ≥ 0.60 confidence cost
+
+**TX decode support (v0.9.7+):** When both incoming and outgoing CW are decoded through the same panel, transmitted text appears in cyan (#5fc8ff) to distinguish it from received text. A separator space is automatically inserted between TX and RX runs to prevent visual merging (#2417).
+
+### Decoder Requirements
+
+- Requires PC audio routing to the radio for off-air decoding.
+- When PC audio is not configured, a "(requires PC Audio)" hint is shown.
+
+## Floating Window Behavior (macOS)
+
+**Metal GPU surface issue (v0.9.5.1+):** On macOS, popping a panadapter out into a floating window can leave the spectrum frozen. AetherSDR automatically resolves this by resetting GPU resources and re-binding the Metal rendering surface during each float/dock cycle.
+
+### Steps to restore spectrum after freeze
 
 1. In the panadapter title bar, click ↩ to dock the floating panadapter back into the main window.
 2. Click ⬈ to pop it out again.
 
-AetherSDR resets the GPU resources and re-binds the Metal rendering surface to the new window during each float/dock cycle. After step 2 the spectrum should be live.
+After step 2 the spectrum should be live.
 
-## Tips
+### Tips
 
-- If the spectrum is still static after one dock/pop cycle, repeat the cycle once more. A stale WAN disconnect state can occasionally require a second reset.
-- Quitting and relaunching AetherSDR also clears the condition. The application releases GPU resources during shutdown specifically to prevent a Metal teardown crash in this scenario.
+- If the spectrum is still static after one dock/pop cycle, repeat the cycle once more.
+- Quitting and relaunching AetherSDR also clears the condition.
 
-## Troubleshooting
+### Troubleshooting
 
-- **The ⬈ pop-out button is not visible** — You are in single-pan mode. Add a second panadapter to enable multi-pan mode; the title bar buttons appear only when more than one panadapter is present.
-- **Spectrum is still frozen after dock/undock** — Confirm you are on v0.9.5.1 or later. Earlier builds do not call the GPU resource reset on float/dock cycles.
+- **The ⬈ pop-out button is not visible** — You are in single-pan mode. Add a second panadapter to enable multi-pan mode.
+- **Spectrum is still frozen after dock/undock** — Confirm you are on v0.9.5.1 or later.
+
+## Multi-Flex Session Support (v0.9.7+)
+
+In Multi-Flex sessions, the slice title uses the radio-provided index letter to match the slice badge. The optional per-client letter overrides the standard A-H assignment to ensure the title matches the actual slice being displayed (#2606).
 
 ## Related
 

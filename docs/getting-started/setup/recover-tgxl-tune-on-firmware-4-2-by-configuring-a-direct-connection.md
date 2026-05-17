@@ -1,28 +1,30 @@
 # Radio Setup
 
-The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals and (optionally) FlexControl serial.
+The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, antennas, audio, filters, XVTR, USB cables, peripherals, APD, themes and (optionally) FlexControl serial.
+
+The dialog remembers its size and position between sessions.
 
 ## Radio tab
 
 The Radio tab displays radio identification, license information and firmware update controls.
 
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Radio SN | Chassis serial number (read-only). | — | — |
-| Region | Radio regulatory region (read-only). | USA | — |
-| HW Version | Hardware version string (read-only). | — | — |
-| Remote On | Enables remote wake / remote-on. | — | — |
-| Options | Shows licensed radio options (read-only). | — | — |
-| FlexControl | Detected state of FlexControl hardware (read-only). | — | — |
-| multiFLEX | multiFLEX enabled state (read-only). | — | — |
-| Model | Radio model (read-only). | — | — |
-| Nickname | User-friendly radio nickname. | — | — |
-| Callsign | Station callsign. | — | — |
-| Station Name | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. | — | `StationName` |
-| License Info | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version). | — | — |
-| Check for Update | Queries for firmware updates. | — | — |
-| Browse .ssdr... | Chooses a firmware image file. | — | — |
-| Upload Firmware | Starts firmware upload with progress bar and status. | — | — |
+| Control                       | Behavior                                                                                                                                                                                     | Default                                                                                                                                                                |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                      | Chassis serial number (read-only).                                                                                                                                                           | —                                                                                                                                                                      |
+| Region                        | Radio regulatory region (read-only).                                                                                                                                                         | USA                                                                                                                                                                    |
+| HW Version                    | Hardware version string (read-only).                                                                                                                                                         | —                                                                                                                                                                      |
+| Remote On                     | Enables remote wake / remote-on.                                                                                                                                                             | —                                                                                                                                                                      |
+| Options                       | Shows licensed radio options (read-only).                                                                                                                                                    | —                                                                                                                                                                      |
+| FlexControl                   | Detected state of FlexControl hardware (read-only).                                                                                                                                          | —                                                                                                                                                                      |
+| multiFLEX                     | multiFLEX enabled state (read-only).                                                                                                                                                         | —                                                                                                                                                                      |
+| Model                         | Radio model (read-only).                                                                                                                                                                     | —                                                                                                                                                                      |
+| Nickname                      | User-friendly radio nickname.                                                                                                                                                                | —                                                                                                                                                                      |
+| Callsign                      | Station callsign.                                                                                                                                                                            | —                                                                                                                                                                      |
+| Station Name                  | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty.                                                                                          | —                                                                                                                                                                      |
+| License Info                  | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                                                                           | —                                                                                                                                                                      |
+| Check for Update              | Queries for firmware updates.                                                                                                                                                                | —                                                                                                                                                                      |
+| Browse .ssdr...               | Chooses a firmware image file.                                                                                                                                                               | —                                                                                                                                                                      |
+| Upload Firmware               | Starts firmware upload with progress bar and status.                                                                                                                                         | —                                                                                                                                                                      |
 
 ### Summary area
 
@@ -56,13 +58,15 @@ The TX tab configures TX timings, interlocks, max power, tune mode, waterfall di
 | Control | Behavior | Default | Setting key |
 |---|---|---|---|
 | TX Band Settings | Opens the dedicated per-band power/tune dialog. | — | — |
-| Timings (in ms) | TX hang / delay timings. | — | — |
+| Timings | TX hang / delay timings in milliseconds; timeout is displayed in seconds. | — | — |
 | Interlocks - TX REQ: RCA / Accessory | Enables RCA and accessory interlock inputs. | — | — |
 | Max Power: | Sets radio-level TX power cap (0-100%). | — | — |
 | Tune Mode: | Selects how the tune button behaves. | — | — |
 | Show TX in Waterfall: | Draws TX signal in the waterfall. | — | — |
 | TX Follows Active Slice | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. | False | `TxFollowsActiveSlice` |
 | Active Slice Follows TX | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. | False | `ActiveFollowsTxSlice` |
+
+**Note on timeout field:** The "Timeout" field is now labeled **Timeout (sec)** and displays the value in seconds. Internally the radio stores it in milliseconds; the setting is converted automatically when sent.
 
 ## Phone/CW tab
 
@@ -120,6 +124,14 @@ The status label next to the combo box was updated to show richer information:
 - While waiting for the radio to report oscillator status, the label reads **Waiting for oscillator status**.
 
 The label color is green when locked and red when unlocked. Before the radio reports any oscillator state, the label is shown in a neutral gray.
+
+## Antennas tab
+
+The Antennas tab allows you to assign friendly names to each antenna port on the radio.
+
+| Control | Behavior | Default | Setting key |
+|---|---|---|---|
+| ANT1 / ANT2 / XVTA / XVTB | Text fields to set user-friendly names for each antenna port. | — | — |
 
 ## Audio tab
 
@@ -189,12 +201,4 @@ See the dedicated section below for detailed setup instructions.
 |---|---|---|---|
 | Connect / Disconnect (TGXL) | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect. | Connect | — |
 | Connect / Disconnect (PGXL) | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | Connect | — |
-| Connect / Disconnect (Antenna Genius) | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. | Connect | — |
-
-### IP field clearing behavior (v26.5.1)
-
-In v26.5.1, the peripherals tab handles cleared IP fields as follows:
-
-- **When connected:** If you clear the IP field and click `Disconnect`, the saved manual IP and port are removed immediately before the disconnect occurs. This ensures downstream visibility handlers (e.g., SmartSDR button visibility) see the cleared settings.
-- **When disconnected:** If you clear the IP field (so it is empty) and click `Connect`, the dialog treats this as "save back to default" — it removes any previously-saved manual IP and port. No connection attempt is made.
-- **On dialog close:** If you clear the IP field and close the dialog without clicking `Connect` or `Disconnect`, the saved manual IP and port are removed
+| Connect / Disconnect (Antenna Genius) | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port

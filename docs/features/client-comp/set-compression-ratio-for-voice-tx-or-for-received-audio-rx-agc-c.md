@@ -14,7 +14,8 @@ The Ratio knob controls how hard the compressor clamps peaks once the signal cro
    - For TX voice compression, this knob persists to `ClientCompTxRatio`.
    - For RX AGC-C, this knob persists to `ClientCompRxRatio`.
 3. Read the current value from the label beneath the knob. It is formatted as `X.XX:1` (for example, `3.00:1`).
-4. Watch the gain-reduction bar and the envelope ball on the transfer curve while you speak (TX) or while audio plays (RX) to confirm the ratio is producing the intended amount of gain reduction.
+4. Optionally click the value label beneath a knob to enter a precise numeric value. The label turns into an editable text field with a dark background and cyan border. Type a value and press Enter, or click elsewhere, to commit the new value. Press Escape to cancel editing and restore the previous value. This inline editor is available on all five knobs (Thresh, Ratio, Attack, Release, Makeup).
+5. Watch the gain-reduction bar and the envelope ball on the transfer curve while you speak (TX) or while audio plays (RX) to confirm the ratio is producing the intended amount of gain reduction.
 
 ## What each control does
 
@@ -42,11 +43,13 @@ The horizontal amber strip fills from right to left, showing up to 20 dB of gain
 - The gain-reduction bar shows up to 20 dB of reduction. A tick mark at -6 dB indicates a typical working amount of gain reduction. If the bar rarely reaches that tick, the threshold may be set too high for the current ratio to have much effect.
 - Raising the ratio while reducing Makeup keeps the average output level steady while tightening the dynamic range.
 - To access the Knee and limiter ceiling controls, which further shape how the ratio is applied, open the full editor by double-clicking the COMP stage in the CHAIN widget.
+- Clicking a knob's value label opens an inline editor for precise numeric entry. This works on all five knobs and supports locale-aware decimal separators (for example, "12,5" in comma-decimal locales). The editor also accepts values with trailing units or symbols (for example, "12.5 ms" or "−6 dB").
 
 ## Troubleshooting
 
 - **Ratio knob has no audible effect** — The stage may still be in bypass. Confirm the compressor is enabled on the correct side (TX or RX) via the CHAIN widget. When the stage is bypassed, the applet tile dims to approximately 55% opacity; restore full opacity by enabling the stage.
 - **Gain-reduction bar is pinned at maximum** — The threshold is likely too low relative to the incoming signal level. Lower the ratio or raise the Thresh knob until the bar shows moderate, intermittent reduction.
+- **Inline editor does not accept the entered value** — Ensure the value is within the valid range for that knob (see the table above). The editor clamps out-of-range values to the nearest valid limit when you press Enter or click elsewhere.
 
 ## Related
 

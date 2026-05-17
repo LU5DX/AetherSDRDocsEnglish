@@ -83,6 +83,7 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 - The `Remote radios` list is sized for compact display; scroll within the list if the radio you want is not immediately visible.
 - The `Radio IP address` field stores up to three recent addresses. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
 - On the Local page, you can quickly switch to SmartLink or Manual mode using the shortcut buttons.
+- When switching to or from frameless mode, AetherSDR preserves the dialog geometry only if the dialog was visible at the time of the switch.
 
 ## Troubleshooting
 

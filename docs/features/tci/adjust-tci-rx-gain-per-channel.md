@@ -25,6 +25,9 @@ The TCI Server applet provides a gain slider for each of its four RX channels. A
 | Slice assignment label | —       | — or `Slice <letter>` |
 
 Each meter/slider also displays a live RX level using exponential smoothing — fast attack, slow decay — so the bar reflects signal activity on that channel while the drag position sets the gain.
+
+The slice assignment labels now render slice letters with rich text formatting (#2606). This allows external slice indicators (for example, a colored or styled marker on the slice letter) to display correctly in the status label. The label text is generated using `SliceLabel::richText()` instead of a raw letter, ensuring any HTML formatting embedded in the slice's representation is preserved.
+
 ## Tips
 
 - The slice assignment labels (for example, `Slice A`) follow the DAX channel mapping. If a slice's DAX channel assignment changes, the label updates automatically.

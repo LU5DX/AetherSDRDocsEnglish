@@ -40,6 +40,7 @@ The Window slider selects from discrete time window steps. The first two notches
 - **The Zoom slider snaps back after dragging** — This can happen if no audio is arriving and the display is showing the no-audio placeholder. The slider value is still saved; it takes effect as soon as audio resumes.
 - **Zoom resets after restarting AetherSDR** — Verify the value is being persisted. If the application closed abnormally, the `WaveApplet_ZoomPercent` setting may not have been written. Set the slider to the desired value after a clean launch.
 - **Window setting changed unexpectedly after update** — If upgrading from a previous version that used the `WaveApplet_TimeWindowSec` setting (1–20 s linear), the value is automatically migrated to the nearest discrete step in `WaveApplet_TimeWindowMs`. Verify the setting and adjust if needed.
+- **The no-audio placeholder message changed** — When no RX audio is arriving, the display now shows "Enable PC Audio" instead of "no RX audio". This indicates you need to enable PC audio in the radio settings or audio configuration. For TX, the message still shows "no TX audio".
 
 ## Related
 

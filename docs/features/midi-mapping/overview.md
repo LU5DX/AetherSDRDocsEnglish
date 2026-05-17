@@ -17,7 +17,7 @@ Open the dialog at `Settings > MIDI Mapping...`. The dialog is divided into two 
 
 Bindings can be saved to and loaded from named profiles using the Profile:, Save, and Load controls at the bottom of the dialog.
 
-Bindings and the last-used port are persisted automatically. The `MidiPort` setting stores the selected port name and `MidiAutoConnect` stores whether the port should be reopened on launch.
+Bindings and the last-used port are persisted automatically. The `MidiPort` setting stores the selected port name and `MidiAutoConnect` stores whether the port should be reopened on launch. The dialog remembers its size and position between sessions.
 
 ## What each control does
 

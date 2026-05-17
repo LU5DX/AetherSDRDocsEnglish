@@ -22,7 +22,8 @@ Set the output gain that the TCI server applies to the transmit audio stream bef
 
 The **TX gain+meter** is a combined meter and slider. The meter portion reflects the live TX audio level from the active TX slice. The slider position sets the gain applied to that audio before it is sent to TCI clients.
 
-The slice label next to **TX:** (for example, `Slice A` or `—`) is read-only. It shows which slice is currently assigned as the TX slice and updates automatically when the TX slice changes.
+The slice label next to **TX:** (for example, `Slice A` or `—`) is read-only. It shows which slice is currently assigned as the TX slice and updates automatically when the TX slice changes. Starting in v26.5.2.1, the slice label uses rich text formatting so that slice letters rendered as HTML display correctly (#2606).
+
 ## Tips
 
 - If no slice label appears next to **TX:** (it shows `—`), no TX slice is assigned. Assign a TX slice on the radio before adjusting TX gain.

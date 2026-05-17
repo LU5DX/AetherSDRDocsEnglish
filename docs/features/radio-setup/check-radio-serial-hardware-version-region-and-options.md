@@ -1,10 +1,20 @@
-# Check Radio Serial, Hardware Version, Region and Options
+# Radio Setup
 
-The Radio tab in Radio Setup shows identifying information reported directly by the radio — serial number, hardware version, regulatory region, and licensed options. Use this page to verify what hardware and options your radio has before troubleshooting or contacting support.
+The Radio Setup dialog is the master per-radio configuration window. It provides access to radio information, network settings, GPS, TX configuration, Phone/CW settings, RX calibration, audio configuration, antenna names, filter options, transverter definitions, USB cable assignments, peripheral connections, APD sampling, theme appearance, and FlexControl serial port setup.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Radio tab fields are populated from live radio data.
+- AetherSDR must be connected to the radio. Many fields are populated from live radio data.
+- The dialog remembers its size and position between sessions. If the dialog appears off-screen, delete the `RadioSetupDialogGeometry` entry from your settings file.
+
+## Opening Radio Setup
+
+1. Click `Settings > Radio Setup...`.
+2. The dialog opens at its last-used position and size.
+
+# Radio tab
+
+The Radio tab shows identifying information reported directly by the radio — serial number, hardware version, regulatory region, and licensed options. Use this page to verify what hardware and options your radio has before troubleshooting or contacting support.
 
 ## Steps
 
@@ -40,7 +50,7 @@ All Radio Information fields are read-only. No persisted settings keys are assoc
 
 # Network tab
 
-The Network tab in Radio Setup shows radio network information and advanced network options.
+The Network tab shows radio network information and advanced network options.
 
 ## Steps
 
@@ -60,7 +70,7 @@ The Network tab in Radio Setup shows radio network information and advanced netw
 
 # GPS tab
 
-The GPS tab in Radio Setup shows GPS presence and live lat/lon/alt/time/satellites info.
+The GPS tab shows GPS presence and live lat/lon/alt/time/satellites info.
 
 ## Steps
 
@@ -75,7 +85,7 @@ The GPS tab in Radio Setup shows GPS presence and live lat/lon/alt/time/satellit
 
 # TX tab
 
-The TX tab in Radio Setup shows TX timings, interlocks, max power, tune mode, waterfall display, slice/TX follow and TX Band Settings shortcut.
+The TX tab shows TX timings, interlocks, max power, tune mode, waterfall display, slice/TX follow and TX Band Settings shortcut.
 
 ## Steps
 
@@ -87,7 +97,7 @@ The TX tab in Radio Setup shows TX timings, interlocks, max power, tune mode, wa
 | Label | Kind | Behavior |
 |---|---|---|
 | TX Band Settings | Push button | Opens the dedicated per-band power/tune dialog. |
-| Timings (in ms) | Spinbox | TX hang / delay timings. |
+| Timings (in ms / Timeout (sec)) | Spinbox / Text field | TX hang / delay timings. The **Timeout** field is displayed in seconds; the radio stores the value in milliseconds (FlexLib internal). |
 | Interlocks - TX REQ: RCA / Accessory | Toggle button | Enables RCA and accessory interlock inputs. |
 | Max Power: | Spinbox | Sets radio-level TX power cap. Range 0-100 %. |
 | Tune Mode: | Combo box | Selects how the tune button behaves. |
@@ -95,9 +105,20 @@ The TX tab in Radio Setup shows TX timings, interlocks, max power, tune mode, wa
 | TX Follows Active Slice | Push button | TX follows the active slice. Mutually exclusive with Active Slice Follows TX. Disabled automatically during Split operation. |
 | Active Slice Follows TX | Push button | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with TX Follows Active Slice. |
 
+### TX Timings
+
+The timing fields control how long the radio holds key states:
+
+| Field | Display unit | Radio storage unit | Behavior |
+|---|---|---|---|
+| ACC TX: | ms | ms | Accessory TX delay. |
+| TX Delay: | ms | ms | TX keying delay. |
+| RCA TX1: | ms | ms | RCA TX1 delay. |
+| Timeout: | seconds | ms | Interlock timeout. Displayed in whole seconds for readability; the radio expects and stores milliseconds. |
+
 # Phone/CW tab
 
-The Phone/CW tab in Radio Setup shows microphone, CW keyer, RTTY defaults.
+The Phone/CW tab shows microphone, CW keyer, RTTY defaults.
 
 ## Steps
 
@@ -119,7 +140,7 @@ The Phone/CW tab in Radio Setup shows microphone, CW keyer, RTTY defaults.
 
 # RX tab
 
-The RX tab in Radio Setup shows GPSDO frequency offset calibration and 10 MHz reference source.
+The RX tab shows GPSDO frequency offset calibration and 10 MHz reference source.
 
 ## Steps
 
@@ -137,12 +158,12 @@ The RX tab in Radio Setup shows GPSDO frequency offset calibration and 10 MHz re
 
 ## Frequency calibration
 
-In v0.9.2.1 the calibration controls in the **RX** tab are always visible regardless of whether a GPSDO is installed. Previously, the Cal Frequency, Start, and Freq Offset fields were hidden when a GPSDO was detected. The status banner at the top of the group now reads:
+The calibration controls are always visible regardless of whether a GPSDO is installed. The status banner at the top of the group reads:
 
 - **GPSDO installed** — "GPSDO installed. Manual frequency offset calibration available." (green text)
 - **No GPSDO** — "Manual frequency offset calibration available." (amber text)
 
-The following controls are now available in both configurations:
+The following controls are available in both configurations:
 
 | Label | Kind | Behavior |
 |---|---|---|
@@ -161,11 +182,11 @@ A status label appears to the right of the Start button and updates throughout t
 
 The Start button is re-enabled and its label reverts to **Start** when the calibration sequence completes or fails.
 
-## 10 MHz reference source (v0.9.7)
+## 10 MHz reference source
 
-In v0.9.7 the **10 MHz Reference Source:** combo box and its accompanying lock-status label were updated to handle a wider range of oscillator states reported by the radio.
+The **10 MHz Reference Source:** combo box and its accompanying lock-status label were updated to handle a wider range of oscillator states reported by the radio.
 
-**Combo box population:** The list of available sources is now built dynamically each time the tab opens or the radio's oscillator state changes. Sources appear in the combo only if the radio reports the relevant hardware as present, if the current setting or active state uses that source, or if oscillator status has been received (in which case TCXO and External 10 MHz are always included as options). The fixed options from earlier versions — which could show sources the radio did not have — are no longer used.
+**Combo box population:** The list of available sources is built dynamically each time the tab opens or the radio's oscillator state changes. Sources appear in the combo only if the radio reports the relevant hardware as present, if the current setting or active state uses that source, or if oscillator status has been received (in which case TCXO and External 10 MHz are always included as options).
 
 | Source value | Label shown in combo |
 |---|---|
@@ -174,7 +195,7 @@ In v0.9.7 the **10 MHz Reference Source:** combo box and its accompanying lock-s
 | `gpsdo` | GPSDO |
 | `external` / `ext` | External 10 MHz |
 
-**Lock-status label:** The label to the right of the combo now shows richer state information:
+**Lock-status label:** The label to the right of the combo shows richer state information:
 
 | Condition | Text shown | Color |
 |---|---|---|
@@ -187,7 +208,7 @@ In v0.9.7 the **10 MHz Reference Source:** combo box and its accompanying lock-s
 
 # Audio tab
 
-The Audio tab in Radio Setup shows radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container.
+The Audio tab shows radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container.
 
 ## Steps
 
@@ -215,32 +236,17 @@ The Audio tab in Radio Setup shows radio audio outputs, compression, PC devices,
 | Idle timeout: | Spinbox | Seconds of silence before recording stops. Range 10-3600 sec, default 120. Stored in AppSettings as `QsoRecordingIdleTimeout`. |
 | NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | Controls the NVIDIA Broadcast noise-removal container. |
 
-# Filters tab
+# Antennas tab
 
-The Filters tab in Radio Setup shows low-latency / sharp filter options per bandwidth.
+The Antennas tab allows you to assign user-friendly names to each antenna port on the radio.
 
 ## Steps
 
 1. Click `Settings > Radio Setup...`.
-2. Click the **Filters** tab.
+2. Click the **Antennas** tab.
 
 ## What each control does
 
 | Label | Kind | Behavior |
 |---|---|---|
-| Voice / CW / Digital filter sharpness sliders | Slider | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
-| Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| Use Low Latency Filters for Digital Modes | Checkbox | Forces low-latency filters in DIGU/DIGL. |
-
-# XVTR tab
-
-The XVTR tab in Radio Setup shows per-transverter configuration.
-
-## Steps
-
-1. Click `Settings > Radio Setup...`.
-2. Click the **XVTR** tab.
-
-## What each control does
-
-| Label | Kind |
+| ANT1 / ANT2 / XVTA / XVTB | Text field | Text fields for entering custom names for each

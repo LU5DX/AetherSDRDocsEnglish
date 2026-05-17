@@ -17,6 +17,13 @@ Use the CWX panel to type a CW message and transmit it immediately. This is the 
 
 After transmission, the sent text appears in the **Send history scroll** area above the text field as a timestamped bubble.
 
+## Resend or clear history
+
+Right-click any history bubble to open a context menu with two options:
+
+- **Resend** — Transmits the same text again. The text appears as a new timestamped bubble in the history.
+- **Clear History** — Removes all history bubbles from the scroll area.
+
 ## How Send behaves depending on Live mode
 
 The **Send** button behaves differently depending on whether **Live** is currently on:
@@ -33,7 +40,7 @@ The **Send** button behaves differently depending on whether **Live** is current
 | **Setup** (view) | Shows the macro editor and QSK setup. | — |
 | **Speed:** | Sets CW send speed in WPM. | `CwxSpeedWpm` |
 | Send text area | Type your CW message here. Press Enter to send. | — |
-| Send history scroll | Displays previous sent buffers with character highlighting. Read-only. | — |
+| Send history scroll | Displays previous sent buffers with character highlighting. Read-only. Right-click a bubble for Resend or Clear History. | — |
 | **F1 … F12** (macros) | Sends the pre-written macro for that function key. | `CwxMacro_F1..F12` |
 | **F1 … F12** macro editors | Setup view editors for each macro. | `CwxMacro_F1..F12` |
 | **Delay:** | Sets inter-macro delay in milliseconds. Available in Setup view. | `CwxDelay` |
@@ -42,7 +49,7 @@ The **Send** button behaves differently depending on whether **Live** is current
 
 ## Keyboard shortcuts
 
-F1–F12 and Escape shortcuts are active only while the CWX panel is visible. This prevents ambiguity with other panels that may register the same keys (such as the Digital Voice Keyboard panel). When you switch to a different panel in the splitter, CWX shortcuts are disabled automatically.
+F1–F12 and Escape shortcuts fire when a CW mode slice is active, regardless of whether the CWX panel is visible. This lets you trigger macros even when another panel is focused.
 
 - **F1–F12** — Send the pre-written macro for that function key while a CW mode slice is active.
 - **Escape** — Clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
@@ -53,6 +60,7 @@ F1–F12 and Escape shortcuts are active only while the CWX panel is visible. Th
 - Pressing **Escape** clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
 - Adjust **Speed:** in the bottom bar without switching views. The spinbox is visible in both the send and setup views.
 - When you reconnect to a radio, the **Live** button reflects the radio's current live state automatically.
+- Right-click a history bubble to resend past text or clear the entire history.
 
 ## Troubleshooting
 
@@ -60,7 +68,7 @@ F1–F12 and Escape shortcuts are active only while the CWX panel is visible. Th
 - **Clicking Send does not transmit** — If **Live** was on, the first click on **Send** only turns **Live** off. Click **Send** a second time (or press **Enter**) to transmit the buffer.
 - **Pressing Enter does nothing** — Click inside the Send text area first to give it focus, then press Enter.
 - **Escape does not stop transmission** — Escape fires an application-wide shortcut. If a dialog or text widget captures the key first, click away from it and press Escape again.
-- **F1–F12 macros do not trigger** — Ensure the CWX panel tab is actively selected in the splitter. The shortcuts are disabled when the panel is hidden.
+- **F1–F12 macros do not trigger** — Ensure the active slice is in CW, CWL, or CWU mode. The shortcuts are controlled by the active slice mode, not by panel visibility.
 
 ## Related
 

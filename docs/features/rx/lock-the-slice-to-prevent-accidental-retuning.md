@@ -62,13 +62,24 @@ The `formatFilterWidth()` method is now a public static function, shared with th
 
 Squelch is disabled in NT mode, RTTY mode, and the existing digital modes (`DIGU`, `DIGL`). This prevents squelch from gating weak FSK signals and notching out characters, which would break decoding (#2504). If squelch was active when you switched into RTTY or a digital mode, AetherSDR turns it off automatically and saves the state so it can be restored when you leave the mode. The squelch button and slider remain disabled while the mode is active.
 
-## RADE mode activation (v26.5.1)
+## RADE mode activation (v26.5.2.1)
 
-When you select RADE mode from the mode combo box, the slice mode is set immediately on the slice before issuing the `radeActivated` signal. When switching away from RADE mode to any other mode, the `radeActivated(false)` deactivation is only emitted if the slice was actually in RADE mode prior to the switch. This defense-in-depth logic prevents spurious deactivation signals in the following scenarios:
+RADE ("Reverse Adaptive Digital Enhancement" or a specific digital mode) is a client-side only mode label. When you select RADE from the mode combo box, AetherSDR sets the mode immediately on the slice but the radio echoes back the real underlying mode (DIGL or DIGU) on the next status update. Because of this, the slice's internal `mode()` property will never be `"RADE"` after the radio responds.
 
-- Swapping between non-RADE modes (e.g., USB to LSB) on a slice that was never in RADE — no deactivate signal is sent.
-- Rebinding a slice via `setSlice()` — the current mode is always read from the bound slice, not from a leftover flag.
-- Externally activated RADE (via VFO combo, profile load on startup, or `MainWindow::activateRADE`) — the slice's mode is `"RADE"` regardless of how it got there, so the deactivate is correctly sent.
+When switching away from RADE mode to any other mode:
+
+- AetherSDR checks if the slice's mode was `"RADE"` before issuing the `radeActivated(false)` deactivation signal.
+- Because the radio overrides RADE with DIGL/DIGU, `mode() == "RADE"` is never true at the time of the switch. This means the deactivation signal is not emitted when switching away from RADE.
+
+To activate RADE mode from code (for example, via VFO combo, profile load on startup, or `MainWindow::activateRADE`), AetherSDR calls the internal RADE activation path directly rather than relying on the mode combo's value change. Use the `Activate RADE` button in the mode menu or the profile system to enable RADE.
+
+## Manual squelch threshold persistence (v26.5.2.1)
+
+The squelch level slider now persists the last user-chosen manual value across sessions. This is necessary because auto squelch mode can overwrite the `squelchLevel` on the slice with algorithm-suggested values, and the radio does not preserve the operator's manual preference across mode cycles or application launches.
+
+AetherSDR stores the manual threshold in the application settings under the key `LastManualSquelchLevel`. The value is clamped to the valid range of 0–100. On first launch, the default is 20.
+
+When you enable squelch and adjust the slider, the new value is saved immediately. When you launch a new session, the slider returns to the last saved manual level rather than the default.
 
 ## NT mode
 
@@ -77,6 +88,32 @@ Version 0.9.3 adds the `NT` mode alongside the existing digital modes (`DIGU`, `
 - **Filter presets** — NT shares the DIG filter preset set (100–2000 Hz). The filter width label updates accordingly.
 - **Filter width calculation** — The filter width display measures the high-edge offset, the same as USB and DIGU.
 - **Squelch** — The SQL button and squelch slider are disabled in NT mode. Because audio is routed via DAX in digital modes, squelch is not meaningful. If squelch was active when you switched into NT mode, AetherSDR turns it off automatically and restores it when you leave NT mode.
+
+## Antenna selection improvements (v26.5.2.1)
+
+The RX and TX antenna combo boxes now use the per-slice antenna lists when available, rather than relying solely on the global antenna list from the radio. This provides more accurate antenna options, especially for slices on different panadapters.
+
+### RX antenna menu
+
+- When the slice provides an `rxAntennaList()`, the menu shows only those antenna ports.
+- If the slice does not provide a list, the global `ant_list` from the panadapter status is used as a fallback.
+- Each menu action stores its antenna port name in the action's data property, ensuring correct selection even when display labels differ from port names.
+- Tooltips and status tips show the raw antenna port name for clarity.
+
+### TX antenna menu
+
+- The TX antenna menu is populated by a helper function `txAntennaOptions()`.
+- This function collects TX-capable antennas from both the global antenna list and any additional sources.
+- RX-only antenna ports (those starting with `RX` case-insensitively) are excluded from the menu.
+- Antenna ports with prefixes `ANT`, `TX`, or the exact string `XVTR` are considered TX-capable fallback tokens.
+
+### Display formatting
+
+Both antenna menus now use a helper `antennaMenuLabel()` to format display labels. The label includes the antenna port name followed by frequency range information in parentheses where available, making it easier to identify which antenna to select for a given band.
+
+## Slice badge formatting (v26.5.2.1)
+
+The slice badge label now supports rich text (HTML) rendering. This allows the slice letter to include formatting, such as superscript or subscript characters, when the slice identity requires it (#2606). The badge continues to use the same per-slice color scheme and fixed 20x20 pixel size as before.
 
 ## Related
 

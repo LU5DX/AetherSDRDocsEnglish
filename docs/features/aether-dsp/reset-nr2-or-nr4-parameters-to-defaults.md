@@ -10,15 +10,13 @@ The dialog opens with the currently active noise reduction tab selected.
 
 ## Dialog chrome
 
-The AetherDSP Settings dialog uses a title bar with a blue-gradient background and the dialog title "AetherDSP Settings" in bold 10 px text. A grip glyph (⋮⋮) appears on the left. Three window-control buttons sit at the right:
+The AetherDSP Settings dialog uses a frameless title bar with a blue-gradient background and the dialog title "AetherDSP Settings" in bold 10 px text. A grip glyph (⋮⋮) appears on the left. Three window-control buttons sit at the right:
 
 - **— (Minimize)** — Minimizes the dialog.
 - **□ (Maximize)** — Maximizes or restores the dialog. Double-clicking the title bar also toggles maximize/restore.
 - **× (Close)** — Closes the dialog.
 
-**Frameless mode** — When enabled (default), the dialog uses a frameless custom title bar with a 6 px resize hit zone. When disabled, the dialog uses the native OS window frame. The `FramelessWindow` setting in the AetherSDR preferences controls this behavior globally.
-
-Drag the title bar to move the dialog. Resize the dialog by dragging any edge or corner (8-axis resize).
+The dialog has a 6 px resize hit zone around the inner content widget. Drag the title bar to move the dialog. Resize the dialog by dragging any edge or corner (8-axis resize). The dialog geometry is persisted between sessions under the setting key `AetherDspDialogGeometry`.
 
 ## Tab selector behavior
 

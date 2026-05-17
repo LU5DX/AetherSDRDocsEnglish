@@ -39,13 +39,13 @@ The panel shows a status indicator at the top:
 
 ## Keyboard shortcuts
 
-The following keyboard shortcuts are active only while the DVK panel is visible:
+The following keyboard shortcuts are active based on the active slice's mode (mutually exclusive with CWX panel shortcuts):
 
 - **F1 through F8** — Select and play the corresponding slot (F1 = slot 1, F2 = slot 2, etc.).
 - **F9 through F12** — Select and play slots 9 through 12 (if your radio supports more than 8 slots).
 - **Escape** — Cancel a rename operation if the rename edit field is open; otherwise stop any DVK recording or playback.
 
-Shortcuts are automatically disabled when the DVK panel is hidden to avoid conflicts with other panels.
+Shortcuts are automatically enabled when the active slice is in a voice mode and disabled when switching to a CW mode, preventing conflicts with the CWX panel while allowing the keys to fire regardless of panel visibility.
 
 ## Tips
 

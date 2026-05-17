@@ -18,9 +18,9 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 
 | Control | Kind | Default | Behavior | Notes |
 |---------|------|---------|----------|-------|
-| RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. | |
-| TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. | |
-| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. | |
+| RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. Menu uses `rxAntennaList()` if available; otherwise falls back to the full antenna list. Each action sets the antenna via `data()`. | |
+| TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. Menu is built from `txAntennaOptions()` which filters out RX-only ports. Each action sets the antenna via `data()`. | |
+| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. | |
 | Filter width label | Indicator | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth. | Fixes a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
 | Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. | |
@@ -82,6 +82,7 @@ When squelch is disabled and was previously enabled, the system automatically tu
 - Use the **ADSP** button to open the AetherDSP Settings dialog for client-side noise reduction algorithms.
 - Use the **AetherVoice** button to open the Aetherial Audio Channel Strip for unified TX/RX DSP.
 - Squelch is automatically disabled in digital, RTTY, and CW modes. If you switch to one of these modes while squelch is on, the system will turn it off and save its state for restoration when you return to a voice mode.
+- The slice badge now supports rich text format for the slice letter (#2606), allowing proper HTML rendering in the badge label.
 
 ## Related
 

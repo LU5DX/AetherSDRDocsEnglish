@@ -21,13 +21,13 @@ No additional configuration is required. The PipeWire path is used automatically
 
 | Control | Default | Valid range | Persisted key | Description |
 |---|---|---|---|---|
-| Enable | Off | On / Off | `AutoStartDAX` | Master switch. Starts all DAX RX and TX streams. Must be on for audio to flow. |
+| DAX Enable | Off | On / Off | `AutoStartDAX` | Master switch. Starts all DAX RX and TX streams. Must be on for audio to flow. |
 | DAX 1 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain1` | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain. |
 | DAX 2 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain2` | Combined level meter and gain slider for DAX channel 2. |
 | DAX 3 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain3` | Combined level meter and gain slider for DAX channel 3. |
 | DAX 4 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain4` | Combined level meter and gain slider for DAX channel 4. |
 | TX gain+meter | 0.5 | 0.0 – 1.0 | `DaxTxGain` | Combined level meter and gain slider for the DAX TX stream. |
-| Slice-assignment status | — | — or Slice A–H | *(none)* | Read-only indicator showing which slice is routed to each DAX channel. |
+| Slice-assignment status (per channel) | — | — or Slice A–H | *(none)* | Read-only indicator showing which slice is routed to each DAX channel. |
 
 ## Tips
 

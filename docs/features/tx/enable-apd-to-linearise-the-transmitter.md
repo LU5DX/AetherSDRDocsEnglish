@@ -1,3 +1,4 @@
+```markdown
 # Enable APD to Linearise the Transmitter
 
 APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a correction equaliser to the signal before it reaches the PA. Enable it to improve spectral purity, particularly on SSB and digital modes.
@@ -49,6 +50,49 @@ The bypass state is cleared automatically when the transmit frequency changes, s
 | Byp       | Indicator | Lights orange when the ATU is in bypass or manual bypass.         |
 | Mem       | Indicator | Lights green when the ATU is using a stored memory.               |
 
+### ATU right-click menu (v26.5.2.1)
+
+Right-click the ATU button to open a context menu with two actions:
+
+| Action                       | Behavior                                                                                     |
+|------------------------------|----------------------------------------------------------------------------------------------|
+| Pre-tune bands…              | Opens the ATU Pre-Tune dialog to sweep and store tuner settings across bands. Enabled only when MEM is on. |
+| Clear ATU memories…          | Clears all stored ATU memories on the radio. A confirmation dialog appears before clearing.  |
+
+## TUNE button behaviour
+
+Click TUNE to start or stop a tune carrier. The button label changes to **TUNING...** with a red background while the carrier is active.
+
+### TUNE right-click menu (v26.5.2.1)
+
+Right-click the TUNE button to choose the carrier shape for the next tune cycle:
+
+| Action      | Behavior                                                                                          |
+|-------------|---------------------------------------------------------------------------------------------------|
+| Mono Tone   | Sets the tune carrier to a single tone. Checked if this is the current mode.                      |
+| Two Tone    | Sets the tune carrier to two tones. Checked if this is the current mode.                          |
+
+The selection is a one-shot transient — the radio's tune mode reverts to single tone across power cycles. AetherSDR does not persist the choice in AppSettings.
+
+## RF Power / Tune Power sliders
+
+| Control    | Kind   | Behavior                                                                 |
+|------------|--------|--------------------------------------------------------------------------|
+| RF Power   | Slider | Sets the transmit RF power level (W); range 0–100. Default: 100.          |
+| Tune Pwr   | Slider | Sets the tune-carrier power level (W); range 0–100. Default: 10.          |
+
+## TX Profile selector
+
+Select a TX profile from the combo box to load it on the radio. Profiles are populated from the radio's profile list.
+
+## RF Pwr and SWR meters
+
+Forward power is displayed as a horizontal bar gauge. The scale changes based on the radio model (barefoot 0–120 W, or Aurora 500W 0–600 W). The gauge turns red above 100 W (barefoot) or 500 W (Aurora).
+
+PEP peak-hold: a peak reading is held for 2 seconds, then decays smoothly to the current value. The peak is cleared immediately when the transmitter unkeys to prevent lingering readings across overs.
+
+SWR is displayed as a horizontal bar gauge. Range 1.0–3.0. The gauge turns red above 2.5.
+
 ## MOX button and Quindar tones (v0.9.7)
 
 In v0.9.7, clicking MOX routes through the Quindar-tone coordinator rather than toggling the transmitter directly. This means:
@@ -61,10 +105,11 @@ The button appearance is unchanged: the MOX button turns red while the transmitt
 
 | Control | Kind          | Behavior                                                                                                                                                      |
 |---------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MOX     | Toggle button | Toggles manual transmit. In v0.9.7, routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindar is enabled. Button goes red while TX is keyed. |
+| MOX     | Toggle button | Toggles manual transmit. In v0.9.7, routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed. |
 
 ## Related
 
 - [TX Controls overview](overview.md)
 - [Run a Two-Tone Tune](run-a-two-tone-tune.md)
 - [Set RF output power](set-rf-output-power.md)
+```

@@ -68,12 +68,6 @@ Log output is syntax-highlighted by log level and category name:
 
 Use the **Filter Categories** checkboxes to show only the categories relevant to the problem you are diagnosing. Click **Select All** to restore all categories, or **Deselect All** to clear the view before selecting specific categories. Scroll up to pause auto-scrolling; click **Live** to resume and jump back to the tail.
 
-## Frameless mode
-
-The Network Diagnostics dialog respects the **FramelessWindow** application setting. When frameless mode is enabled (the default), the dialog has no standard window frame and includes a custom title bar. When disabled, the dialog uses the standard operating system window decorations.
-
-The dialog dynamically adjusts its appearance when the frameless mode setting changes, including the visibility of the custom title bar and the content margins.
-
 ## Tips
 
 - A rate of 0 kbps for a category that should be active (for example, **Audio** while a slice is open) indicates the stream has stopped arriving. Check the **Status** indicator in the **Network Status** group on the **Details** tab first.

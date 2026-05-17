@@ -34,6 +34,10 @@ Setting Thresh correctly tells the TX gate where your room's background noise en
 
 The Transfer curve plots the static input/output relationship and shows a live input ball at the current signal level. When Return is greater than zero, a soft-cyan vertical band appears on the curve between (Thresh − Return) and Thresh, marking the range where the gate's open/closed state is sticky. The Gain-reduction bar is an amber horizontal strip, right-filled, scaled 0 to 40 dB; a tick marks the −15 dB default Floor position. In v26.5.1, axis labels are rendered using cached static text for improved performance, reducing CPU overhead during live animation. This change is transparent to users — the visual appearance remains identical.
 
+### Inline value editor (v26.5.2.1)
+
+In v26.5.2.1, all knob controls in the applet gained an inline value editor. Click the value text below any knob to open a small text-entry field that overlays the displayed value. Enter a numeric value (with or without unit text) and press Enter to commit; the knob snaps to the typed value, clamped to its valid range. Clicking elsewhere on the interface also commits the edit. Press Escape to cancel and revert to the previous value. The editor recognises commas as decimal separators in locales that use them. This allows precise entry without dragging a knob.
+
 ## Tips
 
 - Set Thresh during your worst-case noise condition (loudest fan, most background activity). A threshold calibrated to a quiet room will let noise through when conditions change.
@@ -41,6 +45,7 @@ The Transfer curve plots the static input/output relationship and shows a live i
 - Increase Return if the gate chatters or flutters when your voice level hovers near the threshold. The wider the deadband, the more stable the open/close behaviour.
 - The Gain-reduction bar and the input ball update live at approximately 30 Hz, so short noise bursts will be visible even if brief.
 - Changes to any knob are saved immediately and survive a restart. You do not need to confirm or apply separately.
+- To enter a precise knob value, click the value text below the knob and type the number, then press Enter. The knob moves to the entered value instantly.
 
 ## Troubleshooting
 

@@ -16,7 +16,7 @@ Click `Settings > AetherDSP Settings...`.
 
 ## Dialog overview
 
-The AetherDSP Settings dialog features a title bar that adapts to the **FramelessWindow** application setting. When frameless mode is enabled (default), a custom title bar matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip is displayed. The title bar is 18 px tall with a blue-gradient background. From left to right it contains:
+The AetherDSP Settings dialog features a custom title bar with a blue-gradient background. From left to right it contains:
 
 - A grip glyph (⋮⋮) — visual indicator only
 - The dialog title "AetherDSP Settings"
@@ -24,9 +24,9 @@ The AetherDSP Settings dialog features a title bar that adapts to the **Frameles
 - **□** (Maximize) button — maximizes or restores the dialog
 - **×** (Close) button — closes the dialog
 
-Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize the dialog (8-axis resize with a 6 px hit zone). When frameless mode is disabled, standard OS window decorations are used instead.
+Drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize the dialog (8-axis resize with a 6 px hit zone).
 
-The dialog stores its size and position between sessions.
+The dialog stores its size and position between sessions using the geometry key `AetherDspDialogGeometry`.
 
 ## Selecting and activating a noise reduction engine
 

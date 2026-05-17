@@ -17,13 +17,18 @@ The **Damp** knob controls how quickly high frequencies fade within the reverb t
 
 ## What each control does
 
-| Control | Default | Range | Persisted key | Behavior |
-|---------|---------|-------|---------------|----------|
-| Damp | 50 % | 0 % – 100 % | `ClientReverbTxDamping` | Higher values damp high frequencies faster in the reverb tail. Linear mapping. |
+| Control              | Default | Range      | Setting key               | Notes                                                                                            |
+|----------------------|---------|------------|---------------------------|--------------------------------------------------------------------------------------------------|
+| Size                 | 50 %    | 0 % – 100 % | `ClientReverbTxSize`      | Linear mapping. Sets the modelled room size. Label displayed as percentage.                      |
+| Decay                | 1.20 s  | 0.3 – 5.0 s | `ClientReverbTxDecayS`    | Exponential mapping (0.3 * (5.0/0.3)^n, ~16.7x). Label 'X.XX s'.                                |
+| Damp                 | 50 %    | 0 % – 100 % | `ClientReverbTxDamping`   | Linear mapping. Higher values damp high frequencies faster in the tail. Label displayed as percentage. |
+| Pre                  | 20 ms   | 0 – 100 ms  | `ClientReverbTxPreDelayMs`| Linear mapping. Pre-delay between the dry signal and the first reflections. Label 'X ms'.         |
+| Mix                  | 15 %    | 0 % – 100 % | `ClientReverbTxMix`       | Linear mapping. Dry / wet balance. Label displayed as percentage.                                |
+| Reverb visualisation | —       | —           | —                         | ReverbVizBox — live visualisation showing the dry sine packet (cyan), first-order reflections (yellow), and reverberant tail (magenta). 90 px tall. |
 
 ## Live visualisation
 
-Starting in v0.9.7, the Aetherial FreeVerb editor displays a compact real-time diagram (90 px tall) above the knob row. It updates immediately as you adjust any knob and shows three overlaid elements:
+The Aetherial FreeVerb editor displays a compact real-time diagram (90 px tall) above the knob row. It updates immediately as you adjust any knob and shows three overlaid elements:
 
 | Element | Colour | What it represents |
 |---------|--------|--------------------|

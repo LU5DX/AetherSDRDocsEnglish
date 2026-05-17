@@ -37,12 +37,27 @@ As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere i
 | `CLR`                   | Clears the CW decode buffer entirely. Text cannot be recovered after clearing.               | —       |
 | Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`.     | —       |
 | Sens                    | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30      |
+
+## Decoded text display
+
+The CW decode panel shows decoded text from both received (RX) and transmitted (TX) keying in a single rolling display. Text is colour-coded so you can distinguish incoming Morse from your own sending:
+
+| Colour       | Meaning                                                              |
+|--------------|----------------------------------------------------------------------|
+| Green        | RX text with high confidence (< 0.15 cost)                           |
+| Yellow       | RX text with moderate confidence (< 0.35 cost)                       |
+| Orange       | RX text with lower confidence (< 0.60 cost)                          |
+| Red          | RX text with lowest confidence (>= 0.60 cost)                        |
+| Cyan         | TX text (your own sending) — any confidence level                    |
+
+A separator space is automatically inserted when the display switches between TX and RX text runs so the two coloured blocks do not visually merge.
+
 ## Tips
 
 - Use `CPY VIS` when you want only a specific exchange or callsign that is visible on screen, without the surrounding session noise.
 - Use `CPY ALL` when logging a full QSO or saving a complete decode session.
 - Click `CLR` (or right-click the text area and choose **Clear**) before a new QSO to keep the buffer relevant. Note that clearing the buffer also removes text that `CPY ALL` would have captured.
-- Decoded text is colour-coded by confidence: green is highest confidence, then yellow, orange, and red. Raising the Sens slider suppresses red and orange characters from appearing in the buffer. See [Tune CW decoder sensitivity to reject noise](tune-cw-decoder-sensitivity-to-reject-noise.md).
+- Decoded RX text is colour-coded by confidence: green is highest confidence, then yellow, orange, and red. TX text (your own sending) appears in cyan. Raising the Sens slider suppresses red and orange characters from appearing in the buffer. See [Tune CW decoder sensitivity to reject noise](tune-cw-decoder-sensitivity-to-reject-noise.md).
 
 ## Related
 

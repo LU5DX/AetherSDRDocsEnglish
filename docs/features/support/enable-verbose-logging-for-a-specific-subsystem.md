@@ -24,8 +24,13 @@ The Support & Diagnostics dialog lets you turn on logging for individual subsyst
 | Disable All | Button | Turns off every logging category at once. |
 | Log viewer | Text area | Scrollable view of the most recent log text. Displays up to 2000 lines. |
 | Refresh | Button | Reloads the log file into the Log viewer. |
+| Clear Log | Button | Truncates the current log file. |
+| Open Log Folder | Button | Opens the log directory in the OS file browser. |
 | Log path label | Indicator | Shows the full path of the current log file. |
 | Log file size | Indicator | Shows the current size of the active log file. |
+| Reset Settings | Button | Resets AetherSDR settings to defaults (with confirmation). |
+| File an Issue | Button | Launches the AI-Assisted Bug Report flow. |
+| Close | Button | Closes the dialog. |
 
 ## Tips
 
@@ -39,3 +44,4 @@ The Support & Diagnostics dialog lets you turn on logging for individual subsyst
 - [View the live log without leaving the app](view-the-live-log-without-leaving-the-app.md)
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
 - [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md)
+- [Reset settings to defaults](reset-settings-to-defaults.md)

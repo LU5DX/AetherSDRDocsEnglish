@@ -13,11 +13,11 @@ The gate silences background noise between words (TX) or below a desired RX-audi
 |---|---|---|---|---|---|---|
 | Transfer curve | indicator | — | — | — | Compact-mode ClientGateCurveWidget. Plots the expander's static transfer curve and a live ball at the current input level. | |
 | Gain-reduction bar | meter | — | 0 to 40 dB GR | — | Horizontal amber strip, right-filled. Scale maxes at 40 dB (gates can cut very deep); a tick at -15 dB marks the soft-expander default floor. | |
-| Thresh | knob | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` (TX side)<br>`ClientGateRxThresholdDb` (RX side) | Linear mapping. Level below which the gate starts attenuating. | |
-| Ratio | knob | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` (TX side)<br>`ClientGateRxRatio` (RX side) | Linear mapping. Higher ratios give a harder, more gate-like cut; lower ratios act as a soft downward expander. | Label 'X.X:1'. |
-| Return | knob | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` (TX side)<br>`ClientGateRxReturnDb` (RX side) | Linear mapping (n * 20). Sets the hysteresis deadband: the gate opens above Thresh and doesn't close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. | Label 'X.XX dB'. The curve widget draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. |
-| Release | knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` (TX side)<br>`ClientGateRxReleaseMs` (RX side) | Exponential mapping (5 * 400^n). Sets how quickly the gate closes after input falls below Thresh − Return. | Label 'X.X ms' below 100, 'X ms' above. |
-| Floor | knob | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` (TX side)<br>`ClientGateRxFloorDb` (RX side) | Linear mapping. Maximum attenuation the gate is allowed to apply. | |
+| Thresh | knob | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` (TX side)<br>`ClientGateRxThresholdDb` (RX side) | Linear mapping. Level below which the gate starts attenuating. | Inline edit: click the value text, type a new number, press Enter or click elsewhere to commit. |
+| Ratio | knob | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` (TX side)<br>`ClientGateRxRatio` (RX side) | Linear mapping. Higher ratios give a harder, more gate-like cut; lower ratios act as a soft downward expander. | Label 'X.X:1'. Inline edit: click the value text, type a new number, press Enter or click elsewhere to commit. |
+| Return | knob | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` (TX side)<br>`ClientGateRxReturnDb` (RX side) | Linear mapping (n * 20). Sets the hysteresis deadband: the gate opens above Thresh and doesn't close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. | Label 'X.XX dB'. The curve widget draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. Inline edit: click the value text, type a new number, press Enter or click elsewhere to commit. |
+| Release | knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` (TX side)<br>`ClientGateRxReleaseMs` (RX side) | Exponential mapping (5 * 400^n). Sets how quickly the gate closes after input falls below Thresh − Return. | Label 'X.X ms' below 100, 'X ms' above. Inline edit: click the value text, type a new number, press Enter or click elsewhere to commit. |
+| Floor | knob | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` (TX side)<br>`ClientGateRxFloorDb` (RX side) | Linear mapping. Maximum attenuation the gate is allowed to apply. | Inline edit: click the value text, type a new number, press Enter or click elsewhere to commit. |
 
 ## Indicators
 
@@ -30,6 +30,12 @@ The gate silences background noise between words (TX) or below a desired RX-audi
 ## Transfer Curve Widget
 
 The ClientGateCurveWidget displays the static transfer curve. In compact mode (used within the Applet Panel) it uses a smaller 7-pixel font for axis labels. In full-size mode (floating editor) it uses a 9-pixel font and draws -dB grid labels at the major tick positions. Labels are pre-rendered as `QStaticText` objects for improved painting performance.
+
+## Inline Value Editing
+
+Each knob supports direct numeric entry. Click the displayed value text to open an inline editor. The editor appears as a small text field with a subtle dark background and cyan border when focused. Type the desired value (e.g., "12.5 ms" or "-40.0 dB") and press Enter to commit, or click elsewhere on the screen. The value is automatically clamped to the knob's valid range. Press Escape to cancel the edit and revert to the previous value.
+
+When a knob is in edit mode, mouse wheel events are forwarded to the knob so you can still adjust it by scrolling if preferred.
 
 # Bypass the Gate from the Chain
 

@@ -1,33 +1,219 @@
-# Pick custom colors for voice signal and QRM markers
+# SpotHub
 
-Signal History markers distinguish between detected voice-width signals (gold) and persistent QRM carriers (red). You can change these colors to suit your panadapter theme or personal preference.
+The SpotHub dialog is the central control for connecting to DX spot sources, including a traditional DX cluster, the Reverse Beacon Network (RBN), WSJT-X, SpotCollector, POTA, and FreeDV. It also provides comprehensive controls for how spots appear on the panadapter, including Signal History markers and DXCC coloring.
 
-## Before you start
+## Opening SpotHub
 
-- AetherSDR must be connected to a radio.
-- The Display tab in SpotHub is open (`Settings > SpotHub... > Display`).
+1. Click **Settings** > **SpotHub...**.
 
-## Steps
+The dialog contains tabs for each spot source and a unified Display tab for visual customization.
 
-1. Click **Settings** > **SpotHub...** to open the SpotHub dialog.
-2. Click the **Display** tab.
-3. In the **Signal History** section on the right, locate the **Signals** and **QRM** color swatches.
-4. Click the **Signals** color swatch (gold `#FFC800` by default, setting key `SHistoryColorSignals`).
-5. Select a new color in the color picker and click **OK**.
-6. Click the **QRM** color swatch (red `#FF0000` by default, setting key `SHistoryColorQrm`).
-7. Select a new color in the color picker and click **OK**.
+---
 
-Changes apply immediately to all visible Signal History and QRM markers on the panadapter.
+## Cluster (tab)
 
-## What each control does
+Connects to a traditional DX cluster via telnet.
 
-| Control | Default | Valid range | Setting key |
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | Hostname of the DX cluster. | `ClusterHost` |
+| **Port:** | Telnet port (1-65535). | `ClusterPort` |
+| **Callsign:** | Login callsign sent to the cluster. | `ClusterCallsign` |
+| **Connect / Disconnect** | Toggles the telnet connection. | — |
+| **Auto-connect on startup** | When enabled, connects automatically on launch. | `ClusterAutoConnect` |
+| **Startup Commands...** | Opens the startup commands editor. Commands entered here (one per line) are sent automatically after every login. Supported commands include `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`, etc. | `DxClusterStartupCommands` |
+| **Cluster Console** | Read-only telnet console showing raw cluster traffic. | — |
+| **Send** | Sends a typed command to the cluster. | — |
+| **Spot Color:** | Opens a color picker for cluster spots on the panadapter. | `ClusterSpotColor` |
+
+---
+
+## RBN (tab)
+
+Reverse Beacon Network telnet source with rate limiting.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | RBN telnet hostname. | `RbnHost` |
+| **Port:** | RBN telnet port (1-65535). | `RbnPort` |
+| **Callsign:** | Login callsign for RBN. | `RbnCallsign` |
+| **Rate Limit:** | Caps the number of RBN spots per second. | `RbnRateLimit` |
+| **Connect / Disconnect** | Toggles the RBN connection. | — |
+| **Auto-connect on startup** | When enabled, starts RBN automatically on launch. | `RbnAutoConnect` |
+| **Startup Commands...** | Opens the startup commands editor for RBN-specific commands (independent from the DX Cluster tab). Commands are sent after every login. | `RbnStartupCommands` |
+| **RBN Console** | Read-only console of RBN traffic. | — |
+| **Send** | Sends a command to RBN. | — |
+| **Spot Color:** | Color picker for RBN spots. | `RbnSpotColor` |
+
+---
+
+## WSJT-X (tab)
+
+UDP listener for WSJT-X decodes with filtering and color customization.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **Address:** | UDP bind address for WSJT-X messages. | `WsjtxAddress` |
+| **Port:** | UDP port for WSJT-X (1-65535). | `WsjtxPort` |
+| **Start / Stop** | Starts or stops the UDP listener. | — |
+| **Auto-start on startup** | When enabled, starts the listener automatically on launch. | `WsjtxAutoStart` |
+| **CQ** | Show only CQ calls. | `WsjtxFilterCQ` |
+| **CQ POTA** | Show CQ POTA calls. | `WsjtxFilterPOTA` |
+| **Calling Me** | Show only decodes addressed to your callsign. | `WsjtxFilterCallingMe` |
+| **Spot Color: (CQ / POTA / Calling Me / Default)** | Color pickers for each WSJT-X spot category. | `WsjtxColorCQ`, `WsjtxColorPOTA`, `WsjtxColorCallingMe`, `WsjtxColorDefault` |
+| **WSJT-X Decodes** | Console showing decoded transmissions. | — |
+| **Spot Life:** | Seconds WSJT-X spots remain on the panadapter. | `WsjtxSpotLife` |
+
+---
+
+## SpotCollector (tab)
+
+UDP listener for Ham Radio Deluxe SpotCollector broadcasts.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **UDP Port:** | UDP port SpotCollector broadcasts on (1-65535). | `SpotCollectorPort` |
+| **Start / Stop** | Starts or stops the UDP listener. | — |
+| **Auto-start on startup** | When enabled, starts the listener automatically on launch. | `SpotCollectorAutoStart` |
+| **SpotCollector Spots** | Console showing received SpotCollector spots. | — |
+
+---
+
+## POTA (tab)
+
+Polls api.pota.app for current activations.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | Fixed endpoint: api.pota.app (HTTP polling). | — |
+| **Poll Interval:** | Seconds between POTA polls. | `PotaPollInterval` |
+| **Start / Stop** | Starts or stops polling. | — |
+| **Auto-start on startup** | When enabled, starts POTA polling automatically on launch. | `PotaAutoStart` |
+| **POTA Activations** | Console showing the activation feed. | — |
+| **Spot Color:** | Color picker for POTA spots. | `PotaSpotColor` |
+
+---
+
+## FreeDV (tab)
+
+WebSocket feed of FreeDV QSO reporter spots.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **Server:** | Fixed endpoint: qso.freedv.org (WebSocket). | — |
+| **Start / Stop** | Connects or disconnects the WebSocket. | — |
+| **Auto-start on startup** | When enabled, starts FreeDV automatically on launch. | `FreeDvAutoStart` |
+| **FreeDV Spots** | Console showing FreeDV activity. | — |
+| **Spot Color:** | Color picker for FreeDV spots. | `FreeDvSpotColor` |
+
+---
+
+## Spot List (tab)
+
+Unified searchable table of all live spots from all sources.
+
+| Control | Description |
+|---|---|
+| **Bands:** | Per-band checkboxes to toggle visibility. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). |
+| **Clear** | Empties the current spot list. |
+| **Spot table** | Sortable table with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click a row to tune to that frequency. |
+
+---
+
+## Display (tab)
+
+Controls how spots and markers appear on the panadapter. This tab combines spot visualization settings, DXCC coloring, and Signal History tunables.
+
+### Top toggle row
+
+| Control | Default | Description | Setting key |
 |---|---|---|---|
-| **Signals** color swatch (Signal History) | `#FFC800` | Any QColor | `SHistoryColorSignals` |
-| **QRM** color swatch (Signal History) | `#FF0000` | Any QColor | `SHistoryColorQrm` |
+| **Spots:** | Enabled | Master toggle for DX spot overlay. | `IsSpotsEnabled` |
+| **Memories:** | Disabled | Toggles memory-channel overlay on the panadapter. | `IsMemorySpotsEnabled` |
+| **Auto:** | Enabled | Automatically switches slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY). | `SpotAutoSwitchMode` |
+| **Signals** (Signal History) | Disabled | Gold markers for detected voice-width signals on the panadapter. Same toggle as **View > Signal History Markers**. | `SHistoryMarkersEnabled` |
+| **QRM** (Signal History) | Disabled | Red markers for persistent carriers and wideband interference. Same toggle as **View > QRM History Markers**. | `SHistoryQrmEnabled` |
+| **Clear All** | — | Clears all DX spots, memory feed, Signal History markers, and QRM markers from the spectrum. | — |
+
+### Spot appearance sliders
+
+| Control | Default | Valid range | Description | Setting key |
+|---|---|---|---|---|
+| **Levels:** | 3 | 1-10 | Number of vertical stacking rows for spots. | `SpotsMaxLevel` |
+| **Position:** | 50 | 0-100 | Vertical position on the panadapter. | `SpotsStartingHeightPercentage` |
+| **Font Size:** | 16 | 8-32 | Spot text size. | `SpotFontSize` |
+| **Spot Lifetime:** | — | 10 sec – 24 hrs (non-linear steps) | Seconds before a spot fades away. | `DxClusterSpotLifetimeSec` |
+
+### Override colors
+
+| Control | Default | Description | Setting key |
+|---|---|---|---|
+| **Override Colors:** | Disabled | Forces a single text color for all spots. | `IsSpotsOverrideColorsEnabled` |
+| **Spot text color picker** | `#FFFF00` | Opens color picker for spot text color. | `SpotsOverrideColor` |
+| **Override Background: Enabled** | Enabled | Enables custom spot background color. | `IsSpotsOverrideBackgroundColorsEnabled` |
+| **Override Background: Auto** | Enabled | Auto-picks background color for contrast. | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
+| **Spot background color picker** | `#000000` | Opens color picker for spot background color. | `SpotsOverrideBgColor` |
+| **Background Opacity:** | 48 | 0-100 | Opacity of spot background color. | `SpotsBackgroundOpacity` |
+| **Spot Lines:** | Enabled | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
+
+### Total Spots indicator
+
+Live count of spots currently tracked across all sources.
+
+### DXCC Coloring (section)
+
+Colors spots by worked/confirmed/needed DXCC status using an imported ADIF log.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **DXCC Colors:** | Enables DXCC-based spot coloring. | `IsDxccColoringEnabled` |
+| **Log File (ADIF):** | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. | `DxccAdifFilePath` |
+| **Imported: (DXCC stats)** | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. | — |
+| **New DXCC / New Band / New Mode / Worked** color swatches | Opens a color picker for each DXCC status category. | `DxccColorNewEntity`, `DxccColorNewBand`, `DxccColorNewMode`, `DxccColorWorked` |
+
+### Signal History (section)
+
+Controls for Signal History marker behavior and appearance.
+
+| Control | Default | Valid range | Description | Setting key |
+|---|---|---|---|---|
+| **Marker Lifetime:** | 60 | 15-300 sec | How long an inactive Signal History marker persists before being removed. | `SHistoryLifetimeS` |
+| **QRM Gate:** | 6 | 3-30 sec | How long a narrow carrier or wideband signal must persist before being classified as QRM. | `SHistoryQrmGateS` |
+| **Edge Threshold:** | 3.0 | 1.0-10.0 dB | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Lower values pull the marker closer to the carrier. | `SHistorySoftEdgeDb` |
+| **Signals** color swatch | `#FFC800` (gold) | Any QColor | Color for voice signal markers. | `SHistoryColorSignals` |
+| **QRM** color swatch | `#FF0000` (red) | Any QColor | Color for QRM markers. | `SHistoryColorQrm` |
+| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. | `SHistorySnapToStep` |
+
+---
+
+## Startup Commands Editor
+
+The **Cluster** and **RBN** tabs each have a **Startup Commands...** button that opens a dialog for editing commands sent automatically after every login. Each source stores its commands independently.
+
+### Editing startup commands
+
+1. Click **Startup Commands...** on either the Cluster or RBN tab.
+2. Enter one command per line (e.g. `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`).
+3. Click **OK** to save, or **Cancel** to discard changes.
+
+Commands take effect on the next connection or reconnection to the cluster.
+
+---
+
+## Indicators
+
+The SpotHub dialog displays current state for each source:
+
+| Label | Possible states |
+|---|---|
+| Status (Cluster/RBN/WSJT-X/SpotCollector/POTA/FreeDV) | Disconnected, Connected, Stopped, Listening, Polling |
+| Total spots count | Live count of all spots tracked across all sources |
+| DXCC stats | Imported QSO and entity count from ADIF log. Format: `<N> QSOs / <M> entities`. |
+
+---
 
 ## Related
 
 - [Toggle Signal History voice markers on the panadapter](toggle-signal-history-voice-markers-on-the-panadapter.md)
 - [Toggle QRM markers to see persistent carriers and interference](toggle-qrm-markers-to-see-persistent-carriers-and-interference.md)
-- [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm-gate-and-edge-threshold.md)
+- [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm

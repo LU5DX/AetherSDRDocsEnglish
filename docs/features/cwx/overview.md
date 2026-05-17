@@ -1,6 +1,6 @@
 # CWX overview
 
-CWX is AetherSDR's built-in CW keyer interface. It lets you send typed text or pre-written macros through the FLEX-8600's keyer, control send speed, set inter-macro delay, and enable QSK full break-in — all without leaving the application.
+CWX is AetherSDR's built-in CW keyer interface. It lets you send typed text or pre-written macros through the FLEX-8600's keyer, control send speed, set inter-macro delay, enable QSK full break-in, and manage send history — all without leaving the application.
 
 ## Before you start
 
@@ -11,15 +11,15 @@ CWX is AetherSDR's built-in CW keyer interface. It lets you send typed text or p
 
 CWX presents three views, selected by the buttons at the bottom of the panel: Send, Live, and Setup. The Speed: spinbox and the view-selector buttons are always visible regardless of which view is active.
 
-**Send view** — Shows a scrolling history of previously sent buffers displayed as chat bubbles, with a text entry area at the bottom. Type your message and press Enter to send it. Characters are highlighted in the history as they are transmitted. If Live is currently on, clicking Send first turns off live sending without retransmitting any text that has already been keyed character-by-character. If Live is already off, clicking Send submits the buffer immediately.
+**Send view** — Shows a scrolling history of previously sent buffers displayed as chat bubbles, with a text entry area at the bottom. Type your message and press Enter to send it. Characters are highlighted in the history as they are transmitted. If Live is currently on, clicking Send first turns off live sending without retransmitting any text that has already been keyed character-by-character. If Live is already off, clicking Send submits the buffer immediately. Right-click any history bubble to resend that text or clear the entire history.
 
 **Live view** — Toggles live character-by-character sending on or off. When Live is enabled, each character you type is keyed immediately rather than held until you press Enter. Clicking Setup or Send while Live is on automatically disables live sending before switching views.
 
 **Setup view** — Shows the 12 F-key macro editors, the Delay: control, and the QSK toggle. Edit macro text here and configure keyer timing options. Opening the Setup view always turns off live sending.
 
-**F1–F12 shortcuts** — When the active slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown. These shortcuts are only active while the CWX panel is visible. If you switch to another panel that also uses F1–F12 (such as the DVK panel), the CWX shortcuts are automatically disabled to avoid conflicts.
+**F1–F12 shortcuts** — When the active slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown, and even if the CWX panel is hidden. These shortcuts are enabled by the MainWindow based on the active slice's mode, keeping them mutually exclusive with other panels that use the same keys (such as the DVK panel) to avoid Qt shortcut ambiguity.
 
-**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. This works only when the CWX panel is visible.
+**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. This works only when the CWX shortcuts are active.
 
 ## What each control does
 
@@ -29,9 +29,9 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 | Live | Toggle button. Enables live character-by-character sending when on; disables it when off. The button state stays in sync with the radio model. | — |
 | Setup | Switches to the macro editor and QSK setup view. Turns off live sending if it is active. | — |
 | Speed: | CW send speed in WPM. Range: 5–100 WPM. Default: 20 WPM. | `CwxSpeedWpm` |
-| Send history scroll | Scrolling display of previous send buffers with per-character highlighting. Read-only. | — |
+| Send history scroll | Scrolling display of previous send buffers with per-character highlighting. Right-click a bubble to resend that text or clear all history. Read-only. | — |
 | Send text area | Text entry field. Press Enter to send the typed buffer. | — |
-| F1 … F12 (macro buttons) | Sends the macro stored for that function key. Active via keyboard shortcut when the CWX panel is visible and the slice is in CW or CWL mode. | `CwxMacro_F1` – `CwxMacro_F12` |
+| F1 … F12 (macro buttons) | Sends the macro stored for that function key. Active via keyboard shortcut when the slice is in CW or CWL mode. | `CwxMacro_F1` – `CwxMacro_F12` |
 | F1 … F12 macro editors | Text fields in the Setup view for writing or editing each macro string. | `CwxMacro_F1` – `CwxMacro_F12` |
 | Delay: | Inter-macro delay in milliseconds. Range: 0–2000 ms. Default: 5 ms. | `CwxDelay` |
 | QSK | Enables QSK full break-in when checked. | `CwxQsk` |
@@ -40,7 +40,8 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 ## Tips
 
 - Pressing Escape during a macro transmission clears the buffer immediately. Because the keyer state alternates rapidly between dits and dahs, Escape fires unconditionally rather than waiting for a specific transmit state, so it reliably stops sending.
-- F1–F12 keyboard shortcuts only fire when the CWX panel is visible and the active slice is in CW or CWL mode. Switching the slice to a non-CW mode, or hiding the CWX panel (for example, by opening the DVK panel), disables them automatically.
+- F1–F12 keyboard shortcuts fire whenever the active slice is in CW or CWL mode, regardless of whether the CWX panel is visible. This allows you to trigger macros while operating other panels. The shortcuts are automatically disabled when you switch the slice to a non-CW mode.
+- Right-click any history bubble to resend its contents, or to clear all sent history at once.
 - If you switch to the Setup view or click Send while Live is on, live sending is turned off automatically. You will not accidentally retransmit characters that the keyer has already sent.
 - The Live button state reflects the radio model directly. If the model reports that live sending is active when the panel first loads, the Live button will already appear pressed.
 
@@ -52,3 +53,5 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 - [Change CW send speed in WPM](change-cw-send-speed-in-wpm.md)
 - [Enable QSK full break-in](enable-qsk-full-break-in.md)
 - [Look up the prosign character shortcuts](look-up-the-prosign-character-shortcuts.md)
+- [Resend a previous CW buffer](resend-a-previous-cw-buffer.md)
+- [Clear CW send history](clear-cw-send-history.md)

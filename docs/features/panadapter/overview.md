@@ -9,11 +9,15 @@ The panadapter displays a real-time FFT spectrum and waterfall for a radio slice
 
 ## How it works
 
-AetherSDR opens with one panadapter visible in the centre of the main window. It is always present; you cannot close the last panadapter. In multi-slice mode, additional panadapters appear, each in its own titled container. Every panadapter is bound to one slice (Slice A through Slice H), shown in the title bar.
+AetherSDR opens with one panadapter visible in the centre of the main window. It is always present; you cannot close the last panadapter. In multi-slice mode, additional panadapters appear, each in its own titled container. Every panadapter is bound to one slice (Slice A through Slice H), shown in the title bar. In Multi-Flex sessions, the title uses the radio-provided index letter so it matches the slice badge.
 
 **Spectrum and waterfall.** The upper portion of the panadapter shows the FFT spectrum trace; below it is the waterfall. Click anywhere on the spectrum or waterfall to activate that panadapter. Drag to pan across the band. Scroll to zoom. The `View > Single-Click to Tune` and `View > Pan Follows VFO` menu items affect how clicking and scrolling interact with the VFO.
 
 **Title bar.** The 16-pixel title bar across the top of each panadapter carries the slice label, a drag grip, and (in multi-slice mode) the pop-out, maximize, and close buttons. In single-pan mode those three buttons are hidden.
+
+**Waterfall freeze behaviour.** When any connected client begins transmitting, the waterfall freezes automatically. It unfreezes when transmission stops, eliminating the 10–23 second TX-trail artifact that previously appeared after unkeying.
+
+**Reconnection behaviour.** On radio reconnect, the panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
 
 **CW decode panel.** An optional panel can appear beneath the waterfall. It runs an off-air Morse decoder and displays decoded text in a rolling read-only field, colour-coded by decoder confidence. The panel is hidden by default and is enabled from the CW mode controls. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
 
@@ -23,8 +27,8 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 
 | Control | Kind | Behavior | Notes |
 |---|---|---|---|
-| Slice title | Indicator | Shows the slice bound to this panadapter. Values: Slice A – Slice H. | — |
-| ⬈ / ↩ (pop-out/dock) | Button | Pops the panadapter into a floating window, or docks it back. | Hidden in single-pan mode. The floating window is frameless; drag via the in-app title strip, resize via the bottom-right size grip. |
+| Slice title | Indicator | Shows the slice bound to this panadapter. Values: Slice A – Slice H. In Multi-Flex sessions, uses the radio-provided index letter. | — |
+| ⬈ / ↩ (pop-out/dock) | Button | Pops the panadapter into a floating window, or docks it back. | Hidden in single-pan mode. The floating window is frameless; drag via the in-app title strip, resize via the bottom-right size grip. On macOS, GPU resources are reset each float/dock cycle to keep the spectrum live. |
 | □ (maximize) | Button | Maximizes this panadapter to fill the main layout area. | Hidden in single-pan mode. |
 | × (close) | Button | Closes this panadapter. | Hidden in single-pan mode. |
 
@@ -48,7 +52,17 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
 | CLR | Button | — | — | — | Clears the CW decode buffer. |
 | × (close CW) | Button | — | — | — | Hides the CW decode panel. |
-| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, coloured by confidence: green (highest confidence) through yellow and orange to red (lowest). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
+| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, colour-coded by confidence: green (<0.15 cost), yellow (<0.35), orange (<0.60), red (>=0.60). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
+
+### TX-side CW decode
+
+When your own transmitted signal is routed back through PC audio to AetherSDR, the decoder can also display your transmitted Morse. Your transmitted text appears in a distinct cyan colour (#5fc8ff) to differentiate it from received signals. A separator space is automatically inserted between receive and transmit text, and between transmit and receive text, to prevent the colour runs from visually merging.
+
+| Behaviour | Detail |
+|---|---|
+| TX text colour | Cyan (#5fc8ff) |
+| Separator insertion | Automatic space added on TX→RX and RX→TX transitions |
+| Confidence filter | Same `Sens` slider threshold applies to both receive and transmit paths |
 
 ## Tips
 
@@ -56,6 +70,7 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
 - You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
+- When viewing both transmitted and received CW in the same panel, the cyan TX text helps you identify your own keying. No textual "[TX]" prefix is added — colour alone distinguishes the source.
 
 ## Related
 
