@@ -31,6 +31,7 @@ The bypass state is persisted immediately. TX state is saved to `ClientTubeTxEna
 - When the tube stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity. This matches the dim effect used by the EQ curve tile and gives a clear at-a-glance indication that processing is inactive. The tile returns to full opacity as soon as bypass is turned off.
 - The transfer curve and live input ball in the applet tile continue to reflect the current knob positions even while bypassed.
 - The floating editor includes an **Output level meter** (labelled **OUT**) on the far right. It shows post-saturation peak level with fast-attack/slow-release ballistics and is colour-coded: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), and red (above −3 dB). The meter is not visible in the docked applet tile.
+- Each knob supports inline value editing. Click a knob's value label in the floating editor to open a QLineEdit overlay. Type a value and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. Press Escape to cancel without changing the value.
 
 ## Related
 

@@ -44,6 +44,7 @@ Use Learn mode to map a physical knob, fader, or button on your MIDI controller 
 - If you select the wrong parameter before clicking Learn, click **Cancel Learn** to abort without creating a binding, then select the correct parameter and try again.
 - Bindings are saved automatically when Learn completes. To keep your bindings across sessions, save them as a named profile — see [Save the current mapping as a named profile](save-the-current-mapping-as-a-named-profile.md).
 - Check **Auto-connect on startup** (persisted as `MidiAutoConnect`) so the port reopens automatically next time. The selected port is persisted as `MidiPort`.
+- The dialog geometry is automatically saved and restored across sessions.
 
 ## Troubleshooting
 

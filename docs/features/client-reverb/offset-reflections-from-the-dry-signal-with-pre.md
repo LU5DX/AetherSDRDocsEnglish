@@ -16,9 +16,29 @@ The Pre knob adds a gap between the dry signal and the onset of the reverb tail.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---------|---------|-------------|---------------|----------|
-| Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Linear mapping. Sets the time between the dry signal and the first reverb reflections. |
+| Control              | Default                                                                                                                                                                                                                                     | Valid range                                                                                                 |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| Size                 | 50 %                                                                                                                                                                                                                                        | 0.0 to 100 %                                                                                                |
+| Decay                | 1.20 s                                                                                                                                                                                                                                      | 0.3 to 5.0 s                                                                                                |
+| Damp                 | 50 %                                                                                                                                                                                                                                        | 0.0 to 100 %                                                                                                |
+| Pre                  | 20 ms                                                                                                                                                                                                                                       | 0 to 100 ms                                                                                                 |
+| Mix                  | 15 %                                                                                                                                                                                                                                        | 0.0 to 100 %                                                                                                |
+| Reverb visualisation | ReverbVizBox — live visualisation showing the dry sine packet (cyan), first-order reflections (yellow), and reverberant tail (magenta). All five knob values feed the rendering so the display follows knob edits in real time. 90 px tall. | Replaces the curve widget used by other DSP applets. Rendering algorithm matches StripReverbPanel::GridBox. |
+
+## Inline value editing
+
+Starting in v26.5.2.1, each knob supports inline value editing. Click the value label beneath any knob (Size, Decay, Damp, Pre, or Mix) to enter edit mode. The label transforms into a text input field with a subtle dark inset and cyan border to indicate the editor is active.
+
+Type a numeric value and press Enter to commit the change. The value is clamped to the knob's valid range automatically. Press Escape or click elsewhere to apply the edit and return to normal display mode.
+
+To edit a knob value using the inline editor:
+
+1. Click the value label beneath the knob. The label becomes an editable text field with a cyan border.
+2. Type the desired value. Locale-aware parsing supports both point and comma decimal separators (for example, `25.5` or `25,5`).
+3. Press Enter to apply the value. The knob updates to match, and the label reverts to its default appearance.
+4. To cancel without changing the value, press Escape.
+
+The inline editor is always available when the applet is open. No configuration is required to enable or disable it.
 
 ## Live visualisation
 
@@ -40,6 +60,7 @@ No configuration is required. The visualisation is always visible when the apple
 - Pre interacts with Decay: a short Pre with a long Decay can make the tail appear to start before you expect it. Increase Pre if the reverb seems to swallow the leading edge of words.
 - Both the compact applet knob (labeled Pre) and the floating editor knob control the same `ClientReverbTxPreDelayMs` setting and stay in sync.
 - Use the live visualisation to confirm that the yellow reflection bursts begin clearly to the right of the cyan dry packet. If the two layers appear to overlap, increase Pre.
+- Use inline value editing to type a precise Pre value instead of turning the knob. This is especially useful when matching a specific millisecond setting.
 
 ## Related
 

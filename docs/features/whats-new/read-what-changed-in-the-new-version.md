@@ -18,7 +18,7 @@ The What's New dialog shows release notes for versions you have not yet seen. It
 |---|---|
 | Release notes browser | Scrollable HTML view of release entries for versions newer than the last seen version, capped at the five most recent releases. |
 | `Got it — 73!` | Dismisses the dialog and marks the current version as seen in `LastSeenVersion`. |
-| `Upgrade` | Visible only when a newer build is available. Opens the download page and closes the dialog. |
+| `Upgrade` | Visible only when a newer build is available. Opens `https://github.com/aethersdr/AetherSDR/releases/latest` in your system browser and closes the dialog. |
 | `Skip this version` | Visible only when a newer build is available. Writes the current version to `LastSeenVersion` and closes the dialog without upgrading. |
 | Hint | Footer line with brief guidance. Read-only. |
 

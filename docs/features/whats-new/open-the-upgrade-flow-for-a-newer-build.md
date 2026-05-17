@@ -13,14 +13,14 @@ When a newer build of AetherSDR is available, the What's New dialog shows an "Up
 2. Review the release notes in the scrollable browser at the top of the dialog.
 3. Click `Upgrade`.
 
-AetherSDR opens the AetherSDR releases page in your default web browser and closes the dialog.
+AetherSDR opens the AetherSDR releases page in your default web browser and closes the dialog. The download page is now hosted at `https://github.com/aethersdr/AetherSDR/releases/latest`.
 
 ## What each control does
 
 | Control | Kind | Behavior | Persisted setting |
 |---|---|---|---|
 | Release notes browser | Scrollable HTML view | Displays release entries between the last seen version and the current version. Shows at most 5 recent releases. | — |
-| `Upgrade` | Button | Visible only when an upgrade is available. Opens the download page and closes the dialog. | — |
+| `Upgrade` | Button | Visible only when an upgrade is available. Opens `https://github.com/aethersdr/AetherSDR/releases/latest` and closes the dialog. | — |
 | `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen. | `LastSeenVersion` |
 | `Skip this version` | Button | Suppresses the release reminder for this version and marks it as seen. | `LastSeenVersion` |
 | Hint | Indicator | Short footer line with guidance. | — |

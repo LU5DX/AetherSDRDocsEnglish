@@ -30,6 +30,7 @@ Rename a stored memory channel directly in the Memory table without opening a se
 
 - The Name column supports up to the character limit set by the radio firmware. AetherSDR encodes the name as required by SmartSDR protocol.
 - To cancel editing, press **Esc** before pressing Enter.
+- The Memory Channels dialog uses a **PersistentDialog** framework that remembers its size and position across sessions. Geometry is stored in the setting `MemoryDialogGeometry` and is restored the next time the dialog opens.
 
 ## Related
 

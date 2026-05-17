@@ -18,25 +18,17 @@ When screen space is limited, you can collapse the VFO panel to a compact strip 
 | Control                      | Default                                                                                                                               | Persisted setting                                                                                                       |
 |------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | Collapse toggle              | Expanded                                                                                                                              | `SliceFlagCollapsed_{N}`                                                                                                |
-| RX antenna button            | Opens antenna selection menu for the receive antenna of this slice.                                                                   | None                                                                                                                    |
-| TX antenna button            | Opens antenna selection menu for the transmit antenna of this slice.                                                                  | None                                                                                                                    |
+| RX antenna button            | Opens antenna selection menu for the receive antenna of this slice. Uses the slice's `rxAntennaList` when available; otherwise falls back to the radio antenna list. | None                                                                                                                    |
+| TX antenna button            | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Uses the slice's `txAntennaList` when available. | None                                                                                                                    |
 | Frequency display            | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab.                       | None                                                                                                                    |
 | Filter width label           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). | None |
+| Slice badge                  | Shows the slice letter. Click to collapse the panel. Displays HTML-formatted text (#2606).                                            | None                                                                                                                    |
 | AF Gain slider (Audio tab)   | 100                                                                                                                                   | None — reflects live radio state.                                                                                       |
 | Pan slider (Audio tab)       | 50                                                                                                                                    | None                                                                                                                    |
 | Mute button (Audio tab)      | Off                                                                                                                                   | None                                                                                                                    |
 | Squelch button + slider (Audio tab) | Off                                                                                                                           | None                                                                                                                    |
 | AGC combo (Audio tab)        | FAST                                                                                                                                  | None                                                                                                                    |
-| NR button (DSP tab)          | Off                                                                                                                                   | None                                                                                                                    |
-| NB button (DSP tab)          | Off                                                                                                                                   | None                                                                                                                    |
-| ANF button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
-| APF button (DSP tab)         | Off (visible in CW mode only)                                                                                                         | None                                                                                                                    |
-| NRL button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
-| NRS button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
-| RNN button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
-| NRF button (DSP tab)         | Off                                                                                                                                   | None                                                                                                                    |
-| ANFL button (DSP tab)        | Off                                                                                                                                   | None                                                                                                                    |
-| ANFT button (DSP tab)        | Off                                                                                                                                   | None                                                                                                                    |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off                                                                                                                     | None                                                                                                                    |
 | ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
 | Mode combo (Mode tab)        | USB                                                                                                                                   | None                                                                                                                    |
@@ -61,22 +53,20 @@ The DSP tab in the VFO panel now shows only the noise reduction and filtering al
 
 These client-side processing algorithms are still available. Access them through the spectrum overlay menu or the AetherDSP applet.
 
-The buttons that remain in the DSP tab grid are arranged in a four-column layout. The ADSP and AetherVoice buttons are placed below the radio-side DSP buttons:
+The buttons that remain in the DSP tab grid are now arranged in a four-column layout with all client-side DSP buttons present:
 
 | Position | Button |
 |---|---|
-| Row 0, Col 0 | NR |
-| Row 0, Col 1 | NB |
-| Row 0, Col 2 | ANF |
-| Row 0, Col 3 | APF (visible in CW mode only) |
-| Row 1, Col 0 | NRL |
-| Row 1, Col 1 | NRS |
-| Row 1, Col 2 | RNN |
-| Row 1, Col 3 | NRF |
-| Row 2, Col 0 | ANFL |
-| Row 2, Col 1 | ANFT |
-| Row 3, Col 0 | ADSP |
-| Row 3, Cols 1-2 | AetherVoice (spans 2 columns) |
+| Row 0, Col 0 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR |
+| Row 0, Col 1 | NRL |
+| Row 0, Col 2 | NRS |
+| Row 0, Col 3 | RNN |
+| Row 1, Col 0 | NRF |
+| Row 1, Cols 1-3 | (empty) |
+| Row 2, Col 0 | ADSP |
+| Row 2, Cols 1-2 | AetherVoice (spans 2 columns) |
+
+Note: The NR button entry in the grid now represents a group of noise reduction buttons (NR, NR2, RN2, NR4, MNR, DFNR, BNR). The specific buttons shown depend on radio series and build configuration. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
 
 ### DSP level slider
 
@@ -95,6 +85,17 @@ The level slider now properly reflects the radio state on initial connection. Wh
 ### Squelch behavior in RTTY mode
 
 As of v26.5.1, the squelch button and slider are disabled in RTTY mode. The radio squelch gates weak FSK signals, which interferes with external decoders that expect a continuous audio stream via DAX. If squelch was enabled when switching to RTTY mode, it is automatically turned off. The saved squelch state is restored when switching back to a voice mode.
+
+## Frequency entry on XVTR bands
+
+When entering a frequency on XVTR bands (100–999 MHz range), the VFO panel applies a convenience conversion: a bare integer entry like `1446` is interpreted as `144.6 MHz` by inserting a decimal after the third digit. This only applies when:
+- The slice is tuned to an XVTR band (frequency above 54 MHz or using an antenna starting with `XVT`)
+- The current frequency is in the 100–999 MHz range (three-digit band)
+- The entered value is above 450 MHz and does not contain a decimal point
+
+For frequencies on 23cm and microwave bands (above 1000 MHz), a bare integer is interpreted as MHz directly (e.g., `1296` means `1296 MHz`, not `129.6 MHz`).
+
+The frequency entry accepts values up to 50000 MHz on XVTR bands.
 
 ## Tips
 

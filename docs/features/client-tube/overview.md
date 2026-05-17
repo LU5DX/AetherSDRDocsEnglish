@@ -19,6 +19,21 @@ When a tube stage is bypassed via the CHAIN widget, the entire docked tile rende
 
 To open the docked tile's context menu, right-click the **Aetherial Mic-PreAmp** or **Aetherial Dynamic Tube** sub-container titlebar. From there you can float, pop out, or hide the tile.
 
+## Inline value editing
+
+In v26.5.2.1, every knob throughout the tube applet (and all other AetherSDR applets that use knobs) supports **inline value editing**. This makes it easy to type an exact number instead of turning a knob by eye.
+
+To use inline editing:
+
+1. **Click** any knob's value display (the position where the numeric label normally appears). The label switches to a small text input with a cyan border.
+2. **Type** the desired value, using any number format your locale understands — for example, `12.5` or `12,5` (comma as decimal separator). You can also type just the number without the unit (e.g., `15` instead of `15.00 ms`). A trailing unit string such as `dB` or `ms` is ignored.
+3. **Press Enter** to commit the value. The knob updates to the nearest valid setting within its range.
+4. **Click anywhere else** or **press Tab** to commit the value and close the editor. If you click outside the editor, the value is also applied (commit-on-blur).
+
+To cancel without changing the value, press **Escape**. The editor reverts to the previously stored value.
+
+While the inline editor is active, mouse wheel events still work, so you can fine-tune by scrolling after typing an approximate value.
+
 ## What each control does
 
 The table below applies to both the TX and RX instances. Where setting keys differ by side, both are shown. Controls marked **Editor only** are available in the floating editor but not in the docked tile.
@@ -62,6 +77,7 @@ Bypass for each instance is controlled from the CHAIN widget, not from within th
 - Use Model A, B, or C to change the fundamental character of the tube curve before adjusting Drive and Bias.
 - Set Envelope to a positive value to make the saturation track transients — loud peaks drive the tube harder automatically. Use Attack and Release to control how quickly the follower reacts and recovers.
 - When a tube stage is bypassed, the docked tile dims visibly. If you notice the tile appears faded, check that the stage is enabled in the CHAIN widget before adjusting controls.
+- Use inline value editing (click the knob label) to enter exact numbers quickly instead of turning a knob. Press Escape to cancel the edit.
 
 ## Related
 

@@ -36,14 +36,22 @@ Use this page to map a physical button on your MIDI controller to the straight k
 | Parameter | Combo box | Chooses the target action to bind; CW options are `Trigger straight key`, `Trigger CW Left Paddle`, `Trigger CW Right Paddle` | — |
 | Learn | Button | Starts listening for the next MIDI message and binds it to the selected parameter; label becomes `Cancel Learn` while active | — |
 | Bindings table | List | Shows all current bindings with per-row Invert, Relative, and delete controls | — |
+| Invert | Checkbox | Reverses the control direction for the row | — |
+| Relative | Checkbox | Treats the control as an endless encoder | — |
 | × (delete row) | Button | Removes that binding | — |
 | Clear All | Button | Removes every binding | — |
+| Profile: | Combo box | Picks a saved MIDI mapping profile | — |
+| Save | Button | Saves current bindings as a profile | — |
+| Load | Button | Loads the selected profile | — |
+| Close | Button | Closes the dialog | — |
 
 ## Tips
 
 - These three CW actions are momentary (gate) type: the key is held for as long as the MIDI note or button remains active, then released. Use a pad or button that sends both Note On and Note Off messages for correct keying behavior.
 - If you previously saved a mapping that used the legacy IDs `cw.key`, `cw.dit`, or `cw.dah`, AetherSDR migrates those automatically to the current IDs on load. No manual action is needed.
 - Enable **Auto-connect on startup** so the port is ready the next time AetherSDR launches without requiring you to open this dialog.
+- Use the **Profile:** combo box to save and load named mapping profiles. Click Save to store the current bindings, or Load to apply a previously saved profile.
+- The dialog remembers its size and position between sessions.
 
 ## Troubleshooting
 

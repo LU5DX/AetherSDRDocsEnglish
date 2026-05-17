@@ -56,46 +56,62 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 | Signal History color swatches (Signals / QRM)                 | Push button                                                                                                              | Opens a color picker for the voice signal markers (gold) and QRM markers (red). Default #FFC800 / #FF0000. Persisted as `SHistoryColorSignals` / `SHistoryColorQrm`. New in v26.5.1. |
 | **Snap to Step:**                                             | Toggle button                                                                                                            | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default Disabled. Persisted as `SHistorySnapToStep`. New in v26.5.1. |
 
-## FreeDV Reporter controls (FreeDV tab)
+## Cluster tab controls
 
-The following controls appear in the **Station Reporting** group box on the **FreeDV** tab. They are only present in builds compiled with `HAVE_WEBSOCKETS`.
+The following controls appear on the **Cluster** tab for DX cluster telnet connections.
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Enable FreeDV Reporter reporting when RADE is active** | Checkbox | Reports your station to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. If either the callsign or grid square field is blank when you check this box, a warning dialog appears and the checkbox reverts to unchecked. Persisted as `FreeDvAutoReport`. On Windows, also requires a build compiled with `HAVE_RADE`. |
-| **Callsign:** | Text field | Callsign sent to the FreeDV Reporter map. Becomes read-only when **Use radio** is checked. Persisted as `FreeDvMyCallsign`. |
-| **Use radio** | Checkbox | Pre-fills the **Callsign:** field from the radio's configured callsign and locks the field read-only. Updates automatically if the callsign changes in Radio Setup. Persisted as `FreeDvUseRadioCallsign`. Default: enabled. |
-| **Grid Square:** | Text field | Maidenhead grid square sent to the FreeDV Reporter map. Becomes read-only when **Use GPS** is checked. Persisted as `FreeDvMyGrid`. |
-| **Use GPS** | Checkbox | Pre-fills the **Grid Square:** field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. Persisted as `FreeDvUseGpsGrid`. Default: enabled. |
-| **Station Msg:** | Text field | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Persisted as `FreeDvMyMessage`. |
+| **Server:** | Text field | Hostname of DX cluster to connect to. Persisted as `ClusterHost`. |
+| **Port:** | Spinbox | Telnet port on DX cluster. Range 1-65535. Persisted as `ClusterPort`. |
+| **Callsign:** | Text field | Login callsign sent to cluster. Persisted as `ClusterCallsign`. |
+| **Connect / Disconnect** | Push button | Toggles telnet connection to the cluster. |
+| **Auto-connect on startup** | Toggle button | Auto-connects cluster on launch. Persisted as `ClusterAutoConnect`. |
+| **Cluster Console** | Text field | Read-only telnet console of raw cluster traffic. |
+| **Send** | Push button | Sends a typed command to the cluster. |
+| **Spot Color:** | Push button | Opens a color picker for cluster spots. Persisted as `ClusterSpotColor`. |
+| **Startup Commands…** | Push button | Opens the startup commands editor. Commands are sent automatically after every login. One command per line. Persisted as `DxClusterStartupCommands`. New in v26.5.2.1 (#2683). |
 
-### Enabling FreeDV Reporter reporting
+## RBN tab controls
 
-Before enabling **Enable FreeDV Reporter reporting when RADE is active**, AetherSDR resolves your effective callsign and grid square in this order:
+The following controls appear on the **RBN** tab for Reverse Beacon Network telnet connections.
 
-1. If **Use radio** is checked and the radio has a non-empty callsign configured, that callsign is used. Otherwise the text entered in **Callsign:** is used.
-2. If **Use GPS** is shown and checked and the radio's GPS module provides a non-empty grid square, that grid is used. Otherwise the text entered in **Grid Square:** is used.
+| Control | Kind | Behavior |
+|---|---|---|
+| **Server:** | Text field | RBN telnet hostname. Persisted as `RbnHost`. |
+| **Port:** | Spinbox | RBN telnet port. Range 1-65535. Persisted as `RbnPort`. |
+| **Callsign:** | Text field | Login callsign to RBN. Persisted as `RbnCallsign`. |
+| **Rate Limit:** | Spinbox | Caps RBN spots per second. Persisted as `RbnRateLimit`. |
+| **Connect / Disconnect (RBN)** | Push button | Toggles RBN connection. |
+| **Auto-connect on startup (RBN)** | Toggle button | Starts RBN automatically. Persisted as `RbnAutoConnect`. |
+| **RBN Console** | Text field | Read-only console of RBN traffic. |
+| **Send (RBN)** | Push button | Sends command to RBN. |
+| **Spot Color: (RBN)** | Push button | Color picker for RBN spots. Persisted as `RbnSpotColor`. |
+| **Startup Commands…** | Push button | Opens the startup commands editor for the RBN instance. Commands are sent automatically after every login. One command per line. Persisted as `RbnStartupCommands`. New in v26.5.2.1 (#2683). |
 
-If either the resolved callsign or grid square is empty, AetherSDR displays a warning and leaves the checkbox unchecked. Fill in both fields before trying again.
+## WSJT-X tab controls
 
-## Auto Mode default change
+The following controls appear on the **WSJT-X** tab for UDP message listening.
 
-As of v0.9.5.1, the **Auto** toggle on the **Display** tab defaults to **Enabled**. The setting is persisted as `SpotAutoSwitchMode`. If you previously left this at its default, it will now be active after a fresh installation. Existing installations retain whatever value was last saved.
+| Control | Kind | Behavior |
+|---|---|---|
+| **Address:** | Text field | UDP bind address for WSJT-X messages. Persisted as `WsjtxAddress`. |
+| **Port:** | Spinbox | UDP port for WSJT-X. Range 1-65535. Persisted as `WsjtxPort`. |
+| **Start / Stop** | Push button | Starts or stops UDP listener. |
+| **Auto-start on startup (WSJT-X)** | Toggle button | Auto-starts listener on launch. Persisted as `WsjtxAutoStart`. |
+| **CQ** | Checkbox | Show only CQ calls from WSJT-X. Persisted as `WsjtxFilterCQ`. |
+| **CQ POTA** | Checkbox | Show CQ POTA calls. Persisted as `WsjtxFilterPOTA`. |
+| **Calling Me** | Checkbox | Show only decodes addressed to your callsign. Persisted as `WsjtxFilterCallingMe`. |
+| **CQ color / POTA color / Calling Me color / Default color** | Push button | Color pickers for each WSJT-X spot category. Persisted as `WsjtxColorCQ`, `WsjtxColorPOTA`, `WsjtxColorCallingMe`, `WsjtxColorDefault`. |
+| **WSJT-X Decodes** | Text field | Console of decoded transmissions. |
+| **Spot Life:** | Spinbox | Seconds WSJT-X spots remain on panadapter. Persisted as `WsjtxSpotLife`. |
 
-## Tune to a spot by double-clicking the spot list
+## SpotCollector tab controls
 
-As of v0.9.7, double-clicking a row in the **Spot List** tab tunes your radio to the spot frequency and also forwards a mode hint derived from the spot comment. AetherSDR will switch the active slice to CW, SSB, or the appropriate digital mode to match the spot, rather than only changing the frequency. If the spot comment contains no recognizable mode token, the slice mode is left unchanged.
+The following controls appear on the **SpotCollector** tab for Ham Radio Deluxe SpotCollector UDP broadcasts.
 
-## Tips
-
-- POTA spots appear in the unified **Spot List** tab alongside spots from other sources. The **Source** column identifies them.
-- Double-clicking a POTA spot row in the Spot List tunes your radio to that frequency and switches the slice mode to match the spot where possible. See [Tune to a spot by double-clicking the spot list](tune-to-a-spot-by-double-clicking-the-spot-list.md).
-- If spots are not visible on the panadapter, confirm that the **Spots:** master toggle on the **Display** tab is set to **Enabled** (`IsSpotsEnabled`).
-- To reduce panadapter clutter during a contest, set **Spot Lines:** to **Disabled** on the **Display** tab. This hides the vertical lines while keeping spot labels visible.
-
-## Troubleshooting
-
-- **Status stays at Stopped after clicking Start** — The application cannot reach `api.pota.app`. Check your internet connection and confirm no firewall or proxy is blocking outbound HTTP.
-- **No spots appear on the panadapter despite Polling status** — Verify that **Spots:** on the **Display** tab is **Enabled**. Also check that the current band is not filtered out in the **Spot List** tab's **Bands:** checkboxes.
-- **POTA Activations console is empty** — There may be no active POTA activations at this time, or the poll has not yet completed. Wait for the next poll interval to elapse.
-- **FreeDV Reporter checkbox immediately unchecks** — Either the **Callsign:** or **Grid Square:** field is empty. Enter a valid
+| Control | Kind | Behavior |
+|---|---|---|
+| **UDP Port:** | Spinbox | UDP port SpotCollector broadcasts on. Range 1-65535. Persisted as `SpotCollectorPort`. |
+| **Start / Stop (SpotCollector)** | Push button | Starts or stops UDP listener. |
+| **Auto-start on startup (

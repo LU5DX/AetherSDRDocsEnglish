@@ -36,12 +36,17 @@ The RX-side Aetherial AGC-G (client-side downward expander) attenuates received 
 | Gain-reduction bar | — | 0 to 40 dB GR | — | Amber horizontal strip, right-filled. Scale maxes at 40 dB; a tick at -15 dB marks the default Floor. |
 | Transfer curve | — | — | — | Plots the expander's static transfer curve and a live ball at the current input level. In compact mode (when the floating editor is used), axis labels are cached as static text and rendered at 7-pixel font size for improved performance. |
 
+## Inline value editing
+
+Each tuning knob (Thresh, Ratio, Return, Release, Floor) supports direct numeric entry. Click the displayed value below any knob to open an inline text editor. Type a new value and press Enter, or click elsewhere, to commit the change. The knob updates live and clamps the entered value to the valid range. Press Esc to cancel editing and revert to the previous value. The editor uses a locale-aware parser, so decimal separators matching your system locale (for example, a comma in European locales) work correctly.
+
 ## Tips
 
 - Start with Thresh just above the highest level of background noise you want to suppress. Adjust while listening to a weak signal — the gate should open cleanly when the signal rises above the noise.
 - The Gain-reduction bar shows live attenuation depth. When no signal is present, it should show steady GR equal to your Floor setting. If it never reaches Floor, Thresh may be set too low or the band noise is too loud.
 - Tuning knobs here and in the floating editor stay in sync — changes in either place update the other live.
 - The transfer-curve display caches axis labels for efficient rendering. When switching between compact mode (floating editor) and full-size mode, labels automatically refresh at the appropriate font size.
+- To enter a precise value quickly, click the displayed number below any knob and type directly instead of dragging the knob.
 
 ## Related
 

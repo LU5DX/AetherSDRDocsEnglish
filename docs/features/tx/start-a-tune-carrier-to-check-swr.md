@@ -12,12 +12,13 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 
 1. Click the TX tray button in the right sidebar to open the TX Controls applet if it is not already visible.
 2. Check the **Tune Pwr** slider. The default is 10 (out of 100). Adjust if needed before transmitting.
-3. Click **TUNE**.
+3. Right-click the **TUNE** button to select the carrier shape for the next tune cycle. Choose **Mono Tone** or **Two Tone** from the context menu. The radio's tune mode is a transient one-shot — AetherSDR does not persist the choice.
+4. Click **TUNE**.
    - The button label changes to **TUNING...** and the button background turns red while the carrier is active.
    - The **SWR** gauge updates in real time. The scale runs from 1.0 to 3.0; readings above 2.5 are shown in red.
-   - The **RF Pwr** gauge shows forward power at the exciter output.
-4. Read the SWR value from the **SWR** gauge.
-5. Click **TUNE** again to stop the carrier.
+   - The **RF Pwr** gauge shows forward power at the exciter output. A peak-hold bar tracks the peak envelope power (PEP) for 2 seconds, then decays toward the current reading.
+5. Read the SWR value from the **SWR** gauge.
+6. Click **TUNE** again to stop the carrier.
    - The button label returns to **TUNE** and the red background clears.
 
 ## What each control does
@@ -35,6 +36,7 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 - The **SWR** gauge turns red above 2.5. If it pegs at 3.0, stop the carrier and check your feedline and antenna connections before continuing.
 - To run the internal ATU instead of checking SWR manually, click **ATU** after the tune carrier confirms the antenna is usable. See [Run the internal ATU](run-the-internal-atu.md).
 - If you want to inhibit specific TX outputs (ACC TX, TX1, TX2, TX3) during tuning, configure them at `Settings > Inhibit during TUNE`.
+- The peak-hold bar on the **RF Pwr** gauge resets to zero immediately when the transmitter un-keys, so a held PEP reading does not linger across overs.
 
 ## ATU button behavior (v0.9.5.1)
 
@@ -47,6 +49,15 @@ Starting with v0.9.5.1, the **ATU** button behaves as a frequency-aware toggle r
 When the ATU enters bypass, the tuned-frequency record is also cleared, so the next click will start a fresh tune regardless of frequency.
 
 This change has no effect on the **MEM** button or the ATU status indicators (**Success**, **Byp**, **Mem**), which continue to behave as described below.
+
+## ATU right-click menu (v26.5.2.1)
+
+Right-click the **ATU** button to access the following actions:
+
+- **Pre-tune bands…** — Opens the Pre-Tune Bands dialog to run a sweep across selected bands. This action is only available when MEM is enabled (the **MEM** button must be engaged). If MEM is off, the menu item is disabled with a tooltip explaining that MEM must be enabled first.
+- **Clear ATU memories…** — Prompts for confirmation and then clears all stored ATU memories.
+
+This matches SmartSDR Windows's hidden right-click menu on the ATU button.
 
 ## MOX and Quindar tones (v0.9.7)
 
@@ -61,11 +72,15 @@ This change affects only the **MOX** button in the TX Controls applet. Hardware 
 - **Carrier does not stop** — Click **TUNE** once more. If the button remains in **TUNING...** state, check the radio connection; a dropped connection can leave the transmit state unacknowledged.
 - **ATU button bypasses the tuner instead of retuning** — This is expected behavior when the ATU already holds a successful match at the current frequency. Change frequency or wait for the tuner to clear its result, then click **ATU** again to start a fresh tune cycle.
 - **MOX keys the transmitter but no Quindar tones are heard** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode (USB, LSB, AM, FM, or similar). Quindar tones do not play on CW or digital modes.
+- **Pre-tune bands menu item is grayed out** — Enable MEM by clicking the **MEM** button in the TX Controls applet before right-clicking **ATU**.
+- **Peak-hold bar does not appear during tune** — The peak-hold bar only tracks when the transmitter is keyed. The bar decays after 2 seconds of holding a peak, and resets to zero on un-key.
 
 ## Related
 
 - [Set tune-carrier power](set-tune-carrier-power.md)
 - [Run the internal ATU](run-the-internal-atu.md)
+- [Pre-tune bands](pre-tune-bands.md)
+- [Clear ATU memories](clear-atu-memories.md)
 - [Recall an ATU memory](recall-an-atu-memory.md)
 - [Set RF output power](set-rf-output-power.md)
 - [Toggle MOX to manually key the transmitter](toggle-mox-to-manually-key-the-transmitter.md)

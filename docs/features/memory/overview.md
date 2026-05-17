@@ -38,19 +38,22 @@ Each row represents one stored memory. The columns are:
 | RTTY Shift                  | RTTY shift                                                                                                  |                                                                                                      |
 | DIGL Offset                 | Digital lower sideband offset                                                                               |                                                                                                      |
 | DIGU Offset                 | Digital upper sideband offset                                                                               |                                                                                                      |
-| Button                      | What it does                                                                                                |                                                                                                      |
-| ---                         | ---                                                                                                         |                                                                                                      |
-| Add                         | Creates a new memory from the current (active) slice -- no per-letter selection.                            | The slice-letter badge variant was dropped; adding always targets the active slice. Ctrl+N shortcut. |
-| Edit                        | Enters inline-edit mode on the selected memory's Name field.                                                | F2 or Ctrl+E also triggers edit. Only enabled when exactly one memory is selected.                   |
-| Tune                        | Tunes the active slice to the selected memory.                                                              | Only enabled when exactly one memory is selected.                                                    |
-| Select All                  | Selects every visible row (respecting search/filter).                                                       | Ctrl+Shift+A shortcut.                                                                               |
-| Import...                   | Imports memories from a CSV file with progress dialog.                                                      | Shows import progress and a summary with any skipped rows.                                           |
-| Export...                   | Exports selected (or filtered) memories to CSV.                                                             | Validates generated CSV before saving.                                                               |
-| Remove                      | Deletes selected memories (with confirmation). Shows progress for batch removal.                            | Delete/Backspace key also triggers. Button label changes to 'Remove Selected' when >1 row selected.  |
 
-**Frameless window title bar**
+**Actions**
 
-The dialog uses a custom frameless title bar introduced in v26.5.1. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states.
+| Button       | What it does                                                                             | Notes                                                                                                |
+|--------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Add          | Creates a new memory from the current (active) slice -- no per-letter selection.         | The slice-letter badge variant was dropped; adding always targets the active slice. Ctrl+N shortcut. |
+| Edit         | Enters inline-edit mode on the selected memory's Name field.                             | F2 or Ctrl+E also triggers edit. Only enabled when exactly one memory is selected.                   |
+| Tune         | Tunes the active slice to the selected memory.                                           | Only enabled when exactly one memory is selected.                                                    |
+| Select All   | Selects every visible row (respecting search/filter).                                    | Ctrl+Shift+A shortcut.                                                                               |
+| Import...    | Imports memories from a CSV file with progress dialog.                                   | Shows import progress and a summary with any skipped rows.                                           |
+| Export...    | Exports selected (or filtered) memories to CSV.                                          | Validates generated CSV before saving.                                                               |
+| Remove       | Deletes selected memories (with confirmation). Shows progress for batch removal.         | Delete/Backspace key also triggers. Button label changes to 'Remove Selected' when >1 row selected.  |
+
+**Window title bar**
+
+The dialog uses a custom frameless title bar. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states.
 
 **Window controls**
 
@@ -60,20 +63,23 @@ The dialog uses a custom frameless title bar introduced in v26.5.1. The title ba
 | □ (Maximize)  | Maximizes or restores the dialog.                                                        |                                                               |
 | × (Close)     | Closes the dialog. Escape clears the search field first, then closes the dialog.         |                                                               |
 
-**8-axis resize**
+**Resizing**
 
-Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide via FramelessResizer.
+Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide.
 
 **Selection count**
 
 The indicator at the bottom right of the button row shows how many rows are currently selected, formatted as `<N> of <M> selected`.
+
+## Persistent geometry
+
+The dialog saves and restores its position and size across sessions using a persistent geometry setting keyed to "MemoryDialogGeometry". The dialog opens at its last known location and size.
 
 ## Tips
 
 - The Search: field has a clear button on the right side; click it to remove the filter without clearing the Profile: selection.
 - Press Ctrl+F to focus the Search: field directly.
 - Sorting and filtering do not delete or reorder the memories on the radio; they only change what is visible in the table.
-- The frameless window behavior mirrors SpotHub and RadioSetup dialogs. The global View > Frameless Window setting controls whether this dialog uses frameless chrome.
 
 ## Related
 

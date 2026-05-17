@@ -11,7 +11,7 @@ AetherDSP Settings gives you fine-grained control over AetherSDR's client-side n
 
 Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six tabs — **NR2**, **NR4**, **MNR**, **DFNR**, **RN2**, and **BNR** — each covering a different noise-reduction engine. Clicking a tab also activates or bypasses that engine; the six DSP toggles act as exclusive selectors and engine enable/disable controls. Settings are saved immediately when you change any control; no Apply or OK button is required.
 
-The dialog can appear with or without a native title bar, depending on the **FramelessWindow** application setting (see `Settings > Appearance > Frameless Window`). When frameless mode is enabled (default), the dialog has an 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. When frameless mode is disabled, the dialog uses the standard operating system window frame. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px.
+The dialog has a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px. Dialog position and size are persisted across sessions using the `AetherDspDialogGeometry` setting key.
 
 ### NR2 tab
 
@@ -91,9 +91,9 @@ The RN2 tab covers the RNNoise engine. It is informational only; there are no ad
 
 The BNR tab covers NVIDIA noise reduction. Intensity is controlled from the overlay menu, not from this dialog. On builds without the NVIDIA Broadcast SDK the BNR toggle is dimmed.
 
-## Window controls (frameless mode only)
+## Window controls
 
-When frameless mode is enabled, the dialog's custom title bar provides these controls:
+The dialog's custom title bar provides these controls:
 
 | Control | Behavior |
 |---|---|
@@ -103,11 +103,9 @@ When frameless mode is enabled, the dialog's custom title bar provides these con
 | × (Close) | Closes the dialog |
 | Double-click title bar | Toggles maximize/restore |
 
-When frameless mode is disabled, all window management is handled by the operating system's standard title bar.
+## Resizing
 
-## Resizing (frameless mode only)
-
-In frameless mode, click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. A 6 px resize hit zone extends inward from each edge. When the dialog uses the native window frame, operating system resize handles are used instead.
+Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. A 6 px resize hit zone extends inward from each edge.
 
 ## Tips
 
@@ -115,7 +113,6 @@ In frameless mode, click and drag any edge or corner of the dialog to resize it.
 - On the NR2 tab, reducing **Threshold:** below its default (0.20) helps recover weak or low-power speech, but may increase noise breakthrough.
 - On the NR4 tab, leaving **Smoothing (%):** and **Whitening (%):** at 0 gives the most natural-sounding output; increase them only if residual noise is objectionable.
 - Use **Reset Defaults** on the NR2 or NR4 tab to recover a known-good baseline before experimenting.
-- Toggle the **Frameless Window** setting in `Settings > Appearance` to switch between framed and frameless modes. The change applies immediately without restarting the dialog.
 
 ## Related
 

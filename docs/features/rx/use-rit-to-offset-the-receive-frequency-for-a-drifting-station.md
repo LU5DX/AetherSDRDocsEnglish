@@ -24,6 +24,7 @@ RIT (Receive Incremental Tuning) shifts the receive frequency by a small amount 
 | RIT        | Toggle button | Off     |
 | RIT offset | Spinbox       | `+0 Hz` |
 | RIT 0      | Push button   | —       |
+
 ## Tips
 
 - RIT affects only the receive frequency. Your transmit frequency stays on the VFO. If you also need to offset your transmit frequency, use XIT instead of or alongside RIT.
@@ -38,6 +39,10 @@ From v0.9.3, the slice tab buttons (A..H) and the Slice badge in the top-left co
 - The same colour is reflected in the slice tab buttons, the Slice badge, VFO widgets, and meter strips wherever the slice is displayed.
 - No action is required on your part; the colours update automatically when a slice is connected or its colour is changed.
 
+## Slice badge text format (v26.5.2.1)
+
+From v26.5.2.1, the slice badge label uses rich text format so the slice letter may be rendered as HTML. This allows special colour or style characters if needed. The badge still displays the letter of the currently bound slice (A..H).
+
 ## Slice tab behaviour on reconnect (v0.9.5.1)
 
 From v0.9.5.1, the slice tab row is rebuilt correctly whenever the number of available slices changes across a disconnect and reconnect cycle. Specifically:
@@ -49,11 +54,7 @@ No action is required on your part. If you reconnect to a radio with a different
 
 ## RADE mode behaviour
 
-When you select RADE from the mode combo, the slice is placed into RADE (Rapid Automatic Detection and Excitation) mode. If the same slice was previously in RADE and you switch to another mode, the RADE deactivation signal is only emitted if that slice was actually in RADE before the change. This prevents spurious deactivations when:
-
-- Changing modes on a non-RADE slice
-- Loading a profile at startup
-- Activating RADE from an external source such as the VFO widget
+When you select RADE from the mode combo, the slice is placed into RADE (Rapid Automatic Detection and Excitation) mode. Note that RADE is a client-side only mode — the radio echoes back the real mode (DIGL/DIGU) immediately after selection. When you switch from RADE to another mode, no RADE deactivation signal is emitted because the slice's mode is never `"RADE"` on the radio side. This prevents spurious deactivations when changing modes.
 
 ## NT mode behaviour
 
@@ -71,6 +72,18 @@ From v26.5.1, RTTY mode is added to the list of modes that automatically disable
 - If squelch was on, it is turned off automatically and the saved state is restored when you leave RTTY.
 
 This prevents squelch from notching out FSK characters and breaking decoding (#2504).
+
+## Manual squelch level persistence (v26.5.2.1)
+
+From v26.5.2.1, the manual squelch threshold you set with the squelch level slider is saved and restored across sessions. When auto-squelch mode is active, the radio may change the squelch level internally — the client now remembers your last manual preference so it is preserved when you return to manual squelch control. The setting is stored in `LastManualSquelchLevel` with a default of 20.
+
+## RX antenna menu (v26.5.2.1)
+
+From v26.5.2.1, the RX antenna menu is populated from the slice's dedicated `rxAntennaList()` when available, falling back to the general `ant_list` from the panadapter status. This ensures you see only antennas valid for the current slice. Menu items display the antenna name with tooltip and status tip showing the raw antenna identifier. Selecting an item calls `setRxAntenna()` with the antenna data string rather than the menu label text.
+
+## TX antenna menu (v26.5.2.1)
+
+From v26.5.2.1, the TX antenna menu uses a refined filtering algorithm. A fallback function `likelyTxAntennaFallbackToken()` accepts antenna tokens that start with `ANT`, `TX`, or are exactly `XVTR`. Ports starting with `RX` are excluded. Menu items display the antenna name with tooltip and status tip. Selecting an item calls `setTxAntenna()` with the antenna data string.
 
 ## Filter width presets (v0.9.5.1)
 

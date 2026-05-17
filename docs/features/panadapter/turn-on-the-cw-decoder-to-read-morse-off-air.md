@@ -1,6 +1,6 @@
 # Turn on the CW decoder to read Morse off-air
 
-The CW decode panel appears beneath the panadapter and displays incoming Morse code as readable text in real time. Use it to copy off-air CW without a separate decoding program.
+The CW decode panel appears beneath the panadapter and displays incoming Morse code as readable text in real time. Use it to copy off-air CW without a separate decoding program. In v26.5.2.1, the decoder also renders your own transmitted keying in a distinct cyan color so you can visually separate your sending from incoming CW when both directions feed the same panel (#2417).
 
 ## Before you start
 
@@ -12,7 +12,7 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 
 1. In the panadapter title bar, confirm the correct slice is shown in the "Slice" title label (for example, "Slice A").
 2. Open the CW decode panel. The panel appears below the spectrum/waterfall area and is hidden by default — look for a CW control or mode button that exposes it for the active slice. Once visible, the panel shows the label **CW** in blue alongside the hint **(requires PC Audio)**.
-3. Watch the **CW decode text** area at the bottom of the panel. As the decoder tracks the signal, decoded characters roll in and are coloured by confidence: green (high), yellow, orange, or red (low).
+3. Watch the **CW decode text** area at the bottom of the panel. As the decoder tracks the signal, decoded characters roll in and are coloured by confidence: green (high), yellow, orange, or red (low). Characters decoded from your own transmitted keying appear in cyan (#5fc8ff) and are separated from incoming text by a space.
 4. Check the **CW stats label** above the text area. It shows the detected pitch and speed in the format `<Hz>  <WPM>`, for example `600 Hz  20 WPM`. Confirm these match the signal you are listening to before relying on the decode.
 
 ## What each control does
@@ -30,6 +30,11 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 | **× (close CW)**           | Hides the CW decode panel.                                                                                                                                                  | —       |
 | **CW stats label**         | Indicator showing detected pitch and speed. Read-only.                                                                                                                      | —       |
 | **CW decode text**         | Rolling read-only display of decoded characters, coloured by confidence. Right-click opens a context menu with a **Clear** option in addition to the standard text actions. | —       |
+
+## How TX decode appears
+
+When you transmit CW, the decoder captures your keying and displays it in cyan text. This lets you verify your own sending alongside incoming signals. The decoder applies the same confidence filter as the RX path — low-confidence characters are suppressed. A space is inserted when switching between TX and RX decode to prevent the coloured runs from visually merging.
+
 ## Tips
 
 - If the text area fills with low-confidence (orange or red) characters, increase **Sens** to filter them out. Start around 50 and raise until noise characters disappear.

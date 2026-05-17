@@ -57,6 +57,7 @@ If your radio is on a VPN or a routed network that is not visible via LAN discov
 - **Audio is choppy or drops frequently** — Enable **Use low bandwidth mode** before connecting to reduce stream rates for the link.
 - **Manual connection fails or the Manual result label shows an error** — Confirm the IP address is correct and reachable from this machine. Check that the selected source interface in **Advanced: Source path** is active; dismiss any **Source warning label** by selecting a valid interface.
 - **AetherSDR connects to the wrong radio on startup** — Uncheck **Connect to last radio on start up** so the connection screen opens on every launch and you can select the intended radio.
+- **Connection dialog appears with incorrect geometry after exiting full-screen or frameless mode** — If you had the connection dialog in frameless mode and it was hidden when the window was restored, the dialog preserves its position only when it was visible at the time of restoration. This prevents the dialog from appearing off-screen.
 
 ## Related
 

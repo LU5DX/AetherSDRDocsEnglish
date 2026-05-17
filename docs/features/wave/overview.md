@@ -18,7 +18,7 @@ The applet no longer enforces a fixed height; it resizes vertically with the lay
 
 | Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Waveform display        | Renders the min/max envelope per pixel column with peak and RMS envelope traces over the configured time window.                                                                                 | No persisted setting key.                                                                                               |
+| Waveform display        | Renders mono float-32 PCM scope samples. Displays min/max waveform, RMS envelope, peak markers, and clipping highlights in the active view mode.                                                  | TX direction tinted differently from RX so the current side is obvious without reading a label. Header readout shows RX/TX, RMS dBFS, and PK dBFS. |
 | Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again.                                                                                           | A **PAUSED** badge appears in the footer. Default state is live.                                                        |
 | Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | Does not clear the buffer. To reset the display, use the WaveformWidget::clear() slot or reconnect.                     |
 | View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as `WaveApplet_ViewMode`.                      |
@@ -40,9 +40,9 @@ On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec
 ## Indicators
 
 - **Direction tint** — The display uses a cool tint for RX and a warm tint for TX so the active audio path is unambiguous without reading the header label.
-- **Clipping highlight** — Any pixel column containing samples at or above the clipping threshold is highlighted in red at the top and bottom edges of the plot. A **CLIP** count also appears in the header, in bold red, showing the number of clipped samples in the current window.
+- **Clipping highlight** — Any pixel column containing samples at or above the clipping threshold is highlighted in red at the top and bottom edges of the plot. A **CLIP N** counter also appears in the header, in bold red, showing the number of clipped samples in the current window.
 - **PAUSED badge** — Shown in the footer when the display is frozen on a snapshot. No badge means the display is live.
-- **No-audio placeholder** — If no samples have arrived within the last second, or the display buffer is empty, a placeholder message replaces the empty trace.
+- **No-audio placeholder** — If no samples have arrived within the last second, or the display buffer is empty, a placeholder message replaces the empty trace. For the RX path, the message reads "Enable PC Audio". For the TX path, the message reads "no TX audio".
 
 ## Tips
 

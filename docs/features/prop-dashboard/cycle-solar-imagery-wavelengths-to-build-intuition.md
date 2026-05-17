@@ -37,9 +37,7 @@ The Solar And Lunar panel in the HF Propagation Dashboard displays a live solar 
 
 ## Dashboard window behavior
 
-The HF Propagation Dashboard supports frameless window mode. When frameless mode is enabled, the dialog displays a custom title bar with the text "HF Propagation Dashboard". The title bar is hidden when frameless mode is disabled (standard window chrome active).
-
-Frameless mode is controlled by the `FramelessWindow` setting in `AppSettings`. The dashboard respects the current setting automatically when opened.
+The HF Propagation Dashboard uses a persistent window geometry that saves and restores its position and size automatically. The dialog stores its geometry under the `PropDashboardDialogGeometry` setting key. It does not support frameless window mode; the standard window chrome is always active.
 
 ## Related
 

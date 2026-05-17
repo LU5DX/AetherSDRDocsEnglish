@@ -18,7 +18,7 @@ Export your stored memory channels to a CSV file for safekeeping or to share wit
 
 ## Notes on the dialog window
 
-The Memory Channels dialog uses a frameless window design (added in v26.5.1). The title bar displays "Memory Channels" with a grip glyph on the left side. You can:
+The Memory Channels dialog uses a custom title bar with a gradient background. The title bar displays "Memory Channels" with a grip glyph on the left side. You can:
 
 - Click and drag the title bar to move the dialog.
 - Double-click the title bar to toggle between maximized and restored state.
@@ -26,6 +26,8 @@ The Memory Channels dialog uses a frameless window design (added in v26.5.1). Th
 - Click the minimize button (—) to minimize the dialog.
 - Click the maximize button (□) to maximize or restore the dialog.
 - Click the close button (×) to close the dialog. Press Escape to clear the search field first, then close the dialog on a second press.
+
+The dialog remembers its geometry across sessions. When reopened, it restores to its previous size and position.
 
 ## Tips
 

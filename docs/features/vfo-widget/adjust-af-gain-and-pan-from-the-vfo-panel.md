@@ -25,6 +25,18 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 | AGC combo (Audio tab) | FAST | FAST \| MED \| SLOW \| OFF |
 | ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
+| RX antenna button | — | Opens antenna selection menu for the receive antenna of this slice. |
+| TX antenna button | — | Opens antenna selection menu for the transmit antenna of this slice. |
+| Frequency display | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
+| Filter width label | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. |
+| Mode combo (Mode tab) | USB | USB \| LSB \| CW \| CWL \| AM \| SAM \| DIGU \| DIGL \| FM \| NFM \| DFM \| RTTY |
+| Filter preset buttons (Mode tab) | — | Applies a saved filter width preset. Right-click to save the current filter width into that slot. |
+| RIT / XIT buttons + labels (X/RIT tab) | off | Enables receiver (RIT) or transmitter (XIT) incremental tuning. |
+| DAX channel combo (DAX tab) | Off | Off \| 1–8 |
+| Marker thickness button | 1 px | Off \| 1 px \| 3 px |
+| Filter edges button | shown | Toggles the filter edge lines on the spectrum passband. |
+| Collapse toggle | expanded | Collapses the VFO panel to a compact frequency-only strip. |
+| Slice badge | — | Shows the slice letter. Displays the TX badge (red) when this slice is the active transmit slice. Displays the SPLIT badge (amber) when TX is assigned to a different slice than the active receive slice. |
 
 ## Tips
 
@@ -78,6 +90,31 @@ The slider row remains laid out at all times. When no leveled algorithm is activ
 | Control | Range | Behavior |
 |---|---|---|
 | DSP level slider | 0–100 | Sets the level for the most recently enabled leveled DSP algorithm. Retargets automatically when you switch algorithms. Hidden (faded) when no leveled algorithm is active. |
+
+## Antenna selection (v26.5.2.1)
+
+The RX antenna and TX antenna buttons open context menus showing available antenna ports for the current slice.
+
+- The RX antenna menu displays antennas from the slice's dedicated RX antenna list when available, falling back to the global antenna list.
+- The TX antenna menu automatically filters out RX-only antenna ports. Antenna ports starting with "RX" are excluded from the TX selection.
+- Each menu entry shows the antenna name. The currently selected antenna is marked with a checkmark.
+
+## VFO panel indicators
+
+The VFO panel includes two indicators that appear when certain conditions are met:
+
+- **TX badge (red)**: Shown when this slice is the active transmit slice.
+- **SPLIT badge (amber)**: Shown when TX is assigned to a different slice than the active receive slice.
+
+The slice badge displays the slice letter and uses rich text format for proper rendering.
+
+## Frequency entry for XVTR bands (v26.5.2.1)
+
+When entering frequencies on XVTR bands (slice frequency above 54 MHz or RX antenna starting with "XVT"):
+
+- The maximum accepted frequency is 50000 MHz.
+- For slices in the 100–999 MHz range (2m/70cm bands), bare integers are automatically formatted with a decimal after the third digit. For example, entering 1446 becomes 144.6, 14696 becomes 146.96, and 144600 becomes 144.600.
+- For microwave bands (23cm and above, 1000 MHz and higher), bare integers are treated as the exact MHz value. For example, 1296 becomes 1296 MHz.
 
 ## Related
 

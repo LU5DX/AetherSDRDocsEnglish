@@ -21,8 +21,8 @@ The header row sits above the tabs and is always visible.
 
 | Control | What it does |
 |---|---|
-| RX antenna button | Opens the antenna selection menu for the receive antenna of this slice. |
-| TX antenna button | Opens the antenna selection menu for the transmit antenna of this slice. |
+| RX antenna button | Opens the antenna selection menu for the receive antenna of this slice. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
+| TX antenna button | Opens the antenna selection menu for the transmit antenna of this slice. RX-only antenna ports are excluded. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
 | Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type a value in MHz and press Enter or Tab to apply. Scroll-wheel over the frequency display tunes by the current step size. |
 | Filter width label | Shows the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (v0.9.8). |
 | TX badge | Shown in red when this slice is the active transmit slice. In collapsed mode, click the badge to toggle TX assignment. |
@@ -93,6 +93,23 @@ These controls affect how the slice appears on the spectrum display. They are pe
 | Collapse toggle | expanded | expanded / collapsed | `SliceFlagCollapsed_{N}` |
 
 Clicking the slice badge in the header row collapses the panel. Clicking anywhere on the collapsed strip expands it.
+
+## Antenna selection
+
+The RX and TX antenna buttons open menus that display radio-provided labels (such as "ANT 1" or "RX ANT B") alongside abbreviated names in parentheses when they differ. The menus show:
+
+- **RX antenna**: All available antenna ports for receive. Menu items include tooltips and status bar hints showing the full antenna name.
+- **TX antenna**: Only antenna ports suitable for transmit (RX-only ports are excluded). Menu items include tooltips and status bar hints showing the full antenna name.
+
+Both menus are populated from the radio's per-slice antenna list when available, falling back to the global antenna list. Antenna assignments apply immediately.
+
+## Frequency entry
+
+Click the frequency display to begin direct entry. The following rules apply:
+
+- Type a frequency in MHz (e.g., `14.200` or `14200`). Press Enter or Tab to apply.
+- On XVTR bands, frequencies up to 50000 MHz are accepted.
+- On bands between 100-999 MHz (2m, 70cm), a bare integer like `1446` is interpreted as `144.6`, `14696` as `146.96`, and `144600` as `144.600`. This convenience does not apply above 1000 MHz (23cm and microwave bands), where a bare integer represents the frequency in MHz directly.
 
 ## Tips
 

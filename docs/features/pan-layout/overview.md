@@ -5,6 +5,7 @@ The Panadapter Layout feature controls how many panadapters are displayed and ho
 ## Before you start
 
 - AetherSDR must be connected to a Flex radio. Layout buttons for arrangements requiring more panadapters than the radio supports are disabled.
+- The radio has a slice limit that determines the maximum number of panadapters. If the radio is already at its slice capacity when a larger layout is requested, a status-bar warning is shown and the layout change is cancelled.
 
 ## How it works
 
@@ -14,13 +15,13 @@ Click any enabled thumbnail to apply that layout immediately. The dialog closes 
 
 The chosen layout is persisted as `PanLayout`.
 
-Thumbnails for arrangements that exceed the number of panadapters your radio supports are shown with a dimmed appearance and cannot be selected.
+Thumbnails for arrangements that exceed the number of panadapters your radio supports are shown with a dimmed appearance and cannot be selected. If the radio's slice limit is already at capacity when a larger layout is applied, a status-bar message "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" is shown and the layout change is cancelled.
 
 ## What each control does
 
 | Control | Description | Layouts available | Persisted setting |
 |---|---|---|---|
-| Layout buttons | Preview tiles — click one to apply that arrangement. | `1`, `2v`, `2h`, `2h1`, `12h`, `3v`, `2x2`, `4v`, `3h2`, `2x3`, `4h3`, `2x4` | `PanLayout` |
+| Layout buttons | Preview tiles — click one to apply that arrangement. | `1`, `2v`, `2h`, `2h1`, `12h`, `2x2`, `3h2`, `2x3`, `4h3`, `2x4` | `PanLayout` |
 | **Cancel** | Closes the dialog without changing the current layout. | — | — |
 
 The available arrangements are:
@@ -32,9 +33,7 @@ The available arrangements are:
 | `2h` | A \| B | 2 |
 | `2h1` | A\|B / C | 3 |
 | `12h` | A / B\|C | 3 |
-| `3v` | A / B / C | 3 |
 | `2x2` | A\|B / C\|D | 4 |
-| `4v` | A/B/C/D | 4 |
 | `3h2` | A\|B\|C / D\|E | 5 |
 | `2x3` | A\|B / C\|D / E\|F | 6 |
 | `4h3` | A\|B\|C\|D / E\|F\|G | 7 |
@@ -44,6 +43,7 @@ The available arrangements are:
 
 - Each thumbnail label shows the pan count, for example "A\|B / C (3 pans)", so you can confirm the count before clicking.
 - Layouts requiring more panadapters than the radio provides are disabled and show a forbidden cursor on hover. Connect to a radio that supports the desired number of panadapters to enable them.
+- If you attempt to select a layout requiring more panadapters when your radio's slice limit is already full, check the status bar for a warning message explaining the limitation.
 
 ## Related
 

@@ -51,6 +51,28 @@ The **Byp** indicator lights orange whenever the tuner is in bypass. The **Succe
 
 > **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL amplifier is in OPERATE mode.
 
+## Right-click ATU menu (v26.5.2.1)
+
+Right-click the **ATU** button to open a context menu with two advanced options.
+
+| Menu Item | Action |
+|---|---|
+| **Pre-tune bands…** | Opens the Pre-Tune dialog to sweep antenna tuner settings across a range of frequencies. Enabled only when **MEM** is active. |
+| **Clear ATU memories…** | Prompts for confirmation and then clears all stored ATU tune memories on the radio. |
+
+> **Note:** **Pre-tune bands…** is disabled when the **MEM** button is off. Enable **MEM** first to use this feature.
+
+## Right-click TUNE menu (v26.5.2.1)
+
+Right-click the **TUNE** button to choose the carrier shape for the next tune cycle. This is a one-shot selection — the choice is not saved in AetherSDR settings.
+
+| Menu Item | Action |
+|---|---|
+| **Mono Tone** | Produces a single-tone carrier. This is the default behavior. |
+| **Two Tone** | Produces a two-tone carrier used for testing intermodulation distortion. |
+
+The radio's tune mode also resets to single-tone after a power cycle.
+
 ## MOX button and Quindar tones (v0.9.7)
 
 Starting with v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the transmitter directly. The practical effect is:
@@ -61,6 +83,27 @@ Starting with v0.9.7, clicking **MOX** routes the PTT request through the Quinda
 The **MOX** button appearance is unchanged: it turns red while TX is keyed and returns to its default color on release.
 
 > **Note:** Quindar tones are a feature of the Audio Channel Strip. Enable the **QUIN** control there before expecting tones to play on PTT.
+
+## RF Power meter peak-hold (v26.5.2.1)
+
+The **RF Pwr** meter includes a peak-hold feature that captures and holds the peak envelope power (PEP) reading:
+
+- The peak value holds steady for 2 seconds after the most recent peak.
+- After the hold period, the peak value decays back toward the current reading at a rate that takes approximately 2.5 seconds from peak to zero.
+- When you stop transmitting, the peak-hold value resets to zero immediately — a held PEP reading does not linger across overs.
+
+The decay rate scales automatically depending on the radio model: 48 W/s for a barefoot radio (120 W scale) and 240 W/s when an Aurora 500 W exciter is connected (600 W scale).
+
+## APD status indicators
+
+The **Active**, **Cal**, and **Avail** indicators show the current state of the adaptive pre-distortion (APD) system:
+
+| State | Meaning |
+|---|---|
+| **Cal** (green) | APD is calibrating. |
+| **Avail** (green) | Calibration is complete and available but not yet applied. |
+| **Active** (green) | APD is on and the equalizer is actively applied. |
+| All dim | APD is off. |
 
 ## Related
 

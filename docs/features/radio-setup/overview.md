@@ -1,6 +1,6 @@
 # Radio Setup Overview
 
-The Radio Setup dialog is the central configuration window for your FLEX-8600. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB cables, peripherals, slice color themes, and FlexControl serial settings in one place. Open it whenever you need to change anything about how AetherSDR interacts with your radio hardware.
+The Radio Setup dialog is the central configuration window for your FLEX-8600. It brings together radio identification, network, GPS, transmit, audio, filters, transverters, USB cables, peripherals, antenna names, slice color themes, and FlexControl serial settings in one place. Open it whenever you need to change anything about how AetherSDR interacts with your radio hardware.
 
 ## Before you start
 
@@ -10,7 +10,7 @@ The Radio Setup dialog is the central configuration window for your FLEX-8600. I
 
 Open Radio Setup from `Settings > Radio Setup...`. The dialog contains a row of tabs across the top; each tab covers a distinct area of configuration. Tabs other than Radio load their contents the first time you click them.
 
-The dialog is frameless on systems where `FramelessWindow` is enabled (default: True). A custom title bar with the text "Radio Setup" appears at the top. You can drag the title bar to move the dialog. The dialog remembers its size and position between sessions.
+The dialog remembers its size and position between sessions using `PersistentDialog`. A title bar with the text "Radio Setup" appears at the top. You can drag the title bar to move the dialog.
 
 You can also jump directly to specific tabs:
 
@@ -27,6 +27,7 @@ You can also jump directly to specific tabs:
 | **TX** | TX hang/delay timings, interlocks, global power cap, tune mode, waterfall TX display, TX/slice follow behavior, and a shortcut to per-band settings. |
 | **Phone/CW** | Microphone level meter, iambic keyer (mode A/B, swap, sideband), CWX, CW decoder, and RTTY mark default. |
 | **RX** | Frequency offset calibration and 10 MHz reference source selection. Calibration controls are always visible; when a GPSDO is installed the status label confirms its presence. |
+| **Antennas** | Display and rename antenna ports (ANT1, ANT2, XVTA, XVTB) as recognized by the radio. |
 | **Audio** | Line out, headphone, and speaker levels; audio compression codec; PC audio device selection; audio boost; audio buffer size; recording mode, folder, auto-record on TX, and idle timeout; NVIDIA BNR container control. |
 | **Filters** | Low-latency vs. sharp filter selection per bandwidth, and a separate option for digital modes. |
 | **XVTR** | Per-transverter configuration; create or remove transverter entries. |
@@ -85,4 +86,4 @@ In the Peripherals tab, all three device rows (TGXL, PGXL, Antenna Genius/ShackS
 - **Clear the IP field and click Connect.** If the IP field is empty when you click **Connect**, the saved manual IP and port are removed and the connect is cancelled. This prevents accidentally clearing saved settings and then doing nothing.
 - **Clear the IP field and click Disconnect.** If you disconnect a device while the IP field is already empty, the saved manual IP and port are removed first.
 
-This behavior applies to all four device types in the Peripherals tab (TGXL, PGXL
+This behavior

@@ -13,18 +13,34 @@ The Support & Diagnostics dialog includes a scrollable log viewer that lets you 
 2. Find the **Log viewer** panel in the center of the dialog. It shows the most recent log text as a scrollable, read-only view.
 3. Scroll through the log viewer to read current entries. The log path is shown in the **Log path label** above the viewer, and the current file size appears to the right of it.
 4. If new activity has occurred since you opened the dialog, click **Refresh** to reload the log file and show the latest entries.
-5. Click **Close** when finished.
+5. To manage which log categories appear, use the **Category checkboxes** in the **Diagnostic Logging** section at the top. Click **Enable All** to turn on every category, or **Disable All** to silence all of them.
+6. Click **Close** when finished.
 
 ## What each control does
 
 | Control | Kind | Behavior |
 |---|---|---|
+| Category checkboxes | Checkbox | Per-category log enable/disable, one row per category. |
+| Enable All | Button | Turns on every logging category. |
+| Disable All | Button | Turns off every logging category. |
 | Log path label | Indicator | Shows the full path to the current log file. |
 | Log file size | Indicator | Shows the current size of the active log file. |
 | Log viewer | Text field | Scrollable, read-only view of the most recent log text. Displays up to 2000 lines. |
 | Refresh | Button | Reloads the log file into the viewer. |
 | Clear Log | Button | Truncates the current log file. |
 | Open Log Folder | Button | Opens the log directory in the OS file browser. |
+| Reset Settings | Button | Resets AetherSDR settings to defaults (with confirmation). |
+| File an Issue | Button | Launches the AI-Assisted Bug Report flow. See **File an Issue** section below. |
+| Close | Button | Closes the dialog. |
+
+## File an Issue
+
+The **File an Issue** button starts an AI-Assisted Bug Report process.
+
+1. Click **File an Issue**.
+2. In the dialog that appears, describe the problem you are experiencing.
+3. Click one of the provided AI service buttons to open the AI tool with a pre-filled prompt that includes your system information and the bug description.
+4. The AI will generate a complete GitHub bug report. Follow the AI's instructions to submit it at `https://github.com/aethersdr/AetherSDR/issues/new`.
 
 ## Tips
 

@@ -9,7 +9,7 @@ The DAX (Digital Audio eXchange) applet provides a software audio bridge between
 
 ## How it works
 
-The DAX applet bridges audio between the radio and your operating system's audio subsystem. When you click **Enable**, AetherSDR starts the DAX audio bridge, making the radio's slice audio available as virtual audio devices that other applications can select as their input or output.
+The DAX applet bridges audio between the radio and your operating system's audio subsystem. When you click **DAX Enable**, AetherSDR starts the DAX audio bridge, making the radio's slice audio available as virtual audio devices that other applications can select as their input or output.
 
 The applet shows four RX channels (DAX 1–4) and one TX channel. Each RX channel can be assigned to a slice on the radio; the assignment is shown in the status indicator next to each channel. The TX channel carries audio from your computer to the radio's transmitter and shows which slice currently holds TX privileges.
 
@@ -21,19 +21,24 @@ You can also configure DAX to start automatically every time AetherSDR launches 
 
 | Control | Description | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| **Enable** | Master toggle. Starts or stops the DAX audio bridge. | Off | On / Off | `AutoStartDAX` |
+| **DAX Enable** | Master toggle. Starts or stops the DAX audio bridge. Button label is "Enable". | Off | On / Off | `AutoStartDAX` |
 | **DAX 1** gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag the thumb to set gain. | 0.5 | 0.0–1.0 | `DaxRxGain1` |
 | **DAX 2** gain+meter | Combined level meter and gain slider for DAX RX channel 2. | 0.5 | 0.0–1.0 | `DaxRxGain2` |
 | **DAX 3** gain+meter | Combined level meter and gain slider for DAX RX channel 3. | 0.5 | 0.0–1.0 | `DaxRxGain3` |
 | **DAX 4** gain+meter | Combined level meter and gain slider for DAX RX channel 4. | 0.5 | 0.0–1.0 | `DaxRxGain4` |
 | **TX** gain+meter | Combined level meter and gain slider for the DAX TX stream. | 0.5 | 0.0–1.0 | `DaxTxGain` |
-| Slice-assignment status (RX, per channel) | Read-only indicator showing which slice is routed to each DAX RX channel. Displays `—` when unassigned, or `Slice A` through `Slice H` when assigned. | — | `—` or `Slice A`–`Slice H` | — |
-| TX assignment status | Read-only indicator showing which slice currently holds TX privileges and drives the DAX TX stream. Displays `—` when no TX slice is active. | — | `—` or `Slice A`–`Slice H` | — |
+| Slice-assignment status (RX, per channel) | Read-only indicator showing which slice is routed to each DAX RX channel. Displays `—` when unassigned, or a slice letter from A through H when assigned. The slice letter is rendered with rich text formatting for improved readability. | — | `—` or `Slice A`–`Slice H` | — |
+| TX assignment status | Read-only indicator showing which slice currently holds TX privileges and drives the DAX TX stream. Displays `—` when no TX slice is active. The slice letter is rendered with rich text formatting. | — | `—` or `Slice A`–`Slice H` | — |
+
+## Performance notes
+
+On Linux, starting with AetherSDR v26.5.2.1, the DAX RX audio path uses a native PipeWire `pw_stream` source, replacing the previous PulseAudio client. This reduces DAX RX latency from approximately 400 ms to approximately 200 ms.
 
 ## Tips
 
 - Gain settings for all channels are persisted immediately on each drag event — you do not need to click a save button.
 - To have the DAX bridge start every time AetherSDR opens, use `Settings > Autostart DAX with AetherSDR` rather than clicking **Enable** manually each session.
+- The slice assignment status indicators now use rich text formatting to display slice letters more clearly.
 
 ## Related
 

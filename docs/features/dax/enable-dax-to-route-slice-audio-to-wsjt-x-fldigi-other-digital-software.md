@@ -27,12 +27,12 @@ DAX (Digital Audio eXchange) creates virtual audio streams between AetherSDR and
 | DAX 3 gain+meter | Same as DAX 1, for channel 3. | 0.5 | 0.0–1.0 | `DaxRxGain3` |
 | DAX 4 gain+meter | Same as DAX 1, for channel 4. | 0.5 | 0.0–1.0 | `DaxRxGain4` |
 | TX gain+meter | Combined level meter and gain slider for the DAX TX stream (audio from your digital software to the radio). | 0.5 | 0.0–1.0 | `DaxTxGain` |
-| Slice-assignment indicator | Read-only. Shows which slice (A–H) is routed to each DAX channel, or `—` if none. | `—` | `—` or `Slice A`–`Slice H` | — |
+| Slice-assignment indicator | Read-only. Shows which slice (A–H) is routed to each DAX channel, or `—` if none. Slice letters render in rich text for improved readability. | `—` | `—` or `Slice A`–`Slice H` | — |
 
 ## Tips
 
 - To start DAX automatically every time AetherSDR launches, check `Settings > Autostart DAX with AetherSDR` in the menu. This writes the same `AutoStartDAX` setting that the **Enable** button controls.
-- The TX indicator next to the **TX** label shows which slice currently holds TX privileges. If it shows `—`, no slice is set as the TX slice, and DAX TX audio will not reach the radio.
+- The TX indicator next to the **TX** label shows which slice currently holds TX privileges. If it shows `—`, no slice is set as the TX slice, and DAX TX audio will not reach the radio. Slice letters render in rich text for improved readability.
 - The gain sliders are post-fader: the meter bar reflects the level after your gain adjustment, so what you see is what the receiving application gets.
 
 ## Troubleshooting

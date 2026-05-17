@@ -19,10 +19,10 @@ The dialog closes. AetherSDR writes the current version string to `LastSeenVersi
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| Release notes browser | Scrollable HTML view | Displays release entries between the last seen version and the current version. | — |
-| "Got it — 73!" | Button | Dismisses the dialog and marks the version as seen. | `LastSeenVersion` |
-| "Upgrade" | Button | Shown only when an upgrade is available. Opens the download page. | — |
-| "Skip this version" | Button | Shown only when an upgrade is available. Saves the current version to `LastSeenVersion` and closes the dialog so the nag does not reappear. | `LastSeenVersion` |
+| Release notes browser | Text field | Scrollable HTML view of release entries between the last seen version and the current version. | — |
+| "Got it — 73!" | Push button | Dismisses the dialog and marks the version as seen. | `LastSeenVersion` |
+| "Upgrade" | Push button | Shown only when an upgrade is available. Opens the download page at `https://github.com/aethersdr/AetherSDR/releases/latest`. | — |
+| "Skip this version" | Push button | Shown only when an upgrade is available. Saves the current version to `LastSeenVersion` and closes the dialog so the nag does not reappear. | `LastSeenVersion` |
 | Hint | Indicator | Short footer line with guidance. | — |
 
 ## Tips

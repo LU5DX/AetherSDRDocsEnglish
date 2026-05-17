@@ -32,7 +32,7 @@ The setting takes effect immediately and is saved automatically to `NR2NpeMethod
 | — (Minimize)                   | Minimizes the dialog.                                                                                       |                                                                                                                |
 | □ (Maximize)                   | Maximizes or restores the dialog.                                                                           |                                                                                                                |
 | × (Close)                      | Closes the dialog.                                                                                          |                                                                                                                |
-| NR4 (tab)                      | Selects the NR4 (libspecbleach) page. NR4 is dimmed on Windows builds without LLVM (clang-cl).              |                                                                                                                |
+| NR4 (tab)                      | Selects the NR4 (libspecbleach) page.                                                                       |                                                                                                                |
 | Noise Estimation:              | Radio button (MMSE, Brandt, Martin)                                                                         | MMSE                                                                                                           |
 | Adaptive Noise Estimation      | Checkbox                                                                                                    | True                                                                                                           |
 | Reduction (dB):                | Slider, 0.0–40.0                                                                                            | 10.0                                                                                                           |
@@ -41,23 +41,23 @@ The setting takes effect immediately and is saved automatically to `NR2NpeMethod
 | Masking Depth:                 | Slider, 0.00–1.00                                                                                           | 0.50                                                                                                           |
 | Suppression:                   | Slider, 0.00–1.00                                                                                           | 0.50                                                                                                           |
 | Reset Defaults (↺ icon)        | Restores NR4 defaults (MMSE/adaptive on, 10 dB, 0, 0, 0.50, 0.50).                                          | Rendered as a flat icon button showing anticlockwise arrow (U+21BA).                                           |
-| MNR (tab)                      | Selects the MNR (macOS MMSE-Wiener) page. MNR toggle is dimmed on Windows/Linux builds.                     |                                                                                                                |
+| MNR (tab)                      | Selects the MNR (macOS MMSE-Wiener) page. MNR toggle is dimmed on Windows/Linux builds — the engine has no backend on those platforms. |                                     |
 | Enable MNR (macOS only)        | Checkbox                                                                                                    | Read live from AudioEngine                                                                                     |
 | Strength                       | Slider, 0–100                                                                                               | 100                                                                                                            |
 | RN2 (tab)                      | Selects the RN2 (RNNoise) page — purely informational, no adjustable parameters.                            |                                                                                                                |
-| BNR (tab)                      | Selects the BNR (NVIDIA) page — intensity controlled from overlay menu. Dimmed without NVIDIA SDK.          |                                                                                                                |
+| BNR (tab)                      | Selects the BNR (NVIDIA) page — intensity controlled from overlay menu. BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK. |                                                                                                |
 | DFNR (tab)                     | Selects the DeepFilterNet3 page.                                                                            |                                                                                                                |
 | Attenuation Limit              | Slider, 0–100 dB                                                                                            | 100                                                                                                            |
 | Post-Filter Beta               | Slider, 0.00–0.30                                                                                           | 0.00                                                                                                           |
 | Drag-to-move                   | Click and drag the title bar to move the dialog.                                                            | Double-click the title bar to toggle maximize/restore.                                                         |
-| 8-axis resize                  | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. | 12 px resize hit zone around the inner content widget.                                                         |
+| 8-axis resize                  | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. | 6 px resize hit zone around the inner content widget.                                                          |
 
 `NR2NpeMethod` is stored as an integer: OSMS = 0, MMSE = 1, NSTAT = 2.
 
 ## Notes
 
-- The title bar and resize handles are only available when **FramelessWindow** is enabled in settings (`Settings > General > FramelessWindow`). When disabled, the dialog uses the native window chrome with standard title bar and resize borders.
-- NR4 (libspecbleach) requires LLVM (clang-cl) on Windows. If NR4 is dimmed, install LLVM from llvm.org and rebuild AetherSDR to enable it.
+- The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as exclusive selectors and engine enable/disable controls. When NR2 is activated, AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
+- The dialog now uses `PersistentDialog`, which automatically saves and restores its geometry across sessions. The dialog position and size are persisted using the `AetherDspDialogGeometry` setting key.
 
 ## Tips
 

@@ -20,7 +20,7 @@ The waveform display renders mono float-32 PCM samples received from the audio e
 | Direction tint | RX (cool tint), TX (warm tint) | Visually disambiguates whether the displayed waveform is the receive monitor or the outgoing transmit path. |
 | Clipping highlight | No clipping (normal trace), Clipping (red emphasis, CLIP N label) | Columns containing samples at or above ±0.98 full-scale are highlighted; a 'CLIP N' counter appears in the header. |
 | PAUSED badge | Live (no badge), Paused (PAUSED badge in footer) | Indicates the display is showing a frozen snapshot and not the live audio stream. |
-| No-audio placeholder | Waveform present, 'no RX audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. |
+| No-audio placeholder | Waveform present, 'Enable PC Audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. For RX, the message reads "Enable PC Audio". For TX, it reads "no TX audio". |
 
 ## View mode
 

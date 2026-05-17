@@ -66,10 +66,10 @@ Displays network addresses and lets you adjust network settings.
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
 | **Enforce Private IP Connections:** | Toggle button | — | Rejects non-RFC1918 peers. |
-| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000 bytes. Stored in `NetworkMtu`. |
+| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`. |
 | **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
-| **Apply** | Push button | — | Pushes the network configuration to the radio. |
+| **Apply** | Push button | — | Pushes the network config to the radio. |
 
 ---
 
@@ -89,7 +89,8 @@ Controls TX timings, interlocks, power limits, tune mode, and slice-follow behav
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Timings (in ms)** | Spinbox | — | TX hang and delay timings in milliseconds. |
+| **Timings (in ms)** | Spinbox fields | — | TX hang and delay timings. Fields: ACC TX (ms), TX Delay (ms), RCA TX1 (ms). |
+| **Timeout (sec):** | Spinbox | — | Interlock timeout in seconds. The value is sent to the radio in milliseconds (multiplied by 1000). |
 | **Interlocks - TX REQ: RCA / Accessory** | Toggle button | — | Enables the RCA and accessory interlock inputs. |
 | **Max Power:** | Spinbox | — | Radio-level TX power cap (0–100%). |
 | **Tune Mode:** | Combo box | — | Selects how the Tune button behaves. |
@@ -158,6 +159,16 @@ In v0.9.2.1, the calibration controls became available regardless of whether a G
 
 ---
 
+## Antennas tab
+
+Configures user-defined antenna names for each TX antenna port.
+
+| Control | Kind | Default | Behavior |
+|---|---|---|---|
+| **ANT1 / ANT2 / XVTA / XVTB** | Text fields | — | Enter a custom name (up to 20 characters) for each antenna port. Names are sent to the radio and displayed in the band-stack buttons and slice antenna selector. |
+
+---
+
 ## Audio tab
 
 Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR container.
@@ -189,18 +200,4 @@ Configures low-latency or sharp filter options per bandwidth mode.
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | Slider | — | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled for that mode. Command: `radio filter_sharpness <mode> level=<N>`. |
-| **Auto (Voice / CW / Digital)** | Toggle button | — | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Command: `radio filter_sharpness <mode> auto_level=1`. |
-| **Use Low Latency Filters for Digital Modes** | Checkbox | — | Forces low-latency filters in DIGU/DIGL. |
-
----
-
-## XVTR tab
-
-Configures per-transverter settings.
-
-The tab contains a nested tab widget with one tab per configured transverter plus a **+** tab for adding new entries.
-
-| Control | Kind | Behavior |
-|---|---|---|
-| **RX Only:** | Toggle button | Forces
+| **Voice / CW / Digital filter sharpness sliders** | Slider | — | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled for that mode. Command: `radio

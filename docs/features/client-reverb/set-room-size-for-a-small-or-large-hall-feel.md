@@ -14,6 +14,7 @@ The Size knob controls the modelled room dimensions in the Aetherial FreeVerb TX
    - Double-click the VERB stage in the CHAIN widget to open the floating "Aetherial FreeVerb — TX" editor.
 2. Turn the Size knob left for a smaller, tighter room character; turn it right for a larger, more spacious hall feel.
 3. The knob label updates in real time and shows the current value as a percentage (for example, `50 %`).
+4. To type an exact value, click the value label below the knob. The label transforms into an inline text editor with a cyan border. Type the desired number and press Enter. The value is clamped to the valid range. Clicking elsewhere (focus-out) also commits the edit.
 
 ## Live visualisation
 
@@ -27,13 +28,33 @@ The display uses a dark background with a subtle grid. No interaction is require
 
 ## What each control does
 
-| Label | Default | Range | Setting key | Behavior |
-|-------|---------|-------|-------------|----------|
-| Size | 50 % | 0 % to 100 % | `ClientReverbTxSize` | Sets the modelled room size. Linear mapping. |
-| Decay | 1.20 s | 0.3 to 5.0 s | `ClientReverbTxDecayS` | Sets the reverb tail length. Exponential mapping. |
-| Damp | 50 % | 0 % to 100 % | `ClientReverbTxDamping` | Higher values damp high frequencies faster in the tail. Linear mapping. |
-| Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Pre-delay between the dry signal and the first reflections. Linear mapping. |
-| Mix | 15 % | 0 % to 100 % | `ClientReverbTxMix` | Dry/wet balance. Linear mapping. |
+| Label                | Default | Range | Behavior | Notes |
+|----------------------|---------|-------|----------|-------|
+| Size                 | 50 %    | 0 % to 100 % | Linear mapping. Sets the modelled room size. | Label displayed as percentage. |
+| Decay                | 1.20 s  | 0.3 to 5.0 s | Exponential mapping (0.3 * (5.0/0.3)^n, ~16.7x). Sets the reverb tail length. | Label 'X.XX s'. |
+| Damp                 | 50 %    | 0 % to 100 % | Linear mapping. Higher values damp high frequencies faster in the tail. | Label displayed as percentage. |
+| Pre                  | 20 ms   | 0 to 100 ms | Linear mapping. Pre-delay between the dry signal and the first reflections. | Label 'X ms'. |
+| Mix                  | 15 %    | 0 % to 100 % | Linear mapping. Dry / wet balance. | Label displayed as percentage. |
+| Reverb visualisation | ReverbVizBox — live visualisation showing the dry sine packet (cyan), first-order reflections (yellow), and reverberant tail (magenta). All five knob values feed the rendering so the display follows knob edits in real time. 90 px tall. | Always visible | Replaces the curve widget used by other DSP applets. Rendering algorithm matches StripReverbPanel::GridBox. | Background grid with crosshairs at centre for spatial reference. |
+
+## Visualisation indicators
+
+| Indicator | States | Meaning |
+|-----------|--------|---------|
+| Dry sine packet | Visible, cyan, gradient-faded | Dry signal visualised as a sine packet. Cyan, with a horizontal gradient fading to transparent rightward. |
+| First-order reflections | Visible, yellow pulses | Early reflections shown as yellow decaying sine bursts, spacing and amplitude driven by Size and Damping values. |
+| Reverberant tail | Visible, magenta, exponentially decaying | Reverb tail drawn as a magenta sine wave with exponential decay, length determined by Decay and Damping. |
+| Background grid | Always visible | Thin dashed-grid background with crosshairs at centre for spatial reference. |
+
+## Inline value editing
+
+Every knob supports direct numeric entry:
+
+1. Click the value label below the knob. The label transforms into a text editor with a dark background and cyan border.
+2. Type the desired value. Locale-aware parsing supports both decimal point and comma formats (for example, `0.5` or `0,5`). Extra non-numeric characters are automatically stripped.
+3. Press Enter to commit, or click elsewhere to apply the value. The value is clamped to the knob's valid range.
+4. To cancel without changing the value, press Escape.
+5. While the editor is focused, mouse wheel events still adjust the knob normally.
 
 ## Tips
 
@@ -41,6 +62,7 @@ The display uses a dark background with a subtle grid. No interaction is require
 - The live visualisation in the floating editor gives immediate feedback on how Size, Decay, Damp, Pre-delay, and Mix interact before you transmit.
 - Both the compact applet knob and the floating "Aetherial FreeVerb — TX" editor control the same underlying parameters and stay in sync automatically.
 - Double-clicking a knob resets it to its default value.
+- Use inline editing for precise numeric values rather than relying on knob rotation alone.
 
 ## Related
 

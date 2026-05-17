@@ -28,6 +28,10 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 | **Gain-reduction bar** | —         | 0 to 40 dB GR   |
 | Transfer curve         | —         | —               |
 
+## Knob inline editing
+
+Each knob in the applet supports inline value editing. Click on a knob's displayed value to open an editable text field overlaid on the knob. Type a new value and press Enter or click elsewhere to commit the change. The editor accepts locale-aware decimal formats (for example, "12,5" in comma-decimal locales) and strips non-numeric characters, so you can enter values with units (for example, "−6 dB" or "12.5 ms"). If you enter an invalid value, the knob silently reverts to its previous setting. Press Escape to cancel editing without committing a change.
+
 ## Tips
 
 - A ratio of 2.0:1 (the default) is a conservative starting point suitable for most TX use. Raise it only if low-level noise is still audible when you are not speaking.

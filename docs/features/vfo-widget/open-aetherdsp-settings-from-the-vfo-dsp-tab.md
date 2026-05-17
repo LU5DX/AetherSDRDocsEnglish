@@ -15,15 +15,16 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 
 | Control | Type | Description |
 |---------|------|-------------|
-| RX antenna button | Push button | Opens antenna selection menu for the receive antenna of this slice. |
-| TX antenna button | Push button | Opens antenna selection menu for the transmit antenna of this slice. |
-| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
+| RX antenna button | Push button | Opens antenna selection menu for the receive antenna of this slice. Shows the slice-specific RX antenna list when available; falls back to the radio's antenna list otherwise. |
+| TX antenna button | Push button | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Shows the slice-specific TX antenna list when available; falls back to the radio's antenna list otherwise. |
+| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). |
 | Filter width label | Indicator | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses a consistent formatting method to ensure accurate readouts. |
 | TX badge | Indicator | Shown (red) when this slice is the active transmit slice. Hidden otherwise. |
 | SPLIT badge | Indicator | Shown (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. |
 | Marker thickness button | Push button | Cycles the VFO marker line through Off, 1 px, and 3 px. Setting is persisted per slice. |
 | Filter edges button | Toggle button | Toggles the filter edge lines on the spectrum passband. Setting is persisted per slice. Default: shown. |
 | Collapse toggle | Toggle button | Collapses the VFO panel to a compact frequency-only strip. Setting is persisted per slice. Default: expanded. |
+| Slice badge | Indicator | Shows the slice letter in a colored badge. Click to open the slice context menu. |
 
 ### Audio Tab
 

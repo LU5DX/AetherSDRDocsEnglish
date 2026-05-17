@@ -19,15 +19,16 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 
 ## What each control does
 
-| Control                    | Default          | Valid values                                                                                                                       |
-|----------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available)                                                        |
-| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz |
-| **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)     |
-| **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                   |
+| Control                    | Default          | Valid values                                                                                                                                                                                          |
+|----------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available)                                                                                                                           |
+| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz                                                                    |
+| **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)                                                                        |
+| **Filter passband widget** | —                | Drag lo/hi edges                                                                                                                                                                                      |
 | **SQL**                    | Off              | Toggle button to enable squelch. Auto-disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes. In RTTY and digital modes, squelch is also turned off automatically to prevent gating FSK signals (#2504). |
-| **Squelch level**          | 20               | Slider (0-100) to set squelch threshold. Disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes.                                     |
-
+| **Squelch level**          | 20               | Slider (0-100) to set squelch threshold. Disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes.                                                                                                         |
+| **RX antenna**             | ANT1             | Combo box listing available receive antennas. Populated from the radio's `ant_list` or the slice's `rxAntennaList()` when available.                                                                                                                                                                       |
+| **TX antenna**             | ANT1             | Combo box listing TX-capable antennas. RX-only antenna ports (prefix 'RX') are filtered out. Uses `txAntennaOptions()` for the list.                                                                                                                                                                     |
 ## Tips
 
 - FM, NFM, and DFM modes do not show filter width preset buttons. The filter is fixed for those modes.
@@ -37,6 +38,8 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 - Filter presets are now stored in a `lo:hi` format (e.g. `300:3000`) as well as the older plain-width format. Both formats are read correctly. If you have saved custom presets from an earlier version, they continue to work without any action on your part.
 - The `stepFilterWidth()` method walks the per-mode preset list so widen/narrow shortcuts produce mode-correct edge geometry. This ensures that when you widen or narrow the filter using keyboard shortcuts, the filter stays within the appropriate preset boundaries for the current mode.
 - When switching to RTTY or digital modes (DIGU, DIGL), the squelch is automatically disabled and turned off. This prevents the squelch from notching out FSK characters and breaking decoding (#2504).
+- The manual squelch level is persisted across sessions. The last user-chosen value is stored in the `LastManualSquelchLevel` setting and restored on launch. This preserves the operator's manual preference across mode cycles, as auto mode may otherwise clobber the slice's `squelchLevel` with algorithm-suggested values (#2606).
+- The slice badge now supports rich text formatting (HTML) for the slice letter (#2606).
 
 ## Slice tab behaviour (v0.9.5.1)
 
@@ -48,11 +51,20 @@ Signal connections for slice button clicks are also guarded so that reconnecting
 
 The filter width readout in the RX Controls applet now uses mode-specific logic to display the correct labelled width. This readout is shared with the VFO panel for consistent formatting (#2197). The `formatFilterWidth()` static method applies mode-aware rules so that SSB and digital modes display the expected bandwidth label (e.g., "2.7K" for 2700 Hz USB, "500" for 500 Hz CW).
 
+## Antenna selection behaviour
+
+The RX and TX antenna combo boxes now use `rxAntennaList()` and `txAntennaOptions()` respectively to populate their menus. The radio's `ant_list` is used as a fallback when slice-specific antenna lists are not available.
+
+The antenna menu items now include tooltips and status tips showing the raw antenna identifier, and the menu label is generated by `antennaMenuLabel()` for consistent display. The selected antenna is sent via `setData()` rather than `text()` to ensure the correct identifier is used.
+
+The `likelyTxAntennaFallbackToken()` helper determines if an antenna token is suitable for TX by checking if it starts with "ANT", "TX", or equals "XVTR". RX-only ports (prefix "RX") are excluded.
+
 ## Troubleshooting
 
 - **Mode combo is missing or grayed out** — The applet is not connected to the radio. Check the connection via `Settings > Connect to Radio...`.
 - **Filter preset buttons disappeared after changing mode** — This is expected when switching to FM, NFM, or DFM. Those modes do not use filter presets.
 - **Slice tabs show the wrong number of buttons after reconnecting** — This was a known issue fixed in v0.9.5.1 (#2254). Update to the current release if you see stale tab buttons.
+- **Squelch level resets unexpectedly** — The manual squelch level is now persisted client-side across sessions (#2606). If squelch appears to reset, check whether auto mode is overriding the slice's squelch level, as the radio may not preserve the manual value.
 
 ## Related
 

@@ -20,7 +20,7 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 
 ## Dialog window features
 
-The Radio Setup dialog uses a frameless window with a custom title bar that includes draggable areas and standard window controls. The frameless appearance respects the `FramelessWindow` application setting — when enabled (the default), the dialog lacks an OS title bar and instead uses AetherSDR's custom title bar. When disabled, the dialog uses the standard OS window decorations.
+The Radio Setup dialog uses a persistent dialog with geometry saving. The dialog position and size are saved automatically when you close it and restored the next time you open it. The geometry is stored in AppSettings under the key `RadioSetupDialogGeometry`.
 
 ## What each control does
 
@@ -61,6 +61,29 @@ The Radio Setup dialog uses a frameless window with a custom title bar that incl
 | **Decode:** | Enables the CW decode overlay on the panadapter. | True |
 | **Peripherals IP/port fields** | When the IP field is cleared while disconnected, clicking **Connect** does nothing — it instead removes any previously saved manual IP from settings, preventing auto-connection at startup. When the dialog is closed with a cleared IP field and a previously saved manual IP exists, the saved IP is automatically removed and the device is disconnected if currently connected. | — |
 | **FlexControl button actions** | Button action mapping includes new wheel actions: WheelRit and WheelXit. These map the FlexControl tuning knob to adjust RIT and XIT offsets respectively. | — |
+| APD (tab) | External Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). Tab is hidden unless the radio reports apd configurable=1 (FLEX-8x00 with SmartSDR 4.2.18+). | New in v26.5.1 (#2186). Lazy-built only when the tab is first clicked. |
+| External Sampler (per TX ANT) | Section header inside the APD tab showing a 2x2 grid of ANT1/ANT2/XVTA/XVTB sampler-port combo boxes. | |
+| ANT1: / ANT2: / XVTA: / XVTB: | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. | INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. Changing sends setApdSamplerPort() to the radio. |
+| Equalizer Reset: | Section row label for the APD equalizer reset button. | |
+| Reset (APD Equalizer) | Clears all per-antenna APD training data on the radio. | Sends resetApdEqualizer() to the radio's TransmitModel. |
+| Themes (tab) | UI appearance settings including per-slice color overrides. | Tab label in code is 'Themes'. Lazy-built when first clicked. |
+| Slice Colors | Group box header for the slice color controls. | |
+| Use Aether defaults | Uses the built-in slice color palette (cyan/magenta/green/yellow/orange/teal/coral/lavender). | Selecting this disables the custom color buttons. |
+| Custom colors | Enables per-slice color pickers (A-H). | Selecting this enables the eight color buttons below. |
+| A/B/C/D/E/F/G/H color buttons | Click to open a color picker for that slice letter (A-H). The button's background reflects the currently assigned color. | 8 buttons arranged in a horizontal grid. Stored via SliceColorManager which persists to AppSettings. |
+| Reset All to Defaults | Resets every per-slice custom color to its built-in default. | |
+| **Antennas (tab)** | Configuration of antenna names and parameters. | New in v26.5.2.1. |
+
+## TX tab timing controls
+
+The **TX** tab includes timing fields for interlock delays and timeout. The timeout field is displayed in seconds for readability, but stored and transmitted to the radio in milliseconds.
+
+| Control | Description | Default |
+|---|---|---|
+| **ACC TX:** | ACC transmit delay in milliseconds. | — |
+| **TX Delay:** | TX delay in milliseconds. | — |
+| **RCA TX1:** | RCA TX1 delay in milliseconds. | — |
+| **Timeout (sec):** | Interlock timeout displayed in seconds. The radio stores this value in milliseconds internally. | — |
 
 ## Firmware update (Radio tab)
 
@@ -81,50 +104,4 @@ Use the firmware update controls in the **Radio** tab to check for and apply fir
    - The file picker opens with the filter set to `*.msi *.exe *.ssdr`.
    - Select the downloaded file and click Open.
    - AetherSDR begins preparing the firmware automatically. The status label shows "Preparing firmware from \<filename\>..." and the progress bar appears.
-   - The firmware stager auto-detects the file format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr payload without external tools.
-   - When staging is complete, **Upload Firmware** becomes enabled.
-3. Click **Upload Firmware** to send the firmware to the radio.
-   - A progress bar tracks the upload.
-   - The status label reports the result when the upload finishes.
-
-> **Note:** In v0.9.3 the button formerly labelled **Browse .ssdr...** was renamed to **Select Installer...** and extended to accept .msi and .exe installer packages in addition to .ssdr files. The automatic download-and-stage path that had been triggered by a second click of **Check for Update** was also removed; download the installer manually from flexradio.com instead.
-
-### Firmware update controls
-
-| Control | Description |
-|---|---|
-| **Check for Update** | Queries the update server for the latest available firmware version. |
-| **Select Installer...** | Opens a file picker. Select a .msi, .exe, or .ssdr file. AetherSDR stages the firmware automatically after selection. |
-| **Upload Firmware** | Sends the staged firmware to the radio. Enabled only after a file has been successfully staged. |
-| Firmware status label | Empty until an operation begins, then shows progress and result text. |
-
-## Frequency calibration (RX tab)
-
-The **RX** tab provides manual frequency offset calibration regardless of whether a GPSDO is installed.
-
-- If a GPSDO is installed, the status label reads "GPSDO installed. Manual frequency offset calibration available." in green.
-- If no GPSDO is installed, the status label reads "Manual frequency offset calibration available." in amber.
-
-In both cases the **Cal Frequency (MHz)** field and the **Start** button are always shown.
-
-### To run a frequency calibration
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **RX** tab.
-3. Enter a known reference frequency in the **Cal Frequency (MHz)** field.
-4. Click **Start**.
-   - The button label changes to **Busy** and is disabled while calibration is in progress.
-   - A status label beside the button shows the current state (for example, "Starting…").
-   - AetherSDR resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`) before initiating the calibration sweep.
-5. Wait for the status label to report completion. The **Start** button re-enables automatically.
-
-### Cal Frequency (MHz) field behavior
-
-| Condition | Result |
-|---|---|
-| Field is empty when Start is clicked | Status label shows "Enter cal frequency" in amber; calibration does not start. |
-| Valid frequency entered | AetherSDR sends `radio set cal_freq=<value>`, resets freq error to 0 ppb, then starts the PLL calibration sweep. |
-
-### RX tab controls
-
-| Control | Description
+   - The firmware stager auto-detects the file format from the first 8 bytes (OLE/MS

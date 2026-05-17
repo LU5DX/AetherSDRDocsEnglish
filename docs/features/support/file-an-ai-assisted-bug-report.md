@@ -53,3 +53,36 @@ Use the AI-assisted bug report flow to get help writing a clear, complete GitHub
 - [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md)
 - [Enable verbose logging for a specific subsystem](enable-verbose-logging-for-a-specific-subsystem.md)
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
+
+---
+
+# Support & Diagnostics reference
+
+The Support & Diagnostics dialog (`Help > Support...`) provides log viewing, logging category control, and access to support tools.
+
+## Logging controls
+
+| Control | What it does |
+|---|---|
+| Category checkboxes | Enable or disable logging per category. One checkbox per logging category. |
+| Enable All | Turns on every logging category. |
+| Disable All | Turns off every logging category. |
+| Log path label | Shows the current log file path. |
+| Log viewer | Scrollable view of the most recent log text. |
+| Refresh | Reloads the log file. |
+| Clear Log | Truncates the current log file. |
+| Open Log Folder | Opens the log directory in the OS file browser. |
+
+## Support tools
+
+| Control | What it does |
+|---|---|
+| Reset Settings | Resets AetherSDR settings to defaults (with confirmation). |
+| File an Issue | Launches the AI-Assisted Bug Report flow. |
+| Close | Closes the dialog. |
+
+## Indicators
+
+| Indicator | What it shows |
+|---|---|
+| Log file size | Current size of the active log file. |

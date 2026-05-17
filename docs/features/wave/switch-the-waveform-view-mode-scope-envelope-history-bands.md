@@ -29,7 +29,7 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 
 - **Bands** mode uses a Goertzel filter to derive frequency band bars. It is useful for checking whether TX audio energy is distributed across the expected frequency range.
 - **History** mode displays horizontal level bars accumulated over time, which makes it easier to see sustained level trends than a momentary trace.
-- If the display shows a "no RX audio" or "no TX audio" message, no scope samples have arrived within the last second. The view mode setting is still applied and will take effect as soon as audio resumes.
+- If the display shows a **"Enable PC Audio"** message (for the RX path) or a **"no TX audio"** message, no scope samples have arrived within the last second. For the RX path, enable PC Audio in the radio settings. For the TX path, verify that the microphone or line input is active. The view mode setting is still applied and will take effect as soon as audio resumes.
 - Single-clicking the waveform display toggles pause. If the display appears frozen, click it once to resume live updates. A **PAUSED** badge in the footer confirms the paused state.
 - The **Window:** slider uses discrete steps with deliberate stops, not a continuous range. Each notch on the slider corresponds to one of the available time windows: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, or 10 s.
 
@@ -38,6 +38,7 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 - **The View: combo box is not visible** — The settings drawer is closed. Double-click the waveform display to toggle it open.
 - **The selected mode does not persist after restart** — Confirm AetherSDR has write access to its settings storage. If the issue repeats, check that no other AetherSDR instance is running simultaneously and overwriting `WaveApplet_ViewMode` on exit.
 - **The Window: slider seems to have limited positions** — This is by design. The slider provides 12 discrete time window steps rather than a continuous range, so you can quickly select a standard window length without fine-tuning.
+- **The display shows "Enable PC Audio" instead of "no RX audio"** — This message indicates that PC Audio must be enabled in the radio settings for the RX path. Navigate to Radio > Audio and enable PC Audio.
 
 ## Related
 

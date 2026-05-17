@@ -58,7 +58,7 @@ The Logs tab in Network Diagnostics shows a live tail of the AetherSDR log file,
 
 ## Tips
 
-- The Network Diagnostics dialog respects the **FramelessWindow** setting from AetherSDR preferences (`AppSettings > FramelessWindow`). When enabled, the dialog displays a title bar for moving and resizing. When disabled, the dialog uses the standard window frame.
+- The Network Diagnostics dialog respects the **FramelessWindow** setting from AetherSDR preferences (`AppSettings > FramelessWindow`). When enabled, the dialog uses a persistent geometry that is saved and restored across sessions. When disabled, the dialog uses the standard window frame.
 - The log view refreshes every 500 ms, so there is a short delay between a message being written and it appearing in the viewer.
 - Syntax highlighting colors help distinguish log levels at a glance: `INF` lines appear in blue, `WRN` in amber, and `CRT`/`FTL` in red. Category names are shown in bold. Numbers and protocol tokens (such as `UDP`, `TCP`, `RX`, `TX`) are highlighted separately.
 - If you want to freeze the display to read a specific entry, scroll up. The viewer switches to **Paused** automatically. Click **Live** to return to the tail.

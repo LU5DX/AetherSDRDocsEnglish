@@ -97,21 +97,6 @@ Select a value from the **Timeframe** drop-down. All visible charts update immed
 | **Live / Paused (Logs)** | Toggle button  | Live    | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.        |
 | **Close**                | Button         | —       | Closes the dialog.                                                                                                                 |
 
-## Frameless window mode
-
-The Network Diagnostics dialog supports a frameless window mode that removes the standard title bar and window decorations. This mode is controlled by the `FramelessWindow` application setting.
-
-When frameless mode is enabled:
-- A custom title bar is displayed at the top of the dialog.
-- You can resize the dialog by dragging any edge or corner.
-- The cursor changes to resize arrows when hovering over edges or corners.
-
-When frameless mode is disabled:
-- The standard operating system title bar and window decorations are shown.
-- Edge-based resizing is not available.
-
-To change the frameless window setting, use `Settings > General` and adjust the **Frameless Window** preference. The change takes effect when you reopen the Network Diagnostics dialog.
-
 ## Tips
 
 - The dialog refreshes all values once per second. If you have just connected, wait a moment for the fields to populate.

@@ -32,7 +32,7 @@ Load a pre-recorded WAV file from your computer into one of the Digital Voice Ke
 
 ## Keyboard shortcuts
 
-The DVK panel registers the following keyboard shortcuts, which are only active while the panel is visible. This prevents conflicts with other panels that also use F1–F12 (for example, the CWX panel).
+The DVK panel registers keyboard shortcuts F1–F12 and Escape. These shortcuts are enabled or disabled based on the active slice's mode, ensuring they are mutually exclusive with the CWX panel's F1–F12 shortcuts. When the active slice is in a voice mode, the DVK shortcuts are active regardless of whether the DVK panel is visible.
 
 | Key | Action |
 |---|---|
@@ -49,7 +49,7 @@ The DVK panel registers the following keyboard shortcuts, which are only active 
 
 - **Slot duration still shows "Empty" after selecting a file** — The transfer to the radio may have failed. Check that the radio connection is still active, then try the upload again.
 - **The context menu does not appear** — Click somewhere else first to deselect any active control, then right-click directly on the slot row frame.
-- **Keyboard shortcuts (F1–F8, Escape) do not work** — Make sure the DVK panel is visible. The shortcuts are disabled when the panel is hidden to avoid conflicts with other panels.
+- **Keyboard shortcuts (F1–F8, Escape) do not work** — Ensure the active slice is in a voice mode. The DVK shortcuts are only enabled when the slice mode supports voice keyer operation. If the slice is in CW mode, the CWX panel shortcuts take precedence.
 
 ## Related
 

@@ -17,7 +17,7 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 3. Confirm the status label shows `:<port> (N clients)` with at least one client connected. If your TX application is not shown as a connected client, check its TCI host and port settings and ensure they match the **Port** field value.
 4. Look at the **TX** row in the applet. Check the slice-assignment label next to the TX meter.
    - If it shows `—`, no slice is currently designated as the TX slice. Use the radio's slice controls to assign a TX slice.
-   - If it shows `Slice <letter>`, the TX path is active.
+   - If it shows `Slice <letter>` (with the slice letter rendered in rich text, e.g., colored or styled), the TX path is active.
 5. Drag the **TX gain+meter** slider to confirm it is not set to `0.0`. The default is `0.5` (valid range: 0.0–1.0, persisted as `TciTxGain`). A value of `0.0` produces silence regardless of platform.
 6. Key the transmitter from your third-party application and watch the **TX gain+meter** for level movement. If the meter shows activity, audio is reaching the server and the radio should be transmitting.
 
@@ -37,6 +37,7 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 - Out-of-range port values snap back to `50001` automatically.
 - If you want the TCI server to start every time AetherSDR launches, enable `Settings > Autostart TCI with AetherSDR`. This sets the `AutoStartTCI` flag and also checks **Enable** on startup.
 - The TX meter uses fast attack and slow decay smoothing, so a brief transmission will keep the meter visibly elevated for a moment after audio stops. No movement at all during a keyed transmission confirms audio is not arriving from the client.
+- Slice assignment labels now support rich text rendering, so slice letters may appear with additional formatting (e.g., color) to indicate slice properties.
 
 ## Troubleshooting
 

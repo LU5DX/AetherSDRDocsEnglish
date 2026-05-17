@@ -1,11 +1,11 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, audio, filters, transverters, USB cables, peripherals, and serial port settings across multiple tabs.
+The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, antenna names, filters, transverters, USB cables, peripherals, APD, themes, and serial port settings across multiple tabs.
 
 ## Opening Radio Setup
 
 1. Open `Settings > Radio Setup...`.
-2. The dialog opens as a frameless window with a custom title bar. Drag the title bar to move the window.
+2. The dialog opens as a persistent dialog; its geometry is saved and restored automatically across sessions.
 
 ## Radio tab
 
@@ -94,15 +94,40 @@ Click **TX Band Settings** to open the dedicated per-band power and tune dialog.
 
 ### TX controls
 
-| Control | Kind | Default | Valid range | Notes |
-|---|---|---|---|---|
-| **Max Power:** | Spin box | — | 0–100 % | Sets radio-level TX power cap. |
-| **Tune Mode:** | Combo box | — | See radio firmware options | Selects how the tune button behaves. |
-| **Timings (in ms)** | Spin box | — | — | TX hang / delay timings. |
-| **Interlocks - TX REQ: RCA / Accessory** | Toggle button | — | — | Enables RCA and accessory interlock inputs. |
-| **Show TX in Waterfall:** | Toggle button | — | Enabled / Disabled | Draws TX signal in the waterfall. |
-| **TX Follows Active Slice** | Button | False | — | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. |
-| **Active Slice Follows TX** | Button | False | — | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. |
+| Control | Kind | Default | Notes |
+|---|---|---|---|
+| **Max Power:** | Spin box | — | Valid range: 0-100 %. Sets radio-level TX power cap. |
+| **Tune Mode:** | Combo box | — | Selects how the tune button behaves. |
+| **Timings** | Spin box / Text field | — | TX hang, delay, and timeout settings. |
+| **Interlocks - TX REQ: RCA / Accessory** | Toggle button | — | Enables RCA and accessory interlock inputs. |
+| **Show TX in Waterfall:** | Toggle button | — | Draws TX signal in the waterfall. |
+| **TX Follows Active Slice** | Button | False | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
+| **Active Slice Follows TX** | Button | False | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. |
+
+### TX timing fields
+
+| Field | Display label | Reported unit | Command suffix |
+|---|---|---|---|
+| ACC TX | ACC TX | ms | `acc_tx_delay` |
+| TX Delay | TX Delay | ms | `tx_delay` |
+| RCA TX1 | RCA TX1 | ms | `tx1_delay` |
+| Timeout (sec) | Timeout (sec) | seconds | `interlock_timeout` (value multiplied by 1000 before sending to radio) |
+
+The interlock timeout field displays in whole seconds for readability. The radio stores and expects the value in milliseconds; AetherSDR multiplies by 1000 before sending the command to the radio.
+
+## Antennas tab
+
+The Antennas tab allows you to assign friendly names to each antenna port on the radio.
+
+### Antenna name controls
+
+| Control | Kind | Notes |
+|---|---|---|
+| **ANT1 / ANT2 / XVTA / XVTB** | Text field | User-friendly label for each antenna port. Names appear in the band scope antenna selector and in the TX antenna dropdown. |
+
+1. Click the **Antennas** tab.
+2. Enter a custom name for each antenna port (ANT1, ANT2, XVTA, XVTB).
+3. Names are stored in AppSettings and sent to the radio.
 
 ## Phone/CW tab
 
@@ -228,28 +253,3 @@ The XVTR tab provides per-transverter configuration. It contains nested tabs, on
 
 The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
 
-### Cable configuration
-
-| Control | Kind | Notes |
-|---|---|---|
-| Cables list / Status | Indicator | Detected USB cables per type with Plugged/Unplugged status. |
-| Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7) | Combo box | Per-cable serial parameters and behavior. |
-
-## Peripherals tab
-
-The Peripherals tab provides manual IP connection for external devices including the TGXL, PGXL, Antenna Genius, and ShackSwitch.
-
-### Connecting peripheral devices
-
-Each device has its own row with **Connect** / **Disconnect** buttons, IP address field, port field, and status indicator.
-
-#### Behavior when clearing the IP field
-
-- If you clear the IP address field and click **Connect** while disconnected, any previously saved manual IP and port are removed from settings and the device stops auto-connecting on startup.
-- If you clear the IP address field and close the dialog without clicking **Connect** or **Disconnect**, the saved manual IP and port are also removed and the device is disconnected if it was connected.
-
-#### TGXL
-
-| Control | Default | Notes |
-|---|---|---|
-|

@@ -71,16 +71,9 @@ Shows the current state of VHF propagation openings:
 
 Two learning notes explain the difference between auroral and sporadic-E propagation, helping you understand the current VHF conditions.
 
-## Adjusting Dialog Appearance
+## Resizing and Positioning
 
-The HF Propagation Dashboard supports frameless window mode. When frameless mode is enabled, the dialog displays a custom title bar instead of the system window decoration.
-
-This mode is controlled by the `FramelessWindow` setting in the application settings. When set to "True" (the default), the dialog uses frameless mode. If the setting is "False", the dialog uses the system window frame.
-
-When frameless mode is active:
-- A custom title bar labeled "HF Propagation Dashboard" is shown at the top.
-- The dialog can be resized by dragging its edges.
-- Internal content margins adjust slightly to account for the custom title bar.
+The HF Propagation Dashboard remembers its window size and position. Resize the dialog by dragging its edges. The next time you open the dashboard, it will restore to its previous size and location. The geometry is saved under the key `PropDashboardDialogGeometry` in the application settings.
 
 ## What each control does
 

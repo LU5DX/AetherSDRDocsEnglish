@@ -17,7 +17,7 @@ The dialog contains the following tabs:
 - **Rates** – Full-width log-scale time-series chart of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.
 - **Packet Loss** – Full-width time-series chart of packet loss percentage per stream category.
 - **Audio** – Full-width time-series chart of playback buffer fill (ms) and underruns per second.
-- **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.
+- **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The timeframe selector is hidden while this tab is active.
 
 ## Timeframe selector
 
@@ -83,10 +83,6 @@ The dialog displays the following indicators:
 | Audio Arrival Gap / Max Arrival Gap | Inter-packet arrival timing |
 | Network Jitter | Smoothed jitter estimate of audio stream in ms |
 | Log path label | Full path of the log file being tailed |
-
-## Frameless mode
-
-The Network Diagnostics dialog can appear with or without a title bar, based on the global `FramelessWindow` setting (`Settings > Appearance > Frameless Window`). When frameless mode is enabled, the dialog includes a custom title bar and resize handles. When disabled, the window uses the standard operating system title bar and decorations.
 
 ## Closing the dialog
 

@@ -28,17 +28,33 @@ The floating editor includes a compact live visualisation (90 px tall) that upda
 
 The Pre knob shifts the point at which reflections and the tail begin relative to the dry signal. The Mix knob scales the amplitude of both the wet components and the fade of the dry packet. The visualisation matches the layout used by the strip-side reverb panel, so the two views read consistently.
 
+### Inline value editing
+
+Each knob in the Aetherial FreeVerb sub-container and floating editor supports inline value editing. Click a knob's value label to enter edit mode — a subtle cyan border indicates the editor is active. Type a new value using the same units shown in the knob label (for example, "2.50" for Decay, "75" for Size), then press Enter or click elsewhere to commit. The value is automatically clamped to the knob's valid range. Press Escape to cancel the edit and revert to the previous value.
+
+Mouse wheel scrolling continues to work while the editor has focus, so you can fine-tune by scrolling after typing an approximate value.
+
 ## What each control does
 
-| Knob | Default | Valid range | Behavior | Setting key |
-|------|---------|-------------|----------|-------------|
-| Size | 50 % | 0–100 % | Sets the modelled room size. Linear mapping. | `ClientReverbTxSize` |
-| Decay | 1.20 s | 0.3–5.0 s | Sets the reverb tail length. Exponential mapping — the knob travels from 0.3 s to 5.0 s with finer control at shorter values. | `ClientReverbTxDecayS` |
-| Damp | 50 % | 0–100 % | Higher values damp high frequencies faster in the tail, producing a warmer, less bright reverb. Linear mapping. | `ClientReverbTxDamping` |
-| Pre | 20 ms | 0–100 ms | Sets the pre-delay between the dry signal and the first reflections. Linear mapping. | `ClientReverbTxPreDelayMs` |
-| Mix | 15 % | 0–100 % | Sets the dry/wet balance. 0 % is fully dry; 100 % is fully wet. Linear mapping. | `ClientReverbTxMix` |
+| Knob                 | Default    | Valid range | Setting key               |
+|----------------------|------------|-------------|---------------------------|
+| Size                 | 50 %       | 0–100 %     | `ClientReverbTxSize`      |
+| Decay                | 1.20 s     | 0.3–5.0 s   | `ClientReverbTxDecayS`    |
+| Damp                 | 50 %       | 0–100 %     | `ClientReverbTxDamping`   |
+| Pre                  | 20 ms      | 0–100 ms    | `ClientReverbTxPreDelayMs`|
+| Mix                  | 15 %       | 0–100 %     | `ClientReverbTxMix`       |
+
+| Indicator               | Behavior                                                                 |
+|-------------------------|--------------------------------------------------------------------------|
+| Reverb visualisation    | ReverbVizBox — live visualisation showing the dry sine packet (cyan), first-order reflections (yellow), and reverberant tail (magenta). All five knob values feed the rendering so the display follows knob edits in real time. 90 px tall. Replaces the curve widget used by other DSP applets. Rendering algorithm matches StripReverbPanel::GridBox. |
 
 The enabled/disabled state of the stage is persisted as `ClientReverbTxEnabled`.
+
+- **Size** — Sets the modelled room size. Linear mapping. Larger values simulate a larger space.
+- **Decay** — Sets the reverb tail length. Exponential mapping from 0.3 to 5.0 s. Higher values produce a longer, more sustained tail.
+- **Damp** — Controls how quickly high frequencies decay in the tail. Linear mapping. Higher values damp high frequencies faster, producing a warmer, darker tail.
+- **Pre** — Pre-delay between the dry signal and the first reflections. Linear mapping from 0 to 100 ms.
+- **Mix** — Dry/wet balance. Linear mapping. Controls the level of the reverb effect relative to the dry signal.
 
 ## Tips
 
@@ -47,6 +63,7 @@ The enabled/disabled state of the stage is persisted as `ClientReverbTxEnabled`.
 - Raising Damp reduces high-frequency sparkle in the tail, which can help reverb sit behind speech rather than on top of it.
 - The floating editor ("Aetherial FreeVerb — TX") provides larger knobs and the live visualisation for precise adjustment. Its position and size are saved automatically between sessions.
 - Use the live visualisation to get a rough sense of tail length and reflection density before transmitting. The magenta tail length gives a visual approximation of how Decay and Damp interact.
+- Use inline value editing to enter exact values quickly — click the knob value label, type the number, and press Enter. This is especially useful for Decay and Pre where you may want precise times.
 
 ## Related
 

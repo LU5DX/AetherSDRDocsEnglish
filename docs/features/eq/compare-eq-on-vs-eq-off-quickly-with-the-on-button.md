@@ -22,13 +22,25 @@ Use the ON button to toggle the radio-side equalizer in and out while listening,
 | Control | Behavior | Default |
 |---|---|---|
 | ON | Enables or disables the equalizer for the currently-selected path (RX or TX). Highlights green when enabled. Slider positions are preserved while bypassed. | Off (unchecked) |
-| RX | Selects the receive path for display and editing. ON acts on the RX equalizer when RX is active. | Unchecked |
-| TX | Selects the transmit path for display and editing. ON acts on the TX equalizer when TX is active. Applet opens on this view by default. | Checked |
+| Reset arc (revert icon) | Resets all 8 bands of the currently-selected path back to 0 dB. Drawn as a 3/4-circle arrow. Tooltip: "Reset all bands to 0 dB". | N/A |
+| RX | Selects the receive path for display and editing. ON acts on the RX equalizer when RX is active. Highlights blue when active. | Unchecked |
+| TX | Selects the transmit path for display and editing. ON acts on the TX equalizer when TX is active. Highlights blue when active. Applet opens on the TX view by default, or restores the last-selected view between sessions. | Checked |
+| 63 | Trims the 63 Hz band for the selected path. Value label below the slider updates live. | 0 dB |
+| 125 | Trims the 125 Hz band for the selected path. | 0 dB |
+| 250 | Trims the 250 Hz band for the selected path. | 0 dB |
+| 500 | Trims the 500 Hz band for the selected path. | 0 dB |
+| 1k | Trims the 1 kHz band for the selected path. | 0 dB |
+| 2k | Trims the 2 kHz band for the selected path. | 0 dB |
+| 4k | Trims the 4 kHz band for the selected path. | 0 dB |
+| 8k | Trims the 8 kHz band for the selected path. | 0 dB |
+| +10 / 0 / -10 dB scale | Left and right reference labels showing the +/-10 dB range of the sliders. | N/A |
 
 ## Tips
 
 - ON is path-specific. Toggling ON while RX is selected does not affect the TX equalizer, and vice versa. Switch paths with RX or TX before toggling if you want to compare the other direction.
 - Your band slider positions are not changed by toggling ON. You can safely toggle in and out repeatedly without losing your curve.
+- The applet remembers which view (RX or TX) you last selected and restores it the next time you open the Equalizer tile. The TX view remains the default for first-time use.
+- Use the Reset arc button to quickly flatten all bands for the selected path without clicking individual sliders.
 
 ## Related
 
@@ -37,3 +49,4 @@ Use the ON button to toggle the radio-side equalizer in and out while listening,
 - [Enable radio-side graphic EQ for TX](enable-radio-side-graphic-eq-for-tx.md)
 - [Switch between shaping RX audio and TX audio](switch-between-shaping-rx-audio-and-tx-audio.md)
 - [Boost or cut specific octave bands (63 Hz to 8 kHz)](boost-or-cut-specific-octave-bands-63-hz-to-8-khz.md)
+- [Reset all EQ bands to flat](reset-all-eq-bands-to-flat.md)

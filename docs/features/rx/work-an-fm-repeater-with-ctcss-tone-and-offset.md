@@ -43,6 +43,9 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - Filter width presets are stored in the format `lo:hi` (passband edges in Hz) or as a plain width value, depending on whether the preset was saved with explicit edge positions. Both formats are read correctly when you reopen the applet or switch modes (#2259).
 - The filter width readout is shared with the VFO panel via `RxApplet::formatFilterWidth()`. In v0.9.8+, this method is now a public static function so both widgets produce identical, mode-aware formatting for SSB, digital, and AM modes (#2197).
 - The widen/narrow shortcuts (e.g. Ctrl+Shift+W, Ctrl+Shift+N) call `stepFilterWidth(int direction)`, which walks the per-mode filter preset list to find the next valid width and applies it with correct edge geometry for the current mode (#2208).
+- The slice badge now supports rich text formatting (HTML) for the slice letter display (#2606).
+- Antenna selection for both RX and TX now prioritizes the slice's own antenna list when available. The menu shows antenna labels with tooltips and status tips, with actual antenna data stored separately from display text. TX antenna menus filter out ports with the "RX" prefix and include only antennas matching patterns like "ANT", "TX", or "XVTR".
+- By default, AetherSDR uses an Auto squelch algorithm that clobbers the slice's squelchLevel with algorithm-suggested values. The last user-chosen Manual squelch threshold is now persisted client-side in the `LastManualSquelchLevel` setting and restored between sessions and mode cycles.
 
 ## Troubleshooting
 

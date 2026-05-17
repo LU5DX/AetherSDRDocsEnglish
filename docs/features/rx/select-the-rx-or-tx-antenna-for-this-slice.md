@@ -18,10 +18,10 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 
 | Control                           | Default   | Valid values                                                                |
 |-----------------------------------|-----------|-----------------------------------------------------------------------------|
-| **ANT1** (RX antenna, blue label) | ANT1      | Antenna ports from the radio's ant_list                                     |
+| **ANT1** (RX antenna, blue label) | ANT1      | Antenna ports from the radio's ant_list or the slice's own rxAntennaList    |
 | **ANT1** (TX antenna, red label)  | ANT1      | TX-capable ports from the radio's ant_list                                  |
 | **Slice tabs (A..H)**             | None      | 1–8 buttons (capped by hardware max slices)                                 |
-| **Slice badge**                   | A         | A/B/C/D/E/F/G/H                                                             |
+| **Slice badge**                   | A         | A/B/C/D/E/F/G/H (rendered as HTML-rich text)                                |
 | **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
 | **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
 | **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
@@ -40,7 +40,7 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 | **AF gain**                       | 70        | 0–100                                                                       |
 | **L / R pan**                     | 50        | 0–100                                                                       |
 | **SQL**                           | None      | Toggle                                                                      |
-| **Squelch level**                 | 20        | 0–100                                                                       |
+| **Squelch level**                 | 20        | 0–100 (persisted client-side as `LastManualSquelchLevel`)                   |
 | **AGC mode**                      | Med       | Off, Slow, Med, Fast                                                        |
 | **AGC threshold**                 | 65        | 0–100                                                                       |
 | **RIT**                           | None      | Toggle                                                                      |
@@ -56,11 +56,29 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 ## Tips
 
 - The RX antenna label is shown in blue; the TX antenna label is shown in red. This is the only visual distinction between the two controls, as they appear side by side in the header row.
-- Antenna ports whose names begin with `RX` are filtered out of the TX antenna menu. They will still appear in the RX antenna menu.
+- Antenna ports whose names begin with `RX` are filtered out of the TX antenna menu. They will still appear in the RX antenna menu. The TX antenna menu also includes ports whose names begin with `ANT`, `TX`, or `XVTR`.
 - Each slice has its own independent RX and TX antenna assignment. Changing the antenna on slice A does not affect slice B.
 - From v0.9.3, the slice tab buttons and the slice badge use per-slice colors managed by SliceColorManager. These colors persist across sessions and are also reflected in VFO widgets and meter strips. The colors are not configurable from the antenna controls page; they apply applet-wide.
 - The filter width indicator shares mode-aware formatting logic with the VFO panel (`RxApplet::formatFilterWidth`), ensuring consistent readouts across both locations (#2197).
 - The `stepFilterWidth()` method walks the per-mode filter preset list so widen/narrow keyboard shortcuts produce mode-correct edge geometry (#2208). For example, widening from a 2.7 kHz USB filter selects the next larger preset (e.g. 2.9 kHz) with proper edge placement for USB mode rather than a symmetrical passband.
+- From v26.5.2.1, the slice badge supports HTML-rich text rendering (#2606). This allows the slice letter to be styled with HTML formatting if needed.
+- The squelch manual level is persisted client-side as the setting `LastManualSquelchLevel`. This preserves your manual squelch preference across mode cycles, radio reconnects, and application restarts. The radio's own automatic squelch algorithm may modify the slice's squelch level, but AetherSDR restores the last user-chosen manual level when Auto mode is not active.
+
+## Antenna menu changes in v26.5.2.1
+
+The RX and TX antenna menus have been updated to provide clearer feedback:
+
+- Each menu item shows the antenna port name as both tooltip and status tip.
+- The menu action data carries the raw antenna identifier, rather than using the display text. This means menu items can display formatted labels (e.g. with port type indicators) while still selecting the correct antenna port.
+- The RX antenna menu now prefers the slice's own `rxAntennaList()` if it is non-empty, falling back to the radio's `ant_list`. This ensures the menu reflects any per-slice antenna restrictions reported by the radio.
+
+## RADE mode changes in v26.5.2.1
+
+The RADE mode activation logic has been updated to reflect the fact that "RADE" is a client-side mode only:
+
+- When you select RADE from the mode combo, the client sets the slice mode to "RADE" and emits `radeActivated(true)`. The radio itself immediately echoes back the real underlying mode (typically DIGL or DIGU).
+- AetherSDR no longer emits a `radeActivated(false)` signal when switching away from RADE mode. Because the radio reports the real mode (DIGL/DIGU) immediately after RADE activation, the condition `m_slice->mode() == "RADE"` is never true at the time of mode switching. The deactivation signal is now handled differently; the mode combo's selection change carries all necessary information.
+- If you need to explicitly deactivate RADE mode on a slice, switch the mode to a non-RADE mode using the mode combo.
 
 ## Slice tab behavior
 
@@ -89,28 +107,17 @@ NT and RTTY are digital modes. Their behavior within the RX Controls applet matc
 - **Filter width display** — The filter width indicator derives its value from the high edge of the passband, the same calculation used for USB, DIGU, and FDV modes.
 - **Squelch** — The **SQL** button and squelch level slider are disabled in NT mode and RTTY mode. If squelch was active when you switched into NT or RTTY mode, AetherSDR turns squelch off automatically and restores it when you switch back. This matches the behavior for DIGU and DIGL; CW mode is handled differently because the radio manages its squelch state directly. RTTY squelch disabling prevents gating weak FSK signals that would otherwise be notched out (#2504).
 
-## RADE mode activation
-
-From v26.5.1, RADE mode activation and deactivation logic is improved to prevent spurious deactivation signals in certain scenarios:
-
-- Switching to RADE mode from any other mode correctly activates RADE on the current slice.
-- When switching away from RADE mode, AetherSDR only emits a RADE deactivation signal if the slice was actually in RADE mode before the change. This prevents spurious deactivations when:
-  - Changing modes on a non-RADE slice
-  - Rebinding a slice via the slice tabs
-  - Loading profiles that set a non-RADE mode
-- The previous behavior could emit false deactivation signals in multi-pan setups or when rapidly switching modes, which has been resolved.
-
 ## Troubleshooting
 
-- **An expected antenna port does not appear in the menu** — The list comes directly from the radio's ant_list. Verify the port is configured and recognized in the radio's own settings. AetherSDR cannot add ports that the radio has not reported.
-- **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only.
+- **An expected antenna port does not appear in the menu** — The list comes directly from the radio's ant_list or the slice's own rxAntennaList. Verify the port is configured and recognized in the radio's own settings. AetherSDR cannot add ports that the radio has not reported.
+- **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only. Only ports beginning with `ANT`, `TX`, or `XVTR` are included in the TX menu.
 - **Both labels are greyed out or unresponsive** — AetherSDR is not connected to the radio. Reconnect via `Settings > Connect to Radio...`.
 - **SQL button is greyed out after switching to NT or RTTY mode** — NT and RTTY are digital modes. AetherSDR disables squelch in all digital modes (DIGU, DIGL, NT, RTTY) because audio is routed via DAX and squelch has no meaningful effect. Switch to a non-digital mode to re-enable squelch.
 - **Slice tab row shows wrong tabs after reconnecting** — In earlier versions, the tab row was built only once and could become stale after a reconnect. From v0.9.5.1, AetherSDR rebuilds the tab row whenever the number of slices changes. If the row still appears incorrect, disconnect and reconnect via `Settings > Connect to Radio...`.
 - **A filter preset applies a different passband than expected** — Presets saved before v0.9.5.1 are stored as plain widths and remain valid. Presets saved from v0.9.5.1 onward may store exact lo:hi edges. If a preset behaves unexpectedly, right-click the preset button to overwrite it with the current passband.
+- **Squelch level resets after mode change** — From v26.5.2.1, AetherSDR persists your manual squelch level client-side as `LastManualSquelchLevel`. When Auto squelch clobbers the slice's level, AetherSDR restores the last manual value. If the level still resets unexpectedly, check whether Auto squelch mode is active.
 
 ## Related
 
 - [RX Controls overview](overview.md)
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
-- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+- [Switch between multiple

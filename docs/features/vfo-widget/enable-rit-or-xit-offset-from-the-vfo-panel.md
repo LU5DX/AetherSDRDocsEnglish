@@ -39,6 +39,22 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 | Marker thickness button      | Push button                                                                                                                           | 1 px                                                                                                                    |
 | Filter edges button          | Toggle button                                                                                                                         | shown                                                                                                                   |
 | Collapse toggle              | Toggle button                                                                                                                         | expanded                                                                                                                |
+| TX badge                     | Indicator                                                                                                                             | Shows TX (red) when this slice is the active transmit slice. Hidden otherwise.                                          |
+| SPLIT badge                  | Indicator                                                                                                                             | Shows SPLIT (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise.           |
+
+**RX antenna button** — Opens an antenna selection menu for the receive antenna of this slice. The menu now uses the per-slice `rxAntennaList()` property when available, falling back to the global antenna list. Menu items show a human-readable label alongside the internal antenna identifier.
+
+**TX antenna button** — Opens an antenna selection menu for the transmit antenna of this slice. The menu filters out RX-only antenna ports. Uses the `txAntennaOptions()` helper to determine valid transmit antennas. Menu items show a human-readable label alongside the internal antenna identifier.
+
+**Marker thickness button** — Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice.
+
+**Filter edges button** — Toggles the filter edge lines on the spectrum passband. Persisted per slice.
+
+**Collapse toggle** — Collapses the VFO panel to a compact frequency-only strip. Persisted per slice.
+
+**TX badge** — Shown when this slice is the active transmit slice. Displays a red TX indicator.
+
+**SPLIT badge** — Shown when TX is assigned to a different slice than the active receive slice. Displays an amber SPLIT indicator.
 
 **RIT / XIT buttons + labels** — Enable receiver (RIT) or transmitter (XIT) incremental tuning for this slice. When active, the label next to each button shows the current offset value. Scroll the mouse wheel over the button to adjust the offset in 10 Hz steps. Neither setting is persisted; state reflects live radio state.
 
@@ -48,6 +64,20 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
+
+## Changes in v26.5.2.1
+
+### XVTR band frequency handling
+
+When the slice is on an XVTR band, the maximum accepted frequency during direct entry has been increased from 450 MHz to 50,000 MHz to support microwave bands. The 3-digit-band insertion behavior (automatically inserting a decimal after the third digit for bare integers on 2m/70cm) now only fires when the slice frequency is between 100 MHz and 999 MHz. For bands like 23cm (1296 MHz), bare integers are interpreted as the frequency in MHz directly.
+
+### Antenna menu improvements
+
+Both the RX and TX antenna buttons now display a human-readable label in the menu alongside the internal antenna identifier. The menu uses `data()` internally for selection, matching on the full antenna string rather than the display label. Menu items also include tooltip and status tip text showing the raw antenna identifier.
+
+### Slice badge rich text support
+
+The slice badge now supports rich text format (`Qt::RichText`), allowing HTML formatting in certain cases (#2606).
 
 ## Changes in v26.5.1
 

@@ -10,7 +10,7 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 ## Steps
 
 1. Click the EQ tray button in the right sidebar applet panel to open the Equalizer tile.
-2. Click TX to edit the transmit path, or click RX to edit the receive path. TX is selected by default when the applet opens.
+2. Click TX to edit the transmit path, or click RX to edit the receive path. TX is selected by default when the applet opens. The last-selected view is remembered and restored the next time you open the applet.
 3. Click ON to enable the equalizer for the selected path. ON highlights green when active.
 4. Drag the slider for the band you want to adjust. Bands are labeled **63**, **125**, **250**, **500**, **1k**, **2k**, **4k**, and **8k** (Hz and kHz respectively). Drag up to boost, drag down to cut.
 5. Read the value label directly below each slider handle to confirm the dB amount. The label updates live as you drag.
@@ -21,8 +21,8 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 | Control | Type | Default | Range | Behavior |
 |---|---|---|---|---|
 | ON | Toggle button | Off (unchecked) | On / Off | Enables or disables the equalizer for the currently-selected path. Highlights green when enabled. |
-| RX | Toggle button | Unchecked | — | Switches the applet to display and edit the receive equalizer bands. Highlights blue when active. |
-| TX | Toggle button | Checked | — | Switches the applet to display and edit the transmit equalizer bands. Highlights blue when active. |
+| RX | Toggle button | Unchecked (or last selected state) | — | Switches the applet to display and edit the receive equalizer bands. Highlights blue when active. |
+| TX | Toggle button | Checked (or last selected state) | — | Switches the applet to display and edit the transmit equalizer bands. Highlights blue when active. The last-selected view (RX or TX) is remembered between applet sessions. |
 | Reset arc button | Push button | — | — | Resets all 8 bands of the currently-selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. |
 | 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. |
@@ -39,6 +39,7 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 - RX and TX settings are independent. Adjusting bands while TX is selected has no effect on the RX curve, and vice versa.
 - The +10 / 0 / −10 dB scale labels on the left and right edges of the slider column give a visual reference for the slider midpoint (0 dB) and limits.
 - To quickly return all bands to flat without moving each slider individually, click the Reset arc button.
+- The applet remembers whether you last used RX or TX view. When you reopen the Equalizer tile, it shows the same view you were using before, saving you a click.
 
 ## Troubleshooting
 

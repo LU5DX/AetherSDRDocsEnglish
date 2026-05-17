@@ -24,6 +24,8 @@ To open the full editor for either instance — which adds knee and limiter cont
 
 The five knobs appear in a row at the bottom of each applet tile. Both the TX (Aetherial Compressor) and RX (Aetherial AGC-C) instances share the same knob layout with independent state.
 
+Each knob supports inline value editing: click the displayed value text to open an edit field. Type a new value and press Enter or click elsewhere to commit the change. Press Escape to cancel. While the edit field is focused, mouse wheel events continue to adjust the knob as usual.
+
 | Knob | Default | Valid range | TX setting key | RX setting key | Behavior |
 |---|---|---|---|---|---|
 | Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` | `ClientCompRxThresholdDb` | Sets the level above which compression starts. Mapped linearly. Label shows value as `-18.0 dB`. |
@@ -48,6 +50,7 @@ Additional settings managed only through the full editor:
 - When a stage is bypassed, the tile dims visibly. If the tile appears dim and controls are unresponsive, check that the COMP stage is not bypassed in the CHAIN widget.
 - The TX and RX instances are fully independent. Changes to Aetherial Compressor (TX) do not affect Aetherial AGC-C (RX) and vice versa.
 - Knee and limiter controls are not available in the applet tile. Open the full editor to access them.
+- To change a knob value by typing directly, click the displayed value text. The edit field appears with a dark background and cyan border. Type the new value and press Enter or click elsewhere to apply it. Press Escape to cancel without changing the value.
 
 ## Related
 

@@ -79,16 +79,14 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 
 ## Dialog chrome behavior
 
-The dialog supports both frameless and native window modes, controlled by the user preference in **Settings > Configuration** (`FramelessWindow` setting key). When frameless mode is active, the chrome changes accordingly:
+The dialog uses a frameless window style with a custom title bar. Dialog geometry and state are persisted across sessions via the `AetherDspDialogGeometry` setting key.
 
-- **Title bar**: Frameless 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title.
+- **Title bar**: 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title.
 - **Minimize (—)**: Minimizes the dialog.
 - **Maximize (□)**: Maximizes or restores the dialog.
 - **Close (×)**: Closes the dialog.
 - **Drag-to-move**: Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore.
 - **8-axis resize**: Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. Resize hit zone is 6 px around the inner content widget.
-
-When native window mode is active, the standard operating system window chrome is used instead.
 
 ## Platform notes
 

@@ -37,12 +37,14 @@ Out-of-range values entered in the `Port` field snap to `50001`. If `Enable` is 
 
 - If you use `Settings > Autostart TCI with AetherSDR`, the TCI server starts automatically on each launch. This setting was present before v0.9.7 and is safe to use after upgrading.
 - The crash in earlier versions occurred because the TCI server was torn down after the radio model had already been released. In v0.9.7 the teardown order was corrected: the TCI server is shut down while the radio model is still alive. No configuration change on your part triggers or avoids this — upgrading to v0.9.7 is the fix.
+- Starting with v26.5.2.1, the slice assignment labels (RX1–RX4 status and TX status) can render rich text. If a slice letter contains HTML characters (such as an ampersand or angle brackets), the label displays correctly instead of showing raw markup. This improves compatibility with third-party software that may send unusual slice identifiers.
 
 ## Troubleshooting
 
 - **Status shows `(port in use)` after clicking `Enable`** — Another process is already bound to that port. Enter a different port number in the `Port` field and press Enter, then click `Enable` again.
 - **Application still crashes on quit after upgrading** — Confirm you are running v0.9.7 or later. Check `Help > About` for the version string. If the version is correct and crashes persist, disable `Enable` before quitting to isolate whether TCI is still involved.
 - **`Enable` snaps back to off immediately** — The port bind failed. The status label turns red and shows `(port in use)`. Change the port value and try again.
+- **Slice assignment label shows raw HTML** — This indicates you are running a version earlier than v26.5.2.1. Upgrade to the latest version to ensure proper rendering of slice identifiers.
 
 ## Related
 

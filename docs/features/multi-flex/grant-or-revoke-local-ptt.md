@@ -34,6 +34,7 @@ If another station already holds PTT, the Enable button is hidden. The label ins
 - Your station is highlighted in the STATION column, making it easy to find in a crowded table.
 - The STATION column displays entries as `program: station` when the program name and station name differ.
 - TX ANT and TX FREQ (MHz) reflect the transmitting slice for each station. If that data is not yet available, the columns show `----`.
+- The dialog remembers its size and position between sessions.
 
 ## Troubleshooting
 

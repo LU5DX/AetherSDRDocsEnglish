@@ -9,9 +9,9 @@ The multiFLEX Dashboard shows every client station currently sharing your FLEX-8
 
 ## How it works
 
-Open the dashboard from `Settings > multiFLEX...`. The dialog displays the heading **multiFLEX Stations** and refreshes automatically whenever a client connects or disconnects, or when slice status changes on the radio.
+Open the dashboard from `Settings > multiFLEX...`. The dialog displays the heading **multiFLEX Stations** and refreshes automatically whenever a client connects or disconnects, or when slice status changes on the radio. The dialog remembers its size and position between sessions.
 
-At the top of the dialog, the **Enabled** / **Disabled** button reflects the current multiFLEX state on the radio. Clicking it toggles multiFLEX on or off and the button label updates immediately to reflect the new state.
+At the top of the dialog, the **Enable** button reflects the current multiFLEX state on the radio. Clicking it toggles multiFLEX on or off and the button label updates immediately to reflect the new state.
 
 The **Stations table** lists every connected multiFLEX client in four columns:
 
@@ -22,11 +22,11 @@ The **Stations table** lists every connected multiFLEX client in four columns:
 | TX ANT | The transmit antenna assigned to that station's TX slice. Shows `----` if not available. |
 | TX FREQ (MHz) | The transmit frequency of that station's TX slice in MHz to three decimal places. Shows `----` if not available. |
 
-Below the table, the **Local PTT label** and the **Enable** (PTT) button appear only when more than one client is connected. Their content depends on the current PTT state:
+Below the table, the **Local PTT label** and the **Enable (PTT)** button appear only when more than one client is connected. Their content depends on the current PTT state:
 
-- If your station does not hold PTT, the label reads *Enable Local PTT for this station (station name):* and the **Enable** button is shown. Clicking **Enable** requests local PTT authority for your station.
-- If your station already holds PTT and you select another station's row, the label informs you that the selected station must claim PTT from their own client. The **Enable** button is hidden in this state.
-- If only one client is connected, both the label and the **Enable** button are hidden.
+- If your station does not hold PTT, the label reads *Enable Local PTT for this station (station name):* and the **Enable (PTT)** button is shown. Clicking **Enable (PTT)** requests local PTT authority for your station.
+- If your station already holds PTT and you select another station's row, the label informs you that the selected station must claim PTT from their own client. The **Enable (PTT)** button is hidden in this state.
+- If only one client is connected, both the label and the **Enable (PTT)** button are hidden.
 
 Clicking **Close** dismisses the dialog.
 
@@ -34,14 +34,15 @@ Clicking **Close** dismisses the dialog.
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Enabled** / **Disabled** | Button | Toggles multiFLEX on or off on the radio. Label shows current state: **Enabled** (green) or **Disabled** (red). |
+| **Enable** | Button | Toggles multiFLEX on or off on the radio. Shows **Enabled** (green) when multiFLEX is active, **Disabled** (red) when inactive. |
 | **Stations table** | List | Shows all connected multiFLEX clients. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). Selecting a row updates the PTT section below. |
-| **Enable** (PTT) | Button | Requests local PTT authority for your station. Visible only when your station does not currently hold PTT and more than one client is connected. |
+| **Enable (PTT)** | Button | Requests local PTT authority for your station. Visible only when your station does not currently hold PTT and more than one client is connected. |
 | Local PTT label | Indicator | Shows context-dependent text about PTT state for the selected station. Hidden when only one client is connected. |
 | **Close** | Button | Closes the multiFLEX Dashboard dialog. |
 
 ## Tips
 
+- The dialog remembers its size and position between sessions.
 - Your own station's row in the Stations table is highlighted in blue, making it easy to identify your entry among multiple clients.
 - TX antenna and frequency data for your own station is drawn directly from your active TX slice, so it reflects the current state even if the client info from the radio has not yet been updated.
 - The table refreshes automatically; you do not need to close and reopen the dialog to see new clients.

@@ -10,17 +10,20 @@ The **Body / Drive** knob controls how hard the low-frequency saturator or compr
 
 ## Steps
 
-1. Locate the **Poo** group — the bracket label reading "Poo" spans the three left-side knobs.
+1. Locate the **Body** group — the bracket label reading "Body" spans the three left-side knobs.
 2. Find the first knob under that bracket, labelled **Drive**.
 3. Turn **Drive** to the desired value. The knob displays the current value as `X.X dB`.
-4. Release the knob. The setting is saved automatically.
+4. To type a precise value, click the knob's value text. A small inline editor appears. Type the desired number and press Enter, or click elsewhere to commit. The value is clamped to the valid range automatically. Press Escape to cancel the edit and revert to the previous value.
+5. Release the knob. The setting is saved automatically.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting |
-|---|---|---|---|
-| **Poo / Drive** (TX) | 6.0 dB | 0.0 to 24.0 dB | `ClientPuduTxPooDriveDb` |
-| **Poo / Drive** (RX) | 6.0 dB | 0.0 to 24.0 dB | `ClientPuduRxPooDriveDb` |
+| Control              | Default                                                                                      | Valid range                               |
+|----------------------|----------------------------------------------------------------------------------------------|-------------------------------------------|
+| **Poo / Drive** (TX) | 6.0 dB                                                                                       | 0.0 to 24.0 dB                            |
+| **Poo / Drive** (RX) | 6.0 dB                                                                                       | 0.0 to 24.0 dB                            |
+| **Body** group bracket | Group label — the three knobs below belong to the low-frequency processor (Drive, Tune, Mix). |                                           |
+| AetherVoice logo     | Animated branded logo that pulses with the wet-signal RMS. Displays 'AetherVoice™' wordmark. | PooDooLogo widget — 40 px minimum height. |
 
 The mapping is linear. Higher values push the low-frequency saturator (Even mode) or bass compressor (Odd mode) harder, producing more LF effect at the same **Poo / Mix** blend level.
 
@@ -31,6 +34,7 @@ The mapping is linear. Higher values push the low-frequency saturator (Even mode
 - In **Even** mode, high Drive values engage the Big Bottom LF saturation more aggressively. In **Odd** mode, high Drive values increase feed-forward bass compression. Pick your mode first, then set Drive. See [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md).
 - Drive and **Poo / Mix** interact. A high Drive with a low Mix can deliver heavy low-end processing that is blended in subtly. See [Blend the Poo enhancement with Mix](blend-the-poo-enhancement-with-mix.md).
 - To focus the Drive on a specific frequency, set **Poo / Tune** first. See [Tune Poo to the fundamental of your voice (TX) or to bring out RX program lows](tune-poo-to-the-fundamental-of-your-voice-tx-or-to-bring-out-rx-program-lows.md).
+- The inline value editor supports locale-aware number parsing (e.g., "12,5" in comma-decimal locales) and a fallback that strips non-numeric characters, so appending unit text like "dB" works.
 
 ## Related
 

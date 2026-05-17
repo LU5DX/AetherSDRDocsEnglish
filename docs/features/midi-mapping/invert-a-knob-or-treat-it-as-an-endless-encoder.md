@@ -25,7 +25,7 @@ After creating a MIDI binding, you can reverse its direction with Invert or tell
 
 ## Category filter
 
-The Category combo box above the Bindings table filters the Parameter combo box to a specific control category. In v26.5.1, the available categories are:
+The Category combo box above the Bindings table filters the Parameter combo box to a specific control category. In v26.5.2.1, the available categories are:
 
 - All
 - RX
@@ -42,11 +42,22 @@ The Category combo box above the Bindings table filters the Parameter combo box 
 
 Select a category to narrow the list of parameters shown when creating a new binding.
 
+## New momentary CW trigger actions
+
+In v26.5.2.1, the Phone/CW category includes three new momentary (Gate) actions for CW keying:
+
+- **Trigger straight key** (id: cwkey) — Emulates a straight key press.
+- **Trigger CW Left Paddle** (id: cwdit) — Emulates a left paddle (dit) press.
+- **Trigger CW Right Paddle** (id: cwdah) — Emulates a right paddle (dah) press.
+
+Legacy dotted IDs (cw.key, cw.dit, cw.dah) are automatically migrated to the new format when loading older profiles.
+
 ## Tips
 
 - Use Relative when your knob sends small increment/decrement values rather than an absolute position. If a knob jumps erratically when turned, enabling Relative usually corrects it.
 - Invert and Relative can be combined on the same binding. For example, a Relative encoder that increments in the wrong direction can have both options checked.
 - Changes to Invert and Relative are saved automatically when you save a profile. Use Save under Profile: to preserve them.
+- The CW trigger actions are momentary — they activate while the MIDI control is held and deactivate when released.
 
 ## Troubleshooting
 

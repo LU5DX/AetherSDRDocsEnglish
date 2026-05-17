@@ -28,10 +28,38 @@ External clients (logging software, digital-mode software, SDR programs) can con
 | `drive` | `TciTxGain` | 0.5 | 0.0–1.0 |
 | `rx_volume <channel>` | `TciRxGain1`–`TciRxGain4` | 0.5 | 0.0–1.0 |
 
+## TCI applet controls
+
+The TCI applet shows the current state and lets you adjust gain settings:
+
+| Control | Description | Setting key |
+|---------|-------------|-------------|
+| **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
+| **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. | `TciTxGain` |
+| **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. | `TciPort` |
+| **Enable** | Toggle button to start or stop the TCI server. If bind fails, snaps back to off and status shows "(port in use)". | None |
+
+### RX/TX slice assignment labels
+
+| Label | Description | Format |
+|-------|-------------|--------|
+| **RX1..RX4** status | Shows which slice drives each RX DAX channel. Displays as "Slice <letter>" where the letter may appear as rich HTML text (e.g., with strikethrough for disabled slices). | `—` or rich HTML slice label |
+| **TX** status | Shows which slice is the active TX slice. Displays as "Slice <letter>" with the same rich HTML formatting as RX labels. | `—` or rich HTML slice label |
+
+### Server status indicator
+
+| State | Meaning |
+|-------|---------|
+| `(stopped)` | Server is not running |
+| `:<port> (N clients)` | Server is running on the specified port with N connected clients |
+| `(port in use)` | Bind failed — the port is already in use by another application |
+
 ## Tips
 
 - The TCI server supports bidirectional state sync — changes made locally via the TCI applet's sliders are also sent back to external clients that subscribe to gain updates.
 - The `rx_volume` command accepts a channel number (1–4). Channel numbers correspond to the DAX channels displayed in the TCI applet's RX1–RX4 rows.
+- TCI TX audio is always allowed regardless of platform or hosted-DAX availability (v0.9.5.1, #2276).
+- Slice assignment labels now use rich HTML formatting (v26.5.2.1, #2606), so disabled or special-state slices may display with text formatting (e.g., strikethrough).
 
 ## Related
 

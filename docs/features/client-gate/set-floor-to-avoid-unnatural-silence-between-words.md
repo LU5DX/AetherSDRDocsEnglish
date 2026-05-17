@@ -14,6 +14,8 @@ A fully closed gate produces complete silence, which can sound unnatural during 
 3. Watch the **Gain-reduction bar** while pausing speech. The amber fill should stop growing before it reaches the floor you set — the bar will not extend beyond the Floor value.
 4. Speak normally and pause. Confirm that pauses sound like reduced background rather than dead silence.
 
+**Inline value editing:** Click any knob's displayed value to type a precise number directly. The field shows a subtle cyan border when focused. Press Enter or click elsewhere to commit the value; press Escape to cancel and revert to the previous value. Wheel-scrolling continues to work while the editor is focused.
+
 ## What each control does
 
 | Control                | Default                                                                                                                                                                                                     | Valid range                                                                                                                                                                                                                                                         |
@@ -36,6 +38,7 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 - Setting Floor to 0.0 dB disables all attenuation, effectively bypassing the gate's effect without disabling it in the chain.
 - When the Gate stage is disabled in the CHAIN widget, the entire applet tile dims to roughly half opacity. This matches the dim effect used on the EQ curve and provides a quick visual indication that the stage is bypassed without requiring you to check the CHAIN widget directly.
 - The **Transfer curve** indicator shows the expander's static transfer curve with a live ball at the current input level. A soft-cyan vertical hysteresis band appears between (Thresh minus Return) and Thresh when Return is greater than 0 dB, making the gate's sticky zone visible.
+- Use inline value editing to set controls with decimal precision — for example, type `2.5` for Ratio to get a 2.5:1 expansion ratio, or `12.5` for Return to set exactly 12.5 dB of hysteresis.
 
 ## Troubleshooting
 
@@ -43,6 +46,7 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 - **Pauses still sound completely silent** — Floor may be set lower than -40.0 dB on the scale, or Ratio is very high (approaching 10:1), making the gate behave like a hard cut. Raise Floor toward -15.0 dB and consider lowering Ratio. See [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md).
 - **Gate chatters near the threshold** — Use the **Return** knob to add hysteresis. Increase Return until the gate stays open through brief dips in the input level.
 - **The applet tile looks faded or dim** — the Gate stage is bypassed in the CHAIN widget. The reduced opacity (approximately 55%) is intentional. Enable the Gate stage in the CHAIN widget to restore full brightness and DSP processing.
+- **Inline editor shows unexpected decimal places** — the display adapts to the control's label format. For example, Return shows two decimal places (X.XX dB), while Floor shows one (X.X dB). Typed values are parsed using your system locale, so `12,5` works in comma-decimal regions.
 
 ## Related
 

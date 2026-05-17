@@ -1,3 +1,4 @@
+```markdown
 # Enable Snap to Step for precise S-History tuning
 
 Snap to Step rounds S-History click-to-tune to the nearest multiple of the active slice’s step size, hiding small carrier offsets. Enable it when you want to tune precisely to the frequency where a signal should be heard, rather than where its carrier appears.
@@ -22,6 +23,7 @@ Snap to Step rounds S-History click-to-tune to the nearest multiple of the activ
 ## Tips
 
 - Snap to Step only affects clicks on Signal History markers — it does not change how the slice tunes when you click the spectrum directly.
+- The Filter Match Window slider and the Edge Threshold, Marker Lifetime, and QRM Gate sliders all support left-double-click to reset to their stored default value.
 
 ## Troubleshooting
 
@@ -31,3 +33,4 @@ Snap to Step rounds S-History click-to-tune to the nearest multiple of the activ
 
 - [Toggle Signal History voice markers on the panadapter](toggle-signal-history-voice-markers-on-the-panadapter.md)
 - [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm-gate-and-edge-threshold.md)
+```

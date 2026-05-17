@@ -38,12 +38,14 @@ Use the Digital Voice Keyer panel to transmit a stored recording on-air. Trigger
 - Clicking an **F1–F8** button while that slot is already playing stops playback rather than restarting it.
 - Pressing the matching F-key on your keyboard is equivalent to clicking the on-screen **F1–F8** button. F1 through F8 are supported.
 - To hear a slot through your local speaker without transmitting, use **◀ PREV** instead of **▶ PLAY**.
-- Keyboard shortcuts (F1–F8 and Escape) are active only while the DVK panel is visible. If you switch to the CWX panel in the same splitter area, the CWX panel takes over the same F-key shortcuts. Hiding the DVK panel automatically disables its shortcuts to avoid conflicts.
+- Keyboard shortcuts (F1–F8 and Escape) remain active even when the DVK panel is hidden, provided the active slice is in a voice mode (SSB, AM, FM). When the active slice switches to CW mode, the CWX panel's F-key shortcuts become active instead. This ensures no shortcut conflicts occur.
+- If you switch to the CWX panel while the DVK panel is still visible, the DVK shortcuts remain active only if the slice is in a voice mode. The CWX panel takes over F-key shortcuts when the slice switches to CW mode.
 
 ## Troubleshooting
 
 - **▶ PLAY does nothing** — The selected slot is empty. The duration label will read "Empty". Record audio or upload a WAV file into the slot first.
-- **F-key press has no effect** — The DVK panel must be visible in the main window. If the CWX panel is shown instead, its F-key shortcuts take priority. Make sure the DVK panel is the active panel in the splitter area.
+- **F-key press has no effect** — The DVK panel shortcuts are enabled based on the active slice's mode, not panel visibility. Make sure the active slice is in a voice mode (SSB, AM, FM). If the slice is in CW mode, the CWX panel's shortcuts take priority.
+- **Keyboard shortcuts work unexpectedly** — If the DVK panel and CWX panel are both visible, only the shortcuts for the mode of the active slice are active. Shortcuts from the other panel are disabled.
 
 ## Related
 

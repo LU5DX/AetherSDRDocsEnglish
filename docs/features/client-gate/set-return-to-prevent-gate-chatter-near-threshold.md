@@ -11,7 +11,7 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 
 1. Open the **Aetherial TX Gate** sub-container (TX side) or the **Aetherial AGC-G** sub-container (RX side) inside the Aetherial Audio (TXDSP) parent container. Alternatively, double-click the GATE stage in the CHAIN widget to open the floating editor titled **Aetherial Gate — TX** or **Aetherial Gate — RX**.
 2. Locate the **Return** knob.
-3. Turn **Return** upward from its default of 2.00 dB until the chatter stops. Start with small increases — 3 to 5 dB is often sufficient for voice.
+3. Turn **Return** upward from its default of 2.0 dB until the chatter stops. Start with small increases — 3 to 5 dB is often sufficient for voice.
 4. Watch the transfer curve. A soft-cyan vertical band appears between (Thresh − Return) and Thresh, showing the hysteresis deadband. Widen or narrow it by adjusting **Return** until the band covers the range where your signal fluctuates.
 5. Speak or pass audio at a level that previously caused chatter. Confirm the gate opens cleanly and does not re-close until your level drops below the bottom edge of the cyan band.
 
@@ -19,12 +19,25 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 
 | Control | Default | Valid range | Persisted key (TX / RX) |
 |---|---|---|---|
-| **Return** | 2.00 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
+| **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | **Thresh** | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
 
 **Return** sets the width of the hysteresis deadband in decibels. The gate opens when input rises above Thresh and does not close again until input falls below Thresh − Return. Setting Return to 0.0 dB removes the deadband entirely; the gate opens and closes at the same level, which maximises chatter risk near threshold.
 
 The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh whenever Return is greater than 0.0 dB. This band is the gate's sticky zone — signals inside it leave the gate in whatever state it is already in.
+
+## Inline value editing
+
+Each knob in the Aetherial TX Gate and Aetherial AGC-G supports direct numeric entry. Click the displayed value below a knob to activate an inline editor that replaces the painted label. The editor appears identical to the normal label until focused, at which point a subtle dark background and cyan border indicate edit mode.
+
+1. Click the value text below any knob (Thresh, Ratio, Return, Release, or Floor).
+2. Type the desired value using the knob's unit convention. For example, type `15` to set Return to 15 dB.
+3. Press **Enter** to commit the value, or click anywhere else in the applet to apply the change.
+4. To cancel, press **Escape** while the editor is active. The value reverts to its previous setting.
+
+The editor accepts locale-aware decimal separators (for example, `12,5` in comma-decimal locales) and strips trailing unit text such as "dB" or "ms". Invalid input is silently reverted to the last valid value.
+
+Knob adjustment via mouse drag or mouse wheel continues to work while the editor is not focused.
 
 ## Bypassed appearance
 
@@ -42,6 +55,7 @@ When the gate stage is bypassed, the entire applet tile dims to reduced opacity.
 - **Gate stays open permanently** — Return is set wider than the gap between your signal level and the noise floor. Reduce Return until the gate closes reliably during silence.
 - **Cyan band is not visible on the transfer curve** — Return is set to 0.0 dB. Any value above 0.0 dB will render the band.
 - **Applet tile appears dimmed** — The gate stage is bypassed. Enable the gate stage to restore full opacity and active processing.
+- **Inline editor does not appear when clicking the value** — The knob may not support inline editing in its current configuration, or the editor may be disabled. All five knobs in the gate applet support this feature by default.
 
 ## Related
 

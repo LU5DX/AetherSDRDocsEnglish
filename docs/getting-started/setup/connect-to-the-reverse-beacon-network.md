@@ -18,6 +18,7 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 6. If the RBN feed produces more spots than you need, set **Rate Limit:** to cap the number of spots processed per second. This persists as `RbnRateLimit`.
 7. Click **Connect**. The button label changes to **Disconnect** when the session is established, and the **RBN Console** shows incoming traffic.
 8. To have AetherSDR connect to the RBN automatically on every launch, enable **Auto-connect on startup**. This persists as `RbnAutoConnect`.
+9. (Optional) Click **Startup Commands…** to edit commands sent automatically after every RBN login. One command per line (e.g., `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`). These persist as `RbnStartupCommands`.
 
 ## What each control does
 
@@ -29,6 +30,7 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 | **Rate Limit:**                                               | Maximum RBN spots accepted per second                                                                                                                                  | `RbnRateLimit`                                                                                                     |
 | **Connect / Disconnect**                                      | Toggles the RBN telnet session                                                                                                                                         | —                                                                                                                  |
 | **Auto-connect on startup**                                   | Connects to RBN automatically on launch                                                                                                                                | `RbnAutoConnect`                                                                                                   |
+| **Startup Commands…**                                         | Opens a dialog to edit commands sent automatically after every RBN login. One command per line.                                                                        | `RbnStartupCommands`                                                                                               |
 | **RBN Console**                                               | Read-only display of raw RBN traffic                                                                                                                                   | —                                                                                                                  |
 | **Send**                                                      | Sends a typed command to the RBN session                                                                                                                               | —                                                                                                                  |
 | **Spot Color:**                                               | Opens a color picker for RBN spots on the panadapter                                                                                                                   | `RbnSpotColor`                                                                                                     |
@@ -97,6 +99,7 @@ In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabl
 ## Tips
 
 - The **RBN Console** is read-only and shows raw telnet lines as they arrive. Use the **Send** command line below it to issue filter commands directly to the RBN server (e.g., `set/skimmer` or band-filter commands supported by the RBN).
+- Use the **Startup Commands…** button to automate login-time configuration. For example, to set your name and location on every connection, add `SET/NAME <your name>` and `SET/QTH <your city>`.
 - If the panadapter becomes cluttered during a contest, lower **Rate Limit:** to reduce spot density without disconnecting. You can also disable **Spot Lines:** on the **Display** tab to reduce visual clutter further.
 - To change how spots look on the panadapter — size, position, lifetime, and stacking — see [Tune spot density, position, font size and lifetime](../../features/dx-cluster/tune-spot-density-position-font-size-and-lifetime.md).
 - RBN spots use the color set by **Spot Color:** on the RBN tab. To override all spot source colors with a single color, use the **Override Colors:** toggle on the **Display** tab.
@@ -107,10 +110,4 @@ In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabl
 - **No spots appear on the panadapter after connecting** — Confirm that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also check that the band you are monitoring is not hidden in the **Spot List** tab band filter checkboxes.
 - **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate. Alternatively, disable **Spot Lines:** (`IsSpotsLinesEnabled`) on the **Display** tab to make dense spot areas easier to read without reducing the number of spots shown.
 - **Double-clicking a spot changes frequency but does not change mode** — The spot comment may not contain a recognizable mode token. Mode switching depends on the spot comment containing a known mode string (e.g., `CW`, `FT8`, `SSB`). If the spotter did not include a mode in the comment, only the frequency changes.
-- **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square value could not be resolved. Enter values in the **Callsign:** and **Grid Square:** fields, or enable **Use radio** and **Use GPS** so AetherSDR can read them from the radio.
-- **Auto Mode: is now Enabled after upgrading** — v0.9.5.1 changed the default for `SpotAutoSwitchMode` from `False` to `True`. If you prefer the previous behavior, open `Settings > SpotHub...`, click the **Display** tab, and click **Auto Mode:** to set it to **Disabled**.
-
-## Related
-
-- [Connect to a DX cluster](connect-to-a-dx-cluster.md)
-- [Tune spot density, position, font size and lifetime
+- **FreeDV Reporter checkbox reverts to unchecked immediately** — A callsign or grid square

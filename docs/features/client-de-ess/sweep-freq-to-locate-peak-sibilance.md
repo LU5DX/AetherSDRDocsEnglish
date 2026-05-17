@@ -33,6 +33,14 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 
 **Note:** The Attack and Release knobs appear only in the Channel Strip StripDeEssPanel (both RX and TX). The docked ClientDeEssApplet omits these controls.
 
+## Direct value entry
+
+Click any knob's value display to reveal an inline text editor. Type a numeric value (including units or trailing text) and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. To cancel, press Escape — the knob reverts to its previous value.
+
+- The editor supports locale-aware parsing so "12,5" works in comma-decimal locales.
+- Trailing text such as "ms" or "dB" is stripped automatically.
+- While the editor is active, mouse-wheel events still adjust the knob normally.
+
 ## Sidechain response curve axis labels
 
 The curve widget draws frequency-axis labels using QStaticText for improved rendering performance. Labels are rendered as "100", "500", "1k", "2k", etc. The label text is cached after the first paint and reused on subsequent redraws. The axis labels are hidden when the curve widget is in compact mode.
@@ -61,6 +69,7 @@ The StripDeEssPanel in the Channel Strip can be opened for either TX or RX. When
 - **Bar stays near maximum across a wide Freq range** — Amount is set to a very large negative value and Thresh is very low. Raise Thresh slightly so the bar discriminates between frequencies rather than clamping at maximum everywhere.
 - **Applet is not visible** — The DESS stage has not been enabled in the CHAIN widget. Enable it there first; the applet remains hidden until the stage is active.
 - **Applet tile appears dimmed** — The DESS stage is currently bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it.
+- **Inline editor does not appear when clicking a knob** — The knob's inline edit mode may be disabled in your configuration. Verify that the `m_inlineEdit` flag is enabled (it is on by default).
 
 ## Related
 

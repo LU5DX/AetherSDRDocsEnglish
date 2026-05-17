@@ -47,7 +47,7 @@ The Aetherial De-Esser panel contains the following controls:
 
 | Label | Kind | Default | Valid Range | Setting Key | Notes |
 |---|---|---|---|---|---|
-| Sidechain response curve | indicator | — | — | — | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency. Frequency axis labels are rendered as QStaticText for improved performance. |
+| Sidechain response curve | indicator | — | — | — | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency. |
 | Gain-reduction bar | meter | — | 0 to 24 dB GR | — | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz from `ClientDeEss::gainReductionDb()`. |
 | Freq | knob | 6000 Hz | 1000 to 12000 Hz | `ClientDeEssTxFrequencyHz` or `ClientDeEssRxFrequencyHz` | Logarithmic mapping (1000 * 12^n). Sets the centre frequency of the sibilance band. Label '6.0 kHz' above 1 kHz, 'N Hz' below. |
 | Q | knob | 2.00 | 0.5 to 5.0 | `ClientDeEssTxQ` or `ClientDeEssRxQ` | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label 'X.XX'. |
@@ -63,12 +63,25 @@ The Aetherial De-Esser panel contains the following controls:
 | Centre-frequency ball | resting on curve peak | Marks the currently-tuned sibilance centre frequency on the response curve. |
 | Gain-reduction strip | empty, soft-red fill | Current attenuation applied to the sibilance band. |
 
+## Inline value editing on knobs
+
+The de-esser knobs (Freq, Q, Thresh, Amount, Attack, Release) support inline value editing since v26.5.2.1. Instead of dragging the knob, you can type a value directly.
+
+### To edit a knob value using inline editing
+
+1. Click the value text below any de-esser knob. A small text field appears, outlined in cyan when focused.
+2. Type the new value. You can include units (e.g., "6 kHz", "-24.0 dB", "100 ms") or just the number (e.g., "6000", "2.0", "0.1").
+3. Press **Enter** or click anywhere else on the panel to commit the value.
+4. To cancel editing, press **Escape** — the previous value is restored.
+
+The value is automatically clamped to the knob's valid range. Locale-aware parsing is supported (e.g., "12,5" works in comma-decimal locales).
+
 ## Tips
 
 - Bypassing does not reset any knob values. Freq, Q, Thresh, and Amount all retain their current settings when you re-enable the stage.
 - The TX and RX de-esser instances are independent. Changing settings on one does not affect the other.
 - The sidechain response curve and gain-reduction meter reflect the currently active instance (TX or RX) in the panel title bar.
-- Frequency axis labels on the sidechain response curve use cached QStaticText for improved rendering performance.
+- You can use inline value editing to enter exact values without dragging knobs. This is especially useful for fine-tuning or when you know the precise setting you need.
 
 ## Related
 

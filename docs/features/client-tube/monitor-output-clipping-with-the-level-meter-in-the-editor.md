@@ -29,6 +29,7 @@ The floating Tube editor includes a live output level meter that shows the post-
 - The Dry/Wet knob (persisted as `ClientTubeTxDryWet` or `ClientTubeRxDryWet`) blends the dry signal back in. At values below 100 %, the meter will read lower because the unprocessed signal is mixed with the saturated output, which can mask how hard the tube itself is being driven.
 - Changes made in the floating editor are reflected on the docked applet tile knobs within approximately 33 ms via the sync timer, and vice versa.
 - When the Tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of full brightness). This visual dim matches the behavior of the EQ curve tile and gives a clear at-a-glance indication that the stage is inactive. The opacity returns to 100 % as soon as the stage is re-enabled.
+- Knob values can be edited directly by clicking on the value text. This opens an inline text editor overlay. Type the desired value and press Enter or click elsewhere to commit. The value is clamped to the valid range for that knob. Press Escape to cancel the edit and revert to the previous value.
 
 ## Related
 

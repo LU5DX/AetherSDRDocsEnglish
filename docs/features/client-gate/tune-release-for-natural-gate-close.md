@@ -30,6 +30,10 @@ The transfer curve widget plots the expander's static transfer curve with a live
 
 A horizontal amber strip, filled from the right, shows the depth of attenuation applied. The scale maxes at 40 dB gain reduction, with a tick at -15 dB marking the default Floor setting.
 
+## Inline value editing
+
+Each knob in the five-knob row supports direct numeric entry. Click the value text below a knob to activate an inline editor. Type a number and press Enter or click elsewhere to commit the value. The value is clamped to the knob's valid range. Press Escape to cancel editing and revert to the previous value. The editor appears as a subtle dark inset with a cyan border when focused, and matches the painted label appearance when unfocused.
+
 ## Tips
 
 - 100 ms (the default) suits most voice TX work. Increase toward 200–400 ms if consonants at the end of words are being clipped. Decrease toward 20–50 ms if background noise is audible in the gaps between words.
@@ -37,6 +41,7 @@ A horizontal amber strip, filled from the right, shows the depth of attenuation 
 - The gain-reduction bar updates approximately every 33 ms. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
 - Changes take effect immediately and are saved automatically. No radio connection is required to adjust this setting.
 - If the applet tile appears dimmed, the gate stage is bypassed and no processing is occurring. Re-enable the stage before making adjustments. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
+- For precise adjustments, click the value text below the Release knob to enter a specific millisecond value directly. This is useful when you need to match a known timing from another processor or save a specific setting for later recall.
 
 ## Related
 

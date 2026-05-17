@@ -13,7 +13,7 @@ This equalizer is separate from any client-side parametric EQ in AetherSDR. Chan
 
 Click the EQ tray button in the right sidebar to toggle the Equalizer tile open or closed. The tile appears in the top row of the applet panel.
 
-The applet always shows one path at a time — either RX or TX. Use the RX and TX buttons to switch which path you are viewing and editing. The applet opens on the TX view by default.
+The applet always shows one path at a time — either RX or TX. Use the RX and TX buttons to switch which path you are viewing and editing. The applet opens on the TX view by default. AetherSDR remembers the last-selected view (RX or TX) between sessions — if you close the applet while viewing the RX equalizer, it will open on RX the next time you launch the program.
 
 Each of the eight bands has a vertical slider. Moving a slider sends the new value to the radio immediately; the dB value below each slider updates live. Enabling or disabling the equalizer with ON also takes effect immediately on the currently selected path.
 
@@ -38,13 +38,14 @@ The RX and TX paths are independent. You can have different curves on each, and 
 | Per-band value label | Indicator | 0 | −10 through +10 | Shows the current dB value of each band below its slider handle. Updates live as you move the slider. |
 | +10 / 0 / −10 dB scale | Indicator | — | — | Reference labels on the left and right edges of the slider area showing the slider range. |
 
-No settings from this applet are persisted in AetherSDR's local configuration. All values are stored in and retrieved from the radio.
+No band slider values from this applet are persisted in AetherSDR's local configuration; all slider values are stored in and retrieved from the radio. The RX/TX view selection is stored locally so the applet reopens on your last-used path.
 
 ## Tips
 
 - Because RX and TX are independent paths, you can leave TX equalization flat while shaping only the RX audio, or vice versa.
 - Use ON to quickly compare equalized versus flat audio without moving any sliders. Toggle it off and on while listening to evaluate your curve.
 - The reset arc button resets all eight bands at once. If you only want to adjust one band, move just that slider back to 0 manually.
+- The applet remembers whether you were on RX or TX when you last used it, even across program restarts.
 
 ## Related
 

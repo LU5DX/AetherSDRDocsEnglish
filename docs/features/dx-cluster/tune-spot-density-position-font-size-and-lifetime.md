@@ -91,4 +91,5 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - [Pick colors for each spot source](pick-colors-for-each-spot-source.md)
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
-<!-- docmesh:llm version=V26.5.1 date=2026-05-05 -->
+- [Edit startup commands for cluster sources](edit-startup-commands-for-cluster-sources.md)
+<!-- docmesh:llm version=V26.5.2 date=2026-06-02 -->

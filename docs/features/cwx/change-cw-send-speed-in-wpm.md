@@ -37,9 +37,16 @@ The three view buttons in the top bar of the CWX panel changed behavior in v0.9.
 
 When a model is attached to the CWX panel (for example, after connecting to the radio), the **Live** button is updated to reflect the current Live state reported by the radio. This means if Live mode was active before a disconnect, the button will show the correct state when the connection is restored.
 
+## Send history context menu
+
+Each entry in the send history scroll area supports a right-click context menu with two actions:
+
+- **Resend** – Re-sends the selected text buffer. A new history entry is added to the scroll.
+- **Clear History** – Removes all history entries from the scroll area. Does not affect the radio.
+
 ## Keyboard shortcuts
 
-The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate automatically when the CWX panel is visible and deactivate when it is hidden. This prevents shortcut conflicts with other panels, such as the DVK macro panel, which uses the same F1–F12 keys for its own purposes.
+The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate when the active slice is in CW, CWL, or CWU mode, regardless of whether the CWX panel is visible. This prevents shortcut conflicts with other panels, such as the DVK macro panel, which uses the same F1–F12 keys for its own purposes. The enable state is managed by the MainWindow based on the active slice's mode.
 
 | Shortcut | Behavior |
 |---|---|
@@ -52,6 +59,7 @@ The CWX panel registers global application shortcuts for the F1–F12 keys and t
 - Press Escape at any time to abort a transmission in progress without changing the speed setting.
 - If you are in Live mode and want to type ahead without transmitting, click **Send** to exit Live mode before continuing to type. The panel will not re-send any characters that were already transmitted.
 - The Prosigns legend shows shortcuts for common CW prosigns: = (BT), + (AR), ( (KN), & (AS), $ (SK).
+- Right-click any history bubble to resend that text or clear the entire history.
 
 ## Related
 

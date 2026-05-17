@@ -5,7 +5,9 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 ## Before you start
 
 - The Waveform applet must be visible. If it is not, click the WAVE tray button in the right sidebar to open it.
-- Audio must be flowing (RX or TX) so there is something worth freezing. If no samples have arrived within 1 second, the display shows a "no RX audio" or "no TX audio" placeholder instead of a trace.
+- Audio must be flowing (RX or TX) so there is something worth freezing. If no samples have arrived within 1 second, the display shows a placeholder message instead of a trace.
+  - For RX audio, the placeholder reads "Enable PC Audio".
+  - For TX audio, the placeholder reads "no TX audio".
 
 ## Steps
 
@@ -23,7 +25,6 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 | View | Selects the visualization mode shown while paused. | Scope | Scope, Envelope, History, Bands | `WaveApplet_ViewMode` |
 | Zoom | Scales the amplitude axis. Higher values stretch small signals vertically, making subtle transients easier to see while paused. | 1.7x (170) | 100–600 (1.0x–6.0x) | `WaveApplet_ZoomPercent` |
 | FPS | Controls repaint rate while live. Has no effect while paused. | 24 | 5–30 Hz | `WaveApplet_RefreshRateHz` |
-| Window | Sets the time window visible on the waveform display. Uses discrete steps: 240 ms, 480 ms, 1 s, then 1-second increments to 10 s. | 1 s | 240 ms – 10 s (12 steps) | `WaveApplet_TimeWindowMs` |
 
 ## Tips
 
@@ -31,14 +32,14 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - Double-clicking opens or closes the settings drawer instead of pausing. If you accidentally open the drawer, double-click again to close it, then single-click to pause.
 - Increasing Zoom before pausing can make low-level transients more visible in the frozen frame.
 - The TX path is tinted differently from the RX path, so you can confirm which audio direction the frozen snapshot represents without reading the header.
-- Adjust the Window slider to show shorter time spans (240 ms, 480 ms) for close examination of fast transients, or longer spans (2 s – 10 s) for viewing sustained audio patterns. The window changes take effect immediately and are persisted across sessions.
+- If no RX audio samples have arrived within 1 second, the placeholder message reads "Enable PC Audio" to remind you that PC audio must be enabled for reception. For TX audio, the placeholder reads "no TX audio".
 
 ## Troubleshooting
 
 - **Click does not pause the display** — Make sure you are clicking once on the waveform area itself, not on the settings drawer below it. A rapid second click will immediately resume the display; click once and pause before clicking again.
 - **PAUSED badge appears but the trace is blank** — The buffer was empty at the moment you clicked. This happens when no audio has arrived within the last second. Resume live mode, wait for audio to appear, then click again.
 - **Display resumes on its own** — Pausing only freezes the visual display; a reconnect or audio engine reset clears the buffer and restores the live view.
-- **Window slider does not respond or changes are unpredictable** — If you upgraded from a previous version, your old time window setting has been automatically migrated to the new discrete-step system. Verify the Window slider is set to one of the 12 available steps (240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s).
+- **Placeholder message shows "Enable PC Audio"** — This indicates no RX audio samples have been received. Enable PC Audio in the radio settings to receive audio from the radio.
 
 ## Related
 

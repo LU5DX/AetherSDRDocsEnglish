@@ -11,6 +11,8 @@ The HF Propagation Dashboard provides an at-a-glance view of current HF/VHF prop
 
 1. Click `View > Propagation Conditions` to open the HF Propagation Dashboard.
 
+The dialog title and geometry are persisted across sessions using the `PropDashboardDialogGeometry` setting key.
+
 ## What each control does
 
 ### Current Conditions cards
@@ -76,7 +78,7 @@ A plain-language explanation of today's forecast appears at the bottom of the da
 
 - The color of each tile value changes with severity: green indicates favorable or quiet conditions, yellow indicates elevated or unsettled conditions, and red indicates storm-level or major flare activity.
 - If a tile shows no value, the dashboard is still waiting for data from the network.
-- The dashboard supports frameless window mode. When enabled, a custom title bar is displayed with the window title "HF Propagation Dashboard". This mode respects the application's `FramelessWindow` setting.
+- The dashboard window size and position are remembered between sessions. Resize or move the dialog and it will reopen in the same location.
 - Kp cells in the forecast grid are color-coded according to their severity level.
 
 ## Related

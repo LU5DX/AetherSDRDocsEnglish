@@ -12,15 +12,20 @@ This page explains how to set the threshold level at which the Aetherial Compres
 1. Locate the **Aetherial Compressor** sub-container (TX side) or **Aetherial AGC-C** sub-container (RX side) in the applet panel.
 2. Find the **Thresh** knob in the five-knob row at the bottom of the tile.
 3. Click and drag the **Thresh** knob up to raise the threshold or down to lower it. The label below the knob updates in real time and shows the current value in dB (for example, `-18.0 dB`).
-4. Watch the transfer curve and the envelope ball above the knob row. As you adjust the threshold, the knee point on the curve shifts and the ball's position relative to the curve changes to reflect where the current signal level falls.
-5. Watch the gain-reduction bar. Amber fill appearing from the right indicates active compression. A tick mark at −6 dB indicates a typical working amount of gain reduction.
-6. Release the knob when the displayed value is where you want it. The new threshold is saved automatically to `ClientCompTxThresholdDb` (TX) or `ClientCompRxThresholdDb` (RX).
+4. To enter a value directly, click on the value label beneath any knob. A QLineEdit overlay appears with a subtle dark inset and cyan border. Type the desired value and press Enter. The editor also commits when focus is lost (for example, clicking elsewhere on the applet). The value is clamped to the valid range automatically.
+5. Watch the transfer curve and the envelope ball above the knob row. As you adjust the threshold, the knee point on the curve shifts and the ball's position relative to the curve changes to reflect where the current signal level falls.
+6. Watch the gain-reduction bar. Amber fill appearing from the right indicates active compression. A tick mark at −6 dB indicates a typical working amount of gain reduction.
+7. Release the knob when the displayed value is where you want it. The new threshold is saved automatically to `ClientCompTxThresholdDb` (TX) or `ClientCompRxThresholdDb` (RX).
 
 ## What each control does
 
 | Control | Default | Valid range | Persisted key (TX / RX) | Behavior |
 |---|---|---|---|---|
 | Thresh | −18.0 dB | −60.0 to 0.0 dB | `ClientCompTxThresholdDb` / `ClientCompRxThresholdDb` | Sets the input level above which compression begins. Lower values engage the compressor earlier. Mapping is linear. |
+| Ratio | 3.0 | 1.0 to 20.0 | `ClientCompTxRatio` / `ClientCompRxRatio` | Determines how hard peaks are held once threshold is crossed. Mapping is logarithmic (1 × 20^n). |
+| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` / `ClientCompRxAttackMs` | Sets how quickly the compressor clamps down after the threshold is crossed. Mapping is exponential (0.1 × 3000^n). |
+| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` / `ClientCompRxReleaseMs` | Sets how quickly gain returns after the input drops back below threshold. Mapping is exponential (5 × 400^n). |
+| Makeup | 0.0 dB | −12.0 to 24.0 dB | `ClientCompTxMakeupDb` / `ClientCompRxMakeupDb` | Adds back gain lost to compression. Linear mapping. Positive values show an explicit '+' sign. |
 | Transfer curve | — | — | — | View-only display of the input/output gain relationship. The live envelope ball shows where the current signal sits on the curve. Axis labels are drawn with QStaticText for efficient text caching; labels are rebuilt automatically when the applet switches between compact and full mode. |
 | Gain-reduction bar | — | 0 to 20 dB GR | — | Horizontal amber strip, right-filled. Shows how much attenuation the compressor is applying at this moment. The tick marks −6 dB. |
 
@@ -29,6 +34,7 @@ This page explains how to set the threshold level at which the Aetherial Compres
 - Start with the default of −18.0 dB and lower the threshold gradually while speaking (TX) or listening to a typical signal (RX) until the gain-reduction bar shows a few dB of amber fill.
 - If you want threshold changes to take effect alongside knee and limiter adjustments, open the full editor by double-clicking the COMP stage in the CHAIN widget. Knee and limiter ceiling controls are only available there.
 - The envelope ball on the transfer curve gives immediate visual feedback: if the ball never leaves the lower-left straight segment, the threshold is set above your typical signal level and the compressor is not acting.
+- To enter precise values, click the value label beneath any knob to open the inline editor. Type the number (locale-aware; comma as decimal separator is supported) and press Enter.
 - When the stage is bypassed, the entire applet tile dims to roughly half brightness. This is a visual indicator only and does not affect any saved knob values.
 
 ## Troubleshooting

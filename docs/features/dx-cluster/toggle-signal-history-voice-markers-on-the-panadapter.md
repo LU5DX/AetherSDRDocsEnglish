@@ -26,6 +26,7 @@ This toggle has a dual path — it can also be activated from **View > Signal Hi
 
 - The gold markers appear only while the signal is active. Use the **Marker Lifetime** slider on the same Display tab to control how long an inactive marker remains visible (default 60 seconds).
 - To remove all markers (and all spots) from the panadapter at once, click **Clear All** on the Display tab.
+- On the **Cluster** and **RBN** tabs, click **Startup Commands…** to open a dialog where you can enter one command per line (e.g. `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`) that is automatically sent to the cluster after every login. The commands are saved in the application settings (`DxClusterStartupCommands` and `RbnStartupCommands` respectively).
 
 ## Related
 

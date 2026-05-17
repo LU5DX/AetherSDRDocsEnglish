@@ -19,6 +19,7 @@ Your OS file browser opens directly to the log directory. From there, select and
 - The log path label at the top of the dialog shows the full path to the current log file, so you know which directory will open before you click.
 - If you want only the current log file rather than the entire folder, check the log path label and navigate there manually.
 - To capture a clean log before grabbing files, use `Clear Log` to truncate the current file, reproduce the problem, then click `Open Log Folder`.
+- The `Log file size` indicator near the log viewer shows the current size of the active log file.
 
 ## Related
 

@@ -24,6 +24,8 @@ The multiFLEX Dashboard shows the TX antenna and TX frequency for every station 
 | STATION column | Shows the program name and station name for each client. Your own station is highlighted in blue. |
 | TX ANT column | Shows the antenna assigned to that station's TX slice. Displays `----` if no data is available yet. |
 | TX FREQ (MHz) column | Shows the transmit frequency in MHz to three decimal places. Displays `----` if no data is available yet. |
+| Enable | Enables or disables multiFLEX on the radio. |
+| Enable (PTT) | Toggles local PTT authority for this station. |
 | Close | Closes the dialog. |
 
 ## Tips
@@ -31,6 +33,7 @@ The multiFLEX Dashboard shows the TX antenna and TX frequency for every station 
 - The table refreshes automatically when any client's status changes. You do not need to reopen the dialog to see updated values.
 - Your own station's row is distinguished by blue text in the STATION column.
 - TX ANT and TX FREQ values come from the radio's slice status. If a station has just connected, those columns may briefly show `----` until the radio reports slice data.
+- The dialog remembers its size and position between sessions.
 
 ## Related
 

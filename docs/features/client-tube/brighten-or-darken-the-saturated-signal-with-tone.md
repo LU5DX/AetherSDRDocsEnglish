@@ -14,6 +14,7 @@ Use the Tone knob to tilt the spectral character of the saturated signal — neg
 3. Turn the **Tone** knob left (toward −1.00) to darken the saturated signal, or right (toward +1.00) to brighten it.
 4. Read the current value from the label beneath the knob. The label displays two decimal places (e.g. `−0.50` or `0.75`).
 5. To reset Tone to its default, double-click the **Tone** knob.
+6. To type a precise value directly, click the value display below the Tone knob. A small text entry field appears. Type the desired value and press **Enter** or click elsewhere to commit. The value is clamped to the valid range automatically. Press **Escape** to cancel the edit and revert to the previous value.
 
 ## What each control does
 
@@ -45,6 +46,7 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - If you have the floating editor open alongside the applet, both reflect the same value. Changes made in one sync to the other within approximately 33 ms.
 - A Tone value of 0.00 leaves the spectral balance of the saturated signal unchanged.
 - Watch the **OUT** meter in the floating editor to catch post-saturation clipping. If the meter reaches red, reduce the **Output** knob or lower **Drive**.
+- The inline value editor supports locale-aware number parsing. Enter `12,5` in a comma-decimal locale, or strip units like `12.5 ms` and the editor will parse the numeric portion.
 
 ## Troubleshooting
 
@@ -52,6 +54,7 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - **Knob position does not match what you expect after reloading** — the value is saved automatically each time the knob changes. If `ClientTubeTxTone` or `ClientTubeRxTone` is missing or corrupted in your settings file, the value reverts to the default of 0.00.
 - **OUT meter is not visible** — the meter only appears in the floating editor. Double-click the TUBE stage in the CHAIN widget to open it.
 - **Applet tile appears dimmed** — the tube stage is bypassed. Enable the stage in the CHAIN widget to restore full opacity.
+- **Inline editor shows a red border and won't accept input** — the editor only appears when you click the value display. If you do not see the editor, ensure you are clicking directly on the numeric value text below the knob, not on the knob itself. The editor reverts to a label-like appearance when not focused.
 
 ## Related
 
@@ -61,3 +64,4 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
+- [Type exact values with the value popup editor](type-exact-values-with-the-value-popup-editor.md)

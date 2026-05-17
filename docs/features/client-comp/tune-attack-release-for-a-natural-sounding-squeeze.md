@@ -28,6 +28,21 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 **Release** — Exponential knob mapping. Displayed as `X ms`. Shorter release times let gain return quickly between syllables; if too short, the compressor audibly pumps. Longer release times produce a smoother, more sustained gain reduction but can reduce intelligibility if set too long.
 
+## Using the inline value editor
+
+When you click a knob's numeric value label, it transforms into an editable text field. This allows precise numerical entry without dragging the knob.
+
+1. Click the numeric value below any knob (Thresh, Ratio, Attack, Release, or Makeup). The value text becomes a highlighted input field with a cyan border.
+2. Type the desired value. Supported formats include:
+   - Simple numbers: `150`
+   - Numbers with units: `150 ms`
+   - Comma-decimal locale format: `12,5`
+   - Values with a minus sign: `−18`
+3. Press **Enter** or click anywhere outside the editor to commit the value. The knob updates immediately.
+4. Press **Escape** to cancel editing and revert to the previous value.
+
+The inline editor is enabled by default for all five knobs. It cannot be disabled in the applet view.
+
 ## Tips
 
 - The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
@@ -36,6 +51,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 - If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
 - Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the Knee and Limiter controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 - Both Attack and Release are saved immediately when you move a knob; no explicit save step is needed.
+- Use the inline value editor for repeatable, exact values. For example, type `12.5` for Attack instead of dragging to approximate.
 
 ## Troubleshooting
 
@@ -44,6 +60,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 - **Loud transients still clip even with a fast Attack** — Attack cannot be set to 0 ms; the minimum is 0.1 ms. If clipping persists, enable the limiter in the full editor. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 - **The tile is dimmed and the compressor does not seem to be doing anything** — The stage is bypassed. Enable it via the CHAIN widget. The tile returns to full brightness when the stage is active.
 - **Knob value resets unexpectedly** — Another source (such as a profile load) may have overwritten `ClientCompTxAttackMs` or `ClientCompTxReleaseMs`. Retune and the new value will persist immediately.
+- **Inline editor value is rejected** — The input must be a valid number in the knob's valid range. If the value is outside the range, it is clamped automatically. Non-numeric characters (other than decimal separators, sign, and comma) cause the edit to be ignored.
 
 ## Related
 

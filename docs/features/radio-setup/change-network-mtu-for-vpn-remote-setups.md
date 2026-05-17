@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial/FlexControl, and themes.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, antennas, filters, XVTR, USB cables, peripherals, serial/FlexControl, and themes.
 
 ## Opening the dialog
 
@@ -9,8 +9,7 @@ The Radio Setup dialog is the master per-radio configuration window. It contains
 
 ## General dialog behavior
 
-- The dialog is a frameless window by default when the `FramelessWindow` setting is `True`. You can resize it by dragging any edge.
-- The dialog geometry is persisted across sessions.
+- The dialog geometry is persisted across sessions using `PersistentDialog`.
 - Changes made on some tabs are applied immediately; others require clicking an Apply or Connect button.
 - If you clear an IP field on the **Peripherals** tab and close the dialog without clicking Connect/Disconnect, the saved manual IP and port are automatically removed and the device disconnects.
 
@@ -18,23 +17,23 @@ The Radio Setup dialog is the master per-radio configuration window. It contains
 
 The Radio tab displays radio information, identification, license info, and firmware update controls.
 
-| Control | Description |
-|---|---|
-| **Radio SN** | Chassis serial number (read-only). |
-| **Region** | Radio regulatory region (read-only). |
-| **HW Version** | Hardware version string (read-only). |
-| **Remote On** | Enables remote wake / remote-on. |
-| **Options** | Shows licensed radio options (read-only). |
-| **FlexControl** | Detected state of FlexControl hardware (read-only). |
-| **multiFLEX** | multiFLEX enabled state (read-only). |
-| **Model** | Radio model (read-only). |
-| **Nickname** | User-friendly radio nickname. |
-| **Callsign** | Station callsign. |
-| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". |
-| **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. |
-| **Check for Update** | Queries for firmware updates. |
-| **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. See [Firmware update](#firmware-update-radio-tab) below. |
-| **Upload Firmware** | Starts firmware upload with progress bar and status. |
+| Control | Description | Notes |
+|---|---|---|
+| **Radio SN** | Chassis serial number (read-only). | |
+| **Region** | Radio regulatory region (read-only). | |
+| **HW Version** | Hardware version string (read-only). | |
+| **Remote On** | Enables remote wake / remote-on. | |
+| **Options** | Shows licensed radio options (read-only). | |
+| **FlexControl** | Detected state of FlexControl hardware (read-only). | |
+| **multiFLEX** | multiFLEX enabled state (read-only). | |
+| **Model** | Radio model (read-only). | |
+| **Nickname** | User-friendly radio nickname. | |
+| **Callsign** | Station callsign. | |
+| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". | |
+| **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. | |
+| **Check for Update** | Queries for firmware updates. | |
+| **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. See [Firmware update](#firmware-update-radio-tab) below. | |
+| **Upload Firmware** | Starts firmware upload with progress bar and status. | |
 
 ### Firmware update (Radio tab)
 
@@ -112,12 +111,29 @@ The TX tab controls TX timings, interlocks, max power, tune mode, waterfall disp
 |---|---|---|
 | **TX Band Settings** | Opens the dedicated per-band power/tune dialog. | — |
 | **Timings (in ms)** | TX hang / delay timings. | — |
+| **ACC TX:** | ACC TX delay in milliseconds. | — |
+| **TX Delay:** | TX delay in milliseconds. | — |
+| **RCA TX1:** | RCA TX1 delay in milliseconds. | — |
+| **Timeout (sec):** | Interlock timeout in seconds (displayed in seconds, stored on radio in milliseconds). | — |
+| **TX2 Delay:** | TX2 delay in milliseconds. | — |
 | **Interlocks - TX REQ: RCA / Accessory** | Enables RCA and accessory interlock inputs. | — |
 | **Max Power:** | Sets radio-level TX power cap (0–100%). | — |
 | **Tune Mode:** | Selects how the tune button behaves. | — |
 | **Show TX in Waterfall:** | Draws TX signal in the waterfall. | — |
 | **TX Follows Active Slice** | TX follows the active slice. Mutually exclusive with Active Slice Follows TX. Disabled automatically during Split operation. | False |
 | **Active Slice Follows TX** | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with TX Follows Active Slice. | False |
+
+### TX Timing fields
+
+The TX timing fields control delays and timeouts for transmit operations. Note that the **Timeout** field displays in seconds for readability, but the radio stores and expects this value in milliseconds internally.
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **TX** tab.
+3. Locate the **Timings** section.
+4. Enter the desired value in each field.
+   - ACC TX, TX Delay, RCA TX1, and TX2 Delay are in milliseconds.
+   - Timeout is in seconds (range 0–3600 seconds).
+5. Press Enter or move focus away from the field to apply the change.
 
 ## Phone/CW (tab)
 
@@ -187,24 +203,24 @@ The **10 MHz Reference Source:** combo box is populated dynamically. Only source
 | Busy | PLL calibration is in progress. |
 | Enter cal frequency | The Cal Frequency field was empty when Start was clicked. |
 
+## Antennas (tab)
+
+The Antennas tab lets you assign user-friendly names to each antenna port on the radio. This is useful for identifying which antenna is connected to each port (ANT1, ANT2, XVTA, XVTB).
+
+| Control | Description |
+|---|---|
+| **ANT1 Name:** | User-defined name for ANT1 port. |
+| **ANT2 Name:** | User-defined name for ANT2 port. |
+| **XVTA Name:** | User-defined name for XVTA port. |
+| **XVTB Name:** | User-defined name for XVTB port. |
+
+### Setting antenna names
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Antennas** tab.
+3. Enter a descriptive name for each antenna port (e.g., "HF Vertical", "40m Dipole", "VHF Beam").
+4. The names are saved to AppSettings and appear in antenna selection controls throughout the application.
+
 ## Audio (tab)
 
-The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
-
-| Control | Description | Default |
-|---|---|---|
-| **Line Out:** | Line-out gain slider. | — |
-| **Mute (Line Out)** | Mutes line-out. | — |
-| **Headphone:** | Headphone gain slider. | — |
-| **Mute (Headphone)** | Mutes headphone. | — |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN. Stored in AppSettings as `AudioCompression`. | Auto |
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored in AppSettings as `InhibitSleepWhileConnected`. | False |
-| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices. | — |
-| **Audio Boost:** | Enables extra gain on the client audio path. Stored in AppSettings as `AudioBoost`. | — |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50–1000 ms. Stored in AppSettings as `AudioBufferMs`. | 200 |
-| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. Stored in AppSettings as `RecordingMode`. | Radio Side |
-| **Save to:** | Folder for saved recordings (client-side only). Stored in AppSettings as `QsoRecordingDir`. Defaults to Documents/AetherSDR/Recordings. | — |
-| **...** | Browses for recording folder. | — |
-| **Auto-record on TX** | Automatically records while transmitting. Stored in AppSettings as `QsoRecordingAutoRecord`. | False |
-| **Idle timeout:** | Seconds of silence
+The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording

@@ -42,6 +42,12 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 
 **Filter width label** — shows the current filter bandwidth. Click it to cycle through the filter preset buttons on the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8).
 
+**RX antenna button** — opens a menu listing available receive antennas. The menu items display human-readable labels for each antenna. Antenna selection is based on the internal antenna key, not the displayed text. If the radio provides a per-slice antenna list, that list is used instead of the global antenna list.
+
+**TX antenna button** — opens a menu listing available transmit antennas. The menu automatically excludes RX-only antenna ports (those starting with "RX"). The menu items display human-readable labels for each antenna. Antenna selection is based on the internal antenna key, not the displayed text. If the radio provides a per-slice antenna list, that list is used instead of the global antenna list.
+
+**Frequency display** — shows the current slice frequency. Click once to begin direct frequency entry. Type the frequency in MHz and press Enter or Tab. On transverter bands (frequency above 100 MHz), the entry logic accepts frequencies up to 50,000 MHz. For three-digit bands (100-999 MHz), a bare integer of 4 or more digits automatically inserts a decimal after the third digit (e.g., 1446 becomes 144.6 MHz). On other bands, the maximum entered frequency is 54.0 MHz.
+
 ## DSP tab controls
 
 The DSP tab shows buttons for noise reduction and filtering algorithms supplied directly by the radio, plus client-side launcher buttons. The following buttons are available:

@@ -78,6 +78,31 @@ When you switch a slice to DIGU, DIGL, or RTTY mode:
 
 This matches the existing behavior for CW mode, where the radio locks squelch on at a fixed level and rejects user changes.
 
+## Antenna selection changes (v26.5.2.1)
+
+The **RX antenna** and **TX antenna** buttons now use improved menus:
+
+- The RX antenna menu uses the slice's `rxAntennaList()` when available, falling back to the global antenna list for legacy compatibility.
+- The TX antenna menu intelligently filters out RX-only antenna ports by checking for "RX" prefixes, "ANT" prefixes, "TX" prefixes, or "XVTR" as fallback tokens.
+- Menu items now store the antenna identifier as data, allowing selection by internal name rather than displayed label.
+- Each menu item includes a tooltip and status tip showing the antenna identifier.
+
+### Frequency entry improvements (v26.5.2.1)
+
+The frequency entry logic has been updated to better handle transverter (XVTR) bands:
+
+- The maximum XVTR frequency has been increased from 450 MHz to 50000 MHz to support microwave bands.
+- The "three-digit band" convenience parsing (inserting a decimal after the third digit for bare integers like 1446 → 144.6 MHz) now only activates when the slice frequency is between 100 MHz and 999 MHz. For 23 cm and microwave bands (above 1000 MHz), a bare integer like 1296 is treated as 1296 MHz directly.
+
+### Slice badge rendering (v26.5.2.1)
+
+The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an issue where certain slice letters displayed incorrectly (#2606). The badge styling remains the same.
+
+| Control | Behavior | Default | Setting key |
+|---|---|---|---|
+| RX antenna button | Opens an antenna selection menu for the receive antenna of this slice. Uses slice-specific antenna list when available. Menu items display tooltip and status tip. | — | — |
+| TX antenna button | Opens an antenna selection menu for the transmit antenna of this slice. Automatically filters out RX-only antenna ports. Menu items display tooltip and status tip. | — | — |
+
 ## Tips
 
 - The filter width label in the VFO panel header shows the active bandwidth at all times. Click it directly to cycle through the preset buttons without switching to the Mode tab first.
@@ -85,6 +110,8 @@ This matches the existing behavior for CW mode, where the radio locks squelch on
 - Filter edge lines on the spectrum panadapter reflect the active filter width. If the lines are hidden, enable them with the Filter edges button in the VFO panel. See [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md).
 - To access NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum overlay or open the AetherDSP applet.
 - The DSP level slider now appears immediately on startup for any leveled DSP that was saved in the radio's profile, without requiring manual toggling.
+- The RX antenna menu now uses the slice's specific antenna list when available, which may differ from the global antenna list in multi-radio configurations.
+- When entering a frequency on a VHF/UHF band (100-999 MHz), bare integers with 4+ digits will have a decimal inserted after the third digit (e.g., 14696 → 146.96 MHz). For microwave bands above 1000 MHz, bare integers are treated as MHz directly.
 
 ## Related
 

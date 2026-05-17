@@ -22,6 +22,20 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 | **Sens** slider | 30      | 0–100                |
 | CW decode text  | —       | —                    |
 | CW stats label  | —       | `<hz> Hz  <wpm> WPM` |
+
+## CW decode text colouring
+
+The decoded text uses colour to indicate confidence:
+
+| Colour  | Cost threshold | Meaning                |
+|---------|----------------|------------------------|
+| Green   | < 0.15         | High confidence        |
+| Yellow  | < 0.35         | Moderate confidence    |
+| Orange  | < 0.60         | Low confidence         |
+| Red     | >= 0.60        | Very low confidence    |
+
+TX-side decoded text (your own sending) appears in cyan (`#5fc8ff`) so you can distinguish your sending from incoming CW. When switching from TX to RX, a separator space is inserted automatically to prevent the two coloured runs from merging.
+
 ## Tips
 
 - Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.

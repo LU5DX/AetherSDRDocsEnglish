@@ -41,6 +41,16 @@ The **Category** combo box filters the **Parameter** list to show only controls 
 
 Selecting a category limits the **Parameter** combo box to entries in that group, making it easier to find the control you want to bind.
 
+## Parameter options
+
+The **Parameter** combo box contains all available parameters for binding. In v26.5.2.1, three new momentary (Gate) actions were added in the Phone/CW category:
+
+- **Trigger straight key** (id: `cwkey`)
+- **Trigger CW Left Paddle** (id: `cwdit`)
+- **Trigger CW Right Paddle** (id: `cwdah`)
+
+Legacy dotted IDs (`cw.key`, `cw.dit`, `cw.dah`) are automatically migrated to the new format when loading old profiles.
+
 ## Tips
 
 - The **Profile:** combo box is editable. If you type a name that does not match a saved profile and click Load, nothing is loaded — no error is shown and the current bindings remain unchanged.

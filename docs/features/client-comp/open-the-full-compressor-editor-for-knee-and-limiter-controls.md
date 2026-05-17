@@ -67,12 +67,14 @@ When the compressor is shown in the applet panel (compact mode), the following c
 - The TX and RX editors are fully independent. Opening one does not affect the other.
 - The floating editor is frameless. Drag its title bar to reposition it.
 - When the compressor stage is bypassed, the entire applet tile dims to approximately 55% opacity. This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is not processing audio.
+- To type a precise value into any knob in the applet tile, click on the value label directly. A small inline text editor appears. Type the new value and press Enter or click elsewhere to commit. Press Escape to cancel the edit and restore the previous value. This feature is available on all five knobs (Thresh, Ratio, Attack, Release, Makeup) in the applet tile. Values are clamped to the valid range automatically.
 
 ## Troubleshooting
 
 - **Double-clicking COMP in the CHAIN widget does nothing** — The COMP stage may be bypassed or the audio engine may not be connected. Check that the stage is active and that AetherSDR has an audio engine running.
 - **Knee and limiter controls are not visible** — You may be looking at the applet tile rather than the floating editor. The tile does not expose knee or limiter controls. Double-click the COMP stage in the CHAIN widget to open the full editor.
 - **The applet tile appears dimmed** — The compressor stage is currently bypassed. Enable the COMP stage in the CHAIN widget to restore full opacity and resume processing.
+- **Inline editing does not appear when clicking the knob value** — Ensure you click directly on the value text (the numeric label below the knob), not on the knob graphic itself. The inline editor only activates when clicking the text area.
 
 ## Related
 

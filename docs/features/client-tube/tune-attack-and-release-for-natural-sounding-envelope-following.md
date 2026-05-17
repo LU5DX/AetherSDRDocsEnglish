@@ -17,6 +17,16 @@ Attack and Release set how quickly the envelope follower tracks rising and falli
 5. Adjust Release to set how quickly the follower recovers after levels drop. Lower values return to the resting drive faster; higher values let the effect hang longer after a peak.
 6. Monitor the transfer curve and the live input ball while transmitting or receiving to confirm the drive modulation looks natural.
 
+## Inline value editing
+
+In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct text entry. Click the numeric value displayed below any knob to activate an inline QLineEdit overlay that replaces the painted value text. Type a number (with or without units) and press Enter, or click elsewhere, to commit. The value is clamped to the knob's valid range.
+
+- Enter "12.5 ms", "−6 dB", or "0.75" — the editor strips trailing labels automatically.
+- In locales that use a comma as decimal separator, "12,5" is parsed correctly.
+- Press Escape to cancel editing and revert to the previous value.
+- While the inline editor is focused, mouse-wheel events are forwarded to the knob for traditional adjustment.
+- The overlay uses a subtle dark background and cyan border on focus for visibility.
+
 ## What each control does
 
 | Control | Default | Valid range | Persisted setting (TX / RX) |
@@ -42,6 +52,7 @@ Attack and Release set how quickly the envelope follower tracks rising and falli
 - **The effect sounds too abrupt or chattery** — Release is set too low. Increase Release toward 100 ms or higher to smooth the recovery.
 - **Loud peaks cause the drive to snap on hard** — Attack is set too low. Increase Attack to 10–20 ms to slow the follower's response to transients.
 - **The docked tile looks faded and the stage is not processing** — The Tube stage is bypassed. The tile dims to 55 % opacity when bypassed. Re-enable the stage to restore full opacity and resume processing. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
+- **Typing a value into the inline editor has no effect** — Ensure you press Enter or click elsewhere to commit. Pressing Escape cancels the edit and reverts to the previous value.
 
 ## Related
 

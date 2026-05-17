@@ -1,4 +1,3 @@
-```markdown
 # Disconnect from the Current Radio
 
 This page explains how to disconnect AetherSDR from a connected FLEX-8600. You would do this to switch radios, change connection modes, or shut down your session cleanly.
@@ -53,6 +52,8 @@ The Connection Panel now supports frameless mode. When enabled (controlled by th
 - If set to `False`, the standard OS window decorations are used.
 - The change takes effect the next time the Connection Panel is opened.
 
+The dialog geometry is only restored when the panel was previously visible, preventing odd placement when switching frameless mode while hidden.
+
 ## Related
 
 - [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)
@@ -60,4 +61,3 @@ The Connection Panel now supports frameless mode. When enabled (controlled by th
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Retry discovery when no radios appear](../../features/connection/retry-discovery-when-no-radios-appear.md)
 - [Connect to a Radio overview](../../features/connection/overview.md)
-```

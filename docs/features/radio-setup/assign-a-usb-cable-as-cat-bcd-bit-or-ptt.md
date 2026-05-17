@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, filters, transverters, USB cables, peripherals, serial ports, APD, and themes.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, and themes.
 
 ## Opening the Radio Setup dialog
 
@@ -39,7 +39,7 @@ The **License Info** section displays subscription status, expiration date, radi
 | Control | Description |
 |---|---|
 | **Check for Update** | Queries for firmware updates. |
-| **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. |
+| **Browse .ssdr...** | Chooses a firmware image file. |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. |
 | **Firmware status** | Empty until a firmware upload begins, then shows progress and result text. |
 
@@ -91,7 +91,14 @@ The TX tab controls transmit timings, interlocks, power limits, tuning modes, an
 
 | Control | Description |
 |---|---|
-| **Timings (in ms)** | TX hang / delay timings. |
+| **Timings** | TX hang / delay timings. |
+
+| Field | Description | Notes |
+|---|---|---|
+| **ACC TX:** | ACC TX delay in milliseconds. | Command: `interlock set acc_tx_delay=<ms>` |
+| **TX Delay:** | TX delay in milliseconds. | Command: `interlock set tx_delay=<ms>` |
+| **RCA TX1:** | RCA TX1 delay in milliseconds. | Command: `interlock set tx1_delay=<ms>` |
+| **Timeout (sec):** | Interlock timeout in seconds. Displayed and entered in whole seconds; the radio stores the value internally in milliseconds. | Command: `interlock set timeout=<seconds * 1000>` |
 
 ### Interlocks
 
@@ -244,6 +251,16 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 | **NVIDIA BNR: Check Status** | Checks container status. |
 | **NVIDIA BNR status dot** | Colored dot indicating container Running/Stopped/Unknown. |
 
+## Antennas tab
+
+The Antennas tab allows you to assign friendly names to each antenna port on the radio for easier identification. This tab is lazy-built when first clicked.
+
+### Antenna naming
+
+| Control | Description | Notes |
+|---|---|---|
+| **Antenna Name fields (ANT1, ANT2, ANT3, ANT4, XVTA, XVTB)** | Text fields for each antenna port. Enter a custom name (e.g., "20m Beam", "80m Dipole"). | Names are stored in AppSettings as `AntennaName_ANT1`, etc., and displayed in the radio bar antenna selector and the Main Waterfall ribbon. |
+
 ## Filters tab
 
 The Filters tab configures filter sharpness per mode.
@@ -270,16 +287,4 @@ The tab contains nested tabs, one per configured transverter, plus a "+" tab for
 
 ## USB Cables tab
 
-Use this tab to configure USB serial adapters connected to your FLEX-8600 and assign each one a role.
-
-### Before you start
-
-- Connect the USB serial adapter(s) to the computer running AetherSDR before opening the dialog.
-- AetherSDR must be connected to the radio. The USB Cables tab is not available without an active radio connection.
-
-### Steps
-
-1. Open `Settings > USB Cables...`. This opens the Radio Setup dialog directly on the USB Cables tab. Alternatively, open `Settings > Radio Setup...` and click the **USB Cables** tab.
-2. Locate the cables list on the left side of the tab. Each detected USB cable appears with its name and a **Plugged** or **Unplugged** status indicator.
-3. Select the cable you want to configure by clicking it in the list.
-4. Set the cable type using the **Name:** field and the associated type selector. Choose from CAT, BCD, bit, or PTT depending on the role this cable
+The USB Cables tab assigns USB serial adapters to CAT,

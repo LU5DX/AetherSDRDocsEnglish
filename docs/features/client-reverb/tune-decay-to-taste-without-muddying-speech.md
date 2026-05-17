@@ -18,23 +18,35 @@ The Decay knob controls how long the reverb tail rings after each syllable. Sett
 
 ## What each control does
 
-| Label | Default | Range | Persisted key | Behavior |
-|-------|---------|-------|---------------|----------|
-| Size | 50 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxSize` | Sets the modelled room size. Uses linear mapping. |
-| Decay | 1.20 s | 0.3 to 5.0 s | `ClientReverbTxDecayS` | Sets the reverb tail length. Uses exponential mapping across its range (~16.7× from minimum to maximum). |
-| Damp | 50 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxDamping` | Higher values cause high frequencies to decay faster in the tail, reducing brightness and perceived smear. |
-| Pre | 20 ms | 0 to 100 ms | `ClientReverbTxPreDelayMs` | Pre-delay between the dry signal and the first reflections. Uses linear mapping. Label displays as `X ms`. |
-| Mix | 15 % | 0.0 to 1.0 (displayed as %) | `ClientReverbTxMix` | Dry/wet balance. A high Mix value amplifies the audible impact of every other parameter. |
+| Label                | Default                                                                                                                                                                                                                                     | Range                                                                                                       |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| Size                 | 50 %                                                                                                                                                                                                                                        | 0.0 to 1.0 (displayed as %)                                                                                 |
+| Decay                | 1.20 s                                                                                                                                                                                                                                      | 0.3 to 5.0 s                                                                                                |
+| Damp                 | 50 %                                                                                                                                                                                                                                        | 0.0 to 1.0 (displayed as %)                                                                                 |
+| Pre                  | 20 ms                                                                                                                                                                                                                                       | 0 to 100 ms                                                                                                 |
+| Mix                  | 15 %                                                                                                                                                                                                                                        | 0.0 to 1.0 (displayed as %)                                                                                 |
+| Reverb visualisation | ReverbVizBox — live visualisation showing the dry sine packet (cyan), first-order reflections (yellow), and reverberant tail (magenta). All five knob values feed the rendering so the display follows knob edits in real time. 90 px tall. | Replaces the curve widget used by other DSP applets. Rendering algorithm matches StripReverbPanel::GridBox. |
 
 ## Live visualisation
 
-Starting in v0.9.7, the applet panel and the floating "Aetherial FreeVerb — TX" editor both display a compact waveform diagram (90 px tall) that updates in real time as you move any knob. The diagram uses three colour-coded layers:
+The applet panel and the floating "Aetherial FreeVerb — TX" editor both display a compact waveform diagram (90 px tall) that updates in real time as you move any knob. The diagram uses three colour-coded layers:
 
 - **Cyan** — the dry signal packet, gradient-faded toward the right. Its amplitude decreases as Mix increases.
 - **Yellow** — first-order reflections. Spacing and count respond to Size; amplitude per reflection decreases with higher Damp values.
 - **Magenta** — the reverberant tail. Its horizontal length reflects Decay, its high-frequency roll-off reflects Damp, and its overall amplitude reflects Mix.
 
 The visualisation is for orientation only; it does not represent a precise impulse-response measurement. Use your ears to make final adjustments.
+
+## Editing knob values directly
+
+Starting in v26.5.2.1, any knob in the "Aetherial FreeVerb — TX" can be edited by typing a numeric value instead of turning the knob.
+
+1. Click the numeric value displayed below a knob. The value becomes an editable text field with a cyan border.
+2. Type the desired value. You can include units or extra characters — the editor strips them automatically. For example, `1.5` or `1.5 s` both set Decay to `1.50 s`.
+3. Press Enter or click outside the editor to commit the value. The knob updates and the editor reverts to a label appearance.
+4. Press Escape to cancel the edit and restore the previous value.
+
+Inline editing respects locale — in regions that use a comma as decimal separator (such as `1,5`), the editor parses it correctly.
 
 ## Tips
 

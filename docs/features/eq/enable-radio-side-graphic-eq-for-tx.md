@@ -18,7 +18,7 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 | Control | Description | Default | Range |
 |---|---|---|---|
 | ON | Enables or disables the equalizer for the currently-selected path (TX or RX). Green when active. | Off | On / Off |
-| TX | Selects the transmit equalizer bands for display and editing. | Checked | — |
+| TX | Selects the transmit equalizer bands for display and editing. | Checked (restored from previous session) | — |
 | RX | Selects the receive equalizer bands for display and editing. | Unchecked | — |
 | Reset arc button | Resets all 8 bands of the current path to 0 dB. Tooltip: "Reset all bands to 0 dB". | — | — |
 | 63 | Trims the 63 Hz band. Value label below the slider updates live. | 0 dB | −10 to +10 dB |
@@ -32,7 +32,7 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 
 ## Tips
 
-- The TX button is checked by default each time you open the applet, so you do not need to switch paths if you only intend to adjust TX audio.
+- The TX button is checked by default the first time you open the applet, and AetherSDR remembers which view (RX or TX) you last selected between sessions. Each time you open the applet, it restores the last-used path.
 - Clicking ON a second time disables the equalizer without clearing your band settings. Your slider positions are preserved.
 - To start from a flat response before shaping, click the Reset arc button before enabling ON.
 

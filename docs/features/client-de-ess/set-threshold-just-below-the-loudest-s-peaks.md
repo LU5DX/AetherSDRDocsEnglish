@@ -33,11 +33,11 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 **Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second.
 
-**Freq** — sets the centre frequency of the sibilance band (1000 to 12000 Hz, logarithmic mapping). Default 6000 Hz. Labels show "6.0 kHz" above 1 kHz and "N Hz" below.
+**Freq** — sets the centre frequency of the sibilance band (1000 to 12000 Hz, logarithmic mapping). Default 6000 Hz. Labels show "6.0 kHz" above 1 kHz and "N Hz" below. Press Enter or click away after typing a value to commit it.
 
-**Q** — sets the bandwidth of the sibilance band (0.5 to 5.0, linear mapping). Higher Q = narrower band. Default 2.00. Label format "X.XX".
+**Q** — sets the bandwidth of the sibilance band (0.5 to 5.0, linear mapping). Higher Q = narrower band. Default 2.00. Label format "X.XX". Press Enter or click away after typing a value to commit it.
 
-**Amount** — maximum attenuation applied at peak sibilance (−24.0 to 0.0 dB, linear mapping). Values are negative (or zero) because they represent reduction. Default −6.0 dB.
+**Amount** — maximum attenuation applied at peak sibilance (−24.0 to 0.0 dB, linear mapping). Values are negative (or zero) because they represent reduction. Default −6.0 dB. Press Enter or click away after typing a value to commit it.
 
 **Attack** — how quickly the de-esser responds once sibilance crosses the threshold (0.1 to 30.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
 
@@ -48,6 +48,20 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 The Sidechain response curve indicator draws the bandpass filter response with a live ball at the current centre frequency. The frequency axis is labelled with major gridlines at 100, 500, 1k, 2k, 3k, 4k, 5k, 6k, 7k, 8k, 9k, 10k, 11k, and 12k Hz. These labels are drawn as high-performance static text objects cached after the first paint. The labels appear only when the curve widget is not in compact mode.
 
 The Centre-frequency ball rests on the curve peak, marking the currently-tuned sibilance centre frequency.
+
+## Inline value editing
+
+Each tuning knob (Freq, Q, Thresh, Amount, Attack, Release) supports direct value entry. Click the displayed value text to activate an inline editor overlay. The editor appears as a cyan-bordered text field against a dark background.
+
+- **Enter** — commits the typed value and closes the editor.
+- **Click elsewhere (focus loss)** — commits the typed value and closes the editor.
+- **Escape** — discards the typed value and reverts to the previous value.
+
+The inline editor accepts locale-aware number formats (for example "12,5" in comma-decimal locales). It also tolerates extra text such as unit suffixes ("6 kHz", "−30 dB") by stripping non-numeric characters before parsing. If parsing fails, the editor silently reverts to the last valid displayed value.
+
+The editor is hidden by default in the docked ClientDeEssApplet, and visible by default in the Channel Strip StripDeEssPanel. When hidden, knob values display as painted text only.
+
+This feature is provided by `ClientCompKnob`, which is also used by the Compressor and other audio processing widgets in the Aetherial Audio Channel Strip. See [Inline edit knob values](inline-edit-knob-values.md).
 
 ## Bypass dimming
 
@@ -74,3 +88,4 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 - [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md)
 - [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md)
 - [Opening the RX de-esser panel](opening-the-rx-de-esser-panel.md)
+- [Inline edit knob values](inline-edit-knob-values.md)
