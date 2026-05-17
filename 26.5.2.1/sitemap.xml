@@ -153,6 +153,18 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/atu-pre-tune/overview/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/audio-device-change/overview/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/ax25-hf-packet-decode/overview/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/band-stack/bookmark-the-current-frequency/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -809,6 +821,10 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/dx-cluster-startup-commands/overview/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/eq/boost-or-cut-specific-octave-bands-63-hz-to-8-khz/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -1230,6 +1246,10 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/phone-cw/use-keyboard-or-midi-to-trigger-straight-key-or-iambic-paddles/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/profile-import-export/overview/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
@@ -1661,6 +1681,10 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/tx-band/overview/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/vfo-widget/adjust-af-gain-and-pan-from-the-vfo-panel/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -1754,6 +1778,10 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/wave/use-the-waveform-display-to-monitor-tx-or-rx-audio/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.5.2.1/features/waveforms/overview/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
