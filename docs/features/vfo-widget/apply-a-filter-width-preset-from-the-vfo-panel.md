@@ -27,6 +27,7 @@ To save the current filter width into a preset slot:
 | Filter width label               | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |                                                                                                                         |
 | ADSP button (DSP tab)            | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8).                                                                                                          | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab)     | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                                                                                                                              | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| Lock VFO button                  | Toggles frequency lock for this slice. When locked, the frequency display shows a "LOCKED" indicator and scroll-wheel tuning is blocked. Direct frequency entry is also blocked. Unlock clears the overlay.                                    | off                                                                                                                     |
 
 ## DSP tab changes in v0.9.8
 
@@ -94,6 +95,14 @@ The frequency entry logic has been updated to better handle transverter (XVTR) b
 - The maximum XVTR frequency has been increased from 450 MHz to 50000 MHz to support microwave bands.
 - The "three-digit band" convenience parsing (inserting a decimal after the third digit for bare integers like 1446 → 144.6 MHz) now only activates when the slice frequency is between 100 MHz and 999 MHz. For 23 cm and microwave bands (above 1000 MHz), a bare integer like 1296 is treated as 1296 MHz directly.
 
+### Frequency entry improvements (v26.5.3)
+
+The frequency entry logic now uses the `FrequencyEntryParser` utility class for consistent parsing across the application:
+
+- Explicit MHz entry (typing a frequency greater than 54 MHz) is now recognized on HF bands as well, allowing direct MHz entry without being on an XVTR band.
+- The `normalizedMhzText()` method handles multi-dot formats like "14.225.000" by removing dots beyond the first, ensuring consistent parsing.
+- Direct frequency entry is blocked when the slice is locked. Attempting to enter a frequency while locked produces no action.
+
 ### Slice badge rendering (v26.5.2.1)
 
 The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an issue where certain slice letters displayed incorrectly (#2606). The badge styling remains the same.
@@ -102,6 +111,26 @@ The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an i
 |---|---|---|---|
 | RX antenna button | Opens an antenna selection menu for the receive antenna of this slice. Uses slice-specific antenna list when available. Menu items display tooltip and status tip. | — | — |
 | TX antenna button | Opens an antenna selection menu for the transmit antenna of this slice. Automatically filters out RX-only antenna ports. Menu items display tooltip and status tip. | — | — |
+
+## Lock VFO behavior (v26.5.3)
+
+The VFO lock button now fully blocks all tuning operations when engaged:
+
+- Scroll-wheel tuning is blocked, and a `tuneBlockedByLock` notification is sent to the slice, which cancels any in-progress direct frequency entry.
+- The lock state is reflected in the frequency display label, which shows a "LOCKED" overlay when locked.
+- Unlocking the VFO clears the overlay and restores normal tuning behavior.
+- When the VFO is locked, the lock button shows a lock emoji (🔒); when unlocked, it shows an unlocked emoji (🔓).
+
+| Control | Behavior | Default | Setting key |
+|---|---|---|---|
+| Lock VFO button | Toggles frequency lock for this slice. When locked, scroll-wheel tuning and direct frequency entry are blocked. | off | — |
+
+## Tab layout improvements (v26.5.3)
+
+The VFO panel tab stack has been improved to eliminate layout gaps:
+
+- The `TabStack` class now overrides `sizeHint()` and `minimumSizeHint()` to report only the current page's preferred size, rather than the maximum across all pages.
+- This fixes an issue where a gap appeared in the Mode tab when the DSP tab was taller (due to the digContainer being visible in DIGU/DIGL modes).
 
 ## Tips
 
@@ -112,6 +141,8 @@ The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an i
 - The DSP level slider now appears immediately on startup for any leveled DSP that was saved in the radio's profile, without requiring manual toggling.
 - The RX antenna menu now uses the slice's specific antenna list when available, which may differ from the global antenna list in multi-radio configurations.
 - When entering a frequency on a VHF/UHF band (100-999 MHz), bare integers with 4+ digits will have a decimal inserted after the third digit (e.g., 14696 → 146.96 MHz). For microwave bands above 1000 MHz, bare integers are treated as MHz directly.
+- When the VFO is locked, click the lock button again to unlock and restore normal tuning.
+- Explicit MHz entry (e.g., "14225") is now recognized on HF bands, allowing direct frequency entry without the XVTR band context.
 
 ## Related
 

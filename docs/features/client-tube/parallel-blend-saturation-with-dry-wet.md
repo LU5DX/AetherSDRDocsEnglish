@@ -24,10 +24,10 @@ The inline editor is also available on all other knobs in the floating editor (D
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting key |
-|---|---|---|---|
-| **Dry/Wet** (editor) / **Mix** (docked tile) | 100 % | 0 % to 100 % (stored as 0.0 to 1.0) | `ClientTubeTxDryWet` (TX), `ClientTubeRxDryWet` (RX) |
-
+| Control                                      | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
+|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Dry/Wet** (editor) / **Mix** (docked tile) | 100 %                                                                                                                                                                               | 0 % to 100 % (stored as 0.0 to 1.0)                                                                                                                                                                       |
+| RN2                                          | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 ## Tips
 
 - A Dry/Wet value between 20 % and 50 % is effective for adding warmth on SSB TX without audible distortion artifacts. The dry signal anchors the fundamental while the wet signal contributes harmonics.

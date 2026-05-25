@@ -10,7 +10,7 @@ The MQTT applet connects AetherSDR to a station MQTT broker so you can subscribe
 
 ## How it works
 
-When you click Enable (switching it from Off to On), the applet saves all broker settings and opens a connection to the broker. It subscribes to every topic listed in the Topics field. Incoming messages appear in the message log as `topic: value` lines; the log retains the last 50 lines. Topics prefixed with `*` in the Topics field additionally push their latest value to the panadapter as an overlay. Publish buttons let you send a fixed payload to a fixed topic in a single click while connected.
+When you click Enable (switching it from Off to On), the applet loads the MQTT password from the system keychain, saves all broker settings, and opens a connection to the broker. It subscribes to every topic configured in the MQTT Settings dialog. Incoming messages appear in the message log as `topic: value` lines; the log retains the last 50 lines. Topics prefixed with `*` in the subscription list additionally push their latest value to the panadapter as an overlay. Publish buttons let you send a fixed payload to a fixed topic in a single click while connected.
 
 Clicking Enable again (switching it from On to Off) disconnects immediately and clears any panadapter overlays.
 
@@ -18,19 +18,12 @@ Settings are saved to disk only when Enable transitions from Off to On.
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| Host | `localhost` | Any hostname or IP | `MqttHost` | Broker hostname or IP address. |
-| Port | `1883` | 1–65535 | `MqttPort` | Broker TCP port. Automatically switches between `1883` and `8883` when TLS is toggled. |
-| User | _(empty)_ | Any string | `MqttUser` | Broker username. Optional. |
-| Pass | _(empty)_ | Any string | `MqttPass` | Broker password. Optional. Displayed masked. |
-| Topics | _(empty)_ | Comma-separated list | `MqttTopics` | Topics to subscribe to. Prefix a topic with `*` to also overlay its value on the panadapter. Example: `*rotator/pos, *ant/selected, station/log`. |
-| TLS | Off | On / Off | `MqttTls` | Enables TLS encryption. Toggling this shows or hides the CA cert row and automatically flips Port between `1883` and `8883`. |
-| CA cert | _(empty)_ | File path | `MqttCaFile` | Path to a CA certificate file. Leave blank to use the system CA bundle. Row is only visible when TLS is checked. |
-| Enable | Off | Off / On | _(not persisted)_ | Connects (Off → On) or disconnects (On → Off). Saving all settings to disk occurs on connect. |
-| Publish buttons | _(none)_ | Up to 12 buttons | `MqttButtons` | Each button publishes a configured payload to a configured topic. Only active while connected. Stored as JSON. |
-| Edit / Done | Edit | Edit / Done | _(not persisted)_ | Enters button-edit mode. In edit mode, clicking a button opens its edit dialog, right-clicking a button removes it, and a `+` tile adds a new button (up to 12). Click Done to exit edit mode. |
-| Message log | _(empty)_ | Last 50 lines | _(not persisted)_ | Displays received messages as `topic: value` lines. Read-only. |
+| Control         | Default                                                                                                                                     | Valid range                                                                         |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| Enable          | Off                                                                                                                                         | Off / On                                                                            |
+| Settings...     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                 | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.          |
+| Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
+| Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                         | Capped to 50 entries.                                                               |
 
 ## Status indicator
 
@@ -45,6 +38,8 @@ The status label next to Enable shows the current connection state:
 - Topics are matched exactly. If a topic has a deep path such as `rotator/az/pos`, the message log shows only the last path segment (`pos`) as the label, but the full path is used for panadapter overlay matching.
 - You do not need a radio connection to use MQTT. The applet operates independently of the FlexRadio connection state.
 - Publish buttons are inactive (clicks have no effect) while disconnected. Connect first, then use the buttons.
+- The MQTT password is stored in the system keychain. On first enable, the applet shows "Waiting for keychain" until the password is loaded.
+- All broker connection settings (host, port, credentials, TLS, subscriptions) are configured exclusively via the MQTT Settings dialog (Settings > MQTT...).
 
 ## Related
 

@@ -21,20 +21,21 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 | TX | Selects the transmit equalizer bands for display and editing. | Checked (restored from previous session) | — |
 | RX | Selects the receive equalizer bands for display and editing. | Unchecked | — |
 | Reset arc button | Resets all 8 bands of the current path to 0 dB. Tooltip: "Reset all bands to 0 dB". | — | — |
-| 63 | Trims the 63 Hz band. Value label below the slider updates live. | 0 dB | −10 to +10 dB |
-| 125 | Trims the 125 Hz band. | 0 dB | −10 to +10 dB |
-| 250 | Trims the 250 Hz band. | 0 dB | −10 to +10 dB |
-| 500 | Trims the 500 Hz band. | 0 dB | −10 to +10 dB |
-| 1k | Trims the 1 kHz band. | 0 dB | −10 to +10 dB |
-| 2k | Trims the 2 kHz band. | 0 dB | −10 to +10 dB |
-| 4k | Trims the 4 kHz band. | 0 dB | −10 to +10 dB |
-| 8k | Trims the 8 kHz band. | 0 dB | −10 to +10 dB |
+| 63 | Trims the 63 Hz band. Value label below the slider updates live. While dragging, a popup displays the formatted dB value with sign (e.g., "+3 dB" or "-10 dB"). | 0 dB | −10 to +10 dB |
+| 125 | Trims the 125 Hz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 250 | Trims the 250 Hz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 500 | Trims the 500 Hz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 1k | Trims the 1 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 2k | Trims the 2 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 4k | Trims the 4 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| 8k | Trims the 8 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
 
 ## Tips
 
 - The TX button is checked by default the first time you open the applet, and AetherSDR remembers which view (RX or TX) you last selected between sessions. Each time you open the applet, it restores the last-used path.
 - Clicking ON a second time disables the equalizer without clearing your band settings. Your slider positions are preserved.
 - To start from a flat response before shaping, click the Reset arc button before enabling ON.
+- When dragging an EQ band slider, a popup appears near the slider handle showing the current value with a "+" sign for positive values (e.g., "+3 dB") and a "-" sign for negative values (e.g., "-5 dB"). The popup lingers briefly after you release the mouse button.
 
 ## Troubleshooting
 

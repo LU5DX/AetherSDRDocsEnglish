@@ -40,3 +40,56 @@ The radio accepts any integer Hz value, so if the current value is already an ex
 
 - [Set the TX audio low-cut frequency](set-the-tx-audio-low-cut-frequency.md)
 - [Phone overview](overview.md)
+
+# Phone applet controls
+
+The Phone applet provides voice transmit controls for AM carrier level, VOX settings, downward expander (noise gate) controls, and TX filter low-cut/high-cut frequency setters.
+
+## Voice-Operated Transmit (VOX)
+
+### VOX Enable
+
+Click **VOX** to toggle voice-operated transmit on or off. When enabled, the radio will automatically begin transmitting when audio from the microphone exceeds the threshold set by the **VOX level** slider.
+
+### VOX level
+
+Set the VOX activation threshold by dragging the **VOX level** slider. The slider range is 0 to 100. Higher values require louder audio to trigger transmit. The slider displays the value as a percentage (e.g., "48%") while dragging.
+
+### Delay
+
+Set the VOX hang time by dragging the **Delay** slider. The slider range is 0 to 100. This controls how long the radio remains in transmit mode after audio stops before returning to receive.
+
+## AM Carrier Level
+
+Drag the **AM Carrier** slider to adjust the AM carrier power level. The slider range is 0 to 100. The slider displays the value as a percentage (e.g., "48%") while dragging. The current value is shown as a numeric label next to the slider.
+
+## Downward Expander (DEXP)
+
+### DEXP Enable
+
+Click **DEXP** to toggle the downward expander (noise gate) on or off. Note: This control is non-functional on firmware v1.4.0.0 — the radio returns error 0x5000002D.
+
+### DEXP threshold
+
+Set the DEXP gate threshold by dragging the **DEXP threshold** slider. The slider range is 0 to 100. The slider displays the value as a percentage while dragging. This setting persists to the `DexpLevel` configuration key. Note: Same firmware limitation as the DEXP toggle.
+
+## TX Filter Low Cut
+
+Adjust the TX filter low-cut frequency using the **Low Cut < / >** spinbox. The default value is 50 Hz. The range is 0 to (high_cut − 50) Hz, stepping in 50 Hz increments. Click **<** to decrease, **>** to increase, or use the mouse wheel over the value display.
+
+## TX Filter High Cut
+
+Adjust the TX filter high-cut frequency using the **High Cut < / >** spinbox. The default value is 3300 Hz. The range is (low_cut + 50) to 10000 Hz, stepping in 50 Hz increments. Click **<** to decrease, **>** to increase, or use the mouse wheel over the value display.
+
+## What each control does
+
+| Control          | Description                                                                 | Default | Setting Key     |
+|------------------|-----------------------------------------------------------------------------|---------|-----------------|
+| **AM Carrier**   | Sets AM carrier power level (0-100).                                        | —       | None            |
+| **VOX**          | Toggles voice-operated transmit on/off.                                     | —       | None            |
+| **VOX level**    | Sets VOX activation threshold (0-100).                                      | —       | None            |
+| **Delay**        | Sets VOX hang time before returning to receive (0-100).                     | —       | None            |
+| **DEXP**         | Toggles downward expander (noise gate) on/off. Non-functional on fw v1.4.0.0| —       | `DexpEnabled`   |
+| **DEXP threshold**| Sets DEXP gate threshold (0-100). Same firmware limitation as DEXP toggle. | 0       | `DexpLevel`     |
+| **Low Cut < / >**| Adjusts TX filter low-cut frequency (0 to high_cut-50 Hz, step 50 Hz).      | 50 Hz   | None            |
+| **High Cut < / >**| Adjusts TX filter high-cut frequency (low_cut+50 to 10000 Hz, step 50 Hz). | 3300 Hz | None            |

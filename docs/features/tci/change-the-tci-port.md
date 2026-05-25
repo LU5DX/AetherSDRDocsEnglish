@@ -17,17 +17,18 @@ The TCI server listens on a configurable port. Change the port when the default 
 
 ## What each control does
 
-| Control                 | Default     | Valid range                                         |
-|-------------------------|-------------|-----------------------------------------------------|
-| **Port** field          | `50001`     | 1024–65535                                          |
-| **Enable**              | Off         | On / Off                                            |
-| Server status indicator | `(stopped)` | `(stopped)`, `:<port> (N clients)`, `(port in use)` |
-| **RX1** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
-| **RX2** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
-| **RX3** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
-| **RX4** gain+meter      | 0.5         | 0.0–1.0 (combined slider/meter)                     |
-| **TX** gain+meter       | 0.5         | 0.0–1.0 (combined slider/meter)                     |
-| RX/TX slice-assignment labels | —     | `—` or `Slice <letter>` (rich text)                 |
+| Control                        | Default                                                                                                                              | Valid range                                                                                                                                                                                                                                    |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Port** field                 | `50001`                                                                                                                              | 1024–65535                                                                                                                                                                                                                                     |
+| **Enable**                     | Off                                                                                                                                  | On / Off                                                                                                                                                                                                                                       |
+| Server status indicator        | `(stopped)`                                                                                                                          | `(stopped)`, `:<port> (N clients)`, `(port in use)`                                                                                                                                                                                            |
+| **RX1** gain+meter             | 0.5                                                                                                                                  | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                |
+| **RX2** gain+meter             | 0.5                                                                                                                                  | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                |
+| **RX3** gain+meter             | 0.5                                                                                                                                  | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                |
+| **RX4** gain+meter             | 0.5                                                                                                                                  | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                |
+| **TX** gain+meter              | 0.5                                                                                                                                  | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                |
+| RX/TX slice-assignment labels  | —                                                                                                                                    | `—` or `Slice <letter>` (rich text)                                                                                                                                                                                                            |
+| TX overflow mode (right-click) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits `tciTxOverflowModeChanged`. | New in v26.5.3. Clip (0): clamps overshoots to ±1.0 with harmonic distortion; NaNGuard (1): preserves bit-exact digital tones by only zeroing NaN/Inf; Measure (2): counts overshoots for telemetry without mutation. Persisted as `TciTxOverflowMode` (0/1/2). Default is Clip so existing users see no behavior change (#3065). |
 
 ## Tips
 
@@ -35,6 +36,10 @@ The TCI server listens on a configurable port. Change the port when the default 
 - If the status shows `(port in use)` after clicking **Enable**, choose a different port number and try again.
 - RX and TX gain sliders control the TCI audio level for their respective channels. Drag to adjust; the value is persisted in `TciRxGain1`–`TciRxGain4` and `TciTxGain`.
 - Slice-assignment labels show which slice drives each RX/TX row. The slice letter may appear in rich text format for improved display.
+- Right-click the TX gain meter/slider to open the TX overflow-mode picker. Choose how out-of-range (>1.0) samples from digital-mode clients are handled:
+  - **Clip (saturating ±1.0)** — Hard-clamp overshoots to ±1.0. Default that introduces harmonics on overshoot but protects downstream int16 conversion.
+  - **NaN guard (zero NaN/Inf only)** — Pass samples through bit-exact; only zero pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio.
+  - **Measure only (true bypass)** — Never mutate samples. Count overshoots for telemetry; the downstream int16 conversion still clamps in the radio-native DAX route.
 
 ## Troubleshooting
 

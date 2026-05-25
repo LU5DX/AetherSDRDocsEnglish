@@ -22,11 +22,12 @@ External clients (logging software, digital-mode software, SDR programs) can con
 
 ## What each control does
 
-| Command | Mapped setting | Default | Valid range |
-|---------|---------------|---------|-------------|
-| `volume` | Active slice RX gain | 0.5 | 0.0–1.0 |
-| `drive` | `TciTxGain` | 0.5 | 0.0–1.0 |
-| `rx_volume <channel>` | `TciRxGain1`–`TciRxGain4` | 0.5 | 0.0–1.0 |
+| Command                        | Mapped setting                                                                                                                       | Default                                                                                                                                                                                                                                        |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `volume`                       | Active slice RX gain                                                                                                                 | 0.5                                                                                                                                                                                                                                            |
+| `drive`                        | `TciTxGain`                                                                                                                          | 0.5                                                                                                                                                                                                                                            |
+| `rx_volume <channel>`          | `TciRxGain1`–`TciRxGain4`                                                                                                            | 0.5                                                                                                                                                                                                                                            |
+| TX overflow mode (right-click) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. | New in v26.5.3. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as TciTxOverflowMode (0/1/2). |
 
 ## TCI applet controls
 
@@ -35,9 +36,21 @@ The TCI applet shows the current state and lets you adjust gain settings:
 | Control | Description | Setting key |
 |---------|-------------|-------------|
 | **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
-| **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. | `TciTxGain` |
+| **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. Right-click to open the TX overflow mode picker. | `TciTxGain` |
 | **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. | `TciPort` |
 | **Enable** | Toggle button to start or stop the TCI server. If bind fails, snaps back to off and status shows "(port in use)". | None |
+
+### TX overflow mode (right-click)
+
+Right-click the **TX gain+meter** control to open a context menu for selecting how out-of-range (>1.0) samples from TCI clients are handled before reaching the radio. Emits `tciTxOverflowModeChanged`. The selected mode is persisted as `TciTxOverflowMode` (0/1/2).
+
+| Mode | Value | Description |
+|------|-------|-------------|
+| Clip (saturating ±1.0) | 0 | Hard-clamp overshoots to ±1.0. Defensive default; introduces harmonics on overshoot but protects downstream int16 conversion. |
+| NaN guard (zero NaN/Inf only) | 1 | Pass samples through bit-exact; only zero pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio. |
+| Measure only (true bypass) | 2 | Never mutate samples. Count overshoots for telemetry; the downstream int16 conversion still clamps in the radio-native DAX route. |
+
+Default is **Clip** so existing users see no behavior change.
 
 ### RX/TX slice assignment labels
 
@@ -60,6 +73,7 @@ The TCI applet shows the current state and lets you adjust gain settings:
 - The `rx_volume` command accepts a channel number (1–4). Channel numbers correspond to the DAX channels displayed in the TCI applet's RX1–RX4 rows.
 - TCI TX audio is always allowed regardless of platform or hosted-DAX availability (v0.9.5.1, #2276).
 - Slice assignment labels now use rich HTML formatting (v26.5.2.1, #2606), so disabled or special-state slices may display with text formatting (e.g., strikethrough).
+- For bit-exact digital-mode tone fidelity, use **NaN guard** or **Measure only** mode to avoid harmonic distortion from the Clip limiter.
 
 ## Related
 

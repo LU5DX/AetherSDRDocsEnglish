@@ -19,15 +19,16 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 ## What each control does
 
-| Control            | Default  | Valid range     |
-|--------------------|----------|-----------------|
-| Thresh             | −30.0 dB | −60.0 to 0.0 dB |
-| Gain-reduction bar | —        | 0 to 24 dB GR   |
-| Freq               | 6000 Hz  | 1000 to 12000 Hz|
-| Q                  | 2.00     | 0.5 to 5.0      |
-| Amount             | −6.0 dB  | −24.0 to 0.0 dB |
-| Attack             | 1.0 ms   | 0.1 to 30.0 ms  |
-| Release            | 100 ms   | 10.0 to 500.0 ms|
+| Control            | Default                                                                                                                                                                                              | Valid range                                                                                                                                                                                |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Thresh             | −30.0 dB                                                                                                                                                                                             | −60.0 to 0.0 dB                                                                                                                                                                            |
+| Gain-reduction bar | —                                                                                                                                                                                                    | 0 to 24 dB GR                                                                                                                                                                              |
+| Freq               | 6000 Hz                                                                                                                                                                                              | 1000 to 12000 Hz                                                                                                                                                                           |
+| Q                  | 2.00                                                                                                                                                                                                 | 0.5 to 5.0                                                                                                                                                                                 |
+| Amount             | −6.0 dB                                                                                                                                                                                              | −24.0 to 0.0 dB                                                                                                                                                                            |
+| Attack             | 1.0 ms                                                                                                                                                                                               | 0.1 to 30.0 ms                                                                                                                                                                             |
+| Release            | 100 ms                                                                                                                                                                                               | 10.0 to 500.0 ms                                                                                                                                                                           |
+| Slope              | 24 dB/oct (2 stages)                                                                                                                                                                                 | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages)                                                                                                                                                   |
 
 **Thresh** — the level above which the de-esser begins attenuating the sibilance band. Raising this value (toward 0.0 dB) makes the de-esser act only on the very loudest sibilance. Lowering it (toward −60.0 dB) causes the de-esser to trigger on progressively quieter signals.
 
@@ -43,11 +44,15 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 **Release** — how quickly gain returns after sibilance drops below the threshold (10.0 to 500.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
 
+**Slope** — sets the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Click the button to cycle through 12 → 24 → 36 → 48 dB/oct (1 to 4 stages). Present in the Channel Strip StripDeEssPanel (left column, bottom). Persisted as `ClientDeEssTxSlopeStages` for TX and `ClientDeEssRxSlopeStages` for RX.
+
 ## Sidechain response curve
 
 The Sidechain response curve indicator draws the bandpass filter response with a live ball at the current centre frequency. The frequency axis is labelled with major gridlines at 100, 500, 1k, 2k, 3k, 4k, 5k, 6k, 7k, 8k, 9k, 10k, 11k, and 12k Hz. These labels are drawn as high-performance static text objects cached after the first paint. The labels appear only when the curve widget is not in compact mode.
 
 The Centre-frequency ball rests on the curve peak, marking the currently-tuned sibilance centre frequency.
+
+The curve updates automatically when Slope stages are changed to reflect the steeper or shallower rolloff.
 
 ## Inline value editing
 
@@ -61,7 +66,7 @@ The inline editor accepts locale-aware number formats (for example "12,5" in com
 
 The editor is hidden by default in the docked ClientDeEssApplet, and visible by default in the Channel Strip StripDeEssPanel. When hidden, knob values display as painted text only.
 
-This feature is provided by `ClientCompKnob`, which is also used by the Compressor and other audio processing widgets in the Aetherial Audio Channel Strip. See [Inline edit knob values](inline-edit-knob-values.md).
+This feature is provided by `ClientCompKnob`, which is also used by the Compressor and other audio processing widgets in the Aetherial Audio Channel Strip. See Inline edit knob values.
 
 ## Bypass dimming
 
@@ -72,6 +77,7 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 - The threshold interacts with Amount (`ClientDeEssTxAmountDb`). Set the threshold first, then dial Amount to taste. See [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md).
 - If you are unsure where your sibilance peaks are in frequency, locate them first before finalising the threshold. See [Sweep Freq to locate peak sibilance](sweep-freq-to-locate-peak-sibilance.md).
 - Watching the Gain-reduction bar in real time while speaking is the most reliable way to judge threshold placement. See [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md).
+- Use higher Slope values (36 or 48 dB/oct) when you have dense sibilant passages to minimise collateral attenuation of the mid speech band. A Slope of 24 dB/oct is a good starting point for most voices.
 
 ## Troubleshooting
 
@@ -87,5 +93,5 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 - [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md)
 - [Watch live GR while reading a sibilant phrase](watch-live-gr-while-reading-a-sibilant-phrase.md)
 - [Bypass the de-esser from the chain](bypass-the-de-esser-from-the-chain.md)
-- [Opening the RX de-esser panel](opening-the-rx-de-esser-panel.md)
-- [Inline edit knob values](inline-edit-knob-values.md)
+- Opening the RX de-esser panel
+- Inline edit knob values

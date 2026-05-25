@@ -58,11 +58,13 @@ The TX Controls applet provides the primary interface for transmit operations: m
 
 - Sets the transmit RF power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setRfPower` when adjusted.
+- When dragging the slider, a tooltip displays the current value in the format "X W" (e.g., "75 W").
 
 ### Tune Pwr Slider
 
 - Sets the tune carrier power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setTunePower` when adjusted.
+- When dragging the slider, a tooltip displays the current value in the format "X W" (e.g., "10 W").
 
 ### TX Profile Combo Box
 

@@ -32,6 +32,7 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button                                                                                         | off                                                                                                                     |
 | ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| DSP level slider (DSP tab)   | Slider                                                                                                                                | Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state. |
 | Mode combo (Mode tab)        | Combo box                                                                                                                             | USB                                                                                                                     |
 | Filter preset buttons (Mode tab) | Push button                                                                                                                       | Persisted in FilterPresets                                                                                              |
 | RIT / XIT buttons + labels   | Toggle button                                                                                                                         | off                                                                                                                     |
@@ -60,10 +61,32 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 
 **Squelch button + slider (Audio tab)** — Enables squelch for this slice. The adjacent slider sets the threshold. Squelch is automatically disabled when the slice mode is CW, digital, or RTTY, because in those modes audio feeds external decoders via DAX where squelch would gate weak FSK signals (#2504). The button and slider are greyed out in those modes.
 
+**DSP level slider (DSP tab)** — Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state.
+
 ## Tips
 
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
+- When a slice is locked, scroll-wheel tuning on the VFO panel is blocked. A notification appears indicating that tuning is blocked by the lock. Direct frequency entry is also canceled if it was in progress when the lock is applied.
+
+## Changes in v26.5.3
+
+### Locked slice tuning behavior
+
+When a slice is locked, the following tuning interactions on the VFO panel are now blocked:
+
+- **Scroll-wheel tuning**: Scrolling the mouse wheel over the collapsed or expanded VFO panel no longer changes the frequency. A `tuneBlockedByLock` notification is shown.
+- **Direct frequency entry**: If you are in the middle of typing a frequency and the slice becomes locked, the direct entry is canceled and the display reverts to the locked frequency.
+
+The lock overlay (padlock icon) is managed centrally by `SliceModel` and clears automatically when the slice is unlocked (#2983).
+
+### XVTR band direct entry improvements
+
+When entering a frequency directly on the VFO panel, the parser now correctly handles explicit MHz entries above 54 MHz even when not on an XVTR band. If you type a value in MHz format (e.g., `144.200`), it is accepted up to 50,000 MHz without being misinterpreted as kHz or Hz. The 3-digit-band convenience insertion for bare integers on 2m/70cm bands still applies only when the slice frequency is between 100 MHz and 999 MHz.
+
+### Tab height optimization
+
+The VFO panel tab stack now uses a custom `TabStack` widget that reports only the current page's preferred size. Previously, when the DSP tab was taller than the Mode tab (e.g., when the digital filter container was visible in DIGU/DIGL mode), the VFO panel would overallocate height, causing a gap inside the Mode tab. This is now resolved.
 
 ## Changes in v26.5.2.1
 
@@ -125,17 +148,4 @@ The buttons that remain on the DSP tab are: **NR**, **NB**, **ANF**, **APF**, **
 
 A shared level slider row has been added at the bottom of the DSP tab. The slider adjusts the processing depth of whichever supported DSP function was most recently enabled. The label to the left of the slider shows the name of the current target (for example, **NR** or **NB**). The numeric value is shown to the right.
 
-The slider targets the following functions: NR, NB, ANF, NRL, NRS, NRF, and ANFL. It does not target RNN, ANFT, or APF. When none of those functions is active, the slider row is still present in the layout but its contents are visually faded out to indicate that no target is selected. Clicking or dragging the slider while it is faded has no effect.
-
-| Control | Kind | Default | Valid range | Persisted setting |
-|---|---|---|---|---|
-| DSP level slider (DSP tab) | Slider | — | 0–100 | — |
-
-**DSP level slider** — Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state.
-
-## Related
-
-- [VFO Panel overview](overview.md)
-- [Change mode from the VFO panel](change-mode-from-the-vfo-panel.md)
-- [Tune the radio by typing a frequency into the VFO panel](tune-the-radio-by-typing-a-frequency-into-the-vfo-panel.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
+The slider targets the following functions: NR, NB, ANF, NRL, NRS, NRF, and ANFL. It does not target RNN, ANFT, or APF. When none of those functions is active, the slider row is still present in the layout but its contents are visually faded out to indicate that no target is selected

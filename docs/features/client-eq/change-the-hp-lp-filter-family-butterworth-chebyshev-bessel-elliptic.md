@@ -57,8 +57,8 @@ These options apply only to HP and LP band types. Peak and shelf bands use their
 
 - [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
 - [Change a band's filter type by clicking its icon in the icon row](change-a-band-s-filter-type-by-clicking-its-icon-in-the-icon-row.md)
-- [Enter exact band parameters via the parameter text row right-click menu](enter-exact-band-parameters-via-the-parameter-text-row-right-click-menu.md)
+- Enter exact band parameters via the parameter text row right-click menu
 - [Reset all EQ bands to the default 10-band template](reset-all-eq-bands-to-the-default-10-band-template.md)
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
-- [Set the output fader value precisely by typing](set-the-output-fader-value-precisely-by-typing.md)
+- Set the output fader value precisely by typing
 - [Aetherial Parametric EQ (TX / RX) overview](overview.md)

@@ -31,6 +31,7 @@ Use the filter width preset buttons in the RX Controls applet to quickly apply a
 | DIGU, DIGL, NT         | 100, 300, 600, 1000, 1500, 2000                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                         |
 | RTTY                   | 250, 300, 350, 400, 500, 1000                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                         |
 | FM, NFM, DFM           | No presets (buttons hidden)                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                         |
+| RADE                   | No presets (client-side only, radio echoes back real mode)                                                                                                              |                                                                                                                                                                                                                                                                                                                                         |
 ## Narrowing and widening the filter passband via step
 
 The `stepFilterWidth(direction)` method lets you walk through the per-mode preset list from any application shortcut or key binding. Pass `+1` to widen the passband to the next larger preset, or `-1` to narrow to the next smaller preset. Because `stepFilterWidth` routes through `applyFilterPreset`, all modes — including LSB, CWL, DIGL, RTTY, AM, and CW — use the correct edge geometry for that mode rather than a symmetric assumption.
@@ -100,6 +101,20 @@ The RADE option remains available in the mode combo only when `HAVE_RADE` is def
 
 Starting in v26.5.2.1, the manual squelch threshold is saved and restored across sessions via the application settings key `LastManualSquelchLevel`. This prevents the value from being clobbered by auto-mode squelch logic that the radio applies. The threshold is recalled when the RX Controls applet is constructed.
 
+## Mute button behavior (v26.5.3)
+
+In v26.5.3, the mute button behavior was updated. The mute button is no longer a checkable toggle button — it is a plain push button. Single-clicking the button mutes/unmutes the current slice using a deferred timer. Double-clicking the button mutes/unmutes all owned slices. The visual icon (🔊/🔇) updates only when the radio acknowledges the mute state change via `SliceModel::audioMuteChanged`, not on the click itself.
+
+The mute state is NOT saved or restored on reconnect — the radio is the source of truth for audio mute.
+
+## Frequency entry improvements (v26.5.3)
+
+In v26.5.3, the frequency entry parser was updated. The `FrequencyEntryParser` utility handles normalisation of MHz text input. The frequency entry now supports explicit MHz entries above 54 MHz even when not on an XVTR antenna — if the user enters a value with an explicit decimal point and the value is above 54 MHz, the system treats it as a valid MHz entry (up to 50000 MHz) rather than applying kHz scaling.
+
+The 3-digit-band convenience feature (for example, typing `1446` to tune to 144.6 MHz) continues to work on XVTR antennas only.
+
+When a valid frequency is entered and committed, the applet emits `directEntryCommitted(freqMhz, "rx-direct-entry")` instead of calling `tuneAndRecenter()` directly.
+
 ## Tips
 
 - If you need a width that does not match any preset, drag the edges of the filter passband widget to set an arbitrary value, then right-click a preset button to save that width for future use.
@@ -114,11 +129,4 @@ Starting in v26.5.2.1, the manual squelch threshold is saved and restored across
 - **Right-click on a preset button does nothing visible** — Confirm the slice is connected to the radio. The RX applet requires an active radio connection to save preset values.
 - **NRL button is not visible on a 6000-series radio** — Confirm you are running V0.9.4 or later. Earlier versions restricted NRL to 8000-series radios only.
 - **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, RTTY, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT and RTTY) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
-- **Slice tab row is blank after reconnecting** — This could occur on versions prior to v0.9.5.1. Upgrade to v0.9.5.1 or later. The tab row is now rebuilt automatically when the slice count changes on reconnect.
-
-## Related
-
-- [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
-- [RX Controls overview](overview.md)
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
-<!-- docmesh:llm version=v0.9.8 date=2026-05-01 -->
+- **Slice tab row is blank after reconnecting** — This could occur on versions prior to v0.9.5.1. Upgrade to

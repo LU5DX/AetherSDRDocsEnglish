@@ -53,4 +53,4 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 - [Connect by IP across a VPN or routed network](connect-by-ip-across-a-vpn-or-routed-network.md)
 - [Operating remotely over SmartLink](../../operating/remote/remote-operation-smartlink.md)
 - [Disconnect from the current radio](disconnect-from-the-current-radio.md)
-- [Network Diagnostics](../../tools/network-diagnostics.md)
+- Network Diagnostics

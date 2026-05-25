@@ -35,6 +35,10 @@ The BYPASS button is synchronised with the BYPASS control in the Aetherial Audio
 
 The chain order and individual stage states are persisted separately for TX and RX via `ClientCompTxChainStages` and `ClientCompRxChainStages`. The last-active tab (TX or RX) is persisted via `PooDooAudioActiveTab`. The container's visibility is persisted via `Applet_TXDSP`.
 
+### Click discrimination interval
+
+The chain widgets use a configurable click discrimination interval instead of the system double-click interval. This interval is set in the Interaction Settings and determines how long the widget waits after a mouse release to decide whether the action was a single click (bypass toggle) or the start of a double-click (open editor). Adjusting this interval in the Interaction Settings affects how responsive the chain tiles feel.
+
 ## What each control does
 
 | Control                   | Kind                                                                                                                     | Default                                                                                                                              |
@@ -104,6 +108,7 @@ Non-interactive. Only visible in RX mode. Turns green when AetherSDR's audio out
 - The Record button tooltip reads: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off)." If the button is greyed out, check your MIC source setting and DAX state first.
 - Double-clicking a TX stage tile now opens the full Aetherial Audio Channel Strip rather than a per-stage editor. Access individual stage editors from within the strip.
 - The ADSP tile's label updates dynamically to show which noise reducer module is currently active, or falls back to "ADSP" when no module is engaged.
+- The click discrimination interval used by chain tiles is configured in Interaction Settings. Adjust it if the tiles feel too sensitive or not responsive enough when distinguishing single clicks from double clicks.
 
 ## Related
 

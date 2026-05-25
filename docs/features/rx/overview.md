@@ -23,9 +23,9 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). When switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice. |
 | Frequency label | 0.000.000 | — | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. |
-| Frequency edit | — | 0.001–54.000 MHz (up to 450.000 MHz on XVTR) | Type a frequency in MHz and press Enter to tune and re-center. Press Escape to cancel and restore the previous frequency. |
+| Frequency edit | — | 0.001–54.000 MHz (up to 50000.000 MHz on XVTR, or when entry exceeds 54 MHz and is explicit MHz) | Type a frequency in MHz and press Enter to tune and re-center. Supports kHz/Hz auto-scaling: entries above 54000 are treated as Hz, above 54 as kHz (unless the entry is explicit MHz). On XVTR antennas, 3-digit 2m/70cm band shortcuts are supported (e.g. 1446 → 144.6 MHz). Press Escape to cancel and restore the previous frequency. Frequency entry uses `FrequencyEntryParser::normalizedMhzText()` and `isExplicitMhzEntry()` for consistent parsing across the app. |
 | STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. |
 
 ### Antenna selection
@@ -56,9 +56,9 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Mutes or unmutes the slice audio output. Mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute (#2489). |
-| AF gain | 70 | 0–100 | Adjusts the slice audio output level. |
-| L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Double-click to reset to centre (50). |
+| 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Single-click mutes/unmutes this slice. Double-click mutes/unmutes all owned slices. The icon updates only when the radio acknowledges (per Radio-Authoritative Settings Policy, #2489). The single-click action is deferred by the platform double-click interval (default ~400 ms) so a double-click can override it. Mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. |
+| AF gain | 70 | 0–100 | Adjusts the slice audio output level. Displays a "X%" tooltip with the current percentage value. |
+| L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Displays "L##", "C" (centre), or "R##" tooltip. Double-click to reset to centre (50). |
 | SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). |
 | Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. The manual squelch level persists across sessions client-side as `LastManualSquelchLevel` — this preserves your preference across mode cycles and launches since auto mode may clobber the slice's squelch value. |
 
@@ -131,21 +131,4 @@ Both the AG and ShackSwitch rows share the underlying `AntennaGeniusModel` conne
 
 ## AppletPanel accessors and visibility methods
 
-The following accessor methods and visibility helpers are available on `AppletPanel`. They are used internally and by code that coordinates device presence with applet state.
-
-### Applet accessors
-
-| Method | Returns | Description |
-|---|---|---|
-| `tciApplet()` | `TciApplet*` | Returns the TCI applet instance. |
-| `daxIqApplet()` | `DaxIqApplet*` | Returns the DAX IQ applet instance. |
-| `agApplet()` | `AntennaGeniusApplet*` | Returns the Antenna Genius applet instance. |
-| `ssApplet()` | `ShackSwitchApplet*` | Returns the ShackSwitch applet instance. Added in V0.9.4. |
-| `meterApplet()` | `MeterApplet*` | Returns the meter applet instance. |
-| `mqttApplet()` | `MqttApplet*` | Returns the MQTT applet instance. Available only in HAVE_MQTT builds. |
-
-### Visibility helpers
-
-| Method | Description |
-|---|---|
-| `setAgVisible(bool visible)` | Shows or hides the Antenna Genius button and applet based on device presence.
+The following accessor methods and visibility helpers are available on `Applet

@@ -5,7 +5,7 @@ The Zoom slider in the Waveform applet scales the amplitude axis of the waveform
 ## Before you start
 
 - The Waveform applet must be visible. If it is not, click the WAVE tray button in the right sidebar to show it.
-- The settings drawer must be open. If only the waveform trace is visible with no controls below it, double-click the waveform display to open the drawer.
+- The settings drawer must be open. If only the waveform trace is visible with no controls below it, double-click the waveform display to open the drawer. The drawer state is persisted across sessions.
 
 ## Steps
 
@@ -14,7 +14,7 @@ The Zoom slider in the Waveform applet scales the amplitude axis of the waveform
 3. Adjust the desired slider:
    - Drag the **Zoom** slider left to decrease zoom or right to increase zoom. The readout to the right of the slider updates immediately, showing the current value as a multiplier (for example, `1.7x`).
    - Drag the **Window** slider left to decrease the time window or right to increase it. The readout to the right of the slider updates immediately, showing the current value in milliseconds or seconds (for example, `1 s` or `240 ms`).
-4. Release the slider. The new value is saved automatically to `WaveApplet_ZoomPercent` or `WaveApplet_TimeWindowMs`.
+4. Release the slider. The new value is saved automatically to `WaveApplet_ZoomPercent` or `WaveApplet_TimeWindowMs`. The drawer expanded/collapsed state is also saved automatically to `WaveApplet_DrawerExpanded`.
 
 ## What each control does
 
@@ -27,12 +27,17 @@ The Zoom slider value is an integer percentage. The waveform display divides it 
 
 The Window slider selects from discrete time window steps. The first two notches provide sub-second detail (240 ms and 480 ms), followed by one-second increments from 1 second to 10 seconds. Each notch is a deliberate stop, not a continuous range.
 
+## The settings drawer state
+
+The settings drawer (which contains the View, Zoom, Window, and FPS controls) remembers whether it was open or closed when you last used the applet. When you reopen the Waveform applet, the drawer restores to its previous state. If you always want the drawer open, leave it open before closing the applet or restarting AetherSDR.
+
 ## Tips
 
 - At high zoom levels, signals near full scale will produce clipping highlights (red column emphasis and a CLIP N counter in the header). If you see frequent clipping indicators after raising zoom, reduce the value until the trace fits within the display without hitting the edges.
 - The zoom and window settings apply equally to RX and TX paths. The direction tint (cool for RX, warm for TX) still distinguishes which path is active regardless of zoom level.
 - To inspect a transient at higher zoom without missing it in real time, pause the display first by single-clicking the waveform, then adjust zoom while the snapshot is frozen.
 - Use a shorter window (240 ms or 480 ms) to see fine details in fast waveforms. Use a longer window (5 s to 10 s) to see overall level changes over time.
+- The click discrimination interval used to distinguish single-click from double-click respects the value you set in Radio Setup → Interaction Settings. Changes to that setting take effect immediately without restarting AetherSDR.
 
 ## Troubleshooting
 

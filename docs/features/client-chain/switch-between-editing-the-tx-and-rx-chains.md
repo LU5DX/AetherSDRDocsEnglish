@@ -32,6 +32,7 @@ The Aetherial Audio Chain applet shows either the TX or RX DSP chain at a time. 
 TX and RX form an exclusive pair — only one can be active at a time. The active tab is saved as `PooDooAudioActiveTab` with the value `TX` or `RX` and is restored on next launch.
 
 The TX and RX chains are fully independent: each has its own stage order, per-stage bypass state, and global BYPASS snapshot. Switching sides does not affect the other chain's state. The TX chain order is persisted as `ClientCompTxChainStages`; the RX chain order as `ClientCompRxChainStages`.
+
 ## How double-click works on TX chain stages
 
 Double-clicking any TX chain stage tile opens the Aetherial Audio Channel Strip — the unified TX DSP window. The individual stage editors remain accessible from within the channel strip. Double-clicking a TX stage tile is the canonical way to open your TX audio settings.
@@ -41,6 +42,17 @@ Double-clicking an RX chain stage tile opens that stage's own floating editor.
 ## How the BYPASS button stays in sync
 
 In v0.9.8, the bypass state is owned by the audio engine for both TX and RX sides. The BYPASS button on the chain applet and the BYPASS button on the Aetherial Audio Channel Strip (for TX) always reflect the same state. Clicking BYPASS on either control updates the other automatically. When you switch between TX and RX modes, the BYPASS button initialises its visual state from the engine's current bypass state for that side.
+
+## Click discrimination interval
+
+In v26.5.3, the chain applet uses a configurable click discrimination interval instead of the system double-click interval. This interval controls how long the applet waits after a mouse release before deciding whether the action is a single click or the first of a double-click. To adjust this interval:
+
+1. Open Settings from the main menu.
+2. Navigate to the Interaction settings page.
+3. Adjust the click discrimination interval slider to your preference (in milliseconds).
+4. The new interval takes effect immediately for all chain stage interactions.
+
+This setting applies to both the TX and RX chain widgets. A shorter interval makes double-clicking more responsive but may cause inadvertent single-click actions on fast double-clicks. A longer interval makes single-click actions more reliable at the cost of a slight delay before they execute.
 
 ## Tips
 

@@ -128,8 +128,52 @@ When entering frequencies on XVTR bands:
 - **1000 MHz and above**: Enter the full MHz value directly (e.g., 1296 for 23cm means 1296.000 MHz).
 - You can always enter a decimal point manually to bypass the automatic insertion.
 
+## Frequency entry changes in v26.5.3
+
+The frequency entry logic has been updated to support explicit MHz entry on high bands:
+
+| Change | Description |
+|---|---|
+| Explicit MHz entry | When a frequency value greater than 54.0 is entered with an explicit decimal point (e.g., "144.200"), it is now treated as MHz and accepted for any band, including non-XVTR bands. Previously, entering "144.200" on a non-XVTR band would be rejected as out of range. |
+| Normalized parsing | The text is now normalized using `FrequencyEntryParser::normalizedMhzText()` which handles "14.225.000" format by removing dots beyond the first. |
+| Range validation | The maximum frequency limit of 50000 MHz applies to all bands when an explicit decimal point is used, matching the existing behavior for XVTR bands. |
+
+### Frequency entry rules in v26.5.3
+
+When entering frequencies:
+
+- **Explicit MHz entry**: Enter a frequency with a decimal point (e.g., "14.225", "144.200", "1296.000") to have it treated as MHz directly. Values above 54.0 MHz are accepted when an explicit decimal point is present.
+
+- **Bare integer entry (non-XVTR bands, below or equal to 54.0 MHz)**: Enter a bare integer to be parsed as follows:
+  - Values below 54000: Treated as kHz (e.g., 14225 = 14.225 MHz)
+  - Values above 54000: Treated as Hz (e.g., 14225000 = 14.225 MHz)
+
+- **Bare integer entry (XVTR bands, above 54.0 MHz)**: A bare integer is treated as MHz directly, with the 3-digit band convenience rule applied for 100–999 MHz bands.
+
+## Locked slice behavior in v26.5.3
+
+Starting in v26.5.3, when a slice is locked, the following behaviors apply:
+
+| Behavior | Description |
+|---|---|
+| Tune blocked notification | When you attempt to scroll the mouse wheel over a locked slice, a visual `LOCKED` overlay is shown on the frequency display to indicate that tuning is blocked. |
+| Direct entry cancel | If you begin direct frequency entry (click the frequency display) on a locked slice, the entry is automatically cancelled and the `LOCKED` overlay is shown. |
+| Lock/unlock button | The lock/unlock button updates immediately when the slice lock state changes. Unlocking clears the `LOCKED` overlay. |
+
+## VFO panel tab height fix in v26.5.3
+
+In v26.5.3, the VFO panel tab content now uses a custom stacked widget that reports only the current tab's preferred size. This fixes a layout issue where the tab content area could over-allocate height when switching between tabs of different heights (e.g., switching from DSP tab, which shows additional controls for DIGU/DIGL modes, to Mode tab). The tab content area now fits each tab's content properly without leaving gaps.
+
+## Scrolling behavior in v26.5.3
+
+In v26.5.3, the mouse wheel scrolling behavior has been updated:
+
+| Change | Description |
+|---|---|
+| Locked slice handling | When scrolling over a locked slice in collapsed mode, the tune request is now blocked with a visual `LOCKED` notification instead of being silently ignored. |
+| Consistent collapsed mode | The scroll-to-tune behavior in collapsed mode now uses the same lock check as expanded mode, ensuring consistent behavior regardless of panel state. |
+
 ## Related
 
 - [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
-- [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)
-- [VFO Panel overview](overview.md)
+- [M

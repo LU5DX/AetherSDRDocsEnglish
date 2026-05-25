@@ -50,5 +50,5 @@ A new row appears in the memory table populated with the current VFO frequency. 
 - [Tune the radio to a stored memory](tune-the-radio-to-a-stored-memory.md)
 - [Search memories by name](search-memories-by-name.md)
 - [Delete one or more memories](delete-one-or-more-memories.md)
-- [Import and export memories](import-and-export-memories.md)
+- Import and export memories
 - [Memory Channels overview](overview.md)

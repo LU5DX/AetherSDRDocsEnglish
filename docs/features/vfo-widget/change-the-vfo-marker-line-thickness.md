@@ -106,9 +106,27 @@ The menu shows the per-slice receive antenna list if one is available. Each entr
 
 The menu filters out antenna ports that start with "RX" to prevent selecting RX-only ports for transmit. Each entry has a tooltip showing the full antenna port identifier.
 
-## Frequency entry on XVTR bands (v26.5.2.1)
+## Frequency entry improvements (v26.5.3)
+
+### Direct frequency entry behavior when slice is locked
+
+When a slice is locked, attempting to begin direct frequency entry by clicking the frequency display is blocked. The direct entry field does not appear. If a direct entry is already in progress when the slice is locked, the entry is cancelled and the display returns to showing the locked frequency. A visual "LOCKED" overlay is displayed centrally through the slice model.
+
+### Frequency entry on XVTR bands (v26.5.2.1)
 
 When entering frequencies on transverter (XVTR) bands, the maximum supported frequency has been increased from 450 MHz to 50,000 MHz. The automatic decimal insertion logic now only applies to three-digit bands (100–999 MHz) when the entered value exceeds 450 MHz. For higher bands (1,000 MHz and above), bare integers are interpreted as MHz without decimal insertion.
+
+### Explicit MHz entry on HF bands (v26.5.3)
+
+When entering a frequency on HF bands, entering a value greater than 54 MHz with an explicit decimal point (for example, "144.200") is now interpreted as MHz rather than being automatically divided by 1,000 (kHz) or 1,000,000 (Hz). This allows direct MHz entry for VHF/UHF frequencies even when not on an XVTR band.
+
+## Collapsed mode scroll wheel tuning (v26.5.3)
+
+In collapsed mode, the scroll wheel now tunes the slice even when the slice is locked. When the locked slice is scrolled, a visual "LOCKED" notification is displayed to indicate that tuning was blocked. Previously, collapsed mode would ignore scroll events when the slice was locked.
+
+## Tab stack height fix (v26.5.3)
+
+The VFO panel's tab content area now reports only the current tab page's preferred size, rather than the maximum of all pages. This fixes a height gap that occurred when the DSP tab was taller than the Mode tab (for example, when the digital sub-mode container was visible in DIGU or DIGL mode).
 
 ## Slice badge HTML support (v26.5.2.1)
 
@@ -124,7 +142,7 @@ The VFO panel is a floating per-slice control panel anchored to the VFO marker o
 |---|---|---|---|
 | RX antenna button | push_button | - | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button | push_button | - | Opens antenna selection menu for the transmit antenna of this slice. |
-| Frequency display | indicator | - | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
+| Frequency display | indicator | - | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. Direct entry is blocked when the slice is locked. |
 | Filter width label | indicator | - | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. |
 | AF Gain slider (Audio tab) | slider | 100 | Sets the audio output level for this slice. Range 0-100. |
 | Pan slider (Audio tab) | slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. Range 0-100. |

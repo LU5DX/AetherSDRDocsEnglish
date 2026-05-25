@@ -27,8 +27,8 @@ None of the TX Controls settings are persisted by AetherSDR; values follow the r
 |---|---|---|---|---|
 | **RF Pwr** | Meter | — | 0–120 W; red above 100 W (barefoot) / 0–600 W; red above 500 W (Aurora 500W) | Displays forward power at the exciter output. The scale changes automatically based on radio model. Includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays to the current smoothed value. The peak resets to zero immediately when the transmitter un-keys. |
 | **SWR** | Meter | — | 1.0–3.0; red above 2.5 | Displays standing wave ratio at the exciter. |
-| **RF Power** | Slider | 100 | 0–100 | Sets the transmit RF power level. |
-| **Tune Pwr** | Slider | 10 | 0–100 | Sets the tune-carrier power level. |
+| **RF Power** | Slider | 100 | 0–100 | Sets the transmit RF power level. During slider drag, a tooltip shows the current value in watts (e.g. "75 W"). |
+| **Tune Pwr** | Slider | 10 | 0–100 | Sets the tune-carrier power level. During slider drag, a tooltip shows the current value in watts (e.g. "50 W"). |
 | **TX Profile** | Drop-down | — | Populated from radio | Selects and loads a transmit profile from the radio's profile list. |
 | **Success** | Indicator | Dim | Dim / green | Lights green when the ATU reports a successful or OK tune result. |
 | **Byp** | Indicator | Dim | Dim / orange | Lights orange when the ATU is in Bypass or ManualBypass. |
@@ -95,6 +95,7 @@ V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, 
 - After a successful tune, clicking **ATU** a second time at the same frequency bypasses the tuner. To retune, change frequency or click **ATU** again after the bypass.
 - Right-click **ATU** to access the Pre-tune sweep and Clear ATU memories functions.
 - If you use **MOX** on a phone mode with Quindar enabled, allow the K tone to finish before speaking. The transmitter is not keyed until the tone completes.
+- When dragging **RF Power** or **Tune Pwr** sliders, a tooltip displays the exact power value in watts, making it easier to set precise levels.
 
 ## Related
 
@@ -108,6 +109,6 @@ V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, 
 - [Enable APD to linearise the transmitter](enable-apd-to-linearise-the-transmitter.md)
 - [Run a Two-Tone Tune](run-a-two-tone-tune.md)
 - [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)
-- [Pre-tune ATU memories](pre-tune-atu-memories.md)
-- [Clear ATU memories](clear-atu-memories.md)
-<!-- docmesh:llm version=v26.5.2.1 date=2026-05-01 -->
+- Pre-tune ATU memories
+- Clear ATU memories
+<!-- docmesh:llm version=v26.5.3 date=2026-05-15 -->

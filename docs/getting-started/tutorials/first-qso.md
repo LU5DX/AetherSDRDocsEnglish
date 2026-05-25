@@ -63,9 +63,12 @@ When connecting by IP manually, select the local network interface from the **Ad
 
 - If the other station is slightly off frequency and you do not want to move your VFO, enable **RIT** in the RX Controls applet and use the **RIT offset** spinbox (10 Hz steps) to shift your receive frequency without changing transmit. Click **RIT 0** to zero it afterwards.
 - To prevent accidentally retuning mid-QSO, click the 🔓 toggle in the RX Controls applet to lock the slice. The icon changes to 🔒.
-- The **L / R pan** slider (default **50**, range 0–100) lets you position this slice's audio in the stereo field. Double-click it to reset to centre.
+- The **L / R pan** slider (default **50**, range 0–100) lets you position this slice's audio in the stereo field. Double-click it to reset to centre. The slider shows "C" at centre, "L5" at 45, "R10" at 60, and so on.
 - If you operate split, use **XIT** in the RX Controls applet to offset your transmit frequency independently of the receive VFO.
 - Use the **widen** and **narrow** keyboard shortcuts to cycle through per-mode filter presets. The `stepFilterWidth(direction)` method walks the per-mode preset list, so the filter edge geometry is always correct for the active mode (USB, LSB, CW, AM, DIGL, etc.). For example, pressing a widen shortcut in CW mode steps through 50, 100, 250, 400 Hz presets, while in USB it steps through 1800, 2100, 2400, 2700, 2900, 3300 Hz presets.
+- Single-click the mute button (🔊) to mute or unmute this slice. Double-click to mute or unmute all owned slices at once.
+- Switching to RTTY or digital modes (DIGU, DIGL) automatically disables squelch, which would otherwise notch out FSK characters and break decoding.
+- When entering a frequency, you can type a value above 54 MHz (for example, `144.6`) and it will be accepted as a VHF/UHF entry. Previously this was only allowed when the slice was already on an XVTR antenna.
 
 ## Troubleshooting
 
@@ -73,7 +76,7 @@ When connecting by IP manually, select the local network interface from the **Ad
 - **No audio from the speaker** — Check that the mute toggle in the RX Controls applet shows the unmuted (🔊) state. Check that **AF gain** is above 0. Verify audio device configuration in your operating system.
 - **MOX keys but the RF Pwr meter reads zero** — Confirm the correct TX antenna is selected in the red-labelled TX antenna combo box. Confirm **RF Power** is above 0 in the TX Controls applet.
 - **SWR meter reads red (above 2.5)** — Do not continue transmitting at full power. Check antenna connections. Run the internal **ATU** to find a match, or reduce power until the issue is resolved.
-- **Frequency edit does not accept the value** — Ensure you are entering a value in MHz within the valid range (0.001–54.000 MHz). Press **Escape** to cancel and restore the previous frequency.
+- **Frequency edit does not accept the value** — Ensure you are entering a value in MHz within the valid range (0.001–54.000 MHz for HF, or up to 50,000 MHz for XVTR and VHF/UHF entries). Press **Escape** to cancel and restore the previous frequency.
 - **Radio IP address drop-down shows a stale address** — The **Source warning label** appears below the **Advanced: Source path** combo when the previously saved NIC is no longer reachable. Select a valid source interface before clicking **Connect by IP (manual)**.
 - **The connection window is not visible or did not restore its previous size** — When entering or exiting frameless mode, the window restores its geometry only if it was previously visible. If the connection window appears in an unexpected position, resize or reposition it normally and it will remember those dimensions next time.
 

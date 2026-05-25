@@ -19,15 +19,16 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 ## What each control does
 
-| Knob | Default | Valid range | Persisted key (TX / RX) |
-|---|---|---|---|
-| Attack | 20.0 ms | 0.1 to 300.0 ms | `ClientCompTxAttackMs` / `ClientCompRxAttackMs` |
-| Release | 200 ms | 5 to 2000 ms | `ClientCompTxReleaseMs` / `ClientCompRxReleaseMs` |
+| Knob    | Default                                                                                                                                                                                                                                        | Valid range                                                                                                                                                                   |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Attack  | 20.0 ms                                                                                                                                                                                                                                        | 0.1 to 300.0 ms                                                                                                                                                               |
+| Release | 200 ms                                                                                                                                                                                                                                         | 5 to 2000 ms                                                                                                                                                                  |
+| Drive   | Pre-comp gain boost. Pushes more signal across the threshold so the compressor engages harder, raising average power. Pair with Phase to keep peaks clean.                                                                                     | Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing.                                        |
+| Phase   | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. | Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). 0=off, 4=broadcast default.' |
 
 **Attack** — Exponential knob mapping. Values below 10 ms display as `X.X ms`; values at 10 ms and above display as `X ms`. Shorter attack times clamp peaks faster but can dull consonants. Longer attack times let transients through before compression engages.
 
 **Release** — Exponential knob mapping. Displayed as `X ms`. Shorter release times let gain return quickly between syllables; if too short, the compressor audibly pumps. Longer release times produce a smoother, more sustained gain reduction but can reduce intelligibility if set too long.
-
 ## Using the inline value editor
 
 When you click a knob's numeric value label, it transforms into an editable text field. This allows precise numerical entry without dragging the knob.

@@ -15,28 +15,28 @@ When screen space is limited, you can collapse the VFO panel to a compact strip 
 
 ## What each control does
 
-| Control                      | Default                                                                                                                               | Persisted setting                                                                                                       |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Collapse toggle              | Expanded                                                                                                                              | `SliceFlagCollapsed_{N}`                                                                                                |
-| RX antenna button            | Opens antenna selection menu for the receive antenna of this slice. Uses the slice's `rxAntennaList` when available; otherwise falls back to the radio antenna list. | None                                                                                                                    |
-| TX antenna button            | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Uses the slice's `txAntennaList` when available. | None                                                                                                                    |
-| Frequency display            | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab.                       | None                                                                                                                    |
-| Filter width label           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). | None |
-| Slice badge                  | Shows the slice letter. Click to collapse the panel. Displays HTML-formatted text (#2606).                                            | None                                                                                                                    |
-| AF Gain slider (Audio tab)   | 100                                                                                                                                   | None — reflects live radio state.                                                                                       |
-| Pan slider (Audio tab)       | 50                                                                                                                                    | None                                                                                                                    |
-| Mute button (Audio tab)      | Off                                                                                                                                   | None                                                                                                                    |
-| Squelch button + slider (Audio tab) | Off                                                                                                                           | None                                                                                                                    |
-| AGC combo (Audio tab)        | FAST                                                                                                                                  | None                                                                                                                    |
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off                                                                                                                     | None                                                                                                                    |
-| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
-| Mode combo (Mode tab)        | USB                                                                                                                                   | None                                                                                                                    |
-| Filter preset buttons (Mode tab) | Applies a saved filter width preset. Right-click to save the current filter width into that slot.                                | `FilterPresets`                                                                                                         |
-| RIT / XIT buttons + labels (X/RIT tab) | Off                                                                                                                           | None                                                                                                                    |
-| DAX channel combo (DAX tab)  | Off                                                                                                                                   | None                                                                                                                    |
-| Marker thickness button      | 1 px                                                                                                                                  | `Slice{N}_MarkerWidth`                                                                                                  |
-| Filter edges button          | Shown                                                                                                                                 | `Slice{N}_FilterEdgesHidden`                                                                                            |
+| Control | Default | Persisted setting |
+|---|---|---|
+| Collapse toggle | Expanded | `SliceFlagCollapsed_{N}` |
+| RX antenna button | Opens antenna selection menu for the receive antenna of this slice. Uses the slice's `rxAntennaList` when available; otherwise falls back to the radio antenna list. | None |
+| TX antenna button | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Uses the slice's `txAntennaList` when available. | None |
+| Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. | None |
+| Filter width label | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). | None |
+| Slice badge | Shows the slice letter. Click to collapse the panel. Displays HTML-formatted text (#2606). | None |
+| AF Gain slider (Audio tab) | 100 | None — reflects live radio state. |
+| Pan slider (Audio tab) | 50 | None |
+| Mute button (Audio tab) | Off | None |
+| Squelch button + slider (Audio tab) | Off | None |
+| AGC combo (Audio tab) | FAST | None |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off | None |
+| ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
+| Mode combo (Mode tab) | USB | None |
+| Filter preset buttons (Mode tab) | Applies a saved filter width preset. Right-click to save the current filter width into that slot. | `FilterPresets` |
+| RIT / XIT buttons + labels (X/RIT tab) | Off | None |
+| DAX channel combo (DAX tab) | Off | None |
+| Marker thickness button | 1 px | `Slice{N}_MarkerWidth` |
+| Filter edges button | Shown | `Slice{N}_FilterEdgesHidden` |
 
 The `SliceFlagCollapsed_{N}` setting is stored per slice, where `{N}` is the slice number. Collapsing one slice does not affect other slices.
 
@@ -96,6 +96,20 @@ When entering a frequency on XVTR bands (100–999 MHz range), the VFO panel app
 For frequencies on 23cm and microwave bands (above 1000 MHz), a bare integer is interpreted as MHz directly (e.g., `1296` means `1296 MHz`, not `129.6 MHz`).
 
 The frequency entry accepts values up to 50000 MHz on XVTR bands.
+
+### Explicit MHz entry recognition
+
+As of v26.5.3, the frequency entry parser now explicitly recognizes values entered in MHz format. If you enter a frequency above 54 MHz using an explicit MHz notation (for example, `144.000` or `432.100`), the parser treats it as a direct MHz entry rather than attempting Hz or kHz conversion. This allows you to enter VHF/UHF frequencies directly without requiring an XVTR antenna or pre-existing frequency above 54 MHz.
+
+The parser normalizes multiple dots (for example, `14.225.000` becomes `14.225000`) using `FrequencyEntryParser::normalizedMhzText()` before attempting to parse. The explicit MHz entry flag lets the parser skip Hz/kHz conversion logic for values above 54 MHz that were clearly entered as MHz.
+
+## Scrolling behavior on locked slices
+
+When a slice is VFO-locked, mouse wheel scrolling over the VFO panel does not change the frequency. Instead, the frequency display briefly shows a **LOCKED** overlay to indicate that tuning is blocked. This applies in both collapsed and expanded views. The notification is provided by `SliceModel::notifyTuneBlockedByLock()`.
+
+## Tab stack height optimization
+
+As of v26.5.3, the VFO panel uses a `TabStack` widget (a subclass of `QStackedWidget`) that reports only the current tab's preferred size. This prevents excessive vertical space when switching between tabs of different heights — for example, when the DSP tab is taller than the Mode tab due to the digital mode sub-container appearing in DIGU/DIGL modes. No visual behavior changes; the panel now uses space more efficiently.
 
 ## Tips
 

@@ -36,6 +36,10 @@ The "Tune Pwr" slider sets the power level of the continuous carrier transmitted
 2. Drag the slider left to decrease or right to increase the tune-carrier power level. The numeric readout to the right of the slider updates immediately.
 3. Release the slider. The new value is sent to the radio.
 
+### Drag value display
+
+When dragging either the RF Power or Tune Pwr slider, a tooltip shows the current value in watts (e.g., "45 W") as you move the slider. This helps you set precise power levels without releasing the mouse.
+
 ## TX profile selection
 
 1. Locate the "TX Profile:" combo box in the TX Controls applet.

@@ -20,17 +20,18 @@ The Q knob controls how wide or narrow the sidechain bandpass filter is around t
 
 ## What each control does
 
-| Control                  | Default | Valid range     | Behaviour                                                                                               |
-|--------------------------|---------|-----------------|---------------------------------------------------------------------------------------------------------|
-| **Q**                    | 2.00    | 0.5 to 5.0      | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label 'X.XX'.           |
-| Sidechain response curve | —       | —               | Compact-mode bandpass response. Draws the bandpass filter response with a live ball at the current centre frequency. Axis labels (100, 500, 1k, etc.) are rendered using QStaticText for improved performance. |
-| Gain-reduction bar       | —       | 0 to 24 dB GR   | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz. |
-| Attack                   | 1.0 ms  | 0.1 to 30.0 ms  | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
-| Release                  | 100 ms  | 10.0 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present in both TX and RX Channel Strip instances. The docked ClientDeEssApplet omits this knob. |
+| Control                  | Default                                                                                                                                                                                                                                            | Valid range                                                                                                                                                                                                                                           |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Q**                    | 2.00                                                                                                                                                                                                                                               | 0.5 to 5.0                                                                                                                                                                                                                                            |
+| Sidechain response curve | —                                                                                                                                                                                                                                                  | —                                                                                                                                                                                                                                                     |
+| Gain-reduction bar       | —                                                                                                                                                                                                                                                  | 0 to 24 dB GR                                                                                                                                                                                                                                         |
+| Attack                   | 1.0 ms                                                                                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                                                                        |
+| Release                  | 100 ms                                                                                                                                                                                                                                             | 10.0 to 500.0 ms                                                                                                                                                                                                                                      |
+| Slope                    | 24 dB/oct (2 stages). Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases.                         | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages). Present as a push button labeled "N dB/oct" in the left column of the floating StripDeEssPanel, anchored below the Thresh knob. Present for both TX and RX paths. Persisted as ClientDeEssTxSlopeStages / ClientDeEssRxSlopeStages. |
 
 ## Value entry via inline text editor
 
-As of v26.5.2.1, all knobs in the Aetherial De-Esser support direct numeric entry through an inline text editor:
+All knobs in the Aetherial De-Esser support direct numeric entry through an inline text editor:
 
 1. **Activate the editor**: Click any knob's current value text. The value area gains focus and a subtle dark inset with a cyan border appears, indicating edit mode.
 2. **Enter a value**: Type the desired numeric value. The editor accepts locale-aware decimal formats (e.g., "12,5" in comma-decimal locales) and tolerates extra characters such as unit labels (e.g., "2.00" or "2.00 ms").
@@ -43,6 +44,12 @@ This feature provides precise, one-step adjustment without rotating the knob, es
 
 When the DESS stage is bypassed via a single-click in the CHAIN widget, the entire applet tile renders at reduced opacity (approximately 55 %). This matches the dim behaviour used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. Click the DESS stage again in the CHAIN widget to re-enable it and restore full opacity.
 
+## Slope (notch filter steepness)
+
+The **Slope** button controls how many cascaded bandpass biquad stages the sidechain uses. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Click the button to cycle through the options: 12 → 24 → 36 → 48 dB/oct (1 to 4 stages). A higher slope narrows the effective notch, reducing collateral attenuation on mid speech band content during Ess-heavy phrases.
+
+The Slope button appears in the floating StripDeEssPanel only, anchored at the bottom of the left knob column below the Thresh knob. It is not present in the docked Aetherial De-Esser applet. Slope is persisted independently for TX and RX with keys `ClientDeEssTxSlopeStages` and `ClientDeEssRxSlopeStages`.
+
 ## Tips
 
 - Start at the default of 2.00 and increase Q only if attenuation is spilling onto vowels or other consonants adjacent to the sibilance band.
@@ -50,6 +57,7 @@ When the DESS stage is bypassed via a single-click in the CHAIN widget, the enti
 - The response curve gives immediate visual feedback — use it to judge whether the bell is too broad or too sharp before committing to a setting.
 - Settings are saved independently for TX and RX instances via separate setting keys: `ClientDeEssTxQ` for TX and `ClientDeEssRxQ` for RX.
 - Use the inline value editor (click the current value) for precise numeric entry when you know the exact Q you need.
+- Combine a higher Slope (36 or 48 dB/oct) with moderate Q to concentrate the de-esser action only on pure sibilant frequencies, leaving adjacent consonants untouched.
 
 ## Related
 

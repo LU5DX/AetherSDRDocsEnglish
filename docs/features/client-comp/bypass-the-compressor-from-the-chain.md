@@ -18,11 +18,12 @@ Enable or disable the Aetherial Compressor (TX) or Aetherial AGC-C (RX) without 
 
 ## What each control does
 
-| Control | What it does | Setting key |
-|---|---|---|
-| COMP stage (TX, single-click) | Toggles the TX compressor in or out of the signal chain. Enabled state is persisted. | `ClientCompTxEnabled` |
-| COMP stage (RX, single-click) | Toggles the RX compressor in or out of the signal chain. Enabled state is persisted. | `ClientCompRxEnabled` |
-
+| Control                       | What it does                                                                                                                                                                                                                                   | Setting key                                                                                                                                                                   |
+|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| COMP stage (TX, single-click) | Toggles the TX compressor in or out of the signal chain. Enabled state is persisted.                                                                                                                                                           | `ClientCompTxEnabled`                                                                                                                                                         |
+| COMP stage (RX, single-click) | Toggles the RX compressor in or out of the signal chain. Enabled state is persisted.                                                                                                                                                           | `ClientCompRxEnabled`                                                                                                                                                         |
+| Drive                         | Pre-comp gain boost. Pushes more signal across the threshold so the compressor engages harder, raising average power. Pair with Phase to keep peaks clean.                                                                                     | Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing.                                        |
+| Phase                         | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. | Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). 0=off, 4=broadcast default.' |
 ## Applet tile controls
 
 The Aetherial Compressor (TX) and Aetherial AGC-C (RX) applet tiles provide a compact view of compressor state with live feedback and five tuning knobs.

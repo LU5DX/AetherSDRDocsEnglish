@@ -33,7 +33,7 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 ## Tips
 
 - The default Floor of -15.0 dB is marked by the tick on the gain-reduction bar. If attenuation at that value still sounds abrupt, try raising Floor to -10.0 dB or -6.0 dB.
-- Floor only caps the attenuation ceiling — it does not change when or how fast the gate opens or closes. If the gate is opening and closing too sharply, also adjust **Release**. See [Tune release for natural open/close](tune-release-for-natural-open-close.md).
+- Floor only caps the attenuation ceiling — it does not change when or how fast the gate opens or closes. If the gate is opening and closing too sharply, also adjust **Release**. See Tune release for natural open/close.
 - If the gate chatters — opening and closing rapidly on signals near the threshold — increase **Return** to widen the hysteresis deadband. The cyan band on the transfer curve grows wider as Return increases, making the sticky zone easy to judge visually.
 - Setting Floor to 0.0 dB disables all attenuation, effectively bypassing the gate's effect without disabling it in the chain.
 - When the Gate stage is disabled in the CHAIN widget, the entire applet tile dims to roughly half opacity. This matches the dim effect used on the EQ curve and provides a quick visual indication that the stage is bypassed without requiring you to check the CHAIN widget directly.
@@ -50,7 +50,7 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 
 ## Related
 
-- [Tune release for natural open/close](tune-release-for-natural-open-close.md)
+- Tune release for natural open/close
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)

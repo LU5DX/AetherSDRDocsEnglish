@@ -36,5 +36,5 @@ The dialog is also accessible from the main menu: **`Settings > TX Band Settings
 
 ## Related
 
-- [Radio Setup...](radio-setup-dialog.md)
-- [Inhibit during TUNE](inhibit-during-tune.md)
+- Radio Setup...
+- Inhibit during TUNE

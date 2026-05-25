@@ -29,20 +29,37 @@ Each knob in the Aetherial De-Esser applet supports direct numeric entry. Click 
 
 ## What each control does
 
-| Control            | Default     | Valid range     | Behavior                                                                                               |
-|--------------------|-------------|-----------------|--------------------------------------------------------------------------------------------------------|
-| Sidechain response curve | —    | —               | Bandpass filter response with live ball at centre frequency. In compact mode, no axis labels; full mode shows frequency labels (100, 500, 1k, 2k, 3k, 4k, 5k, 6k, 8k, 10k, 12k). |
-| Gain-reduction bar | —           | 0 to 24 dB GR   | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the −6 dB typical amount. Refreshed ~30 Hz. |
-| Freq               | 6000 Hz     | 1000 to 12000 Hz| Logarithmic mapping. Sets the centre frequency of the sibilance band. Label '6.0 kHz' above 1 kHz, 'N Hz' below. |
-| Q                  | 2.00        | 0.5 to 5.0      | Linear mapping. Sets bandwidth — higher Q = narrower band. Label 'X.XX'. |
-| Thresh             | −30.0 dB    | −60.0 to 0.0 dB | Linear mapping. Level above which de-esser starts attenuating. |
-| Amount             | −6.0 dB     | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction. |
-| Attack             | 1.0 ms      | 0.1 to 30.0 ms  | Exponential mapping (0.1 × 300^n). Sets response speed. Present in Channel Strip StripDeEssPanel only. Docked applet omits this knob. |
-| Release            | 100 ms      | 10.0 to 500.0 ms| Exponential mapping (10 × 50^n). Sets return speed. Present in Channel Strip StripDeEssPanel only. Docked applet omits this knob. |
+| Control                  | Default                                                                                                                                                                                              | Valid range                                                                                                                                                                                |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Sidechain response curve | —                                                                                                                                                                                                    | —                                                                                                                                                                                          |
+| Gain-reduction bar       | —                                                                                                                                                                                                    | 0 to 24 dB GR                                                                                                                                                                              |
+| Freq                     | 6000 Hz                                                                                                                                                                                              | 1000 to 12000 Hz                                                                                                                                                                           |
+| Q                        | 2.00                                                                                                                                                                                                 | 0.5 to 5.0                                                                                                                                                                                 |
+| Thresh                   | −30.0 dB                                                                                                                                                                                             | −60.0 to 0.0 dB                                                                                                                                                                            |
+| Amount                   | −6.0 dB                                                                                                                                                                                              | −24.0 to 0.0 dB                                                                                                                                                                            |
+| Attack (channel strip only)   | 1.0 ms                                                                                                                                                                                               | 0.1 to 30.0 ms                                                                                                                                                                             |
+| Release (channel strip only)  | 100 ms                                                                                                                                                                                               | 10.0 to 500.0 ms                                                                                                                                                                           |
+| Slope                    | 24 dB/oct (2 stages)                                                                                                                                                                                 | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages)                                                                                                                                                  |
 
 ## Sidechain response curve
 
 The Sidechain response curve indicator shows the bandpass filter response with a live ball at the current centre frequency. In compact mode, the curve widget displays the response without frequency axis labels. The axis labels use `QStaticText` for efficient rendering and display frequencies as "100", "500", "1k", "2k", "3k", "4k", "5k", "6k", "8k", "10k", "12k" when not in compact mode.
+
+## Slope control
+
+A Slope button appears at the bottom of the left knob column in the Aetherial Audio Channel Strip (both TX and RX panels). It cycles through 12 → 24 → 36 → 48 dB/oct (1 to 4 cascaded bandpass biquads) each time you click it.
+
+- Higher slope = narrower notch around the sibilant frequency = less mid-band collateral on Ess-heavy phrases.
+- The button displays the current value as "N dB/oct" (e.g., "24 dB/oct").
+- The setting is persisted separately for TX and RX as `ClientDeEssTxSlopeStages` and `ClientDeEssRxSlopeStages`.
+
+To adjust the slope:
+
+1. Click the Slope button repeatedly to cycle through the available values.
+2. Observe the sidechain response curve update in real time to see the narrowed notch.
+3. Stop when the de-esser targets only the sibilance without affecting nearby speech energy.
+
+**Note:** The docked Aetherial De-Esser applet omits the Attack, Release, and Slope controls. These are only available in the Aetherial Audio Channel Strip panel.
 
 ## RX and TX instances
 
@@ -51,7 +68,7 @@ The Aetherial De-Esser has separate instances for transmit and receive:
 - **TX instance** — Labeled "Aetherial De-Esser" in the docked Applet Panel. Opens from the TX chain in the Aetherial Audio Channel Strip.
 - **RX instance** — Labeled "Aetherial De-Esser — RX" in its title bar. Reachable through the RX side of the Aetherial Audio Channel Strip. Uses its own dedicated window titled "Aetherial De-Esser — RX".
 
-Each instance has independent settings, persisted separately. RX settings save under `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, etc.
+Each instance has independent settings, persisted separately. RX settings save under `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, etc. The Slope button in the RX panel uses `ClientDeEssRxSlopeStages`.
 
 ## Bypass dimming
 
@@ -64,6 +81,7 @@ When the DESS stage is bypassed via a single click in the CHAIN widget, the enti
 - Narrowing the sidechain band with Q before finalizing Amount reduces collateral attenuation on nearby speech energy, which helps transparency. See [Narrow or widen the sidechain band with Q](narrow-or-widen-the-sidechain-band-with-q.md).
 - Amount values are always negative or zero — they represent reduction, not boost.
 - Use inline value editing for precise numeric entry instead of fine-tuning by knob rotation.
+- Adjust Slope to tighten the sidechain notch — this preserves mid-band speech while aggressively cutting sibilants.
 
 ## Troubleshooting
 
@@ -72,6 +90,7 @@ When the DESS stage is bypassed via a single click in the CHAIN widget, the enti
 - **Gain-reduction bar pins at 24 dB constantly** — Thresh is set too low, causing the de-esser to trigger on all speech, not just sibilance. Raise Thresh first, then re-evaluate Amount.
 - **Applet appears faded or dim** — The DESS stage is bypassed. Click the stage in the CHAIN widget once to re-enable it.
 - **Inline editor doesn't accept typed value** — Ensure the value is within the knob's valid range. Off-range values are clamped automatically. If the value reverts, check for extra spaces or characters that weren't stripped.
+- **Mid-band speech sounds dull or attenuated** — Slope may be set too low. Increase Slope to 36 or 48 dB/oct to narrow the sidechain notch and preserve mid-band energy.
 
 ## Related
 

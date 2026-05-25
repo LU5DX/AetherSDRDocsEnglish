@@ -11,42 +11,44 @@ Use the MQTT applet to subscribe to topics published by your rotator controller 
 ## Steps
 
 1. Open the MQTT applet by clicking the MQTT tray button on the right sidebar.
-2. In the **Host** field, confirm the broker hostname or IP address. Default: `localhost`.
-3. In the **Port** field, confirm the broker port. Default: `1883`.
-4. If your broker requires authentication, enter values in the **User** and **Pass** fields.
-5. In the **Topics** field, enter a comma-separated list of the topics you want to subscribe to. To also show a topic's value as a panadapter overlay, prefix it with `*`. Example:
+2. Click **Settings...** to open the MQTT Settings dialog. Configure the broker connection details, subscription topics, and publish buttons there.
+3. In the MQTT Settings dialog, enter the broker hostname or IP address, port, username, and password. If your broker uses TLS, enable TLS and optionally specify a CA certificate file.
+4. In the **Subscriptions** tab, enter a comma-separated list of the topics you want to subscribe to. To also show a topic's value as a panadapter overlay, prefix it with `*`. Example:
    ```
    *rotator/pos, *ant/selected, station/log
    ```
-6. If your broker uses TLS, check **TLS**. The port switches automatically to `8883`. If you need a custom CA certificate, enter the file path in **CA cert**; leave it blank to use the system CA bundle.
-7. Click **Enable** to connect. The button label changes to **On** and the status label reads **Connected** in green. All settings are saved at this point.
+5. Click **OK** to save settings and close the dialog.
+6. Back in the MQTT applet, click **Enable** to connect. The button label changes to **On** and the status label reads **Connected** in green. The password is loaded from the system keychain on first enable.
 
 ## What each control does
 
-| Control | Default | Valid range / notes | Setting key |
-|---|---|---|---|
-| **Host** | `localhost` | Broker hostname or IP | `MqttHost` |
-| **Port** | `1883` | 1–65535; auto-switches to `8883` when TLS is enabled | `MqttPort` |
-| **User** | _(empty)_ | Optional broker username | `MqttUser` |
-| **Pass** | _(empty)_ | Optional broker password; masked | `MqttPass` |
-| **Topics** | _(empty)_ | Comma-separated topic list; prefix with `*` to overlay on panadapter | `MqttTopics` |
-| **TLS** | Off | Shows/hides **CA cert** row; auto-flips port between `1883` and `8883` | `MqttTls` |
-| **CA cert** | _(empty)_ | Path to CA certificate file; blank uses system CA bundle; visible only when TLS is checked | `MqttCaFile` |
-| **Enable** | Off | Connects (On) or disconnects (Off); saves all settings on connect | — |
-| **Message log** | — | Displays up to the last 50 received messages as `topic: value` lines | — |
+| Control           | Default | Valid range / notes                                                                                      |
+|-------------------|---------|----------------------------------------------------------------------------------------------------------|
+| **Settings...**   | —       | Opens the MQTT Settings dialog for broker connection, subscriptions, and publish button configuration.   |
+| **Publish buttons** | —     | Up to 12 buttons; each publishes a configured payload to a configured topic. Only active while connected.|
+| **Message log**   | —       | Displays up to the last 50 received messages as `topic: value` lines. Also processes antenna alias updates from MQTT. |
+| **Enable (Off/On)** | Off  | Connects or disconnects from the broker using settings from the MQTT Settings dialog. Password is loaded from system keychain on first enable. |
+
+### Connection status indicator
+
+| Status label | Meaning                                                       |
+|--------------|---------------------------------------------------------------|
+| **Disconnected** | Not connected to the broker. Grey colour.                    |
+| **Connected**     | Successfully connected to the broker. Green colour.          |
+| *Error message*   | Connection failed. Shows the error in default text colour.   |
 
 ## Tips
 
 - A topic must be entered without the `*` prefix to be subscribed to; the `*` only controls whether the value appears on the panadapter overlay. The subscription itself is always active once you click **Enable**.
 - The message log shows only the last segment of the topic path (after the final `/`) next to the value, so `rotator/pos` appears as `pos: 180`.
-- Settings are written to disk only when you click **Enable** to connect. If you edit the fields and close the applet without connecting, your changes are not saved.
+- Settings are saved when you click **OK** in the MQTT Settings dialog. No need to click **Enable** to persist them.
 
 ## Troubleshooting
 
-- **Status label shows an error message instead of "Connected"** — The broker is unreachable or credentials are incorrect. Verify the **Host**, **Port**, **User**, and **Pass** values, then click **Enable** again.
-- **Topics field accepts your entries but no messages appear in the log** — Confirm that the broker is publishing on exactly those topic strings. MQTT topic matching is case-sensitive.
-- **TLS checkbox is checked but the CA cert row is not visible** — Toggle **TLS** off and on again to force the row to refresh.
-- **Port did not switch to 8883 when I checked TLS** — The auto-switch only applies when the current port value is exactly `1883`. If you entered a custom port, it is preserved.
+- **Status label shows an error message instead of "Connected"** — The broker is unreachable or credentials are incorrect. Open **Settings...** and verify the host, port, username, and password values, then try again.
+- **Topics are configured but no messages appear in the log** — Confirm that the broker is publishing on exactly those topic strings. MQTT topic matching is case-sensitive.
+- **"Waiting for keychain" status appears** — The password has not yet been loaded from the system keychain. Click **Enable** again to trigger the keychain request.
+- **Publish buttons are greyed out** — You must be connected to the broker. Click **Enable** to connect first.
 
 ## Related
 

@@ -18,18 +18,32 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 
 ## What each control does
 
-| Control                                                         | Default                                              | Valid range                                                                                                                                                                                                                                                         |
-|-----------------------------------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Settings > Autostart TCI with AetherSDR` (checkable menu item) | Off                                                  | On / Off                                                                                                                                                                                                                                                            |
-| Port                                                            | `50001`                                              | 1024–65535                                                                                                                                                                                                                                                          |
-| Enable (toggle button in TCI Server applet)                     | Off                                                  | On / Off                                                                                                                                                                                                                                                            |
-| RX1–RX4 gain+meter                                              | 0.5                                                  | 0.0–1.0                                                                                                                                                                                                                                                             |
-| TX gain+meter                                                   | Drags set the TCI TX gain and emit tciTxGainChanged. | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). |
-| RX/TX slice-assignment labels                                   | — (em dash)                                          | — or Slice letter                                                                                                                                                                                                                                                   |
+| Control                                                         | Default   | Valid range | Description |
+|-----------------------------------------------------------------|-----------|-------------|-------------|
+| `Settings > Autostart TCI with AetherSDR` (checkable menu item) | Off       | On / Off    | Starts the TCI server automatically on each launch. |
+| Port                                                            | `50001`   | 1024–65535  | The TCP port the TCI server listens on. Changing restarts the server if enabled. |
+| Enable (toggle button in TCI Server applet)                     | Off       | On / Off    | Starts or stops the TCI server. If bind fails, snaps back to off and status shows `(port in use)`. |
+| RX1–RX4 gain+meter                                              | 0.5       | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for the channel. One setting per channel (`TciRxGain1`–`TciRxGain4`). |
+| TX gain+meter                                                   | 0.5       | 0.0–1.0     | Drag sets the TCI TX gain. Right-click opens the TX overflow-mode picker. |
+| TX overflow mode (right-click)                                  | Clip      | 0 (Clip), 1 (NaNGuard), 2 (Measure) | Right-click the TX gain meter/slider to open a context menu selecting how out-of-range (>1.0) samples from digital-mode clients are handled. Persisted as `TciTxOverflowMode`. |
+| RX/TX slice-assignment labels                                   | — (em dash) | — or Slice letter | Shows which slice currently drives each RX/TX row. Updates automatically. |
+| Server status indicator                                         | (stopped) | `(stopped)`, `:<port> (N clients)`, `(port in use)` | Indicates server state and connected client count. Colour changes to red on bind failure. |
 
-### RX/TX slice-assignment labels
+## RX/TX slice-assignment labels
 
 The RX1–RX4 and TX status labels show which slice currently drives each channel. The slice letter is now rendered as rich text (HTML) so that styled slice identifiers from `SliceLabel::richText` display correctly. The labels update automatically when slice assignments change.
+
+## TX overflow mode
+
+Right-click the TX gain meter/slider to open a context menu with three overflow handling modes:
+
+| Mode | Value | Description |
+|------|-------|-------------|
+| Clip (saturating ±1.0) | 0 | Hard-clamp overshoots to ±1.0. Defensive default; introduces harmonics on overshoot but protects downstream int16 conversion. |
+| NaN guard (zero NaN/Inf only) | 1 | Pass samples through bit-exact; only zero pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio. |
+| Measure only (true bypass) | 2 | Never mutate samples. Count overshoots for telemetry; the downstream int16 conversion still clamps in the radio-native DAX route. |
+
+The default is Clip so existing users see no behavior change (#3065). The setting is persisted in `TciTxOverflowMode` (0/1/2).
 
 ## Tips
 

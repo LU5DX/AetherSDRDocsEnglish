@@ -108,6 +108,35 @@ If you have widen or narrow keyboard shortcuts bound to `stepFilterWidth()`:
 
 No action is required on your part; the stepping behaviour updates automatically in v0.9.8.
 
+## Mute button behaviour (v26.5.3)
+
+From v26.5.3, the mute button uses a click-discrimination system:
+
+- **Single-click** mutes or unmutes only the current slice. The action is deferred by the platform double-click interval (approximately 400 ms) so a double-click can override it.
+- **Double-click** mutes or unmutes all slices owned by this client, emitted via the `muteAllToggled` signal.
+- The visual icon (🔊/🔇) updates only when the radio acknowledges the mute state change via `SliceModel::audioMuteChanged`. This follows the Radio-Authoritative Settings Policy (#2489) — the radio is the source of truth for audio mute.
+- Mute state is NOT saved or restored on reconnect.
+
+## Frequency entry parser (v26.5.3)
+
+From v26.5.3, frequency entry uses a dedicated `FrequencyEntryParser` for text normalisation and validation:
+
+- When you type a frequency in MHz and press Enter, the parser normalises the text by stripping any dots after the first decimal point. For example, `14.200.000` becomes `14.200000`.
+- The parser detects whether you entered an explicit MHz value (contains a decimal point) or a raw number. If you enter a value above 54.0 MHz as an explicit MHz entry (e.g., `144.0`), the XVTR frequency limit of 50000.0 MHz applies, allowing VHF/UHF operation without requiring an XVTR antenna.
+- If you enter a value above 54.0 MHz without a decimal point, the system divides the value by 1000 (treating kHz as Hz) or by 1e6 (treating Hz as MHz) as appropriate.
+- On any valid entry (0.001 to maxMhz), the signal `directEntryCommitted(freqMhz, QStringLiteral("rx-direct-entry"))` is emitted to recenter the panadapter.
+
+## AF gain and pan slider labels (v26.5.3)
+
+From v26.5.3, the AF gain and pan sliders display percentage and positional labels:
+
+- **AF gain slider**: Displays the current value as a percentage (e.g., `70%`) using `percentText()`.
+- **Pan slider**: Displays `C` at centre (50), `Lx` for left offset (e.g., `L20` for 30% from centre), and `Rx` for right offset (e.g., `R30` for 80% from centre) using `panText()`. The label updates as you drag the slider.
+
+## RADE mode switching fix (v26.5.3)
+
+From v26.5.3, when switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode. This prevents stale deactivate signals when changing modes on a non-RADE slice (#2376).
+
 ## Related
 
 - [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)

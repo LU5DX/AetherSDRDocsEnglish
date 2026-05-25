@@ -25,12 +25,33 @@ The port shown is the base port for channel A, base+1 for B, base+2 for C, and b
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Behavior |
-|---|---|---|---|---|
-| **Enable TCP** | Off | On / Off | — | Starts or stops all four rigctld TCP servers. Also saves the current base port to `CatTcpPort`. |
-| **Enable TTY** | Off | On / Off | — | Starts or stops all four PTY symlinks at `/tmp/AetherSDR-CAT-A` through `/tmp/AetherSDR-CAT-D`. |
-| **Base** | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channels bind to base, base+1, base+2, base+3. Values outside the valid range snap back to `4532`. If servers are running, they restart on the new ports immediately. |
-| A/B/C/D channel rows | `(stopped)` | — | — | Each row shows the slice colour badge, TCP status with client count, and PTY path. Updates live as clients connect or disconnect. |
+| Control              | Default     | Valid range |
+|----------------------|-------------|-------------|
+| **Enable TCP**       | Off         | On / Off    |
+| **Enable TTY**       | Off         | On / Off    |
+| **Base**             | `4532`      | 1024–65535  |
+| A/B/C/D channel rows | `(stopped)` | —           |
+
+### Enable TCP
+
+Starts or stops all four rigctld TCP servers on the base port through base+3. Also persists the current base port value to the `CatTcpPort` setting.
+
+### Enable TTY
+
+Starts or stops all four PTY symlinks. On Linux, symlinks are created under `$XDG_RUNTIME_DIR/aethersdr/cat-A` through `cat-D`. On macOS, symlinks are created under `~/Library/Caches/AetherSDR/cat-A` through `cat-D`.
+
+In v26.5.3, the symlink location moved from `/tmp` to per-user runtime directories to fix a cross-user symlink vulnerability (GHSA-qxhr-cwrc-pvrm). Atomic symlink replacement via `symlink(.tmp) + rename(.tmp, final)` closes the TOCTOU window.
+
+### Base
+
+Base TCP port. Channels bind to port, port+1, port+2, and port+3. Default is `4532`. Valid range is 1024–65535. Out-of-range values snap back to `4532`. Servers restart with the new port if currently enabled.
+
+### A/B/C/D channel rows
+
+Each row shows:
+- A slice-colour coded channel badge
+- TCP status: `(stopped)`, `:<port> (1 client)`, or `:<port> (N clients)`
+- PTY path showing the symlink location where logging software can open a serial device
 
 ## Tips
 

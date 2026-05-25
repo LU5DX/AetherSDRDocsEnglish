@@ -19,42 +19,42 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 
 ## What each control does
 
-| Control                    | Behavior                                                                                                                                           | Default      |
-|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| **Slice tabs (A..H)**      | Selects which slice the RX applet is bound to. Row hidden if the radio supports only one slice.                                                    | —            |
-| **Slice badge**            | Displays the letter of the currently bound slice, coloured by slice identity. Supports HTML rendering for custom slice labels (#2606).              | A            |
-| **🔓 / 🔒**                  | Toggles tune-lock on the slice. Locked slices ignore frequency changes.                                                                            | 🔓 (unlocked) |
-| **ANT1 (RX antenna)**      | Opens a menu listing available RX antennas. Uses the slice's dedicated RX antenna list when available; falls back to the radio's antenna list.      | ANT1         |
-| **ANT1 (TX antenna)**      | Opens a menu listing TX-capable antennas. Filters out RX-only ports (prefix 'RX') and includes ANT, TX, and XVTR ports.                             | ANT1         |
-| **2.7K (filter width)**    | Shows the current filter bandwidth (e.g. 2.7K, 3.3K, 500).                                                                                         | 2.7K         |
-| **QSK**                    | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet.                                                            | off (grey)   |
-| **TX (badge)**             | Click to set this slice as the TX slice.                                                                                                           | —            |
-| **Mode combo**             | Sets the slice operating mode. Options vary by radio and build flags. RADE option requires HAVE_RADE build flag.                                   | USB          |
-| **Frequency label**        | Displays current VFO frequency with dotted grouping. Click to enter edit mode.                                                                     | `0.000.000`  |
-| **Frequency edit**         | Text field. Enter frequency in MHz and press Enter to tune and recenter. Escape cancels and restores the previous frequency.                       | —            |
-| **STEP**                   | Sets the step size used when nudging frequency with arrow buttons or mousewheel. Step list depends on mode.                                        | 100 Hz       |
-| **Filter width presets**   | Click a preset button to apply that filter bandwidth. Right-click to save current width into that slot. Hidden in FM/NFM/DFM modes.                | —            |
-| **Filter passband widget** | Drag the lo/hi edges to adjust filter passband directly.                                                                                           | —            |
-| **Tone mode (FM)**         | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes.                                                                            | Off          |
-| **CTCSS tone value**       | Selects the CTCSS tone frequency sent with transmit. Enabled only when Tone mode = CTCSS TX.                                                       | —            |
-| **Offset (FM)**            | Sets FM repeater offset frequency in MHz (0.0–100.0 MHz, step 0.1).                                                                                | 0.0 MHz      |
-| **− (offset down)**        | Sets repeater offset direction to 'down' (TX below RX).                                                                                            | —            |
-| **Simplex**                | Sets repeater offset direction to simplex (TX = RX).                                                                                               | checked      |
-| **+ (offset up)**          | Sets repeater offset direction to 'up' (TX above RX).                                                                                              | —            |
-| **REV**                    | Inverts the TX offset sign to work a reversed repeater pair.                                                                                       | —            |
-| **🔊 / 🔇 (mute)**           | Mutes or unmutes the slice audio output. Mute state is NOT saved/restored on reconnect — the radio is the source of truth.                         | 🔊 (unmuted)  |
-| **AF gain**                | Adjusts slice audio output gain (0–100).                                                                                                           | 70           |
-| **L / R pan**              | Pans slice audio between left and right channels (0–100). Double-click resets to 50 (centre).                                                      | 50           |
-| **SQL**                    | Enables the squelch at the current slider level. Disabled in RTTY and digital modes (DIGU, DIGL, NT) where squelch would notch out FSK characters. | —            |
-| **Squelch level**          | Adjusts squelch threshold (0–100). Takes effect only when SQL is on. Disabled in RTTY and digital modes. Manual level persists across sessions.     | 20           |
-| **AGC mode**               | Sets slice AGC mode: Off, Slow, Med, Fast. Hidden in FM family modes.                                                                              | Med          |
-| **AGC threshold**          | Sets AGC threshold (or AGC off-level when AGC mode is Off).                                                                                        | 65           |
-| **RIT**                    | Toggles Receive Incremental Tuning on/off.                                                                                                         | —            |
-| **RIT 0**                  | Zeroes the RIT offset.                                                                                                                             | —            |
-| **RIT offset**             | Adjusts RIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                               | +0 Hz        |
-| **XIT**                    | Toggles Transmit Incremental Tuning on/off.                                                                                                        | —            |
-| **XIT 0**                  | Zeroes the XIT offset.                                                                                                                             | —            |
-| **XIT offset**             | Adjusts XIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                               | +0 Hz        |
+| Control                    | Behavior                                                                                                                                                                                                                                                                       | Default      |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| **Slice tabs (A..H)**      | Selects which slice the RX applet is bound to. Row hidden if the radio supports only one slice. clearSliceButtons() tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Button click connections are guarded against duplicate signal handlers across reconnects. | —            |
+| **Slice badge**            | Displays the letter of the currently bound slice, coloured by slice identity. Supports HTML rendering for custom slice labels (#2606).                                                                                                                                         | A            |
+| **🔓 / 🔒**                | Toggles tune-lock on the slice. Locked slices ignore frequency changes.                                                                                                                                                                                                        | 🔓 (unlocked) |
+| **ANT1 (RX antenna)**      | Opens a menu listing available RX antennas. Uses the slice's dedicated RX antenna list when available; falls back to the radio's antenna list.                                                                                                                                 | ANT1         |
+| **ANT1 (TX antenna)**      | Opens a menu listing TX-capable antennas. Filters out RX-only ports (prefix 'RX') and includes ANT, TX, and XVTR ports.                                                                                                                                                        | ANT1         |
+| **2.7K (filter width)**    | Shows the current filter bandwidth (e.g. 2.7K, 3.3K, 500). Updates when filter preset is applied.                                                                                                                                                                             | 2.7K         |
+| **QSK**                    | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet.                                                                                                                                                                                        | off (grey)   |
+| **TX (badge)**             | Click to set this slice as the TX slice.                                                                                                                                                                                                                                       | —            |
+| **Mode combo**             | Sets the slice operating mode. Options vary by radio and build flags. RADE option requires HAVE_RADE build flag. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch. When switching out of RADE mode, emits radeActivated(false) only if the slice was actually in RADE (#2376). | USB          |
+| **Frequency label**        | Displays current VFO frequency with dotted grouping. Click to enter edit mode.                                                                                                                                                                                                 | `0.000.000`  |
+| **Frequency edit**         | Text field. Enter frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. Escape cancels and restores the previous frequency. XVTR-aware: accepts up to 450 MHz on XVTR antennas; accepts explicit MHz entries up to 50,000 MHz when the typed number exceeds 54 MHz (#2376). | —            |
+| **STEP**                   | Sets the step size used when nudging frequency with arrow buttons or mousewheel. Step list depends on mode.                                                                                                                                                                    | 100 Hz       |
+| **Filter width presets**   | Click a preset button to apply that filter bandwidth. Right-click to save current width into that slot. Hidden in FM/NFM/DFM modes. The width readout uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). stepFilterWidth() walks the per-mode preset list for mode-correct widen/narrow (#2208). | —            |
+| **Filter passband widget** | Drag the lo/hi edges to adjust filter passband directly.                                                                                                                                                                                                                       | —            |
+| **Tone mode (FM)**         | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes.                                                                                                                                                                                                        | Off          |
+| **CTCSS tone value**       | Selects the CTCSS tone frequency sent with transmit. Enabled only when Tone mode = CTCSS TX.                                                                                                                                                                                   | —            |
+| **Offset (FM)**            | Sets FM repeater offset frequency in MHz (0.0–100.0 MHz, step 0.1).                                                                                                                                                                                                            | 0.0 MHz      |
+| **− (offset down)**        | Sets repeater offset direction to 'down' (TX below RX).                                                                                                                                                                                                                        | —            |
+| **Simplex**                | Sets repeater offset direction to simplex (TX = RX).                                                                                                                                                                                                                           | checked      |
+| **+ (offset up)**          | Sets repeater offset direction to 'up' (TX above RX).                                                                                                                                                                                                                          | —            |
+| **REV**                    | Inverts the TX offset sign to work a reversed repeater pair.                                                                                                                                                                                                                   | —            |
+| **🔊 / 🔇 (mute)**         | Single-click mutes/unmutes this slice (deferred by the platform click-discrimination interval). Double-click mutes/unmutes all owned slices. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. Mute state is NOT saved/restored on reconnect — the radio is the source of truth. | 🔊 (unmuted)  |
+| **AF gain**                | Adjusts slice audio output gain (0–100).                                                                                                                                                                                                                                       | 70           |
+| **L / R pan**              | Pans slice audio between left and right channels (0–100). Double-click resets to 50 (centre).                                                                                                                                                                                  | 50           |
+| **SQL**                    | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504).                                                                                                   | —            |
+| **Squelch level**          | Adjusts squelch threshold (0–100). Takes effect only when SQL is on. Disabled in RTTY and digital modes. Manual level persists across sessions.                                                                                                                                | 20           |
+| **AGC mode**               | Sets slice AGC mode: Off, Slow, Med, Fast. Hidden in FM family modes.                                                                                                                                                                                                          | Med          |
+| **AGC threshold**          | Sets AGC threshold (or AGC off-level when AGC mode is Off).                                                                                                                                                                                                                    | 65           |
+| **RIT**                    | Toggles Receive Incremental Tuning on/off.                                                                                                                                                                                                                                     | —            |
+| **RIT 0**                  | Zeroes the RIT offset.                                                                                                                                                                                                                                                         | —            |
+| **RIT offset**             | Adjusts RIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                                                                                                                                                           | +0 Hz        |
+| **XIT**                    | Toggles Transmit Incremental Tuning on/off.                                                                                                                                                                                                                                    | —            |
+| **XIT 0**                  | Zeroes the XIT offset.                                                                                                                                                                                                                                                         | —            |
+| **XIT offset**             | Adjusts XIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                                                                                                                                                           | +0 Hz        |
 
 ## Filter width stepping
 
@@ -102,20 +102,15 @@ Entries that do not conform to either format, or where `hi <= lo`, are silently 
 
 You do not normally need to edit these values by hand. Right-clicking a **Filter width presets** button saves the current filter width into that slot using the appropriate format automatically.
 
-## NT mode
+## Squelch behavior in RTTY and digital modes
 
-v0.9.3 adds the **NT** mode to the mode selector. NT behaves as a digital mode in the following ways:
+From v26.5.1, when you switch to RTTY mode, the **SQL** button and squelch level slider are disabled, and any active squelch is turned off automatically. This prevents squelch from notching out FSK characters and breaking decoding. The same behavior applies to DIGU, DIGL, and NT modes.
 
-- It uses the same filter width presets and step sizes as DIGU and DIGL.
-- Filter width is calculated from the high-edge value (same as USB, DIGU, and FDV).
-- The **SQL** button and squelch level slider are disabled while NT is active, and any active squelch is turned off automatically (same behavior as DIGU and DIGL).
+## RADE mode behavior
 
-## RTTY and RADE mode behavior
+RADE is handled as a client-side mode only. The radio responds by echoing back the real mode (DIGL or DIGU) immediately. The `radeActivated` signal is emitted correctly based on the client-side RADE activation state, ensuring proper behavior when switching modes on or off RADE slices.
 
-From v26.5.1:
-
-- **RTTY mode** is now included in the squelch-disabling logic alongside DIGU, DIGL, and NT. When you switch to RTTY mode, the **SQL** button and squelch level slider are disabled, and any active squelch is turned off automatically. This prevents squelch from notching out FSK characters and breaking decoding.
-- **RADE mode** — RADE is handled as a client-side mode only. The radio responds by echoing back the real mode (DIGL or DIGU) immediately. The `radeActivated` signal is now emitted correctly based on the client-side RADE activation state, ensuring proper behavior when switching modes on or off RADE slices.
+When switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice.
 
 ## Antenna menu improvements
 
@@ -128,12 +123,4 @@ From v26.5.2.1, the RX and TX antenna selection menus have been updated:
 
 ## Squelch manual level persistence
 
-From v26.5.2.1, the manual squelch level setting persists across sessions. The applet stores the last user-chosen manual squelch threshold under the `LastManualSquelchLevel` setting key. This is necessary because auto mode can overwrite the slice's squelch level with algorithm-suggested values, making the radio an unreliable source of truth for the operator's manual preference.
-
-When the applet starts, it loads the previously saved manual squelch level (default: 20) and applies it to the **Squelch level** slider. This ensures your manually-set squelch threshold is preserved across mode cycles and application launches.
-
-## Tips
-
-- You do not need to type trailing zeros. `14.2` is interpreted as 14.200 MHz.
-- To move frequency in small steps without retyping, use the `<` and `>` buttons next to **STEP**, or scroll the mouse wheel over the **Frequency label** after tuning.
-- The step size
+From v26.5.2.1, the manual squelch level setting persists across

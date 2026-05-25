@@ -30,22 +30,34 @@ The de-esser has separate instances for transmit and receive:
 | TX (channel strip) | Open the TX channel strip, click De-Ess stage | "Aetherial De-Esser — TX" |
 | RX (channel strip) | Open the RX channel strip, click De-Ess stage | "Aetherial De-Esser — RX" |
 
-Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack, and Release. The docked applet omits Attack and Release knobs.
+Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack, Release, and Slope. The docked applet omits Attack and Release knobs.
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| **Freq** | 6000 Hz | 1000 – 12000 Hz | Logarithmic mapping. Sets centre frequency of the sibilance band. Label shows "6.0 kHz" above 1 kHz, "N Hz" below. |
-| **Q** | 2.00 | 0.5 – 5.0 | Linear mapping. Sets bandwidth — higher Q = narrower. Label shows "X.XX". |
-| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | Linear mapping. Level above which de-esser starts attenuating. |
-| **Amount** | −6.0 dB | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation at peak sibilance. Negative values represent reduction. |
-| **Attack** | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. How quickly de-esser responds once sibilance crosses threshold. Only in Channel Strip panel (RX and TX). |
-| **Release** | 100 ms | 10.0 to 500.0 ms | Exponential mapping. How quickly gain returns after sibilance drops below threshold. Only in Channel Strip panel (RX and TX). |
+| Control     | Default   | Valid range    | Behavior |
+|-------------|-----------|----------------|----------|
+| **Freq**    | 6000 Hz   | 1000 – 12000 Hz | Logarithmic mapping. Sets the centre frequency of the sibilance band. Label shows '6.0 kHz' above 1 kHz, 'N Hz' below. |
+| **Q**       | 2.00      | 0.5 – 5.0      | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows 'X.XX'. |
+| **Thresh**  | −30.0 dB  | −60.0 to 0.0 dB | Linear mapping. Level above which the de-esser starts attenuating the band. |
+| **Amount**  | −6.0 dB   | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Negative values represent reduction. |
+| **Attack**  | 1.0 ms    | 0.1 to 30.0 ms  | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip only (RX and TX). |
+| **Release** | 100 ms    | 10.0 to 500.0 ms | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip only (RX and TX). |
+| **Slope**   | 24 dB/oct | 12 / 24 / 36 / 48 dB/oct | Push button that cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Present in the Channel Strip (left column, bottom). Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
 
 ### Inline value editing
 
 Each knob supports inline value editing. Click the displayed value text to open a small text entry field. Type a new value and press **Enter** or click outside the field to commit. The value is automatically clamped to the knob's valid range. Press **Escape** to cancel the edit and revert to the previous value. This feature works the same way in the docked applet and the channel strip panels.
+
+## Slope button
+
+The **Slope** button in the Channel Strip panel lets you adjust the sidechain filter steepness:
+
+- Click the button to cycle through 12 → 24 → 36 → 48 dB/oct (1 to 4 cascaded bandpass biquads).
+- Each click increases the rolloff by 12 dB/oct outside the sibilant band.
+- Higher slope values create a narrower notch around the centre frequency, reducing collateral attenuation of mid-range speech.
+- The button label updates to show the current setting (e.g., "24 dB/oct").
+- The sidechain response curve updates to reflect the new slope.
+- Slope setting persists independently for TX and RX paths.
 
 ## Settings persistence
 
@@ -59,6 +71,7 @@ Each instance saves and restores its control values from the settings database:
 | `ClientDeEssTxAmountDb` | TX maximum attenuation |
 | `ClientDeEssTxAttackMs` | TX attack time |
 | `ClientDeEssTxReleaseMs` | TX release time |
+| `ClientDeEssTxSlopeStages` | TX slope stage count |
 | `ClientDeEssTxEnabled` | TX enabled state |
 
 RX settings use a parallel key set (`ClientDeEssRx*`). Settings are saved when you adjust any knob or close the panel.
@@ -69,6 +82,7 @@ RX settings use a parallel key set (`ClientDeEssRx*`). Settings are saved when y
 - A **Q** of 2.00 is a reasonable starting point. Increase it to isolate a narrow problem band; decrease it if the sibilance is spread across a wider range.
 - Set **Thresh** so the gain-reduction bar only moves on genuine "S" and "T" sounds, not on normal vowels or consonants.
 - The −6 dB tick on the gain-reduction bar marks the default **Amount** value. Keeping reduction near that tick usually produces transparent results. Larger amounts are available but can make the effect audible as pumping or lisping.
+- Use the **Slope** button to fine-tune the filter steepness. Start with 24 dB/oct and increase if you hear too much mid-range attenuation on sibilant-heavy phrases.
 - Use different settings for TX and RX — you may need more aggressive de-essing on receive than on transmit, or vice versa.
 - When the stage is bypassed, the panel dims noticeably. If the panel appears dim and you are not hearing de-essing, check that the DESS stage is not bypassed in the CHAIN widget.
 

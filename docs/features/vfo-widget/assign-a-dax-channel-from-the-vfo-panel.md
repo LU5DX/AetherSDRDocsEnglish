@@ -119,6 +119,23 @@ The slice badge shows the slice letter. Starting in v26.5.2, the badge supports 
 
 Click the frequency display to begin direct frequency entry. Type the frequency in MHz and press Enter or Tab. Starting in v26.5.2, on XVTR bands the frequency range is extended to 50000.0 MHz. For 2m/70cm bands (100-999 MHz range), a bare integer like 1446 is automatically interpreted as 144.6 MHz by inserting a decimal after the third digit. For 23cm and microwave bands, a bare integer represents MHz directly.
 
+Starting in v26.5.3, frequency entry parsing is improved with context-aware handling. When you explicitly enter a frequency above 54 MHz (e.g., typing "144.225"), the parser correctly treats it as MHz even without an XVTR slice, allowing direct VHF/UHF entry. The `FrequencyEntryParser::normalizedMhzText` function normalizes input formats like "14.225.000" by removing extra dots. The `FrequencyEntryParser::isExplicitMhzEntry` function detects when you have typed a MHz value explicitly. On XVTR bands, the 3-digit band convenience (bare integer like 1446 = 144.6 MHz) continues to work.
+
+If you attempt a direct frequency entry while the VFO is locked, the entry is cancelled and the LOCKED overlay is shown instead of accepting the new frequency (issue #2983). The frequency display also indicates when tune is blocked by lock. Scroll-wheel tuning on a locked VFO triggers the same feedback — the slice model notifies `tuneBlockedByLock`, which cancels any in-progress frequency entry and repaints the LOCKED indicator.
+
+### VFO lock behavior
+
+The **Lock VFO button** toggles the locked state of the VFO. When locked:
+- Scroll-wheel tuning is blocked — the slice model shows feedback via `tuneBlockedByLock`.
+- Direct frequency entry is cancelled when attempting to begin or during an active entry.
+- The frequency display shows a LOCKED overlay (🔒 symbol) instead of the frequency value during direct entry attempts.
+
+Unlocking clears the LOCKED overlay centrally in the SliceModel (issue #2983).
+
+### Tab layout improvement
+
+Starting in v26.5.3, the VFO panel tab stack uses a custom `TabStack` widget that reports only the current tab's preferred size. This fixes a visual gap inside the Mode tab when the DSP tab is taller (due to the digContainer being visible in DIGU/DIGL modes). The tab content no longer over-allocates height from the maximum of all pages.
+
 ## Tips
 
 - Each DAX channel can be assigned to only one slice at a time. If you assign a channel that is already in use by another slice, the radio will move the assignment.
@@ -132,6 +149,8 @@ Click the frequency display to begin direct frequency entry. Type the frequency 
 - **DSP level slider is dimmed** — No leveled DSP algorithm is currently active, or only RNN, ANFT, or APF is enabled. Turn on NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
 - **DSP level slider is missing on startup** — If a leveled DSP algorithm was enabled in the radio's saved profile, the slider is now automatically populated. If it still appears missing, toggle the algorithm off and on again.
 - **Squelch button is disabled** — You are in Digital, RTTY, or CW mode. Squelch is not available in these modes (digital and RTTY route audio through DAX; CW has radio-locked fixed squelch). Switch to a supported mode such as USB or AM to enable squelch controls.
+- **Frequency entry does not accept VHF/UHF frequencies** — Starting in v26.5.3, type the frequency explicitly in MHz format (e.g., "144.225") and the parser will accept it even without an XVTR slice.
+- **VFO lock prevents frequency change** — When locked, scroll-wheel tuning and direct frequency entry are blocked. Click the Lock VFO button to unlock the VFO before attempting to change frequency. The LOCKED overlay will disappear upon unlock.
 
 ## Related
 

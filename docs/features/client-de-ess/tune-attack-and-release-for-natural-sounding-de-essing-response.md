@@ -1,13 +1,13 @@
-# Tune Attack and Release for natural-sounding de-essing response
+# Tune Attack, Release, and Slope for natural-sounding de-essing response
 
-This page helps you adjust the Attack and Release knobs on the RX-side or TX-side De-Ess editor so the de-esser responds to sibilance quickly without sounding choppy or unnatural.
+This page helps you adjust the Attack, Release, and Slope controls on the RX-side or TX-side De-Ess editor so the de-esser responds to sibilance quickly without sounding choppy or unnatural.
 
 ## Before you start
 
 - The De-Ess stage must be enabled in the CHAIN widget (click DESS once to enable; double-click to open the editor).
-- For TX: the docked **Aetherial De-Esser** applet shows the four everyday knobs (Freq, Q, Thresh, Amount). **Attack** and **Release** are only available in the frameless editor window opened by double-clicking DESS in the CHAIN widget (or by opening the Aetherial Audio Channel Strip).
-- For RX: open the Aetherial Audio Channel Strip and double-click DESS in the RX chain to open the RX De-Ess editor, which includes Attack and Release.
-- The Attack and Release knobs are only present in the **StripDeEssPanel** (inside the Channel Strip), not in the docked ClientDeEssApplet.
+- For TX: the docked **Aetherial De-Esser** applet shows the four everyday knobs (Freq, Q, Thresh, Amount). **Attack**, **Release**, and **Slope** are only available in the frameless editor window opened by double-clicking DESS in the CHAIN widget (or by opening the Aetherial Audio Channel Strip).
+- For RX: open the Aetherial Audio Channel Strip and double-click DESS in the RX chain to open the RX De-Ess editor, which includes Attack, Release, and Slope.
+- The Attack, Release, and Slope controls are only present in the **StripDeEssPanel** (inside the Channel Strip), not in the docked ClientDeEssApplet.
 
 ## Inline value editing
 
@@ -20,7 +20,7 @@ All knobs in the De-Ess editor now support inline numeric entry for precise adju
 
 ## Steps
 
-1. Open the De-Ess editor that includes Attack and Release:
+1. Open the De-Ess editor that includes Attack, Release, and Slope:
    - **TX:** Double-click the DESS stage in the CHAIN widget to open the frameless editor titled **Aetherial De-Esser — TX**.
    - **RX:** Open the **Aetherial Audio Channel Strip** and double-click **DESS** in the RX chain to open the RX De-Ess editor.
 
@@ -41,28 +41,38 @@ All knobs in the De-Ess editor now support inline numeric entry for precise adju
    - Turn **clockwise** to lengthen release (gain returns slowly after sibilance stops; may sound "pumped" on fast speech).
    - Turn **counter-clockwise** to shorten release (gain snaps back quickly; can sound choppy on sustained 'S' sounds).
 
-5. Test with a sibilant phrase while watching the **Gain-reduction bar** (the soft-red strip at the bottom of the De-Ess curve widget):
+5. Adjust **Slope**:
+   - Click the **Slope** button at the bottom of the left knob column to cycle through available slopes.
+   - Default: **24 dB/oct** (2 cascaded bandpass biquads)
+   - Available settings: **12, 24, 36, 48 dB/oct** (1 to 4 stages)
+   - Higher slope = narrower effective notch around the sibilant frequency = less mid-band collateral on Ess-heavy phrases.
+   - The button text updates to show the current setting (e.g., "24 dB/oct").
+
+6. Test with a sibilant phrase while watching the **Gain-reduction bar** (the soft-red strip at the bottom of the De-Ess curve widget):
    - Aim for smooth, brief reductions on each 'S' peak (the bar should fill and empty cleanly with each syllable).
    - If the bar "hangs" after sibilance stops, increase **Release** (longer sustain).
    - If the bar reacts sluggishly to the first 'S' of a word, decrease **Attack** (faster response).
+   - If you hear collateral attenuation of mid speech bands on Ess-heavy phrases, try a higher **Slope** setting.
 
-6. Listen on-air or record a short sample and adjust iteratively until the de-essing sounds transparent.
+7. Listen on-air or record a short sample and adjust iteratively until the de-essing sounds transparent.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Mapping | Setting key |
-|---|---|---|---|---|---|
-| Attack | knob | 1.0 ms | 0.1–30.0 ms | Exponential (`0.1 * 300^n`) | `ClientDeEssTxAttackMs` or `ClientDeEssRxAttackMs` |
-| Release | knob | 100 ms | 10.0–500.0 ms | Exponential (`10 * 50^n`) | `ClientDeEssTxReleaseMs` or `ClientDeEssRxReleaseMs` |
+| Control | Kind | Default | Range | Notes |
+|---------|------|---------|-------|-------|
+| Attack | knob | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. Present in StripDeEssPanel only. |
+| Release | knob | 100 ms | 10.0 to 500.0 ms | Exponential mapping. Present in StripDeEssPanel only. |
+| Slope | push button | 24 dB/oct | 12/24/36/48 dB/oct | Cycles through 1 to 4 cascaded bandpass biquads. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
 
-These two controls exist only in the frameless strip editors (StripDeEssPanel). The docked ClientDeEssApplet omits them.
+These controls exist only in the frameless strip editors (StripDeEssPanel). The docked ClientDeEssApplet omits them.
 
 ## Tips
 
 - For typical SSB voices, **Attack 0.5–2 ms** and **Release 80–150 ms** works well. Very fast speech (e.g. contesting) may need shorter values at both ends.
+- Start with **Slope** at 24 dB/oct (the default). Increase to 36 or 48 dB/oct only if you hear unwanted attenuation of nearby speech frequencies.
 - The **-6 dB tick** on the gain-reduction bar marks the default Amount level — it's a useful reference for how much the de-esser is actually reducing.
 - The sidechain response curve now shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
-- Attack and Release settings are stored per path (TX and RX) and persist across sessions.
+- Attack, Release, and Slope settings are stored per path (TX and RX) and persist across sessions.
 - To enter precise values, click any knob's value text to activate the inline editor. Type the desired number (with or without units) and press Enter to commit.
 
 ## Related

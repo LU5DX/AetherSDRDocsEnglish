@@ -18,11 +18,11 @@ Use the Tone knob to tilt the spectral character of the saturated signal — neg
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting key | Behavior |
-|---|---|---|---|---|
-| Tone (TX) | 0.00 | −1.0 to 1.0 | `ClientTubeTxTone` | Negative values darken, positive values brighten the saturated signal. |
-| Tone (RX) | 0.00 | −1.0 to 1.0 | `ClientTubeRxTone` | Same behavior as TX Tone, applied to the receive path. |
-
+| Control   | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Tone (TX) | 0.00                                                                                                                                                                                | −1.0 to 1.0                                                                                                                                                                                               |
+| Tone (RX) | 0.00                                                                                                                                                                                | −1.0 to 1.0                                                                                                                                                                                               |
+| RN2       | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 ## Output level meter
 
 The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX**) includes an **OUT** level meter in the far-right column. This meter shows the post-saturation peak level and uses fast-attack / slow-release ballistics.
@@ -64,4 +64,4 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
-- [Type exact values with the value popup editor](type-exact-values-with-the-value-popup-editor.md)
+- Type exact values with the value popup editor

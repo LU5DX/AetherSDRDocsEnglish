@@ -10,16 +10,18 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 ## Steps
 
 1. Locate the **RF Power** slider in the TX Controls applet. It appears below the **SWR** gauge.
-2. Drag the slider left or right to set your desired power level. The numeric readout to the right of the slider updates immediately.
+2. Drag the slider left or right to set your desired power level. The numeric readout to the right of the slider updates immediately, showing "XX W" format.
 3. Confirm the value shown in the readout is what you intend. The **RF Pwr** gauge will reflect actual forward power once you transmit.
 
 ## What each control does
 
 | Control             | Description                                          | Default |
 |---------------------|------------------------------------------------------|---------|
-| **RF Power** slider | Sets the transmit RF power level sent to the radio.  | 100     |
-| **RF Pwr** meter    | Displays actual forward power at the exciter output. | —       |
+| **RF Power** slider | Sets the transmit RF power level sent to the radio. Drag value shows "XX W" format. | 100     |
+| **Tune Pwr** slider | Sets tune-carrier power level. Drag value shows "XX W" format. | 10     |
+| **RF Pwr** meter    | Displays actual forward power at the exciter output.  | —       |
 | **SWR** meter       | Displays standing wave ratio at the exciter.         | —       |
+| **TX Profile** combo box | Selects a transmit profile (e.g. SSB, Digital) from those available on the radio. | — |
 
 ## Tips
 

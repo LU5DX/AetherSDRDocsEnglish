@@ -11,33 +11,37 @@ This page shows how to add a publish button to the MQTT applet and use it to sen
 ## Steps
 
 1. Open the MQTT applet by clicking the MQTT tray button on the right sidebar.
-2. If you are not already connected, fill in Host, Port, User, Pass, and Topics, then click Enable to set it to "On". Wait for the status label to read "Connected".
-3. Click Edit. The button changes to "Done" and edit mode begins. Any existing publish buttons change appearance to indicate they are editable.
-4. Click the `+` tile that appears in the button grid. An edit dialog opens.
-5. In the dialog, enter the button label (the text that will appear on the button), the topic to publish to, and the payload to send. Confirm the dialog.
-6. The new button appears in the grid. Repeat steps 4–5 to add more buttons (up to 12 total).
-7. Click Done to exit edit mode. Buttons return to their normal appearance.
-8. Click any publish button to send its configured payload to its configured topic immediately. The button is only active while connected.
+2. If you are not already connected, click Settings... to open the MQTT Settings dialog. Configure the broker connection details (Host, Port, User, Password), subscription topics, and publish buttons. Click OK to save.
+3. Click Enable to set it to "On". Wait for the status label to read "Connected".
+4. Click any publish button to send its configured payload to its configured topic immediately. The button is only active while connected.
 
 ## What each control does
 
-| Control | Kind | Default | Valid range | Setting key | Behavior |
-|---|---|---|---|---|---|
-| Publish buttons | Push button | — | Up to 12 buttons | `MqttButtons` | Each click publishes the configured payload to the configured topic. Only active while connected. |
-| Edit / Done | Toggle button | Edit | — | — | Enters or exits button-edit mode. In edit mode, clicking a button opens its edit dialog; right-clicking a button shows a Remove option; the `+` tile adds a new button. |
+| Control         | Kind                                                                                                                                        | Default                                                                             |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| Settings...     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                 | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.          |
+| Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
+| Message log     | Displays received messages as "topic: value" lines. Also processes antenna alias updates from MQTT.                                        | Capped to 50 entries.                                                               |
+| Enable (Off/On) | Toggle button to connect or disconnect from the broker using settings from MqttSettingsDialog.                                              | Off. Password is loaded from system keychain on first enable.                       |
+
+## Indicators
+
+| Indicator    | States                                    | Meaning                                                                                       |
+|--------------|-------------------------------------------|-----------------------------------------------------------------------------------------------|
+| Status label | Disconnected, Connected, <error message>  | Connection state with colour: green when connected, grey when disconnected, default on error. |
 
 ## Tips
 
-- To edit an existing button, click Edit, then click the button you want to change. The edit dialog opens with the current label, topic, and payload pre-filled.
-- To remove a button, click Edit, then right-click the button and choose "Remove".
-- Button definitions are stored as JSON under `MqttButtons` and persist across restarts.
+- Password is stored in the system keychain and loaded automatically when you first enable the connection. If the keychain password is not yet loaded, the status shows "Waiting for keychain".
+- Broker connection settings (host, port, credentials, TLS, and subscriptions) are configured in the MQTT Settings dialog (Settings > MQTT...) rather than inline in the applet.
+- Published button definitions are stored as JSON under `MqttButtons` and persist across restarts.
 - Hovering over a button in normal mode shows a tooltip with the configured topic and payload so you can confirm what will be sent before clicking.
 
 ## Troubleshooting
 
 - **Clicking a publish button does nothing** — The applet is not connected. Check that Enable reads "On" and the status label reads "Connected". If it shows an error, verify your broker settings and click Enable to reconnect.
-- **The `+` tile does not appear** — You have reached the 12-button limit. Remove an existing button to make room.
-- **Button is missing after restart** — Settings are saved when you confirm the edit dialog. If AetherSDR was force-closed, the `MqttButtons` key may not have been written. Re-add the button.
+- **Button is missing after restart** — Settings are saved when you confirm the MQTT Settings dialog. If AetherSDR was force-closed, the `MqttButtons` key may not have been written. Reconfigure the button.
+- **Status shows "Waiting for keychain"** — The system keychain has not yet provided the stored password. This usually resolves automatically after a few seconds. If it persists, check your system keychain configuration.
 
 ## Related
 
