@@ -20,26 +20,27 @@ Use the Speed slider in the Phone/CW applet to set how fast the radio keys CW, m
 | Control           | Description                                                                                                                                                       | Default                                                                                                                  |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | Speed (CW)        | Sets CW keying speed; calls TransmitModel::setCwSpeed. The adjacent QLineEdit accepts typed values (5–100) (v0.9.8, #2429).                                       | 20 WPM                                                                                                                   |
-| ALC (Phone panel) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
-| ALC (CW panel)    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW.                                           | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
+| ALC (Phone panel) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Initialised to -20 dBFS on connect. | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| ALC (CW panel)    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Initialised to -20 dBFS on connect.      | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
+| Compression       | Meter showing speech compression amount. Reversed fill: 0 at the top (no compression), -25 dB at the bottom (full compression). Gated on interlock TRANSMITTING state and speech processor enable (v0.9.7). | Driven by MeterModel COMPPEAK values (0–25 dB positive), negated for gauge display (v26.5.3).                            |
 
 ## Tips
 
 - The Speed (CW) slider operates the radio's keyer speed. Changes take effect immediately and apply to the paddle, straight key, and any CWX text transmissions.
 - The four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are now QLineEdit widgets with QIntValidator. Click any value and type a number directly for SmartSDR parity (v0.9.8).
-- The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone in lockstep. Adjusting speed does not affect sidetone pitch; pitch always follows the radio's `cw_pitch` setting automatically.
-- The **Level** gauge appears immediately on connect when the mic source is set to PC, or when RADE mode is active. In both cases the gauge uses client-side metering and is not suppressed by the `met_in_rx` setting, even when not transmitting. When RADE mode is active, the gauge continues to show level during RX.
-- The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value while the radio's interlock reports a TRANSMITTING state and the speech processor is enabled, preventing stale TX-chain readings from appearing during receive (v0.9.7).
+- The **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone in lockstep. Adjusting speed does not affect sidetone pitch; pitch always follows the radio's `cw_pitch` setting automatically. In v26.5.3 the CW sidetone now routes to the user-selected audio output instead of the default output (#2899).
+- The **Level** gauge appears immediately on connect when the mic source is set to PC, or when RADE mode is active. In v26.5.3 the gauge behavior is unified: the level meter is suppressed to -150 dB during receive whenever `met_in_rx` is off and the radio is not transmitting, regardless of mic source or RADE mode. The previous exception for PC mic and RADE mode has been removed.
+- The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value while the radio's interlock reports a TRANSMITTING state and the speech processor is enabled, preventing stale TX-chain readings from appearing during receive (v0.9.7). In v26.5.3 the gauge now correctly accepts positive compression values (0–25 dB) from the meter model and negates them for the reversed gauge display.
 - The **Mic gain** slider behaves differently when RADE mode is active: it acts as client-side RADE gain and stores its value under `PcMicGain` rather than sending a mic level command to the radio. This prevents silently overwriting the hardware mic setting. The same `PcMicGain` setting is shared between PC source mode and RADE mode.
 - The **Breakin** toggle fully controls whether CW keyboard and MIDI key edges trigger TX. With Breakin on (QSK), key edges trigger TX and the break-in delay holds the relay. With Breakin off, keys are queued and you engage PTT manually. No automatic PTT envelope overrides this behavior (v0.9.7).
 - The **Delay (CW)** slider value is cached immediately when changed, preventing the radio emission from snapping the slider back (v0.9.8, #2428).
 - The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
-- The ALC gauge appears on both the Phone and CW sub-panels. Both gauges read from the same MeterModel::swAlcChanged source, so SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape (v26.5.1, #2552). The previous HWALC meter (RCA voltage path) has been removed.
+- The ALC gauge appears on both the Phone and CW sub-panels. Both gauges read from the same MeterModel::swAlcChanged source, so SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape (v26.5.1, #2552). The previous HWALC meter (RCA voltage path) has been removed. Both gauges are initialised to -20 dBFS on connect to prevent showing stale values (v26.5.3).
 
 ## Related
 
 - [Set CW break-in delay](set-cw-break-in-delay.md)
 - [Enable iambic paddle keying](enable-iambic-paddle-keying.md)
 - [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
-- [Set sidetone volume](set-sidetone-volume.md)
-- [Toggle CW sidetone](toggle-cw-sidetone.md)
+- Set sidetone volume
+- Toggle CW sidetone

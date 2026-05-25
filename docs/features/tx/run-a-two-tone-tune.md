@@ -11,8 +11,8 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## Steps
 
-1. In the TX Controls applet, set the **Tune Pwr** slider to the power level you want to use for the test. Default is 10; valid range is 0–100.
-2. Set the **RF Power** slider to the desired output level. Default is 100; valid range is 0–100.
+1. In the TX Controls applet, set the **Tune Pwr** slider to the power level you want to use for the test. Default is 10; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in watts (e.g., "10 W").
+2. Set the **RF Power** slider to the desired output level. Default is 100; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in watts (e.g., "100 W").
 3. If you want to use a specific transmit profile (for example, a clean SSB profile without processing), select it from the **TX Profile** drop-down.
 4. Start the two-tone audio signal from your external source so it is feeding the radio's input.
 5. Click **MOX**. The button turns red and the radio keys up.
@@ -22,14 +22,14 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## What each control does
 
-| Control    | Kind                                                        | Default                                                                                                                                                                                   |
-|------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| RF Power   | Slider                                                      | 100                                                                                                                                                                                       |
-| Tune Pwr   | Slider                                                      | 10                                                                                                                                                                                        |
-| TX Profile | Drop-down                                                   | —                                                                                                                                                                                         |
+| Control    | Kind                                                        | Default                                                                                                                                                                                  |
+|------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Power   | Slider                                                      | 100                                                                                                                                                                                      |
+| Tune Pwr   | Slider                                                      | 10                                                                                                                                                                                       |
+| TX Profile | Drop-down                                                   | —                                                                                                                                                                                        |
 | MOX        | Toggles manual transmit; button goes red while TX is keyed. | In v0.9.7, click routes through `requestPttOn`/`requestPttOff` so Quindar tones (K/BK) play on engage/disengage in phone modes when the QUIN chip is enabled in the Audio Channel Strip. |
-| RF Pwr     | Meter                                                       | —                                                                                                                                                                                         |
-| SWR        | Meter                                                       | —                                                                                                                                                                                         |
+| RF Pwr     | Meter                                                       | —                                                                                                                                                                                        |
+| SWR        | Meter                                                       | —                                                                                                                                                                                        |
 
 ## Tips
 
@@ -81,5 +81,5 @@ The selection is a one-shot and is not persisted across power cycles. The radio'
 - [Switch TX profiles (e.g. SSB, Digital)](switch-tx-profiles-e-g-ssb-digital.md)
 - [Run the internal ATU](run-the-internal-atu.md)
 - [Recall an ATU memory](recall-an-atu-memory.md)
-- [Pre-tune bands for the ATU](pre-tune-bands-for-the-atu.md)
-- [Clear ATU memories](clear-atu-memories.md)
+- Pre-tune bands for the ATU
+- Clear ATU memories

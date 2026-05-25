@@ -12,7 +12,7 @@ Click the **P/CW** tray button in the right sidebar.
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Level             | Meter                                                                                                                                                             | Shows microphone input peak level in dBFS (-40 to +10 dBFS; red above 0). Suppressed to -150 dBFS when `met_in_rx` is off and not transmitting, except when the mic source is PC or RADE is active. |
 | Compression       | Meter                                                                                                                                                             | Shows speech compression amount in dB (-25 to 0 dB, reversed fill). Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX (v0.9.7+).                  |
-| ALC (Phone panel) | Meter                                                                                                                                                             | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Red threshold at -3 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| ALC (Phone panel) | Meter                                                                                                                                                             | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Red threshold at -3 dBFS. Initializes to -20 dBFS on startup. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
 | Mic profile       | Combo box                                                                                                                                                         | Loads a named microphone processing profile from the radio. Click to select a profile; it loads immediately.                                                                                        |
 | Mic source        | Combo box                                                                                                                                                         | Selects the microphone input source: MIC, BAL, LINE, ACC, or PC. Calls `TransmitModel::setMicSelection`.                                                                                            |
 | Mic gain          | Slider (0-100)                                                                                                                                                    | Adjusts microphone input level. For the "PC" source, uses local `PcMicGain` persistence (the radio always reports mic_level=0 when source=PC).                                                      |
@@ -33,7 +33,7 @@ The Compression gauge only shows a live value while the radio is actually transm
 
 ### ALC gauge (Phone panel)
 
-The ALC gauge shows the post-software-ALC SSB peak in dBFS, read from `MeterModel::swAlcChanged`. It fills from right to left: empty at -20 dBFS, full at 0 dBFS. The red threshold is at -3 dBFS. This gauge mirrors the one on the CW panel — both read from the same source for consistent readings across voice and CW modes.
+The ALC gauge shows the post-software-ALC SSB peak in dBFS, read from `MeterModel::swAlcChanged`. It fills from right to left: empty at -20 dBFS, full at 0 dBFS. The red threshold is at -3 dBFS. The gauge initializes to -20 dBFS on startup. This gauge mirrors the one on the CW panel — both read from the same source for consistent readings across voice and CW modes.
 
 ### RADE mode behavior (v0.9.7+)
 
@@ -46,10 +46,10 @@ When RADE mode is active:
 
 | Control | Kind | Behavior |
 |---------|------|----------|
-| ALC (CW panel) | Meter | Mirrors the Phone-panel ALC gauge. Shows post-software-ALC SSB peak in dBFS (-20 to 0 dBFS; red above -3). Fills right-to-left. Added in v26.5.1 (#2552) as part of the SW ALC meter split. |
+| ALC (CW panel) | Meter | Mirrors the Phone-panel ALC gauge. Shows post-software-ALC SSB peak in dBFS (-20 to 0 dBFS; red above -3). Fills right-to-left. Initializes to -20 dBFS on startup. Added in v26.5.1 (#2552) as part of the SW ALC meter split. |
 | Delay (CW) | Slider (0-2000 ms, step 10) + QLineEdit | Sets CW break-in delay. Drag the slider or click the value and type a number directly (0-2000). Calls `TransmitModel::setCwDelay`. Default: 500. In v0.9.8, value caching was fixed to prevent the slider from snapping back when the radio emits (#2428). |
 | Speed (CW) | Slider (5-100 WPM) + QLineEdit | Sets CW keying speed. Drag the slider or click the value and type a number directly (5-100). Calls `TransmitModel::setCwSpeed`. Default: 20. |
-| Sidetone | Toggle | Toggles CW sidetone monitor. Controls both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. Calls `TransmitModel::setCwSidetone`. |
+| Sidetone | Toggle | Toggles CW sidetone monitor. Controls both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. Calls `TransmitModel::setCwSidetone`. In v26.5.3, the CW sidetone routes to the user-selected audio output instead of the default output (#2899). |
 | Sidetone volume | Slider (0-100) + QLineEdit | Sets CW monitor volume for both the radio (mon_gain_cw) and the local sidetone generator. Drag the slider or click the value and type a number directly (0-100). Default: 50. |
 | L / R pan (CW) | Slider (0-100) | Sets CW monitor stereo pan. Applies constant-power pan to both the radio side and the local sidetone generator. Double-click recenters to 50 (centre). Default: 50. |
 | Breakin | Toggle | Toggles full break-in (QSK). Calls `TransmitModel::setCwBreakIn`. Fully honors the radio's break_in setting (v0.9.7+): with Breakin ON (QSK) key edges trigger TX immediately; with Breakin OFF keys are queued and the operator engages PTT manually. |
@@ -58,7 +58,7 @@ When RADE mode is active:
 
 ### ALC gauge (CW panel)
 
-The ALC gauge on the CW panel is identical to the one on the Phone panel. It shows the post-software-ALC SSB peak in dBFS (-20 to 0 dBFS), filling from right to left with red threshold at -3 dBFS. Both gauges read from the same `MeterModel::swAlcChanged` source so operators see the same ALC indication regardless of which panel is active for the current mode.
+The ALC gauge on the CW panel is identical to the one on the Phone panel. It shows the post-software-ALC SSB peak in dBFS (-20 to 0 dBFS), filling from right to left with red threshold at -3 dBFS. The gauge initializes to -20 dBFS on startup. Both gauges read from the same `MeterModel::swAlcChanged` source so operators see the same ALC indication regardless of which panel is active for the current mode.
 
 ### Direct value entry (v0.9.8)
 
@@ -76,6 +76,10 @@ Click any value, type a number, and press Enter. The corresponding slider update
 The single **Sidetone** toggle and **Sidetone volume** slider control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator (CwSidetoneGenerator, ~10 ms latency) in lockstep. There are no separate local-sidtone controls.
 
 Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically; no manual override is needed or available.
+
+### Sidetone routing (v26.5.3)
+
+In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default audio output (#2899). Configure the audio output in **File > Settings > Audio** to choose where sidetone plays.
 
 ### Sidetone bus sharing with Quindar tones (v0.9.7+)
 
@@ -138,8 +142,7 @@ Quindar tones and CW sidetone share the audio bus; the applet manages the switch
 
 - **ALC gauge rewired to SW ALC meter:** The ALC gauge on both the Phone and CW panels now reads from `MeterModel::swAlcChanged` (post-software-ALC SSB peak in dBFS) instead of the previous HWALC (RCA voltage) path (#2552). The range is -20 to 0 dBFS with fill from right to left. The CW panel's ALC gauge is now identical to the Phone panel's ALC gauge, providing consistent readings across both voice and CW modes.
 
-## Related
+## Changes in v26.5.3
 
-- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
-- [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
+- **CW sidetone output routing:** The CW sidetone now routes to the user-selected audio output instead of the default output (#2899). Configure the audio output in **File > Settings > Audio**.
+- **ALC gauge initialization:** Both Phone and CW panel ALC gauges now initialize to -20 dBFS on startup

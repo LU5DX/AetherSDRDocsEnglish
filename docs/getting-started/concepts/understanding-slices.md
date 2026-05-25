@@ -49,7 +49,7 @@ To prevent accidental retuning, click the 🔓 button in the RX Controls applet.
 
 ## AF gain and pan
 
-Adjust the **AF gain** slider (0–100) to set the slice audio output volume. Use the **L / R pan** slider (0–100) to position the slice audio in the stereo field: 0 is full left, 50 is centre, 100 is full right. Double-click the pan slider to reset to centre.
+Adjust the **AF gain** slider (0–100) to set the slice audio output volume. Use the **L / R pan** slider (0–100) to position the slice audio in the stereo field: 0 is full left, 50 is centre, 100 is full right. Double-click the pan slider to reset to centre. The pan slider now shows a text indicator: "C" for centre, "L{n}" for left offset, or "R{n}" for right offset.
 
 ## Squelch
 
@@ -99,11 +99,23 @@ Use the **Widen** and **Narrow** commands to step through the per-mode filter pr
 
 ## Mute
 
-Click the 🔊 / 🔇 button to mute or unmute the slice audio output. Per the Radio-Authoritative Settings Policy, mute state is NOT saved or restored on reconnect — the radio is the source of truth for audio mute.
+Click the 🔊 / 🔇 button to mute or unmute the slice audio output. Single-click mutes/unmutes the current slice. Double-click mutes/unmutes all owned slices at once. The mute button is not checkable — the icon updates only when the radio acknowledges the mute state change via the slice model, ensuring the displayed state always matches the radio.
+
+Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved or restored on reconnect — the radio is the source of truth for audio mute.
 
 ## QSK indicator
 
 The **QSK** indicator lights amber when CW break-in (QSK) is active. This is read-only and controlled via the CW applet Breakin button.
+
+## Frequency entry
+
+The **Frequency edit** field now uses `FrequencyEntryParser::normalizedMhzText()` to clean up user-entered MHz values. Entering a frequency above 54.0 MHz without explicit MHz notation (e.g., "144600000" for 144.6 MHz) is treated as a VHF/UHF band entry and auto-scaled accordingly. Explicit MHz notation over 54.0 MHz (e.g., "144.600") grants access to frequencies up to 50000.0 MHz without requiring an XVTR antenna.
+
+## Slider text indicators
+
+Both the AF gain and pan sliders now display live text readouts:
+- **AF gain**: Shows "X%" (e.g., "70%")
+- **Pan**: Shows "C" for centre, "L{n}" for left offset, or "R{n}" for right offset (e.g., "L20", "R15")
 
 ## SWR sweep overlay
 
@@ -130,11 +142,11 @@ To remove the overlay, call `clearSwrSweepPoints()`.
 
 ## Tips
 
-- The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter. The frequency editor supports up to 450 MHz when the slice is on an XVTR antenna.
+- The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter. The frequency editor supports up to 450 MHz when the slice is on an XVTR antenna, and up to 50000.0 MHz when an explicit MHz entry above 54.0 MHz is entered.
 - The **STEP** spinbox controls how far the VFO moves per scroll-wheel click or per press of the **<** / **>** buttons. Step sizes are per-mode — for example, SSB steps are 1, 10, 50, 100, 500, 1000, 2000, or 3000 Hz; CW steps are 1, 5, 10, 50, 100, 200, or 400 Hz.
 - The default step size is 100 Hz (index 2 in the per-mode list).
 - Pressing Escape in the frequency edit field cancels the entry, restores the previous frequency, and dismisses the editor.
-- The **AF gain** and **L / R pan** sliders have a default value of 70 and 50 (centre) respectively.
+- The **AF gain** slider default is 70. The **L / R pan** slider default is 50 (centre).
 - The **Squelch level** default is 20. The manual squelch level is remembered across sessions.
 - The **AGC threshold** default is 65.
 
@@ -149,4 +161,4 @@ To remove the overlay, call `clearSwrSweepPoints()`.
 - [Click the spectrum to activate a panadapter (multi-slice mode)](../../features/panadapter/click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
 - [Panadapter overview](../../features/panadapter/overview.md)
 - [Make your first QSO with AetherSDR](../tutorials/first-qso.md)
-<!-- docmesh:llm version=v0.9.8 date=2026-06-01 -->
+<!-- docmesh:llm version=v0.9.8 date=2026-06

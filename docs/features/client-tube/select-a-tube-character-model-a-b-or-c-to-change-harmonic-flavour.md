@@ -16,14 +16,14 @@ The tube character selector chooses which of three distinct saturation curves th
 
 ## What each control does
 
-| Control | Default | Valid values | Persisted setting |
-|---------|---------|--------------|-------------------|
-| **A** | Checked (active) | Selected / not selected | `ClientTubeTxModel` / `ClientTubeRxModel` (stored as integer: 0) |
-| **B** | Unchecked | Selected / not selected | `ClientTubeTxModel` / `ClientTubeRxModel` (stored as integer: 1) |
-| **C** | Unchecked | Selected / not selected | `ClientTubeTxModel` / `ClientTubeRxModel` (stored as integer: 2) |
+| Control | Default                                                                                                                                                                             | Valid values                                                                                                                                                                                              |
+|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **A**   | Checked (active)                                                                                                                                                                    | Selected / not selected                                                                                                                                                                                   |
+| **B**   | Unchecked                                                                                                                                                                           | Selected / not selected                                                                                                                                                                                   |
+| **C**   | Unchecked                                                                                                                                                                           | Selected / not selected                                                                                                                                                                                   |
+| RN2     | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
 A, B, and C are mutually exclusive. Selecting one deselects the others. The same setting key (`ClientTubeTxModel` for TX, `ClientTubeRxModel` for RX) stores the choice for its respective side; TX and RX selections are fully independent.
-
 ## Bypass dim behaviour
 
 When the tube stage is bypassed, the docked applet tile renders at reduced opacity (approximately 55 %). This matches the dim effect used on the EQ curve elsewhere in the chain. The tile returns to full opacity as soon as the stage is re-enabled. The dim is applied to the entire tile, including the transfer curve and all knobs. It is a visual indicator only and does not affect the persisted settings.

@@ -20,24 +20,48 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
    - If it shows `Slice <letter>` (with the slice letter rendered in rich text, e.g., colored or styled), the TX path is active.
 5. Drag the **TX gain+meter** slider to confirm it is not set to `0.0`. The default is `0.5` (valid range: 0.0–1.0, persisted as `TciTxGain`). A value of `0.0` produces silence regardless of platform.
 6. Key the transmitter from your third-party application and watch the **TX gain+meter** for level movement. If the meter shows activity, audio is reaching the server and the radio should be transmitting.
+7. If you are using a digital mode that requires bit-exact tone fidelity, right-click the **TX gain+meter** slider to open the TX overflow handling menu. Select the desired mode to control how out-of-range (>1.0) samples from TCI clients are processed.
 
 ## What each control does
 
-| Control            | Default | Valid range |
-|--------------------|---------|-------------|
-| **Port**           | `50001` | 1024–65535  |
-| **Enable**         | Off     | On / Off    |
-| **TX gain+meter**  | `0.5`   | 0.0–1.0     |
-| **RX1 gain+meter** | `0.5`   | 0.0–1.0     |
-| **RX2 gain+meter** | `0.5`   | 0.0–1.0     |
-| **RX3 gain+meter** | `0.5`   | 0.0–1.0     |
-| **RX4 gain+meter** | `0.5`   | 0.0–1.0     |
+| Control                        | Default | Valid range | Behavior |
+|--------------------------------|---------|-------------|----------|
+| **Port**                       | `50001` | 1024–65535 | Changing the port restarts the server if enabled. Out-of-range values snap to 50001. |
+| **Enable**                     | Off     | On / Off    | Starts or stops the TCI server; emits tciToggled. If bind fails the toggle snaps back to off and status shows '(port in use)'. |
+| **TX gain+meter**              | `0.5`   | 0.0–1.0     | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker. |
+| **RX1 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 1 and emits tciRxGainChanged. Persisted as `TciRxGain1`. |
+| **RX2 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 2 and emits tciRxGainChanged. Persisted as `TciRxGain2`. |
+| **RX3 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 3 and emits tciRxGainChanged. Persisted as `TciRxGain3`. |
+| **RX4 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 4 and emits tciRxGainChanged. Persisted as `TciRxGain4`. |
+| **TX overflow mode (right-click)** | Clip | Clip (0), NaNGuard (1), Measure (2) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. New in v26.5.3. |
+
+## TX overflow handling modes
+
+Right-click the **TX gain+meter** slider to open the TX overflow handling context menu. This controls how out-of-range (>1.0) samples from TCI digital-mode clients are processed before reaching the radio. The default is **Clip** to maintain backward compatibility.
+
+| Mode | Value | Description |
+|------|-------|-------------|
+| **Clip (saturating ±1.0)** | 0 | Hard-clamp overshoots to ±1.0. Defensive default; introduces harmonics on overshoot but protects downstream int16 conversion. |
+| **NaN guard (zero NaN/Inf only)** | 1 | Pass samples through bit-exact; only zero pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio. |
+| **Measure only (true bypass)** | 2 | Never mutate samples. Count overshoots for telemetry; the downstream int16 conversion still clamps in the radio-native DAX route. |
+
+## Indicators
+
+| Indicator | Possible states | Meaning |
+|-----------|-----------------|---------|
+| **Server status** | `(stopped)` | Server is not running. |
+| | `:<port> (N clients)` | Server is running on the specified port with N connected clients. |
+| | `(port in use)` | The chosen port is already bound by another process. |
+| **RX/TX slice-assignment labels** | `—` | No slice is currently assigned. |
+| | `Slice <letter>` | The specified slice is assigned to this channel. |
+
 ## Tips
 
 - Out-of-range port values snap back to `50001` automatically.
 - If you want the TCI server to start every time AetherSDR launches, enable `Settings > Autostart TCI with AetherSDR`. This sets the `AutoStartTCI` flag and also checks **Enable** on startup.
 - The TX meter uses fast attack and slow decay smoothing, so a brief transmission will keep the meter visibly elevated for a moment after audio stops. No movement at all during a keyed transmission confirms audio is not arriving from the client.
 - Slice assignment labels now support rich text rendering, so slice letters may appear with additional formatting (e.g., color) to indicate slice properties.
+- For digital modes requiring bit-exact tone fidelity, use **NaN guard** or **Measure only** modes to avoid harmonic distortion from clipping.
 
 ## Troubleshooting
 

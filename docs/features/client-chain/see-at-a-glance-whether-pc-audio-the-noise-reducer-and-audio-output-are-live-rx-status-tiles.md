@@ -28,17 +28,26 @@ The RADIO and SPEAK tiles update automatically as conditions change.
 | RX chain stage (**EQ** / **AGC-G** / **AGC-C** / **DESS** / **TUBE** / **EVO**) | Drag handle               | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All six RX stages (EQ, AGC-G/Gate, AGC-C/Comp, DESS/DeEss, TUBE, EVO/Pudu) are fully implemented. Order is independent of the TX chain. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between the two strips. |
 
 The RADIO and SPEAK tiles are not interactive. Single-click, double-click, and drag have no effect on them.
-## How TX and RX BYPASS work in v0.9.8
 
-In v0.9.8, the BYPASS state for both TX and RX is owned by the audio engine rather than tracked locally in the applet. This means the **BYPASS** button on either side stays in sync with the matching BYPASS control in the Aetherial Audio Channel Strip (TX) or the RX strip's internal controls. Pressing **BYPASS** in any location reflects immediately in the other.
+## How TX and RX BYPASS work
+
+The BYPASS state for both TX and RX is owned by the audio engine rather than tracked locally in the applet. This means the **BYPASS** button on either side stays in sync with the matching BYPASS control in the Aetherial Audio Channel Strip (TX) or the RX strip's internal controls. Pressing **BYPASS** in any location reflects immediately in the other.
 
 When switching between TX and RX tabs, the **BYPASS** button visual updates to show the current engine-owned state for the newly active side. No separate snapshot management is needed for either chain.
 
-## How double-click works on TX chain stages in v0.9.8
+## How double-click works on TX chain stages
 
 Double-clicking any TX chain stage tile opens the **Aetherial Audio Channel Strip** — the unified TX DSP window. The per-stage editors remain accessible from within the channel strip itself.
 
 Double-clicking an RX chain stage opens the per-stage frameless floating editor for that stage.
+
+## How click discrimination works
+
+When you single-click a chain stage, AetherSDR waits for the duration set in **Interaction Settings** (accessible from `View > Interaction Settings`) before deciding whether it was a single-click or the first click of a double-click. This prevents accidental bypass toggles when you intend to double-click to open an editor.
+
+- If you double-click a stage, the editor opens immediately and no bypass toggle occurs.
+- If you single-click a stage and then stop, the bypass toggles after the interaction interval elapses.
+- The default interval matches your operating system's double-click time, but you can adjust it in Interaction Settings to better suit your clicking speed.
 
 ## Tips
 
@@ -47,6 +56,7 @@ Double-clicking an RX chain stage opens the per-stage frameless floating editor 
 - The gate and compressor stages in the RX chain are labelled **AGC-G** and **AGC-C** respectively. These correspond to the Gate and Comp stages internally.
 - Because bypass state is now engine-owned for both sides, the **BYPASS** button will correctly reflect any bypass change made from other sources, even if the chain applet was not the source of that change.
 - The RX chain includes a fully implemented DESS (De-Esser) stage between AGC-C and TUBE.
+- If you find that single-clicks sometimes trigger bypass when you meant to double-click, adjust the click discrimination interval in `View > Interaction Settings` to a longer value.
 
 ## Related
 

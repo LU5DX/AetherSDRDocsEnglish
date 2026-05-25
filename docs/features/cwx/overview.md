@@ -53,5 +53,5 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 - [Change CW send speed in WPM](change-cw-send-speed-in-wpm.md)
 - [Enable QSK full break-in](enable-qsk-full-break-in.md)
 - [Look up the prosign character shortcuts](look-up-the-prosign-character-shortcuts.md)
-- [Resend a previous CW buffer](resend-a-previous-cw-buffer.md)
-- [Clear CW send history](clear-cw-send-history.md)
+- Resend a previous CW buffer
+- Clear CW send history

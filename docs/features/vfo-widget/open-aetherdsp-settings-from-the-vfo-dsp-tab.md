@@ -17,7 +17,7 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 |---------|------|-------------|
 | RX antenna button | Push button | Opens antenna selection menu for the receive antenna of this slice. Shows the slice-specific RX antenna list when available; falls back to the radio's antenna list otherwise. |
 | TX antenna button | Push button | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Shows the slice-specific TX antenna list when available; falls back to the radio's antenna list otherwise. |
-| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). |
+| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. When the slice is locked, displays a "LOCKED" overlay and prevents direct frequency entry. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). |
 | Filter width label | Indicator | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses a consistent formatting method to ensure accurate readouts. |
 | TX badge | Indicator | Shown (red) when this slice is the active transmit slice. Hidden otherwise. |
 | SPLIT badge | Indicator | Shown (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. |
@@ -64,6 +64,28 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 |---------|------|-------|-------------|
 | DAX channel combo | Combo box | Off, 1-8 | Assigns a DAX audio channel to this slice. Default: Off. |
 
+## Frequency Entry Behavior
+
+### Direct Frequency Entry
+
+1. Click the frequency display once. The display switches to an editable field showing the current frequency.
+2. Type the desired frequency and press Enter or Tab to apply it. The system parses input flexibly:
+   - **MHz entry**: Type a value in MHz (e.g., "14.225", "14.225.000", "14225", "14225.0"). Dots beyond the first are automatically removed.
+   - **kHz entry**: On HF bands, bare integers greater than 54000 are treated as Hz; otherwise they are treated as kHz. For example, "14225" becomes 14.225 MHz (kHz interpretation), while "14225000" becomes 14.225 MHz (Hz interpretation).
+   - **XVTR band entry**: On XVTR bands, values above 54 MHz are accepted. A bare integer in the 100-999 range inserts a decimal after the third digit (e.g., "1446" → 144.6 MHz).
+
+### Explicit MHz Entry
+
+When you explicitly type a value with a decimal and it exceeds 54 MHz, the system treats it as a MHz value rather than attempting Hz/kHz conversion. This allows direct entry of VHF/UHF/SHF frequencies in MHz without ambiguity.
+
+### Locked Slice Behavior
+
+When a slice is frequency-locked:
+- The frequency display shows a "LOCKED" overlay.
+- Clicking the frequency display does not initiate direct entry.
+- Scroll-wheel tuning is blocked, even in collapsed mode.
+- An audible notification indicates the tuning attempt was blocked.
+
 ## Squelch Behavior
 
 Squelch is automatically disabled in digital, RTTY, and CW modes:
@@ -97,3 +119,4 @@ Alternatively, you can right-click any of the NR2, NR4, MNR, or DFNR toggle butt
 ### Related
 
 - [Enable noise reduction from the VFO panel](enable-noise-reduction-from-the-vfo-panel.md)
+- Frequency locking

@@ -44,6 +44,6 @@ The button row at the bottom provides the following controls:
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
 - [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md)
 - [Reset AetherSDR settings to factory defaults](reset-aethersdr-settings-to-factory-defaults.md)
-- [Diagnostic logging categories](diagnostic-logging-categories.md)
-- [Understanding the log viewer](understanding-the-log-viewer.md)
-- [Resetting settings safely](resetting-settings-safely.md)
+- Diagnostic logging categories
+- Understanding the log viewer
+- Resetting settings safely

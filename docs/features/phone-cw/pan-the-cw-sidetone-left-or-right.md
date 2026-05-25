@@ -14,13 +14,13 @@ The applet panel opens and displays the appropriate controls for the current sli
 
 Shows the microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS).
 
-The meter is suppressed to -150 when `met_in_rx` is off and the radio is not transmitting.
+The meter is suppressed to -150 when `met_in_rx` is off and the radio is not transmitting. In v26.5.3, the application immediately applies the receive gate whenever the transmit state or MOX state changes, preventing stale level readings from appearing during receive.
 
 ### Compression Meter
 
-Shows speech compression amount in dB (-25 to 0 dB, with reversed fill).
+Shows speech compression amount in dB. The meter face is reversed: 0 dB = no compression, -25 dB = full compression.
 
-The gauge is gated on the radio's interlock TRANSMITTING state. During receive, the gauge reads 0 dB regardless of any residual meter data from the TX chain. The gauge only shows a compression reading while the radio is actively transmitting with the speech processor enabled. This prevents stale or misleading readings from appearing when you are not on the air.
+The gauge reads from the radio's COMPPEAK meter, which reports compression as a positive 0–25 dB value. The gauge internally negates this to display as -25 to 0 dB (reversed fill). The gauge only shows a compression reading while the radio is actively transmitting with the speech processor enabled. During receive, or when the speech processor is disabled, the gauge reads 0 dB regardless of any residual meter data from the TX chain.
 
 ### ALC Meter (Phone panel)
 
@@ -29,6 +29,8 @@ Shows automatic level control reading from the software ALC meter (MeterModel::s
 - **Range:** -20 to 0 dBFS
 - **Red zone:** above -3 dBFS
 - **Fill direction:** right-to-left (empty at -20 dBFS, full at 0 dBFS)
+
+In v26.5.3, the gauge initializes to -20 dBFS immediately on construction, and the floor constant is shared between the Phone and CW panel gauges. The previous behavior allowed the gauge to remain at 0 dBFS momentarily before receiving the first meter update.
 
 The Phone panel ALC gauge is mirrored by an identical gauge on the CW panel. Both gauges read from the same source, so SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape.
 
@@ -86,6 +88,8 @@ Shows automatic level control reading from the software ALC meter (MeterModel::s
 - **Red zone:** above -3 dBFS
 - **Fill direction:** right-to-left (empty at -20 dBFS, full at 0 dBFS)
 
+In v26.5.3, the gauge initializes to -20 dBFS immediately on construction, preventing a momentary 0 dBFS reading before the first meter update arrives.
+
 ### Delay
 
 Set the CW break-in delay. Drag the slider or type a value directly in the adjacent text field:
@@ -115,6 +119,8 @@ Click the text field, type the desired speed value, and press Enter. The slider 
 Enable or disable the CW sidetone monitor. Click **Sidetone** to toggle.
 
 This single button controls both the radio's DAX-fed monitor and the client-side low-latency CwSidetoneGenerator (~10 ms latency) in lockstep. Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically.
+
+In v26.5.3, the CW sidetone routes to the user-selected audio output instead of the default output (#2899).
 
 ### Sidetone Volume
 
@@ -214,10 +220,10 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 - The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
 - The Compression gauge only shows readings while the radio is actively transmitting with the speech processor enabled.
 - When RADE mode is active, the Mic gain slider controls client-side RADE gain, not the radio's mic level.
-- The ALC gauges on both panels read from the same software ALC source (MeterModel::swAlcChanged). Starting in v26.5.1 (#2552), this replaces the previous HWALC (RCA voltage) path that produced meaningless readings. The gauge range is -20 to 0 dBFS, filling right-to-left.
+- The ALC gauges on both panels read from the same software ALC source (MeterModel::swAlcChanged). Starting in v26.5.1 (#2552), this replaces the previous HWALC (RCA voltage) path that produced meaningless readings. The gauge range is -20 to 0 dBFS, filling right-to-left. In v26.5.3, the gauges initialize to -20 dBFS immediately upon construction.
+- In v26.5.3, the CW sidetone routes to the user-selected audio output instead of the default output (#2899). If you change your audio output device, the CW sidetone follows automatically.
 
 ## Related
 
 - [Enable the low-latency CW sidetone (Sidetone button drives both radio and local path)](enable-the-low-latency-cw-sidetone-sidetone-button-drives-both-radio-and-local-path.md)
-- [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+- [Change CW pitch / sidetone frequency](change

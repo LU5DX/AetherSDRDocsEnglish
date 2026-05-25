@@ -32,12 +32,14 @@ Stage order and individual stage state are persisted via `ClientCompTxChainStage
 - The BYPASS checked state shown in the header tracks whichever chain is currently visible. If you switch to RX and back to TX, the TX BYPASS state is restored exactly as you left it.
 - In v0.9.8, both TX and RX bypass are owned by the audio engine. The BYPASS button in the Aetherial Audio Chain applet, the BYPASS button in the Aetherial Audio Channel Strip (TX), and any future BYPASS control for RX all reflect and control the same engine-owned state. Clicking BYPASS in any of these locations for the same chain produces the same result.
 - Double-clicking any TX chain stage tile now opens the Aetherial Audio Channel Strip — the unified TX DSP editor window — rather than a per-stage floating editor. Individual stage editors remain accessible from within the channel strip.
+- The click discrimination interval used for single-click vs double-click detection on both TX and RX chain tiles can be configured in Interaction Settings. By default it uses the system double-click interval, but you can adjust it independently if needed.
 
 ## Troubleshooting
 
 - **BYPASS appears unchecked after switching from RX to TX** — This is expected. TX and RX track separate states. For each side, the displayed state now mirrors the engine's `isTxBypassed` or `isRxBypassed` value directly. Check which side you engaged BYPASS on.
 - **Clicking BYPASS re-enables fewer stages than expected** — Any stage you toggled off manually before clicking BYPASS was already disabled and was not part of the snapshot, so it will not be restored.
 - **BYPASS state in the applet does not match the channel strip** — Ensure you are running v0.9.8 or later. Earlier versions tracked TX bypass state only in the applet snapshot; v0.9.8 synchronises all BYPASS controls (TX and RX) through the audio engine.
+- **Double-click opens the editor inconsistently on the TX or RX chain** — The click discrimination interval can be adjusted in Interaction Settings. If you have a slow double-click motion, increase this interval. If you accidentally trigger editors instead of bypassing, decrease the interval.
 
 ## Related
 
@@ -45,3 +47,4 @@ Stage order and individual stage state are persisted via `ClientCompTxChainStage
 - [Re-enable a specific stage after a global bypass](re-enable-a-specific-stage-after-a-global-bypass.md)
 - [Switch between editing the TX and RX chains](switch-between-editing-the-tx-and-rx-chains.md)
 - [Aetherial Audio Chain overview](overview.md)
+- Configure interaction settings

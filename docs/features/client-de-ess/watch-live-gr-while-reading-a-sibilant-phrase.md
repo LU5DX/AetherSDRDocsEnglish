@@ -22,16 +22,17 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 
 ## What each control does
 
-| Control                  | Default  | Valid range      | Description                                                                                                                                 |
-|--------------------------|----------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| Sidechain response curve | —        | —                | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency.                   |
-| Gain-reduction bar       | —        | 0 to 24 dB GR    | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the −6 dB typical amount. Refreshed ~30 Hz.                      |
-| Freq                     | 6000 Hz  | 1000 to 12000 Hz | Logarithmic mapping (1000 * 12^n). Sets the centre frequency of the sibilance band. Label shows "6.0 kHz" above 1 kHz, "N Hz" below.       |
-| Q                        | 2.00     | 0.5 to 5.0       | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows "X.XX".                                         |
-| Thresh                   | −30.0 dB | −60.0 to 0.0 dB  | Linear mapping. Level above which the de-esser starts attenuating the band.                                                                 |
-| Amount                   | −6.0 dB  | −24.0 to 0.0 dB  | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction.              |
-| Attack                   | 1.0 ms   | 0.1 to 30.0 ms   | Exponential mapping (0.1 * 300^n). Sets how quickly the de-esser responds once sibilance crosses the threshold. Present only in the Channel Strip panel. |
-| Release                  | 100 ms   | 10.0 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly gain returns after sibilance drops below the threshold. Present only in the Channel Strip panel.      |
+| Control                  | Default       | Valid range        | Behavior                                                                                                                                                                                                 |
+|--------------------------|---------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Sidechain response curve | —             | —                  | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency.                                                                                |
+| Gain-reduction bar       | —             | 0 to 24 dB GR      | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz from ClientDeEss::gainReductionDb().                                              |
+| Freq                     | 6000 Hz       | 1000 to 12000 Hz   | Logarithmic mapping (1000 * 12^n). Sets the centre frequency of the sibilance band. Label '6.0 kHz' above 1 kHz, 'N Hz' below.                                                                           |
+| Q                        | 2.00          | 0.5 to 5.0         | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label 'X.XX'.                                                                                                            |
+| Thresh                   | −30.0 dB      | −60.0 to 0.0 dB    | Linear mapping. Level above which the de-esser starts attenuating the band.                                                                                                                              |
+| Amount                   | −6.0 dB       | −24.0 to 0.0 dB    | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction.                                                                            |
+| Attack                   | 1.0 ms        | 0.1 to 30.0 ms     | Exponential mapping (0.1 * 300^n). Only available in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob.                                                         |
+| Release                  | 100 ms        | 10.0 to 500.0 ms   | Exponential mapping (10 * 50^n). Only available in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob.                                                           |
+| Slope                    | 24 dB/oct     | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | Push button that cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Present for both TX and RX paths. Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
 
 **Note:** Attack and Release controls are available in the Channel Strip's StripDeEssPanel (both RX and TX instances). The docked ClientDeEssApplet omits these two knobs.
 
@@ -70,6 +71,7 @@ All knob controls in the Aetherial De-Esser support inline value editing. Instea
 - To access the RX de-esser instance (titled "Aetherial De-Esser — RX"), open it from the Aetherial Audio Channel Strip rather than the docked applet panel.
 - The frequency axis labels in the sidechain response curve use "100", "500", "1k", etc. for clarity and are rendered at 8-pixel font size. The curve widget caches these labels for improved rendering performance.
 - For precise value entry, use the inline editor by clicking the knob's displayed value. This is faster than fine-tuning with mouse drags and avoids overshooting your target setting.
+- The **Slope** button cycles through 12 → 24 → 36 → 48 dB/oct with each click. Higher slopes create a narrower notch around the sibilant frequency, reducing collateral attenuation of the mid speech band. The button is located in the bottom-left corner of the Channel Strip's de-esser panel, below the Thresh knob.
 
 ## Troubleshooting
 
@@ -78,6 +80,7 @@ All knob controls in the Aetherial De-Esser support inline value editing. Instea
 - **Bar moves but you hear no effect on air** — **Amount** may be set too close to 0.0 dB. Lower it toward −24.0 dB for more audible reduction, or confirm the stage is not bypassed in the CHAIN widget.
 - **Applet tile appears dimmed** — The De-Ess stage is bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it. The tile will return to full opacity when the stage is active.
 - **Inline editor reverts to the wrong value after typing** — Ensure you press Enter to commit before clicking away. If you click another control while the editor is open, the value is committed automatically, which may not match your intended setpoint if you hadn't finished typing.
+- **Sibilant sounds still harsh after adjusting Freq and Q** — Try increasing the **Slope** to 36 or 48 dB/oct. A steeper slope creates a narrower notch that cuts sibilance more precisely without affecting the mid-range speech band.
 
 ## Related
 

@@ -31,6 +31,7 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 - **History** mode displays horizontal level bars accumulated over time, which makes it easier to see sustained level trends than a momentary trace.
 - If the display shows a **"Enable PC Audio"** message (for the RX path) or a **"no TX audio"** message, no scope samples have arrived within the last second. For the RX path, enable PC Audio in the radio settings. For the TX path, verify that the microphone or line input is active. The view mode setting is still applied and will take effect as soon as audio resumes.
 - Single-clicking the waveform display toggles pause. If the display appears frozen, click it once to resume live updates. A **PAUSED** badge in the footer confirms the paused state.
+- The settings drawer state (open or closed) is persisted. If you close the drawer and restart AetherSDR, it stays closed. Double-click the waveform to reopen it.
 - The **Window:** slider uses discrete steps with deliberate stops, not a continuous range. Each notch on the slider corresponds to one of the available time windows: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, or 10 s.
 
 ## Troubleshooting
@@ -47,4 +48,4 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 - [Adjust waveform amplitude zoom](adjust-waveform-amplitude-zoom.md)
 - [Pause the waveform to inspect a transient](pause-the-waveform-to-inspect-a-transient.md)
 - [Set the waveform refresh rate to reduce CPU load](set-the-waveform-refresh-rate-to-reduce-cpu-load.md)
-- [Set the waveform time window](set-the-waveform-time-window.md)
+- Set the waveform time window

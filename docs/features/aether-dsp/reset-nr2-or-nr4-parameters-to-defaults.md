@@ -110,7 +110,7 @@ Use the DeepFilterNet3 engine for neural-network-based noise reduction.
 
 ## Related
 
-- [Tune NR2 reduction depth and threshold](tune-nr2-reduction-depth-and-threshold.md)
+- Tune NR2 reduction depth and threshold
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](change-nr2-noise-power-estimator-osms-mmse-nstat.md)
 - [Adjust NR4 reduction amount in dB](adjust-nr4-reduction-amount-in-db.md)

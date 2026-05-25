@@ -25,7 +25,7 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 | **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
 | **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
 | **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
-| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
+| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR); accepts kHz/Hz auto-scaling          |
 | **STEP**                          | 100 Hz    | Per-mode list of step sizes                                                 |
 | **Filter width presets**          | None      | Per-mode preset widths                                                      |
 | **Filter passband widget**        | None      | Drag lo/hi edges to adjust passband                                         |
@@ -53,6 +53,13 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 | **QSK**                           | None      | Amber when CW break-in active (read-only)                                   |
 | **Filter width (indicator)**      | 2.7K      | Current filter bandwidth                                                    |
 
+## What each indicator shows
+
+| Indicator        | States                                       | Meaning                                        |
+|------------------|----------------------------------------------|------------------------------------------------|
+| Filter width     | e.g. '2.7K', '3.3K', '500', '6.0K'          | Current slice filter bandwidth                 |
+| QSK              | off (grey), on (amber)                       | CW full break-in state reflected from the CW applet |
+
 ## Tips
 
 - The RX antenna label is shown in blue; the TX antenna label is shown in red. This is the only visual distinction between the two controls, as they appear side by side in the header row.
@@ -72,12 +79,13 @@ The RX and TX antenna menus have been updated to provide clearer feedback:
 - The menu action data carries the raw antenna identifier, rather than using the display text. This means menu items can display formatted labels (e.g. with port type indicators) while still selecting the correct antenna port.
 - The RX antenna menu now prefers the slice's own `rxAntennaList()` if it is non-empty, falling back to the radio's `ant_list`. This ensures the menu reflects any per-slice antenna restrictions reported by the radio.
 
-## RADE mode changes in v26.5.2.1
+## RADE mode changes
 
 The RADE mode activation logic has been updated to reflect the fact that "RADE" is a client-side mode only:
 
-- When you select RADE from the mode combo, the client sets the slice mode to "RADE" and emits `radeActivated(true)`. The radio itself immediately echoes back the real underlying mode (typically DIGL or DIGU).
-- AetherSDR no longer emits a `radeActivated(false)` signal when switching away from RADE mode. Because the radio reports the real mode (DIGL/DIGU) immediately after RADE activation, the condition `m_slice->mode() == "RADE"` is never true at the time of mode switching. The deactivation signal is now handled differently; the mode combo's selection change carries all necessary information.
+- When you select RADE from the mode combo, the client sets the slice mode to "RADE" and emits `radeActivated(true, sliceId)`. The radio itself immediately echoes back the real underlying mode (typically DIGL or DIGU).
+- AetherSDR no longer sets the slice mode on the radio when RADE is selected. The radio's mode feedback is used instead.
+- In v26.5.3, `radeActivated(false)` is emitted only when switching away from RADE on a slice that was genuinely in RADE mode (#2376). This prevents stale deactivate signals when changing modes on a non-RADE slice.
 - If you need to explicitly deactivate RADE mode on a slice, switch the mode to a non-RADE mode using the mode combo.
 
 ## Slice tab behavior
@@ -86,7 +94,7 @@ In v0.9.5.1, the slice tab row gained more robust lifecycle management to fix is
 
 - When the radio reports a different number of slices than the current tab row contains, AetherSDR tears down all existing tab buttons (`clearSliceButtons()`) before rebuilding the row. Previously, the row was only built once per session.
 - `clearSliceButtons()` removes all generated tab buttons, hides the tab row, and restores the static slice badge. This is also the state shown when the radio is disconnected.
-- The signal connection between the button group and `sliceActivationRequested` is now created only once per session, regardless of how many times the tab row is rebuilt. This prevents duplicate signal handlers accumulating across reconnects.
+- The signal connection between the button group and `sliceActivationRequested` is now created only once per session, regardless of how many times the tab row is rebuilt. This prevents duplicate signal handlers accumulating across reconnects. Slice button click connections are guarded against duplicate signal handlers across reconnects.
 
 ## Filter preset storage format
 
@@ -107,17 +115,19 @@ NT and RTTY are digital modes. Their behavior within the RX Controls applet matc
 - **Filter width display** — The filter width indicator derives its value from the high edge of the passband, the same calculation used for USB, DIGU, and FDV modes.
 - **Squelch** — The **SQL** button and squelch level slider are disabled in NT mode and RTTY mode. If squelch was active when you switched into NT or RTTY mode, AetherSDR turns squelch off automatically and restores it when you switch back. This matches the behavior for DIGU and DIGL; CW mode is handled differently because the radio manages its squelch state directly. RTTY squelch disabling prevents gating weak FSK signals that would otherwise be notched out (#2504).
 
-## Troubleshooting
+## Mute button behavior in v26.5.3
 
-- **An expected antenna port does not appear in the menu** — The list comes directly from the radio's ant_list or the slice's own rxAntennaList. Verify the port is configured and recognized in the radio's own settings. AetherSDR cannot add ports that the radio has not reported.
-- **The TX antenna menu is missing a port that appears in the RX antenna menu** — Ports whose names begin with `RX` are intentionally excluded from the TX antenna menu because the radio treats them as receive-only. Only ports beginning with `ANT`, `TX`, or `XVTR` are included in the TX menu.
-- **Both labels are greyed out or unresponsive** — AetherSDR is not connected to the radio. Reconnect via `Settings > Connect to Radio...`.
-- **SQL button is greyed out after switching to NT or RTTY mode** — NT and RTTY are digital modes. AetherSDR disables squelch in all digital modes (DIGU, DIGL, NT, RTTY) because audio is routed via DAX and squelch has no meaningful effect. Switch to a non-digital mode to re-enable squelch.
-- **Slice tab row shows wrong tabs after reconnecting** — In earlier versions, the tab row was built only once and could become stale after a reconnect. From v0.9.5.1, AetherSDR rebuilds the tab row whenever the number of slices changes. If the row still appears incorrect, disconnect and reconnect via `Settings > Connect to Radio...`.
-- **A filter preset applies a different passband than expected** — Presets saved before v0.9.5.1 are stored as plain widths and remain valid. Presets saved from v0.9.5.1 onward may store exact lo:hi edges. If a preset behaves unexpectedly, right-click the preset button to overwrite it with the current passband.
-- **Squelch level resets after mode change** — From v26.5.2.1, AetherSDR persists your manual squelch level client-side as `LastManualSquelchLevel`. When Auto squelch clobbers the slice's level, AetherSDR restores the last manual value. If the level still resets unexpectedly, check whether Auto squelch mode is active.
+The mute button (🔊/🔇) has been updated for more reliable behavior with single-click and double-click actions:
 
-## Related
+- **Single-click** — Mutes or unmutes the current slice. The action is deferred by the platform's double-click interval (typically ~400 ms) so that a double-click can override it.
+- **Double-click** — Mutes or unmutes all owned slices simultaneously.
+- **Icon updates** — The visual icon (🔊/🔇) is no longer updated immediately on click. Instead, the icon updates when the radio acknowledges the mute state change via `SliceModel::audioMuteChanged`. This ensures the icon always reflects the actual radio state.
+- **Per the Radio-Authoritative Settings Policy (#2489)** — Mute state is NOT saved or restored on reconnect. The radio is the source of truth for audio mute state.
+- The `muteClickTimer` handles the single-click deferral. If a second click arrives before the timer fires, the timer is stopped and the double-click handler mutes all slices instead.
 
-- [RX Controls overview](overview.md)
-- [Switch between multiple
+## Frequency entry in v26.5.3
+
+The frequency entry field now uses `FrequencyEntryParser` for normalized MHz text parsing, and has improved support for high-frequency entries:
+
+- **MHz auto-scaling** — Entering a value above 54 MHz applies auto-scaling: values above 54,000 are divided by 1e6 (assumed Hz), values above 54 are divided by 1e3 (assumed kHz), and explicit MHz entries above 54 MHz are accepted for XVTR-like operation.
+- **Explicit MHz entries above 54 MHz** — If you enter a frequency with a decimal point in a format that `FrequencyEntryParser` recognizes as an explicit MHz entry, the parser compares the parsed value against the XVTR limit (50,000 MHz) instead of the standard 54 MHz limit. This allows direct high-frequency entries without needing an XVTR antenna

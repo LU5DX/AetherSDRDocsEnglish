@@ -25,18 +25,20 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 | AGC combo (Audio tab) | FAST | FAST \| MED \| SLOW \| OFF |
 | ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 | RX antenna button | — | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button | — | Opens antenna selection menu for the transmit antenna of this slice. |
 | Frequency display | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
-| Filter width label | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. |
+| Filter width label | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | Mode combo (Mode tab) | USB | USB \| LSB \| CW \| CWL \| AM \| SAM \| DIGU \| DIGL \| FM \| NFM \| DFM \| RTTY |
-| Filter preset buttons (Mode tab) | — | Applies a saved filter width preset. Right-click to save the current filter width into that slot. |
-| RIT / XIT buttons + labels (X/RIT tab) | off | Enables receiver (RIT) or transmitter (XIT) incremental tuning. |
+| Filter preset buttons (Mode tab) | — | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in FilterPresets. Custom lo/hi edges can be set per slot via right-click. |
+| RIT / XIT buttons + labels (X/RIT tab) | off | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps. |
 | DAX channel combo (DAX tab) | Off | Off \| 1–8 |
-| Marker thickness button | 1 px | Off \| 1 px \| 3 px |
-| Filter edges button | shown | Toggles the filter edge lines on the spectrum passband. |
-| Collapse toggle | expanded | Collapses the VFO panel to a compact frequency-only strip. |
-| Slice badge | — | Shows the slice letter. Displays the TX badge (red) when this slice is the active transmit slice. Displays the SPLIT badge (amber) when TX is assigned to a different slice than the active receive slice. |
+| Marker thickness button | 1 px | Off \| 1 px \| 3 px. Cycles the VFO marker line through these options. Persisted per slice. |
+| Filter edges button | shown | Toggles the filter edge lines on the spectrum passband. Persisted per slice. |
+| Collapse toggle | expanded | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice. |
+| TX badge | — | Shown (red) when this slice is the active transmit slice. |
+| SPLIT badge | — | Shown (amber) when TX is assigned to a different slice than the active receive slice. |
 
 ## Tips
 
@@ -54,9 +56,7 @@ The squelch button and slider are now disabled in RTTY mode, in addition to digi
 
 ## DSP tab changes in v0.9.7
 
-The DSP tab in the VFO panel now shows only radio-supplied noise reduction algorithms. The client-side algorithms that were previously accessible as buttons in this tab — NR2, RN2, NR4, MNR, BNR, and DFNR — have been moved out of the VFO panel. To enable those algorithms, use the spectrum overlay menu or the AetherDSP applet.
-
-The buttons remaining in the DSP tab are:
+The DSP tab in the VFO panel shows the following noise reduction buttons when available from the radio:
 
 | Button | Algorithm |
 |---|---|
@@ -70,6 +70,8 @@ The buttons remaining in the DSP tab are:
 | NRF | Spectral noise filter |
 | ANFL | LMS notch filter |
 | ANFT | FFT notch filter |
+
+Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
 
 ### ADSP button (v0.9.8)
 
@@ -115,6 +117,23 @@ When entering frequencies on XVTR bands (slice frequency above 54 MHz or RX ante
 - The maximum accepted frequency is 50000 MHz.
 - For slices in the 100–999 MHz range (2m/70cm bands), bare integers are automatically formatted with a decimal after the third digit. For example, entering 1446 becomes 144.6, 14696 becomes 146.96, and 144600 becomes 144.600.
 - For microwave bands (23cm and above, 1000 MHz and higher), bare integers are treated as the exact MHz value. For example, 1296 becomes 1296 MHz.
+
+## Frequency entry with explicit MHz (v26.5.3)
+
+When entering frequencies, the VFO panel uses `FrequencyEntryParser` for accurate parsing. If you enter a frequency explicitly in MHz (e.g., 146.520 or 144.390), the input is accepted as MHz even if the value exceeds 54 MHz. This allows direct MHz entry for VHF and UHF frequencies without requiring XVTR band detection.
+
+## Locked slice behavior (v26.5.3)
+
+When a slice is locked:
+- The **Lock VFO button** in the VFO panel shows a lock icon. Clicking the button toggles the lock state.
+- When locked, the frequency display shows a locked overlay indicator.
+- Scroll-wheel tuning is blocked. If you attempt to scroll while locked, the slice emits a "tune blocked by lock" notification.
+- Direct frequency entry is blocked. Any in-progress direct entry is cancelled when the slice is locked.
+- The VFO panel updates the frequency label to show the locked state.
+
+## Tab stack height fix (v26.5.3)
+
+The VFO panel tab content now properly sizes itself to the current tab's contents. This fixes a gap that could appear inside the Mode tab when the DSP tab was taller (e.g., when the DIGU/DIGL sub-mode was visible). The tab stack now reports only the current page's preferred size rather than the maximum of all pages.
 
 ## Related
 

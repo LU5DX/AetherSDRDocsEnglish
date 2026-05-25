@@ -19,6 +19,7 @@ The tune-lock feature prevents a slice from responding to frequency changes. Use
 | Control | Default      | Behavior                                                                                                                |
 |---------|--------------|-------------------------------------------------------------------------------------------------------------------------|
 | 🔓 / 🔒   | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
+
 ## Tips
 
 - The lock state applies per slice. You can lock slice A while slice B remains freely tunable.
@@ -114,6 +115,46 @@ Both antenna menus now use a helper `antennaMenuLabel()` to format display label
 ## Slice badge formatting (v26.5.2.1)
 
 The slice badge label now supports rich text (HTML) rendering. This allows the slice letter to include formatting, such as superscript or subscript characters, when the slice identity requires it (#2606). The badge continues to use the same per-slice color scheme and fixed 20x20 pixel size as before.
+
+## Frequency entry improvements (v26.5.3)
+
+The frequency entry system now uses `FrequencyEntryParser::normalizedMhzText()` for parsing and `FrequencyEntryParser::isExplicitMhzEntry()` for detecting explicit MHz entries. This provides more robust handling of frequency formatting and entry detection.
+
+### Explicit MHz entries
+
+When you enter a frequency value greater than 54.0 MHz in the frequency edit field, AetherSDR checks whether it is an explicit MHz entry. If the entry is detected as explicitly in MHz (for example, `146.520` or `446.000`), the radio allows tuning up to 50,000 MHz, enabling direct access to VHF/UHF/SHF bands without requiring an XVTR antenna. This is particularly useful for entering 2m, 70cm, or higher band frequencies directly.
+
+### Entry frequency normalization
+
+The `normalizedMhzText()` function cleans up the entered frequency text by removing extraneous dots and formatting characters. This ensures that entries like `14.250.000` (with digit grouping dots) are correctly parsed as `14.250000` MHz.
+
+### 3-digit band convenience
+
+For XVTR slices (or when the frequency is above 54 MHz), the system applies 3-digit band convenience logic: an entry like `1446` is interpreted as 144.6 MHz (for the 2m band), while entries for 23cm/microwave bands (e.g., `1296`) are treated as direct MHz values. This logic only applies when the entry is not an explicit MHz entry.
+
+### Escape to cancel (v0.9.0)
+
+Pressing Escape while the frequency editor is active cancels the edit, restores the previous frequency, and dismisses the editor (Fixed in v0.9.0, #1954).
+
+## Mute button behavior (v26.5.3)
+
+The mute button (🔊 / 🔇) now uses timer-based single-click discrimination. This provides more reliable double-click detection for muting/unmuting all owned slices.
+
+### Single click
+
+A single click starts a timer set to the platform's double-click interval (~400 ms). When the timer expires, the mute state of the current slice toggles.
+
+### Double click
+
+A double-click immediately cancels the single-click timer and emits `muteAllToggled`, which mutes or unmutes all slices owned by the current client. The second press of the double-click sequence does not produce a separate `clicked()` signal because the event filter intercepts the `MouseButtonDblClick` event and returns true, preventing `QAbstractButton::mouseDoubleClickEvent` from running.
+
+### Icon update
+
+The mute button icon (🔊 or 🔇) is updated only when the radio acknowledges the mute state change via `SliceModel::audioMuteChanged`. This ensures the icon always reflects the radio-authoritative state, as required by the Radio-Authoritative Settings Policy (#2489).
+
+### State persistence
+
+Mute state is NOT saved or restored on reconnect. The radio is always the source of truth for audio mute state.
 
 ## Related
 

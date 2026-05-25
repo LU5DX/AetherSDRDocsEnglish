@@ -13,6 +13,8 @@ The waveform display renders mono float-32 PCM samples received from the audio e
 | Single-click on display | Toggles pause. A snapshot of the buffer is frozen until clicked again. Useful for inspecting a transient. A "PAUSED" badge appears in the footer while paused. |
 | Double-click on display | Toggles the settings drawer open or closed. Does not clear the buffer — use the WaveformWidget::clear() slot or reconnect to reset. |
 
+The single-click discrimination interval is read from the Radio Setup click discrimination setting. If you adjust this value in Radio Setup, it takes effect immediately without an app restart.
+
 ## Waveform display indicators
 
 | Indicator | States | Meaning |
@@ -21,6 +23,10 @@ The waveform display renders mono float-32 PCM samples received from the audio e
 | Clipping highlight | No clipping (normal trace), Clipping (red emphasis, CLIP N label) | Columns containing samples at or above ±0.98 full-scale are highlighted; a 'CLIP N' counter appears in the header. |
 | PAUSED badge | Live (no badge), Paused (PAUSED badge in footer) | Indicates the display is showing a frozen snapshot and not the live audio stream. |
 | No-audio placeholder | Waveform present, 'Enable PC Audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. For RX, the message reads "Enable PC Audio". For TX, it reads "no TX audio". |
+
+## Settings drawer
+
+The settings drawer can be toggled open or closed by double-clicking the waveform display. Its expanded state is persisted across sessions using the `WaveApplet_DrawerExpanded` setting. When you close the drawer and restart AetherSDR, it remains closed until you double-click the display to reopen it.
 
 ## View mode
 

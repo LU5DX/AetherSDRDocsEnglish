@@ -19,11 +19,11 @@ The bypass state is persisted immediately. TX state is saved to `ClientTubeTxEna
 
 ## What each control does
 
-| Control | What it does | Default | Persisted key |
-|---|---|---|---|
-| TUBE stage (TX) — single click | Toggles the TX tube saturator in or out of the signal chain | — | `ClientTubeTxEnabled` |
-| TUBE stage (RX) — single click | Toggles the RX tube saturator in or out of the signal chain | — | `ClientTubeRxEnabled` |
-
+| Control                        | What it does                                                                                                                                                                        | Default                                                                                                                                                                                                   |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TUBE stage (TX) — single click | Toggles the TX tube saturator in or out of the signal chain                                                                                                                         | —                                                                                                                                                                                                         |
+| TUBE stage (RX) — single click | Toggles the RX tube saturator in or out of the signal chain                                                                                                                         | —                                                                                                                                                                                                         |
+| RN2                            | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 ## Tips
 
 - Double-clicking the TUBE stage in the CHAIN widget opens the floating editor ("Aetherial Tube — TX" or "Aetherial Tube — RX") instead of toggling bypass. Use a single click for bypass only.

@@ -41,6 +41,10 @@ The BYPASS button now mirrors the engine-owned bypass state for both TX and RX i
 - Activating BYPASS from within the Aetherial Audio Channel Strip updates the chain applet's BYPASS button, and vice versa for both TX and RX.
 - The visual checked state of the BYPASS button always reflects the engine state for the currently displayed side (TX or RX).
 
+## Click discrimination interval
+
+The time window used to distinguish a single click from a double-click is now controlled by the **Interaction Settings** dialog instead of the system's double-click interval. This allows you to adjust the responsiveness of single-click (bypass) vs. double-click (edit) actions independently of your operating system settings. Both the TX and RX chain widgets use this custom interval.
+
 ## Tips
 
 - The hint text below the chain reads "Click to bypass · Double click to edit · Drag to reorder" and applies to both TX and RX modes.
@@ -54,6 +58,7 @@ The BYPASS button now mirrors the engine-owned bypass state for both TX and RX i
 - **The RADIO, ADSP, or SPEAK tiles move unexpectedly** — These tiles are status indicators and are not draggable. Only the six named stage tiles (EQ, AGC-G, AGC-C, DESS, TUBE, EVO) can be reordered.
 - **Reordered chain reverts after restart** — This should not happen if `ClientCompRxChainStages` is being written. Verify AetherSDR has write access to its settings storage location.
 - **The BYPASS button state does not match between TX and RX** — Ensure the audio engine has initialised before opening the chain applet. Each side maintains its own engine-owned bypass state, and switching modes updates the button automatically.
+- **Click/double-click feels too fast or too slow** — Adjust the click discrimination interval in **Settings > Interaction Settings** to match your preference.
 
 ## Related
 

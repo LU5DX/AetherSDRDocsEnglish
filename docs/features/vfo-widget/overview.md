@@ -23,7 +23,7 @@ The header row sits above the tabs and is always visible.
 |---|---|
 | RX antenna button | Opens the antenna selection menu for the receive antenna of this slice. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
 | TX antenna button | Opens the antenna selection menu for the transmit antenna of this slice. RX-only antenna ports are excluded. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
-| Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type a value in MHz and press Enter or Tab to apply. Scroll-wheel over the frequency display tunes by the current step size. |
+| Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type a value in MHz and press Enter or Tab to apply. Scroll-wheel over the frequency display tunes by the current step size. If the slice is locked, a visual LOCKED overlay is shown and scroll-wheel tuning is blocked. |
 | Filter width label | Shows the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (v0.9.8). |
 | TX badge | Shown in red when this slice is the active transmit slice. In collapsed mode, click the badge to toggle TX assignment. |
 | SPLIT badge | Shown in amber when TX is assigned to a different slice than the active receive slice. |
@@ -36,6 +36,8 @@ The header row sits above the tabs and is always visible.
 | Filter preset buttons | — | — | `FilterPresets` |
 
 Right-click a filter preset button to save the current filter width into that slot. Custom low and high filter edges can be saved per slot the same way.
+
+When DIGU or DIGL is selected in the Mode combo, a digital data container appears in the tab. This container is taller than the other tab content. The VFO Panel now reports only the current tab's preferred size, preventing a gap from appearing when switching back to the Mode tab from the DSP tab.
 
 ### Audio tab
 
@@ -57,7 +59,7 @@ The DSP tab contains buttons for noise reduction and filtering algorithms suppli
 
 | Control | Default | Notes |
 |---|---|---|
-| NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons | off | Button availability depends on radio series and build. APF is only visible in CW mode. |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | off | Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 | ADSP button | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button | — | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
 
@@ -110,10 +112,21 @@ Click the frequency display to begin direct entry. The following rules apply:
 - Type a frequency in MHz (e.g., `14.200` or `14200`). Press Enter or Tab to apply.
 - On XVTR bands, frequencies up to 50000 MHz are accepted.
 - On bands between 100-999 MHz (2m, 70cm), a bare integer like `1446` is interpreted as `144.6`, `14696` as `146.96`, and `144600` as `144.600`. This convenience does not apply above 1000 MHz (23cm and microwave bands), where a bare integer represents the frequency in MHz directly.
+- If you explicitly enter a frequency above 54 MHz (e.g., `144.200`), the parser treats it as a valid MHz entry and accepts frequencies up to 50000 MHz, even if the slice is not on an XVTR band.
+
+## Locked slice behavior
+
+When a slice is locked:
+
+- The lock button shows a lock icon. Click to unlock.
+- Scroll-wheel tuning is blocked. If you attempt to tune a locked slice, a visual LOCKED overlay appears on the frequency display and any in-progress direct frequency entry is cancelled.
+- The LOCKED overlay clears automatically when you unlock the slice.
+- Direct frequency entry is prevented while locked — clicking the frequency display does not enter edit mode, and any active direct entry is cancelled immediately.
 
 ## Tips
 
 - In collapsed mode, scroll-wheel anywhere over the strip tunes the slice by the current step size.
+- Scroll-wheel tuning works in collapsed mode regardless of whether the slice is locked — if locked, the tune is blocked and the LOCKED overlay appears.
 - Momentum (inertial) scroll events on macOS are ignored to prevent unintended tuning after a trackpad gesture ends.
 - The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
 - Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
@@ -134,3 +147,4 @@ Click the frequency display to begin direct entry. The following rules apply:
 - [Change the VFO marker line thickness](change-the-vfo-marker-line-thickness.md)
 - [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md)
 - [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
+- Lock a slice to prevent accidental tuning

@@ -29,4 +29,4 @@ The dialog connects directly to the radio's FlexWaveformModel for live status up
 
 ## Related
 
-- [Radio Setup...](radio-setup.md) — Configure radio connection, audio, antenna, and band settings.
+- Radio Setup... — Configure radio connection, audio, antenna, and band settings.

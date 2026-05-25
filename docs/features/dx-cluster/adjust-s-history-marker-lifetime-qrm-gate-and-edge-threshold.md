@@ -45,4 +45,4 @@ Fine-tune how Signal History markers behave on the panadapter — how long they 
 - [Toggle QRM markers to see persistent carriers and interference](toggle-qrm-markers-to-see-persistent-carriers-and-interference.md)
 - [Pick custom colors for voice signal and QRM markers](pick-custom-colors-for-voice-signal-and-qrm-markers.md)
 - [Enable Snap to Step for precise S-History tuning](enable-snap-to-step-for-precise-s-history-tuning.md)
-- [Add startup commands for DX cluster connection](add-startup-commands-for-dx-cluster-connection.md)
+- Add startup commands for DX cluster connection

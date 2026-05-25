@@ -33,4 +33,4 @@ Open `Settings > SpotHub...`, then click **Edit Startup Commands** on either:
 
 ## See also
 
-- [DX Cluster & RBN configuration](dx-cluster-rbn-configuration.md)
+- DX Cluster & RBN configuration

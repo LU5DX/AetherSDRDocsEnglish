@@ -66,6 +66,6 @@ Alternatively, double-click the row to tune without using the **Tune** button.
 - [Search memories by name](search-memories-by-name.md)
 - [Filter memories by profile](filter-memories-by-profile.md)
 - [Sort memory table by column header](sort-memory-table-by-column-header.md)
-- [Import memories from CSV](import-memories-from-csv.md)
-- [Export memories to CSV](export-memories-to-csv.md)
-- [Remove memories](remove-memories.md)
+- Import memories from CSV
+- Export memories to CSV
+- Remove memories

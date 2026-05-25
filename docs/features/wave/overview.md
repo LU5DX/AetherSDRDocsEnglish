@@ -37,6 +37,10 @@ The settings drawer contains the following controls:
 
 On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec`, your previous window setting is migrated to the nearest available step in the new discrete-step system.
 
+### Settings drawer state
+
+The settings drawer remembers whether it was open or closed when you last closed the applet. If you close the applet with the drawer open, it will be open the next time you open the applet. If you close the applet with the drawer closed, it will remain closed on the next launch. The state is persisted as `WaveApplet_DrawerExpanded`.
+
 ## Indicators
 
 - **Direction tint** — The display uses a cool tint for RX and a warm tint for TX so the active audio path is unambiguous without reading the header label.
@@ -51,6 +55,7 @@ On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec
 - Single-click to pause is particularly useful for catching a transient: click immediately after the event, inspect the frozen waveform, then click again to resume.
 - Double-click on the display toggles the settings drawer. To clear the waveform buffer, use the WaveformWidget::clear() slot or reconnect to the audio engine.
 - The Window slider provides discrete steps only — it does not allow free-scrolling through millisecond values. Use the closest step that captures the time span you need.
+- The click discrimination interval used for starting the pause toggle timer reads from the Radio Setup click discrimination interval setting. This allows you to adjust the double-click timing across all applets without restarting AetherSDR.
 
 ## Related
 

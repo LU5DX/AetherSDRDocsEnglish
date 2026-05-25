@@ -25,15 +25,21 @@ Use the ON button to toggle the radio-side equalizer in and out while listening,
 | Reset arc (revert icon) | Resets all 8 bands of the currently-selected path back to 0 dB. Drawn as a 3/4-circle arrow. Tooltip: "Reset all bands to 0 dB". | N/A |
 | RX | Selects the receive path for display and editing. ON acts on the RX equalizer when RX is active. Highlights blue when active. | Unchecked |
 | TX | Selects the transmit path for display and editing. ON acts on the TX equalizer when TX is active. Highlights blue when active. Applet opens on the TX view by default, or restores the last-selected view between sessions. | Checked |
-| 63 | Trims the 63 Hz band for the selected path. Value label below the slider updates live. | 0 dB |
-| 125 | Trims the 125 Hz band for the selected path. | 0 dB |
-| 250 | Trims the 250 Hz band for the selected path. | 0 dB |
-| 500 | Trims the 500 Hz band for the selected path. | 0 dB |
-| 1k | Trims the 1 kHz band for the selected path. | 0 dB |
-| 2k | Trims the 2 kHz band for the selected path. | 0 dB |
-| 4k | Trims the 4 kHz band for the selected path. | 0 dB |
-| 8k | Trims the 8 kHz band for the selected path. | 0 dB |
+| 63 | Trims the 63 Hz band for the selected path. Value label below the slider updates live. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 125 | Trims the 125 Hz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 250 | Trims the 250 Hz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 500 | Trims the 500 Hz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 1k | Trims the 1 kHz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 2k | Trims the 2 kHz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 4k | Trims the 4 kHz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
+| 8k | Trims the 8 kHz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
 | +10 / 0 / -10 dB scale | Left and right reference labels showing the +/-10 dB range of the sliders. | N/A |
+
+## Drag value popup
+
+When you click and drag any EQ band slider, a small popup appears near the slider handle showing the exact dB value with a plus or minus sign (e.g., "+3 dB" or "-5 dB"). The popup follows the handle as you drag and disappears a short moment after you release the mouse button.
+
+This makes it easy to see the exact value without looking at the number below the slider, especially when you are focusing on the audio changes.
 
 ## Tips
 
@@ -49,4 +55,4 @@ Use the ON button to toggle the radio-side equalizer in and out while listening,
 - [Enable radio-side graphic EQ for TX](enable-radio-side-graphic-eq-for-tx.md)
 - [Switch between shaping RX audio and TX audio](switch-between-shaping-rx-audio-and-tx-audio.md)
 - [Boost or cut specific octave bands (63 Hz to 8 kHz)](boost-or-cut-specific-octave-bands-63-hz-to-8-khz.md)
-- [Reset all EQ bands to flat](reset-all-eq-bands-to-flat.md)
+- Reset all EQ bands to flat

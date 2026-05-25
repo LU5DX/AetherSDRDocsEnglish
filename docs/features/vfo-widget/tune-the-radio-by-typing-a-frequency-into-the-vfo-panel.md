@@ -6,12 +6,17 @@ Direct frequency entry lets you jump to an exact frequency without clicking arou
 
 - AetherSDR must be connected to your FLEX-8600 radio.
 - The VFO panel for the target slice must be open. If it is not visible, click the VFO marker flag for that slice on the spectrum display.
+- The slice must not be locked. A locked slice ignores tune commands.
 
 ## Steps
 
 1. Click the **Frequency display** once. The display enters direct entry mode.
 2. Type the desired frequency in MHz.
 3. Press **Enter** or **Tab** to apply. The slice retunes immediately.
+
+### What happens when you start typing on a locked slice
+
+If you click the **Frequency display** while the slice is locked, AetherSDR immediately exits direct entry mode without applying the frequency. The display shows a brief **LOCKED** overlay, and the slice remains on its current frequency. Unlock the slice first, then enter the frequency.
 
 ## What each control does
 
@@ -109,27 +114,38 @@ When operating on transverter (XVTR) bands, the frequency entry logic adapts aut
 
 - **3-digit band convenience**: On 2m/70cm bands (100-999 MHz range), a bare integer like 1446 is interpreted as 144.6 MHz. The decimal is inserted after the third digit.
 - **Microwave bands**: For 23cm and higher bands (1000+ MHz), a bare integer is treated as the frequency in MHz directly (e.g., 1296 means 1296 MHz, not 129.6 MHz).
-- The maximum allowed frequency on XVTR bands is 50000 MHz.
+- **Explicit MHz entry on non-XVTR bands**: If you type a frequency in MHz that is above 54 MHz (for example, typing "146.520"), AetherSDR now detects the explicit MHz entry and treats the value as MHz rather than attempting kHz/Hz fallback parsing. This allows direct frequency entry for VHF/UHF bands even when the radio profile does not report an XVTR antenna.
+- The maximum allowed frequency is 50000 MHz for XVTR bands and for explicit MHz entries above 54 MHz. For all other entries, the maximum is 54 MHz.
+
+## Frequency entry parsing details
+
+When you type a frequency value, AetherSDR parses it as follows:
+
+- **Periods in the input**: Multiple periods (e.g., "14.225.000") are normalized to a single decimal point. The value is then interpreted as MHz.
+- **Values ≤ 54 MHz (HF bands)**:
+  - Values > 54000 are treated as Hz and divided by 1,000,000.
+  - Values > 54 are treated as kHz and divided by 1000.
+  - Values ≤ 54 are treated as MHz directly.
+- **Values > 54 MHz (VHF/UHF/SHF bands)**:
+  - If you explicitly typed MHz (by including a decimal point or using the "14.225.000" format), the value is used as MHz directly.
+  - If you typed a bare integer, 3-digit-band convenience parsing applies (see above).
+  - The maximum allowed value is 50000 MHz.
 
 ## Tips
 
 - If the panel is collapsed to the frequency-only strip, click anywhere on it to expand it so the **Frequency display** is accessible for direct entry.
-- The scroll wheel also tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. On macOS, inertial scroll events are ignored to prevent unintended tuning after a gesture ends.
+- The scroll wheel also tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. On macOS, inertial scroll events are ignored to prevent unintended tuning after a gesture ends. In collapsed mode, scrolling anywhere on the strip tunes by step size.
+- When the slice is locked, the scroll wheel does not tune and shows a brief **LOCKED** overlay instead.
 - Right-click the slice badge to change its color.
 
 ## Troubleshooting
 
-- **Typing has no effect** — Check that the slice is not locked. A locked slice ignores tune commands. Unlock it before entering a frequency.
+- **Typing has no effect or the LOCKED overlay appears** — The slice is locked. Unlock it before entering a frequency.
 - **The VFO panel is not visible** — Click the VFO marker flag for the desired slice on the spectrum display to open the panel.
+- **I typed a VHF frequency but it was interpreted incorrectly** — Use explicit MHz entry by including a decimal point (e.g., "146.520" instead of "146520"). AetherSDR now detects this and treats the value as MHz.
 - **NR2, NR4, MNR, BNR, DFNR, or RN2 buttons are missing from the DSP tab** — These client-side modules were moved out of the VFO panel in v0.9.7. Toggle them from the spectrum overlay menu, the ADSP button on the DSP tab, or the AetherDSP applet.
 - **The DSP level slider is faded and does not respond to clicks** — The slider is inactive when no radio-side DSP algorithm that supports leveling is currently enabled. Enable NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
 - **The DSP level slider is missing on launch even though a DSP was enabled in the radio's saved profile** — This issue was fixed in v0.9.8. Update to the latest version.
 - **RADE info row does not appear** — Verify your build includes RADE support. The row only compiles when `HAVE_RADE` is defined.
 - **Antenna menu shows duplicate or confusing labels** — The menu now uses human-readable labels extracted from raw antenna identifiers. The raw identifier is still available in the tooltip.
-
-## Related
-
-- [VFO Panel overview](overview.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
-- [Change mode from the VFO panel](change-mode-from-the-vfo-panel.md)
-- [Enable RIT or XIT offset from the VFO panel](enable-rit-or-xit-offset-from-the-vfo-panel.md)
+- **The VFO panel tab content has extra vertical space or gaps** — This was fixed in v26.5.3. The tab now reports only the current page's preferred size, preventing allocation for taller tabs (such as the DSP tab with visible DIGU/DIGL sub-controls) when viewing a shorter tab (such

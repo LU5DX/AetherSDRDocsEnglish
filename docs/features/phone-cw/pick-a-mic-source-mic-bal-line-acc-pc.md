@@ -22,7 +22,7 @@ The selection takes effect immediately on the radio.
 | **Mic source**     | Selects the microphone input source sent to the radio.                                                                                                                                          | —       |
 | **Mic gain**       | Adjusts the microphone input level. When the source is `PC`, or when RADE mode is active, the value is stored client-side in `PcMicGain` because the radio does not manage gain in those paths. | 50      |
 | **ALC (Phone panel)** | Shows automatic level control reading from `MeterModel::swAlcChanged` (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). | — |
-| **ALC (CW panel)**     | Mirrors the Phone-panel ALC gauge; both read from `MeterModel::swAlcChanged` for consistent readings across voice and CW. Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses `HGauge::setFillFromRight` mode. | — |
+| **ALC (CW panel)**     | Mirrors the Phone-panel ALC gauge; both read from `MeterModel::swAlcChanged` for consistent readings across voice and CW. Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses `HGauge::setFillFromRight` mode. In v26.5.3 both gauges are initialised to -20 dBFS immediately to avoid a stale reading during startup (#2899). | — |
 
 **Source descriptions:**
 
@@ -73,6 +73,8 @@ The **Sidetone** toggle and **Sidetone volume** slider control both the radio's 
 
 Pitch and pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. There is no separate "Follow" toggle or manual pitch override slider; those controls were removed in v0.9.2.1.
 
+In v26.5.3 (#2899), the CW sidetone now routes to the user-selected audio output instead of the default output. This means the sidetone is heard through whatever device you have configured in Settings > Audio, not necessarily the system default.
+
 ## Metering: ALC gauges (v26.5.1+)
 
 In v26.5.1 (#2552), both the Phone panel and CW panel received new, identical ALC gauges. These replace the previous HWALC (RCA voltage) path that produced meaningless readings.
@@ -82,11 +84,29 @@ In v26.5.1 (#2552), both the Phone panel and CW panel received new, identical AL
 | **ALC (Phone panel)** | -20 to 0 dBFS | > -3 dBFS | Right-to-left  | `MeterModel::swAlcChanged` (post-software-ALC SSB peak) |
 | **ALC (CW panel)**    | -20 to 0 dBFS | > -3 dBFS | Right-to-left  | `MeterModel::swAlcChanged` (identical source)           |
 
+In v26.5.3, both ALC gauges are initialised to -20 dBFS immediately on construction. This prevents a brief stale reading during startup while the first meter update is still in-flight.
+
 Key points:
 - Both gauges read from the same `MeterModel::swAlcChanged` source, ensuring consistent readings across voice and CW.
 - The gauge is empty at -20 dBFS and fills leftward toward 0 dBFS.
 - Values below -20 dBFS pin at the left end; values above 0 dBFS pin at the right end (full scale).
 - The red zone (> -3 dBFS) indicates excessive ALC; aim to keep the gauge reading below -3 dBFS for clean transmit.
+
+## Metering: Level gauge receive gating (v26.5.3+)
+
+In v26.5.3 (#2899), the logic that suppresses the **Level** gauge during receive was moved into a dedicated `applyLevelMeterReceiveGate()` method. This method is called from the RX/TX state and MOX change signals, as well as from `updateMeters()` and `setRadeActive()`:
+
+- When the radio is receiving and `met_in_rx` is disabled, the **Level** gauge is set to -150 dBFS regardless of the mic source (PC or RADE).
+- Previously, the `PC` source and RADE mode had an exception that kept the **Level** gauge active during receive. As of v26.5.3, that exception is removed: all mic sources are suppressed equally when `met_in_rx` is off and the radio is not transmitting.
+
+## Metering: Compression gauge (v26.5.3+)
+
+In v26.5.3 (#2899), the `updateCompression()` slot was updated to correctly interpret the `COMPPEAK` value from the radio. The radio reports compression as a positive 0–25 dB amount. The P/CW gauge face is reversed: 0 = no compression (no reduction), -25 = full compression (25 dB reduction). The gauge now maps the radio's positive compression value to a negative gauge value:
+
+- `compPeak = 0 dB` → gauge shows `0 dB`
+- `compPeak = 25 dB` → gauge shows `-25 dB`
+
+Values are clamped to the 0–25 dB range before the conversion, so the gauge never reads beyond `-25 dB`.
 
 ## Tips
 
@@ -96,24 +116,12 @@ Key points:
 - At higher CW speeds, the client-side sidetone path (~10 ms latency) is more usable than the radio's DAX-fed monitor. Because the **Sidetone** toggle controls both paths together, enabling sidetone always activates the low-latency path automatically.
 - When VOX is toggled via keyboard shortcut, the Phone panel refreshes instantly to reflect the new VOX state (v0.9.3).
 - On Windows, the CW sidetone stream starts immediately on connect (v0.9.3). If sidetone is enabled before connecting, no additional steps are required after the connection is established.
-- The **Compression** gauge reads 0 dB during receive. This is intentional: in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state, so stale TX chain readings are not displayed between transmissions.
+- The **Compression** gauge reads 0 dB during receive. This is intentional: in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state, so stale TX chain readings are not displayed between transmissions. In v26.5.3 the compression value mapping was corrected to use the radio's positive 0–25 dB range.
 - The **Breakin** button fully honors the radio's `break_in` setting as of v0.9.7. With **Breakin** on (QSK), key edges trigger TX and the break-in delay holds the relay. With **Breakin** off, keys are queued and PTT must be engaged manually. The previous behavior, where an auto-PTT envelope masked the **Breakin** off state and interfered with QSK hang time, has been removed.
 - The **ALC gauge** is present on both the Phone and CW sub-panels, so you can monitor ALC regardless of mode. In CW, the gauge helps verify a clean keying envelope shape.
+- In v26.5.3, the CW sidetone audio is routed to the user-selected audio output device rather than the system default output. If you do not hear CW sidetone, check your audio output settings in `Settings > Audio`.
 
 ## Troubleshooting
 
 - **Mic source combo shows no selection or resets** — The list is populated from the radio's reported inputs. If the combo is empty, verify the radio connection is active (`Settings > Connect to Radio...`).
-- **Level meter reads nothing when source is PC** — This is not expected behavior in v0.9.3. The **Level** gauge should appear immediately on connect when the mic source is `PC`. If it does not, verify that AetherSDR is running v0.9.3 or later. For non-PC sources, the meter is suppressed to −150 dBFS when not transmitting and `met_in_rx` is off; this is normal.
-- **Level meter reads nothing when RADE is active** — The **Level** gauge should remain active during receive when RADE mode is on, independently of `met_in_rx`. If the gauge is not updating, verify that AetherSDR is running v0.9.7 or later.
-- **Mic gain slider resets to 100 when RADE activates** — RADE mode and the `PC` source both use the `PcMicGain` setting. If you have not previously set a value for `PcMicGain`, the slider defaults to 100 when RADE becomes active. Adjust the slider to your preferred level; the value is stored immediately.
-- **Sidetone pitch does not match expectation** — Pitch follows the radio's `cw_pitch` setting automatically. Adjust pitch using the **Pitch < / >** spinbox or type a value directly.
-- **Sidetone does not start on connect (Windows)** — This was a known issue in versions before v0.9.3 caused by AudioEngine initialization order. Update to v0.9.3 or later to resolve it.
-- **Compression gauge shows a value during receive** — This should not occur in v0.9.7. The gauge is gated on the radio's interlock TRANSMITTING state and reads 0 during RX. If you see a non-zero reading while receiving, verify that you are running v0.9.7 or later.
-- **Breakin off does not prevent TX on key press** — This behavior was corrected in v0.9.7. Update to v0.9.7 or later. In earlier versions, an internal auto-PTT envelope could force TX regardless of the **Breakin** setting.
-- **Typed CW value resets immediately** — If you type a value in a CW text field and it resets before you press Enter, ensure you press Enter or Tab to commit the value. The fields only accept the typed value when editing is finished.
-- **ALC gauge shows 0 or no movement** — Verify you are running v26.5.1 or later. The ALC gauge was rewired from HWALC to SW ALC in that version (#2552). The gauge only updates when transmitting.
-
-## Related
-
-- [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone
+- **Level meter reads nothing when source is PC** — This is not expected behavior in v0.9.3. The **Level** gauge should appear immediately on connect when the mic source is `PC`. If it does not, verify that AetherSDR

@@ -44,4 +44,4 @@ The Support & Diagnostics dialog lets you turn on logging for individual subsyst
 - [View the live log without leaving the app](view-the-live-log-without-leaving-the-app.md)
 - [Open the log folder to grab multiple files](open-the-log-folder-to-grab-multiple-files.md)
 - [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md)
-- [Reset settings to defaults](reset-settings-to-defaults.md)
+- Reset settings to defaults

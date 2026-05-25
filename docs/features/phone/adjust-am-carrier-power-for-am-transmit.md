@@ -11,18 +11,18 @@ Use this page to set the AM carrier power level when transmitting in AM mode. Ad
 
 1. Open the Phone applet by clicking the **PHNE** tray button in the right sidebar. If the applet panel is not visible, click **View > Applet Panel** to show it.
 2. Locate the **AM Carrier** row at the top of the Phone applet.
-3. Drag the **AM Carrier** slider left to decrease or right to increase the carrier power level. The numeric label to the right of the slider updates immediately to show the current value (for example, `48`).
+3. Drag the **AM Carrier** slider left to decrease or right to increase the carrier power level. The numeric label to the right of the slider updates immediately to show the current value (for example, `48`). While dragging, the tooltip shows the value as a percentage (for example, `48%`).
 
 ## What each control does
 
 | Control               | Description                                        | Valid range |
 |-----------------------|----------------------------------------------------|-------------|
-| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. | 0–100       |
+| **AM Carrier** slider | Sets the AM carrier power level sent to the radio. Drag to adjust; tooltip shows percentage. | 0–100       |
 | **VOX** button | Toggles voice-operated transmit on or off. | — |
-| **VOX level** slider | Sets the VOX activation threshold. | 0–100 |
+| **VOX level** slider | Sets the VOX activation threshold. Drag to adjust; tooltip shows percentage. | 0–100 |
 | **Delay** slider | Sets the VOX hang time before returning to receive. | 0–100 |
 | **DEXP** button | Toggles the downward expander (noise gate). Stored as `DexpEnabled`. See note below. | — |
-| **DEXP threshold** slider | Sets the DEXP gate threshold. Stored as `DexpLevel`. Default: 0. See note below. | 0–100 |
+| **DEXP threshold** slider | Sets the DEXP gate threshold. Stored as `DexpLevel`. Default: 0. Drag to adjust; tooltip shows percentage. See note below. | 0–100 |
 | **Low Cut < / >** | Adjusts the TX filter low-cut frequency in 50 Hz steps by snapping to the nearest 50 Hz multiple in the chosen direction. Default: 50 Hz. | 0 to (high-cut − 50) |
 | **High Cut < / >** | Adjusts the TX filter high-cut frequency in 50 Hz steps by snapping to the nearest 50 Hz multiple in the chosen direction. Default: 3300 Hz. | (low-cut + 50) to 10000 |
 

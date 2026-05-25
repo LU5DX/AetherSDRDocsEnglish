@@ -15,20 +15,20 @@ Click the PHNE tray button on the right sidebar. The Phone applet opens in the A
 
 | Control | Kind | What it does | Notes |
 |---|---|---|---|
-| AM Carrier | Slider (0–100) | Sets the AM carrier power level. The current value is shown as a number next to the slider (for example, `48`). | — |
+| AM Carrier | Slider (0–100) | Sets the AM carrier power level. The current value is shown as a percentage next to the slider (for example, `48%`). | — |
 | VOX | Toggle button | Toggles voice-operated transmit. The button lights green when active. | — |
-| VOX level | Slider (0–100) | Sets the audio threshold required to activate transmit. Move right to require a stronger signal; move left to key on quieter audio. | — |
+| VOX level | Slider (0–100) | Sets the audio threshold required to activate transmit. Move right to require a stronger signal; move left to key on quieter audio. The current value is shown as a percentage. | — |
 | Delay | Slider (0–100) | Sets the VOX hang time before the radio returns to receive after audio drops below the threshold. | — |
 | DEXP | Toggle button | Toggles the downward expander (noise gate). Persists to `DexpEnabled`. | Non-functional on firmware v1.4.0.0 — the radio returns error `0x5000002D`. |
-| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. Persists to `DexpLevel`. | Subject to the same firmware limitation as the DEXP toggle. |
-| Low Cut < / > | Spinbox | Adjusts the TX filter low-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: 0 Hz up to (high-cut − 50 Hz). | — |
-| High Cut < / > | Spinbox | Adjusts the TX filter high-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: (low-cut + 50 Hz) up to 10000 Hz. | — |
+| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. Persists to `DexpLevel`. The current value is shown as a percentage. | Subject to the same firmware limitation as the DEXP toggle. |
+| Low Cut < / > | Spinbox | Adjusts the TX filter low-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: 0 Hz up to (high-cut − 50 Hz). Default: 50 Hz. | — |
+| High Cut < / > | Spinbox | Adjusts the TX filter high-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: (low-cut + 50 Hz) up to 10000 Hz. Default: 3300 Hz. | — |
 
 ## Enable VOX and set the trigger threshold
 
 1. Open the Phone applet by clicking the PHNE tray button on the right sidebar.
 2. Click **VOX** to enable voice-operated transmit. The button lights green when active.
-3. Adjust the **VOX level** slider to set the activation threshold. Move it right to require a stronger audio signal before the radio keys; move it left to key on quieter audio. Valid range: 0–100.
+3. Adjust the **VOX level** slider to set the activation threshold. Move it right to require a stronger audio signal before the radio keys; move it left to key on quieter audio. Valid range: 0–100. The current percentage is displayed next to the slider.
 4. Adjust the **Delay** slider to set how long the radio stays in transmit after audio drops below the threshold before returning to receive.
 
 ## Enable DEXP
@@ -37,7 +37,7 @@ Click the PHNE tray button on the right sidebar. The Phone applet opens in the A
 
 1. Open the Phone applet.
 2. Click **DEXP** to enable the downward expander noise gate.
-3. Adjust the **DEXP threshold** slider to set the gate threshold. The value is stored in `DexpLevel` and persists across sessions.
+3. Adjust the **DEXP threshold** slider to set the gate threshold. The value is stored in `DexpLevel` and persists across sessions. The current percentage is displayed next to the slider.
 
 ## Set TX filter cut-off frequencies
 

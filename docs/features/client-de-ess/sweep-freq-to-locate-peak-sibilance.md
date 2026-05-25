@@ -20,16 +20,17 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 
 ## What each control does
 
-| Control                  | Default | Valid range     |
-|--------------------------|---------|-----------------|
-| Freq                     | 6000 Hz | 1000 to 12000 Hz|
-| Q                        | 2.00    | 0.5 to 5.0      |
-| Thresh                   | -30.0 dB| -60.0 to 0.0 dB |
-| Amount                   | -6.0 dB | -24.0 to 0.0 dB |
-| Attack                   | 1.0 ms  | 0.1 to 30.0 ms  |
-| Release                  | 100 ms  | 10.0 to 500.0 ms|
-| Sidechain response curve | —       | —               |
-| Gain-reduction bar       | —       | 0 to 24 dB GR   |
+| Control                  | Default    | Valid range         | Notes |
+|--------------------------|------------|---------------------|-------|
+| Freq                     | 6000 Hz    | 1000 to 12000 Hz    | Logarithmic mapping. Label '6.0 kHz' above 1 kHz, 'N Hz' below. |
+| Q                        | 2.00       | 0.5 to 5.0          | Linear mapping. Higher Q = narrower bandwidth. |
+| Thresh                   | -30.0 dB   | -60.0 to 0.0 dB     | Linear mapping. Level above which de-esser activates. |
+| Amount                   | -6.0 dB    | -24.0 to 0.0 dB     | Linear mapping. Maximum attenuation at peak sibilance. |
+| Attack                   | 1.0 ms     | 0.1 to 30.0 ms      | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this control. |
+| Release                  | 100 ms     | 10.0 to 500.0 ms    | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this control. |
+| Sidechain response curve | —          | —                   | Draws bandpass filter response with live centre-frequency ball. |
+| Gain-reduction bar       | —          | 0 to 24 dB GR       | Soft-red strip, right-filled. Refreshed ~30 Hz. |
+| Slope                    | 24 dB/oct  | 12/24/36/48 dB/oct  | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch. Present in both TX and RX StripDeEssPanel. Persisted as ClientDeEssTxSlopeStages / ClientDeEssRxSlopeStages. |
 
 **Note:** The Attack and Release knobs appear only in the Channel Strip StripDeEssPanel (both RX and TX). The docked ClientDeEssApplet omits these controls.
 
@@ -47,21 +48,28 @@ The curve widget draws frequency-axis labels using QStaticText for improved rend
 
 ## Bypass dim
 
-When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. The tile returns to full brightness as soon as the stage is re-enabled.
+When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55% of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. The tile returns to full brightness as soon as the stage is re-enabled.
 
 ## RX and TX instances
 
 The Aetherial De-Esser has separate settings for the TX and RX paths. The docked Applet Panel shows the TX copy labelled "Aetherial De-Esser". The RX copy, labelled "Aetherial De-Esser — RX", is reachable through the Aetherial Audio Channel Strip's StripDeEssPanel.
 
 The StripDeEssPanel in the Channel Strip can be opened for either TX or RX. When opened for TX, the window title reads "Aetherial De-Esser — TX". When opened for RX, the window title reads "Aetherial De-Esser — RX". Each instance independently saves and restores its own knob settings using separate settings keys:
-- TX: `ClientDeEssTxFrequencyHz`, `ClientDeEssTxQ`, `ClientDeEssTxThresholdDb`, `ClientDeEssTxAmountDb`, `ClientDeEssTxAttackMs`, `ClientDeEssTxReleaseMs`
-- RX: `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, `ClientDeEssRxThresholdDb`, `ClientDeEssRxAmountDb`, `ClientDeEssRxAttackMs`, `ClientDeEssRxReleaseMs`
+- TX: `ClientDeEssTxFrequencyHz`, `ClientDeEssTxQ`, `ClientDeEssTxThresholdDb`, `ClientDeEssTxAmountDb`, `ClientDeEssTxAttackMs`, `ClientDeEssTxReleaseMs`, `ClientDeEssTxSlopeStages`
+- RX: `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, `ClientDeEssRxThresholdDb`, `ClientDeEssRxAmountDb`, `ClientDeEssRxAttackMs`, `ClientDeEssRxReleaseMs`, `ClientDeEssRxSlopeStages`
 
 ## Tips
 
 - Keep Q at its default of 2.00 during the initial sweep. A very narrow Q can cause you to sweep past the true peak without triggering the bar. Narrow the band with Q only after you have located the peak.
 - If the gain-reduction bar never moves, Thresh is set too high. Lower it until the bar responds to "S" sounds.
 - The centre-frequency ball on the sidechain response curve moves as you turn Freq, giving a visual reference even before audio is present.
+- Adjust Slope after finding the sibilance centre frequency. Start with 24 dB/oct (the default). If the de-esser affects mid-band speech, try 36 or 48 dB/oct for a narrower notch. If sibilants are still harsh, try 12 dB/oct for a wider notch.
+
+## Slope button operation
+
+In the Channel Strip StripDeEssPanel, a Slope push button is located at the bottom of the left knob column. Click it to cycle through 12, 24, 36, and 48 dB/oct (1 to 4 cascaded bandpass biquad stages). The button label updates to show the current value (e.g., "24 dB/oct").
+
+The Slope setting is persisted per path: `ClientDeEssTxSlopeStages` for TX and `ClientDeEssRxSlopeStages` for RX. Changes take effect immediately and the sidechain response curve redraws to reflect the new slope.
 
 ## Troubleshooting
 

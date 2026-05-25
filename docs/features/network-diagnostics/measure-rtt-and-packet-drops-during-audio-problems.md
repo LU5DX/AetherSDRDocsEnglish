@@ -89,4 +89,4 @@ To filter the log output:
 - [Check per-category data rates (audio, FFT, waterfall, meters, DAX)](check-per-category-data-rates-audio-fft-waterfall-meters-dax.md)
 - [Network Diagnostics overview](overview.md)
 - [Verify the radio's IP and local bind address](verify-the-radio-s-ip-and-local-bind-address.md)
-- [Advanced preferences](../../preferences/advanced.md)
+- Advanced preferences

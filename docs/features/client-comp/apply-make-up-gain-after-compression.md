@@ -16,13 +16,14 @@ Make-up gain compensates for the overall level lost when the compressor reduces 
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted setting key |
-|---------|---------|-------------|-----------------------|
-| Makeup (TX) | `0.0 dB` | `-12.0` to `+24.0 dB` | `ClientCompTxMakeupDb` |
-| Makeup (RX) | `0.0 dB` | `-12.0` to `+24.0 dB` | `ClientCompRxMakeupDb` |
+| Control     | Default                                                                                                                                                                                                                                        | Valid range                                                                                                                                                                   |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Makeup (TX) | `0.0 dB`                                                                                                                                                                                                                                       | `-12.0` to `+24.0 dB`                                                                                                                                                         |
+| Makeup (RX) | `0.0 dB`                                                                                                                                                                                                                                       | `-12.0` to `+24.0 dB`                                                                                                                                                         |
+| Drive       | Pre-comp gain boost. Pushes more signal across the threshold so the compressor engages harder, raising average power. Pair with Phase to keep peaks clean.                                                                                     | Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing.                                        |
+| Phase       | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. | Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). 0=off, 4=broadcast default.' |
 
 The **Makeup** knob uses a linear mapping. It adds a fixed amount of gain after the compressor stage. It does not affect the threshold, ratio, or any other compressor parameter.
-
 ## Tips
 
 - Watch the gain-reduction bar while transmitting or listening. If the bar regularly sits at or beyond the `-6 dB` tick, you are applying significant compression; consider adding make-up gain in the `+4.0` to `+10.0 dB` range to recover loudness.

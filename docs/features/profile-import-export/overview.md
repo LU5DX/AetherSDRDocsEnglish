@@ -36,4 +36,4 @@ The Profile Import/Export dialog has two tabs: **Export** and **Import**.
 
 ## Related
 
-- [Profile Manager](profile-manager.md) — view, create, edit, and delete transmit profiles
+- Profile Manager — view, create, edit, and delete transmit profiles

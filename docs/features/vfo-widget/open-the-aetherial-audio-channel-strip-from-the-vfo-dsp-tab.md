@@ -30,7 +30,7 @@ The VFO panel contains several tabs:
 |---------|-----|-------|---------|-------------|----------|
 | RX antenna button | — | **RX** (icon) | — | — | Opens antenna selection menu for the receive antenna of this slice. The menu shows the radio's RX antenna list when available; otherwise falls back to the general antenna list. |
 | TX antenna button | — | **TX** (icon) | — | — | Opens antenna selection menu for the transmit antenna of this slice. Only antennas suitable for transmission (not RX-only ports) are shown. |
-| Frequency display | — | (frequency readout) | — | — | Shows the current slice frequency. Click once to begin direct frequency entry; type the frequency in MHz and press Enter or Tab. On XVTR bands, the maximum supported frequency is 50000 MHz. On 2m/70cm bands (100-999 MHz range), bare integers with 4-6 digits automatically insert a decimal after the third digit (e.g., 1446 → 144.6, 14696 → 146.96, 144600 → 144.600). On microwave bands a bare integer is interpreted directly as MHz. |
+| Frequency display | — | (frequency readout) | — | — | Shows the current slice frequency. Click once to begin direct frequency entry; type the frequency in MHz and press Enter or Tab. On XVTR bands, the maximum supported frequency is 50000 MHz. On 2m/70cm bands (100-999 MHz range), bare integers with 4-6 digits automatically insert a decimal after the third digit (e.g., 1446 → 144.6, 14696 → 146.96, 144600 → 144.600). On microwave bands a bare integer is interpreted directly as MHz. If the slice is locked, direct entry is cancelled and blocked — see the Lock button notes below. |
 | Slice badge | — | (coloured badge with slice letter) | — | — | Shows the slice letter in a coloured badge. Supports rich text formatting for HTML rendering (#2606). Click to toggle focus on the corresponding slice. |
 | Filter width label | — | (bandwidth readout) | — | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth. |
 | AF Gain slider | Audio | — | 100 | 0-100 | Sets the audio output level for this slice. Not persisted. |
@@ -61,6 +61,7 @@ The VFO panel contains several tabs:
 | Marker thickness button | — | (line thickness icon) | 1 px | Off, 1 px, 3 px | Cycles the VFO marker line thickness. Persisted per slice. |
 | Filter edges button | — | (filter edge icon) | shown | — | Toggles the filter edge lines on the spectrum passband. Persisted per slice. |
 | Collapse toggle | — | (arrow icon) | expanded | — | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice. |
+| Lock button | — | 🔒 (locked) / 🔓 (unlocked) | unlocked | — | Locks the VFO frequency. When locked, scroll-wheel tuning and direct frequency entry are blocked. In collapsed mode, scrolling over the panel is blocked. The frequency display shows a **LOCKED** overlay. Unlocking clears the overlay centrally in SliceModel (#2983). |
 
 ## Indicators
 
@@ -68,6 +69,7 @@ The VFO panel contains several tabs:
 |-----------|--------|---------|
 | TX badge | TX (red), hidden | Shown when this slice is the active transmit slice. |
 | SPLIT badge | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. |
+| LOCKED overlay | LOCKED (text), hidden | Shown on the frequency display when the VFO is locked. Cleared on unlock. |
 
 ---
 
@@ -125,7 +127,7 @@ Opens the AetherDSP Settings dialog (client-side noise reduction algorithms) dir
 
 ## Related
 
-- [Open Aetherial Audio Channel Strip from the VFO DSP tab](open-aetherial-audio-channel-strip-from-the-vfo-dsp-tab.md)
+- Open Aetherial Audio Channel Strip from the VFO DSP tab
 
 ---
 

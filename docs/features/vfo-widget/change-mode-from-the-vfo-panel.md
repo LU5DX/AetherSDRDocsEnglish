@@ -46,7 +46,12 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 
 **TX antenna button** — opens a menu listing available transmit antennas. The menu automatically excludes RX-only antenna ports (those starting with "RX"). The menu items display human-readable labels for each antenna. Antenna selection is based on the internal antenna key, not the displayed text. If the radio provides a per-slice antenna list, that list is used instead of the global antenna list.
 
-**Frequency display** — shows the current slice frequency. Click once to begin direct frequency entry. Type the frequency in MHz and press Enter or Tab. On transverter bands (frequency above 100 MHz), the entry logic accepts frequencies up to 50,000 MHz. For three-digit bands (100-999 MHz), a bare integer of 4 or more digits automatically inserts a decimal after the third digit (e.g., 1446 becomes 144.6 MHz). On other bands, the maximum entered frequency is 54.0 MHz.
+**Frequency display** — shows the current slice frequency. Click once to begin direct frequency entry. Type the frequency in MHz and press Enter or Tab.
+
+- On transverter bands (frequency above 100 MHz), the entry logic accepts frequencies up to 50,000 MHz.
+- If you explicitly enter a frequency above 54.0 MHz with an MHz format (e.g., "145.000"), the parser treats it as an intentional MHz entry and accepts frequencies up to 50,000 MHz.
+- For three-digit bands (100-999 MHz), a bare integer of 4 or more digits automatically inserts a decimal after the third digit (e.g., 1446 becomes 144.6 MHz).
+- On other bands, the maximum entered frequency is 54.0 MHz. Values above 54000 are treated as Hz, and values between 54 and 54000 are treated as kHz.
 
 ## DSP tab controls
 
@@ -95,6 +100,19 @@ The squelch button and slider in the Audio tab are automatically disabled in cer
 - **CW mode** — The radio locks squelch on at a fixed level and rejects changes. Squelch is disabled.
 
 When squelch is disabled and was previously enabled, it is automatically turned off to avoid a stuck squelch state. The `m_savedSquelchOn` flag preserves the previous state so it can be restored when switching back to a voice mode.
+
+## Locked slice behavior
+
+When a slice is locked using the lock button on the VFO panel:
+
+- Scrolling the mouse wheel over the VFO panel does not change frequency. Instead, the lock state is acknowledged with visual feedback.
+- Attempting to begin direct frequency entry on a locked slice is blocked. Any in-progress direct entry is cancelled.
+- The frequency display shows a locked indicator overlay.
+- Unlocking the slice clears the locked overlay and restores normal tuning behavior.
+
+## VFO panel height behavior
+
+The VFO panel dynamically adjusts its height to match the currently visible tab. When the DSP tab is taller than the Mode tab (for example, when digital sub-mode controls are visible in DIGU/DIGL), the panel height now correctly matches only the current tab to avoid unwanted gaps.
 
 ## Tips
 

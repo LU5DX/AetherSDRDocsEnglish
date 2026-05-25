@@ -12,7 +12,7 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 1. Click the EQ tray button in the right sidebar to open the Equalizer tile.
 2. Click RX. The button highlights blue and the sliders switch to the receive path.
 3. Click ON. The button highlights green. The RX equalizer is now active on the radio.
-4. Adjust the band sliders (63, 125, 250, 500, 1k, 2k, 4k, 8k) as needed. Each slider trims its band from −10 to +10 dB. The value label below each slider updates live.
+4. Adjust the band sliders (63, 125, 250, 500, 1k, 2k, 4k, 8k) as needed. Each slider trims its band from −10 to +10 dB. The value label below each slider updates live. While dragging a slider, a pop-up shows the current value with a sign (+ or −) followed by " dB". The pop-up lingers briefly after you release the slider.
 
 ## What each control does
 
@@ -20,22 +20,23 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 |---|---|---|---|---|
 | ON | Toggle button | Off (unchecked) | On / Off | Enables or disables the equalizer for the currently selected path. Green highlight when enabled. |
 | RX | Toggle button | Off (unchecked) | — | Selects the receive path for display and editing. Blue highlight when active. Mutually exclusive with TX. |
-| TX | Toggle button | Varies (see notes) | — | Selects the transmit path. The applet opens on the TX view by default, but remembers your last selection across sessions. |
+| TX | Toggle button | Normally on (checked) | — | Selects the transmit path. The applet opens on the TX view by default. |
 | Reset arc | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
-| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. |
-| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. |
-| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. |
-| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. |
-| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. |
-| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. |
-| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. |
-| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. |
+| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Drag pop-up shows signed dB value. |
+| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Drag pop-up shows signed dB value. |
+| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Drag pop-up shows signed dB value. |
+| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Drag pop-up shows signed dB value. |
+| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Drag pop-up shows signed dB value. |
+| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Drag pop-up shows signed dB value. |
+| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Drag pop-up shows signed dB value. |
+| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Drag pop-up shows signed dB value. |
 
 ## Tips
 
 - The applet remembers whether you last used the RX or TX view and restores that selection when reopened. On first launch, it opens showing the TX path. Click RX before adjusting sliders to make sure you are editing receive bands, not transmit bands.
 - To quickly compare equalized and flat receive audio, click ON repeatedly while listening. The radio applies or removes the EQ immediately.
 - To start fresh, click the Reset arc button. All RX bands return to 0 dB in one click.
+- While dragging any EQ slider, a pop-up displays the signed value (e.g., "+3 dB" or "-5 dB") near the slider handle. The pop-up fades after you release the mouse button, giving you time to read the final value.
 
 ## Troubleshooting
 

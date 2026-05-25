@@ -19,17 +19,29 @@ Use the built-in monitor recorder to capture and immediately play back how your 
 
 ## What each control does
 
-| Control                                                       | Default                                                                                                                                | Behavior                                                                                                                                                                                                                        |
-|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **TX** / **RX** toggle buttons                                | TX is checked                                                                                                                          | Exclusive pair; shows and edits the corresponding DSP chain. Last-active tab persists via `PooDooAudioActiveTab`.                                                                                                               |
-| **BYPASS**                                                    | Unchecked                                                                                                                              | Snapshots the currently-enabled stages on the active side and disables all of them. Uncheck to re-enable just the stages that were on before. TX and RX maintain separate engine-owned snapshots.                               |
-| **⏺** (record)                                                | Unchecked                                                                                                                              | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. Hidden in RX mode.                                                                                                               |
-| **▶** (play)                                                  | Unchecked                                                                                                                              | Plays back the captured audio. Click again to cancel. Hidden in RX mode.                                                                                                                                                        |
-| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Single-click toggles bypass for the stage; double-click opens the Aetherial Audio Channel Strip; drag reorders the TX chain.           | Delegated to ClientChainWidget. Hint text: "Click to bypass · Double click to edit · Drag to reorder".                                                                                                                          |
-| RX chain stage (EQ / AGC-G / AGC-C / DESS / TUBE / EVO)       | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All six RX stages are fully implemented. Order is independent of the TX chain.                                                                                                                |
-| **RADIO** status tile                                         | Always visible in RX mode                                                                                                              | Greens when PC Audio (standard SSB stream) is enabled. Non-interactive.                                                                                                                                                         |
-| **ADSP** status / bypass tile                                 | Unchecked                                                                                                                              | Mirrors which client-side noise reducer is currently active. Single-click bypasses the entire NR cluster with an in-memory snapshot; click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. |
-| **SPEAK** status tile                                         | Always visible in RX mode                                                                                                              | Greens when AetherSDR's audio output is unmuted. Non-interactive.                                                                                                                                                               |
+| Control | Default | Behavior |
+|---|---|---|
+| **TX** / **RX** toggle buttons | TX is checked | Exclusive pair; shows and edits the corresponding DSP chain. Last-active tab persists via `PooDooAudioActiveTab='TX'` / `'RX'`. |
+| **BYPASS** | Unchecked | Snapshots the currently-enabled stages on the active side and disables all of them. Uncheck to re-enable just the stages that were on before. TX and RX maintain separate snapshots. |
+| **⏺** (record) | Unchecked | Captures up to 30 s of post-PUDU TX audio. Click again to stop; playback starts automatically. Hidden in RX mode. Only enabled when the mic input is ready and playback is not running. Pulses red while recording. |
+| **▶** (play) | Unchecked | Plays back the captured PUDU audio. Click again to cancel. Hidden in RX mode. Only enabled once a recording exists and recording is not active. Pulses green while playing. |
+| TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | N/A | Single-click toggles bypass for the stage; double-click opens its frameless floating editor (or the Channel Strip on TX); drag reorders the TX chain. Hint text: "Click to bypass · Double click to edit · Drag to reorder". |
+| RX chain stage (EQ / AGC-G / AGC-C / DESS / TUBE / EVO) | N/A | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All six RX stages are fully implemented. Order is independent of the TX chain. |
+| **RADIO** status tile | Always visible in RX mode | Greens when PC Audio (standard SSB stream) is enabled. Non-interactive. |
+| **ADSP** status / bypass tile | Unchecked | Interactive RX-side tile that mirrors which client-side noise reducer is currently active. Label rotates to the active module's short name (e.g. 'NR2', 'NR4', 'BNR'); falls back to 'ADSP' when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. |
+| **SPEAK** status tile | Always visible in RX mode | Greens when AetherSDR's audio output is unmuted. Non-interactive. |
+
+## Interaction settings
+
+The click-discrimination interval used to distinguish a single click from a double-click is configurable via the **Interaction Settings** dialog. By default, AetherSDR uses the system double-click interval, but you can adjust it to suit your preference. This setting affects both the TX chain and RX chain widgets.
+
+To adjust the interval:
+
+1. Open **File > Settings**.
+2. Select **Interaction** from the sidebar.
+3. Adjust the **Click discrimination interval** slider.
+4. Click **Apply**.
+
 ## Opening the TX DSP editor from the chain
 
 Double-clicking any TX chain stage tile opens the Aetherial Audio Channel Strip — the unified TX DSP window. The channel strip provides access to all individual stage editors through its own controls. This double-click gesture is the standard way to open your TX audio settings from the chain applet.
@@ -52,6 +64,7 @@ The **BYPASS** button in the Aetherial Audio Chain applet and the **BYPASS** but
 - **Playback does not start after recording stops** — No audio was captured. Confirm your mic input is delivering audio to the PC during the recording window.
 - **Double-clicking a TX stage tile does not open a floating editor** — This is expected behaviour. Double-clicking opens the Aetherial Audio Channel Strip instead. Access individual stage editors from within the channel strip.
 - **The BYPASS button state does not match what I set in the channel strip** — If you have just connected the audio engine, reload the applet or switch away from and back to the active tab so the button can re-read the current engine state.
+- **Double-click actions feel too fast or too slow** — Adjust the click discrimination interval in **File > Settings > Interaction**.
 
 ## Related
 

@@ -38,4 +38,4 @@ The Memory Browser is a side panel that lists all memories stored on the connect
 - [Memory Browser overview](overview.md)
 - [Activate a memory with a single double-click](activate-a-memory-with-a-single-double-click.md)
 - [Jump to the memory closest to the current frequency](jump-to-the-memory-closest-to-the-current-frequency.md)
-- [Save the current slice as a memory](save-the-current-slice-as-a-memory.md)
+- Save the current slice as a memory

@@ -1,4 +1,3 @@
-```markdown
 # Enable APD to Linearise the Transmitter
 
 APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a correction equaliser to the signal before it reaches the PA. Enable it to improve spectral purity, particularly on SSB and digital modes.
@@ -28,7 +27,6 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 | Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
 The normal progression after enabling APD is: Cal → Avail → Active.
-
 ## Tips
 
 - APD calibration takes place automatically after you enable it. You do not need to transmit manually to trigger it; wait for the indicators to step through Cal → Avail → Active.
@@ -78,8 +76,8 @@ The selection is a one-shot transient — the radio's tune mode reverts to singl
 
 | Control    | Kind   | Behavior                                                                 |
 |------------|--------|--------------------------------------------------------------------------|
-| RF Power   | Slider | Sets the transmit RF power level (W); range 0–100. Default: 100.          |
-| Tune Pwr   | Slider | Sets the tune-carrier power level (W); range 0–100. Default: 10.          |
+| RF Power   | Slider | Sets the transmit RF power level (W); range 0–100. Default: 100. During drag, displays the current value as "XX W" above the slider handle. |
+| Tune Pwr   | Slider | Sets the tune-carrier power level (W); range 0–100. Default: 10. During drag, displays the current value as "XX W" above the slider handle. |
 
 ## TX Profile selector
 
@@ -112,4 +110,3 @@ The button appearance is unchanged: the MOX button turns red while the transmitt
 - [TX Controls overview](overview.md)
 - [Run a Two-Tone Tune](run-a-two-tone-tune.md)
 - [Set RF output power](set-rf-output-power.md)
-```

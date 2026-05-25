@@ -65,6 +65,10 @@ Starting with v0.9.7, clicking **MOX** routes through the Quindar-tone coordinat
 
 This change affects only the **MOX** button in the TX Controls applet. Hardware PTT, VOX, and other PTT sources are not affected.
 
+## Slider value display (v26.5.3)
+
+Starting with v26.5.3, when dragging the **RF Pwr** or **Tune Pwr** slider, the slider thumb displays the current value in watts (e.g., "50 W") as a tooltip next to the thumb. This provides immediate visual feedback of the power level as you adjust the slider.
+
 ## Troubleshooting
 
 - **TUNE button does nothing** — The applet requires an active radio connection. Check that AetherSDR shows the radio as connected before attempting to transmit.
@@ -79,8 +83,8 @@ This change affects only the **MOX** button in the TX Controls applet. Hardware 
 
 - [Set tune-carrier power](set-tune-carrier-power.md)
 - [Run the internal ATU](run-the-internal-atu.md)
-- [Pre-tune bands](pre-tune-bands.md)
-- [Clear ATU memories](clear-atu-memories.md)
+- Pre-tune bands
+- Clear ATU memories
 - [Recall an ATU memory](recall-an-atu-memory.md)
 - [Set RF output power](set-rf-output-power.md)
 - [Toggle MOX to manually key the transmitter](toggle-mox-to-manually-key-the-transmitter.md)

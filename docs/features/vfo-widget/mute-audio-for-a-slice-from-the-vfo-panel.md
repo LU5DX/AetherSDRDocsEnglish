@@ -20,7 +20,7 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 |---------|------|---------|----------|-------|
 | RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. Menu uses `rxAntennaList()` if available; otherwise falls back to the full antenna list. Each action sets the antenna via `data()`. | |
 | TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. Menu is built from `txAntennaOptions()` which filters out RX-only ports. Each action sets the antenna via `data()`. | |
-| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. | |
+| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. Frequency entries with explicit decimal points above 54 MHz are accepted as MHz values on any band. | |
 | Filter width label | Indicator | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth. | Fixes a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
 | Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. | |
@@ -45,7 +45,7 @@ The DSP tab now shows only radio-supplied noise reduction algorithms. The button
 The buttons present in the DSP tab are:
 
 | Button | Algorithm |
-|---|---|
+|--------|-----------|
 | NR | Noise reduction |
 | NB | Noise blanker |
 | ANF | Automatic notch filter |
@@ -73,6 +73,10 @@ The squelch button and slider are automatically disabled in certain modes:
 
 When squelch is disabled and was previously enabled, the system automatically turns squelch off for the slice and saves its state. When you switch back to a voice mode, squelch may be restored.
 
+## VFO panel layout changes in v26.5.3
+
+The stacked tab widget inside the VFO panel now uses a custom `QStackedWidget` subclass (`TabStack`) that reports only the current tab's preferred size. This fixes a visual gap that occurred when switching from the Mode tab (which has a shorter content height) to the DSP tab (which is taller when the digital sub-container is visible). The VFO panel no longer over-allocates height based on the tallest tab. The panel now adjusts its height cleanly as you switch between tabs.
+
 ## Tips
 
 - Muting a slice does not reset the AF Gain slider. When you unmute, audio returns at the same level it was before.
@@ -83,6 +87,7 @@ When squelch is disabled and was previously enabled, the system automatically tu
 - Use the **AetherVoice** button to open the Aetherial Audio Channel Strip for unified TX/RX DSP.
 - Squelch is automatically disabled in digital, RTTY, and CW modes. If you switch to one of these modes while squelch is on, the system will turn it off and save its state for restoration when you return to a voice mode.
 - The slice badge now supports rich text format for the slice letter (#2606), allowing proper HTML rendering in the badge label.
+- When entering a frequency directly, if you type an explicit decimal point (e.g., "144.200") and the value is above 54 MHz, it is treated as MHz on any band — not just XVTR bands. This works for all VHF, UHF, and microwave bands.
 
 ## Related
 

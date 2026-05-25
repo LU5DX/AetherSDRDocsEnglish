@@ -55,6 +55,7 @@ Double-clicking any TX chain stage tile (EQ, COMP, GATE, DESS, TUBE, PUDU, VERB)
 - The `BYPASS` button stays in sync with the engine for both TX and RX modes. When showing the TX side, it mirrors the TX bypass state; when showing the RX side, it mirrors the RX bypass state. Toggling bypass here stays in lock-step with the channel strip's own bypass control.
 - The Record and Play buttons are only available in TX mode. They are hidden when RX mode is active.
 - The record button is only enabled when the mic input is set to PC and DAX is off.
+- The click discrimination interval used to distinguish single-click from double-click is now user-configurable via **Settings > Interaction Settings > Click discrimination timeout (ms)**. The default matches the system double-click interval. Adjust this to a higher value if you find it difficult to double-click without triggering bypass.
 
 ## Related
 

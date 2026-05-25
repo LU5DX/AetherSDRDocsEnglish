@@ -25,7 +25,6 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 | XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
 | XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
 | XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
-
 ## Tips
 
 - RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.
@@ -121,7 +120,9 @@ When you switch to RTTY mode:
 
 In v26.5.2.1, the RADE (RADE) mode deactivation logic was updated to reflect that "RADE" is a client-side only mode. The radio itself does not understand RADE as a distinct mode — when RADE is active, the radio echoes back the underlying real mode (DIGL or DIGU) immediately.
 
-Previously, the applet checked `m_slice->mode() == "RADE"` before emitting a deactivation signal. Because the radio immediately reports the real mode after setting RADE, this condition could never be true.
+Previously, the applet checked `m_slice->mode() == "RADE"` before emitting a deactivation signal. Because the radio immediately reports the real mode after setting RADE, this condition could never be true. Now, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode when the mode combo selection changed, preventing stale deactivate signals when changing modes on a non-RADE slice.
+
+This fix addresses the following scenarios:
 - Switching between non-RADE modes on a slice that was never in RADE.
 - RADE was activated externally (via the VFO widget combo, profile load on startup, or `MainWindow::activateRADE`).
 - The slice is rebound to a different slice via `setSlice()`.
@@ -132,9 +133,19 @@ No action is required from you. The RADE mode deactivation behavior now correctl
 
 In v0.9.10, the mute button state (🔊 / 🔇) is NOT saved or restored when the radio connection is lost and re-established. The radio is the source of truth for audio mute state, per the Radio-Authoritative Settings Policy (#2489). After you disconnect and reconnect, the mute button reflects the actual mute state reported by the radio, which may be different from what it was before the disconnect.
 
-## Related
+## Mute button double-click behavior (v26.5.3)
 
-- [Use RIT to offset the receive frequency for a drifting station](use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
-- [RX Controls overview](overview.md)
+Starting in v26.5.3, the mute button (🔊 / 🔇) has improved double-click handling:
+
+- **Single-click** mutes/unmutes the current slice only. The action is deferred by the platform double-click interval (approximately 400 ms) so that a double-click can override it. If you click twice quickly, the second click cancels the single-click timer.
+- **Double-click** mutes/unmutes all owned slices at once.
+- The mute icon (🔊 or 🔇) updates only when the radio acknowledges the mute state change, not instantly on click. This ensures the displayed state always matches the radio's actual audio mute state.
+
+No action is required from you. The mute button now correctly handles both single and double clicks.
+
+## Frequency entry with MHz/kHz/Hz scaling (v26.5.3)
+
+Starting in v26.5.3, entering a frequency in the frequency edit text field now uses `FrequencyEntryParser::normalizedMhzText()` to clean up the input. This handles common entry formats more robustly:
+
+- Dots in the frequency string are normalized so that only the first dot is kept as the decimal separator. Any additional dots are removed.
+- The parser determines whether the entry is an explicit MHz entry (contains exactly one dot or is entered

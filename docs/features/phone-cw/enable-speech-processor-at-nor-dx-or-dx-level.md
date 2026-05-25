@@ -72,6 +72,7 @@ The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control b
 - Pitch and stereo pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. No manual override or follow toggle is needed.
 - On Windows, the sidetone audio stream now starts immediately on connect rather than requiring a manual action (v0.9.3, fix #2105).
 - The sidetone bus is shared with Quindar tones. Sidetone and Quindar tones are mutually exclusive at the mode level.
+- In v26.5.3, the CW sidetone routes to the user-selected audio output device instead of the default output device (#2899). No user action is required; the sidetone automatically follows the audio output selection in the application's audio settings.
 
 If you have settings from a previous version that reference `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz`, those keys are no longer read or written by AetherSDR and can be ignored.
 
@@ -100,6 +101,13 @@ When RADE mode is active, the **Level** gauge behaves the same way: it uses clie
 
 For all other mic sources with RADE inactive, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
 
+## Level gauge behavior (v26.5.3)
+
+In v26.5.3, the logic that suppresses the **Level** gauge during receive has been refactored into a dedicated `applyLevelMeterReceiveGate()` method. This replaces the inline suppression check in `updateMeters()`. The behavior is functionally identical to previous versions:
+
+- When `met_in_rx` is off and the radio is not transmitting, the **Level** gauge is set to −150 dBFS regardless of the mic source. The previous exception for PC mic source and RADE mode has been removed — those sources are now also suppressed during receive when the level meter during receive is disabled.
+- To show the **Level** gauge during receive for PC mic source or RADE mode, enable **Level Meter During Receive** in the radio's settings or the applet's settings.
+
 ## RADE mode behavior (v0.9.7)
 
 When AetherSDR activates RADE mode, the Phone/CW applet adjusts several behaviors automatically. No manual steps are required.
@@ -109,9 +117,8 @@ When AetherSDR activates RADE mode, the Phone/CW applet adjusts several behavior
 - The **Level** gauge shows RADE input level during receive (client-side metering, not gated by `met_in_rx`).
 - When RADE mode deactivates, the applet resynchronizes the **Mic gain** slider from the radio's reported value, and the **Level** gauge reverts to standard suppression behavior for the active mic source.
 
-## Related
+## Compression gauge behavior (v26.5.3)
 
-- [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
-- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone.md)
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
+In v26.5.3, the **Compression** gauge calculation was updated to correctly interpret the raw COMPPEAK meter value from MeterModel. The gauge now expects a positive value (0–25 dB compression) and inverts it for the reversed-fill gauge display.
+
+- The **Compression

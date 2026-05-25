@@ -45,6 +45,10 @@ This means a single button press always lands on a clean 50 Hz boundary regardle
 
 Neither control has a persisted setting key; values are sent directly to the radio.
 
+## Slider value formatting
+
+As of v26.5.3, the **AM Carrier**, **VOX level**, and **DEXP threshold** sliders display their value as a percentage (e.g., "48%") when dragged. The numeric label next to the slider continues to show the raw 0–100 value without a percent sign.
+
 ## Related
 
 - [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md)

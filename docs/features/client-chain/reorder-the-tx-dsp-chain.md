@@ -53,12 +53,14 @@ The new chain order is saved automatically to `ClientCompTxChainStages`.
 - If **BYPASS** is currently checked when you reorder, the stage positions still update. The bypass snapshot is based on which stages were enabled, not their position.
 - Double-clicking any TX chain stage tile opens the Aetherial Audio Channel Strip, which provides the unified TX DSP editor. The **BYPASS** button in the channel strip and the **BYPASS** button on the chain applet control the same engine-level TX bypass state and stay in sync with each other automatically.
 - The **BYPASS** button now synchronizes with the engine-level bypass for both TX and RX modes. When you toggle bypass in the Aetherial Audio Channel Strip (TX) or in the RX chain editor, the chain applet's BYPASS button updates automatically.
+- The click discrimination interval used to distinguish single-clicks from double-clicks is configurable via the `clickDiscriminationIntervalMs()` function in `InteractionSettings`. This setting interacts equally with both the TX and RX chain widgets.
 
 ## Troubleshooting
 
 - **Drag does nothing or the drop is rejected** — Confirm **TX** is the selected mode button (amber highlight). Dragging is only active on the currently shown chain strip; if **RX** is selected, drops to the TX strip are not accepted.
 - **New order is lost after restart** — This should not happen if the drop completed successfully (cyan drop indicator appeared and you released over the strip). If it recurs, check that AetherSDR has write access to its settings storage.
 - **BYPASS button state does not match what I set in the channel strip** — The chain applet mirrors the appropriate bypass state based on the current mode. When TX is active, it shows the TX bypass state; when RX is active, it shows the RX bypass state. Both are synchronized with the engine.
+- **Single-click is not reliably toggling bypass** — If you are clicking and dragging too quickly, the click may be interpreted as the start of a drag operation. Ensure you release the mouse button promptly after clicking without any lateral movement.
 
 ## Related
 
