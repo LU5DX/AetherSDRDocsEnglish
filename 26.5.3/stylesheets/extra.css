@@ -25,8 +25,9 @@
 
 .aether-hero {
   position: relative;
-  min-height: 100vh;           /* grow if content overflows instead of clipping */
-  overflow: clip;              /* clip parallax layers to the hero without forcing an exact height */
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
   isolation: isolate;
   background-color: var(--aether-bg-deep);
 }
@@ -68,8 +69,6 @@
      never letterboxed inside an oversized box. */
   width: min(90vw, 1500px);
   height: auto;
-  max-height: 85vh;
-  object-fit: contain;
   z-index: 1;
   filter: drop-shadow(0 12px 40px rgba(6, 182, 212, 0.35));
   pointer-events: none;
