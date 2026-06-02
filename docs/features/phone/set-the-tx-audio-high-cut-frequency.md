@@ -93,3 +93,7 @@ Adjust the TX filter high-cut frequency using the **High Cut < / >** spinbox. Th
 | **DEXP threshold**| Sets DEXP gate threshold (0-100). Same firmware limitation as DEXP toggle. | 0       | `DexpLevel`     |
 | **Low Cut < / >**| Adjusts TX filter low-cut frequency (0 to high_cut-50 Hz, step 50 Hz).      | 50 Hz   | None            |
 | **High Cut < / >**| Adjusts TX filter high-cut frequency (low_cut+50 to 10000 Hz, step 50 Hz). | 3300 Hz | None            |
+
+## Theme support
+
+The Phone applet now uses theme-aware colors for all UI elements. Labels, sliders, and buttons adapt to the active theme. The applet container applies the `applet/phone` theme style, and all previously hardcoded color values have been replaced with themed equivalents. This ensures consistent appearance across light and dark themes.

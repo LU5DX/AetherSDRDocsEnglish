@@ -1,6 +1,6 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB cables, peripherals, APD, Themes, and Serial (FlexControl).
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB cables, peripherals, APD, Themes, SmartLink, and Serial (FlexControl).
 
 ## Opening Radio Setup
 
@@ -11,7 +11,7 @@ The dialog remembers its position and size between sessions.
 
 ## Radio (tab)
 
-The Radio tab shows radio identification, license information, and firmware update controls.
+The Radio tab shows radio identification, license information, and firmware update controls. Each read-only value has a copy button that appears with a document icon on hover or focus; click it to copy the value to the clipboard. A brief "Copied!" popup confirms the action.
 
 ### Radio information
 
@@ -19,7 +19,7 @@ The following fields are read-only indicators of the connected radio:
 
 | Control | Description |
 |---|---|
-| **Radio SN** | Chassis serial number. |
+| **Radio SN** | Chassis serial number (read-only). |
 | **Region** | Radio regulatory region (e.g., USA). |
 | **HW Version** | Hardware version string. |
 | **Options** | Licensed radio options. |
@@ -46,7 +46,7 @@ The following fields are read-only indicators of the connected radio:
 
 1. Click **Check for Update** to query for firmware updates. If an update is available, the status label displays the version number and instructs you to download the installer.
 2. Download the installer from flexradio.com (`.msi` for SmartSDR 4.2+, `.exe` for older releases).
-3. Click **Select Installer...** and choose the downloaded file. AetherSDR accepts `.msi`, `.exe`, or a pre-extracted `.ssdr` file and stages the firmware automatically.
+3. Click **Browse .ssdr...** and choose the downloaded file. AetherSDR accepts `.msi`, `.exe`, or a pre-extracted `.ssdr` file and stages the firmware automatically.
 4. Click **Upload Firmware** to transfer the staged firmware to the radio. A progress bar and status text show the upload progress.
 
 ## Network (tab)
@@ -88,17 +88,13 @@ Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 
 | Control | Description |
 |---|---|
-| **ACC TX** | ACC TX delay in milliseconds. |
-| **TX Delay** | TX delay in milliseconds. |
-| **RCA TX1** | RCA TX1 delay in milliseconds. |
-| **Timeout (sec)** | Interlock timeout in seconds (displayed in seconds, stored as milliseconds on the radio). |
-| **TX2** | TX2 delay in milliseconds. |
+| **Timings (in ms)** | TX hang / delay timings. |
 
 ### Interlocks
 
 | Control | Description |
 |---|---|
-| **TX REQ: RCA / Accessory** | Enables RCA and accessory interlock inputs. |
+| **Interlocks - TX REQ: RCA / Accessory** | Enables RCA and accessory interlock inputs. |
 
 ### Power and tune
 
@@ -263,9 +259,7 @@ The Filters tab provides low-latency and sharp filter options per bandwidth mode
 
 | Control | Description |
 |---|---|
-| **Voice filter sharpness slider** | Sets filter sharpness for voice modes (0=lowest latency to 3=sharpest). |
-| **CW filter sharpness slider** | Sets filter sharpness for CW mode. |
-| **Digital filter sharpness slider** | Sets filter sharpness for digital modes. |
+| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness per mode (0=lowest latency to 3=sharpest). Disabled when Auto is enabled. |
 | **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode. Disables the manual sharpness slider. |
 
 ### Digital mode filters
@@ -276,7 +270,7 @@ The Filters tab provides low-latency and sharp filter options per bandwidth mode
 
 ## XVTR (tab)
 
-The XVTR tab provides per-transverter configuration.
+The XVTR tab provides per-transverter configuration. It contains nested tabs, one per configured transverter, plus a '+' tab for creating new ones.
 
 ### Transverter management
 
@@ -285,8 +279,6 @@ The XVTR tab provides per-transverter configuration.
 | **RX Only** | Forces RX-only on that transverter. |
 | **Remove** | Deletes the transverter definition. |
 | **Create New Transverter** | Adds a new transverter entry. |
-
-The tab contains nested tabs, one per configured transverter, plus a '+' tab for creating new ones.
 
 ## USB Cables (tab)
 
@@ -312,7 +304,7 @@ The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable t
 
 ## Peripherals (tab)
 
-The Peripherals tab provides manual IP connection management for external devices (TGXL, PGXL, Antenna Genius, ShackSwitch).
+The Peripherals tab provides manual IP connection management for external devices (TGXL, PGXL, Antenna Genius).
 
 ### TGXL
 
@@ -324,4 +316,7 @@ The Peripherals tab provides manual IP connection management for external device
 
 | Control | Description |
 |---|---|
-| **Connect / Disconnect (PGXL)** | Opens/closes direct TCP
+| **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
+
+### Antenna Genius
+

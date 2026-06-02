@@ -6,6 +6,8 @@ In v0.9.8, the four CW value labels (Delay, Speed, Sidetone Volume, Pitch) are n
 
 In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default output (#2899). The ALC gauges on both panels now initialize to -20 dBFS on startup.
 
+In v26.6.1, all slider and label styles now use the ThemeManager for consistent theming across the application. The container widget applies a theme class of `applet/digi`.
+
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
@@ -88,6 +90,7 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 - The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
 - The ALC gauge on both the Phone and CW panels now reads from the software ALC meter (MeterModel::swAlcChanged), providing meaningful dBFS readings instead of the previous meaningless HWALC (RCA voltage) data. Both gauges are identical and update in sync.
 - In v26.5.3, the compression gauge value is inverted: 0 dB represents no compression, and -25 dB represents full compression. This matches the meter display convention where the gauge fills toward the negative side during compression.
+- In v26.6.1, all slider and label styles now use the ThemeManager for consistent theming across the application. The container widget applies a theme class of `applet/digi`.
 
 ## Troubleshooting
 
@@ -95,5 +98,4 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 - **Sidetone produces no audio** — Check that your system audio output is configured correctly. The client-side sidetone is generated locally by AetherSDR; confirm the Sidetone button is active. In v26.5.3, verify that the sidetone audio output is routed to the correct audio device in your system settings (#2899). On Windows, the sidetone stream now starts immediately on connect (v0.9.3, #2105).
 - **Sidetone pitch is wrong** — Pitch is derived automatically from the radio's `cw_pitch` setting. Adjust the pitch using the Pitch < / > widget on the CW panel.
 - **Level gauge does not appear on connect** — If the mic source is set to PC, or if RADE mode is active, the Level gauge appears immediately on connect and remains visible during RX. For other mic sources without RADE active, the gauge is suppressed until `met_in_rx` is enabled or the radio begins transmitting.
-- **Mic gain slider appears to have no effect with RADE active** — When RADE mode is active, the Mic gain slider controls client-side RADE gain only and does not send commands to the radio. This is expected behavior. The value is saved as `PcMicGain`.
-- **Slider snaps back when adjusting CW delay** — This issue was fixed in v0.9.8 (#2428). The delay value is now cached immediately when set, preventing the radio
+- **Mic gain slider appears to have no effect with RADE active** — When R

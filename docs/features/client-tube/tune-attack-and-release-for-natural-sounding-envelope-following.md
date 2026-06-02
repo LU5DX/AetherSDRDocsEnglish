@@ -29,15 +29,18 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 
 ## What each control does
 
-| Control | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Attack  | 5.00 ms                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                            |
-| Release | 35.00 ms                                                                                                                                                                            | 10.0 to 500.0 ms                                                                                                                                                                                          |
-| RN2     | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control | Default | Valid range |
+|---------|---------|-------------|
+| Attack | 5.00 ms | 0.1 to 30.0 ms |
+| Release | 35.00 ms | 10.0 to 500.0 ms |
+| RN2 | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
-**Attack** — Uses exponential mapping across its range. Sets how quickly the envelope follower responds to rising signal levels when Envelope ≠ 0. The label displays as "X.XX ms" below 10 ms and "X.X ms" above 10 ms.
+**Attack** — Uses exponential mapping across its range. Sets how quickly the envelope follower responds to rising signal levels when Envelope ≠ 0. The label displays as "X.XX ms" below 10 ms and "X.X ms" above 10 ms. Setting key: `ClientTubeTxAttackMs` / `ClientTubeRxAttackMs`.
 
-**Release** — Uses exponential mapping across its range. Sets how quickly the envelope follower recovers after signal levels fall when Envelope ≠ 0. The label displays as "X.XX ms" below 100 ms and "X.X ms" above 100 ms.
+**Release** — Uses exponential mapping across its range. Sets how quickly the envelope follower recovers after signal levels fall when Envelope ≠ 0. The label displays as "X.XX ms" below 100 ms and "X.X ms" above 100 ms. Setting key: `ClientTubeTxReleaseMs` / `ClientTubeRxReleaseMs`.
+
+**RN2** — TX-only toggle button located in the StripTubePanel below the output level meter. Uses the `RN2` label. See [Reduce background noise with RN2](reduce-background-noise-with-rn2.md) for full details.
+
 ## Tips
 
 - Attack and Release are independent per side. Changes made in the TX editor do not affect the RX editor and vice versa.
@@ -45,6 +48,7 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 - For RX tone shaping, a longer Attack (10 ms or more) lets transient peaks pass through before the envelope follower engages, preserving initial consonants in received audio.
 - The live input ball on the transfer curve moves in real time. With Envelope set, you can see the operating point shifting as levels change, which helps confirm that Attack and Release feel right before going on air.
 - When the Tube stage is bypassed, the entire docked applet tile dims to approximately 55 % opacity. This visual cue applies to both the TX and RX tiles and makes it easy to confirm at a glance that the stage is not processing audio. The tile returns to full opacity as soon as the stage is re-enabled.
+- Knob visual colors (background ring, arc, pointer, label, and value text) are theme-driven in v26.6.1 and later. They respect the per-applet container override (e.g., the amber knob foreground unique to the compression applet) by walking the widget hierarchy to `applet/tube`.
 
 ## Troubleshooting
 
@@ -60,3 +64,4 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 - [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
 - [Monitor output clipping with the level meter in the editor](monitor-output-clipping-with-the-level-meter-in-the-editor.md)
+- [Reduce background noise with RN2](reduce-background-noise-with-rn2.md)

@@ -58,7 +58,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 |---|---|---|---|
 | 🔊 / 🔇 (mute) | 🔊 (unmuted) | — | Single-click mutes/unmutes this slice. Double-click mutes/unmutes all owned slices. The icon updates only when the radio acknowledges (per Radio-Authoritative Settings Policy, #2489). The single-click action is deferred by the platform double-click interval (default ~400 ms) so a double-click can override it. Mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. |
 | AF gain | 70 | 0–100 | Adjusts the slice audio output level. Displays a "X%" tooltip with the current percentage value. |
-| L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Displays "L##", "C" (centre), or "R##" tooltip. Double-click to reset to centre (50). |
+| L / R pan | 50 | 0–100 | Pans audio between left (0) and right (100) channels. Displays "L##", "C" (centre), or "R##" tooltip. Double-click to reset to centre (50). The slider fill anchors from the centre outward, with a centre-mark dot painted on the groove for visual reference. |
 | SQL | — | — | Enables squelch at the level set by the squelch slider. Disabled and forced off in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). |
 | Squelch level | 20 | 0–100 | Sets the squelch threshold. Takes effect only when SQL is on. The manual squelch level persists across sessions client-side as `LastManualSquelchLevel` — this preserves your preference across mode cycles and launches since auto mode may clobber the slice's squelch value. |
 
@@ -129,6 +129,4 @@ Connects to an Antenna Genius device at the specified IP and port. The "Connecte
 
 Both the AG and ShackSwitch rows share the underlying `AntennaGeniusModel` connection. Connecting to one will reflect as disconnected in the other.
 
-## AppletPanel accessors and visibility methods
-
-The following accessor methods and visibility helpers are available on `Applet
+## The

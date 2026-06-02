@@ -69,12 +69,11 @@ Playback stops immediately. The status indicator returns to "Status: Idle" and t
 3. Type the new name in the text field that appears.
 4. Press Enter to confirm, or press Escape to cancel.
 
-## Upload a WAV File
+## Upload or Download a WAV File
 
 1. Right-click the slot's **F-key button**.
-2. Select **Upload WAV** from the context menu.
-3. Navigate to and select a WAV file on your computer.
-4. The file is uploaded to the radio and replaces any existing recording in that slot.
+2. Select **Upload WAV** to upload a WAV file from your computer to the radio. Navigate to and select a WAV file. The file replaces any existing recording in that slot.
+3. Select **Download WAV** to download the slot's WAV file from the radio to your computer. Navigate to a destination folder and save the file. The file is downloaded in the WAV format with the slot's name.
 
 ## Keyboard Shortcuts
 

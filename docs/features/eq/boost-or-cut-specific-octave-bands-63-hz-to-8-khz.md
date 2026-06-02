@@ -32,7 +32,8 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 | 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
 | 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
 | 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| Per-band value label | Indicator | 0 | −10 through +10 | Shows the live dB value of the slider directly above it. |
+| +10 / 0 / −10 dB scale | Reference labels | — | — | Left and right reference labels showing the +/-10 dB range of the sliders. |
+| Per-band value label | Indicator | 0 | −10 through +10 | Shows the live dB value of the slider directly below its handle. |
 | Drag pop-up | Indicator | None | −10 through +10 | Floating label that appears near the slider handle during drag operations. Displays the current dB value with a sign (e.g., "+3 dB" or "−5 dB"). Lingers for a moment after releasing the mouse button. |
 
 ## Tips
@@ -42,6 +43,7 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 - To quickly return all bands to flat without moving each slider individually, click the Reset arc button.
 - The applet remembers whether you last used RX or TX view. When you reopen the Equalizer tile, it shows the same view you were using before, saving you a click.
 - The drag pop-up shows a signed dB value (e.g., "+3 dB" for positive values, "−3 dB" for negative values, "0 dB" for zero) to match the formatting used elsewhere in the application.
+- The slider handle and groove colours adapt to the active theme. Handle colour uses the accent colour, while the groove background uses the slider track colour from the current theme.
 
 ## Troubleshooting
 

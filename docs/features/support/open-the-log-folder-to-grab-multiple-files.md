@@ -21,6 +21,24 @@ Your OS file browser opens directly to the log directory. From there, select and
 - To capture a clean log before grabbing files, use `Clear Log` to truncate the current file, reproduce the problem, then click `Open Log Folder`.
 - The `Log file size` indicator near the log viewer shows the current size of the active log file.
 
+## Log viewer controls
+
+The log viewer displays the most recent 2000 lines from the active log file. Use these controls to manage the log display:
+
+| Control | Description |
+|---------|-------------|
+| Category checkboxes | Enable or disable logging per category. Each category appears as its own checkbox row. |
+| Enable All | Turn on every logging category. |
+| Disable All | Turn off every logging category. |
+| Log path label | Shows the current log file path. |
+| Log viewer | Scrollable view of the most recent log text (2000 lines maximum). |
+| Refresh | Reloads the log file. |
+| Clear Log | Truncates the current log file. |
+| Open Log Folder | Opens the log directory in the OS file browser. |
+| Reset Settings | Resets AetherSDR settings to defaults (with confirmation dialog). |
+| File an Issue | Launches the AI-Assisted Bug Report flow. |
+| Close | Closes the dialog. |
+
 ## Related
 
 - [Clear the log before reproducing a bug](clear-the-log-before-reproducing-a-bug.md)

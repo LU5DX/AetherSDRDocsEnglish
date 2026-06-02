@@ -34,7 +34,7 @@ The VFO panel contains several tabs:
 | Slice badge | — | (coloured badge with slice letter) | — | — | Shows the slice letter in a coloured badge. Supports rich text formatting for HTML rendering (#2606). Click to toggle focus on the corresponding slice. |
 | Filter width label | — | (bandwidth readout) | — | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth. |
 | AF Gain slider | Audio | — | 100 | 0-100 | Sets the audio output level for this slice. Not persisted. |
-| Pan slider | Audio | — | 50 | 0-100 | Sets left/right stereo pan for this slice (50 = centre). |
+| Pan slider | Audio | — | 50 | 0-100 | Sets left/right stereo pan for this slice (50 = centre). The slider fill anchors from the centre outward, with a centre-mark dot on the groove to show the neutral position. |
 | Mute button | Audio | **Mute** | off | — | Mutes audio output for this slice without changing the AF gain setting. |
 | Squelch toggle button | Audio | **Squelch** | off | — | Enables or disables squelch for this slice. Disabled in DIGU, DIGL, CW, CWL, and RTTY modes. |
 | Squelch slider | Audio | (adjacent to Squelch button) | — | 0-100 | Sets the squelch threshold. |

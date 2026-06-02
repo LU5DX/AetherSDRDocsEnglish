@@ -41,7 +41,9 @@ Double-clicking an RX chain stage tile opens that stage's own floating editor.
 
 ## How the BYPASS button stays in sync
 
-In v0.9.8, the bypass state is owned by the audio engine for both TX and RX sides. The BYPASS button on the chain applet and the BYPASS button on the Aetherial Audio Channel Strip (for TX) always reflect the same state. Clicking BYPASS on either control updates the other automatically. When you switch between TX and RX modes, the BYPASS button initialises its visual state from the engine's current bypass state for that side.
+In v26.6.1, the bypass state is owned by the audio engine for both TX and RX sides. The BYPASS button on the chain applet and the BYPASS button on the Aetherial Audio Channel Strip (for TX) always reflect the same state. Clicking BYPASS on either control updates the other automatically. When you switch between TX and RX modes, the BYPASS button initialises its visual state from the engine's current bypass state for that side.
+
+The BYPASS button disables every stage in the selected chain, including RN2 on the TX side. Its scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches.
 
 ## Click discrimination interval
 

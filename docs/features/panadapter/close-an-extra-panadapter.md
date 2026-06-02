@@ -43,6 +43,10 @@ When switching between transmit and receive, a space is automatically inserted t
 
 In Multi-Flex sessions, the slice title shown in the panadapter title bar uses the radio-provided index letter so the title matches the slice badge. This ensures consistency when multiple clients are connected to the same radio.
 
+## Panadapter theming (v26.6.1)
+
+In v26.6.1, the panadapter and its CW decode panel now use theme-aware styling instead of hardcoded colors. The title bar gradient, drag grip dots, slice title, stats labels, and CW panel background all reference theme color tokens. This means the panadapter automatically adapts to light and dark themes without requiring manual color overrides. The theme system replaces the previous fixed-color stylesheets with token-based values such as `{{color.background.1}}`, `{{color.text.secondary}}`, and `{{color.accent}}`.
+
 ## Related
 
 - [Panadapter overview](overview.md)

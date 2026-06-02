@@ -19,7 +19,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 
 **F1–F12 shortcuts** — When the active slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown, and even if the CWX panel is hidden. These shortcuts are enabled by the MainWindow based on the active slice's mode, keeping them mutually exclusive with other panels that use the same keys (such as the DVK panel) to avoid Qt shortcut ambiguity.
 
-**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. This works only when the CWX shortcuts are active.
+**Escape** — Pressing Escape aborts the current CW transmission and clears the send buffer. When a transmission is aborted, the unsent portion of the buffer appears with a strikeout effect in the history bubble. This works only when the CWX shortcuts are active.
 
 ## What each control does
 
@@ -40,6 +40,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 ## Tips
 
 - Pressing Escape during a macro transmission clears the buffer immediately. Because the keyer state alternates rapidly between dits and dahs, Escape fires unconditionally rather than waiting for a specific transmit state, so it reliably stops sending.
+- When a transmission is aborted with Escape, the history bubble for that transmission shows the already-sent characters normally and the unsent portion displayed with a strikeout effect. The strikeout boundary matches exactly how many characters were sent before the abort.
 - F1–F12 keyboard shortcuts fire whenever the active slice is in CW or CWL mode, regardless of whether the CWX panel is visible. This allows you to trigger macros while operating other panels. The shortcuts are automatically disabled when you switch the slice to a non-CW mode.
 - Right-click any history bubble to resend its contents, or to clear all sent history at once.
 - If you switch to the Setup view or click Send while Live is on, live sending is turned off automatically. You will not accidentally retransmit characters that the keyer has already sent.

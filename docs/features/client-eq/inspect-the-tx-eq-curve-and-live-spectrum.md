@@ -17,6 +17,7 @@ The "Aetherial TX EQ" applet shows the summed EQ response curve, a live FFT anal
 6. Observe the peak-hold trace — an off-white line that tracks the highest level seen at each frequency bin and decays at approximately 10 dB/sec. The trace operates on raw bins so peak detection is sample-accurate; display smoothing is applied separately and does not affect the underlying peak values. To freeze the trace at its current maximum, open the floating editor and enable the Peak Hold button.
 7. Observe the dashed yellow filter cutoff guide lines overlaid on the canvas. These mark the radio's current TX low and high filter cutoff frequencies. In the docked applet the lines are view-only; drag them in the floating editor to move the radio's passband in real time.
 8. Observe the audio band-plan strip at the bottom of the canvas. This 14 px strip shows E-SSB / SSB / AM-FM modulation regions as a reference and is always visible.
+9. Optionally, load a reference curve overlay from the floating editor to compare your EQ shape against a classic microphone target curve. See the Reference Curve Overlay section below.
 
 ## What each control does
 
@@ -36,6 +37,31 @@ The "Aetherial TX EQ" applet shows the summed EQ response curve, a live FFT anal
 | Parameter text row                  | A row of 8 text columns (one per band slot) below the canvas showing each band's Freq, Gain, and Q values. Values update live during canvas drags. Clicking a column selects that band. Right-click a column to open a context menu that lets you type exact numeric values for Freq, Gain, and Q; committing via Enter saves the settings and redraws the canvas and icon row immediately.                                                                                                                                                                                                                                                                                  | Floating editor only                                                                                                                                                                                                                                                                |
 | Filter cutoff guide lines (TX / RX) | Dashed yellow vertical lines overlaid on the canvas at the radio's current TX low/high filter cutoff (TX tile) or RX passband edges (RX tile). Hovering near a line changes the cursor to a horizontal-resize arrow. Dragging a line in the editor moves the radio's corresponding filter cutoff in real time. The TX and RX applets receive cutoff updates independently: the TX applet ignores RX cutoff changes and the RX applet ignores TX cutoff changes. Pass 0 for an edge to suppress that guide.                                                                                                                                                                  | View-only in the applet; draggable in the floating editor only                                                                                                                                                                                                                      |
 | Audio band-plan strip               | A 14 px strip permanently visible at the bottom of the EQ canvas. Shows E-SSB / SSB / AM-FM modulation regions as a frequency reference. Cursor interaction in this area is excluded from band-handle hit-testing.                                                                                                                                                                                                                                                                                                                                                                                                                                                          | No                                                                                                                                                                                                                                                                                  |
+| Reference curve overlay             | An amber, semi-transparent curve drawn over the analyzer canvas when a preset is selected in the floating editor. Overlays a target frequency-response shape to help you visually shape your EQ toward a known microphone target. See the dedicated Reference Curve Overlay section below.                                                                                                                                                                                                                                                                                                                                                                                    | Selection made in the floating editor; curve visible in both the editor and the docked applet.                                                                                                                                                                                                                                                      |
+
+## Reference curve overlay
+
+The floating editor includes a **Reference Curve** combo box that lets you select a classic microphone frequency-response target curve. When a preset is selected, an amber semi-transparent curve is drawn on top of the analyzer display in both the floating editor and the docked applet, showing the target shape you are working toward. The reference curve does not affect the audio; it is purely a visual guide.
+
+Available presets:
+
+| Preset          | Description                                                                                                                                 |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Off             | No reference curve shown.                                                                                                                   |
+| AT&T 1959       | The canonical Bell Labs presence-peak target for speech. Peak +5 dB at 2.5 kHz, rolls off below 300 Hz and above 3.4 kHz.                   |
+| Heil DX         | Bob Heil's published recommendation for maximum talk power in pile-ups. Sharper +6 dB peak at 2.7 kHz, more aggressive low-cut than AT&T.   |
+| Astatic D-104   | Classic AM/SSB "lollipop" crystal microphone response. Extremely peaky presence around 3 kHz, deep low-end rolloff.                         |
+| Shure 444       | Classic broadcast-style desk mic. Broader response with gentler presence boost — smoothest of the legendary mics.                          |
+| Heil HC-5       | Modern dynamic SSB mic target. Mid-presence boost peaks at 3 kHz at +5 dB.                                                                  |
+
+The reference curve is persisted per path: `ClientEqTxReferenceCurve` and `ClientEqRxReferenceCurve`.
+
+To use the reference curve overlay:
+1. Open the floating editor ("Aetherial Parametric EQ — TX" or "Aetherial Parametric EQ — RX").
+2. Locate the **Reference Curve** combo box in the editor header strip.
+3. Click the combo box and select a preset from the list.
+4. The amber reference curve appears on the analyzer canvas in both the floating editor and the docked applet.
+5. Adjust your EQ bands to match the target curve. The reference curve persists across sessions.
 
 Editing bands requires the floating editor. See [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md).
 
@@ -48,9 +74,4 @@ Editing bands requires the floating editor. See [Open the frameless editor to ad
 - The parameter text row below the editor canvas uses a transparent background. If the band-plan strip at the bottom of the canvas appears partially obscured in a previous version, upgrading to v0.9.7 resolves this.
 - To float, pop out, or hide the "Aetherial TX EQ" sub-container, right-click its titlebar.
 - To enter exact gain values in the Output Fader, click the dB readout, type the value, and press Enter. Press Escape to cancel without changing the value.
-- To enter exact frequency, gain, or Q values for a band, right-click the band's column in the parameter text row and use the context menu.
-
-## Troubleshooting
-
-- **The "Aetherial TX EQ" sub-container is not visible** — The applet is hidden until the TX EQ stage is enabled. Enable it from the CHAIN widget or from the floating editor. See [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md).
-- **The live analyzer overlay appears idle** — No audio is passing through the TX path. Transmit audio must be present.
+- To enter exact frequency, gain, or Q values for a band, right-click the band's column in the parameter text

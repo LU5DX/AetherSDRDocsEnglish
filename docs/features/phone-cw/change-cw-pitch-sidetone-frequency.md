@@ -12,6 +12,8 @@ In v26.5.1, both the Phone and CW sub-panels now feature an **ALC** gauge driven
 
 In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default output (#2899). The **Compression** gauge now correctly interprets the positive dB values from `MeterModel::COMPPEAK` and negates them for the reversed gauge display. The **Level** gauge now uses a dedicated receive-gate method (`applyLevelMeterReceiveGate()`) that applies equally to all mic sources including PC and RADE, suppressing the meter to -150 when `met_in_rx` is off and the radio is not transmitting.
 
+In v26.6.1, all slider and button styles were updated to use the active theme system via `ThemeManager::applyStyleSheet()` and `applyPrimarySliderStyle()`, replacing hardcoded color values. The panel container now uses `theme::setContainer()` for proper theming support. Button hover and pressed states now use theme-defined colors (`{{color.background.1}}` and `{{color.accent}}`) instead of fixed hex values.
+
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
@@ -140,5 +142,4 @@ While RADE is active:
 - In v26.5.3, the CW sidetone routes to your selected audio output device rather than the default system output. Verify your audio output selection if sidetone is not audible.
 - The **Compression** gauge reads 0 dB during receive. It only shows a value while the radio's interlock reports TRANSMITTING and the speech processor is enabled. This prevents stale readings from appearing between transmissions.
 - With **Breakin** off, keys are queued and the radio does not go to TX until you engage PTT manually. With **Breakin** on (QSK), key edges trigger TX immediately and the break-in delay holds the relay open between elements. There is no longer an automatic PTT envelope that overrides this setting (v0.9.7).
-- For CW value fields (**Delay**, **Speed**, **Sidetone volume**, **Pitch**), click the numeric field, type your value, and press Enter or Tab. The value is validated and applied to both the slider and the radio (v0.9.8).
-- The **ALC** gauge on both the Phone and CW panels reads from the same software ALC meter source (`swAlcChanged`). Operators using either Phone or CW modes see consistent ALC readings. The gauge fills from right to left: empty at -20 dBFS, full at 0 dBFS, with a red segment above -3 dBFS (#2552, v26.5
+- For CW value fields (**Delay**, **Speed**, **Sidetone volume**, **Pitch**), click the numeric field, type your value, and press Enter or Tab. The value is validated and applied to both

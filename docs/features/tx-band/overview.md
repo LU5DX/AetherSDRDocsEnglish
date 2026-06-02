@@ -19,6 +19,8 @@ The TX Band Settings dialog opens a tabbed interface showing one tab per band. E
 
 The dialog is also accessible from the main menu: **`Settings > TX Band Settings...`**
 
+The dialog uses a persistent theme container identified as `dialog/txBand`, which applies consistent styling to the frameless window.
+
 ## What each control does
 
 | Control | Purpose | Default | Valid range | Setting key |
@@ -33,6 +35,7 @@ The dialog is also accessible from the main menu: **`Settings > TX Band Settings
 - Use band enable/disable to prevent accidental transmission on bands where you don’t have a license or antenna.
 - The **Inhibit during TUNE** menu lets you suppress specific TX outputs (ACC TX, TX1, TX2, TX3) while tuning — useful to avoid keying an amplifier during tune cycles.
 - Changes made in the TX Band Settings are sent directly to the radio; no separate “Save” button is needed.
+- The dialog uses the PersistentDialog base class from v26.5.2.1, so window position and size are remembered between sessions.
 
 ## Related
 

@@ -222,8 +222,4 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 - When RADE mode is active, the Mic gain slider controls client-side RADE gain, not the radio's mic level.
 - The ALC gauges on both panels read from the same software ALC source (MeterModel::swAlcChanged). Starting in v26.5.1 (#2552), this replaces the previous HWALC (RCA voltage) path that produced meaningless readings. The gauge range is -20 to 0 dBFS, filling right-to-left. In v26.5.3, the gauges initialize to -20 dBFS immediately upon construction.
 - In v26.5.3, the CW sidetone routes to the user-selected audio output instead of the default output (#2899). If you change your audio output device, the CW sidetone follows automatically.
-
-## Related
-
-- [Enable the low-latency CW sidetone (Sidetone button drives both radio and local path)](enable-the-low-latency-cw-sidetone-sidetone-button-drives-both-radio-and-local-path.md)
-- [Change CW pitch / sidetone frequency](change
+- In v26.6.1, all sliders in the Phone/CW applet use the active theme's color palette instead of hard-coded colors. The slider handles and grooves now match the current theme's accent and background colors. This applies to the Mic gain, Processor level, Monitor volume, Delay, Speed

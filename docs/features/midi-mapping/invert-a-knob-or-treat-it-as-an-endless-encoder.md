@@ -25,7 +25,7 @@ After creating a MIDI binding, you can reverse its direction with Invert or tell
 
 ## Category filter
 
-The Category combo box above the Bindings table filters the Parameter combo box to a specific control category. In v26.5.2.1, the available categories are:
+The Category combo box above the Bindings table filters the Parameter combo box to a specific control category. In v26.6.1, the available categories are:
 
 - All
 - RX
@@ -44,7 +44,7 @@ Select a category to narrow the list of parameters shown when creating a new bin
 
 ## New momentary CW trigger actions
 
-In v26.5.2.1, the Phone/CW category includes three new momentary (Gate) actions for CW keying:
+In v26.6.1, the Phone/CW category includes three new momentary (Gate) actions for CW keying:
 
 - **Trigger straight key** (id: cwkey) — Emulates a straight key press.
 - **Trigger CW Left Paddle** (id: cwdit) — Emulates a left paddle (dit) press.

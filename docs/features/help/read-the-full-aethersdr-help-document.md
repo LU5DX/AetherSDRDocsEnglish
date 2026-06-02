@@ -35,6 +35,10 @@ The AetherSDR help system bundles several offline guides covering setup, noise c
 | Hint / footer | Reads: "Tip: The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
 | `Close` | Closes the help dialog. |
 
+## Appearance and theming
+
+The Help dialog now follows the active theme instead of using hard-coded colors. All header, separator, browser, and footer colors are driven by theme tokens. The dialog container is registered under `dialog/help` in the theme system. This ensures consistent visual styling when you switch between light and dark themes or use custom theme files.
+
 ## Tips
 
 - Each Help menu item opens a separate dialog, so you can have more than one topic open at the same time.

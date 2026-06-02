@@ -34,6 +34,10 @@ Each knob in the Aetherial FreeVerb sub-container and floating editor supports i
 
 Mouse wheel scrolling continues to work while the editor has focus, so you can fine-tune by scrolling after typing an approximate value.
 
+### Knob color theming
+
+Knob component colors (background ring, value arc, handle/label text) are sourced from the theme system. The applet container uses its own color namespace (`applet/reverb`) so that per-applet color overrides — for example, amber knob foreground in certain themes — are respected at render time. Container-specific colors can be adjusted via the active theme without affecting other knob types in the application.
+
 ## What each control does
 
 | Knob                 | Default    | Valid range | Setting key               |
@@ -50,11 +54,11 @@ Mouse wheel scrolling continues to work while the editor has focus, so you can f
 
 The enabled/disabled state of the stage is persisted as `ClientReverbTxEnabled`.
 
-- **Size** — Sets the modelled room size. Linear mapping. Larger values simulate a larger space.
+- **Size** — Sets the modelled room size. Linear mapping from 0 to 100 %. Larger values simulate a larger space.
 - **Decay** — Sets the reverb tail length. Exponential mapping from 0.3 to 5.0 s. Higher values produce a longer, more sustained tail.
-- **Damp** — Controls how quickly high frequencies decay in the tail. Linear mapping. Higher values damp high frequencies faster, producing a warmer, darker tail.
+- **Damp** — Controls how quickly high frequencies decay in the tail. Linear mapping from 0 to 100 %. Higher values damp high frequencies faster, producing a warmer, darker tail.
 - **Pre** — Pre-delay between the dry signal and the first reflections. Linear mapping from 0 to 100 ms.
-- **Mix** — Dry/wet balance. Linear mapping. Controls the level of the reverb effect relative to the dry signal.
+- **Mix** — Dry/wet balance. Linear mapping from 0 to 100 %. Controls the level of the reverb effect relative to the dry signal.
 
 ## Tips
 

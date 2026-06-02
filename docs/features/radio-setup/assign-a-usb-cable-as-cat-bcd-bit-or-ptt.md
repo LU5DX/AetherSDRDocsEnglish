@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, and themes.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, themes, and SmartLink pinned certificate management.
 
 ## Opening the Radio Setup dialog
 
@@ -14,13 +14,15 @@ The Radio tab displays radio identification, licensing information, and firmware
 
 | Control | Description |
 |---|---|
-| **Radio SN** | Chassis serial number. |
+| **Radio SN** | Chassis serial number. Click the copy button next to the value to copy the serial number to the clipboard. |
 | **Region** | Regulatory region (USA by default). |
 | **HW Version** | Hardware version string. |
 | **Options** | Licensed radio options. |
 | **FlexControl** | Detected state of FlexControl hardware. |
 | **multiFLEX** | multiFLEX enabled state. |
 | **Model** | Radio model. |
+
+Each read-only value field has a copy button. Click the clipboard icon to copy the value to the system clipboard. A brief "Copied" popup confirms the action. Copy buttons are visually dimmed when the value is empty or unavailable.
 
 ### User-configurable fields
 
@@ -48,6 +50,19 @@ The **License Info** section displays subscription status, expiration date, radi
 | Control | Description |
 |---|---|
 | **Remote On** | Enables remote wake / remote-on. |
+
+## SmartLink tab
+
+The SmartLink tab manages pinned SmartLink TLS certificates. Lists each pinned certificate with host, SHA-256 fingerprint, and pinned date. Cert-pin mismatch now hard-pauses the handshake with a modal dialog.
+
+### Pinned SmartLink Certificates
+
+| Control | Description |
+|---|---|
+| **Pinned SmartLink Certificates (section)** | Section header for the pinned certs table. Lists every host this client has pinned on first connect (trust-on-first-use). |
+| **Host / SHA-256 fingerprint / Pinned (table columns)** | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or "(pre-phase 2)"). |
+| **Forget selected** | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently. |
+| **Forget all** | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins. Shows a confirmation dialog before wiping. |
 
 ## Network tab
 
@@ -263,28 +278,4 @@ The Antennas tab allows you to assign friendly names to each antenna port on the
 
 ## Filters tab
 
-The Filters tab configures filter sharpness per mode.
-
-### Filter sharpness
-
-| Control | Range | Description | Notes |
-|---|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | 0-3 | Sets filter sharpness per mode (0=lowest latency to 3=sharpest). Slider is disabled when Auto is enabled. | Commands sent as `radio filter_sharpness <mode> level=<N>`. |
-| **Auto (Voice / CW / Digital)** | | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. | Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| **Use Low Latency Filters for Digital Modes** | | Forces low-latency filters in DIGU/DIGL. | |
-
-## XVTR tab
-
-The XVTR tab manages per-transverter configuration.
-
-| Control | Description |
-|---|---|
-| **RX Only:** | Forces RX-only on that transverter. |
-| **Remove (xvtr)** | Deletes the transverter definition. |
-| **Create New Transverter** | Adds a new transverter entry. |
-
-The tab contains nested tabs, one per configured transverter, plus a "+" tab for creating new transverters.
-
-## USB Cables tab
-
-The USB Cables tab assigns USB serial adapters to CAT,
+The

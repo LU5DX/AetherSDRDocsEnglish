@@ -12,7 +12,7 @@ Press a function key to send a pre-written CW macro string through the radio wit
 
 1. Open the CWX panel. It appears automatically when the active slice is in CW or CWL mode.
 2. Press the function key (F1 through F12) on your keyboard that corresponds to the macro you want to send. The macro fires immediately.
-3. To stop transmission mid-send, press Escape. This clears the send buffer and halts output.
+3. To stop transmission mid-send, press Escape. This clears the send buffer and halts output. Any unsent portion of the text appears struck through in the send history bubble.
 
 To send a macro using the on-screen buttons instead of the keyboard:
 
@@ -25,9 +25,13 @@ To send a macro using the on-screen buttons instead of the keyboard:
 |---|---|---|---|---|
 | F1 … F12 (keyboard) | Sends the macro stored for that function key. Active when the active slice is in CW or CWL mode, regardless of CWX panel visibility. | — | — | `CwxMacro_F1` … `CwxMacro_F12` |
 | F1 … F12 (on-screen buttons) | Same as the keyboard keys; sends the corresponding macro. | — | — | `CwxMacro_F1` … `CwxMacro_F12` |
-| Speed: | CW send speed in WPM, applied to all macro sends. | 20 WPM | 5–100 WPM | `CwxSpeedWpm` |
+| Send (view) | Shows the live send area with text entry field and send history. | — | — | — |
+| Live (view) | Shows the live send view. | — | — | — |
+| Setup (view) | Shows the macro editor and QSK setup. | — | — | — |
+| Speed: | CW send speed in WPM, applied to all macro sends and typed buffers. | 20 WPM | 5–100 WPM | `CwxSpeedWpm` |
 | Delay: | Inter-macro delay in milliseconds. | 5 ms | 0–2000 ms | `CwxDelay` |
 | QSK | Enables full break-in (QSK) mode. | Off | On / Off | `CwxQsk` |
+| Prosigns legend | Shows shortcuts for common CW prosigns (=, +, (, &, $). | — | — | — |
 
 ## How Send, Live, and Setup interact
 
@@ -39,6 +43,14 @@ The **Send** button behavior changed in v0.9.2.1. Its action now depends on whet
 The **Live** button is now a toggle. Clicking it again while Live is active turns Live mode off. When a connected model changes the live state externally (for example, from another panel or a radio event), the **Live** button updates automatically to reflect the current state.
 
 Clicking **Setup** always turns off Live mode before showing the macro editor view.
+
+## Send history bubbles
+
+The send history area displays sent CW text in chat-like bubbles with the following behavior:
+
+- Each bubble shows the sent text and a timestamp.
+- When you press Escape to abort transmission, the unsent portion of the text appears struck through in the bubble. The portion that was already sent before the abort appears normally.
+- The strikeout rendering uses the sent character count at the moment of abort. Single-line text handles correctly; multi-line wrapped strikeout is out of scope for the current implementation.
 
 ## Right-click actions on send history bubbles
 
@@ -63,6 +75,7 @@ The menu has a dark theme matching the AetherSDR interface.
 - **Macro sends but produces no audio or RF** — The macro text for that slot may be empty. Click **Setup** and check the text field next to the F-key in question. See [Edit a CW macro string](edit-a-cw-macro-string.md).
 - **Transmission does not stop after pressing Escape** — Click inside the AetherSDR window to ensure it has keyboard focus, then press Escape again.
 - **Clicked Send but the buffer was not transmitted** — If Live mode was active when you clicked **Send**, the panel exits Live mode without sending. Click **Send** once more (or press Enter) to transmit the buffer.
+- **Aborted text shows strikeout incorrectly** — The strikeout rendering is optimized for single-line text. Multi-line wrapped text may not display the strikeout boundary correctly. This is a known limitation.
 
 ## Related
 

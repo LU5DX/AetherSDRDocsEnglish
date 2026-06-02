@@ -33,6 +33,8 @@ Common reasons discovery returns nothing include guest Wi-Fi AP isolation, VPN s
 
 Use this mode when the radio is at a different location. Enter your FlexRadio account email in **SmartLink account: Email** (persisted as `SmartLinkEmail`) and your password in **SmartLink account: Password** (not persisted), then click **Sign In**. After authentication, AetherSDR populates the **Remote radios** list with the WAN radios available to your account. The list has a fixed height; if you have many remote radios, scroll within the list to find the one you want. Select a radio and click **Connect Remote Radio**. To end the session, click **Sign Out**.
 
+The email and password fields include accessibility metadata to help password managers (macOS Passwords, Windows Authenticator, KDE Wallet) associate the credential pair with the SmartLink login form.
+
 ### Connect by IP (Manual mode)
 
 Use this mode for VPN or routed network connections where you already know the radio's IP address. Enter the address in **Radio IP address** (persisted as `ManualRadioIp`), then click **Connect by IP**.
@@ -43,6 +45,7 @@ Three additional controls are available on this page:
 
 - **Advanced: Source path** — selects which local network interface (NIC) is used for the connection. The chosen interface is persisted as `ManualBindSource`. A **Source warning label** appears if the saved interface is unavailable or stale.
 - **Use low bandwidth mode** — reduces stream data rates for slow or congested links. Persisted as `LowBandwidthMode`.
+- **Enable adaptive frame-rate throttle** — when enabled, automatically reduces FFT/waterfall frame rate when network quality degrades. Persisted as `AdaptiveThrottleEnabled`. Default: off.
 - **Network Diagnostics** — opens the network diagnostics tool if the connection fails.
 
 When probing a manual IP address, AetherSDR collects detailed status information from the radio. It captures radio model, nickname, callsign, multiFlex support, and client connection data during a 400-millisecond peek window after the initial handshake. This information is used to populate the radio identity fields and verify the connection.
@@ -73,8 +76,8 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 | **Remote with SmartLink** (shortcut) | Local | Switches to the SmartLink page. |
 | **Connect by IP** (shortcut) | Local | Switches to the Manual page. |
 | **Open Network Diagnostics** | Local | Opens the network diagnostics tool. |
-| **SmartLink account: Email** | SmartLink | FlexRadio account email address. Persisted as `SmartLinkEmail`. |
-| **SmartLink account: Password** | SmartLink | Account password (not saved between sessions). |
+| **SmartLink account: Email** | SmartLink | FlexRadio account email address. Persisted as `SmartLinkEmail`. Includes accessibility metadata for password manager integration. |
+| **SmartLink account: Password** | SmartLink | Account password (not saved between sessions). Includes accessibility metadata for password manager integration. |
 | **Sign In** | SmartLink | Authenticates with SmartLink. |
 | **Sign Out** | SmartLink | Logs out of SmartLink. |
 | **Remote radios** | SmartLink | Lists WAN radios available to the account. Scrollable; fixed display height. |
@@ -82,6 +85,7 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 | **Radio IP address** | Manual | Editable drop-down showing up to three recent addresses (persisted as `RecentConnectByIpAddresses`). Type a new address or select a previous one. Persisted as `ManualRadioIp`. |
 | **Advanced: Source path** | Manual | Selects the local NIC for the connection. Persisted as `ManualBindSource`. |
 | **Use low bandwidth mode** | Manual | Enables reduced-rate streams for slow links. Persisted as `LowBandwidthMode`. |
+| **Enable adaptive frame-rate throttle** | Manual | Automatically reduces FFT/waterfall frame rate when network quality degrades. Persisted as `AdaptiveThrottleEnabled`. Default: off. |
 | **Network Diagnostics** | Manual | Opens the network diagnostics tool. |
 | **Connect by IP** (manual) | Manual | Initiates the manual/VPN connection. |
 | **Connect to last radio on start up** | All | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection panel opens and the user must pick a radio manually each session. Defaults to checked. Persisted as `AutoConnectToLastRadio`. |

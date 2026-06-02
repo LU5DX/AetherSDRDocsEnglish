@@ -1,6 +1,6 @@
 # AetherSDR Radio Setup Dialog
 
-The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, antennas, audio, filters, transverters, USB cables, peripherals, and optionally serial ports.
+The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, antennas, audio, filters, transverters, USB cables, peripherals, APD, Themes, SmartLink, and optionally serial ports.
 
 ## Opening the Radio Setup dialog
 
@@ -26,6 +26,8 @@ The **Radio** tab displays radio identification and firmware management controls
 | **FlexControl** | Detected state of FlexControl hardware |
 | **multiFLEX** | multiFLEX enabled state |
 | **License Info** | Subscription status, expiration date, Radio ID, and licensed version |
+
+Each read-only field has a copy button to its right that copies the displayed value to the clipboard. When the value is empty or unavailable, the copy button is dimmed.
 
 ### User-configurable fields
 
@@ -274,6 +276,14 @@ The **XVTR** tab configures per-transverter settings. It contains nested tabs, o
 1. Click the **+** tab (labelled **Create New Transverter**).
 2. Configure the transverter parameters.
 
+### XVTR Policy
+
+The **XVTR Policy** section allows configuring how transverters are handled regarding band edges and frequency limits. This is managed through the `XvtrPolicy` model.
+
+| Control | What it does |
+|---|---|
+| Policy selection | Choose how transverter band edges and frequency limits are applied |
+
 ## USB Cables tab
 
 The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
@@ -315,12 +325,4 @@ If the IP field is empty and the radio has discovered the TGXL, the discovered I
 
 ### PGXL
 
-Click **Connect** to open a direct TCP connection to the Power Genius XL (default port 9008). IP and port are saved to `PGXL_ManualIp` and `PGXL_ManualPort`.
-
-### Antenna Genius
-
-Click **Connect** to open a connection to the Antenna Genius (default port 9007). IP and port are saved to `AG_ManualIp` and `AG_ManualPort`.
-
-## APD tab
-
-The **APD** tab configures External Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). This tab is hidden unless the radio reports `apd configurable=
+Click **Connect** to open a direct TCP connection to the Power Genius XL (default port 9008). IP and port are saved to `PGXL

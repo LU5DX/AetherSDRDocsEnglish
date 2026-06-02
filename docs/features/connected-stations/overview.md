@@ -27,6 +27,7 @@ Select a station by clicking its radio button, then click **Disconnect Station**
 ## Tips
 
 - The dialog is application-modal — you cannot interact with the main AetherSDR window until you either disconnect a station or click Cancel.
+- The dialog applies the theme container styling `dialog/connectedStations` for consistent appearance with the rest of the application.
 
 ## Related
 

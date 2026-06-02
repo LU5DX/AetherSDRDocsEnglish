@@ -29,6 +29,13 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 | 2k | Trims the 2 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
 | 4k | Trims the 4 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
 | 8k | Trims the 8 kHz band. While dragging, a popup displays the formatted dB value with sign. | 0 dB | −10 to +10 dB |
+| +10 / 0 / -10 dB scale | Reference labels alongside the slider column showing the +/-10 dB range. | — | — |
+
+## Indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| Per-band value label | -10 through +10 | Live dB value of each slider shown below its handle. |
 
 ## Tips
 
@@ -36,6 +43,7 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 - Clicking ON a second time disables the equalizer without clearing your band settings. Your slider positions are preserved.
 - To start from a flat response before shaping, click the Reset arc button before enabling ON.
 - When dragging an EQ band slider, a popup appears near the slider handle showing the current value with a "+" sign for positive values (e.g., "+3 dB") and a "-" sign for negative values (e.g., "-5 dB"). The popup lingers briefly after you release the mouse button.
+- The applet now fully supports theme colors. The EQ slider handle uses the accent color from the active theme, while the slider groove and scale labels use the appropriate background and secondary text colors. The reset button and band labels also adapt to theme colors for a consistent appearance.
 
 ## Troubleshooting
 

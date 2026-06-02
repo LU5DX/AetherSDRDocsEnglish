@@ -21,6 +21,8 @@ The title bar contains three window controls:
 
 The dialog geometry is persisted automatically to the `AetherDspDialogGeometry` setting and restored on next launch.
 
+The dialog uses the color theme defined by the current AetherSDR theme (setting key `theme/aetherDsp`). Sliders render with the `applyPrimarySliderStyle` style applied by the theme manager.
+
 ## Select a DSP engine
 
 At the top of the dialog, six toggle tabs act as both selector and enable/disable controls:

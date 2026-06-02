@@ -30,7 +30,7 @@ Bindings and the last-used port are persisted automatically. The `MidiPort` sett
 | Activity indicator | Indicator | Shows the most recent MIDI message received. | — |
 | Auto-connect on startup | Checkbox | Reopens the saved MIDI port automatically when AetherSDR launches. | `MidiAutoConnect` |
 | Category | Combo box | Filters the Parameter combo box to a control category. Categories include: All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, Frequency. | — |
-| Parameter | Combo box | Selects the target radio parameter for a new binding. In v0.9.7, three new momentary (Gate) actions were added in the Phone/CW category: "Trigger straight key", "Trigger CW Left Paddle", "Trigger CW Right Paddle". Legacy dotted IDs (cw.key, cw.dit, cw.dah) are auto-migrated on read. | — |
+| Parameter | Combo box | Selects the target radio parameter for a new binding. In v0.9.7, three new momentary (Gate) actions were added in the Phone/CW category: "Trigger straight key" (id: `cwkey`), "Trigger CW Left Paddle" (id: `cwdit`), "Trigger CW Right Paddle" (id: `cwdah`). Legacy dotted IDs (`cw.key`, `cw.dit`, `cw.dah`) are auto-migrated on read. | — |
 | Learn | Button | Starts listening for the next incoming MIDI message and binds it to the selected parameter. Click again (labelled Cancel Learn) to abort. | — |
 | Bindings table | List | Shows all existing bindings. Columns: Parameter, MIDI Source, Channel, Invert, Relative, and a delete button. | — |
 | Invert | Checkbox (per row) | Reverses the control direction for that binding. | — |
@@ -47,6 +47,7 @@ Bindings and the last-used port are persisted automatically. The `MidiPort` sett
 - Move a control on your MIDI hardware while the activity indicator is visible to confirm AetherSDR is receiving messages before attempting to add a binding.
 - If you use multiple controllers or different physical setups, save a separate profile for each with a distinct name in Profile: so you can switch quickly with Load.
 - Use the expanded Category options (Mode, Band, Filter, Slice, Display, Frequency) to quickly narrow down parameters for specific functions.
+- The dialog now adapts to the current theme. Port status and activity labels, as well as the bindings table, use theme colors instead of hardcoded values.
 
 ## Related
 

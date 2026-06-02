@@ -11,15 +11,14 @@ Use the dummy load selector to designate one antenna port as a dummy load. When 
 ## Steps
 
 1. Open the ShackSwitch applet in the Applet Panel.
-2. Click the "Dummy Load: None" button near the bottom of the applet. A menu appears listing None and all available antenna names.
-3. Click the antenna name you want to designate as the dummy load. A checkmark appears next to the selected antenna and the button label updates to show the chosen antenna name.
-4. To remove the dummy load assignment, click the button again and select None.
+2. Click the Dummy Load selector button near the bottom of the applet. Selects or deselects an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna when transmitting.
+3. To remove the dummy load assignment, click the button again to deselect.
 
 ## What each control does
 
 | Control | Behavior | Default | Setting key |
 |---|---|---|---|
-| Dummy load selector button | Opens a menu to assign or clear the dummy load antenna. When an antenna is assigned, Port B is automatically routed to it. The button label reflects the current assignment. | None | `SS_DummyLoadAnt` |
+| Dummy load selector | Selects or deselects an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna when transmitting. | -1 (no dummy load configured) | `SS_DummyLoadAnt` |
 
 `SS_DummyLoadAnt` stores the integer antenna ID of the assigned dummy load. A value of `-1` means no dummy load is configured.
 
@@ -30,8 +29,8 @@ Use the dummy load selector to designate one antenna port as a dummy load. When 
 
 ## Troubleshooting
 
-- **The antenna list in the menu is empty** — The ShackSwitch device has not yet reported any antenna ports. Confirm the device is connected and the status label shows a valid IP address and firmware version rather than a disconnected message.
-- **Port B is not routing to the dummy load** — Verify `SS_DummyLoadAnt` is set to a valid antenna ID (not `-1`) by checking that the dummy load selector button shows an antenna name rather than "Dummy Load: None".
+- **The antenna list for dummy load selection shows no options** — The ShackSwitch device has not yet reported any antenna ports. Confirm the device is connected and the status label shows a valid IP address and firmware version rather than a disconnected message.
+- **Port B is not routing to the dummy load** — Verify `SS_DummyLoadAnt` is set to a valid antenna ID (not `-1`) by checking that the dummy load selector shows an antenna name rather than being in the deselected state.
 
 ## Related
 

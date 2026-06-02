@@ -13,7 +13,7 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 
 **Spectrum and waterfall.** The upper portion of the panadapter shows the FFT spectrum trace; below it is the waterfall. Click anywhere on the spectrum or waterfall to activate that panadapter. Drag to pan across the band. Scroll to zoom. The `View > Single-Click to Tune` and `View > Pan Follows VFO` menu items affect how clicking and scrolling interact with the VFO.
 
-**Title bar.** The 16-pixel title bar across the top of each panadapter carries the slice label, a drag grip, and (in multi-slice mode) the pop-out, maximize, and close buttons. In single-pan mode those three buttons are hidden.
+**Title bar.** The 16-pixel title bar across the top of each panadapter carries the slice label, a drag grip, and (in multi-slice mode) the pop-out, maximize, and close buttons. In single-pan mode those three buttons are hidden. The title bar uses theme-aware colour tokens for the gradient background and text labels.
 
 **Waterfall freeze behaviour.** When any connected client begins transmitting, the waterfall freezes automatically. It unfreezes when transmission stops, eliminating the 10–23 second TX-trail artifact that previously appeared after unkeying.
 
@@ -43,7 +43,7 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | Control | Kind | Default | Valid range | Setting key | Behavior |
 |---|---|---|---|---|---|
 | CW stats label | Indicator | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed currently detected by the decoder. |
-| Sens | Slider | 30 | 0 – 100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Internally maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. |
+| Sens | Slider | 30 | 0 – 100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Internally maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Uses themed slider styling via `applyPrimarySliderStyle`. |
 | 🔒P (Lock Pitch) | Toggle button | Off | On / Off | — | Locks the decoder pitch to the currently tuned frequency. |
 | 🔒S (Lock Speed) | Toggle button | Off | On / Off | — | Locks the decoder speed to the current WPM reading. |
 | Lo (pitch min) | Slider | 500 Hz | 300 – 1200 Hz | — | Sets the minimum pitch the decoder searches. Clamped to be no greater than Hi. |
@@ -63,6 +63,22 @@ When your own transmitted signal is routed back through PC audio to AetherSDR, t
 | TX text colour | Cyan (#5fc8ff) |
 | Separator insertion | Automatic space added on TX→RX and RX→TX transitions |
 | Confidence filter | Same `Sens` slider threshold applies to both receive and transmit paths |
+
+## Theme integration
+
+All visual elements of the panadapter now use theme-aware colour tokens instead of hardcoded hex values:
+
+- **Container:** The panadapter widget is registered with the theme system as `applet/panadapter`.
+- **Title bar gradient:** Uses `{{color.text.disabled}}`, `{{color.background.1}}` tokens.
+- **Drag grip dots:** Uses `{{color.text.label}}` token.
+- **Slice title:** Uses `{{color.text.secondary}}` token.
+- **CW panel background:** Uses `{{color.background.0}}` and `{{color.background.1}}` tokens.
+- **CW title:** Uses `{{color.accent}}` token.
+- **CW hint:** Uses `{{color.meter.bar.fill}}` token.
+- **CW stats label:** Uses `{{color.text.label}}` token.
+- **Sensitivity slider:** Styled via `applyPrimarySliderStyle()`.
+
+This ensures the panadapter appearance adapts to the selected theme without manual colour overrides.
 
 ## Tips
 

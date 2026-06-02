@@ -16,7 +16,7 @@ The dialog contains the following tabs:
 - **Latency** – Full-width time-series chart of RTT, arrival gap, and jitter in ms.
 - **Rates** – Full-width log-scale time-series chart of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.
 - **Packet Loss** – Full-width time-series chart of packet loss percentage per stream category.
-- **Audio** – Full-width time-series chart of playback buffer fill (ms) and underruns per second.
+- **Audio** – Full-width time-series chart of playback buffer fill (ms) and underruns per second. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream.
 - **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The timeframe selector is hidden while this tab is active.
 
 ## Timeframe selector
@@ -48,13 +48,12 @@ The Logs tab tails the AetherSDR log file in real time. This section explains ho
 
 ### Logs tab controls
 
-| Control | Default | Behavior |
-|---|---|---|
-| **Live / Paused** (toggle button) | Live | When set to **Live**, the viewer auto-scrolls to the newest log output. When set to **Paused**, scrolling stops and the display holds its current position. Scrolling up in the viewer automatically switches the button to **Paused**. Clicking the button while it reads **Paused** resumes auto-scrolling and jumps to the tail. |
-| **Filter Categories** (checkboxes) | – | Per-category checkboxes filter the log view. Includes a "General" (default) category plus all registered LogManager categories. |
-| **Select All** (push button) | – | Shows all log categories in the viewer. |
-| **Deselect All** (push button) | – | Hides all log categories from the viewer. |
-
+| Control                            | Default | Behavior                                                                                                                                                                                                                                                                                                                            |
+|------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Live / Paused** (toggle button)  | Live    | When set to **Live**, the viewer auto-scrolls to the newest log output. When set to **Paused**, scrolling stops and the display holds its current position. Scrolling up in the viewer automatically switches the button to **Paused**. Clicking the button while it reads **Paused** resumes auto-scrolling and jumps to the tail. |
+| **Filter Categories** (checkboxes) | –       | Per-category checkboxes filter the log view. Includes a "General" (default) category plus all registered LogManager categories.                                                                                                                                                                                                     |
+| **Select All** (push button)       | –       | Shows all log categories in the viewer.                                                                                                                                                                                                                                                                                             |
+| **Deselect All** (push button)     | –       | Hides all log categories from the viewer.                                                                                                                                                                                                                                                                                           |
 ### Tips
 
 - Scrolling up is the fastest way to pause — you do not need to reach for the toggle button first.

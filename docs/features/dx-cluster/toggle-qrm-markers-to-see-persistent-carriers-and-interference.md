@@ -24,6 +24,7 @@ To disable QRM markers, click the toggle again.
 - QRM markers are independent from Signal History voice markers (the `SHistoryMarkersEnabled` toggle). You can enable one, both, or neither.
 - Use the **QRM Gate** slider to ignore brief transmissions and only mark signals that persist long enough to be interference.
 - Double-click any slider knob in the Signal History section to instantly reset it to its factory default value.
+- The SpotHub dialog now uses theme-aware colors instead of hardcoded values. Status labels change color based on the active theme: accent color when connected, label color when disconnected, and danger color on error.
 
 ## Related
 

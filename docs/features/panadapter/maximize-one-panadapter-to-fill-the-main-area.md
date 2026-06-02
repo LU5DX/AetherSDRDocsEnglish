@@ -62,6 +62,7 @@ When both the radio's transmitted keying and received audio are routed to the sa
 - The Lock Pitch and Lock Speed toggle buttons freeze the decoder to the currently detected pitch or speed, preventing the decoder from tracking changes.
 - When the radio is transmitting, waterfall freeze is driven by the radio's interlock TRANSMITTING state across all connected clients (Multi-Flex), eliminating the 10–23 second TX-trail artifact after unkeying.
 - On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
+- The panadapter title bar and CW panel now use theme-aware colors via `ThemeManager::applyStyleSheet()` instead of hardcoded hex values. The title bar gradient references `{{color.text.disabled}}` and `{{color.background.1}}`, the drag grip uses `{{color.text.label}}`, and the slice title uses `{{color.text.secondary}}`. The CW panel background and border use `{{color.background.0}}` and `{{color.background.1}}` respectively. The Sensitivity slider uses the `applyPrimarySliderStyle()` helper for consistent theming.
 
 ## Related
 

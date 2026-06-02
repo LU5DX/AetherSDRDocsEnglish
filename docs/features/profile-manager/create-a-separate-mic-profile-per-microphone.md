@@ -54,7 +54,7 @@ If you type a name that already exists in the profile list and click **Create**,
 > The radio can't overwrite Mic profiles directly — updates are captured by Auto-Save while the profile is active. Auto-Save is currently OFF.  
 > Would you like to enable Auto-Save now so your changes to "Desk Mic" are captured?
 
-Click **Enable Auto-Save** to turn on auto-saving immediately, then make the existing profile active and apply your changes — they will be saved automatically.
+Click **Enable Auto-Save** to turn on auto-saving immediately, then make the existing profile active and apply your changes — they will be saved automatically. The Auto-Save checkbox on the **Auto-Save** tab stays in sync with the radio's auto-save state even if changes originate outside this dialog (for example, from another TCI client or a remote SmartSDR client).
 
 ## Troubleshooting
 

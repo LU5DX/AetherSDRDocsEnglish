@@ -13,7 +13,7 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 2. Click WAVE to show the Waveform applet. Click it again to hide it.
 3. Watch the waveform display. The trace is tinted cool when monitoring RX audio and warm when monitoring TX audio — no label reading required.
 4. Check the header readout for the current direction (RX or TX), RMS level in dBFS, and peak level in dBFS.
-5. If no audio has arrived within one second, the display shows a placeholder message instead of an empty trace. For the RX path, the message reads **"Enable PC Audio"**. For the TX path, it reads **"no TX audio"**.
+5. If no audio has arrived within one second, the display shows a placeholder message instead of an empty trace. For the RX path, the message reads **"no RX audio"**. For the TX path, it reads **"no TX audio"**.
 6. To open the settings drawer, double-click anywhere on the waveform display. Double-click again to close it. The drawer's open/closed state is remembered across app restarts.
 7. In the settings drawer, use the View combo box to choose a visualization: **Scope**, **Envelope**, **History**, or **Bands**. The default is **Scope**.
 8. Use the Zoom slider to scale the amplitude axis. The default is 1.7x (range 1.0x–6.0x). Drag right to stretch small signals; at high zoom values, clipping artifacts appear sooner.
@@ -42,7 +42,7 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 
 ## Troubleshooting
 
-- **The display shows "Enable PC Audio"** — No RX scope samples have arrived in the last second. Ensure that PC Audio is enabled in the radio's audio configuration. Verify the correct audio device is selected in `Settings > Radio Setup...`.
+- **The display shows "no RX audio"** — No RX scope samples have arrived in the last second. Ensure that PC Audio is enabled in the radio's audio configuration. Verify the correct audio device is selected in `Settings > Radio Setup...`.
 - **The display shows "no TX audio"** — No TX scope samples have arrived in the last second. Verify that audio is flowing through the transmit path.
 - **The WAVE tray button is missing** — The applet panel may be hidden. Enable it via `View > Applet Panel`. If the panel is visible but WAVE is absent, use `View > Reset Applet Order` to restore the default applet layout.
 - **Single-click and double-click are not reliably distinguished** — Adjust the click discrimination interval in `Settings > Radio Setup... > Audio > Click Discrimination Interval (ms)`. A longer interval makes single-clicks easier, a shorter interval makes double-clicks easier.

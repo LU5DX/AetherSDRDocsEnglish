@@ -65,6 +65,10 @@ The read-only rolling display shows decoded CW with color coding by confidence:
 - Requires PC audio routing to the radio for off-air decoding.
 - When PC audio is not configured, a "(requires PC Audio)" hint is shown.
 
+### Theme Support (v26.6.1+)
+
+Starting with v26.6.1, the panadapter applet theme colors are sourced from the theme system. The title bar background gradient uses `{{color.text.disabled}}`, `{{color.background.1}}`, and `#1a2a38` stop colors. The drag grip uses `{{color.text.label}}`. The slice title uses `{{color.text.secondary}}`. The CW panel background uses `{{color.background.0}}` with a border using `{{color.background.1}}`. The CW title uses `{{color.accent}}`. The CW hint uses `{{color.meter.bar.fill}}`. The CW stats label uses `{{color.text.label}}`. The Sens label uses `{{color.text.label}}`. The sensitivity slider uses `applyPrimarySliderStyle()` for themed appearance.
+
 ## Floating Window Behavior (macOS)
 
 **Metal GPU surface issue (v0.9.5.1+):** On macOS, popping a panadapter out into a floating window can leave the spectrum frozen. AetherSDR automatically resolves this by resetting GPU resources and re-binding the Metal rendering surface during each float/dock cycle.

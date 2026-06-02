@@ -55,6 +55,15 @@ Right-click any bubble in the send history scroll area to open a context menu wi
 - **Resend** — Sends the entire text from that bubble again. The bubble reappears at the bottom of the history as a new entry with the current timestamp.
 - **Clear History** — Removes all history bubbles from the scroll area. The spacer at the bottom of the history layout remains.
 
+## Aborted transmission display (v26.6.1)
+
+When you press Escape during a CW transmission, the bubble for that transmission in the send history scroll area now shows a visual strikeout on the unsent portion of the text.
+
+- The sent portion of the text appears in normal style.
+- The unsent portion appears with a strikethrough line.
+
+This makes it clear which characters were actually transmitted before the abort.
+
 ## Related
 
 - [Trigger a CW macro with F1–F12](trigger-a-cw-macro-with-f1-f12.md)

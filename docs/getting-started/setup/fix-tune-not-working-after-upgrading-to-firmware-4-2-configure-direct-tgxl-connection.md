@@ -25,12 +25,19 @@ The button turns red and reads **TUNING...** while the autotune sweep runs. When
 - When a direct connection is active, AetherSDR sends the native `autotune` command directly to the TGXL over port 9010, bypassing the `tgxl autotune handle=<H>` path through the radio firmware that broke in 4.2.
 - If no direct connection is configured, the TUNE button falls back to the radio firmware path. On firmware 4.2 that path may not work; configuring the direct connection is the reliable fix.
 - With a direct connection active, the C1, L, and C2 relay bars also enable mousewheel adjustment, and the ANT 1 / ANT 2 / ANT 3 antenna switch row becomes visible if your TGXL has a 3x1 switch.
+- The power meter scale adjusts automatically based on your amplifier setup:
+  - **Barefoot (0–200 W)**: Yellow threshold at 80 W, red threshold at 125 W.
+  - **Aurora amplifier (0–600 W)**: Yellow threshold at 400 W, red threshold at 500 W.
+  - **PGXL amplifier (0–2000 W)**: Yellow threshold at 1000 W, red threshold at 1500 W.
+- The PWR and SWR labels display live values updated from the TGXL. If no valid power reading is received for 800 ms, the labels return to their static names to prevent flickering from packet gaps.
+- A white peak tick appears on the Fwd Pwr gauge at the highest measured power. The tick clears automatically after 2.5 seconds of no new peak.
 
 ## Troubleshooting
 
 - **TUNE button shows TUNING... but never returns an SWR result** — The TGXL may not be reachable on port 9010 from your computer. Verify the IP address in `Settings > Radio Setup...` under the Tuner tab, and confirm there is no firewall blocking port 9010 between your computer and the TGXL.
 - **TUN tray button is not visible** — The Tuner applet is hidden until AetherSDR detects a Tuner Genius XL. Confirm the TGXL is powered on and the radio recognises it before opening the applet.
 - **SWR result flashes a very high value after tuning** — The post-tune SWR capture window is 400 ms. If the TGXL reports the settled SWR outside that window, the displayed value may not reflect the final match. Try the tune again; the value shown is the lowest SWR seen in the capture window.
+- **PWR gauge shows slow decay or labels don't update** — The slow release ballistics decay the bar over ~800 ms to smooth RF bursts. Labels clear after 800 ms of no data to prevent flickering. If labels stay blank, check the TGXL connection.
 
 ## Related
 

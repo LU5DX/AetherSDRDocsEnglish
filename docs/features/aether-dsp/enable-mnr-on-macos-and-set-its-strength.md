@@ -160,7 +160,7 @@ The AetherDSP Settings dialog uses a custom frameless title bar.
 
 ### Title bar
 
-- 18 px tall with a blue gradient background (`#5a7494` to `#1e2e3e`).
+- 18 px tall with a gradient background styled by the current theme.
 - A grip glyph (⋮⋮) on the left and "AetherDSP Settings" in bold 10 px text.
 - Three window-control buttons on the right: **—** (Minimize), **□** (Maximize/Restore), **×** (Close).
 

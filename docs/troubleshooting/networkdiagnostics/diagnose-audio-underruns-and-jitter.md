@@ -17,7 +17,7 @@ Use the Network Diagnostics dialog to read live audio buffer health, underrun co
    - **Latency** – RTT, arrival gap, and jitter chart.
    - **Rates** – Per-stream incoming bitrate chart.
    - **Packet Loss** – Per-category packet loss percentage chart.
-   - **Audio** – Playback buffer fill and underrun rate chart.
+   - **Audio** – Playback buffer fill and underrun rate chart. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream.
    - **Logs** – Live tail of the AetherSDR log file.
 3. On the **Details** tab, locate the **Audio Playback** group.
 4. Read **RX Buffer Now** to see how many bytes (and milliseconds) of audio are currently held in the playback buffer.
@@ -41,7 +41,7 @@ Use the Network Diagnostics dialog to read live audio buffer health, underrun co
 | **Latency**     | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                            |
 | **Rates**       | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                |
 | **Packet Loss** | Full-width time-series graph of packet loss % per stream category.                                                                            |
-| **Audio**       | Full-width time-series graph of playback buffer fill (ms) and underruns/s.                                                                    |
+| **Audio**       | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. |
 | **Logs**        | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. Timeframe selector is hidden while this tab is active. |
 
 ### Controls
@@ -77,6 +77,11 @@ All indicators refresh once per second.
 | **Audio Arrival Gap / Max Arrival Gap** | Inter-packet arrival timing.                                                           |
 | **Network Jitter**      | Smoothed jitter estimate of audio stream in ms.                                                         |
 | **Log path label**      | Shows the full path of the log file being tailed.                                                       |
+| **Feed Rate**           | Current audio feed rate for each active stream.                                                         |
+| **Deficit**             | Current audio deficit for each active stream.                                                           |
+| **Late Packets**        | Count of late packets for each active audio stream.                                                     |
+| **Packet Class Code**   | Packet class code for each active audio stream.                                                         |
+| **Stream Health**       | Health status for each active audio stream.                                                             |
 
 ## Using the Logs tab
 
@@ -96,6 +101,7 @@ The Logs tab provides a live tail of the AetherSDR log file directly inside the 
 - **Large Max Arrival Gap with low average gap:** This indicates occasional bursts of delayed packets rather than sustained loss. Isolate the network path to the radio and check for competing traffic.
 - **RX Buffer Peak is very low:** The buffer never built up a useful reserve. This makes the stream sensitive to any delivery variation. Check the network path and consider whether other heavy traffic is competing on the same link.
 - **Investigating unexpected disconnects or errors:** Open the **Logs** tab and enable the relevant LogManager categories. Use **Filter Categories (Logs)** to focus on the category of interest, then reproduce the fault while the viewer is in **Live** mode.
+- **Per-stream RX audio diagnostics:** On the **Audio** tab, review the feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. This helps identify individual stream issues that may not affect other streams.
 
 ## Troubleshooting
 

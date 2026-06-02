@@ -46,6 +46,10 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 - AF gain is per-slice. Adjusting one slice does not affect any other slice.
 - To silence a slice without moving the AF Gain slider, use the **Mute button** on the Audio tab instead. Muting does not change the stored gain value.
 
+## Pan slider centre mark (v26.6.1)
+
+The Pan slider now paints a centre-mark dot on the groove and fills the groove from the centre outward when the handle is off-centre. This provides a clear visual indication of the neutral position. The fill uses the theme's accent colour on the side toward which the handle is moved, and the background colour on the opposite side.
+
 ## Filter width label changes in v0.9.8
 
 The filter width label now uses `RxApplet::formatFilterWidth` as its single source of truth. This fixes a 0.1 kHz offset that previously affected SSB and digital mode readouts (#2197, v0.9.8). The label now stays in sync with the filter readout in the RX applet.
@@ -130,6 +134,11 @@ When a slice is locked:
 - Scroll-wheel tuning is blocked. If you attempt to scroll while locked, the slice emits a "tune blocked by lock" notification.
 - Direct frequency entry is blocked. Any in-progress direct entry is cancelled when the slice is locked.
 - The VFO panel updates the frequency label to show the locked state.
+
+## Theming and button styling (v26.6.1)
+
+- The VFO panel uses the `spectrum/vfo` theming container. This keeps VFO flags on their own theming surface, separate from the main spectrum scope.
+- The **Marker thickness button** now uses theme-aware colours for its background and pressed states: `color.background.1` for normal and hover backgrounds, `color.accent` for the pressed state.
 
 ## Tab stack height fix (v26.5.3)
 

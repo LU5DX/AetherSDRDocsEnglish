@@ -121,4 +121,4 @@ When AetherSDR activates RADE mode, the Phone/CW applet adjusts several behavior
 
 In v26.5.3, the **Compression** gauge calculation was updated to correctly interpret the raw COMPPEAK meter value from MeterModel. The gauge now expects a positive value (0–25 dB compression) and inverts it for the reversed-fill gauge display.
 
-- The **Compression
+## Theme support (v

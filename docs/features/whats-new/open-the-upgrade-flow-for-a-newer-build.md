@@ -19,10 +19,10 @@ AetherSDR opens the AetherSDR releases page in your default web browser and clos
 
 | Control | Kind | Behavior | Persisted setting |
 |---|---|---|---|
-| Release notes browser | Scrollable HTML view | Displays release entries between the last seen version and the current version. Shows at most 5 recent releases. | — |
-| `Upgrade` | Button | Visible only when an upgrade is available. Opens `https://github.com/aethersdr/AetherSDR/releases/latest` and closes the dialog. | — |
-| `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen. | `LastSeenVersion` |
-| `Skip this version` | Button | Suppresses the release reminder for this version and marks it as seen. | `LastSeenVersion` |
+| Release notes browser | Text field | Scrollable HTML view of release entries. Shows changes between the last seen version and the current version. | — |
+| `Got it — 73!` | Push button | Dismisses the dialog and marks the version as seen. | `LastSeenVersion` |
+| `Upgrade` | Push button | Visible only when an upgrade is available. Opens the download page. | — |
+| `Skip this version` | Push button | Skips release nag for this version. | `LastSeenVersion` |
 | Hint | Indicator | Short footer line with guidance. | — |
 
 ## Tips

@@ -12,27 +12,27 @@ Disabling the reverb stage removes the Aetherial FreeVerb processing from the TX
 1. Locate the CHAIN widget inside the Aetherial Audio (TXDSP) container in the applet panel.
 2. Single-click the VERB stage in the CHAIN widget to toggle it off.
 
-The VERB stage indicator changes to show it is inactive. The "Aetherial FreeVerb" sub-container hides, and the TX audio path passes through without reverb processing. All five knob values (`ClientReverbTxSize`, `ClientReverbTxDecayS`, `ClientReverbTxDamping`, `ClientReverbTxPreDelayMs`, `ClientReverbTxMix`) are preserved.
+The VERB stage indicator changes to show it is inactive. The "Aetherial FreeVerb — TX" editor hides, and the TX audio path passes through without reverb processing. All five knob values (`ClientReverbTxSize`, `ClientReverbTxDecayS`, `ClientReverbTxDamping`, `ClientReverbTxPreDelayMs`, `ClientReverbTxMix`) are preserved.
 
-To re-enable reverb, single-click the VERB stage again. The sub-container reappears and processing resumes with the previously saved settings.
+To re-enable reverb, single-click the VERB stage again. The editor reappears and processing resumes with the previously saved settings.
 
 ## Live reverb visualisation
 
-Starting in v0.9.7, the Aetherial FreeVerb applet includes a compact live visualisation panel (90 px tall) that updates in real time as you adjust the knobs. It is displayed directly inside the "Aetherial FreeVerb — TX" editor above the knob row and requires no configuration.
+The Aetherial FreeVerb applet includes a compact live visualisation panel (90 px tall) that updates in real time as you adjust the knobs. It is displayed directly inside the "Aetherial FreeVerb — TX" editor above the knob row and requires no configuration.
 
-The visualisation shows three overlaid elements against a dark background:
+The visualisation shows three overlaid elements against a thin dashed-grid background with crosshairs at centre for spatial reference:
 
-| Element                 | Colour | What it represents |
-|-------------------------|--------|--------------------|
-| Dry sine packet         | Cyan, gradient-faded to transparent rightward | The unprocessed signal. |
+| Element | Colour | What it represents |
+|---------|--------|--------------------|
+| Dry sine packet | Cyan, gradient-faded to transparent rightward | The unprocessed signal. |
 | First-order reflections | Yellow, decaying sine bursts | Early reflections. Spacing and amplitude respond to Size and Damp. |
-| Reverberant tail        | Magenta, exponentially decaying | The full reverb tail. Length follows Decay; high-frequency roll-off follows Damp; onset position follows Pre. |
+| Reverberant tail | Magenta, exponentially decaying | The full reverb tail. Length follows Decay; high-frequency roll-off follows Damp; onset position follows Pre. |
 
 All five knobs feed the visualisation directly. Changes to Size, Decay, Damp, Pre, or Mix are reflected immediately — you do not need to transmit to see the effect.
 
 ## Inline value editing
 
-Starting in v26.5.2.1, each knob supports inline value editing. Instead of dragging the knob, you can click the value label below any knob and type a numeric value directly.
+Each knob supports inline value editing. Instead of dragging the knob, you can click the value label below any knob and type a numeric value directly.
 
 ### Steps
 
@@ -51,7 +51,7 @@ The knob updates to the entered value, clamped to the valid range. If you type a
 
 ## Knob controls
 
-The Aetherial FreeVerb contains five knobs arranged in a single row. Each knob controls a reverb parameter.
+The Aetherial FreeVerb contains five knobs arranged in a single row. Each knob controls a reverb parameter. Knob colours (ring background, ring arc, pointer, label, value) are determined by the current theme's `color.knob.*` and `color.text.*` settings. When the applet is placed inside a container with its own colour override (e.g. an applet/comp with an amber knob foreground), those overrides are applied automatically.
 
 | Control | Label | Default | Valid range | Setting key | Behavior | Notes |
 |---------|-------|---------|-------------|-------------|----------|-------|

@@ -22,7 +22,7 @@ Use the OPERATE button in the Tuner applet to cycle the 4O3A Tuner Genius XL thr
 |---|---|---|
 | OPERATE | Green | Tuner relays are in circuit and active. |
 | BYPASS | Orange | Tuner is energized but the matching network is bypassed. |
-| STANDBY | Default (blue-grey) | Tuner is not operating. |
+| STANDBY | Default (theme-dependent) | Tuner is not operating. |
 
 The button label and color update immediately when the TGXL acknowledges the state change.
 

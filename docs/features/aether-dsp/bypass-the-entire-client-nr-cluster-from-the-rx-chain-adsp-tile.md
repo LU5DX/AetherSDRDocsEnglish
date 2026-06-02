@@ -19,6 +19,8 @@ Drag the title bar to move the dialog. Double-click the title bar to toggle maxi
 
 The dialog position and size are automatically persisted across sessions using the setting key `AetherDspDialogGeometry`.
 
+The dialog uses theme-aware styling applied through the `ThemeManager`. Colors are derived from the active color theme rather than hardcoded values.
+
 ## Toggle row
 
 The top of the dialog contains six toggle buttons that serve as both tab selectors and engine enable/disable controls:
@@ -46,6 +48,8 @@ Controls for the musical-noise-reduction engine.
 | Threshold: | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` | Sets speech-presence-probability threshold. |
 | Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR2 defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20). |
 
+Sliders on this tab use theme-aware styling via `applyPrimarySliderStyle()`.
+
 ## NR4 tab
 
 Controls for the libspecbleach spectral noise reduction engine.
@@ -60,6 +64,8 @@ Controls for the libspecbleach spectral noise reduction engine.
 | Masking Depth: | Slider | 0.50 | 0.00-1.00 | `NR4MaskingDepth` | Controls spectral-masking depth. |
 | Suppression: | Slider | 0.50 | 0.00-1.00 | `NR4SuppressionStrength` | Overall NR4 suppression strength. |
 | Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR4 defaults (MMSE/adaptive on, 10 dB, 0, 0, 0.50, 0.50). |
+
+Sliders on this tab use theme-aware styling via `applyPrimarySliderStyle()`.
 
 **Note:** NR4 requires LLVM (clang-cl) on Windows. The toggle is dimmed if LLVM is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 
@@ -109,3 +115,4 @@ The ADSP tile updates to reflect the bypassed state. No client NR engines are no
 - MNR and BNR may stack with other engines in some builds.
 - The Reset Defaults button (↺ icon) on each tab restores that engine's parameters to their default values.
 - Settings are persisted across sessions.
+- The dialog uses theme-aware styling. Colors are drawn from the active color theme rather than fixed values.

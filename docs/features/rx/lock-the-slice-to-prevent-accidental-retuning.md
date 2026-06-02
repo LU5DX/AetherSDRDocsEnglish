@@ -19,7 +19,6 @@ The tune-lock feature prevents a slice from responding to frequency changes. Use
 | Control | Default      | Behavior                                                                                                                |
 |---------|--------------|-------------------------------------------------------------------------------------------------------------------------|
 | 🔓 / 🔒   | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
-
 ## Tips
 
 - The lock state applies per slice. You can lock slice A while slice B remains freely tunable.
@@ -156,8 +155,23 @@ The mute button icon (🔊 or 🔇) is updated only when the radio acknowledges 
 
 Mute state is NOT saved or restored on reconnect. The radio is always the source of truth for audio mute state.
 
-## Related
+## L/R pan slider centre-mark (v26.6.1)
 
-- [Switch between multiple slices using the A..H tab row](switch-between-multiple-slices-using-the-a-h-tab-row.md)
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+The L/R pan slider now paints a small centre-mark dot on the groove. This provides a visual landmark for the neutral (centre) position, making it easier to identify when pan is centred.
+
+### How the fill works
+
+The slider fill is anchored from the centre outward:
+
+- When the handle is left of centre, the sub-page section between the handle and centre is painted in the accent colour.
+- When the handle is right of centre, the sub-page section between centre and the handle is painted in the accent colour, and the section from 0 to centre is erased with the groove colour.
+
+This prevents misleading visual feedback where the default Qt stylesheet would paint the entire section from the left edge to the handle, which reads incorrectly for a centre-anchored control.
+
+### Visual indicator
+
+A small dot (2.5 pixel radius, colour `#608090`) is painted at the centre of the slider groove. This dot is always visible regardless of the handle position, so you can quickly verify the neutral position at a glance.
+
+### Double-click reset (existing behaviour)
+
+Double-clicking the slider resets it to 50 (centre), which automatically

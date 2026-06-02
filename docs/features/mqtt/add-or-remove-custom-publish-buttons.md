@@ -77,12 +77,12 @@ The MQTT applet supports up to 12 user-defined publish buttons. Each button send
 
 ## What each control does
 
-| Control           | Default | Notes                                                                                                                            |
-|-------------------|---------|----------------------------------------------------------------------------------------------------------------------------------|
-| **Settings...**   | —       | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. |
-| Publish buttons   | —       | Click publishes the configured payload to the configured topic via MqttClient::publish. Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
-| Message log       | —       | Displays received messages as "topic: value" lines. Also processes antenna alias updates from MQTT. Capped to 50 entries.        |
-| **Enable** (Off/On)| Off    | Connects or disconnects from the broker using settings from MqttSettings. Password is loaded from system keychain on first enable. |
+| Control             | Default | Notes                                                                                                                                       |
+|---------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| **Settings...**     | —       | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. |
+| Publish buttons     | —       | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. Only active while connected. Up to 12 buttons. |
+| Message log         | —       | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT. Capped to 50 entries.                  |
+| **Enable** (Off/On) | Off     | Connects or disconnects from the broker using settings from MqttSettings. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
 
 ## Status indicators
 

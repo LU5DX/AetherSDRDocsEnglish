@@ -25,6 +25,7 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 | XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
 | XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
 | XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
+
 ## Tips
 
 - RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.
@@ -36,68 +37,157 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 - **XIT controls are greyed out** — The radio is not connected. Use `Settings > Connect to Radio...` to establish a connection, then try again.
 - **TX frequency is not shifting as expected** — Confirm the correct slice is selected using the slice tabs (A..H). XIT acts only on the currently bound slice.
 
-## Slice tab and badge colors (v0.9.3)
+---
 
-Starting in v0.9.3, the slice tab buttons (A..H) and the slice badge in the top-left of the applet are colored by the SliceColorManager. Each slice has its own color that persists across sessions. The same color is reflected in the VFO widgets and meter strips for that slice. Colors are not configurable from within the RX Controls applet itself; they are managed centrally by SliceColorManager and apply consistently across all widgets that reference a given slice.
+## RX Controls Applet — Full Reference
 
-## Slice badge text format (v26.5.2.1)
+The RX Controls applet provides per-slice receive controls for the currently bound slice. It is displayed as a panel in the right sidebar when the RX tray button is clicked.
 
-Starting in v26.5.2.1, the slice badge label supports rich text (HTML) rendering. This allows the slice letter to be formatted with HTML tags when necessary, such as for accessibility or special display requirements. The badge continues to display the single letter of the currently bound slice (A through H) with its slice-identity color. No action is required from you.
+### Slice tabs (A..H)
 
-## Slice tab behavior on reconnect (v0.9.5.1)
+The slice tab row at the top of the applet lets you select which slice the applet is bound to. Each slice has its own color that persists across sessions. The same color is reflected in the VFO widgets and meter strips for that slice.
 
-In v0.9.5.1, the slice tab row is rebuilt correctly when the number of available slices changes, such as after a disconnect and reconnect or after the radio reports a different slice count.
+- Click a tab button (A..H) to bind the applet to that slice.
+- The tab row is hidden if the radio supports only one slice.
+- On reconnect, the tab row is rebuilt correctly when the number of available slices changes. The click handler that emits `sliceActivationRequested` is connected only once per applet instance, regardless of how many times the tab row is rebuilt.
 
-Previously, the tab buttons were created only once and never replaced. Now, if the radio reports a different maximum slice count from the one already displayed, the existing buttons are torn down first — removing them from the layout and restoring the static slice badge — before the new set is built. This prevents stale tab buttons from appearing after reconnection.
+### Slice badge
 
-The click handler that emits `sliceActivationRequested` is connected only once per applet instance, regardless of how many times the tab row is rebuilt. This prevents duplicate signal handlers from accumulating across reconnects.
+The slice badge in the top-left of the applet displays the letter of the currently bound slice (A through H) with its slice-identity color. The badge supports rich text (HTML) rendering for accessibility or special display requirements.
 
-No action is required from you. The tab row updates automatically when the radio connection changes.
+### 🔓 / 🔒 (Tune lock)
 
-## Antenna menu behavior (v26.5.2.1)
+Toggles tune-lock on the slice. When locked, the slice ignores frequency changes.
 
-In v26.5.2.1, the RX and TX antenna menus were improved for better accuracy and reliability:
+### ANT1 (RX antenna)
 
-- **RX antenna menu** now uses the slice's dedicated `rxAntennaList()` when available, rather than the global panadapter antenna list. This ensures the menu shows only antennas valid for the current slice. If the slice does not provide a dedicated RX antenna list, the global antenna list is used as a fallback.
-- **TX antenna menu** explicitly filters antennas to only those suitable for transmission. The applet uses a dedicated method (`txAntennaOptions()`) that identifies TX-capable antennas by checking if the antenna token starts with "ANT", "TX", or equals "XVTR". Antennas starting with "RX" are excluded from TX options.
-- **Menu items** now display tooltips and status tips showing the raw antenna identifier string. The menu action's data field, rather than its display text, is used when setting the antenna on the slice. This prevents display formatting from interfering with the actual antenna selection.
+Opens a menu listing available receive antennas. The menu uses the slice's dedicated `rxAntennaList()` when available, falling back to the global panadapter antenna list. Blue-coloured label.
 
-No action is required from you. The antenna menus now show only appropriate antennas for each function.
+### ANT1 (TX antenna)
 
-## Manual squelch level persistence (v26.5.2.1)
+Opens a menu listing TX-capable antennas. RX-only antenna ports (prefix "RX") are filtered out. Red-coloured label.
 
-Starting in v26.5.2.1, the manual squelch threshold level is saved and restored across sessions. When you adjust the squelch level slider manually, the value is stored client-side in the AetherSDR settings file under `LastManualSquelchLevel`.
+### 2.7K (filter width)
 
-This is necessary because the radio's auto-squelch mode can overwrite the `squelchLevel` property on the slice, so the radio cannot be relied upon to preserve the operator's manual preference. By persisting the manual level in AetherSDR, the applet can restore your preferred squelch threshold when you exit auto mode or restart the application.
+Displays the current slice filter bandwidth. The readout is shared with the VFO panel and uses mode-aware logic so SSB and digital modes display the correct labelled width.
 
-The stored value is clamped to the valid range (0-100) on load. Default value is 20.
+### QSK
 
-No action is required from you. Your manual squelch preference is now remembered between sessions.
+Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet Breakin button.
 
-## Filter preset storage format (v0.9.5.1)
+### TX (badge)
 
-In v0.9.5.1, filter presets saved by the `FilterPresets` setting can store either a plain bandwidth width value or an explicit low-edge/high-edge pair. This matches the format used by the VFO widget.
+Click to set this slice as the TX slice.
 
-- **Width-only format** — a single integer in hertz, for example `2700`. The applet centers the passband symmetrically around the carrier using the mode's default edges.
-- **Lo:Hi format** — two integers separated by a colon, for example `300:3000`. The applet sets the filter low edge to 300 Hz and the high edge to 3000 Hz exactly. The displayed width label shows the computed difference (2700 Hz in this example).
+### Mode combo
 
-Both formats can appear in the same comma-separated `FilterPresets` value for a given mode. Entries that are malformed, have a high edge equal to or below the low edge, or are zero or negative are silently skipped.
+Selects the slice mode from the available options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY. If the build has RADE support, RADE is also available.
 
-This change affects how custom filter presets are saved and loaded but does not change how you interact with the filter preset buttons. Right-click a preset button to save the current passband to that slot; click it to apply the preset. The lo:hi format is written automatically when you save a preset whose low edge differs from the mode default.
+When switching modes:
+- Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch, which would otherwise notch out FSK characters and break decoding.
+- When switching out of RADE mode, the applet emits a deactivate signal only if the slice was actually in RADE mode, preventing stale deactivate signals when changing modes on a non-RADE slice.
 
-## Filter width step behavior (v0.9.8)
+### Frequency label
 
-In v0.9.8, the `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband. This ensures that keyboard shortcuts or other controls that step through filter widths produce mode-correct edge geometry.
+Displays the current VFO frequency with dotted grouping. Click to switch into edit mode.
 
-When you use a widen/narrow action (such as from the Widen/Narrow buttons in the VFO panel), the applet searches the per-mode filter preset list for the preset closest to the current filter width. It then applies the next wider or narrower preset from that list. If the current width exactly matches a preset, the next preset in the chosen direction is applied directly.
+### Frequency edit
 
-This behavior applies to all modes: LSB, CWL, DIGL, RTTY, AM, CW, and USB. FM-family modes (FM, NFM, DFM) do not have filter presets and ignore the step action.
+Enter a frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. The input is normalized so that only the first dot is kept as the decimal separator; any additional dots are removed. Escape cancels the entry, restores the previous frequency, and dismisses the editor. XVTR-aware: accepts up to 450 MHz when the slice is on an XVTR antenna.
 
-No configuration is needed. The step behavior uses the same `FilterPresets` setting that you can customize with right-click save.
+### STEP
 
-## Filter width label format (v0.9.8)
+Cycles through per-mode step sizes using < / > buttons or mousewheel. Step list depends on slice mode.
 
-In v0.9.8, the filter width readout (shared with the VFO panel via `RxApplet::formatFilterWidth`) uses mode-aware logic so SSB and digital modes display the correct labelled width. This ensures consistent readouts between the RX Controls applet and the VFO panel, as referenced in issue #2197. No action is required from you.
+### Filter width presets
+
+Click to apply a preset filter width. Right-click to save the current width as a preset. Buttons are hidden for FM/NFM/DFM modes. Presets are per-mode.
+
+The `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband, producing mode-correct edge geometry.
+
+Saved filter presets can store either a plain bandwidth width value or an explicit low-edge/high-edge pair (e.g., `300:3000`).
+
+### Filter passband widget
+
+Drag the lo/hi edges to adjust the filter passband.
+
+### Tone mode (FM)
+
+Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes.
+
+### CTCSS tone value
+
+Selects the CTCSS tone frequency sent with transmit. Enabled only when Tone mode is CTCSS TX.
+
+### Offset (FM)
+
+Sets the FM repeater offset frequency in MHz.
+
+### −, Simplex, + (offset direction)
+
+Sets the repeater offset direction to down, simplex, or up.
+
+### REV
+
+Inverts the TX offset sign to work a reversed repeater pair.
+
+### 🔊 / 🔇 (mute)
+
+Single-click mutes/unmutes this slice. Double-click mutes/unmutes all owned slices. The action is deferred by the platform double-click interval so a double-click can override a single-click.
+
+Mute state is NOT saved or restored on reconnect — the radio is the source of truth for audio mute state. The mute icon updates only when the radio acknowledges the mute state change.
+
+### AF gain
+
+Adjusts the slice audio output gain (0-100).
+
+### L / R pan
+
+Pans slice audio between left (0) and right (100) channels. Double-click resets to 50 (centre). The slider fill anchors from the centre outward so the operator can see the neutral position at a glance. A small centre-mark dot is painted on the groove.
+
+### SQL
+
+Enables squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters.
+
+### Squelch level
+
+Adjusts the squelch threshold (0-100). Takes effect only when SQL is on. Disabled in RTTY and digital modes.
+
+The manual squelch threshold level is saved and restored across sessions under `LastManualSquelchLevel`. This preserves your preferred squelch threshold when you exit auto mode or restart the application.
+
+### AGC mode
+
+Sets the slice AGC mode (Off, Slow, Med, Fast). Hidden in FM family modes.
+
+### AGC threshold
+
+Sets the AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted.
+
+### RIT
+
+Toggles Receive Incremental Tuning on/off.
+
+### RIT 0
+
+Zeroes the RIT offset.
+
+### RIT offset
+
+Adjusts the RIT offset by 10 Hz steps using < / > buttons or mousewheel.
+
+### XIT
+
+Toggles Transmit Incremental Tuning on/off.
+
+### XIT 0
+
+Zeroes the XIT offset.
+
+### XIT offset
+
+Adjusts the XIT offset by 10 Hz steps using < / > buttons or mousewheel.
+
+---
 
 ## NT mode behavior
 
@@ -107,7 +197,7 @@ The NT mode is treated as a digital mode by the RX Controls applet. Specifically
 - The filter width label calculates bandwidth the same way as DIGU (using the high-edge value).
 - The SQL button and squelch level slider are disabled when NT is active, because audio is routed via DAX and squelch is not meaningful. If squelch was on when you switched to NT, it is turned off automatically and the previous state is saved for restoration when you leave NT mode.
 
-## Squelch behavior in RTTY and digital modes (v26.5.1)
+## Squelch behavior in RTTY and digital modes
 
 Starting in v26.5.1, the squelch controls (SQL button and squelch level slider) are also disabled in RTTY mode, in addition to the existing digital modes (DIGU, DIGL) and NT mode. This change ensures that squelch does not notch out FSK characters, which would otherwise break decoding.
 
@@ -116,11 +206,11 @@ When you switch to RTTY mode:
 - If squelch was on when you switched to RTTY, it is turned off automatically and the previous state is saved for restoration when you leave RTTY or digital mode.
 - CW modes (CW, CWL) continue to have squelch disabled as before, with squelch state managed by the radio itself.
 
-## RADE mode safety (v26.5.2.1)
+## RADE mode safety
 
-In v26.5.2.1, the RADE (RADE) mode deactivation logic was updated to reflect that "RADE" is a client-side only mode. The radio itself does not understand RADE as a distinct mode — when RADE is active, the radio echoes back the underlying real mode (DIGL or DIGU) immediately.
+In v26.5.2.1, the RADE mode deactivation logic was updated to reflect that "RADE" is a client-side only mode. The radio itself does not understand RADE as a distinct mode — when RADE is active, the radio echoes back the underlying real mode (DIGL or DIGU) immediately.
 
-Previously, the applet checked `m_slice->mode() == "RADE"` before emitting a deactivation signal. Because the radio immediately reports the real mode after setting RADE, this condition could never be true. Now, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode when the mode combo selection changed, preventing stale deactivate signals when changing modes on a non-RADE slice.
+The applet emits `radeActivated(false)` only if the slice was actually in RADE mode when the mode combo selection changed, preventing stale deactivate signals when changing modes on a non-RADE slice.
 
 This fix addresses the following scenarios:
 - Switching between non-RADE modes on a slice that was never in RADE.
@@ -129,13 +219,13 @@ This fix addresses the following scenarios:
 
 No action is required from you. The RADE mode deactivation behavior now correctly aligns with the client-side-only nature of the mode.
 
-## Audio mute state on reconnect (v0.9.10)
+## Audio mute state on reconnect
 
-In v0.9.10, the mute button state (🔊 / 🔇) is NOT saved or restored when the radio connection is lost and re-established. The radio is the source of truth for audio mute state, per the Radio-Authoritative Settings Policy (#2489). After you disconnect and reconnect, the mute button reflects the actual mute state reported by the radio, which may be different from what it was before the disconnect.
+The mute button state (🔊 / 🔇) is NOT saved or restored when the radio connection is lost and re-established. The radio is the source of truth for audio mute state. After you disconnect and reconnect, the mute button reflects the actual mute state reported by the radio, which may be different from what it was before the disconnect.
 
-## Mute button double-click behavior (v26.5.3)
+## Mute button double-click behavior
 
-Starting in v26.5.3, the mute button (🔊 / 🔇) has improved double-click handling:
+The mute button (🔊 / 🔇) has improved double-click handling:
 
 - **Single-click** mutes/unmutes the current slice only. The action is deferred by the platform double-click interval (approximately 400 ms) so that a double-click can override it. If you click twice quickly, the second click cancels the single-click timer.
 - **Double-click** mutes/unmutes all owned slices at once.
@@ -143,9 +233,10 @@ Starting in v26.5.3, the mute button (🔊 / 🔇) has improved double-click han
 
 No action is required from you. The mute button now correctly handles both single and double clicks.
 
-## Frequency entry with MHz/kHz/Hz scaling (v26.5.3)
+## Pan slider visual behaviour
 
-Starting in v26.5.3, entering a frequency in the frequency edit text field now uses `FrequencyEntryParser::normalizedMhzText()` to clean up the input. This handles common entry formats more robustly:
+The L/R pan slider fill anchors from the centre outward, so the meaningful zero is the midpoint. A small centre-mark dot is painted on the groove so the operator can see the neutral position at a glance.
 
-- Dots in the frequency string are normalized so that only the first dot is kept as the decimal separator. Any additional dots are removed.
-- The parser determines whether the entry is an explicit MHz entry (contains exactly one dot or is entered
+## Colour theming
+
+In v26.6.1, button and slider styling was updated to use the centralised theme system. Filter preset buttons and the pressed-state colour now follow the application theme colours (`color.background.1`, `color.background.2`, `color.accent`, `color.text.primary`) instead of hard-coded hex values. This ensures consistent appearance across the entire UI when the theme is changed.

@@ -23,7 +23,7 @@ Use the Keyboard Shortcuts dialog to assign a different key to any action, or to
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Keyboard map | Visual display | QWERTY layout. Click a key to select it. |
+| Keyboard map | Visual display | QWERTY layout. Click a key to select it. Keys are color-coded by category. |
 | **Key:** | Indicator | Shows the currently selected key. Default: `(none)`. |
 | **Action:** | Combo box | Assigns an action to the selected key. |
 | **Category** | Indicator | Shows the category of the action assigned to the selected key. |
@@ -31,7 +31,7 @@ Use the Keyboard Shortcuts dialog to assign a different key to any action, or to
 | **Reset to Default** | Button | Restores the default key for the action on the selected key. |
 | **Filter:** | Text field | Filters the action table by text. |
 | **Category:** | Combo box | Filters the action table by category. |
-| Action table | List | All actions with columns: Action, Category, Current Key, Default Key. |
+| Action table | List | All actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
 | **Reset All to Defaults** | Button | Resets every binding to its default key. Prompts for confirmation. |
 | **Close** | Button | Closes the dialog. |
 
@@ -40,6 +40,7 @@ Use the Keyboard Shortcuts dialog to assign a different key to any action, or to
 - Keys are color-coded on the keyboard map by category. A legend below the map identifies each category color.
 - To remove a binding without assigning a replacement, select the key on the keyboard map and click **Clear**.
 - To find what key an action uses by default without changing anything, check the **Default Key** column in the action table.
+- The dialog uses the current AetherSDR theme for colors. The keyboard map legend, selected key label, and action labels adjust to the active theme.
 
 ## Troubleshooting
 

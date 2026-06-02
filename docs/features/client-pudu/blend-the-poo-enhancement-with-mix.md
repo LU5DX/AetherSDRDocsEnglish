@@ -36,6 +36,8 @@ The inline editor uses the same formatting as the normal knob display (for examp
 
 | Control            | Default                                                                                      | Valid range                               |
 |--------------------|----------------------------------------------------------------------------------------------|-------------------------------------------|
+| **Even**           | Not selected by default                                                                      | N/A (radio button exclusive with Odd)     |
+| **Odd**            | Not selected by default                                                                      | N/A (radio button exclusive with Even)    |
 | **Poo / Drive** (TX) | 6.0 dB                                                                                     | 0.0 to 24.0 dB                             |
 | **Poo / Tune** (TX)  | 100 Hz                                                                                      | 50 to 160 Hz                               |
 | **Poo / Mix** (TX)   | 30 %                                                                                        | 0 % to 100 % (stored as 0.0 to 1.0)       |
@@ -52,6 +54,7 @@ The knob display shows the value as a whole-number percentage (for example, "30 
 - Watch the PooDoo logo — its brightness pulses with the wet (processed) signal RMS. A noticeable increase in pulse intensity as you raise Mix confirms the low-frequency processing is audible in the blend.
 - Start at the default of 30 % and increase gradually. Heavy Mix values can thicken the low end to the point of muddiness, especially if **Poo / Drive** is also high.
 - Use the inline edit feature to type exact values instead of fine-tuning with the mouse wheel — for example, type `45` to set exactly 45 % Mix.
+- The **Even** and **Odd** radio buttons select the processing mode. Even mode uses Aphex-style asymmetric shaping with Big Bottom LF saturation. Odd mode uses Behringer-style symmetric tanh shaping with a feed-forward bass compressor.
 
 ## Related
 

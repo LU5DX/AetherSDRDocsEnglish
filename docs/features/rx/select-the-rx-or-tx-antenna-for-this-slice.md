@@ -25,7 +25,7 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 | **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
 | **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
 | **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
-| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR); accepts kHz/Hz auto-scaling          |
+| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR); accepts kHz/Hz auto-scaling         |
 | **STEP**                          | 100 Hz    | Per-mode list of step sizes                                                 |
 | **Filter width presets**          | None      | Per-mode preset widths                                                      |
 | **Filter passband widget**        | None      | Drag lo/hi edges to adjust passband                                         |
@@ -70,6 +70,7 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 - The `stepFilterWidth()` method walks the per-mode filter preset list so widen/narrow keyboard shortcuts produce mode-correct edge geometry (#2208). For example, widening from a 2.7 kHz USB filter selects the next larger preset (e.g. 2.9 kHz) with proper edge placement for USB mode rather than a symmetrical passband.
 - From v26.5.2.1, the slice badge supports HTML-rich text rendering (#2606). This allows the slice letter to be styled with HTML formatting if needed.
 - The squelch manual level is persisted client-side as the setting `LastManualSquelchLevel`. This preserves your manual squelch preference across mode cycles, radio reconnects, and application restarts. The radio's own automatic squelch algorithm may modify the slice's squelch level, but AetherSDR restores the last user-chosen manual level when Auto mode is not active.
+- From v26.6.1, the filter-preset buttons (1.8K, 2.1K, etc.) use theme-aware styling via `kButtonBase()`, which resolves tokens through the ThemeManager. These buttons now re-theme alongside the rest of the UI when the application theme changes. The theme tokens used are `{{color.background.1}}`, `{{color.background.2}}`, and `{{color.text.primary}}`.
 
 ## Antenna menu changes in v26.5.2.1
 
@@ -129,5 +130,4 @@ The mute button (🔊/🔇) has been updated for more reliable behavior with sin
 
 The frequency entry field now uses `FrequencyEntryParser` for normalized MHz text parsing, and has improved support for high-frequency entries:
 
-- **MHz auto-scaling** — Entering a value above 54 MHz applies auto-scaling: values above 54,000 are divided by 1e6 (assumed Hz), values above 54 are divided by 1e3 (assumed kHz), and explicit MHz entries above 54 MHz are accepted for XVTR-like operation.
-- **Explicit MHz entries above 54 MHz** — If you enter a frequency with a decimal point in a format that `FrequencyEntryParser` recognizes as an explicit MHz entry, the parser compares the parsed value against the XVTR limit (50,000 MHz) instead of the standard 54 MHz limit. This allows direct high-frequency entries without needing an XVTR antenna
+- **MHz auto-scaling** — Entering a value above 54 MHz applies auto-scaling: values above 54,000 are divided by 1e6 (assumed Hz), values above 54 are divided by 1e

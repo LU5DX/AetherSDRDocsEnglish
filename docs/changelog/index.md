@@ -6,6 +6,7 @@ title: Changelog
 
 Chronological list of documentation changes, organized by AetherSDR release.
 
+- [v26.6.1](v26.6.1.md)
 - [v26.5.3](v26.5.3.md)
 - [v26.5.2.1](v26.5.2.1.md)
 - [v26.5.1](v26.5.1.md)

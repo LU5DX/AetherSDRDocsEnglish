@@ -91,6 +91,10 @@ When one or more leveled DSP algorithms (NR, NB, ANF, NRL, NRS, NRF, or ANFL) ar
 - When no leveled DSP is active, or when only RNN, ANFT, or APF is on, the slider row fades out. It remains in the layout at all times to prevent the button grid from shifting.
 - On launch, any DSP enabled in the radio's saved profile now properly shows the level slider without requiring manual toggling (#startup-slider, v0.9.8).
 
+### Pan slider center-mark behavior (v26.6.1)
+
+The Pan slider in the Audio tab now paints a fill gradient that anchors from the centre outward. When the slider is at the midpoint (50), the groove is fully filled with background colour. When moved left or right, the accent colour fills the region between centre and the handle position. A small centre-mark dot appears on the groove to indicate the neutral position.
+
 ## Squelch behavior by mode
 
 The squelch button and slider in the Audio tab are automatically disabled in certain modes where squelch is not meaningful:
@@ -113,6 +117,16 @@ When a slice is locked using the lock button on the VFO panel:
 ## VFO panel height behavior
 
 The VFO panel dynamically adjusts its height to match the currently visible tab. When the DSP tab is taller than the Mode tab (for example, when digital sub-mode controls are visible in DIGU/DIGL), the panel height now correctly matches only the current tab to avoid unwanted gaps.
+
+## VFO panel theming (v26.6.1)
+
+The VFO panel now uses its own theming surface under the `spectrum/vfo` container scope. This allows theme overrides to target the VFO panel independently from the spectrum display. The panel paints its background, signal meter, and badge elements using `ThemeManager::color()` tokens:
+
+- `color.background.0`, `color.background.1`, `color.background.2`
+- `color.text.primary`, `color.text.label`
+- `color.accent`, `color.accent.bright`
+
+The ADSP and AetherVoice buttons now use themed colours for their pressed state (`color.accent`) and background (`color.background.1`) instead of hard-coded values.
 
 ## Tips
 

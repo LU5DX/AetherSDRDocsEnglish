@@ -22,13 +22,21 @@ If you miss the flash, the SWR gauge continues to display the live TGXL-reported
 
 | Control | Kind | Behavior | Valid range |
 |---|---|---|---|
-| TUNE | Button | Starts autotune. Turns red and reads "TUNING..." during the sweep. Flashes "SWR x.xx" for 2.5 s after completion. Returns to "TUNE" afterward. | — |
-| SWR | Meter | Displays live TGXL-reported SWR continuously. Turns red above 2.5. | 1.0–3.0 |
+| Fwd Pwr | Meter | Displays TGXL-reported forward power. Scale is 0–200 W barefoot, 0–600 W with Aurora amplifier, 0–2000 W with PGXL amplifier. The bar rises quickly on RF bursts and decays over approximately 800 ms to prevent flickering from inter-packet noise. A white tick mark shows the peak forward power, which clears after 2.5 seconds of no new peaks. | See scale |
+| SWR | Meter | Displays live TGXL-reported SWR continuously. Turns red above 2.5. The bar rises quickly and decays over approximately 800 ms. A white tick mark shows the peak SWR, which clears after 2.5 seconds of no new peaks. | 1.0–3.0 |
+| C1 | Meter | Shows the C1 relay bank position. Mousewheel scroll adjusts the relay position when a direct TGXL connection is active. | 0–255 |
+| L | Meter | Shows the L relay bank position. Mousewheel scroll adjusts the relay position. | 0–255 |
+| C2 | Meter | Shows the C2 relay bank position. Mousewheel scroll adjusts the relay position. | 0–255 |
+| TUNE | Button | Starts autotune. Turns red and reads "TUNING..." during the sweep. Flashes "SWR x.xx" for 2.5 s after completion. Returns to "TUNE" afterward. When a direct TGXL connection (port 9010) is configured in Radio Setup → Tuner, the autotune command is sent directly to the TGXL, bypassing the radio's firmware path. Falls back to the radio path when no direct connection is available. | — |
+| OPERATE | Button | Cycles through three states: OPERATE (green), BYPASS (orange), and STANDBY (default). Each click advances to the next state. | — |
+| ANT 1, ANT 2, ANT 3 | Button | Selects the corresponding antenna port on the TGXL 3x1 switch. These buttons appear only when a direct TGXL connection is active and the antenna switch is present. | — |
 
 ## Tips
 
 - The 400 ms capture window after tuning=0 exists because the TGXL's final settled SWR value often arrives over TCP slightly after the tune-complete signal. The value shown on the button reflects this settled reading, not a mid-sweep sample.
 - If the capture window expires before a valid SWR reading arrives, AetherSDR falls back to the last live SWR value from the gauge.
+- The peak hold tick on the gauges helps you see the highest power or SWR reached during a transmission, which clears automatically after 2.5 seconds.
+- The slow decay on the gauge bars (800 ms) prevents annoying flickering that could occur from brief gaps between UDP packets.
 
 ## Troubleshooting
 

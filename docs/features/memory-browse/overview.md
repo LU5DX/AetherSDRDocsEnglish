@@ -32,6 +32,7 @@ Activating a memory — by double-clicking a row or pressing Enter on a selected
 - Long names are truncated with an ellipsis. Hover over any row to see the full frequency or name in a tooltip.
 - Memories with a frequency of 0 MHz or below are excluded from the table entirely.
 - Click **Add Memory** to save the active slice on the current panadapter as a new memory entry. The button remains visible at the bottom of the panel regardless of scroll position.
+- The panel and its controls now use theme-aware styling, adapting their colors (backgrounds, borders, text, accents, scrollbars) to your selected AetherSDR theme. Previously, these colors were hard-coded.
 
 ## Related
 

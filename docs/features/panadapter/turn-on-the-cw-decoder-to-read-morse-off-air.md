@@ -35,6 +35,12 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 
 When you transmit CW, the decoder captures your keying and displays it in cyan text. This lets you verify your own sending alongside incoming signals. The decoder applies the same confidence filter as the RX path — low-confidence characters are suppressed. A space is inserted when switching between TX and RX decode to prevent the coloured runs from visually merging.
 
+## Waterfall freeze during transmit
+
+In v26.6.1, the waterfall now freezes when any client (not just this radio) starts transmitting. The freeze is driven by the radio's interlock TRANSMITTING state instead of the local MOX edge, eliminating the 10–23 second TX-trail artifact that previously appeared after unkeying.
+
+When the radio reconnects, the desired panadapter FPS and waterfall line duration are reasserted (via internal reconciliation) to prevent silently dropping to the radio's 10 Hz default.
+
 ## Tips
 
 - If the text area fills with low-confidence (orange or red) characters, increase **Sens** to filter them out. Start around 50 and raise until noise characters disappear.
@@ -47,6 +53,7 @@ When you transmit CW, the decoder captures your keying and displays it in cyan t
 - **No text appears in the decode area** — Verify PC audio is routed to AetherSDR. The panel shows "(requires PC Audio)" as a reminder. Without it the decoder receives no audio and produces no output.
 - **Decode text is mostly red or orange** — The signal confidence is low. Increase **Sens**, or narrow the **Lo**/**Hi** pitch range to match the actual sidetone frequency shown in the **CW stats label**.
 - **Wrong pitch or speed shown in CW stats label** — Do not engage **🔒P (Lock Pitch)** or **🔒S (Lock Speed)** until the stats label has stabilised on the target signal.
+- **Waterfall has long TX trail after unkeying** — In v26.6.1, this is fixed. If you still see artifact trails, ensure you are running the latest version. A radio reconnect reasserts the correct FPS and waterfall line duration.
 
 ## Related
 

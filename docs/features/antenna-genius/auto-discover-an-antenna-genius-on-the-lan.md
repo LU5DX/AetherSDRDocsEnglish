@@ -18,22 +18,35 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 
 | Control | What it does | Default | Setting key |
 |---|---|---|---|
-| **Device combo** | Lists all Antenna Genius units discovered via UDP. Auto-selects and connects to the first device found, unless that device is a ShackSwitch (which is handled by the ShackSwitch applet). | — | — |
+| **Device combo** | Lists all Antenna Genius units discovered via UDP. Auto-selects and connects to the first device found. | — | — |
 | **Connect / Disconnect** | Connects to the selected device in the combo, or disconnects if already connected. Label switches between **Connect** and **Disconnect** to reflect current state. | Connect | — |
 | **Manual IP** | Enter an IPv4 or IPv6 address and press Enter to connect directly to port 9007. Used when the device is not on the local LAN. The last-used value is restored on next launch. | — | `AG_ManualIp` |
+| **Port A antenna buttons** | Click to select an antenna on Port A; click again to deselect (antenna=0). Buttons are disabled/dim if the antenna is already selected on Port B. Colour indicates permission: blue = TX+RX, amber = RX only, dim = no permission on current band. | — | — |
+| **Port A AUTO** | Toggle to enable band-follow on Port A. When active, the Antenna Genius automatically switches antennas as the radio changes bands. | — | — |
+| **Port B antenna buttons** | Click to select an antenna on Port B; click again to deselect. Same colouring rules as Port A. | — | — |
+| **Port B AUTO** | Toggle to enable band-follow on Port B. | — | — |
 | Status label | Shows discovery and connection state: **No device found**, **Device found**, **Connected — \<name\> v\<version\>**, **Disconnected**, **Error: \<msg\>**, or **Invalid IP address**. | No device found | — |
+
+## Indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| **Port A band** | Band name or **—** | Active band on Port A, as reported by the Antenna Genius or derived from the radio frequency. |
+| **Port A antenna** | Antenna name, **\<ant\> TX:\<alt\>**, **\<ant\> [INHIBIT]**, or **—** | Selected antenna for Port A. Shows red when transmitting, orange when TX is routed to an alternate antenna or inhibit is asserted. |
+| **Port B band** | Band name or **—** | Active band on Port B. |
+| **Port B antenna** | Antenna name, **\<ant\> TX:\<alt\>**, **\<ant\> [INHIBIT]**, or **—** | Selected antenna for Port B. |
 
 ## Tips
 
-- If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first discovered device that is not a ShackSwitch. Select a different entry and click **Connect** to switch.
+- If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first discovered device. Select a different entry and click **Connect** to switch.
 - Port B controls are hidden automatically when the connected device reports only one radio port.
+- Antenna buttons are colour-coded to show TX/RX permissions: blue buttons allow both transmit and receive on the current band, amber buttons allow receive only, and dimmed buttons indicate no permission on the current band.
 
 ## Troubleshooting
 
 - **Status label stays at "No device found"** — Verify the Antenna Genius is powered on and on the same subnet. Firewalls or managed switches that block UDP broadcast traffic will prevent discovery. If the device is on a different network, use **Manual IP** instead.
 - **Status label shows "Invalid IP address"** — The text entered in **Manual IP** could not be parsed as a valid IPv4 or IPv6 address. Correct the address and press Enter again.
 - **Status label shows "Error: \<msg\>"** — The connection attempt was made but the device refused or dropped it. Check that no other client is holding an exclusive connection to the Antenna Genius.
-- **A ShackSwitch on the LAN is not auto-connecting here** — ShackSwitch devices discovered via UDP are intentionally skipped by the Antenna Genius applet. Use the ShackSwitch applet to connect to and control a ShackSwitch.
 
 ## Related
 

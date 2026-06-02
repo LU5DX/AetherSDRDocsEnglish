@@ -14,7 +14,7 @@ The AetherDSP Settings dialog uses custom chrome matching the NetworkDiagnostics
 
 | Control | Description |
 |---------|-------------|
-| **Title bar** | 18 px blue-gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). |
+| **Title bar** | 18 px gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). |
 | **— (Minimize)** | Minimizes the dialog. |
 | **□ (Maximize)** | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore. |
 | **× (Close)** | Closes the dialog. |
@@ -22,6 +22,8 @@ The AetherDSP Settings dialog uses custom chrome matching the NetworkDiagnostics
 | **8-axis resize** | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget. |
 
 The dialog uses `PersistentDialog` with geometry stored in setting `AetherDspDialogGeometry`. The position and size are automatically restored when the dialog is reopened.
+
+The dialog background, title bar colors, and slider styling use theme tokens from the active theme. Sliders now use `applyPrimarySliderStyle()` instead of hardcoded inline stylesheets, making them respect the user's chosen color scheme.
 
 ## Selecting and activating noise-reduction engines
 
@@ -209,6 +211,7 @@ The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine.
 - **No audible change when moving the slider** — The selected engine may not be active on the current slice. Confirm the engine toggle is selected and that parameters are not at minimum.
 - **NR2 produces musical noise** — Reduce **Reduction** or enable **AE Filter** to suppress artefacts.
 - **MNR or BNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR) is not available on your platform.
+- **Colors appear mismatched with the rest of AetherSDR** — The dialog now uses theme-aware styling. Try switching themes in `Settings > Appearance` if the colors are not to your liking.
 
 ## Related
 

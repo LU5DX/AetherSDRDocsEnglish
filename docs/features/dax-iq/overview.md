@@ -23,11 +23,16 @@ The applet is hidden by default. Toggle it open or closed using the IQ tray butt
 | IQ 1..4 meter | Shows the RMS level of the IQ stream on a 0–100 scale (scaled from RMS × 200). Resets to 0 on disconnect or disable. | 0 | 0–100 | — |
 | IQ 1..4 Off/On | Toggles the IQ stream for that channel. Displays "Off" when inactive and "On" when active. | Off | Off, On | `DaxIqEnabled1` – `DaxIqEnabled4` |
 
+## Appearance
+
+The DAX IQ applet adapts to the current theme. The progress bar meter background and accent color are controlled by the active theme's `color.background.0`, `color.background.1`, and `color.accent` values instead of hardcoded colors. This ensures the applet visually matches the rest of the AetherSDR interface regardless of the theme selected.
+
 ## Tips
 
 - Changing the sample rate while a stream is active sends the new rate to the radio immediately. If the radio reports a different rate back, the combo will sync to the radio-reported value.
 - On reconnect, AetherSDR waits 1.5 seconds before re-enabling persisted channels to allow the radio session to fully initialize before stream requests are sent.
 - Scrolling the applet panel will not accidentally change rate combos or other controls; the applet panel locks sidebar controls during scroll.
+- The DAX IQ applet is theme-aware — the meter bars will use your current theme's accent color rather than the previous hardcoded blue.
 
 ## Troubleshooting
 

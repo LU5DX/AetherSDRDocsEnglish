@@ -43,6 +43,17 @@ In the Manual connection page, under **Advanced**: collapse panel titled **Advan
 
 - **Source path** (`ManualBindSource`): Selects the local network interface used for the manual connection. The drop-down lists all available NICs. If the selected NIC becomes stale or unreachable, a warning appears below the field.
 - **Use low bandwidth mode** (`LowBandwidthMode`): When checked, AetherSDR uses reduced-rate streams for slow or high-latency links. Useful for VPN or satellite connections.
+- **Enable adaptive frame-rate throttle** (`AdaptiveThrottleEnabled`, default `False`): When checked, AetherSDR automatically reduces FFT and waterfall frame rates when network quality degrades. This helps maintain a responsive UI on slow or congested links.
+
+## Accessible login form
+
+The SmartLink login form is now accessible to operating-system password managers. macOS Passwords, Windows Authenticator, and KDE Wallet read the accessibility tree to associate credential fields.
+
+- The **Email** field has accessible name "SmartLink account email" and accessible description "FlexRadio account email address used to sign in to SmartLink".
+- The **Password** field has accessible name "SmartLink account password" and accessible description "FlexRadio account password used to sign in to SmartLink".
+- The form container is named "smartlinkLoginForm" so password managers can scope the credential pair.
+
+Connection mode buttons (Local, Remote with SmartLink, Connect by IP) also have accessible names.
 
 ## Frameless mode
 
@@ -53,6 +64,16 @@ The Connection Panel now supports frameless mode. When enabled (controlled by th
 - The change takes effect the next time the Connection Panel is opened.
 
 The dialog geometry is only restored when the panel was previously visible, preventing odd placement when switching frameless mode while hidden.
+
+## Theme-aware styling
+
+The Connection Panel now uses theme variables for colors instead of hardcoded values. This ensures the panel integrates with the selected application theme. The following elements respect theme colors:
+
+- Panel background uses `{{color.background.0}}`
+- Group box borders use `{{color.background.2}}`
+- Text labels use `{{color.text.primary}}`
+
+Theme changes take effect when the panel is opened or refreshed.
 
 ## Related
 

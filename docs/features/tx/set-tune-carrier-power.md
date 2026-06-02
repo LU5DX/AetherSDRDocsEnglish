@@ -38,7 +38,7 @@ The "Tune Pwr" slider sets the power level of the continuous carrier transmitted
 
 ### Drag value display
 
-When dragging either the RF Power or Tune Pwr slider, a tooltip shows the current value in watts (e.g., "45 W") as you move the slider. This helps you set precise power levels without releasing the mouse.
+When dragging either the RF Power or Tune Pwr slider, a tooltip shows the current value in percent of maximum (e.g., "45%") as you move the slider. This helps you set precise power levels without releasing the mouse.
 
 ## TX profile selection
 
@@ -135,8 +135,8 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 
 | Control | Description | Default |
 |---|---|---|
-| RF Power | Sets the maximum transmit RF power level (W). | 100 |
-| Tune Pwr | Sets the tune-carrier power level (W). | 10 |
+| RF Power | Sets the maximum transmit RF power level (percent of maximum). | 100 |
+| Tune Pwr | Sets the tune-carrier power level (percent of maximum). | 10 |
 | TX Profile | Selects a TX profile from the radio. | — |
 | TUNE | Starts/stops a tune carrier. Right-click for Mono Tone / Two Tone carrier shape. | — |
 | MOX | Toggles manual transmit. | — |
@@ -146,10 +146,11 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 
 ## Tips
 
-- Set "Tune Pwr" to the minimum level that allows your ATU to find a match. Many operators use 10–20 W for ATU tuning.
+- Set "Tune Pwr" to the minimum level that allows your ATU to find a match. Many operators use 10–20% of maximum for ATU tuning.
 - The "Tune Pwr" setting is independent of "RF Power", which controls normal transmit power. Adjusting one does not affect the other.
 - You can set per-band tune power defaults in `Settings > TX Band Settings...`.
 - The RF Pwr peak-hold bar resets to zero when the transmitter unkeys, preventing a held PEP reading from lingering across overs.
+- The power sliders now display values as percentages of the radio's maximum power. The actual wattage depends on your radio model and any external amplifier.
 
 ## Related
 

@@ -23,19 +23,24 @@ Set up the MQTT broker address, authentication, and TLS options that AetherSDR u
 
 ## What each control does
 
-| Control | Default | Notes | Setting key |
-|---------|---------|-------|-------------|
-| Host | (empty) | Broker address | (stored in settings file) |
-| Port | (empty) | TCP port for connection | (stored in settings file) |
-| Username | (empty) | Authentication user name | (stored in settings file) |
-| Password | (empty) | Stored in system keychain when first used | — |
-| Use TLS | unchecked | Toggle TLS encryption | (stored in settings file) |
-| CA Certificate File | (empty) | Path to custom CA certificate for TLS | (stored in settings file) |
+| Control             | Default                                                                                                                     | Notes                                                                      |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| Username            | (empty)                                                                                                                     | Authentication user name                                                   |
+| Password            | (empty)                                                                                                                     | Stored in system keychain when first used                                  |
+| Use TLS             | unchecked                                                                                                                   | Toggle TLS encryption                                                      |
+| CA Certificate File | (empty)                                                                                                                     | Path to custom CA certificate for TLS                                      |
+| Settings...         | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
+| Enable (Off/On)     | Off                                                                                                                         | Connects or disconnects from the broker using settings from MqttSettings.   |
+| Publish buttons     | (none)                                                                                                                      | Up to 12 buttons configured in the MQTT Settings dialog. Only active while connected. |
+| Message log         | (empty)                                                                                                                     | Displays received messages as "topic: value" lines. Capped to 50 entries. |
+| Status label        | Disconnected                                                                                                                | Shows "Connected" (green) on success, "Disconnected" (grey) when off or failed, or an error message (default color). |
 
 ## Tips
 
 - The password is migrated to your system keychain the first time you enable the MQTT connection. If the migration fails, AetherSDR logs a warning and preserves the plain-text entry for retry.
 - If you enable the connection (“On”) but the password hasn’t been loaded from keychain yet, the status shows **Waiting for keychain** until the keychain read completes.
+- v26.6.1: The MQTT applet now uses theme-aware colors for all UI elements, adapting to both light and dark themes automatically.
+- Antenna alias topics are subscribed automatically.
 
 ## Troubleshooting
 

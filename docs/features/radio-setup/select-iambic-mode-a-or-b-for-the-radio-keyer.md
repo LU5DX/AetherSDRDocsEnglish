@@ -31,6 +31,21 @@ Displays radio identification, license information, and firmware update controls
 | **Callsign** | Text field | Station callsign. |
 | **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Stored in `StationName`. Defaults to the OS hostname if left empty. Sent to the radio as `client station <name>`. |
 
+### Copy buttons
+
+Each read-only indicator on the Radio tab now has a small **copy-to-clipboard button** (overlapping-documents icon) to its right. Click the button to copy the indicator's value to the system clipboard. A brief popup label ("Copied!") appears near the button after a successful copy. The button is visually dimmed when the value is empty or a dash placeholder.
+
+| Indicator with copy button | Value copied |
+|---|---|
+| **Radio SN** | The chassis serial number, or the radio serial number if chassis serial is empty. |
+| **Model** | The radio model string. |
+| **HW Version** | The hardware version string, prefixed with "v" if not already present. |
+| **Region** | The regulatory region string. |
+| **FlexControl** | The FlexControl detection state string. |
+| **multiFLEX** | The multiFLEX enabled state string. |
+| **Options** | The licensed options string; if empty, shows "GPS" or "GPS, PGXL" based on amplifier presence. |
+| **License Info** | The full license details string as displayed. |
+
 ### Buttons
 
 | Control | Behavior |
@@ -66,7 +81,7 @@ Displays network addresses and lets you adjust network settings.
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
 | **Enforce Private IP Connections:** | Toggle button | — | Rejects non-RFC1918 peers. |
-| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`. |
+| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000. Stored in `NetworkMtu`. |
 | **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
 | **Apply** | Push button | — | Pushes the network config to the radio. |
@@ -187,17 +202,4 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Audio Buffer:** | Text field | 200 | Audio buffer size in milliseconds for VPN/SmartLink jitter compensation. Range: 50–1000 ms. Stored in `AudioBufferMs`. |
 | **Recording: Radio Side / Client Side** | Push button | Radio Side | Selects radio-side or client-side recording. Stored in `RecordingMode`. |
 | **Save to:** | Text field | — | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in `QsoRecordingDir`. |
-| **...** | Push button | — | Browses for recording folder. |
-| **Auto-record on TX** | Checkbox | False | Automatically records while transmitting. Stored in `QsoRecordingAutoRecord`. |
-| **Idle timeout:** | Spinbox | 120 | Seconds of silence before recording stops. Range: 10–3600 sec. Stored in `QsoRecordingIdleTimeout`. |
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Push buttons | — | Controls the NVIDIA Broadcast noise-removal container. A status dot shows Running (green), Stopped (red), or Unknown (gray). |
-
----
-
-## Filters tab
-
-Configures low-latency or sharp filter options per bandwidth mode.
-
-| Control | Kind | Default | Behavior |
-|---|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | Slider | — | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled for that mode. Command: `radio
+| **...** |

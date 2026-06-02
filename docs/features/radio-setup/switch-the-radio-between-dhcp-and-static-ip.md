@@ -15,7 +15,7 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 ## General dialog behavior
 
 - The dialog remembers its size and position between sessions.
-- Tab order from left to right: Radio, Network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB Cables, Peripherals, APD, Themes, Serial.
+- Tab order from left to right: Radio, Network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB Cables, Peripherals, APD, Themes, SmartLink, Serial.
 - Click **Close** to dismiss the dialog.
 
 ## Radio tab
@@ -26,17 +26,18 @@ Displays radio identification, license information, and firmware update controls
 
 1. Click the **Radio** tab.
 2. View the read-only indicators for **Radio SN**, **Region**, **HW Version**, **Model**, **Options**, **FlexControl**, **multiFLEX**, and **License Info** (Subscription, Expiration, Radio ID, Licensed version).
-3. Optionally set a **Nickname**, **Callsign**, or **Station Name** in the text fields. The **Station Name** identifies this AetherSDR client to other multiFLEX stations; it defaults to the OS hostname if empty.
+3. Optionally set a **Nickname**, **Callsign**, or **Station Name** in the text fields. The **Station Name** identifies this AetherSDR client to other multiFLEX stations; it defaults to the OS hostname if empty. Stored in AppSettings as `StationName`.
 4. Click **Remote On** to enable remote wake/remote-on.
-5. To update firmware:
+5. Click the copy button next to any indicator to copy its value to the clipboard. A "Copied!" popup confirms the action.
+6. To update firmware:
    - Click **Check for Update** to query the FlexRadio update server.
    - Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
-   - Click **Select Installer...** to open a file picker. Select the installer or a pre-extracted `.ssdr` file.
+   - Click **Browse .ssdr...** to open a file picker. Select the installer or a pre-extracted `.ssdr` file.
    - When staging is complete, click **Upload Firmware** to transfer the firmware to the radio.
 
 ### Firmware update notes
 
-- The **Select Installer...** button accepts `.msi`, `.exe`, and `.ssdr` files.
+- The **Browse .ssdr...** button accepts `.msi`, `.exe`, and `.ssdr` files.
 - The stager auto-detects the file format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools.
 - A progress bar and status label track the upload.
 
@@ -93,8 +94,8 @@ Configure microphone, CW keyer, and RTTY defaults.
 1. Click the **Phone/CW** tab.
 2. Toggle **Enable/Disable the Level Meter During Receive** to show the mic level meter even in RX.
 3. Configure CW settings:
-   - **Iambic:** Toggle to enable or disable the iambic keyer on the radio.
-   - **Iambic Mode: A / B:** Select Curtis iambic mode A or B. This applies to both the radio and the local software keyer. Mutually exclusive pair.
+   - **Iambic:** Toggle to enable or disable the iambic keyer on the radio. In v0.9.1, Mode A and Mode B buttons were added beside the Enabled toggle for Curtis A and Curtis B modes. These also drive the local software iambic keyer which mirrors the radio's iambic state for sub-5 ms sidetone.
+   - **Iambic Mode: A / B:** Select Curtis iambic mode A or B. This applies to both the radio and the local software keyer. Mutually exclusive pair added in v0.9.1.
    - **Swap:** Toggle to swap dit/dah.
    - **Sideband:** Select LSB or USB for CW pitch.
    - **CWX:** Toggle to enable CWX macro keying.
@@ -211,7 +212,7 @@ Configure Adaptive Pre-Distortion sample ports per TX antenna. Tab is hidden unl
 2. For each TX antenna (**ANT1**, **ANT2**, **XVTA**, **XVTB**), select the sampler port from the combo box (**INTERNAL**, **RX_A**, **RX_B**, **XVTA**, **XVTB**).
    - **INTERNAL** samples inside the radio.
    - External ports require a coupled feedback signal from the linear amplifier output.
-3. Click **Reset** to clear all per-antenna APD training data on the radio (sends `apd reset`).
+3. Click **Reset** (APD Equalizer) to clear all per-antenna APD training data on the radio.
 
 ## Themes tab
 
@@ -226,15 +227,6 @@ Configure UI appearance including per-slice color overrides.
 3. If **Custom colors** is selected, click any lettered button (A-H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges.
 4. Click **Reset All to Defaults** to reset all custom slice colors to the built-in palette.
 
-## Serial tab
+## SmartLink tab
 
-Configure FlexControl serial port settings and button mapping. Available only when built with serial port support.
-
-### Steps
-
-1. Click the **Serial** tab.
-2. Select the **Port** from the combo box, or edit the **Path** manually. Click **Refresh** to rescan available ports.
-3. Configure **Baud**, **Data**, **Parity**, and **Stop** settings.
-4. Assign **DTR** and **RTS** pin functions and polarity.
-5. Toggle **Paddle Swap** to swap dit/dah for paddle.
-6. Toggle
+Manage pinned SmartLink TLS certificates. New in v26

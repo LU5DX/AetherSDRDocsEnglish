@@ -21,21 +21,54 @@ Enable the built-in RNNoise denoiser to suppress background noise on your microp
 
 ## What each control does
 
-| Control | Kind | Default | Notes |
-|---------|------|---------|-------|
-| RN2 | Toggle button | Unchecked | Enables the RNNoise neural denoiser on the mic input, before the TX DSP chain (gate, compressor, Tube). Persisted via AudioEngine. |
+| Control | Kind          | Default   | Valid Range | Setting Key | Behavior |
+|---------|---------------|-----------|-------------|-------------|----------|
+| RN2     | Toggle button | Unchecked | —           | — (persisted via AudioEngine) | TX-only toggle. Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. |
+| Drive   | Knob          | 0.00 dB   | 0.0 to 24.0 dB | ClientTubeTxDriveDb | Linear mapping. Pushes more signal into the tube stage. |
+| Tone    | Knob          | 0.00      | -1.0 to 1.0 | ClientTubeTxTone | Linear mapping. Negative values darken, positive brighten the saturated signal. |
+| Bias    | Knob          | 0 %       | 0.0 to 1.0 | ClientTubeTxBias | Linear mapping. Shifts the operating point on the transfer curve, changing the harmonic mix. |
+| Output  | Knob          | 0.00 dB   | -24.0 to 12.0 dB | ClientTubeTxOutputDb | Linear mapping. Post-tube make-up / trim gain. |
+| Dry/Wet | Knob          | 100 %     | 0.0 to 1.0 | ClientTubeTxDryWet | Linear mapping. Dry / wet blend (100 % = fully saturated signal). |
+| Envelope| Knob          | 0 %       | -1.0 to 1.0 | ClientTubeTxEnvelope | Linear mapping. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. |
+| Attack  | Knob          | 5.00 ms   | 0.1 to 30.0 ms | ClientTubeTxAttackMs | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. |
+| Release | Knob          | 35.00 ms  | 10.0 to 500.0 ms | ClientTubeTxReleaseMs | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. |
+| A       | Toggle button | Checked   | —           | ClientTubeTxModel | Selects tube character Model A. Exclusive with B and C. |
+| B       | Toggle button | Unchecked | —           | ClientTubeTxModel | Selects tube character Model B. Exclusive with A and C. |
+| C       | Toggle button | Unchecked | —           | ClientTubeTxModel | Selects tube character Model C. Exclusive with A and B. |
+
+## Tube Character Models (A, B, C)
+
+The three tube character models provide different harmonic flavours:
+
+- **Model A** (default): Standard warm tube character.
+- **Model B**: Brighter harmonic profile with increased upper harmonics.
+- **Model C**: Darker, smoother character with reduced high-frequency harmonics.
+
+Select a model by clicking the corresponding toggle button. Only one model can be active at a time. The selected model affects the shape of the transfer curve displayed in the Tube curve widget.
+
+## Envelope Follower Controls
+
+When Envelope is set to a non-zero value, the Attack and Release knobs control the dynamics of the envelope follower:
+
+- **Attack**: Controls how quickly the envelope follower responds to rising signal levels. Shorter attack times (0.1 ms) provide faster response to transients.
+- **Release**: Controls how quickly the envelope follower recovers after signal levels drop. Longer release times (up to 500 ms) sustain the effect longer.
+
+These controls only have an effect when Envelope is not at 0%.
 
 ## Tips
 
 - Enable RN2 first, then adjust Drive and Bias on the Tube. The denoiser removes noise before saturation, so you can use more Tube drive without amplifying background hiss.
 - If you switch to a digital mode (RADE, DAX, RTTY, FT8, FDV, CW), the RN2 stage is automatically bypassed. The button remains in its current state and will reactivate when you return to a voice mode.
 - The RN2 toggle appears only in the TX editor. The RX Tube editor ("Aetherial Dynamic Tube") does not have an RN2 control.
+- Use the Dry/Wet control to blend the processed signal with the original. At 100% (default), the signal is fully processed. Lower values mix in unprocessed signal for a more subtle effect.
+- The Envelope control allows dynamic tube character changes. Positive values emphasize transients for a punchier sound; negative values compress harmonics for a smoother, more consistent tone.
 
 ## Troubleshooting
 
 - **RN2 button is missing** — Open the TX Tube editor (double-click TUBE in the CHAIN widget on the TX side). The button appears below the output level meter, TX side only.
 - **Denoiser seems to have no effect** — Verify you are in a voice mode (SSB, AM, FM). RN2 is bypassed in digital modes. Also check that the Tube stage itself is not bypassed (the applet tile should be at full opacity, not dimmed).
 - **Background noise still audible after enabling RN2** — The denoiser suppresses steady background noise but may not remove sudden impulse noises. For best results, position your microphone close to your mouth and reduce gain at the source where possible.
+- **Tube character buttons not working** — Ensure only one model (A, B, or C) is selected at a time. The buttons are mutually exclusive.
 
 ## Related
 

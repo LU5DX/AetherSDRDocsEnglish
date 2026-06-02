@@ -26,6 +26,7 @@ The dialog connects directly to the radio's FlexWaveformModel for live status up
 - The dialog is non-modal, so you can keep it open while operating the radio.
 - Use the **Restart** button to reload a waveform without removing and reinstalling it.
 - Use **Remove/Uninstall** to delete an unwanted waveform from the radio.
+- The dialog applies the current theme's styling for waveforms windows, ensuring visual consistency with other dialogs.
 
 ## Related
 

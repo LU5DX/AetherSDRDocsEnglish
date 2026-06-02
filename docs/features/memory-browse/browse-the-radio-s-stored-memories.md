@@ -32,6 +32,7 @@ The Memory Browser is a side panel that lists all memories stored on the connect
 - Memories with a frequency of 0 or unset are excluded from the table entirely.
 - Long names and frequencies that exceed column width are truncated with an ellipsis. Hover over any cell to see the full value in a tooltip.
 - The **Add Memory** button stays visible regardless of how far you scroll in the memory table.
+- The Memory Browser panel and its controls now use the active theme's color scheme. Panel, table, header, scrollbar, label, and button colors are defined by the theme rather than hardcoded values. Custom theme files can adjust the appearance via theme parameters such as `color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, and `color.accent.dim`.
 
 ## Related
 

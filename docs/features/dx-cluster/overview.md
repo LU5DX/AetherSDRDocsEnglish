@@ -142,6 +142,11 @@ setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
 
 Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
 
-## Tips
-- RBN produces a very high spot rate. Set **Rate Limit:** to a value your display can handle before connecting, to avoid flooding the panadapter.
-- WSJT-X spots are ephemeral by nature. Set **Spot Life:** to match the FT8 or FT4 transmission cycle length (
+### Theme support
+
+The SpotHub dialog and all its connection status labels now use theme-aware colors. The dialog container is registered as `dialog/dxCluster` for theme styling. Connection status labels use:
+
+| State | Theme color token |
+|---|---|
+| Connected | `{{color.accent}}` |
+| Disconnected

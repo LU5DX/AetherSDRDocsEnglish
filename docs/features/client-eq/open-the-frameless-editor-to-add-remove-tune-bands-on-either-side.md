@@ -26,7 +26,14 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 9. To discard all edits and return to defaults, click **Reset**. This restores the default 10-band count and parameters and sets the filter family back to Butterworth. The reset saves immediately.
 10. To adjust a band's parameters numerically, right‑click any cell in the **Parameter text row** and choose **Edit...**. Type the desired frequency, gain, or Q value in the dialog that appears. The change is applied immediately and saved.
 11. To set the **Output Fader** value numerically, click the dB readout at the bottom of the fader. The readout becomes an inline text field showing the bare number. Type the desired dB value (e.g., `-6.0`) and press Enter or click elsewhere to commit. Press Escape to cancel and revert to the previous value.
-12. To close the editor, use the close button in the editor's frameless title bar. The applet tiles continue showing the summed curve for their respective sides.
+12. To display a **reference curve** on the canvas, choose a preset from the **Reference curve** combo box in the editor header strip. The chosen normalized magnitude trace (amber, semi-transparent) is overlaid on the canvas behind the EQ band curves, giving you a visual target to shape your parametric EQ toward. Available presets:
+    - **Off** — no reference curve displayed (default).
+    - **AT&T 1959** — Bell Labs "optimum transmission frequency response for speech" with a +5 dB presence peak at 2.5 kHz, rolled off below 300 Hz and above 3.4 kHz.
+    - **Heil DX** — Bob Heil's published recommendation for maximum talk power in pile-ups, with a sharper +6 dB peak at 2.7 kHz.
+    - **Astatic D-104** — classic "lollipop" crystal mic response, extremely peaky around 3 kHz with deep low-end rolloff.
+    - **Shure 444** — classic broadcast-style desk mic, broader response with gentler presence boost.
+    - **Heil HC-5** — modern dynamic SSB mic target shape with mid-presence boost peaking ~3 kHz at +5 dB.
+13. To close the editor, use the close button in the editor's frameless title bar. The applet tiles continue showing the summed curve for their respective sides.
 
 ## What each control does
 
@@ -44,6 +51,7 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 | Filter-type icon row                | A row of 8 custom-painted icons (one per band slot) at the top of the editor canvas area. Each icon draws the current filter shape (peak bell, shelf ramp, HP/LP slope) in its band's palette colour. Click an icon to cycle through the filter types for that band; clicking also selects the band, highlighting its handle on the canvas and its column in the parameter row. Located in the floating editor only. Icons dim to 35 % opacity when the band is bypassed.                                                                                                                                                                     | —                 |
 | Parameter text row                  | A row of 8 text columns (one per band slot) below the canvas showing each band's Freq, Gain, and Q values. Values update live during canvas drags. Clicking a column selects that band. Right‑click any cell and choose **Edit...** to enter a numeric value directly; the change is applied and saved immediately. Located in the floating editor only. Each column has a transparent background so it does not bleed a dark fill over the band-plan strip at the bottom of the canvas directly above; labels are bottom-aligned within their column.                                                                                          | —                 |
 | Filter cutoff guide lines (TX / RX) | Dashed yellow vertical lines overlaid on the canvas at the radio's current TX low/high filter cutoff (TX tile) or RX passband edges (RX tile). These lines are updated automatically whenever the radio reports a filter change. Hovering near a line changes the cursor to a horizontal-resize arrow. Dragging a line in the editor moves the radio's corresponding filter cutoff in real time.                                                                                                                                                                                                                                              | —                 |
+| Reference curve                     | Drop-down combo box in the editor header strip that selects a normalized magnitude trace to overlay on the canvas behind the EQ band curves. The trace is drawn in amber with semi-transparency, providing a visual target to shape your parametric EQ toward. Presets include AT&T 1959, Heil DX, Astatic D-104, Shure 444, and Heil HC-5. Selecting **Off** hides the reference curve. Persisted separately per path as `ClientEqTxReferenceCurve` / `ClientEqRxReferenceCurve`. Tooltip: "Display a reference target-curve overlay. Choose a mic or speech-response preset as a visual guide, or Off to hide it. Affects display only — not applied to audio." Set to **Off** by default. | Off               |
 
 ## Tips
 
@@ -56,6 +64,8 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 - In the parameter text row, each band column uses a transparent background. This prevents the dark application stylesheet from painting over the band-plan strip at the bottom of the canvas directly above the row.
 - To change a band's parameters with keyboard precision, right‑click its column in the parameter text row and select **Edit...** — the numerical edit dialog accepts typed values for frequency, gain, and Q.
 - To set the Output Fader with a typed value, click the dB readout below the fader — it becomes an inline text field that accepts a bare number (e.g., `-3.5`). Press Enter to commit, Escape to revert.
+- The **Reference curve** overlay is a visual guide only — it does not affect the audio signal or EQ math. Use it as a target to shape your EQ bands toward a known microphone or speech-response characteristic.
+- Each path (TX / RX) remembers its own Reference curve setting independently via `ClientEqTxReferenceCurve` and `ClientEqRxReferenceCurve` settings keys.
 
 ## Troubleshooting
 
@@ -64,6 +74,7 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 - **Filter cutoff guide lines do not appear** — if the radio reports a cutoff value of 0 for either edge, that guide line is suppressed. Verify that the radio has an active mode and slice selected.
 - **Parameter row labels appear misaligned or crowd the band-plan strip** — this was corrected in v0.9.7. If you see this on an older installation, update to v0.9.7 or later.
 - **Numerical edit in the parameter row does not apply the value** — ensure you complete the edit by pressing Enter or clicking outside the dialog. Committed values are saved automatically.
+- **Reference curve does not appear** — verify the combo box is set to a preset other than **Off**. The curve is drawn behind the EQ band curves; if you have many bands with high gain, the reference trace may be partially obscured.
 
 ## Related
 
@@ -71,5 +82,4 @@ The frameless editor is where you do all active EQ work: adding and removing ban
 - [Bypass the EQ stage from the chain](bypass-the-eq-stage-from-the-chain.md)
 - [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
 - [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)
-- [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target.md)
-<!-- docmesh:llm version=v26.5.2.1 date=2026-05-15 -->
+- [Verify the summed curve matches your mental target](verify-the-summed-curve-matches-your-mental-target

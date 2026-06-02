@@ -94,6 +94,10 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 5. Check **Enable FreeDV Reporter reporting when RADE is active** (`FreeDvAutoReport`). If callsign or grid is missing, a warning appears — fill in the missing field and try again.
 6. To have reporting start automatically each time AetherSDR launches, enable **Auto-start on startup (FreeDV)** (`FreeDvAutoStart`).
 
+## Theme Support
+
+Starting in v26.6.1, the SpotHub dialog and all its status labels use theme-aware colors instead of hardcoded values. The dialog container applies the `dialog/dxCluster` theme style, and tab widgets, status labels, and connection states all resolve colors from the active theme. This means the dialog adapts automatically to light, dark, or custom themes without manual color tweaking.
+
 ## Tips
 
 - The DXCC stats indicator in the dialog shows how many QSOs and entities were imported from the ADIF file. If it reads zero after loading, verify the file is valid ADIF.
@@ -103,9 +107,4 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 - **Spot Lines:** (`IsSpotsLinesEnabled`) defaults to **Enabled**. During contests or when the panadapter feels visually busy, disable this toggle on the **Display** tab to remove the vertical lines while keeping spot labels visible.
 - The four DXCC color swatches (**New DXCC**, **New Band**, **New Mode**, **Worked**) replace the previous fixed color scheme. Customize each to suit your preference.
 - When **Use radio (callsign)** is checked, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
-- Reporter broadcasting is build-gated by `HAVE_WEBSOCKETS`. On Windows it additionally requires `HAVE_RADE`. If the **Station Reporting** group or the enable checkbox is absent, your build does not include the required components.
-- Startup commands are stored separately for the **Cluster** tab (`DxClusterStartupCommands`) and **RBN** tab (`RbnStartupCommands`). You can configure different commands for each source.
-
-## Troubleshooting
-
-- **DXCC stats shows 0 QSOs after selecting a file** — The file
+- Reporter broadcasting is build-gated by `HAVE_WEBSOCKETS`. On Windows it additionally requires `HAVE_RADE`. If the **

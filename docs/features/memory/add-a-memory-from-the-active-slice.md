@@ -28,7 +28,7 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 | 8-axis resize | — | Click and drag any edge or corner to resize. Cursor changes to indicate resize direction. 12 px resize hit zone. |
 | Search field | Search: | Filters the table by memory name. Has a clear button; press Enter to submit. Ctrl+F focuses this field. |
 | Profile filter | Profile: | Filters memories by active global or transmit profile. Default: "All Memories". |
-| Memory table | — | Displays memory rows. Sortable by clicking column headers (Frequency, Name, Mode). Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Double-click to tune. Ctrl+Shift+A selects all rows. Ctrl+F focuses the search field. |
+| Memory table | — | Displays memory rows. Sortable by clicking column headers (Frequency, Name, Mode). Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Double-click to tune. Ctrl+Shift+A selects all rows. Ctrl+F focuses the search field. The table background uses the theme color `dialog/memory`. |
 | Selection count | — | Shows "<N> of <M> selected". |
 | Add button | Add | Creates a new memory from the active slice's current settings. Shortcut: Ctrl+N. |
 | Edit button | Edit | Enables inline editing on the selected memory's Name field. Only enabled when exactly one memory is selected. Shortcut: F2 or Ctrl+E. |
@@ -44,6 +44,7 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 - The memory captures the active slice's frequency, mode, step, filter settings, and any FM repeater parameters (offset direction, offset, tone mode, tone value, squelch settings).
 - The dialog remembers its size and position between sessions.
 - The Add button always targets the active slice; there is no per-slice-letter selection.
+- The dialog uses the theme color set for `dialog/memory`. Alternate row colors in the memory table follow the theme's background color.
 
 ## Related
 

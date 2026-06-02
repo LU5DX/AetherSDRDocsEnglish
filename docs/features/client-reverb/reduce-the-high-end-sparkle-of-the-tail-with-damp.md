@@ -43,6 +43,20 @@ The visualisation is purely informational. It does not affect audio processing.
 - Raising **Damp** causes the magenta tail to decay more steeply and reduces the amplitude of successive yellow reflection bursts.
 - Lowering **Damp** produces a flatter magenta decay curve and more even yellow reflection amplitudes.
 
+## Themes and knob colours
+
+The Aetherial FreeVerb applet uses a dedicated theme container (`applet/reverb`) for its knob components. This enables per-applet colour overrides. The following knob colours are drawn from the theme system:
+
+| Theme key | Purpose |
+|-----------|---------|
+| `color.knob.background` | Background ring of the knob |
+| `color.knob.foreground` | Value arc showing current setting |
+| `color.knob.handle` | Pointer line from centre to arc |
+| `color.text.secondary` | Label text below the knob |
+| `color.text.primary` | Value text displayed in the knob centre |
+
+If you change themes, knob colours update automatically. Custom theme files can assign distinct colours to the `applet/reverb` container to make the reverb knobs visually distinct from other DSP knobs.
+
 ## Tips
 
 - A value around 50–70 % suits most voice work. It softens the tail without making the reverb sound muffled.

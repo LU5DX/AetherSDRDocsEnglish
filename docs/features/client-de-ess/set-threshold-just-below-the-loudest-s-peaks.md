@@ -19,30 +19,30 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 ## What each control does
 
-| Control            | Default                                                                                                                                                                                              | Valid range                                                                                                                                                                                |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Thresh             | −30.0 dB                                                                                                                                                                                             | −60.0 to 0.0 dB                                                                                                                                                                            |
-| Gain-reduction bar | —                                                                                                                                                                                                    | 0 to 24 dB GR                                                                                                                                                                              |
-| Freq               | 6000 Hz                                                                                                                                                                                              | 1000 to 12000 Hz                                                                                                                                                                           |
-| Q                  | 2.00                                                                                                                                                                                                 | 0.5 to 5.0                                                                                                                                                                                 |
-| Amount             | −6.0 dB                                                                                                                                                                                              | −24.0 to 0.0 dB                                                                                                                                                                            |
-| Attack             | 1.0 ms                                                                                                                                                                                               | 0.1 to 30.0 ms                                                                                                                                                                             |
-| Release            | 100 ms                                                                                                                                                                                               | 10.0 to 500.0 ms                                                                                                                                                                           |
-| Slope              | 24 dB/oct (2 stages)                                                                                                                                                                                 | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages)                                                                                                                                                   |
+| Control            | Default              | Valid range                              |
+|--------------------|----------------------|------------------------------------------|
+| Thresh             | −30.0 dB             | −60.0 to 0.0 dB                          |
+| Gain-reduction bar | —                    | 0 to 24 dB GR                            |
+| Freq               | 6000 Hz              | 1000 to 12000 Hz                         |
+| Q                  | 2.00                 | 0.5 to 5.0                               |
+| Amount             | −6.0 dB              | −24.0 to 0.0 dB                          |
+| Attack             | 1.0 ms               | 0.1 to 30.0 ms                           |
+| Release            | 100 ms               | 10.0 to 500.0 ms                         |
+| Slope              | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) |
 
 **Thresh** — the level above which the de-esser begins attenuating the sibilance band. Raising this value (toward 0.0 dB) makes the de-esser act only on the very loudest sibilance. Lowering it (toward −60.0 dB) causes the de-esser to trigger on progressively quieter signals.
 
-**Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second.
+**Gain-reduction bar** — a horizontal soft-red strip that fills from the right to show current attenuation. The scale runs from 0 to 24 dB. A tick marks the −6 dB position, which is the default Amount value. The bar refreshes approximately 30 times per second. The bar's colour is drawn from the theme's `color.accent.danger` value.
 
-**Freq** — sets the centre frequency of the sibilance band (1000 to 12000 Hz, logarithmic mapping). Default 6000 Hz. Labels show "6.0 kHz" above 1 kHz and "N Hz" below. Press Enter or click away after typing a value to commit it.
+**Freq** — sets the centre frequency of the sibilance band (1000 to 12000 Hz, logarithmic mapping). Default 6000 Hz. Labels show "6.0 kHz" above 1 kHz and "N Hz" below. Press Enter or click away after typing a value to commit it. Setting key: `ClientDeEssTxFrequencyHz`.
 
-**Q** — sets the bandwidth of the sibilance band (0.5 to 5.0, linear mapping). Higher Q = narrower band. Default 2.00. Label format "X.XX". Press Enter or click away after typing a value to commit it.
+**Q** — sets the bandwidth of the sibilance band (0.5 to 5.0, linear mapping). Higher Q = narrower band. Default 2.00. Label format "X.XX". Press Enter or click away after typing a value to commit it. Setting key: `ClientDeEssTxQ`.
 
-**Amount** — maximum attenuation applied at peak sibilance (−24.0 to 0.0 dB, linear mapping). Values are negative (or zero) because they represent reduction. Default −6.0 dB. Press Enter or click away after typing a value to commit it.
+**Amount** — maximum attenuation applied at peak sibilance (−24.0 to 0.0 dB, linear mapping). Values are negative (or zero) because they represent reduction. Default −6.0 dB. Press Enter or click away after typing a value to commit it. Setting key: `ClientDeEssTxAmountDb`.
 
-**Attack** — how quickly the de-esser responds once sibilance crosses the threshold (0.1 to 30.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+**Attack** — how quickly the de-esser responds once sibilance crosses the threshold (0.1 to 30.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob. Setting key: `ClientDeEssTxAttackMs`.
 
-**Release** — how quickly gain returns after sibilance drops below the threshold (10.0 to 500.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob.
+**Release** — how quickly gain returns after sibilance drops below the threshold (10.0 to 500.0 ms, exponential mapping). Present in the Channel Strip StripDeEssPanel for both RX and TX. The docked ClientDeEssApplet omits this knob. Setting key: `ClientDeEssTxReleaseMs`.
 
 **Slope** — sets the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Click the button to cycle through 12 → 24 → 36 → 48 dB/oct (1 to 4 stages). Present in the Channel Strip StripDeEssPanel (left column, bottom). Persisted as `ClientDeEssTxSlopeStages` for TX and `ClientDeEssRxSlopeStages` for RX.
 
@@ -50,7 +50,9 @@ This page explains how to set the Thresh knob so the de-esser acts only on genui
 
 The Sidechain response curve indicator draws the bandpass filter response with a live ball at the current centre frequency. The frequency axis is labelled with major gridlines at 100, 500, 1k, 2k, 3k, 4k, 5k, 6k, 7k, 8k, 9k, 10k, 11k, and 12k Hz. These labels are drawn as high-performance static text objects cached after the first paint. The labels appear only when the curve widget is not in compact mode.
 
-The Centre-frequency ball rests on the curve peak, marking the currently-tuned sibilance centre frequency.
+The curve and grid colours are drawn from the theme: `color.background.0`, `color.background.1`, `color.text.label`, `color.accent.danger`, and `color.accent.dim`. The curve colour uses a soft red ("sibilant band").
+
+The Centre-frequency ball rests on the curve peak, marking the currently-tuned sibilance centre frequency. The ball uses `color.accent.dim` for glow and `color.text.primary` for the core.
 
 The curve updates automatically when Slope stages are changed to reflect the steeper or shallower rolloff.
 
@@ -71,6 +73,20 @@ This feature is provided by `ClientCompKnob`, which is also used by the Compress
 ## Bypass dimming
 
 When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55 % of full brightness). This matches the dim effect applied to the EQ curve when that stage is bypassed. Full opacity is restored as soon as the stage is re-enabled.
+
+## Theme-aware knob colours
+
+As of v26.6.1, the de-esser's knobs read their colours from the theme system's `color.knob.*` namespace:
+
+| Theme key | Component | Description |
+|-----------|-----------|-------------|
+| `color.knob.background` | Ring background | The unlit portion of the knob arc |
+| `color.knob.foreground` | Ring arc | The lit portion of the knob arc |
+| `color.knob.handle` | Pointer | The knob indicator line |
+| `color.text.secondary` | Label | The knob component label |
+| `color.text.primary` | Value | The current numeric value |
+
+The applet container `applet/deess` carries per-applet colour overrides. If a theme defines an `applet/deess` section, its colours take precedence over the global `color.knob.*` values.
 
 ## Tips
 

@@ -6,16 +6,19 @@ The Audio Device Change feature automatically detects when system audio devices 
 
 AetherSDR monitors the system for audio device changes while running. When a device is added or removed — for example, when a USB audio interface is unplugged or replugged — the Audio Device Change dialog appears automatically. The dialog displays the current and available audio devices side-by-side so you can verify the routing or select a different device before audio is disrupted.
 
+The dialog uses a themed container for visual consistency with the rest of the application interface.
+
 The selected devices are persisted to AppSettings, so your choices are remembered for future sessions.
 
 ## What each control does
 
-| Control | Behavior |
-|--------|----------|
-| **Available Input Devices** | Lists all detected input audio devices. The currently-selected device is highlighted. |
-| **Available Output Devices** | Lists all detected output audio devices. The currently-selected device is highlighted. |
-| **Apply** | Applies the selected audio devices and closes the dialog. Persists the choice to AppSettings. Styled as the primary action button. |
-| **Cancel** | Closes the dialog without changing audio devices. |
+| Control                      | Behavior                                                                                                                                                      | Notes                                         |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
+| **Available Input Devices**  | Lists all detected input audio devices. The currently-selected device is highlighted.                                                                         | New in v26.5.2.1.                             |
+| **Available Output Devices** | Lists all detected output audio devices. The currently-selected device is highlighted.                                                                        |                                               |
+| **Apply**                    | Applies the selected audio devices and closes the dialog. Persists the choice to AppSettings. Styled as the primary action button.                            |                                               |
+| **Cancel**                   | Closes the dialog without changing audio devices.                                                                                                             |                                               |
+| Don't ask me again           | When checked and Apply is clicked, persists the suppression flag so the dialog is not shown on future hotplug events while the current selection still works. | New in v26.5.3 (#2926).                       |
 
 ## Tips
 

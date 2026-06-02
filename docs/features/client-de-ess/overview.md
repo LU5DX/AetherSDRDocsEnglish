@@ -34,15 +34,15 @@ Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack
 
 ## What each control does
 
-| Control     | Default   | Valid range    | Behavior |
-|-------------|-----------|----------------|----------|
-| **Freq**    | 6000 Hz   | 1000 – 12000 Hz | Logarithmic mapping. Sets the centre frequency of the sibilance band. Label shows '6.0 kHz' above 1 kHz, 'N Hz' below. |
-| **Q**       | 2.00      | 0.5 – 5.0      | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows 'X.XX'. |
-| **Thresh**  | −30.0 dB  | −60.0 to 0.0 dB | Linear mapping. Level above which the de-esser starts attenuating the band. |
-| **Amount**  | −6.0 dB   | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Negative values represent reduction. |
-| **Attack**  | 1.0 ms    | 0.1 to 30.0 ms  | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip only (RX and TX). |
-| **Release** | 100 ms    | 10.0 to 500.0 ms | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip only (RX and TX). |
-| **Slope**   | 24 dB/oct | 12 / 24 / 36 / 48 dB/oct | Push button that cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Present in the Channel Strip (left column, bottom). Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
+| Control | Default | Valid range | Behavior |
+|---|---|---|---|
+| **Freq** | 6000 Hz | 1000 – 12000 Hz | Logarithmic mapping. Sets the centre frequency of the sibilance band. Label shows '6.0 kHz' above 1 kHz, 'N Hz' below. |
+| **Q** | 2.00 | 0.5 – 5.0 | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows 'X.XX'. |
+| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | Linear mapping. Level above which the de-esser starts attenuating the band. |
+| **Amount** | −6.0 dB | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction. |
+| **Attack** | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel. The docked ClientDeEssApplet omits this knob. |
+| **Release** | 100 ms | 10.0 to 500.0 ms | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel. The docked ClientDeEssApplet omits this knob. |
+| **Slope** | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Present in the floating StripDeEssPanel. Label shows 'N dB/oct'. Present for both TX and RX paths. |
 
 ### Inline value editing
 
@@ -75,6 +75,28 @@ Each instance saves and restores its control values from the settings database:
 | `ClientDeEssTxEnabled` | TX enabled state |
 
 RX settings use a parallel key set (`ClientDeEssRx*`). Settings are saved when you adjust any knob or close the panel.
+
+## Theming
+
+The de-esser panel and its knobs use the application theme system. Knob colors (background ring, foreground arc, pointer handle, label text, value text) are drawn from theme color keys:
+
+- `color.knob.background` — knob background ring
+- `color.knob.foreground` — knob value arc
+- `color.knob.handle` — knob pointer line
+- `color.text.secondary` — knob label text
+- `color.text.primary` — knob value text
+
+The sidechain response curve also uses theme colors:
+
+- `color.background.0` — curve widget background
+- `color.background.1` — grid lines and major grid lines
+- `color.text.label` — axis labels
+- `color.accent.danger` — sibilant band curve (soft red)
+- `color.accent.dim` — threshold/marker lines
+- `color.accent.warning` — centre-frequency ball glow
+- `color.text.primary` — centre-frequency ball core
+
+The docked applet container is registered with the theme as `applet/deess`, allowing per-applet color overrides when defined by the active theme.
 
 ## Tips
 

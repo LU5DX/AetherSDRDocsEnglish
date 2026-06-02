@@ -18,20 +18,22 @@ Export your stored memory channels to a CSV file for safekeeping or to share wit
 
 ## Notes on the dialog window
 
-The Memory Channels dialog uses a custom title bar with a gradient background. The title bar displays "Memory Channels" with a grip glyph on the left side. You can:
+The Memory Channels dialog uses a custom title bar with an 18 px gradient background. The title bar displays "Memory Channels" with a grip glyph on the left side. You can:
 
 - Click and drag the title bar to move the dialog.
 - Double-click the title bar to toggle between maximized and restored state.
-- Click any edge or corner and drag to resize the dialog. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide.
+- Click any edge or corner and drag to resize the dialog. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide via FramelessResizer.
 - Click the minimize button (—) to minimize the dialog.
 - Click the maximize button (□) to maximize or restore the dialog.
 - Click the close button (×) to close the dialog. Press Escape to clear the search field first, then close the dialog on a second press.
 
 The dialog remembers its geometry across sessions. When reopened, it restores to its previous size and position.
 
+The memory table uses themed background colors determined by the current application theme. The alternate row color and selected item highlight are set to match the active theme's color scheme.
+
 ## Tips
 
-- If you want to export only the memories belonging to a particular group, use the `Profile:` combo box to filter the table to that group first, then click `Select All` before clicking `Export...`.
+- If you want to export only the memories belonging to a particular profile, use the `Profile:` combo box to filter the table to that profile first, then click `Select All` before clicking `Export...`.
 - The exported file is sorted by frequency, then by internal memory index, regardless of the current table sort order.
 - The exported CSV file can be imported back into AetherSDR using `Import...`.
 

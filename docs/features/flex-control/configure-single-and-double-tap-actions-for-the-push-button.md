@@ -58,6 +58,7 @@ Available actions for both combo boxes include:
 
 - Use a wheel action (Tune Slice, Master Volume, etc.) for single-tap and a one-shot action (Step Up, Band Zoom, etc.) for double-tap for complementary behavior.
 - The double-tap guard time is 230 ms. Tap twice within that window to trigger the double-tap action.
+- Double-click the virtual wheel to capture or release circular tuning using the mouse or trackpad. Press Escape as an alternative release. The capture hint label at the bottom of the dialog now reads "Double-click the knob to capture circular tuning."
 
 ## Related
 

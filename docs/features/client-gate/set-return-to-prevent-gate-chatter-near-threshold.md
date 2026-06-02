@@ -21,8 +21,17 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 |---|---|---|---|
 | **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | **Thresh** | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
+| **Ratio** | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` |
+| **Release** | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
+| **Floor** | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` |
 
 **Return** sets the width of the hysteresis deadband in decibels. The gate opens when input rises above Thresh and does not close again until input falls below Thresh − Return. Setting Return to 0.0 dB removes the deadband entirely; the gate opens and closes at the same level, which maximises chatter risk near threshold.
+
+**Ratio** controls the steepness of the downward expansion. Higher ratios (closer to 10.0) produce a harder, more gate-like cut; lower ratios (close to 1.0) act as a soft downward expander. The label displays as `X.X:1`.
+
+**Release** determines how quickly the gate closes after input falls below Thresh − Return. Range is 5 to 2000 ms with exponential mapping. Below 100 ms the label shows `X.X ms`; above 100 ms it shows `X ms`.
+
+**Floor** sets the maximum attenuation the gate can apply. Default is −15.0 dB; range is −80.0 to 0.0 dB.
 
 The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh whenever Return is greater than 0.0 dB. This band is the gate's sticky zone — signals inside it leave the gate in whatever state it is already in.
 
@@ -31,7 +40,7 @@ The transfer curve draws a soft-cyan vertical band between (Thresh − Return) a
 Each knob in the Aetherial TX Gate and Aetherial AGC-G supports direct numeric entry. Click the displayed value below a knob to activate an inline editor that replaces the painted label. The editor appears identical to the normal label until focused, at which point a subtle dark background and cyan border indicate edit mode.
 
 1. Click the value text below any knob (Thresh, Ratio, Return, Release, or Floor).
-2. Type the desired value using the knob's unit convention. For example, type `15` to set Return to 15 dB.
+2. Type the desired value using the knob's unit convention. For example, type `15` to set Return to 15 dB, or `2` to set Ratio to 2.0.
 3. Press **Enter** to commit the value, or click anywhere else in the applet to apply the change.
 4. To cancel, press **Escape** while the editor is active. The value reverts to its previous setting.
 
@@ -46,7 +55,7 @@ When the gate stage is bypassed, the entire applet tile dims to reduced opacity.
 ## Tips
 
 - If you raise Return so high that the gate stays open through long pauses in speech, reduce it in small steps (0.5 dB at a time) until pauses close the gate naturally.
-- Use the gain-reduction bar (amber strip, 0 to 40 dB scale) to confirm the gate is closing during true silence. If the bar never fills during a pause, Return may be too wide relative to your actual noise floor.
+- Use the gain-reduction bar (amber strip, 0 to 40 dB scale, with a tick at -15 dB) to confirm the gate is closing during true silence. If the bar never fills during a pause, Return may be too wide relative to your actual noise floor.
 - Changes to Return take effect immediately and are saved automatically. No restart is required.
 
 ## Troubleshooting
@@ -56,6 +65,7 @@ When the gate stage is bypassed, the entire applet tile dims to reduced opacity.
 - **Cyan band is not visible on the transfer curve** — Return is set to 0.0 dB. Any value above 0.0 dB will render the band.
 - **Applet tile appears dimmed** — The gate stage is bypassed. Enable the gate stage to restore full opacity and active processing.
 - **Inline editor does not appear when clicking the value** — The knob may not support inline editing in its current configuration, or the editor may be disabled. All five knobs in the gate applet support this feature by default.
+- **Gain-reduction bar shows no amber fill** — The gate is currently open with no attenuation applied. Speak or pass audio below Thresh to see the gate close and the bar fill.
 
 ## Related
 

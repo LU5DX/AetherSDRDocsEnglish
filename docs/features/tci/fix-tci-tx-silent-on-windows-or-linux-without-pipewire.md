@@ -24,16 +24,16 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 
 ## What each control does
 
-| Control                        | Default | Valid range | Behavior |
-|--------------------------------|---------|-------------|----------|
-| **Port**                       | `50001` | 1024–65535 | Changing the port restarts the server if enabled. Out-of-range values snap to 50001. |
-| **Enable**                     | Off     | On / Off    | Starts or stops the TCI server; emits tciToggled. If bind fails the toggle snaps back to off and status shows '(port in use)'. |
-| **TX gain+meter**              | `0.5`   | 0.0–1.0     | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker. |
-| **RX1 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 1 and emits tciRxGainChanged. Persisted as `TciRxGain1`. |
-| **RX2 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 2 and emits tciRxGainChanged. Persisted as `TciRxGain2`. |
-| **RX3 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 3 and emits tciRxGainChanged. Persisted as `TciRxGain3`. |
-| **RX4 gain+meter**             | `0.5`   | 0.0–1.0     | Combined meter/slider; drag sets the TCI RX gain for channel 4 and emits tciRxGainChanged. Persisted as `TciRxGain4`. |
-| **TX overflow mode (right-click)** | Clip | Clip (0), NaNGuard (1), Measure (2) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. New in v26.5.3. |
+| Control                            | Default                                                                                                                              | Valid range                                                                                                                                                                                                                                    |
+|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Port**                           | `50001`                                                                                                                              | 1024–65535                                                                                                                                                                                                                                     |
+| **Enable**                         | Off                                                                                                                                  | On / Off                                                                                                                                                                                                                                       |
+| **TX gain+meter**                  | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
+| **RX1 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
+| **RX2 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
+| **RX3 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
+| **RX4 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
+| **TX overflow mode (right-click)** | Clip                                                                                                                                 | Clip (0), NaNGuard (1), Measure (2)                                                                                                                                                                                                            |
 
 ## TX overflow handling modes
 
@@ -62,6 +62,7 @@ Right-click the **TX gain+meter** slider to open the TX overflow handling contex
 - The TX meter uses fast attack and slow decay smoothing, so a brief transmission will keep the meter visibly elevated for a moment after audio stops. No movement at all during a keyed transmission confirms audio is not arriving from the client.
 - Slice assignment labels now support rich text rendering, so slice letters may appear with additional formatting (e.g., color) to indicate slice properties.
 - For digital modes requiring bit-exact tone fidelity, use **NaN guard** or **Measure only** modes to avoid harmonic distortion from clipping.
+- The applet container uses the theme system (`applet/tci`) for consistent styling across all themes.
 
 ## Troubleshooting
 

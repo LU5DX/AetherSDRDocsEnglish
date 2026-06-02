@@ -30,6 +30,22 @@ This page explains how to enter the connection details for your MQTT broker so t
 | Use TLS | unchecked | – | `MqttTls` (migrated to `MqttSettings`) | Enables TLS encryption; shows/hides the CA cert row |
 | CA cert | (empty) | file path or blank | `MqttCaFile` (migrated to `MqttSettings`) | Path to a custom CA certificate file; blank = system CA bundle |
 
+## Subscriptions tab
+
+The **Subscriptions** tab replaces the comma-separated Topics text field from earlier versions. It contains:
+
+- **Topic table**: Each row has an editable Topic text field and a Display checkbox. When checked, the topic’s messages appear on the panadapter overlay. Use the **Add** and **Remove** buttons below the table to manage rows.
+- **Internal AetherSDR Topics**: A read-only group box listing topics that AetherSDR subscribes to automatically when the MQTT connection is active. These topics are not user-removable.
+
+## Publish Buttons tab
+
+The **Publish Buttons** tab lets you define up to 12 publish buttons. Each row in the table has three editable text fields: **Label**, **Topic**, and **Payload**. Use the **Add** and **Remove** buttons below the table to manage rows. The Add button is disabled when 12 rows are reached.
+
+The tab also includes an **Internal AetherSDR Topics** group box showing topics that AetherSDR publishes automatically when the MQTT connection is active. These topics are not user-configurable.
+
+Current internal publish topics:
+- `aethersdr/cw/decode`
+
 ## Tips
 
 - If your broker does not require a password, leave the **Password** field empty.

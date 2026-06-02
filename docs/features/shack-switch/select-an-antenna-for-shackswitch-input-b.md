@@ -21,9 +21,12 @@ To deselect the current Input B antenna, click its active **[B]** button again.
 
 | Control | Behavior | Setting key |
 |---|---|---|
-| INPUT B card | Displays the current band and antenna name assigned to Port B. Hidden on single-port (R4) devices. | — |
-| **[B]** button (per antenna row) | Selects this antenna for Input B. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna. | — |
-| Dummy load selector | Opens a menu to designate one antenna as a dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna during transmit. | `SS_DummyLoadAnt` |
+| Status label | Shows the connected device IP address and firmware version, or a disconnected message. | — |
+| INPUT B card | Displays the current band and antenna name assigned to Port B. Highlighted in orange. Hidden on single-port (R4) devices. | — |
+| **[A]** button (per antenna row) | Selects this antenna for Input A. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna (conflict). | — |
+| **[B]** button (per antenna row) | Selects this antenna for Input B. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna. When a dummy load is configured and Port B is auto-routed there, the intended row **[B]** button blinks amber and the dummy load row blinks orange. | — |
+| Dummy load selector | Selects or deselects an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna during transmit. | `SS_DummyLoadAnt` |
+| Settings button | Opens the ShackSwitch device web configuration interface in the system browser. Uses the live peer address when connected, falls back to `SS_ManualIp`. Port determined by `SS_WebPort`, beacon webPort, or 5000 default. | — |
 
 ## Tips
 

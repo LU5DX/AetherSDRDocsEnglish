@@ -23,6 +23,8 @@ An antenna already selected on the other port is disabled and cannot be selected
 
 The status label at the top of the applet tracks the connection lifecycle, and the per-port indicators show the active band and selected antenna name in real time.
 
+The applet now uses the system theme for all visual elements — button colours, label colours, and separator lines adapt to the active AetherSDR theme.
+
 ## What each control does
 
 | Control | Behavior | Default | Setting key |

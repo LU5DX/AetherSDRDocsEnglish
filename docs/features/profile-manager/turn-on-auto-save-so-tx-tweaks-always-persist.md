@@ -38,8 +38,8 @@ To turn auto-save off, repeat the steps and uncheck **Auto-save profile changes*
 ## Tips
 
 - Auto-save applies to both TX and microphone settings, not just one category. If you want to experiment without overwriting your current profile, uncheck **Auto-save profile changes** first, make your changes, and evaluate before committing a manual save.
-- The checkbox reflects the current state reported by the radio when the dialog opens. If another client changed the setting on the radio, the checkbox updates to match.
-- On the Transmit and Microphone tabs, if you enter a name that already exists and click **Create**, a dialog explains the limitation and offers to enable Auto-Save so your changes to the existing profile are captured.
+- The checkbox reflects the current state reported by the radio when the dialog opens. If another client changed the setting on the radio, the checkbox updates to match. The checkbox also stays in sync with Auto-Save flips that originate outside AetherSDR, such as loading a profile, TCI clients, or remote SmartSDR clients.
+- On the Transmit and Microphone tabs, if you enter a name that already exists and click **Create**, a dialog explains the limitation and offers to enable Auto-Save so your changes to the existing profile are captured. If you click **Enable Auto-Save**, the checkbox on the Auto-Save tab is updated automatically.
 
 ## Related
 

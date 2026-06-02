@@ -30,9 +30,9 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 | Gain Method | radio_button | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects the gain-curve mapping. Stored as integer 0-3. |
 | NPE Method | radio_button | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects the noise power estimator. Stored as integer 0-2. |
 | AE Filter | checkbox | True | — | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
-| Reduction: | slider | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. |
-| Smoothing: | slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
-| Threshold: | slider | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets the speech-presence-probability threshold. |
+| Reduction: | slider | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Higher values suppress more noise but risk distorting speech. |
+| Smoothing: | slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. Higher values give steadier but slower adaptation. |
+| Threshold: | slider | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets the speech-presence-probability threshold. Lower values preserve quiet speech but may pass more noise. |
 | Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, 1.50/0.85/0.20. |
 
 ### NR4 (libspecbleach spectral NR)
@@ -42,10 +42,10 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 | NR4 (tab) | tab | — | — | — | Selects the NR4 page. |
 | Noise Estimation: | radio_button | MMSE | MMSE, Brandt, Martin | `NR4NoiseEstimationMethod` | Selects the noise-floor estimator. Stored as integer 0-2. |
 | Adaptive Noise Estimation | checkbox | True | — | `NR4AdaptiveNoise` | Enables continuous re-estimation of the noise floor. |
-| Reduction (dB): | slider | 10.0 | 0.0–40.0 | `NR4ReductionAmount` | Sets maximum NR4 noise reduction in dB. |
-| Smoothing (%): | slider | 0 | 0–100 | `NR4SmoothingFactor` | Time-domain smoothing of the NR4 noise estimate. |
-| Whitening (%): | slider | 0 | 0–100 | `NR4WhiteningFactor` | Flattens residual noise spectral shape. |
-| Masking Depth: | slider | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls spectral-masking depth. |
+| Reduction (dB): | slider | 10.0 | 0.0–40.0 | `NR4ReductionAmount` | Sets maximum NR4 noise reduction in dB. Higher values remove more noise but may affect speech. |
+| Smoothing (%): | slider | 0 | 0–100 | `NR4SmoothingFactor` | Time-domain smoothing of the NR4 noise estimate. Higher values produce steadier but slower reduction. |
+| Whitening (%): | slider | 0 | 0–100 | `NR4WhiteningFactor` | Flattens the spectral shape of residual noise so it sounds more uniform. |
+| Masking Depth: | slider | 0.50 | 0.00–1.00 | `NR4MaskingDepth` | Controls spectral-masking depth. Higher values suppress more noise in masked frequency regions. |
 | Suppression: | slider | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` | Overall NR4 suppression strength. |
 | Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR4 defaults: MMSE, adaptive on, 10 dB, 0, 0, 0.50, 0.50. |
 
@@ -54,7 +54,7 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 | Control | Type | Default | Range | Setting Key | Description |
 |---------|------|---------|-------|-------------|-------------|
 | MNR (tab) | tab | — | — | — | Selects the MNR page. The MNR toggle is dimmed on Windows and Linux builds — the engine requires a macOS backend. |
-| Enable MNR | checkbox | — | — | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. |
+| Enable MNR | checkbox | — | — | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. Initial state read live from AudioEngine. |
 | Strength | slider | 100 | 0–100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). Persisted as normalized 0.00–1.00. |
 
 ### RN2 (RNNoise)
@@ -79,7 +79,7 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 
 ## Dialog chrome behavior
 
-The dialog uses a frameless window style with a custom title bar. Dialog geometry and state are persisted across sessions via the `AetherDspDialogGeometry` setting key.
+The dialog uses a frameless window style with a custom title bar. Dialog geometry and state are persisted across sessions via the `AetherDspDialogGeometry` setting key. The dialog background and text colors follow the active theme.
 
 - **Title bar**: 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title.
 - **Minimize (—)**: Minimizes the dialog.

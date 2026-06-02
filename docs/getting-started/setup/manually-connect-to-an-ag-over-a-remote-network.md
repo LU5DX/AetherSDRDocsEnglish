@@ -21,9 +21,23 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 
 | Control | What it does | Default | Valid values | Setting key |
 |---|---|---|---|---|
-| **Manual IP** | Stores and uses an IP address to connect directly, bypassing UDP discovery. Pressing Enter triggers the connection attempt. | _(blank)_ | IPv4 or IPv6 address | `AG_ManualIp` |
+| **Device combo** | Selects which discovered AG device to connect to. Auto-selects and connects when the first device is discovered. | _(populated from UDP discovery)_ | Populated from UDP discovery | — |
 | **Connect / Disconnect** | Connects to the selected device in the Device combo, or to the Manual IP address if no discovered device is selected. Becomes Disconnect when connected. | Connect | — | — |
-| Status label | Displays the current discovery or connection state. | No device found | No device found, Device found, Connected — \<name\> v\<version\>, Disconnected, Error: \<msg\>, Invalid IP address | — |
+| **Manual IP** | Stores and uses an IP address to connect directly, bypassing UDP discovery. Pressing Enter triggers the connection attempt. | _(blank)_ | IPv4 or IPv6 address | `AG_ManualIp` |
+| **Port A antenna buttons** | Click to select an antenna on Port A; click again to deselect (antenna=0). Disabled/dim if the antenna is already selected on Port B. Blue = TX+RX, amber = RX only, dim = no permission on current band. | — | Populated from AG antenna list | — |
+| **Port A AUTO** | Enables band-follow on Port A. | — | — | — |
+| **Port B antenna buttons** | Click to select an antenna on Port B; click again to deselect. Port B section hidden if the AG device reports only one radio port. | — | Same antenna list as Port A | — |
+| **Port B AUTO** | Enables band-follow on Port B. | — | — | — |
+
+## Indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| Status label | No device found, Device found, Connected — \<name\> v\<version\>, Disconnected, Error: \<msg\>, Invalid IP address | Discovery/connection state of the Antenna Genius. |
+| Port A band | Band name or '—' | Active band on Port A (AG-reported or frequency-derived). |
+| Port A antenna | Antenna name, \<ant\> TX:\<alt\>, \<ant\> [INHIBIT], '—' | Selected antenna; red when TXing, orange when TX routed to alt antenna or inhibit is asserted. |
+| Port B band | Band name or '—' | Active band on Port B. |
+| Port B antenna | Antenna name, \<ant\> TX:\<alt\>, \<ant\> [INHIBIT], '—' | Selected antenna for Port B. |
 
 ## Tips
 

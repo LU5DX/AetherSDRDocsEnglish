@@ -28,25 +28,54 @@ The Radio tab shows identifying information reported directly by the radio — s
 
 ## What each control does
 
-| Label | Kind | Behavior |
-|---|---|---|
-| Radio SN | Indicator (read-only) | Chassis serial number as reported by the radio. |
-| HW Version | Indicator (read-only) | Hardware version string prefixed with `v`. |
-| Region | Indicator (read-only) | Regulatory region. Displays `USA` if the radio reports none. |
-| Options | Indicator (read-only) | Licensed radio options. |
-| Remote On | Push button | Enables remote wake / remote-on. |
-| FlexControl | Indicator | Detected state of FlexControl hardware. |
-| multiFLEX | Indicator | multiFLEX enabled state. |
-| Model | Indicator | Radio model. |
-| Nickname | Text field | User-friendly radio nickname. |
-| Callsign | Text field | Station callsign. |
-| Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. |
-| License Info | Indicator | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version). |
-| Check for Update | Push button | Queries for firmware updates. |
-| Browse .ssdr... | Push button | Chooses a firmware image file. |
-| Upload Firmware | Push button | Starts firmware upload with progress bar and status. |
+| Label                                               | Kind                                                                                                                                                                                    | Behavior                                                                                                                                    |
+|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                                            | Indicator (read-only)                                                                                                                                                                   | Chassis serial number as reported by the radio.                                                                                             |
+| HW Version                                          | Indicator (read-only)                                                                                                                                                                   | Hardware version string prefixed with `v`.                                                                                                  |
+| Region                                              | Indicator (read-only)                                                                                                                                                                   | Regulatory region. Displays `USA` if the radio reports none.                                                                                |
+| Options                                             | Indicator (read-only)                                                                                                                                                                   | Licensed radio options.                                                                                                                     |
+| Remote On                                           | Push button                                                                                                                                                                             | Enables remote wake / remote-on.                                                                                                            |
+| FlexControl                                         | Indicator                                                                                                                                                                               | Detected state of FlexControl hardware.                                                                                                     |
+| multiFLEX                                           | Indicator                                                                                                                                                                               | multiFLEX enabled state.                                                                                                                    |
+| Model                                               | Indicator                                                                                                                                                                               | Radio model.                                                                                                                                |
+| Nickname                                            | Text field                                                                                                                                                                              | User-friendly radio nickname.                                                                                                               |
+| Callsign                                            | Text field                                                                                                                                                                              | Station callsign.                                                                                                                           |
+| Station Name                                        | Text field                                                                                                                                                                              | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. |
+| License Info                                        | Indicator                                                                                                                                                                               | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                          |
+| Check for Update                                    | Push button                                                                                                                                                                             | Queries for firmware updates.                                                                                                               |
+| Browse .ssdr...                                     | Push button                                                                                                                                                                             | Chooses a firmware image file.                                                                                                              |
+| Upload Firmware                                     | Push button                                                                                                                                                                             | Starts firmware upload with progress bar and status.                                                                                        |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2). | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.         |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                      | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                           |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                     | Backed by WanCertCache in WanConnection.cpp.                                                                                                |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                               |                                                                                                                                             |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                              | Shows QMessageBox::question before wiping.                                                                                                  |
 
 All Radio Information fields are read-only. No persisted settings keys are associated with them.
+
+## Copying radio information
+
+Each value in the Radio Information group has a small copy button to its right. Click the copy button to copy the value to the clipboard.
+
+| Copy target | What is copied |
+|---|---|
+| Radio SN | The chassis serial number string. |
+| HW Version | The hardware version string (with `v` prefix). |
+| Region | The regulatory region string. |
+| Options | The licensed options string. |
+| Remote On | The "Remote On" label text. |
+| FlexControl | The FlexControl state string. |
+| multiFLEX | The multiFLEX state string. |
+| Model | The radio model string. |
+| Nickname | The nickname text. |
+| Callsign | The callsign text. |
+| Station Name | The station name text. |
+| License Info | The full license details string. |
+| Check for Update | The "Check for Update" label text. |
+| Browse .ssdr... | The file path text after browsing. |
+| Upload Firmware | The "Upload Firmware" label text. |
+
+The copy button appears as a small document icon. It is only clickable when the associated value is non-empty and not a dash placeholder. When clicked, the value is copied to the system clipboard and a brief "Copied!" popup appears near the button.
 
 # Network tab
 
@@ -201,52 +230,4 @@ The **10 MHz Reference Source:** combo box and its accompanying lock-status labe
 |---|---|---|
 | No oscillator status received yet | "Waiting for oscillator status" | Grey-blue |
 | Source locked | `<source> Locked` | Green (`#00c040`) |
-| Source unlocked | `<source> Unlocked` | Red (`#c04040`) |
-| Auto mode has selected a source | `Auto -> <resolved source> Locked/Unlocked` | Green or red |
-| Setting and active state differ | `<setting> -> <active> Locked/Unlocked` | Green or red |
-| External selected but no signal detected | `External 10 MHz` | Grey-blue |
-
-# Audio tab
-
-The Audio tab shows radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container.
-
-## Steps
-
-1. Click `Settings > Radio Setup...`.
-2. Click the **Audio** tab.
-
-## What each control does
-
-| Label | Kind | Behavior |
-|---|---|---|
-| Line Out: | Slider | Line-out gain. |
-| Mute (Line Out) | Push button | Mutes line-out. |
-| Headphone: | Slider | Headphone gain. |
-| Mute (Headphone) | Push button | Mutes headphone. |
-| Front Speaker: / Mute | Push button | Mutes front speaker (model-specific). |
-| Audio Compression (SmartLink): Auto / Uncompressed / Opus | Push button | Selects audio codec for SmartLink/LAN. Stored in AppSettings as `AudioCompression`. |
-| Prevent system sleep while connected | Checkbox | Keeps OS awake while radio is connected. Stored in AppSettings as `InhibitSleepWhileConnected`. |
-| PC Audio Devices: Input: / Output: | Combo box | Picks host audio in/out devices. |
-| Audio Boost: | Toggle button | Enables extra gain on the client audio path. Stored in AppSettings as `AudioBoost`. |
-| Audio Buffer: | Text field | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50-1000 ms, default 200. Stored in AppSettings as `AudioBufferMs`. |
-| Recording: Radio Side / Client Side | Push button | Picks radio-side or client-side recording. Stored in AppSettings as `RecordingMode`. |
-| Save to: | Text field | Folder for saved recordings (client-side only). Stored in AppSettings as `QsoRecordingDir`. |
-| ... | Push button | Browses for recording folder. |
-| Auto-record on TX | Checkbox | Automatically records while transmitting. Stored in AppSettings as `QsoRecordingAutoRecord`. |
-| Idle timeout: | Spinbox | Seconds of silence before recording stops. Range 10-3600 sec, default 120. Stored in AppSettings as `QsoRecordingIdleTimeout`. |
-| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | Controls the NVIDIA Broadcast noise-removal container. |
-
-# Antennas tab
-
-The Antennas tab allows you to assign user-friendly names to each antenna port on the radio.
-
-## Steps
-
-1. Click `Settings > Radio Setup...`.
-2. Click the **Antennas** tab.
-
-## What each control does
-
-| Label | Kind | Behavior |
-|---|---|---|
-| ANT1 / ANT2 / XVTA / XVTB | Text field | Text fields for entering custom names for each
+| Source unlocked |

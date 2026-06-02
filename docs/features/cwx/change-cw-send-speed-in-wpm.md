@@ -44,6 +44,10 @@ Each entry in the send history scroll area supports a right-click context menu w
 - **Resend** – Re-sends the selected text buffer. A new history entry is added to the scroll.
 - **Clear History** – Removes all history entries from the scroll area. Does not affect the radio.
 
+## Aborted transmissions shown with strikeout
+
+If you press Escape while the radio is sending a CW buffer, the transmission is aborted. In the send history scroll area, the history bubble for that transmission shows the sent portion in normal text and the unsent portion with strikeout formatting. This makes it clear which characters were actually transmitted before the abort.
+
 ## Keyboard shortcuts
 
 The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate when the active slice is in CW, CWL, or CWU mode, regardless of whether the CWX panel is visible. This prevents shortcut conflicts with other panels, such as the DVK macro panel, which uses the same F1–F12 keys for its own purposes. The enable state is managed by the MainWindow based on the active slice's mode.
@@ -60,6 +64,7 @@ The CWX panel registers global application shortcuts for the F1–F12 keys and t
 - If you are in Live mode and want to type ahead without transmitting, click **Send** to exit Live mode before continuing to type. The panel will not re-send any characters that were already transmitted.
 - The Prosigns legend shows shortcuts for common CW prosigns: = (BT), + (AR), ( (KN), & (AS), $ (SK).
 - Right-click any history bubble to resend that text or clear the entire history.
+- After aborting a transmission, inspect the history bubble to see which characters were sent (normal text) and which were not (strikeout text).
 
 ## Related
 

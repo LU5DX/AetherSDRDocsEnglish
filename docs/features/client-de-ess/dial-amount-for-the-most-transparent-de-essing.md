@@ -29,21 +29,23 @@ Each knob in the Aetherial De-Esser applet supports direct numeric entry. Click 
 
 ## What each control does
 
-| Control                  | Default                                                                                                                                                                                              | Valid range                                                                                                                                                                                |
-|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Sidechain response curve | —                                                                                                                                                                                                    | —                                                                                                                                                                                          |
-| Gain-reduction bar       | —                                                                                                                                                                                                    | 0 to 24 dB GR                                                                                                                                                                              |
-| Freq                     | 6000 Hz                                                                                                                                                                                              | 1000 to 12000 Hz                                                                                                                                                                           |
-| Q                        | 2.00                                                                                                                                                                                                 | 0.5 to 5.0                                                                                                                                                                                 |
-| Thresh                   | −30.0 dB                                                                                                                                                                                             | −60.0 to 0.0 dB                                                                                                                                                                            |
-| Amount                   | −6.0 dB                                                                                                                                                                                              | −24.0 to 0.0 dB                                                                                                                                                                            |
-| Attack (channel strip only)   | 1.0 ms                                                                                                                                                                                               | 0.1 to 30.0 ms                                                                                                                                                                             |
-| Release (channel strip only)  | 100 ms                                                                                                                                                                                               | 10.0 to 500.0 ms                                                                                                                                                                           |
-| Slope                    | 24 dB/oct (2 stages)                                                                                                                                                                                 | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages)                                                                                                                                                  |
+| Control                      | Default              | Valid range                              |
+|------------------------------|----------------------|------------------------------------------|
+| Sidechain response curve     | —                    | —                                        |
+| Gain-reduction bar           | —                    | 0 to 24 dB GR                            |
+| Freq                         | 6000 Hz              | 1000 to 12000 Hz                         |
+| Q                            | 2.00                 | 0.5 to 5.0                               |
+| Thresh                       | −30.0 dB             | −60.0 to 0.0 dB                          |
+| Amount                       | −6.0 dB              | −24.0 to 0.0 dB                          |
+| Attack (channel strip only)  | 1.0 ms               | 0.1 to 30.0 ms                           |
+| Release (channel strip only) | 100 ms               | 10.0 to 500.0 ms                         |
+| Slope                        | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) |
 
 ## Sidechain response curve
 
 The Sidechain response curve indicator shows the bandpass filter response with a live ball at the current centre frequency. In compact mode, the curve widget displays the response without frequency axis labels. The axis labels use `QStaticText` for efficient rendering and display frequencies as "100", "500", "1k", "2k", "3k", "4k", "5k", "6k", "8k", "10k", "12k" when not in compact mode.
+
+The curve widget now uses theme-aware colors via the `applet/deess` container context. The curve color is drawn in the theme's danger accent color, and the threshold indicator uses the theme's dim accent color.
 
 ## Slope control
 
@@ -91,6 +93,16 @@ When the DESS stage is bypassed via a single click in the CHAIN widget, the enti
 - **Applet appears faded or dim** — The DESS stage is bypassed. Click the stage in the CHAIN widget once to re-enable it.
 - **Inline editor doesn't accept typed value** — Ensure the value is within the knob's valid range. Off-range values are clamped automatically. If the value reverts, check for extra spaces or characters that weren't stripped.
 - **Mid-band speech sounds dull or attenuated** — Slope may be set too low. Increase Slope to 36 or 48 dB/oct to narrow the sidechain notch and preserve mid-band energy.
+
+## Theme awareness
+
+In v26.6.1, the entire Aetherial De-Esser applet and its sub-widgets became theme-aware:
+
+- The applet container registers as `applet/deess` for per-container theme overrides.
+- Knob components (background ring, arc, handle, label and value text) read from the theme namespaces `color.knob.*` and `color.text.*`.
+- The sidechain response curve reads from `color.background.*`, `color.text.label`, `color.accent.danger`, and `color.accent.dim`.
+
+This means that if you are using a custom theme, the de-esser colors may differ from the screenshots in this manual. Refer to your theme's documentation for specific color customization.
 
 ## Related
 

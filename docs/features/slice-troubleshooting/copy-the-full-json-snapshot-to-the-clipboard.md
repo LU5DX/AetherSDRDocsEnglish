@@ -1,6 +1,6 @@
 # Copy the full JSON snapshot to the clipboard
 
-The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) bindings. This page explains how to copy that snapshot to the clipboard so you can paste it into a support ticket, forum post, or bug report.
+The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, audio endpoint, control-device (MIDI) bindings, and renderer state. This page explains how to copy that snapshot to the clipboard so you can paste it into a support ticket, forum post, or bug report.
 
 ## Before you start
 
@@ -19,8 +19,8 @@ The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every s
 
 | Control               | Kind   | Behavior                                                                                                                                                                                   |
 |-----------------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `JSON` (tab)          | Tab    | Displays the full JSON snapshot (schema v3) of slices, DAX channels, audio devices, client DSP state, control devices, and TX band settings.                                               |
-| `Issue Summary` (tab) | Tab    | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, and multi-client ownership.                                         |
+| `JSON` (tab)          | Tab    | Displays the full JSON snapshot (schema v3) of slices, DAX channels, audio devices, client DSP state, control devices, audio endpoints, and renderer state.                                |
+| `Issue Summary` (tab) | Tab    | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, panadapter connection status, and audio endpoint state. |
 | `Refresh Snapshot`    | Button | Re-reads current slice state into the snapshot. Click this after making any slice changes before copying.                                                                                  |
 | `Copy JSON`           | Button | Copies the full JSON snapshot to the clipboard.                                                                                                                                            |
 | `Copy Summary`        | Button | Copies the issue summary text to the clipboard instead.                                                                                                                                    |
@@ -29,7 +29,7 @@ The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every s
 
 ## What the Issue Summary includes
 
-The `Issue Summary` tab generates a plain-language bullet list from the snapshot. As of v0.9.4 the summary includes the following additional items:
+The `Issue Summary` tab generates a plain-language bullet list from the snapshot. As of v26.6.1 the summary includes the following additional items:
 
 ### Remote audio RX (radio-level)
 
@@ -45,6 +45,20 @@ For each slice, the summary also reports the per-slice radio stream route for re
 - Stream ID, expected flag, create-pending flag, remove-requested flag, status-seen flag, and owned-by-us flag.
 
 These entries appear alongside the existing audio device, DSP, and TX route information already present in the summary.
+
+### Panadapter slice connection status
+
+For each panadapter, the summary now reports its connection status to slices, including:
+
+- State (e.g. "connected", "partially_connected"), summary of connection status, list of connected slice IDs, list of active slice IDs, and whether the connection requires attention.
+
+### Audio endpoint status
+
+For each audio endpoint, the summary reports:
+
+- Name, direction (INPUT/OUTPUT), kind, operational flag, running flag, state, error, backend, device name, sample rate, channel count, sample format, resampling flag, buffer statistics (buffer bytes, buffer peak bytes, underrun count), and any user-facing note.
+
+These entries appear alongside the existing audio device and control-device information.
 
 ## Tips
 

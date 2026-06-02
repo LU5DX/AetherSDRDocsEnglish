@@ -11,7 +11,7 @@ Configure a physical FlexControl or the virtual AetherControl wheel for tuning a
 
 1. Open **Settings > AetherControl...**
 2. To connect a physical FlexControl, click **Detect** in the Physical section. The dialog scans serial ports and connects automatically. If detection fails, click **Close** and try again.
-3. To use the virtual wheel, click and drag around the Wheel indicator to tune the active slice.
+3. To use the virtual wheel, double-click and drag around the Wheel indicator to tune the active slice. Double-click again to release capture, or press Escape.
 4. Adjust the **Wheel Tightness** slider to set coasting drag (0 = tight, 100 = loose). Default: 45.
 5. Adjust the **Mouse Sensitivity** slider to scale captured pointer movement (0 = less, 100 = more). Default: 50.
 6. Toggle **Compact** to hide auxiliary buttons and show only the wheel and frequency readout.
@@ -25,15 +25,15 @@ Configure a physical FlexControl or the virtual AetherControl wheel for tuning a
 
 | Control | Default | Valid range | Setting key | Behavior |
 |---------|---------|-------------|-------------|----------|
-| Wheel | — | — | — | Virtual wheel: rotate with mouse/touch to tune the active slice. Shows frequency and mode readout. |
-| Physical | — | — | `FlexControlPort`, `FlexControlOpen`, `FlexControlAutoDetect` | Shows physical FlexControl connection state and port name. Detect/Close buttons manage the device. |
+| Wheel | — | — | — | Virtual wheel: double-click to capture, then rotate with mouse/touch to tune the active slice. Double-click again or press Escape to release. Shows frequency and mode readout. |
+| Physical | — | — | `FlexControlPort`, `FlexControlOpen`, `FlexControlAutoDetect` | Shows physical FlexControl connection state and port name. Detect/Close buttons manage the device. Automatically restores LED state after device reset. |
 | Compact | — | — | `FlexControlCompactMode` | Hides auxiliary buttons; shows only wheel and frequency. |
 | External Spin | — | — | `FlexControlVirtualExternalSpin` | Enables panadapter drag-triggered spin-wheel tuning. |
 | Reverse | — | — | `FlexControlInvertDir` | Reverses wheel tuning direction. |
 | Push | — | — | `FlexControlButtonAction_*` | Action assigned to single-tapping the wheel. |
 | Double-tap | — | — | stored per-button | Action assigned to double-tapping the wheel. |
 | Wheel Tightness | 45 | 0–100 | `FlexControlVirtualWheel` (looseness field) | Adjusts virtual wheel coasting drag. 0 = tight (fast stop), 100 = loose (long coast). |
-| Mouse Sensitivity | 50 | 0–100 | `FlexControlVirtualWheel` (sensitivity field) | Scales captured pointer movement. 50 = 1.0x scale. |
+| Mouse Sensitivity | 50 | 0–100 | `FlexControlVirtualWheel` (sensitivity field) | Scales captured pointer movement. 50 = 1.0x scale. De-jitter clamps single-event pointer deltas to 15°. Lazy re-anchoring: when pointer crosses through centre dead-zone, next movement re-anchors without computing a delta. |
 | Aux buttons (1–5) | — | 5 buttons | — | Click to select; then configure single- and double-tap actions. |
 | Aux single-tap combo | — | — | `FlexControlBtn1Action0`–`FlexControlBtn4Action0` | Action for single-tapping the selected aux button. |
 | Aux double-tap combo | — | — | `FlexControlBtn1Action1`–`FlexControlBtn4Action1` | Action for double-tapping the selected aux button. |
@@ -43,11 +43,14 @@ Configure a physical FlexControl or the virtual AetherControl wheel for tuning a
 - The **Wheel Tightness** and **Mouse Sensitivity** sliders only affect the virtual wheel (trackpad/pointer use), not a physical FlexControl.
 - Pre-built action IDs include: `Tune Slice`, `Band Zoom`, `Segment Zoom`, `RIT`, `XIT`, `Master Volume`, `Headphone Volume`, `AGCT`, `APF`, `Clear RIT`, `Clear XIT`, `Toggle APF`, `Change Active Slice`, `Split Active Slice`, `MOX`, `RF Power`, `CW Speed`, `Step Up`, `Step Down`, `Toggle Tune`, `Toggle Mute`, `Toggle Lock`, `Previous Slice`, `Toggle AGC`, `Slice AF Up`, `Slice AF Down`, `None`, and CWX macros 1–12.
 - Settings are saved automatically when you adjust controls in this dialog.
+- The virtual wheel now uses double-click to capture and release, providing a more intuitive experience than the previous click-to-capture / Escape-to-release model. Escape still works as a secondary release path.
+- The FlexControl dialog automatically restores LED state on the physical device when it receives a hardware reset command, ensuring the Aux LEDs match the application's active wheel-mode button.
 
 ## Troubleshooting
 
 - **Physical FlexControl not detected** — Ensure the device is plugged into a USB port. Click **Detect** again. If still not found, try a different USB cable or port.
 - **Virtual wheel tuning feels sluggish** — Increase **Mouse Sensitivity** and decrease **Wheel Tightness** for quicker response.
+- **Aux LEDs on physical FlexControl don't match** — This is now handled automatically. The dialog restores LED state after device resets, correcting any mismatch that could occur during power-on sequences.
 
 ## Related
 

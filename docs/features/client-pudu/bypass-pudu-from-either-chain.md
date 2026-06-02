@@ -1,4 +1,4 @@
-# Bypass PUDU from Either Chain
+# Aetherial PUDU Exciter
 
 The CHAIN widget lets you bypass the PUDU stage on the TX chain, the RX chain, or both, without opening the PUDU editor. Use this when you want to A/B the effect or temporarily remove it from the signal path.
 
@@ -21,7 +21,7 @@ The bypass state is persisted: `ClientPuduTxEnabled` for the TX chain and `Clien
 
 - Single-click in the CHAIN widget bypasses the stage. Double-click opens the frameless PUDU editor ("Aetherial Voice Processor — TX" or "Aetherial RX Poodoo — RX") without changing the bypass state.
 - When the stage is bypassed, the entire PUDU tile dims to reduced opacity (approximately 55 %), matching the dim effect used on the EQ curve display. This visual cue is consistent whether you bypass from the CHAIN widget or from within the editor.
-- The PooDoo logo inside the editor pulses with the wet-signal RMS only when the stage is enabled. If the logo is static, the stage is bypassed.
+- The AetherVoice logo inside the editor pulses with the wet-signal RMS only when the stage is enabled. If the logo is static, the stage is bypassed.
 - TX and RX bypass states are fully independent. You can bypass the TX PUDU while leaving RX PUDU active.
 
 ## Opening the PUDU editor
@@ -46,17 +46,19 @@ The PUDU editor organises its six knobs under two bracket labels.
 
 ## Knob controls
 
+The editor labels the first body knob "Poo / Drive", the clarity group label is "Clarity" (not "Doo"), and the air knob label is "Air". The underlying setting keys remain unchanged.
+
 Each knob supports inline value editing. Click a knob's value text (the number below the knob arc) to activate a text entry field. Type a new value and press Enter or click anywhere else to commit. The value is clamped to the knob's valid range. Press Escape to cancel the edit and revert to the previous value.
 
 | Control               | Default      | Range         | Setting key                | Behavior                                                        |
 |-----------------------|--------------|---------------|----------------------------|-----------------------------------------------------------------|
 | Even                  | —            | —             | `ClientPuduTxMode`         | Selects Aphex-lineage asymmetric shaping (even harmonics). Amber when checked. Exclusive with Odd. |
 | Odd                   | —            | —             | `ClientPuduTxMode`         | Selects Behringer-lineage symmetric tanh shaping (odd harmonics). Exclusive with Even. |
-| Body / Drive          | 6.0 dB       | 0.0 – 24.0 dB | `ClientPuduTxPooDriveDb`  | Drives the low-frequency saturator/compressor harder.           |
+| Body / Drive          | 6.0 dB       | 0.0 – 24.0 dB | `ClientPuduTxPooDriveDb`  | Drives the low-frequency saturator/compressor harder. Label "Poo / Drive". |
 | Body / Tune           | 100 Hz       | 50 – 160 Hz   | `ClientPuduTxPooTuneHz`   | Centres the low-frequency focus band.                           |
 | Body / Mix            | 30 %         | 0.0 – 1.0     | `ClientPuduTxPooMix`      | Blends the enhanced low band with the dry signal.               |
 | Clarity / Tune        | 5000 Hz      | 1000 – 10000 Hz | `ClientPuduTxDooTuneHz`  | Centres the high-frequency excitement band. Logarithmic mapping. |
-| Clarity / Air         | 6.0 dB       | 0.0 – 24.0 dB | `ClientPuduTxDooHarmonicsDb` | Amount of harmonics/'air' at the high band.                  |
+| Clarity / Air         | 6.0 dB       | 0.0 – 24.0 dB | `ClientPuduTxDooHarmonicsDb` | Amount of harmonics/'air' at the high band. Label "Air".     |
 | Clarity / Mix         | 30 %         | 0.0 – 1.0     | `ClientPuduTxDooMix`      | Blends the excited highs with the dry signal.                   |
 
 ## Mode selection
@@ -65,6 +67,10 @@ Each knob supports inline value editing. Click a knob's value text (the number b
 - **Odd**: Behringer-lineage symmetric tanh shaping — pure odd harmonics, brighter, with a feed-forward bass compressor.
 
 The two radio buttons are mutually exclusive.
+
+## Theme integration
+
+Knob colours (background ring, foreground arc, pointer handle, label text, value text) are now sourced from the `color.knob.*` theme namespace, with the PUDU applet container `applet/pudu` providing an amber knob foreground override. The bracket label text colour follows `color.text.primary` from the active theme.
 
 ## Inline value editing
 

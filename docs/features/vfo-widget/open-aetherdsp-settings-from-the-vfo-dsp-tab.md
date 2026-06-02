@@ -31,7 +31,7 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 | Control | Type | Range | Description |
 |---------|------|-------|-------------|
 | AF Gain slider | Slider | 0-100 | Sets the audio output level for this slice. Default: 100. Not persisted — reflects live radio state. |
-| Pan slider | Slider | 0-100 | Sets left/right stereo pan for this slice. 50 = centre. Default: 50. |
+| Pan slider | Slider | 0-100 | Sets left/right stereo pan for this slice. 50 = centre. Default: 50. The slider fill anchors from the centre outward, with a centre-mark dot visible on the groove. |
 | Mute button | Toggle button | On/Off | Mutes audio output for this slice without changing the AF gain setting. Default: off. |
 | Squelch button + slider | Toggle button + slider | 0-100 | Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Squelch is automatically disabled in digital, RTTY, and CW modes. |
 | AGC combo | Combo box | FAST, MED, SLOW, OFF | Sets the AGC attack/release speed for this slice. Default: FAST. |
@@ -49,7 +49,7 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 | Control | Type | Range | Description |
 |---------|------|-------|-------------|
 | Mode combo | Combo box | USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY | Sets the demodulation mode for this slice. Default: USB. |
-| Filter preset buttons | Push button | N/A | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in FilterPresets. |
+| Filter preset buttons | Push button | N/A | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in `FilterPresets`. Custom lo/hi edges can be set per slot via right-click. |
 
 ### X/RIT Tab
 
@@ -93,6 +93,10 @@ Squelch is automatically disabled in digital, RTTY, and CW modes:
 - **CW**: The radio locks squelch on at a fixed level and rejects changes from the client.
 
 When switching to a mode where squelch is disabled while squelch is active, the system saves the squelch state and turns it off. When switching back to a mode where squelch is allowed, the previous squelch state is restored.
+
+## Pan Slider Behavior
+
+The Pan slider in the Audio tab uses centre-anchored fill painting. When the handle is left of centre, the groove is filled from the handle to centre in accent colour; when the handle is at or right of centre, the fill is not shown. A small centre-mark dot is always visible on the groove so you can see the neutral position at a glance.
 
 ## Open AetherDSP Settings from the VFO DSP tab
 

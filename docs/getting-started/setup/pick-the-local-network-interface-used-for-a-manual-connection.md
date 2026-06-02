@@ -23,6 +23,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 | `Radio IP address` | The IP address or hostname of the radio to connect to. Displayed as an editable combo box; the drop-down lists up to three recently used addresses. | `ManualRadioIp` |
 | `Advanced: Source path` | Selects the local NIC that AetherSDR binds to when opening the connection. Leave on the default automatic entry unless you need to force a specific interface. | `ManualBindSource` |
 | `Use low bandwidth mode` | Reduces stream data rates for slow or congested links. | `LowBandwidthMode` |
+| `Enable adaptive frame-rate throttle` | Automatically reduces FFT/waterfall frame rate when network quality degrades. Useful for slow or intermittent links. Unchecked by default. | `AdaptiveThrottleEnabled` |
 | `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 | `Connect by IP` (button) | Starts the manual connection using the IP and source path configured above. | — |
 | `Network Diagnostics` (button) | Opens the Network Diagnostics dialog to help troubleshoot connectivity issues. | — |
@@ -32,6 +33,7 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - If the previously saved interface is unavailable, the `Source warning label` shows the saved interface name (or ID) and the last known IPv4 address. Choose a different interface from `Advanced: Source path` before connecting.
 - On a machine with only one network interface, the `Advanced: Source path` selection has no practical effect. It is most useful on machines with separate wired, wireless, and VPN interfaces.
 - If you are on a slow link such as a cellular or satellite connection, enable `Use low bandwidth mode` on the same page before clicking `Connect by IP`.
+- For links with variable latency, enable `Enable adaptive frame-rate throttle`. This reduces FFT and waterfall frame rates when network quality drops, keeping the connection usable.
 - The `Radio IP address` field keeps the three most recently used addresses. Select a previous address from the drop-down to avoid retyping it.
 - If you uncheck `Connect to last radio on start up`, AetherSDR opens the connection dialog on every launch and waits for you to select a radio manually.
 - In v0.9.2.1 the SmartLink remote radios list has a fixed maximum height. If you have many remote radios, scroll within the list to reach entries that are not immediately visible.

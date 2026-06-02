@@ -48,7 +48,8 @@ To sign out of SmartLink, click **Sign Out**.
    - You can also click the drop-down arrow to select a previously used address.
 3. (Optional) Click **Advanced: Source path** to select a specific network interface.
 4. (Optional) Check **Use low bandwidth mode** if you are on a slow or metered link.
-5. Click **Connect by IP (manual)**.
+5. (Optional) Check **Enable adaptive frame-rate throttle** to automatically reduce FFT/waterfall frame rate when network quality degrades.
+6. Click **Connect by IP (manual)**.
 
 The status label shows the connection result, and the **Manual result label** provides additional detail.
 
@@ -75,6 +76,7 @@ The status label shows the connection result, and the **Manual result label** pr
 | **Connect by IP (manual)** | Starts the manual or VPN connection to the address entered in **Radio IP address**. | — |
 | **Advanced: Source path** | Selects the local network interface used for the manual connection. Use this when the computer has multiple NICs and AetherSDR is binding to the wrong one. | `ManualBindSource` |
 | **Use low bandwidth mode** | Enables reduced-rate audio and data streams. Use this on slow or metered links. | `LowBandwidthMode` |
+| **Enable adaptive frame-rate throttle** | Automatically reduces FFT/waterfall frame rate when network quality degrades, helping maintain connection stability on unreliable links. Unchecked by default. | `AdaptiveThrottleEnabled` |
 | **Connect to last radio on start up** | When checked, AetherSDR automatically connects to the last used radio on startup and whenever a broadcast-discovery or routed-radio probe succeeds. When unchecked, the connection screen opens at startup and you must pick a radio manually each session. Defaults to checked so existing users keep their current behaviour. | `AutoConnectToLastRadio` |
 | **Disconnect** | Disconnects from the currently connected radio. | — |
 
@@ -97,6 +99,7 @@ When the panel is hidden during a frameless mode toggle, its geometry is preserv
 - If the list is slow to populate, wait at least 10–15 seconds before using **Retry Discovery**. The radio sends periodic discovery packets and AetherSDR may not have received the first one yet.
 - If your computer has multiple network interfaces, AetherSDR may be listening on the wrong one. If discovery consistently fails, consider switching to **Manual** mode and specifying the interface with **Advanced: Source path**.
 - If you share a computer and do not want AetherSDR to connect to a radio before you have a chance to choose one, uncheck **Connect to last radio on start up**.
+- **Enable adaptive frame-rate throttle** is useful on links with variable latency or packet loss, such as cellular hotspots or shared Wi-Fi. When enabled, AetherSDR automatically reduces visual data rates to preserve connection stability.
 
 ## Troubleshooting
 
@@ -105,6 +108,7 @@ When the panel is hidden during a frameless mode toggle, its geometry is preserv
 - **The status label shows an error after clicking Connect Selected Radio** — The radio was discovered but the TCP connection failed. Check that no firewall is blocking the SmartSDR protocol port, and that no other SmartSDR-compatible client holds the exclusive connection.
 - **The Radio IP address drop-down shows an old or unreachable address** — Type a new address directly in the field. The old entry will age out of the list once three newer successful connections have been made.
 - **AetherSDR connects to the wrong radio at startup** — Uncheck **Connect to last radio on start up**. AetherSDR will then open the connection screen on every launch so you can choose the radio manually.
+- **SmartLink login fields do not auto-fill with a password manager** — Ensure your password manager is set to recognise the form as a SmartLink account login. The email and password fields are labelled appropriately in the accessibility tree for macOS Passwords, Windows Authenticator, and KDE Wallet.
 
 ## Related
 

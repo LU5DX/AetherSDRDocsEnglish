@@ -1,6 +1,6 @@
-# Set room size for a small or large-hall feel
+# Aetherial FreeVerb — TX Reverb
 
-The Size knob controls the modelled room dimensions in the Aetherial FreeVerb TX reverb. Turning it up shifts the character from a tight booth toward a large hall.
+The Aetherial FreeVerb is a TX-side reverb effect that adds room or hall ambience to your transmitted voice. It provides a compact 5-knob row — Size, Decay, Damp, Pre-delay, Mix — with a live visualisation showing the dry signal and reverb tail.
 
 ## Before you start
 
@@ -10,21 +10,25 @@ The Size knob controls the modelled room dimensions in the Aetherial FreeVerb TX
 ## Steps
 
 1. Open the reverb controls using one of these two methods:
-   - In the Aetherial Audio (TXDSP) panel, locate the "Aetherial FreeVerb" sub-container and adjust the Size knob directly in the compact row.
+   - In the Aetherial Audio (TXDSP) panel, locate the "Aetherial FreeVerb" sub-container and adjust any knob directly in the compact row.
    - Double-click the VERB stage in the CHAIN widget to open the floating "Aetherial FreeVerb — TX" editor.
 2. Turn the Size knob left for a smaller, tighter room character; turn it right for a larger, more spacious hall feel.
-3. The knob label updates in real time and shows the current value as a percentage (for example, `50 %`).
-4. To type an exact value, click the value label below the knob. The label transforms into an inline text editor with a cyan border. Type the desired number and press Enter. The value is clamped to the valid range. Clicking elsewhere (focus-out) also commits the edit.
+3. Turn the Decay knob to control how long the reverb tail lasts. Higher values produce a longer sustain.
+4. Turn the Damp knob to control how quickly high frequencies decay. Higher values produce a warmer, less bright tail.
+5. Turn the Pre knob to adjust the delay between the dry signal and the first reflections.
+6. Turn the Mix knob to adjust the dry/wet balance. Typical voice settings are 10-15 % wet.
+7. Each knob label updates in real time and shows the current value.
+8. To type an exact value, click the value label below the knob. The label transforms into an inline text editor with a dark background and cyan border. Type the desired number and press Enter. The value is clamped to the valid range. Clicking elsewhere (focus-out) also commits the edit.
 
 ## Live visualisation
 
-The "Aetherial FreeVerb — TX" editor includes a compact waveform display (90 px tall) that updates in real time as you adjust any of the five knobs. It shows three overlaid signal layers:
+The "Aetherial FreeVerb — TX" editor includes a compact waveform display (90 px tall) that updates in real time as you adjust any of the five knobs. It shows three overlaid signal layers on a dark background with a subtle grid:
 
 - **Cyan** — the dry sine packet. Its amplitude decreases as Mix is raised.
 - **Yellow** — first-order reflections. Spacing and count reflect the Size and Damp settings.
 - **Magenta** — the reverberant tail. Length tracks Decay; damping of high frequencies tracks Damp; onset position tracks Pre-delay.
 
-The display uses a dark background with a subtle grid. No interaction is required; it updates automatically whenever a knob value changes.
+The display updates automatically whenever a knob value changes. No interaction is required.
 
 ## What each control does
 
@@ -60,7 +64,7 @@ Every knob supports direct numeric entry:
 
 - Size and Decay interact closely. A large Size with a short Decay sounds unnatural; if you increase Size significantly, consider raising Decay to match.
 - The live visualisation in the floating editor gives immediate feedback on how Size, Decay, Damp, Pre-delay, and Mix interact before you transmit.
-- Both the compact applet knob and the floating "Aetherial FreeVerb — TX" editor control the same underlying parameters and stay in sync automatically.
+- Both the compact applet knob row and the floating "Aetherial FreeVerb — TX" editor control the same underlying parameters and stay in sync automatically.
 - Double-clicking a knob resets it to its default value.
 - Use inline editing for precise numeric values rather than relying on knob rotation alone.
 

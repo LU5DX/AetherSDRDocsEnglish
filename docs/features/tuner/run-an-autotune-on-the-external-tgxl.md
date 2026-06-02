@@ -21,18 +21,21 @@ This page explains how to start an automatic tuning cycle on a connected 4O3A Tu
 
 | Control | Description | Valid range |
 |---|---|---|
-| TUNE | Starts the autotune cycle. Turns red and reads "TUNING..." while active. Flashes the post-tune SWR for 2.5 seconds when complete, then resets to "TUNE". | — |
+| TUNE | Starts the autotune cycle. Turns red and reads "TUNING..." while active. Flashes the post-tune SWR for 2.5 seconds when complete, then resets to "TUNE". Since v0.9.2.1, when a direct TGXL connection (port 9010) is configured, sends the native "autotune" command directly to the TGXL instead of routing through the radio's firmware path. Configure this in **Radio Setup → Tuner**. Falls back to the radio path when no direct connection is available. | — |
 | OPERATE | Cycles the tuner state: OPERATE (green) → BYPASS (orange) → STANDBY → OPERATE. Must be in OPERATE for a meaningful tune. | — |
-| Fwd Pwr | Displays TGXL-reported forward power during the tune. Scale depends on your configuration: 0–200 W barefoot, 0–600 W Aurora, 0–2000 W with PGXL. | 0–2000 W |
-| SWR | Displays TGXL-reported SWR. Gauge turns red above 2.5. | 1.0–3.0 |
-| C1 | Shows the C1 relay bank position after the tune completes. | 0–255 |
-| L | Shows the L relay bank position after the tune completes. | 0–255 |
-| C2 | Shows the C2 relay bank position after the tune completes. | 0–255 |
+| ANT 1, ANT 2, ANT 3 | Selects antenna port 1, 2, or 3 on the TGXL 3x1 switch. Row hidden unless direct TGXL connection is active and the antenna switch is present. | — |
+| PWR | Displays TGXL-reported forward power. Scale depends on your configuration: 0–200 W barefoot (yellow > 80 W, red > 125 W), 0–600 W Aurora (yellow > 400 W, red > 500 W), 0–2000 W with PGXL (yellow > 1000 W, red > 1500 W). Labels update live; text clears 800 ms after power drops below threshold to prevent blinking. | 0–2000 W |
+| SWR | Displays TGXL-reported SWR. Gauge turns red above 2.5. Labels update live; text clears 800 ms after SWR drops below threshold to prevent blinking. | 1.0–3.0 |
+| C1 | Shows the C1 relay bank position; mousewheel scroll adjusts the relay when direct TGXL connection is active. | 0–255 |
+| L | Shows the L relay bank position; mousewheel scroll adjusts the relay when direct TGXL connection is active. | 0–255 |
+| C2 | Shows the C2 relay bank position; mousewheel scroll adjusts the relay when direct TGXL connection is active. | 0–255 |
 
 ## Tips
 
 - The SWR displayed on the TUNE button after tuning reflects a settled value captured up to 400 ms after the tuning cycle ends. This is the final TGXL-reported figure, not a mid-sweep reading.
 - If you need to read the post-tune SWR after the 2.5-second flash has expired, watch the SWR gauge directly.
+- The PWR gauge features "ballistic" behavior: the bar rises quickly on RF bursts but decays over approximately 800 ms, providing a smooth reading.
+- A peak hold marker (white tick) appears on the PWR gauge at the highest forward power level observed. It clears automatically after 2.5 seconds of no new peaks.
 
 ## Troubleshooting
 

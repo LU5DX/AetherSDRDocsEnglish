@@ -61,6 +61,7 @@ Several setting keys were renamed. If you reference these keys in scripts or ext
 - Toggling **Spots:** to **Disabled** does not clear buffered spots. When you re-enable it, spots that have not yet expired will reappear.
 - The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
 - Disable **Spot Lines:** during contests to keep the panadapter uncluttered while retaining spot labels.
+- The Spot Settings dialog now follows the current theme. Title labels and the Total Spots indicator use the theme's primary text color for consistent appearance across different theme profiles.
 
 ## Related
 

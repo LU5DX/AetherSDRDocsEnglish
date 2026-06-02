@@ -51,12 +51,14 @@ The **Clarity / Tune** knob uses logarithmic mapping (1000 * 10^n). The display 
 - The Clarity **Air** control adds presence and sparkle. Raise it cautiously on TX to avoid harshness.
 - Use the inline editor on any knob to type exact values. Click the displayed value, enter the number, and press Enter.
 - When the PUDU stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This is a visual indicator only — no settings are lost.
+- In v26.6.1, knob colours are now sourced from the theme. The PUDU applet uses a dedicated themed container (`applet/pudu`) that can override knob ring, arc, and pointer colours independently. If you have created a custom theme, ensure the `color.knob.*` and `color.text.*` keys are defined for the PUDU container; otherwise, default theme colours apply.
 
 ## Troubleshooting
 
 - **Turning Tune has no audible effect** — confirm the PUDU stage is enabled (the CHAIN widget controls bypass). Also check that **Drive** is above 0.0 dB and **Mix** is above 0 %; both at their minimums will silence the Body band regardless of the Tune setting.
 - **The body group knobs are not visible** — the PUDU applet is hidden until the PUDU stage is enabled via the CHAIN widget or the floating editor.
 - **Typed values are not accepted** — ensure you are using a locale-appropriate decimal separator. The editor accepts numbers and strips trailing unit text (for example, "100 Hz" becomes 100).
+- **Knob colours appear incorrect** — the new themed rendering in v26.6.1 reads colours from `color.knob.background`, `color.knob.foreground`, and `color.knob.handle` in the theme. If these keys are missing or misconfigured, knob visuals may fall back unexpectedly. Contact your theme developer or reset to the default theme.
 
 ## Related
 

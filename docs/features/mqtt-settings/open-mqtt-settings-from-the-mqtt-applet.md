@@ -1,31 +1,37 @@
-# Open MQTT settings from the MQTT applet
-
-Open the MQTT Settings dialog from the MQTT applet to configure broker connections, topic subscriptions, and publish buttons.
-
-## Before you start
-
-- AetherSDR must be built with MQTT support (the MQTT tray button must be visible).
-- The MQTT applet must be visible in the Applet Panel.
+# Configure MQTT Publish Buttons
 
 ## Steps
 
-1. Locate the MQTT applet in the Applet Panel tray at the bottom of the AetherSDR window.
-2. Click the **Settings** button on the MQTT applet.
+1. In the MQTT Settings dialog, click the **Publish Buttons** tab.
 
-The MQTT Settings dialog opens with the Broker tab visible.
+   The Publish Buttons tab shows a table with columns **Label**, **Topic**, and **Payload**, plus an **Internal AetherSDR Topics** read-only group box.
 
-## What each control does
+2. To add a button:
+   - Click **Add** to insert a new blank row.
+   - The Add button is disabled when 12 rows exist (maximum).
+   - Enter a **Label** (button text), **Topic** (MQTT topic to publish to), and **Payload** (message to send).
 
-See the MQTT Settings overview for a full description of all controls.
+3. To remove a button:
+   - Click in the row you want to remove.
+   - Click **Remove**.
 
-## Tips
+4. Click **Apply** to save your button definitions without closing the dialog, or click **OK** to save and close.
 
-- You can also open the dialog from the main menu: **Settings > MQTT...**
+## What the Internal AetherSDR Topics section shows
+
+The **Internal AetherSDR Topics** group box lists topics that AetherSDR publishes automatically whenever MQTT is connected:
+
+- `aethersdr/cw/decode`
+
+These topics are not user-configurable and cannot be removed. They appear automatically on the broker when the corresponding feature is active.
+
+## Maximum number of publish buttons
+
+You can define up to **12 publish buttons**. The Add button is disabled when 12 rows exist.
 
 ## Related
 
 - [MQTT Settings overview](overview.md)
 - [Configure MQTT broker connection (host, port, credentials, TLS)](../../getting-started/setup/configure-mqtt-broker-connection-host-port-credentials-tls.md)
 - [Subscribe to MQTT topics and toggle panadapter display](../mqtt/subscribe-to-mqtt-topics-and-toggle-panadapter-display.md)
-- [Add or remove publish buttons](add-or-remove-publish-buttons.md)
 - [Configure CA certificate for TLS MQTT](configure-ca-certificate-for-tls-mqtt.md)

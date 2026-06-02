@@ -37,12 +37,14 @@ The radio loads the selected profile immediately. No confirmation step is requir
 
 ## RF Power and Tune Power Sliders
 
-The **RF Power** and **Tune Pwr** sliders control transmit power levels. When dragging either slider, a tooltip displays the current value in watts (e.g., "50 W").
+The **RF Power** and **Tune Pwr** sliders control transmit power levels. When dragging either slider, a tooltip displays the current value as a percentage (e.g., "50%").
 
 | Control | Range | Default | Behavior |
 |---|---|---|---|
-| **RF Power** | 0–100 | 100 | Sets transmit RF power level. Calls `TransmitModel::setRfPower`. |
-| **Tune Pwr** | 0–100 | 10 | Sets tune-carrier power level. Calls `TransmitModel::setTunePower`. |
+| **RF Power** | 0–100 | 100 | Sets transmit RF power level as a percentage of the radio's maximum. Calls `TransmitModel::setRfPower`. |
+| **Tune Pwr** | 0–100 | 10 | Sets tune-carrier power level as a percentage of the radio's maximum. Calls `TransmitModel::setTunePower`. |
+
+> **Note:** In v26.6.1, the slider tooltips now display percentages instead of watt values. The actual power output depends on the radio model and its maximum power rating.
 
 ## Power Meters
 

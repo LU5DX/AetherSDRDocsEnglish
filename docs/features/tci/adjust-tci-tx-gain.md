@@ -25,14 +25,26 @@ Set the output gain that the TCI server applies to the transmit audio stream bef
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior | Notes |
-|---------|---------|-------------|----------|-------|
-| TX gain+meter | 0.5 | 0.0–1.0 | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability. |
-| TX overflow mode (right-click) | Clip (0) | Clip (0), NaNGuard (1), Measure (2) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. | New in v26.5.3. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as `TciTxOverflowMode` (0/1/2). Default is Clip so existing users see no behavior change (#3065). |
+| Control                        | Default                                                                                                                     | Valid range                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TX gain+meter                  | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). Right-click menu lets users choose how out-of-range (>1.0) samples from digital-mode clients are handled: Clip (saturating ±1.0, legacy default), NaNGuard (pass-through, only zero NaN/Inf), or Measure (true bypass with clip counting). Default is Clip so existing users see no behavior change (#3065). |
+| TX overflow mode (right-click) | Clip (0)                                                                                                                    | Clip (0), NaNGuard (1), Measure (2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 The **TX gain+meter** is a combined meter and slider. The meter portion reflects the live TX audio level from the active TX slice. The slider position sets the gain applied to that audio before it is sent to TCI clients.
 
 The slice label next to **TX:** (for example, `Slice A` or `—`) is read-only. It shows which slice is currently assigned as the TX slice and updates automatically when the TX slice changes. Starting in v26.5.2.1, the slice label uses rich text formatting so that slice letters rendered as HTML display correctly (#2606).
+
+## Server status indicator
+
+The TCI Server applet shows a status label next to the Enable button. This label displays one of three states:
+
+| State                         | Meaning                                                                                   |
+|-------------------------------|-------------------------------------------------------------------------------------------|
+| `(stopped)`                   | Server is not running. The label uses the theme color `{{color.background.3}}` for text.  |
+| `:<port> (N clients)`         | Server is running on the specified port with the given number of connected clients.       |
+| `(port in use)`               | Server could not start because the port is already in use. The label turns red.           |
+
+In v26.6.1, the status label styling was updated to use the theme color `{{color.background.3}}` instead of a hardcoded color, ensuring proper appearance with all AetherSDR themes.
 
 ## Tips
 

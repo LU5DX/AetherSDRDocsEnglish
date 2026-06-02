@@ -75,6 +75,10 @@ The indicator at the bottom right of the button row shows how many rows are curr
 
 The dialog saves and restores its position and size across sessions using a persistent geometry setting keyed to "MemoryDialogGeometry". The dialog opens at its last known location and size.
 
+## Theme support
+
+The memory table uses theme-aware styling. The alternate row background color and selected row highlight color come from the active theme. To change these colors, modify the theme's `dialog/memory` container settings.
+
 ## Tips
 
 - The Search: field has a clear button on the right side; click it to remove the filter without clearing the Profile: selection.

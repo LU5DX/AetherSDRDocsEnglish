@@ -37,7 +37,7 @@ The Solar And Lunar panel in the HF Propagation Dashboard displays a live solar 
 
 ## Dashboard window behavior
 
-The HF Propagation Dashboard uses a persistent window geometry that saves and restores its position and size automatically. The dialog stores its geometry under the `PropDashboardDialogGeometry` setting key. It does not support frameless window mode; the standard window chrome is always active.
+The HF Propagation Dashboard uses a persistent window geometry that saves and restores its position and size automatically. The dialog stores its geometry under the `PropDashboardDialogGeometry` setting key. It does not support frameless window mode; the standard window chrome is always active. The dialog and its embedded panels use the active theme throughout; separator lines, rationale backgrounds, and learning‑note panels all respect the current color scheme.
 
 ## Related
 

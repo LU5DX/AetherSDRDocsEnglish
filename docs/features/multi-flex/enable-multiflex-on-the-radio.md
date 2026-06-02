@@ -17,14 +17,16 @@ Use the multiFLEX Dashboard to turn multiFLEX on or off on the connected FLEX-86
 | Control | Behavior |
 |---|---|
 | **Enable** button | Toggles multiFLEX on or off on the radio. The button label reflects the current state: **Disable** when multiFLEX is active, **Enable** when it is off. |
-| Stations table | Lists every multiFLEX client currently connected to the radio. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). |
+| Stations table | Lists every multiFLEX client currently connected to the radio. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). A **Disconnect** button is available in the last column for each connected station. |
 | **Enable** (PTT) | Toggles local PTT authority for this station. Only shown when more than one client is connected and this station does not currently hold PTT. |
+| **Disconnect** button | Disconnects the client station in that row from multiFLEX. The button is disabled for your own client. The button label changes to **Disconnecting…** while the disconnect request is pending, and returns to **Disconnect** once the radio confirms the eviction. |
 | **Close** | Closes the multiFLEX Dashboard dialog. |
 
 ## Tips
 
 - Your station's entry in the Stations table is highlighted in blue. Other connected stations appear in the default color.
 - When only one client is connected, the LOCAL PTT controls are hidden automatically.
+- The **Disconnect** button is always available for other connected stations. It is disabled for your own client to prevent accidentally disconnecting yourself.
 - The dialog automatically restores its previous position and size when reopened within the same session.
 
 ## Related

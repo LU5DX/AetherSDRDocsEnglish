@@ -19,7 +19,7 @@ The dialog closes. AetherSDR writes the current version string to `LastSeenVersi
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
-| Release notes browser | Text field | Scrollable HTML view of release entries between the last seen version and the current version. | — |
+| Release notes browser | Text field | Scrollable HTML view of release entries. Displays release notes fetched from GitHub releases for the current version. Shows changes between the last seen version and the current version. | — |
 | "Got it — 73!" | Push button | Dismisses the dialog and marks the version as seen. | `LastSeenVersion` |
 | "Upgrade" | Push button | Shown only when an upgrade is available. Opens the download page at `https://github.com/aethersdr/AetherSDR/releases/latest`. | — |
 | "Skip this version" | Push button | Shown only when an upgrade is available. Saves the current version to `LastSeenVersion` and closes the dialog so the nag does not reappear. | `LastSeenVersion` |
@@ -29,10 +29,13 @@ The dialog closes. AetherSDR writes the current version string to `LastSeenVersi
 
 - "Skip this version" and "Got it — 73!" both write to `LastSeenVersion`. The practical difference is intent: "Got it — 73!" acknowledges the current release notes, while "Skip this version" dismisses the upgrade prompt without further action.
 - To re-read release notes at any time, use `Help > What's New...`. This opens the dialog regardless of the saved `LastSeenVersion` value.
+- Release notes are fetched from the GitHub API. If your network is rate-limited by GitHub (HTTP 403 with a "rate limit" message), the dialog shows a friendly message suggesting you try again later or read the notes directly at `github.com/aethersdr/AetherSDR/releases`.
+- The release notes browser renders Markdown from the GitHub release body. GitHub issue references (e.g., `#123`) and `@username` mentions are automatically converted to clickable links.
 
 ## Troubleshooting
 
 - **"Skip this version" is not visible** — The button only appears when AetherSDR has detected that an upgrade is available. If no upgrade is detected, only "Got it — 73!" is shown. This is expected behavior.
+- **Release notes fail to load** — The dialog fetches release notes from `api.github.com`. If you see an error message, it may be due to network issues or GitHub rate limiting. Try again later or visit the release page directly.
 
 ## Related
 

@@ -30,6 +30,13 @@ Change how much mouse or trackpad movement is required to turn the virtual tunin
 - Single-event pointer deltas are clamped to 15° (π/12 radians) to reduce jitter.
 - Lazy re-anchoring prevents unwanted jumps when the pointer crosses through the wheel’s center dead-zone.
 
+## Capture/release behavior
+
+- **Double-click** the virtual wheel to capture mouse input for circular tuning.
+- **Double-click** again to release capture.
+- Press **Escape** as a secondary release path.
+- Single-clicking no longer captures or releases the wheel. This change provides a cleaner user experience than the previous asymmetry of click-to-capture with Escape-to-release.
+
 ## Tips
 
 - If using a trackpad, try starting at value 65 and adjust from there.

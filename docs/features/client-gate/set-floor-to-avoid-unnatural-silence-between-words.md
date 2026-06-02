@@ -40,6 +40,12 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 - The **Transfer curve** indicator shows the expander's static transfer curve with a live ball at the current input level. A soft-cyan vertical hysteresis band appears between (Thresh minus Return) and Thresh when Return is greater than 0 dB, making the gate's sticky zone visible.
 - Use inline value editing to set controls with decimal precision — for example, type `2.5` for Ratio to get a 2.5:1 expansion ratio, or `12.5` for Return to set exactly 12.5 dB of hysteresis.
 
+## Knob color theming
+
+Knobs in the Aetherial TX Gate and Aetherial AGC-G applets use theme-aware colors defined in the `color.knob.*` namespace. Each knob component — background ring, foreground arc, handle pointer, label text, and value text — reads its color from the active theme. When the applet container is `applet/gate`, knob colors may differ from those in other containers (for example, the amber accent on the gate's transfer curve also colors the knob foreground arc).
+
+If you switch themes, all knob colors update immediately. To inspect or customize knob colors, refer to your theme file's `color.knob.background`, `color.knob.foreground`, `color.knob.handle`, `color.text.primary`, and `color.text.secondary` entries.
+
 ## Troubleshooting
 
 - **The gain-reduction bar fills all the way regardless of Floor** — confirm you are adjusting the Floor knob on the correct side (TX or RX). The TX and RX applets have fully independent state and separate persisted keys.

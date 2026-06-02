@@ -76,6 +76,7 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - WSJT-X spots have their own per-source lifetime setting (**Spot Life:** on the WSJT-X tab, stored as `WsjtxSpotLife`). The **Spot Lifetime:** slider on the Display tab applies to all other sources.
 - When **Override Colors:** is disabled, each spot source uses its configured color from the source's tab.
 - Signal History markers are independent of DX spots. Use **Clear All** to remove both simultaneously.
+- The SpotHub dialog now uses theme-aware colors. Status indicators for connection state are styled with the current theme's accent, label, and danger colors instead of hardcoded values. This ensures consistent appearance with the rest of the application.
 
 ## Troubleshooting
 
@@ -92,4 +93,4 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - Edit startup commands for cluster sources
-<!-- docmesh:llm version=V26.5.2 date=2026-06-02 -->
+<!-- docmesh:llm version=V26.6.1 date=2026-07-01 -->

@@ -6,7 +6,7 @@ MOX lets you key the transmitter without a footswitch or PTT line. Use it to che
 
 - AetherSDR must be connected to the radio. MOX has no effect when the radio is offline.
 - Confirm your TX profile and RF Power level are set correctly before keying.
-- In v0.9.7, if you have Quindar tones enabled in the Audio Channel Strip, the K and BK tones will play automatically when you engage and disengage MOX on phone modes. No additional configuration is required.
+- In v26.6.1, if you have Quindar tones enabled in the Audio Channel Strip, the K and BK tones will play automatically when you engage and disengage MOX on phone modes. No additional configuration is required.
 
 ## Steps
 
@@ -19,9 +19,9 @@ MOX lets you key the transmitter without a footswitch or PTT line. Use it to che
 
 | Control                                        | Behavior                                                                                                                                                                                                                                                                       | Default |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **MOX**                                        | Toggles manual transmit on or off. Button goes red while the transmitter is keyed. In v0.9.7, the click routes through the Quindar-tone coordinator so K/BK tones play on engage/disengage in phone modes when Quindar is enabled in the Audio Channel Strip.                  | Off     |
-| **RF Power**                                   | Sets the transmit RF power level sent to the radio. While dragging the slider handle, a tooltip shows the current value in watts (e.g., "50 W").                                                                                                                                | 100     |
-| **Tune Pwr**                                   | Sets the tune-carrier power level. While dragging the slider handle, a tooltip shows the current value in watts (e.g., "10 W").                                                                                                                                                | 10      |
+| **MOX**                                        | Toggles manual transmit on or off. Button goes red while the transmitter is keyed. In v26.6.1, the click routes through the Quindar-tone coordinator so K/BK tones play on engage/disengage in phone modes when Quindar is enabled in the Audio Channel Strip.                  | Off     |
+| **RF Power**                                   | Sets the transmit RF power level sent to the radio (0–100% of maximum). While dragging the slider handle, a tooltip shows the current value in percent (e.g., "50%").                                                                                                         | 100     |
+| **Tune Pwr**                                   | Sets the tune-carrier power level (0–100% of maximum). While dragging the slider handle, a tooltip shows the current value in percent (e.g., "10%").                                                                                                                            | 10      |
 | **RF Pwr** meter                               | Displays forward power at the exciter output. Turns red above 100 W (barefoot) or 500 W (Aurora 500W). Peak-hold bar holds the peak PEP reading for 2 seconds, then decays to the current power level at a rate of 48 W/s (scaled proportionally for the Aurora 500W exciter). | —       |
 | **SWR** meter                                  | Displays standing wave ratio at the exciter. Turns red above 2.5.                                                                                                                                                                                                              | —       |
 | **TX Profile**                                 | Selects a TX profile from those loaded on the radio.                                                                                                                                                                                                                           | —       |
@@ -68,14 +68,15 @@ The selection is a one-shot applied to the next Tune button press only. The radi
 - Set **RF Power** to a low value before using MOX for the first time on a new band.
 - MOX keys the radio into full-power transmit in whatever mode is active. If you only need to check SWR or tune an ATU, use **TUNE** instead — it transmits a carrier at the lower **Tune Pwr** level.
 - After a successful ATU tune, clicking **ATU** again on the same frequency puts the tuner into bypass. To re-tune after changing bands or frequencies, simply click **ATU** once on the new frequency.
-- While dragging the **RF Power** or **Tune Pwr** slider, a tooltip displays the current value in watts to help you set your desired level precisely.
+- While dragging the **RF Power** or **Tune Pwr** slider, a tooltip displays the current value in percent to help you set your desired level precisely.
 - If Quindar tones are enabled in the Audio Channel Strip, switching to a digital or CW mode suppresses the K/BK tones automatically. MOX itself behaves the same regardless of mode.
 - The peak-hold bar on the **RF Pwr** meter holds the peak reading for 2 seconds, then decays to the current power level. The peak is cleared immediately when you unkey.
+- The power and tune power sliders now use theme-aware styling. The slider fill color follows the configured theme's slider foreground color. The text labels use the theme's primary and secondary text colors for better readability across light and dark themes.
 
 ## Troubleshooting
 
 - **MOX button is unresponsive** — Confirm AetherSDR is connected to the radio. The TX Controls applet requires an active radio connection.
-- **Transmitter keys but no RF power is shown** — Check that **RF Power** is not set to 0 and that the correct TX profile is loaded in the **TX Profile** selector.
+- **Transmitter keys but no RF power is shown** — Check that **RF Power** is not set to 0% and that the correct TX profile is loaded in the **TX Profile** selector.
 - **Radio stays in transmit after clicking MOX a second time** — Another PTT source (footswitch, VOX, CAT command) may be holding the radio keyed. Check external PTT hardware and any connected CAT clients.
 - **ATU button starts a new tune instead of bypassing** — The transmit frequency has changed since the last successful tune. The ATU button will always start a fresh tune cycle when the frequency differs from the frequency at which the tuner last reported a successful match.
 - **Quindar tones do not play when clicking MOX** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is on a phone mode (SSB, AM, FM). Quindar tones are not generated on CW or digital modes.

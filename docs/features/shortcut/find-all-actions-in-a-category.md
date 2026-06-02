@@ -19,6 +19,7 @@ The Keyboard Shortcuts dialog includes a category filter that narrows the action
 
 - You can combine **Category:** with the **Filter:** text field to narrow results further. Both filters apply simultaneously — the table shows only rows that match both the text and the selected category.
 - The keyboard map above the table uses color-coded keys by category. The legend row beneath the map identifies which color belongs to each category, so you can spot a category's keys at a glance before opening the filter.
+- The dialog now supports theme-aware styling. Colors for key labels, category labels, and the selected key display automatically adapt to the current theme.
 
 ## Related
 

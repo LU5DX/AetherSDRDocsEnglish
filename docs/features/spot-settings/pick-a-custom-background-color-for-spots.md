@@ -1,3 +1,4 @@
+```markdown
 # Pick a custom background color for spots
 
 Set a specific background color that appears behind spot labels on the panadapter. Use this when the automatic color contrast is not suitable for your display or operating conditions.
@@ -22,11 +23,26 @@ Set a specific background color that appears behind spot labels on the panadapte
 
 | Label | Kind | Default | Notes |
 |---|---|---|---|
-| Override Background: Enabled | Toggle button | Enabled | Persists to `IsSpotsOverrideBackgroundColorsEnabled`. |
-| Override Background: Auto | Toggle button | Enabled | Persists to `IsSpotsOverrideToAutoBackgroundColorEnabled`. When enabled, the manual color picker is ignored. |
-| Spot background color picker | Push button (swatch) | `#000000` | Opens a color dialog. Persists to `SpotsOverrideBgColor`. |
-| Background Opacity: | Slider (0–100) | 48 | Alpha of spot background. 0 = fully transparent, 100 = fully opaque. Persists to `SpotsBackgroundOpacity`. Setting key changed from `SpotsOverrideBgOpacity` in v0.9.7. |
-| Spot Lines: | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Persists to `IsSpotsLinesEnabled`. New in v0.9.7. |
+| Spots: | Toggle button | Enabled | Master toggle for DX spot display. Persists to `IsSpotsEnabled`. |
+| Memories: | Toggle button | Disabled | Toggles memory channel overlays on panadapter. Setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7. Persists to `IsMemorySpotsEnabled`. |
+| Levels: | Slider (1–10) | 3 | Vertical stacking rows for spots. Setting key changed from `SpotsStackLevels` in v0.9.7. Persists to `SpotsMaxLevel`. |
+| Position: | Slider (0–100) | 50 | Vertical position on panadapter as a percentage. Setting key changed from `SpotsPosition` in v0.9.7. Persists to `SpotsStartingHeightPercentage`. |
+| Font Size: | Slider (8–32) | 16 | Spot text size in points. Setting key changed from `SpotsFontSize` in v0.9.7. Persists to `SpotFontSize`. |
+| Spot Lifetime: | Slider (non-linear steps) | (varies) | How long spots remain before fading. Non-linear scale from 10 seconds to 24 hours. Stored in seconds. Setting key changed from `SpotsLifetime` in v0.9.7. Migrates old minutes-based `DxClusterSpotLifetime` key on first read. Persists to `DxClusterSpotLifetimeSec`. |
+| Override Colors: | Toggle button | Disabled | Forces a single text color for all spots. Persists to `IsSpotsOverrideColorsEnabled`. |
+| Spot text color picker | Push button (swatch) | `#FFFF00` | Opens a color dialog for text color. Persists to `SpotsOverrideColor`. |
+| Override Background: Enabled | Toggle button | Enabled | Draws a background under spot text. Persists to `IsSpotsOverrideBackgroundColorsEnabled`. |
+| Override Background: Auto | Toggle button | Enabled | Auto-picks background color for contrast. When enabled, the manual color picker is ignored. Persists to `IsSpotsOverrideToAutoBackgroundColorEnabled`. |
+| Spot background color picker | Push button (swatch) | `#000000` | Opens a color dialog for background color. Persists to `SpotsOverrideBgColor`. |
+| Background Opacity: | Slider (0–100) | 48 | Alpha of spot background. 0 = fully transparent, 100 = fully opaque. Setting key changed from `SpotsOverrideBgOpacity` in v0.9.7. Persists to `SpotsBackgroundOpacity`. |
+| Spot Lines: | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. New in v0.9.7 (#2349). Persists to `IsSpotsLinesEnabled`. |
+| Clear All Spots | Push button | — | Clears all spots from the panadapter. |
+
+## Indicators
+
+| Label | Meaning |
+|---|---|
+| Total Spots: | Shows count of live spots currently tracked. |
 
 ## Tips
 
@@ -46,3 +62,4 @@ Set a specific background color that appears behind spot labels on the panadapte
 - [Force a single spot text color](force-a-single-spot-text-color.md)
 - [Turn spots on or off](turn-spots-on-or-off.md)
 - [Spot Settings overview](overview.md)
+```

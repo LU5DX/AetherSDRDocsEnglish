@@ -24,6 +24,7 @@ The DAX Applet shows a live TX assignment indicator that tells you which slice c
 - The TX indicator updates in real time. If you transfer TX to another slice on the radio, the indicator changes immediately without any manual refresh.
 - The RX rows above the TX row show per-channel DAX assignments (`DAX 1:` through `DAX 4:`). These indicate which slice is routed to each DAX RX channel and are separate from the TX assignment.
 - The slice letter in the TX indicator is rendered as rich text, allowing the colored box display when the radio is connected.
+- On Linux with PipeWire, a native `pw_stream` source path replaces the previous PulseAudio client, reducing DAX RX latency from approximately 400 ms to approximately 200 ms.
 
 ## Related
 

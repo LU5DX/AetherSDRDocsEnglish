@@ -30,7 +30,7 @@ These controls appear on the main area of the VFO Panel, above the tabs.
 | Control | Default | Valid range | Behavior |
 |---------|---------|-------------|----------|
 | **AF Gain slider** | 100 | 0–100 | Sets the audio output level for this slice. Not persisted — reflects live radio state. |
-| **Pan slider** | 50 | 0–100 | Sets left/right stereo pan for this slice. 50 = centre. |
+| **Pan slider** | 50 | 0–100 | Sets left/right stereo pan for this slice. 50 = centre. The slider fill anchors from the centre outward, with a centre-mark dot painted on the groove to indicate the neutral position. |
 | **Mute button** | off | — | Mutes audio output for this slice without changing the AF gain setting. |
 | **Squelch button + slider** | off | 0–100 | Enables squelch for this slice. The adjacent slider sets the threshold. |
 | **AGC combo** | FAST | FAST / MED / SLOW / OFF | Sets the AGC attack/release speed for this slice. |
@@ -100,6 +100,22 @@ When a slice is locked:
 - Scrolling over the collapsed VFO panel or frequency display shows a LOCKED overlay and blocks frequency changes. The scroll event is consumed but the frequency does not change.
 - Direct frequency entry is cancelled if initiated while the slice is locked.
 - Unlocking the slice clears the LOCKED overlay.
+
+### Theming support (v26.6.1)
+
+The VFO Panel now uses the theme system for its visual styling:
+
+- **Container scope:** The panel lives under the `spectrum/vfo` theme container scope, so its colour tokens inherit from the spectrum display overrides but can be customised independently.
+- **Inspector coverage:** The following tokens are declared for inspection — clicking on the VFO flag, callsign badge, or signal meter strip in Inspect mode will surface these tokens in the hit list:
+  - `color.background.0`
+  - `color.background.1`
+  - `color.background.2`
+  - `color.text.primary`
+  - `color.text.label`
+  - `color.accent`
+  - `color.accent.bright`
+- **Pan slider:** The Pan slider uses a centre-anchored fill that paints from the centre outward in the accent colour. The groove fill on the opposite side of the handle uses the background colour. This matches the visual behaviour of L/R balance controls. A centre-mark dot at the neutral position helps the operator see the midpoint.
+- **Mini button styling:** The mini (antenna) buttons use themed colours via `{{color.background.1}}` and `{{color.accent}}` tokens instead of hard-coded hex values.
 
 ## Tips
 

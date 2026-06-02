@@ -37,7 +37,7 @@ At the bottom of the forecast section, summary labels show:
 - Noise levels
 - X-ray conditions
 
-A "Rationale" section provides a plain-language explanation of today's forecast.
+A "Rationale" section provides a plain-language explanation of today's forecast. The rationale field uses themed background and border colors that respect the current application theme.
 
 ### Solar And Lunar Panel
 
@@ -51,7 +51,7 @@ Displays a live solar image and the current Moon phase. By default, the solar im
 
 ### What To Look For
 
-Below or beside the solar image, rotating plain-language learning notes describe what to observe in the currently displayed image. The notes rotate automatically; no action is required to advance them. The notes update to match the currently selected solar wavelength.
+Below or beside the solar image, rotating plain-language learning notes describe what to observe in the currently displayed image. The notes rotate automatically; no action is required to advance them. The notes update to match the currently selected solar wavelength. The learning panel background is themed to match the current application theme.
 
 ### HF Band Conditions
 
@@ -69,7 +69,11 @@ Shows the current state of VHF propagation openings:
 
 ### What These Mean (VHF)
 
-Two learning notes explain the difference between auroral and sporadic-E propagation, helping you understand the current VHF conditions.
+Two learning notes explain the difference between auroral and sporadic-E propagation, helping you understand the current VHF conditions. The learning panel background is themed to match the current application theme.
+
+## Theme Support
+
+The Propagation Dashboard fully supports the active application theme. Panel backgrounds, separator lines, border colors, and the rationale field all use themed colors. When you change the application theme, the dashboard updates its appearance accordingly.
 
 ## Resizing and Positioning
 

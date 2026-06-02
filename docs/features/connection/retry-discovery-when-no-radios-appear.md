@@ -30,6 +30,7 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 | **Radio IP address** | Text field | Enter the IP address to use for a manual connection. Saved as `ManualRadioIp`. |
 | **Advanced: Source path** | Combo box | Picks the local network interface used for the manual connection. Saved as `ManualBindSource`. |
 | **Use low bandwidth mode** | Checkbox | Enables reduced-rate streams for slow links. Saved as `LowBandwidthMode`. |
+| **Enable adaptive frame-rate throttle** | Checkbox | When checked, automatically reduces FFT/waterfall frame rate when network quality degrades. Saved as `AdaptiveThrottleEnabled`. Defaults to unchecked. |
 | **Connect to last radio on start up** | Checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Saved as `AutoConnectToLastRadio`. Defaults to checked. |
 | **Disconnect** | Button | Disconnects from the current radio. |
 
@@ -60,6 +61,7 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 - If you share the computer with other operators or prefer to choose a radio explicitly each session, uncheck **Connect to last radio on start up**. AetherSDR will open the connection dialog on every launch instead of connecting automatically.
 - The **Advanced: Source path** control lets you choose which local network interface to use for manual/VPN connections. Select the NIC that has the best route to your radio.
 - Enable **Use low bandwidth mode** when connecting over a slow or unreliable link to reduce audio and data stream rates.
+- Enable **Enable adaptive frame-rate throttle** to let AetherSDR automatically reduce FFT/waterfall frame rate when network quality degrades. This helps maintain a stable connection over intermittent links. The throttle resumes full frame rate when network quality improves.
 
 ## Troubleshooting
 

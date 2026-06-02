@@ -28,6 +28,7 @@ The selected memories are permanently removed from the radio. For batch removals
 - Press Escape to clear the Search: field; pressing Escape again closes the dialog.
 - Double-click the title bar to toggle maximize/restore the dialog.
 - To move the dialog, click and drag the title bar. To resize the dialog, click and drag any edge or corner — the cursor changes to indicate the resize direction.
+- The dialog appearance follows the active theme. The memory table uses alternating row colors from the theme.
 
 ## Related
 

@@ -11,8 +11,8 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## Steps
 
-1. In the TX Controls applet, set the **Tune Pwr** slider to the power level you want to use for the test. Default is 10; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in watts (e.g., "10 W").
-2. Set the **RF Power** slider to the desired output level. Default is 100; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in watts (e.g., "100 W").
+1. In the TX Controls applet, set the **Tune Pwr** slider to the power level you want to use for the test. Default is 10; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in percent (e.g., "10%").
+2. Set the **RF Power** slider to the desired output level. Default is 100; valid range is 0–100. While dragging the slider handle, a tooltip shows the power value in percent (e.g., "100%").
 3. If you want to use a specific transmit profile (for example, a clean SSB profile without processing), select it from the **TX Profile** drop-down.
 4. Start the two-tone audio signal from your external source so it is feeding the radio's input.
 5. Click **MOX**. The button turns red and the radio keys up.
@@ -22,25 +22,35 @@ A two-tone tune lets you check transmitter linearity and drive levels by keying 
 
 ## What each control does
 
-| Control    | Kind                                                        | Default                                                                                                                                                                                  |
-|------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| RF Power   | Slider                                                      | 100                                                                                                                                                                                      |
-| Tune Pwr   | Slider                                                      | 10                                                                                                                                                                                       |
-| TX Profile | Drop-down                                                   | —                                                                                                                                                                                        |
-| MOX        | Toggles manual transmit; button goes red while TX is keyed. | In v0.9.7, click routes through `requestPttOn`/`requestPttOff` so Quindar tones (K/BK) play on engage/disengage in phone modes when the QUIN chip is enabled in the Audio Channel Strip. |
-| RF Pwr     | Meter                                                       | —                                                                                                                                                                                        |
-| SWR        | Meter                                                       | —                                                                                                                                                                                        |
+| Control      | Kind                                                        | Default | Notes                                                                                                                                                                                           |
+|--------------|-------------------------------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Power     | Slider                                                      | 100     | Sets transmit RF power level (percent of maximum).                                                                                                                                              |
+| Tune Pwr     | Slider                                                      | 10      | Sets tune-carrier power level (percent of maximum).                                                                                                                                             |
+| TX Profile   | Drop-down                                                   | —       | Selecting a profile loads it from the radio.                                                                                                                                                    |
+| MOX          | Toggle button                                               | —       | Toggles manual transmit; button goes red while TX is keyed. Routes through Quindar-tone coordinator so K/BK tones play on engage/disengage when Quindar is enabled in phone modes.              |
+| RF Pwr       | Meter                                                       | —       | Displays forward power at the exciter output (0–120 W barefoot, 0–600 W with Aurora 500W). Red above 100 W / 500 W.                                                                             |
+| SWR          | Meter                                                       | —       | Displays standing wave ratio at the exciter (1.0–3.0, red above 2.5).                                                                                                                           |
+| TUNE         | Push button                                                 | —       | Starts/stops tune carrier; text becomes "TUNING..." with red background while active. Right-click picks the carrier shape (Mono Tone / Two Tone) for the next tune cycle (transient one-shot). |
+| ATU          | Push button                                                 | —       | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. |
+| MEM          | Toggle button                                               | —       | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                                                                        |
+| APD          | Toggle button                                               | —       | Toggles adaptive pre-distortion on the radio.                                                                                                                                                   |
+| Active       | Indicator (green)                                           | dim     | Lit when APD is on and the equalizer is actively applied.                                                                                                                                       |
+| Cal          | Indicator (green)                                           | dim     | Lit when APD is on and still calibrating.                                                                                                                                                       |
+| Avail        | Indicator (green)                                           | dim     | Lit when APD is on and a calibration is available but not yet applied.                                                                                                                          |
+| Success      | Indicator (green)                                           | dim     | Lights green when ATU status is Successful or OK.                                                                                                                                               |
+| Byp          | Indicator (orange)                                          | dim     | Lights orange when ATU is in Bypass or ManualBypass.                                                                                                                                            |
+| Mem          | Indicator (green)                                           | dim     | Lights green when ATU is using a memory.                                                                                                                                                        |
 
 ## Tips
 
 - Keep SWR below 2.5 during the test. The SWR meter turns red above 2.5 as a visual warning.
 - Select a TX profile that has microphone processing disabled before running a two-tone test. Processing can distort the two-tone envelope and produce misleading IMD readings.
 - If you have ATU memories available, consider recalling a known-good memory before keying to ensure the antenna is matched. See [Recall an ATU memory](recall-an-atu-memory.md).
-- In v0.9.7, if the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, clicking **MOX** will play the Quindar K-tone on engage and the BK-tone on disengage. If Quindar is disabled or the TX slice is not on a phone mode, **MOX** behaves as in earlier versions.
+- If the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, clicking **MOX** will play the Quindar K-tone on engage and the BK-tone on disengage. If Quindar is disabled or the TX slice is not on a phone mode, **MOX** behaves as in earlier versions.
 
-## ATU button behavior (v0.9.5.1)
+## ATU button behavior
 
-The **ATU** button now toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
+The **ATU** button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
 
 - **First click on a new frequency** — starts a fresh ATU tune cycle. The **Success** indicator lights green when the tuner finds a match.
 - **Second click at the same frequency** — if the ATU status is already Successful or OK and you have not changed frequency since the last tune, clicking **ATU** again switches the tuner to bypass. The **Byp** indicator lights orange.
@@ -49,14 +59,14 @@ The **ATU** button now toggles between starting a tune cycle and bypassing the t
 
 The **ATU** and **MEM** buttons are disabled when TGXL is in OPERATE mode.
 
-## ATU button right-click menu (v26.5.2.1)
+## ATU button right-click menu
 
 Right-click the **ATU** button to show a context menu with two additional actions:
 
 - **Pre-tune bands…** — Opens the Pre-Tune dialog for running a sweep across selected bands. This action is only available when ATU memories are enabled. If memories are disabled, the menu item is grayed out with a tooltip suggesting you enable MEM first.
 - **Clear ATU memories…** — Clears all stored ATU memories after a confirmation dialog.
 
-## TUNE button right-click menu (v26.5.2.1)
+## TUNE button right-click menu
 
 Right-click the **TUNE** button to select the carrier shape for the next tune cycle:
 
@@ -64,6 +74,16 @@ Right-click the **TUNE** button to select the carrier shape for the next tune cy
 - **Two Tone** — Two-tone carrier for linearity testing.
 
 The selection is a one-shot and is not persisted across power cycles. The radio's tune mode reverts to single tone on its own across power cycles. A check mark next to either entry shows the radio's current tune mode.
+
+## APD (Adaptive Pre-Distortion)
+
+The **APD** toggle button enables or disables adaptive pre-distortion on the radio. When enabled, the three status indicators below the button show the current state:
+
+- **Active** — Lit green when the equalizer is actively applied.
+- **Cal** — Lit green when the radio is still calibrating.
+- **Avail** — Lit green when a calibration is available but not yet applied.
+
+The indicators progress through Cal → Avail → Active as the APD system completes its calibration cycle.
 
 ## Troubleshooting
 

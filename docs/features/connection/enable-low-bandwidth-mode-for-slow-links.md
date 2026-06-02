@@ -37,6 +37,7 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 | Connect by IP (manual) | Push button | — |
 | Advanced: Source path | Combo box | (not set) |
 | Use low bandwidth mode | Checkbox | (not set) |
+| Enable adaptive frame-rate throttle | Checkbox | False. When checked, AetherSDR automatically reduces FFT/waterfall frame rate when network quality degrades. This helps maintain stability on slow or congested links without requiring manual changes. Stored as `AdaptiveThrottleEnabled`. |
 | Connect to last radio on start up | Checkbox. When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Stored as `AutoConnectToLastRadio`. | True (checked). New in v0.9.7. Existing users keep previous behavior automatically. |
 | Disconnect | Push button | — |
 
@@ -50,12 +51,14 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 
 ## Tips
 
-- Enable **Use low bandwidth mode** before initiating the connection. The mode is negotiated at connect time.
-- If audio still breaks up after enabling low-bandwidth mode, check your VPN or routing path using `Settings > Network...`.
+- Enable **Use low bandwidth mode** or **Enable adaptive frame-rate throttle** before initiating the connection. These settings are negotiated at connect time.
+- The adaptive throttle works alongside low-bandwidth mode. If you enable only the adaptive throttle, AetherSDR will reduce frame rates when needed but keep the full stream rate otherwise.
+- If audio still breaks up after enabling these options, check your VPN or routing path using `Settings > Network...`.
 - The **Radio IP address** field now remembers up to three recent addresses. If you previously saved an IP under the legacy `LastRoutedRadioIp` setting, AetherSDR migrates it automatically the first time you open the connection panel.
 - To prevent AetherSDR from connecting automatically at startup — for example, when you want to choose a different radio — uncheck **Connect to last radio on start up**.
 - The connection panel now uses a frameless window with a custom title bar when **FramelessWindow** is enabled in settings (default: True). The **Connect to Radio** title appears in the window title bar. To resize the dialog, drag from any edge or corner. When the frameless window is hidden and then shown again, its previous geometry is preserved.
 - When probing a manual IP, AetherSDR collects radio status information such as model, nickname, callsign, and MultiFlex status during the connection negotiation. This information appears in the radio list after a successful probe.
+- The SmartLink login form now includes accessibility hints for password managers on macOS, Windows, and Linux. Password managers can recognize and auto-fill credentials for the SmartLink account fields.
 
 ## Related
 

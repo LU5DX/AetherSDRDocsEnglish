@@ -10,25 +10,25 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 ## Steps
 
 1. Locate the **RF Power** slider in the TX Controls applet. It appears below the **SWR** gauge.
-2. Drag the slider left or right to set your desired power level. The numeric readout to the right of the slider updates immediately, showing "XX W" format.
+2. Drag the slider left or right to set your desired power level. The numeric readout to the right of the slider updates immediately, showing "XX%" format.
 3. Confirm the value shown in the readout is what you intend. The **RF Pwr** gauge will reflect actual forward power once you transmit.
 
 ## What each control does
 
-| Control             | Description                                          | Default |
-|---------------------|------------------------------------------------------|---------|
-| **RF Power** slider | Sets the transmit RF power level sent to the radio. Drag value shows "XX W" format. | 100     |
-| **Tune Pwr** slider | Sets tune-carrier power level. Drag value shows "XX W" format. | 10     |
-| **RF Pwr** meter    | Displays actual forward power at the exciter output.  | —       |
-| **SWR** meter       | Displays standing wave ratio at the exciter.         | —       |
-| **TX Profile** combo box | Selects a transmit profile (e.g. SSB, Digital) from those available on the radio. | — |
-
+| Control                  | Description                                                                         | Default |
+|--------------------------|-------------------------------------------------------------------------------------|---------|
+| **RF Power** slider      | Sets the transmit RF power level (0-100% of maximum). Drag value shows "XX%" format. | 100     |
+| **Tune Pwr** slider      | Sets tune-carrier power level (0-100% of maximum). Drag value shows "XX%" format.    | 10      |
+| **RF Pwr** meter         | Displays actual forward power at the exciter output.                                | —       |
+| **SWR** meter            | Displays standing wave ratio at the exciter.                                        | —       |
+| **TX Profile** combo box | Selects a transmit profile (e.g. SSB, Digital) from those available on the radio.   | —       |
 ## Tips
 
 - The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W.
 - You can set per-band power limits independently of this slider. Go to `Settings > TX Band Settings...` to configure power, tune power, and inhibit settings for each band.
 - The **RF Power** slider controls the exciter output level, not a separate amplifier. If you are running an external amplifier, set this slider to the drive level your amplifier expects.
 - The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays smoothly toward the current power level. The peak immediately clears to zero when the transmitter unkeys.
+- Power sliders now display values as percentages (0-100%) of the maximum power for your radio model, rather than watts.
 
 ## Using the ATU button
 

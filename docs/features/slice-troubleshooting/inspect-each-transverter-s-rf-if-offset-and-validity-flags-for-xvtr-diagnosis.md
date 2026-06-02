@@ -29,13 +29,50 @@ The Slice Troubleshooting dialog captures a snapshot of every transverter config
 
 | Control             | Kind   | Behavior                                                                                        |
 |---------------------|--------|-------------------------------------------------------------------------------------------------|
-| `Issue Summary` tab | Tab    | Plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, and XVTR validity issues. |
-| `JSON` tab          | Tab    | Full JSON snapshot (schema version 3) containing slices, DAX channels, audio devices, client DSP, control devices, TX band settings, and all transverter entries with RF, IF, offset, and validity fields. |
+| `Issue Summary` tab | Tab    | Plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, audio endpoint state, multi-client ownership, panadapter slice connection status, and XVTR validity issues. |
+| `JSON` tab          | Tab    | Full JSON snapshot (schema version 3) containing slices, DAX channels, audio devices, client DSP, control devices, audio endpoints, TX band settings, and all transverter entries with RF, IF, offset, and validity fields. |
 | `Refresh Snapshot`  | Button | Re-reads slice state into the snapshot.                                                         |
 | `Copy Summary`      | Button | Copies the issue summary to the clipboard.                                                      |
 | `Copy JSON`         | Button | Copies the full JSON snapshot to the clipboard.                                                 |
 | `Export JSON...`    | Button | Saves the full JSON snapshot to a file.                                                         |
+| `Status label`      | Label  | Shows last copy/export result (e.g. "Copied to clipboard").                                     |
 | `Close`             | Button | Closes the dialog.                                                                              |
+
+## Panadapter slice connection status in the snapshot
+
+v26.6.1 adds slice connection status information to the panadapter section of the Issue Summary. When a panadapter has slice connection details available, the summary line for that panadapter includes a `slice_connection_status` block with the following fields:
+
+| Field                  | Meaning                                                                 |
+|------------------------|-------------------------------------------------------------------------|
+| `state`                | The connection state (e.g. "connected", "disconnected", "unknown").    |
+| `summary`              | A plain-language description of the slice link state.                   |
+| `connected_slice_ids`  | Comma-separated list of slice IDs currently connected to this panadapter, or "none". |
+| `active_slice_ids`     | Comma-separated list of active slice IDs, or "none".                    |
+| `attention_required`   | Whether the connection status requires attention (`(attention)` appended). |
+
+## Audio endpoint fields in the snapshot
+
+v26.6.1 adds audio endpoint state to the snapshot. Each audio endpoint appears in the Issue Summary with the following details:
+
+| Field                  | Meaning                                                                 |
+|------------------------|-------------------------------------------------------------------------|
+| `name`                 | The endpoint name.                                                      |
+| `direction`            | Direction (`INPUT` or `OUTPUT`).                                        |
+| `kind`                 | Kind of endpoint (e.g. "endpoint").                                     |
+| `operational`          | Whether the endpoint is operational (`Yes` / `No`).                     |
+| `running`              | Whether the endpoint is running (`Yes` / `No`).                         |
+| `state`                | Current state string.                                                   |
+| `error`                | Error string, or "n/a" if none.                                         |
+| `backend`              | Audio backend name.                                                     |
+| `device`               | Device name, or "Unavailable".                                          |
+| `sample_rate_hz`       | Sample rate in Hz.                                                      |
+| `channel_count`        | Number of channels.                                                     |
+| `sample_format`        | Sample format string.                                                   |
+| `resampling_active`    | Whether resampling is active.                                           |
+| `buffer_bytes`         | Current buffer size in bytes (if available).                            |
+| `buffer_peak_bytes`    | Peak buffer size in bytes (if available).                               |
+| `underrun_count`       | Number of underruns (if available).                                     |
+| `note`                 | Additional plain-language note about the endpoint.                      |
 
 ## Remote audio RX fields in the snapshot
 
@@ -77,6 +114,8 @@ If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false
 - Click `Refresh Snapshot` after adjusting transverter settings in SmartSDR or on the radio before re-reading the values. The snapshot is not updated automatically.
 - The `offset_mhz` field should equal `rf_freq_mhz` minus `if_freq_mhz`. If it does not match your transverter configuration, that discrepancy is a likely cause of frequency errors on the slice.
 - When investigating missing audio, check the remote audio RX fields first. If `owned_by_us` is `No` and `stream_expected` is `Yes`, another client may have taken ownership of the stream.
+- When investigating panadapter connection issues, check the `slice_connection_status` field. If `attention_required` is true, further investigation is needed.
+- Audio endpoint underruns indicated by a non-zero `underrun_count` may point to performance or buffer configuration issues.
 
 ## Related
 

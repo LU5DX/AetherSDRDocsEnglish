@@ -29,6 +29,12 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 | **Tune Pwr** | Slider      | 10      |
 | **RF Pwr**   | Meter       | —       |
 | **SWR**      | Meter       | —       |
+| **RF Power** | Slider      | 100     |
+| **TX Profile** | Combo box | —     |
+| **MOX**      | Toggle button | —   |
+| **ATU**      | Push button | —       |
+| **MEM**      | Toggle button | —     |
+| **APD**      | Toggle button | —     |
 
 ## Tips
 
@@ -38,7 +44,7 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 - If you want to inhibit specific TX outputs (ACC TX, TX1, TX2, TX3) during tuning, configure them at `Settings > Inhibit during TUNE`.
 - The peak-hold bar on the **RF Pwr** gauge resets to zero immediately when the transmitter un-keys, so a held PEP reading does not linger across overs.
 
-## ATU button behavior (v0.9.5.1)
+## ATU button behavior
 
 Starting with v0.9.5.1, the **ATU** button behaves as a frequency-aware toggle rather than always starting a new tune cycle. The logic mirrors SmartSDR's per-frequency behavior:
 
@@ -50,7 +56,7 @@ When the ATU enters bypass, the tuned-frequency record is also cleared, so the n
 
 This change has no effect on the **MEM** button or the ATU status indicators (**Success**, **Byp**, **Mem**), which continue to behave as described below.
 
-## ATU right-click menu (v26.5.2.1)
+## ATU right-click menu
 
 Right-click the **ATU** button to access the following actions:
 
@@ -59,15 +65,27 @@ Right-click the **ATU** button to access the following actions:
 
 This matches SmartSDR Windows's hidden right-click menu on the ATU button.
 
-## MOX and Quindar tones (v0.9.7)
+## MOX and Quindar tones
 
 Starting with v0.9.7, clicking **MOX** routes through the Quindar-tone coordinator rather than keying the transmitter directly. When the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays on PTT engage and the BK-tone plays on PTT disengage. When Quindar is disabled or the active TX slice is not on a phone mode, the behavior is identical to previous versions.
 
 This change affects only the **MOX** button in the TX Controls applet. Hardware PTT, VOX, and other PTT sources are not affected.
 
-## Slider value display (v26.5.3)
+## Slider value display
 
-Starting with v26.5.3, when dragging the **RF Pwr** or **Tune Pwr** slider, the slider thumb displays the current value in watts (e.g., "50 W") as a tooltip next to the thumb. This provides immediate visual feedback of the power level as you adjust the slider.
+Starting with v26.5.3, when dragging the **RF Pwr** or **Tune Pwr** slider, the slider thumb displays the current value in percent (e.g., "50%") as a tooltip next to the thumb. This provides immediate visual feedback of the power level as you adjust the slider.
+
+## APD status indicators
+
+The **APD** button cluster shows three indicators that track the adaptive pre-distortion state:
+
+| Indicator | Color when lit | Meaning |
+|-----------|----------------|---------|
+| **Cal**   | Green          | APD is on and actively calibrating. |
+| **Avail** | Green          | APD is on and a calibration result is available but not yet applied. |
+| **Active** | Green         | APD is on and the equalizer is actively being applied. |
+
+The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Active** (applied). All indicators are dim when APD is off.
 
 ## Troubleshooting
 

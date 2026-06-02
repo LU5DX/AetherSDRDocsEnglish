@@ -33,7 +33,7 @@ The status bar TX badge gives you a single click to drop the transmitter out of 
 
 # TX Controls overview
 
-The TX Controls applet provides the primary interface for transmit operations: meters for forward power and SWR, sliders for RF power and tune power, a TX profile selector, and buttons for TUNE, MOX, ATU, MEM, and APD (Adaptive Pre-Distortion).
+The TX Controls applet provides the primary interface for transmit operations: meters for forward power and SWR, sliders for RF power and tune power (displayed as percentage), a TX profile selector, and buttons for TUNE, MOX, ATU, MEM, and APD (Adaptive Pre-Distortion).
 
 ## Before you start
 
@@ -58,13 +58,13 @@ The TX Controls applet provides the primary interface for transmit operations: m
 
 - Sets the transmit RF power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setRfPower` when adjusted.
-- When dragging the slider, a tooltip displays the current value in the format "X W" (e.g., "75 W").
+- When dragging the slider, a tooltip displays the current value in the format "X%" (e.g., "75%").
 
 ### Tune Pwr Slider
 
 - Sets the tune carrier power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setTunePower` when adjusted.
-- When dragging the slider, a tooltip displays the current value in the format "X W" (e.g., "10 W").
+- When dragging the slider, a tooltip displays the current value in the format "X%" (e.g., "10%").
 
 ### TX Profile Combo Box
 

@@ -1,41 +1,6 @@
-# ALC Gauges (v26.5.1)
+# Phone/CW Applet
 
-Both the Phone panel and CW panel contain an ALC gauge. These gauges are identical mirrors reading from the same `MeterModel::swAlcChanged` source. This ensures that SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape.
-
-- **Range**: -20 dBFS (empty) to 0 dBFS (full)
-- **Red zone**: > -3 dBFS
-- **Fill direction**: Right-to-left (empty at -20, fills leftward toward 0)
-- **Scale markings**: -20, -15, -10, -5, 0 dBFS
-- **Initial state**: Both gauges start at -20 dBFS on applet construction (v26.5.3).
-
-# Edit CW Delay / Speed / Sidetone / Pitch by typing a value directly
-
-Type a precise number directly into any of the four CW value fields (Delay, Speed, Sidetone Volume, Pitch) instead of dragging a slider or clicking step buttons. This matches native SmartSDR behavior and is useful when you already know the exact value you want.
-
-## Before you start
-
-- Ensure the active slice is in CW mode (the Phone/CW applet auto-switches to CW controls).
-
-## Steps
-
-1. Click the **P/CW** tray button on the right sidebar if the Phone/CW applet isn't visible.
-2. Locate the CW control you want to edit: **Delay**, **Speed**, **Sidetone volume**, or **Pitch**. Each is next to its corresponding slider.
-3. Click inside the number field (a QLineEdit). The field will show a text cursor.
-4. Type the desired value using your keyboard.
-5. Press **Enter** or click elsewhere to apply the value.
-
-## What each control does
-
-| Control             | Default | Valid range                                                                                                              |
-|---------------------|---------|--------------------------------------------------------------------------------------------------------------------------|
-| **Delay**           | 500     | 0–2000 ms (step 10)                                                                                                      |
-| **Speed**           | 20      | 5–100 WPM                                                                                                                |
-| **Sidetone volume** | 50      | 0–100                                                                                                                    |
-| **Pitch**           | 600     | 100–6000 Hz (step 10)                                                                                                    |
-| **ALC (Phone panel)** | —      | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. Both gauges initialize to -20 dBFS in v26.5.3. |
-| **ALC (CW panel)**    | —      | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode. |
-
-## Phone/CW Applet Overview
+## Overview
 
 The Phone/CW applet is a mode-aware transmit panel. It shows Phone controls (mic, processor, monitor) in voice modes and automatically switches to CW controls (delay, speed, sidetone, iambic, pitch) when the active slice is in CW mode. ALC gauges appear on both the Phone and CW sub-panels, both driven by the software ALC meter (MeterModel::swAlcChanged, post-SSBMeter-peak dBFS, #2552), replacing the previous HWALC (RCA voltage) path that produced meaningless readings.
 
@@ -43,12 +8,20 @@ The Compression gauge is gated on the radio's interlock TRANSMITTING state (read
 
 In v26.5.3 the CW sidetone now routes to the user-selected audio output instead of the default output (#2899).
 
+In v26.6.1 the applet now properly inherits the active theme's color palette. Sliders use the primary slider style (`applyPrimarySliderStyle`) instead of hardcoded color values, and label colors follow the theme's secondary text color (`{{color.text.secondary}}`). The panel container is styled using `theme::setContainer` for consistent appearance across all themes.
+
+## Opening the Phone/CW Applet
+
+1. Click the **P/CW** tray button on the right sidebar.
+
+The applet automatically shows Phone controls when the active slice is in a voice mode (LSB, USB, AM, FM, etc.) and CW controls when the active slice is in CW or CWL mode.
+
 ## Phone Panel Controls
 
 | Control           | Type         | Default | Valid range                  | Behavior                                                                 |
 |-------------------|--------------|---------|------------------------------|--------------------------------------------------------------------------|
 | **Level**         | Meter        | —       | -40 to +10 dBFS (red > 0)    | Shows microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting (v26.5.3 applies suppression immediately on state changes). |
-| **Compression**   | Meter        | —       | 0 to -25 dB (reversed fill)  | Shows speech compression amount in dB. Gate on radio interlock TRANSMITTING state and speech processor enable. v26.5.3: MeterModel COMPPEAK (positive 0–25 dB) converted to negative gauge display. |
+| **Compression**   | Meter        | —       | 0 to -25 dB (reversed fill)  | Shows speech compression amount in dB. Gated on radio interlock TRANSMITTING state and speech processor enable. v26.5.3: MeterModel COMPPEAK (positive 0–25 dB) converted to negative gauge display. |
 | **ALC**           | Meter        | —       | -20 to 0 dBFS (red > -3)     | Shows automatic level control from MeterModel::swAlcChanged. Fills right-to-left. Initialized to -20 dBFS in v26.5.3. |
 | **Mic profile**   | Combo box    | —       | Populated from radio          | Loads the named mic processing profile.                                   |
 | **Mic source**    | Combo box    | —       | MIC, BAL, LINE, ACC, PC      | Selects microphone input source.                                         |
@@ -74,11 +47,43 @@ In v26.5.3 the CW sidetone now routes to the user-selected audio output instead 
 | **Iambic**           | Toggle button| —       | —                         | Toggles iambic paddle keyer.                                                |
 | **Pitch < / >**      | Edit + buttons| 600    | 100-6000 Hz (step 10)     | QLineEdit with < / > buttons. Type values 100-6000 or click buttons to step by 10 Hz. |
 
+## Editing CW Values by Typing
+
+You can type a precise number directly into any of the four CW value fields (Delay, Speed, Sidetone Volume, Pitch) instead of dragging a slider or clicking step buttons. This matches native SmartSDR behavior.
+
+### Steps
+
+1. Open the Phone/CW applet with the active slice in CW mode.
+2. Locate the CW control you want to edit: **Delay**, **Speed**, **Sidetone volume**, or **Pitch**. Each is next to its corresponding slider.
+3. Click inside the number field (a QLineEdit). The field will show a text cursor.
+4. Type the desired value using your keyboard.
+5. Press **Enter** or click elsewhere to apply the value.
+
+### Value ranges for direct entry
+
+| Control             | Default | Valid range                                      |
+|---------------------|---------|--------------------------------------------------|
+| **Delay**           | 500     | 0-2000 ms (step 10)                              |
+| **Speed**           | 20      | 5-100 WPM                                        |
+| **Sidetone volume** | 50      | 0-100                                            |
+| **Pitch**           | 600     | 100-6000 Hz (step 10)                            |
+
+## ALC Gauges (v26.5.1)
+
+Both the Phone panel and CW panel contain an ALC gauge. These gauges are identical mirrors reading from the same `MeterModel::swAlcChanged` source. This ensures that SSB operators watching mic gain see the same indicator CW operators use to verify clean keying envelope shape.
+
+- **Range**: -20 dBFS (empty) to 0 dBFS (full)
+- **Red zone**: > -3 dBFS
+- **Fill direction**: Right-to-left (empty at -20, fills leftward toward 0)
+- **Scale markings**: -20, -15, -10, -5, 0 dBFS
+- **Initial state**: Both gauges start at -20 dBFS on applet construction (v26.5.3).
+
 ## Troubleshooting
 
 - **Typed value snaps back to previous value** — The radio may have rejected the value. Ensure your entry is within the valid range shown above. For Delay values, the radio emission no longer snaps the slider back in v0.9.8 (#2428).
 - **Level meter stays at -150 after stopping transmit** — In v26.5.3 the level meter is suppressed whenever receiving with met_in_rx off. Check **Settings > Appearance > Disable level meter during receive** if you see unexpected -150 readings in RX.
 - **Compression gauge shows unexpected values** — v26.5.3 changed the COMPPEAK interpretation to positive 0–25 dB; the gauge face reverses to -25–0 dB. If you see reversed scaling, verify you are running v26.5.3 or later.
+- **Colors don't match the active theme** — v26.6.1 fixed theme inheritance for all UI elements in this applet. If colors appear hardcoded (e.g., blue on black regardless of theme), verify you are running v26.6.1 or later.
 
 ## Related
 

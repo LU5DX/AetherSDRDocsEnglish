@@ -21,7 +21,7 @@ The buttons are part of an exclusive QButtonGroup. The selected model is persist
 
 ## Inline value editing
 
-Version 26.5.2.1 introduces inline value editing for all knob controls in the floating editor. You can now click a knob's value display to enter text mode:
+You can now click a knob's value display to enter text mode:
 
 1. **Click the value text** below any knob to open an inline editor. The editor appears as a dark rectangle with a cyan border.
 2. **Type a new value** and press Enter to apply it. The value is clamped to the knob's valid range.
@@ -33,6 +33,8 @@ The inline editor supports locale-aware decimal parsing, so values like "12,5" w
 ## Knob controls
 
 The docked applet tile shows five knobs in a row: Drive, Tone, Bias, Output, Dry/Wet. The floating editor adds four more knobs in a right column: Envelope, Attack, Release, and the Model selector buttons.
+
+Knob colors (ring background, arc, pointer, label, and value text) follow the current theme. The tube saturator's knob foreground uses the `color.accent.dim` theme color, while label and value text use `color.text.secondary` and `color.text.primary` respectively. The tube applet container is registered under `applet/tube` for theme customization.
 
 ### Drive
 
@@ -116,7 +118,19 @@ Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers
 
 ## Transfer curve display
 
-The compact-mode ClientTubeCurveWidget draws the currently-configured tube transfer curve with a live ball at the input level. The ball moves along the curve as the input level changes, visualising the saturation regime.
+The compact-mode ClientTubeCurveWidget draws the currently-configured tube transfer curve with a live ball at the input level. The curve widget uses theme-aware colors:
+
+| Element | Theme key |
+|---|---|
+| Background | `color.background.0` |
+| Frame | `color.background.1` |
+| Grid lines | `color.background.1` |
+| Axes | `color.background.1` |
+| Curve | `color.accent.dim` (cyan) |
+| Ball glow | `color.accent.warning` |
+| Ball core | `color.text.primary` |
+
+The ball moves along the curve as the input level changes, visualising the saturation regime.
 
 ## Output level meter
 
@@ -131,6 +145,14 @@ The floating editor includes an **OUT** peak level meter (the `ClientLevelMeter`
 
 The meter is only visible in the floating editor, not in the docked applet tile. It updates continuously alongside the knob controls whenever the floating editor is open.
 
+## RN2 (TX-only noise reduction)
+
+The TX-only floating editor includes an **RN2** toggle button located below the output level meter. This control enables the RNNoise neural denoiser on the mic input before the DSP chain, suppressing background noise before it reaches the gate, compressor, or saturator.
+
+- The RN2 toggle is hidden in RX mode.
+- Available only in voice modes. Digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage.
+- The setting is persisted via the AudioEngine.
+
 ## Bypass dim
 
 When the tube stage is bypassed, the entire docked applet tile renders at reduced opacity (approximately 55 % of normal). This matches the dim effect used on the EQ curve tile and gives a clear at-a-glance indication that the stage is not processing audio. The tile returns to full opacity as soon as the stage is re-enabled.
@@ -142,6 +164,7 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - Changes made in the floating editor and the docked applet stay in sync. A 30 Hz polling timer keeps both views updated, so adjusting any control in one location is reflected immediately in the other.
 - Click any knob's value display in the floating editor to type an exact value instead of dragging the knob.
 - When the applet tile appears dimmed, the tube stage is bypassed. Re-enable it before making adjustments, otherwise the controls have no effect on the live signal.
+- Enable RN2 on the TX tab to reduce background noise before it reaches the tube saturation stage.
 
 ## Related
 

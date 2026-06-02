@@ -16,6 +16,10 @@ Use the Connected Stations dialog to see detailed identification (program name a
 
    – If the client does not report a program or station name, it falls back to `client 0x<HEX>`.
 
+4. To disconnect a client, select its radio button and click **Disconnect Station**.
+
+5. Click **Cancel** to close the dialog without disconnecting.
+
 ## What each control does
 
 | Control | Description |
@@ -25,6 +29,10 @@ Use the Connected Stations dialog to see detailed identification (program name a
 | Disconnect Station | Disconnects the selected client. Enabled only when a radio button is checked. |
 | Cancel | Closes the dialog without disconnecting. |
 | Info label | Explains that multiFLEX is disabled and you must select a station to disconnect before connecting AetherSDR. |
+
+## Theme support
+
+The dialog applies the `dialog/connectedStations` theme container, ensuring consistent styling with other themed dialogs in AetherSDR.
 
 ## Related
 

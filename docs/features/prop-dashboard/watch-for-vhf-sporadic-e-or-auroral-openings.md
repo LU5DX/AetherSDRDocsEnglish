@@ -28,6 +28,7 @@ The HF Propagation Dashboard includes a VHF Conditions section that shows whethe
 
 - An **Open** state is shown in green; **Closed** is shown in muted gray. A quick color scan lets you check status without reading the labels.
 - Aurora openings tend to correlate with elevated K-index readings. Check the **K INDEX** card in the Current Conditions section if the Aurora indicator shows Open.
+- The dashboard now respects the active theme. Its styling (background colors, separator lines, borders, and learning note panels) adapts automatically when you switch themes.
 
 ## Related
 

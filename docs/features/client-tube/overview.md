@@ -38,21 +38,22 @@ While the inline editor is active, mouse wheel events still work, so you can fin
 
 The table below applies to both the TX and RX instances. Where setting keys differ by side, both are shown. Controls marked **Editor only** are available in the floating editor but not in the docked tile.
 
-| Control        | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Transfer curve | —                                                                                                                                                                                   | —                                                                                                                                                                                                         |
-| Drive          | 0.00 dB                                                                                                                                                                             | 0.0 – 24.0 dB                                                                                                                                                                                             |
-| Tone           | 0.00                                                                                                                                                                                | −1.0 – 1.0                                                                                                                                                                                                |
-| A              | checked (default)                                                                                                                                                                   | —                                                                                                                                                                                                         |
-| B              | unchecked                                                                                                                                                                           | —                                                                                                                                                                                                         |
-| C              | unchecked                                                                                                                                                                           | —                                                                                                                                                                                                         |
-| Bias           | 0 %                                                                                                                                                                                 | 0.0 – 1.0 (displayed as 0 – 100 %)                                                                                                                                                                        |
-| Output         | 0.00 dB                                                                                                                                                                             | −24.0 – 12.0 dB                                                                                                                                                                                           |
-| Dry/Wet        | 100 %                                                                                                                                                                               | 0.0 – 1.0 (displayed as 0 – 100 %)                                                                                                                                                                        |
-| Envelope       | 0 %                                                                                                                                                                                 | −1.0 – 1.0 (displayed as signed percentage)                                                                                                                                                               |
-| Attack         | 5.00 ms                                                                                                                                                                             | 0.1 – 30.0 ms                                                                                                                                                                                             |
-| Release        | 35.00 ms                                                                                                                                                                            | 10.0 – 500.0 ms                                                                                                                                                                                           |
-| RN2            | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control        | Behavior description | Default | Valid range | Setting key |
+|----------------|----------------------|---------|-------------|-------------|
+| Transfer curve | Compact-mode ClientTubeCurveWidget. Draws the currently-configured tube transfer curve with a live ball at the input. | — | — | — |
+| Drive          | Linear mapping. Pushes more signal into the tube stage. | 0.00 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` / `ClientTubeRxDriveDb` |
+| Tone           | Linear mapping. Negative values darken, positive brighten the saturated signal. | 0.00 | -1.0 to 1.0 | `ClientTubeTxTone` / `ClientTubeRxTone` |
+| A              | Selects tube character Model A. Exclusive with B and C. Amber when checked. | checked | — | `ClientTubeTxModel` / `ClientTubeRxModel` |
+| B              | Selects tube character Model B. Exclusive with A and C. Amber when checked. | unchecked | — | `ClientTubeTxModel` / `ClientTubeRxModel` |
+| C              | Selects tube character Model C. Exclusive with A and B. Amber when checked. | unchecked | — | `ClientTubeTxModel` / `ClientTubeRxModel` |
+| Bias           | Linear mapping. Shifts the operating point on the transfer curve, changing the harmonic mix. Label displayed as percentage. | 0 % | 0.0 to 1.0 (displayed as 0 – 100 %) | `ClientTubeTxBias` / `ClientTubeRxBias` |
+| Output         | Linear mapping. Post-tube make-up / trim gain. Label 'X.XX dB'. | 0.00 dB | -24.0 to 12.0 dB | `ClientTubeTxOutputDb` / `ClientTubeRxOutputDb` |
+| Dry/Wet        | Linear mapping. Dry / wet blend (100 % = fully saturated signal). Label displayed as percentage. | 100 % | 0.0 to 1.0 (displayed as 0 – 100 %) | `ClientTubeTxDryWet` / `ClientTubeRxDryWet` |
+| Envelope       | Linear mapping (-1.0 to +1.0). Positive values increase drive on transients; negative values reduce it, compressing harmonics dynamically. Label displayed as signed percentage. | 0 % | -1.0 to 1.0 (displayed as signed percentage) | `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope` |
+| Attack         | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. Label 'X.XX ms' below 10 ms, 'X.X ms' above. | 5.00 ms | 0.1 to 30.0 ms | `ClientTubeTxAttackMs` / `ClientTubeRxAttackMs` |
+| Release        | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. Label 'X.XX ms' below 100 ms, 'X.X ms' above. | 35.00 ms | 10.0 to 500.0 ms | `ClientTubeTxReleaseMs` / `ClientTubeRxReleaseMs` |
+| RN2            | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. | unchecked | — | — |
+
 ## Output level meter (editor only)
 
 The floating editor contains an **OUT** level meter on its far right column. It shows the post-saturation peak level using fast-attack / slow-release ballistics. The color bands are:
@@ -67,6 +68,31 @@ The floating editor contains an **OUT** level meter on its far right column. It 
 The meter is not present in the docked applet tile.
 
 Bypass for each instance is controlled from the CHAIN widget, not from within the tube tile itself. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
+
+## Knob appearance and theme support
+
+In v26.6.1, all knobs in the tube applet (and across AetherSDR) follow the color theme. Their appearance is drawn from five dedicated theme color keys:
+
+| Knob component | Theme key | Example effect |
+|----------------|-----------|----------------|
+| Background ring | `color.knob.background` | The unlit arc behind the knob arc |
+| Foreground arc | `color.knob.foreground` | The arc showing the current value |
+| Handle / pointer | `color.knob.handle` | The line pointing to the current value |
+| Value text | `color.text.primary` | The numeric value drawn below the knob |
+| Label text | `color.text.secondary` | The control name drawn above the knob |
+
+The transfer curve widget also follows the theme:
+
+| Curve element | Theme key | Example effect |
+|---------------|-----------|----------------|
+| Background | `color.background.0` | The plot area fill |
+| Frame / grid | `color.background.1` | The border and grid lines |
+| Axis lines | `color.background.1` | Horizontal and vertical axis lines |
+| Curve line | `color.accent.dim` | The tubed transfer curve |
+| Ball glow | `color.accent.warning` | The glow around the live input ball |
+| Ball core | `color.text.primary` | The center dot of the live input ball |
+
+The widget container itself is tagged with the theme container `applet/tube`, which allows per-applet color overrides for the tube's knobs and curve.
 
 ## Tips
 

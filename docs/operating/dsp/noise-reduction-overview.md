@@ -7,6 +7,7 @@ AetherSDR provides six client-side noise-reduction engines. This page describes 
 - Open AetherDSP Settings via `Settings > AetherDSP Settings...`.
 - The NR engine you configure here is client-side only; it does not require a radio connection.
 - The dialog window position and size are automatically restored each time you open it. The `PersistentDialog` base class saves the geometry under the key `AetherDspDialogGeometry`.
+- The dialog uses themed styling based on the current AetherSDR theme. Colors are drawn from the `dialog/aetherDsp` theme container.
 
 ## Steps
 
@@ -21,7 +22,7 @@ The dialog provides standard window management via the title bar:
 
 | Control | Behavior |
 |---|---|
-| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. |
+| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Themed via `dialog/aetherDsp` theme container. |
 | — (Minimize) | Minimizes the dialog |
 | □ (Maximize) | Maximizes or restores the dialog |
 | × (Close) | Closes the dialog |
