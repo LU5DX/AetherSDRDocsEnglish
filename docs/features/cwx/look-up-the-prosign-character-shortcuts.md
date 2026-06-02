@@ -48,12 +48,22 @@ The send history scroll area displays each sent buffer as a bubble with a timest
   - **Resend:** Sends the same text again as if you typed it fresh. The text appears as a new bubble in the history.
   - **Clear History:** Removes all history bubbles from the scroll area. This action cannot be undone.
 
+## Aborting a transmission with Escape
+
+Pressing **Escape** during a CW transmission aborts the sending process. When you abort a transmission:
+
+- All unsent characters in the current buffer are displayed with strikethrough formatting in the history bubble.
+- Characters that were already sent appear normally, without strikethrough.
+- The bubble's timestamp shows when the transmission was started.
+
+This visual distinction helps you identify which parts of a message were actually transmitted versus canceled mid-send.
+
 ## Keyboard shortcuts in the CWX panel
 
 The CWX panel registers the F1 through F12 keys and the Escape key as application-wide shortcuts. The F1–F12 shortcuts are enabled or disabled based on the active slice's mode, managed by MainWindow. They fire regardless of whether the CWX panel is visible, as long as the active slice is in CW, CWL, or CWU mode. When the active slice switches to a different mode (such as SSB), the shortcuts are automatically disabled to prevent conflicts with other panels like the DVK panel.
 
 - **F1 – F12:** Sends the corresponding macro string.
-- **Escape:** Clears the current send buffer.
+- **Escape:** Aborts the current CW transmission. Unsent characters appear with strikethrough in the history bubble.
 
 ## Tips
 
@@ -63,6 +73,7 @@ The CWX panel registers the F1 through F12 keys and the Escape key as applicatio
 - The F1–F12 keyboard shortcuts are active whenever the active slice is in a CW mode, regardless of whether the CWX panel is visible. If you cannot trigger a macro with an F-key, check that the active slice is in CW, CWL, or CWU mode.
 - To resend a previous buffer, right-click the history bubble and select **Resend**. The original text is preserved and sent again as a new entry in the history.
 - To clear the send history, right-click any bubble and select **Clear History**, or right-click the history area background if no bubbles are present.
+- If you abort a transmission with Escape, the history bubble shows the unsent portion with strikethrough formatting for clear visual feedback.
 
 ## Related
 

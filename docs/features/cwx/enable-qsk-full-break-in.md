@@ -33,7 +33,7 @@ To turn QSK off, click **QSK** again.
 
 ## How Send and Live interact
 
-In v26.5.2.1 the **Send** and **Live** buttons no longer act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
+In v26.6.1 the **Send** and **Live** buttons no longer act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
 
 - **Live** is a toggle. Click it once to enable live character-by-character keying; click it again to disable it. The button's checked state always reflects the model's live state, even if the state was changed externally.
 - **Send** behaves differently depending on whether **Live** is active when you click it:
@@ -41,9 +41,21 @@ In v26.5.2.1 the **Send** and **Live** buttons no longer act as a simple mutuall
   - If **Live** is currently **on**, clicking **Send** first turns live mode off and returns the panel to the normal send view. The buffer is **not** retransmitted, because some characters may already have been keyed character-by-character.
 - Clicking **Setup** always turns live mode off before switching to the Setup view.
 
-## History bubble context menu
+## History bubble behavior
 
-Each sent message appears as a history bubble in the **Send history scroll** area. Right-click any bubble to open a context menu with the following actions:
+Each sent message appears as a history bubble in the **Send history scroll** area. Bubbles display the CW text and a timestamp. As characters are sent, the bubble updates to show which characters have been transmitted.
+
+### Aborted bubbles (Escape key)
+
+Press **Escape** during transmission to abort the current buffer. The bubble for the aborted message shows:
+- Characters that were already sent appear normally.
+- Characters that were not yet sent appear with strikeout formatting (a line through the text).
+
+This visual distinction helps you see what made it to the air and what was cut off.
+
+### History bubble context menu
+
+Right-click any bubble to open a context menu with the following actions:
 
 - **Resend** — Sends the selected message again and adds a new history bubble with the current timestamp.
 - **Clear History** — Removes all history bubbles from the scroll area.
@@ -52,7 +64,7 @@ Each sent message appears as a history bubble in the **Send history scroll** are
 
 The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts. The shortcuts are enabled or disabled by the active slice's mode, not by panel visibility. This ensures the keys fire whether the CWX panel is visible or not, while preventing conflicts with the DVK (Digital Voice Keyer) panel.
 
-- When the active slice is in CW, CWL, or CWU mode: F1–F12 trigger the corresponding CW macros, and **Escape** clears the send buffer.
+- When the active slice is in CW, CWL, or CWU mode: F1–F12 trigger the corresponding CW macros, and **Escape** aborts the current send buffer.
 - When the active slice is in a voice mode: F1–F12 trigger DVK macros instead.
 - The shortcuts are automatically managed by the MainWindow based on the active slice's mode.
 

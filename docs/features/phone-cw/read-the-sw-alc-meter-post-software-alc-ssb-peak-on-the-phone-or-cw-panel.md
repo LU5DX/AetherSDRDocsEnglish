@@ -55,6 +55,7 @@ This page shows you how to monitor the software Automatic Level Control (ALC) me
 - In v26.5.3 both ALC gauges are initialised to -20 dBFS on construction, preventing a momentary full-scale reading at startup.
 - The Compression gauge in v26.5.3 uses the MeterModel COMPPEAK value (positive 0..25 dB) and inverts it for the reversed -25..0 dB gauge display.
 - The level meter suppression logic has been refactored in v26.5.3 into a dedicated `applyLevelMeterReceiveGate()` method, called when transmit state changes or the RADE active state changes.
+- In v26.6.1 slider styling was updated to use the theme system instead of hardcoded color values. All sliders in the Phone/CW applet now respect the current theme.
 
 ## Related
 

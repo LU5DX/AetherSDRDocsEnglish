@@ -25,10 +25,11 @@ The binding is immediately restored to the action's default key. The action tabl
 | **Key:** | Indicator | Shows the currently selected key. Displays `(none)` when no key is selected. |
 | **Action:** | Combo box | Shows the action assigned to the selected key. |
 | **Category** | Indicator | Shows the category of the action assigned to the selected key. |
+| **Clear** | Button | Removes the assignment from the selected key. |
 | **Reset to Default** | Button | Restores the default key for the action currently assigned to the selected key. |
 | **Filter:** | Text field | Filters the action table by text. |
 | **Category:** | Combo box | Filters the action table by category. |
-| Action table | List | All actions with columns: Action, Category, Current Key, Default Key. |
+| Action table | List | All actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
 | **Reset All to Defaults** | Button | Resets every binding to its default key — use with caution. |
 | **Close** | Button | Closes the dialog. |
 

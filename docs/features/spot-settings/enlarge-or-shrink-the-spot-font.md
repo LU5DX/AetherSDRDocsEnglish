@@ -19,14 +19,33 @@ Use this page to make spot callsign text larger or smaller on the panadapter. Ad
 
 | Control | Description | Default |
 |---|---|---|
+| **Spots:** | Master toggle for DX spot display. Stored in `IsSpotsEnabled`. | Enabled |
+| **Memories:** | Toggles memory channel overlays on panadapter. Stored in `IsMemorySpotsEnabled`. | Disabled |
+| **Levels:** | Vertical stacking rows for spots. Range 1-10. Stored in `SpotsMaxLevel`. | 3 |
+| **Position:** | Vertical position on panadapter as a percentage. Range 0-100. Stored in `SpotsStartingHeightPercentage`. | 50 |
 | **Font Size:** | Sets the text size of spot callsigns and labels rendered on the panadapter. Range is 8–32 points. Stored in `SpotFontSize`. | 16 |
-| **Spot Lines:** | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Stored in `IsSpotsLinesEnabled`. New in v0.9.7. | Enabled |
+| **Spot Lifetime:** | How long spots remain before fading. Non-linear scale from 10 seconds to 24 hours. Stored in seconds in `DxClusterSpotLifetimeSec`. | 60 minutes |
+| **Override Colors:** | Forces a single text color for all spots. Stored in `IsSpotsOverrideColorsEnabled`. | Disabled |
+| **Spot text color picker** | Opens a color dialog to pick text color. Stored in `SpotsOverrideColor`. | #FFFF00 |
+| **Override Background: Enabled** | Draws a background under spot text. Stored in `IsSpotsOverrideBackgroundColorsEnabled`. | Enabled |
+| **Override Background: Auto** | Auto-picks background color for contrast. Stored in `IsSpotsOverrideToAutoBackgroundColorEnabled`. | Enabled |
+| **Spot background color picker** | Opens a color dialog for background color. Stored in `SpotsOverrideBgColor`. | #000000 |
+| **Background Opacity:** | Alpha of spot background (0 = transparent, 100 = opaque). Stored in `SpotsBackgroundOpacity`. | 48 |
+| **Spot Lines:** | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Stored in `IsSpotsLinesEnabled`. | Enabled |
+| **Clear All Spots** | Clears all spots from the panadapter. | N/A |
+
+## Indicators
+
+| Indicator | Description |
+|---|---|
+| **Total Spots:** | Shows count of live spots currently tracked. |
 
 ## Tips
 
 - A font size of 16 is the default. Values toward 8 reduce clutter when many spots are visible; values toward 32 help when viewing the panadapter from a distance.
 - Font size applies to all spots simultaneously. There is no per-spot size override.
 - Disabling **Spot Lines:** can significantly reduce visual clutter during contests when a large number of spots are active.
+- The Spot Settings dialog now respects the current theme. If you have a custom theme applied, the dialog title and Total Spots label will use your theme's text colors.
 
 ## Related
 

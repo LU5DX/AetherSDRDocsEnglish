@@ -1,13 +1,17 @@
-# Bypass the EQ stage from the chain
+# Aetherial Parametric EQ (TX / RX)
 
-This page explains how to bypass the client-side parametric EQ for either the TX or RX audio path. Bypassing removes the EQ from the signal chain without deleting your band settings.
+The Aetherial Parametric EQ is a client-side equalizer with two independent copies: **Aetherial TX EQ** and **Aetherial RX EQ**. Each docked tile (minimum 110 px tall) shows the summed EQ response with a live FFT analyzer overlay (including a peak-hold trace). All editing happens in the frameless `ClientEqEditor` floating window (titled "Aetherial Parametric EQ — TX" or "— RX").
 
-## Before you start
+## Bypass the EQ stage from the chain
+
+This section explains how to bypass the client-side parametric EQ for either the TX or RX audio path. Bypassing removes the EQ from the signal chain without deleting your band settings.
+
+### Before you start
 
 - AetherSDR must be open. A radio connection is not required to bypass the EQ.
 - The EQ stage must already be present in the CHAIN widget for the path you want to bypass (TX or RX).
 
-## Steps
+### Steps
 
 1. Locate the CHAIN widget for the path you want to bypass — either the TX chain or the RX chain.
 2. Single-click the EQ stage in the CHAIN widget for that path.
@@ -28,10 +32,35 @@ To re-engage the EQ, single-click the EQ stage in the CHAIN widget again.
 | Reset                               | Located in the floating editor header strip. Resets all bands to the default 10-band template, restores the default band count, and resets the Filter family to Butterworth. Saves immediately. Tooltip: 'Reset all bands to default values'.                                                                                                                                                                                                                                         | Affects `ClientEqTxBands` / `ClientEqRxBands` and `ClientEqTxFilterFamily` / `ClientEqRxFilterFamily`.                                                                                                                                                                                                                      |
 | Smoothing                           | Applies fractional-octave power-averaging to the analyzer trace for display — does not affect EQ math. Lower fraction = smoother (1/3 is most smoothed; 1/96 is effectively off). Shared between TX and RX editors. Smoothing is applied after the peak-hold update each frame, so both the live analyzer trace and the peak-hold trace are smoothed for display while peak detection itself remains sample-accurate.                                                                 | `ClientEqSmoothingFraction`. Tooltip: 'Fractional-octave smoothing applied to the analyzer trace. Lower fraction = smoother (1/3 = most, 1/96 = off). Affects display only — EQ math is unchanged.' Located in the editor header strip (floating editor only).                                                              |
 | Filter-type icon row                | A row of 8 custom-painted icons (one per band slot) at the top of the editor canvas area. Each icon draws the current filter shape (peak bell, shelf ramp, HP/LP slope) in its band's palette colour. Click an icon to cycle through the filter types for that band; clicking also selects the band, highlighting its handle on the canvas and its column in the parameter row.                                                                                                       | Located in the floating editor only. Icons dim to 35 % opacity when the band is bypassed. Implemented by ClientEqIconRow.                                                                                                                                                                                                   |
-| Parameter text row                  | A row of 8 text columns (one per band slot) below the canvas showing each band's Freq, Gain, and Q values. Values update live during canvas drags. Clicking a column selects that band. Right-click a column to open an inline edit menu; committing a numeric value there saves the EQ settings immediately (issue #2655). Each column has a transparent background so it does not bleed a dark fill over the canvas's band-plan strip directly above it.                         | Located in the floating editor only. Implemented by ClientEqParamRow.                                                                                                                                                                                                                                                       |
+| Parameter text row                  | A row of 8 text columns (one per band slot) below the canvas showing each band's Freq, Gain, and Q values. Values update live during canvas drags. Clicking a column selects that band. Right-click a column to open an inline edit menu; committing a numeric value there saves the EQ settings immediately. Each column has a transparent background so it does not bleed a dark fill over the canvas's band-plan strip directly above it.                                         | Located in the floating editor only. Implemented by ClientEqParamRow.                                                                                                                                                                                                                                                       |
 | Filter cutoff guide lines (TX / RX) | Dashed yellow vertical lines overlaid on the canvas at the radio's current TX low/high filter cutoff (TX tile) or RX passband edges (RX tile). Hovering near a line changes the cursor to a horizontal-resize arrow. Dragging a line in the editor moves the radio's corresponding filter cutoff in real time. The docked applet tiles also display these guide lines: the TX tile receives cutoffs via `setTxFilterCutoffs`, and the RX tile receives them via `setRxFilterCutoffs`. | Dragging the TX cutoff guides emits cutoffsDragRequested(Tx, lo, hi), which MainWindow forwards to TransmitModel. Dragging the RX guides writes to the active SliceModel. Pass 0 for an edge to suppress that guide.                                                                                                        |
+| Reference curve                     | Located in the floating editor header strip. Selects a visual reference overlay curve to guide EQ shaping. Options: **Off**, **AT&T 1959**, **Heil DX**, **Astatic D-104**, **Shure 444**, or **Heil HC-5**. Each curve is an amplitude-vs-frequency trace drawn in amber on the editor canvas, behind the user's band curves. The reference is for display only — it does not affect EQ math or audio processing. Default: **Off**.                                                   | Persisted separately per path: `ClientEqTxReferenceCurve` / `ClientEqRxReferenceCurve`.                                                                                                                                                                                                                                     |
 
 Band data is stored separately in `ClientEqTxBands` and `ClientEqRxBands` and is not affected by bypass.
+
+## Indicator elements
+
+| Indicator                  | States                                                                                       | Meaning                                                                                                                                                                                          |
+|----------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Summed EQ response         | flat (cyan 0 dB line), shaped (cyan curve)                                                   | Cumulative frequency response of all enabled bands for this tile's path. Dims to grey when the EQ stage is bypassed.                                                                             |
+| Live analyzer overlay      | idle (no fill), running (cyan gradient fill)                                                 | Real-time FFT of audio passing through this tile's path, filled from 0 dB (top, cyan) fading to transparent at the bottom. Refreshed at 25 Hz (40 ms timer).                                     |
+| Peak-hold trace            | decaying (off-white line moving down ~10 dB/sec), frozen (stationary at max level when Peak Hold is checked) | Per-frequency maximum energy seen since the last reset, helping identify resonances and harsh peaks while tuning. Tracks raw bins even when display smoothing is enabled.                       |
+| Filter cutoff guide lines  | absent (cutoff = 0 or not set), dashed yellow vertical line                                  | Marks the radio's current TX low/high filter cutoff (TX tile) or RX passband edges (RX tile) directly on the EQ canvas so you can see where the radio is rolling off the signal.                |
+| Audio band-plan strip      | always visible at bottom of canvas                                                           | 14 px strip at the bottom of the EQ canvas showing E-SSB / SSB / AM-FM modulation regions as a reference; cursor interaction in this area is excluded from band-handle hit-testing.              |
+| Reference curve overlay    | off (hidden), active (amber semi-transparent curve)                                          | Visual target curve displayed behind the user's band curves on the editor canvas. Preset curves include AT&T 1959, Heil DX, Astatic D-104, Shure 444, and Heil HC-5. Display only — no effect on EQ math. |
+
+## Reference curve presets
+
+The reference curve overlay helps you shape your EQ toward a known target response. Each preset is a digitised amplitude-vs-frequency trace derived from a classic microphone or telecommunications standard.
+
+| Preset name     | Description                                                                                                                                                                                                 |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Off             | No reference overlay shown.                                                                                                                                                                                 |
+| AT&T 1959       | AT&T's 1959 "optimum transmission frequency response for speech" — a canonical Bell Labs presence-peak target. Peak +5 dB at 2.5 kHz, rolls off below 300 Hz and above 3.4 kHz.                             |
+| Heil DX         | Bob Heil's published recommendation for maximum talk power in pile-ups. Sharper +6 dB peak at 2.7 kHz, more aggressive low-cut than AT&T 1959.                                                              |
+| Astatic D-104   | The classic "lollipop" crystal microphone response — extremely peaky presence around 3 kHz (+10 dB) with deep low-end rolloff.                                                                              |
+| Shure 444       | Classic broadcast-style desk microphone response — broader response with gentler presence boost (+4 dB around 3 kHz).                                                                                       |
+| Heil HC-5       | Modern dynamic SSB mic element response — mid-presence boost peaks around 3 kHz at +5 dB.                                                                                                                   |
 
 ## Tips
 
@@ -42,6 +71,7 @@ Band data is stored separately in `ClientEqTxBands` and `ClientEqRxBands` and is
 - The parameter text row columns use a transparent background. This prevents the dark application stylesheet fill from overlapping the band-plan strip at the bottom of the EQ canvas above the row.
 - Clicking **Reset** in the floating editor is permanent and takes effect immediately. There is no undo. The reset also sets the Filter family back to Butterworth for that path.
 - To set the Output Fader gain numerically, click the dB readout at the bottom of the fader. The display switches to a bare number (e.g. "0.0"). Type a value and press Enter to commit (clamped to the -36 to +12 dB range). Press Escape to cancel and restore the previous value. The inline edit behaves identically to the ClientCompKnob numeric entry.
+- Reference curves are visual guides only. They do not affect EQ math or audio processing. Select a curve to use as a shaping target, then adjust your parametric bands to match.
 
 ## Related
 

@@ -11,18 +11,18 @@ Use this page to map a physical button on your MIDI controller to the straight k
 ## Steps
 
 1. Open `Settings > MIDI Mapping...`.
-2. In the **Port:** combo box, select your MIDI controller from the list. If it does not appear, click Refresh.
-3. Click Connect. The status indicator changes to show the port is open.
+2. In the **Port:** combo box, select your MIDI controller from the list. If it does not appear, click **Refresh**.
+3. Click **Connect**. The status indicator changes to show the port is open.
 4. In the **Category** combo box, select `Phone/CW`.
 5. In the **Parameter** combo box, select one of the following:
    - `Trigger straight key` — sends a straight key press
    - `Trigger CW Left Paddle` — sends a left paddle (dit) event
    - `Trigger CW Right Paddle` — sends a right paddle (dah) event
-6. Click Learn. The button label changes to `Cancel Learn`.
+6. Click **Learn**. The button label changes to `Cancel Learn`.
 7. Press and hold the physical button on your MIDI controller that you want to bind. AetherSDR detects the MIDI message and completes the binding automatically.
-8. Confirm the new row appears in the Bindings table, showing the parameter name, MIDI Source, and Channel.
+8. Confirm the new row appears in the **Bindings table**, showing the parameter name, MIDI Source, and Channel.
 9. Repeat steps 5–8 for each additional CW input you want to bind.
-10. Click Close.
+10. Click **Close**.
 
 ## What each control does
 
@@ -31,11 +31,13 @@ Use this page to map a physical button on your MIDI controller to the straight k
 | Port: | Combo box | Selects the MIDI input device | `MidiPort` |
 | Refresh | Button | Rescans available MIDI ports | — |
 | Connect | Button | Opens or closes the selected MIDI port | — |
+| Port status | Indicator | Shows whether the MIDI port is currently open (Opened or Closed) | — |
+| Activity indicator | Indicator | Shows the most recent MIDI message received | — |
 | Auto-connect on startup | Checkbox | Reopens the MIDI port automatically on next launch | `MidiAutoConnect` |
 | Category | Combo box | Filters the Parameter list; categories include All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, and Frequency | — |
 | Parameter | Combo box | Chooses the target action to bind; CW options are `Trigger straight key`, `Trigger CW Left Paddle`, `Trigger CW Right Paddle` | — |
 | Learn | Button | Starts listening for the next MIDI message and binds it to the selected parameter; label becomes `Cancel Learn` while active | — |
-| Bindings table | List | Shows all current bindings with per-row Invert, Relative, and delete controls | — |
+| Bindings table | List | Shows all current bindings with per-row Invert, Relative, and delete controls; columns: Parameter, MIDI Source, Channel, Invert, Relative, (delete) | — |
 | Invert | Checkbox | Reverses the control direction for the row | — |
 | Relative | Checkbox | Treats the control as an endless encoder | — |
 | × (delete row) | Button | Removes that binding | — |
@@ -48,9 +50,9 @@ Use this page to map a physical button on your MIDI controller to the straight k
 ## Tips
 
 - These three CW actions are momentary (gate) type: the key is held for as long as the MIDI note or button remains active, then released. Use a pad or button that sends both Note On and Note Off messages for correct keying behavior.
-- If you previously saved a mapping that used the legacy IDs `cw.key`, `cw.dit`, or `cw.dah`, AetherSDR migrates those automatically to the current IDs on load. No manual action is needed.
+- If you previously saved a mapping that used the legacy IDs `cw.key`, `cw.dit`, or `cw.dah`, AetherSDR migrates those automatically to the current IDs (`cwkey`, `cwdit`, `cwdah`) on load. No manual action is needed.
 - Enable **Auto-connect on startup** so the port is ready the next time AetherSDR launches without requiring you to open this dialog.
-- Use the **Profile:** combo box to save and load named mapping profiles. Click Save to store the current bindings, or Load to apply a previously saved profile.
+- Use the **Profile:** combo box to save and load named mapping profiles. Click **Save** to store the current bindings, or **Load** to apply a previously saved profile.
 - The dialog remembers its size and position between sessions.
 
 ## Troubleshooting

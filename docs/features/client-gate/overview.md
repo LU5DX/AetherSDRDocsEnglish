@@ -65,6 +65,18 @@ The inline editor is available on all knob controls in both the TX and RX applet
 | Gain-reduction strip | Empty / amber fill / −15 dB tick | Depth of attenuation while the gate is closed. Scale maxes at 40 dB; a tick at −15 dB marks the soft-expander default floor. |
 | Applet tile opacity | Full opacity (enabled) / ~55 % opacity (bypassed) | Indicates at a glance whether the gate stage is currently processing audio. |
 
+## Theme-aware knob colours
+
+Knob components now read from the theme colour system rather than using hard-coded colours. The following colour roles control knob appearance:
+
+- **`color.knob.background`** — Background ring colour.
+- **`color.knob.foreground`** — Value arc colour.
+- **`color.knob.handle`** — Pointer/indicator colour.
+- **`color.text.secondary`** — Knob label text colour.
+- **`color.text.primary`** — Knob value text colour.
+
+The gate applet container is registered under the `applet/gate` theme path, allowing per-applet theme overrides. This enables the amber knob foreground colour used in the gate's transfer curve and gain-reduction bar to be styled independently from knobs in other applets.
+
 ## Tips
 
 - Watch the gain-reduction bar while not speaking (TX) or during a band-noise-only moment (RX). If the bar is not filling, Thresh is set below the noise floor and the gate is not triggering. See [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md).

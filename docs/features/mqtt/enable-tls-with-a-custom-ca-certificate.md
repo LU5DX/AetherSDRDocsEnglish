@@ -24,12 +24,18 @@ This page explains how to turn on TLS encryption for the MQTT connection and, op
 
 ## What each control does
 
-| Label       | Kind                                                                                                                        | Default                                                                    |
-|-------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| Enable      | Toggle button                                                                                                               | Off                                                                        |
-| Settings... | Push button                                                                                                                 | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
-| Publish buttons | Push button (up to 12)                                                                                                 | None                                                                       |
-| Message log | List                                                                                                                        | Displays received messages as 'topic: value' lines. Capped to 50 entries.  |
+| Label           | Kind                                                                                                                                        | Default                                                                                                                                                                                                |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Enable          | Toggle button. Connects or disconnects from the broker. Password is loaded from system keychain on first enable.                            | Off                                                                                                                                                                                                    |
+| Settings...     | Push button. Opens the MQTT Settings dialog for broker connection, subscriptions, and publish button configuration.                         | None                                                                                                                                                                                                   |
+| Publish buttons | Push buttons (up to 12). Click publishes the configured payload to the configured topic. Only active while connected.                      | None. Configured via MqttSettingsDialog Publish Buttons tab.                                                                                                                                           |
+| Message log     | Read-only text list. Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                    | Capped to 50 entries. Last 50 blocks displayed.                                                                                                                                                        |
+
+## Indicators
+
+| Label        | States                                    | Meaning                                                                                 |
+|--------------|-------------------------------------------|-----------------------------------------------------------------------------------------|
+| Status label | "Disconnected", "Connected", <error message> | Connection state with colour: green when connected, grey when disconnected, default on error. |
 
 ## Tips
 
@@ -38,6 +44,7 @@ This page explains how to turn on TLS encryption for the MQTT connection and, op
 - The CA certificate field is only available when the Use TLS checkbox is checked.
 - Settings are saved when you click **OK** in the MQTT Settings dialog or when Enable is clicked to the "On" position.
 - The status label shows "Disconnected" in grey, "Connected" in green, or an error message if the connection fails — for example, if the CA certificate path is wrong or the certificate does not validate the broker.
+- The MQTT applet now supports theming. Colors adapt to the selected theme using `ThemeManager`.
 
 ## Troubleshooting
 

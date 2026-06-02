@@ -40,6 +40,7 @@ The status label next to Enable shows the current connection state:
 - Publish buttons are inactive (clicks have no effect) while disconnected. Connect first, then use the buttons.
 - The MQTT password is stored in the system keychain. On first enable, the applet shows "Waiting for keychain" until the password is loaded.
 - All broker connection settings (host, port, credentials, TLS, subscriptions) are configured exclusively via the MQTT Settings dialog (Settings > MQTT...).
+- The MQTT applet now uses theme-aware colors for all controls and labels, adapting correctly to light and dark themes.
 
 ## Related
 

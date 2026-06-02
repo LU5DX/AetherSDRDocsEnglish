@@ -61,6 +61,20 @@ The three knobs under the **Clarity** group label add presence and air.
 
 Each knob supports inline value editing. Click a knob's displayed value text to activate the editor, type a number, then press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. The editor accepts both locale-aware formats (e.g., "12,5" in comma-decimal locales) and raw numeric input. Press Escape while editing to cancel and revert.
 
+## Theme support
+
+Knob colours and text colours throughout the PUDU applet now read from the theme system rather than using hardcoded values. The following theme namespaces control the PUDU appearance:
+
+- `color.knob.background` — the knob ring background track
+- `color.knob.foreground` — the knob arc that represents the current value
+- `color.knob.handle` — the knob pointer line
+- `color.text.primary` — the value text displayed below each knob
+- `color.text.secondary` — the label text above or alongside each knob
+
+The PUDU applet container is registered under `applet/pudu`, which allows per-applet theme overrides. Theme overrides enable the amber PooDoo colour on the Even radio button when it is selected.
+
+Bracket labels in both the applet panel and the floating editor use `{{color.text.primary}}` from the theme for their text colour, ensuring consistent appearance across different themes.
+
 ## Tips
 
 - Keep Mix values moderate — both Mix defaults are 30 %, which blends the effect in without overwhelming the dry signal.

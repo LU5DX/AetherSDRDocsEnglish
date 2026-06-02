@@ -62,6 +62,10 @@ No configuration is required. The visualisation is always visible when the apple
 - Use the live visualisation to confirm that the yellow reflection bursts begin clearly to the right of the cyan dry packet. If the two layers appear to overlap, increase Pre.
 - Use inline value editing to type a precise Pre value instead of turning the knob. This is especially useful when matching a specific millisecond setting.
 
+## Colors
+
+Starting in v26.6.1, knob colors in the Aetherial FreeVerb applet are driven by theme settings rather than hard-coded values. The `color.knob.background`, `color.knob.foreground`, and `color.knob.handle` entries in the active theme control the ring background, value arc, and pointer respectively. The `color.text.primary` and `color.text.secondary` entries control the value and label text below each knob. The applet container is set to the `applet/reverb` color namespace, which allows per-applet color overrides in custom themes. Default themes provide a consistent, high-contrast appearance for all knobs.
+
 ## Related
 
 - [Aetherial FreeVerb overview](overview.md)

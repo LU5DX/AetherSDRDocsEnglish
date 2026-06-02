@@ -34,6 +34,7 @@ DAX (Digital Audio eXchange) creates virtual audio streams between AetherSDR and
 - To start DAX automatically every time AetherSDR launches, check `Settings > Autostart DAX with AetherSDR` in the menu. This writes the same `AutoStartDAX` setting that the **Enable** button controls.
 - The TX indicator next to the **TX** label shows which slice currently holds TX privileges. If it shows `—`, no slice is set as the TX slice, and DAX TX audio will not reach the radio. Slice letters render in rich text for improved readability.
 - The gain sliders are post-fader: the meter bar reflects the level after your gain adjustment, so what you see is what the receiving application gets.
+- On Linux (v26.6.1+), DAX RX latency is approximately 200 ms, reduced from approximately 400 ms in earlier versions, through native PipeWire streaming.
 
 ## Troubleshooting
 

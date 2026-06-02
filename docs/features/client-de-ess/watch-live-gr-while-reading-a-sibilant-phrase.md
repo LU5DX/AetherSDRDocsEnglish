@@ -22,17 +22,17 @@ The gain-reduction (GR) bar in the Aetherial De-Esser updates in real time while
 
 ## What each control does
 
-| Control                  | Default       | Valid range        | Behavior                                                                                                                                                                                                 |
-|--------------------------|---------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Sidechain response curve | —             | —                  | Compact-mode ClientDeEssCurveWidget. Draws the bandpass filter response with a live ball at the current centre frequency.                                                                                |
-| Gain-reduction bar       | —             | 0 to 24 dB GR      | Horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed ~30 Hz from ClientDeEss::gainReductionDb().                                              |
-| Freq                     | 6000 Hz       | 1000 to 12000 Hz   | Logarithmic mapping (1000 * 12^n). Sets the centre frequency of the sibilance band. Label '6.0 kHz' above 1 kHz, 'N Hz' below.                                                                           |
-| Q                        | 2.00          | 0.5 to 5.0         | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label 'X.XX'.                                                                                                            |
-| Thresh                   | −30.0 dB      | −60.0 to 0.0 dB    | Linear mapping. Level above which the de-esser starts attenuating the band.                                                                                                                              |
-| Amount                   | −6.0 dB       | −24.0 to 0.0 dB    | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction.                                                                            |
-| Attack                   | 1.0 ms        | 0.1 to 30.0 ms     | Exponential mapping (0.1 * 300^n). Only available in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob.                                                         |
-| Release                  | 100 ms        | 10.0 to 500.0 ms   | Exponential mapping (10 * 50^n). Only available in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob.                                                           |
-| Slope                    | 24 dB/oct     | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | Push button that cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Present for both TX and RX paths. Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
+| Control                  | Default   | Valid range                              |
+|--------------------------|-----------|------------------------------------------|
+| Sidechain response curve | —         | —                                        |
+| Gain-reduction bar       | —         | 0 to 24 dB GR                            |
+| Freq                     | 6000 Hz   | 1000 to 12000 Hz                         |
+| Q                        | 2.00      | 0.5 to 5.0                               |
+| Thresh                   | −30.0 dB  | −60.0 to 0.0 dB                          |
+| Amount                   | −6.0 dB   | −24.0 to 0.0 dB                          |
+| Attack                   | 1.0 ms    | 0.1 to 30.0 ms                           |
+| Release                  | 100 ms    | 10.0 to 500.0 ms                         |
+| Slope                    | 24 dB/oct | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) |
 
 **Note:** Attack and Release controls are available in the Channel Strip's StripDeEssPanel (both RX and TX instances). The docked ClientDeEssApplet omits these two knobs.
 

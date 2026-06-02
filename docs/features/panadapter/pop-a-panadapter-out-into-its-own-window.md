@@ -65,6 +65,16 @@ The CW decode panel now displays both received (RX) and transmitted (TX) Morse d
 
 Right-clicking inside the **CW decode text** area opens a context menu. The menu contains the standard text editing actions (Select All, Copy, and so on) followed by a separator and a **Clear** item. Clicking **Clear** in the context menu has the same effect as clicking the **CLR** button — it empties the decode buffer immediately.
 
+## Waterfall freeze during transmission
+
+When any client in a Multi-Flex session begins transmitting, the waterfall in this panadapter freezes automatically. It resumes updating when transmission ends. This eliminates the 10–23 second TX-trail artifact that previously appeared after unkeying.
+
+On radio reconnection, the panadapter reasserts the desired frame rate and waterfall line duration to prevent silently dropping to the radio's default 10 Hz.
+
+## Theme support
+
+The panadapter title bar, CW decode panel, and all associated controls now use theme-aware color tokens (subject to change in future releases). The visual appearance adapts to the active theme without requiring manual style overrides.
+
 ## Tips
 
 - The floating window is frameless. Use the in-app title strip to drag it and the bottom-right size grip to resize it. There is no operating-system window border.

@@ -43,7 +43,7 @@ Selecting a category limits the **Parameter** combo box to entries in that group
 
 ## Parameter options
 
-The **Parameter** combo box contains all available parameters for binding. In v26.5.2.1, three new momentary (Gate) actions were added in the Phone/CW category:
+The **Parameter** combo box contains all available parameters for binding. In v26.6.1, three momentary (Gate) actions are available in the Phone/CW category:
 
 - **Trigger straight key** (id: `cwkey`)
 - **Trigger CW Left Paddle** (id: `cwdit`)

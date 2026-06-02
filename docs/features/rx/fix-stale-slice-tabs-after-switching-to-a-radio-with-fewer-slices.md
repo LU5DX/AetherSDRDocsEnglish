@@ -1,4 +1,4 @@
-# RX Controls Applet (v26.5.3)
+# RX Controls Applet (v26.6.1)
 
 The RX Controls applet provides per-slice receive controls including mode selection, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, and FM repeater duplex settings. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices. The filter-width formatter is shared with the VFO panel for consistent readouts (#2197), and the stepFilterWidth() method walks per-mode preset lists so widen/narrow shortcuts produce mode-correct edge geometry. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch, which would otherwise notch out FSK characters and break decoding (#2504). When switching out of RADE mode via the mode combo, the applet emits radeActivated(false) only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice.
 
@@ -23,7 +23,7 @@ The RX Controls applet provides per-slice receive controls including mode select
 | Frequency label | Displays current VFO frequency with dotted grouping. Click to switch into edit mode. | 0.000.000 | |
 | Frequency edit | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). Entering a value above 54.0 MHz that includes a decimal point (e.g. "144.0") is now treated as an explicit MHz entry and allowed for VHF/UHF operation without requiring an XVTR antenna. | None | XVTR-aware: accepts up to 50000 MHz when slice is on an XVTR antenna. Entering a value above 54.0 MHz without a decimal point (e.g. "144000") is divided by 1e3 for kHz-to-MHz conversion. |
 | STEP | `<` / `>` or mousewheel cycles through per-mode step sizes; emits stepSizeChanged. Step list depends on slice mode. | 100 Hz (index 2) | |
-| Filter width presets | Click to apply a preset filter width; right-click to save current width as a preset. The width readout uses mode-aware logic so SSB/digital modes display the correct labelled width. Keywords Widen/Narrow (if assigned to keyboard shortcuts) step through the per-mode preset list for mode-correct edge geometry. | Per-mode list | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
+| Filter width presets | Click to apply a preset filter width; right-click to save current width as a preset. The width readout uses mode-aware logic so SSB/digital modes display the correct labelled width. Keywords Widen/Narrow (if assigned to keyboard shortcuts) step through the per-mode preset list for mode-correct edge geometry. | Per-mode list | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). Filter preset buttons now use theme-aware tokenised stylesheets via ThemeManager, so they re-theme alongside the rest of the UI. |
 | Filter passband widget | Drag the lo/hi edges to adjust filter passband; emits filterChanged (lo, hi). | None | |
 | Tone mode (FM) | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes. | Off | |
 | CTCSS tone value | Selects CTCSS tone frequency sent with transmit. Enabled only when Tone mode = CTCSS TX. | None | 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz). |
@@ -34,7 +34,7 @@ The RX Controls applet provides per-slice receive controls including mode select
 | REV | Inverts the TX offset sign to work a reversed repeater pair. | None | |
 | 🔊 / 🔇 (mute) | Single-click mutes/unmutes this slice (deferred by the platform double-click interval). Double-click mutes/unmutes all owned slices via muteAllToggled signal. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. | 🔊 (unmuted) | Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. The single-click is deferred by clickDiscriminationIntervalMs() (default platform double-click interval, ~400 ms) so a double-click can override it. The button is no longer checkable; the icon update is driven by the radio acknowledgment, not the click event. |
 | AF gain | Adjusts slice audio output gain; emits afGainChanged. Displays current value as a percentage (e.g. "70%"). | 70 (70%) | Range 0-100. |
-| L / R pan | Pans slice audio between left (0) and right (100) channels. Displays current pan position: "C" for centre, "L{n}" for left pan, "R{n}" for right pan. Double-click resets to 50 (C). | 50 (C) | Range 0-100. |
+| L / R pan | Pans slice audio between left (0) and right (100) channels. Displays current pan position: "C" for centre, "L{n}" for left pan, "R{n}" for right pan. Double-click resets to 50 (C). The slider uses a CenterMarkSlider subclass that draws the fill from the centre outward, so only the (centre → handle) region is accented. A small centre-mark dot is painted on the groove as a visual landmark for the neutral position. | 50 (C) | Range 0-100. The CentreMarkSlider overpaints the left-half of the default sub-page fill with groove colour, then adds accent-colour fill from the centre to the handle. The handle pixel disc is clipped from the overpaint to prevent visual bleed. |
 | SQL | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). | None | |
 | Squelch level | Adjusts squelch threshold; takes effect only when SQL is on. Disabled in RTTY and digital modes. The manual squelch level is persisted client-side as the setting `LastManualSquelchLevel` (default 20). | 20 | Range 0-100. The last user-chosen manual squelch threshold is saved across sessions and restored on launch, because auto mode clobbers the slice's squelchLevel with algorithm-suggested values. |
 | AGC mode | Sets the slice AGC mode. Options: Off, Slow, Med, Fast. Hidden in FM family modes. | Med | |
@@ -75,27 +75,19 @@ The AF gain and Pan sliders now display their current values as text labels next
   - "L{n}" when panned left, where {n} is the difference from centre (e.g. "L20" for value 30).
   - "R{n}" when panned right, where {n} is the difference from centre (e.g. "R30" for value 80).
 
+## L/R pan slider centre-anchored fill
+
+The L/R pan slider (v26.6.1) uses a `CenterMarkSlider` class that paints the slider fill from the centre outward, unlike standard horizontal sliders which paint from the left edge. This provides intuitive visual feedback:
+
+- When the handle is left of centre, the accent-colour fill appears between the handle and the centre.
+- When the handle is right of centre, the accent-colour fill appears between the centre and the handle.
+- A small centre-mark dot (coloured #608090) is painted on the groove as a visual landmark for the neutral position.
+- The handle pixel disc is clipped from the overpaint to prevent visual bleed into the handle area.
+
 ## Frequency entry enhancements
 
 The frequency edit field includes several enhancements for VHF/UHF operation (v26.5.3):
 
 - Entering a value above 54.0 MHz that includes a decimal point (e.g. "144.0" or "432.100") is now treated as an explicit MHz entry and allowed without requiring an XVTR antenna. This enables direct tuning to VHF/UHF frequencies.
 - Entering a value above 54.0 MHz without a decimal point (e.g. "144000") is divided by 1e3 for kHz-to-MHz conversion.
-- The maximum allowed frequency when not on an XVTR antenna is 50000 MHz when an explicit MHz entry above 54.0 is detected.
-- XVTR operation still allows entering up to 50000 MHz and includes the 3-digit-band convenience feature (e.g. "1446" → 144.6 MHz) for 2m/70cm bands.
-
-## Antenna selection
-
-### RX antenna menu
-
-The RX antenna menu displays all available antennas from either the panadapter's `ant_list` or the slice's `rxAntennaList()` (if available). Menu items show both the antenna token and a human-readable label (e.g. "ANT1 - 1") for clarity. The selected antenna is set via `slice->setRxAntenna()` using the underlying token value, not the display label.
-
-### TX antenna menu
-
-The TX antenna menu filters out RX-only ports (those starting with "RX"). The `txAntennaOptions()` method returns only antenna tokens that start with "ANT", "TX", or equal "XVTR". Menu items show both the antenna token and a human-readable label (e.g. "ANT1 - 1") for clarity. The selected antenna is set via `slice->setTxAntenna()` using the underlying token value, not the display label.
-
-## Mute button behaviour
-
-The mute button (🔊 / 🔇) has updated behaviour (v26.5.3):
-
-- **Single-click**
+- The maximum allowed frequency when not on an XVTR antenna is 50000 MHz when an explicit MHz entry above 

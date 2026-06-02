@@ -14,7 +14,7 @@ When "Group by band" is enabled, bookmarks are sorted under labeled band headers
 
 | Control | Description | Notes |
 |---|---|---|
-| Bookmark buttons | Click to tune the panadapter to the stored frequency. Right-click and choose "Remove" to delete a single bookmark. | Color matches the band-plan segment for that frequency. Tooltip shows full frequency in MHz, mode, and RX antenna. |
+| Bookmark buttons | Click to tune the panadapter to the stored frequency. Right-click to delete a single bookmark. | Color matches the band-plan segment for that frequency. Tooltip shows full frequency in MHz, mode, and RX antenna. |
 | + | Adds a new bookmark at the active slice's current frequency. | — |
 | × | Clears all bookmarks. | Tooltip reads "Clear all bookmarks". |
 | ⚙ (gear) | Opens the band stack options menu. | See options below. |

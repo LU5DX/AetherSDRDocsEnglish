@@ -30,6 +30,7 @@ Open `Settings > SpotHub...`, then click **Edit Startup Commands** on either:
 - Typical startup commands include `set/dx` (enable DX spots), `set/announce` (enable announcements), or `set/filter` to limit spot types. Check your cluster's help (`help`) for available commands.
 - If a command requires a response from the cluster (e.g., a status confirmation), AetherSDR does not wait — it sends all lines immediately. For time-sensitive sequences, keep them short.
 - Changes take effect on the next connection or reconnect; they are not sent to an already-connected session.
+- The dialog now uses the active theme's color palette. Backgrounds, text colors, and accent colors adapt automatically to the current UI theme selection.
 
 ## See also
 

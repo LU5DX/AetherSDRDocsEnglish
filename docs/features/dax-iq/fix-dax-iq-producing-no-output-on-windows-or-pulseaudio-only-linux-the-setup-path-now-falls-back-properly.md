@@ -20,6 +20,12 @@ No user action is required. The fix is applied on the application side:
 | Control | Label | Default | Notes |
 |---------|-------|---------|-------|
 | Toggle button | IQ 1–4 **On**/**Off** | **Off** | Click to enable or disable the IQ stream. When toggling **On**, the audio setup now correctly falls back to PulseAudio on Windows and Linux without PipeWire. |
+| Combo box | IQ 1–4 rate | **48k** | Choose 24k, 48k, 96k, or 192k sample rate. Changing the rate emits `iqRateChanged(channel, rate)`. Syncs back to the radio-reported rate when a stream is active. |
+| Meter | IQ 1–4 meter | 0 | Shows the RMS level of the IQ stream, scaled 0-100 (RMS × 200). Resets to 0 on disconnect or disable. |
+
+## Visual changes in v26.6.1
+
+The DAX IQ applet now uses theme-aware styling. Instead of hard-coded colors, the meter progress bar backgrounds and chunks adapt to the current theme. This ensures consistent appearance across light and dark themes.
 
 ## Tips
 
@@ -30,6 +36,7 @@ No user action is required. The fix is applied on the application side:
 
 - **No audio output on Windows or PulseAudio-only Linux after upgrade** — Toggle the affected IQ channel **Off**, then **On** again. This triggers the corrected setup path that properly initializes the audio stream.
 - **Still no output after toggling** — Verify your external SDR software (e.g., HDSDR, SDR Console) is configured to receive audio from the correct DAX IQ device. The fix addresses the AetherSDR internal setup; your receiver must still be pointed at the right virtual audio device.
+- **Meter shows no activity** — Ensure the stream is set to **On** and the selected sample rate matches what your external SDR software expects.
 
 ## Related
 

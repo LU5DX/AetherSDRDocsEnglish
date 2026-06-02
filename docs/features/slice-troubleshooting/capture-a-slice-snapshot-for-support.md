@@ -1,6 +1,6 @@
 # Capture a slice snapshot for support
 
-The Slice Troubleshooting dialog captures a point-in-time snapshot of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, and control-device (MIDI) bindings on the connected radio. Use it to gather information before filing a bug report or asking for support, or to share with AI-assisted troubleshooting tools.
+The Slice Troubleshooting dialog captures a point-in-time snapshot of every slice, panadapter, transverter, DAX channel, audio device, client DSP state, control-device (MIDI) bindings, and audio renderer endpoints on the connected radio. Use it to gather information before filing a bug report or asking for support, or to share with AI-assisted troubleshooting tools.
 
 ## Before you start
 
@@ -9,8 +9,8 @@ The Slice Troubleshooting dialog captures a point-in-time snapshot of every slic
 ## Steps
 
 1. Click `Help > Slice Troubleshooting...`. The Slice Troubleshooting dialog opens and immediately captures a snapshot.
-2. Review detected problems on the **Issue Summary** tab. Each entry is a plain-language bullet describing a suspected issue such as missing audio, stuck mute, missing antenna, an invalid transverter configuration, audio routing problems, DSP state issues, control-device (MIDI) state, or multi-client ownership conflicts.
-3. Review the raw data on the **JSON** tab if you need the full detail or intend to attach it to a report. The snapshot uses schema version 3 and includes slices, DAX channels, audio devices, client DSP state, control devices, TX band settings, and remote audio RX stream state.
+2. Review detected problems on the **Issue Summary** tab. Each entry is a plain-language bullet describing a suspected issue such as missing audio, stuck mute, missing antenna, an invalid transverter configuration, audio routing problems, DSP state issues, control-device (MIDI) state, multi-client ownership conflicts, audio renderer endpoint issues, or panadapter connection status.
+3. Review the raw data on the **JSON** tab if you need the full detail or intend to attach it to a report. The snapshot uses schema version 3 and includes slices, DAX channels, audio devices, client DSP state, control devices, TX band settings, remote audio RX stream state, audio renderer endpoints, and panadapter slice connection status.
 4. If you changed slice state after opening the dialog, click **Refresh Snapshot** to re-read current slice state.
 5. To share the summary text, click **Copy Summary**. The text is copied to the clipboard.
 6. To share the full JSON, click **Copy JSON**. The full JSON snapshot is copied to the clipboard.
@@ -22,8 +22,8 @@ The Slice Troubleshooting dialog captures a point-in-time snapshot of every slic
 
 | Control              | Kind      | Behavior                                                                                                                                                                                                   |
 |----------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Issue Summary**    | Tab       | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, and multi-client ownership issues.                                                  |
-| **JSON**             | Tab       | Displays the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP state, control devices, TX band settings, and remote audio RX stream state.                         |
+| **Issue Summary**    | Tab       | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership issues, audio renderer endpoint issues, and panadapter slice connection status. |
+| **JSON**             | Tab       | Displays the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP state, control devices, TX band settings, remote audio RX stream state, audio renderer endpoints, and panadapter slice connection status. |
 | **Refresh Snapshot** | Button    | Re-reads current slice state from the radio and updates both tabs.                                                                                                                                         |
 | **Copy Summary**     | Button    | Copies the issue summary text to the clipboard.                                                                                                                                                            |
 | **Copy JSON**        | Button    | Copies the full JSON snapshot to the clipboard.                                                                                                                                                            |
@@ -33,16 +33,26 @@ The Slice Troubleshooting dialog captures a point-in-time snapshot of every slic
 
 ## What the Issue Summary includes
 
-The Issue Summary tab reports problems across several areas. From v0.9.4, the summary also includes two remote audio RX sections:
+The Issue Summary tab reports problems across several areas:
 
 - **Radio-level remote audio RX** — Reports the stream ID, whether the stream is expected, whether creation is pending, whether a status message has been seen, whether the stream is owned by this client, the compression setting in use, and any routing note that explains why the stream is or is not active.
 - **Per-slice radio stream route** — Reports the remote audio RX stream ID for the slice's RX route alongside flags for whether the stream is expected, creation is pending, removal has been requested, a status message has been seen, and whether the stream is owned by this client.
+- **Audio renderer endpoints** — For each audio endpoint, reports the direction, kind, backend, device name, sample rate, channel count, sample format, resampling status, buffer bytes, buffer peak, underrun count, any operational or error state, and any additional notes.
+- **Panadapter slice connection status** — For each panadapter, reports the connection state summary, which slice IDs are connected, which are active, and whether attention is required.
+
+## What the JSON includes
+
+The JSON snapshot includes all data from the Issue Summary plus detail for troubleshooting. From v26.6.1, the snapshot also includes:
+
+- **Audio renderer endpoints** — Each endpoint's full configuration: name, direction, kind, backend, device, sample rate, channel count, sample format, resampling status, buffer statistics, operational and running flags, state, error, and notes.
+- **Panadapter slice connection status** — For each panadapter, the `slice_connection_status` object containing the state, summary, connected slice IDs, active slice IDs, and attention required flag.
 
 ## Tips
 
 - Take the snapshot before and after changing slice configuration if you are trying to isolate a problem. Use **Refresh Snapshot** between captures to update the data.
 - If you are reporting a transverter problem, the **JSON** tab includes each transverter's RF frequency, IF frequency, offset, and validity flags. The **Issue Summary** tab will flag any transverters where validity cannot be confirmed.
 - If you are reporting a remote audio problem, the **Issue Summary** tab now includes remote audio RX stream state at both the radio level and the per-slice level. Copy or export the snapshot and share it with support or paste it into an AI-assisted troubleshooting tool for analysis.
+- If you suspect an audio endpoint issue, check the audio renderer endpoint entries in the Issue Summary for underruns, error states, or configuration mismatches. The JSON tab provides full detail for each endpoint.
 
 ## Related
 

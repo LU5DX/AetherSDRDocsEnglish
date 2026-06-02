@@ -10,7 +10,7 @@ This page explains how to open AetherSDR's bundled guide for configuring digital
 
 1. Click `Help` in the menu bar.
 2. Click `Configuring Data Modes...`.
-3. The HelpDialog opens, displaying the data modes guide in the Markdown viewer.
+3. The HelpDialog opens, displaying the data modes guide in the Markdown viewer. The dialog header shows "AETHERSDR OFFLINE HELP" with the topic title and subtitle.
 4. Read the guide. Scroll as needed.
 5. To search within the guide, type a term into the `Find:` field and click `Next` to move forward through matches or `Previous` to move backward. Press Return to advance to the next match; press Shift+Return to go to the previous match.
 6. Click `Close` when finished.
@@ -28,6 +28,7 @@ This page explains how to open AetherSDR's bundled guide for configuring digital
 
 - Each help topic opens in its own dialog. You can reopen `Help > Configuring Data Modes...` at any time without affecting other open help windows.
 - The bundled help is available even when your station computer has no internet access.
+- The dialog uses the current theme's color scheme for its background, text, and accent colors.
 
 ## Related
 

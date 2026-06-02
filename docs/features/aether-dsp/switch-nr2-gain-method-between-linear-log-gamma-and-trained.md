@@ -22,7 +22,7 @@ The title bar contains three window control buttons and a grip glyph:
 
 ## DSP engine selection tabs
 
-Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine's page. Clicking a tab also activates or bypasses the corresponding engine.
+Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine's page. Clicking a tab also activates or bypasses the corresponding engine. When NR2 is activated, AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
 
 ### Tab availability
 

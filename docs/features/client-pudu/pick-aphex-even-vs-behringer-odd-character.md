@@ -69,6 +69,7 @@ The "Body" bracket label groups the three low-frequency knobs (Drive, Tune, Mix)
 - The AetherVoice logo pulses with the processed (wet) signal RMS, so you can see the exciter reacting as you switch modes without monitoring audio.
 - When the PUDU stage is bypassed, the entire applet tile dims to approximately 55% opacity, matching the dim effect applied to the EQ curve. This is a visual indicator only and does not affect your settings.
 - All six Body and Clarity knobs remain active regardless of which mode is selected; their effect on the signal changes character depending on the mode chosen.
+- Knob components (background ring, arc, pointer handle) now use theme colors from the `color.knob.*` namespace. The Body group brackets and Clarity group brackets read text colors from `color.text.*`. Per-applet container overrides (e.g., the amber PooDoo colour on the Even button) are supported through the theme container system (`applet/pudu`).
 
 ## Related
 

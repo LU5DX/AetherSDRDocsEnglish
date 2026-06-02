@@ -26,6 +26,14 @@ Configure up to 12 publish buttons that send MQTT messages with a single click. 
 | **Topic** (table cell) | MQTT topic string sent when the button is clicked. | Editable text |
 | **Payload** (table cell) | MQTT payload string sent when the button is clicked. | Editable text |
 
+## Internal AetherSDR Publish Topics
+
+The **Internal AetherSDR Topics** group box at the bottom of the Publish Buttons tab lists topics that are published automatically whenever MQTT is connected. These topics are not user-configurable:
+
+`aethersdr/cw/decode`
+
+## Settings storage
+
 All button definitions are saved to `MqttSettings` (nested JSON key `buttons`) when you click Apply or Ok.
 
 ## Tips

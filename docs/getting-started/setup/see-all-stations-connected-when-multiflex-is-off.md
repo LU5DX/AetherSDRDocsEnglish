@@ -34,6 +34,7 @@ Use the Connected Stations dialog to view every client currently connected to yo
 
 - The dialog centers itself on the screen where AetherSDR is located, or on your primary monitor if unavailable.
 - You cannot connect AetherSDR while another client occupies the sole slot — you must disconnect one first.
+- The dialog uses a themed container style matching the system or user-selected theme.
 
 ## Related
 

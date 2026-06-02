@@ -31,11 +31,13 @@ The applet no longer enforces a fixed height; it resizes vertically with the lay
 The settings drawer contains the following controls:
 
 - **View** combo box — Selects waveform visualization mode. Options: Scope, Envelope, History, Bands. Persisted as `WaveApplet_ViewMode`.
-- **Zoom** slider — Amplitude scaling from 1.0x to 6.0x. Default 1.7x (170%). Persisted as `WaveApplet_ZoomPercent`.
-- **FPS** slider — Refresh rate from 5 to 30 Hz. Default 24 Hz. Persisted as `WaveApplet_RefreshRateHz`.
+- **Zoom** slider — Amplitude scaling from 1.0x to 6.0x. Default 1.7x (170%). Persisted as `WaveApplet_ZoomPercent`. Changes are saved immediately to settings.
+- **FPS** slider — Refresh rate from 5 to 30 Hz. Default 24 Hz. Persisted as `WaveApplet_RefreshRateHz`. Changes are saved immediately to settings.
 - **Window** slider — Time window duration. Steps: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s. Default 1 s. Persisted as `WaveApplet_TimeWindowMs`.
 
 On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec`, your previous window setting is migrated to the nearest available step in the new discrete-step system.
+
+Slider styles are now theme-aware — the groove, sub-page, and handle colors adapt to the active theme instead of using the fixed `#203040`/`#00b4d8`/`#c8d8e8` palette. Label colors similarly follow the theme's `color.text.primary` and `color.text.secondary` tokens.
 
 ### Settings drawer state
 

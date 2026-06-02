@@ -16,7 +16,7 @@ Click `Settings > AetherDSP Settings...`.
 
 ## Dialog overview
 
-The AetherDSP Settings dialog features a custom title bar with a blue-gradient background. From left to right it contains:
+The AetherDSP Settings dialog features a custom title bar with a gradient background. From left to right it contains:
 
 - A grip glyph (⋮⋮) — visual indicator only
 - The dialog title "AetherDSP Settings"
@@ -96,6 +96,18 @@ Under the DFNR tab, use these controls:
 |---------|---------|-------------|-------------|-------------|
 | **Attenuation Limit** | 100 | 0–100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum. |
 | **Post-Filter Beta** | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. Slider stores value*100 internally. |
+
+## RN2 tab
+
+The RN2 tab is informational only. It displays the currently active RNNoise model but provides no adjustable parameters. The engine is controlled exclusively through the main receiver toolbar toggle.
+
+## BNR tab
+
+The BNR tab displays the currently active NVIDIA Broadcast model. Intensity is controlled from the overlay menu, not from this dialog. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+
+## Theme support
+
+Starting in v26.6.1, the AetherDSP Settings dialog uses the theme system for styling. The dialog background and text colors follow the active theme. All sliders use the theme's primary slider style instead of hardcoded colors. Custom themes can override the appearance through the `{{color.background.0}}` and `{{color.text.primary}}` template variables.
 
 ## Tips
 

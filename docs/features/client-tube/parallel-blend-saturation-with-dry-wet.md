@@ -28,6 +28,11 @@ The inline editor is also available on all other knobs in the floating editor (D
 |----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Dry/Wet** (editor) / **Mix** (docked tile) | 100 %                                                                                                                                                                               | 0 % to 100 % (stored as 0.0 to 1.0)                                                                                                                                                                       |
 | RN2                                          | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+
+### Knob visual colors
+
+The AetherSDR tube applet controls use theme-aware colors for all knob components. The knob background ring, foreground arc, handle, label text, and value text each read from dedicated theme color keys. The tube applet container (`applet/tube`) may supply per-applet overrides — for example, the tube applet's knob foreground can differ from other applets' knob colors. The transfer curve widget similarly reads its background, frame, grid, axis, curve, ball glow, and ball core colors from the active theme, ensuring consistent visual appearance across all themes.
+
 ## Tips
 
 - A Dry/Wet value between 20 % and 50 % is effective for adding warmth on SSB TX without audible distortion artifacts. The dry signal anchors the fundamental while the wet signal contributes harmonics.

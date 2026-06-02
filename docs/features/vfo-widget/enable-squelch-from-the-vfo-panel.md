@@ -38,8 +38,9 @@ To disable squelch, click the **Squelch button** again.
 | Marker thickness button      | 1 px                                                                                                                                  | Off / 1 px / 3 px                                                                                                      |
 | Filter edges button          | Shown                                                                                                                                 | On / Off                                                                                                                |
 | Collapse toggle              | Expanded                                                                                                                              | On / Off                                                                                                                |
-| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu.         | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite.                                                             | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off | On / Off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 
 Neither the button state nor the slider position is persisted as an AetherSDR AppSettings key — both reflect live radio state.
 
@@ -171,9 +172,4 @@ In v26.5.3, the mouse wheel scrolling behavior has been updated:
 | Change | Description |
 |---|---|
 | Locked slice handling | When scrolling over a locked slice in collapsed mode, the tune request is now blocked with a visual `LOCKED` notification instead of being silently ignored. |
-| Consistent collapsed mode | The scroll-to-tune behavior in collapsed mode now uses the same lock check as expanded mode, ensuring consistent behavior regardless of panel state. |
-
-## Related
-
-- [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
-- [M
+| Consistent collapsed mode | The scroll

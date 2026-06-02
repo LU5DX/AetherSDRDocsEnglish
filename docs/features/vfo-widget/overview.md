@@ -15,6 +15,8 @@ The panel is divided into tabs — **Mode**, **Audio**, **DSP**, **X/RIT**, and 
 
 When collapsed, the panel shrinks to a compact frequency-only strip. Scroll-wheel tuning still works in collapsed mode. Click anywhere on the collapsed strip to expand it again, or click the TX badge to toggle the transmit slice assignment.
 
+The panel uses a themed container scope (`spectrum/vfo`) for its theming. Clicking a control in the panel during Inspector mode shows the relevant token values.
+
 ### Header row
 
 The header row sits above the tabs and is always visible.
@@ -44,12 +46,14 @@ When DIGU or DIGL is selected in the Mode combo, a digital data container appear
 | Control | Default | Valid range | Persisted key |
 |---|---|---|---|
 | AF Gain slider | 100 | 0–100 | — |
-| Pan slider | 50 | 0–100 | — |
+| Pan slider | 50 (centre) | 0–100 | — |
 | Mute button | off | — | — |
 | Squelch button + slider | off | 0–100 | — |
 | AGC combo | FAST | FAST, MED, SLOW, OFF | — |
 
 The Pan slider center position (50) is stereo centre. Double-click the Pan slider to reset it to centre. Audio controls reflect live radio state and are not persisted by AetherSDR.
+
+The Pan slider uses a CenterMarkSlider implementation. The fill anchors from the centre outward, so the groove fill extends from the centre position to the handle position. A small centre-mark dot is painted on the groove to show the neutral position at a glance. The fill colour uses the theme's `color.accent` token, and the unfilled area uses `color.background.1`.
 
 The squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes the audio feeds external decoders via DAX, where squelch would gate weak FSK signals. In CW mode the radio locks squelch on at a fixed level and rejects changes. When entering one of these modes while squelch is enabled, squelch is automatically turned off and restored when leaving that mode.
 
@@ -60,7 +64,7 @@ The DSP tab contains buttons for noise reduction and filtering algorithms suppli
 | Control | Default | Notes |
 |---|---|---|
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | off | Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
-| ADSP button | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| ADSP button | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. The button styling uses theme tokens (`color.background.1` for background and border, `color.accent` for pressed state). |
 | AetherVoice button | — | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
 
 #### DSP level slider
@@ -123,6 +127,22 @@ When a slice is locked:
 - The LOCKED overlay clears automatically when you unlock the slice.
 - Direct frequency entry is prevented while locked — clicking the frequency display does not enter edit mode, and any active direct entry is cancelled immediately.
 
+## Theming and Inspector support
+
+The VFO Panel uses theme tokens for its visual appearance. In v26.6.1, the following theme tokens are declared for Inspector mode coverage:
+
+- `color.background.0`
+- `color.background.1`
+- `color.background.2`
+- `color.text.primary`
+- `color.text.label`
+- `color.accent`
+- `color.accent.bright`
+
+These tokens are used by raw QPainter calls that paint the panel's background, signal meter, and other custom-drawn elements. When using the Inspector, clicking on the VFO flag, callsign badge, or signal meter strip surface shows these tokens in the hit-list.
+
+The ADSP button and other push buttons in the panel use theme-aware styling through applyStyleSheet, with `{{color.background.1}}` for the background and `{{color.accent}}` for the pressed state.
+
 ## Tips
 
 - In collapsed mode, scroll-wheel anywhere over the strip tunes the slice by the current step size.
@@ -131,6 +151,7 @@ When a slice is locked:
 - The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
 - Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
 - Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY audio feeds external decoders via DAX channels, and squelch could gate weak FSK signals. CW mode locks squelch on at a fixed level.
+- The Pan slider fill anchors from centre outward with theme-aware colours. Double-click to reset to centre.
 
 ## Related
 
@@ -147,4 +168,4 @@ When a slice is locked:
 - [Change the VFO marker line thickness](change-the-vfo-marker-line-thickness.md)
 - [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md)
 - [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
-- Lock a slice to prevent accidental tuning
+- Lock a slice to

@@ -42,6 +42,7 @@ Use the Digital Voice Keyer panel to record your voice into one of up to 8 slots
 - **● REC does nothing when clicked** — No slot is selected. Click a slot row first, then click **● REC**.
 - **Status shows Recording but no audio is captured** — Verify the microphone is not muted at the operating system level and that the audio input device is routed correctly through the radio.
 - **F-keys do not respond in the DVK panel** — The active slice must be in a voice mode for DVK F-key shortcuts to be active. If the slice is in CW mode, CWX keyboard shortcuts are active instead.
+- **WAV transfer fails with "Transfer failed"** — If a WAV file upload or download fails, the status label shows a message starting with "Transfer failed". Verify the file is a valid 16-bit Mono WAV at 8-48 kHz sample rate. Network interruptions during transfer may also cause this error.
 
 ## Related
 

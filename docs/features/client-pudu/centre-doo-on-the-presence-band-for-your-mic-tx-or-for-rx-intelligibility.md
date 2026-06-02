@@ -39,6 +39,7 @@ The **Doo / Tune** knob sets the centre frequency of the high-frequency exciteme
 - The **Even** mode (Aphex-lineage) adds asymmetric harmonics at the Clarity band — warmer character. **Odd** mode (Behringer-lineage) adds symmetric odd harmonics — brighter and more forward. The best Doo / Tune point may differ between modes. See [Pick Aphex (Even) vs Behringer (Odd) character](pick-aphex-even-vs-behringer-odd-character.md).
 - If the applet tile appears dimmed, the PUDU stage is bypassed. Re-enable it in the CHAIN widget before making adjustments.
 - Use the inline editor to type exact frequencies. Click the displayed value to activate the editor, type a number, and press Enter. Locale-aware parsing accepts both dot and comma decimal separators. Invalid entries revert silently to the previous value.
+- The knob colours (background ring, value arc, pointer, label text and value text) are drawn from the current theme via the `color.knob.*` and `color.text.*` namespaces. The PUDU applet registers itself under the theme container `applet/pudu`, so any per-applet colour overrides (for example, an amber knob foreground) take effect on PUDU knobs without affecting knobs in other applets. The "Body" and "Clarity" bracket labels also use themed text via `color.text.primary`.
 
 ## Related
 

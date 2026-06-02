@@ -9,22 +9,26 @@ Choose how aggressively the de-esser's sidechain filter attenuates frequencies o
 
 ## Steps
 
-1. In the De-Ess editor (titled "Aetherial De-Esser — TX" or "Aetherial De-Esser — RX"), locate the **Slope** button in the left column, bottom area.
-2. Click the **Slope** button. Each click cycles to the next value: 12 dB/oct → 24 dB/oct → 36 dB/oct → 48 dB/oct, then wraps back.
+1. In the De-Ess editor (titled "Aetherial De-Esser — TX" or "Aetherial De-Esser — RX"), locate the **Slope** push button in the left column, bottom area.
+2. Click the **Slope** push button. Each click cycles to the next value: 12 dB/oct → 24 dB/oct → 36 dB/oct → 48 dB/oct, then wraps back.
 3. The button label updates to show the current slope, e.g. "24 dB/oct".
 4. Speak a sibilant phrase (e.g. "Sally sells sea shells") and listen for the most natural sound with minimal attenuation on non-sibilant parts of your voice.
 
 ## What each control does
 
-| Control | Label | Description | Default | Valid range | Setting key |
-|---------|-------|-------------|---------|-------------|-------------|
-| Slope | **Slope** push button | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | `ClientDeEssTxSlopeStages` or `ClientDeEssRxSlopeStages` |
+| Control | Label                 | Description                                                                                                  |
+|---------|-----------------------|--------------------------------------------------------------------------------------------------------------|
+| Slope   | **Slope** push button | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. |
 
 ## Tips
 
 - Start with **24 dB/oct** (2 stages) — this provides a good balance between sharp cutoff and smooth sound.
 - For heavy sibilance that triggers on many words, try **12 dB/oct** — the gentler slope preserves more natural timbre.
 - For extreme "S" sounds on an otherwise clear voice, **48 dB/oct** can target only the harshest sibilant band with minimal mid-band impact.
+
+## Color theming (v26.6.1)
+
+Beginning in v26.6.1, the De-Ess editor and its internal widgets (the sidechain response curve, knobs, and gain-reduction meter) read colors from the theme engine. The editor container registers under the `applet/deess` container key, so theme authors can assign distinct colors to the De-Ess editor panel. Curve colors (axis labels, grid lines, bandpass curve, threshold line, and centre-frequency ball) use the same theme namespace as other Aetherial applets. Knob components (arc, background ring, pointer, and labels) read from `color.knob.*`.
 
 ## Related
 

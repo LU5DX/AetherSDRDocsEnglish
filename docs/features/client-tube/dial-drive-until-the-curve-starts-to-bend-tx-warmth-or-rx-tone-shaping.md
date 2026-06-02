@@ -17,41 +17,42 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 
 ## What each control does
 
-| Control  | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Drive    | 0.00 dB                                                                                                                                                                             | 0.0 – 24.0 dB                                                                                                                                                                                             |
-| Tone     | 0.00                                                                                                                                                                                | −1.0 – 1.0                                                                                                                                                                                                |
-| Bias     | 0 %                                                                                                                                                                                 | 0 – 100 %                                                                                                                                                                                                 |
-| Output   | 0.00 dB                                                                                                                                                                             | −24.0 – 12.0 dB                                                                                                                                                                                           |
-| Dry/Wet  | 100 %                                                                                                                                                                               | 0 – 100 %                                                                                                                                                                                                 |
-| Envelope | 0 %                                                                                                                                                                                 | −100 – 100 %                                                                                                                                                                                              |
-| Attack   | 5.00 ms                                                                                                                                                                             | 0.1 – 30.0 ms                                                                                                                                                                                             |
-| Release  | 35.00 ms                                                                                                                                                                            | 10.0 – 500.0 ms                                                                                                                                                                                           |
-| RN2      | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control  | Default | Valid range | Notes |
+|----------|---------|-------------|-------|
+| Drive    | 0.00 dB | 0.0 – 24.0 dB | Label 'X.XX dB'. Left column of the editor. |
+| Tone     | 0.00    | −1.0 – 1.0    | Label 'X.XX'. Centre row of the editor, left of the Model selector. |
+| Bias     | 0 %     | 0 – 100 %     | Label displayed as percentage. Centre row of the editor, right of the Model selector. Setting key `ClientTubeTxBias` / `ClientTubeRxBias`. |
+| Output   | 0.00 dB | −24.0 – 12.0 dB | Label 'X.XX dB'. Left column of the editor. Setting key `ClientTubeTxOutputDb` / `ClientTubeRxOutputDb`. |
+| Dry/Wet  | 100 %   | 0 – 100 %     | Label displayed as percentage. Left column of the editor (top knob). |
+| Envelope | 0 %     | −100 – 100 %  | Label displayed as percentage (signed). Right column of the editor. Setting key `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope`. |
+| Attack   | 5.00 ms | 0.1 – 30.0 ms | Label 'X.XX ms' below 10 ms, 'X.X ms' above. Right column of the editor. Exponential mapping (0.1 × 300^n). |
+| Release  | 35.00 ms | 10.0 – 500.0 ms | Label 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor. Exponential mapping (10 × 50^n). |
+| RN2      | unchecked | TX-only toggle (hidden in RX mode) | Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
-**Transfer curve** — Indicator. Draws the tube transfer curve in real time. The shape changes as you adjust Drive, Bias, and model selection. The live input ball rides the curve at the current signal level, showing the active saturation regime. No persisted key.
+**Transfer curve** — Indicator. Compact-mode ClientTubeCurveWidget. Draws the currently-configured tube transfer curve with a live ball at the input. The shape changes as you adjust Drive, Bias, and model selection. The live input ball rides the curve at the current signal level, showing the active saturation regime. No persisted key.
 
-**Drive** — Pushes more signal into the tube stage. Higher values cause the transfer curve to bend more sharply, producing stronger harmonic content.
+**Drive** — Linear mapping. Pushes more signal into the tube stage. Higher values cause the transfer curve to bend more sharply, producing stronger harmonic content. Label 'X.XX dB'. Left column of the editor.
 
-**Tone** — Negative values darken the saturated signal; positive values brighten it.
+**Tone** — Linear mapping. Negative values darken the saturated signal; positive values brighten it. Label 'X.XX'. Centre row of the editor, left of the Model selector.
 
-**Model A / B / C** — Toggle buttons. Selects the tube character model. Exclusive selection — only one model active at a time. Defaults to Model A (checked). Backing value stored as integer 0/1/2 in `ClientTubeTxModel` / `ClientTubeRxModel`.
+**Model A / B / C** — Toggle buttons. Selects the tube character model. Exclusive selection — only one model active at a time. Defaults to Model A (checked). Amber when checked. Backing value stored as integer 0/1/2 in `ClientTubeTxModel` / `ClientTubeRxModel`.
 
-**Bias** — Shifts the operating point on the transfer curve, changing the balance of even and odd harmonics.
+**Bias** — Linear mapping. Shifts the operating point on the transfer curve, changing the balance of even and odd harmonics. Label displayed as percentage. Centre row of the editor, right of the Model selector. Setting key `ClientTubeTxBias` (not `ClientTubeTxBiasAmount`) / `ClientTubeRxBias`.
 
-**Output** — Post-tube make-up or trim gain. Use this to match the saturated level to the dry level.
+**Output** — Linear mapping. Post-tube make-up or trim gain. Use this to match the saturated level to the dry level. Label 'X.XX dB'. Left column of the editor. Setting key `ClientTubeTxOutputDb` (not `ClientTubeTxOutputGainDb`) / `ClientTubeRxOutputDb`.
 
-**Dry/Wet** — Dry/wet blend. At 100 % only the saturated signal passes. Reducing Dry/Wet blends in the original dry signal for parallel saturation.
+**Dry/Wet** — Linear mapping. Dry/wet blend. At 100 % only the saturated signal passes. Reducing Dry/Wet blends in the original dry signal for parallel saturation. Label displayed as percentage. Left column of the editor (top knob).
 
-**Envelope** — Dynamic envelope follower modulation. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. Label displayed as percentage (signed).
+**Envelope** — Linear mapping (−1.0 to +1.0). Dynamic envelope follower modulation. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. Label displayed as percentage (signed). Right column of the editor. Setting key `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope`.
 
-**Attack** — Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. Exponential mapping (0.1 × 300^n). Label shows 'X.XX ms' below 10 ms, 'X.X ms' above.
+**Attack** — Exponential mapping (0.1 × 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. Label shows 'X.XX ms' below 10 ms, 'X.X ms' above. Right column of the editor.
 
-**Release** — Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. Exponential mapping (10 × 50^n). Label shows 'X.XX ms' below 100 ms, 'X.X ms' above.
+**Release** — Exponential mapping (10 × 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. Label shows 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor.
 
-**Output level meter** — Indicator. Visible only in the floating editor ("Aetherial Tube — TX" or "— RX"), in the far-right column labelled OUT. Shows post-saturation peak level with fast-attack / slow-release ballistics. Colour zones: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), red (above −3 dB). No persisted key.
+**Output level meter** — Indicator. ClientLevelMeter widget (far right of the editor) showing post-saturation peak level with fast-attack / slow-release ballistics. Labelled 'OUT'. Only visible in the floating editor ("Aetherial Tube — TX" or "— RX"), not the docked applet tile. Colour zones: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), red (above −3 dB). No persisted key.
 
 **Value edit mode** — Click any knob's displayed value to enter edit mode. The value text transforms into an inline text field with a subtle dark background and cyan border. Type a numeric value (supports locale-aware formats like "12,5" and unit-stripped input like "3.5 ms" or "−6 dB") and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. Press Escape or leave the field with invalid input to revert silently.
+
 ## Tips
 
 - Start with Drive at 0.0 dB and increase slowly. The transfer curve is the most direct visual guide to how much saturation you are adding.
@@ -60,6 +61,7 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - If you want to hear the effect without committing to it, reduce Dry/Wet toward 0 % to blend back to dry while keeping your Drive setting in place.
 - Use the OUT meter in the floating editor to confirm that the post-saturation level is where you expect it before closing the editor.
 - To dial in an exact value, click the knob's displayed value to enter inline edit mode rather than dragging the knob.
+- The applet tile and floating editor use per-applet container colour overrides defined in the theme's `color.knob.*` namespace (background, foreground, handle) and `color.text.*` for label/value text. Theme customisation affects knob appearance in this applet independently of other applet types.
 
 ## Troubleshooting
 

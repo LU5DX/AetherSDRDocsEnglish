@@ -40,6 +40,7 @@ Each step snaps to the nearest multiple of 50 Hz in the chosen direction rather 
 - The **DEXP** and **DEXP threshold** controls persist their values locally via `DexpEnabled` and `DexpLevel` even though the radio rejects the commands on firmware v1.4.0.0. The saved values will apply automatically if a future firmware version resolves the error.
 - You can adjust **Low Cut** and **High Cut** with the mouse wheel when hovering over the value display, in addition to using the **<** and **>** buttons.
 - Because the **<** and **>** buttons snap to the 50 Hz grid, pressing a button once from an off-grid value corrects to the grid rather than moving a full step beyond it. This is expected behavior.
+- The Phone applet now respects the active theme for its colors. Slider and button styling follows the primary and accent colors defined in your chosen theme. AM Carrier slider tracks and VOX level, Delay, and VOX level sliders all use the primary accent color for their handles.
 
 ## Troubleshooting
 

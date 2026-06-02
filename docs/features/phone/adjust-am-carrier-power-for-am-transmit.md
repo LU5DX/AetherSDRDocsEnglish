@@ -37,6 +37,7 @@ As of v0.9.5.1, the **Low Cut < / >** and **High Cut < / >** buttons snap the fi
 - The numeric label next to the **AM Carrier** slider shows the current value in real time. Use it to set a precise level without guessing the slider position.
 - The AM Carrier slider has no persisted setting key. Its value is read from the radio on connect and reset if you reconnect.
 - Because **Low Cut** and **High Cut** now snap to 50 Hz multiples, clicking once from an off-grid value (for example, a value not divisible by 50) will first align to the nearest boundary before continuing to step in the expected direction.
+- The Phone applet now supports theming. Its appearance automatically adapts to the selected theme, affecting colors of labels, sliders, and buttons.
 
 ## Related
 

@@ -16,9 +16,11 @@ The dialog window uses the persistent dialog framework, saving and restoring its
 - **Filters** — Low-latency / Sharp filter options per bandwidth
 - **XVTR** — Per-transverter configuration
 - **USB Cables** — Assigns USB serial adapters to CAT, BCD, bit, and PTT cable types
-- **Peripherals** — External devices manual IP connection (TGXL, PGXL, Antenna Genius, ShackSwitch)
+- **Peripherals** — External devices manual IP connection (TGXL, PGXL, Antenna Genius)
 - **APD** — External Adaptive Pre-Distortion sampler configuration (FLEX-8x00 with SmartSDR 4.2.18+ only)
 - **Themes** — UI customization including slice colors
+- **SmartLink** — Pinned SmartLink TLS certificate management
+- **Serial** — FlexControl serial port configuration and paddle/button mapping
 
 The dialog geometry (position and size) is saved automatically when you close the dialog and restored on next open. The dialog inherits from `PersistentDialog` which handles geometry persistence under the key `RadioSetupDialogGeometry`.
 
@@ -42,6 +44,8 @@ The following indicators are read-only and show information retrieved from the c
 | **FlexControl** | Detected state of FlexControl hardware |
 | **multiFLEX** | multiFLEX enabled state |
 | **License Info** | Subscription status, expiration date, radio ID, and licensed version |
+
+Each read-only field has a copy button (clipboard icon) that appears on hover or focus. Click the copy button to copy that field's value to the system clipboard. A brief popup confirms the copy action.
 
 ### User Configuration Fields
 
@@ -222,45 +226,23 @@ The **Antennas** tab allows you to configure user-friendly names for each antenn
 
 ---
 
-## Filters Tab
+## Audio Tab
 
-The **Filters** tab configures low-latency and sharp filter options per bandwidth.
+The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
 
-| Control | What it does | Range |
-|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. | 0-3 |
-| **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. | — |
-| **Use Low Latency Filters for Digital Modes** | Forces low-latency filters in DIGU/DIGL. | — |
-
----
-
-## XVTR Tab
-
-The **XVTR** tab provides per-transverter configuration. It contains nested tabs, one per transverter, plus a '+' tab for creating new transverters.
-
-| Control | What it does |
-|---|---|
-| **RX Only:** | Forces RX-only on that transverter |
-| **Remove (xvtr)** | Deletes the transverter definition |
-| **Create New Transverter** | Adds a new transverter entry |
-
----
-
-## USB Cables Tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | What it does |
-|---|---|
-| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status |
-| **Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7)** | Per-cable serial parameters and behavior |
-
----
-
-## Peripherals Tab
-
-The **Peripherals** tab allows manual IP connection to external devices (TGXL, PGXL, Antenna Genius).
-
-| Control | What it does | Notes |
-|---|---|---|
-| **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. | Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune`
+| Control | What it does | Default | Range | Setting Key |
+|---|---|---|---|---|
+| **Line Out:** | Line-out gain slider | — | — | — |
+| **Mute (Line Out)** | Mutes line-out | — | — | — |
+| **Headphone:** | Headphone gain slider | — | — | — |
+| **Mute (Headphone)** | Mutes headphone | — | — | — |
+| **Front Speaker: / Mute** | Mutes front speaker (model-specific) | — | — | — |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN | Auto | — | `AudioCompression` |
+| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle | False | — | `InhibitSleepWhileConnected` |
+| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices | — | — | — |
+| **Audio Boost:** | Enables extra gain on the client audio path | — | — | `AudioBoost` |
+| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter | 200 | 50-1000 ms | `AudioBufferMs` |
+| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording | Radio Side | Radio Side / Client Side | `RecordingMode` |
+| **Save to:** | Folder for saved recordings (client-side only) | Documents/AetherSDR/Recordings | — | `QsoRecordingDir` |
+| **...** | Browses for recording folder | — | — | — |
+| **Auto-record on TX** | Autom

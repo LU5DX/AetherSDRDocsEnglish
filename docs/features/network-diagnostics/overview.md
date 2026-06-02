@@ -73,21 +73,21 @@ Speaker-side buffer health. If underruns increase while the buffer stays near ze
 
 ## Controls
 
-| Control | Behavior | Notes |
-|---|---|---|
-| Overview (tab) | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). | |
-| Details (tab) | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups. | |
-| Latency (tab) | Full-width time-series graph of RTT, arrival gap and jitter in ms. | |
-| Rates (tab) | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps. | |
-| Packet Loss (tab) | Full-width time-series graph of packet loss % per stream category. | |
-| Audio (tab) | Full-width time-series graph of playback buffer fill (ms) and underruns/s. | |
-| Logs (tab) | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. | Timeframe selector is hidden while this tab is active. |
-| Timeframe | Selects how far back the time-series charts display history. Default is 5 minutes. Available options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week. | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
-| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories. | |
-| Select All (Logs) | Shows all log categories in the viewer. | |
-| Deselect All (Logs) | Hides all log categories from the viewer. | |
-| Live / Paused (Logs) | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail. | Default state is Live. |
-| Close | Closes the dialog. | |
+| Control                  | Behavior                                                                                                                                                                                                                         | Notes                                                                                                   |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| Overview (tab)           | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).                                                     |                                                                                                         |
+| Details (tab)            | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                                                                                                           |                                                                                                         |
+| Latency (tab)            | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                                                                               |                                                                                                         |
+| Rates (tab)              | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                                                                                   |                                                                                                         |
+| Packet Loss (tab)        | Full-width time-series graph of packet loss % per stream category.                                                                                                                                                               |                                                                                                         |
+| Audio (tab)              | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. | v26.5.3 (#2889): per-stream RX diagnostics exposed in the support bundle and in this tab's detail view. |
+| Logs (tab)               | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                                                                         | Timeframe selector is hidden while this tab is active.                                                  |
+| Timeframe                | Selects how far back the time-series charts display history. Default is 5 minutes. Available options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.                                                                    | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active.                       |
+| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                                                                    |                                                                                                         |
+| Select All (Logs)        | Shows all log categories in the viewer.                                                                                                                                                                                          |                                                                                                         |
+| Deselect All (Logs)      | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                         |
+| Live / Paused (Logs)     | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      | Default state is Live.                                                                                  |
+| Close                    | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
 
 ## Logs tab
 

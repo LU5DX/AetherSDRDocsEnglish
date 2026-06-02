@@ -45,7 +45,7 @@ The **MIDI Controller Mapping** dialog lets you configure a MIDI controller. Use
 
 Select a **Parameter** to assign, then click **Learn** to record a binding from your MIDI controller. In the Phone/CW category, three momentary (Gate) actions are available: **Trigger straight key**, **Trigger CW Left Paddle**, and **Trigger CW Right Paddle**. Legacy dotted IDs (`cw.key`, `cw.dit`, `cw.dah`) are automatically migrated on read.
 
-The **Bindings table** shows existing bindings with per-row **Invert**, **Relative**, and delete (**×**) controls.
+The **Bindings table** shows existing bindings with per-row **Invert**, **Relative**, and delete (**×**) controls. Columns: Parameter, MIDI Source, Channel, Invert, Relative, (delete).
 
 Use the **Profile:** combo box, **Save**, and **Load** buttons to manage named mapping profiles.
 

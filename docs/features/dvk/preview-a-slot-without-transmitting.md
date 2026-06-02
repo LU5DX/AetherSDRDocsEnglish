@@ -19,7 +19,7 @@ Use this page to audition a DVK slot through your local speaker before sending i
 
 | Control | Behavior | Notes |
 |---|---|---|
-| F1 … F8 slot buttons | Selects the slot. If the slot is currently playing back on air, clicking again stops it. | Does not trigger preview. |
+| F1 … F8 slot buttons | Selects the slot. If the slot is currently playing back on air, clicking again stops it. Right-click to rename or upload a WAV. | Does not trigger preview. |
 | Slot name labels | Shows the name of each slot. | Default name is "Recording \<n\>". |
 | Slot duration labels | Shows recording length or "Empty". | A slot showing "Empty" cannot be previewed. |
 | Slot progress bars | Displays playback progress in blue during preview. | Hidden when idle. |

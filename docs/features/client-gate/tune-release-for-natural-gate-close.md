@@ -24,7 +24,7 @@ The knob uses an exponential mapping (5 × 400^n), so small movements at the low
 
 ## Transfer curve display
 
-The transfer curve widget plots the expander's static transfer curve with a live ball at the current input level. A soft-cyan hysteresis-band overlay appears between (Thresh − Return) and Thresh, making the sticky zone visible. The widget uses compact-mode rendering when the applet is in its smaller state, with axis labels drawn using cached static text for improved performance.
+The transfer curve widget plots the expander's static transfer curve with a live ball at the current input level. A soft-cyan hysteresis-band overlay appears between (Thresh − Return) and Thresh, making the sticky zone visible. The widget uses compact-mode rendering when the applet is in its smaller state, with axis labels drawn using cached static text for improved performance. Colors in the curve widget now respect the selected theme: the curve color uses the accent warning color, and grid, background, and label colors follow the theme's color palette.
 
 ## Gain-reduction bar
 
@@ -32,7 +32,7 @@ A horizontal amber strip, filled from the right, shows the depth of attenuation 
 
 ## Inline value editing
 
-Each knob in the five-knob row supports direct numeric entry. Click the value text below a knob to activate an inline editor. Type a number and press Enter or click elsewhere to commit the value. The value is clamped to the knob's valid range. Press Escape to cancel editing and revert to the previous value. The editor appears as a subtle dark inset with a cyan border when focused, and matches the painted label appearance when unfocused.
+Each knob in the five-knob row supports direct numeric entry. Click the value text below a knob to activate an inline editor. Type a number and press Enter or click elsewhere to commit the value. The value is clamped to the knob's valid range. Press Escape to cancel editing and revert to the previous value. The editor appears as a subtle dark inset with a cyan border when focused, and matches the painted label appearance when unfocused. Knob colors for the ring arc, background, handle, label, and value text now follow the theme's designated color namespace (`color.knob.*`), with the label text using color.text.secondary and value text using color.text.primary.
 
 ## Tips
 
@@ -42,6 +42,7 @@ Each knob in the five-knob row supports direct numeric entry. Click the value te
 - Changes take effect immediately and are saved automatically. No radio connection is required to adjust this setting.
 - If the applet tile appears dimmed, the gate stage is bypassed and no processing is occurring. Re-enable the stage before making adjustments. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - For precise adjustments, click the value text below the Release knob to enter a specific millisecond value directly. This is useful when you need to match a known timing from another processor or save a specific setting for later recall.
+- The applet and its curve widget now use the active theme's colors. Knob ring arcs, backgrounds, and handles draw from the theme's knob color namespace. The curve widget uses theme colors for its background, grid, axis labels, identity line, and the amber accent warning color for the curve — all of which update when the theme changes.
 
 ## Related
 
@@ -50,3 +51,4 @@ Each knob in the five-knob row supports direct numeric entry. Click the value te
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
+- [Customize theme colors for knobs and curves](customize-theme-colors-for-knobs-and-curves.md) (if applicable for your theme setup)

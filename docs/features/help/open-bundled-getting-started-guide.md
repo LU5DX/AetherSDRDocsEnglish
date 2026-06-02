@@ -33,6 +33,7 @@ AetherSDR ships a set of offline help topics that open without an internet conne
 - Each entry under the `Help` menu opens a separate dialog for that topic, so you can keep multiple topics open at the same time.
 - The help content is bundled with the application and does not require a network connection.
 - If a help file cannot be loaded, the viewer displays a notice asking you to reinstall AetherSDR or report the missing asset.
+- The help dialog now follows the current theme. Its colors change automatically when you switch themes in `Settings > Appearance`.
 
 ## Related
 

@@ -20,6 +20,12 @@ Provide a custom CA certificate file when connecting to an MQTT broker that uses
 | **Use TLS** | Checkbox that enables TLS encryption. Checking it auto-switches the port from 1883 to 8883 (and vice versa when unchecked). | unchecked | `MqttTls` |
 | **CA cert** | Text field for the CA certificate file path. Visible only when **Use TLS** is checked. Leave blank to use the system CA bundle. The **Browse...** button opens a file selection dialog. | blank | `MqttCaFile` |
 
+## Publish Buttons tab
+
+| Control | Description | Default | Setting key |
+|---|---|---|---|
+| **Internal AetherSDR Topics** | Read-only group box that lists topics published automatically whenever MQTT is connected. These topics are not user-configurable. | `aethersdr/cw/decode` | — |
+
 ## Troubleshooting
 
 - **Connection fails with "certificate verify failed"** — The CA certificate file path is incorrect or the certificate does not match the broker. Verify the file path and that the certificate is the CA that signed the broker's certificate.

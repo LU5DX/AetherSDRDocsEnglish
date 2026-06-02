@@ -35,6 +35,7 @@ The slice assignment indicator to the left of each slider (showing either **—*
 - The level meter fill reflects post-fader output level — that is, the incoming audio multiplied by the current gain. Moving the slider gives immediate visual feedback on the effective output.
 - Gain values are stored as two-decimal-place floats (for example, `0.75`). They are restored from `DaxRxGain1`–`DaxRxGain4` each time AetherSDR starts.
 - If a channel shows **—** in the slice assignment indicator, no slice is routed to it and the meter will show no activity regardless of the gain setting.
+- On Linux, the DAX audio bridge uses a native PipeWire stream source path, reducing RX latency from approximately 400 ms to approximately 200 ms compared to the previous PulseAudio client.
 
 ## Troubleshooting
 

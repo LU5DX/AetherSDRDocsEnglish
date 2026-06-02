@@ -16,17 +16,23 @@ Display the latest value of a subscribed MQTT topic directly on the panadapter, 
 
 ## What each control does
 
-| Control | Behavior | Setting key |
-|---------|----------|-------------|
-| **Off/On** toggle | Connects or disconnects from the broker. Saves connection state. | — |
-| **Settings...** button | Opens the MQTT Settings dialog for broker configuration, subscriptions, and publish buttons. | — |
-| Message log | Shows the last 50 received messages as `topic: value`. Enables the panadapter overlay for display-enabled topics. | — |
-| Publish buttons | Up to 12 buttons configured in MQTT Settings. Each publishes its configured payload to its configured topic. | `MqttButtons` |
+| Control                | Behavior                                                                                                                                    | Setting key                                                                         |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| **Enable (Off/On)** toggle | Connects or disconnects from the broker using settings from MqttSettings. Saves connection enabled state. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. | — |
+| **Settings...** button | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. | — |
+| Message log            | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT. Capped to 50 entries.                   | —                                                                                   |
+| Publish buttons        | Click publishes the configured payload to the configured topic via MqttClient::publish. Up to 12 buttons. Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. | MqttButtons |
+
+## Status indicator
+
+| Indicator     | States                                        | Meaning                                                                 |
+|---------------|-----------------------------------------------|-------------------------------------------------------------------------|
+| Status label  | Disconnected, Connected, `<error message>`    | Connection state with colour: green when connected, grey when disconnected, default on error. |
 
 ## Tips
 
 - Only the **last value** of each display-enabled topic is overlaid. The overlay shows the short topic name (last segment) and the value.
-- To clear the overlay, disconnect the MQTT client (toggle **Off/On** to "Off").
+- To clear the overlay, disconnect the MQTT client (toggle **Enable (Off/On)** to "Off").
 
 ## Troubleshooting
 

@@ -17,6 +17,15 @@ The DAX Audio applet shows a slice-assignment indicator next to each DAX channel
 
 ## What each control does
 
+| Control | Kind | Default | Range | Setting key | Behavior |
+|---|---|---|---|---|---|
+| **DAX Enable** | Toggle button | Off | — | `AutoStartDAX` | Starts the DAX audio bridge; emits `daxToggled`. |
+| **DAX 1 gain+meter** | Meter/slider | 0.5 | 0.0–1.0 | `DaxRxGain1` | Drag to set RX gain on DAX channel 1. |
+| **DAX 2 gain+meter** | Meter/slider | 0.5 | 0.0–1.0 | `DaxRxGain2` | Drag to set RX gain on DAX channel 2. |
+| **DAX 3 gain+meter** | Meter/slider | 0.5 | 0.0–1.0 | `DaxRxGain3` | Drag to set RX gain on DAX channel 3. |
+| **DAX 4 gain+meter** | Meter/slider | 0.5 | 0.0–1.0 | `DaxRxGain4` | Drag to set RX gain on DAX channel 4. |
+| **TX gain+meter** | Meter/slider | 0.5 | 0.0–1.0 | `DaxTxGain` | Drag to set TX gain on the DAX TX stream. |
+
 | Indicator | Location | Possible values | Persisted setting |
 |---|---|---|---|
 | Slice-assignment status (per channel) | Right of **DAX 1:** – **DAX 4:** labels | `—` or `Slice A`–`Slice H` | None |
@@ -29,6 +38,7 @@ These indicators are read-only. They update automatically when a slice's DAX cha
 - The indicators update in real time. If you change a slice's DAX channel assignment on the radio or in another part of the UI, the applet reflects the change immediately without requiring a manual refresh.
 - A channel showing `—` means no slice is currently assigned to it; audio will not flow on that channel.
 - Starting with v26.5.2.1, slice letters in the status indicators may use rich text formatting. This is an internal change; you do not need to adjust any settings to see the indicators correctly.
+- The DAX Audio applet uses theme styling (class `applet/dax`). If you customize your application theme, the applet's appearance may vary to match the rest of the UI.
 
 ## Related
 

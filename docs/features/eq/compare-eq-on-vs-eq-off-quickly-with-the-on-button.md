@@ -47,6 +47,7 @@ This makes it easy to see the exact value without looking at the number below th
 - Your band slider positions are not changed by toggling ON. You can safely toggle in and out repeatedly without losing your curve.
 - The applet remembers which view (RX or TX) you last selected and restores it the next time you open the Equalizer tile. The TX view remains the default for first-time use.
 - Use the Reset arc button to quickly flatten all bands for the selected path without clicking individual sliders.
+- The EQ applet now supports live theme switching. When you change the application theme, the EQ tile's colors update in real time to match, including slider handles, labels, and button backgrounds.
 
 ## Related
 

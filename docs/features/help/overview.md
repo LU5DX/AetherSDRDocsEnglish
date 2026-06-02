@@ -31,6 +31,10 @@ Each entry opens a separate window pre-loaded with that topic. You can have mult
 | **Hint / footer** | Shows the tip: "The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
 | **Close** | Closes the help window. |
 
+## Appearance
+
+The Help dialog uses theme-aware colors. The header background, text colors, and scroll bar colors are styled based on the current AetherSDR theme. The overall layout includes theme tokens for the header background, accent color, primary and secondary text, and background layers for the main viewer and scroll bars.
+
 ## Tips
 
 - The Find field searches only the currently open topic. To search a different guide, open it from the Help menu and use Find there.

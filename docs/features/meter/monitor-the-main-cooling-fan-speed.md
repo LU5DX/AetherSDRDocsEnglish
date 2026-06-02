@@ -32,6 +32,7 @@ Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns r
 ## Troubleshooting
 
 - **Main Fan gauge shows no movement after opening the applet** — The fan meter index is resolved lazily on first update. Wait a few seconds for the radio to emit a meter reading. If the gauge remains at zero, verify the radio connection is active via `Settings > Connect to Radio...`.
+- **Meters applet does not display correctly with certain themes** — The applet now applies theme styling via `applet/meter` container settings. If you experience visual issues, ensure you are using a compatible theme in `Settings > Appearance`.
 
 ## Related
 

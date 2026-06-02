@@ -26,11 +26,11 @@ When the gate stage is bypassed, the entire applet tile renders at reduced opaci
 |------------------------|-------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Transfer curve         | Indicator   | —          | Compact-mode ClientGateCurveWidget. Plots the expander's static transfer curve and a live ball at the current input level.                                                                                                                       |
 | Gain-reduction bar     | Meter       | —          | Horizontal amber strip, right-filled. Scale maxes at 40 dB (gates can cut very deep); a tick at -15 dB marks the soft-expander default floor.                                                                                                    |
-| Thresh                 | Knob        | -40.0 dB   | Linear mapping. Level below which the gate starts attenuating. Range: -80.0 to 0.0 dB.                                                                                                                                                           |
-| Ratio                  | Knob        | 2.0        | Linear mapping. Higher ratios give a harder, more gate-like cut; lower ratios act as a soft downward expander. Label format 'X.X:1'. Range: 1.0 to 10.0.                                                                                          |
-| Return                 | Knob        | 2.0 dB     | Linear mapping (n * 20). Sets the hysteresis deadband: the gate opens above Thresh and doesn't close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. Label format 'X.XX dB'. Range: 0.0 to 20.0 dB. |
-| Release                | Knob        | 100 ms     | Exponential mapping (5 * 400^n). Sets how quickly the gate closes after input falls below Thresh − Return. Label format 'X.X ms' below 100, 'X ms' above. Range: 5 to 2000 ms.                                                                    |
-| Floor                  | Knob        | -15.0 dB   | Linear mapping. Maximum attenuation the gate is allowed to apply. Range: -80.0 to 0.0 dB.                                                                                                                                                        |
+| Thresh                 | Knob        | -40.0 dB   | Linear mapping. Level below which the gate starts attenuating. Range: -80.0 to 0.0 dB. Setting key: `ClientGateTxThresholdDb`.                                                                                                                        |
+| Ratio                  | Knob        | 2.0        | Linear mapping. Higher ratios give a harder, more gate-like cut; lower ratios act as a soft downward expander. Label format 'X.X:1'. Range: 1.0 to 10.0. Setting key: `ClientGateTxRatio`.                                                            |
+| Return                 | Knob        | 2.0 dB     | Linear mapping (n * 20). Sets the hysteresis deadband: the gate opens above Thresh and doesn't close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. Label format 'X.XX dB'. Range: 0.0 to 20.0 dB. Setting key: `ClientGateTxReturnDb`. |
+| Release                | Knob        | 100 ms     | Exponential mapping (5 * 400^n). Sets how quickly the gate closes after input falls below Thresh − Return. Label format 'X.X ms' below 100, 'X ms' above. Range: 5 to 2000 ms. Setting key: `ClientGateTxReleaseMs`.                                |
+| Floor                  | Knob        | -15.0 dB   | Linear mapping. Maximum attenuation the gate is allowed to apply. Range: -80.0 to 0.0 dB. Setting key: `ClientGateTxFloorDb`.                                                                                                                        |
 
 **Gain-reduction bar:** Horizontal amber strip, right-filled. Scale maxes at 40 dB. A tick at -15 dB marks the default Floor value. Empty means no attenuation; full right-fill means the gate is cutting at the maximum depth set by Floor.
 
@@ -49,6 +49,10 @@ Each knob supports inline direct entry of a numeric value. Click the displayed v
 - Press Escape while editing to discard changes and revert to the prior value.
 - While the editor is active, mouse wheel events still adjust the knob value normally.
 - The editor is available on both the TX Gate and RX AGC-G copies independently.
+
+## Theme colors
+
+The knob components and transfer curve widget use theme colors from the `color.knob.*` and `color.background.*` namespaces. Knob elements have a dedicated container override `applet/gate` that allows per-applet styling (for example, the amber knob foreground used in the gate applet). The label and value text below knobs remain on standard `color.text.secondary` and `color.text.primary` respectively, while the curve widget's background, grid, axis labels, and curve line use `color.background.0`, `color.background.1`, `color.text.label`, and `color.accent.warning` (amber). This ensures a consistent appearance with the current theme without hardcoded color values.
 
 ## Tips
 

@@ -32,6 +32,8 @@ The profile list updates automatically when the radio reports a change, so addit
 
 The Auto-Save tab contains a single checkbox and a short description. When **Auto-save profile changes** is checked, changes to TX and microphone settings are written back to the active profile automatically. This state is persisted as `AutoSaveTransmitProfile`. When unchecked, you must use **Save** or **Create** explicitly to preserve any changes.
 
+The checkbox synchronizes automatically with the radio's auto-save state. Changes made from any source — the profile dialog's "Enable Auto-Save" confirmation, TCI clients, profile loads, or remote SmartSDR clients — are reflected in the checkbox without reopening the dialog.
+
 ## What each control does
 
 | Control | Kind | Behavior | Setting key |
@@ -46,7 +48,7 @@ The Auto-Save tab contains a single checkbox and a short description. When **Aut
 | Save | Button | On the Global tab only. Saves the current radio state under the typed name, overwriting an existing profile if one with that name exists. | — |
 | Create | Button | On the Transmit and Microphone tabs only. Creates a new profile under the typed name. Cannot overwrite an existing profile; if a name collision occurs, a dialog offers to enable Auto-Save. | — |
 | Delete | Button | Deletes the selected profile after confirmation. Disabled when nothing is selected. | — |
-| Auto-save profile changes | Checkbox | When enabled, TX and mic changes are written back to the active profile automatically. | `AutoSaveTransmitProfile` |
+| Auto-save profile changes | Checkbox | When enabled, TX and mic changes are written back to the active profile automatically. Synchronizes with the radio state from any source. | `AutoSaveTransmitProfile` |
 | Close | Button | Closes the dialog. | — |
 
 ## Tips
@@ -55,6 +57,7 @@ The Auto-Save tab contains a single checkbox and a short description. When **Aut
 - The **Profile name** field is filled in when you select a profile, so you can load or overwrite a profile without retyping its name.
 - On the **Transmit** and **Microphone** tabs, the **Save** button is labelled **Create** because the radio cannot directly overwrite existing transmit or microphone profiles — changes are captured via Auto-Save while the profile is active.
 - If you see a dialog when clicking **Create** on a transmit or microphone tab saying a profile already exists, you can click **Enable Auto-Save** to turn on automatic saving without switching to the **Auto-Save** tab.
+- The Auto-Save checkbox updates automatically when auto-save is enabled or disabled by any means — a profile load, a TCI command, a remote client, or the confirmation dialog on the Transmit/Microphone tabs.
 
 ## Related
 

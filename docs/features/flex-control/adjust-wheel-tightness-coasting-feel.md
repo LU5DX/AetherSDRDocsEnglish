@@ -22,6 +22,7 @@ Configure how long the virtual tuning wheel continues to spin (coast) after you 
 | Control | Default | Range | Setting key | Behavior |
 |---------|---------|-------|-------------|----------|
 | Wheel Tightness slider | 45 | 0–100 | `FlexControlVirtualWheel` (nested JSON, `looseness` field) | Adjusts virtual wheel coasting drag. 0 = tight (fast stop), 100 = loose (long coast). |
+| Mouse Sensitivity slider | 50 | 0–100 | `FlexControlVirtualWheel` (nested JSON, `sensitivity` field) | Adjusts how much captured mouse/trackpad movement turns the virtual wheel. Midpoint (50) yields 1.0x scale. Primarily for trackpads; does not affect physical FlexControl. |
 
 ## Related
 

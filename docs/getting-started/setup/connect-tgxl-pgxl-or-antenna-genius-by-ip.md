@@ -29,6 +29,8 @@ The Radio tab displays radio information, identification, license info, and firm
 | Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station \<name\>'. |
 | License Info | Indicator | Displays license details from the radio (Subscription, Expiration, Radio ID, Licensed version). |
 
+Each read-only value has a copy-to-clipboard button next to it (a small icon appearing on hover). Click the button to copy the value.
+
 ### Remote On
 
 Click **Remote On** to enable remote wake / remote-on functionality.
@@ -297,9 +299,4 @@ The Peripherals tab enables manual IP connection to external devices (TGXL, PGXL
 ### Before you start
 
 - AetherSDR must already be connected to a FLEX-8600 radio. The Peripherals tab is only available when a radio connection is active.
-- Have the IP address of the TGXL, PGXL, Antenna Genius, or ShackSwitch device ready.
-
-### Steps
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **Peripherals**
+- Have the IP address of the TGXL, PGXL, Ant

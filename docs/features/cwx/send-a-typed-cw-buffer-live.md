@@ -13,7 +13,7 @@ Use the CWX panel to type a CW message and transmit it immediately. This is the 
 2. Click inside the **Send text area** — the text field at the bottom of the send view. The placeholder text reads "Type CW message...".
 3. Type your message. Use standard ASCII characters. Refer to the prosign legend displayed in the panel for prosign shortcuts (=, +, (, &, $).
 4. Click **Send** or press **Enter** to transmit the buffer. The radio begins sending immediately.
-5. To abort transmission at any time, press **Escape**. This clears the buffer and stops the send.
+5. To abort transmission at any time, press **Escape**. This clears the buffer and stops the send. When aborted, the history bubble shows sent characters in normal text and unsent characters with strikeout formatting.
 
 After transmission, the sent text appears in the **Send history scroll** area above the text field as a timestamped bubble.
 
@@ -30,6 +30,15 @@ The **Send** button behaves differently depending on whether **Live** is current
 
 - **Live is off** — Clicking **Send** submits the contents of the text field as a buffer and transmits it.
 - **Live is on** — Clicking **Send** first turns **Live** off and returns the panel to the send view. The buffer is *not* retransmitted; this prevents text that was already keyed character-by-character in live mode from being sent a second time. After clicking **Send** in this state, type your message and click **Send** again to transmit.
+
+## Aborted transmission visual indicators
+
+When you press **Escape** during transmission, the history bubble shows which characters were sent and which were not:
+
+- **Sent characters** — Appear in normal text.
+- **Unsent characters** — Appear with strikeout formatting (crossed out). This provides clear visual feedback about exactly what was transmitted and what was aborted.
+
+The strikeout formatting works correctly for single-line messages (callsigns, RST, serial numbers). For multi-line wrapped messages, the strikeout may not align perfectly on continuation lines.
 
 ## What each control does
 
@@ -52,7 +61,7 @@ The **Send** button behaves differently depending on whether **Live** is current
 F1–F12 and Escape shortcuts fire when a CW mode slice is active, regardless of whether the CWX panel is visible. This lets you trigger macros even when another panel is focused.
 
 - **F1–F12** — Send the pre-written macro for that function key while a CW mode slice is active.
-- **Escape** — Clears the buffer unconditionally. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
+- **Escape** — Clears the buffer unconditionally and aborts any ongoing transmission. On an idle CWX panel it is a harmless no-op, so pressing it is always safe.
 
 ## Tips
 
@@ -69,6 +78,7 @@ F1–F12 and Escape shortcuts fire when a CW mode slice is active, regardless of
 - **Pressing Enter does nothing** — Click inside the Send text area first to give it focus, then press Enter.
 - **Escape does not stop transmission** — Escape fires an application-wide shortcut. If a dialog or text widget captures the key first, click away from it and press Escape again.
 - **F1–F12 macros do not trigger** — Ensure the active slice is in CW, CWL, or CWU mode. The shortcuts are controlled by the active slice mode, not by panel visibility.
+- **Aborted bubble shows no strikeout** — Verify you pressed Escape during active transmission. The strikeout only appears for text that was not yet sent when abort occurred.
 
 ## Related
 

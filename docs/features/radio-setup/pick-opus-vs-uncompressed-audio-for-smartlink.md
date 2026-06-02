@@ -1,6 +1,6 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, APD, themes, serial (FlexControl), and antenna names.
+The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, APD, themes, serial (FlexControl), antenna names, and SmartLink pinned certificate management.
 
 ## Before you start
 
@@ -13,9 +13,9 @@ The Radio tab displays radio identification, license information, and firmware u
 
 | Control | Default | Behavior |
 |---------|---------|----------|
-| Radio SN | — | Chassis serial number (read-only). |
+| Radio SN | — | Chassis serial number (read-only). Click the copy button (overlay icon) to copy the serial number to clipboard. |
 | Region | USA | Radio regulatory region. |
-| HW Version | — | Hardware version string. |
+| HW Version | — | Hardware version string. Click the copy button to copy to clipboard. |
 | Remote On | — | Enables remote wake / remote-on. |
 | Options | — | Shows licensed radio options. |
 | FlexControl | — | Detected state of FlexControl hardware. |
@@ -24,10 +24,23 @@ The Radio tab displays radio identification, license information, and firmware u
 | Nickname | — | User-friendly radio nickname. |
 | Callsign | — | Station callsign. |
 | Station Name | — | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored as `StationName`. |
-| License Info | — | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version). |
+| License Info | — | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version). Click the copy button to copy to clipboard. |
 | Check for Update | — | Queries for firmware updates. |
 | Select Installer... | — | Chooses a firmware image file (`.msi`, `.exe`, or `.ssdr`). |
 | Upload Firmware | — | Starts firmware upload with progress bar and status. |
+| SmartLink (tab) | — | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. Lazy-built when first clicked. |
+| Pinned SmartLink Certificates (section) | — | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use). |
+| Host / SHA-256 fingerprint / Pinned (table columns) | — | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)'). |
+| Forget selected | — | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently. |
+| Forget all | — | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins. |
+
+### Copy value buttons
+
+Each read-only indicator (Radio SN, HW Version, License Info, etc.) now shows a small overlay copy button when hovered or focused. Clicking the button copies the displayed value to the system clipboard. A brief "copied" popup appears near the button after a successful copy.
+
+### Firmware upload status
+
+The firmware upload area shows a progress bar and status text during an active upload. When no upload is in progress, the status area is empty.
 
 ## Network tab
 
@@ -169,17 +182,4 @@ The Peripherals tab configures external device manual IP connections (TGXL, PGXL
 | Control | Default | Behavior |
 |---------|---------|----------|
 | Connect / Disconnect (TGXL) | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable. If IP field is empty and radio has discovered the TGXL, the discovered IP is pre-filled. |
-| Connect / Disconnect (PGXL) | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
-
-### Clearing saved IPs
-
-When the **Connect** button is clicked while the IP field is empty, the saved manual IP and port for that device are removed from settings. If you close the Radio Setup dialog with a cleared IP field and a previously-saved manual IP exists, AetherSDR automatically removes that saved IP and port from settings and disconnects the device if it is currently connected.
-
-## APD tab
-
-The APD tab (External Adaptive Pre-Distortion) configures sample port selection per TX antenna. The tab is hidden unless the radio reports `apd configurable=1` (FLEX-8x00 with SmartSDR 4.2.18+). Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible.
-
-| Control | Default | Behavior |
-|---------|---------|----------|
-| ANT1 / ANT2 / XVTA / XVTB sampler combos | INTERNAL | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Options: INTERNAL, RX_A, RX_B, XVTA, XVTB. INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier
+| Connect / Disconnect (PGXL) | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PG

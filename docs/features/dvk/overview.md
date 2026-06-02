@@ -1,6 +1,6 @@
 # Digital Voice Keyer overview
 
-The Digital Voice Keyer (DVK) lets you record, store, and play back up to 12 voice-keyer slots on a connected Flex radio. Use it to send pre-recorded or live-recorded audio on-air without manually keying the microphone, or to preview recordings locally before transmitting.
+The Digital Voice Keyer (DVK) lets you record, store, and play back up to 8 voice-keyer slots on a connected Flex radio. Use it to send pre-recorded or live-recorded audio on-air without manually keying the microphone, or to preview recordings locally before transmitting.
 
 ## Before you start
 
@@ -9,9 +9,9 @@ The Digital Voice Keyer (DVK) lets you record, store, and play back up to 12 voi
 
 ## How it works
 
-The DVK panel appears in the AetherSDR main window when a voice mode is active. It shows 12 slots arranged in a scrollable grid. Each slot displays an F-key button (F1 through F12), a name label, a duration label, and a progress bar that activates during recording or playback.
+The DVK panel appears in the AetherSDR main window when a voice mode is active. It shows 8 slots arranged in a scrollable grid. Each slot displays an F-key button (F1 through F8), a name label, a duration label, and a progress bar that activates during recording or playback.
 
-Clicking an F-key button selects that slot and starts playback if the slot contains a recording. Clicking it again while it is playing stops playback. The same behavior is available from the keyboard using F1 through F12. The keyboard shortcuts are enabled based on the active slice's mode — when a voice mode slice is active, DVK shortcuts are enabled and CWX shortcuts are disabled, and vice versa. This ensures the shortcuts fire regardless of panel visibility and avoids conflicts between panels. Pressing Escape stops whichever operation is currently active.
+Clicking an F-key button selects that slot and starts playback if the slot contains a recording. Clicking it again while it is playing stops playback. The same behavior is available from the keyboard using F1 through F8. The keyboard shortcuts are enabled based on the active slice's mode — when a voice mode slice is active, DVK shortcuts are enabled and CWX shortcuts are disabled, and vice versa. This ensures the shortcuts fire regardless of panel visibility and avoids conflicts between panels. Pressing Escape stops whichever operation is currently active.
 
 The four transport buttons at the bottom of the panel — ● REC, ■ STOP, ▶ PLAY, and ◀ PREV — act on whichever slot is currently selected. A status indicator at the bottom of the panel shows the current DVK state: Idle, Recording, or Playing.
 
@@ -21,8 +21,8 @@ Slots can be populated by recording directly through the radio or by uploading a
 
 | Control | Behavior | Default |
 |---|---|---|
-| F1 … F8 slot buttons | Selects the slot and toggles playback on-air. Right-click the row to rename or upload a WAV. Keyboard shortcuts F1-F12 work based on the active slice's mode, regardless of panel visibility. | — |
-| Slot name labels | Shows the name assigned to each slot. | Recording 1 … Recording 12 |
+| F1 … F8 slot buttons | Selects the slot and toggles playback on-air. Right-click the row to rename or upload a WAV. Keyboard shortcuts F1-F8 work based on the active slice's mode, regardless of panel visibility. | — |
+| Slot name labels | Shows the name assigned to each slot. | Recording 1 … Recording 8 |
 | Slot duration labels | Shows the recorded length of the slot, or "Empty" if the slot has no content. | Empty |
 | Slot progress bars | Shows live playback or recording progress. Hidden when the slot is idle. | — |
 | ● REC | Starts recording into the selected slot. Button stays highlighted while recording is in progress. | — |

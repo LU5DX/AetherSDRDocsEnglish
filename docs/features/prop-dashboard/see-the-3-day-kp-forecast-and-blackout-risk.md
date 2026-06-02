@@ -33,6 +33,7 @@ The HF Propagation Dashboard includes a 3-day Kp forecast grid showing geomagnet
 - A Kp of 5 or higher signals storm-level geomagnetic activity. Polar and high-latitude paths are most affected. Lower HF bands (40m, 80m) tend to hold up better than upper bands during geomagnetic storms.
 - The R1-R2 and R3+ rows reflect probability estimates per day, not certainty. Check the Kp cell colors across individual 3-hour periods to see when during the day risk is highest.
 - Hover over the **Current Conditions cards** (SFI, SN, A-index, K-index, X-ray) for tooltip explanations of each index.
+- The dialog's appearance adapts to your current AetherSDR theme. Separator lines and backgrounds use theme colors instead of fixed values.
 
 ## Troubleshooting
 

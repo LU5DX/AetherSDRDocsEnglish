@@ -9,7 +9,7 @@ The HF Propagation Dashboard gives you an at-a-glance view of current solar cond
 
 ## How it works
 
-Open the dashboard from `View > Propagation Conditions`. The dialog retrieves current solar data and presents it in seven distinct areas described below. The dialog remembers its geometry between sessions.
+Open the dashboard from `View > Propagation Conditions`. The dialog retrieves current solar data and presents it in seven distinct areas described below. The dialog remembers its geometry between sessions. The dashboard respects the current application theme for its background and border colors.
 
 ### Current Conditions cards
 

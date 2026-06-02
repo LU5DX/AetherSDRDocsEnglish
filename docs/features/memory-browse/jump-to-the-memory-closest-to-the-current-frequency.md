@@ -31,6 +31,7 @@ The Memory Browser automatically highlights the stored memory whose frequency is
 - Memories with a frequency of 0 MHz are excluded from the table entirely and cannot be selected as the closest match.
 - If a memory has no name, the panel displays its group name instead. If neither is set, it shows "Memory" followed by its index number.
 - The **Add Memory** button is outside the scrolling table area, so it stays visible at all times. This is especially useful when the memory list is long.
+- The Memory Browser panel now uses the active theme for its background, borders, and text colors. When you switch themes in AetherSDR, the Memory Browser updates automatically to match the new color scheme.
 
 ## Related
 

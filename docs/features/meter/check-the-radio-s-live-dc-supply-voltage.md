@@ -17,13 +17,17 @@ The Meters applet shows the supply voltage reported live by the radio. Use it to
 | Gauge | Valid range | Red above | Behavior |
 |-------|-------------|-----------|----------|
 | +13.8V | 10.0–16.0 V | 15 V | Displays the supply voltage reported by the radio. The gauge label updates dynamically to reflect the live value (e.g. `+13.82V`). |
+| PA Temp | 0–120 °C | 70 °C | Displays PATEMP meter reading from the radio. |
+| Main Fan | 0–3000 rpm | 2500 rpm | Displays MAINFAN meter value from the radio. |
 
-There is no persisted setting key for this gauge. It has no configurable default.
+There is no persisted setting key for these gauges. They have no configurable defaults.
 
 ## Tips
 
 - The gauge label changes on every telemetry update from the radio, so the value shown in the bar center is always current — it is not a static placeholder.
 - The bar fills cyan in the normal range and turns red above 15 V. A red bar indicates a supply voltage that is above the expected operating range.
+- The PA temperature gauge turns red above 70 °C. If this occurs, reduce transmit power or duty cycle.
+- The Main Fan gauge turns red above 2500 rpm. This is normal during high-power operation and indicates the cooling fan is working as expected.
 
 ## Troubleshooting
 

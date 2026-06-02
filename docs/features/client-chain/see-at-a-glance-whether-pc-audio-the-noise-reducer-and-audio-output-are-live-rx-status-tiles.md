@@ -35,6 +35,8 @@ The BYPASS state for both TX and RX is owned by the audio engine rather than tra
 
 When switching between TX and RX tabs, the **BYPASS** button visual updates to show the current engine-owned state for the newly active side. No separate snapshot management is needed for either chain.
 
+The BYPASS button disables every stage in the selected chain, including RN2. Its scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches.
+
 ## How double-click works on TX chain stages
 
 Double-clicking any TX chain stage tile opens the **Aetherial Audio Channel Strip** — the unified TX DSP window. The per-stage editors remain accessible from within the channel strip itself.
@@ -57,6 +59,7 @@ When you single-click a chain stage, AetherSDR waits for the duration set in **I
 - Because bypass state is now engine-owned for both sides, the **BYPASS** button will correctly reflect any bypass change made from other sources, even if the chain applet was not the source of that change.
 - The RX chain includes a fully implemented DESS (De-Esser) stage between AGC-C and TUBE.
 - If you find that single-clicks sometimes trigger bypass when you meant to double-click, adjust the click discrimination interval in `View > Interaction Settings` to a longer value.
+- The BYPASS button disables all stages including RN2. It remains engaged across Channel Strip profile switches, as its state is global per audio engine.
 
 ## Related
 

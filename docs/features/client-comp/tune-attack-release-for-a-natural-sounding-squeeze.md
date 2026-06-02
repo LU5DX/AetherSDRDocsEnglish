@@ -10,7 +10,7 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 ## Steps
 
-1. Locate the five-knob row at the bottom of the compressor tile. The knobs are labeled Thresh, Ratio, Attack, Release, and Makeup, left to right.
+1. Locate the five-knob row at the bottom of the compressor tile. The knobs are labeled **Thresh**, **Ratio**, **Attack**, **Release**, and **Makeup**, left to right.
 2. Watch the gain-reduction bar (the amber horizontal strip above the knob row) while speaking into the microphone (TX) or while audio plays (RX). The strip fills from the right; a tick mark indicates 6 dB of reduction.
 3. Turn the **Attack** knob to set how quickly the compressor responds after the input crosses the threshold. Turn left for a faster clamp (more transient control), right for a slower onset (more transient pass-through).
 4. Turn the **Release** knob to set how quickly gain recovers after the input drops back below the threshold. Turn left for a faster release (tighter sound), right for a slower release (smoother, less pumping).
@@ -19,16 +19,17 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 ## What each control does
 
-| Knob    | Default                                                                                                                                                                                                                                        | Valid range                                                                                                                                                                   |
-|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Attack  | 20.0 ms                                                                                                                                                                                                                                        | 0.1 to 300.0 ms                                                                                                                                                               |
-| Release | 200 ms                                                                                                                                                                                                                                         | 5 to 2000 ms                                                                                                                                                                  |
-| Drive   | Pre-comp gain boost. Pushes more signal across the threshold so the compressor engages harder, raising average power. Pair with Phase to keep peaks clean.                                                                                     | Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing.                                        |
-| Phase   | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. | Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). 0=off, 4=broadcast default.' |
+| Knob    | Default   | Valid range   | Behavior |
+|---------|-----------|---------------|----------|
+| Attack  | 20.0 ms   | 0.1 to 300.0 ms | Exponential mapping (0.1 * 3000^n). Sets how quickly the compressor clamps down after the threshold is crossed. |
+| Release | 200 ms    | 5 to 2000 ms   | Exponential mapping (5 * 400^n). Sets how quickly gain returns after the input drops back below threshold. |
+| Drive   | 0.0 dB    | 0.0 to 18.0 dB | Pre-comp gain boost with linked auto-makeup. Pushes more signal across the threshold so the compressor engages harder, and simultaneously adds equal gain at the output so average RMS lifts alongside peaks rather than dropping. Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. |
+| Phase   | 0 stages  | 0 to 6 stages  | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. |
 
 **Attack** — Exponential knob mapping. Values below 10 ms display as `X.X ms`; values at 10 ms and above display as `X ms`. Shorter attack times clamp peaks faster but can dull consonants. Longer attack times let transients through before compression engages.
 
 **Release** — Exponential knob mapping. Displayed as `X ms`. Shorter release times let gain return quickly between syllables; if too short, the compressor audibly pumps. Longer release times produce a smoother, more sustained gain reduction but can reduce intelligibility if set too long.
+
 ## Using the inline value editor
 
 When you click a knob's numeric value label, it transforms into an editable text field. This allows precise numerical entry without dragging the knob.
@@ -50,7 +51,7 @@ The inline editor is enabled by default for all five knobs. It cannot be disable
 - The transfer curve display caches axis labels for performance. Labels rebuild automatically when you toggle compact mode (e.g., when switching between the applet tile and the floating editor). This ensures the font size (9 px in full mode, 7 px in compact mode) always matches the current display without any visual lag.
 - A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
 - If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
-- Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the Knee and Limiter controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
+- Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the **Knee**, **Limiter**, **Drive**, and **Phase** controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 - Both Attack and Release are saved immediately when you move a knob; no explicit save step is needed.
 - Use the inline value editor for repeatable, exact values. For example, type `12.5` for Attack instead of dragging to approximate.
 
@@ -62,6 +63,22 @@ The inline editor is enabled by default for all five knobs. It cannot be disable
 - **The tile is dimmed and the compressor does not seem to be doing anything** — The stage is bypassed. Enable it via the CHAIN widget. The tile returns to full brightness when the stage is active.
 - **Knob value resets unexpectedly** — Another source (such as a profile load) may have overwritten `ClientCompTxAttackMs` or `ClientCompTxReleaseMs`. Retune and the new value will persist immediately.
 - **Inline editor value is rejected** — The input must be a valid number in the knob's valid range. If the value is outside the range, it is clamped automatically. Non-numeric characters (other than decimal separators, sign, and comma) cause the edit to be ignored.
+
+## Theme support
+
+The compressor applet and its transfer curve widget now respect the current AetherSDR theme. Colors for the following elements are drawn from theme variables rather than hard-coded values:
+
+| Element | Theme variable |
+|---------|----------------|
+| Widget background | `color.background.0` |
+| Grid lines | `color.background.1` |
+| Axis labels | `color.text.label` |
+| Unity (identity) line | `color.background.1` |
+| Transfer curve | `color.accent.dim` |
+| Envelope ball glow | `color.accent.warning` |
+| Envelope ball core | `color.text.primary` |
+
+The gain-reduction slider fill uses the theme color `color.slider.foreground` applied at the `applet/comp` scope via the ThemeManager.
 
 ## Related
 

@@ -49,6 +49,8 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - The mute button uses a deferred single-click mechanism to avoid conflicts with double-click actions. A single-click mutes or unmutes the current slice. A double-click mutes or unmutes all owned slices. The icon updates only when the radio acknowledges the mute state change, ensuring the displayed state always matches the radio's actual state.
 - When entering a frequency in the Frequency edit field, AetherSDR uses `FrequencyEntryParser` to normalize the input. If you type a value above 54 MHz without being on an XVTR antenna, the parser checks whether it was entered as an explicit MHz value. If so, the maximum allowed frequency is raised to 50000 MHz, allowing entry of VHF/UHF frequencies above the normal 54 MHz limit without switching to an XVTR antenna first (e.g., typing 146.520 MHz on a non-XVTR antenna).
 - The offset direction buttons and REV button are part of an exclusive button group; selecting one automatically deselects the others.
+- The L/R pan slider now paints its fill from the centre outward. This provides a visual indication of the neutral (centre) position at a glance. The centre mark is a small dot painted on the groove.
+- The filter preset buttons and other styled buttons now use tokenised stylesheet colours through ThemeManager. This means the button appearance updates automatically when you switch themes, consistent with the rest of the UI (v26.6.1).
 
 ## Troubleshooting
 

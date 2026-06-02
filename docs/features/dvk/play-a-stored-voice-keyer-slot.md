@@ -12,7 +12,7 @@ Use the Digital Voice Keyer panel to transmit a stored recording on-air. Trigger
 
 1. Locate the Digital Voice Keyer panel in the main window central area.
 2. Identify the slot you want to play. Check that its duration label shows a time value, not "Empty".
-3. Click the slot's row to select it. The selected row highlights with a blue border.
+3. Click the slot's row to select it. The selected row highlights with the accent color.
 4. Play the slot using one of these methods:
    - Click the **▶ PLAY** button to play the currently selected slot.
    - Click the slot's **F1** through **F8** button directly to select and play that slot in one action.
@@ -24,14 +24,25 @@ Use the Digital Voice Keyer panel to transmit a stored recording on-air. Trigger
 
 | Control | Behavior | Default |
 |---|---|---|
-| **F1 … F8** slot buttons | Selects and plays that slot; if the slot is already playing, clicking again stops it. | — |
+| **F1 … F8** slot buttons | Selects and plays that slot; if the slot is already playing, clicking again stops it. Right-click to rename or upload a WAV. | — |
 | Slot name labels | Shows the name of each slot. | `Recording <n>` |
 | Slot duration labels | Displays the recording length or "Empty" if the slot has no content. | `Empty` |
-| Slot progress bars | Shows live playback progress. Visible only during active playback. | Hidden |
+| Slot progress bars | Shows live playback or recording progress. | Hidden |
 | **▶ PLAY** | Plays the selected slot. Has no effect if the slot is empty. | — |
-| **■ STOP** | Stops playback in progress. | — |
+| **■ STOP** | Stops recording or playback. | — |
 | **◀ PREV** | Previews the slot through the local speaker without transmitting. | — |
 | **● REC** | Starts recording into the selected slot. | — |
+| **Rename edit** | Inline text field for renaming a slot, triggered via right-click context menu. | — |
+
+## Status indicator
+
+The panel shows a status label that changes based on current activity:
+
+| State | Meaning |
+|---|---|
+| **Status: Idle** | No recording or playback in progress. |
+| **Status: Recording** | A slot is actively recording. |
+| **Status: Playing** | A slot is actively playing. |
 
 ## Tips
 
@@ -40,6 +51,7 @@ Use the Digital Voice Keyer panel to transmit a stored recording on-air. Trigger
 - To hear a slot through your local speaker without transmitting, use **◀ PREV** instead of **▶ PLAY**.
 - Keyboard shortcuts (F1–F8 and Escape) remain active even when the DVK panel is hidden, provided the active slice is in a voice mode (SSB, AM, FM). When the active slice switches to CW mode, the CWX panel's F-key shortcuts become active instead. This ensures no shortcut conflicts occur.
 - If you switch to the CWX panel while the DVK panel is still visible, the DVK shortcuts remain active only if the slice is in a voice mode. The CWX panel takes over F-key shortcuts when the slice switches to CW mode.
+- The panel uses the current visual theme for colors, including slot borders, text, and the accent color for selected items.
 
 ## Troubleshooting
 

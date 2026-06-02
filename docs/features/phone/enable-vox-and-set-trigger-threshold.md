@@ -48,7 +48,7 @@ Use **Low Cut < / >** and **High Cut < / >** to shape the transmitted audio band
 
 ### Filter cut stepping
 
-From v0.9.5.1, the `<` and `>` buttons snap to the nearest multiple of 50 Hz in the chosen direction rather than adding or subtracting a fixed 50 Hz from the current value.
+The `<` and `>` buttons snap to the nearest multiple of 50 Hz in the chosen direction rather than adding or subtracting a fixed 50 Hz from the current value.
 
 **Example:** If the low-cut is currently 87 Hz:
 - Pressing `>` (increase) snaps to **100 Hz** (next multiple of 50 above 87).

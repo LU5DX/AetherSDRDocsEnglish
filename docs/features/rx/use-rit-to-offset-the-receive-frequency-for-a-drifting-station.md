@@ -56,6 +56,10 @@ No action is required on your part. If you reconnect to a radio with a different
 
 When you select RADE from the mode combo, the slice is placed into RADE (Rapid Automatic Detection and Excitation) mode. Note that RADE is a client-side only mode — the radio echoes back the real mode (DIGL/DIGU) immediately after selection. When you switch from RADE to another mode, no RADE deactivation signal is emitted because the slice's mode is never `"RADE"` on the radio side. This prevents spurious deactivations when changing modes.
 
+## RADE mode switching fix (v26.5.3)
+
+From v26.5.3, when switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode. This prevents stale deactivate signals when changing modes on a non-RADE slice (#2376).
+
 ## NT mode behaviour
 
 From v0.9.3, the NT mode is treated as a digital mode throughout the RX Controls applet:
@@ -133,12 +137,23 @@ From v26.5.3, the AF gain and pan sliders display percentage and positional labe
 - **AF gain slider**: Displays the current value as a percentage (e.g., `70%`) using `percentText()`.
 - **Pan slider**: Displays `C` at centre (50), `Lx` for left offset (e.g., `L20` for 30% from centre), and `Rx` for right offset (e.g., `R30` for 80% from centre) using `panText()`. The label updates as you drag the slider.
 
-## RADE mode switching fix (v26.5.3)
+## Pan slider centre-mark fill (v26.6.1)
 
-From v26.5.3, when switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode. This prevents stale deactivate signals when changing modes on a non-RADE slice (#2376).
+From v26.6.1, the L/R pan slider uses a centre-anchored fill that paints from the centre outward. This makes the neutral position clear at a glance:
+
+- When the handle is left of centre, the groove paint erases the default (0 → handle) fill and paints accent-colour fill from the handle to the centre.
+- When the handle is right of centre, the groove paint erases the (0 → centre) portion so only the (centre → handle) segment is filled with accent colour.
+- A small centre-mark dot remains visible at the midpoint of the groove as a visual landmark.
+
+No action is required on your part. The visual updates apply automatically when you drag the pan slider.
+
+## Theme support for filter-preset buttons (v26.6.1)
+
+From v26.6.1, the filter-preset push buttons (1.8K, 2.1K, etc.) use theme-tokenised styles via `ThemeManager`. Their colours resolve to `color.background.1`, `color.background.2`, and `color.text.primary` from the active theme. This ensures the filter-preset buttons re-theme alongside the rest of the UI when you switch themes.
+
+No action is required on your part. The buttons update colour automatically when a new theme is applied.
 
 ## Related
 
 - [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Pick a filter width preset for the current mode](pick-a-filter-width-preset-for-the-current-mode.md)
+- [Tune the radio

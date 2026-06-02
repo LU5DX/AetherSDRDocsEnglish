@@ -14,15 +14,15 @@ The floating Tube editor includes a live output level meter that shows the post-
 3. Pass audio through the stage — transmit or receive signal as appropriate — and observe the meter while adjusting Drive and Output.
 4. Keep the meter out of the red zone. The color bands indicate the following levels:
 
-| Color | Range                                                                                                                                                                               | Notes                                                                                                                                                                                                     |
-|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Green | −60 to −12 dB                                                                                                                                                                       |                                                                                                                                                                                                           |
-| Lime  | −12 to −6 dB                                                                                                                                                                        |                                                                                                                                                                                                           |
-| Amber | −6 to −3 dB                                                                                                                                                                         |                                                                                                                                                                                                           |
-| Red   | Above −3 dB                                                                                                                                                                         |                                                                                                                                                                                                           |
-| RN2   | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Color | Range          | Notes                                                                                                         |
+|-------|----------------|---------------------------------------------------------------------------------------------------------------|
+| Green | −60 to −12 dB  |                                                                                                               |
+| Lime  | −12 to −6 dB   |                                                                                                               |
+| Amber | −6 to −3 dB    |                                                                                                               |
+| Red   | Above −3 dB    |                                                                                                               |
 
 5. If the meter consistently reads red, reduce the Output knob (range −24.0 to 12.0 dB, default 0.00 dB, persisted as `ClientTubeTxOutputDb` or `ClientTubeRxOutputDb`) or reduce the Drive knob (range 0.0 to 24.0 dB, default 0.00 dB, persisted as `ClientTubeTxDriveDb` or `ClientTubeRxDriveDb`) until the meter stays in the amber or lower bands under typical signal conditions.
+
 ## Tips
 
 - The meter reflects the signal after the tube stage. Reducing Drive affects harmonic character as well as level; reducing Output trims level only without changing the saturation curve.

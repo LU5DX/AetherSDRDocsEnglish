@@ -20,8 +20,23 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 
 | Control | Behavior | Default |
 |---|---|---|
+| Device combo | Selects which discovered AG device to connect to. Auto-selects and connects when the first device is discovered. | empty |
+| Connect / Disconnect | Connects to the selected device (or the Manual IP if none selected); becomes "Disconnect" when connected. | Connect |
+| Manual IP | Enter an IP and press Enter to connect to port 9007. Invalid addresses produce a red "Invalid IP address" status. | empty |
+| Port A antenna buttons | Click to select an antenna on Port A; click again to deselect (antenna=0). Disabled/dim if the antenna is already selected on Port B. Blue = TX+RX, amber = RX only, dim = no permission on current band. | none |
 | Port A AUTO | Toggles band-follow on Port A. When active, the AG selects the antenna for Port A based on the radio's current band. | Off |
+| Port B antenna buttons | Click to select an antenna on Port B; click again to deselect. Port B section hidden if the AG device reports only one radio port. | none |
 | Port B AUTO | Toggles band-follow on Port B. When active, the AG selects the antenna for Port B based on the radio's current band. Hidden on single-port devices. | Off |
+
+## What each indicator shows
+
+| Indicator | States | Meaning |
+|---|---|---|
+| Status label | "No device found", "Device found", "Connected — \<name\> v\<version\>", "Disconnected", "Error: \<msg\>", "Invalid IP address" | Discovery/connection state of the Antenna Genius. |
+| Port A band | Band name or "—" | Active band on Port A (AG-reported or frequency-derived). |
+| Port A antenna | Antenna name, "\<ant\> TX:\<alt\>", "\<ant\> [INHIBIT]", "—" | Selected antenna; red when TXing, orange when TX routed to alt antenna or inhibit is asserted. |
+| Port B band | Band name or "—" | Active band on Port B. |
+| Port B antenna | Antenna name, "\<ant\> TX:\<alt\>", "\<ant\> [INHIBIT]", "—" | Selected antenna for Port B. |
 
 ## Tips
 

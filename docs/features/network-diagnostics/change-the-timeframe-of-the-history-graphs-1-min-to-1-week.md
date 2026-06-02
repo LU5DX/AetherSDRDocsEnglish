@@ -18,9 +18,11 @@ The charts update immediately to show the selected history window.
 
 ## What each control does
 
-| Control | Kind | Default | Valid values | Behavior |
-|---|---|---|---|---|
-| **Timeframe** | Combo box | 5 minutes | 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week | Sets how far back all time-series charts display history. Hidden when the **Logs** tab is active. |
+| Control       | Kind      | Default   |
+|---------------|-----------|-----------|
+| **Timeframe** | Combo box | 5 minutes |
+
+Valid values: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.
 
 ## Tips
 

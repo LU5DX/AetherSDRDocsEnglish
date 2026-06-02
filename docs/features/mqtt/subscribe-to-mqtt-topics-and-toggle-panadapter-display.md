@@ -19,18 +19,24 @@ Add MQTT topic subscriptions and control whether each topic's latest value is sh
 
 ## What each control does
 
-| Control | Purpose | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Topic table | List of subscribed MQTT topics. Each row is one topic. | (empty) | Any valid MQTT topic string | `MqttSettings` (nested JSON) |
-| Display checkbox | When checked, the topic's latest received value appears as an overlay on the panadapter. | Unchecked | — | same as above |
-| Add | Inserts a new blank row in the topic table. | — | — | — |
-| Remove | Deletes the selected row(s) from the topic table. | — | — | — |
-| Internal AetherSDR Topics | Read-only list of topics subscribed automatically (e.g. antenna alias updates). These cannot be removed. | See the read-only list in the dialog | — | — |
+| Control                   | Purpose                                                                                                                     | Default                                                                    |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| Topic table               | List of subscribed MQTT topics. Each row is one topic.                                                                      | (empty)                                                                    |
+| Display checkbox          | When checked, the topic's latest received value appears as an overlay on the panadapter.                                    | Unchecked                                                                  |
+| Add                       | Inserts a new blank row in the topic table.                                                                                 | —                                                                          |
+| Remove                    | Deletes the selected row(s) from the topic table.                                                                           | —                                                                          |
+| Internal AetherSDR Topics | Read-only list of topics subscribed automatically (e.g. antenna alias updates). These cannot be removed.                    | See the read-only list in the dialog                                       |
+| Settings...               | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
+| Publish buttons           | Up to 12 configurable buttons that publish a payload to a topic when clicked. Configured in the MQTT Settings dialog.       | (none)                                                                     |
+| Message log               | Displays received messages as `topic: value` lines, capped to the last 50 entries.                                         | (empty)                                                                    |
+| Enable (Off/On)           | Toggle button to connect or disconnect from the broker. Password loaded from system keychain on first enable.               | Off                                                                        |
+| Status label              | Shows connection state: green "Connected", grey "Disconnected", or default color error message.                             | "Disconnected"                                                             |
 
 ## Tips
 
 - The panadapter overlay shows the value of the most recently received message for each topic with Display enabled. Overlay labels are truncated to fit, so keep topic names short.
 - A topic is subscribed immediately when you connect to the broker (toggle **On** in the applet). You do not need to reconnect after changing subscriptions — toggle **Off** then **On** to apply changes.
+- If the status label shows "Waiting for keychain", the system keychain password has not yet been loaded. Toggle Off then On again to trigger keychain retrieval.
 
 ## Related
 

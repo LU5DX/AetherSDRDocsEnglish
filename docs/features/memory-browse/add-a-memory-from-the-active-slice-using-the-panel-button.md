@@ -18,7 +18,9 @@ The slice’s frequency and name are saved as a new memory entry, which appears 
 
 | Control | Behavior |
 |---------|----------|
+| **Memory table** | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory. Columns: Frequency, Name. The closest memory to the current tuning is highlighted with a distinct background. Double-click also tunes. |
 | **Add Memory** | Saves the current slice as a new memory entry. Always visible at the bottom of the panel, anchored outside the scrolling table. Tooltip: “Save the current slice on this panadapter as a memory.” |
+| **No memories are available yet.** | Shown when the radio has no memories loaded. |
 
 ## Tips
 

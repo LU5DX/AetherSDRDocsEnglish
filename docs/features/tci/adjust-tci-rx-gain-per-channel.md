@@ -16,15 +16,16 @@ The TCI Server applet provides a gain slider for each of its four RX channels. A
 
 ## What each control does
 
-| Control                        | Default | Valid range |
-|--------------------------------|---------|-------------|
-| RX1 gain meter/slider          | 0.5     | 0.0 – 1.0   |
-| RX2 gain meter/slider          | 0.5     | 0.0 – 1.0   |
-| RX3 gain meter/slider          | 0.5     | 0.0 – 1.0   |
-| RX4 gain meter/slider          | 0.5     | 0.0 – 1.0   |
-| TX gain+meter                  | 0.5     | 0.0 – 1.0   |
-| Slice assignment label         | —       | — or `Slice <letter>` |
-| TX overflow mode (right-click) | Clip    | Clip, NaNGuard, Measure |
+| Control                        | Default                                                                                                                     | Valid range                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RX1 gain meter/slider          | 0.5                                                                                                                         | 0.0 – 1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| RX2 gain meter/slider          | 0.5                                                                                                                         | 0.0 – 1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| RX3 gain meter/slider          | 0.5                                                                                                                         | 0.0 – 1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| RX4 gain meter/slider          | 0.5                                                                                                                         | 0.0 – 1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| TX gain+meter                  | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). Right-click menu lets users choose how out-of-range (>1.0) samples from digital-mode clients are handled: Clip (saturating ±1.0, legacy default), NaNGuard (pass-through, only zero NaN/Inf), or Measure (true bypass with clip counting). Default is Clip so existing users see no behavior change (#3065). |
+| Slice assignment label         | —                                                                                                                           | — or `Slice <letter>`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| TX overflow mode (right-click) | Clip                                                                                                                        | Clip, NaNGuard, Measure                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Server status indicator        | (stopped)                                                                                                                   | (stopped), `:<port> (N clients)`, or (port in use)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 Each meter/slider also displays a live RX or TX level using exponential smoothing — fast attack, slow decay — so the bar reflects signal activity on that channel while the drag position sets the gain.
 
@@ -50,6 +51,14 @@ The selected mode is persisted as the `TciTxOverflowMode` setting (value 0, 1, o
 | NaNGuard    | 1     | Passes samples through unchanged except zeroing NaN/Inf. Bit-exact for digital tones. |
 | Measure     | 2     | True bypass — never mutates samples. Counts overshoots for telemetry.    |
 
+## Server status indicator
+
+The server status indicator shows the current state of the TCI server:
+
+- **(stopped)** — The server is not running.
+- **:<port> (N clients)** — The server is running on the specified port with N connected clients.
+- **(port in use)** — The selected port is already in use by another application. The status text appears in red.
+
 ## Tips
 
 - The slice assignment labels (for example, `Slice A`) follow the DAX channel mapping. If a slice's DAX channel assignment changes, the label updates automatically.
@@ -60,6 +69,7 @@ The selected mode is persisted as the `TciTxOverflowMode` setting (value 0, 1, o
 
 - **A channel shows `—` and passes no audio to the TCI client** — No slice is assigned to that DAX channel. Assign a slice to the corresponding DAX channel in your radio setup so TCI RX audio is routed to that channel.
 - **TX overflow mode selection does not persist** — Check that AetherSDR has write permission to its settings file. The `TciTxOverflowMode` setting is stored in the application settings.
+- **Server status shows (port in use)** — The selected port is occupied by another application. Choose a different port number in the Port field.
 
 ## Related
 

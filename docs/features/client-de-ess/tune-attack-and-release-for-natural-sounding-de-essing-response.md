@@ -58,11 +58,11 @@ All knobs in the De-Ess editor now support inline numeric entry for precise adju
 
 ## What each control does
 
-| Control | Kind | Default | Range | Notes |
-|---------|------|---------|-------|-------|
-| Attack | knob | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. Present in StripDeEssPanel only. |
-| Release | knob | 100 ms | 10.0 to 500.0 ms | Exponential mapping. Present in StripDeEssPanel only. |
-| Slope | push button | 24 dB/oct | 12/24/36/48 dB/oct | Cycles through 1 to 4 cascaded bandpass biquads. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Persisted as `ClientDeEssTxSlopeStages` / `ClientDeEssRxSlopeStages`. |
+| Control | Kind        | Default   | Range              | Mapping       | Setting key (TX)              | Setting key (RX)              |
+|---------|-------------|-----------|--------------------|---------------|-------------------------------|-------------------------------|
+| Attack  | knob        | 1.0 ms    | 0.1 to 30.0 ms     | Exponential   | `ClientDeEssTxAttackMs`       | `ClientDeEssRxAttackMs`       |
+| Release | knob        | 100 ms    | 10.0 to 500.0 ms   | Exponential   | `ClientDeEssTxReleaseMs`      | `ClientDeEssRxReleaseMs`      |
+| Slope   | push button | 24 dB/oct | 12/24/36/48 dB/oct | Cascaded biquad stages | `ClientDeEssTxSlopeStages`    | `ClientDeEssRxSlopeStages`    |
 
 These controls exist only in the frameless strip editors (StripDeEssPanel). The docked ClientDeEssApplet omits them.
 

@@ -30,11 +30,13 @@ If the stream is already active, the combo box will sync back to the rate report
 - You can change the rate whether the stream is off or on. If the stream is already enabled, the radio applies the new rate to the active stream.
 - On reconnect, the combo box resets briefly before the radio reports the confirmed stream state. The displayed rate will sync automatically once the stream is re-established.
 - Scroll wheel events on the combo box are suppressed when the applet panel scroll lock is active. If the combo box does not respond to the scroll wheel, scroll the panel to the desired position and then click the combo directly.
+- The level meter now uses the current theme's accent color and background palette instead of hard-coded colors.
 
 ## Troubleshooting
 
 - **Rate combo shows a value different from what you selected** — The radio has reported a different rate for the active stream, and the combo has synced to match. This is normal. Disable the stream, change the rate, then re-enable it.
 - **Rate combo is unresponsive to the scroll wheel** — The applet panel scroll lock is active. Click the combo box to open the dropdown instead.
+- **Level meter colors look different than expected** — The meter follows the active theme. Change the theme in **Settings > Appearance > Theme** to adjust meter colors.
 
 ## Related
 

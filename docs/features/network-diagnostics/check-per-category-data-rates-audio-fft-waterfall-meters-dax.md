@@ -17,19 +17,19 @@ The dialog opens whether or not a radio is connected, but metrics are meaningful
 | **Latency** | Full-width time-series graph of RTT, arrival gap and jitter in ms. |
 | **Rates** | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps. |
 | **Packet Loss** | Full-width time-series graph of packet loss % per stream category. |
-| **Audio** | Full-width time-series graph of playback buffer fill (ms) and underruns/s. |
+| **Audio** | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. |
 | **Logs** | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The **Timeframe** selector is hidden while this tab is active. |
 
 ## Controls
 
-| Control | Location | Description |
-|---------|----------|-------------|
-| **Timeframe** | Top-right corner of the tab bar | Selects how far back the time-series charts display history. Default is **5 minutes**. Options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week. Hidden when the **Logs** tab is active. |
-| **Filter Categories (Logs)** | Logs tab | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories. |
-| **Select All (Logs)** | Logs tab | Shows all log categories in the viewer. |
-| **Deselect All (Logs)** | Logs tab | Hides all log categories from the viewer. |
-| **Live / Paused (Logs)** | Logs tab | When set to **Live**, the viewer auto-scrolls to the newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail. |
-| **Close** | Bottom of dialog | Closes the dialog. |
+| Control                      | Location                        | Description                                                                                                                                                                                     |
+|------------------------------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Timeframe**                | Top-right corner of the tab bar | Selects how far back the time-series charts display history. Default is **5 minutes**. Options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week. Hidden when the **Logs** tab is active. |
+| **Filter Categories (Logs)** | Logs tab                        | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                                   |
+| **Select All (Logs)**        | Logs tab                        | Shows all log categories in the viewer.                                                                                                                                                         |
+| **Deselect All (Logs)**      | Logs tab                        | Hides all log categories from the viewer.                                                                                                                                                       |
+| **Live / Paused (Logs)**     | Logs tab                        | When set to **Live**, the viewer auto-scrolls to the newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                      |
+| **Close**                    | Bottom of dialog                | Closes the dialog.                                                                                                                                                                              |
 
 ## Indicators
 

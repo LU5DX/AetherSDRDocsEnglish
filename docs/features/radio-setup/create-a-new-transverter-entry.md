@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Antennas, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, and Themes.
+The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Antennas, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, Themes, and SmartLink pinned certificate management.
 
 ## Opening the dialog
 
@@ -14,16 +14,18 @@ The **Radio** tab displays radio identification, license information, and firmwa
 
 ### Radio information (read-only)
 
+Each read-only field includes a copy button (clipboard icon) that appears on hover or focus. Click the button to copy the field value to the system clipboard. A brief "Copied!" popup confirms the action.
+
 | Control | Behavior |
 |---|---|
-| **Radio SN** | Chassis serial number. |
+| **Radio SN** | Chassis serial number. Click the copy button to copy. |
 | **Region** | Radio regulatory region. |
-| **HW Version** | Hardware version string. |
+| **HW Version** | Hardware version string. Click the copy button to copy. |
 | **Model** | Radio model. |
-| **Options** | Shows licensed radio options. |
+| **Options** | Shows licensed radio options. Click the copy button to copy. |
 | **FlexControl** | Detected state of FlexControl hardware. |
 | **multiFLEX** | multiFLEX enabled state. |
-| **License Info** | Displays subscription, expiration, Radio ID, and licensed version details. |
+| **License Info** | Displays subscription, expiration, Radio ID (click the copy button to copy), and licensed version details. |
 
 ### Identification fields
 
@@ -43,7 +45,7 @@ Click **Remote On** to enable remote wake / remote-on capability.
    - If firmware is up to date, the status label shows the current version in green.
    - If an update is available, the status label shows the version number and instructs you to download the SmartSDR installer from flexradio.com.
 2. Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
-3. Click **Select Installer...** and choose the downloaded installer or a pre-extracted `.ssdr` file. The stager detects the file format automatically and extracts the firmware without external tools. A progress indicator appears while staging completes.
+3. Click **Browse .ssdr...** and choose the downloaded installer or a pre-extracted `.ssdr` file. The stager detects the file format automatically and extracts the firmware without external tools. A progress indicator appears while staging completes.
 4. Click **Upload Firmware** to transfer the staged firmware to the radio.
 
 ## Network tab
@@ -54,7 +56,7 @@ The **Network** tab displays radio network information and provides advanced net
 
 | Control | Behavior |
 |---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses. |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. Each field includes a copy button (clipboard icon) that appears on hover or focus. Click the button to copy the value to the system clipboard. |
 
 ### Network settings
 
@@ -82,12 +84,7 @@ Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 
 | Control | Default | Range | Behavior |
 |---|---|---|---|
-| **ACC TX:** | - | - | ACC TX delay in milliseconds. |
-| **TX Delay:** | - | - | TX delay in milliseconds. |
-| **RCA TX1:** | - | - | RCA TX1 delay in milliseconds. |
-| **Timeout (sec):** | - | - | Interlock timeout displayed in whole seconds. The radio stores this value in milliseconds internally. |
-
-All timing fields accept integer values. Changes are applied when you finish editing each field.
+| **Timings (in ms)** | - | - | TX hang / delay timings. |
 
 ### Other TX controls
 
@@ -97,8 +94,8 @@ All timing fields accept integer values. Changes are applied when you finish edi
 | **Max Power:** | - | 0-100 % | Sets radio-level TX power cap. |
 | **Tune Mode:** | - | - | Selects how the tune button behaves. |
 | **Show TX in Waterfall:** | Off | - | Draws TX signal in the waterfall. |
-| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
-| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. |
+| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
+| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. Stored in `ActiveFollowsTxSlice` setting. |
 
 ## Antennas tab
 
@@ -256,7 +253,4 @@ The **XVTR** tab provides per-transverter configuration.
 
 ### Creating a new transverter
 
-1. Click **Create New Transverter**.
-2. A new nested tab appears. Configure the fields for the new entry on that tab.
-3. To restrict the entry to receive only, set **RX Only:** to the enabled state.
-4. To delete an entry you no longer
+1. Click

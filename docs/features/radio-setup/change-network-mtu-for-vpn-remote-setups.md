@@ -19,9 +19,9 @@ The Radio tab displays radio information, identification, license info, and firm
 
 | Control | Description | Notes |
 |---|---|---|
-| **Radio SN** | Chassis serial number (read-only). | |
+| **Radio SN** | Chassis serial number (read-only). | Click the copy button to copy the serial number to clipboard. |
 | **Region** | Radio regulatory region (read-only). | |
-| **HW Version** | Hardware version string (read-only). | |
+| **HW Version** | Hardware version string (read-only). | Click the copy button to copy the version string to clipboard. |
 | **Remote On** | Enables remote wake / remote-on. | |
 | **Options** | Shows licensed radio options (read-only). | |
 | **FlexControl** | Detected state of FlexControl hardware (read-only). | |
@@ -29,11 +29,15 @@ The Radio tab displays radio information, identification, license info, and firm
 | **Model** | Radio model (read-only). | |
 | **Nickname** | User-friendly radio nickname. | |
 | **Callsign** | Station callsign. | |
-| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". | |
+| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. | Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". |
 | **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. | |
 | **Check for Update** | Queries for firmware updates. | |
-| **Select Installer...** | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. See [Firmware update](#firmware-update-radio-tab) below. | |
+| **Browse .ssdr...** | Chooses a firmware image file. | |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. | |
+
+### Copyable values (Radio tab)
+
+The Radio SN and HW Version fields display a small copy button when hovered or focused. Clicking the button copies the displayed value to the system clipboard and shows a brief "Copied!" popup near the button.
 
 ### Firmware update (Radio tab)
 
@@ -50,11 +54,10 @@ AetherSDR does not download firmware automatically when an update is detected. D
    - `.msi` — WiX installer (FlexRadio SmartSDR v4.2 and later)
    - `.exe` — older self-extracting installer
    - `.ssdr` — pre-extracted firmware file
-5. Click **Select Installer...**.
+5. Click **Browse .ssdr...**.
    - A file picker opens filtered to `*.msi`, `*.exe`, and `*.ssdr`.
    - Select the file you downloaded.
-   - AetherSDR reads the file, auto-detects its format from the first 8 bytes, and extracts the `.ssdr` payload if needed. A status label shows progress.
-6. When staging completes and the upload button becomes active, click **Upload Firmware**.
+6. When the upload button becomes active, click **Upload Firmware**.
    - A progress bar tracks the upload.
    - Do not close the dialog or disconnect from the radio while the upload is in progress.
 
@@ -62,15 +65,9 @@ AetherSDR does not download firmware automatically when an update is detected. D
 
 | Message | Meaning |
 |---|---|
-| Update available: v*x.y.z* | A newer firmware version exists. Download the installer from flexradio.com, then click **Select Installer...**. |
+| Update available: v*x.y.z* | A newer firmware version exists. Download the installer from flexradio.com, then click **Browse .ssdr...**. |
 | Firmware is up to date (v*x.y.z*) | No action needed. |
-| Preparing firmware from *filename*... | The stager is reading and extracting the selected file. |
-| (error text in red) | Staging or upload failed. Check the file is a valid SmartSDR installer or firmware file and try again. |
-
-#### Notes
-
-- The **Select Installer...** button was labelled **Browse .ssdr...** in versions prior to v0.9.3.
-- Staging runs entirely on the client; no external tools are required to unpack `.msi` or `.exe` installers.
+| (error text in red) | Upload failed. Check the file is a valid SmartSDR firmware file and try again. |
 
 ## Network (tab)
 
@@ -223,4 +220,13 @@ The Antennas tab lets you assign user-friendly names to each antenna port on the
 
 ## Audio (tab)
 
-The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording
+The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
+
+| Control | Description | Default | Notes |
+|---|---|---|---|
+| **Line Out:** | Line-out gain. | — | |
+| **Mute (Line Out)** | Mutes line-out. | — | |
+| **Headphone:** | Headphone gain. | — | |
+| **Mute (Headphone)** | Mutes headphone. | — | |
+| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — | |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/L

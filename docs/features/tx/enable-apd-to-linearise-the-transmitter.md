@@ -27,6 +27,7 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 | Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
 The normal progression after enabling APD is: Cal → Avail → Active.
+
 ## Tips
 
 - APD calibration takes place automatically after you enable it. You do not need to transmit manually to trigger it; wait for the indicators to step through Cal → Avail → Active.
@@ -34,7 +35,7 @@ The normal progression after enabling APD is: Cal → Avail → Active.
 
 ## ATU button behaviour
 
-Starting with v0.9.5.1, the ATU button uses a per-frequency toggle that mirrors SmartSDR behaviour:
+The ATU button uses a per-frequency toggle that mirrors SmartSDR behaviour:
 
 - **First click** (or any click after a frequency change): starts a new ATU tune cycle.
 - **Second click at the same frequency**, when the ATU reports a successful match: switches the tuner to bypass.
@@ -48,7 +49,7 @@ The bypass state is cleared automatically when the transmit frequency changes, s
 | Byp       | Indicator | Lights orange when the ATU is in bypass or manual bypass.         |
 | Mem       | Indicator | Lights green when the ATU is using a stored memory.               |
 
-### ATU right-click menu (v26.5.2.1)
+### ATU right-click menu
 
 Right-click the ATU button to open a context menu with two actions:
 
@@ -61,7 +62,7 @@ Right-click the ATU button to open a context menu with two actions:
 
 Click TUNE to start or stop a tune carrier. The button label changes to **TUNING...** with a red background while the carrier is active.
 
-### TUNE right-click menu (v26.5.2.1)
+### TUNE right-click menu
 
 Right-click the TUNE button to choose the carrier shape for the next tune cycle:
 
@@ -74,10 +75,10 @@ The selection is a one-shot transient — the radio's tune mode reverts to singl
 
 ## RF Power / Tune Power sliders
 
-| Control    | Kind   | Behavior                                                                 |
-|------------|--------|--------------------------------------------------------------------------|
-| RF Power   | Slider | Sets the transmit RF power level (W); range 0–100. Default: 100. During drag, displays the current value as "XX W" above the slider handle. |
-| Tune Pwr   | Slider | Sets the tune-carrier power level (W); range 0–100. Default: 10. During drag, displays the current value as "XX W" above the slider handle. |
+| Control    | Kind   | Behavior                                                                                                                                    |
+|------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Power   | Slider | Sets the transmit RF power level as a percentage of maximum (0–100%). Default: 100%. During drag, displays the current value as "XX%" above the slider handle. |
+| Tune Pwr   | Slider | Sets the tune-carrier power level as a percentage of maximum (0–100%). Default: 10%. During drag, displays the current value as "XX%" above the slider handle. |
 
 ## TX Profile selector
 
@@ -91,9 +92,9 @@ PEP peak-hold: a peak reading is held for 2 seconds, then decays smoothly to the
 
 SWR is displayed as a horizontal bar gauge. Range 1.0–3.0. The gauge turns red above 2.5.
 
-## MOX button and Quindar tones (v0.9.7)
+## MOX button and Quindar tones
 
-In v0.9.7, clicking MOX routes through the Quindar-tone coordinator rather than toggling the transmitter directly. This means:
+Clicking MOX routes through the Quindar-tone coordinator rather than toggling the transmitter directly. This means:
 
 - **Engage (click MOX on):** if Quindar is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays before the transmitter keys.
 - **Disengage (click MOX off):** the BK-tone plays after the transmitter unkeys.
@@ -103,7 +104,17 @@ The button appearance is unchanged: the MOX button turns red while the transmitt
 
 | Control | Kind          | Behavior                                                                                                                                                      |
 |---------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MOX     | Toggle button | Toggles manual transmit. In v0.9.7, routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed. |
+| MOX     | Toggle button | Toggles manual transmit. Routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed. |
+
+## ATU MEM button
+
+| Control | Kind          | Behavior                                                                        |
+|---------|---------------|---------------------------------------------------------------------------------|
+| MEM     | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.       |
+
+## Theme support
+
+Starting with v26.6.1, the TX Controls applet uses theme-aware colours for all controls and indicators. Slider fill, label colours, and indicator states adapt to the active theme. If you use a custom theme, these controls will respect the `applet/tx` scope in the theme definition.
 
 ## Related
 

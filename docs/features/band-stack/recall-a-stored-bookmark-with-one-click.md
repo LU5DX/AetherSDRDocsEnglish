@@ -17,14 +17,11 @@ The Band Stack panel lets you jump the panadapter directly to any saved frequenc
 
 | Control | Behavior | Persisted setting |
 |---|---|---|
-| Bookmark buttons | Click to tune the panadapter to the stored frequency. Color reflects the band-plan segment for that frequency. | `BandStack_<serial>` |
+| Bookmark buttons | Click to tune the panadapter to the stored frequency; right-click to delete. Color reflects the band-plan segment for that frequency. | `BandStack_<serial>` |
 | `+` | Adds a new bookmark at the active slice's current frequency. | `BandStack_<serial>` |
-| × | Clears all bookmarks. | `BandStack_<serial>` |
-| ⚙ | Opens band stack options: Group by band, Auto-expiry (Off, 5 min, 15 min, 30 min, 60 min), Auto-save dwell (Off, 10 sec, 30 sec, 60 sec). | `BandStack_<serial>` |
 
 ## Tips
 
-- If you have many bookmarks, enable **Group by band** via the ⚙ menu. Bookmarks are then sorted under band headers, making a specific frequency easier to find by sight.
 - Each bookmark button's color comes from the band plan segment for that frequency, so you can identify the band at a glance without reading the label.
 
 ## Troubleshooting

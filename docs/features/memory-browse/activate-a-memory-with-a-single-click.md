@@ -19,10 +19,10 @@ The tuned slice immediately changes to the memory's frequency. The closest memor
 
 | Control | Behavior | Notes |
 |---|---|---|
-| Frequency column | Shows memory frequency in MHz to six decimal places | Tooltip shows full frequency |
-| Name column | Shows memory name, or group if name is blank, or "Memory N" if both are blank | |
-| Highlighted row | Memory closest to current tuning has a distinct background | Updates automatically as you tune |
-| Add Memory | Saves the current slice as a new memory entry | Always visible at the bottom of the panel |
+| Memory table | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
+| Highlighted row | Memory closest to current tuning has a distinct background color | Updates automatically as you tune |
+| Add Memory | Saves the current slice as a new memory entry | Anchored at the bottom of the panel, always visible. Added in v26.5.1 (#2533). |
+| No memories are available yet. | Shown when the radio has no memories loaded | |
 
 ## Tips
 

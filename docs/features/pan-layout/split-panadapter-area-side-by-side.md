@@ -19,8 +19,7 @@ To cancel without changing the layout, click **Cancel**.
 
 | Control | Description | Setting key |
 |---|---|---|
-| **A | B (2 pans)** layout button | Applies the two-panel side-by-side arrangement (`2h`). Clicking it confirms the selection and closes the dialog. | `PanLayout` |
-| Other layout buttons | Apply a different arrangement. Layouts requiring more panadapters than the radio's slice limit supports are rendered disabled with a forbidden cursor. If the slice limit is already full when a larger layout is applied, a status-bar message "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" is shown and the layout change is cancelled. | `PanLayout` |
+| **Layout buttons** | Click the preview tile matching the desired arrangement. Confirming closes the dialog. Layouts requiring more panadapters than the radio's slice limit supports are rendered disabled with a forbidden cursor. If the slice limit is already full when a larger layout is applied, a status-bar message "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" is shown and the layout change is cancelled. | `PanLayout` |
 | **Cancel** | Closes the dialog without changing the current layout. | — |
 
 ## Tips

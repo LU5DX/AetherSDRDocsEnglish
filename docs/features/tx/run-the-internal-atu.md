@@ -1,6 +1,6 @@
 # TX Controls overview
 
-*Introduced in v0.9.0. Updated for v26.5.3.*
+*Introduced in v0.9.0. Updated for v26.6.1.*
 
 The TX Controls applet provides all transmit-related controls: forward power and SWR meters, RF/Tune power sliders, TX profile selector, and TUNE/MOX/ATU/MEM buttons. It also includes the APD (Adaptive Pre-Distortion) toggle with Active/Cal/Avail status indicators.
 
@@ -23,10 +23,10 @@ The forward power meter automatically scales based on the connected radio model:
 
 | Control | Default | Range | Behavior |
 |---|---|---|---|
-| RF Power | 100 | 0–100 | Sets the transmit RF power level in watts. When dragging the slider handle, a tooltip shows the value in watts (e.g., "75 W"). |
-| Tune Pwr | 10 | 0–100 | Sets the tune-carrier power level for tuning operations. When dragging the slider handle, a tooltip shows the value in watts (e.g., "25 W"). |
+| RF Power | 100 | 0–100 | Sets the transmit RF power level as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "75%"). |
+| Tune Pwr | 10 | 0–100 | Sets the tune-carrier power level for tuning operations as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "25%"). |
 
-Both sliders now display a tooltip showing the current value in watts while you drag the handle. The tooltip appears next to the slider handle and updates in real time as you adjust the value.
+Both sliders display a tooltip showing the current value in percent while you drag the handle. The tooltip appears next to the slider handle and updates in real time as you adjust the value. The slider fill color follows the selected theme.
 
 ## TX Profile selector
 
@@ -108,7 +108,7 @@ Starting in v0.9.7, clicking MOX routes through the Quindar-tone coordinator rat
 - If Byp lights after the tuning cycle, the ATU was unable to find a match and has bypassed itself. Check your antenna system and SWR before transmitting at full power.
 - If Mem lights, the ATU applied a previously stored tuning memory rather than running a full tune. This is normal when MEM is enabled and a valid memory exists for the current frequency.
 - To manually force the tuner into bypass after a successful tune, click ATU a second time without changing frequency.
-- When adjusting the RF Power or Tune Pwr sliders, the tooltip that appears while dragging shows the exact value in watts, making fine adjustments easier.
+- When adjusting the RF Power or Tune Pwr sliders, the tooltip that appears while dragging shows the exact value in percent, making fine adjustments easier.
 
 ## Troubleshooting
 

@@ -25,11 +25,12 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 |---|---|---|
 | **Remote with SmartLink** (mode button) | Switches the connection screen to SmartLink mode. | `ConnectionMode` |
 | **SmartLink account: Email** | Your FlexRadio account email. | `SmartLinkEmail` |
-| **SmartLink account: Password** | Your SmartLink password. Not saved after the session ends. | — |
+| **SmartLink account: Password** | Your SmartLink password. Not saved after the session ends. The field is tagged with accessibility names for password managers (macOS Passwords, Windows Authenticator, KDE Wallet). | — |
 | **Sign In** | Authenticates with SmartLink and populates the **Remote radios** list. | — |
 | **Sign Out** | Logs out of SmartLink and clears the remote radio list. | — |
 | **Remote radios** | Lists SmartLink WAN radios available to the signed-in account. The list has a fixed display height; if you have many remote radios, scroll within the list to see all of them. | — |
 | **Use low bandwidth mode** | Reduces stream data rates for slow or metered links. | `LowBandwidthMode` |
+| **Enable adaptive frame-rate throttle** | Automatically reduces FFT/waterfall frame rate when network quality degrades. | `AdaptiveThrottleEnabled` |
 | **Connect Remote Radio** | Starts a WAN connection to the radio selected in **Remote radios**. | — |
 | **Connect to last radio on start up** | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 
@@ -49,12 +50,14 @@ If your radio is on a VPN or a routed network that is not visible via LAN discov
 - If the **Remote radios** list is empty after signing in, the remote radio may not have SmartLink enabled, or it may be offline.
 - The **Radio IP address** drop-down remembers up to three recent addresses across sessions. If you previously used the `LastRoutedRadioIp` setting (from a version before v0.9.7), AetherSDR imports it automatically into the recent-address list on first launch.
 - **Connect to last radio on start up** is checked by default. If you work with multiple radios and want to choose explicitly each session, uncheck it.
+- The SmartLink login form is identified in the accessibility tree as "SmartLink account login", making it easier for password managers to associate the credential fields with this specific login form.
+- The **Enable adaptive frame-rate throttle** checkbox is unchecked by default. When enabled, AetherSDR automatically lowers the FFT and waterfall frame rate when network quality degrades, helping maintain a stable connection on variable-quality links.
 
 ## Troubleshooting
 
 - **Remote radios list is empty after Sign In** — The radio at the remote location may be offline or SmartLink may not be enabled on it. Confirm the radio is powered on and registered to the same FlexRadio account.
 - **Sign In fails or the status label shows an error** — Check that your email and password are correct. Verify that AetherSDR has outbound internet access and that no firewall or proxy is blocking the SmartLink connection.
-- **Audio is choppy or drops frequently** — Enable **Use low bandwidth mode** before connecting to reduce stream rates for the link.
+- **Audio is choppy or drops frequently** — Enable **Use low bandwidth mode** before connecting to reduce stream rates for the link. For variable-quality connections, also enable **Enable adaptive frame-rate throttle** to automatically adjust display update rates.
 - **Manual connection fails or the Manual result label shows an error** — Confirm the IP address is correct and reachable from this machine. Check that the selected source interface in **Advanced: Source path** is active; dismiss any **Source warning label** by selecting a valid interface.
 - **AetherSDR connects to the wrong radio on startup** — Uncheck **Connect to last radio on start up** so the connection screen opens on every launch and you can select the intended radio.
 - **Connection dialog appears with incorrect geometry after exiting full-screen or frameless mode** — If you had the connection dialog in frameless mode and it was hidden when the window was restored, the dialog preserves its position only when it was visible at the time of restoration. This prevents the dialog from appearing off-screen.

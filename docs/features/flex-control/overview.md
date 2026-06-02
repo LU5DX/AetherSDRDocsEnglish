@@ -10,9 +10,9 @@ AetherControl is a dedicated configuration dialog for the FlexControl hardware r
 
 The AetherControl dialog provides a virtual tuning wheel and configuration panel for both the physical FlexControl device and the on-screen virtual wheel.
 
-**Virtual wheel** — A circular control rendered on screen that you rotate with mouse or touch gestures. It shows the active slice, frequency, and mode readout. Movement is translated into tuning steps based on Mouse Sensitivity and Wheel Tightness settings.
+**Virtual wheel** — A circular control rendered on screen that you rotate with mouse or touch gestures. It shows the active slice, frequency, and mode readout. Movement is translated into tuning steps based on Mouse Sensitivity and Wheel Tightness settings. Double-click the knob to capture mouse input for circular tuning; double-click again to release. Press Escape as a secondary release path.
 
-**Physical FlexControl** — When a genuine FlexControl hardware controller is connected via serial port, the dialog shows its connection state and port name. Use the Detect and Close buttons to manage the physical device. When connected, the physical wheel and buttons operate in parallel with the virtual wheel.
+**Physical FlexControl** — When a genuine FlexControl hardware controller is connected via serial port, the dialog shows its connection state and port name. Use the Detect and Close buttons to manage the physical device. When connected, the physical wheel and buttons operate in parallel with the virtual wheel. If the device resets (e.g., on power-up), AetherSDR automatically re-issues the cached LED state so the hardware matches the application's active wheel-mode button.
 
 **Button actions** — The wheel itself has a push (single-tap) and double-tap action assignment. Five auxiliary buttons each support their own single-tap and double-tap actions. The available actions include tuning, mode cycling, zoom control, RIT/XIT, volume, AGC threshold, APF, CWX macros, slice management, and MOX.
 
@@ -65,6 +65,8 @@ The AetherControl dialog provides a virtual tuning wheel and configuration panel
 
 - The Wheel Tightness and Mouse Sensitivity sliders are designed primarily for trackpad users. A physical FlexControl's mechanical detents are unaffected.
 - The virtual wheel uses de-jitter logic that clamps single-event pointer movements to 15° (π/12 radians) to prevent sudden jumps.
+- Double-click the virtual knob to capture mouse input, and double-click again to release. This replaces the previous single-click capture behavior that required Escape to release.
+- If the physical FlexControl resets, AetherSDR automatically restores the correct LED state for the active wheel-mode button.
 
 ## Related
 

@@ -23,7 +23,7 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 | Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. Frequency entries with explicit decimal points above 54 MHz are accepted as MHz values on any band. | |
 | Filter width label | Indicator | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth. | Fixes a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
-| Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. | |
+| Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. The slider fill anchors from the centre outward, with a small centre-mark dot painted on the groove to show the neutral position. | |
 | Mute button (Audio tab) | Toggle button | Off | Mutes audio output for this slice without changing the AF gain setting. | |
 | Squelch button + slider (Audio tab) | Toggle button | Off | Enables squelch for this slice. The adjacent slider sets the threshold. | Squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes, audio feeds external decoders via DAX and squelch is not meaningful — it also gates weak FSK signals. In CW mode, the radio locks squelch on at a fixed level and rejects changes. |
 | AGC combo (Audio tab) | Combo box | FAST | Sets the AGC attack/release speed for this slice. | |
@@ -76,6 +76,15 @@ When squelch is disabled and was previously enabled, the system automatically tu
 ## VFO panel layout changes in v26.5.3
 
 The stacked tab widget inside the VFO panel now uses a custom `QStackedWidget` subclass (`TabStack`) that reports only the current tab's preferred size. This fixes a visual gap that occurred when switching from the Mode tab (which has a shorter content height) to the DSP tab (which is taller when the digital sub-container is visible). The VFO panel no longer over-allocates height based on the tallest tab. The panel now adjusts its height cleanly as you switch between tabs.
+
+## Theming changes in v26.6.1
+
+The VFO panel now uses the AetherSDR theming system. All slider and button styles are derived from theme color tokens instead of hard-coded values, ensuring the panel matches the active color theme. The key visual changes are:
+
+- **Pan slider:** The centre-anchored fill now uses the theme's accent colour (`color.accent`) for the (centre → handle) region. The groove background uses the theme's background colour (`color.background.1`). A centre-mark dot remains visible at the neutral position.
+- **Small toggle buttons (TX badge, RX badge, etc.):** These now inherit background and accent colours from the theme via `{{color.background.1}}` and `{{color.accent}}` tokens, replacing the previous hard-coded `#1a2a3a` and `#00b4d8` values.
+- **Theme scope:** The VFO panel is placed under the `spectrum/vfo` container scope so inspector clicks on VFO components display their theming tokens without bubbling up to the spectrum display.
+- **Inspector coverage:** The widget declares its read token list (`color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, `color.accent`, `color.accent.bright`) so Inspect-mode clicks produce meaningful hit lists for the background, signal meter, and badge areas.
 
 ## Tips
 

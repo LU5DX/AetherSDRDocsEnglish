@@ -41,6 +41,7 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 - The **Enable** button and **Settings > Autostart DAX with AetherSDR** both write the same `AutoStartDAX` key. Clicking either one updates the shared setting.
 - Gain values for all four RX channels and the TX channel are saved independently. Adjusting them before enabling autostart means they will be restored at the same levels on the next launch.
 - Slice assignment indicators now display the slice letter in the active radio model's color (rich text format) for improved visibility. This affects both DAX RX channel assignments and TX assignment indicators.
+- On Linux, DAX audio uses PipeWire native streams (`pw_stream`) for lower latency, reducing RX latency from approximately 400 ms to approximately 200 ms. This applies to all DAX RX channels.
 
 ## Troubleshooting
 

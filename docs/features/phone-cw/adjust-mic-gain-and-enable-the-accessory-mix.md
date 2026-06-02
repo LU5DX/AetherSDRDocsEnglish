@@ -54,6 +54,10 @@ In v0.9.8 the four CW value labels (Delay, Speed, Sidetone Volume, and Pitch) ar
 
 In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default output (#2899). This ensures the sidetone is heard on the same device you have selected for other audio streams, rather than always using the system default audio output.
 
+### v26.6.1 changes: theme support
+
+In v26.6.1, the Phone/CW applet fully adopts the AetherSDR theme system. All visual elements — including slider grooves and handles, label text, and push button backgrounds — now use theme colors instead of hardcoded values. The applet container itself is styled with the `applet/digi` theme class, ensuring consistent appearance across all supported themes.
+
 ### CW sub-panel controls
 
 | Control | What it does | Default | Range / Values | Setting key |
@@ -80,9 +84,8 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 - In v26.5.1, the ALC gauge on both the Phone and CW panels was updated to use the software ALC meter (post-software-ALC SSB peak dBFS) instead of the previous HWALC (RCA voltage) path. Both gauges now read from the same MeterModel::swAlcChanged source, so the reading is consistent across voice and CW modes. The range is -20 to 0 dBFS, with the gauge filling from right to left. Values outside this range pin at the nearest end.
 - In v26.5.3, the ALC gauge on both panels is initialized to -20 dBFS at construction and immediately set to its floor value. This prevents a transient flicker that could appear on startup before the first meter update arrives from the radio.
 - In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default output. If you do not hear sidetone after updating, verify that your desired audio output device is selected in AetherSDR's audio settings.
+- In v26.6.1, all visual elements in the Phone/CW applet use theme colors. If you change the active theme, the applet updates automatically to match. The slider handles, push button backgrounds, and label colors all respond to the current theme settings.
 
 ## Troubleshooting
 
-- **Mic gain slider snaps back or reads 0 after adjusting** — You are using the PC source and the radio is reporting `mic_level=0`. This is expected behavior; AetherSDR holds the value in `PcMicGain` and does not write it to the radio. The slider position is correct.
-- **Mic gain slider does not update the radio when RADE mode is active** — This is expected. In RADE mode the slider acts as a client-side gain control stored in `PcMicGain`. Sending the value to the radio would overwrite the hardware mic setting. The slider will resume normal radio-side behavior when RADE mode is deactivated.
-- **+ACC has no effect** — Confirm the radio is in a voice
+- **Mic gain slider snaps back or reads 

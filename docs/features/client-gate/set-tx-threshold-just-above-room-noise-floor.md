@@ -38,6 +38,10 @@ The Transfer curve plots the static input/output relationship and shows a live i
 
 In v26.5.2.1, all knob controls in the applet gained an inline value editor. Click the value text below any knob to open a small text-entry field that overlays the displayed value. Enter a numeric value (with or without unit text) and press Enter to commit; the knob snaps to the typed value, clamped to its valid range. Clicking elsewhere on the interface also commits the edit. Press Escape to cancel and revert to the previous value. The editor recognises commas as decimal separators in locales that use them. This allows precise entry without dragging a knob.
 
+### Theming (v26.6.1)
+
+In v26.6.1, the applet and all its child controls — the Transfer curve widget and every knob — became fully themeable. Knob colours (ring background, ring foreground/arc, handle/pointer, label text, and value text) now read from theme keys in the `color.knob.*` namespace. The Transfer curve widget reads its background, grid, axis labels, identity line, curve, and ball colours from `color.background.*`, `color.text.*`, and `color.accent.*` theme keys. The curve colour is read from `color.accent.warning`, which renders as amber by default. When a custom theme is applied, all gate-related colours update immediately without requiring a restart. The visual default appearance is unchanged.
+
 ## Tips
 
 - Set Thresh during your worst-case noise condition (loudest fan, most background activity). A threshold calibrated to a quiet room will let noise through when conditions change.

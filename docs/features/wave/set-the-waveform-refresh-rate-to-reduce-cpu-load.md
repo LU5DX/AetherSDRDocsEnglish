@@ -22,7 +22,7 @@ The single-click discrimination interval is read from the Radio Setup click disc
 | Direction tint | RX (cool tint), TX (warm tint) | Visually disambiguates whether the displayed waveform is the receive monitor or the outgoing transmit path. |
 | Clipping highlight | No clipping (normal trace), Clipping (red emphasis, CLIP N label) | Columns containing samples at or above ±0.98 full-scale are highlighted; a 'CLIP N' counter appears in the header. |
 | PAUSED badge | Live (no badge), Paused (PAUSED badge in footer) | Indicates the display is showing a frozen snapshot and not the live audio stream. |
-| No-audio placeholder | Waveform present, 'Enable PC Audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. For RX, the message reads "Enable PC Audio". For TX, it reads "no TX audio". |
+| No-audio placeholder | Waveform present, 'no RX audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. |
 
 ## Settings drawer
 
@@ -53,7 +53,7 @@ The setting is persisted as `WaveApplet_ViewMode` with values 'Graph', 'Envelope
 |---|---|---|---|
 | Zoom | 1.7x (170%) | 1.0x–6.0x (100–600) | `WaveApplet_ZoomPercent` |
 
-Higher values stretch small signals vertically, causing clipping artifacts to appear sooner.
+Higher values stretch small signals vertically, causing clipping artifacts to appear sooner. The slider uses the primary slider style from the current theme.
 
 ## FPS slider
 
@@ -65,7 +65,7 @@ Higher values stretch small signals vertically, causing clipping artifacts to ap
 |---|---|---|---|
 | FPS | 24 Hz | 5–30 Hz | `WaveApplet_RefreshRateHz` |
 
-Lower values reduce CPU load on slow systems. The setting has no effect on audio capture or level accuracy.
+Lower values reduce CPU load on slow systems. The setting has no effect on audio capture or level accuracy. The slider uses the primary slider style from the current theme.
 
 ## Window slider
 
@@ -77,7 +77,7 @@ Lower values reduce CPU load on slow systems. The setting has no effect on audio
 |---|---|---|---|
 | Window | 1 s | 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s | `WaveApplet_TimeWindowMs` |
 
-The slider uses discrete steps. The first three positions are sub-second (240 ms, 480 ms, 1 s), then 1-second increments from 1 to 10 seconds. The current value is shown to the right of the slider.
+The slider uses discrete steps. The first three positions are sub-second (240 ms, 480 ms, 1 s), then 1-second increments from 1 to 10 seconds. The current value is shown to the right of the slider. The slider uses the primary slider style from the current theme.
 
 Setting a shorter window allows you to see fine details in the waveform. Setting a longer window shows the overall trend and makes it easier to spot infrequent events.
 

@@ -63,11 +63,13 @@ Switches the applet to show and edit the RX DSP chain. Each side keeps independe
 
 ### BYPASS
 
-Checked: snapshots the currently-enabled stages on the active side (TX or RX) and disables all of them. Unchecked: re-enables just the stages that were on before. TX and RX maintain separate snapshots.
+Checked: snapshots the currently-enabled stages on the active side (TX or RX), including RN2, and disables all of them. Unchecked: re-enables just the stages that were on before. TX and RX maintain separate snapshots.
 
 On both TX and RX sides, BYPASS state is owned by the audio engine and is kept in sync across the chain applet and any other UI controls that manage bypass (such as the Aetherial Audio Channel Strip). The button reflects the engine's actual bypass state whenever you are viewing either chain.
 
 Stages toggled manually while BYPASS is active are preserved outside the snapshot and will not be automatically restored when you uncheck BYPASS.
+
+Note: The BYPASS scope is global (per audio engine), not per-profile. The button stays pressed across Channel Strip profile switches.
 
 ### Record (⏺)
 
@@ -109,6 +111,8 @@ Non-interactive. Only visible in RX mode. Turns green when AetherSDR's audio out
 - Double-clicking a TX stage tile now opens the full Aetherial Audio Channel Strip rather than a per-stage editor. Access individual stage editors from within the strip.
 - The ADSP tile's label updates dynamically to show which noise reducer module is currently active, or falls back to "ADSP" when no module is engaged.
 - The click discrimination interval used by chain tiles is configured in Interaction Settings. Adjust it if the tiles feel too sensitive or not responsive enough when distinguishing single clicks from double clicks.
+- The BYPASS scope is global (per audio engine), not per-profile. Switching profiles in the Channel Strip will not reset the BYPASS state.
+- BYPASS also disables the RN2 module on the TX side, and restoration re-enables RN2 if it was active when bypass was engaged.
 
 ## Related
 

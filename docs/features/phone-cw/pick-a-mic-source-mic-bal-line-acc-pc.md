@@ -108,6 +108,17 @@ In v26.5.3 (#2899), the `updateCompression()` slot was updated to correctly inte
 
 Values are clamped to the 0–25 dB range before the conversion, so the gauge never reads beyond `-25 dB`.
 
+## Theme support (v26.6.1)
+
+In v26.6.1, the Phone/CW applet gained full theme support. The following visual elements now respect the active theme:
+
+- **Applet container** — Uses `theme::setContainer(this, "applet/digi")` for consistent background styling.
+- **Slider handles and grooves** — All sliders (Mic gain, Processor level, Monitor volume, Delay, Speed, Sidetone volume, CW pan) now use `applyPrimarySliderStyle()` instead of a hard-coded style sheet, allowing theme colors to be applied.
+- **Label colors** — Labels such as "Delay:", "Speed:", and "L" and "R" pan labels now use `{{color.text.secondary}}` from the theme.
+- **Step buttons** — The **<** and **>** buttons for CW Pitch now use `{{color.background.1}}` for normal and hover states, and `{{color.accent}}` for the pressed state, replacing the previous hard-coded colors.
+
+The theme integration ensures that the Phone/CW applet matches the visual style of the rest of the AetherSDR interface when a theme is selected.
+
 ## Tips
 
 - When using `PC` as the source, the **Level** meter appears immediately when AetherSDR connects to the radio, because PC mic metering runs client-side independently of the radio's `met_in_rx` setting. The meter is not suppressed between transmissions for PC sources.
@@ -117,11 +128,4 @@ Values are clamped to the 0–25 dB range before the conversion, so the gauge ne
 - When VOX is toggled via keyboard shortcut, the Phone panel refreshes instantly to reflect the new VOX state (v0.9.3).
 - On Windows, the CW sidetone stream starts immediately on connect (v0.9.3). If sidetone is enabled before connecting, no additional steps are required after the connection is established.
 - The **Compression** gauge reads 0 dB during receive. This is intentional: in v0.9.7 the gauge is gated on the radio's interlock TRANSMITTING state, so stale TX chain readings are not displayed between transmissions. In v26.5.3 the compression value mapping was corrected to use the radio's positive 0–25 dB range.
-- The **Breakin** button fully honors the radio's `break_in` setting as of v0.9.7. With **Breakin** on (QSK), key edges trigger TX and the break-in delay holds the relay. With **Breakin** off, keys are queued and PTT must be engaged manually. The previous behavior, where an auto-PTT envelope masked the **Breakin** off state and interfered with QSK hang time, has been removed.
-- The **ALC gauge** is present on both the Phone and CW sub-panels, so you can monitor ALC regardless of mode. In CW, the gauge helps verify a clean keying envelope shape.
-- In v26.5.3, the CW sidetone audio is routed to the user-selected audio output device rather than the system default output. If you do not hear CW sidetone, check your audio output settings in `Settings > Audio`.
-
-## Troubleshooting
-
-- **Mic source combo shows no selection or resets** — The list is populated from the radio's reported inputs. If the combo is empty, verify the radio connection is active (`Settings > Connect to Radio...`).
-- **Level meter reads nothing when source is PC** — This is not expected behavior in v0.9.3. The **Level** gauge should appear immediately on connect when the mic source is `PC`. If it does not, verify that AetherSDR
+- The **Breakin** button fully honors the radio's `break_in` setting as of v0.9.7. With **Breakin** on (QSK), key edges trigger TX and the break-in delay holds the relay.

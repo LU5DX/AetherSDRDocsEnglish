@@ -20,7 +20,7 @@ The Output Level Meter in the Tube applet shows the smoothed post-saturation pea
 | Element | What it shows | Range | Notes |
 |---|---|---|---|
 | Header label | Identifies the meter | Reads **OUT** | Confirms this meter shows the post-saturation output level. |
-| Level bar | Smoothed peak fill | −60 dB (bottom) to 0 dB (top) | Uses fast-attack (alpha = 0.6) / slow-release (alpha = 0.08) ballistics. Gradient fill: green (low) → lime → amber → red (top, above −3 dB). |
+| Level bar | Smoothed peak fill | −60 dB (bottom) to 0 dB (top) | Uses fast-attack (alpha = 0.6) / slow-release (alpha = 0.08) ballistics. Gradient fill uses the theme token `color.meter.bar.fillGradient`; default colors: green (low) → lime → amber → red (top, above −3 dB). When the theme changes, the meter re-renders automatically. |
 | dB scale ticks | Static reference grid | 0, −6, −12, −20, −40 dB labelled | Tick lines extend onto the bar so absolute level is readable at a glance. |
 | Numeric readout | Smoothed peak as a signed dB value | `-inf` or a signed value to one decimal place, e.g. `+0.0 dB` | Displays `-inf` when the signal is below approximately −59.5 dB. Updated at 10 Hz for readability. |
 
@@ -39,7 +39,9 @@ The Output Level Meter in the Tube applet shows the smoothed post-saturation pea
 - If the bar stays red during normal speech peaks, reduce the **Output** knob (range −24 dB to +12 dB, default 0.0 dB) or reduce the **Drive** knob (range 0 dB to 24 dB, default 0.0 dB) until amber or lower is typical for your signal peaks.
 - The slow-release ballistics (alpha = 0.08) mean the bar descends gradually after a peak, making it easier to catch transient overloads visually.
 - The numeric readout refreshes at 10 Hz rather than on every paint frame. This prevents the digits from flickering or becoming unreadable during fast level changes while the bar continues to animate smoothly.
+- The meter gradient is themed via the `color.meter.bar.fillGradient` token in the Theme Manager. Any live edits to this token in the Theme Editor cause the meter to re-render without restarting AetherSDR.
 
 ## Related
 
 - [Output Level Meter overview](overview.md)
+- [Theme Editor](theme-editor.md)

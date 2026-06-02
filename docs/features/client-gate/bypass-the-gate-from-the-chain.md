@@ -7,6 +7,8 @@ The AetherSDR client implements a downward expander / noise gate that runs entir
 
 The gate silences background noise between words (TX) or below a desired RX-audio floor by attenuating audio below a threshold. The user interface shows the static transfer curve with a live input ball, a cyan hysteresis-band overlay between (Thresh − Return) and Thresh, a 40 dB gain-reduction meter, and five tuning knobs: Thresh, Ratio, Return, Release, Floor.
 
+Knob colors (background ring, foreground arc, pointer, label, and value text) follow the theme defined in the `color.knob.*` namespace. The applet container is registered as `applet/gate` for theme lookup, enabling per-applet color overrides such as the amber knob foreground specific to the gate/expander applet.
+
 ## Controls
 
 | Label | Kind | Default | Valid Range | Setting Key | Behavior | Notes |
@@ -30,6 +32,8 @@ The gate silences background noise between words (TX) or below a desired RX-audi
 ## Transfer Curve Widget
 
 The ClientGateCurveWidget displays the static transfer curve. In compact mode (used within the Applet Panel) it uses a smaller 7-pixel font for axis labels. In full-size mode (floating editor) it uses a 9-pixel font and draws -dB grid labels at the major tick positions. Labels are pre-rendered as `QStaticText` objects for improved painting performance.
+
+The curve widget reads theme colors from the active theme. The curve uses the `color.accent.warning` palette entry (amber), and all background, grid, and axis label colors are sourced from the `color.background.*` and `color.text.*` theme namespaces.
 
 ## Inline Value Editing
 

@@ -9,13 +9,15 @@ The Panadapter Layout feature controls how many panadapters are displayed and ho
 
 ## How it works
 
-Right-click on the panadapter area to open the **Panadapter Layout** dialog. The dialog presents a grid of thumbnail previews, each showing a labelled arrangement of lettered cells (A, B, C, and so on). The currently active layout is highlighted with a teal border.
+Right-click on the panadapter area to open the **Panadapter Layout** dialog. The dialog presents a grid of thumbnail previews, each showing a labelled arrangement of lettered cells (A, B, C, and so on). The currently active layout is highlighted with a teal accent border.
 
 Click any enabled thumbnail to apply that layout immediately. The dialog closes and AetherSDR rearranges the panadapter area. Click **Cancel** to close the dialog without making a change.
 
 The chosen layout is persisted as `PanLayout`.
 
 Thumbnails for arrangements that exceed the number of panadapters your radio supports are shown with a dimmed appearance and cannot be selected. If the radio's slice limit is already at capacity when a larger layout is applied, a status-bar message "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" is shown and the layout change is cancelled.
+
+The dialog uses the current theme's color palette for its background, text, accent, and button styles. If you change the theme, the dialog updates automatically on next open.
 
 ## What each control does
 

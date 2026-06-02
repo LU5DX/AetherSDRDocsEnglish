@@ -26,8 +26,8 @@ On single-port (R4) devices, the INPUT B card and the B column are hidden entire
 | INPUT B card | Displays the band and antenna name currently assigned to Port B. Highlighted in orange. Shows — when no antenna is selected. Hidden on single-port (R4) devices. | — |
 | [A] button (per antenna row) | Selects that antenna for Input A. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna. | — |
 | [B] button (per antenna row) | Selects that antenna for Input B. Click again to deselect. Blinks amber on conflict. Blinks orange on the dummy load row when Port B is auto-routed there. | — |
-| Dummy load selector | Opens a menu to assign one antenna as the dummy load, or clear the assignment. When set, Port B is automatically routed to that antenna to protect the transmit path. Stored as an integer antenna ID; -1 means no dummy load is configured. | `SS_DummyLoadAnt` |
-| Settings ⚙ | Opens the ShackSwitch device web configuration interface in the system browser. Uses the live device IP when connected, falls back to `SS_ManualIp`. Port comes from the device beacon, `SS_WebPort`, or defaults to 5000. | `SS_ManualIp`, `SS_WebPort` |
+| Dummy load selector | Selects or deselects an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna when transmitting. Stored as integer antenna ID. -1 means no dummy load configured. | `SS_DummyLoadAnt` |
+| Settings ⚙ | Opens the ShackSwitch device web configuration interface in the system browser. Uses the live peer address when connected, falls back to `SS_ManualIp`. Port determined by `SS_WebPort`, beacon webPort, or 5000 default. | `SS_ManualIp`, `SS_WebPort` |
 
 `SS_ControlPort` sets the UDP control port used to communicate with the device.
 

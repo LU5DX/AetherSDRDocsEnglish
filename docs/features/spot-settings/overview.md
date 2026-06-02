@@ -9,7 +9,7 @@ The Spot Settings dialog controls how DX spots and memory channels appear on the
 
 ## How it works
 
-The Spot Settings dialog is a standalone window. It groups controls into three areas: visibility and layout, lifetime, and color overrides. All changes are saved immediately when you interact with a control.
+The Spot Settings dialog is a standalone window. It groups controls into three areas: visibility and layout, lifetime, and color overrides. All changes are saved immediately when you interact with a control. The dialog automatically follows the current theme for colors and styling.
 
 The **Total Spots:** indicator at the bottom of the dialog shows the count of live spots currently being tracked.
 
@@ -38,6 +38,7 @@ The **Total Spots:** indicator at the bottom of the dialog shows the count of li
 - Enabling Override Background: Auto while Override Background: Enabled is on lets AetherSDR choose contrasting background colors automatically. Disable Auto to apply your manually picked color from the spot background color picker instead.
 - Enabling Memories: shows your radio's stored memory channels as spot-style overlays, which is useful for quickly identifying activity on channels you have saved.
 - Disable Spot Lines: during contests or when the panadapter is crowded to reduce visual clutter. The spot labels remain visible; only the vertical lines are hidden.
+- The Spot Settings dialog automatically follows the current theme. Text and background colors for dialog elements update when you switch themes.
 
 ## Related
 

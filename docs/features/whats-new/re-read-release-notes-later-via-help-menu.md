@@ -16,7 +16,7 @@ The What's New — AetherSDR dialog opens automatically after an upgrade, but yo
 
 | Control | Kind | Behavior |
 |---|---|---|
-| Release notes browser | Scrollable view | Displays release entries as styled HTML. When opened via `Help > What's New...`, shows all entries for the current version. |
+| Release notes browser | Scrollable view | Displays release entries as styled HTML with dark-theme formatting. When opened via `Help > What's New...`, shows all entries for the current version. |
 | `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen (persisted as `LastSeenVersion`). |
 | `Upgrade` | Button | Shown only when an upgrade is available. Opens the download page at `https://github.com/aethersdr/AetherSDR/releases/latest` and closes the dialog. |
 | `Skip this version` | Button | Shown only when an upgrade is available. Records the current version in `LastSeenVersion` and dismisses the dialog without upgrading. |
@@ -25,6 +25,7 @@ The What's New — AetherSDR dialog opens automatically after an upgrade, but yo
 ## Tips
 
 - Opening the dialog via `Help > What's New...` always shows the full notes for the current version, regardless of what `LastSeenVersion` is set to. The automatic on-launch version shows only entries newer than the last seen version, capped at five releases.
+- The dialog fetches release notes from the GitHub API. If you see an error about rate limiting, try again in a few minutes, or visit `github.com/aethersdr/AetherSDR/releases` directly in your browser.
 
 ## Related
 

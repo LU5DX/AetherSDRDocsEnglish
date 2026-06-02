@@ -19,9 +19,8 @@ The bookmark disappears immediately from the panel and is removed from the store
 
 | Control | Behavior |
 |---|---|
-| Bookmark buttons | Left-click recalls the stored frequency. Right-click opens a context menu with the **Remove** option. |
+| Bookmark buttons | Left-click recalls the stored frequency. Right-click opens a context menu with the **Remove** option. Color reflects the band-plan segment for that frequency. |
 | **+** | Adds a new bookmark at the active slice's current frequency. |
-| **×** | Clears all bookmarks for the connected radio. |
 
 The bookmark list is persisted under `BandStack_<serial>`, where `<serial>` is the serial number of the connected FLEX-8600.
 

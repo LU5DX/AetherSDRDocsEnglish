@@ -17,11 +17,13 @@ A conflict occurs when both Input A and Input B are assigned to the same antenna
 
 | Control | Behavior | Setting key |
 |---|---|---|
+| Status label | Shows the connected device IP address and firmware version, or a disconnected message. | — |
 | `[A]` button (per antenna row) | Selects that antenna for Input A. Clicking an already-selected antenna deselects it. Blinks amber when Input A and Input B are both assigned to the same antenna. | — |
 | `[B]` button (per antenna row) | Selects that antenna for Input B. Clicking an already-selected antenna deselects it. Blinks amber when conflicting. When a dummy load is configured and Input B is auto-routed there, the intended row `[B]` button blinks amber and the dummy load row `[B]` button blinks orange. | — |
-| INPUT A card | Shows the current band and antenna name assigned to Port A. Displays — when no antenna is selected. | — |
-| INPUT B card | Shows the current band and antenna name assigned to Port B. Displays — when no antenna is selected. Hidden on single-port R4 devices. | — |
-| Dummy load selector | Assigns an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load, which can cause the amber blink on the intended antenna row. | `SS_DummyLoadAnt` |
+| INPUT A card | Shows the current band and antenna name assigned to Port A. Displays — when no antenna is selected. Highlighted in cyan. | — |
+| INPUT B card | Shows the current band and antenna name assigned to Port B. Displays — when no antenna is selected. Highlighted in orange. Hidden on single-port R4 devices. | — |
+| Dummy load selector | Selects or deselects an antenna as the dummy load. When configured, Port B is automatically routed to the dummy load to protect the antenna when transmitting. | `SS_DummyLoadAnt` |
+| Settings button | Opens the ShackSwitch device web configuration interface in the system browser. Uses the live peer address when connected, falls back to `SS_ManualIp`. Port determined by `SS_WebPort`, beacon `webPort`, or 5000 default. | — |
 
 ## Tips
 

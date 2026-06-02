@@ -29,6 +29,7 @@ Load a pre-recorded WAV file from your computer into one of the Digital Voice Ke
 | ▶ PLAY | Plays the selected slot. | — |
 | ◀ PREV | Previews the slot through the local speaker. | — |
 | Rename edit | Inline rename of a slot triggered via context menu. | — |
+| Status indicator | Displays current DVK state: Idle, Recording, or Playing. | Idle |
 
 ## Keyboard shortcuts
 
@@ -50,6 +51,7 @@ The DVK panel registers keyboard shortcuts F1–F12 and Escape. These shortcuts 
 - **Slot duration still shows "Empty" after selecting a file** — The transfer to the radio may have failed. Check that the radio connection is still active, then try the upload again.
 - **The context menu does not appear** — Click somewhere else first to deselect any active control, then right-click directly on the slot row frame.
 - **Keyboard shortcuts (F1–F8, Escape) do not work** — Ensure the active slice is in a voice mode. The DVK shortcuts are only enabled when the slice mode supports voice keyer operation. If the slice is in CW mode, the CWX panel shortcuts take precedence.
+- **Status shows "Transfer failed" instead of a success message** — The WAV file upload encountered an error. Verify the file format is a valid WAV and the radio connection is active, then try again.
 
 ## Related
 

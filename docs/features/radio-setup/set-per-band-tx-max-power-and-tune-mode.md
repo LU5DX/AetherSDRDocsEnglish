@@ -1,6 +1,6 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, antenna names, filters, transverters, USB cables, peripherals, APD, themes, and serial port settings across multiple tabs.
+The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, antenna names, filters, transverters, USB cables, peripherals, APD, themes, SmartLink certificate management, and serial port settings across multiple tabs.
 
 ## Opening Radio Setup
 
@@ -15,11 +15,11 @@ The Radio tab displays radio information, identification, license info, and firm
 
 | Control | Kind | Notes |
 |---|---|---|
-| **Radio SN** | Indicator | Chassis serial number (read-only). |
+| **Radio SN** | Indicator | Chassis serial number (read-only). Click the copy icon next to the value to copy it to clipboard. |
 | **Region** | Indicator | Radio regulatory region. |
 | **HW Version** | Indicator | Hardware version string. |
 | **Model** | Indicator | Radio model. |
-| **Options** | Indicator | Shows licensed radio options. |
+| **Options** | Indicator | Shows licensed radio options. Click the copy icon to copy the text. |
 | **FlexControl** | Indicator | Detected state of FlexControl hardware. |
 | **multiFLEX** | Indicator | multiFLEX enabled state. |
 
@@ -28,8 +28,10 @@ The Radio tab displays radio information, identification, license info, and firm
 | Control | Kind | Notes |
 |---|---|---|
 | **Nickname** | Text field | User-friendly radio nickname. |
-| **Callsign** | Text field | Station callsign. |
+| **Callsign** | Text field | Station callsign. Click the copy icon next to the value to copy it to clipboard. |
 | **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station <name>'. |
+
+Each read-only information field on this tab (Radio SN, Callsign, Options, HW Version, Region, Model) displays a small copy icon when you hover over the value. Click the icon to copy the text to the clipboard. A brief "Copied" popup confirms the action.
 
 ### License information
 
@@ -96,9 +98,9 @@ Click **TX Band Settings** to open the dedicated per-band power and tune dialog.
 
 | Control | Kind | Default | Notes |
 |---|---|---|---|
-| **Max Power:** | Spin box | — | Valid range: 0-100 %. Sets radio-level TX power cap. |
+| **Max Power:** | Spin box | — | 0-100%. Sets radio-level TX power cap. |
 | **Tune Mode:** | Combo box | — | Selects how the tune button behaves. |
-| **Timings** | Spin box / Text field | — | TX hang, delay, and timeout settings. |
+| **Timings** | Spin box / Text field | — | TX hang / delay timings (see table below). |
 | **Interlocks - TX REQ: RCA / Accessory** | Toggle button | — | Enables RCA and accessory interlock inputs. |
 | **Show TX in Waterfall:** | Toggle button | — | Draws TX signal in the waterfall. |
 | **TX Follows Active Slice** | Button | False | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
@@ -241,15 +243,4 @@ The Filters tab configures low-latency or sharp filter options per bandwidth.
 
 ## XVTR tab
 
-The XVTR tab provides per-transverter configuration. It contains nested tabs, one per transverter, and a '+' tab for creating new transverters.
-
-| Control | Kind | Notes |
-|---|---|---|
-| **RX Only:** | Toggle button | Forces RX-only on that transverter. |
-| **Remove (xvtr)** | Button | Deletes the transverter definition. |
-| **Create New Transverter** | Button | Adds a new transverter entry. |
-
-## USB Cables tab
-
-The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
+The XVTR tab provides per-transverter configuration. It contains nested tabs, one per transverter, and a '+' tab for creating

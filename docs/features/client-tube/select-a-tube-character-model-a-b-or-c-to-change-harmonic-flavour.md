@@ -21,9 +21,26 @@ The tube character selector chooses which of three distinct saturation curves th
 | **A**   | Checked (active)                                                                                                                                                                    | Selected / not selected                                                                                                                                                                                   |
 | **B**   | Unchecked                                                                                                                                                                           | Selected / not selected                                                                                                                                                                                   |
 | **C**   | Unchecked                                                                                                                                                                           | Selected / not selected                                                                                                                                                                                   |
-| RN2     | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| **Drive** | 0.00 dB                                                                                                                                                                           | 0.0 to 24.0 dB                                                                                                                                                                                           |
+| **Tone** | 0.00                                                                                                                                                                               | -1.0 to 1.0                                                                                                                                                                                              |
+| **Bias** | 0 %                                                                                                                                                                                | 0.0 to 1.0                                                                                                                                                                                               |
+| **Output** | 0.00 dB                                                                                                                                                                          | -24.0 to 12.0 dB                                                                                                                                                                                         |
+| **Dry/Wet** | 100 %                                                                                                                                                                            | 0.0 to 1.0                                                                                                                                                                                               |
+| **Envelope** | 0 %                                                                                                                                                                              | -1.0 to 1.0                                                                                                                                                                                              |
+| **Attack** | 5.00 ms                                                                                                                                                                           | 0.1 to 30.0 ms                                                                                                                                                                                           |
+| **Release** | 35.00 ms                                                                                                                                                                         | 10.0 to 500.0 ms                                                                                                                                                                                         |
+| **RN2**   | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
 A, B, and C are mutually exclusive. Selecting one deselects the others. The same setting key (`ClientTubeTxModel` for TX, `ClientTubeRxModel` for RX) stores the choice for its respective side; TX and RX selections are fully independent.
+
+## Indicators
+
+| Indicator | Purpose                                                                                                                         |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------|
+| Transfer curve | Compact-mode ClientTubeCurveWidget. Draws the currently-configured tube transfer curve with a live ball at the input. Colors are theme-aware via the ThemeManager color keys. |
+| Live input ball | Dot moves along the transfer curve at the current input level, visualising the saturation regime. Ball glow uses `color.accent.warning`, core uses `color.text.primary`. |
+| Output level meter | ClientLevelMeter widget (far right of the editor) showing post-saturation peak level with fast-attack / slow-release ballistics. Labelled 'OUT'. Only visible in the floating editor, not the docked applet tile. Colour zones: green (-60 to -12 dB), lime (-12 to -6 dB), amber (-6 to -3 dB), red (above -3 dB). |
+
 ## Bypass dim behaviour
 
 When the tube stage is bypassed, the docked applet tile renders at reduced opacity (approximately 55 %). This matches the dim effect used on the EQ curve elsewhere in the chain. The tile returns to full opacity as soon as the stage is re-enabled. The dim is applied to the entire tile, including the transfer curve and all knobs. It is a visual indicator only and does not affect the persisted settings.
@@ -34,6 +51,10 @@ All knob controls in the Aetherial Tube floating editor support inline value edi
 
 When the text entry field is focused, it shows a dark background with a cyan border to indicate edit mode. When not focused, it appears identical to the painted value text.
 
+## Theme-aware knob colours
+
+All knob components (background ring, value arc, pointer, label, and value text) now read from the ThemeManager's dedicated `color.knob.*` namespace. The per-applet container override (e.g. `applet/tube`) allows the tube knobs to respect the current theme. Knob label text uses `color.text.secondary`, value text uses `color.text.primary`.
+
 ## Tips
 
 - The transfer curve display updates in real time when you switch models. Use this together with the live input ball to see how heavily your current Drive and Bias settings are bending the new curve before committing.
@@ -41,6 +62,7 @@ When the text entry field is focused, it shows a dark background with a cyan bor
 - After switching models, the harmonic mix may change noticeably at high Drive or Bias settings. If the level changes, adjust the Output knob to compensate.
 - Use inline value editing for precise numeric entry rather than dragging knobs. This is especially useful for setting exact values for Bias, Drive, Output, and Envelope parameters.
 - If the docked tile appears dimmed, the tube stage is currently bypassed. Re-enable it before evaluating how a model change sounds.
+- The tube curve widget colours are fully theme-aware: background uses `color.background.0`, frame uses `color.background.1`, curve uses `color.accent.dim`.
 
 ## Related
 

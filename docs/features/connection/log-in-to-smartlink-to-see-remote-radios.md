@@ -41,6 +41,7 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 - `Retry Discovery` — Re-runs LAN discovery on the Local page.
 - `Disconnect` — Disconnects from the current radio and returns to the connection panel.
 - `Connect to last radio on start up` — When checked (default), AetherSDR automatically reconnects to the last used radio on startup. When unchecked, the connection panel opens each session.
+- `Enable adaptive frame-rate throttle` — When checked, AetherSDR automatically reduces FFT and waterfall frame rates when network quality degrades, helping to maintain a stable connection on slower or congested links.
 
 ## What each control does
 
@@ -65,6 +66,7 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 | `Use low bandwidth mode` | Enables reduced-rate streams for slow links. | `LowBandwidthMode` |
 | `Connect by IP (manual)` | Starts the manual/VPN connection. | — |
 | `Connect to last radio on start up` | When checked, auto-connects to the last used radio on startup. Defaults to checked. | `AutoConnectToLastRadio` |
+| `Enable adaptive frame-rate throttle` | Automatically reduces FFT/waterfall frame rate when network quality degrades. | `AdaptiveThrottleEnabled` |
 | `Disconnect` | Disconnects from the current radio. | — |
 
 ## Status indicators
@@ -84,6 +86,7 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 - The `Radio IP address` field stores up to three recent addresses. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
 - On the Local page, you can quickly switch to SmartLink or Manual mode using the shortcut buttons.
 - When switching to or from frameless mode, AetherSDR preserves the dialog geometry only if the dialog was visible at the time of the switch.
+- The SmartLink login form now includes accessibility hints for password managers (macOS Passwords, Windows Authenticator, KDE Wallet). The email and password fields are labeled as a "SmartLink login form" so credential managers can correctly scope the account pair.
 
 ## Troubleshooting
 

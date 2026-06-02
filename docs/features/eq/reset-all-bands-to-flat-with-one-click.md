@@ -31,7 +31,7 @@ All eight band sliders move to 0 dB and their value labels update to 0.
 | RX | Selects the receive path for display and editing. Shows blue when active. | unchecked | — |
 | TX | Selects the transmit path for display and editing. Shows blue when active. | checked on first launch; then remembers last selection | — |
 | Reset arc button | Resets all 8 bands of the currently-selected path to 0 dB. | — | — |
-| Band sliders (63–8k) | Vertically-oriented sliders; each trims one octave band for the selected path. Value label below each slider updates live. When dragging a slider, a popup near the handle shows the exact dB value with a sign (for example, "+3 dB" or "-5 dB"). | 0 dB | −10 to +10 dB |
+| Band sliders (63–8k) | Vertically-oriented sliders; each trims one octave band for the selected path. Value label below each slider updates live. When dragging a slider, a popup near the handle shows the exact dB value with a sign (for example, "+3 dB" or "-5 dB"). The slider handle is colored with the theme accent color. | 0 dB | −10 to +10 dB |
 | +10 / 0 / -10 dB scale | Reference labels to the left and right of the slider column indicating the range of the sliders. | — | — |
 
 ## Tips
@@ -41,6 +41,7 @@ All eight band sliders move to 0 dB and their value labels update to 0.
 - Resetting bands does not disable the equalizer. ON remains in its current state after a reset.
 - The drag popup shows the value with a sign (for example, "+3 dB" for positive values, "0 dB" for zero, "-5 dB" for negative values). This matches the behavior of other sliders in the application.
 - After releasing a slider handle, the popup lingers briefly before disappearing so you can read the final value.
+- The applet uses theme colors for all UI elements. Colors update live when you change the application theme.
 
 ## Related
 

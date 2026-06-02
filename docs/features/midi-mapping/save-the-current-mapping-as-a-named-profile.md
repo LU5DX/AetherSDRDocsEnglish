@@ -25,7 +25,7 @@ The profile is stored immediately. The **Profile:** drop-down is refreshed to in
 | **Connect** | Opens/closes selected MIDI port. | — |
 | **Auto-connect on startup** | Reopens MIDI port on launch. | `MidiAutoConnect` |
 | **Category** | Filters parameter combo to a control category. Available categories: All, RX, TX, Phone/CW, EQ, Global, Mode, Band, Filter, Slice, Display, Frequency. | — |
-| **Parameter** | Chooses the target parameter for a new binding. In v26.5.2.1, three momentary (Gate) actions are available in the Phone/CW category: "Trigger straight key" (id: cwkey), "Trigger CW Left Paddle" (id: cwdit), "Trigger CW Right Paddle" (id: cwdah). Legacy dotted IDs cw.key/cw.dit/cw.dah are auto-migrated on read. | — |
+| **Parameter** | Chooses the target parameter for a new binding. In v26.6.1, three momentary (Gate) actions are available in the Phone/CW category: "Trigger straight key" (id: cwkey), "Trigger CW Left Paddle" (id: cwdit), "Trigger CW Right Paddle" (id: cwdah). Legacy dotted IDs cw.key/cw.dit/cw.dah are auto-migrated on read. | — |
 | **Learn** | Starts listening for the next MIDI message and binds it to the selected parameter. | — |
 | **Bindings table** | Shows existing bindings with per-row Invert, Relative and delete controls. Columns: Parameter, MIDI Source, Channel, Invert, Relative, (delete). | — |
 | **Invert** | Reverses the control direction for the row. | — |

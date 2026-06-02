@@ -40,6 +40,25 @@ The RX-side Aetherial AGC-G (client-side downward expander) attenuates received 
 
 Each tuning knob (Thresh, Ratio, Return, Release, Floor) supports direct numeric entry. Click the displayed value below any knob to open an inline text editor. Type a new value and press Enter, or click elsewhere, to commit the change. The knob updates live and clamps the entered value to the valid range. Press Esc to cancel editing and revert to the previous value. The editor uses a locale-aware parser, so decimal separators matching your system locale (for example, a comma in European locales) work correctly.
 
+## Theme-aware knob colors
+
+Knobs in the Aetherial AGC-G (RX) container use theme colors from the `color.knob.*` namespace:
+- **Background ring**: `color.knob.background`
+- **Foreground arc**: `color.knob.foreground`
+- **Pointer**: `color.knob.handle`
+- **Label text**: `color.text.secondary`
+- **Value text**: `color.text.primary`
+
+The curve widget uses these theme colors:
+- **Background**: `color.background.0`
+- **Grid lines**: `color.background.1`
+- **Axis labels**: `color.text.label`
+- **Curve**: `color.accent.warning` (amber)
+- **Ball glow**: `color.accent.warning` (amber)
+- **Ball core**: `color.text.primary`
+
+Knob colors follow per-applet container overrides. If you create a custom theme, set colors in the `applet/gate` container for the gate-specific knob rendering.
+
 ## Tips
 
 - Start with Thresh just above the highest level of background noise you want to suppress. Adjust while listening to a weak signal — the gate should open cleanly when the signal rises above the noise.

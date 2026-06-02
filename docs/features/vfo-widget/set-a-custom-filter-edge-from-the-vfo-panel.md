@@ -29,7 +29,7 @@ The preset button now applies your custom filter edges when clicked. The values 
 | Filter width label               | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8).                                                                                                                                                                                                                                                                | —                                                                                                                       |
 | Slice badge                      | Shows the slice letter (e.g., A, B) in a colored badge. Now supports HTML rendering for the slice letter (#2606). Click to select this slice.                                                                                                                                                                                                                                                                                                                                                                 | —                                                                                                                       |
 | AF Gain slider (Audio tab)       | Sets the audio output level for this slice (0–100). Not persisted — reflects live radio state.                                                                                                                                                                                                                                                                                                                                                                                                                | 100                                                                                                                     |
-| Pan slider (Audio tab)           | Sets left/right stereo pan for this slice. 50 = centre.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 50                                                                                                                      |
+| Pan slider (Audio tab)           | Sets left/right stereo pan for this slice. The slider fill is painted from the centre outward — when the handle is left of centre, the accent fill extends from the handle to the centre; when the handle is at or right of centre, no handle-to-centre fill is painted. A small centre-mark dot is painted on the groove at the midpoint so the neutral position is visible at a glance. 50 = centre.                                                                                                                                                                                                                                                | 50                                                                                                                      |
 | Mute button (Audio tab)          | Mutes audio output for this slice without changing the AF gain setting.                                                                                                                                                                                                                                                                                                                                                                                                                                        | off                                                                                                                     |
 | Squelch button + slider (Audio tab) | Enables squelch for this slice. The adjacent slider sets the threshold (0–100). Squelch is disabled and forced off when the slice mode is DIGU, DIGL, RTTY, or any CW mode, as it is not meaningful for digital/RTTY audio fed via DAX or for CW where the radio locks squelch on (#2504).                                                                                                                                                                                                                       | off |
 | AGC combo (Audio tab)            | Sets the AGC attack/release speed for this slice: FAST, MED, SLOW, or OFF.                                                                                                                                                                                                                                                                                                                                                                                                                                    | FAST                                                                                                                    |
@@ -49,7 +49,7 @@ The preset button now applies your custom filter edges when clicked. The values 
 
 | Label        | States                | Meaning                                                                 |
 |--------------|-----------------------|-------------------------------------------------------------------------|
-| TX badge     | TX (red) / hidden     | Shown when this slice is the active transmit slice.                     |
+| TX badge     | TX (red) / hidden     | Shown when this slice is the active transmit slice. The badge and its container now use theme-aware tokens (`color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, `color.accent`, `color.accent.bright`). Inspect-mode clicks on the badge or signal meter reveal these tokens for theme customization. |
 | SPLIT badge  | SPLIT (amber) / hidden | Shown when TX is assigned to a different slice than the active receive slice. |
 
 ### DSP tab buttons
@@ -80,6 +80,20 @@ When one or more radio-side DSP functions that support a level control are enabl
 Functions that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
 
 Functions that do not target the level slider: RNN, ANFT, APF.
+
+## Theming
+
+The VFO panel uses its own theming scope (`spectrum/vfo`) to allow independent styling from the spectrum display. The VFO marker flag, slice badge, and signal meter paint using theme tokens declared to the theme inspector. When you click the slice badge or signal meter with the theme inspector open, the following tokens appear in the hit list:
+
+- `color.background.0`
+- `color.background.1`
+- `color.background.2`
+- `color.text.primary`
+- `color.text.label`
+- `color.accent`
+- `color.accent.bright`
+
+The Pan slider and Marker thickness button buttons use theme-aware stylesheets. The Pan slider's centre-mark fill is painted using `color.accent` and `color.background.1` tokens instead of hardcoded colours.
 
 ## Tips
 

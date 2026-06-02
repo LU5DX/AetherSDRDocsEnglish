@@ -1,16 +1,49 @@
-# Set the radio nickname, callsign and station name
+# Radio Setup Dialog
 
-Set a human-readable nickname, your callsign, and a station name on the connected FLEX-8600. These values identify the radio and this client to other multiFLEX stations on the network.
+The Radio Setup dialog is the master per-radio configuration window. It provides access to all radio-level settings including radio identification, network configuration, GPS, transmit parameters, phone/CW settings, receive calibration, audio configuration, filters, transverters, USB cables, peripherals, and SmartLink certificate management.
 
 ## Before you start
 
-- AetherSDR must be connected to the radio. The Radio (tab) controls are not available without an active connection.
+- AetherSDR must be connected to the radio. Most controls are not available without an active connection.
 
-## Steps
+## Opening the dialog
+
+1. Open `Settings > Radio Setup...`.
+2. The dialog opens as a persistent window. Its position and size are saved automatically when you close it and restored the next time you open it. The geometry is stored in AppSettings under the key `RadioSetupDialogGeometry`.
+
+## Radio tab
+
+The **Radio** tab displays radio information, identification, license info, and firmware update controls.
+
+### Radio Information
+
+The radio information section shows read-only indicators for:
+
+| Control | Description |
+|---|---|
+| **Radio SN** | Chassis serial number (read-only). |
+| **Region** | Radio regulatory region (e.g., USA). |
+| **HW Version** | Hardware version string. |
+| **Model** | Radio model. |
+| **Options** | Shows licensed radio options. |
+| **FlexControl** | Detected state of FlexControl hardware. |
+| **multiFLEX** | multiFLEX enabled state. |
+
+### Radio Identification
+
+Set a human-readable nickname, your callsign, and a station name on the connected FLEX-8600. These values identify the radio and this client to other multiFLEX stations on the network.
+
+| Control | Description | Default |
+|---|---|---|
+| **Nickname** | User-friendly label for the radio. Sent to the radio as the radio name. | Radio's reported name |
+| **Callsign** | Your station callsign, stored on the radio. | _(blank)_ |
+| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Stored in AppSettings. Sent to radio as 'client station <name>'. | OS hostname |
+
+### Steps to set radio identification
 
 1. Open `Settings > Radio Setup...`.
 2. Click the **Radio** tab.
-3. In the **Radio Identification** group, locate the **Nickname** field. Type the nickname you want to assign to the radio.
+3. In the **Nickname** field, type the nickname you want to assign to the radio.
 4. Press Tab or click away from the field to confirm. AetherSDR sends the new name to the radio immediately.
 5. In the **Callsign** field, type your station callsign.
 6. Press Tab or click away from the field to confirm.
@@ -18,65 +51,84 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 8. Press Tab or click away from the field to confirm.
 9. Click the window's close button or press Escape to dismiss the dialog.
 
-## Dialog window features
+### License Information
 
-The Radio Setup dialog uses a persistent dialog with geometry saving. The dialog position and size are saved automatically when you close it and restored the next time you open it. The geometry is stored in AppSettings under the key `RadioSetupDialogGeometry`.
+The **License Info** section displays subscription details, expiration date, Radio ID, and Licensed version from the radio.
 
-## What each control does
+### Remote On
+
+Click **Remote On** to enable remote wake / remote-on capability.
+
+### Firmware Update
+
+Use the firmware update controls to check for and apply firmware updates to the radio.
+
+| Control | Description |
+|---|---|
+| **Check for Update** | Queries for firmware updates. |
+| **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. |
+| **Upload Firmware** | Starts firmware upload with progress bar and status. |
+
+#### To check for a firmware update
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Radio** tab.
+3. Click **Check for Update**.
+   - If an update is available, the status label shows the available version number and instructs you to download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
+   - If firmware is up to date, the status label confirms the current version in green.
+
+#### To stage and upload firmware
+
+1. Download the SmartSDR installer from flexradio.com. AetherSDR accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer), or a pre-extracted .ssdr firmware file.
+2. Click **Select Installer...**
+   - The file picker opens with the filter set to `*.msi *.exe *.ssdr`.
+   - Select the downloaded file and click Open.
+   - AetherSDR begins preparing the firmware automatically. The status label shows "Preparing firmware from \<filename\>..." and the progress bar appears.
+   - The firmware stager auto-detects the file format from the first 8 bytes (OLE/MSI magic for .msi, PE/COFF MZ for .exe, or CTRL+Z for .ssdr) and extracts the .ssdr without external tools.
+3. Wait for preparation to complete. The status label shows "Ready to upload \<filename\>".
+4. Click **Upload Firmware**.
+   - A confirmation dialog appears: "This will restart the radio. Are you sure you want to upload \<filename\>?"
+5. Click **Yes** to confirm.
+   - The upload begins. The status label shows "Uploading... (X%)" and the progress bar updates.
+   - The radio restarts after upload completes. The status label shows "Upload and reboot successful."
+6. Click the window's close button or press Escape to dismiss the dialog.
+
+## Network tab
+
+The **Network** tab displays radio network information and provides advanced network options.
 
 | Control | Description | Default |
 |---|---|---|
-| **Nickname** | User-friendly label for the radio. Sent to the radio as the radio name. | Radio's reported name |
-| **Callsign** | Your station callsign, stored on the radio. | _(blank)_ |
-| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. | OS hostname |
-| **TX Follows Active Slice** | TX follows the active slice. Mutually exclusive with Active Slice Follows TX. Disabled automatically during Split operation. | False |
-| **Active Slice Follows TX** | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with TX Follows Active Slice. | False |
-| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. | — |
-| **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. | — |
-| **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side `tgxl autotune handle=<H>` path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. | Connect |
-| **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. | Connect |
-| **Connect / Disconnect (Antenna Genius)** | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected status if a ShackSwitch (not a standard Antenna Genius) is the connected device. | Connect |
-| **Connect / Disconnect (ShackSwitch)** | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row is hidden from the Connected status if an Antenna Genius (non-ShackSwitch) is the connected device. | Connect |
-| **⚙ Web UI (ShackSwitch)** | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024, otherwise falls back to `SS_WebPort` or port 5000. | — |
-| **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. Label changed from **Browse .ssdr...** in v0.9.3. | — |
-| **APD (tab)** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (INTERNAL / RX_A / RX_B / XVTA / XVTB) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible. | — |
-| **ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)** | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to INTERNAL if the radio reports an unrecognised value. | INTERNAL |
-| **Equalizer Reset (APD)** | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh. | — |
-| **Themes (tab)** | UI customization tab — currently hosts the Slice Colors section. | — |
-| **Use Aether defaults / Custom colors** | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`. | Use Aether defaults |
-| **Slice A–H color buttons** | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when **Use Aether defaults** is selected. Up to 8 slices. | — |
-| **Reset All to Defaults (Themes)** | Resets all custom slice colors to the built-in AetherSDR palette. | — |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. | — |
+| **Enforce Private IP Connections:** | Rejects non-RFC1918 peers. | — |
 | **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings. | 1450 |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN. | Auto |
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. | False |
-| **Audio Boost:** | Enables extra gain on the client audio path. | — |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Stored as `AudioBufferMs`. | 200 |
-| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. | Radio Side |
-| **Save to:** | Folder for saved recordings (client-side only). | Documents/AetherSDR/Recordings |
-| **Auto-record on TX** | Automatically records while transmitting. | False |
-| **Idle timeout:** | Seconds of silence before recording stops. | 120 |
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Controls the NVIDIA Broadcast noise-removal container. | — |
-| **Iambic:** | Enables or disables the iambic keyer on the radio. | — |
-| **Iambic Mode: A / B** | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. | A |
-| **Decode:** | Enables the CW decode overlay on the panadapter. | True |
-| **Peripherals IP/port fields** | When the IP field is cleared while disconnected, clicking **Connect** does nothing — it instead removes any previously saved manual IP from settings, preventing auto-connection at startup. When the dialog is closed with a cleared IP field and a previously saved manual IP exists, the saved IP is automatically removed and the device is disconnected if currently connected. | — |
-| **FlexControl button actions** | Button action mapping includes new wheel actions: WheelRit and WheelXit. These map the FlexControl tuning knob to adjust RIT and XIT offsets respectively. | — |
-| APD (tab) | External Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). Tab is hidden unless the radio reports apd configurable=1 (FLEX-8x00 with SmartSDR 4.2.18+). | New in v26.5.1 (#2186). Lazy-built only when the tab is first clicked. |
-| External Sampler (per TX ANT) | Section header inside the APD tab showing a 2x2 grid of ANT1/ANT2/XVTA/XVTB sampler-port combo boxes. | |
-| ANT1: / ANT2: / XVTA: / XVTB: | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. | INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. Changing sends setApdSamplerPort() to the radio. |
-| Equalizer Reset: | Section row label for the APD equalizer reset button. | |
-| Reset (APD Equalizer) | Clears all per-antenna APD training data on the radio. | Sends resetApdEqualizer() to the radio's TransmitModel. |
-| Themes (tab) | UI appearance settings including per-slice color overrides. | Tab label in code is 'Themes'. Lazy-built when first clicked. |
-| Slice Colors | Group box header for the slice color controls. | |
-| Use Aether defaults | Uses the built-in slice color palette (cyan/magenta/green/yellow/orange/teal/coral/lavender). | Selecting this disables the custom color buttons. |
-| Custom colors | Enables per-slice color pickers (A-H). | Selecting this enables the eight color buttons below. |
-| A/B/C/D/E/F/G/H color buttons | Click to open a color picker for that slice letter (A-H). The button's background reflects the currently assigned color. | 8 buttons arranged in a horizontal grid. Stored via SliceColorManager which persists to AppSettings. |
-| Reset All to Defaults | Resets every per-slice custom color to its built-in default. | |
-| **Antennas (tab)** | Configuration of antenna names and parameters. | New in v26.5.2.1. |
+| **DHCP / Static** | Switches between DHCP and Static IP modes. | — |
+| **IP Address: / Mask: / Gateway:** | Static IP configuration fields. | — |
+| **Apply** | Pushes the network config to the radio. | — |
 
-## TX tab timing controls
+### To configure static IP
 
-The **TX** tab includes timing fields for interlock delays and timeout. The timeout field is displayed in seconds for readability, but stored and transmitted to the radio in milliseconds.
+1. Open `Settings > Radio Setup...`.
+2. Click the **Network** tab.
+3. Click **DHCP / Static** to switch to Static mode.
+4. Enter the **IP Address**, **Mask**, and **Gateway** values.
+5. Click **Apply** to push the configuration to the radio.
+
+## GPS tab
+
+The **GPS** tab displays GPS presence and live latitude, longitude, altitude, time, and satellites information.
+
+## TX tab
+
+The **TX** tab provides transmit timing controls, interlocks, max power, tune mode, waterfall display, slice/TX follow behavior, and a shortcut to TX Band Settings.
+
+### TX Band Settings
+
+Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
+
+### Timings
+
+The timing controls include fields for interlock delays and timeout. The timeout field is displayed in seconds for readability, but stored and transmitted to the radio in milliseconds.
 
 | Control | Description | Default |
 |---|---|---|
@@ -85,23 +137,102 @@ The **TX** tab includes timing fields for interlock delays and timeout. The time
 | **RCA TX1:** | RCA TX1 delay in milliseconds. | — |
 | **Timeout (sec):** | Interlock timeout displayed in seconds. The radio stores this value in milliseconds internally. | — |
 
-## Firmware update (Radio tab)
+### Interlocks
 
-Use the firmware update controls in the **Radio** tab to check for and apply firmware updates to the radio.
+| Control | Description |
+|---|---|
+| **TX REQ: RCA** | Enables RCA interlock input. |
+| **TX REQ: Accessory** | Enables accessory interlock input. |
 
-### To check for a firmware update
+### Power and Tune
 
-1. Open `Settings > Radio Setup...`.
-2. Click the **Radio** tab.
-3. Click **Check for Update**.
-   - If an update is available, the status label shows the available version number and instructs you to download the SmartSDR installer from flexradio.com, then use **Select Installer...** to stage it.
-   - If firmware is up to date, the status label confirms the current version in green.
+| Control | Description | Default |
+|---|---|---|
+| **Max Power:** | Sets radio-level TX power cap (0-100%). | — |
+| **Tune Mode:** | Selects how the tune button behaves. | — |
+| **Show TX in Waterfall:** | Draws TX signal in the waterfall. | — |
 
-### To stage and upload firmware
+### Slice/TX Follow Behavior
 
-1. Download the SmartSDR installer from flexradio.com. AetherSDR accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer), or a pre-extracted .ssdr firmware file.
-2. Click **Select Installer...**
-   - The file picker opens with the filter set to `*.msi *.exe *.ssdr`.
-   - Select the downloaded file and click Open.
-   - AetherSDR begins preparing the firmware automatically. The status label shows "Preparing firmware from \<filename\>..." and the progress bar appears.
-   - The firmware stager auto-detects the file format from the first 8 bytes (OLE/MS
+| Control | Description | Default |
+|---|---|---|
+| **TX Follows Active Slice** | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. | False |
+| **Active Slice Follows TX** | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. | False |
+
+## Phone/CW tab
+
+The **Phone/CW** tab provides microphone, CW keyer, and RTTY default settings.
+
+| Control | Description | Default |
+|---|---|---|
+| **Enable/Disable the Level Meter During Receive** | Shows mic level meter even in RX. | — |
+| **Iambic:** | Enables or disables the iambic keyer on the radio. | — |
+| **Iambic Mode: A / B** | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. | A |
+| **Swap:** | Swaps dit/dah. | — |
+| **Sideband:** | Selects CW pitch sideband (LSB or USB). | — |
+| **CWX:** | Enables CWX macro keying. | — |
+| **Decode:** | Enables the CW decode overlay on the panadapter. | True |
+| **RTTY Mark Default:** | Default RTTY mark frequency. | — |
+
+## RX tab
+
+The **RX** tab provides GPSDO frequency offset calibration and 10 MHz reference source selection.
+
+| Control | Description | Default |
+|---|---|---|
+| **Cal Frequency (MHz):** | Frequency used for manual calibration. | — |
+| **Start** | Starts the frequency calibration sweep. | — |
+| **Freq Offset (ppb):** | Manual frequency offset in ppb. | — |
+| **10 MHz Reference Source:** | Selects oscillator reference source. Options depend on hardware installed (TCXO/GPSDO/External). Lock status (Locked/Unlocked) is shown alongside the combo and updates live. | Auto |
+
+## Audio tab
+
+The **Audio** tab provides radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container controls.
+
+| Control | Description | Default |
+|---|---|---|
+| **Line Out:** | Line-out gain slider. | — |
+| **Mute (Line Out)** | Mutes line-out. | — |
+| **Headphone:** | Headphone gain slider. | — |
+| **Mute (Headphone)** | Mutes headphone. | — |
+| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — |
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN. Stored in AppSettings. | Auto |
+| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. | False |
+| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices. | — |
+| **Audio Boost:** | Enables extra gain on the client audio path. Stored in AppSettings. | — |
+| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Stored as `AudioBufferMs`. | 200 |
+| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. Stored in AppSettings. | Radio Side |
+| **Save to:** | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. | — |
+| **...** | Browses for recording folder. | — |
+| **Auto-record on TX** | Automatically records while transmitting. | False |
+| **Idle timeout:** | Seconds of silence before recording stops. | 120 |
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Controls the NVIDIA Broadcast noise-removal container. | — |
+
+## Filters tab
+
+The **Filters** tab provides low-latency and sharp filter options per bandwidth.
+
+| Control | Description | Default |
+|---|---|---|
+| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. | — |
+| **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. | — |
+| **Use Low Latency Filters for Digital Modes** | Forces low-latency filters in DIGU/DIGL. | — |
+
+## XVTR tab
+
+The **XVTR** tab provides per-transverter configuration. Contains nested tabs, one per transverter, plus a '+' tab to create new transverters.
+
+| Control | Description |
+|---|---|
+| **RX Only:** | Forces RX-only on that transverter. |
+| **Remove (xvtr)** | Deletes the transverter definition. |
+| **Create New Transverter** | Adds a new transverter entry. |
+
+## USB Cables tab
+
+The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
+
+| Control | Description |
+|---|---|
+| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status. |
+| **Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto

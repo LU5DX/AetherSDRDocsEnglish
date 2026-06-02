@@ -19,11 +19,12 @@ The multiFLEX Dashboard shows the TX antenna and TX frequency for every station 
 
 | Control | Description |
 |---|---|
-| Stations table | Lists every connected multiFLEX client. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz). |
+| Stations table | Lists every connected multiFLEX client. Columns: LOCAL PTT, STATION, TX ANT, TX FREQ (MHz), and Disconnect button. |
 | LOCAL PTT column | Shows a check mark for the station that currently holds PTT authority. |
-| STATION column | Shows the program name and station name for each client. Your own station is highlighted in blue. |
+| STATION column | Shows the program name and station name for each client. Your own station is highlighted in blue. If station name is the same as program name, only the program name is shown. If both are empty, displays `client 0x{HANDLE}`. |
 | TX ANT column | Shows the antenna assigned to that station's TX slice. Displays `----` if no data is available yet. |
 | TX FREQ (MHz) column | Shows the transmit frequency in MHz to three decimal places. Displays `----` if no data is available yet. |
+| Disconnect button | Disconnects the corresponding client from multiFLEX. The button turns yellow after clicking to indicate pending disconnection, then returns to normal once the radio confirms the disconnection. This button is disabled for your own station. |
 | Enable | Enables or disables multiFLEX on the radio. |
 | Enable (PTT) | Toggles local PTT authority for this station. |
 | Close | Closes the dialog. |
@@ -34,6 +35,7 @@ The multiFLEX Dashboard shows the TX antenna and TX frequency for every station 
 - Your own station's row is distinguished by blue text in the STATION column.
 - TX ANT and TX FREQ values come from the radio's slice status. If a station has just connected, those columns may briefly show `----` until the radio reports slice data.
 - The dialog remembers its size and position between sessions.
+- After clicking the Disconnect button for a client, the button turns yellow until the radio confirms the disconnection. If the client remains in the table, the button returns to normal, allowing you to retry if needed.
 
 ## Related
 

@@ -1,3 +1,35 @@
+# Phone overview
+
+The Phone applet provides voice transmit (TX) controls for the FLEX-8600 radio. Access it by clicking the **PHNE** tray button on the right sidebar.
+
+## Controls
+
+| Control              | Type          | Description                                                                 |
+|----------------------|---------------|-----------------------------------------------------------------------------|
+| **AM Carrier**       | Slider        | Sets AM carrier power level from 0 to 100 percent. Drag while holding to see a percentage label (e.g. "48%"). |
+| **VOX**              | Toggle button | Enables or disables voice-operated transmit.                                |
+| **VOX level**        | Slider        | Sets the VOX activation threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
+| **Delay**            | Slider        | Sets VOX hang time from 0 to 100 (arbitrary units) before returning to receive. |
+| **DEXP**             | Toggle button | Toggles the downward expander (noise gate). Non-functional on firmware v1.4.0.0 — radio returns error 0x5000002D. |
+| **DEXP threshold**   | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label. Same firmware limitation as DEXP toggle. |
+| **Low Cut < / >**    | Spin box      | Adjusts TX filter low-cut frequency by 50 Hz steps. Default 50 Hz. Range: 0 Hz to (high-cut − 50 Hz). |
+| **High Cut < / >**   | Spin box      | Adjusts TX filter high-cut frequency by 50 Hz steps. Default 3300 Hz. Range: (low-cut + 50 Hz) to 10000 Hz. |
+
+## Notes
+
+- The AM Carrier slider and VOX level slider now show a percentage label when dragged (e.g. "48%"). This provides clearer visual feedback of the current value.
+- The DEXP controls are present but non-functional on FLEX-8600 firmware versions earlier than 4.2. Attempting to use them will result in an error.
+- All sliders in the Phone applet use the `GuardedSlider` class, which provides smooth drag behavior and visual feedback.
+- The Phone applet now supports theme customization. All colors adapt to the active theme.
+
+## Related
+
+- [Set the TX audio low-cut frequency](set-the-tx-audio-low-cut-frequency.md)
+- [Set the TX audio high-cut frequency](set-the-tx-audio-high-cut-frequency.md)
+- [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md)
+
+---
+
 # Set the TX audio low-cut frequency
 
 Use the Low Cut control in the Phone applet to raise the lower edge of the TX audio passband, cutting rumble, breath noise, or low-frequency interference from your transmitted signal.
@@ -90,37 +122,6 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 
 - [Set the TX audio low-cut frequency](set-the-tx-audio-low-cut-frequency.md)
 - [Phone overview](overview.md)
-- [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md)
-
----
-
-# Phone overview
-
-The Phone applet provides voice transmit (TX) controls for the FLEX-8600 radio. Access it by clicking the **PHNE** tray button on the right sidebar.
-
-## Controls
-
-| Control              | Type          | Description                                                                 |
-|----------------------|---------------|-----------------------------------------------------------------------------|
-| **AM Carrier**       | Slider        | Sets AM carrier power level from 0 to 100 percent. Drag while holding to see a percentage label (e.g. "48%"). |
-| **VOX**              | Toggle button | Enables or disables voice-operated transmit.                                |
-| **VOX level**        | Slider        | Sets the VOX activation threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
-| **Delay**            | Slider        | Sets VOX hang time from 0 to 100 (arbitrary units) before returning to receive. |
-| **DEXP**             | Toggle button | Toggles the downward expander (noise gate). Non-functional on firmware v1.4.0.0 — radio returns error 0x5000002D. |
-| **DEXP threshold**   | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label. Same firmware limitation as DEXP toggle. |
-| **Low Cut < / >**    | Spin box      | Adjusts TX filter low-cut frequency by 50 Hz steps. Default 50 Hz. Range: 0 Hz to (high-cut − 50 Hz). |
-| **High Cut < / >**   | Spin box      | Adjusts TX filter high-cut frequency by 50 Hz steps. Default 3300 Hz. Range: (low-cut + 50 Hz) to 10000 Hz. |
-
-## Notes
-
-- The AM Carrier slider and VOX level slider now show a percentage label when dragged (e.g. "48%"). This provides clearer visual feedback of the current value.
-- The DEXP controls are present but non-functional on FLEX-8600 firmware versions earlier than 4.2. Attempting to use them will result in an error.
-- All sliders in the Phone applet use the `GuardedSlider` class, which provides smooth drag behavior and visual feedback.
-
-## Related
-
-- [Set the TX audio low-cut frequency](set-the-tx-audio-low-cut-frequency.md)
-- [Set the TX audio high-cut frequency](set-the-tx-audio-high-cut-frequency.md)
 - [Enable VOX and set trigger threshold](enable-vox-and-set-trigger-threshold.md)
 
 ---

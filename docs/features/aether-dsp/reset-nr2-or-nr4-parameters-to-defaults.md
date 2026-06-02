@@ -10,13 +10,15 @@ The dialog opens with the currently active noise reduction tab selected.
 
 ## Dialog chrome
 
-The AetherDSP Settings dialog uses a frameless title bar with a blue-gradient background and the dialog title "AetherDSP Settings" in bold 10 px text. A grip glyph (⋮⋮) appears on the left. Three window-control buttons sit at the right:
+The AetherDSP Settings dialog uses a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and the dialog title "AetherDSP Settings". Three window-control buttons sit at the right:
 
 - **— (Minimize)** — Minimizes the dialog.
 - **□ (Maximize)** — Maximizes or restores the dialog. Double-clicking the title bar also toggles maximize/restore.
 - **× (Close)** — Closes the dialog.
 
 The dialog has a 6 px resize hit zone around the inner content widget. Drag the title bar to move the dialog. Resize the dialog by dragging any edge or corner (8-axis resize). The dialog geometry is persisted between sessions under the setting key `AetherDspDialogGeometry`.
+
+The dialog uses themed styling applied through `ThemeManager` rather than a hardcoded stylesheet.
 
 ## Tab selector behavior
 
@@ -25,7 +27,6 @@ The six tabs at the top (NR2, NR4, MNR, DFNR, RN2, BNR) act as both tab selector
 **Platform notes:**
 
 - **MNR (macOS only)** — The MNR tab is dimmed on Windows and Linux builds because the macOS MMSE-Wiener engine has no backend on those platforms.
-- **NR4 (Windows only with LLVM)** — The NR4 tab is dimmed on Windows builds compiled without clang-cl (LLVM). Install LLVM from llvm.org and rebuild to enable NR4.
 - **BNR** — The BNR tab is dimmed on builds without the NVIDIA Broadcast SDK.
 - **RN2** — The RN2 tab is purely informational and has no adjustable parameters.
 
@@ -53,7 +54,7 @@ All NR2 controls return to Gamma, OSMS, AE Filter enabled, Reduction 1.50, Smoot
 
 ## NR4 tab
 
-Use the NR4 (libspecbleach) engine for speech-focused noise reduction with adaptive noise estimation. This tab is dimmed on Windows builds compiled without clang-cl (LLVM).
+Use the NR4 (libspecbleach) engine for speech-focused noise reduction with adaptive noise estimation.
 
 ### Controls
 
@@ -101,6 +102,14 @@ Use the DeepFilterNet3 engine for neural-network-based noise reduction.
 
 **Attenuation Limit** — Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum.
 **Post-Filter Beta** — Applies an additional post-filter for extra suppression. Slider stores value×100 internally.
+
+## RN2 tab
+
+The RN2 (RNNoise) tab is purely informational and has no adjustable parameters. When RN2 is active, it uses a neural network model for real-time noise suppression without user-configurable settings.
+
+## BNR tab
+
+The BNR (NVIDIA Broadcast) tab uses the NVIDIA Broadcast SDK for AI-based noise reduction. The intensity is controlled from the overlay menu. The BNR tab is dimmed on builds without the NVIDIA Broadcast SDK.
 
 ## Tips
 

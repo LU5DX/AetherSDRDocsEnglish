@@ -84,3 +84,7 @@ Add a memory channel from the active slice without opening any menus — just pr
 
 - Ctrl+N works even when other dialogs have focus, as long as the main window is active.
 - Use **Settings > Memory...** to add, edit, or delete memories in bulk. Ctrl+N is the fastest single-memory shortcut.
+
+## Theme integration
+
+The Memory Channels dialog supports theme styling. The table uses the theme-defined background color for alternate rows. To apply a custom theme, configure the `dialog/memory` container in your theme definition.

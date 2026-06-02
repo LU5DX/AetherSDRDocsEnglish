@@ -111,6 +111,36 @@ When a slice is VFO-locked, mouse wheel scrolling over the VFO panel does not ch
 
 As of v26.5.3, the VFO panel uses a `TabStack` widget (a subclass of `QStackedWidget`) that reports only the current tab's preferred size. This prevents excessive vertical space when switching between tabs of different heights — for example, when the DSP tab is taller than the Mode tab due to the digital mode sub-container appearing in DIGU/DIGL modes. No visual behavior changes; the panel now uses space more efficiently.
 
+## Theme support improvements in v26.6.1
+
+The VFO panel now participates fully in the AetherSDR theme system. The panel is assigned a `spectrum/vfo` theme container scope so that inspector clicks on the VFO panel are correctly reported under the VFO scope rather than bubbling up to the spectrum display.
+
+The following theme tokens are declared for the VFO panel:
+- `color.background.0`
+- `color.background.1`
+- `color.background.2`
+- `color.text.primary`
+- `color.text.label`
+- `color.accent`
+- `color.accent.bright`
+
+These tokens are used by raw `QPainter` calls for the signal meter, slice badge, and background rendering. When using the theme inspector, clicking on the VFO flag, callsign badge, or signal meter strip surfaces these tokens in the hit list.
+
+### Center-mark slider appearance
+
+The Pan slider in the Audio tab uses a `CenterMarkSlider` that paints a center-mark dot to indicate the neutral (50) position. As of v26.6.1, the slider fill is anchored from the centre outward — the left side of the groove is filled with background colour, and the right side from centre to handle is filled with the accent colour. This provides a visual indication of pan/balance offset from the midpoint. The centre dot is painted at the midpoint of the slider groove.
+
+### Button theming
+
+The VFO panel action buttons now use theme-aware stylesheets instead of hardcoded colours. The pressed state uses `{{color.accent}}` and the background uses `{{color.background.1}}`. This ensures consistent appearance across all themes.
+
+## TX and SPLIT badges
+
+| Indicator | States | Meaning |
+|---|---|---|
+| TX badge | TX (red) or hidden | Shown when this slice is the active transmit slice. |
+| SPLIT badge | SPLIT (amber) or hidden | Shown when TX is assigned to a different slice than the active receive slice. |
+
 ## Tips
 
 - In collapsed view, scrolling the mouse wheel over the strip tunes the slice frequency by the current step size — the same as scrolling over the frequency display in the full panel.

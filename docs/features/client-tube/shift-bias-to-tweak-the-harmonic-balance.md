@@ -18,13 +18,37 @@ The Bias knob moves the operating point on the tube transfer curve, changing the
 
 ## What each control does
 
-| Control   | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Bias (TX) | 0 %                                                                                                                                                                                 | 0 % to 100 % (internal 0.0 to 1.0)                                                                                                                                                                        |
-| Bias (RX) | 0 %                                                                                                                                                                                 | 0 % to 100 % (internal 0.0 to 1.0)                                                                                                                                                                        |
-| RN2       | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control   | Default | Valid range |
+|-----------|---------|-------------|
+| Bias (TX) | 0 %     | 0 % to 100 % (internal 0.0 to 1.0) |
+| Bias (RX) | 0 %     | 0 % to 100 % (internal 0.0 to 1.0) |
 
 The Bias knob uses a linear mapping. The displayed value is a percentage. Internally the setting is stored as a value from 0.0 to 1.0 in `ClientTubeTxBias` (TX side) or `ClientTubeRxBias` (RX side).
+
+## Envelope control
+
+The Envelope knob modulates the tube drive dynamically based on signal level. When set to positive values, the tube gets hotter (more saturation) on loud transients. When set to negative values, the tube reduces saturation on peaks, compressing harmonics.
+
+| Control      | Default | Valid range               | Behavior                                                                                                                                                                        |
+|--------------|---------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Envelope (TX)| 0 %     | -100 % to +100 % (internal -1.0 to +1.0) | Linear mapping. Positive values increase drive on transients; negative values reduce it, dynamically compressing harmonics. |
+| Envelope (RX)| 0 %     | -100 % to +100 % (internal -1.0 to +1.0) | Same behavior as TX. |
+
+When Envelope is set to any non-zero value, the Attack and Release knobs control how quickly the envelope follower responds to changes in signal level:
+
+| Control   | Default   | Valid range          | Behavior                                                                           |
+|-----------|-----------|----------------------|------------------------------------------------------------------------------------|
+| Attack    | 5.00 ms   | 0.1 to 30.0 ms       | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels. |
+| Release   | 35.00 ms  | 10.0 to 500.0 ms     | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop. |
+
+## RN2 (TX only)
+
+The RN2 toggle enables the RNNoise neural denoiser on the mic input before the DSP chain on the TX side. This toggle is hidden in RX mode.
+
+| Control | Default    | Behavior                                                                                                                                                                       |
+|---------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RN2     | unchecked  | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+
 ## Inline value editing
 
 The single- and three-knob compact views and all knob-based editors now support inline value editing.
@@ -43,6 +67,7 @@ The single- and three-knob compact views and all knob-based editors now support 
 - The Bias knob is also present in the docked applet tile (the compact five-knob row beneath the transfer curve), so you can make quick adjustments without opening the full editor.
 - Changes made in the docked tile and the floating editor stay in sync; a 30 Hz timer keeps both views updated.
 - To enter Bias values with the inline editor, click the percentage display (e.g., "0 %") beneath the knob and type a number between 0 and 100.
+- Envelope follows the signal and requires non-zero Attack/Release settings to function. If Envelope is set but Attack and Release are at their defaults, try adjusting them for the desired dynamic response.
 
 ## Bypass dim
 
@@ -54,6 +79,8 @@ When the Tube stage is bypassed, the entire docked applet tile renders at reduce
 - **Level changes when Bias is adjusted** — This is expected. The asymmetry introduced by Bias can raise or lower the apparent output. Trim the Output knob to compensate.
 - **Docked tile appears dimmed** — The Tube stage is bypassed. Re-enable it on the TX or RX side. See [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md).
 - **Inline editor does not accept typed value** — Ensure you are typing a plain number or a number with optional decimal point and sign. Commas are allowed only in locales where they serve as decimal separators.
+- **Envelope has no effect** — Verify that Envelope is set to a non-zero value. Also check that Attack and Release are not set to extremes that prevent the envelope follower from responding to the signal.
+- **RN2 toggle not visible** — The RN2 toggle only appears in TX mode and in voice modes (not digital modes). Switch to a voice mode or check that you are on the TX side.
 
 ## Related
 
@@ -63,3 +90,4 @@ When the Tube stage is bypassed, the entire docked applet tile renders at reduce
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Monitor output clipping with the level meter in the editor](monitor-output-clipping-with-the-level-meter-in-the-editor.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
+- [Use the Dry/Wet blend to control saturation mix](use-the-dry-wet-blend-to-control-saturation-mix.md)

@@ -14,9 +14,9 @@ Mute or unmute every slice you own in one action, without muting each slice indi
 
 ## What each control does
 
-| Control | Label | Default | Behavior | Setting key |
-|---------|-------|---------|----------|-------------|
-| Mute button | 🔊 / 🔇 | 🔊 (unmuted) | Single-click mutes/unmutes the current slice. Double-click mutes/unmutes all owned slices via the **muteAllToggled** signal. | None (mute state is radio-authoritative per policy #2489) |
+| Control     | Label | Default     |
+|-------------|-------|-------------|
+| Mute button | 🔊 / 🔇 | 🔊 (unmuted) |
 
 ## Tips
 

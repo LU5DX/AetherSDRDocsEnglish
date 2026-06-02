@@ -74,6 +74,7 @@ Default is **Clip** so existing users see no behavior change.
 - TCI TX audio is always allowed regardless of platform or hosted-DAX availability (v0.9.5.1, #2276).
 - Slice assignment labels now use rich HTML formatting (v26.5.2.1, #2606), so disabled or special-state slices may display with text formatting (e.g., strikethrough).
 - For bit-exact digital-mode tone fidelity, use **NaN guard** or **Measure only** mode to avoid harmonic distortion from the Clip limiter.
+- The TCI applet container now uses themed styling (v26.6.1) — colors adapt to the active theme.
 
 ## Related
 

@@ -29,6 +29,10 @@ The Band Stack panel shows all your bookmarked frequencies as a vertical strip o
 
 Bookmark data is persisted in `BandStack_<serial>`, where `<serial>` is your radio's serial number.
 
+## Appearance
+
+The Band Stack panel uses the active application theme for its colors and styling. Background colors, text colors, scrollbar colors, and button borders all respect the current theme. No hard-coded colors remain; all visual elements change when you switch themes.
+
 ## Tips
 
 - Button colors come from the active band plan. Buttons for frequencies in different segments (CW, phone, digital) appear in different colors, making segment distribution visible at a glance without reading each label.

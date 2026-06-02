@@ -18,30 +18,29 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 
 ## What each control does
 
-| Control                      | Kind                                                                                                                                  | Default                                                                                                                 |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| RX antenna button            | Push button                                                                                                                           | Opens antenna selection menu for the receive antenna of this slice.                                                     |
-| TX antenna button            | Push button                                                                                                                           | Opens antenna selection menu for the transmit antenna of this slice.                                                    |
-| Frequency display            | Indicator                                                                                                                             | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab.         |
-| Filter width label           | Indicator                                                                                                                             | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
-| AF Gain slider (Audio tab)   | Slider                                                                                                                                | 100                                                                                                                     |
-| Pan slider (Audio tab)       | Slider                                                                                                                                | 50                                                                                                                      |
-| Mute button (Audio tab)      | Toggle button                                                                                                                         | off                                                                                                                     |
-| Squelch button + slider (Audio tab) | Toggle button                                                                                                                  | off                                                                                                                     |
-| AGC combo (Audio tab)        | Combo box                                                                                                                             | FAST                                                                                                                    |
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button                                                                                         | off                                                                                                                     |
-| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8).                                                     | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
-| DSP level slider (DSP tab)   | Slider                                                                                                                                | Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state. |
-| Mode combo (Mode tab)        | Combo box                                                                                                                             | USB                                                                                                                     |
-| Filter preset buttons (Mode tab) | Push button                                                                                                                       | Persisted in FilterPresets                                                                                              |
-| RIT / XIT buttons + labels   | Toggle button                                                                                                                         | off                                                                                                                     |
-| DAX channel combo (DAX tab)  | Combo box                                                                                                                             | Off                                                                                                                     |
-| Marker thickness button      | Push button                                                                                                                           | 1 px                                                                                                                    |
-| Filter edges button          | Toggle button                                                                                                                         | shown                                                                                                                   |
-| Collapse toggle              | Toggle button                                                                                                                         | expanded                                                                                                                |
-| TX badge                     | Indicator                                                                                                                             | Shows TX (red) when this slice is the active transmit slice. Hidden otherwise.                                          |
-| SPLIT badge                  | Indicator                                                                                                                             | Shows SPLIT (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise.           |
+| Control                              | Kind              | Default   | Notes                                                                |
+|--------------------------------------|-------------------|-----------|----------------------------------------------------------------------|
+| RX antenna button                    | Push button       |           | Opens antenna selection menu for the receive antenna of this slice. |
+| TX antenna button                    | Push button       |           | Opens antenna selection menu for the transmit antenna of this slice. |
+| Frequency display                    | Indicator         |           | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
+| Filter width label                   | Indicator         |           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth. |
+| AF Gain slider (Audio tab)           | Slider            | 100       | Sets the audio output level for this slice. Not persisted — reflects live radio state. |
+| Pan slider (Audio tab)               | Slider            | 50        | Sets left/right stereo pan for this slice. 50 = centre. |
+| Mute button (Audio tab)              | Toggle button     | off       | Mutes audio output for this slice without changing the AF gain setting. |
+| Squelch button + slider (Audio tab)  | Toggle button     | off       | Enables squelch for this slice. The adjacent slider sets the threshold. |
+| AGC combo (Audio tab)                | Combo box         | FAST      | Sets the AGC attack/release speed for this slice. |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. |
+| ADSP button (DSP tab)                | Push button       |           | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). |
+| AetherVoice button (DSP tab)          | Push button       |           | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
+| Mode combo (Mode tab)                | Combo box         | USB       | Sets the demodulation mode for this slice. |
+| Filter preset buttons (Mode tab)     | Push button       |           | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in FilterPresets. |
+| RIT / XIT buttons + labels (X/RIT tab) | Toggle button   | off       | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps. |
+| DAX channel combo (DAX tab)          | Combo box         | Off       | Assigns a DAX audio channel to this slice. |
+| Marker thickness button              | Push button       | 1 px      | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice. |
+| Filter edges button                  | Toggle button     | shown     | Toggles the filter edge lines on the spectrum passband. Persisted per slice. |
+| Collapse toggle                      | Toggle button     | expanded  | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice. |
+| TX badge                             | Indicator         |           | Shows TX (red) when this slice is the active transmit slice. Hidden otherwise. |
+| SPLIT badge                          | Indicator         |           | Shows SPLIT (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. |
 
 **RX antenna button** — Opens an antenna selection menu for the receive antenna of this slice. The menu now uses the per-slice `rxAntennaList()` property when available, falling back to the global antenna list. Menu items show a human-readable label alongside the internal antenna identifier.
 
@@ -61,13 +60,30 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 
 **Squelch button + slider (Audio tab)** — Enables squelch for this slice. The adjacent slider sets the threshold. Squelch is automatically disabled when the slice mode is CW, digital, or RTTY, because in those modes audio feeds external decoders via DAX where squelch would gate weak FSK signals (#2504). The button and slider are greyed out in those modes.
 
-**DSP level slider (DSP tab)** — Sets the processing depth for the most recently activated supported DSP function on this slice. The label to the left identifies the current target. The row fades when no eligible DSP function is active. Not persisted; reflects live radio state.
-
 ## Tips
 
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
 - When a slice is locked, scroll-wheel tuning on the VFO panel is blocked. A notification appears indicating that tuning is blocked by the lock. Direct frequency entry is also canceled if it was in progress when the lock is applied.
+
+## Changes in v26.6.1
+
+### Theme-aware Pan slider
+
+The Pan slider in the Audio tab now uses a centre-anchored fill. The slider groove fills from the centre outward — blue accent to the right of centre when the pan is right-heavy, and a background colour to the left of centre. When the pan is left-heavy, the groove fills from centre to the left in accent colour while the right side uses the background colour. This matches the behaviour of a stereo balance control where the meaningful zero is the midpoint. A small centre-mark dot is still painted on the groove at the midpoint.
+
+### Theme support for buttons and badges
+
+All VFO panel buttons and badges now honour the current theme. The button stylesheet has been updated to use theme tokens instead of hardcoded colours. The following tokens are declared for inspector coverage:
+- `color.background.0`
+- `color.background.1`
+- `color.background.2`
+- `color.text.primary`
+- `color.text.label`
+- `color.accent`
+- `color.accent.bright`
+
+The VFO panel is registered as a separate theming container under the `spectrum/vfo` scope. This means theme colour selections can be applied specifically to the VFO panel without affecting the rest of the spectrum display.
 
 ## Changes in v26.5.3
 
@@ -123,10 +139,6 @@ Both buttons are placed on the same grid row, with **ADSP** occupying the leftmo
 
 The filter width label now uses `RxApplet::formatFilterWidth` as the single source of truth for formatting. This fixes a 0.1 kHz offset that previously affected SSB and digital mode filter readouts (#2197).
 
-**DSP level slider improvement**
-
-DSP state changes from the radio profile now correctly push the associated DSP level target onto the slider stack. This ensures the slider appears on launch for any DSP function that was enabled in the radio's saved profile, without requiring the user to manually toggle it first.
-
 ## Changes in v0.9.7
 
 ### DSP tab — radio-side buttons only
@@ -142,10 +154,4 @@ The **DSP tab** in the VFO panel now shows only buttons for DSP functions that t
 
 These client-side DSP modules are now accessible from the spectrum overlay menu and the AetherDSP applet. Use those locations to enable or adjust them.
 
-The buttons that remain on the DSP tab are: **NR**, **NB**, **ANF**, **APF**, **NRL**, **NRS**, **RNN**, **NRF**, **ANFL**, and **ANFT**. The grid layout is four columns across three rows. The **APF** button is visible only when the slice is in a CW mode.
-
-### DSP tab — DSP level slider
-
-A shared level slider row has been added at the bottom of the DSP tab. The slider adjusts the processing depth of whichever supported DSP function was most recently enabled. The label to the left of the slider shows the name of the current target (for example, **NR** or **NB**). The numeric value is shown to the right.
-
-The slider targets the following functions: NR, NB, ANF, NRL, NRS, NRF, and ANFL. It does not target RNN, ANFT, or APF. When none of those functions is active, the slider row is still present in the layout but its contents are visually faded out to indicate that no target is selected
+The buttons that remain on the DSP tab are: **NR**, **

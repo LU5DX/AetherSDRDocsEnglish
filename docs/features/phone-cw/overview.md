@@ -91,6 +91,12 @@ When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes immed
 
 The embedded CWX panel scopes its F1-F12 shortcuts to panel visibility (#2464, #2469) so DVK panel F-key bindings and CWX hotkeys no longer fire simultaneously. CWX macros also release TX automatically when the queue drains (#2450, #2507).
 
+## Theme support (v26.6.1)
+
+In v26.6.1, the Phone/CW applet was updated to use the Theme Manager for all visual styling. All slider handles, labels, and push buttons now derive their colors from the active theme's color scheme rather than hardcoded hex values. The compact **CwXButton** used in the CWX toolbar now uses theme-aware colors for its background, border, and pressed state (accent color).
+
+When you change the application theme via `View > Theme`, the Phone/CW applet updates automatically. No restart is required.
+
 ## Tips
 
 - The `PcMicGain` value is stored client-side only. It is used both when mic source is PC and when RADE mode is active. If you switch mic source away from PC and back, AetherSDR restores the saved value rather than reading from the radio.
@@ -101,14 +107,8 @@ The embedded CWX panel scopes its F1-F12 shortcuts to panel visibility (#2464, #
 - The **Sidetone** toggle enables or disables the local sidetone at the same time as the radio monitor. You cannot enable one independently of the other.
 - With **Breakin** OFF, key presses are queued but TX is not triggered automatically. Engage PTT manually before beginning to send.
 - The ALC gauges start empty (-20 dBFS) when the applet first appears, so do not be concerned if they show no reading until the first transmit event.
+- Sliders and buttons now follow the active theme. If you have trouble seeing controls, try switching to a higher-contrast theme via `View > Theme`.
 
 ## Related
 
-- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line-acc-pc.md)
-- [Adjust mic gain and enable the accessory mix](adjust-mic-gain-and-enable-the-accessory-mix.md)
-- [Select a mic profile for a specific microphone](select-a-mic-profile-for-a-specific-microphone.md)
-- [Enable speech processor at NOR, DX, or DX+ level](enable-speech-processor-at-nor-dx-or-dx-level.md)
-- [Listen to a TX sidetone monitor](listen-to-a-tx-sidetone-monitor.md)
-- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
-- [Set CW break-in delay](set-cw-break-in-delay.md)
-- [Enable iambic paddle key
+- [Pick a mic source (MIC, BAL, LINE, ACC, PC)](pick-a-mic-source-mic-bal-line

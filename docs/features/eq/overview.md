@@ -40,6 +40,18 @@ The RX and TX paths are independent. You can have different curves on each, and 
 
 No band slider values from this applet are persisted in AetherSDR's local configuration; all slider values are stored in and retrieved from the radio. The RX/TX view selection is stored locally so the applet reopens on your last-used path.
 
+## Theme support
+
+The Equalizer applet fully supports live theme switching. When you change themes, the following visual elements update automatically:
+
+- Slider groove background, handle color, and sub-page/add-page fill
+- Band label colors
+- Scale label colors (+10, 0, −10)
+- Reset button background colors and accent color on press
+- Overall applet container background
+
+The slider handles use the theme's foreground (fill) accent color rather than the standard handle token to match the intended visual idiom. The groove sub-page and add-page areas remain the groove background color to prevent unwanted accent fills from the global slider style.
+
 ## Tips
 
 - Because RX and TX are independent paths, you can leave TX equalization flat while shaping only the RX audio, or vice versa.

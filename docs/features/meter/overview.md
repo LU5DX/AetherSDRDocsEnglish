@@ -21,6 +21,8 @@ Tick labels along the top of each gauge are colored to match the zone they fall 
 
 PA temperature and supply voltage are reported directly from the radio's hardware telemetry stream. Main fan speed is resolved by meter name when the radio first publishes it and updated as readings arrive.
 
+The applet now applies the active application theme to the meters container using the theme manager. This ensures the meters area matches the look and feel of other applets in the current theme.
+
 ## What each control does
 
 | Gauge        | What it shows               | Valid range |
@@ -31,7 +33,7 @@ PA temperature and supply voltage are reported directly from the radio's hardwar
 
 None of the gauges have persisted settings or user-adjustable controls. There are no `AppSettings` keys associated with this applet.
 
-The label on the **+13.8V** gauge dynamically updates to reflect the live voltage value reported by the radio. For example, when the radio reports 13.82 V, the gauge label reads **+13.82V**. Prior to v0.9.7, the label always showed the static text **+13.8V** regardless of the actual reading.
+The label on the **+13.8V** gauge dynamically updates to reflect the live voltage value reported by the radio. For example, when the radio reports 13.82 V, the gauge label reads **+13.82V**. Prior to v26.6.1, the label always showed the static text **+13.8V** regardless of the actual reading.
 
 **Note:** PA current is not displayed. On FLEX-8000 series hardware the PA current meter is capped at 10 A, which causes the reading to clip under full PA draw, making it unreliable.
 

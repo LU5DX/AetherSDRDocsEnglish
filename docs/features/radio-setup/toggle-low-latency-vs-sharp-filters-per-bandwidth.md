@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master configuration window for per-radio settings including radio information, network, GPS, TX, Phone/CW, RX, audio, filters, antennas, transverters, USB cables, peripherals, APD, themes, and serial port configuration.
+The Radio Setup dialog is the master configuration window for per-radio settings including radio information, network, GPS, TX, Phone/CW, RX, audio, filters, antennas, transverters, USB cables, peripherals, APD, themes, serial port, and SmartLink pinned certificate management.
 
 ## Opening the dialog
 
@@ -23,23 +23,24 @@ The dialog contains a tabbed interface with the following tabs:
 - **Peripherals** - External device manual IP connection (TGXL, PGXL, Antenna Genius)
 - **APD** - External Adaptive Pre-Distortion sample port selection (FLEX-8x00 only)
 - **Themes** - UI appearance settings including per-slice color overrides
+- **SmartLink** - Pinned TLS certificate management
 - **Serial** - FlexControl serial port configuration
 
 The dialog remembers its size and position between sessions using `RadioSetupDialogGeometry` in AppSettings.
 
 ## Radio tab
 
-The Radio tab displays radio identification and license information, and provides firmware update controls.
+The Radio tab displays radio identification and license information, and provides firmware update controls. Each read-only value has a copy button (clipboard icon) that appears on hover or focus — click to copy the value.
 
 ### Radio information
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Radio SN** | Indicator | Chassis serial number (read-only). |
-| **Region** | Indicator | Radio regulatory region. |
-| **HW Version** | Indicator | Hardware version string. |
+| **Radio SN** | Indicator | Chassis serial number (read-only). If chassis serial is empty, falls back to radio serial number. Displays "—" if unavailable. |
+| **Region** | Indicator | Radio regulatory region. Default: USA. |
+| **HW Version** | Indicator | Hardware version string. Prefixed with "v" if not already present. Displays "—" if unavailable. |
 | **Model** | Indicator | Radio model. |
-| **Options** | Indicator | Shows licensed radio options. |
+| **Options** | Indicator | Shows licensed radio options. If empty, shows a guess based on amplifier presence ("GPS, PGXL" or "GPS"). Displays "—" if unavailable. |
 | **FlexControl** | Indicator | Detected state of FlexControl hardware. |
 | **multiFLEX** | Indicator | multiFLEX enabled state. |
 | **License Info** | Indicator | Displays subscription, expiration, radio ID, and licensed version from the radio. |
@@ -50,7 +51,7 @@ The Radio tab displays radio identification and license information, and provide
 |---|---|---|
 | **Nickname** | Text field | User-friendly radio nickname. |
 | **Callsign** | Text field | Station callsign. |
-| **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as `client station <name>`. |
+| **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as `client station <name>`. |
 
 ### Remote On
 
@@ -63,13 +64,13 @@ The Radio tab displays radio identification and license information, and provide
 | Control | Kind | Behavior |
 |---|---|---|
 | **Check for Update** | Push button | Queries for firmware updates from the radio. |
-| **Select Installer...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. |
+| **Browse .ssdr...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. |
 | **Upload Firmware** | Push button | Starts firmware upload with progress bar and status. |
 | Firmware status | Indicator | Empty until a firmware upload begins, then progress and result text. |
 
 #### Firmware update workflow
 
-When **Check for Update** finds a newer version, the status area instructs you to download the SmartSDR installer from flexradio.com yourself. Use **Select Installer...** to point AetherSDR at the file you downloaded.
+When **Check for Update** finds a newer version, the status area instructs you to download the SmartSDR installer from flexradio.com yourself. Use **Browse .ssdr...** to point AetherSDR at the file you downloaded.
 
 **Supported installer formats**
 
@@ -85,7 +86,7 @@ When **Check for Update** finds a newer version, the status area instructs you t
 2. Click the **Radio** tab.
 3. Click **Check for Update**. If an update is available, the status area displays the version number and instructs you to download the installer from flexradio.com.
 4. Download the SmartSDR installer from flexradio.com.
-5. Click **Select Installer...** and locate the downloaded `.msi`, `.exe`, or `.ssdr` file. AetherSDR stages the firmware and reports progress in the status area.
+5. Click **Browse .ssdr...** and locate the downloaded `.msi`, `.exe`, or `.ssdr` file. AetherSDR stages the firmware and reports progress in the status area.
 6. When staging completes, click **Upload Firmware** to transfer the firmware to the radio.
 
 ## Network tab
@@ -270,7 +271,4 @@ The Audio tab provides radio audio output, compression, PC devices, boost, buffe
 | Control | Kind | Behavior |
 |---|---|---|
 | **Recording: Radio Side / Client Side** | Push button | Picks radio-side or client-side recording. Stored as `RecordingMode`. Default: Radio Side. |
-| **Save to:** | Text field | Folder for saved recordings (client-side only). Stored as `QsoRecordingDir`. Defaults to Documents/AetherSDR/Recordings. |
-| **...** | Push button | Browses for recording folder. |
-| **Auto-record on TX** | Checkbox | Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`. Default: False. |
-| **Idle timeout:** | Spinbox | Seconds of silence before recording stops. Range 10-3600 sec. Stored as `QsoRecordingIdleTimeout`. Default: 
+| **Save to

@@ -34,6 +34,7 @@ The Profile Manager shows all global profiles stored on the radio and highlights
 - The active profile is shown highlighted in the list. If no item appears highlighted, no profile of that type is currently loaded on the radio.
 - On the **Transmit (tab)** and **Microphone (tab)**, the **Save** button is labelled **Create** because the radio cannot overwrite existing transmit or microphone profiles directly. Updates to existing profiles are captured by Auto-Save while the profile is active. Enable **Auto-save profile changes** on the **Auto-Save (tab)** so changes follow the active profile.
 - If you try to create a transmit or microphone profile with a name that already exists and Auto-Save is off, AetherSDR will prompt you to enable Auto-Save so your changes to that profile are captured.
+- The **Auto-save profile changes** checkbox stays synchronized with the radio's Auto-Save state even when that state changes from outside the dialog. For example, if you enable Auto-Save through the "Enable Auto-Save" prompt or if a remote SmartSDR client or TCI client changes it, the checkbox updates to match.
 - The `Profiles` menu also shows a dynamic checkable list of global profiles below the separator. You can see the active profile at a glance there without opening the Profile Manager.
 
 ## Related

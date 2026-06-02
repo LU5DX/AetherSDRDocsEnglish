@@ -19,12 +19,13 @@ The Envelope knob connects an envelope follower to the tube drive, so the amount
 
 ## What each control does
 
-| Control  | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Envelope | 0 %                                                                                                                                                                                 | −1.0 to +1.0                                                                                                                                                                                              |
-| Attack   | 5.00 ms                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                            |
-| Release  | 35.00 ms                                                                                                                                                                            | 10.0 to 500.0 ms                                                                                                                                                                                          |
-| RN2      | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control  | Default | Valid range | Behavior | Notes |
+|----------|---------|-------------|----------|-------|
+| Envelope | 0 % | -1.0 to +1.0 | Linear mapping. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. | Label displayed as percentage (signed). Right column of the editor. Setting key `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope`. |
+| Attack   | 5.00 ms | 0.1 to 30.0 ms | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. | Label 'X.XX ms' below 10 ms, 'X.X ms' above. Right column of the editor. Setting key `ClientTubeTxAttackMs`. |
+| Release  | 35.00 ms | 10.0 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. | Label 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor. Setting key `ClientTubeTxReleaseMs`. |
+| RN2 | unchecked | — | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+
 ## Bypass dimming
 
 When a Tube stage is bypassed, AetherSDR applies a `QGraphicsOpacityEffect` to the applet tile and renders it at 55 % opacity. The tile returns to full opacity as soon as the stage is re-enabled. This behavior applies to both the TX and RX tiles and requires no configuration.
@@ -48,6 +49,8 @@ Each knob supports direct numeric entry for precise adjustment. Click the displa
 - The Dry/Wet knob blends the fully processed signal (including envelope-modulated saturation) with the dry signal, so you can use high Envelope values without fully committing to the effect.
 - Use inline value editing to set exact Attack, Release, or Envelope values rather than approximate knob positions.
 - If a tile appears dimmed and controls are unresponsive, the stage is bypassed. Re-enable it via the CHAIN widget; the tile will return to full brightness.
+- The applet tile now uses theme-aware colors through the `color.knob.*` namespace. Knob background, foreground arc, handle, label text, and value text all respect the current theme settings rather than using hardcoded colors.
+- The transfer curve in the curve widget also uses theme-aware colors: background (`color.background.0`), frame and grid (`color.background.1`), axis (`color.background.1`), curve (`color.accent.dim`), ball glow (`color.accent.warning`), and ball core (`color.text.primary`).
 
 ## Troubleshooting
 
@@ -56,6 +59,7 @@ Each knob supports direct numeric entry for precise adjustment. Click the displa
 - **Output level spikes on transients** — Positive Envelope adds gain on peaks. Reduce Output to compensate, or reduce Envelope depth.
 - **Applet tile appears dim** — The Tube stage is bypassed. Enable the stage via the CHAIN widget to restore full opacity and DSP processing.
 - **Inline editor does not accept typed value** — Ensure the value falls within the knob's valid range. Values outside the range are silently clamped. Check that you are using the locale-appropriate decimal separator.
+- **Knob colors look wrong** — Verify you are using a compatible theme. The knob components now read from `color.knob.background`, `color.knob.foreground`, `color.knob.handle`, `color.text.secondary`, and `color.text.primary` in the theme definition.
 
 ## Related
 

@@ -4,6 +4,8 @@ The **AetherDSP Settings** dialog (`Settings > AetherDSP Settings...`) controls 
 
 The dialog uses a custom frameless title bar with window controls matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. Dialog position and size are persisted automatically between sessions. Drag the title bar to move the dialog; double-click the title bar to toggle maximize/restore. Drag any edge or corner to resize (6 px resize hit zone around the inner content widget).
 
+The dialog and all its controls are themed using the current AetherSDR theme. The dialog background uses the `dialog/aetherDsp` theme color set, and sliders use the `applyPrimarySliderStyle()` style function instead of a hard-coded dark stylesheet.
+
 ## Before you start
 
 - AetherSDR must be running.
@@ -164,6 +166,7 @@ DFNR uses the DeepFilterNet3 neural network for noise reduction. Click the **DFN
 - **MNR controls are grayed out** — MNR is available on macOS only. On Linux and Windows the MNR tab is informational.
 - **NR4 toggle is grayed out on Windows** — NR4 requires LLVM (clang-cl) to compile. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
 - **Changes appear to reset** — each tab has a **Reset Defaults** button. Verify you have not accidentally clicked it.
+- **Slider appearance does not match screenshots** — the dialog now uses themed slider styling via `applyPrimarySliderStyle()`. The slider colors follow the current theme rather than a hard-coded color scheme. To change slider appearance, change your active theme in AetherSDR's theme settings.
 
 ---
 

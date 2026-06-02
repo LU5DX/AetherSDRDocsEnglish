@@ -1,6 +1,6 @@
 # Amplifier overview
 
-The Amplifier applet provides real-time telemetry and OPERATE/STANDBY control for a connected Power Genius XL (PGXL) amplifier. Use it to monitor forward power, SWR, temperature, drain current, and mains voltage without leaving AetherSDR.
+The Amplifier applet provides real-time telemetry and OPERATE/STANDBY control for a connected Power Genius XL (PGXL) amplifier. Use it to monitor forward power, SWR, drain current, temperature, drain voltage, and mains voltage without leaving AetherSDR.
 
 ## Before you start
 
@@ -17,16 +17,34 @@ All telemetry is pushed from the radio in real time. The gauges update as the PG
 
 | Control          | Kind           | Behavior                                                                                                                                                                                                                                                                 |
 |------------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Fwd Pwr**      | Gauge          | Shows PGXL forward power output.                                                                                                                                                                                                                                         |
-| **SWR**          | Gauge          | Shows PGXL SWR at the amplifier output.                                                                                                                                                                                                                                  |
-| **Temp**         | Gauge          | Shows PGXL heatsink temperature.                                                                                                                                                                                                                                         |
-| **Volts / Amps** | Text indicator | Displays mains voltage and drain current as `Volts: xxxV  Amps: x.xA`. Hidden until first telemetry arrives.                                                                                                                                                             |
-| **MEffA**        | Text indicator | Displays the PGXL MEffA value. Hidden until the radio reports a value.                                                                                                                                                                                                   |
+| **PWR**          | Value + Gauge  | Shows PGXL forward power output as a numeric value and a gauge. The gauge bar rises quickly on RF bursts and decays over ~800 milliseconds, making brief transmissions still visible. The gauge is red above 1500 W.                                                    |
+| **SWR**          | Value + Gauge  | Shows PGXL SWR at the amplifier output as a numeric value and a gauge. The gauge is red above 2.5.                                                                                                                                                                       |
+| **Id**           | Value + Gauge  | Shows PGXL drain current as a numeric value and a gauge. The gauge is red above 60 A.                                                                                                                                                                                    |
+| **Temp**         | Text indicator | Shows PGXL heatsink temperature as `xx C`.                                                                                                                                                                                                                              |
+| **Vdd**          | Text indicator | Shows PGXL drain voltage as `Vdd xx V`.                                                                                                                                                                                                                                 |
+| **Vac**          | Text indicator | Shows PGXL mains voltage as `Vac xx V`.                                                                                                                                                                                                                                 |
+| **● RADIO**      | Text indicator | Shows the source of telemetry data. Appears after first telemetry arrives.                                                                                                                                                                                              |
 | **OPERATE**      | Button         | Toggles the amplifier between OPERATE and STANDBY. Hidden until the radio reports amplifier state. Shows **OPERATE** (green) when the PGXL is in IDLE, OPERATE, TRANSMIT_A, or TRANSMIT_B state. Shows **STANDBY** when the PGXL is in STANDBY, POWERUP, or FAULT state. |
 
 The three gauges use a color-coded bar: green below the yellow threshold, yellow-amber in the caution zone, and red above the red threshold. Tick labels on each gauge are color-matched to their zone.
 
 None of the controls have persisted settings — all values come live from the PGXL.
+
+## Layout
+
+The Amplifier applet displays telemetry in two sections:
+
+1. **Top section:** Three rows, each with a label on the left and a gauge on the right:
+   - **PWR** — forward power (0–2000 W, red > 1500 W)
+   - **SWR** — SWR (1.0–3.0, red > 2.5)
+   - **Id** — drain current (0–70 A, red > 60 A)
+
+2. **Bottom section:** A text information stack on the left and the **OPERATE** button on the right:
+   - Temperature, drain voltage, and mains voltage
+   - Data source indicator (`● RADIO`)
+
+The numeric value labels (PWR, SWR, Id) show the field name and live value in bold light-blue text.
+
 ## Related
 
 - [Put the PGXL amplifier in OPERATE](put-the-pgxl-amplifier-in-operate.md)

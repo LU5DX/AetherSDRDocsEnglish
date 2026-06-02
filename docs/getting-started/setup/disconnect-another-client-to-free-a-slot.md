@@ -18,16 +18,17 @@ When multiFLEX is disabled on your FLEX-8600, only one client can be connected a
 
 | Control | Description |
 |---|---|
-| **Radio section** | Read-only section at the top showing the radio model, nickname, and callsign of the connected radio. |
-| **Station radio buttons** | One for each connected client. Selecting one enables **Disconnect Station**. |
-| **Disconnect Station** | Disconnects the selected client from the radio. Label is red. |
+| **Radio section** | Read-only section at the top showing the radio model, nickname, and callsign of the connected radio. Section header reads "Radio". |
+| **Station radio buttons** | One for each connected client. Selecting one enables **Disconnect Station**. Each entry shows the client program name and optionally the station name. Fallback label is "client 0x&lt;HEX&gt;" if no program or station is known. |
+| **Disconnect Station** | Disconnects the selected client from the radio. Label is "Disconnect Station" and appears in red. Enabled only when a station radio button is checked. |
 | **Cancel** | Closes the dialog without disconnecting. |
-| **Info label** | Explains that multiFLEX is disabled and you must select a station to disconnect. |
+| **Info label** | Explains that multiFLEX is disabled on this radio and you must select a station to disconnect before connecting AetherSDR. Full text: "multiFLEX is disabled on this radio. Select a station to disconnect before connecting AetherSDR." |
 
 ## Troubleshooting
 
 - **The Disconnect Station button is grayed out** — Select a station by clicking its radio button. The button stays disabled until a selection is made.
 - **The dialog does not appear, but you know another client is connected** — Open it manually via **Help > Connected Stations...**
+- **The dialog appears with a dark theme on first launch** — This is expected behavior. The dialog now applies theme styling immediately upon opening, ensuring a consistent visual appearance across all supported operating systems.
 
 ## Related
 

@@ -20,17 +20,17 @@ Use the Freq knob to scan across the sibilance range while transmitting or monit
 
 ## What each control does
 
-| Control                  | Default    | Valid range         | Notes |
-|--------------------------|------------|---------------------|-------|
-| Freq                     | 6000 Hz    | 1000 to 12000 Hz    | Logarithmic mapping. Label '6.0 kHz' above 1 kHz, 'N Hz' below. |
-| Q                        | 2.00       | 0.5 to 5.0          | Linear mapping. Higher Q = narrower bandwidth. |
-| Thresh                   | -30.0 dB   | -60.0 to 0.0 dB     | Linear mapping. Level above which de-esser activates. |
-| Amount                   | -6.0 dB    | -24.0 to 0.0 dB     | Linear mapping. Maximum attenuation at peak sibilance. |
-| Attack                   | 1.0 ms     | 0.1 to 30.0 ms      | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this control. |
-| Release                  | 100 ms     | 10.0 to 500.0 ms    | Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this control. |
-| Sidechain response curve | —          | —                   | Draws bandpass filter response with live centre-frequency ball. |
-| Gain-reduction bar       | —          | 0 to 24 dB GR       | Soft-red strip, right-filled. Refreshed ~30 Hz. |
-| Slope                    | 24 dB/oct  | 12/24/36/48 dB/oct  | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch. Present in both TX and RX StripDeEssPanel. Persisted as ClientDeEssTxSlopeStages / ClientDeEssRxSlopeStages. |
+| Control                  | Default   | Valid range        |
+|--------------------------|-----------|--------------------|
+| Freq                     | 6000 Hz   | 1000 to 12000 Hz   |
+| Q                        | 2.00      | 0.5 to 5.0         |
+| Thresh                   | -30.0 dB  | -60.0 to 0.0 dB    |
+| Amount                   | -6.0 dB   | -24.0 to 0.0 dB    |
+| Attack                   | 1.0 ms    | 0.1 to 30.0 ms     |
+| Release                  | 100 ms    | 10.0 to 500.0 ms   |
+| Sidechain response curve | —         | —                  |
+| Gain-reduction bar       | —         | 0 to 24 dB GR      |
+| Slope                    | 24 dB/oct | 12/24/36/48 dB/oct |
 
 **Note:** The Attack and Release knobs appear only in the Channel Strip StripDeEssPanel (both RX and TX). The docked ClientDeEssApplet omits these controls.
 
@@ -57,6 +57,25 @@ The Aetherial De-Esser has separate settings for the TX and RX paths. The docked
 The StripDeEssPanel in the Channel Strip can be opened for either TX or RX. When opened for TX, the window title reads "Aetherial De-Esser — TX". When opened for RX, the window title reads "Aetherial De-Esser — RX". Each instance independently saves and restores its own knob settings using separate settings keys:
 - TX: `ClientDeEssTxFrequencyHz`, `ClientDeEssTxQ`, `ClientDeEssTxThresholdDb`, `ClientDeEssTxAmountDb`, `ClientDeEssTxAttackMs`, `ClientDeEssTxReleaseMs`, `ClientDeEssTxSlopeStages`
 - RX: `ClientDeEssRxFrequencyHz`, `ClientDeEssRxQ`, `ClientDeEssRxThresholdDb`, `ClientDeEssRxAmountDb`, `ClientDeEssRxAttackMs`, `ClientDeEssRxReleaseMs`, `ClientDeEssRxSlopeStages`
+
+## Applet container styling
+
+The docked Aetherial De-Esser applet tile uses the `applet/deess` container namespace for theme colour resolution. Knob colours — background ring, foreground arc, pointer, label text, and value text — are drawn from the theme's `color.knob.*` namespace:
+- `color.knob.background` — ring background
+- `color.knob.foreground` — ring arc
+- `color.knob.handle` — pointer
+- `color.text.secondary` — knob label
+- `color.text.primary` — knob value
+
+The sidechain response curve widget uses the following theme colour keys:
+- `color.background.0` — curve background
+- `color.background.1` — grid lines and major grid lines
+- `color.text.label` — axis labels
+- `color.accent.danger` — sibilant band curve (soft red)
+- `color.accent.dim` — threshold indicator line
+- `color.accent.danger` blended with `color.background.0` — centre-frequency ball glow and core
+
+This allows consistent per-applet colour overrides without modifying widget code.
 
 ## Tips
 

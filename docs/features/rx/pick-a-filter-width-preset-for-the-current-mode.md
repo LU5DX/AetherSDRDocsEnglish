@@ -115,18 +115,20 @@ The 3-digit-band convenience feature (for example, typing `1446` to tune to 144.
 
 When a valid frequency is entered and committed, the applet emits `directEntryCommitted(freqMhz, "rx-direct-entry")` instead of calling `tuneAndRecenter()` directly.
 
+## Pan slider center-mark visualization (v26.6.1)
+
+In v26.6.1, the L/R pan slider was updated to include a visual center-mark indicator. The slider fill now anchors from the centre outward — when the handle is to the left of centre, the groove is filled from the handle to the centre in accent color; when the handle is to the right, only the right half of the groove fills. A small centre-mark dot is painted on the groove so you can see the neutral position at a glance. Double-click the slider to reset to centre (50).
+
+The previous behavior applied the standard slider fill from the left edge, which was misleading for centre-anchored controls. No configuration change is required.
+
+## Button styling with theme manager (v26.6.1)
+
+Starting in v26.6.1, the filter preset buttons (1.8K, 2.1K, etc.) and all other push buttons in the RX Controls applet use theme-managed colors instead of hardcoded hex values. The button background, border, hover, and pressed colors are resolved through the `ThemeManager` using the `color.background.1`, `color.background.2`, and `color.accent` tokens. This ensures the applet buttons re-theme consistently when the application theme changes. No user action is required.
+
 ## Tips
 
 - If you need a width that does not match any preset, drag the edges of the filter passband widget to set an arbitrary value, then right-click a preset button to save that width for future use.
 - When saving a preset by right-clicking a preset button, the passband is stored in lo:hi format if the current passband edges have been set explicitly, or in width-only format otherwise. Both formats are loaded correctly on all subsequent sessions.
 - Presets are per mode. Switching modes reshapes the filter and displays the preset buttons for the new mode.
 - NT and RTTY modes use the same filter presets and squelch behavior as DIGU and DIGL. Squelch is disabled in NT, DIGU, DIGL, and RTTY modes, and squelch off is sent to the radio automatically if squelch was previously enabled. RTTY mode was added to the auto-disable list in v26.5.1 to prevent squelch from notching out FSK characters (#2504).
-- Use the `stepFilterWidth` method from key bindings or macro scripts to widen and narrow the filter passband without clicking the preset buttons directly. The method always lands on a mode-appropriate preset.
-
-## Troubleshooting
-
-- **Preset buttons are not visible** — The active mode is FM, NFM, or DFM. These modes do not expose filter presets. Change the mode using the Mode combo to a mode that supports presets (for example, USB or CW).
-- **Right-click on a preset button does nothing visible** — Confirm the slice is connected to the radio. The RX applet requires an active radio connection to save preset values.
-- **NRL button is not visible on a 6000-series radio** — Confirm you are running V0.9.4 or later. Earlier versions restricted NRL to 8000-series radios only.
-- **Squelch controls are greyed out** — The active mode is DIGU, DIGL, NT, RTTY, CW, or CWL. Squelch is disabled in these modes. In digital modes (including NT and RTTY) squelch is turned off automatically; in CW modes the radio manages squelch state directly.
-- **Slice tab row is blank after reconnecting** — This could occur on versions prior to v0.9.5.1. Upgrade to
+- Use the `

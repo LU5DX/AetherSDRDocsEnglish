@@ -39,6 +39,7 @@ On Linux, starting with AetherSDR v26.5.2.1, the DAX RX audio path uses a native
 - Gain settings for all channels are persisted immediately on each drag event — you do not need to click a save button.
 - To have the DAX bridge start every time AetherSDR opens, use `Settings > Autostart DAX with AetherSDR` rather than clicking **Enable** manually each session.
 - The slice assignment status indicators now use rich text formatting to display slice letters more clearly.
+- The applet uses theme-aware styling; visual appearance adapts to your selected theme.
 
 ## Related
 

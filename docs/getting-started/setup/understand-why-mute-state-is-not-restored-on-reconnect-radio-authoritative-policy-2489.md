@@ -1,3 +1,4 @@
+```markdown
 # Understand why mute state is not restored on reconnect (radio-authoritative policy #2489)
 
 When you mute a slice using the mute button in the RX Controls applet, the mute state is not saved or restored after a radio disconnection and reconnection. This is by design: AetherSDR treats the radio as the authoritative source for audio mute state.
@@ -12,7 +13,6 @@ When you mute a slice using the mute button in the RX Controls applet, the mute 
 | Control     | Label | Default     |
 |-------------|-------|-------------|
 | Mute toggle | 🔊 / 🔇 | 🔊 (unmuted) |
-
 ## Behavior details
 
 - Single-click the mute button toggles mute for this slice. The icon (🔊 or 🔇) updates only when the radio acknowledges the state change via `SliceModel::audioMuteChanged`.
@@ -29,3 +29,4 @@ When you mute a slice using the mute button in the RX Controls applet, the mute 
 
 - [RX Controls overview](../../features/rx/overview.md)
 - [Tune the radio to a frequency (type MHz in the readout)](../../features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
+```

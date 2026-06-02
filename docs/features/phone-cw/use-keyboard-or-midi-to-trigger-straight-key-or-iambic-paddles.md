@@ -42,6 +42,7 @@ This page explains how to send CW using a computer keyboard or MIDI controller a
 - With **Breakin** OFF, key input from the keyboard or MIDI controller is queued. This is useful when you want to compose characters before transmitting. Engage PTT manually to send the queued input.
 - Double-clicking the **L / R pan (CW)** slider recenters it to 50 (centre).
 - In v26.5.3, the mic level meter is suppressed during receive when the user disables the level meter during receive (via `met_in_rx`). The `applyLevelMeterReceiveGate()` method is called on TX state changes and RADE active changes to ensure the meter is suppressed correctly. The Compression gauge now displays the compression amount as a 0 to 25 dB positive value, inverted to -25 to 0 dB on the gauge face.
+- In v26.6.1, the Phone/CW applet and its controls have been updated to use the application theme system (`ThemeManager`) for styling. All sliders, labels, and buttons now inherit their colors from the active theme instead of hardcoded values. If you have created custom themes, verify that slider and button colors are defined appropriately.
 
 ## Troubleshooting
 
@@ -49,6 +50,7 @@ This page explains how to send CW using a computer keyboard or MIDI controller a
 - **Keying does not trigger TX** — Check that **Breakin** is active if you expect QSK operation. If **Breakin** is inactive, the radio expects a manual PTT to transmit queued keys.
 - **No sidetone heard while keying** — Confirm **Sidetone** is active and **Sidetone volume** is above zero. Also verify the active slice is in CW mode; the CW sub-panel only appears in CW mode. In v26.5.3, verify the user-selected audio output is properly configured in `Settings > Audio Output`.
 - **Iambic paddles send straight key behavior** — Confirm **Iambic** is active (highlighted) in the CW sub-panel.
+- **Slider or label colors look incorrect after updating** — This may indicate an incomplete or incompatible theme. Go to `Settings > Theme` and select a built-in theme to reset, or update your custom theme definition with the appropriate color keys for sliders and buttons.
 
 ## Related
 

@@ -30,6 +30,13 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 | 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Drag pop-up shows signed dB value. |
 | 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Drag pop-up shows signed dB value. |
 | 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Drag pop-up shows signed dB value. |
+| +10 / 0 / −10 dB scale | Indicator | — | −10 to +10 dB | Reference labels on the left side of the slider column showing the scale range. |
+
+## Indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| Per-band value label | −10 through +10 | Live dB value of each slider shown below its handle. While dragging, a pop-up near the handle shows the signed value (e.g., "+3 dB" or "−5 dB"). |
 
 ## Tips
 
@@ -37,11 +44,13 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 - To quickly compare equalized and flat receive audio, click ON repeatedly while listening. The radio applies or removes the EQ immediately.
 - To start fresh, click the Reset arc button. All RX bands return to 0 dB in one click.
 - While dragging any EQ slider, a pop-up displays the signed value (e.g., "+3 dB" or "-5 dB") near the slider handle. The pop-up fades after you release the mouse button, giving you time to read the final value.
+- The slider colors and applet background adapt to the active theme. The EQ handle uses the theme's accent color for visibility.
 
 ## Troubleshooting
 
 - **ON button does not respond** — Confirm AetherSDR is connected to the radio. The EQ applet requires an active radio connection to send changes.
 - **Slider changes affect TX instead of RX** — TX is the default view. Click RX first to switch the applet to the receive path before editing bands.
+- **Slider colors do not match the theme** — Restart AetherSDR to ensure all theme changes are applied. The EQ sliders use `color.slider.*` theme tokens for consistent appearance.
 
 ## Related
 

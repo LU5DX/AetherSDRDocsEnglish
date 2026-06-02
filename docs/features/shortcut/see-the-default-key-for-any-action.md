@@ -18,9 +18,17 @@ To narrow the list, type part of the action name into the `Filter:` field, or se
 
 | Control | Kind | Behavior |
 |---|---|---|
+| `Keyboard map` | Indicator | Visual QWERTY layout; click a key to select it. |
+| `Key:` | Indicator | Shows the selected key. |
+| `Action:` | Combo box | Assigns an action to the selected key. |
+| `Category` | Indicator | Shows the category of the selected action. |
+| `Clear` | Push button | Removes the assignment from the selected key. |
+| `Reset to Default` | Push button | Restores the default key for the selected action. |
 | `Filter:` | Text field | Filters the action table to rows whose Action or Category text matches what you type. |
 | `Category:` | Combo box | Filters the action table to a single category. Defaults to **All**. |
-| Action table | List | Displays all actions with columns: Action, Category, Current Key, Default Key. |
+| Action table | List | Displays all actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
+| `Reset All to Defaults` | Push button | Resets every binding to its default key. |
+| `Close` | Push button | Closes the dialog. |
 
 ## Tips
 

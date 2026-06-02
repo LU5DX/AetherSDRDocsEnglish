@@ -1,4 +1,4 @@
-# DAX Audio Applet (v26.5.2.1)
+# DAX Audio Applet (v26.6.1)
 
 The DAX Audio applet provides a per-channel RX audio bridge and a single TX audio stream for digital mode operation. It displays live audio meters and gain sliders for DAX channels 1–4 and the TX stream, along with slice-assignment indicators.
 

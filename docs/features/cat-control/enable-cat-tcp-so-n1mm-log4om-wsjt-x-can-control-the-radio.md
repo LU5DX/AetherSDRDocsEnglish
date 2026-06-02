@@ -1,6 +1,6 @@
 # Enable CAT TCP so N1MM, Log4OM, WSJT-X can control the radio
 
-The CAT Control applet runs up to four rigctld-compatible TCP servers (and PTY symlinks on Linux/macOS), one per slice channel (A–H), so external logging and contest software can control the radio over a network socket or serial-style path. In v26.5.3, the applet uses a native Hamlib NET rigctl implementation, replacing the need for a standalone rigctld bridge. Use this page to start those servers and point your logging software at the correct port.
+The CAT Control applet runs up to four rigctld-compatible TCP servers (and PTY symlinks on Linux/macOS), one per slice channel (A–D), so external logging and contest software can control the radio over a network socket or serial-style path. The applet uses a native Hamlib NET rigctl implementation, replacing the need for a standalone rigctld bridge. Use this page to start those servers and point your logging software at the correct port.
 
 ## Before you start
 
@@ -22,8 +22,8 @@ The CAT Control applet runs up to four rigctld-compatible TCP servers (and PTY s
 | Control | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|
 | **Enable TCP** | Off | On / Off | — | Starts or stops all four rigctld TCP servers. Also writes the current base port to `CatTcpPort`. |
-| **Base** | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channel A uses this port; B, C, and D use base+1, base+2, base+3. If servers are already running, they restart on the new ports immediately. |
 | **Enable TTY** | Off | On / Off | — | Starts or stops PTY symlinks for serial-style access. The symlink path is shown per channel. On Linux, paths are under `$XDG_RUNTIME_DIR/aethersdr/cat-A` through `cat-D`. On macOS, paths are under `~/Library/Caches/AetherSDR/cat-A` through `cat-D`. Not needed for TCP-based software. |
+| **Base** | `4532` | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Channel A uses this port; B, C, and D use base+1, base+2, base+3. If servers are already running, they restart on the new ports immediately. |
 | Channel rows (A–D) | `(stopped)` | — | — | Shows each channel's TCP status and connected client count. Badge colour matches the slice colour. The PTY path is shown when enabled. |
 
 ## Security update in v26.5.3

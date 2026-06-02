@@ -29,6 +29,14 @@ The button row at the bottom provides the following controls:
 | File an Issue | Launches the AI-assisted bug report flow. Copies a diagnostic prompt (with your AetherSDR version, Qt version, OS, and connected radio details) to the clipboard, then walks you through opening an AI assistant and submitting a GitHub issue. |
 | Close | Closes the dialog. |
 
+**Indicators**
+
+The dialog displays the following indicator:
+
+| Indicator | What it shows |
+|---|---|
+| Log file size | Current size of the active log file, displayed to the right of the log path label. |
+
 ## Tips
 
 - Enable only the categories relevant to the problem you are chasing to keep the log readable.

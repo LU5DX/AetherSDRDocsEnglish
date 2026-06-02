@@ -18,8 +18,9 @@ The DAX IQ applet includes a real-time level meter for each of the four IQ strea
 
 | Control | What it shows | Range | Notes |
 |---|---|---|---|
-| IQ 1–4 meter | RMS level of the IQ stream, scaled for display | 0–100 (scaled from RMS × 200) | Resets to 0 when the stream is disabled or the radio disconnects |
+| IQ 1–4 meter | RMS level of the IQ stream, scaled for display | 0–100 (scaled from RMS × 200) | Resets to 0 when the stream is disabled or the radio disconnects. The meter uses the current theme accent color for the progress bar chunk. |
 | IQ 1–4 Off/On | Whether this IQ stream is currently active | Off / On | Stream must be **On** for the meter to advance above 0 |
+| IQ 1–4 rate | Selected sample rate for the IQ stream | 24k (24000), 48k (48000), 96k (96000), 192k (192000) | Changing the rate emits a signal to the radio. The combo box syncs back to the radio-reported rate when a stream is active. |
 
 ## Tips
 

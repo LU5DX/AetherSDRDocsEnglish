@@ -31,6 +31,7 @@ Each active DAX IQ stream consumes radio DSP resources and network bandwidth. Di
 
 - **Button shows "Off" but immediately returns to "On"** — The radio may be restoring a persisted stream state on reconnect. Wait for the 1.5-second session setup delay to complete, then click "On" to disable the stream again.
 - **Level meter does not reset to 0 after disabling** — The radio stream removal confirmation has not yet arrived. The meter will reset once the radio reports the stream no longer exists.
+- **DAX IQ applet does not appear on Windows or Linux** — The applet is hidden by default. Click the IQ tray button on the right sidebar. If it still does not appear, ensure your audio system supports PulseAudio (PipeWire is not required). The applet initializes on these platforms regardless of the audio backend.
 
 ## Related
 

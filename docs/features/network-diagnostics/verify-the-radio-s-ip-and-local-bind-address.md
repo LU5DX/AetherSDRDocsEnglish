@@ -22,7 +22,7 @@ The dialog is organized into seven tabs. Select the tab that matches what you ne
 | **Latency**      | Full-width time-series graph of RTT, arrival gap, and jitter in ms.                                                            |
 | **Rates**        | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps. |
 | **Packet Loss**  | Full-width time-series graph of packet loss % per stream category.                                                             |
-| **Audio**        | Full-width time-series graph of playback buffer fill (ms) and underruns/s.                                                     |
+| **Audio**        | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. |
 | **Logs**         | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.       |
 
 ## Verify the radio's IP and local bind address
@@ -39,14 +39,14 @@ The dialog is organized into seven tabs. Select the tab that matches what you ne
 
 The **Timeframe** combo box in the top-right corner of the tab bar sets how far back all time-series charts display history. It is hidden while the **Logs** tab is active.
 
-| Value       |
-|-------------|
-| 1 minute    |
-| 5 minutes *(default)* |
-| 15 minutes  |
-| 1 hour      |
-| 1 day       |
-| 1 week      |
+| Value                 | Behavior | Notes |
+|-----------------------|----------|-------|
+| 1 minute              |          |       |
+| 5 minutes *(default)* |          |       |
+| 15 minutes            |          |       |
+| 1 hour                |          |       |
+| 1 day                 |          |       |
+| 1 week                |          |       |
 
 Select a value from the **Timeframe** drop-down. All visible charts update immediately.
 
@@ -64,6 +64,18 @@ Select a value from the **Timeframe** drop-down. All visible charts update immed
 7. Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by category name.
 
 > **Note:** The **Timeframe** selector is hidden while the **Logs** tab is active. Switch to any other tab to restore it.
+
+## Inspect per-stream RX audio diagnostics
+
+1. Select the **Audio** tab.
+2. The main graph shows playback buffer fill (ms) and underruns/s over time.
+3. Below the graph, a detail area displays per-stream RX audio diagnostics for each active audio stream:
+   - **Feed rate** — The rate at which audio data is being fed to the playback buffer.
+   - **Deficit** — The current buffer deficit in ms.
+   - **Late packets** — Count of packets arriving after their scheduled playback time.
+   - **Packet class code** — Classification of the packet quality.
+   - **Stream health** — Overall health indicator for the audio stream.
+4. Use this information to identify which audio stream is experiencing issues and what type of problem is occurring.
 
 ## What each indicator means
 
@@ -103,6 +115,7 @@ Select a value from the **Timeframe** drop-down. All visible charts update immed
 - **Selected Source** is useful when the host has multiple network interfaces. Confirm it shows the interface on the same subnet as the radio, not a VPN or secondary adapter.
 - The **Rates** tab uses a logarithmic y-axis, which makes it easier to compare high-bandwidth streams (such as total RX at several Mbps) alongside low-bandwidth streams (such as Meters at a few kbps) on the same chart.
 - On the **Logs** tab, scrolling up automatically switches the toggle to **Paused**. Click **Live** to jump back to the current tail.
+- The **Audio** tab's per-stream diagnostics help you identify whether audio problems are caused by network issues (late packets, high deficit) or local playback issues (underruns, buffer mismanagement).
 
 ## Troubleshooting
 
@@ -110,6 +123,7 @@ Select a value from the **Timeframe** drop-down. All visible charts update immed
 - **Selected Source shows an unexpected interface** — Your operating system routed the connection through a different NIC than intended. Check your routing table or disable unused network interfaces, then reconnect.
 - **Status card shows Poor or Fair** — Check the **Latency** and **Packet Loss** tabs for the affected time range. High jitter or sustained packet loss on the Audio stream usually points to network congestion or Wi-Fi interference.
 - **Logs tab shows no output** — All category checkboxes may be deselected. Click **Select All (Logs)** to restore visibility.
+- **Audio stream shows high late packet count** — Check the **Latency** tab for jitter spikes and the **Packet Loss** tab for Audio stream drops. Consider increasing the audio buffer size in audio settings.
 
 ## Related
 

@@ -43,11 +43,13 @@ The **Total Spots:** label at the bottom of the dialog shows the count of live s
 - If memory markers are not visible even after enabling **Memories:**, confirm that the **Spots:** toggle is also set to "Enabled". The Spots master toggle controls all overlay rendering.
 - The **Override Background: Auto** toggle is active by default and selects contrast-appropriate background colors automatically. Disable it only if you want to set a specific background color with the background color picker.
 - During a contest, disable **Spot Lines:** to reduce visual clutter on the panadapter without hiding spot labels.
+- The Spot Settings dialog now uses the active theme colors for its title and the Total Spots label, matching the appearance of other AetherSDR dialogs.
 
 ## Troubleshooting
 
 - **Memories: shows "Enabled" but no markers appear on the panadapter** — Check that the **Spots:** toggle is set to "Enabled". The master spots toggle must be on for any overlay, including memories, to render.
 - **Memory markers overlap and are hard to read** — Increase the **Levels:** slider value to give the renderer more stacking rows, or adjust **Position:** to move the overlay to a less crowded area of the panadapter.
+- **The dialog text looks different from before** — The Spot Settings dialog now applies the current theme. No functionality has changed; only visual styling was updated.
 
 ## Related
 

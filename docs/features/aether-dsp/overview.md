@@ -11,7 +11,7 @@ AetherDSP Settings gives you fine-grained control over AetherSDR's client-side n
 
 Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six tabs — **NR2**, **NR4**, **MNR**, **DFNR**, **RN2**, and **BNR** — each covering a different noise-reduction engine. Clicking a tab also activates or bypasses that engine; the six DSP toggles act as exclusive selectors and engine enable/disable controls. Settings are saved immediately when you change any control; no Apply or OK button is required.
 
-The dialog has a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px. Dialog position and size are persisted across sessions using the `AetherDspDialogGeometry` setting key.
+The dialog has a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px. Dialog position and size are persisted across sessions using the `AetherDspDialogGeometry` setting key. The dialog background and colors follow the current theme via `ThemeManager`.
 
 ### NR2 tab
 

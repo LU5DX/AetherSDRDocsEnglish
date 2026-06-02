@@ -24,16 +24,16 @@ Bypass every client-side noise reducer (NR2, NR4, MNR, DFNR, RN2, BNR) at once u
 
 ## What each control does
 
-| Control           | Behavior                                                                                                                                                                                           | Notes |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
-| **ADSP tile**     | Click to bypass the entire NR cluster. The label rotates to show the active module's short name (`NR2`, `NR4`, `BNR`) or `ADSP` when none is on. Double-click opens the AetherDSP Settings dialog. |       |
-| **BYPASS button** | Disables every stage on the current chain (TX or RX). Does not affect the ADSP bypass — they operate independently.                                                                                |       |
-| **TX** tab        | Shows and edits the TX DSP chain (Parametric EQ, Compressor with pre-comp Drive and Phase-rotator PAPR reduction, Gate, De-Ess with user-selectable 12–48 dB/oct slope, Tube with RN2 noise-reduction toggle, PUDU exciter, Reverb). Amber 'VUDU' colour when selected. Last-active tab persists via `PooDooAudioActiveTab`. | Part of an exclusive pair with RX. |
-| **RX** tab        | Shows and edits the RX DSP chain (EQ, AGC-G/Gate, AGC-C/Compressor, DESS/DeEss, TUBE, EVO/Pudu). All six stages are fully implemented. Bookended by RADIO / ADSP / SPEAK status tiles. Interactive: click-bypass, double-click-edit, drag-reorder. Color indicates active side. Last-active tab persists via `PooDooAudioActiveTab`. | Each side keeps independent stage state, chain order, and BYPASS snapshot. |
+| Control | Behavior | Notes |
+|---|---|---|
+| **ADSP tile** | Click to bypass the entire NR cluster. The label rotates to show the active module's short name (`NR2`, `NR4`, `BNR`) or `ADSP` when none is on. Double-click opens the AetherDSP Settings dialog. | Only visible in RX mode. Adopts blue-ring + green-LED-dot styling. |
+| **BYPASS button** | Disables every stage in the selected chain (including RN2). Click again to restore the stages that were on before. Scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches. | TX and RX maintain separate snapshots. |
+| **TX** tab | Shows and edits the TX DSP chain (Parametric EQ, Compressor with pre-comp Drive and Phase-rotator PAPR reduction, Gate, De-Ess with user-selectable 12–48 dB/oct slope, Tube with RN2 noise-reduction toggle, PUDU exciter, Reverb). Amber 'VUDU' colour when selected. Last-active tab persists via `PooDooAudioActiveTab`. | Part of an exclusive pair with RX. |
+| **RX** tab | Shows and edits the RX DSP chain (EQ, AGC-G/Gate, AGC-C/Compressor, DESS/DeEss, TUBE, EVO/Pudu). All six stages are fully implemented. Bookended by RADIO / ADSP / SPEAK status tiles. Interactive: click-bypass, double-click-edit, drag-reorder. Color indicates active side. Last-active tab persists via `PooDooAudioActiveTab`. | Each side keeps independent stage state, chain order, and BYPASS snapshot. |
 | **Record** (circle glyph) | Captures up to 30 seconds of post-PUDU TX audio. Click again to stop (playback starts automatically). Tooltip: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off)." Hidden in RX mode. Only enabled when the mic input is ready and playback is not running. Pulses red while recording. | |
 | **Play** (triangle glyph) | Plays back the captured PUDU audio. Click again to cancel. Hidden in RX mode. Only enabled once a recording exists and recording is not active. Pulses green while playing. | |
 | **TX chain stage** (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Single-click toggles bypass for the stage. Double-click opens its frameless floating editor. Drag reorders the TX chain. | Delegated to ClientChainWidget. Hint text: "Click to bypass · Double click to edit · Drag to reorder". |
-| **RX chain stage** (EQ / AGC-G / AGC-C / DESS / TUBE / EVO) | Single-click toggles bypass for the stage. Double-click opens its frameless floating editor. Drag reorders the RX chain. | Delegated to ClientRxChainWidget. Distinct mime type prevents stray drops between TX and RX strips. |
+| **RX chain stage** (EQ / AGC-G / AGC-C / DESS / TUBE / EVO) | Single-click toggles bypass for the stage. Double-click opens its frameless floating editor. Drag reorders the RX chain. | Delegated to ClientRxChainWidget. Distinct mime type `application/x-aethersdr-rx-chain-stage` prevents stray drops between TX and RX strips. |
 | **RADIO status tile** | Non-interactive. Greens when PC Audio (the standard SSB stream) is enabled. Only visible in RX mode. | |
 | **ADSP status/bypass tile** | Interactive. Mirrors which noise reducer is currently active. Label rotates to the active module's short name (e.g. `NR2`, `NR4`, `BNR`). Falls back to `ADSP` when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. | Only visible in RX mode. Blue-ring + green-LED-dot styling. |
 | **SPEAK status tile** | Non-interactive. Greens when AetherSDR's audio output is unmuted. Only visible in RX mode. | |
@@ -43,6 +43,7 @@ Bypass every client-side noise reducer (NR2, NR4, MNR, DFNR, RN2, BNR) at once u
 - The ADSP bypass is independent of the **BYPASS** button. Bypassing all RX stages with **BYPASS** does not affect the ADSP tile's state, and vice versa.
 - Double-click the **ADSP** tile to open AetherDSP Settings for fine-tuning individual noise reducer parameters.
 - The click discrimination interval for distinguishing single-click from double-click follows the choice in Click Discrimination Interval, not the system double-click interval.
+- The **BYPASS** button operates globally (per audio engine), not per-profile. It remains pressed even after switching Channel Strip profiles.
 
 ## Related
 

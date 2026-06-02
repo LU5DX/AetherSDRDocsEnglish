@@ -45,6 +45,7 @@ Use Learn mode to map a physical knob, fader, or button on your MIDI controller 
 - Bindings are saved automatically when Learn completes. To keep your bindings across sessions, save them as a named profile — see [Save the current mapping as a named profile](save-the-current-mapping-as-a-named-profile.md).
 - Check **Auto-connect on startup** (persisted as `MidiAutoConnect`) so the port reopens automatically next time. The selected port is persisted as `MidiPort`.
 - The dialog geometry is automatically saved and restored across sessions.
+- The dialog now uses the active theme for all visual elements. Text colors, backgrounds, and accents adjust automatically when you change the application theme.
 
 ## Troubleshooting
 

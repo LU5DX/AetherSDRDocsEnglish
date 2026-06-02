@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, Antennas, audio, filters, XVTR, USB cables, peripherals, and serial (FlexControl).
+The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, Antennas, audio, filters, XVTR, USB cables, peripherals, APD (Adaptive Pre-Distortion), Themes, SmartLink (pinned certificates), and serial (FlexControl).
 
 ## Opening the dialog
 
@@ -10,24 +10,24 @@ The Radio Setup dialog (`Settings > Radio Setup...`) is the master per-radio con
 
 ## Radio (tab)
 
-The Radio tab displays radio information, identification, license information, and firmware update controls.
+The Radio tab displays radio information, identification, license information, and firmware update controls. Each read-only value has a small copy button to its right — click to copy the value to your clipboard.
 
 ### Radio information
 
-| Control                       | Kind        | Behavior                                                                                                                                                                              |
-|-------------------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Radio SN**                  | Indicator   | Chassis serial number (read-only).                                                                                                                                                    |
-| **Region**                    | Indicator   | Radio regulatory region (e.g., USA).                                                                                                                                                  |
-| **HW Version**                | Indicator   | Hardware version string.                                                                                                                                                              |
-| **Model**                     | Indicator   | Radio model.                                                                                                                                                                          |
-| **Nickname**                  | Text field  | User-friendly radio nickname.                                                                                                                                                         |
-| **Callsign**                  | Text field  | Station callsign.                                                                                                                                                                     |
-| **Station Name**              | Text field  | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as `client station <name>`. |
-| **Remote On**                 | Button      | Enables remote wake / remote-on.                                                                                                                                                      |
-| **Options**                   | Indicator   | Shows licensed radio options.                                                                                                                                                         |
-| **FlexControl**               | Indicator   | Detected state of FlexControl hardware.                                                                                                                                               |
-| **multiFLEX**                 | Indicator   | multiFLEX enabled state.                                                                                                                                                              |
-| **License Info**              | Indicator   | Displays license details (Subscription / Expiration / Radio ID / Licensed version) from the radio.                                                                                    |
+| Control                                             | Kind        | Behavior                                                                                                                                                                              |
+|-----------------------------------------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Radio SN**                                        | Indicator   | Chassis serial number (read-only).                                                                                                                                                    |
+| **Region**                                          | Indicator   | Radio regulatory region (e.g., USA).                                                                                                                                                  |
+| **HW Version**                                      | Indicator   | Hardware version string.                                                                                                                                                              |
+| **Model**                                           | Indicator   | Radio model.                                                                                                                                                                          |
+| **Nickname**                                        | Text field  | User-friendly radio nickname.                                                                                                                                                         |
+| **Callsign**                                        | Text field  | Station callsign.                                                                                                                                                                     |
+| **Station Name**                                    | Text field  | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as `client station <name>`. |
+| **Remote On**                                       | Button      | Enables remote wake / remote-on.                                                                                                                                                      |
+| **Options**                                         | Indicator   | Shows licensed radio options.                                                                                                                                                         |
+| **FlexControl**                                     | Indicator   | Detected state of FlexControl hardware.                                                                                                                                               |
+| **multiFLEX**                                       | Indicator   | multiFLEX enabled state.                                                                                                                                                              |
+| **License Info**                                    | Indicator   | Displays license details (Subscription / Expiration / Radio ID / Licensed version) from the radio.                                                                                    |
 
 ### Firmware update
 
@@ -192,5 +192,4 @@ The Audio tab controls radio audio outputs, compression, PC devices, boost, buff
 | **Headphone:**                                   | Slider    | Headphone gain.                                                                                                                     |
 | **Mute (Headphone)**                             | Button    | Mutes headphone.                                                                                                                    |
 | **Front Speaker: / Mute**                        | Button    | Mutes front speaker (model-specific).                                                                                               |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Button    | Selects audio codec for SmartLink/LAN. Stored in AppSettings as `AudioCompression`.                                                 |
-| **Prevent system sleep while connected**         | Checkbox  | Keeps OS awake while radio is connected to prevent audio/T
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Button    | Selects audio codec for SmartLink/LAN

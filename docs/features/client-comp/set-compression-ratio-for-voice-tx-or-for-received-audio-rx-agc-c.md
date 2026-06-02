@@ -19,20 +19,34 @@ The Ratio knob controls how hard the compressor clamps peaks once the signal cro
 
 ## What each control does
 
-| Control | Default                                                                                                                                                                                                                                        | Valid range                                                                                                                                                                   |
-|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ratio   | 3.0                                                                                                                                                                                                                                            | 1.0 to 20.0                                                                                                                                                                   |
-| Thresh  | -18.0 dB                                                                                                                                                                                                                                       | -60.0 to 0.0 dB                                                                                                                                                               |
-| Attack  | 20.0 ms                                                                                                                                                                                                                                        | 0.1 to 300.0 ms                                                                                                                                                               |
-| Release | 200 ms                                                                                                                                                                                                                                         | 5 to 2000 ms                                                                                                                                                                  |
-| Makeup  | 0.0 dB                                                                                                                                                                                                                                         | -12.0 to 24.0 dB                                                                                                                                                              |
-| Drive   | Pre-comp gain boost. Pushes more signal across the threshold so the compressor engages harder, raising average power. Pair with Phase to keep peaks clean.                                                                                     | Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing.                                        |
-| Phase   | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. | Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). 0=off, 4=broadcast default.' |
+| Control | Default | Valid range |
+|---------|---------|-------------|
+| Ratio | 3.0 | 1.0 to 20.0 |
+| Thresh | -18.0 dB | -60.0 to 0.0 dB |
+| Attack | 20.0 ms | 0.1 to 300.0 ms |
+| Release | 200 ms | 5 to 2000 ms |
+| Makeup | 0.0 dB | -12.0 to 24.0 dB |
+| Drive | 0.0 dB | 0.0 to 18.0 dB |
+| Phase | 0 stages (off) | 0 to 6 stages |
 
 The Ratio knob uses a logarithmic mapping (`1 × 20^n`) so that low ratios (gentle compression, 1.0–4.0:1) occupy most of the knob travel and high ratios (hard limiting, up to 20.0:1) are compressed into the upper end.
+
+The Drive knob provides pre-comp gain boost with linked auto-makeup. It pushes more signal across the threshold so the compressor engages harder, and simultaneously adds equal gain at the output so average RMS lifts alongside peaks rather than dropping. Pair with Phase to keep peaks clean. Drive is displayed in the floating StripCompPanel only (right column). The label shows as '+X.X dB'. Auto-makeup matches the broadcast-Optimod model — Drive pushes more material into the curve AND adds equal gain back, so the user's fixed Makeup stays a clean post-everything trim knob.
+
+The Phase knob controls the number of cascaded all-pass sections (0 = off, 1–6 stages). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). The phase rotator symmetrizes asymmetric voice peaks before compression to reduce peak-to-average-power-ratio (PAPR). Phase is displayed in the floating StripCompPanel only (right column). The label shows 'Off' when 0, 'N stg' when active. The tooltip explains: 'Pre-comp phase rotator (#2887). All-pass cascade that symmetrizes asymmetric voice peaks before compression. 0 = off, 4 = broadcast default.' The default centres (300/700/1500/2500 Hz with optional 1000/2000 Hz) cover the speech formant range without bunching.
+
 ## Transfer curve display
 
 The compact-mode ClientCompCurveWidget draws the static input/output transfer curve with a live "ball" showing the current envelope level. Axis labels are rendered using cached QStaticText objects that rebuild automatically when the applet switches between compact and expanded views. In the applet, the curve is view-only; to edit Knee and limiter ceiling parameters, open the floating ClientCompEditor by double-clicking the COMP stage in the CHAIN widget.
+
+The transfer curve widget uses color tokens from the active theme via `ThemeManager::color()`:
+- Background: `color.background.0`
+- Grid lines: `color.background.1`
+- Axis labels: `color.text.label`
+- Unity diagonal: `color.background.1`
+- Compressor curve: `color.accent.dim`
+- Envelope ball glow: `color.accent.warning`
+- Envelope ball core: `color.text.primary`
 
 ## Gain-reduction meter
 
@@ -45,6 +59,7 @@ The horizontal amber strip fills from right to left, showing up to 20 dB of gain
 - Raising the ratio while reducing Makeup keeps the average output level steady while tightening the dynamic range.
 - To access the Knee and limiter ceiling controls, which further shape how the ratio is applied, open the full editor by double-clicking the COMP stage in the CHAIN widget.
 - Clicking a knob's value label opens an inline editor for precise numeric entry. This works on all five knobs and supports locale-aware decimal separators (for example, "12,5" in comma-decimal locales). The editor also accepts values with trailing units or symbols (for example, "12.5 ms" or "−6 dB").
+- For TX operation, pair Drive with the Phase Rotator (in the floating StripCompPanel) to increase average power while keeping peaks clean through PAPR reduction.
 
 ## Troubleshooting
 

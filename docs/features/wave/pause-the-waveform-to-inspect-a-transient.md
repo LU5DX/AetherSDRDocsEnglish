@@ -6,7 +6,7 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 
 - The Waveform applet must be visible. If it is not, click the WAVE tray button in the right sidebar to open it.
 - Audio must be flowing (RX or TX) so there is something worth freezing. If no samples have arrived within 1 second, the display shows a placeholder message instead of a trace.
-  - For RX audio, the placeholder reads "Enable PC Audio".
+  - For RX audio, the placeholder reads "no RX audio".
   - For TX audio, the placeholder reads "no TX audio".
 
 ## Steps
@@ -34,7 +34,7 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - Double-clicking opens or closes the settings drawer instead of pausing. If you accidentally open the drawer, double-click again to close it, then single-click to pause.
 - Increasing Zoom before pausing can make low-level transients more visible in the frozen frame.
 - The TX path is tinted differently from the RX path, so you can confirm which audio direction the frozen snapshot represents without reading the header.
-- If no RX audio samples have arrived within 1 second, the placeholder message reads "Enable PC Audio" to remind you that PC audio must be enabled for reception. For TX audio, the placeholder reads "no TX audio".
+- If no RX audio samples have arrived within 1 second, the placeholder message reads "no RX audio". For TX audio, the placeholder reads "no TX audio".
 - The settings drawer state (expanded or collapsed) is saved when you close it and restored the next time you open the Waveform applet.
 
 ## Troubleshooting
@@ -42,7 +42,7 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - **Click does not pause the display** — Make sure you are clicking once on the waveform area itself, not on the settings drawer below it. A rapid second click will immediately resume the display; click once and pause before clicking again.
 - **PAUSED badge appears but the trace is blank** — The buffer was empty at the moment you clicked. This happens when no audio has arrived within the last second. Resume live mode, wait for audio to appear, then click again.
 - **Display resumes on its own** — Pausing only freezes the visual display; a reconnect or audio engine reset clears the buffer and restores the live view.
-- **Placeholder message shows "Enable PC Audio"** — This indicates no RX audio samples have been received. Enable PC Audio in the radio settings to receive audio from the radio.
+- **Placeholder message shows "no RX audio"** — This indicates no RX audio samples have been received. Enable PC Audio in the radio settings to receive audio from the radio.
 - **Settings drawer does not remember its state** — The drawer state is saved when you close it. If AetherSDR crashes before the save completes, the state may revert to expanded on next launch.
 
 ## Related

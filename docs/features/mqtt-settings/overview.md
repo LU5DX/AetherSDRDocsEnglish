@@ -8,7 +8,7 @@ The MQTT Settings dialog replaces the earlier in-applet settings panel. It is or
 
 - **Broker** — MQTT broker host, port, username, password, TLS, and CA certificate.
 - **Subscriptions** — A table of topics your radio subscribes to. Each row has an editable Topic and a Display checkbox that shows topic data on the panadapter overlay. Below the table is a read-only group box listing the internal AetherSDR topics that are subscribed automatically and cannot be removed.
-- **Publish Buttons** — A table defining up to 12 buttons. Each row has Label, Topic, and Payload (all editable). These buttons appear in the MQTT applet in the Applet Panel tray.
+- **Publish Buttons** — A table defining up to 12 buttons. Each row has Label, Topic, and Payload (all editable). These buttons appear in the MQTT applet in the Applet Panel tray. Below the table is a read-only group box listing internal AetherSDR topics that are published automatically and cannot be modified.
 
 The dialog also includes Ok, Apply, and Cancel buttons. Apply saves all settings (connection, topics, buttons, and password) without closing the dialog.
 
@@ -42,6 +42,12 @@ The **Internal AetherSDR Topics** group box lists topics that are subscribed aut
 | Table columns | Label, Topic, Payload | All three columns are editable text. Label is the button text shown in the MQTT applet. |
 | Push button | Add | Inserts a new empty row. Disabled when the table already has 12 rows. |
 | Push button | Remove | Removes all selected rows. |
+
+The **Internal AetherSDR Topics** group box lists topics that are published automatically whenever MQTT is connected. These topics are not user-configurable. Currently the following topics are published:
+
+- `aethersdr/cw/decode`
+
+This group box is part of the Publish Buttons tab and shows the topics in a read-only text area that allows text selection by mouse.
 
 ## Tips
 

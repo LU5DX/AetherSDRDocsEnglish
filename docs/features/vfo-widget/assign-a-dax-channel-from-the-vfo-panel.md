@@ -136,6 +136,26 @@ Unlocking clears the LOCKED overlay centrally in the SliceModel (issue #2983).
 
 Starting in v26.5.3, the VFO panel tab stack uses a custom `TabStack` widget that reports only the current tab's preferred size. This fixes a visual gap inside the Mode tab when the DSP tab is taller (due to the digContainer being visible in DIGU/DIGL modes). The tab content no longer over-allocates height from the maximum of all pages.
 
+### Slider theming (v26.6.1)
+
+Starting in v26.6.1, the VFO panel uses themed slider styling throughout. The Pan slider is painted with centre-anchored fill: the groove section from the handle to the midpoint is filled with the accent colour, while the opposite side uses the background colour. This makes the centre (neutral) position immediately visible. The slider handle is drawn by the default Qt style.
+
+All other sliders (AF Gain, squelch threshold, DSP level) follow the same theming rules. The style is driven by the active colour theme rather than hard-coded colours.
+
+### VFO panel theming (v26.6.1)
+
+Starting in v26.6.1, the VFO panel uses a dedicated theming container scope `spectrum/vfo`. This ensures that inspector clicks on the VFO panel surface (including the frequency badge, callsign badge, and signal meter) resolve to VFO-specific theme tokens rather than falling back to the spectrum scope. The VFO panel declares the following theme tokens for inspector coverage:
+
+- `color.background.0`
+- `color.background.1`
+- `color.background.2`
+- `color.text.primary`
+- `color.text.label`
+- `color.accent`
+- `color.accent.bright`
+
+These tokens are painted directly via `QPainter` calls and are surfaced correctly in inspect mode.
+
 ## Tips
 
 - Each DAX channel can be assigned to only one slice at a time. If you assign a channel that is already in use by another slice, the radio will move the assignment.
@@ -156,5 +176,4 @@ Starting in v26.5.3, the VFO panel tab stack uses a custom `TabStack` widget tha
 
 - [VFO Panel overview](overview.md)
 - [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
-- [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
+-

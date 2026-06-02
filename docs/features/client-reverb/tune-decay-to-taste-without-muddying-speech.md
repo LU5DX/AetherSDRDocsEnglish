@@ -48,6 +48,10 @@ Starting in v26.5.2.1, any knob in the "Aetherial FreeVerb — TX" can be edited
 
 Inline editing respects locale — in regions that use a comma as decimal separator (such as `1,5`), the editor parses it correctly.
 
+## Knob colours follow the current theme
+
+Starting in v26.6.1, knob component colours are drawn from the active theme rather than hard-coded. The "Aetherial FreeVerb — TX" applet uses the `applet/reverb` container namespace, which may define custom knob foreground, background, and handle colours. If you apply a custom theme that changes the `color.knob.*` tokens, all knobs in this applet update their ring arc, background ring, handle pointer, label, and value text to match. The default appearance remains unchanged for the built-in theme.
+
 ## Tips
 
 - Because Decay uses an exponential mapping, the knob is much more sensitive at the low end of its travel. Make small adjustments when working below `1.0 s`.
