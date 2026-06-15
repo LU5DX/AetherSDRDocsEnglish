@@ -50,7 +50,7 @@ The peak-hold trace marks the highest energy level observed at each frequency si
 
 - [Open the frameless editor to add / remove / tune bands on either side](open-the-frameless-editor-to-add-remove-tune-bands-on-either-side.md)
 - [Smooth the analyzer display for easier reading with the Smoothing combo](smooth-the-analyzer-display-for-easier-reading-with-the-smoothing-combo.md)
-- [Select a reference curve to shape your EQ toward a classic mic target](select-a-reference-curve-to-shape-your-eq-toward-a-classic-mic-target.md)
+- Select a reference curve to shape your EQ toward a classic mic target
 - [Drag the TX or RX filter cutoff guide line to move the radio passband](drag-the-tx-or-rx-filter-cutoff-guide-line-to-move-the-radio-passband.md)
 - [Inspect the TX EQ curve and live spectrum](inspect-the-tx-eq-curve-and-live-spectrum.md)
 - [Inspect the RX EQ curve and live spectrum](inspect-the-rx-eq-curve-and-live-spectrum.md)

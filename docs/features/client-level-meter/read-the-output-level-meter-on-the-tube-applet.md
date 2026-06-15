@@ -44,4 +44,4 @@ The Output Level Meter in the Tube applet shows the smoothed post-saturation pea
 ## Related
 
 - [Output Level Meter overview](overview.md)
-- [Theme Editor](theme-editor.md)
+- Theme Editor

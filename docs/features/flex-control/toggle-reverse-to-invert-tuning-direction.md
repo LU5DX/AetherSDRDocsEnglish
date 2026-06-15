@@ -27,4 +27,4 @@ This page explains how to reverse the direction of the AetherControl / FlexContr
 - [Configure the AetherControl / FlexControl hardware controller](configure-the-aethercontrol-flexcontrol-hardware-controller.md)
 - [Use the virtual wheel to tune the active slice](use-the-virtual-wheel-to-tune-the-active-slice.md)
 - [Adjust mouse sensitivity for the virtual wheel](adjust-mouse-sensitivity-for-the-virtual-wheel.md)
-- [Assign wheel actions on the AetherControl](assign-wheel-actions-on-the-aethercontrol.md)
+- Assign wheel actions on the AetherControl

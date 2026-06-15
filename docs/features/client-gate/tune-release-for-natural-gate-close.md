@@ -51,4 +51,4 @@ Each knob in the five-knob row supports direct numeric entry. Click the value te
 - [Watch live GR while not speaking](watch-live-gr-while-not-speaking.md)
 - [Set TX threshold just above room noise floor](set-tx-threshold-just-above-room-noise-floor.md)
 - [Choose gate vs soft-expander behaviour via ratio](choose-gate-vs-soft-expander-behaviour-via-ratio.md)
-- [Customize theme colors for knobs and curves](customize-theme-colors-for-knobs-and-curves.md) (if applicable for your theme setup)
+- Customize theme colors for knobs and curves (if applicable for your theme setup)

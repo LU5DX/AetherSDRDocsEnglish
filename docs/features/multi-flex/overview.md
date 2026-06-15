@@ -58,4 +58,4 @@ Clicking **Close** dismisses the dialog.
 - [Grant or revoke local PTT](grant-or-revoke-local-ptt.md)
 - [Check which antenna and frequency each TX station is using](check-which-antenna-and-frequency-each-tx-station-is-using.md)
 - [See all stations connected to this FLEX](../../getting-started/setup/see-all-stations-connected-to-this-flex.md)
-- [Disconnect a remote multiFLEX client](disconnect-a-remote-multiflex-client.md)
+- Disconnect a remote multiFLEX client

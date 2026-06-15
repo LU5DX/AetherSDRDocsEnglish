@@ -70,6 +70,6 @@ The **Internal AetherSDR Topics** group box lists topics that are published auto
 - [Configure MQTT broker connection (host, port, credentials, TLS)](../../getting-started/setup/configure-mqtt-broker-connection-host-port-credentials-tls.md)
 - [Subscribe to MQTT topics and toggle panadapter display](../mqtt/subscribe-to-mqtt-topics-and-toggle-panadapter-display.md)
 - [Add or remove publish buttons](add-or-remove-publish-buttons.md)
-- [Enable or disable internal MQTT topics](enable-or-disable-internal-mqtt-topics.md)
+- Enable or disable internal MQTT topics
 - [Configure CA certificate for TLS MQTT](configure-ca-certificate-for-tls-mqtt.md)
 - [Open MQTT settings from the MQTT applet](open-mqtt-settings-from-the-mqtt-applet.md)

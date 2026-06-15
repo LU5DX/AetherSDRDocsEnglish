@@ -39,7 +39,7 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 
 **Release** — Uses exponential mapping across its range. Sets how quickly the envelope follower recovers after signal levels fall when Envelope ≠ 0. The label displays as "X.XX ms" below 100 ms and "X.X ms" above 100 ms. Setting key: `ClientTubeTxReleaseMs` / `ClientTubeRxReleaseMs`.
 
-**RN2** — TX-only toggle button located in the StripTubePanel below the output level meter. Uses the `RN2` label. See [Reduce background noise with RN2](reduce-background-noise-with-rn2.md) for full details.
+**RN2** — TX-only toggle button located in the StripTubePanel below the output level meter. Uses the `RN2` label. See Reduce background noise with RN2 for full details.
 ## Tips
 
 - Attack and Release are independent per side. Changes made in the TX editor do not affect the RX editor and vice versa.
@@ -63,4 +63,4 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 - [Dial Drive until the curve starts to bend (TX warmth or RX tone shaping)](dial-drive-until-the-curve-starts-to-bend-tx-warmth-or-rx-tone-shaping.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
 - [Monitor output clipping with the level meter in the editor](monitor-output-clipping-with-the-level-meter-in-the-editor.md)
-- [Reduce background noise with RN2](reduce-background-noise-with-rn2.md)
+- Reduce background noise with RN2

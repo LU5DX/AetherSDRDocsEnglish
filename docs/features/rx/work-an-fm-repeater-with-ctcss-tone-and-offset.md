@@ -81,4 +81,4 @@ The **NT** and **RTTY** modes are treated as digital modes in the RX Controls ap
 - [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md)
 - [Select the RX or TX antenna for this slice](select-the-rx-or-tx-antenna-for-this-slice.md)
-- [Calibrate AGC-T against the noise floor](calibrate-agc-t-against-the-noise-floor.md)
+- Calibrate AGC-T against the noise floor

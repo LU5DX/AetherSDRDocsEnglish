@@ -61,4 +61,4 @@ None of the meters have a persisted settings key. Values are read-only telemetry
 - [Amplifier overview](overview.md)
 - [Put the PGXL amplifier in OPERATE](put-the-pgxl-amplifier-in-operate.md)
 - [Put the PGXL amplifier in STANDBY](put-the-pgxl-amplifier-in-standby.md)
-- [Watch PGXL temperature, drain voltage, and mains voltage](watch-pgxl-temperature-drain-voltage-and-mains-voltage.md)
+- Watch PGXL temperature, drain voltage, and mains voltage

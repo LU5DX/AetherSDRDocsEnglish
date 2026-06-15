@@ -49,4 +49,4 @@ Each slice audio route section also now includes a **Radio stream route** line t
 - [Copy the full JSON snapshot to the clipboard](copy-the-full-json-snapshot-to-the-clipboard.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
-- [Copy the issue summary to the clipboard](copy-the-issue-summary-to-the-clipboard.md)
+- Copy the issue summary to the clipboard

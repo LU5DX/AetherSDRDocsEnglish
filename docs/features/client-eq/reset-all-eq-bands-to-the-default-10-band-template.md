@@ -41,4 +41,4 @@ All bands are immediately replaced with the default 10-band template. The band c
 - [Change the HP/LP filter family (Butterworth, Chebyshev, Bessel, Elliptic)](change-the-hp-lp-filter-family-butterworth-chebyshev-bessel-elliptic.md)
 - [Adjust post-EQ output gain with the Output Fader](adjust-post-eq-output-gain-with-the-output-fader.md)
 - [Change a band's filter type by clicking its icon in the icon row](change-a-band-s-filter-type-by-clicking-its-icon-in-the-icon-row.md)
-- [Use the reference curve overlay to shape EQ toward a target](use-the-reference-curve-overlay-to-shape-eq-toward-a-target.md)
+- Use the reference curve overlay to shape EQ toward a target

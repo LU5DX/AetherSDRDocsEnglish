@@ -46,4 +46,4 @@ The multiFLEX Dashboard shows every SmartSDR client currently sharing your FLEX-
 - [Enable multiFLEX on the radio](../../features/multi-flex/enable-multiflex-on-the-radio.md)
 - [Grant or revoke local PTT](../../features/multi-flex/grant-or-revoke-local-ptt.md)
 - [Check which antenna and frequency each TX station is using](../../features/multi-flex/check-which-antenna-and-frequency-each-tx-station-is-using.md)
-- [Disconnect a client station](../../features/multi-flex/disconnect-a-client-station.md)
+- Disconnect a client station

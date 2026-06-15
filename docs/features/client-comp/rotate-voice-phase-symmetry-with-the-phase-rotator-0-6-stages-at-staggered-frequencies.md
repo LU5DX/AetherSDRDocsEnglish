@@ -114,7 +114,7 @@ This means you can increase Drive to engage the compressor harder without losing
 
 ## Related
 
-- [Rotate voice phase symmetry with the Phase rotator (0–6 stages at staggered frequencies)](rotate-voice-phase-symmetry-with-the-phase-rotator.md)
+- Rotate voice phase symmetry with the Phase rotator (0–6 stages at staggered frequencies)
 - [Open the full Compressor editor for knee, limiter, Drive, and Phase controls](open-the-full-compressor-editor-for-knee-limiter-drive-and-phase-controls.md)
 
 ---

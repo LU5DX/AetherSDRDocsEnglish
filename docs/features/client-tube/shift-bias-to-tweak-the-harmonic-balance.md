@@ -90,4 +90,4 @@ When the Tube stage is bypassed, the entire docked applet tile renders at reduce
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Monitor output clipping with the level meter in the editor](monitor-output-clipping-with-the-level-meter-in-the-editor.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
-- [Use the Dry/Wet blend to control saturation mix](use-the-dry-wet-blend-to-control-saturation-mix.md)
+- Use the Dry/Wet blend to control saturation mix
