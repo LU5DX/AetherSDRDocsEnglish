@@ -14,7 +14,8 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 3. Click ON to enable the equalizer for the selected path. ON highlights green when active.
 4. Drag the slider for the band you want to adjust. Bands are labeled **63**, **125**, **250**, **500**, **1k**, **2k**, **4k**, and **8k** (Hz and kHz respectively). Drag up to boost, drag down to cut.
 5. As you drag, a pop-up label appears near the slider handle showing the current dB value (e.g., "+3 dB" or "−5 dB"). Read the value label directly below each slider handle to confirm the dB amount. The label updates live as you drag.
-6. Repeat steps 4–5 for any other bands you want to adjust.
+6. You can also nudge a slider with the keyboard arrow keys (Up/Down or Left/Right) when a slider has focus. The pop-up label appears and lingers briefly after the key release, the same as after a mouse drag.
+7. Repeat steps 4–6 for any other bands you want to adjust.
 
 ## What each control does
 
@@ -24,17 +25,17 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 | RX | Toggle button | Unchecked (or last selected state) | — | Switches the applet to display and edit the receive equalizer bands. Highlights blue when active. |
 | TX | Toggle button | Checked (or last selected state) | — | Switches the applet to display and edit the transmit equalizer bands. Highlights blue when active. The last-selected view (RX or TX) is remembered between applet sessions. |
 | Reset arc button | Push button | — | — | Resets all 8 bands of the currently-selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
-| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
-| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. |
+| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
+| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
 | +10 / 0 / −10 dB scale | Reference labels | — | — | Left and right reference labels showing the +/-10 dB range of the sliders. |
 | Per-band value label | Indicator | 0 | −10 through +10 | Shows the live dB value of the slider directly below its handle. |
-| Drag pop-up | Indicator | None | −10 through +10 | Floating label that appears near the slider handle during drag operations. Displays the current dB value with a sign (e.g., "+3 dB" or "−5 dB"). Lingers for a moment after releasing the mouse button. |
+| Drag pop-up | Indicator | None | −10 through +10 | Floating label that appears near the slider handle during drag operations or after a keyboard arrow nudge. Displays the current dB value with a sign (e.g., "+3 dB" or "−5 dB"). Lingers for a moment after releasing the mouse button or keyboard key. |
 
 ## Tips
 
@@ -44,6 +45,7 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 - The applet remembers whether you last used RX or TX view. When you reopen the Equalizer tile, it shows the same view you were using before, saving you a click.
 - The drag pop-up shows a signed dB value (e.g., "+3 dB" for positive values, "−3 dB" for negative values, "0 dB" for zero) to match the formatting used elsewhere in the application.
 - The slider handle and groove colours adapt to the active theme. Handle colour uses the accent colour, while the groove background uses the slider track colour from the current theme.
+- Moving the previous or next slider with the keyboard Tab key does not trigger the pop-up. Only arrow keys on a focused slider show the pop-up.
 
 ## Troubleshooting
 

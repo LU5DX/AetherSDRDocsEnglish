@@ -38,7 +38,7 @@ Each knob in the five-knob row supports direct numeric entry. Click the value te
 
 - 100 ms (the default) suits most voice TX work. Increase toward 200–400 ms if consonants at the end of words are being clipped. Decrease toward 20–50 ms if background noise is audible in the gaps between words.
 - Release interacts with **Return**: a larger Return deadband delays the start of the release phase. If the gate seems to hang open, check **Return** before shortening **Release** further.
-- The gain-reduction bar updates approximately every 33 ms. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
+- The gain-reduction bar updates approximately every 33 ms. The bar repaints continuously during active gain reduction and stops repainting when the meter has settled, improving performance. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
 - Changes take effect immediately and are saved automatically. No radio connection is required to adjust this setting.
 - If the applet tile appears dimmed, the gate stage is bypassed and no processing is occurring. Re-enable the stage before making adjustments. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - For precise adjustments, click the value text below the Release knob to enter a specific millisecond value directly. This is useful when you need to match a known timing from another processor or save a specific setting for later recall.

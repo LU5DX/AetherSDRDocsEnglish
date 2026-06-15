@@ -35,7 +35,7 @@ The panel shows a status indicator at the top:
 
 | Label | Possible states | Meaning |
 |---|---|---|
-| Status: | Idle, Recording, Playing | Current DVK state. |
+| Status: | Idle, Recording, Playing | Current DVK state. If a command fails, the status shows the failure message (e.g., "Status: Record (slot 2) failed — reason"). The panel buttons reset to reflect the current state after a failure. |
 
 ## Keyboard shortcuts
 
@@ -51,6 +51,7 @@ Shortcuts are automatically enabled when the active slice is in a voice mode and
 
 - Double-clicking the slot name label also opens the "Rename edit" field directly.
 - Pressing Escape while the "Rename edit" field is open cancels the rename and restores the previous name.
+- If a record or playback command is rejected by the radio (e.g., another client holds the DVK resource), the status indicator displays a failure message and the panel buttons return to their previous state.
 
 ## Related
 

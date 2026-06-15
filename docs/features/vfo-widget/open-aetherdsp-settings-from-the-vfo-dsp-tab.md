@@ -9,7 +9,7 @@ The VFO Panel is a floating per-slice control panel anchored to the VFO marker o
 
 ## Controls
 
-The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
+The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX. Tab labels are now rendered as `QPushButton` for keyboard accessibility and consistent focus styling. Right-click the **Audio** tab label to toggle mute directly.
 
 ### Common Controls (always visible)
 
@@ -17,10 +17,10 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 |---------|------|-------------|
 | RX antenna button | Push button | Opens antenna selection menu for the receive antenna of this slice. Shows the slice-specific RX antenna list when available; falls back to the radio's antenna list otherwise. |
 | TX antenna button | Push button | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Shows the slice-specific TX antenna list when available; falls back to the radio's antenna list otherwise. |
-| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. When the slice is locked, displays a "LOCKED" overlay and prevents direct frequency entry. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). |
+| Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. When the slice is locked, displays a "LOCKED" overlay and prevents direct frequency entry. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). Accessibility: the frequency text is announced via `QAccessibleValueChangeEvent` when it changes. |
 | Filter width label | Indicator | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses a consistent formatting method to ensure accurate readouts. |
 | TX badge | Indicator | Shown (red) when this slice is the active transmit slice. Hidden otherwise. |
-| SPLIT badge | Indicator | Shown (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. |
+| SPLIT badge | Indicator | Shown (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. The badge text can be "SWAP" to indicate split operation; clicking performs a swap. Badge opacity has been increased for better visibility. |
 | Marker thickness button | Push button | Cycles the VFO marker line through Off, 1 px, and 3 px. Setting is persisted per slice. |
 | Filter edges button | Toggle button | Toggles the filter edge lines on the spectrum passband. Setting is persisted per slice. Default: shown. |
 | Collapse toggle | Toggle button | Collapses the VFO panel to a compact frequency-only strip. Setting is persisted per slice. Default: expanded. |
@@ -32,7 +32,7 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
 |---------|------|-------|-------------|
 | AF Gain slider | Slider | 0-100 | Sets the audio output level for this slice. Default: 100. Not persisted — reflects live radio state. |
 | Pan slider | Slider | 0-100 | Sets left/right stereo pan for this slice. 50 = centre. Default: 50. The slider fill anchors from the centre outward, with a centre-mark dot visible on the groove. |
-| Mute button | Toggle button | On/Off | Mutes audio output for this slice without changing the AF gain setting. Default: off. |
+| Mute button | Toggle button | On/Off | Mutes audio output for this slice without changing the AF gain setting. Default: off. Also accessible via right-click on the Audio tab label. |
 | Squelch button + slider | Toggle button + slider | 0-100 | Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Squelch is automatically disabled in digital, RTTY, and CW modes. |
 | AGC combo | Combo box | FAST, MED, SLOW, OFF | Sets the AGC attack/release speed for this slice. Default: FAST. |
 
@@ -74,6 +74,8 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX.
    - **kHz entry**: On HF bands, bare integers greater than 54000 are treated as Hz; otherwise they are treated as kHz. For example, "14225" becomes 14.225 MHz (kHz interpretation), while "14225000" becomes 14.225 MHz (Hz interpretation).
    - **XVTR band entry**: On XVTR bands, values above 54 MHz are accepted. A bare integer in the 100-999 range inserts a decimal after the third digit (e.g., "1446" → 144.6 MHz).
 
+The frequency edit field now uses `FreqLineEdit` with hint text "MHz (e.g. 14.225)" instead of placeholder text.
+
 ### Explicit MHz Entry
 
 When you explicitly type a value with a decimal and it exceeds 54 MHz, the system treats it as a MHz value rather than attempting Hz/kHz conversion. This allows direct entry of VHF/UHF/SHF frequencies in MHz without ambiguity.
@@ -85,6 +87,10 @@ When a slice is frequency-locked:
 - Clicking the frequency display does not initiate direct entry.
 - Scroll-wheel tuning is blocked, even in collapsed mode.
 - An audible notification indicates the tuning attempt was blocked.
+
+## Mouse Wheel Behavior
+
+The mouse wheel tuning direction respects the **Reverse mouse wheel** setting in the Interaction settings. When enabled, the tuning direction is reversed, and zoom direction in the panadapter is also reversed. The setting `reverseMouseWheel()` is checked in the VFO widget's `wheelEvent`.
 
 ## Squelch Behavior
 

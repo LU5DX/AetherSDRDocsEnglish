@@ -28,7 +28,9 @@ Repeat for any other channels that need adjustment.
 
 Each control is a combined level meter and gain slider. The background bar shows the smoothed post-fader signal level in real time. The vertical thumb line marks the current gain position. Dragging the thumb emits the new gain and persists it immediately.
 
-The slice assignment indicator to the left of each slider (showing either **—** or **Slice A**–**Slice H**) is read-only and reflects which slice is currently routed to that DAX channel. In v26.5.2.1, the slice letter is displayed using rich text formatting for improved rendering.
+Each slider has an accessibility name set to "DAX RX 1 gain", "DAX RX 2 gain", "DAX RX 3 gain", or "DAX RX 4 gain" respectively for screen reader support.
+
+The slice assignment indicator to the left of each slider (showing either **—** or **Slice A**–**Slice H**) is read-only and reflects which slice is currently routed to that DAX channel.
 
 ## Tips
 

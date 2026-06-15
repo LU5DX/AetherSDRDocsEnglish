@@ -25,6 +25,12 @@ These controls appear on the main area of the VFO Panel, above the tabs.
 | **Filter edges button** | shown | Toggles the filter edge lines on the spectrum passband. Persisted per slice (`Slice{N}_FilterEdgesHidden`). |
 | **Collapse toggle** | expanded | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice (`SliceFlagCollapsed_{N}`). |
 
+### Tab bar
+
+The tab bar labels are now implemented as checkable `QPushButton` widgets instead of `QLabel` elements. Each tab button supports keyboard focus and accessibility events.
+
+When the speaker/audio tab is right-clicked, the slice audio mute toggles directly.
+
 ### Audio tab
 
 | Control | Default | Valid range | Behavior |
@@ -84,6 +90,18 @@ The frequency display supports several entry formats:
 
 On XVTR bands, bare integers like `145` are treated as MHz (3-digit-band convenience).
 
+## Frequency editing
+
+The frequency edit field now uses a `FreqLineEdit` subclass with a placeholder hint text ("MHz (e.g. 14.225)") instead of the standard `QLineEdit` placeholder text. This provides a consistent user experience across platforms.
+
+## Accessibility
+
+The VFO Panel includes accessibility support through `QAccessible` events. When the frequency value changes, an accessible value change event is emitted to notify assistive technologies. A dedicated timer ensures that duplicate or rapid updates are coalesced, preventing unnecessary event noise.
+
+## Scroll wheel behavior
+
+The VFO Panel respects the **Reverse mouse wheel** setting from `InteractionSettings`. When enabled, scrolling the mouse wheel in the opposite direction changes the frequency accordingly (see #3302).
+
 ## Notes about squelch
 
 Squelch is disabled (button and slider become non-functional) when the slice is in the following modes:
@@ -101,7 +119,7 @@ When a slice is locked:
 - Direct frequency entry is cancelled if initiated while the slice is locked.
 - Unlocking the slice clears the LOCKED overlay.
 
-### Theming support (v26.6.1)
+## Theming support (v26.6.1)
 
 The VFO Panel now uses the theme system for its visual styling:
 
@@ -116,12 +134,14 @@ The VFO Panel now uses the theme system for its visual styling:
   - `color.accent.bright`
 - **Pan slider:** The Pan slider uses a centre-anchored fill that paints from the centre outward in the accent colour. The groove fill on the opposite side of the handle uses the background colour. This matches the visual behaviour of L/R balance controls. A centre-mark dot at the neutral position helps the operator see the midpoint.
 - **Mini button styling:** The mini (antenna) buttons use themed colours via `{{color.background.1}}` and `{{color.accent}}` tokens instead of hard-coded hex values.
+- **Split badge contrast:** The SPLIT badge text colour has been adjusted to improve readability — normal state is `rgba(255,255,255,120)`, hover state is `rgba(255,255,255,180)`.
 
 ## Tips
 
 - Multiple noise reduction buttons can be active at the same time.
 - You can open the AetherDSP applet from `Settings > AetherDSP Settings...` to configure client-side noise reduction algorithms.
 - Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
+- Right-click the Audio tab label to toggle mute for the slice directly.
 
 ## Related
 

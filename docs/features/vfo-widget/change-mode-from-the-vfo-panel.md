@@ -53,6 +53,24 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 - For three-digit bands (100-999 MHz), a bare integer of 4 or more digits automatically inserts a decimal after the third digit (e.g., 1446 becomes 144.6 MHz).
 - On other bands, the maximum entered frequency is 54.0 MHz. Values above 54000 are treated as Hz, and values between 54 and 54000 are treated as kHz.
 
+## Tab bar navigation (v26.6.3)
+
+The tab bar now uses clickable `QPushButton` controls with keyboard focus support. Tab labels are keyboard-navigable using Tab and Shift+Tab.
+
+- Press **Tab** to move focus to the next tab button, **Shift+Tab** to move to the previous one.
+- Press **Enter** or **Space** to activate the focused tab.
+- A focus indicator (underline) appears on the currently focused tab button.
+
+**Right-click the Audio tab** (speaker icon) to toggle mute for the current slice directly, without switching to the Audio tab.
+
+## Mouse wheel frequency tuning (v26.6.3)
+
+The mouse wheel direction for frequency tuning now respects the **Reverse mouse wheel** setting in `InteractionSettings`. When enabled, scrolling up decreases the frequency and scrolling down increases it. This setting applies globally.
+
+## Frequency display accessibility (v26.6.3)
+
+The frequency display now provides accessibility events (value change) when the frequency changes, using a debounced timer to avoid chatter. Screen readers and accessibility tools receive the updated frequency text without flooding the accessibility system.
+
 ## DSP tab controls
 
 The DSP tab shows buttons for noise reduction and filtering algorithms supplied directly by the radio, plus client-side launcher buttons. The following buttons are available:
@@ -135,9 +153,9 @@ The ADSP and AetherVoice buttons now use themed colours for their pressed state 
 - To access NR2, NR4, MNR, BNR, DFNR, or RN2, right-click the DSP tab button for that algorithm, or right-click the spectrum display and open the overlay menu, or open the AetherDSP applet.
 - The marker thickness and filter edges buttons are persisted per slice in `Slice{N}_MarkerWidth` and `Slice{N}_FilterEdgesHidden` settings keys.
 - Press the collapse toggle next to the frequency display to reduce the panel to a compact frequency-only strip. The state is persisted per slice.
+- Right-click the Audio tab (speaker icon) to quickly toggle mute without switching tabs.
+- Enable **Reverse mouse wheel** in InteractionSettings to invert the frequency tuning direction.
 
 ## Related
 
-- [Apply a filter width preset from the VFO panel](apply-a-filter-width-preset-from-the-vfo-panel.md)
-- [Set a custom filter edge from the VFO panel](set-a-custom-filter-edge-from-the-vfo-panel.md)
-- [VFO Panel overview](overview.md)
+- [Apply a filter width preset from the VFO panel](apply-a-filter-width-preset-from-the-vfo-p

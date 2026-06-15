@@ -31,6 +31,7 @@ The button turns red and reads **TUNING...** while the autotune sweep runs. When
   - **PGXL amplifier (0–2000 W)**: Yellow threshold at 1000 W, red threshold at 1500 W.
 - The PWR and SWR labels display live values updated from the TGXL. If no valid power reading is received for 800 ms, the labels return to their static names to prevent flickering from packet gaps.
 - A white peak tick appears on the Fwd Pwr gauge at the highest measured power. The tick clears automatically after 2.5 seconds of no new peak.
+- The SWR gauge snaps to 1.0 (empty) when forward power is below 5 W (the noise floor threshold). This prevents idle noise readings from lighting up the SWR bar. The raw SWR value is still retained internally for post-tune capture logic.
 
 ## Troubleshooting
 
@@ -38,6 +39,7 @@ The button turns red and reads **TUNING...** while the autotune sweep runs. When
 - **TUN tray button is not visible** — The Tuner applet is hidden until AetherSDR detects a Tuner Genius XL. Confirm the TGXL is powered on and the radio recognises it before opening the applet.
 - **SWR result flashes a very high value after tuning** — The post-tune SWR capture window is 400 ms. If the TGXL reports the settled SWR outside that window, the displayed value may not reflect the final match. Try the tune again; the value shown is the lowest SWR seen in the capture window.
 - **PWR gauge shows slow decay or labels don't update** — The slow release ballistics decay the bar over ~800 ms to smooth RF bursts. Labels clear after 800 ms of no data to prevent flickering. If labels stay blank, check the TGXL connection.
+- **SWR gauge shows 1.0 at all times even with forward power** — Check that forward power exceeds 5 W. The SWR gauge only displays live values when forward power is at or above 5 W.
 
 ## Related
 

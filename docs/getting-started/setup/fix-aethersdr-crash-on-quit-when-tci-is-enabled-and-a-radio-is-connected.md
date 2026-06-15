@@ -1,38 +1,37 @@
-# Fix AetherSDR crash on quit when TCI is enabled and a radio is connected
+# TCI Server (TCI Applet)
 
-AetherSDR v0.9.6 and earlier could crash on exit when the TCI server was running and a radio was connected. Version 0.9.7 fixes this. If you are still seeing a crash on quit, the steps below confirm you are running the corrected version and guide you through a clean TCI configuration.
+AetherSDR can run an Expert-style TCI WebSocket server so third-party logging, digital-mode, and SDR software (Log4OM, SunSDR tools, etc.) can read and control the radio over the TCI protocol. TCI TX audio is received over the WebSocket and fed into a dedicated dax_tx stream slot that is independent of the Windows SmartSDR DAX2 audio device path, so TCI TX works on all platforms including Windows and Linux without PipeWire.
 
 ## Before you start
 
-- You are running AetherSDR v0.9.7 or later. Earlier builds contain the use-after-free defect that caused the crash; upgrading is the only complete fix.
 - A FLEX-8600 radio is connected and visible in the application.
 - The TCI applet is visible. If it is not, click the `TCI` tray button on the right sidebar to show it.
 
 ## Steps
 
-1. Quit AetherSDR using `File > Quit` or the keyboard shortcut `Ctrl+Q`.
-2. If the application crashes at this point, confirm your installed version is v0.9.7 or later. If it is not, upgrade before continuing.
-3. After upgrading, reopen AetherSDR and connect to your radio.
-4. Open the TCI applet by clicking the `TCI` tray button on the right sidebar if it is not already visible.
-5. In the `Port` field, confirm the port value is between 1024 and 65535. The default is `50001`. If the field is blank or out of range, type `50001` and press Enter — the field snaps to `50001` automatically for out-of-range values.
-6. Click `Enable` to start the TCI server.
-7. Confirm the status indicator next to `Enable` shows `:<port> (0 clients)` rather than `(port in use)`. If it shows `(port in use)`, see Troubleshooting below.
-8. Use the radio normally, then quit with `File > Quit`. The application should exit cleanly.
+1. Open the TCI applet by clicking the `TCI` tray button on the right sidebar if it is not already visible.
+2. In the `Port` field, enter a port value between 1024 and 65535. The default is `50001`. If the field is blank or out of range, type `50001` and press Enter — the field snaps to `50001` automatically for out-of-range values.
+3. Click `Enable` to start the TCI server.
+4. Confirm the status indicator next to `Enable` shows `:<port> (0 clients)` rather than `(port in use)`. If it shows `(port in use)`, see Troubleshooting below.
+5. Configure your third-party software to connect to the TCI server at `localhost:<port>`.
 
 ## What each control does
 
-| Control                        | Default                                                                                                                     | Valid range                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Port` field                   | `50001`                                                                                                                     | 1024–65535                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `Enable` toggle                | Off                                                                                                                         | On / Off                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| RX1 gain+meter                 | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| RX2 gain+meter                 | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| RX3 gain+meter                 | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| RX4 gain+meter                 | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| TX gain+meter                  | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). | TciServer::setTxGain persists `TciTxGain` internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). Right-click menu lets users choose how out-of-range (>1.0) samples from digital-mode clients are handled: Clip (saturating ±1.0, legacy default), NaNGuard (pass-through, only zero NaN/Inf), or Measure (true bypass with clip counting). Default is Clip so existing users see no behavior change (#3065). |
-| TX overflow mode (right-click) | Clip (0)                                                                                                                    | Clip (0), NaNGuard (1), Measure (2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Control | Default | Valid range | Setting key | Behavior |
+|---------|---------|-------------|-------------|----------|
+| `Port` field | `50001` | 1024–65535 | `TciPort` | Changing the port restarts the server if enabled. Out-of-range values snap to 50001. |
+| `Enable` toggle | Off | On / Off | None | Starts or stops the TCI server; emits `tciToggled`. If bind fails the toggle snaps back to off and status shows `(port in use)`. |
+| RX1 gain+meter | 0.5 | 0.0–1.0 | `TciRxGain1` | Combined meter/slider; drag sets the TCI RX gain for the channel and emits `tciRxGainChanged`. |
+| RX2 gain+meter | 0.5 | 0.0–1.0 | `TciRxGain2` | Combined meter/slider; drag sets the TCI RX gain for the channel and emits `tciRxGainChanged`. |
+| RX3 gain+meter | 0.5 | 0.0–1.0 | `TciRxGain3` | Combined meter/slider; drag sets the TCI RX gain for the channel and emits `tciRxGainChanged`. |
+| RX4 gain+meter | 0.5 | 0.0–1.0 | `TciRxGain4` | Combined meter/slider; drag sets the TCI RX gain for the channel and emits `tciRxGainChanged`. |
+| TX gain+meter | 0.5 | 0.0–1.0 | `TciTxGain` | Drags set the TCI TX gain and emit `tciTxGainChanged`. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). |
+| TX overflow mode (right-click) | Clip (0) | Clip (0), NaNGuard (1), Measure (2) | `TciTxOverflowMode` | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits `tciTxOverflowModeChanged`. |
 
-Out-of-range values entered in the `Port` field snap to `50001`. If `Enable` is toggled on and the bind fails, the button snaps back to off and the status shows `(port in use)`.
+### RX gain+meter details
+
+Each RX channel (1–4) has a combined meter and slider. Drag the slider to set the TCI RX gain for that channel. The gain value is persisted separately per channel as `TciRxGain1` through `TciRxGain4`. Each slider has an accessible name ("TCI RX 1 gain", "TCI RX 2 gain", etc.) for screen reader compatibility.
+
 ### TX gain+meter details
 
 Drags set the TCI TX gain and emit `tciTxGainChanged`. TCI TX audio is always allowed regardless of platform or hosted-DAX availability.
@@ -61,14 +60,16 @@ The label is styled using the application theme. In earlier versions the label u
 
 ## Tips
 
-- If you use `Settings > Autostart TCI with AetherSDR`, the TCI server starts automatically on each launch. This setting was present before v0.9.7 and is safe to use after upgrading.
-- The crash in earlier versions occurred because the TCI server was torn down after the radio model had already been released. In v0.9.7 the teardown order was corrected: the TCI server is shut down while the radio model is still alive. No configuration change on your part triggers or avoids this — upgrading to v0.9.7 is the fix.
-- Starting with v26.5.2.1, the slice assignment labels (RX1–RX4 status and TX status) can render rich text. If a slice letter contains HTML characters (such as an ampersand or angle brackets), the label displays correctly instead of showing raw markup. This improves compatibility with third-party software that may send unusual slice identifiers.
+- If you use `Settings > Autostart TCI with AetherSDR`, the TCI server starts automatically on each launch.
+- The crash on quit that affected v0.9.6 and earlier was fixed in v0.9.7. The fix ensures the TCI server is torn down after the audio thread stops but while the radio model is still alive, preventing a use-after-free.
+- Starting with v26.5.2.1, the slice assignment labels (RX1–RX4 status and TX status) can render rich text. If a slice letter contains HTML characters (such as an ampersand or angle brackets), the label displays correctly instead of showing raw markup.
+- Starting with v26.5.1, three TCI v2.0 commands (volume, drive, rx_volume) are supported with bidirectional state sync.
+- Starting with v26.5.3, panadapter spectrum forwarding and tx_gain / ALC are exposed.
 
 ## Troubleshooting
 
 - **Status shows `(port in use)` after clicking `Enable`** — Another process is already bound to that port. Enter a different port number in the `Port` field and press Enter, then click `Enable` again.
-- **Application still crashes on quit after upgrading** — Confirm you are running v0.9.7 or later. Check `Help > About` for the version string. If the version is correct and crashes persist, disable `Enable` before quitting to isolate whether TCI is still involved.
+- **Application crashes on quit** — Confirm you are running v0.9.7 or later. Check `Help > About` for the version string. If the version is correct and crashes persist, disable `Enable` before quitting to isolate whether TCI is still involved.
 - **`Enable` snaps back to off immediately** — The port bind failed. The status label turns red and shows `(port in use)`. Change the port value and try again.
 - **Slice assignment label shows raw HTML** — This indicates you are running a version earlier than v26.5.2.1. Upgrade to the latest version to ensure proper rendering of slice identifiers.
 

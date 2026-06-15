@@ -22,7 +22,6 @@ To disable the squelch, click **SQL** again to deactivate it.
 |-------------------|---------|-------------|
 | **SQL**           | Off     | On / Off    |
 | **Squelch level** | 20      | 0–100       |
-
 ## About the manual squelch level memory
 
 The last manual squelch threshold you set is saved between sessions. When you change modes or restart AetherSDR, the **Squelch level** slider returns to your previous manual setting (value stored in `LastManualSquelchLevel`). This persists separately from the radio's automatic squelch level, which the radio may override when an algorithm-suggested value differs from your preference.

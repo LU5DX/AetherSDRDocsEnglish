@@ -28,30 +28,42 @@ The Radio tab shows identifying information reported directly by the radio — s
 
 ## What each control does
 
-| Label                                               | Kind                                                                                                                                                                                    | Behavior                                                                                                                                    |
-|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| Radio SN                                            | Indicator (read-only)                                                                                                                                                                   | Chassis serial number as reported by the radio.                                                                                             |
-| HW Version                                          | Indicator (read-only)                                                                                                                                                                   | Hardware version string prefixed with `v`.                                                                                                  |
-| Region                                              | Indicator (read-only)                                                                                                                                                                   | Regulatory region. Displays `USA` if the radio reports none.                                                                                |
-| Options                                             | Indicator (read-only)                                                                                                                                                                   | Licensed radio options.                                                                                                                     |
-| Remote On                                           | Push button                                                                                                                                                                             | Enables remote wake / remote-on.                                                                                                            |
-| FlexControl                                         | Indicator                                                                                                                                                                               | Detected state of FlexControl hardware.                                                                                                     |
-| multiFLEX                                           | Indicator                                                                                                                                                                               | multiFLEX enabled state.                                                                                                                    |
-| Model                                               | Indicator                                                                                                                                                                               | Radio model.                                                                                                                                |
-| Nickname                                            | Text field                                                                                                                                                                              | User-friendly radio nickname.                                                                                                               |
-| Callsign                                            | Text field                                                                                                                                                                              | Station callsign.                                                                                                                           |
-| Station Name                                        | Text field                                                                                                                                                                              | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. |
-| License Info                                        | Indicator                                                                                                                                                                               | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                          |
-| Check for Update                                    | Push button                                                                                                                                                                             | Queries for firmware updates.                                                                                                               |
-| Browse .ssdr...                                     | Push button                                                                                                                                                                             | Chooses a firmware image file.                                                                                                              |
-| Upload Firmware                                     | Push button                                                                                                                                                                             | Starts firmware upload with progress bar and status.                                                                                        |
-| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2). | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.         |
-| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                      | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                           |
-| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                     | Backed by WanCertCache in WanConnection.cpp.                                                                                                |
-| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                               |                                                                                                                                             |
-| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                              | Shows QMessageBox::question before wiping.                                                                                                  |
+| Label                                               | Kind                                                                                                                                                                                        | Behavior                                                                                                                                    |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                                            | Chassis serial number (read-only).                                                                                                                                                          | Includes a clipboard copy button (tray icon) next to the value. New in v26.5.3 (#2976).                                                     |
+| HW Version                                          | Hardware version string.                                                                                                                                                                    | Includes a clipboard copy button next to the value (#2976).                                                                                 |
+| Region                                              | Indicator (read-only)                                                                                                                                                                       | Regulatory region. Displays `USA` if the radio reports none.                                                                                |
+| Options                                             | Shows licensed radio options.                                                                                                                                                               | Includes a clipboard copy button next to the value (#2976).                                                                                 |
+| Remote On                                           | Push button                                                                                                                                                                                 | Enables remote wake / remote-on.                                                                                                            |
+| FlexControl                                         | Indicator                                                                                                                                                                                   | Detected state of FlexControl hardware.                                                                                                     |
+| multiFLEX                                           | Indicator                                                                                                                                                                                   | multiFLEX enabled state.                                                                                                                    |
+| Model                                               | Radio model.                                                                                                                                                                                | Includes a clipboard copy button next to the value (#2976).                                                                                 |
+| Nickname                                            | Text field                                                                                                                                                                                  | User-friendly radio nickname.                                                                                                               |
+| Callsign                                            | Text field                                                                                                                                                                                  | Station callsign.                                                                                                                           |
+| Station Name                                        | Text field                                                                                                                                                                                  | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. |
+| License Info                                        | Indicator                                                                                                                                                                                   | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                          |
+| Check for Update                                    | Push button                                                                                                                                                                                 | Queries for firmware updates.                                                                                                               |
+| Upload Firmware                                     | Push button                                                                                                                                                                                 | Starts firmware upload with progress bar and status.                                                                                        |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.         |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                           |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                                |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                             |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                                  |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                                   |
+| Reboot Radio                                        | Push button                                                                                                                                                                                 | Reboots the connected radio. Disabled when radio is disconnected. Shows a confirmation dialog before rebooting. LAN sessions auto-reconnect; WAN/SmartLink sessions require manual reconnect. New in v26.6.3. |
 
 All Radio Information fields are read-only. No persisted settings keys are associated with them.
+
+## Rebooting the radio
+
+The **Reboot Radio** button is located in the Radio Information group. It is enabled only while AetherSDR is connected to the radio.
+
+1. Click **Reboot Radio**.
+2. A confirmation dialog appears:
+   - On LAN connections: "AetherSDR will disconnect and automatically reconnect once the radio finishes booting."
+   - On WAN/SmartLink connections: "AetherSDR will disconnect. SmartLink/WAN sessions do not auto-reconnect today — you will need to reconnect manually once the radio finishes booting."
+3. Click **OK** to confirm. The dialog closes automatically after confirming.
+4. The radio reboots. AetherSDR disconnects and reconnects automatically on LAN, or waits for manual reconnection on WAN.
 
 ## Copying radio information
 
@@ -91,7 +103,7 @@ The Network tab shows radio network information and advanced network options.
 | Label | Kind | Behavior |
 |---|---|---|
 | IP Address / Mask / MAC Address | Indicator (read-only) | Read-only network addresses. |
-| Enforce Private IP Connections: | Toggle button | Rejects non-RFC1918 peers. |
+| Enforce Private IP Connections: | Toggle button (Enabled/Disabled) | Rejects non-RFC1918 peers. Shows "Enabled" when checked. |
 | Network MTU: | Spinbox | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576-9000 bytes, default 1450. Stored in AppSettings as `NetworkMtu`. |
 | DHCP / Static | Toggle button | Switches between DHCP and Static IP modes. |
 | IP Address: / Mask: / Gateway: | Text field | Static IP configuration fields. |
@@ -198,36 +210,4 @@ The following controls are available in both configurations:
 |---|---|---|
 | Cal Frequency (MHz): | Spinbox | Frequency used for calibration. Enter the known reference frequency before clicking Start. |
 | Start | Push button | Starts the frequency calibration sequence. The button is disabled and its label changes to **Busy** while calibration is in progress. Before triggering the PLL sweep, AetherSDR resets the radio's frequency error to zero (`radio set freq_error_ppb=0`) and then issues `radio pll_start`. If the Cal Frequency field is empty, the button shows a warning and takes no action. |
-| Freq Offset (ppb): | Spinbox | Manual frequency offset in parts per billion, applied after calibration completes or set directly for manual correction. |
-
-A status label appears to the right of the Start button and updates throughout the calibration sequence:
-
-| State | Text | Color |
-|---|---|---|
-| Idle | *(empty)* | — |
-| Cal frequency not entered | "Enter cal frequency" | Amber |
-| Sequence started | "Starting…" | Grey-blue |
-| In progress | Updated as PLL state is reported by the radio | Grey-blue |
-
-The Start button is re-enabled and its label reverts to **Start** when the calibration sequence completes or fails.
-
-## 10 MHz reference source
-
-The **10 MHz Reference Source:** combo box and its accompanying lock-status label were updated to handle a wider range of oscillator states reported by the radio.
-
-**Combo box population:** The list of available sources is built dynamically each time the tab opens or the radio's oscillator state changes. Sources appear in the combo only if the radio reports the relevant hardware as present, if the current setting or active state uses that source, or if oscillator status has been received (in which case TCXO and External 10 MHz are always included as options).
-
-| Source value | Label shown in combo |
-|---|---|
-| `auto` | Auto |
-| `tcxo` | TCXO |
-| `gpsdo` | GPSDO |
-| `external` / `ext` | External 10 MHz |
-
-**Lock-status label:** The label to the right of the combo shows richer state information:
-
-| Condition | Text shown | Color |
-|---|---|---|
-| No oscillator status received yet | "Waiting for oscillator status" | Grey-blue |
-| Source locked | `<source> Locked` | Green (`#00c040`) |
-| Source unlocked |
+| Freq Offset (ppb): | Spinbox | Manual frequency offset in parts per billion, applied after calibration completes or set directly for manual correction

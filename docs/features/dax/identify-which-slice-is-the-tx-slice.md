@@ -17,6 +17,16 @@ The DAX Applet shows a live TX assignment indicator that tells you which slice c
 
 | Control | Description | Default | Valid states | Setting key |
 |---|---|---|---|---|
+| DAX Enable | Toggle button that starts the DAX audio bridge. Master switch for all DAX RX and TX streams. Label is "Enable". | off | on/off | `AutoStartDAX` |
+| DAX 1 gain+meter | Combined meter and slider for RX gain on DAX channel 1. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxRxGain1` |
+| DAX 2 gain+meter | Combined meter and slider for RX gain on DAX channel 2. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxRxGain2` |
+| DAX 3 gain+meter | Combined meter and slider for RX gain on DAX channel 3. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxRxGain3` |
+| DAX 4 gain+meter | Combined meter and slider for RX gain on DAX channel 4. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxRxGain4` |
+| TX gain+meter | Combined meter and slider for the DAX TX stream. Drag to adjust gain. | 0.5 | 0.0–1.0 | `DaxTxGain` |
+| DAX 1 assignment indicator | Shows which slice (if any) is currently routed to DAX channel 1. | `—` | `—` or `Slice A`–`Slice H` | none |
+| DAX 2 assignment indicator | Shows which slice (if any) is currently routed to DAX channel 2. | `—` | `—` or `Slice A`–`Slice H` | none |
+| DAX 3 assignment indicator | Shows which slice (if any) is currently routed to DAX channel 3. | `—` | `—` or `Slice A`–`Slice H` | none |
+| DAX 4 assignment indicator | Shows which slice (if any) is currently routed to DAX channel 4. | `—` | `—` or `Slice A`–`Slice H` | none |
 | TX assignment indicator | Shows which slice currently has TX privileges. Updates automatically when TX is moved between slices. Slice letter is displayed in a colored box matching the slice's color. | `—` | `—` or colored slice letter `A`–`H` | none |
 
 ## Tips
@@ -25,6 +35,7 @@ The DAX Applet shows a live TX assignment indicator that tells you which slice c
 - The RX rows above the TX row show per-channel DAX assignments (`DAX 1:` through `DAX 4:`). These indicate which slice is routed to each DAX RX channel and are separate from the TX assignment.
 - The slice letter in the TX indicator is rendered as rich text, allowing the colored box display when the radio is connected.
 - On Linux with PipeWire, a native `pw_stream` source path replaces the previous PulseAudio client, reducing DAX RX latency from approximately 400 ms to approximately 200 ms.
+- Each gain slider and meter has an accessible name for screen reader support: `DAX RX 1 gain` through `DAX RX 4 gain` for the receive channels, and `DAX TX gain` for the transmit channel.
 
 ## Related
 

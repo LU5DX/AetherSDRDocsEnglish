@@ -63,6 +63,10 @@ The Manual squelch threshold is persisted client-side across sessions. When auto
 
 Select the AGC mode from the **AGC mode** combo box: Off, Slow, Med, or Fast. The **AGC threshold** slider adjusts the AGC threshold level. When AGC mode is Off, the slider sets the off-level instead. The mode combo is hidden in FM family modes (FM, NFM, DFM).
 
+### AGC-T noise calibration
+
+Right-click the **AGC threshold** slider to open a context menu, then select **Calibrate AGC-T against noise floor…** to launch the AGC-T noise calibration panel for the current slice. The calibration panel uses the noise floor measurement to compute an optimal threshold. The tooltip on the slider advertises this feature.
+
 ## FM repeater duplex
 
 When operating in FM, NFM, or DFM mode, the FM duplex controls appear:
@@ -109,7 +113,13 @@ The **QSK** indicator lights amber when CW break-in (QSK) is active. This is rea
 
 ## Frequency entry
 
-The **Frequency edit** field now uses `FrequencyEntryParser::normalizedMhzText()` to clean up user-entered MHz values. Entering a frequency above 54.0 MHz without explicit MHz notation (e.g., "144600000" for 144.6 MHz) is treated as a VHF/UHF band entry and auto-scaled accordingly. Explicit MHz notation over 54.0 MHz (e.g., "144.600") grants access to frequencies up to 50000.0 MHz without requiring an XVTR antenna.
+The **Frequency edit** field now uses `FreqLineEdit` (a `FrequencyEntryParser`-derived widget) with hint text "MHz". Entering a frequency above 54.0 MHz without explicit MHz notation (e.g., "144600000" for 144.6 MHz) is treated as a VHF/UHF band entry and auto-scaled accordingly. Explicit MHz notation over 54.0 MHz (e.g., "144.600") grants access to frequencies up to 50000.0 MHz without requiring an XVTR antenna.
+
+## WFM software demodulator
+
+The **WFM** toggle button enables a software FM demodulator for the current slice. When enabled, the button lights green. The demodulator processes wideband FM signals received via DAX IQ through the Hi-Fi Cable. Toggle the button on to activate the WFM overlay, or off to deactivate it.
+
+The WFM overlay is automatically torn down when you change the slice mode via the **Mode combo** — selecting any real radio mode (USB, LSB, CW, etc.) deactivates WFM on that slice. The WFM button state is synchronised with the radio: when another part of the application activates or deactivates WFM on the same slice, the button updates accordingly.
 
 ## Slider text indicators
 
@@ -139,6 +149,7 @@ To update the overlay, call `setSwrSweepPoints()` with a vector of `SwrSweepPoin
 Points with non-finite `freqMhz` or `swr` values are silently skipped. Points whose mapped x-coordinate falls outside the visible spectrum area are not drawn.
 
 To remove the overlay, call `clearSwrSweepPoints()`.
+
 ## Tips
 
 - The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter. The frequency editor supports up to 450 MHz when the slice is on an XVTR antenna, and up to 50000.0 MHz when an explicit MHz entry above 54.0 MHz is entered.
@@ -148,16 +159,9 @@ To remove the overlay, call `clearSwrSweepPoints()`.
 - The **AF gain** slider default is 70. The **L / R pan** slider default is 50 (centre).
 - The **Squelch level** default is 20. The manual squelch level is remembered across sessions.
 - The **AGC threshold** default is 65.
+- Right-click the **AGC threshold** slider to calibrate AGC-T against the noise floor.
 
 ## Related
 
 - [RX Controls overview](../../features/rx/overview.md)
-- [Switch between multiple slices using the A..H tab row](../../features/rx/switch-between-multiple-slices-using-the-a-h-tab-row.md)
-- [Tune the radio to a frequency (type MHz in the readout)](../../features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Lock the slice to prevent accidental retuning](../../features/rx/lock-the-slice-to-prevent-accidental-retuning.md)
-- [Use RIT to offset the receive frequency for a drifting station](../../features/rx/use-rit-to-offset-the-receive-frequency-for-a-drifting-station.md)
-- [Use XIT to offset the transmit frequency without changing RX](../../features/rx/use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
-- [Click the spectrum to activate a panadapter (multi-slice mode)](../../features/panadapter/click-the-spectrum-to-activate-a-panadapter-multi-slice-mode.md)
-- [Panadapter overview](../../features/panadapter/overview.md)
-- [Make your first QSO with AetherSDR](../tutorials/first-qso.md)
-<!-- docmesh:llm version=v0.9.8 date=2026-06
+- [Switch between multiple slices using the A..H tab row](../../features/rx/switch-between-multiple-slices-using

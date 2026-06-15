@@ -29,18 +29,17 @@ In v26.5.2.1 and later, every knob in the Aetherial Tube editor supports direct 
 
 ## What each control does
 
-| Control | Default | Valid range |
-|---------|---------|-------------|
-| Attack | 5.00 ms | 0.1 to 30.0 ms |
-| Release | 35.00 ms | 10.0 to 500.0 ms |
-| RN2 | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
+|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Attack  | 5.00 ms                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                            |
+| Release | 35.00 ms                                                                                                                                                                            | 10.0 to 500.0 ms                                                                                                                                                                                          |
+| RN2     | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
 **Attack** — Uses exponential mapping across its range. Sets how quickly the envelope follower responds to rising signal levels when Envelope ≠ 0. The label displays as "X.XX ms" below 10 ms and "X.X ms" above 10 ms. Setting key: `ClientTubeTxAttackMs` / `ClientTubeRxAttackMs`.
 
 **Release** — Uses exponential mapping across its range. Sets how quickly the envelope follower recovers after signal levels fall when Envelope ≠ 0. The label displays as "X.XX ms" below 100 ms and "X.X ms" above 100 ms. Setting key: `ClientTubeTxReleaseMs` / `ClientTubeRxReleaseMs`.
 
 **RN2** — TX-only toggle button located in the StripTubePanel below the output level meter. Uses the `RN2` label. See [Reduce background noise with RN2](reduce-background-noise-with-rn2.md) for full details.
-
 ## Tips
 
 - Attack and Release are independent per side. Changes made in the TX editor do not affect the RX editor and vice versa.

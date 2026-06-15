@@ -1,6 +1,6 @@
 # Connect to a station MQTT broker
 
-This page explains how to open the MQTT applet and connect AetherSDR to a station MQTT broker so you can subscribe to topics, view incoming messages, and publish canned payloads.
+This page explains how to open the MQTT applet and connect AetherSDR to a station MQTT broker so you can subscribe to topics, view incoming messages, publish canned payloads, and monitor message publication confirmations.
 
 ## Before you start
 
@@ -32,7 +32,7 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | **Settings...**     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
 | **Publish buttons** | Up to 12 configurable buttons; click publishes the configured payload to the configured topic.                              | Configured via MqttSettingsDialog Publish Buttons tab.                     |
-| **Message log**     | Displays received messages as `topic: value` lines. Also processes antenna alias updates from MQTT.                         | Capped to 50 entries.                                                      |
+| **Message log**     | Displays received messages as `topic: value` lines and published messages as `TX topic: payload` lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries.                              |
 | **Enable**          | Connects (On) or disconnects (Off); saves all settings on connect. Password is loaded from system keychain on first enable. | Off                                                                        |
 | **Status label**    | Shows connection state with colour: green when connected, grey when disconnected, default on error.                         | Disconnected                                                               |
 
@@ -40,7 +40,7 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 
 - Settings are saved to persistent storage only when you click **OK** in the MQTT Settings dialog, not when you click **Enable** to connect.
 - The **CA cert** field and its label are hidden when **TLS** is unchecked. Check **TLS** first to make the row appear.
-- The **Message log** keeps the last 50 message blocks. Older entries are dropped automatically.
+- The **Message log** keeps the last 50 message blocks. Older entries are dropped automatically. Both received and published messages appear in the log. Published messages are prefixed with `TX` (e.g., `TX topic: payload`).
 - Publish buttons are only active while connected. See [Add or remove custom publish buttons](../../features/mqtt/add-or-remove-custom-publish-buttons.md) to configure them.
 - If the system keychain password is not yet loaded, the status label shows "Waiting for keychain" until the password is retrieved.
 

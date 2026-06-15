@@ -13,6 +13,7 @@ DX spots from cluster sources appear as overlays on the panadapter. This page ex
 2. Select the spot overlay option to open the **Spot Settings** dialog.
 3. Locate the **Spots:** toggle button at the top of the dialog.
 4. Click the button to toggle between **Enabled** and **Disabled**.
+   - The button displays "Enabled" when toggled on. The checked state (highlighted background) indicates the active status.
    - When **Enabled**, DX spots are drawn on the panadapter.
    - When **Disabled**, no spots are drawn. The setting is saved immediately; no additional confirmation is needed.
 
@@ -59,6 +60,7 @@ Several setting keys were renamed. If you reference these keys in scripts or ext
 ## Tips
 
 - Toggling **Spots:** to **Disabled** does not clear buffered spots. When you re-enable it, spots that have not yet expired will reappear.
+- Toggle buttons in the Spot Settings dialog now always display "Enabled" as their text label. The checked state (highlighted background) indicates whether the feature is active.
 - The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
 - Disable **Spot Lines:** during contests to keep the panadapter uncluttered while retaining spot labels.
 - The Spot Settings dialog now follows the current theme. Title labels and the Total Spots indicator use the theme's primary text color for consistent appearance across different theme profiles.

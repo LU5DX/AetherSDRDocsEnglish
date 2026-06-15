@@ -88,6 +88,12 @@ As of v26.6.1, the de-esser's knobs read their colours from the theme system's `
 
 The applet container `applet/deess` carries per-applet colour overrides. If a theme defines an `applet/deess` section, its colours take precedence over the global `color.knob.*` values.
 
+## Smoothed gain-reduction meter (v26.6.3)
+
+As of v26.6.3, the gain-reduction meter uses an improved animation timer that stops updating the display once the smoothed value has fully settled. Previously the timer continued running even when no further visual change was needed. The meter now stops and restarts efficiently, reducing CPU overhead during periods of stable gain reduction.
+
+The smooth animation uses a 30 Hz refresh rate with a precise timer for consistent visual tracking of sibilance peaks.
+
 ## Tips
 
 - The threshold interacts with Amount (`ClientDeEssTxAmountDb`). Set the threshold first, then dial Amount to taste. See [Dial Amount for the most transparent de-essing](dial-amount-for-the-most-transparent-de-essing.md).

@@ -27,7 +27,6 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 | Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
 The normal progression after enabling APD is: Cal → Avail → Active.
-
 ## Tips
 
 - APD calibration takes place automatically after you enable it. You do not need to transmit manually to trigger it; wait for the indicators to step through Cal → Avail → Active.

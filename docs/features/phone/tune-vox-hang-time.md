@@ -17,9 +17,19 @@ The VOX hang time controls how long the radio stays in transmit after your voice
 
 | Control          | Description                                                                                                    | Valid range |
 |------------------|----------------------------------------------------------------------------------------------------------------|-------------|
-| **Delay** slider | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
+| **AM Carrier**   | Sets AM carrier power level. Displayed as a percentage (e.g., "48%") when dragged.                              | 0–100       |
+| **VOX**          | Toggles voice-operated transmit on or off.                                                                     | —           |
+| **VOX level**    | Sets the VOX activation threshold. Displayed as a percentage when dragged.                                     | 0–100       |
+| **Delay**        | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
+| **DEXP**         | Toggles the downward expander (noise gate) on or off.                                                          | —           |
+| **DEXP threshold**| Sets the DEXP noise gate threshold.                                                                           | 0–100       |
+| **Low Cut < / >**| Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary.                                       | 50 Hz       | 0 to (high-cut − 50), step 50 Hz    |
+| **High Cut < / >**| Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary.                                      | 3300 Hz     | (low-cut + 50) to 10000, step 50 Hz |
 
-No setting key is persisted for the Delay slider; the value is sent directly to the radio.
+## Setting persistence
+
+- The **DEXP** toggle and **DEXP threshold** slider values are sent directly to the radio. They are no longer persisted to AetherSDR settings.
+- No other control in the Phone applet has a persisted setting key; all values are sent directly to the radio.
 
 ## Tips
 

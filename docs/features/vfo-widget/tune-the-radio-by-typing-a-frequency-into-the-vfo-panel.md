@@ -24,12 +24,12 @@ If you click the **Frequency display** while the slice is locked, AetherSDR imme
 |------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **RX antenna button**        | Opens antenna selection menu for the receive antenna of this slice. Menu items use the slice's dedicated RX antenna list when available, falling back to the global antenna list. Right-click available. |
 | **TX antenna button**        | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Menu items use the slice's dedicated TX antenna options when available. Right-click available.   |
-| **Frequency display**        | Shows the current slice frequency. Click once to begin direct entry; type MHz and press Enter or Tab to apply. Scroll the mouse wheel over the display to step-tune up or down by the current step size. |
+| **Frequency display**        | Shows the current slice frequency. Click once to begin direct entry; type MHz and press Enter or Tab to apply. Uses `FreqLineEdit` for enhanced accessibility. Scroll the mouse wheel over the display to step-tune up or down by the current step size. |
 | **Slice badge**              | Shows the slice letter (e.g., A, B, C) in a colored badge. Supports rich text formatting for HTML rendering (#2606). Right-click opens the slice color picker.                                          |
 | **Filter width label**       | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | **AF Gain slider (Audio tab)** | Sets the audio output level for this slice. Default: 100. Range: 0-100. Not persisted — reflects live radio state.                                                                                      |
 | **Pan slider (Audio tab)**   | Sets left/right stereo pan for this slice. Default: 50. Range: 0-100. 50 = centre. The slider fill anchors from the centre outward, showing a centre-mark dot on the groove at the neutral position.   |
-| **Mute button (Audio tab)**  | Toggle button. Mutes audio output for this slice without changing the AF gain setting. Default: off.                                                                                                     |
+| **Mute button (Audio tab)**  | Toggle button. Mutes audio output for this slice without changing the AF gain setting. Default: off. Right-click the Audio tab label to toggle mute directly.                                            |
 | **Squelch button + slider (Audio tab)** | Toggle button. Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Range: 0-100.                                                                             |
 | **AGC combo (Audio tab)**    | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. Default: FAST.                                                                                                          |
 | **Mode combo (Mode tab)**    | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. Default: USB.                                                                            |
@@ -70,6 +70,14 @@ When one or more radio-side DSP algorithms that support a level control are acti
 Right-click any of the following buttons to open the AetherDSP Settings dialog for that algorithm:
 - **NR2**, **NR4**, **MNR**, **DFNR** (accessible via ADSP button)
 
+## Tab bar
+
+The VFO panel uses a tab bar with the following labels: **Audio** (default), **Mode**, **DSP**, **X/RIT**, and **DAX**. Click a tab label to switch to that tab's content.
+
+- Tab labels are now implemented as `QPushButton` buttons with keyboard focus support. Use Tab/Shift+Tab to navigate between tabs.
+- The active tab is highlighted with a cyan underline (`#00b4d8`). Inactive tabs have a transparent underline and use muted color `#6888a0`.
+- Right-click the **Audio** tab label to toggle mute for the current slice.
+
 ## RADE info row
 
 When RADE (Radio Aided Direction Finding Engine) is active, an information row appears below the frequency display and above the S-meter. It shows:
@@ -87,7 +95,9 @@ The RADE info row is hidden when RADE is inactive. This feature is only availabl
 | Indicator | States | Meaning |
 |---|---|---|
 | **TX badge** | TX (red), hidden | Shown when this slice is the active transmit slice. |
-| **SPLIT badge** | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. |
+| **SPLIT badge** | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. The badge text changes to **SWAP** when the split pair can be exchanged. |
+
+The SPLIT badge uses increased contrast for better visibility: default color `rgba(255,255,255,120)`, hover color `rgba(255,255,255,180)`.
 
 ## Antenna selection
 
@@ -131,21 +141,26 @@ When you type a frequency value, AetherSDR parses it as follows:
   - If you typed a bare integer, 3-digit-band convenience parsing applies (see above).
   - The maximum allowed value is 50000 MHz.
 
+## Mouse wheel tuning
+
+The scroll wheel tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. The wheel direction follows the **Reverse mouse wheel** setting in Interaction Settings (#3302). When enabled, scrolling up decreases frequency and scrolling down increases frequency. On macOS, inertial scroll events are ignored to prevent unintended tuning after a gesture ends. In collapsed mode, scrolling anywhere on the strip tunes by step size.
+
+When the slice is locked, the scroll wheel does not tune and shows a brief **LOCKED** overlay instead.
+
+## Accessibility
+
+The VFO panel includes accessibility enhancements:
+
+- The frequency display sends `QAccessibleValueChangeEvent` notifications when the slice frequency changes, allowing screen readers to announce the updated frequency. A dedicated timer debounces rapid frequency changes to avoid flooding the accessibility system.
+- Tab labels are implemented as `QPushButton` controls and are keyboard-focusable. Navigate between tabs using the Tab and Shift+Tab keys.
+- The frequency edit field uses `FreqLineEdit` with integrated hint text ("MHz (e.g. 14.225)") instead of placeholder text, providing better screen reader support.
+
 ## Tips
 
 - If the panel is collapsed to the frequency-only strip, click anywhere on it to expand it so the **Frequency display** is accessible for direct entry.
-- The scroll wheel also tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. On macOS, inertial scroll events are ignored to prevent unintended tuning after a gesture ends. In collapsed mode, scrolling anywhere on the strip tunes by step size.
-- When the slice is locked, the scroll wheel does not tune and shows a brief **LOCKED** overlay instead.
 - Right-click the slice badge to change its color.
+- Right-click the **Audio** tab label to toggle mute without switching tabs.
 
 ## Troubleshooting
 
-- **Typing has no effect or the LOCKED overlay appears** — The slice is locked. Unlock it before entering a frequency.
-- **The VFO panel is not visible** — Click the VFO marker flag for the desired slice on the spectrum display to open the panel.
-- **I typed a VHF frequency but it was interpreted incorrectly** — Use explicit MHz entry by including a decimal point (e.g., "146.520" instead of "146520"). AetherSDR now detects this and treats the value as MHz.
-- **NR2, NR4, MNR, BNR, DFNR, or RN2 buttons are missing from the DSP tab** — These client-side modules were moved out of the VFO panel in v0.9.7. Toggle them from the spectrum overlay menu, the ADSP button on the DSP tab, or the AetherDSP applet.
-- **The DSP level slider is faded and does not respond to clicks** — The slider is inactive when no radio-side DSP algorithm that supports leveling is currently enabled. Enable NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
-- **The DSP level slider is missing on launch even though a DSP was enabled in the radio's saved profile** — This issue was fixed in v0.9.8. Update to the latest version.
-- **RADE info row does not appear** — Verify your build includes RADE support. The row only compiles when `HAVE_RADE` is defined.
-- **Antenna menu shows duplicate or confusing labels** — The menu now uses human-readable labels extracted from raw antenna identifiers. The raw identifier is still available in the tooltip.
-- **The VFO panel tab content has extra vertical space or gaps** — This was fixed in v26.5.3. The tab now reports only the current page's preferred size, preventing allocation for taller tabs (such as the
+- **Typing has no effect or the LOCKED overlay appears** — The

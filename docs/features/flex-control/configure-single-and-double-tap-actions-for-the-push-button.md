@@ -32,6 +32,7 @@ Available actions for both combo boxes include:
 | `WheelRit` | RIT (Receive Incremental Tuning) |
 | `WheelXit` | XIT (Transmit Incremental Tuning) |
 | `WheelVolume` | Master Volume |
+| `WheelSliceAudio` | Slice Audio Volume |
 | `WheelHeadphoneVolume` | Headphone Volume |
 | `WheelAgcT` | AGCT (Automatic Gain Control Threshold) |
 | `WheelApf` | APF (Audio Peaking Filter) |
@@ -53,6 +54,10 @@ Available actions for both combo boxes include:
 | `ToggleAgc` | Toggle AGC |
 | `VolumeUp` | Slice AF Up |
 | `VolumeDown` | Slice AF Down |
+
+### New in v26.6.3
+
+- **Slice Audio Volume** (`WheelSliceAudio`): Adjusts the audio volume of the active slice independently from the master volume. This action was added to the available action list in v26.6.3.
 
 ## Tips
 

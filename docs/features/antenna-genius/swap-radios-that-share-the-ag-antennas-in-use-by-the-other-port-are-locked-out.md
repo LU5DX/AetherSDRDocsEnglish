@@ -77,6 +77,12 @@ When two radios share one Antenna Genius, each radio connects to a separate port
 - **Status label shows "Disconnected" or "Error: <msg>"** — antenna buttons cannot be changed while disconnected. Reconnect using Connect or by re-entering the IP in Manual IP and pressing Enter. Invalid addresses produce a red "Invalid IP address" status. The last-used manual IP is stored in `AG_ManualIp` and restored on next launch.
 - **A ShackSwitch device appears in the Device combo but does not auto-connect** — ShackSwitch devices discovered on the LAN are excluded from automatic connection in the Antenna Genius applet. They are handled by the ShackSwitch applet instead. Select the correct Antenna Genius device from the Device combo and click Connect, or enter its IP in Manual IP and press Enter.
 
+## Disconnecting Clears Antenna Buttons
+
+When you disconnect from an Antenna Genius device, the antenna button grid is cleared immediately. All antenna buttons disappear from both Port A and Port B sections. This is expected behaviour — the antenna list is only available while connected to the device.
+
+When you reconnect, the antenna buttons are rebuilt from the device's antenna list as soon as the response arrives. If the list is not yet available, the existing buttons remain in place until the fresh data arrives.
+
 ## Theme Support
 
 As of v26.6.1, the Antenna Genius applet fully supports theming through the ThemeManager system. All widget colours (backgrounds, borders, text, accent colours, and status indicators) are now derived from the active theme rather than hard-coded. This means the applet's appearance automatically adapts when you switch themes in AetherSDR.

@@ -22,14 +22,14 @@ The **Radio** tab shows radio identification, license information, and firmware 
 
 ### Reading radio information
 
-- **Radio SN** — Chassis serial number (read-only). Shows the chassis serial if available, otherwise the radio serial.
+- **Radio SN** — Chassis serial number (read-only). Shows the chassis serial if available, otherwise the radio serial. Includes a clipboard copy button next to the value.
 - **Region** — Radio regulatory region (read-only).
-- **HW Version** — Hardware version string (read-only).
-- **Model** — Radio model (read-only).
-- **Options** — Licensed radio options (read-only). Shows the radio's options list, or a default like "GPS, PGXL" if an amplifier is detected.
+- **HW Version** — Hardware version string (read-only). Includes a clipboard copy button next to the value.
+- **Model** — Radio model (read-only). Includes a clipboard copy button next to the value.
+- **Options** — Licensed radio options (read-only). Shows the radio's options list, or a default like "GPS, PGXL" if an amplifier is detected. Includes a clipboard copy button next to the value.
 - **FlexControl** — Detected state of FlexControl hardware (read-only).
 - **multiFLEX** — multiFLEX enabled state (read-only).
-- **License Info** — Displays subscription, expiration, Radio ID, and licensed version (read-only).
+- **License Info** — Displays subscription, expiration, Radio ID, and licensed version (read-only). Each field includes a clipboard copy button next to the value.
 
 ### Copying radio information
 
@@ -56,12 +56,20 @@ Each read-only value has a small copy button next to it. Click the copy button t
 | Control | What it does | Notes |
 |---|---|---|
 | **Check for Update** | Queries for available firmware updates. | When an update is found, the label directs you to download the installer from flexradio.com. |
-| **Select Installer...** | Opens a file picker for `.msi`, `.exe`, or `.ssdr` files. | Renamed from **Browse .ssdr...** in v0.9.3. |
+| **Select Installer...** | Opens a file picker for `.msi`, `.exe`, or `.ssdr` files. | Renamed from **Browse .ssdr...** in v26.5.3. |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. | Enabled only after extraction completes. |
 
 ### Remote On
 
 Click **Remote On** to enable remote wake / remote-on functionality on the radio.
+
+### Reboot Radio
+
+Click **Reboot Radio** to reboot the connected radio. A confirmation dialog appears:
+- **LAN connection**: AetherSDR disconnects and automatically reconnects once the radio finishes booting.
+- **SmartLink/WAN connection**: AetherSDR disconnects and does not auto-reconnect. You must reconnect manually once the radio finishes booting.
+
+The button is disabled when the radio is disconnected. It re-enables automatically when the radio reconnects.
 
 ---
 
@@ -71,13 +79,13 @@ The **Network** tab shows radio network information and advanced network options
 
 ### Reading network info
 
-- **IP Address / Mask / MAC Address** — Read-only network addresses.
+- **IP Address / Mask / MAC Address** — Read-only network addresses. Each includes a clipboard copy button.
 
 ### Network configuration
 
 | Control | What it does | Default | Notes |
 |---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle to reject non-RFC1918 peers. | — | — |
+| **Enforce Private IP Connections:** | Toggle to reject non-RFC1918 peers. | Enabled | — |
 | **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. | 1450 | Range 576–9000 bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings. |
 | **DHCP / Static** | Toggle between DHCP and Static IP modes. | — | — |
 | **IP Address: / Mask: / Gateway:** | Static IP configuration fields. | — | Enabled when Static mode is selected. |
@@ -259,31 +267,4 @@ Toggle **Auto (Voice / CW / Digital)** to enable automatic filter-level selectio
 
 ### Low latency for digital modes
 
-Check **Use Low Latency Filters for Digital Modes** to force low-latency filters in DIGU/DIGL.
-
----
-
-## XVTR tab
-
-The **XVTR** tab manages per-transverter configuration.
-
-### Transverter list
-
-The tab contains nested tabs, one per transverter, plus a **'+'** tab to create new entries.
-
-### Controls per transverter
-
-| Control | What it does | Notes |
-|---|---|---|
-| **RX Only:** | Forces RX-only on that transverter. | — |
-| **Remove (xvtr)** | Deletes the transverter definition. | — |
-
-### Adding a transverter
-
-Click **Create New Transverter** to add a new transverter entry.
-
----
-
-## USB Cables tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable
+Check **Use Low Latency Filters for Digital Modes** to force low-lat

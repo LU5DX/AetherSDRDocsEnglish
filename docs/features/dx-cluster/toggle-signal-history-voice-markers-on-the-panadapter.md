@@ -10,7 +10,7 @@ Enable gold markers on the panadapter that show detected voice-width signals, he
 
 1. Open **Settings > SpotHub...**.
 2. Click the **Display** tab.
-3. Click **Signals** (labeled "Signal History") to toggle it to the checked/on state.
+3. Click **Signals** (labeled "Signal History") to toggle it to the on state.
 
 The gold markers now appear on the panadapter at frequencies where AetherSDR has detected voice-width signals. Click a marker with the cursor to tune your active slice to that frequency.
 

@@ -18,13 +18,13 @@ The Bias knob moves the operating point on the tube transfer curve, changing the
 
 ## What each control does
 
-| Control   | Default | Valid range |
-|-----------|---------|-------------|
-| Bias (TX) | 0 %     | 0 % to 100 % (internal 0.0 to 1.0) |
-| Bias (RX) | 0 %     | 0 % to 100 % (internal 0.0 to 1.0) |
+| Control   | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Bias (TX) | 0 %                                                                                                                                                                                 | 0 % to 100 % (internal 0.0 to 1.0)                                                                                                                                                                        |
+| Bias (RX) | 0 %                                                                                                                                                                                 | 0 % to 100 % (internal 0.0 to 1.0)                                                                                                                                                                        |
+| RN2       | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
 
 The Bias knob uses a linear mapping. The displayed value is a percentage. Internally the setting is stored as a value from 0.0 to 1.0 in `ClientTubeTxBias` (TX side) or `ClientTubeRxBias` (RX side).
-
 ## Envelope control
 
 The Envelope knob modulates the tube drive dynamically based on signal level. When set to positive values, the tube gets hotter (more saturation) on loud transients. When set to negative values, the tube reduces saturation on peaks, compressing harmonics.

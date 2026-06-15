@@ -46,7 +46,6 @@ Use the **Network Diagnostics** dialog to monitor the live network link between 
 | Deselect All (Logs)                              | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                         |
 | Live / Paused (Logs)                             | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      |                                                                                                         |
 | Close                                            | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
-
 ## Using the Logs tab
 
 The **Logs** tab provides a live tail of the AetherSDR log file directly inside the dialog.

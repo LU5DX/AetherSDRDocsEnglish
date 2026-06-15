@@ -22,8 +22,8 @@ The CW decode panel appears beneath the panadapter and displays incoming Morse c
 | **Sens** slider            | Filters low-confidence characters. Higher values reject more uncertain decodes.                                                                                             | 30      |
 | **🔒P (Lock Pitch)** toggle | Locks the decoder to the current detected pitch so it stops searching.                                                                                                      | Off     |
 | **🔒S (Lock Speed)** toggle | Locks the decoder to the current detected speed (WPM).                                                                                                                      | Off     |
-| **Lo** slider              | Minimum pitch the decoder searches. Clamped to be ≤ **Hi**.                                                                                                                 | 500 Hz  |
-| **Hi** slider              | Maximum pitch the decoder searches. Clamped to be ≥ **Lo**.                                                                                                                 | 700 Hz  |
+| **Pitch** range slider     | Sets the minimum and maximum pitch the decoder searches. A single double-handle slider replaces the previous separate Lo/Hi sliders. Range: 300–1200 Hz.                     | 500–700 Hz |
+| **WPM** range slider       | Sets the minimum and maximum speed the decoder searches. A single double-handle slider. Range: 5–60 WPM.                                                                   | 15–40 WPM |
 | **CPY ALL**                | Copies the entire decoded text buffer to the clipboard.                                                                                                                     | —       |
 | **CPY VIS**                | Copies only the text currently visible in the scroll area to the clipboard.                                                                                                 | —       |
 | **CLR**                    | Clears the CW decode buffer.                                                                                                                                                | —       |
@@ -44,14 +44,15 @@ When the radio reconnects, the desired panadapter FPS and waterfall line duratio
 ## Tips
 
 - If the text area fills with low-confidence (orange or red) characters, increase **Sens** to filter them out. Start around 50 and raise until noise characters disappear.
-- Narrow the pitch search range with **Lo** and **Hi** to match the sidetone of the station you are copying. This reduces false triggers from nearby signals.
+- Narrow the pitch search range with the **Pitch** slider to match the sidetone of the station you are copying. This reduces false triggers from nearby signals.
+- Narrow the speed range with the **WPM** slider to match the sending speed of the station you are copying. This improves decoding accuracy.
 - Once the **CW stats label** settles on a stable pitch and speed, enable **🔒P (Lock Pitch)** and **🔒S (Lock Speed)** to prevent the decoder from drifting to another signal.
 - Use **CLR** before a new QSO to keep the text area readable. You can also right-click the **CW decode text** area and choose **Clear** from the context menu.
 
 ## Troubleshooting
 
 - **No text appears in the decode area** — Verify PC audio is routed to AetherSDR. The panel shows "(requires PC Audio)" as a reminder. Without it the decoder receives no audio and produces no output.
-- **Decode text is mostly red or orange** — The signal confidence is low. Increase **Sens**, or narrow the **Lo**/**Hi** pitch range to match the actual sidetone frequency shown in the **CW stats label**.
+- **Decode text is mostly red or orange** — The signal confidence is low. Increase **Sens**, or narrow the **Pitch** range to match the actual sidetone frequency shown in the **CW stats label**. Also narrow the **WPM** range to match the sending speed.
 - **Wrong pitch or speed shown in CW stats label** — Do not engage **🔒P (Lock Pitch)** or **🔒S (Lock Speed)** until the stats label has stabilised on the target signal.
 - **Waterfall has long TX trail after unkeying** — In v26.6.1, this is fixed. If you still see artifact trails, ensure you are running the latest version. A radio reconnect reasserts the correct FPS and waterfall line duration.
 

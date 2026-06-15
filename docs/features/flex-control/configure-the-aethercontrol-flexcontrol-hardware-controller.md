@@ -41,7 +41,7 @@ Configure a physical FlexControl or the virtual AetherControl wheel for tuning a
 ## Tips
 
 - The **Wheel Tightness** and **Mouse Sensitivity** sliders only affect the virtual wheel (trackpad/pointer use), not a physical FlexControl.
-- Pre-built action IDs include: `Tune Slice`, `Band Zoom`, `Segment Zoom`, `RIT`, `XIT`, `Master Volume`, `Headphone Volume`, `AGCT`, `APF`, `Clear RIT`, `Clear XIT`, `Toggle APF`, `Change Active Slice`, `Split Active Slice`, `MOX`, `RF Power`, `CW Speed`, `Step Up`, `Step Down`, `Toggle Tune`, `Toggle Mute`, `Toggle Lock`, `Previous Slice`, `Toggle AGC`, `Slice AF Up`, `Slice AF Down`, `None`, and CWX macros 1–12.
+- Pre-built action IDs include: `Tune Slice`, `Band Zoom`, `Segment Zoom`, `RIT`, `XIT`, `Master Volume`, `Slice Audio Volume`, `Headphone Volume`, `AGCT`, `APF`, `Clear RIT`, `Clear XIT`, `Toggle APF`, `Change Active Slice`, `Split Active Slice`, `MOX`, `RF Power`, `CW Speed`, `Step Up`, `Step Down`, `Toggle Tune`, `Toggle Mute`, `Toggle Lock`, `Previous Slice`, `Toggle AGC`, `Slice AF Up`, `Slice AF Down`, `None`, and CWX macros 1–12.
 - Settings are saved automatically when you adjust controls in this dialog.
 - The virtual wheel now uses double-click to capture and release, providing a more intuitive experience than the previous click-to-capture / Escape-to-release model. Escape still works as a secondary release path.
 - The FlexControl dialog automatically restores LED state on the physical device when it receives a hardware reset command, ensuring the Aux LEDs match the application's active wheel-mode button.

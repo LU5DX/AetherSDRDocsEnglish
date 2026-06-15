@@ -37,8 +37,8 @@ The CW decode panel provides off-air Morse decoding with the following controls:
 | Sens | Slider | 30 | 0-100 | Filters low-confidence decodes; higher = stricter. Maps 0-100 to cost threshold 1.0-0.1. |
 | 🔒P (Lock Pitch) | Toggle button | — | — | Locks the CW decoder pitch to the current tuned frequency. |
 | 🔒S (Lock Speed) | Toggle button | — | — | Locks the CW decoder speed to the current WPM. |
-| Lo (pitch min) | Slider | 500 | 300-1200 Hz | Minimum pitch the CW decoder searches; clamped ≤ Hi. |
-| Hi (pitch max) | Slider | 700 | 300-1200 Hz | Maximum pitch the CW decoder searches; clamped ≥ Lo. |
+| Pitch range | Dual-handle slider | Lo: 500, Hi: 700 | 300-1200 Hz | Minimum and maximum pitch the CW decoder searches. Values are clamped so Lo ≤ Hi. |
+| WPM range | Dual-handle slider | Lo: 15, Hi: 40 | 5-60 WPM | Minimum and maximum speed the CW decoder searches. Values are clamped so Lo ≤ Hi. |
 
 ### Display Controls
 
@@ -93,6 +93,31 @@ After step 2 the spectrum should be live.
 ## Multi-Flex Session Support (v0.9.7+)
 
 In Multi-Flex sessions, the slice title uses the radio-provided index letter to match the slice badge. The optional per-client letter overrides the standard A-H assignment to ensure the title matches the actual slice being displayed (#2606).
+
+## RTTY Decode Panel (v26.6.3+)
+
+The RTTY decode panel appears automatically when the slice mode is set to RTTY or DIGL. It provides off-air RTTY decoding with the following controls:
+
+### Decoder Controls
+
+| Control | Type | Default | Range | Behavior |
+|---------|------|---------|-------|----------|
+| BAUD | Combo box | 45.45 | 45.45, 50, 75, 100, 110, 150, 200, 300 | Selects the RTTY baud rate. |
+| SHIFT | Combo box | 170 | 170, 200, 425, 850 | Selects the RTTY frequency shift. |
+| CPY ALL | Push button | — | — | Copies the full decoded text to the clipboard. |
+| CPY VIS | Push button | — | — | Copies only the text currently visible in the scroll area. |
+| CLR | Push button | — | — | Clears the RTTY decode buffer. |
+| ✕ (close RTTY) | Push button | — | — | Hides the RTTY decode panel. |
+
+### Decoded Text Display
+
+The read-only rolling display shows decoded RTTY characters.
+
+### Decoder Requirements
+
+- Requires PC audio routing to the radio for off-air decoding.
+- The panel only appears when the slice mode is RTTY or DIGL.
+- Baud rate and shift settings are saved per-slice and persist across sessions.
 
 ## Related
 

@@ -19,9 +19,9 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 
 | Control | Default | Valid range | Persisted key (TX / RX) |
 |---|---|---|---|
-| **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | **Thresh** | −40.0 dB | −80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
 | **Ratio** | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` |
+| **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | **Release** | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
 | **Floor** | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` |
 
@@ -34,6 +34,16 @@ When audio levels hover near the threshold, the gate can open and close rapidly,
 **Floor** sets the maximum attenuation the gate can apply. Default is −15.0 dB; range is −80.0 to 0.0 dB.
 
 The transfer curve draws a soft-cyan vertical band between (Thresh − Return) and Thresh whenever Return is greater than 0.0 dB. This band is the gate's sticky zone — signals inside it leave the gate in whatever state it is already in.
+
+## Transfer curve and live indicators
+
+The **Transfer curve** indicator plots the expander's static transfer curve and a live ball at the current input level. A soft-cyan vertical band appears between (Thresh − Return) and Thresh to make the hysteresis deadband visible.
+
+The **Gain-reduction bar** is a horizontal amber strip, right-filled, with a scale that maxes at 40 dB. A tick at -15 dB marks the soft-expander default floor. The bar fills to show depth of attenuation while the gate is closed.
+
+The **Input ball** on the transfer curve shows whether the gate is currently open or closed based on its position relative to the threshold and hysteresis band.
+
+The animation of the gain-reduction bar and input ball uses a precise timer for smooth visual updates. When the audio level settles, the animation timer stops to conserve CPU. If the smoothed value changes between ticks, the widget repaints immediately without waiting for the next timer interval, ensuring responsive visual feedback even during rapid level changes.
 
 ## Inline value editing
 

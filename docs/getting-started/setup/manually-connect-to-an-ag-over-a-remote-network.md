@@ -45,6 +45,8 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 - If the Device combo contains a discovered device, clicking Connect connects to that device, not the Manual IP. Clear or ignore the combo selection if you want the Manual IP to take effect via the Connect button. Pressing Enter in the Manual IP field always uses the typed address regardless of the combo state.
 - Port B is hidden automatically if the connected Antenna Genius reports only one radio port.
 - Auto-connect on discovery applies only to Antenna Genius devices. If a ShackSwitch is discovered on the same network, it is not auto-connected from this applet; it is handled by the ShackSwitch applet instead.
+- The antenna button grid is cleared when the device disconnects and rebuilt when a connection is established. This ensures the display and the model remain consistent while disconnected.
+- Antenna buttons are not rebuilt until the model has loaded the antenna list. If the grid appears blank briefly after connecting, wait for the antenna list response from the device.
 
 ## Troubleshooting
 
@@ -52,6 +54,7 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 - **Status label shows "Error: \<msg\>"** — AetherSDR reached the network layer but could not complete the connection. Verify that port 9007 is open and the Antenna Genius is powered on and reachable at the address you entered.
 - **AG tray button never appears** — The applet remains hidden until a connection is established. Check the status label inside the applet panel for error details. If the panel itself is not visible, enable it via `View > Applet Panel`.
 - **A discovered device is not auto-connecting** — If the first device discovered on the LAN is a ShackSwitch, the Antenna Genius applet will not auto-connect to it. The ShackSwitch applet handles that device. Check whether a separate Antenna Genius device is present on your network.
+- **Antenna button grid is blank after connecting** — This is normal if the antenna list has not loaded yet. Wait a few seconds for the model to receive the antenna list from the device. If the grid remains blank, disconnect and reconnect.
 
 ## Related
 

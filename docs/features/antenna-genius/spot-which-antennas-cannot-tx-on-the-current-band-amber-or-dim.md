@@ -34,10 +34,12 @@ Buttons are also disabled and dim when the same antenna is already selected on t
 
 - Button colours refresh automatically when the radio changes band, so you do not need to reopen the applet after a band change.
 - If you use AUTO mode, the applet selects antennas based on band-follow rules. The same colour coding applies to the automatically selected antenna. See [Enable AUTO mode so the AG follows radio band changes](enable-auto-mode-so-the-ag-follows-radio-band-changes.md).
+- When disconnected, the antenna button grid is cleared automatically to keep the display consistent with the model state.
 
 ## Troubleshooting
 
 - **All buttons are dim after connecting** — The applet may not yet have received band information from the radio. Confirm the radio is tuned to a valid band and that the status label shows "Connected". If the applet was opened before the radio was on a band, change bands once to trigger a refresh.
+- **All buttons are blank (no antenna buttons shown) after connecting** — The antenna list may not have loaded yet. The applet waits for the device to send its antenna list before building the button grid. If buttons remain blank, disconnect and reconnect to the device.
 - **Colours do not update when changing bands** — The band-follow update requires an active connection to the Antenna Genius device. Verify the status label still reads "Connected — \<name\> v\<version\>" and that no error is displayed.
 - **A ShackSwitch device is not auto-connecting here** — ShackSwitch devices discovered over UDP are handled by the ShackSwitch applet, not the Antenna Genius applet. If you see a ShackSwitch appear in the Device combo but it does not auto-connect, open the ShackSwitch applet to manage it.
 

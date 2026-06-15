@@ -40,7 +40,6 @@ Each knob in the Aetherial De-Esser applet supports direct numeric entry. Click 
 | Attack (channel strip only)  | 1.0 ms               | 0.1 to 30.0 ms                           |
 | Release (channel strip only) | 100 ms               | 10.0 to 500.0 ms                         |
 | Slope                        | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) |
-
 ## Sidechain response curve
 
 The Sidechain response curve indicator shows the bandpass filter response with a live ball at the current centre frequency. In compact mode, the curve widget displays the response without frequency axis labels. The axis labels use `QStaticText` for efficient rendering and display frequencies as "100", "500", "1k", "2k", "3k", "4k", "5k", "6k", "8k", "10k", "12k" when not in compact mode.

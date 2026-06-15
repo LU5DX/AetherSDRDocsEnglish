@@ -28,7 +28,16 @@ The header row sits above the tabs and is always visible.
 | Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type a value in MHz and press Enter or Tab to apply. Scroll-wheel over the frequency display tunes by the current step size. If the slice is locked, a visual LOCKED overlay is shown and scroll-wheel tuning is blocked. |
 | Filter width label | Shows the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (v0.9.8). |
 | TX badge | Shown in red when this slice is the active transmit slice. In collapsed mode, click the badge to toggle TX assignment. |
-| SPLIT badge | Shown in amber when TX is assigned to a different slice than the active receive slice. |
+| SPLIT badge | Shown in amber when TX is assigned to a different slice than the active receive slice. From v26.6.3, the badge uses improved opacity styling for better visibility — white at 120 alpha in normal state, 180 alpha on hover. |
+
+### Tab buttons
+
+The tab row provides buttons for Mode, Audio, DSP, X/RIT, and DAX. From v26.6.3:
+
+- Tab buttons are now `QPushButton` instances instead of `QLabel`, making them keyboard-focusable.
+- Press **Tab** to focus the tab buttons. Use arrow keys or **Enter** to switch tabs.
+- The active tab shows a teal bottom border. Tab buttons have no visible focus outline.
+- **Right-click** the Audio tab button to toggle mute for the current slice directly.
 
 ### Mode tab
 
@@ -118,6 +127,8 @@ Click the frequency display to begin direct entry. The following rules apply:
 - On bands between 100-999 MHz (2m, 70cm), a bare integer like `1446` is interpreted as `144.6`, `14696` as `146.96`, and `144600` as `144.600`. This convenience does not apply above 1000 MHz (23cm and microwave bands), where a bare integer represents the frequency in MHz directly.
 - If you explicitly enter a frequency above 54 MHz (e.g., `144.200`), the parser treats it as a valid MHz entry and accepts frequencies up to 50000 MHz, even if the slice is not on an XVTR band.
 
+From v26.6.3, the frequency entry field uses a `FreqLineEdit` widget with hint text "MHz (e.g. 14.225)" displayed when the field is empty.
+
 ## Locked slice behavior
 
 When a slice is locked:
@@ -126,6 +137,12 @@ When a slice is locked:
 - Scroll-wheel tuning is blocked. If you attempt to tune a locked slice, a visual LOCKED overlay appears on the frequency display and any in-progress direct frequency entry is cancelled.
 - The LOCKED overlay clears automatically when you unlock the slice.
 - Direct frequency entry is prevented while locked — clicking the frequency display does not enter edit mode, and any active direct entry is cancelled immediately.
+
+## Scroll-wheel tuning
+
+From v26.6.3, scroll-wheel tuning respects the `InteractionSettings::reverseMouseWheel` setting. When reverse mouse wheel is enabled, scroll-up now decreases the frequency and scroll-down increases it. This applies to all scroll interactions on the VFO panel including the frequency display and collapsed mode.
+
+Accessibility: From v26.6.3, the frequency label fires `QAccessibleValueChangeEvent` when the frequency changes, ensuring screen readers announce the new frequency value. The accessibility update is rate-limited to avoid excessive announcements.
 
 ## Theming and Inspector support
 
@@ -152,20 +169,5 @@ The ADSP button and other push buttons in the panel use theme-aware styling thro
 - Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
 - Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY audio feeds external decoders via DAX channels, and squelch could gate weak FSK signals. CW mode locks squelch on at a fixed level.
 - The Pan slider fill anchors from centre outward with theme-aware colours. Double-click to reset to centre.
-
-## Related
-
-- [Tune the radio by typing a frequency into the VFO panel](tune-the-radio-by-typing-a-frequency-into-the-vfo-panel.md)
-- [Change mode from the VFO panel](change-mode-from-the-vfo-panel.md)
-- [Apply a filter width preset from the VFO panel](apply-a-filter-width-preset-from-the-vfo-panel.md)
-- [Set a custom filter edge from the VFO panel](set-a-custom-filter-edge-from-the-vfo-panel.md)
-- [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
-- [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)
-- [Enable squelch from the VFO panel](enable-squelch-from-the-vfo-panel.md)
-- [Enable noise reduction from the VFO panel](enable-noise-reduction-from-the-vfo-panel.md)
-- [Enable RIT or XIT offset from the VFO panel](enable-rit-or-xit-offset-from-the-vfo-panel.md)
-- [Assign a DAX channel from the VFO panel](assign-a-dax-channel-from-the-vfo-panel.md)
-- [Change the VFO marker line thickness](change-the-vfo-marker-line-thickness.md)
-- [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
-- Lock a slice to
+- Tab buttons are now keyboard-focusable. Press **Tab** to navigate between tabs, then **Enter** or **Space** to select a tab.
+- Right-click the Audio tab button to toggle mute for the current slice.

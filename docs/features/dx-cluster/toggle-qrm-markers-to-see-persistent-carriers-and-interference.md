@@ -25,6 +25,7 @@ To disable QRM markers, click the toggle again.
 - Use the **QRM Gate** slider to ignore brief transmissions and only mark signals that persist long enough to be interference.
 - Double-click any slider knob in the Signal History section to instantly reset it to its factory default value.
 - The SpotHub dialog now uses theme-aware colors instead of hardcoded values. Status labels change color based on the active theme: accent color when connected, label color when disconnected, and danger color on error.
+- The **Override Colors**, **DXCC Colors**, **Spot Lines**, and **Snap to Step** toggle buttons now always display their default text ("Enabled" or "Disabled") instead of changing text when toggled. The toggle state is indicated by the button's pressed state and background styling, not by the label text.
 
 ## Related
 

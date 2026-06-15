@@ -23,10 +23,11 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). When switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice. |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE build flag is set) | Sets slice mode. Changing mode reshapes filter and step presets automatically. When switching to RTTY or digital modes (DIGU, DIGL) squelch is auto-disabled to prevent notching out FSK characters (#2504). When switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice. Selecting a real radio mode also tears down any active WFM software-demod overlay on this slice. |
+| WFM button | — | — | Toggles the software FM demodulator (WFM) on or off for this slice. Uses DAX IQ via Hi-Fi Cable. Active when checked (green background). Selecting any real radio mode from the mode combo automatically deactivates WFM for this slice. |
 | Frequency label | 0.000.000 | — | Displays the current VFO frequency with dotted grouping. Click to enter edit mode. |
 | Frequency edit | — | 0.001–54.000 MHz (up to 50000.000 MHz on XVTR, or when entry exceeds 54 MHz and is explicit MHz) | Type a frequency in MHz and press Enter to tune and re-center. Supports kHz/Hz auto-scaling: entries above 54000 are treated as Hz, above 54 as kHz (unless the entry is explicit MHz). On XVTR antennas, 3-digit 2m/70cm band shortcuts are supported (e.g. 1446 → 144.6 MHz). Press Escape to cancel and restore the previous frequency. Frequency entry uses `FrequencyEntryParser::normalizedMhzText()` and `isExplicitMhzEntry()` for consistent parsing across the app. |
-| STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. |
+| STEP | 100 Hz | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | Click the left/right triangle buttons or use the mouse wheel to cycle through step sizes. The available steps change with mode. Both the `stepSizeChanged` and `stepSizeChangedByUser` signals are emitted when the user changes the step. |
 
 ### Antenna selection
 
@@ -50,7 +51,7 @@ Filter width presets are the one setting that persists across sessions, stored u
 | Control | Default | Valid range | Behavior |
 |---|---|---|---|
 | AGC mode | Med | Off, Slow, Med, Fast | Sets the AGC response speed. Hidden in FM family modes. |
-| AGC threshold | 65 | 0–100 | Sets the AGC threshold. When AGC mode is Off, adjusts the AGC off-level instead. |
+| AGC threshold | 65 | 0–100 | Sets the AGC threshold. When AGC mode is Off, adjusts the AGC off-level instead. Right-click on the slider to open a context menu with a "Calibrate AGC-T against noise floor…" option (tooltip also advertises this action). |
 
 ### Audio
 
@@ -124,9 +125,4 @@ Connects to an Antenna Genius device at the specified IP and port. The "Connecte
 | Port field | `SS_ControlPort` | 9007 | Port used for the AG control protocol. Always connects on port 9007 regardless of the value entered. |
 | Connect button | — | — | Connects to the ShackSwitch at the specified IP on port 9007 using the AG control protocol. |
 | Disconnect button | — | — | Disconnects from the ShackSwitch. |
-| Connected status | — | — | Shows "Connected" only when the active connection is to a ShackSwitch device. |
-| ⚙ Web UI button | `SS_ManualIp`, `SS_WebPort` | port 5000 | Opens the ShackSwitch web interface in your browser. Uses the live peer address if a ShackSwitch is currently connected. Uses `SS_WebPort` from settings if set and greater than 1024, otherwise falls back to the device's advertised `webPort` if valid (>1024), then defaults to port 5000. Does nothing if no IP address can be determined. |
-
-Both the AG and ShackSwitch rows share the underlying `AntennaGeniusModel` connection. Connecting to one will reflect as disconnected in the other.
-
-## The
+| Connected status | — | — | Shows "Connected" only when the active connection is to

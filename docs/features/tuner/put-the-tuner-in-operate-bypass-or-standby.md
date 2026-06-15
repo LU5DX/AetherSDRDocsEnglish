@@ -42,3 +42,171 @@ The button label and color update immediately when the TGXL acknowledges the sta
 - [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
 - [Read SWR immediately after a tune](read-swr-immediately-after-a-tune.md)
 - [Fine-tune the C1/L/C2 relays with the mousewheel](fine-tune-the-c1-l-c2-relays-with-the-mousewheel.md)
+
+---
+
+# Monitor forward power and SWR on the Tuner applet
+
+The Tuner applet displays forward power and SWR gauges reported by the 4O3A Tuner Genius XL.
+
+## Before you start
+
+- AetherSDR must be connected to the radio and the TGXL must be detected on the network.
+
+## Steps
+
+1. Click the TUN tray button on the right sidebar to open the Tuner applet.
+2. Locate the **Fwd Pwr** gauge at the top of the applet. It displays forward power in watts.
+3. Locate the **SWR** gauge below it. It displays the SWR ratio.
+
+## Gauge scaling
+
+The forward power gauge scale depends on your hardware configuration:
+
+| Configuration | Scale range |
+|---|---|
+| Barefoot (no amplifier) | 0–200 W |
+| Aurora amplifier | 0–600 W |
+| PGXL amplifier | 0–2000 W |
+
+The SWR gauge ranges from 1.0 to 3.0. Values above 2.5 display in red to indicate a high SWR condition.
+
+## Important behavior changes in v26.6.3
+
+- **SWR gauge now resets to 1.0 when forward power is below 5 W.** The TGXL reports an SWR of 99.9 at idle when no incident signal is present. To prevent this from pegging the gauge, the SWR bar resets to 1.0 whenever forward power drops below 5 W. This matches the threshold used for the SWR label display.
+- **Accessible names added** for screen reader support: "Forward power", "SWR", "Tuner capacitor C1", "Tuner inductor L", "Tuner capacitor C2".
+
+## Troubleshooting
+
+- **The SWR gauge shows 1.0 even when transmitting** — Check that forward power exceeds 5 W. The SWR gauge only displays the measured value when forward power is at least 5 W.
+
+## Related
+
+- [Put the tuner in OPERATE, BYPASS, or STANDBY](#)
+- [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
+
+---
+
+# Run an autotune on the external TGXL
+
+Use the TUNE button in the Tuner applet to start an automatic tuning cycle on the 4O3A Tuner Genius XL.
+
+## Before you start
+
+- The Tuner applet must be open. The TGXL must be detected on the network.
+- Ensure your radio is transmitting at a suitable power level for tuning (typically 5–100 W).
+
+## Steps
+
+1. Click the **TUNE** button in the Tuner applet.
+2. The button label changes to **TUNING...** and turns red while the tuning cycle is in progress.
+3. When tuning completes, the button label flashes **SWR x.xx** for approximately 2.5 seconds, showing the post-tune SWR.
+4. After the flash, the button returns to its default **TUNE** label.
+
+## Direct connection behavior (v0.9.2.1 and later)
+
+When a direct TGXL connection is configured (port 9010) in Radio Setup → Tuner, the autotune command is sent directly to the TGXL, bypassing the radio's firmware path. This resolves tuning issues that some users experienced with FlexRadio firmware 4.2.
+
+When no direct connection is configured, the autotune command routes through the radio's firmware path.
+
+Configure the direct connection in **Radio Setup → Tuner**.
+
+## Tips
+
+- The TUNE button will not respond if the tuner is in BYPASS or STANDBY mode. Set the tuner to OPERATE first.
+- The post-tune SWR flash allows you to read the final SWR immediately after tuning without having to watch a separate meter.
+
+## Troubleshooting
+
+- **The TUNE button remains red and does not return to TUNE** — The tuning cycle may have been interrupted. Click TUNE again or check the connection to the TGXL.
+- **TUNE is grayed out or unresponsive** — Verify the tuner is in OPERATE mode and the TGXL is detected.
+
+## Related
+
+- [Read SWR immediately after a tune](read-swr-immediately-after-a-tune.md)
+- [Put the tuner in OPERATE, BYPASS, or STANDBY](#)
+
+---
+
+# Fine-tune the C1/L/C2 relays with the mousewheel
+
+Adjust individual relay bank positions on the 4O3A Tuner Genius XL using the mousewheel over the C1, L, and C2 relay bars.
+
+## Before you start
+
+- A direct TGXL connection (port 9010) must be active. The relay bars can only be adjusted when AetherSDR has a direct connection to the TGXL.
+- The Tuner applet must be open.
+
+## Steps
+
+1. Position your mouse cursor over the **C1**, **L**, or **C2** relay bar in the Tuner applet.
+2. Scroll the mousewheel up to increase the relay position, or down to decrease it.
+3. The relay bar updates immediately to show the new position.
+
+## Relay ranges
+
+| Relay | Range | Description |
+|---|---|---|
+| C1 | 0–255 | Capacitor bank 1 |
+| L | 0–255 | Inductor bank |
+| C2 | 0–255 | Capacitor bank 2 |
+
+## When scrolling is disabled
+
+The mousewheel scrolling is only enabled when a direct TGXL connection is active. If you are using the radio's firmware path to communicate with the tuner, the relay bars display the current values but cannot be adjusted with the mousewheel.
+
+## Tips
+
+- Fine-tuning relays is useful for optimizing a match after an autotune, or for manually adjusting the tuner to a specific impedance.
+- The relay values are sent immediately to the TGXL on each scroll event.
+
+## Related
+
+- [Tuner overview](overview.md)
+- [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
+
+---
+
+# Tuner overview
+
+The Tuner applet provides control and monitoring for the 4O3A Tuner Genius XL external antenna tuner.
+
+## Prerequisites
+
+- A 4O3A Tuner Genius XL must be present on your network.
+- The TGXL must be detected by AetherSDR automatically or configured manually.
+
+## Accessing the Tuner applet
+
+Click the **TUN** button in the right sidebar to open or close the Tuner applet. The applet is hidden until a TGXL is detected.
+
+## Applet layout
+
+The Tuner applet contains:
+
+- **Forward power gauge** (Fwd Pwr) — displays forward power in watts
+- **SWR gauge** — displays SWR ratio (1.0–3.0)
+- **Relay bars** (C1, L, C2) — show current relay bank positions
+- **TUNE button** — starts an autotune cycle
+- **OPERATE/BYPASS/STANDBY button** — cycles tuner mode
+- **ANT 1/2/3 buttons** — antenna port selection (only visible when direct TGXL connection is active)
+
+## Network connections
+
+The Tuner Genius XL can connect to AetherSDR through two paths:
+
+1. **Radio firmware path** — The TGXL communicates through the FlexRadio's network connection. This is the default.
+2. **Direct connection (port 9010)** — AetherSDR connects directly to the TGXL. This enables:
+   - Mousewheel adjustment of C1/L/C2 relays
+   - ANT 1/2/3 antenna switch selection
+   - Bypass of the radio's firmware path for autotune commands
+
+Configure the connection in **Radio Setup → Tuner**.
+
+## Related pages
+
+- [Put the tuner in OPERATE, BYPASS, or STANDBY](#)
+- [Monitor forward power and SWR on the Tuner applet](#)
+- [Run an autotune on the external TGXL](run-an-autotune-on-the-external-tgxl.md)
+- [Read SWR immediately after a tune](read-swr-immediately-after-a-tune.md)
+- [Fine-tune the C1/L/C2 relays with the mousewheel](fine-tune-the-c1-l-c2-relays-with-the-mousewheel.md)

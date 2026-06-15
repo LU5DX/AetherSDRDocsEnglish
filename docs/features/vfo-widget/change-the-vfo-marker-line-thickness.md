@@ -148,11 +148,11 @@ The VFO panel is a floating per-slice control panel anchored to the VFO marker o
 |---|---|---|---|
 | RX antenna button | push_button | - | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button | push_button | - | Opens antenna selection menu for the transmit antenna of this slice. |
-| Frequency display | indicator | - | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. Direct entry is blocked when the slice is locked. |
+| Frequency display | indicator | - | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. Direct entry is blocked when the slice is locked. Uses a `FreqLineEdit` widget for the edit field with hint text "MHz (e.g. 14.225)". |
 | Filter width label | indicator | - | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses a single source of truth (`RxApplet::formatFilterWidth`) to generate its readout. |
 | AF Gain slider (Audio tab) | slider | 100 | Sets the audio output level for this slice. Range 0-100. |
 | Pan slider (Audio tab) | slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. Range 0-100. Groove fills from centre outward with a centre-mark dot at the neutral position. |
-| Mute button (Audio tab) | toggle_button | off | Mutes audio output for this slice without changing the AF gain setting. |
+| Mute button (Audio tab) | toggle_button | off | Mutes audio output for this slice without changing the AF gain setting. Right-click the Audio tab label to toggle mute directly. |
 | Squelch button + slider (Audio tab) | toggle_button | off | Enables squelch for this slice. The adjacent slider sets the threshold. Range 0-100. |
 | AGC combo (Audio tab) | combo_box | FAST | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | toggle_button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
@@ -161,5 +161,4 @@ The VFO panel is a floating per-slice control panel anchored to the VFO marker o
 | Mode combo (Mode tab) | combo_box | USB | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. |
 | Filter preset buttons (Mode tab) | push_button | - | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in `FilterPresets`. |
 | RIT / XIT buttons + labels (X/RIT tab) | toggle_button | off | Enables receiver (RIT) or transmitter (XIT) incremental tuning. Scroll-wheel adjusts in 10 Hz steps. |
-| DAX channel combo (DAX tab) | combo_box | Off | Assigns a DAX audio channel to this slice. Options: Off, 1-8. |
-| Marker thickness button | push_button | 1 px | Cycles the VFO marker line through Off
+| DAX channel combo (DAX tab) | combo_box | Off | Assigns a

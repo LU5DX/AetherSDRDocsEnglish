@@ -24,16 +24,16 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 
 ## What each control does
 
-| Control                            | Default                                                                                                                              | Valid range                                                                                                                                                                                                                                    |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Port**                           | `50001`                                                                                                                              | 1024–65535                                                                                                                                                                                                                                     |
-| **Enable**                         | Off                                                                                                                                  | On / Off                                                                                                                                                                                                                                       |
-| **TX gain+meter**                  | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
-| **RX1 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
-| **RX2 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
-| **RX3 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
-| **RX4 gain+meter**                 | `0.5`                                                                                                                                | 0.0–1.0                                                                                                                                                                                                                                        |
-| **TX overflow mode (right-click)** | Clip                                                                                                                                 | Clip (0), NaNGuard (1), Measure (2)                                                                                                                                                                                                            |
+| Control | Default | Valid range | Setting key |
+|---------|---------|-------------|-------------|
+| **Port** | `50001` | 1024–65535 | `TciPort` |
+| **Enable** | Off | On / Off | — |
+| **TX gain+meter** | `0.5` | 0.0–1.0 | `TciTxGain` |
+| **RX1 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain1` |
+| **RX2 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain2` |
+| **RX3 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain3` |
+| **RX4 gain+meter** | `0.5` | 0.0–1.0 | `TciRxGain4` |
+| **TX overflow mode (right-click)** | Clip | Clip (0), NaNGuard (1), Measure (2) | `TciTxOverflowMode` |
 
 ## TX overflow handling modes
 
@@ -63,6 +63,7 @@ Right-click the **TX gain+meter** slider to open the TX overflow handling contex
 - Slice assignment labels now support rich text rendering, so slice letters may appear with additional formatting (e.g., color) to indicate slice properties.
 - For digital modes requiring bit-exact tone fidelity, use **NaN guard** or **Measure only** modes to avoid harmonic distortion from clipping.
 - The applet container uses the theme system (`applet/tci`) for consistent styling across all themes.
+- The TCI server is explicitly torn down when AetherSDR closes to prevent a use-after-free condition, fixed in v0.9.7.
 
 ## Troubleshooting
 

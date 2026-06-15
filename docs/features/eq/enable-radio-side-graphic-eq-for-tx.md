@@ -43,6 +43,7 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 - Clicking ON a second time disables the equalizer without clearing your band settings. Your slider positions are preserved.
 - To start from a flat response before shaping, click the Reset arc button before enabling ON.
 - When dragging an EQ band slider, a popup appears near the slider handle showing the current value with a "+" sign for positive values (e.g., "+3 dB") and a "-" sign for negative values (e.g., "-5 dB"). The popup lingers briefly after you release the mouse button.
+- Keyboard nudges (e.g., using assigned shortcuts) also trigger the value popup, providing the same visual feedback as mouse dragging. After a keyboard step, the popup appears and fades with the same linger timeout as a mouse release.
 - The applet now fully supports theme colors. The EQ slider handle uses the accent color from the active theme, while the slider groove and scale labels use the appropriate background and secondary text colors. The reset button and band labels also adapt to theme colors for a consistent appearance.
 
 ## Troubleshooting

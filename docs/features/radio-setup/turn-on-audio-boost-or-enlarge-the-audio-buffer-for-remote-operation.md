@@ -10,6 +10,8 @@ The **Radio Setup** dialog is the master configuration window for per-radio sett
 
 The **Radio Setup** dialog uses a persistent dialog that remembers its size and position between sessions. Geometry is saved in `RadioSetupDialogGeometry` in the application settings.
 
+Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals) are wrapped in a vertical scroll area. The scrollbar appears only when content overflows; on wide screens there is no visual change.
+
 ## Radio tab
 
 The **Radio** tab displays radio identification and firmware management controls.
@@ -41,12 +43,21 @@ Each read-only field has a copy button to its right that copies the displayed va
 
 Click **Remote On** to enable remote wake / remote-on capability for the radio.
 
+### Reboot Radio
+
+Click **Reboot Radio** to reboot the connected radio. A confirmation dialog appears before the reboot.
+
+- On a LAN connection: AetherSDR disconnects and automatically reconnects once the radio finishes booting.
+- On a SmartLink/WAN connection: AetherSDR disconnects. You must reconnect manually after the radio finishes booting.
+
+The button is disabled when the radio is disconnected or reconnecting.
+
 ### Firmware update
 
 1. Click **Check for Update** to query the radio for available firmware versions.
 2. If an update is available, the status label displays the version and instructs you to download the SmartSDR installer from flexradio.com.
 3. Download the SmartSDR installer (.msi for v4.2+, .exe for older releases).
-4. Click **Browse .ssdr...** and choose the downloaded installer or a pre-extracted .ssdr file in the file picker.
+4. Click **Select Installer...** and choose the downloaded installer or a pre-extracted .ssdr file in the file picker.
 5. A progress bar and status label show the extraction progress. When staging completes, click **Upload Firmware** to transfer the firmware to the radio.
 
 ## Network tab
@@ -317,12 +328,4 @@ The **Peripherals** tab manages external devices via direct TCP connection (TGXL
 
 ### TGXL
 
-Click **Connect** to open a direct TCP connection to the TGXL on port 9010. The IP and port are saved to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup.
-
-When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed.
-
-If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled.
-
-### PGXL
-
-Click **Connect** to open a direct TCP connection to the Power Genius XL (default port 9008). IP and port are saved to `PGXL
+Click **Connect** to open a direct TCP connection to the TGXL on port 9010. The IP and port are saved to `TGXL

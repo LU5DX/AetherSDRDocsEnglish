@@ -19,17 +19,17 @@ This page explains how to set the threshold level at which the Aetherial Compres
 
 ## What each control does
 
-| Control            | Default | Valid range | Behavior |
-|--------------------|---------|-------------|----------|
-| Thresh             | −18.0 dB | −60.0 to 0.0 dB | Linear mapping. Sets the level above which compression starts. Label formatted as '-18.0 dB'. |
-| Ratio              | 3.0 | 1.0 to 20.0 | Logarithmic mapping (1 * 20^n). Sets how hard peaks are held once threshold is crossed. Label formatted as 'X.XX:1'. |
-| Attack             | 20.0 ms | 0.1 to 300.0 ms | Exponential mapping (0.1 * 3000^n). Sets how quickly the compressor clamps down after the threshold is crossed. Label formatted 'X.X ms' below 10, 'X ms' above. |
-| Release            | 200 ms | 5 to 2000 ms | Exponential mapping (5 * 400^n). Sets how quickly gain returns after the input drops back below threshold. Label formatted 'X ms'. |
-| Makeup             | 0.0 dB | −12.0 to 24.0 dB | Linear mapping. Adds back gain lost to compression. Label shows explicit '+' sign for positive values. |
-| Transfer curve     | — | — | Compact-mode ClientCompCurveWidget. Draws the input/output transfer curve plus a live ball showing the current envelope level. View-only in the applet; editable in the floating ClientCompEditor. |
-| Gain-reduction bar | — | 0 to 20 dB GR | Horizontal amber strip, right-filled. Scale maxes at 20 dB reduction; a tick at -6 dB marks a typical working amount. Refreshed ~30 Hz from ClientComp::gainReductionDb() with MeterSmoother ballistics. |
-| Drive              | 0.0 dB | 0.0 to 18.0 dB | Pre-comp gain boost with linked auto-makeup. Pushes more signal across the threshold so the compressor engages harder, and simultaneously adds equal gain at the output so average RMS lifts alongside peaks rather than dropping. Pair with Phase to keep peaks clean. Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. Tooltip explains #2887 PAPR reduction pairing. Auto-makeup matches the broadcast-Optimod model — Drive pushes more material into the curve AND adds equal gain back, so the user's fixed Makeup stays a clean post-everything trim knob. |
-| Phase              | 0 stages | 0 to 6 stages | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). All-pass cascade that symmetrizes asymmetric voice peaks before compression. 0 = off, 4 = broadcast default.' Default centres (300/700/1500/2500 Hz with optional 1000/2000 Hz) cover the speech formant range without bunching. |
+| Control            | Default       | Valid range      | Setting key               | Notes                                                        |
+|--------------------|---------------|------------------|---------------------------|--------------------------------------------------------------|
+| Thresh             | −18.0 dB      | −60.0 to 0.0 dB  | `ClientCompTxThresholdDb` | Linear mapping. Sets the level above which compression starts. |
+| Ratio              | 3.0           | 1.0 to 20.0      | `ClientCompTxRatio`       | Logarithmic mapping. Label formatted as `X.XX:1`.           |
+| Attack             | 20.0 ms       | 0.1 to 300.0 ms  | `ClientCompTxAttackMs`    | Exponential mapping. Label `X.X ms` below 10, `X ms` above. |
+| Release            | 200 ms        | 5 to 2000 ms     | `ClientCompTxReleaseMs`   | Exponential mapping. Label formatted as `X ms`.             |
+| Makeup             | 0.0 dB        | −12.0 to 24.0 dB | `ClientCompTxMakeupDb`    | Linear mapping. Label shows `+` sign for positive values.   |
+| Transfer curve     | —             | —                | —                         | Compact-mode ClientCompCurveWidget. View-only in applet.    |
+| Gain-reduction bar | —             | 0 to 20 dB GR    | —                         | Horizontal amber strip, right-filled. Tick at −6 dB.        |
+| Drive              | 0.0 dB        | 0.0 to 18.0 dB   | `ClientCompTxDriveDb`     | Pre-comp gain boost with linked auto-makeup. In floating StripCompPanel only. Label `+X.X dB`. |
+| Phase              | 0 stages      | 0 to 6 stages    | `ClientCompTxPhaseRotatorStages` | All-pass cascade for PAPR reduction. Label `Off` when 0, `N stg` when active. In floating StripCompPanel only. |
 
 ## Tips
 

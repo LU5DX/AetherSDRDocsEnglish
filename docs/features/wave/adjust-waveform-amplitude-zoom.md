@@ -31,6 +31,23 @@ The Window slider selects from discrete time window steps. The first two notches
 
 The settings drawer (which contains the View, Zoom, Window, and FPS controls) remembers whether it was open or closed when you last used the applet. When you reopen the Waveform applet, the drawer restores to its previous state. If you always want the drawer open, leave it open before closing the applet or restarting AetherSDR.
 
+## Lean mode
+
+When lean mode is active, the Waveform applet is hidden from view and all audio scope data is silently discarded without any processing. This reduces CPU usage by avoiding the real-time waveform rendering that normally runs at the configured FPS rate.
+
+To toggle lean mode for the Waveform applet:
+
+1. Open the appearance or applet management panel (available from the right-click menu or toolbar).
+2. Locate the Waveform applet entry.
+3. Click the visibility toggle to enable or disable lean mode.
+
+When lean mode is off, the applet is visible and processes audio normally. When lean mode is on, the applet is hidden and the `setActive(false)` method is called, which:
+- Hides the applet widget from the user interface.
+- Drops all incoming scope sample data without appending it to the buffer.
+- Stops the 24 Hz software repaint cycle.
+
+The upstream `AudioEngine::{tx,rx}PostChainScopeReady` signals still fire on each audio callback, but the scope processing is skipped entirely.
+
 ## Tips
 
 - At high zoom levels, signals near full scale will produce clipping highlights (red column emphasis and a CLIP N counter in the header). If you see frequent clipping indicators after raising zoom, reduce the value until the trace fits within the display without hitting the edges.
@@ -38,6 +55,7 @@ The settings drawer (which contains the View, Zoom, Window, and FPS controls) re
 - To inspect a transient at higher zoom without missing it in real time, pause the display first by single-clicking the waveform, then adjust zoom while the snapshot is frozen.
 - Use a shorter window (240 ms or 480 ms) to see fine details in fast waveforms. Use a longer window (5 s to 10 s) to see overall level changes over time.
 - The click discrimination interval used to distinguish single-click from double-click respects the value you set in Radio Setup → Interaction Settings. Changes to that setting take effect immediately without restarting AetherSDR.
+- In lean mode, the Waveform applet uses no CPU resources for rendering, making it ideal for operators who rarely need the scope but want it available on demand.
 
 ## Troubleshooting
 
@@ -46,6 +64,7 @@ The settings drawer (which contains the View, Zoom, Window, and FPS controls) re
 - **Zoom resets after restarting AetherSDR** — Verify the value is being persisted. If the application closed abnormally, the `WaveApplet_ZoomPercent` setting may not have been written. Set the slider to the desired value after a clean launch.
 - **Window setting changed unexpectedly after update** — If upgrading from a previous version that used the `WaveApplet_TimeWindowSec` setting (1–20 s linear), the value is automatically migrated to the nearest discrete step in `WaveApplet_TimeWindowMs`. Verify the setting and adjust if needed.
 - **The no-audio placeholder message changed** — When no RX audio is arriving, the display now shows "Enable PC Audio" instead of "no RX audio". This indicates you need to enable PC audio in the radio settings or audio configuration. For TX, the message still shows "no TX audio".
+- **The Waveform applet does not appear after enabling it** — If lean mode is enabled for the applet, it will remain hidden even when toggled on. Disable lean mode in the applet management panel to make the waveform display visible again.
 
 ## Related
 

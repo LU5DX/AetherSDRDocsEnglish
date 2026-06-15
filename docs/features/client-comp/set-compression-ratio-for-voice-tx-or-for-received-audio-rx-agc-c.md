@@ -19,15 +19,15 @@ The Ratio knob controls how hard the compressor clamps peaks once the signal cro
 
 ## What each control does
 
-| Control | Default | Valid range |
-|---------|---------|-------------|
-| Ratio | 3.0 | 1.0 to 20.0 |
-| Thresh | -18.0 dB | -60.0 to 0.0 dB |
-| Attack | 20.0 ms | 0.1 to 300.0 ms |
-| Release | 200 ms | 5 to 2000 ms |
-| Makeup | 0.0 dB | -12.0 to 24.0 dB |
-| Drive | 0.0 dB | 0.0 to 18.0 dB |
-| Phase | 0 stages (off) | 0 to 6 stages |
+| Control | Default        | Valid range      |
+|---------|----------------|------------------|
+| Ratio   | 3.0            | 1.0 to 20.0      |
+| Thresh  | -18.0 dB       | -60.0 to 0.0 dB  |
+| Attack  | 20.0 ms        | 0.1 to 300.0 ms  |
+| Release | 200 ms         | 5 to 2000 ms     |
+| Makeup  | 0.0 dB         | -12.0 to 24.0 dB |
+| Drive   | 0.0 dB         | 0.0 to 18.0 dB   |
+| Phase   | 0 stages (off) | 0 to 6 stages    |
 
 The Ratio knob uses a logarithmic mapping (`1 × 20^n`) so that low ratios (gentle compression, 1.0–4.0:1) occupy most of the knob travel and high ratios (hard limiting, up to 20.0:1) are compressed into the upper end.
 
@@ -50,7 +50,7 @@ The transfer curve widget uses color tokens from the active theme via `ThemeMana
 
 ## Gain-reduction meter
 
-The horizontal amber strip fills from right to left, showing up to 20 dB of gain reduction. A tick mark at -6 dB indicates a typical working amount of reduction. The meter refreshes at approximately 30 Hz using MeterSmoother ballistics applied to the `ClientComp::gainReductionDb()` value.
+The horizontal amber strip fills from right to left, showing up to 20 dB of gain reduction. A tick mark at -6 dB indicates a typical working amount of reduction. The meter refreshes at approximately 30 Hz using MeterSmoother ballistics applied to the `ClientComp::gainReductionDb()` value. The gain-reduction bar repaints only when the smoothed value changes or when the animation timer is active, conserving CPU cycles during quiet periods.
 
 ## Tips
 
@@ -75,3 +75,4 @@ The horizontal amber strip fills from right to left, showing up to 20 dB of gain
 - [Watch live gain reduction while speaking or listening](watch-live-gain-reduction-while-speaking-or-listening.md)
 - [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md)
 - [Bypass the compressor from the chain](bypass-the-compressor-from-the-chain.md)
+- [Set pre-comp Drive and Phase Rotator for PAPR reduction](set-pre-comp-drive-and-phase-rotator-for-papr-reduction.md)

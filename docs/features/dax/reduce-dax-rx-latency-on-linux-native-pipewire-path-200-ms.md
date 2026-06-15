@@ -22,11 +22,11 @@ No additional configuration is required. The PipeWire path is used automatically
 | Control | Default | Valid range | Persisted key | Description |
 |---|---|---|---|---|
 | DAX Enable | Off | On / Off | `AutoStartDAX` | Master switch. Starts all DAX RX and TX streams. Must be on for audio to flow. |
-| DAX 1 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain1` | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain. |
-| DAX 2 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain2` | Combined level meter and gain slider for DAX channel 2. |
-| DAX 3 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain3` | Combined level meter and gain slider for DAX channel 3. |
-| DAX 4 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain4` | Combined level meter and gain slider for DAX channel 4. |
-| TX gain+meter | 0.5 | 0.0 – 1.0 | `DaxTxGain` | Combined level meter and gain slider for the DAX TX stream. |
+| DAX 1 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain1` | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain. Accessible name: "DAX RX 1 gain". |
+| DAX 2 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain2` | Combined level meter and gain slider for DAX channel 2. Accessible name: "DAX RX 2 gain". |
+| DAX 3 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain3` | Combined level meter and gain slider for DAX channel 3. Accessible name: "DAX RX 3 gain". |
+| DAX 4 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain4` | Combined level meter and gain slider for DAX channel 4. Accessible name: "DAX RX 4 gain". |
+| TX gain+meter | 0.5 | 0.0 – 1.0 | `DaxTxGain` | Combined level meter and gain slider for the DAX TX stream. Accessible name: "DAX TX gain". |
 | Slice-assignment status (per channel) | — | — or Slice A–H | *(none)* | Read-only indicator showing which slice is routed to each DAX channel. |
 
 ## Tips

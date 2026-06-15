@@ -30,7 +30,6 @@ Use the Tone knob to tilt the spectral character of the saturated signal — neg
 | Attack    | 5.00 ms                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                            |
 | Release   | 35.00 ms                                                                                                                                                                            | 10.0 to 500.0 ms                                                                                                                                                                                          |
 | RN2       | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
-
 ## Output level meter
 
 The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX**) includes an **OUT** level meter in the far-right column. This meter shows the post-saturation peak level and uses fast-attack / slow-release ballistics.

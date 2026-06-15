@@ -26,6 +26,10 @@ Choose how aggressively the de-esser's sidechain filter attenuates frequencies o
 - For heavy sibilance that triggers on many words, try **12 dB/oct** — the gentler slope preserves more natural timbre.
 - For extreme "S" sounds on an otherwise clear voice, **48 dB/oct** can target only the harshest sibilant band with minimal mid-band impact.
 
+## Gain-reduction meter smoothing (v26.6.3)
+
+Beginning in v26.6.3, the gain-reduction meter uses an improved smoothing algorithm. The meter animation timer now stops when the gain-reduction value has settled, reducing unnecessary repaints. The meter redraws only when the smoothed value or a pending repaint flag indicates a visual change is needed. This optimization applies to both the docked Aetherial De-Esser applet and the Aetherial De-Esser — RX instance accessible through the Aetherial Audio Channel Strip.
+
 ## Color theming (v26.6.1)
 
 Beginning in v26.6.1, the De-Ess editor and its internal widgets (the sidechain response curve, knobs, and gain-reduction meter) read colors from the theme engine. The editor container registers under the `applet/deess` container key, so theme authors can assign distinct colors to the De-Ess editor panel. Curve colors (axis labels, grid lines, bandpass curve, threshold line, and centre-frequency ball) use the same theme namespace as other Aetherial applets. Knob components (arc, background ring, pointer, and labels) read from `color.knob.*`.

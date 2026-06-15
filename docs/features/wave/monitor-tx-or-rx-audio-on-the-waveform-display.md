@@ -32,6 +32,16 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 | Double-click on display | — | — | — | Toggles the settings drawer open or closed. |
 | Settings drawer | Expanded | Expanded / Collapsed | `WaveApplet_DrawerExpanded` | Remembers the drawer's open/closed state across app restarts. |
 
+## Lean mode
+
+When the applet is fully hidden (not just collapsed in the tray but disabled by the application's lean mode), the Waveform applet enters a low-overhead state:
+
+- The applet is hidden and does not occupy UI space.
+- The `appendScopeSamples` handler returns immediately without processing any audio data, so the sample buffer never grows and the 24 Hz software repaint never fires.
+- The upstream `AudioEngine::{tx,rx}PostChainScopeReady` signal continues to fire, but the scope feed is dropped on the GUI thread.
+
+To enable or disable lean mode for the Waveform applet, use the application's lean mode controls. When lean mode is active, calling `setActive(false)` hides the applet and short-circuits all scope processing. Calling `setActive(true)` restores the applet to visibility and resumes audio processing.
+
 ## Tips
 
 - When clipping occurs, affected columns are highlighted and a CLIP N counter appears in the header. Reduce your audio drive level or lower the Zoom value to bring the signal back within range.
@@ -39,6 +49,7 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 - The settings drawer remembers whether it was open or closed when you last used it, and restores that state on next launch.
 - The click discrimination interval used for single-click versus double-click detection is read from the Radio Setup at click time, so changes to `Settings > Radio Setup... > Audio > Click Discrimination Interval (ms)` take effect without restarting AetherSDR.
 - The Window slider uses discrete steps rather than continuous adjustment. Each notch provides a specific time window value. The first three steps (240 ms, 480 ms, 1 s) give sub-second detail; the remaining steps increase in 1-second increments up to 10 s.
+- In lean mode, the applet is completely inactive — it does not consume CPU cycles for audio processing or repainting. This is more efficient than simply hiding the applet panel.
 
 ## Troubleshooting
 
@@ -46,6 +57,7 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 - **The display shows "no TX audio"** — No TX scope samples have arrived in the last second. Verify that audio is flowing through the transmit path.
 - **The WAVE tray button is missing** — The applet panel may be hidden. Enable it via `View > Applet Panel`. If the panel is visible but WAVE is absent, use `View > Reset Applet Order` to restore the default applet layout.
 - **Single-click and double-click are not reliably distinguished** — Adjust the click discrimination interval in `Settings > Radio Setup... > Audio > Click Discrimination Interval (ms)`. A longer interval makes single-clicks easier, a shorter interval makes double-clicks easier.
+- **The applet does not appear and no waveform is shown** — The applet may be disabled by lean mode. Check the application's lean mode settings to ensure the Waveform applet is enabled.
 
 ## Related
 

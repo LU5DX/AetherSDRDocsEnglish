@@ -19,9 +19,9 @@ The bar fills from left to right as temperature rises. The bar turns yellow abov
 
 | Label    | Range        | Red threshold | Notes                                                                                                      |
 |----------|--------------|---------------|------------------------------------------------------------------------------------------------------------|
-| PA Temp  | 0–120 °C     | > 70 °C       |                                                                                                            |
-| +13.8V   | 10.0–16.0 V  | > 15 V        | The gauge label updates dynamically to show the live radio-reported voltage (e.g. `+13.82V`) instead of the static `+13.8V` placeholder. |
-| Main Fan | 0–3000 rpm   | > 2500 rpm    |                                                                                                            |
+| PA Temp  | 0–120 °C     | > 70 °C       | Accessible name: "PA temperature".                                                                         |
+| +13.8V   | 10.0–16.0 V  | > 15 V        | The gauge label updates dynamically to show the live radio-reported voltage (e.g. `+13.82V`) instead of the static `+13.8V` placeholder. Accessible name: "Supply voltage". |
+| Main Fan | 0–3000 rpm   | > 2500 rpm    | Accessible name: "Main fan speed".                                                                         |
 
 None of these controls have persisted settings keys. They are read-only telemetry displays.
 
@@ -30,6 +30,7 @@ None of these controls have persisted settings keys. They are read-only telemetr
 - The gauge uses smoothed ballistics, so brief peaks are visible without causing flicker. Sustained red-zone readings indicate a genuine thermal condition, not a transient spike.
 - The supply voltage gauge label reflects the live voltage value reported by the radio. The label updates each time a new reading arrives, so it always shows the current voltage to two decimal places (for example, `+13.82V`).
 - PA current is not shown. On FLEX-8000 series hardware the PA current meter clips under full PA draw, so it has been intentionally omitted.
+- Each gauge has an accessible name set for screen reader compatibility: "PA temperature", "Supply voltage", and "Main fan speed".
 
 ## Troubleshooting
 

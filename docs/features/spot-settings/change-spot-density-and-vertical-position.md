@@ -13,7 +13,7 @@ Use the Spot Settings dialog to control how many vertical rows of spots appear o
 2. The **Spot Settings** window opens.
 3. To change density — the number of vertical stacking rows — drag the **Levels:** slider. The current value displays to the right of the slider. Valid range: 1–10.
 4. To change vertical position — where the stack of rows sits on the panadapter — drag the **Position:** slider. The current value (0–100) displays to the right of the slider. Lower values move spots toward the top; higher values move them toward the bottom.
-5. To show or hide the vertical lines drawn from the spectrum baseline up to each spot label, click the **Spot Lines:** toggle. The toggle reads **Enabled** or **Disabled**. See [What each control does](#what-each-control-does) below.
+5. To show or hide the vertical lines drawn from the spectrum baseline up to each spot label, click the **Spot Lines:** toggle. See [What each control does](#what-each-control-does) below.
 6. Changes take effect immediately. Close the dialog when finished.
 
 ## What each control does

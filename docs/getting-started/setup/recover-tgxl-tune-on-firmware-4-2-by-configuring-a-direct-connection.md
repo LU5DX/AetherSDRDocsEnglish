@@ -8,23 +8,31 @@ The dialog remembers its size and position between sessions.
 
 The Radio tab displays radio identification, license information and firmware update controls.
 
-| Control                                             | Behavior                                                                                                                                                                                | Default                                                                                                                             |
-|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| Radio SN                                            | Chassis serial number (read-only).                                                                                                                                                      | —                                                                                                                                   |
-| Region                                              | Radio regulatory region (read-only).                                                                                                                                                    | USA                                                                                                                                 |
-| HW Version                                          | Hardware version string (read-only).                                                                                                                                                    | —                                                                                                                                   |
-| Remote On                                           | Enables remote wake / remote-on.                                                                                                                                                        | —                                                                                                                                   |
-| Options                                             | Shows licensed radio options (read-only).                                                                                                                                               | —                                                                                                                                   |
-| FlexControl                                         | Detected state of FlexControl hardware (read-only).                                                                                                                                     | —                                                                                                                                   |
-| multiFLEX                                           | multiFLEX enabled state (read-only).                                                                                                                                                    | —                                                                                                                                   |
-| Model                                               | Radio model (read-only).                                                                                                                                                                | —                                                                                                                                   |
-| Nickname                                            | User-friendly radio nickname.                                                                                                                                                           | —                                                                                                                                   |
-| Callsign                                            | Station callsign.                                                                                                                                                                       | —                                                                                                                                   |
-| Station Name                                        | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty.                                                                                     | —                                                                                                                                   |
-| License Info                                        | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                                                                      | —                                                                                                                                   |
-| Check for Update                                    | Queries for firmware updates.                                                                                                                                                           | —                                                                                                                                   |
-| Browse .ssdr...                                     | Chooses a firmware image file.                                                                                                                                                          | —                                                                                                                                   |
-| Upload Firmware                                     | Starts firmware upload with progress bar and status.                                                                                                                                    | —                                                                                                                                   |
+**Scroll support:** In v26.6.3 the Radio tab (and other tabs with stacked content groups) was wrapped in a vertical QScrollArea. This prevents the dialog from exceeding the screen height on small or high-DPI displays. The scrollbar is hidden when content already fits.
+
+| Control                                             | Behavior                                                                                                                                                                                    | Default                                                                                                                             |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                                            | Chassis serial number (read-only).                                                                                                                                                          | Includes a clipboard copy button (tray icon) next to the value. New in v26.5.3 (#2976).                                             |
+| Region                                              | Radio regulatory region (read-only).                                                                                                                                                        | USA                                                                                                                                 |
+| HW Version                                          | Hardware version string.                                                                                                                                                                    | Includes a clipboard copy button next to the value (#2976).                                                                         |
+| Remote On                                           | Enables remote wake / remote-on.                                                                                                                                                            | —                                                                                                                                   |
+| Options                                             | Shows licensed radio options.                                                                                                                                                               | Includes a clipboard copy button next to the value (#2976).                                                                         |
+| FlexControl                                         | Detected state of FlexControl hardware (read-only).                                                                                                                                         | —                                                                                                                                   |
+| multiFLEX                                           | multiFLEX enabled state (read-only).                                                                                                                                                        | —                                                                                                                                   |
+| Model                                               | Radio model.                                                                                                                                                                                | Includes a clipboard copy button next to the value (#2976).                                                                         |
+| Nickname                                            | User-friendly radio nickname.                                                                                                                                                               | —                                                                                                                                   |
+| Callsign                                            | Station callsign.                                                                                                                                                                           | —                                                                                                                                   |
+| Station Name                                        | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty.                                                                                         | —                                                                                                                                   |
+| License Info                                        | Displays license details from the radio (Subscription / Expiration / Radio ID / Licensed version).                                                                                          | —                                                                                                                                   |
+| Check for Update                                    | Queries for firmware updates.                                                                                                                                                               | —                                                                                                                                   |
+| Upload Firmware                                     | Starts firmware upload with progress bar and status.                                                                                                                                        | —                                                                                                                                   |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
+| Reboot Radio                                        | Reboots the connected radio. Opens a confirmation dialog before sending the reboot command. When connected via SmartLink/WAN, auto-reconnect is not supported after reboot; reconnect manually after the radio finishes booting. On LAN, AetherSDR automatically reconnects once the radio comes back online. The dialog closes after reboot. | Disabled when the radio is disconnected; enabled/disabled automatically based on connection state.                                   |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                   |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                        |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                     |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                          |
 
 ### Copy buttons
 
@@ -157,51 +165,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 | Save to: | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. | — | `QsoRecordingDir` |
 | ... | Browses for recording folder. | — | — |
 | Auto-record on TX | Automatically records while transmitting. | False | `QsoRecordingAutoRecord` |
-| Idle timeout: | Seconds of silence before recording stops. | 120 | `QsoRecordingIdleTimeout` |
-| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Controls the NVIDIA Broadcast noise-removal container. | — | — |
-
-### NVIDIA BNR status dot
-
-A colored dot next to the NVIDIA BNR controls indicates the container status (Running/Stopped/Unknown).
-
-## Filters tab
-
-The Filters tab configures low-latency / sharp filter options per bandwidth.
-
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Voice / CW / Digital filter sharpness sliders | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. | — | — |
-| Auto (Voice / CW / Digital) | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. | — | — |
-| Use Low Latency Filters for Digital Modes | Forces low-latency filters in DIGU/DIGL. | — | — |
-
-## XVTR tab
-
-The XVTR tab provides per-transverter configuration. Contains nested tabs, one per xvtr, and a '+' tab.
-
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| RX Only: | Forces RX-only on that transverter. | — | — |
-| Remove (xvtr) | Deletes the transverter definition. | — | — |
-| Create New Transverter | Adds a new transverter entry. | — | — |
-
-## USB Cables tab
-
-The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Cables list / Status | Detected USB cables per type with Plugged/Unplugged status. | — | — |
-| Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7) | Per-cable serial parameters and behavior. | — | — |
-
-## Peripherals tab
-
-The Peripherals tab allows connecting to external devices by IP (TGXL, PGXL, Antenna Genius).
-
-### TGXL direct connection
-
-See the dedicated section below for detailed setup instructions.
-
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| Connect / Disconnect (TGXL) | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect. | Connect | — |
-| Connect / Disconnect (PGXL) | Opens/closes direct TCP connection to the Power Genius XL
+| Idle timeout

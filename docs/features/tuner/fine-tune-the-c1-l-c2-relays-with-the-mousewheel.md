@@ -1,4 +1,4 @@
-# Fine-tune the C1/L/C2 relays with the mousewheel
+## Fine-tune the C1/L/C2 relays with the mousewheel
 
 After an autotune, you can nudge the C1, L, and C2 relay bank positions one step at a time using the mousewheel. This lets you manually walk the tuner through adjacent relay positions to chase a lower SWR without triggering a full retune.
 
@@ -28,7 +28,7 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
 | **SWR** | TGXL-reported SWR | 1.0–3.0 (red above 2.5) | — | — |
 | **Fwd Pwr** | TGXL-reported forward power | 0–200 W barefoot, 0–600 W Aurora, 0–2000 W with PGXL | — | — |
 
-## Notes about power display
+## Notes about power and SWR display
 
 - The forward power gauge auto-scales based on your radio and amplifier configuration:
   - **Barefoot (no amp):** 0–200 W, yellow above 80 W, red above 125 W
@@ -38,6 +38,7 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
 - The power gauge uses slow release ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms, preventing flicker from inter-packet noise.
 - A peak hold indicator (white tick) marks the highest forward power seen. The peak clears after 2.5 seconds with no new peak.
 - When power drops below the detection threshold, the PWR and SWR labels remain visible for 800 ms before returning to their default text, preventing blinking during brief pauses in transmission.
+- The SWR gauge automatically snaps to 1.0 when forward power is below 5 W. This prevents the gauge from pegging at a high value due to idle noise when no signal is present. The reading updates normally when forward power is 5 W or higher.
 
 ## Tips
 
@@ -49,6 +50,7 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
 - **Scrolling the mousewheel over a relay bar does nothing** — The direct TGXL connection is not active. Mousewheel scroll is enabled only when the direct connection is present. Check the connection state in the Tuner overview.
 - **Relay bar values change but SWR does not update** — The **SWR** gauge reflects TGXL-reported values via the direct connection. If the meter is frozen, the direct connection may have dropped.
 - **Power gauge stays stuck at a value** — The slow release ballistics keep the bar visible for 800 ms. If it remains stuck longer, the direct connection may have dropped.
+- **SWR gauge shows 1.0 even with a mismatch** — Check your forward power. The SWR gauge holds at 1.0 when forward power is below 5 W. Key the transmitter or increase drive until the power reading exceeds 5 W.
 
 ## Related
 

@@ -14,14 +14,14 @@ Displays radio identification, license information, and firmware update controls
 
 | Indicator | Behavior |
 |---|---|
-| **Radio SN** | Chassis serial number (read-only). |
-| **Model** | Radio model (read-only). |
-| **HW Version** | Hardware version string (read-only). |
+| **Radio SN** | Chassis serial number (read-only). Includes a clipboard copy button (tray icon) next to the value. |
+| **Model** | Radio model (read-only). Includes a clipboard copy button next to the value. |
+| **HW Version** | Hardware version string (read-only). Includes a clipboard copy button next to the value. |
 | **Region** | Regulatory region; default USA (read-only). |
 | **FlexControl** | Detected state of FlexControl hardware (read-only). |
 | **multiFLEX** | multiFLEX enabled state (read-only). |
-| **Options** | Shows licensed radio options (read-only). |
-| **License Info** | Displays subscription, expiration, Radio ID, and licensed version from the radio (read-only). |
+| **Options** | Shows licensed radio options (read-only). Includes a clipboard copy button next to the value. |
+| **License Info** | Displays subscription, expiration, Radio ID, and licensed version from the radio (read-only). Each field includes a clipboard copy button next to the value. |
 
 ### Editable fields
 
@@ -52,10 +52,11 @@ Each read-only indicator on the Radio tab now has a small **copy-to-clipboard bu
 |---|---|
 | **Remote On** | Enables remote wake / remote-on. |
 | **Check for Update** | Queries for available firmware updates. When an update is found, the status label reads: *Update available: vX.Y.Z — Download the SmartSDR installer from flexradio.com, then click 'Select Installer...' to stage it.* When firmware is current, the label reads: *Firmware is up to date (vX.Y.Z).* |
-| **Select Installer...** | Opens a file picker. Accepts a SmartSDR `.msi` installer (FlexRadio v4.2+ WiX format), an `.exe` self-extracting installer (older releases), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects the format from the first 8 bytes (OLE/MSI magic vs. PE/COFF MZ header) and extracts the `.ssdr` payload without external tools. Previously labelled **Browse .ssdr...** (changed in v0.9.3). |
+| **Select Installer...** | Opens a file picker. Accepts a SmartSDR `.msi` installer (FlexRadio v4.2+ WiX format), an `.exe` self-extracting installer (older releases), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects the format from the first 8 bytes (OLE/MSI magic vs. PE/COFF MZ header) and extracts the `.ssdr` payload without external tools. Previously labelled **Browse .ssdr...** (changed in v26.5.3). |
 | **Upload Firmware** | Starts the firmware upload. A progress bar and status label track progress. Enabled only after a valid file has been staged by **Select Installer...**. |
+| **Reboot Radio** | Prompts for confirmation: *Reboot the connected radio now?* The warning text differs for WAN (SmartLink) vs. LAN connections. On LAN, AetherSDR will automatically reconnect after the radio boots. On WAN, you must reconnect manually. Clicking OK sends the reboot command and closes the dialog. Disabled when the radio is not connected. Styled with a reddish background to indicate the destructive nature of the action. |
 
-### Staging a firmware update (v0.9.3 and later)
+### Staging a firmware update
 
 1. Click **Check for Update**.
 2. If an update is available, download the SmartSDR installer from flexradio.com.
@@ -74,14 +75,14 @@ Displays network addresses and lets you adjust network settings.
 
 | Indicator | Behavior |
 |---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses reported by the radio. |
+| **IP Address / Mask / MAC Address** | Read-only network addresses reported by the radio. Each includes a clipboard copy button. |
 
 ### Controls
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle button | — | Rejects non-RFC1918 peers. |
-| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range: 576–9000. Stored in `NetworkMtu`. |
+| **Enforce Private IP Connections:** | Toggle button | Enabled | Rejects non-RFC1918 peers. Always reads "Enabled" when toggled on. |
+| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Valid range 576–9000. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`. |
 | **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
 | **Apply** | Push button | — | Pushes the network config to the radio. |
@@ -130,8 +131,8 @@ Configures the microphone, CW keyer, and RTTY defaults.
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
 | **Enable/Disable the Level Meter During Receive** | Toggle button | — | Shows the mic level meter during RX. |
-| **Iambic:** | Toggle button | — | Enables or disables the iambic keyer on the radio. |
-| **Iambic Mode: A / B** | Push button (mutually exclusive pair) | A | Selects Curtis iambic mode A or B for both the radio hardware keyer and the local software keyer. Mode A = Curtis A; Mode B = Curtis B. Added in v0.9.1. |
+| **Iambic:** | Toggle button | — | Enables or disables the iambic keyer on the radio. Always reads "Enabled" when toggled on. |
+| **Iambic Mode: A / B** | Push button (mutually exclusive pair) | A | Selects Curtis iambic mode A or B for both the radio hardware keyer and the local software keyer. Mode A = Curtis A; Mode B = Curtis B. |
 | **Swap:** | Toggle button | — | Swaps dit and dah. |
 | **Sideband:** | Combo box | — | Selects CW pitch sideband (LSB or USB). |
 | **CWX:** | Toggle button | — | Enables CWX macro keying. |
@@ -146,7 +147,7 @@ Configures the microphone, CW keyer, and RTTY defaults.
 
 Provides GPSDO frequency offset calibration and 10 MHz reference source selection.
 
-In v0.9.2.1, the calibration controls became available regardless of whether a GPSDO is installed. The status label at the top of the group reads:
+The calibration controls are available regardless of whether a GPSDO is installed. The status label at the top of the group reads:
 
 - **GPSDO installed. Manual frequency offset calibration available.** (green) — GPSDO present.
 - **Manual frequency offset calibration available.** (amber) — no GPSDO.
@@ -197,9 +198,4 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Front Speaker: / Mute** | Push button | — | Mutes the front speaker (model-specific). |
 | **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Push button | Auto | Selects the audio codec for SmartLink/LAN connections. Stored in `AudioCompression`. |
 | **Prevent system sleep while connected** | Checkbox | False | Keeps the OS awake while the radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored in `InhibitSleepWhileConnected`. |
-| **PC Audio Devices: Input: / Output:** | Combo box | — | Picks the host audio input and output devices. |
-| **Audio Boost:** | Toggle button | — | Enables extra gain on the client audio path. Stored in `AudioBoost`. |
-| **Audio Buffer:** | Text field | 200 | Audio buffer size in milliseconds for VPN/SmartLink jitter compensation. Range: 50–1000 ms. Stored in `AudioBufferMs`. |
-| **Recording: Radio Side / Client Side** | Push button | Radio Side | Selects radio-side or client-side recording. Stored in `RecordingMode`. |
-| **Save to:** | Text field | — | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored in `QsoRecordingDir`. |
-| **...** |
+| **PC Audio Devices: Input: / Output:** | Com

@@ -44,13 +44,15 @@ The preset button now applies your custom filter edges when clicked. The values 
 | Filter edges button              | Toggles the filter edge lines on the spectrum passband display. Persisted per slice.                                                                                                                                                                                                                                                                                                                                                                                                                           | shown                                                                                                                   |
 | Collapse toggle                  | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice.                                                                                                                                                                                                                                                                                                                                                                                                                                | expanded                                                                                                                |
 | Lock button                      | Toggles the VFO lock for this slice. When locked, scroll-wheel tuning and direct frequency entry are blocked. A lock icon is displayed on the frequency display. Tuning attempts while locked show a LOCKED overlay and notify via `tuneBlockedByLock` signal (#2983). Direct frequency entry is automatically canceled when locking. Unlocking clears the LOCKED overlay centrally in SliceModel.                                                                                                                | unlocked                                                                                                                |
+| TX badge                         | Shows TX (red) when this slice is the active transmit slice; hidden otherwise.                                                                                                                                                                                                                                                                                                                                                                                                                                 | hidden                                                                                                                  |
+| SPLIT badge                      | Shows SPLIT (amber) when TX is assigned to a different slice than the active receive slice; hidden otherwise. Click to swap TX and RX slices.                                                                                                                                                                                                                                                                                                                                                                  | hidden                                                                                                                  |
 
 ### Indicators
 
 | Label        | States                | Meaning                                                                 |
 |--------------|-----------------------|-------------------------------------------------------------------------|
 | TX badge     | TX (red) / hidden     | Shown when this slice is the active transmit slice. The badge and its container now use theme-aware tokens (`color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, `color.accent`, `color.accent.bright`). Inspect-mode clicks on the badge or signal meter reveal these tokens for theme customization. |
-| SPLIT badge  | SPLIT (amber) / hidden | Shown when TX is assigned to a different slice than the active receive slice. |
+| SPLIT badge  | SPLIT (amber) / hidden | Shown when TX is assigned to a different slice than the active receive slice. Click to swap TX and RX slices. |
 
 ### DSP tab buttons
 
@@ -81,6 +83,18 @@ Functions that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
 
 Functions that do not target the level slider: RNN, ANFT, APF.
 
+## VFO panel tab bar
+
+The tab bar at the top of the VFO panel uses push buttons instead of labels (v26.6.3). Each tab button is focusable with the Tab key. The active tab has an accent-colored bottom border. The default tab (Audio/Speaker) supports a right-click context menu for direct mute toggling.
+
+## Accessibility
+
+The frequency display includes accessibility support (v26.6.3). When accessibility tools are active, the frequency value is announced when it changes. The frequency input field uses a custom `FreqLineEdit` widget with hint text instead of placeholder text for improved accessibility.
+
+## Scrolling behavior
+
+The VFO panel respects the reverse mouse wheel setting in `InteractionSettings` (v26.6.3). When reverse wheel is enabled, scrolling up decreases the frequency and scrolling down increases it.
+
 ## Theming
 
 The VFO panel uses its own theming scope (`spectrum/vfo`) to allow independent styling from the spectrum display. The VFO marker flag, slice badge, and signal meter paint using theme tokens declared to the theme inspector. When you click the slice badge or signal meter with the theme inspector open, the following tokens appear in the hit list:
@@ -104,9 +118,4 @@ The Pan slider and Marker thickness button buttons use theme-aware stylesheets. 
 - Squelch is automatically disabled and forced off when you switch to DIGU, DIGL, RTTY, or any CW mode. To re-enable squelch, switch to a voice mode (USB, LSB, AM, SAM, FM, NFM, DFM).
 - When the VFO panel is in collapsed mode, the scroll wheel tunes the slice by step size even if the wheel event does not occur over the frequency display. In expanded mode, scrolling only tunes when the cursor is over the frequency display.
 - The VFO panel tab stack now reports only the current tab's preferred size, eliminating the gap that could occur when switching from the taller DSP tab to the Mode tab.
-
-## Related
-
-- [Apply a filter width preset from the VFO panel](apply-a-filter-width-preset-from-the-vfo-panel.md)
-- [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md)
-- [Change mode from the VFO panel](change-mode-from-the-vfo-panel.md)
+- Right-click the speaker tab

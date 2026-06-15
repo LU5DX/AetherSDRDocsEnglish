@@ -35,6 +35,8 @@ The ClientGateCurveWidget displays the static transfer curve. In compact mode (u
 
 The curve widget reads theme colors from the active theme. The curve uses the `color.accent.warning` palette entry (amber), and all background, grid, and axis label colors are sourced from the `color.background.*` and `color.text.*` theme namespaces.
 
+The transfer curve widget uses a meter-smoothing timer to reduce visual flicker. The timer runs at a high-precision interval and repaints only when the smoothed value changes or when the smoothing engine indicates a repaint is needed, minimising CPU usage during steady-state operation.
+
 ## Inline Value Editing
 
 Each knob supports direct numeric entry. Click the displayed value text to open an inline editor. The editor appears as a small text field with a subtle dark background and cyan border when focused. Type the desired value (e.g., "12.5 ms" or "-40.0 dB") and press Enter to commit, or click elsewhere on the screen. The value is automatically clamped to the knob's valid range. Press Escape to cancel the edit and revert to the previous value.

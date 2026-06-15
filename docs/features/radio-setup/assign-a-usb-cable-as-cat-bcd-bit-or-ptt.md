@@ -34,28 +34,29 @@ Each read-only value field has a copy button. Click the clipboard icon to copy t
 
 ### License information
 
-The **License Info** section displays subscription status, expiration date, radio ID, and licensed version.
+The **License Info** section displays subscription status, expiration date, radio ID, and licensed version. Each field includes a clipboard copy button next to the value.
 
 ### Firmware update
 
 | Control | Description |
 |---|---|
 | **Check for Update** | Queries for firmware updates. |
-| **Browse .ssdr...** | Chooses a firmware image file. |
+| **Select Installer...** | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. |
 | **Firmware status** | Empty until a firmware upload begins, then shows progress and result text. |
 
-### Remote control
+### Remote control and reboot
 
-| Control | Description |
-|---|---|
-| **Remote On** | Enables remote wake / remote-on. |
+| Control | Description | Notes |
+|---|---|---|
+| **Remote On** | Enables remote wake / remote-on. | |
+| **Reboot Radio** | Reboots the connected radio. | Only enabled when the radio is connected. Clicking shows a confirmation dialog. On WAN/SmartLink connections, you must reconnect manually after the radio finishes booting. On LAN connections, AetherSDR automatically reconnects. The dialog closes after reboot is initiated. New in v26.6.3 (#3334). |
 
-## SmartLink tab
+### SmartLink tab
 
 The SmartLink tab manages pinned SmartLink TLS certificates. Lists each pinned certificate with host, SHA-256 fingerprint, and pinned date. Cert-pin mismatch now hard-pauses the handshake with a modal dialog.
 
-### Pinned SmartLink Certificates
+#### Pinned SmartLink Certificates
 
 | Control | Description |
 |---|---|
@@ -72,13 +73,13 @@ The Network tab displays radio network information and provides network configur
 
 | Control | Description |
 |---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses. |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. Each includes a clipboard copy button. |
 
 ### Network settings
 
 | Control | Default | Range | Setting Key | Description |
 |---|---|---|---|---|
-| **Enforce Private IP Connections:** | | | | Rejects non-RFC1918 peers. |
+| **Enforce Private IP Connections:** | | | | Rejects non-RFC1918 peers. Toggle button shows "Enabled" when checked. |
 | **Network MTU:** | 1450 | 576-9000 bytes | `NetworkMtu` | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. |
 | **DHCP / Static** | | | | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | | | | Static IP configuration fields (visible only in Static mode). |
@@ -264,18 +265,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 | **NVIDIA BNR: Autostart Container** | Enables automatic container startup. |
 | **NVIDIA BNR: Start / Stop** | Manually starts or stops the NVIDIA Broadcast noise-removal container. |
 | **NVIDIA BNR: Check Status** | Checks container status. |
-| **NVIDIA BNR status dot** | Colored dot indicating container Running/Stopped/Unknown. |
-
-## Antennas tab
-
-The Antennas tab allows you to assign friendly names to each antenna port on the radio for easier identification. This tab is lazy-built when first clicked.
-
-### Antenna naming
-
-| Control | Description | Notes |
-|---|---|---|
-| **Antenna Name fields (ANT1, ANT2, ANT3, ANT4, XVTA, XVTB)** | Text fields for each antenna port. Enter a custom name (e.g., "20m Beam", "80m Dipole"). | Names are stored in AppSettings as `AntennaName_ANT1`, etc., and displayed in the radio bar antenna selector and the Main Waterfall ribbon. |
-
-## Filters tab
-
-The
+| **NVIDIA BNR status dot**

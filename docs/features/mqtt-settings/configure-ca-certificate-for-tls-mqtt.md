@@ -24,11 +24,37 @@ Provide a custom CA certificate file when connecting to an MQTT broker that uses
 
 | Control | Description | Default | Setting key |
 |---|---|---|---|
-| **Internal AetherSDR Topics** | Read-only group box that lists topics published automatically whenever MQTT is connected. These topics are not user-configurable. | `aethersdr/cw/decode` | — |
+| **Internal AetherSDR Topics** | Read-only group box that lists topics published automatically when MQTT is connected. Each topic can be toggled on or off via a checkbox. Topics with a grayed-out checkbox are always active and cannot be disabled. | See table below | — |
+
+### Internal publish topics
+
+| Topic | Description | Gateable | Default enabled |
+|---|---|---|---|
+| `aethersdr/cw/decode` | CW decoded text | Yes | On |
+| `aethersdr/radio/state` | Radio VFO / mode / TX state | Yes | Off |
+| `aethersdr/ax25/rx` | AX.25 received frames | Yes | Off |
+
+## Subscriptions tab
+
+| Control | Description | Default | Setting key |
+|---|---|---|---|
+| **Internal AetherSDR Topics** | Read-only group box that lists topics subscribed automatically when MQTT connects. Each topic can be toggled on or off via a checkbox. Topics with a grayed-out checkbox are always active and cannot be disabled. | See table below | `mqtt_internal_<sanitized_topic>` |
+
+### Internal subscribe topics
+
+| Topic | Description | Gateable | Default enabled |
+|---|---|---|---|
+| `aethersdr/antenna/alias/+` | Antenna name (per-port) | No (always on) | On |
+| `aethersdr/antenna/alias` | Antenna names (bulk) | No (always on) | On |
+| `aethersdr/cw/transmit` | CW keyer input | Yes | On |
+| `aethersdr/ax25/tx` | AX.25 transmit | Yes | On |
+
+Note: The `defaultEnabled` column shows the initial state when per-topic gating was introduced in v26.6.3. For topics listed as always on (`Gateable = No`), the checkbox is grayed out and cannot be changed.
 
 ## Troubleshooting
 
 - **Connection fails with "certificate verify failed"** — The CA certificate file path is incorrect or the certificate does not match the broker. Verify the file path and that the certificate is the CA that signed the broker's certificate.
+- **Publish or subscribe topic not working** — Check the **Internal AetherSDR Topics** section to ensure the desired topic is enabled (checkbox checked). Topics can be individually disabled to reduce network traffic.
 
 ## Related
 

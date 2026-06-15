@@ -19,27 +19,27 @@ To disable squelch, click the **Squelch button** again.
 
 ## What each control does
 
-| Control                      | Default                                                                                                                               | Valid range                                                                                                             |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| RX antenna button            | Radio default                                                                                                                         | Radio antenna list                                                                                                      |
-| TX antenna button            | Radio default                                                                                                                         | Radio antenna list (RX-only ports excluded)                                                                             |
-| Frequency display            | Current slice frequency                                                                                                               | 0.001–50000 MHz                                                                                                         |
-| Filter width label           | Current filter bandwidth                                                                                                              | Per mode filter presets                                                                                                 |
-| AF Gain slider (Audio tab)   | 100                                                                                                                                   | 0–100                                                                                                                   |
-| Pan slider (Audio tab)       | 50                                                                                                                                    | 0–100                                                                                                                   |
-| Mute button (Audio tab)      | Off                                                                                                                                   | On / Off                                                                                                                |
-| Squelch button (Audio tab)   | Off                                                                                                                                   | On / Off                                                                                                                |
-| Squelch slider (Audio tab)   | —                                                                                                                                     | 0–100                                                                                                                   |
-| AGC combo (Audio tab)        | FAST                                                                                                                                  | FAST / MED / SLOW / OFF                                                                                                 |
-| Mode combo (Mode tab)        | USB                                                                                                                                   | USB / LSB / CW / CWL / AM / SAM / DIGU / DIGL / FM / NFM / DFM / RTTY                                                    |
-| Filter preset buttons (Mode tab) | —                                                                                                                                | Per saved preset                                                                                                        |
-| RIT / XIT buttons (X/RIT tab) | Off                                                                                                                                   | On / Off                                                                                                                |
-| DAX channel combo (DAX tab)  | Off                                                                                                                                   | Off / 1–8                                                                                                               |
-| Marker thickness button      | 1 px                                                                                                                                  | Off / 1 px / 3 px                                                                                                      |
-| Filter edges button          | Shown                                                                                                                                 | On / Off                                                                                                                |
-| Collapse toggle              | Expanded                                                                                                                              | On / Off                                                                                                                |
-| ADSP button (DSP tab)        | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu.         | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite.                                                             | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.                 |
+| Control | Default | Valid range |
+|---------|---------|-------------|
+| RX antenna button | Radio default | Radio antenna list |
+| TX antenna button | Radio default | Radio antenna list (RX-only ports excluded) |
+| Frequency display | Current slice frequency | 0.001–50000 MHz |
+| Filter width label | Current filter bandwidth | Per mode filter presets |
+| AF Gain slider (Audio tab) | 100 | 0–100 |
+| Pan slider (Audio tab) | 50 | 0–100 |
+| Mute button (Audio tab) | Off | On / Off |
+| Squelch button (Audio tab) | Off | On / Off |
+| Squelch slider (Audio tab) | — | 0–100 |
+| AGC combo (Audio tab) | FAST | FAST / MED / SLOW / OFF |
+| Mode combo (Mode tab) | USB | USB / LSB / CW / CWL / AM / SAM / DIGU / DIGL / FM / NFM / DFM / RTTY |
+| Filter preset buttons (Mode tab) | — | Per saved preset |
+| RIT / XIT buttons (X/RIT tab) | Off | On / Off |
+| DAX channel combo (DAX tab) | Off | Off / 1–8 |
+| Marker thickness button | 1 px | Off / 1 px / 3 px |
+| Filter edges button | Shown | On / Off |
+| Collapse toggle | Expanded | On / Off |
+| ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off | On / Off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 
 Neither the button state nor the slider position is persisted as an AetherSDR AppSettings key — both reflect live radio state.
@@ -172,4 +172,14 @@ In v26.5.3, the mouse wheel scrolling behavior has been updated:
 | Change | Description |
 |---|---|
 | Locked slice handling | When scrolling over a locked slice in collapsed mode, the tune request is now blocked with a visual `LOCKED` notification instead of being silently ignored. |
-| Consistent collapsed mode | The scroll
+| Consistent collapsed mode | The scroll behavior is now consistent between expanded and collapsed modes. |
+
+## Changes in v26.6.3
+
+### Tab bar improvements
+
+In v26.6.3, the VFO panel tab bar was rewritten to use `QPushButton` instead of `QLabel` for tab labels. This change provides better accessibility support:
+
+| Change | Description |
+|---|---|
+| Tab buttons | Each tab label is now a `QPushButton` with checkable behavior. Tab focus is enabled via `Qt::

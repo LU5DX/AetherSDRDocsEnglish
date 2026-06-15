@@ -44,6 +44,7 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 - To quickly compare equalized and flat receive audio, click ON repeatedly while listening. The radio applies or removes the EQ immediately.
 - To start fresh, click the Reset arc button. All RX bands return to 0 dB in one click.
 - While dragging any EQ slider, a pop-up displays the signed value (e.g., "+3 dB" or "-5 dB") near the slider handle. The pop-up fades after you release the mouse button, giving you time to read the final value.
+- To adjust a slider using the keyboard, use the standard arrow keys when the EQ applet has focus. When you nudge a slider with the keyboard, a pop-up shows the new value just as it would after a mouse drag. This pop-up lingers briefly so you can read the value before it fades.
 - The slider colors and applet background adapt to the active theme. The EQ handle uses the theme's accent color for visibility.
 
 ## Troubleshooting

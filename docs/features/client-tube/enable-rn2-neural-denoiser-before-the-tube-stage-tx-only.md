@@ -21,21 +21,20 @@ Enable the built-in RNNoise denoiser to suppress background noise on your microp
 
 ## What each control does
 
-| Control | Kind          | Default   | Valid Range | Setting Key | Behavior |
-|---------|---------------|-----------|-------------|-------------|----------|
-| RN2     | Toggle button | Unchecked | —           | — (persisted via AudioEngine) | TX-only toggle. Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. |
-| Drive   | Knob          | 0.00 dB   | 0.0 to 24.0 dB | ClientTubeTxDriveDb | Linear mapping. Pushes more signal into the tube stage. |
-| Tone    | Knob          | 0.00      | -1.0 to 1.0 | ClientTubeTxTone | Linear mapping. Negative values darken, positive brighten the saturated signal. |
-| Bias    | Knob          | 0 %       | 0.0 to 1.0 | ClientTubeTxBias | Linear mapping. Shifts the operating point on the transfer curve, changing the harmonic mix. |
-| Output  | Knob          | 0.00 dB   | -24.0 to 12.0 dB | ClientTubeTxOutputDb | Linear mapping. Post-tube make-up / trim gain. |
-| Dry/Wet | Knob          | 100 %     | 0.0 to 1.0 | ClientTubeTxDryWet | Linear mapping. Dry / wet blend (100 % = fully saturated signal). |
-| Envelope| Knob          | 0 %       | -1.0 to 1.0 | ClientTubeTxEnvelope | Linear mapping. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. |
-| Attack  | Knob          | 5.00 ms   | 0.1 to 30.0 ms | ClientTubeTxAttackMs | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. |
-| Release | Knob          | 35.00 ms  | 10.0 to 500.0 ms | ClientTubeTxReleaseMs | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. |
-| A       | Toggle button | Checked   | —           | ClientTubeTxModel | Selects tube character Model A. Exclusive with B and C. |
-| B       | Toggle button | Unchecked | —           | ClientTubeTxModel | Selects tube character Model B. Exclusive with A and C. |
-| C       | Toggle button | Unchecked | —           | ClientTubeTxModel | Selects tube character Model C. Exclusive with A and B. |
-
+| Control  | Kind          | Default   |
+|----------|---------------|-----------|
+| RN2      | Toggle button | Unchecked |
+| Drive    | Knob          | 0.00 dB   |
+| Tone     | Knob          | 0.00      |
+| Bias     | Knob          | 0 %       |
+| Output   | Knob          | 0.00 dB   |
+| Dry/Wet  | Knob          | 100 %     |
+| Envelope | Knob          | 0 %       |
+| Attack   | Knob          | 5.00 ms   |
+| Release  | Knob          | 35.00 ms  |
+| A        | Toggle button | Checked   |
+| B        | Toggle button | Unchecked |
+| C        | Toggle button | Unchecked |
 ## Tube Character Models (A, B, C)
 
 The three tube character models provide different harmonic flavours:

@@ -39,6 +39,7 @@ The Equalizer applet maintains separate band settings for the receive and transm
 - When you switch from TX to RX (or back), the sliders immediately update to show the stored values for the newly selected path. Your changes to the previous path are not lost.
 - The last-selected view (RX or TX) is saved in your application settings (`EqApplet.showTx`). This persists across restarts of AetherSDR. On first launch, the applet defaults to the TX view.
 - While dragging any band slider, a small popup window appears near the slider handle showing the current signed dB value (for example, "+3 dB" or "-5 dB"). The popup lingers briefly after you release the mouse button.
+- You can also adjust sliders using keyboard shortcuts. When you nudge a slider with the keyboard (for example, by pressing the Up or Down arrow key while the slider has focus), the popup value badge appears near the center of the slider handle and lingers with the same timeout as a mouse release. This provides visual feedback for keyboard adjustments without requiring a mouse drag.
 - The Equalizer applet supports live theme switching. Slider handles and labels automatically update their colors when you change the active theme. The slider groove does not change color, ensuring the handle remains the only accent-colored element in the band column.
 
 ## Related

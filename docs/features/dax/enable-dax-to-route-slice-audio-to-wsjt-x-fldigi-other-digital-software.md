@@ -22,11 +22,11 @@ DAX (Digital Audio eXchange) creates virtual audio streams between AetherSDR and
 | Control | Description | Default | Range | Setting key |
 |---|---|---|---|---|
 | Enable | Master toggle. Starts or stops all DAX audio streams. | Off | On / Off | `AutoStartDAX` |
-| DAX 1 gain+meter | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain sent to software on that channel. | 0.5 | 0.0–1.0 | `DaxRxGain1` |
-| DAX 2 gain+meter | Same as DAX 1, for channel 2. | 0.5 | 0.0–1.0 | `DaxRxGain2` |
-| DAX 3 gain+meter | Same as DAX 1, for channel 3. | 0.5 | 0.0–1.0 | `DaxRxGain3` |
-| DAX 4 gain+meter | Same as DAX 1, for channel 4. | 0.5 | 0.0–1.0 | `DaxRxGain4` |
-| TX gain+meter | Combined level meter and gain slider for the DAX TX stream (audio from your digital software to the radio). | 0.5 | 0.0–1.0 | `DaxTxGain` |
+| DAX 1 gain+meter | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain sent to software on that channel. Uses accessible name "DAX RX 1 gain". | 0.5 | 0.0–1.0 | `DaxRxGain1` |
+| DAX 2 gain+meter | Same as DAX 1, for channel 2. Uses accessible name "DAX RX 2 gain". | 0.5 | 0.0–1.0 | `DaxRxGain2` |
+| DAX 3 gain+meter | Same as DAX 1, for channel 3. Uses accessible name "DAX RX 3 gain". | 0.5 | 0.0–1.0 | `DaxRxGain3` |
+| DAX 4 gain+meter | Same as DAX 1, for channel 4. Uses accessible name "DAX RX 4 gain". | 0.5 | 0.0–1.0 | `DaxRxGain4` |
+| TX gain+meter | Combined level meter and gain slider for the DAX TX stream (audio from your digital software to the radio). Uses accessible name "DAX TX gain". | 0.5 | 0.0–1.0 | `DaxTxGain` |
 | Slice-assignment indicator | Read-only. Shows which slice (A–H) is routed to each DAX channel, or `—` if none. Slice letters render in rich text for improved readability. | `—` | `—` or `Slice A`–`Slice H` | — |
 
 ## Tips

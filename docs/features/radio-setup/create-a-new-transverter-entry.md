@@ -10,7 +10,7 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 
 ## Radio tab
 
-The **Radio** tab displays radio identification, license information, and firmware update controls.
+The **Radio** tab displays radio identification, license information, and firmware update controls. The tab content is wrapped in a scrollable area so all controls remain accessible on small or high-DPI displays.
 
 ### Radio information (read-only)
 
@@ -39,13 +39,22 @@ Each read-only field includes a copy button (clipboard icon) that appears on hov
 
 Click **Remote On** to enable remote wake / remote-on capability.
 
+### Reboot Radio
+
+Click **Reboot Radio** to restart the connected radio. A confirmation dialog appears before the reboot proceeds.
+
+- **On a LAN connection**: AetherSDR disconnects and automatically reconnects once the radio finishes booting.
+- **On a SmartLink/WAN connection**: AetherSDR disconnects. You will need to reconnect manually after the radio finishes booting.
+
+The button is disabled when the radio is disconnected. It re-enables automatically when the radio reconnects, without requiring you to reopen the dialog.
+
 ### Firmware update
 
-1. Click **Check for Update**. AetherSDR queries the FlexRadio update server.
+1. Click **Check for Update** to query the FlexRadio update server for available firmware versions.
    - If firmware is up to date, the status label shows the current version in green.
    - If an update is available, the status label shows the version number and instructs you to download the SmartSDR installer from flexradio.com.
 2. Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
-3. Click **Browse .ssdr...** and choose the downloaded installer or a pre-extracted `.ssdr` file. The stager detects the file format automatically and extracts the firmware without external tools. A progress indicator appears while staging completes.
+3. Click **Select Installer...** and choose the downloaded installer or a pre-extracted `.ssdr` file. The stager detects the file format automatically and extracts the firmware without external tools. A progress indicator appears while staging completes.
 4. Click **Upload Firmware** to transfer the staged firmware to the radio.
 
 ## Network tab
@@ -94,8 +103,8 @@ Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 | **Max Power:** | - | 0-100 % | Sets radio-level TX power cap. |
 | **Tune Mode:** | - | - | Selects how the tune button behaves. |
 | **Show TX in Waterfall:** | Off | - | Draws TX signal in the waterfall. |
-| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
-| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. Stored in `ActiveFollowsTxSlice` setting. |
+| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
+| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. Stored in `ActiveFollowsTxSlice` setting. |
 
 ## Antennas tab
 
@@ -184,7 +193,7 @@ The radio sends `ext` for the external source in some firmware responses. Aether
 
 ## Audio tab
 
-The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
+The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container. The tab content is wrapped in a scrollable area so all controls remain accessible on small or high-DPI displays.
 
 ### Radio outputs
 
@@ -239,18 +248,6 @@ The **Audio** tab configures radio audio outputs, compression, PC devices, boost
 
 ## Filters tab
 
-The **Filters** tab provides low-latency / sharp filter options per bandwidth.
+The **Filters** tab provides low-latency / sharp filter options per bandwidth. The tab content is wrapped in a scrollable area so all controls remain accessible on small or high-DPI displays.
 
-| Control | Default | Range | Behavior |
-|---|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | - | 0-3 | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. |
-| **Auto (Voice / CW / Digital)** | Off | - | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. |
-| **Use Low Latency Filters for Digital Modes** | Off | - | Forces low-latency filters in DIGU/DIGL. |
-
-## XVTR tab
-
-The **XVTR** tab provides per-transverter configuration.
-
-### Creating a new transverter
-
-1. Click
+| Control | Default | Range | Behavior

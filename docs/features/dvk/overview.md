@@ -17,6 +17,8 @@ The four transport buttons at the bottom of the panel — ● REC, ■ STOP, ▶
 
 Slots can be populated by recording directly through the radio or by uploading an existing WAV file. Right-clicking any slot row opens a context menu for renaming the slot or uploading a WAV. Double-clicking the slot's name label also opens inline rename.
 
+If the radio rejects a requested command (for example, if a recording start is rejected), the panel displays a failure message in the status area. The buttons also visually release immediately so they do not remain latched in a checked state. The failure message shows which verb (Recording, Playing, or Preview) failed, which slot was involved, and the rejection message from the radio. After a brief display, the status returns to the current idle/recording/playing state.
+
 ## What each control does
 
 | Control | Behavior | Default |
@@ -25,12 +27,12 @@ Slots can be populated by recording directly through the radio or by uploading a
 | Slot name labels | Shows the name assigned to each slot. | Recording 1 … Recording 8 |
 | Slot duration labels | Shows the recorded length of the slot, or "Empty" if the slot has no content. | Empty |
 | Slot progress bars | Shows live playback or recording progress. Hidden when the slot is idle. | — |
-| ● REC | Starts recording into the selected slot. Button stays highlighted while recording is in progress. | — |
+| ● REC | Starts recording into the selected slot. Button stays highlighted while recording is in progress. If the radio rejects the start command, the button releases immediately and a failure message appears in the status area. | — |
 | ■ STOP | Stops any active recording, playback, or preview. | — |
 | ▶ PLAY | Plays the selected slot on-air. Button stays highlighted during playback. Has no effect if the slot is empty. | — |
 | ◀ PREV | Previews the selected slot through the local speaker without transmitting. Has no effect if the slot is empty. | — |
 | Rename edit | Inline text field for renaming a slot, triggered via the context menu or by double-clicking the name label. | — |
-| Status indicator | Displays the current DVK state: Idle, Recording, or Playing. | Idle |
+| Status indicator | Displays the current DVK state: Idle, Recording, or Playing. If a radio command fails, a failure message is shown temporarily before reverting to the current state. | Idle |
 
 ## Tips
 
@@ -38,6 +40,7 @@ Slots can be populated by recording directly through the radio or by uploading a
 - Pressing Escape cancels an active rename without saving, or stops the current recording, playback, or preview if no rename is in progress.
 - The DVK panel and the CWX panel share the same F-key shortcuts. The shortcuts are enabled or disabled based on the active slice's mode (voice mode enables DVK shortcuts, CW mode enables CWX shortcuts), ensuring only one set is active at any time. Unlike earlier versions, this works regardless of panel visibility.
 - Progress bar color indicates the operation in progress: red for recording, green for playback, and blue for preview.
+- If the radio rejects a DVK command, the status area briefly shows a failure message with the slot number and reason. The transport buttons release immediately so you can retry the operation without dismissing a stuck button state.
 
 ## Related
 

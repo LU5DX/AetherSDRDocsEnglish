@@ -1,6 +1,6 @@
-# Select the RX or TX antenna for this slice
+# RX Controls applet
 
-The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for receiving and transmitting on each slice independently. Use this when you have multiple antennas connected and need to route a specific slice to a specific port.
+The RX Controls applet provides per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, FM repeater duplex settings, and the new WFM software demodulator. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices.
 
 ## Before you start
 
@@ -13,6 +13,8 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 2. If you have more than one slice, click the slice tab (A through H) for the slice you want to change.
 3. **To change the RX antenna:** Click the blue antenna label near the top of the applet (shows the current RX antenna, e.g. **ANT1**). A menu appears listing all available antenna ports. Click the port you want. A checkmark shows the current selection.
 4. **To change the TX antenna:** Click the red antenna label next to the RX antenna label (also shows the current TX antenna, e.g. **ANT1**). A menu appears listing TX-capable antenna ports. Click the port you want.
+5. **To enable WFM:** Click the **WFM** button. This activates a software FM demodulator via DAX IQ → Hi-Fi Cable. The button glows green when active. Switching the mode combo (USB, LSB, etc.) automatically turns WFM off.
+6. **To calibrate AGC-T:** Right-click the AGC threshold slider and select **Calibrate AGC-T against noise floor…** from the context menu. This opens the AGC-T calibration panel for the current slice.
 
 ## What each control does
 
@@ -23,7 +25,8 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 | **Slice tabs (A..H)**             | None      | 1–8 buttons (capped by hardware max slices)                                 |
 | **Slice badge**                   | A         | A/B/C/D/E/F/G/H (rendered as HTML-rich text)                                |
 | **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
-| **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) |
+| **WFM**                           | Off       | Toggle button; green when active                                            |
+| **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY, WFM (+ RADE if HAVE_RADE) |
 | **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
 | **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR); accepts kHz/Hz auto-scaling         |
 | **STEP**                          | 100 Hz    | Per-mode list of step sizes                                                 |
@@ -71,6 +74,9 @@ The RX Controls applet lets you choose which antenna port the FLEX-8600 uses for
 - From v26.5.2.1, the slice badge supports HTML-rich text rendering (#2606). This allows the slice letter to be styled with HTML formatting if needed.
 - The squelch manual level is persisted client-side as the setting `LastManualSquelchLevel`. This preserves your manual squelch preference across mode cycles, radio reconnects, and application restarts. The radio's own automatic squelch algorithm may modify the slice's squelch level, but AetherSDR restores the last user-chosen manual level when Auto mode is not active.
 - From v26.6.1, the filter-preset buttons (1.8K, 2.1K, etc.) use theme-aware styling via `kButtonBase()`, which resolves tokens through the ThemeManager. These buttons now re-theme alongside the rest of the UI when the application theme changes. The theme tokens used are `{{color.background.1}}`, `{{color.background.2}}`, and `{{color.text.primary}}`.
+- From v26.6.3, the frequency edit field uses `FreqLineEdit` (a subclass of `QLineEdit`) for improved input handling. It shows "MHz" as hint text rather than placeholder text.
+- From v26.6.3, the **STEP** spinbox emits `stepSizeChangedByUser` in addition to `stepSizeChanged` when the user manually changes the step size. This allows other components to distinguish programmatic step changes from user-initiated ones.
+- From v26.6.3, the AGC threshold slider has a right-click context menu with a **Calibrate AGC-T against noise floor…** option. The tooltip now includes the "Right-click to calibrate against the noise floor" hint for discoverability.
 
 ## Antenna menu changes in v26.5.2.1
 
@@ -79,6 +85,16 @@ The RX and TX antenna menus have been updated to provide clearer feedback:
 - Each menu item shows the antenna port name as both tooltip and status tip.
 - The menu action data carries the raw antenna identifier, rather than using the display text. This means menu items can display formatted labels (e.g. with port type indicators) while still selecting the correct antenna port.
 - The RX antenna menu now prefers the slice's own `rxAntennaList()` if it is non-empty, falling back to the radio's `ant_list`. This ensures the menu reflects any per-slice antenna restrictions reported by the radio.
+
+## WFM software demodulator (v26.6.3)
+
+The **WFM** button provides a software FM demodulator that uses DAX IQ audio routed through your system's Hi-Fi Cable virtual audio device.
+
+- **To enable WFM:** Click the **WFM** button. It glows green when active. The button sits to the right of the mode combo in the frequency row.
+- **To disable WFM:** Click the **WFM** button again, or select any real radio mode from the mode combo (USB, LSB, CW, etc.). Switching modes automatically deactivates WFM for that slice.
+- **Per-slice behavior:** Each slice has its own WFM state. Enabling WFM on one slice does not affect other slices.
+- **State management:** AetherSDR emits `wfmActivated(true, sliceId)` when WFM is turned on, and `wfmActivated(false, sliceId)` when WFM is turned off (either by clicking the button or by changing the mode combo). The `setWfmActive()` method allows other components to synchronize the WFM button state programmatically.
+- **Mode combo interaction:** When you select a real radio mode from the mode combo while WFM is active on that slice, AetherSDR automatically emits `wfmActivated(false, sliceId)` to tear down the WFM overlay. Selecting "WFM" from the mode combo is not supported; WFM is controlled exclusively by the dedicated button.
 
 ## RADE mode changes
 
@@ -104,30 +120,4 @@ From v0.9.5.1, filter presets saved via right-clicking a **Filter width presets*
 - A **plain width** entry is stored as a single integer (e.g. `2700`). When applied, the radio places the passband symmetrically according to the current mode.
 - A **lo:hi edge** entry is stored as two integers separated by a colon (e.g. `300:3000`). When applied, AetherSDR sets the low and high passband edges exactly as saved.
 
-Both formats can coexist in the same preset list for a given mode. The setting key is `FilterPresets_<mode>` (e.g. `FilterPresets_USB`). Up to six presets are shown in the RX Controls applet for each mode.
-
-If a saved entry is malformed or has a high edge that does not exceed the low edge, AetherSDR skips that entry silently when loading presets.
-
-## NT mode and RTTY mode behavior
-
-NT and RTTY are digital modes. Their behavior within the RX Controls applet matches other digital modes (DIGU/DIGL) in the following ways:
-
-- **Filter presets** — NT and RTTY use the same filter preset widths as DIGU and DIGL (100–2000 Hz).
-- **Filter width display** — The filter width indicator derives its value from the high edge of the passband, the same calculation used for USB, DIGU, and FDV modes.
-- **Squelch** — The **SQL** button and squelch level slider are disabled in NT mode and RTTY mode. If squelch was active when you switched into NT or RTTY mode, AetherSDR turns squelch off automatically and restores it when you switch back. This matches the behavior for DIGU and DIGL; CW mode is handled differently because the radio manages its squelch state directly. RTTY squelch disabling prevents gating weak FSK signals that would otherwise be notched out (#2504).
-
-## Mute button behavior in v26.5.3
-
-The mute button (🔊/🔇) has been updated for more reliable behavior with single-click and double-click actions:
-
-- **Single-click** — Mutes or unmutes the current slice. The action is deferred by the platform's double-click interval (typically ~400 ms) so that a double-click can override it.
-- **Double-click** — Mutes or unmutes all owned slices simultaneously.
-- **Icon updates** — The visual icon (🔊/🔇) is no longer updated immediately on click. Instead, the icon updates when the radio acknowledges the mute state change via `SliceModel::audioMuteChanged`. This ensures the icon always reflects the actual radio state.
-- **Per the Radio-Authoritative Settings Policy (#2489)** — Mute state is NOT saved or restored on reconnect. The radio is the source of truth for audio mute state.
-- The `muteClickTimer` handles the single-click deferral. If a second click arrives before the timer fires, the timer is stopped and the double-click handler mutes all slices instead.
-
-## Frequency entry in v26.5.3
-
-The frequency entry field now uses `FrequencyEntryParser` for normalized MHz text parsing, and has improved support for high-frequency entries:
-
-- **MHz auto-scaling** — Entering a value above 54 MHz applies auto-scaling: values above 54,000 are divided by 1e6 (assumed Hz), values above 54 are divided by 1e
+Both formats can coexist in the same preset list

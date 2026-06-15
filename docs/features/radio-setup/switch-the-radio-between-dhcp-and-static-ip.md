@@ -1,11 +1,11 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network settings, GPS, transmit configuration, Phone/CW settings, receive calibration, audio, antennas, filters, transverters, USB cables, peripherals, Adaptive Pre-Distortion (APD), themes, and serial port configuration for FlexControl.
+The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network settings, GPS, transmit configuration, Phone/CW settings, receive calibration, audio, antennas, filters, transverters, USB cables, peripherals, Adaptive Pre-Distortion (APD), themes, SmartLink certificate management, and serial port configuration for FlexControl.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio to access tabs that communicate with the radio.
-- Some tabs (APD, Themes, Serial) are built lazily when first clicked.
+- Some tabs (APD, Themes, SmartLink, Serial) are built lazily when first clicked.
 - The APD tab is only visible on FLEX-8x00 series radios with SmartSDR 4.2.18 or later firmware.
 
 ## Opening the dialog
@@ -16,28 +16,34 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 
 - The dialog remembers its size and position between sessions.
 - Tab order from left to right: Radio, Network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB Cables, Peripherals, APD, Themes, SmartLink, Serial.
+- Tabs whose content may exceed the dialog height (Themes, Audio, Filters, Peripherals on small or high-DPI displays) are wrapped in a scroll area so the dialog never grows past the screen edge.
 - Click **Close** to dismiss the dialog.
 
 ## Radio tab
 
-Displays radio identification, license information, and firmware update controls.
+Displays radio identification, license information, and firmware update controls. Includes a **Reboot Radio** button.
 
 ### Steps
 
 1. Click the **Radio** tab.
-2. View the read-only indicators for **Radio SN**, **Region**, **HW Version**, **Model**, **Options**, **FlexControl**, **multiFLEX**, and **License Info** (Subscription, Expiration, Radio ID, Licensed version).
+2. View the read-only indicators for **Radio SN**, **Region**, **HW Version**, **Model**, **Options**, **FlexControl**, **multiFLEX**, and **License Info** (Subscription, Expiration, Radio ID, Licensed version). Each read-only indicator includes a clipboard copy button next to the label — click to copy the value to the clipboard.
 3. Optionally set a **Nickname**, **Callsign**, or **Station Name** in the text fields. The **Station Name** identifies this AetherSDR client to other multiFLEX stations; it defaults to the OS hostname if empty. Stored in AppSettings as `StationName`.
 4. Click **Remote On** to enable remote wake/remote-on.
-5. Click the copy button next to any indicator to copy its value to the clipboard. A "Copied!" popup confirms the action.
+5. To reboot the radio:
+   - Click **Reboot Radio**. A confirmation dialog appears.
+   - On LAN connections, AetherSDR automatically reconnects once the radio finishes booting.
+   - On SmartLink/WAN connections, you must manually reconnect after the radio boots.
+   - The button is disabled when the radio is disconnected; it re-enables automatically when the radio reconnects.
 6. To update firmware:
    - Click **Check for Update** to query the FlexRadio update server.
    - Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
-   - Click **Browse .ssdr...** to open a file picker. Select the installer or a pre-extracted `.ssdr` file.
+   - Click **Select Installer...** to open a file picker. Select the installer or a pre-extracted `.ssdr` file.
    - When staging is complete, click **Upload Firmware** to transfer the firmware to the radio.
 
 ### Firmware update notes
 
-- The **Browse .ssdr...** button accepts `.msi`, `.exe`, and `.ssdr` files.
+- The **Select Installer...** button label changed from **Browse .ssdr...** in v26.5.3.
+- The button accepts `.msi`, `.exe`, and `.ssdr` files.
 - The stager auto-detects the file format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools.
 - A progress bar and status label track the upload.
 
@@ -48,16 +54,13 @@ Configure how the radio obtains its network address and advanced network options
 ### Steps
 
 1. Click the **Network** tab.
-2. Note the read-only **IP Address**, **Mask**, and **MAC Address**.
-3. Click the **DHCP / Static** toggle button to switch modes.
-4. If you selected static mode, fill in the **IP Address:**, **Mask:**, and **Gateway:** text fields.
-5. Click **Apply** to push the network configuration to the radio.
-6. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
-
-### Additional network controls
-
-- **Enforce Private IP Connections:** Toggle to reject non-RFC1918 peers.
-- **Network MTU:** Spinbox (576-9000 bytes, default 1450). Sets maximum outgoing VITA-49 UDP packet size. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`.
+2. Note the read-only **IP Address**, **Mask**, and **MAC Address**. Each includes a clipboard copy button.
+3. Toggle **Enforce Private IP Connections:** to reject non-RFC1918 peers.
+4. Set **Network MTU:** as a spinbox value (576-9000 bytes, default 1450). This sets maximum outgoing VITA-49 UDP packet size. The default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`.
+5. Click the **DHCP / Static** toggle button to switch modes.
+6. If you selected static mode, fill in the **IP Address:**, **Mask:**, and **Gateway:** text fields.
+7. Click **Apply** to push the network configuration to the radio.
+8. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
 
 ## GPS tab
 
@@ -82,7 +85,7 @@ Configure transmit timing, interlocks, power limits, and behavior.
 6. Toggle **Show TX in Waterfall:** to display the TX signal in the waterfall.
 7. Configure slice following:
    - **TX Follows Active Slice:** Push button (default False). Stored as `TxFollowsActiveSlice`. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation.
-   - **Active Slice Follows TX:** Push button (default False). Stored as `ActiveFollowsTxSlice`. Switches the active slice when TX moves externally.
+   - **Active Slice Follows TX:** Push button (default False). Stored as `ActiveFollowsTxSlice`. Switches the active slice when TX moves externally (e.g. WSJT-X or CAT).
 8. Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 
 ## Phone/CW tab
@@ -94,8 +97,8 @@ Configure microphone, CW keyer, and RTTY defaults.
 1. Click the **Phone/CW** tab.
 2. Toggle **Enable/Disable the Level Meter During Receive** to show the mic level meter even in RX.
 3. Configure CW settings:
-   - **Iambic:** Toggle to enable or disable the iambic keyer on the radio. In v0.9.1, Mode A and Mode B buttons were added beside the Enabled toggle for Curtis A and Curtis B modes. These also drive the local software iambic keyer which mirrors the radio's iambic state for sub-5 ms sidetone.
-   - **Iambic Mode: A / B:** Select Curtis iambic mode A or B. This applies to both the radio and the local software keyer. Mutually exclusive pair added in v0.9.1.
+   - **Iambic:** Toggle to enable or disable the iambic keyer on the radio. Mutually exclusive with the radio-side iambic keyer; also drives the local software iambic keyer for sub-5 ms sidetone.
+   - **Iambic Mode: A / B:** Select Curtis iambic mode A or B. Applies to both the radio and the local software keyer.
    - **Swap:** Toggle to swap dit/dah.
    - **Sideband:** Select LSB or USB for CW pitch.
    - **CWX:** Toggle to enable CWX macro keying.
@@ -112,13 +115,12 @@ Configure GPSDO frequency offset calibration and 10 MHz reference source.
 2. Set **Cal Frequency (MHz):** for manual calibration.
 3. Click **Start** to begin the frequency calibration sweep.
 4. Adjust **Freq Offset (ppb):** manually.
-5. Select **10 MHz Reference Source:** from the combo box (Auto, TCXO, GPSDO, External). Lock status (Locked/Unlocked) is shown alongside the combo and updates live.
+5. Select **10 MHz Reference Source:** from the combo box (Auto, TCXO, GPSDO, External). Options depend on hardware installed. Lock status (Locked/Unlocked) is shown alongside the combo and updates live.
 
 ## Antennas tab
 
 Configure antenna names and assignments.
 
-- New in v26.5.2.1.
 - Tab labeled "Antennas" appears between RX and Filters tabs.
 - Provides controls for naming and configuring antenna ports.
 
@@ -222,11 +224,4 @@ Configure UI appearance including per-slice color overrides.
 
 1. Click the **Themes** tab.
 2. In the **Slice Colors** section:
-   - Select **Use Aether defaults** to use the built-in palette (cyan, magenta, green, yellow, orange, teal, coral, lavender).
-   - Select **Custom colors** to enable per-slice color pickers.
-3. If **Custom colors** is selected, click any lettered button (A-H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges.
-4. Click **Reset All to Defaults** to reset all custom slice colors to the built-in palette.
-
-## SmartLink tab
-
-Manage pinned SmartLink TLS certificates. New in v26
+   - Select **Use Aether defaults**

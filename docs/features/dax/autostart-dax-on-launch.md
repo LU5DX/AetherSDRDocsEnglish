@@ -23,11 +23,11 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 |---|---|---|---|---|
 | **Enable** (in the DAX applet) | Master toggle. Starts or stops the DAX audio bridge for the current session and persists the state. | Off | On / Off | `AutoStartDAX` |
 | **Settings > Autostart DAX with AetherSDR** | Checkable menu item. When checked, AetherSDR starts the DAX bridge on every launch. | Off (unchecked) | Checked / Unchecked | `AutoStartDAX` |
-| DAX 1 gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain1` |
-| DAX 2 gain+meter | Combined level meter and gain slider for DAX RX channel 2. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain2` |
-| DAX 3 gain+meter | Combined level meter and gain slider for DAX RX channel 3. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain3` |
-| DAX 4 gain+meter | Combined level meter and gain slider for DAX RX channel 4. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxRxGain4` |
-| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag to adjust. | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
+| DAX 1 gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag to adjust. Accessible name: "DAX RX 1 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain1` |
+| DAX 2 gain+meter | Combined level meter and gain slider for DAX RX channel 2. Drag to adjust. Accessible name: "DAX RX 2 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain2` |
+| DAX 3 gain+meter | Combined level meter and gain slider for DAX RX channel 3. Drag to adjust. Accessible name: "DAX RX 3 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain3` |
+| DAX 4 gain+meter | Combined level meter and gain slider for DAX RX channel 4. Drag to adjust. Accessible name: "DAX RX 4 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain4` |
+| TX gain+meter | Combined level meter and gain slider for the DAX TX stream. Drag to adjust. Accessible name: "DAX TX gain". | 0.5 | 0.0 – 1.0 | `DaxTxGain` |
 
 ## Indicator meanings
 
@@ -42,6 +42,7 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 - Gain values for all four RX channels and the TX channel are saved independently. Adjusting them before enabling autostart means they will be restored at the same levels on the next launch.
 - Slice assignment indicators now display the slice letter in the active radio model's color (rich text format) for improved visibility. This affects both DAX RX channel assignments and TX assignment indicators.
 - On Linux, DAX audio uses PipeWire native streams (`pw_stream`) for lower latency, reducing RX latency from approximately 400 ms to approximately 200 ms. This applies to all DAX RX channels.
+- Each gain slider has an accessible name set for screen reader compatibility: "DAX RX N gain" for channels 1-4 and "DAX TX gain" for the transmit channel.
 
 ## Troubleshooting
 

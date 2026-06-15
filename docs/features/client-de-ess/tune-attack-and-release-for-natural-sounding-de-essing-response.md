@@ -58,22 +58,22 @@ All knobs in the De-Ess editor now support inline numeric entry for precise adju
 
 ## What each control does
 
-| Control | Kind        | Default   | Range              | Mapping       | Setting key (TX)              | Setting key (RX)              |
-|---------|-------------|-----------|--------------------|---------------|-------------------------------|-------------------------------|
-| Attack  | knob        | 1.0 ms    | 0.1 to 30.0 ms     | Exponential   | `ClientDeEssTxAttackMs`       | `ClientDeEssRxAttackMs`       |
-| Release | knob        | 100 ms    | 10.0 to 500.0 ms   | Exponential   | `ClientDeEssTxReleaseMs`      | `ClientDeEssRxReleaseMs`      |
-| Slope   | push button | 24 dB/oct | 12/24/36/48 dB/oct | Cascaded biquad stages | `ClientDeEssTxSlopeStages`    | `ClientDeEssRxSlopeStages`    |
+| Control | Kind        | Default   |
+|---------|-------------|-----------|
+| Attack  | knob        | 1.0 ms    |
+| Release | knob        | 100 ms    |
+| Slope   | push button | 24 dB/oct |
 
 These controls exist only in the frameless strip editors (StripDeEssPanel). The docked ClientDeEssApplet omits them.
-
 ## Tips
 
 - For typical SSB voices, **Attack 0.5–2 ms** and **Release 80–150 ms** works well. Very fast speech (e.g. contesting) may need shorter values at both ends.
 - Start with **Slope** at 24 dB/oct (the default). Increase to 36 or 48 dB/oct only if you hear unwanted attenuation of nearby speech frequencies.
 - The **-6 dB tick** on the gain-reduction bar marks the default Amount level — it's a useful reference for how much the de-esser is actually reducing.
-- The sidechain response curve now shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
+- The sidechain response curve shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
 - Attack, Release, and Slope settings are stored per path (TX and RX) and persist across sessions.
 - To enter precise values, click any knob's value text to activate the inline editor. Type the desired number (with or without units) and press Enter to commit.
+- The gain-reduction meter and sidechain curve redraw efficiently: when values stabilise, repaints are skipped to conserve CPU. Only changes (or ongoing animation) trigger screen updates.
 
 ## Related
 

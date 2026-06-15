@@ -10,18 +10,18 @@ Display the latest value of a subscribed MQTT topic directly on the panadapter, 
 ## Steps
 
 1. Open the MQTT applet by clicking the **MQTT** tray button on the right sidebar.
-2. Click the **Off/On** toggle button to connect to the broker. The button reads "On" and the status label turns green when connected.
+2. Click the **Enable (Off/On)** toggle button to connect to the broker. The button reads "On" and the status label turns green when connected.
 3. Ensure the subscribed topic appears in the message log. A line like `antennaTemp: 28.4` confirms data is arriving.
 4. The panadapter overlay updates automatically as messages arrive. Only topics with **Display on panadapter** checked in their subscription configuration are overlaid.
 
 ## What each control does
 
-| Control                | Behavior                                                                                                                                    | Setting key                                                                         |
-|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| **Enable (Off/On)** toggle | Connects or disconnects from the broker using settings from MqttSettings. Saves connection enabled state. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. | — |
-| **Settings...** button | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. | — |
-| Message log            | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT. Capped to 50 entries.                   | —                                                                                   |
-| Publish buttons        | Click publishes the configured payload to the configured topic via MqttClient::publish. Up to 12 buttons. Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. | MqttButtons |
+| Control                    | Behavior                                                                                                                                                                                                                                        | Setting key         |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
+| **Enable (Off/On)** toggle | Connects or disconnects from the broker using settings from MqttSettings. Emits connectRequested / disconnectRequested and saves connection enabled state. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. | —                   |
+| **Settings...** button     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.                                          | —                   |
+| Message log                | Displays received messages as `topic: value` lines. Also displays transmitted messages as `TX topic: payload` lines. Processes antenna alias updates from MQTT.                                                                                 | Capped to 50 entries. |
+| Publish buttons            | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab.                  | `MqttButtons`       |
 
 ## Status indicator
 
@@ -33,6 +33,8 @@ Display the latest value of a subscribed MQTT topic directly on the panadapter, 
 
 - Only the **last value** of each display-enabled topic is overlaid. The overlay shows the short topic name (last segment) and the value.
 - To clear the overlay, disconnect the MQTT client (toggle **Enable (Off/On)** to "Off").
+- Transmitted messages appear in the message log with a `TX` prefix, showing the short topic name and first 80 characters of the payload. This helps confirm that publish buttons are working correctly.
+- Message log is capped at 50 entries. Older entries are removed automatically when the limit is reached.
 
 ## Troubleshooting
 

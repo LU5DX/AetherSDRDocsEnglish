@@ -1,6 +1,6 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, antennas, filters, XVTR, USB cables, peripherals, APD, themes, and serial port configuration.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, Phone/CW, RX, audio, antennas, filters, XVTR, USB cables, peripherals, APD, themes, serial port, and SmartLink pinned certificate configuration.
 
 ## Opening the dialog
 
@@ -15,25 +15,41 @@ The Radio tab displays radio information, identification, license info, and firm
 
 ### Radio information
 
-| Control | Type | Behavior |
-|---|---|---|
-| Radio SN | Indicator | Chassis serial number (read-only). |
-| Region | Indicator | Radio regulatory region. |
-| HW Version | Indicator | Hardware version string. |
-| Model | Indicator | Radio model. |
-| Options | Indicator | Shows licensed radio options. |
-| FlexControl | Indicator | Detected state of FlexControl hardware. |
-| multiFLEX | Indicator | multiFLEX enabled state. |
-| Nickname | Text field | User-friendly radio nickname. |
-| Callsign | Text field | Station callsign. |
-| Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station \<name\>'. |
-| License Info | Indicator | Displays license details from the radio (Subscription, Expiration, Radio ID, Licensed version). |
+| Control                                             | Type                                                                                                                                                                                        | Behavior                                                                                                                                                               |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                                            | Chassis serial number (read-only).                                                                                                                                                          | Includes a clipboard copy button (tray icon) next to the value. New in v26.5.3 (#2976).                                                                                |
+| Region                                              | Indicator                                                                                                                                                                                   | Radio regulatory region.                                                                                                                                               |
+| HW Version                                          | Hardware version string.                                                                                                                                                                    | Includes a clipboard copy button next to the value (#2976).                                                                                                            |
+| Model                                               | Radio model.                                                                                                                                                                                | Includes a clipboard copy button next to the value (#2976).                                                                                                            |
+| Options                                             | Shows licensed radio options.                                                                                                                                                               | Includes a clipboard copy button next to the value (#2976).                                                                                                            |
+| FlexControl                                         | Indicator                                                                                                                                                                                   | Detected state of FlexControl hardware.                                                                                                                                |
+| multiFLEX                                           | Indicator                                                                                                                                                                                   | multiFLEX enabled state.                                                                                                                                               |
+| Nickname                                            | Text field                                                                                                                                                                                  | User-friendly radio nickname.                                                                                                                                          |
+| Callsign                                            | Text field                                                                                                                                                                                  | Station callsign.                                                                                                                                                      |
+| Station Name                                        | Text field                                                                                                                                                                                  | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station \<name\>'. |
+| License Info                                        | Indicator                                                                                                                                                                                   | Displays license details from the radio (Subscription, Expiration, Radio ID, Licensed version).                                                                        |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                                                              |
+| Reboot Radio                                        | Push button                                                                                                                                                                                 | Reboots the connected radio. Disabled when the radio is disconnected. Shows a confirmation dialog before rebooting. On LAN connections, AetherSDR auto-reconnects after the radio boots; on SmartLink/WAN, manual reconnection is required. New in v26.6.3 (#3334). |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.                                    |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                                                      |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                                                           |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                                                             |
 
 Each read-only value has a copy-to-clipboard button next to it (a small icon appearing on hover). Click the button to copy the value.
 
 ### Remote On
 
 Click **Remote On** to enable remote wake / remote-on functionality.
+
+### Reboot Radio
+
+Click **Reboot Radio** to restart the connected radio. A confirmation dialog warns:
+
+- **LAN connection:** AetherSDR disconnects and automatically reconnects once the radio finishes booting.
+- **SmartLink/WAN connection:** AetherSDR disconnects. You must reconnect manually after the radio reboots.
+
+The button is disabled when the radio is disconnected or reconnecting. It re-enables automatically when the radio reconnects.
 
 ### Firmware update
 
@@ -73,7 +89,7 @@ The Network tab displays radio network information and advanced network options.
 
 | Control | Type | Behavior |
 |---|---|---|
-| IP Address / Mask / MAC Address | Indicator | Read-only network addresses. |
+| IP Address / Mask / MAC Address | Indicator | Read-only network addresses. Each includes a clipboard copy button (#2976). |
 
 ### Network settings
 
@@ -229,74 +245,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 
 ### Audio buffer
 
-**Audio Buffer** text field sets the audio buffer in milliseconds for VPN/SmartLink jitter. Default: 200. Range: 50–1000 ms. Setting key: `AudioBufferMs`.
-
-### Recording
-
-| Control | Type | Default | Setting key | Behavior |
-|---|---|---|---|---|
-| Recording | Push button | Radio Side | `RecordingMode` | Picks radio-side or client-side recording. Options: Radio Side / Client Side. |
-| Save to | Text field | — | `QsoRecordingDir` | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. |
-| ... | Push button | — | — | Browses for recording folder. |
-| Auto-record on TX | Checkbox | False | `QsoRecordingAutoRecord` | Automatically records while transmitting. |
-| Idle timeout | Spinbox | 120 | `QsoRecordingIdleTimeout` | Seconds of silence before recording stops. Range: 10–3600 sec. |
-
-### NVIDIA BNR
-
-**NVIDIA BNR** controls (Autostart Container, Start, Stop, Check Status) manage the NVIDIA Broadcast noise-removal container. A status dot indicates Running (green), Stopped (red), or Unknown (grey).
-
----
-
-## Antennas tab
-
-The Antennas tab allows naming radio antenna ports for display in the panadapter and slice panels. This tab is built lazily when first clicked.
-
----
-
-## Filters tab
-
-The Filters tab provides low-latency and sharp filter options per bandwidth.
-
-### Filter sharpness
-
-**Voice / CW / Digital filter sharpness sliders** set filter sharpness (0 = lowest latency to 3 = sharpest) per mode. The slider is disabled when Auto is enabled.
-
-**Auto (Voice / CW / Digital)** toggle buttons enable automatic filter-level selection for that mode, disabling the manual sharpness slider.
-
-### Digital mode filters
-
-**Use Low Latency Filters for Digital Modes** checkbox forces low-latency filters in DIGU/DIGL.
-
----
-
-## XVTR tab
-
-The XVTR tab configures per-transverter settings. It contains nested tabs, one per transverter, and a '+' tab for creating new transverters.
-
-| Control | Type | Behavior |
-|---|---|---|
-| RX Only | Toggle button | Forces RX-only on that transverter. |
-| Remove | Push button | Deletes the transverter definition. |
-| Create New Transverter | Push button | Adds a new transverter entry. |
-
----
-
-## USB Cables tab
-
-The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | Type | Behavior |
-|---|---|---|
-| Cables list / Status | Indicator | Detected USB cables per type with Plugged/Unplugged status. |
-| Name / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0–7) | Combo box | Per-cable serial parameters and behavior. |
-
----
-
-## Peripherals tab
-
-The Peripherals tab enables manual IP connection to external devices (TGXL, PGXL, Antenna Genius, or ShackSwitch) when automatic discovery has not picked up the device.
-
-### Before you start
-
-- AetherSDR must already be connected to a FLEX-8600 radio. The Peripherals tab is only available when a radio connection is active.
-- Have the IP address of the TGXL, PGXL, Ant
+**Audio Buffer** text field sets the audio buffer in milliseconds for VPN/Smart

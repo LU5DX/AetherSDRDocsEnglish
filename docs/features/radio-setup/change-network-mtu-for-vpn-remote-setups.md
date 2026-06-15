@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, antennas, filters, XVTR, USB cables, peripherals, serial/FlexControl, and themes.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, antennas, filters, XVTR, USB cables, peripherals, serial/FlexControl, themes, and SmartLink certificate management. Many read-only values include a clipboard copy button next to the label for easy sharing with support.
 
 ## Opening the dialog
 
@@ -12,10 +12,11 @@ The Radio Setup dialog is the master per-radio configuration window. It contains
 - The dialog geometry is persisted across sessions using `PersistentDialog`.
 - Changes made on some tabs are applied immediately; others require clicking an Apply or Connect button.
 - If you clear an IP field on the **Peripherals** tab and close the dialog without clicking Connect/Disconnect, the saved manual IP and port are automatically removed and the device disconnects.
+- Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals on small or high-DPI displays) are wrapped in a vertical scroll area so the dialog does not overflow the screen edge.
 
 ## Radio (tab)
 
-The Radio tab displays radio information, identification, license info, and firmware update controls.
+The Radio tab displays radio information, identification, license info, firmware update controls, and a reboot button.
 
 | Control | Description | Notes |
 |---|---|---|
@@ -23,21 +24,35 @@ The Radio tab displays radio information, identification, license info, and firm
 | **Region** | Radio regulatory region (read-only). | |
 | **HW Version** | Hardware version string (read-only). | Click the copy button to copy the version string to clipboard. |
 | **Remote On** | Enables remote wake / remote-on. | |
-| **Options** | Shows licensed radio options (read-only). | |
+| **Options** | Shows licensed radio options (read-only). | Click the copy button to copy the options string to clipboard. |
 | **FlexControl** | Detected state of FlexControl hardware (read-only). | |
 | **multiFLEX** | multiFLEX enabled state (read-only). | |
-| **Model** | Radio model (read-only). | |
+| **Model** | Radio model (read-only). | Click the copy button to copy the model string to clipboard. |
 | **Nickname** | User-friendly radio nickname. | |
 | **Callsign** | Station callsign. | |
 | **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. | Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". |
-| **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. | |
+| **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. | Each field includes a clipboard copy button next to the value. |
 | **Check for Update** | Queries for firmware updates. | |
-| **Browse .ssdr...** | Chooses a firmware image file. | |
+| **Select Installer...** | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3. |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. | |
+| **Reboot Radio** | Sends a reboot command to the connected radio. Disabled when radio is disconnected. Shows a confirmation dialog before rebooting. On LAN, AetherSDR automatically reconnects after the radio boots. On SmartLink/WAN, you must reconnect manually. | New in v26.6.3. The dialog closes after reboot starts. |
 
 ### Copyable values (Radio tab)
 
-The Radio SN and HW Version fields display a small copy button when hovered or focused. Clicking the button copies the displayed value to the system clipboard and shows a brief "Copied!" popup near the button.
+The Radio SN, HW Version, Options, Model, and each License Info field display a small copy button when hovered or focused. Clicking the button copies the displayed value to the system clipboard and shows a brief "Copied!" popup near the button.
+
+### Rebooting the radio
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Radio** tab.
+3. Locate **Reboot Radio** button.
+4. Click **Reboot Radio**.
+   - A confirmation dialog appears with different text depending on connection type:
+     - **WAN/SmartLink:** "AetherSDR will disconnect. SmartLink/WAN sessions do not auto-reconnect today — you will need to reconnect manually once the radio finishes booting."
+     - **LAN:** "AetherSDR will disconnect and automatically reconnect once the radio finishes booting."
+5. Click **OK** to confirm.
+   - The dialog closes automatically.
+   - The radio reboots and AetherSDR disconnects.
 
 ### Firmware update (Radio tab)
 
@@ -54,7 +69,7 @@ AetherSDR does not download firmware automatically when an update is detected. D
    - `.msi` — WiX installer (FlexRadio SmartSDR v4.2 and later)
    - `.exe` — older self-extracting installer
    - `.ssdr` — pre-extracted firmware file
-5. Click **Browse .ssdr...**.
+5. Click **Select Installer...**.
    - A file picker opens filtered to `*.msi`, `*.exe`, and `*.ssdr`.
    - Select the file you downloaded.
 6. When the upload button becomes active, click **Upload Firmware**.
@@ -65,7 +80,7 @@ AetherSDR does not download firmware automatically when an update is detected. D
 
 | Message | Meaning |
 |---|---|
-| Update available: v*x.y.z* | A newer firmware version exists. Download the installer from flexradio.com, then click **Browse .ssdr...**. |
+| Update available: v*x.y.z* | A newer firmware version exists. Download the installer from flexradio.com, then click **Select Installer...**. |
 | Firmware is up to date (v*x.y.z*) | No action needed. |
 | (error text in red) | Upload failed. Check the file is a valid SmartSDR firmware file and try again. |
 
@@ -75,8 +90,8 @@ The Network tab displays radio network information and lets you configure advanc
 
 | Control | Description | Default |
 |---|---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses. | — |
-| **Enforce Private IP Connections:** | Rejects non-RFC1918 peers. | — |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. Each includes a clipboard copy button. | — |
+| **Enforce Private IP Connections:** | Rejects non-RFC1918 peers. Toggle button shows "Enabled". | — |
 | **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576–9000 bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`. | 1450 |
 | **DHCP / Static** | Switches between DHCP and Static IP modes. | — |
 | **IP Address: / Mask: / Gateway:** | Static IP configuration fields. | — |
@@ -139,7 +154,7 @@ The Phone/CW tab configures microphone, CW keyer, and RTTY defaults.
 | Control | Description | Default |
 |---|---|---|
 | **Enable/Disable the Level Meter During Receive** | Shows mic level meter even in RX. | — |
-| **Iambic:** | Enables or disables the iambic keyer on the radio. | Enabled |
+| **Iambic:** | Enables or disables the iambic keyer on the radio. Toggle button shows "Enabled". | Enabled |
 | **Iambic Mode: A / B** | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. | A |
 | **Swap:** | Swaps dit/dah. | — |
 | **Sideband:** | Selects CW pitch sideband (LSB or USB). | — |
@@ -190,43 +205,4 @@ The **10 MHz Reference Source:** combo box is populated dynamically. Only source
    - A status label beside the button updates as the sweep progresses.
    - The radio first resets the frequency error to 0 ppb, then begins the PLL calibration sequence.
 5. When calibration completes the button re-enables and the status label shows the result.
-6. If you prefer to set the offset manually, enter a value directly in **Freq Offset (ppb):** without clicking **Start**.
-
-#### Calibration status messages
-
-| Message | Meaning |
-|---|---|
-| Starting… | The sweep command has been sent to the radio. |
-| Busy | PLL calibration is in progress. |
-| Enter cal frequency | The Cal Frequency field was empty when Start was clicked. |
-
-## Antennas (tab)
-
-The Antennas tab lets you assign user-friendly names to each antenna port on the radio. This is useful for identifying which antenna is connected to each port (ANT1, ANT2, XVTA, XVTB).
-
-| Control | Description |
-|---|---|
-| **ANT1 Name:** | User-defined name for ANT1 port. |
-| **ANT2 Name:** | User-defined name for ANT2 port. |
-| **XVTA Name:** | User-defined name for XVTA port. |
-| **XVTB Name:** | User-defined name for XVTB port. |
-
-### Setting antenna names
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **Antennas** tab.
-3. Enter a descriptive name for each antenna port (e.g., "HF Vertical", "40m Dipole", "VHF Beam").
-4. The names are saved to AppSettings and appear in antenna selection controls throughout the application.
-
-## Audio (tab)
-
-The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
-
-| Control | Description | Default | Notes |
-|---|---|---|---|
-| **Line Out:** | Line-out gain. | — | |
-| **Mute (Line Out)** | Mutes line-out. | — | |
-| **Headphone:** | Headphone gain. | — | |
-| **Mute (Headphone)** | Mutes headphone. | — | |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — | |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/L
+6. If you

@@ -1,6 +1,6 @@
 # Panadapter overview
 
-The panadapter displays a real-time FFT spectrum and waterfall for a radio slice, letting you visualise band activity and tune by clicking or dragging. Each panadapter can also show an optional CW decode panel that reads Morse off-air directly in the application.
+The panadapter displays a real-time FFT spectrum and waterfall for a radio slice, letting you visualise band activity and tune by clicking or dragging. Each panadapter can also show an optional CW decode panel that reads Morse off-air directly in the application, and an optional RTTY decode panel for RTTY/DIGL modes.
 
 ## Before you start
 
@@ -20,6 +20,8 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 **Reconnection behaviour.** On radio reconnect, the panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
 
 **CW decode panel.** An optional panel can appear beneath the waterfall. It runs an off-air Morse decoder and displays decoded text in a rolling read-only field, colour-coded by decoder confidence. The panel is hidden by default and is enabled from the CW mode controls. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
+
+**RTTY decode panel.** An optional panel can appear beneath the waterfall when the slice mode is RTTY or DIGL. It displays decoded RTTY text in a rolling read-only field. The panel is hidden by default and is enabled from the RTTY/DIGL mode controls.
 
 ## What each control does
 
@@ -46,8 +48,8 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | Sens | Slider | 30 | 0 – 100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Internally maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Uses themed slider styling via `applyPrimarySliderStyle`. |
 | 🔒P (Lock Pitch) | Toggle button | Off | On / Off | — | Locks the decoder pitch to the currently tuned frequency. |
 | 🔒S (Lock Speed) | Toggle button | Off | On / Off | — | Locks the decoder speed to the current WPM reading. |
-| Lo (pitch min) | Slider | 500 Hz | 300 – 1200 Hz | — | Sets the minimum pitch the decoder searches. Clamped to be no greater than Hi. |
-| Hi (pitch max) | Slider | 700 Hz | 300 – 1200 Hz | — | Sets the maximum pitch the decoder searches. Clamped to be no less than Lo. |
+| Pitch (range slider) | Range slider | 500 – 700 Hz | 300 – 1200 Hz | — | Sets the minimum and maximum pitch the decoder searches. Uses a dual-handle slider; Lo and Hi are adjusted together. |
+| WPM (range slider) | Range slider | 15 – 40 WPM | 5 – 60 WPM | — | Sets the minimum and maximum speed (WPM) the decoder searches. Uses a dual-handle slider. |
 | CPY ALL | Button | — | — | — | Copies the full decoded text buffer to the clipboard. |
 | CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
 | CLR | Button | — | — | — | Clears the CW decode buffer. |
@@ -63,6 +65,16 @@ When your own transmitted signal is routed back through PC audio to AetherSDR, t
 | TX text colour | Cyan (#5fc8ff) |
 | Separator insertion | Automatic space added on TX→RX and RX→TX transitions |
 | Confidence filter | Same `Sens` slider threshold applies to both receive and transmit paths |
+
+### RTTY decode panel
+
+| Control | Kind | Default | Valid range | Setting key | Behavior |
+|---|---|---|---|---|---|
+| CPY ALL | Button | — | — | — | Copies the full decoded RTTY text buffer to the clipboard. |
+| CPY VIS | Button | — | — | — | Copies only the RTTY text currently visible in the scroll area to the clipboard. |
+| CLR | Button | — | — | — | Clears the RTTY decode buffer. |
+| × (close RTTY) | Button | — | — | — | Hides the RTTY decode panel. |
+| RTTY decode text | Read-only text field | — | — | — | Rolling display of decoded RTTY characters. Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
 
 ## Theme integration
 
@@ -82,11 +94,13 @@ This ensures the panadapter appearance adapts to the selected theme without manu
 
 ## Tips
 
-- The Lo and Hi pitch sliders constrain the frequency range the decoder searches. Narrowing this range around the expected CW tone reduces false decodes on a busy band.
+- The Pitch range slider constrains the frequency range the decoder searches. Narrowing this range around the expected CW tone reduces false decodes on a busy band.
+- The WPM range slider constrains the speed range the decoder searches. Narrowing this range around the expected sending speed reduces false decodes.
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
 - You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
 - When viewing both transmitted and received CW in the same panel, the cyan TX text helps you identify your own keying. No textual "[TX]" prefix is added — colour alone distinguishes the source.
+- The RTTY decode panel automatically appears when the slice mode is set to RTTY or DIGL.
 
 ## Related
 

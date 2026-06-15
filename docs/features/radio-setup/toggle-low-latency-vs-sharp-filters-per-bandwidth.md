@@ -10,7 +10,7 @@ The Radio Setup dialog is the master configuration window for per-radio settings
 
 The dialog contains a tabbed interface with the following tabs:
 
-- **Radio** - Radio information, identification, license info, and firmware update
+- **Radio** - Radio information, identification, license info, firmware update, and radio reboot
 - **Network** - Network information and advanced network options
 - **GPS** - GPS presence and live lat/lon/alt/time/satellites info
 - **TX** - TX timings, interlocks, max power, tune mode, and slice/TX follow settings
@@ -28,22 +28,24 @@ The dialog contains a tabbed interface with the following tabs:
 
 The dialog remembers its size and position between sessions using `RadioSetupDialogGeometry` in AppSettings.
 
+Tabs whose content may exceed the dialog's visible height (Radio, Themes, Audio, Filters, Peripherals on small or high-DPI displays) are wrapped in a scroll area so the dialog does not grow past the screen edge. The scrollbar appears only when needed; on wide screens there is no visual change.
+
 ## Radio tab
 
-The Radio tab displays radio identification and license information, and provides firmware update controls. Each read-only value has a copy button (clipboard icon) that appears on hover or focus — click to copy the value.
+The Radio tab displays radio identification and license information, provides firmware update controls, and includes a Reboot Radio button. Each read-only value has a copy button (clipboard icon) that appears on hover or focus — click to copy the value.
 
 ### Radio information
 
-| Control | Kind | Behavior |
-|---|---|---|
-| **Radio SN** | Indicator | Chassis serial number (read-only). If chassis serial is empty, falls back to radio serial number. Displays "—" if unavailable. |
-| **Region** | Indicator | Radio regulatory region. Default: USA. |
-| **HW Version** | Indicator | Hardware version string. Prefixed with "v" if not already present. Displays "—" if unavailable. |
-| **Model** | Indicator | Radio model. |
-| **Options** | Indicator | Shows licensed radio options. If empty, shows a guess based on amplifier presence ("GPS, PGXL" or "GPS"). Displays "—" if unavailable. |
-| **FlexControl** | Indicator | Detected state of FlexControl hardware. |
-| **multiFLEX** | Indicator | multiFLEX enabled state. |
-| **License Info** | Indicator | Displays subscription, expiration, radio ID, and licensed version from the radio. |
+| Control                                             | Kind                                                                                                                                                                                        | Behavior                                                                                                                               |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| **Radio SN**                                        | Indicator                                                                                                                                                                                   | Chassis serial number (read-only). If chassis serial is empty, falls back to radio serial number. Displays "—" if unavailable.         |
+| **Region**                                          | Indicator                                                                                                                                                                                   | Radio regulatory region. Default: USA.                                                                                                 |
+| **HW Version**                                      | Indicator                                                                                                                                                                                   | Hardware version string. Prefixed with "v" if not already present. Displays "—" if unavailable.                                        |
+| **Model**                                           | Indicator                                                                                                                                                                                   | Radio model.                                                                                                                           |
+| **Options**                                         | Indicator                                                                                                                                                                                   | Shows licensed radio options. If empty, shows a guess based on amplifier presence ("GPS, PGXL" or "GPS"). Displays "—" if unavailable. |
+| **FlexControl**                                     | Indicator                                                                                                                                                                                   | Detected state of FlexControl hardware.                                                                                                |
+| **multiFLEX**                                       | Indicator                                                                                                                                                                                   | multiFLEX enabled state.                                                                                                               |
+| **License Info**                                    | Indicator                                                                                                                                                                                   | Displays subscription, expiration, radio ID, and licensed version from the radio.                                                      |
 
 ### Radio identification
 
@@ -59,18 +61,24 @@ The Radio tab displays radio identification and license information, and provide
 |---|---|---|
 | **Remote On** | Push button | Enables remote wake / remote-on. |
 
+### Reboot Radio
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Reboot Radio** | Push button | Reboots the connected radio. A confirmation dialog appears before rebooting. On LAN connections, AetherSDR automatically reconnects once the radio finishes booting. On SmartLink/WAN connections, you must reconnect manually after the radio boots. The dialog closes after reboot. The button is disabled when the radio is disconnected. |
+
 ### Firmware update
 
 | Control | Kind | Behavior |
 |---|---|---|
 | **Check for Update** | Push button | Queries for firmware updates from the radio. |
-| **Browse .ssdr...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. |
+| **Select Installer...** | Push button | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes and extracts the `.ssdr` without external tools. |
 | **Upload Firmware** | Push button | Starts firmware upload with progress bar and status. |
 | Firmware status | Indicator | Empty until a firmware upload begins, then progress and result text. |
 
 #### Firmware update workflow
 
-When **Check for Update** finds a newer version, the status area instructs you to download the SmartSDR installer from flexradio.com yourself. Use **Browse .ssdr...** to point AetherSDR at the file you downloaded.
+When **Check for Update** finds a newer version, the status area instructs you to download the SmartSDR installer from flexradio.com yourself. Use **Select Installer...** to point AetherSDR at the file you downloaded.
 
 **Supported installer formats**
 
@@ -86,7 +94,7 @@ When **Check for Update** finds a newer version, the status area instructs you t
 2. Click the **Radio** tab.
 3. Click **Check for Update**. If an update is available, the status area displays the version number and instructs you to download the installer from flexradio.com.
 4. Download the SmartSDR installer from flexradio.com.
-5. Click **Browse .ssdr...** and locate the downloaded `.msi`, `.exe`, or `.ssdr` file. AetherSDR stages the firmware and reports progress in the status area.
+5. Click **Select Installer...** and locate the downloaded `.msi`, `.exe`, or `.ssdr` file. AetherSDR stages the firmware and reports progress in the status area.
 6. When staging completes, click **Upload Firmware** to transfer the firmware to the radio.
 
 ## Network tab
@@ -103,8 +111,8 @@ The Network tab displays radio network information and provides advanced network
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Enforce Private IP Connections** | Toggle button | Rejects non-RFC1918 peers. |
-| **Network MTU** | Spinbox | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576-9000 bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`. |
+| **Enforce Private IP Connections:** | Toggle button | Rejects non-RFC1918 peers. Always shows "Enabled" text. |
+| **Network MTU:** | Spinbox | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576-9000 bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`. |
 | **DHCP / Static** | Toggle button | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text field | Static IP configuration fields. |
 | **Apply** | Push button | Pushes the network config to the radio. |
@@ -141,8 +149,8 @@ The TX tab provides transmit timing, interlock, power, and slice/TX follow setti
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **TX REQ: RCA** | Toggle button | Enables RCA interlock input. |
-| **TX REQ: Accessory** | Toggle button | Enables accessory interlock input. |
+| **Interlocks - TX REQ: RCA** | Toggle button | Enables RCA interlock input. |
+| **Interlocks - TX REQ: Accessory** | Toggle button | Enables accessory interlock input. |
 
 ### Power and Tune
 
@@ -250,25 +258,4 @@ The Audio tab provides radio audio output, compression, PC devices, boost, buffe
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Prevent system sleep while connected** | Checkbox | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored as `InhibitSleepWhileConnected`. Default: False. |
-
-### PC Audio Devices
-
-| Control | Kind | Behavior |
-|---|---|---|
-| **PC Audio Devices: Input:** | Combo box | Picks host audio input device. |
-| **PC Audio Devices: Output:** | Combo box | Picks host audio output device. |
-
-### Audio boost and buffer
-
-| Control | Kind | Behavior |
-|---|---|---|
-| **Audio Boost:** | Toggle button | Enables extra gain on the client audio path. Stored as `AudioBoost`. |
-| **Audio Buffer:** | Text field | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50-1000 ms. Stored as `AudioBufferMs`. Default: 200. |
-
-### Recording
-
-| Control | Kind | Behavior |
-|---|---|---|
-| **Recording: Radio Side / Client Side** | Push button | Picks radio-side or client-side recording. Stored as `RecordingMode`. Default: Radio Side. |
-| **Save to
+| **Prevent system sleep while connected** | Checkbox | Keeps

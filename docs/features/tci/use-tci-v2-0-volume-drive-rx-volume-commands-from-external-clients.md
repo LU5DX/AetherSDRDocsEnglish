@@ -35,8 +35,8 @@ The TCI applet shows the current state and lets you adjust gain settings:
 
 | Control | Description | Setting key |
 |---------|-------------|-------------|
-| **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
-| **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. Right-click to open the TX overflow mode picker. | `TciTxGain` |
+| **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. Each control has an accessible name "TCI RX _N_ gain" for screen readers. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
+| **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. Right-click to open the TX overflow mode picker. Has accessible name "TCI TX gain" for screen readers. | `TciTxGain` |
 | **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. | `TciPort` |
 | **Enable** | Toggle button to start or stop the TCI server. If bind fails, snaps back to off and status shows "(port in use)". | None |
 
@@ -75,6 +75,7 @@ Default is **Clip** so existing users see no behavior change.
 - Slice assignment labels now use rich HTML formatting (v26.5.2.1, #2606), so disabled or special-state slices may display with text formatting (e.g., strikethrough).
 - For bit-exact digital-mode tone fidelity, use **NaN guard** or **Measure only** mode to avoid harmonic distortion from the Clip limiter.
 - The TCI applet container now uses themed styling (v26.6.1) — colors adapt to the active theme.
+- All gain meters have explicit accessible names set for screen reader compatibility (v26.6.3). "TCI RX 1 gain" through "TCI RX 4 gain" for the RX channels, and "TCI TX gain" for the TX channel.
 
 ## Related
 

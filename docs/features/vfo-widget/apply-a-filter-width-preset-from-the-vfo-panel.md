@@ -29,7 +29,7 @@ To save the current filter width into a preset slot:
 | Filter width label               | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |                                                                                                                         |
 | AF Gain slider (Audio tab)       | Sets the audio output level for this slice (0-100).                                                                                                                                                                                              | 100                                                                                                                     |
 | Pan slider (Audio tab)           | Sets left/right stereo pan for this slice (0-100). 50 = centre. The slider fill anchors from the centre outward, with a centre-mark dot on the groove showing the neutral position.                                                              | 50                                                                                                                      |
-| Mute button (Audio tab)          | Mutes audio output for this slice without changing the AF gain setting.                                                                                                                                                                        | off                                                                                                                     |
+| Mute button (Audio tab)          | Mutes audio output for this slice without changing the AF gain setting. Right-click the Audio tab button to toggle mute directly.                                                                                                                 | off                                                                                                                     |
 | Squelch button + slider (Audio tab) | Enables squelch for this slice. The adjacent slider sets the threshold (0-100). Disabled for RTTY and digital modes (DIGU, DIGL).                                                                                                                 | off                                                                                                                     |
 | AGC combo (Audio tab)            | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF.                                                                                                                                                                | FAST                                                                                                                    |
 | NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons (DSP tab) | Enables the corresponding radio-side noise reduction or filtering algorithm for this slice. APF is visible in CW mode only.                                                                                           | off                                                                                                                     |
@@ -44,20 +44,9 @@ To save the current filter width into a preset slot:
 | Filter edges button              | Toggles the filter edge lines on the spectrum passband. Persisted per slice.                                                                                                                                                                    | shown                                                                                                                   |
 | Collapse toggle                  | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice.                                                                                                                                                                 | expanded                                                                                                                |
 
-## DSP tab changes in v0.9.8
+## DSP tab layout (v0.9.8)
 
-The **DSP tab** now shows only radio-side noise reduction buttons. The following buttons have been removed from the VFO panel DSP tab:
-
-- **NR2**
-- **RN2**
-- **BNR**
-- **NR4**
-- **MNR**
-- **DFNR**
-
-These client-side DSP modules are now accessed through the spectrum overlay menu and the AetherDSP applet. Toggle them there instead of from the VFO panel.
-
-The buttons that remain in the DSP tab are arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons:
+The **DSP tab** shows radio-side noise reduction and filtering buttons arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons:
 
 | Position | Button |
 |---|---|
@@ -76,12 +65,19 @@ The buttons that remain in the DSP tab are arranged in a four-column grid, follo
 
 A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. In v0.9.8, when a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
 
-| Control | Behavior | Default | Setting key |
-|---|---|---|---|
-| NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons (DSP tab) | Enables the corresponding radio-side noise reduction or filtering algorithm for this slice. APF is visible in CW mode only. | off | — |
-| DSP level slider (DSP tab) | Sets the processing level for the most recently activated leveled DSP algorithm. The label to the left identifies the current target. Automatically activates on startup if the radio's saved profile has a leveled DSP enabled. Hidden (faded) when no leveled algorithm is active. | — | — |
-| ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Non-checkable push button. | — | — |
-| AetherVoice button (DSP tab) | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Non-checkable push button. Spans 2 columns in the 4-column DSP grid. | — | — |
+The following client-side DSP modules have been removed from the VFO panel DSP tab in v0.9.8: **NR2**, **RN2**, **BNR**, **NR4**, **MNR**, **DFNR**. Toggle them from the spectrum overlay menu or the AetherDSP applet instead.
+
+## Tab button changes (v26.6.3)
+
+The VFO panel tab labels (Audio, DSP, Mode, X/RIT, DAX) have been changed from `QLabel` to `QPushButton` widgets. This change provides:
+
+- **Keyboard accessibility**: Tab buttons are now reachable via the Tab key. Press Tab to navigate between tabs and press Enter or Space to activate the focused tab.
+- **Focus indicator**: The focused tab button displays a visible focus ring (bottom border) using the theme's label text colour (`#6880a0`), making keyboard navigation visible.
+- **Right-click on Audio tab**: Right-click the **Audio** tab button to toggle the mute state directly, without needing to open the Audio tab and click the Mute button.
+
+## Frequency scroll direction (v26.6.3)
+
+The mouse wheel scroll direction for frequency tuning in the VFO panel now respects the **Reverse mouse wheel** setting found in `Settings > Interaction`. When this setting is enabled, scrolling the mouse wheel upward decreases the frequency and scrolling downward increases it. Previously, the scroll direction was always fixed regardless of this setting.
 
 ## Squelch behavior changes (v26.5.1)
 
@@ -137,6 +133,8 @@ The VFO panel now uses the theme system for all visual elements:
 - The MiniBadge button stylesheet uses the `applyStyleSheet()` method with theme template variables (e.g., `{{color.background.1}}`, `{{color.accent}}`) instead of hardcoded hex colours.
 - The Inspector tool (Inspect mode click) on the VFO panel now surfaces the theme tokens it reads: `color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, `color.accent`, and `color.accent.bright`.
 
-## Tab layout improvements (v26.5.3)
+## Accessibility improvements (v26.6.3)
 
-The VFO panel tab stack has been improved to
+The VFO panel now provides accessibility support for the frequency display:
+
+- **Value change events**: When the slice frequency changes, an accessible value change event is fired for the

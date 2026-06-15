@@ -29,11 +29,12 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 | **2.7K (filter width)**    | Shows the current filter bandwidth (e.g. 2.7K, 3.3K, 500). Updates when filter preset is applied.                                                                                                                                                                                                                                    | 2.7K         |
 | **QSK**                    | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet.                                                                                                                                                                                                                                              | off (grey)   |
 | **TX (badge)**             | Click to set this slice as the TX slice.                                                                                                                                                                                                                                                                                             | —            |
-| **Mode combo**             | Sets the slice operating mode. Options vary by radio and build flags. RADE option requires HAVE_RADE build flag. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch. When switching out of RADE mode, emits radeActivated(false) only if the slice was actually in RADE (#2376).                                  | USB          |
+| **Mode combo**             | Sets the slice operating mode. Options vary by radio and build flags. RADE option requires HAVE_RADE build flag. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch. When switching out of RADE mode, emits radeActivated(false) only if the slice was actually in RADE (#2376). Selecting any real radio mode also tears down the WFM software-demod overlay if it was active on this slice. | USB          |
+| **WFM**                    | Toggle button. Enables a software FM demodulator using DAX IQ via Hi-Fi Cable. When active, the button background turns green. Selecting any mode from the mode combo automatically deactivates WFM. Corresponding deactivate signal always includes the slice ID. (#2254)                                                           | off          |
 | **Frequency label**        | Displays current VFO frequency with dotted grouping. Click to enter edit mode.                                                                                                                                                                                                                                                       | `0.000.000`  |
-| **Frequency edit**         | Text field. Enter frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. Escape cancels and restores the previous frequency. XVTR-aware: accepts up to 450 MHz on XVTR antennas; accepts explicit MHz entries up to 50,000 MHz when the typed number exceeds 54 MHz (#2376).                           | —            |
-| **STEP**                   | Sets the step size used when nudging frequency with arrow buttons or mousewheel. Step list depends on mode.                                                                                                                                                                                                                          | 100 Hz       |
-| **Filter width presets**   | Click a preset button to apply that filter bandwidth. Right-click to save current width into that slot. Hidden in FM/NFM/DFM modes. The width readout uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). stepFilterWidth() walks the per-mode preset list for mode-correct widen/narrow (#2208). | —            |
+| **Frequency edit**         | Text field using `FreqLineEdit` component. Enter frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. Escape cancels and restores the previous frequency. XVTR-aware: accepts up to 450 MHz on XVTR antennas; accepts explicit MHz entries up to 50,000 MHz when the typed number exceeds 54 MHz (#2376). Hint text shows "MHz" instead of placeholder text. | —            |
+| **STEP**                   | Sets the step size used when nudging frequency with arrow buttons or mousewheel. Step list depends on mode. User-initiated changes emit `stepSizeChangedByUser` signal for external synchronization (#2254).                                                                                                                          | 100 Hz       |
+| **Filter width presets**   | Click a preset button to apply that filter bandwidth. Right-click to save current width into that slot. Hidden in FM/NFM/DFM modes. The width readout uses mode-aware logic so SSB and digital modes display the correct labelled width (#2197). stepFilterWidth() walks the per-mode preset list for mode-correct widen/narrow (#2208). | —            |
 | **Filter passband widget** | Drag the lo/hi edges to adjust filter passband directly.                                                                                                                                                                                                                                                                             | —            |
 | **Tone mode (FM)**         | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes.                                                                                                                                                                                                                                                              | Off          |
 | **CTCSS tone value**       | Selects the CTCSS tone frequency sent with transmit. Enabled only when Tone mode = CTCSS TX.                                                                                                                                                                                                                                         | —            |
@@ -48,13 +49,24 @@ To cancel without changing frequency, press **Escape**. The editor closes and th
 | **SQL**                    | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504).                                                                                                                                                         | —            |
 | **Squelch level**          | Adjusts squelch threshold (0–100). Takes effect only when SQL is on. Disabled in RTTY and digital modes. Manual level persists across sessions.                                                                                                                                                                                      | 20           |
 | **AGC mode**               | Sets slice AGC mode: Off, Slow, Med, Fast. Hidden in FM family modes.                                                                                                                                                                                                                                                                | Med          |
-| **AGC threshold**          | Sets AGC threshold (or AGC off-level when AGC mode is Off).                                                                                                                                                                                                                                                                          | 65           |
+| **AGC threshold**          | Sets AGC threshold (or AGC off-level when AGC mode is Off). Right-click the slider to open a context menu and select "Calibrate AGC-T against noise floor…" to calibrate the AGC-T threshold against the current noise floor. The tooltip indicates this right-click option is available.                                              | 65           |
 | **RIT**                    | Toggles Receive Incremental Tuning on/off.                                                                                                                                                                                                                                                                                           | —            |
 | **RIT 0**                  | Zeroes the RIT offset.                                                                                                                                                                                                                                                                                                               | —            |
 | **RIT offset**             | Adjusts RIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                                                                                                                                                                                                                 | +0 Hz        |
 | **XIT**                    | Toggles Transmit Incremental Tuning on/off.                                                                                                                                                                                                                                                                                          | —            |
 | **XIT 0**                  | Zeroes the XIT offset.                                                                                                                                                                                                                                                                                                               | —            |
 | **XIT offset**             | Adjusts XIT offset by 10 Hz steps using arrow buttons or mousewheel.                                                                                                                                                                                                                                                                 | +0 Hz        |
+
+## WFM software FM demodulator
+
+From v26.6.3, the RX Controls applet includes a **WFM** toggle button for software FM demodulation. This feature uses DAX IQ audio routed through a Hi-Fi Cable to provide wideband FM reception.
+
+To use WFM:
+1. Select a slice and tune to a broadcast FM station (typically 88–108 MHz).
+2. Click **WFM** to enable the software demodulator. The button turns green when active.
+3. To disable WFM, click **WFM** again or select any mode from the mode combo. Selecting a mode from the mode combo automatically tears down the WFM overlay.
+
+The **WFM** button state is synchronized across reconnects and slice bindings via the `setWfmActive()` method, which receives the slice ID and updates the button only if it matches the currently bound slice.
 
 ## Filter width stepping
 
@@ -98,24 +110,4 @@ The `FilterPresets` setting for each mode (stored under the key `FilterPresets_<
 | `width` | `2700` | Bandwidth in Hz; edges are calculated from the mode's default alignment. |
 | `lo:hi` | `-1350:1350` | Explicit passband edges in Hz relative to the carrier. Both values must be integers and `hi` must be greater than `lo`. |
 
-Entries that do not conform to either format, or where `hi <= lo`, are silently skipped. The applet loads at most six presets per mode.
-
-You do not normally need to edit these values by hand. Right-clicking a **Filter width presets** button saves the current filter width into that slot using the appropriate format automatically.
-
-## Squelch behavior in RTTY and digital modes
-
-From v26.5.1, when you switch to RTTY mode, the **SQL** button and squelch level slider are disabled, and any active squelch is turned off automatically. This prevents squelch from notching out FSK characters and breaking decoding. The same behavior applies to DIGU, DIGL, and NT modes.
-
-## RADE mode behavior
-
-RADE is handled as a client-side mode only. The radio responds by echoing back the real mode (DIGL or DIGU) immediately. The `radeActivated` signal is emitted correctly based on the client-side RADE activation state, ensuring proper behavior when switching modes on or off RADE slices.
-
-When switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice.
-
-## Antenna menu improvements
-
-From v26.5.2.1, the RX and TX antenna selection menus have been updated:
-
-- **RX antenna menu** uses the slice's dedicated RX antenna list (`SliceModel::rxAntennaList()`) when available, falling back to the radio's antenna list.
-- **TX antenna menu** uses `txAntennaOptions()` to filter for TX-capable ports, including ANT, TX, and XVTR prefixes, while excluding RX-only ports.
-- All antenna menu items now carry their antenna name as `data()` for reliable
+Entries that do not conform to either format, or where `hi <= lo`, are silently skipped. The applet loads at most six presets per

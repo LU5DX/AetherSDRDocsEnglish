@@ -37,6 +37,14 @@ As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere i
 | `CLR`                   | Clears the CW decode buffer entirely. Text cannot be recovered after clearing.               | —       |
 | Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`.     | —       |
 | Sens                    | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30      |
+| 🔒P (Lock Pitch)        | Locks the CW decoder pitch to the current tuned frequency.                                   | —       |
+| 🔒S (Lock Speed)        | Locks the CW decoder speed to the current WPM.                                               | —       |
+| Pitch range slider      | Double-handle slider that sets the decoder pitch search range (Lo to Hi) in Hz.              | 500–700 |
+| WPM range slider        | Double-handle slider that sets the decoder speed search range (Lo to Hi) in WPM.             | 15–40   |
+
+## CW stats display
+
+The CW stats label shows the detected pitch and speed in the format `<hz> Hz  <wpm> WPM`. These values update in real time as the decoder processes signals.
 
 ## Decoded text display
 
@@ -58,6 +66,9 @@ A separator space is automatically inserted when the display switches between TX
 - Use `CPY ALL` when logging a full QSO or saving a complete decode session.
 - Click `CLR` (or right-click the text area and choose **Clear**) before a new QSO to keep the buffer relevant. Note that clearing the buffer also removes text that `CPY ALL` would have captured.
 - Decoded RX text is colour-coded by confidence: green is highest confidence, then yellow, orange, and red. TX text (your own sending) appears in cyan. Raising the Sens slider suppresses red and orange characters from appearing in the buffer. See [Tune CW decoder sensitivity to reject noise](tune-cw-decoder-sensitivity-to-reject-noise.md).
+- Use the pitch range slider (embedded double-handle slider labelled "Pitch") to narrow the decoder's frequency search. Set the left handle for minimum pitch and the right handle for maximum pitch. The default range is 500–700 Hz.
+- Use the WPM range slider (embedded double-handle slider labelled "WPM") to constrain the decoder's speed search. The default range is 15–40 WPM.
+- Lock Pitch (`🔒P`) and Lock Speed (`🔒S`) buttons let you freeze the current detected values so the decoder no longer adjusts pitch or speed even if the signal varies.
 
 ## Related
 

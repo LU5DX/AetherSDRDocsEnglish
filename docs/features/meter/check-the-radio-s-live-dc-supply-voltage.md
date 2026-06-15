@@ -14,13 +14,22 @@ The Meters applet shows the supply voltage reported live by the radio. Use it to
 
 ## What each control does
 
-| Gauge | Valid range | Red above | Behavior |
-|-------|-------------|-----------|----------|
-| +13.8V | 10.0–16.0 V | 15 V | Displays the supply voltage reported by the radio. The gauge label updates dynamically to reflect the live value (e.g. `+13.82V`). |
-| PA Temp | 0–120 °C | 70 °C | Displays PATEMP meter reading from the radio. |
-| Main Fan | 0–3000 rpm | 2500 rpm | Displays MAINFAN meter value from the radio. |
+| Gauge | Valid range | Red above | Behavior | Accessibility |
+|-------|-------------|-----------|----------|---------------|
+| +13.8V | 10.0–16.0 V | 15 V | Displays the supply voltage reported by the radio. The gauge label updates dynamically to reflect the live value (e.g. `+13.82V`). | Accessible name: "Supply voltage" |
+| PA Temp | 0–120 °C | 70 °C | Displays PATEMP meter reading from the radio. | Accessible name: "PA temperature" |
+| Main Fan | 0–3000 rpm | 2500 rpm | Displays MAINFAN meter value from the radio. | Accessible name: "Main fan speed" |
 
 There is no persisted setting key for these gauges. They have no configurable defaults.
+
+## Accessibility notes
+
+Each gauge has an accessible name set for screen reader compatibility:
+- PA Temp gauge: "PA temperature"
+- Supply voltage gauge: "Supply voltage"
+- Main Fan gauge: "Main fan speed"
+
+These names are announced when the gauge receives focus or is navigated to with assistive technology.
 
 ## Tips
 

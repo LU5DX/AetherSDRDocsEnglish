@@ -59,6 +59,10 @@ The curve widget uses these theme colors:
 
 Knob colors follow per-applet container overrides. If you create a custom theme, set colors in the `applet/gate` container for the gate-specific knob rendering.
 
+## Meter animation efficiency
+
+The gain-reduction bar and other real-time meter indicators in the gate applet use smooth interpolation for their animation. To reduce CPU usage, the animation stops updating the display once the meter value has settled — that is, when the smoothed value no longer changes significantly. A minimal repaint is triggered only when the value actually changes. When the meter is idle (no audio input), no repaints occur until the next meter update, conserving resources on slower machines and improving responsiveness on battery-powered systems.
+
 ## Tips
 
 - Start with Thresh just above the highest level of background noise you want to suppress. Adjust while listening to a weak signal — the gate should open cleanly when the signal rises above the noise.

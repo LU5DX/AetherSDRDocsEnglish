@@ -24,6 +24,19 @@ The single-click discrimination interval is read from the Radio Setup click disc
 | PAUSED badge | Live (no badge), Paused (PAUSED badge in footer) | Indicates the display is showing a frozen snapshot and not the live audio stream. |
 | No-audio placeholder | Waveform present, 'no RX audio' / 'no TX audio' message | When no scope samples have arrived within 1 second, a placeholder message is shown instead of an empty trace. |
 
+## Lean mode
+
+The waveform applet supports a lean mode that fully disables the scope when the applet is hidden. In lean mode:
+
+- The applet becomes invisible (`setVisible(false)`).
+- The `appendScopeSamples` handler short-circuits immediately, discarding all incoming scope data instead of writing it into the sample buffer.
+- The 24 Hz software repaint cycle stops entirely.
+- The upstream `AudioEngine::{tx,rx}PostChainScopeReady` signal still fires per audio callback, but the applet skips the appended-and-repainted work.
+
+This reduces CPU usage when the waveform display is not visible, because no waveform rendering work is performed at all. To enable lean mode, call `setActive(false)` on the applet. The default state is active (`m_active{true}`).
+
+Use the `isActive()` method to check whether the applet is currently active.
+
 ## Settings drawer
 
 The settings drawer can be toggled open or closed by double-clicking the waveform display. Its expanded state is persisted across sessions using the `WaveApplet_DrawerExpanded` setting. When you close the drawer and restart AetherSDR, it remains closed until you double-click the display to reopen it.
@@ -89,6 +102,7 @@ Setting a shorter window allows you to see fine details in the waveform. Setting
 - The FPS slider uses a single step of 5 and a page step of 10, so pressing the arrow keys or Page Up/Page Down on the slider moves it in those increments.
 - The zoom, FPS, and window settings are independent — changing one does not affect the others.
 - Use the pause feature (single-click the display) to freeze the waveform for close inspection of a transient or anomaly.
+- When the waveform applet is hidden, it enters lean mode and stops all waveform rendering work, reducing CPU usage.
 
 ## Related
 

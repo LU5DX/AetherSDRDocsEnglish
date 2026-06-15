@@ -29,7 +29,7 @@ Load a pre-recorded WAV file from your computer into one of the Digital Voice Ke
 | ▶ PLAY | Plays the selected slot. | — |
 | ◀ PREV | Previews the slot through the local speaker. | — |
 | Rename edit | Inline rename of a slot triggered via context menu. | — |
-| Status indicator | Displays current DVK state: Idle, Recording, or Playing. | Idle |
+| Status indicator | Displays current DVK state: Idle, Recording, or Playing, or a failure message if the radio rejected a command. | Idle |
 
 ## Keyboard shortcuts
 
@@ -45,6 +45,7 @@ The DVK panel registers keyboard shortcuts F1–F12 and Escape. These shortcuts 
 - After the upload finishes, verify the slot duration label no longer shows "Empty" before transmitting.
 - You can rename the slot immediately after uploading by right-clicking the row again and selecting the rename option. See [Rename a slot](rename-a-slot.md).
 - Use the keyboard shortcuts (F1–F8) to quickly select and play stored messages on-air. The Escape key provides a convenient way to stop operation.
+- If the REC button momentarily appears checked after recording fails, the button returns to its previous state and the status indicator displays a failure message.
 
 ## Troubleshooting
 
@@ -52,6 +53,7 @@ The DVK panel registers keyboard shortcuts F1–F12 and Escape. These shortcuts 
 - **The context menu does not appear** — Click somewhere else first to deselect any active control, then right-click directly on the slot row frame.
 - **Keyboard shortcuts (F1–F8, Escape) do not work** — Ensure the active slice is in a voice mode. The DVK shortcuts are only enabled when the slice mode supports voice keyer operation. If the slice is in CW mode, the CWX panel shortcuts take precedence.
 - **Status shows "Transfer failed" instead of a success message** — The WAV file upload encountered an error. Verify the file format is a valid WAV and the radio connection is active, then try again.
+- **Status shows a failure message like "Status: Recording (slot 2) failed — ..."** — The radio rejected the recording or playback command. The REC button automatically releases and the panel returns to its previous idle state. Check the radio's microphone connection and that the slot is not in use by another client.
 
 ## Related
 

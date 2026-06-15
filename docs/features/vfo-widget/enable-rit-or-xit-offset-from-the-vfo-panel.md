@@ -66,6 +66,20 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
 - When a slice is locked, scroll-wheel tuning on the VFO panel is blocked. A notification appears indicating that tuning is blocked by the lock. Direct frequency entry is also canceled if it was in progress when the lock is applied.
 
+## Changes in v26.6.3
+
+### Tab buttons replaced with QPushButton
+
+The tab labels in the tab bar have been replaced from QLabel to QPushButton. Each tab is now a flat, checkable button with keyboard focus support. Pressing Tab cycles through the tab buttons. Right-click on the Audio tab (speaker) button toggles mute directly without opening the tab.
+
+### Accessible frequency announcements
+
+When a screen reader or other accessibility tool is active, the frequency display emits an accessible value change event when the frequency changes. Duplicate announcements are suppressed — only distinct frequency texts trigger a new announcement.
+
+### Reverse mouse wheel tuning support
+
+Scroll-wheel tuning now respects the **Reverse mouse wheel** preference in `InteractionSettings`. When enabled, scrolling up decreases the frequency and scrolling down increases it.
+
 ## Changes in v26.6.1
 
 ### Theme-aware Pan slider
@@ -141,17 +155,4 @@ The filter width label now uses `RxApplet::formatFilterWidth` as the single sour
 
 ## Changes in v0.9.7
 
-### DSP tab — radio-side buttons only
-
-The **DSP tab** in the VFO panel now shows only buttons for DSP functions that the radio itself provides. The following buttons have been removed from the VFO panel DSP tab:
-
-- **NR2** (spectral noise reduction)
-- **RN2** (RNNoise noise suppression)
-- **BNR** (GPU neural denoising)
-- **NR4** (spectral bleach noise reduction)
-- **MNR** (macOS MMSE-Wiener noise reduction)
-- **DFNR** (DeepFilterNet3 neural noise reduction)
-
-These client-side DSP modules are now accessible from the spectrum overlay menu and the AetherDSP applet. Use those locations to enable or adjust them.
-
-The buttons that remain on the DSP tab are: **NR**, **
+### DSP tab

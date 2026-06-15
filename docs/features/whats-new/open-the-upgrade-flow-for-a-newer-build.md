@@ -13,17 +13,20 @@ When a newer build of AetherSDR is available, the What's New dialog shows an "Up
 2. Review the release notes in the scrollable browser at the top of the dialog.
 3. Click `Upgrade`.
 
-AetherSDR opens the AetherSDR releases page in your default web browser and closes the dialog. The download page is now hosted at `https://github.com/aethersdr/AetherSDR/releases/latest`.
+AetherSDR opens the AetherSDR releases page in your default web browser and closes the dialog. The download page URL is obtained from the application's internal release page reference.
 
 ## What each control does
 
-| Control | Kind | Behavior | Persisted setting |
-|---|---|---|---|
-| Release notes browser | Text field | Scrollable HTML view of release entries. Shows changes between the last seen version and the current version. | — |
-| `Got it — 73!` | Push button | Dismisses the dialog and marks the version as seen. | `LastSeenVersion` |
-| `Upgrade` | Push button | Visible only when an upgrade is available. Opens the download page. | — |
-| `Skip this version` | Push button | Skips release nag for this version. | `LastSeenVersion` |
-| Hint | Indicator | Short footer line with guidance. | — |
+| Control                      | Kind                                                                                                                                                                             | Behavior                                                                                                                                                     |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Release notes browser        | Scrollable QTextBrowser rendering release notes as GitHub-flavored Markdown. Issue/PR numbers and @mentions are hyperlinked to GitHub. Clicking links opens the default browser. | Refactored in v26.5.3 (#2979) to fetch live notes from api.github.com. Shows 'Loading...' state, error state with suggestions, or the rendered release body. |
+| `Got it — 73!`               | Push button                                                                                                                                                                      | Dismisses the dialog and marks the version as seen.                                                                                                          |
+| `Upgrade`                    | Push button                                                                                                                                                                      | Visible only when an upgrade is available. Opens the download page.                                                                                          |
+| `Skip this version`          | Push button                                                                                                                                                                      | Skips release nag for this version.                                                                                                                          |
+| AETHERSDR V<version> eyebrow | Branded header showing the current AetherSDR version and either 'Welcome!' or 'What's New' heading.                                                                              | Rendered as styled HTML in a QLabel with padding.                                                                                                            |
+| Status label                 | Under the header shows the GitHub release title and published date after fetch, or a loading message while fetching.                                                             | Multi-line status via <br/> insertion.                                                                                                                       |
+| Find                         | Opens a QInputDialog to enter search text; highlights matches in the release notes and wraps around.                                                                             | New in v26.5.3 (#2979).                                                                                                                                      |
+| Close                        | Primary action button that dismisses the dialog.                                                                                                                                 | Styled as primary blue button. Always visible.                                                                                                               |
 
 ## Tips
 

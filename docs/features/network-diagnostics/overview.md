@@ -88,7 +88,6 @@ Speaker-side buffer health. If underruns increase while the buffer stays near ze
 | Deselect All (Logs)      | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                         |
 | Live / Paused (Logs)     | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      | Default state is Live.                                                                                  |
 | Close                    | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
-
 ## Logs tab
 
 The Logs tab tails the AetherSDR log file in real time. The full path of the file being tailed is shown in the log path label at the top of the tab.

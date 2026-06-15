@@ -32,6 +32,14 @@ There is no in-place rename command. Renaming is a two-step process: create a ne
 5. Click **Yes**. The profile is removed from the list.
 6. Click **Close**.
 
+### To delete or load a transmit profile
+
+1. Click `Profiles > Profile Manager...`.
+2. Click the **Transmit** tab.
+3. Click the profile you want to load or delete in the **Profile list**.
+4. Click **Load** to apply the selected transmit profile to the radio.
+5. Click **Delete** to remove the selected transmit profile after confirmation.
+
 ## What each control does
 
 | Control | Kind | Behavior |
@@ -55,6 +63,7 @@ There is no in-place rename command. Renaming is a two-step process: create a ne
 - The list refreshes automatically when the radio reports a change. You do not need to reopen the dialog after creating or deleting.
 - Microphone profiles cannot be overwritten directly. To update an existing microphone profile, enable **Auto-save profile changes** on the **Auto-Save** tab and then make your changes while the profile is active.
 - The **Auto-save profile changes** checkbox stays in sync with the radio: if auto-save is toggled by another client or by the profile load process, the checkbox updates automatically.
+- The **Load** button for transmit profiles now uses the `profile tx load` command internally. This change is transparent and does not affect how you interact with the dialog.
 
 ## Troubleshooting
 
@@ -62,6 +71,7 @@ There is no in-place rename command. Renaming is a two-step process: create a ne
 - **Save appears but the new profile does not show in the list** — The radio pushes list updates asynchronously. Wait a moment for the list to refresh. If it does not update, close and reopen the Profile Manager.
 - **I get a "Profile already exists" dialog** — You attempted to create a microphone profile with a name that already exists. The radio cannot overwrite microphone profiles. Click **Enable Auto-Save** in the dialog to turn on automatic profile saving, then load the existing profile and make your changes to update it.
 - **The old profile name is still present after deleting** — You may have clicked **No** at the confirmation prompt. Repeat steps 3–5 and click **Yes** to confirm.
+- **Transmit profile load fails** — Ensure the radio is connected and the transmit profile name is valid. The dialog uses the `profile tx load` command for loading transmit profiles.
 
 ## Related
 

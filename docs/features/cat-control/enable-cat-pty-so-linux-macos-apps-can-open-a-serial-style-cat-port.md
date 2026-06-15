@@ -29,7 +29,6 @@ CAT PTY creates four virtual serial port symlinks that logging and contest softw
 | **Enable TCP**       | Off         | On / Off    |
 | **Base**             | `4532`      | 1024–65535  |
 | A/B/C/D channel rows | `(stopped)` | —           |
-
 ## Tips
 
 - Each channel (A, B, C, D) maps to one radio slice. Point your logging software at the symlink that corresponds to the slice you want it to control.

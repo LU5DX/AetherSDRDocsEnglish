@@ -12,14 +12,13 @@ The selected devices are persisted to AppSettings, so your choices are remembere
 
 ## What each control does
 
-| Control                      | Behavior                                                                                                                                                      | Notes                                         |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
-| **Available Input Devices**  | Lists all detected input audio devices. The currently-selected device is highlighted.                                                                         | New in v26.5.2.1.                             |
-| **Available Output Devices** | Lists all detected output audio devices. The currently-selected device is highlighted.                                                                        |                                               |
-| **Apply**                    | Applies the selected audio devices and closes the dialog. Persists the choice to AppSettings. Styled as the primary action button.                            |                                               |
-| **Cancel**                   | Closes the dialog without changing audio devices.                                                                                                             |                                               |
-| Don't ask me again           | When checked and Apply is clicked, persists the suppression flag so the dialog is not shown on future hotplug events while the current selection still works. | New in v26.5.3 (#2926).                       |
-
+| Control                      | Behavior                                                                                                                                                      | Notes                   |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| **Available Input Devices**  | Lists all detected input audio devices. The currently-selected device is highlighted.                                                                         | New in v26.5.2.1.       |
+| **Available Output Devices** | Lists all detected output audio devices. The currently-selected device is highlighted.                                                                        |                         |
+| **Apply**                    | Applies the selected audio devices and closes the dialog. Persists the choice to AppSettings. Styled as the primary action button.                            |                         |
+| **Cancel**                   | Closes the dialog without changing audio devices.                                                                                                             |                         |
+| Don't ask me again           | When checked and Apply is clicked, persists the suppression flag so the dialog is not shown on future hotplug events while the current selection still works. | New in v26.5.3 (#2926). |
 ## Tips
 
 - The dialog appears automatically — you don't need to open it manually. If you need to change audio devices at other times, use **Settings > Radio Setup...** and navigate to the audio configuration section.

@@ -49,7 +49,6 @@ The **Timeframe** combo box in the top-right corner of the tab bar sets how far 
 | 1 week                |          |       |
 
 Select a value from the **Timeframe** drop-down. All visible charts update immediately.
-
 ## Use the Logs tab
 
 1. Select the **Logs** tab.

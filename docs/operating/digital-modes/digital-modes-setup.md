@@ -73,3 +73,107 @@ The **PTY Path** shows the symlink path logging software can open as a serial de
 ## Security Notes
 
 In v26.5.3, the PTY symlink location moved from `/tmp` to per-user runtime directories to fix a cross-user symlink vulnerability (GHSA-qxhr-cwrc-pvrm). Atomic symlink replacement via `symlink(.tmp) + rename(.tmp, final)` closes the TOCTOU window.
+
+# SpotHub
+
+The **SpotHub** dialog is the central hub for connecting to DX spot sources — DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA and FreeDV — and configuring how spots are displayed on the panadapter.
+
+## Opening SpotHub
+
+Click the **SpotHub** button in the toolbar, or press `Ctrl+Shift+S`.
+
+## SpotHub Layout
+
+The SpotHub dialog contains a multi-tab interface. Each source tab provides connection controls, a data console, and a spot color picker. A separate **Display** tab controls panadapter spot visualization, Signal History tunables, and DXCC coloring.
+
+### Cluster Tab
+
+The **Cluster** tab provides a telnet connection to a DX cluster.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Server:** | — | — | `ClusterHost` | Hostname of DX cluster to connect to. |
+| **Port:** | — | 1–65535 | `ClusterPort` | Telnet port on DX cluster. |
+| **Callsign:** | — | — | `ClusterCallsign` | Login callsign sent to cluster. |
+| **Connect / Disconnect** | Connect | — | — | Toggles telnet connection to the cluster. |
+| **Auto-connect on startup** | — | — | `ClusterAutoConnect` | Auto-connects cluster on launch. |
+| **Cluster Console** | — | — | — | Read-only telnet console of raw cluster traffic. |
+| **Send** | — | — | — | Sends a typed command to the cluster. |
+| **Spot Color:** | — | — | `ClusterSpotColor` | Opens a color picker for cluster spots. |
+
+### RBN Tab
+
+The **RBN** tab provides a Reverse Beacon Network telnet source with rate limiting.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Server:** | — | — | `RbnHost` | RBN telnet hostname. |
+| **Port:** | — | 1–65535 | `RbnPort` | RBN telnet port. |
+| **Callsign:** | — | — | `RbnCallsign` | Login callsign to RBN. |
+| **Rate Limit:** | — | — | `RbnRateLimit` | Caps RBN spots per second. |
+| **Connect / Disconnect (RBN)** | Connect | — | — | Toggles RBN connection. |
+| **Auto-connect on startup (RBN)** | — | — | `RbnAutoConnect` | Starts RBN automatically. |
+| **RBN Console** | — | — | — | Read-only console of RBN traffic. |
+| **Send (RBN)** | — | — | — | Sends command to RBN. |
+| **Spot Color: (RBN)** | — | — | `RbnSpotColor` | Color picker for RBN spots. |
+
+### WSJT-X Tab
+
+The **WSJT-X** tab provides an UDP listener for WSJT-X decodes with filters and colors.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Address:** | — | — | `WsjtxAddress` | UDP bind address for WSJT-X messages. |
+| **Port:** | — | 1–65535 | `WsjtxPort` | UDP port for WSJT-X. |
+| **Start / Stop** | — | — | — | Starts or stops UDP listener. |
+| **Auto-start on startup (WSJT-X)** | — | — | `WsjtxAutoStart` | Auto-starts listener on launch. |
+| **CQ** | — | — | `WsjtxFilterCQ` | Show only CQ calls from WSJT-X. |
+| **CQ POTA** | — | — | `WsjtxFilterPOTA` | Show CQ POTA calls. |
+| **Calling Me** | — | — | `WsjtxFilterCallingMe` | Show only decodes addressed to your callsign. |
+| **CQ color / POTA color / Calling Me color / Default color** | — | — | `WsjtxColorCQ` / `WsjtxColorPOTA` / `WsjtxColorCallingMe` / `WsjtxColorDefault` | Color pickers for each WSJT-X spot category. |
+| **WSJT-X Decodes** | — | — | — | Console of decoded transmissions. |
+| **Spot Life:** | — | — | `WsjtxSpotLife` | Seconds WSJT-X spots remain on panadapter. |
+
+### SpotCollector Tab
+
+The **SpotCollector** tab provides an UDP listener for Ham Radio Deluxe SpotCollector broadcasts.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **UDP Port:** | — | 1–65535 | `SpotCollectorPort` | UDP port SpotCollector broadcasts on. |
+| **Start / Stop (SpotCollector)** | — | — | — | Starts or stops UDP listener. |
+| **Auto-start on startup (SpotCollector)** | — | — | `SpotCollectorAutoStart` | Auto-starts listener on launch. |
+| **SpotCollector Spots** | — | — | — | Console of received SpotCollector spots. |
+
+### POTA Tab
+
+The **POTA** tab polls api.pota.app for current activations.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Server:** | api.pota.app (HTTP polling) | — | — | Shows fixed POTA endpoint. |
+| **Poll Interval:** | — | — | `PotaPollInterval` | Seconds between POTA polls. |
+| **Start / Stop (POTA)** | — | — | — | Starts or stops POTA polling. |
+| **Auto-start on startup (POTA)** | — | — | `PotaAutoStart` | Auto-starts POTA on launch. |
+| **POTA Activations** | — | — | — | Console of activation feed. |
+| **Spot Color: (POTA)** | — | — | `PotaSpotColor` | Color picker for POTA spots. |
+
+### FreeDV Tab
+
+The **FreeDV** tab provides a WebSocket feed of FreeDV QSO reporter spots. This tab is only available when AetherSDR is built with WebSocket support.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Server:** | qso.freedv.org (WebSocket) | — | — | Shows fixed FreeDV endpoint. |
+| **Start / Stop (FreeDV)** | — | — | — | Connects or disconnects the FreeDV WebSocket. |
+| **Auto-start on startup (FreeDV)** | — | — | `FreeDvAutoStart` | Auto-starts FreeDV on launch. |
+| **FreeDV Spots** | — | — | — | Console of FreeDV activity. |
+| **Spot Color: (FreeDV)** | — | — | `FreeDvSpotColor` | Color picker for FreeDV spots. |
+
+### Spot List Tab
+
+The **Spot List** tab shows a unified searchable table of all live spots from all sources.
+
+| Control | Default | Range | Setting Key | Behavior |
+|---------|---------|-------|-------------|----------|
+| **Bands:** | — | — | — | Per-band checkboxes toggle visibility in table. One checkbox per band (160m

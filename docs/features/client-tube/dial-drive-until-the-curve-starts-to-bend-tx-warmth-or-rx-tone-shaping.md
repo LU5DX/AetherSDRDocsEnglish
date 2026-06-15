@@ -17,17 +17,17 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 
 ## What each control does
 
-| Control  | Default | Valid range | Notes |
-|----------|---------|-------------|-------|
-| Drive    | 0.00 dB | 0.0 – 24.0 dB | Label 'X.XX dB'. Left column of the editor. |
-| Tone     | 0.00    | −1.0 – 1.0    | Label 'X.XX'. Centre row of the editor, left of the Model selector. |
-| Bias     | 0 %     | 0 – 100 %     | Label displayed as percentage. Centre row of the editor, right of the Model selector. Setting key `ClientTubeTxBias` / `ClientTubeRxBias`. |
-| Output   | 0.00 dB | −24.0 – 12.0 dB | Label 'X.XX dB'. Left column of the editor. Setting key `ClientTubeTxOutputDb` / `ClientTubeRxOutputDb`. |
-| Dry/Wet  | 100 %   | 0 – 100 %     | Label displayed as percentage. Left column of the editor (top knob). |
-| Envelope | 0 %     | −100 – 100 %  | Label displayed as percentage (signed). Right column of the editor. Setting key `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope`. |
-| Attack   | 5.00 ms | 0.1 – 30.0 ms | Label 'X.XX ms' below 10 ms, 'X.X ms' above. Right column of the editor. Exponential mapping (0.1 × 300^n). |
-| Release  | 35.00 ms | 10.0 – 500.0 ms | Label 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor. Exponential mapping (10 × 50^n). |
-| RN2      | unchecked | TX-only toggle (hidden in RX mode) | Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control  | Default   | Valid range                        |
+|----------|-----------|------------------------------------|
+| Drive    | 0.00 dB   | 0.0 – 24.0 dB                      |
+| Tone     | 0.00      | −1.0 – 1.0                         |
+| Bias     | 0 %       | 0 – 100 %                          |
+| Output   | 0.00 dB   | −24.0 – 12.0 dB                    |
+| Dry/Wet  | 100 %     | 0 – 100 %                          |
+| Envelope | 0 %       | −100 – 100 %                       |
+| Attack   | 5.00 ms   | 0.1 – 30.0 ms                      |
+| Release  | 35.00 ms  | 10.0 – 500.0 ms                    |
+| RN2      | unchecked | TX-only toggle (hidden in RX mode) |
 
 **Transfer curve** — Indicator. Compact-mode ClientTubeCurveWidget. Draws the currently-configured tube transfer curve with a live ball at the input. The shape changes as you adjust Drive, Bias, and model selection. The live input ball rides the curve at the current signal level, showing the active saturation regime. No persisted key.
 
@@ -52,7 +52,6 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 **Output level meter** — Indicator. ClientLevelMeter widget (far right of the editor) showing post-saturation peak level with fast-attack / slow-release ballistics. Labelled 'OUT'. Only visible in the floating editor ("Aetherial Tube — TX" or "— RX"), not the docked applet tile. Colour zones: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), red (above −3 dB). No persisted key.
 
 **Value edit mode** — Click any knob's displayed value to enter edit mode. The value text transforms into an inline text field with a subtle dark background and cyan border. Type a numeric value (supports locale-aware formats like "12,5" and unit-stripped input like "3.5 ms" or "−6 dB") and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. Press Escape or leave the field with invalid input to revert silently.
-
 ## Tips
 
 - Start with Drive at 0.0 dB and increase slowly. The transfer curve is the most direct visual guide to how much saturation you are adding.

@@ -44,6 +44,7 @@ The **Total Spots:** label at the bottom of the dialog shows the count of live s
 - The **Override Background: Auto** toggle is active by default and selects contrast-appropriate background colors automatically. Disable it only if you want to set a specific background color with the background color picker.
 - During a contest, disable **Spot Lines:** to reduce visual clutter on the panadapter without hiding spot labels.
 - The Spot Settings dialog now uses the active theme colors for its title and the Total Spots label, matching the appearance of other AetherSDR dialogs.
+- The toggle buttons no longer change their displayed text when toggled. Instead, they indicate their state solely through their checked/unchecked appearance (colored red when disabled, default when enabled). The label next to each toggle remains constant.
 
 ## Troubleshooting
 

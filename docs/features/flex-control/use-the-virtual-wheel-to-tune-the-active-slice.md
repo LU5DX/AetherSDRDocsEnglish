@@ -30,6 +30,20 @@ Use the on-screen virtual tuning wheel in the AetherControl dialog to change the
 | **Mouse Sensitivity** | 50 | 0–100 (0 = less, 100 = more) | `FlexControlVirtualWheel` (nested JSON `sensitivity` field) |
 | **Aux buttons 1–5** | — | 5 buttons | None |
 
+## Wheel action options
+
+The following actions are available for wheel-based controls (Push, Double-tap, and aux button combos):
+
+| Action ID | Description |
+|---|---|
+| `WheelRit` | RIT (Receive Incremental Tuning) |
+| `WheelXit` | XIT (Transmit Incremental Tuning) |
+| `WheelVolume` | Master Volume |
+| `WheelSliceAudio` | Slice Audio Volume |
+| `WheelHeadphoneVolume` | Headphone Volume |
+| `WheelAgcT` | AGCT (Automatic Gain Control Threshold) |
+| `WheelApf` | APF (Audio Peaking Filter) |
+
 ## Auxiliary buttons
 
 The dialog provides five configurable auxiliary buttons (labeled with aux dots to indicate active selection). Each button has:

@@ -24,6 +24,8 @@ The VFO panel contains several tabs:
 - **X/RIT** tab — RIT and XIT incremental tuning
 - **DAX** tab — DAX audio channel assignment
 
+Tab labels are implemented as checkable push buttons that support keyboard focus. Press Tab to navigate between tab labels; press Enter or Space to activate the focused tab. Right-click the Audio tab label to toggle mute directly for the current slice.
+
 ## What each control does
 
 | Control | Tab | Label | Default | Valid range | Behavior |
@@ -68,8 +70,12 @@ The VFO panel contains several tabs:
 | Indicator | States | Meaning |
 |-----------|--------|---------|
 | TX badge | TX (red), hidden | Shown when this slice is the active transmit slice. |
-| SPLIT badge | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. |
+| SPLIT badge | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. The badge is styled with improved contrast for readability. |
 | LOCKED overlay | LOCKED (text), hidden | Shown on the frequency display when the VFO is locked. Cleared on unlock. |
+
+## Tuning with the scroll wheel
+
+The scroll wheel tunes the slice frequency. The tuning step depends on the current mode. If the **Reverse mouse wheel** setting is enabled in Interaction Settings, the tuning direction is inverted, so scrolling up decreases the frequency and scrolling down increases it.
 
 ---
 

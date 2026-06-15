@@ -17,9 +17,9 @@ Use the Meters applet to watch the FLEX-8600's main cooling fan speed in real ti
 
 | Gauge        | What it shows                                                         | Valid range |
 |--------------|-----------------------------------------------------------------------|-------------|
-| **PA Temp**  | PA temperature in °C, read from the radio's PATEMP meter              | 0–120 °C    |
-| **+13.8V**   | Supply voltage in volts. The gauge label updates dynamically to show the live radio-reported value (for example, **+13.82V**) instead of the static **+13.8V** placeholder. | 10.0–16.0 V |
-| **Main Fan** | Current cooling fan speed in rpm, read from the radio's MAINFAN meter | 0–3000 rpm  |
+| **PA Temp**  | PA temperature in °C, read from the radio's PATEMP meter. The gauge has an accessible name of "PA temperature" for screen reader support. | 0–120 °C    |
+| **+13.8V**   | Supply voltage in volts. The gauge label updates dynamically to show the live radio-reported value (for example, **+13.82V**) instead of the static **+13.8V** placeholder. The gauge has an accessible name of "Supply voltage" for screen reader support. | 10.0–16.0 V |
+| **Main Fan** | Current cooling fan speed in rpm, read from the radio's MAINFAN meter. The gauge has an accessible name of "Main fan speed" for screen reader support. | 0–3000 rpm  |
 
 Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns red above 70 °C, the **+13.8V** gauge turns red above 15 V, and the **Main Fan** gauge turns red above 2500 rpm.
 
@@ -28,6 +28,13 @@ Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns r
 - The **Main Fan** gauge updates as the radio reports new meter values. There may be a brief delay after the applet first opens while the meter index is resolved.
 - The gauge uses smoothed animation for value changes, so rapid fluctuations will appear as a smooth sweep rather than an instant jump.
 - The **+13.8V** gauge label reflects the live voltage value reported by the radio. The label updates each time the radio sends a new meter reading, so the displayed voltage (for example, **+13.82V**) is always current.
+
+## Accessibility
+
+- Each gauge has an accessible name set for screen reader compatibility:
+  - **PA Temp** — "PA temperature"
+  - **+13.8V** — "Supply voltage"
+  - **Main Fan** — "Main fan speed"
 
 ## Troubleshooting
 

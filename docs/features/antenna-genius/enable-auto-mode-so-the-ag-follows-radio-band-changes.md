@@ -38,6 +38,10 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 | Port B band | Band name or "—" | Active band on Port B. |
 | Port B antenna | Antenna name, "\<ant\> TX:\<alt\>", "\<ant\> [INHIBIT]", "—" | Selected antenna for Port B. |
 
+## What changes when disconnecting
+
+When you disconnect from an Antenna Genius device, all antenna buttons are cleared from the grid and the lists are emptied. This ensures the display and the internal model remain consistent while disconnected. When you reconnect, the antenna buttons are rebuilt automatically.
+
 ## Tips
 
 - You can run AUTO on one port and select antennas manually on the other. The two ports are independent.
@@ -48,6 +52,7 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 - **AUTO button does not respond to clicks** — The applet is not connected. Check that the status label reads "Connected — \<name\> v\<version\>" before enabling AUTO. If not connected, see the pages below.
 - **Band indicator shows "—" after enabling AUTO** — The AG has not yet received a band report from the radio. Tune to a frequency within a recognized band to trigger an update.
 - **A ShackSwitch device appears in the Device combo but the applet does not auto-connect to it** — ShackSwitch devices are handled by a separate applet and are intentionally skipped during Antenna Genius auto-connect. Use the ShackSwitch applet to connect to that device.
+- **Antenna buttons are missing after reconnecting** — This is normal and expected. The buttons are cleared on disconnect and rebuilt when the device is connected again. If they do not reappear, verify the connection was successful.
 
 ## Related
 

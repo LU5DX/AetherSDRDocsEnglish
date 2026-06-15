@@ -146,7 +146,7 @@ The Display tab controls panadapter spot-visualization, Signal History tunables,
 
 | Control | Description | Setting Key |
 |---------|-------------|-------------|
-| `Spots:` | Master toggle for DX spot overlay. | `IsSpotsEnabled` |
+| `Spots:` | Master toggle for DX spot overlay. The button always shows "Enabled". | `IsSpotsEnabled` |
 | `Memories:` | Toggles memory-channel overlay on panadapter. | `IsMemorySpotsEnabled` |
 | `Auto:` | Automatically switch slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY). | `SpotAutoSwitchMode` |
 | `Signals` (Signal History) | Gold markers for detected voice-width signals on the panadapter. | `SHistoryMarkersEnabled` |
@@ -166,13 +166,13 @@ The Display tab controls panadapter spot-visualization, Signal History tunables,
 
 | Control | Description | Setting Key |
 |---------|-------------|-------------|
-| `Override Colors:` | Forces a single text color for all spots. | `IsSpotsOverrideColorsEnabled` |
+| `Override Colors:` | Forces a single text color for all spots. The button always shows "Enabled". | `IsSpotsOverrideColorsEnabled` |
 | Spot text color picker | Opens QColorDialog to pick spot text color. | `SpotsOverrideColor` |
 | `Override Background: Enabled` | Enables custom spot background color. | `IsSpotsOverrideBackgroundColorsEnabled` |
 | `Override Background: Auto` | Auto-picks background color for contrast. | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
 | Spot background color picker | Opens QColorDialog for spot background color. | `SpotsOverrideBgColor` |
 | `Background Opacity:` | Opacity of spot background color (0-100). | `SpotsBackgroundOpacity` |
-| `Spot Lines:` | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
+| `Spot Lines:` | Draws vertical lines from the spectrum up to each spot label. The button always shows "Enabled". Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
 
 #### DXCC Coloring (section)
 
@@ -180,7 +180,7 @@ The left column below the divider.
 
 | Control | Description | Setting Key |
 |---------|-------------|-------------|
-| `DXCC Colors:` | Colors spots by worked/confirmed/needed DXCC status. | `IsDxccColoringEnabled` |
+| `DXCC Colors:` | Colors spots by worked/confirmed/needed DXCC status. The button always shows "Enabled". | `IsDxccColoringEnabled` |
 | `Log File (ADIF):` | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. | `DxccAdifFilePath` |
 | `Imported:` | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. | — |
 | DXCC Color swatches (New DXCC / New Band / New Mode / Worked) | Opens a color picker for each DXCC status category. | `DxccColorNewEntity / DxccColorNewBand / DxccColorNewMode / DxccColorWorked` |
@@ -195,7 +195,7 @@ The right column below the divider.
 | `QRM Gate:` | How long a narrow carrier or wideband signal must persist before being classified as QRM (3-30 sec). Default 6 s. | `SHistoryQrmGateS` |
 | `Edge Threshold:` | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge (1.0-10.0 dB). Default 3.0 dB. | `SHistorySoftEdgeDb` |
 | Signal History color swatches (Signals / QRM) | Opens a color picker for the voice signal markers (gold) and QRM markers (red). Defaults: #FFC800 / #FF0000. | `SHistoryColorSignals / SHistoryColorQrm` |
-| `Snap to Step:` | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default Disabled. | `SHistorySnapToStep` |
+| `Snap to Step:` | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. The button always shows "Enabled". Default Disabled. | `SHistorySnapToStep` |
 
 #### Indicator
 
@@ -214,11 +214,7 @@ When DXCC coloring is enabled, AetherSDR reads your ADIF log once at startup. Au
 
 1. Open `Settings > SpotHub...`.
 2. Click the `Display` tab.
-3. Confirm that `DXCC Colors:` is enabled (the toggle shows its active state).
+3. Confirm that `DXCC Colors:` is enabled (the toggle shows "Enabled").
 4. Confirm that `Log File (ADIF):` shows the correct file path.
 
-Auto-reload is always enabled when a file is selected. AetherSDR watches the file at `DxccAdifFilePath` for changes. Each time your logger writes a new QSO, AetherSDR re-reads the file and updates spot coloring on the panadapter.
-
-## Tips
-
-- If your logger writes a temporary file
+Auto-reload is always enabled when a file is selected. AetherSDR watches the file at `DxccAdifFilePath` for changes. Each time your logger writes
