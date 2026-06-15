@@ -16,34 +16,57 @@ This page explains how to select a receive mode for a slice. Changing the mode r
    - **USB**, **LSB**, **CW**, **AM**, **SAM**, **FM**, **NFM**, **DFM**, **DIGU**, **DIGL**, **RTTY**
    - (RADE appears only in builds with RADE support enabled.)
 5. The slice switches to the selected mode. The filter width presets and tuning step sizes update automatically to suit the new mode.
+6. If you want to use the software WFM demodulator, click the **WFM** button (see below for details).
+
+## WFM (Software FM Demodulator)
+
+The **WFM** button provides a software-based wideband FM demodulation mode. This is not a radio mode – it uses the DAX IQ stream from the slice and routes demodulated audio through the system's Hi-Fi Cable or similar virtual audio device.
+
+**When WFM is active:**
+- The **WFM** button lights green.
+- The mode combo shows the last selected radio mode (e.g., USB) but the WFM demodulator overrides the radio's audio path.
+- The slice's audio is demodulated in software, allowing reception of broadcast FM (88–108 MHz) and other wideband FM signals.
+
+**When you change modes:**
+- Selecting any real radio mode (USB, LSB, CW, etc.) automatically deactivates the WFM demodulator.
+- The **WFM** button state updates to reflect that WFM is no longer active on this slice.
+
+**When exiting WFM:**
+- Click the **WFM** button again to deactivate it. The slice returns to normal radio-mode audio.
+
+**Limitations:**
+- WFM requires a DAX IQ channel to be active on the slice.
+- The Hi-Fi Cable or equivalent virtual audio device must be configured as the DAX output.
+- WFM is not a radio mode – it does not affect the radio's mode or filter settings.
 
 ## What each control does
 
 | Control                    | Default          | Valid values                                                                                                                                                                                          |
 |----------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Slice tabs (A..H)**      | —                | 1–8 buttons (capped by hardware max slices). Row hidden if maxSlices ≤ 1.                                                                                                                             |
-| **Slice badge**            | A                | A/B/C/D/E/F/G/H, coloured by slice identity.                                                                                                                                                         |
-| **🔓 / 🔒**                | 🔓 (unlocked)    | Toggle button. Toggles tune-lock on the slice; locked slice ignores frequency changes.                                                                                                                |
+| **Slice badge**            | A                | A/B/C/D/E/F/G/H, coloured by slice identity.                                                                                                                                                          |
+| **🔓 / 🔒**                  | 🔓 (unlocked)     | Toggle button. Toggles tune-lock on the slice; locked slice ignores frequency changes.                                                                                                                |
 | **Mode combo**             | USB              | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if available)                                                                                                                           |
-| **Frequency label**        | 0.000.000        | Displays current VFO frequency with dotted grouping. Click to edit.                                                                                                                                  |
-| **Frequency edit**         | —                | Enter MHz (0.001–54.000 MHz, up to 450.000 MHz on XVTR). Escape cancels and restores previous frequency.                                                                                             |
+| **WFM**                    | Off              | Toggle button. Enables software FM demodulation via DAX IQ. Overrides radio audio path.                                                                                                               |
+| **Frequency label**        | 0.000.000        | Displays current VFO frequency with dotted grouping. Click to edit.                                                                                                                                   |
+| **Frequency edit**         | —                | Enter MHz (0.001–54.000 MHz, up to 450.000 MHz on XVTR). Escape cancels and restores previous frequency.                                                                                              |
 | **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)                                                                        |
-| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz. Hidden for FM/NFM/DFM.                                          |
-| **Filter passband widget** | —                | Drag lo/hi edges to adjust filter passband.                                                                                                                                                          |
-| **Tone mode (FM)**         | Off              | Off, CTCSS TX. Visible only in FM family modes.                                                                                                                                                      |
-| **CTCSS tone value**       | —                | 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz). Enabled only when Tone mode = CTCSS TX.                                                                                                         |
-| **Offset (FM)**            | 0.0 MHz          | Spinbox (0.0–100.0 MHz, step 0.1). Sets FM repeater offset frequency.                                                                                                                                |
-| **− (offset down)**        | —                | Toggle button. Sets repeater offset direction to down (TX below RX).                                                                                                                                 |
-| **Simplex**                | checked          | Toggle button. Sets repeater offset to simplex (TX = RX).                                                                                                                                            |
-| **+ (offset up)**          | —                | Toggle button. Sets repeater offset direction to up (TX above RX).                                                                                                                                   |
-| **REV**                    | —                | Toggle button. Inverts the TX offset sign for reversed repeater pairs.                                                                                                                               |
-| **🔊 / 🔇 (mute)**           | 🔊 (unmuted)      | Push button. Single-click mutes/unmutes this slice. Double-click mutes/unmutes all owned slices. Icon flips when radio acknowledges.                                                                 |
+| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz. Hidden for FM/NFM/DFM.                                            |
+| **Filter passband widget** | —                | Drag lo/hi edges to adjust filter passband.                                                                                                                                                           |
+| **Tone mode (FM)**         | Off              | Off, CTCSS TX. Visible only in FM family modes.                                                                                                                                                       |
+| **CTCSS tone value**       | —                | 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz). Enabled only when Tone mode = CTCSS TX.                                                                                                          |
+| **Offset (FM)**            | 0.0 MHz          | Spinbox (0.0–100.0 MHz, step 0.1). Sets FM repeater offset frequency.                                                                                                                                 |
+| **− (offset down)**        | —                | Toggle button. Sets repeater offset direction to down (TX below RX).                                                                                                                                  |
+| **Simplex**                | checked          | Toggle button. Sets repeater offset to simplex (TX = RX).                                                                                                                                             |
+| **+ (offset up)**          | —                | Toggle button. Sets repeater offset direction to up (TX above RX).                                                                                                                                    |
+| **REV**                    | —                | Toggle button. Inverts the TX offset sign for reversed repeater pairs.                                                                                                                                |
+| **🔊 / 🔇 (mute)**           | 🔊 (unmuted)      | Push button. Single-click mutes/unmutes this slice. Double-click mutes/unmutes all owned slices. Icon flips when radio acknowledges.                                                                  |
 | **AF gain**                | 70               | Slider (0-100) for slice audio output gain.                                                                                                                                                           |
-| **L / R pan**              | 50 (centre)      | Slider (0-100) for stereo pan position. Double-click resets to centre. The slider fill now paints from centre outward for better visual feedback (v26.6.1).                                             |
+| **L / R pan**              | 50 (centre)      | Slider (0-100) for stereo pan position. Double-click resets to centre. The slider fill now paints from centre outward for better visual feedback (v26.6.1).                                           |
 | **SQL**                    | Off              | Toggle button to enable squelch. Auto-disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes. In RTTY and digital modes, squelch is also turned off automatically to prevent gating FSK signals (#2504). |
 | **Squelch level**          | 20               | Slider (0-100) to set squelch threshold. Disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes.                                                                                                         |
 | **AGC mode**               | Med              | Off, Slow, Med, Fast. Hidden in FM family modes.                                                                                                                                                      |
-| **AGC threshold**          | 65               | Slider (0-100). Sets AGC threshold (or AGC off-level when AGC mode is Off).                                                                                                                           |
+| **AGC threshold**          | 65               | Slider (0-100). Sets AGC threshold (or AGC off-level when AGC mode is Off). Right-click to calibrate against the noise floor (see below).                                                             |
 | **RX antenna**             | ANT1             | Combo box listing available receive antennas. Populated from the radio's `ant_list` or the slice's `rxAntennaList()` when available. Blue-coloured label.                                             |
 | **TX antenna**             | ANT1             | Combo box listing TX-capable antennas. RX-only antenna ports (prefix 'RX') are filtered out. Red-coloured label.                                                                                      |
 | **TX (badge)**             | —                | Toggle button. Click to set this slice as the TX slice.                                                                                                                                               |
@@ -53,8 +76,19 @@ This page explains how to select a receive mode for a slice. Changing the mode r
 | **XIT**                    | —                | Toggle button. Toggles Transmit Incremental Tuning on/off.                                                                                                                                            |
 | **XIT 0**                  | —                | Push button. Zeroes the XIT offset.                                                                                                                                                                   |
 | **XIT offset**             | +0 Hz            | Spinbox (step 10 Hz). Adjusts XIT offset.                                                                                                                                                             |
-| **QSK**                    | —                | Indicator. Lights amber when CW break-in (QSK) is active. Read-only; controlled via CW applet.                                                                                                       |
-| **Filter width label**     | 2.7K             | Indicator. Shows current filter bandwidth (e.g., '2.7K', '3.3K', '500', '6.0K').                                                                                                                     |
+| **QSK**                    | —                | Indicator. Lights amber when CW break-in (QSK) is active. Read-only; controlled via CW applet.                                                                                                        |
+| **Filter width label**     | 2.7K             | Indicator. Shows current filter bandwidth (e.g., '2.7K', '3.3K', '500', '6.0K').                                                                                                                      |
+
+## AGC-T Noise Calibration
+
+The AGC threshold slider now supports a noise floor calibration feature. This helps you set an optimal AGC threshold based on the current noise floor.
+
+**To calibrate:**
+1. Right-click on the **AGC threshold** slider.
+2. Select **Calibrate AGC-T against noise floor…** from the context menu.
+3. The calibration process samples the noise floor and adjusts the AGC threshold slider to an appropriate level.
+
+The right-click context menu is available regardless of the AGC mode setting. The tooltip on the slider now includes a reminder: "Right-click to calibrate against the noise floor".
 
 ## Tips
 
@@ -86,28 +120,4 @@ The centre mark dot (small blue-grey circle at the midpoint) remains to show the
 
 ## Slice tab behaviour (v0.9.5.1)
 
-When the radio reports a change in the number of available slices, the A..H tab row is now rebuilt correctly instead of being skipped. The previous behaviour kept the old buttons if any were already present; v0.9.5.1 tears down and recreates the buttons whenever the slice count changes (`clearSliceButtons()`, #2254). On disconnect the tab row is hidden and the static **Slice badge** is restored automatically.
-
-Signal connections for slice button clicks are also guarded so that reconnecting to the radio does not attach duplicate handlers.
-
-## Filter width formatting (v0.9.8)
-
-The filter width readout in the RX Controls applet now uses mode-specific logic to display the correct labelled width. This readout is shared with the VFO panel for consistent formatting (#2197). The `formatFilterWidth()` static method applies mode-aware rules so that SSB and digital modes display the expected bandwidth label (e.g., "2.7K" for 2700 Hz USB, "500" for 500 Hz CW).
-
-## Antenna selection behaviour
-
-The RX and TX antenna combo boxes now use `rxAntennaList()` and `txAntennaOptions()` respectively to populate their menus. The radio's `ant_list` is used as a fallback when slice-specific antenna lists are not available.
-
-The antenna menu items now include tooltips and status tips showing the raw antenna identifier, and the menu label is generated by `antennaMenuLabel()` for consistent display. The selected antenna is sent via `setData()` rather than `text()` to ensure the correct identifier is used.
-
-The `likelyTxAntennaFallbackToken()` helper determines if an antenna token is suitable for TX by checking if it starts with "ANT", "TX", or equals "XVTR". RX-only ports (prefix "RX") are excluded.
-
-## Frequency entry behaviour (v26.5.3)
-
-The frequency editor now uses `FrequencyEntryParser::normalizedMhzText()` to clean the entered text before conversion to a double. This ensures consistent handling of thousands separators and decimal points across locales.
-
-**XVTR-aware entry:** The maximum frequency range is now determined by two conditions:
-- If the slice is on an XVTR antenna (antenna name starts with "XVT" or frequency > 54.0 MHz)
-- OR if the user enters an explicit MHz value above 54.0 MHz
-
-When either condition is true, the frequency editor accepts up to 50000.0 MHz. This allows direct entry of VHF/UHF frequencies (e
+When the radio reports a change in the number of available slices, the A..H tab row is now rebuilt correctly instead of being skipped. The

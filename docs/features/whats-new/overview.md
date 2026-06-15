@@ -14,13 +14,15 @@ If the GitHub API is rate-limited (HTTP 403 with a "rate limit" message), the di
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| Release notes browser | Scrollable text area | Displays styled HTML release notes for versions newer than `LastSeenVersion`, up to five releases. Content is fetched live from GitHub, not embedded in the application. |
-| `Got it — 73!` | Button | Dismisses the dialog and marks the current version as seen by updating `LastSeenVersion`. |
-| `Upgrade` | Button | Visible only when an upgrade is available. Opens the AetherSDR releases download page at https://github.com/aethersdr/AetherSDR/releases/latest and closes the dialog. |
-| `Skip this version` | Button | Visible only when an upgrade is available. Writes the current version to `LastSeenVersion` and closes the dialog, suppressing the upgrade prompt for this version. |
-| Hint | Footer indicator | Displays a short line of guidance below the header. |
+| Control                      | Kind                                             | Behavior                                                                                                                                                               |
+|------------------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AETHERSDR V<version> eyebrow | indicator                                        | Branded header showing the current AetherSDR version and either 'Welcome!' or 'What's New' heading. Rendered as styled HTML in a QLabel with padding.                 |
+| Status label                 | indicator                                        | Under the header shows the GitHub release title and published date after fetch, or a loading message while fetching. Multi-line status via `<br/>` insertion.          |
+| Release notes browser        | text_field                                       | Scrollable QTextBrowser rendering release notes as GitHub-flavored Markdown. Issue/PR numbers and @mentions are hyperlinked to GitHub. Clicking links opens the default browser. Shows 'Loading...' state, error state with suggestions, or the rendered release body. |
+| Find                         | push_button                                      | Opens a QInputDialog to enter search text; highlights matches in the release notes and wraps around. New in v26.5.3 (#2979).                                         |
+| Upgrade                      | push_button                                      | Visible only when an upgrade is available. Opens the AetherSDR releases download page and closes the dialog.                                                          |
+| Skip this version            | push_button                                      | Visible only when an upgrade is available. Writes the current version to `LastSeenVersion` and closes the dialog, suppressing the upgrade prompt for this version.     |
+| Close                        | push_button                                      | Primary action button that dismisses the dialog. Styled as primary blue button. Always visible.                                                                        |
 
 The `Upgrade` and `Skip this version` buttons appear only when AetherSDR has detected that a newer build is available.
 

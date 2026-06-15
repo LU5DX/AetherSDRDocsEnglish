@@ -44,8 +44,8 @@ When the CW decode panel is open, it appears below the spectrum and waterfall. T
 | **Sens** slider | Filters low-confidence decodes. Higher values are stricter. | 30 | Maps the 0–100 range to a cost threshold of 1.0–0.1. Saved as `CwDecoderSensitivity`. |
 | **🔒P** (Lock Pitch) | Locks the decoder pitch to the current tuned frequency. | Off | Toggle. |
 | **🔒S** (Lock Speed) | Locks the decoder speed to the current WPM reading. | Off | Toggle. |
-| **Lo** slider | Minimum pitch the decoder searches. Clamped to be no greater than **Hi**. | 500 Hz | Range: 300–1200 Hz. |
-| **Hi** slider | Maximum pitch the decoder searches. Clamped to be no less than **Lo**. | 700 Hz | Range: 300–1200 Hz. |
+| **Pitch** range slider | Sets the minimum and maximum pitch the decoder searches. | 500–700 Hz | Range: 300–1200 Hz. Double-handle slider replaces the separate **Lo** and **Hi** sliders. |
+| **WPM** range slider | Sets the minimum and maximum speed the decoder searches. | 15–40 WPM | Range: 5–60 WPM. New in v26.6.3. |
 | **CPY ALL** | Copies the full decoded text to the clipboard. | — | — |
 | **CPY VIS** | Copies only the text currently visible in the scroll area. | — | — |
 | **CLR** | Clears the CW decode buffer. | — | — |
@@ -71,15 +71,22 @@ When any client in a Multi-Flex session begins transmitting, the waterfall in th
 
 On radio reconnection, the panadapter reasserts the desired frame rate and waterfall line duration to prevent silently dropping to the radio's default 10 Hz.
 
+## RTTY decode panel
+
+When the active slice mode is RTTY or DIGL, an RTTY decode panel appears below the spectrum and waterfall. This panel decodes RTTY signals from the PC audio routed to AetherSDR. The panel has a fixed height of 90 pixels and is hidden when the slice mode is not RTTY or DIGL.
+
+> **Note:** RTTY decoding requires PC audio routing to be active.
+
 ## Theme support
 
-The panadapter title bar, CW decode panel, and all associated controls now use theme-aware color tokens (subject to change in future releases). The visual appearance adapts to the active theme without requiring manual style overrides.
+The panadapter title bar, CW decode panel, RTTY decode panel, and all associated controls now use theme-aware color tokens (subject to change in future releases). The visual appearance adapts to the active theme without requiring manual style overrides.
 
 ## Tips
 
 - The floating window is frameless. Use the in-app title strip to drag it and the bottom-right size grip to resize it. There is no operating-system window border.
 - The ⬈ and ↩ button labels change to reflect the current state: ⬈ when docked, ↩ when floating.
-- Use **Lo** and **Hi** together to bracket the pitch range for the signal you are copying. Narrowing the range reduces false decodes when multiple CW signals are present.
+- Use the **Pitch** range slider to bracket the pitch range for the signal you are copying. Narrowing the range reduces false decodes when multiple CW signals are present.
+- Use the **WPM** range slider to bracket the speed range for the signal you are copying. Narrowing the range reduces false decodes when multiple CW signals are present.
 - To clear decoded text quickly, right-click the decode text area and select **Clear** rather than reaching for the **CLR** button.
 - TX-side decoded text appears in cyan to help you distinguish your own sending from incoming CW, without needing a textual prefix.
 

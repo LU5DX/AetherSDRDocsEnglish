@@ -1,65 +1,200 @@
-AetherSDR does not have a dedicated documentation page for the Radio Setup dialog. The existing page you provided appears to be a general reference for the RX tab. The update for v26.6.1 adds a copy button to the Radio tab so users can copy the radio serial number, software version, options, and callsign to the clipboard.
+# Radio Setup Dialog
 
-The complete updated document incorporating this change is below.
+## Overview
 
-# Switch to an External 10 MHz Reference
+The Radio Setup dialog is the master per-radio configuration window. It provides access to radio information, network settings, GPS, transmit configuration, phone/CW settings, receive calibration, audio, filters, transverters, USB cables, peripherals, serial ports, and SmartLink pinned certificate management.
 
-This page explains how to select an external 10 MHz reference clock on a connected FLEX-8600. Use an external reference when you have a GPS-disciplined oscillator or other precision 10 MHz source and want the radio to lock to it instead of its internal oscillator.
+To open the dialog, click `Settings > Radio Setup...`. The dialog requires an active radio connection.
 
-## Before you start
+## Radio Tab
 
-- AetherSDR must be connected to the radio. The Radio Setup dialog requires an active radio connection.
-- Your external 10 MHz reference signal must be connected to the rear-panel REF IN port on the FLEX-8600 before switching the source.
+The Radio tab displays radio identification information, license details, and firmware update controls.
 
-## Steps
+### Information Fields
 
-1. Click `Settings > Radio Setup...` to open the Radio Setup dialog.
-2. Click the `RX` tab.
-3. Locate the `10 MHz Reference Source:` combo box.
-4. Select `External 10 MHz` from the combo box. To return to the built-in oscillator, select `Auto`.
+| Control | Kind | Behavior |
+|---------|------|----------|
+| Radio SN | Indicator | Chassis serial number (read-only). Includes a clipboard copy button next to the value. |
+| Region | Indicator | Radio regulatory region. |
+| HW Version | Indicator | Hardware version string. Includes a clipboard copy button. |
+| Options | Indicator | Shows licensed radio options. Includes a clipboard copy button. |
+| FlexControl | Indicator | Detected state of FlexControl hardware. |
+| multiFLEX | Indicator | multiFLEX enabled state. |
+| Model | Indicator | Radio model. Includes a clipboard copy button. |
+| Nickname | Text field | User-friendly radio nickname. |
+| Callsign | Text field | Station callsign. |
+| Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored as `StationName` in AppSettings. Sent to radio as 'client station <name>'. |
+| License Info (Subscription / Expiration / Radio ID / Licensed version) | Indicator | Displays license details from the radio. Each field includes a clipboard copy button. |
 
-## What each control does
+### Controls
 
-| Control                                             | Kind                                                                                                                                                                                         | Valid range / Behavior                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `10 MHz Reference Source:`                          | Combo box                                                                                                                                                                                    | `Auto` \                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Lock status label                                   | Indicator                                                                                                                                                                                    | Shows the current oscillator source and lock state. When `Auto` is selected, the label reads `Auto -> <active source>` to indicate what the radio has chosen. When the selected source differs from the active state, both are shown (e.g. `TCXO -> GPSDO`). Appends `Locked` (green) or `Unlocked` (red). If `External 10 MHz` is selected but no external signal is detected, the label appends `(not detected)`. While waiting for the radio to report status the label reads `Waiting for oscillator status` (grey).                                                                                                     |
-| `TX Follows Active Slice`                           | Push button                                                                                                                                                                                  | TX follows the active slice. Mutually exclusive with `Active Slice Follows TX`. Disabled automatically during Split operation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `Active Slice Follows TX`                           | Push button                                                                                                                                                                                  | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with `TX Follows Active Slice`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `Voice / CW / Digital filter sharpness sliders`     | Slider (0–3)                                                                                                                                                                                 | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `Auto (Voice / CW / Digital)`                       | Toggle button                                                                                                                                                                                | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `Connect / Disconnect (TGXL)`                       | Push button                                                                                                                                                                                  | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects. |
-| `Connect / Disconnect (PGXL)`                       | Push button                                                                                                                                                                                  | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects.                                                                                                                                                                                                                                                                                                                              |
-| `Connect / Disconnect (Antenna Genius)`             | Push button                                                                                                                                                                                  | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from "Connected" status when a ShackSwitch (rather than a standard Antenna Genius) is the connected device. If the IP field is cleared and the dialog is closed without clicking Connect/Disconnect, the saved IP and port are wiped and the device disconnects.                                                                                                                                                                                                                |
-| `Connect / Disconnect (ShackSwitch)`                | Push button                                                                                                                                                                                  | Opens/closes connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without this row. Row hidden from "Connected" status if an Antenna Genius (non-ShackSwitch) is the connected device.                                                                                                                                                                                                                              |
-| `⚙ Web UI (ShackSwitch)`                            | Push button                                                                                                                                                                                  | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if > 1024, otherwise falls back to `SS_WebPort` or port 5000.                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `Select Installer...`                               | Push button                                                                                                                                                                                  | Opens a file picker that accepts `.msi` (FlexRadio v4.2+ WiX installer), `.exe` (older self-extracting installer), or a pre-extracted `.ssdr` firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the `.ssdr` without external tools. Label was `Browse .ssdr...` before v0.9.3.                                                                                                                                                                                                                                                                        |
-| `APD` (tab)                                         | Tab                                                                                                                                                                                          | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna selection of the feedback sample port (`INTERNAL` / `RX_A` / `RX_B` / `XVTA` / `XVTB`) and an equalizer reset button. Tab is hidden unless the radio reports `apd configurable=1`. Only FLEX-8x00 series with SmartSDR 4.2.18+ firmware exposes this; 6000-series and pre-4.2.18 radios keep the tab invisible.                                                                                                                                                                                                                                      |
-| `ANT1 / ANT2 / XVTA / XVTB sampler combos (APD)`    | Combo box                                                                                                                                                                                    | Selects the feedback path the radio uses to sample the outgoing RF for APD training for that TX antenna. Default `INTERNAL`. Choose an external RX/XVTR input when driving an external linear amplifier. Options are populated live from the radio's `apd sampler` sub-object. Falls back to `INTERNAL` if the radio reports an unrecognised value.                                                                                                                                                                                                                                                                          |
-| `Equalizer Reset (APD)`                             | Push button                                                                                                                                                                                  | Sends `apd reset` to the radio, clearing all per-antenna APD training data so adaptation starts fresh.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `Themes` (tab)                                      | Tab                                                                                                                                                                                          | UI customization tab — currently hosts the Slice Colors section.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `Use Aether defaults / Custom colors`               | Radio button                                                                                                                                                                                 | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Backed by `SliceColorManager::useCustomColors()`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `Slice A–H color buttons`                           | Push button                                                                                                                                                                                  | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overlays, and CAT channel badges. Buttons are disabled when `Use Aether defaults` is selected. Up to 8 slices (`kSliceColorCount`).                                                                                                                                                                                                                                                                                                                              |
-| `Reset All to Defaults (Themes)`                    | Push button                                                                                                                                                                                  | Resets all custom slice colors to the built-in AetherSDR palette.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `FlexControl Tuning Knob: Detect / Close`           | Push button                                                                                                                                                                                  | Detects or closes a FlexControl knob.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `WheelRit` / `WheelXit`                             | Action mapping options                                                                                                                                                                       | Available button action mappings for FlexControl wheels. WheelFrequency is the default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `Station Name`                                      | Text field                                                                                                                                                                                   | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored as `StationName` in AppSettings. Sent to radio as 'client station <name>'.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `Network MTU:`                                      | Spinbox (576-9000)                                                                                                                                                                           | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored as `NetworkMtu` in AppSettings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `Audio Compression (SmartLink):`                    | Push button (Auto/Uncompressed/Opus)                                                                                                                                                         | Selects audio codec for SmartLink/LAN.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `Prevent system sleep while connected`              | Checkbox                                                                                                                                                                                     | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored as `InhibitSleepWhileConnected`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `Audio Boost:`                                      | Toggle button                                                                                                                                                                                | Enables extra gain on the client audio path. Stored as `AudioBoost`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `Audio Buffer:`                                     | Text field (50-1000 ms)                                                                                                                                                                      | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Default 200. Stored as `AudioBufferMs`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `Recording: Radio Side / Client Side`               | Push button                                                                                                                                                                                  | Picks radio-side or client-side recording.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `Save to:`                                          | Text field                                                                                                                                                                                   | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `QsoRecordingDir`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `Auto-record on TX`                                 | Checkbox                                                                                                                                                                                     | Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `Idle timeout:`                                     | Spinbox (10-3600 sec)                                                                                                                                                                        | Seconds of silence before recording stops. Default 120. Stored as `QsoRecordingIdleTimeout`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| APD (tab)                                           | External Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). Tab is hidden unless the radio reports apd configurable=1 (FLEX-8x00 with SmartSDR 4.2.18+). | New in v26.5.1 (#2186). Lazy-built only when the tab is first clicked.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| External Sampler (per TX ANT)                       | Section header inside the APD tab showing a 2x2 grid of ANT1/ANT2/XVTA/XVTB sampler-port combo boxes.                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ANT1: / ANT2: / XVTA: / XVTB:                       | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna.                                                                            | INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. Changing sends setApdSamplerPort() to the radio.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Equalizer Reset:                                    | Section row label for the APD equalizer reset button.                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Reset (APD Equalizer)                               | Clears all per-antenna APD training data on the radio.                                                                                                                                       | Sends resetApdEqualizer() to the radio's TransmitModel.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| Themes (tab)                                        | UI appearance settings including per-slice color overrides.                                                                                                                                  | Tab label in code is 'Themes'. Lazy-built when first clicked.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Slice Colors                                        | Group box header for the slice color controls.                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Use Aether defaults                                 | Uses the built-in slice color palette (cyan/magenta/green/yellow/orange/teal/coral/lavender).                                                                                                | Selecting this disables the custom color buttons.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Custom colors                                       | Enables per-slice color pickers (A-H).                                                                                                                                                       | Selecting this enables the eight color buttons below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| A/B/C/D/E/F/G/H color buttons                       | Click to open a color picker for that slice letter (A-H). The button's background reflects the currently assigned color.                                                                     | 8 buttons arranged in a horizontal grid. Stored via SliceColorManager which persists to AppSettings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+| Control | Kind | Behavior |
+|---------|------|----------|
+| Remote On | Push button | Enables remote wake / remote-on. |
+| Reboot Radio | Push button | Sends a reboot command to the connected radio. Disabled when radio is not connected. Shows a confirmation dialog before rebooting. On LAN connections, AetherSDR automatically reconnects after reboot. On SmartLink/WAN connections, you must reconnect manually. Dialog closes after confirmation. New in v26.6.3. |
+| Check for Update | Push button | Queries for firmware updates. |
+| Select Installer... | Push button | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. |
+| Upload Firmware | Push button | Starts firmware upload with progress bar and status. |
+
+## Network Tab
+
+The Network tab displays radio network information and advanced network options.
+
+### Information Fields
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| IP Address / Mask / MAC Address | Indicator | Read-only network addresses. Each includes a clipboard copy button. |
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| Enforce Private IP Connections: | Toggle button | Enabled | - | Rejects non-RFC1918 peers. |
+| Network MTU: | Spinbox | 1450 | 576-9000 bytes | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored as `NetworkMtu` in AppSettings. |
+| DHCP / Static | Toggle button | - | - | Switches between DHCP and Static IP modes. |
+| IP Address: / Mask: / Gateway: | Text field | - | - | Static IP configuration fields. |
+| Apply | Push button | - | - | Pushes the network config to the radio. |
+
+## GPS Tab
+
+The GPS tab displays GPS presence and live position information including latitude, longitude, altitude, time, and satellite count.
+
+## TX Tab
+
+The TX tab controls transmit timings, interlocks, maximum power, tune mode, waterfall display, and slice/TX follow behavior.
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| TX Band Settings | Push button | - | - | Opens the dedicated per-band power/tune dialog. |
+| Timings (in ms) | Spinbox | - | - | TX hang / delay timings. |
+| Interlocks - TX REQ: RCA / Accessory | Toggle button | - | - | Enables RCA and accessory interlock inputs. |
+| Max Power: | Spinbox | - | 0-100 % | Sets radio-level TX power cap. |
+| Tune Mode: | Combo box | - | - | Selects how the tune button behaves. |
+| Show TX in Waterfall: | Toggle button | - | - | Draws TX signal in the waterfall. |
+| TX Follows Active Slice | Push button | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
+| Active Slice Follows TX | Push button | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. |
+
+## Phone/CW Tab
+
+The Phone/CW tab configures microphone, CW keyer, and RTTY defaults.
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| Enable/Disable the Level Meter During Receive | Toggle button | - | - | Shows mic level meter even in RX. |
+| Iambic: | Toggle button | - | Enabled / Disabled | Enables or disables the iambic keyer on the radio. |
+| Iambic Mode: A / B | Push button | A | A / B | Selects Curtis iambic mode A or B for both the radio and the local software keyer. Mutually exclusive pair. |
+| Swap: | Toggle button | - | - | Swaps dit/dah. |
+| Sideband: | Combo box | - | LSB / USB | Selects CW pitch sideband. |
+| CWX: | Toggle button | - | - | Enables CWX macro keying. |
+| Decode: | Toggle button | True | - | Enables the CW decode overlay on the panadapter. Stored as `CwDecodeOverlay`. |
+| RTTY Mark Default: | Spinbox | - | - | Default RTTY mark frequency. |
+
+## RX Tab
+
+The RX tab provides GPSDO frequency offset calibration and 10 MHz reference source selection.
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| Cal Frequency (MHz): | Spinbox | - | - | Frequency used for manual calibration. |
+| Start | Push button | - | - | Starts the frequency calibration sweep. |
+| Freq Offset (ppb): | Spinbox | - | - | Manual frequency offset in ppb. |
+| 10 MHz Reference Source: | Combo box | Auto | Auto / TCXO / GPSDO / External | Selects oscillator reference source. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+
+## Audio Tab
+
+The Audio tab manages radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| Line Out: | Slider | - | - | Line-out gain. |
+| Mute (Line Out) | Push button | - | - | Mutes line-out. |
+| Headphone: | Slider | - | - | Headphone gain. |
+| Mute (Headphone) | Push button | - | - | Mutes headphone. |
+| Front Speaker: / Mute | Push button | - | - | Mutes front speaker (model-specific). |
+| Audio Compression (SmartLink): Auto / Uncompressed / Opus | Push button | Auto | - | Selects audio codec for SmartLink/LAN. Stored as `AudioCompression`. |
+| Prevent system sleep while connected | Checkbox | False | - | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored as `InhibitSleepWhileConnected`. |
+| PC Audio Devices: Input: / Output: | Combo box | - | - | Picks host audio in/out devices. |
+| Audio Boost: | Toggle button | - | - | Enables extra gain on the client audio path. Stored as `AudioBoost`. |
+| Audio Buffer: | Text field | 200 | 50-1000 ms | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Stored as `AudioBufferMs`. |
+| Recording: Radio Side / Client Side | Push button | Radio Side | Radio Side / Client Side | Picks radio-side or client-side recording. Stored as `RecordingMode`. |
+| Save to: | Text field | - | - | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `QsoRecordingDir`. |
+| ... | Push button | - | - | Browses for recording folder. |
+| Auto-record on TX | Checkbox | False | - | Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`. |
+| Idle timeout: | Spinbox | 120 | 10-3600 sec | Seconds of silence before recording stops. Stored as `QsoRecordingIdleTimeout`. |
+| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | - | - | Controls the NVIDIA Broadcast noise-removal container. |
+
+## Filters Tab
+
+The Filters tab provides low-latency and sharp filter options per bandwidth.
+
+### Controls
+
+| Control | Kind | Default | Valid Range | Behavior |
+|---------|------|---------|-------------|----------|
+| Voice / CW / Digital filter sharpness sliders | Slider | - | 0-3 | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. |
+| Auto (Voice / CW / Digital) | Toggle button | - | - | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. |
+| Use Low Latency Filters for Digital Modes | Checkbox | - | - | Forces low-latency filters in DIGU/DIGL. |
+
+## XVTR Tab
+
+The XVTR tab configures per-transverter settings including RX Only, valid, remove, and create new transverter.
+
+### Controls
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| RX Only: | Toggle button | Forces RX-only on that transverter. |
+| Remove (xvtr) | Push button | Deletes the transverter definition. |
+| Create New Transverter | Push button | Adds a new transverter entry. |
+
+## USB Cables Tab
+
+The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
+
+### Controls
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| Cables list / Status | Indicator | Detected USB cables per type with Plugged/Unplugged status. |
+| Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7) | Combo box | Per-cable serial parameters and behavior. |
+
+## Peripherals Tab
+
+The Peripherals tab manages external devices via manual IP connection (TGXL, PGXL, Antenna Genius).
+
+### Controls
+
+| Control | Kind | Default | Behavior |
+|---------|------|---------|----------|
+| Connect / Disconnect (TGXL) | Push button | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If IP field is empty and radio has discovered the TGXL, the discovered IP is pre-filled. |
+| Connect / Disconnect (PGXL) | Push button | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
+| Connect / Disconnect (Antenna Genius) | Push button | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
+
+## APD Tab
+
+The APD tab provides external Adaptive Pre-Distortion sample port selection per TX antenna. The tab is hidden unless the radio reports `apd configurable=1` (FLEX-8x00 with SmartSDR 4.2.18+).
+
+### Controls
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| ANT1: / ANT2: / XVTA: / XVTB: | Combo box | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. |
+| Reset (APD Equalizer) | Push button | Clears all per-antenna APD training data on the radio. |
+
+## Themes Tab
+
+The Themes tab provides UI appearance settings including per-slice color overrides.
+
+### Controls
+
+| Control | Kind | Default | Behavior |
+|---------|------|

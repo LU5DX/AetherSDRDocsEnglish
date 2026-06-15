@@ -17,7 +17,6 @@ Mute or unmute every slice you own in one action, without muting each slice indi
 | Control     | Label | Default     |
 |-------------|-------|-------------|
 | Mute button | 🔊 / 🔇 | 🔊 (unmuted) |
-
 ## Tips
 
 - The single-click action is deferred by the platform's double-click discrimination interval (~400 ms) so a double-click cancels the single-click timer and triggers the all-slice action instead.

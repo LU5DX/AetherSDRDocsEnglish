@@ -10,15 +10,15 @@ The Phone applet provides voice transmit (TX) controls for the FLEX-8600 radio. 
 | **VOX**              | Toggle button | Enables or disables voice-operated transmit.                                |
 | **VOX level**        | Slider        | Sets the VOX activation threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
 | **Delay**            | Slider        | Sets VOX hang time from 0 to 100 (arbitrary units) before returning to receive. |
-| **DEXP**             | Toggle button | Toggles the downward expander (noise gate). Non-functional on firmware v1.4.0.0 — radio returns error 0x5000002D. |
-| **DEXP threshold**   | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label. Same firmware limitation as DEXP toggle. |
+| **DEXP**             | Toggle button | Toggles the downward expander (noise gate).                                  |
+| **DEXP threshold**   | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
 | **Low Cut < / >**    | Spin box      | Adjusts TX filter low-cut frequency by 50 Hz steps. Default 50 Hz. Range: 0 Hz to (high-cut − 50 Hz). |
 | **High Cut < / >**   | Spin box      | Adjusts TX filter high-cut frequency by 50 Hz steps. Default 3300 Hz. Range: (low-cut + 50 Hz) to 10000 Hz. |
 
 ## Notes
 
 - The AM Carrier slider and VOX level slider now show a percentage label when dragged (e.g. "48%"). This provides clearer visual feedback of the current value.
-- The DEXP controls are present but non-functional on FLEX-8600 firmware versions earlier than 4.2. Attempting to use them will result in an error.
+- The DEXP controls are now functional on FLEX-8600 firmware version 4.2. The DEXP settings are communicated directly to the radio and no longer saved as application preferences.
 - All sliders in the Phone applet use the `GuardedSlider` class, which provides smooth drag behavior and visual feedback.
 - The Phone applet now supports theme customization. All colors adapt to the active theme.
 

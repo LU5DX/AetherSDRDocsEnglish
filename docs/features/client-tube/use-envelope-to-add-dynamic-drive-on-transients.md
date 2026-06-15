@@ -19,13 +19,12 @@ The Envelope knob connects an envelope follower to the tube drive, so the amount
 
 ## What each control does
 
-| Control  | Default | Valid range | Behavior | Notes |
-|----------|---------|-------------|----------|-------|
-| Envelope | 0 % | -1.0 to +1.0 | Linear mapping. Positive values increase drive on transients (the tube gets hotter on loud peaks); negative values reduce it, compressing harmonics dynamically. | Label displayed as percentage (signed). Right column of the editor. Setting key `ClientTubeTxEnvelope` / `ClientTubeRxEnvelope`. |
-| Attack   | 5.00 ms | 0.1 to 30.0 ms | Exponential mapping (0.1 * 300^n). Sets how quickly the envelope follower responds to rising levels when Envelope ≠ 0. | Label 'X.XX ms' below 10 ms, 'X.X ms' above. Right column of the editor. Setting key `ClientTubeTxAttackMs`. |
-| Release  | 35.00 ms | 10.0 to 500.0 ms | Exponential mapping (10 * 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. | Label 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor. Setting key `ClientTubeTxReleaseMs`. |
-| RN2 | unchecked | — | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
-
+| Control  | Default   | Valid range      |
+|----------|-----------|------------------|
+| Envelope | 0 %       | -1.0 to +1.0     |
+| Attack   | 5.00 ms   | 0.1 to 30.0 ms   |
+| Release  | 35.00 ms  | 10.0 to 500.0 ms |
+| RN2      | unchecked | —                |
 ## Bypass dimming
 
 When a Tube stage is bypassed, AetherSDR applies a `QGraphicsOpacityEffect` to the applet tile and renders it at 55 % opacity. The tile returns to full opacity as soon as the stage is re-enabled. This behavior applies to both the TX and RX tiles and requires no configuration.

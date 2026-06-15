@@ -40,6 +40,10 @@ When the gate stage is bypassed, the entire applet tile renders at reduced opaci
 
 **Return knob:** Sets the hysteresis deadband width in dB. Increasing Return prevents the gate from chattering when the input hovers near the threshold. The label displays in the format X.XX dB.
 
+## Animation update behavior
+
+The gain-reduction meter and transfer curve use a smooth animation timer that updates the display approximately every 33 ms. When audio levels are settled (no change in input level), the animation timer stops to save CPU resources. The transfer curve and gain-reduction bar continue to repaint on each interval tick while values are changing, and perform one final repaint when the values settle. This means the display always shows the latest state immediately after settling, with no visual hang or stale data.
+
 ## Inline value editing
 
 Each knob supports inline direct entry of a numeric value. Click the displayed value text below the knob to activate an in-place editor. The editor appears with a dark inset background and cyan border to indicate edit mode. Type a new value and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range when committed.

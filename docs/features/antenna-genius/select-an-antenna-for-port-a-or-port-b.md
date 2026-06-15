@@ -22,7 +22,7 @@ Use the Antenna Genius applet to assign a specific antenna to Port A or Port B o
 | Control | Behavior | Notes |
 |---|---|---|
 | Device combo | Selects which discovered AG device to connect to. | Auto-selects and connects when the first device is discovered. |
-| Connect / Disconnect | Connects to the selected device (or the Manual IP if none selected); becomes "Disconnect" when connected. | Default label is "Connect". |
+| Connect / Disconnect | Connects to the selected device (or the Manual IP if none selected); becomes "Disconnect" when connected. | Default label is "Connect". When disconnected, antenna button grids are cleared. |
 | Manual IP | Enter an IPv4/IPv6 address and press Enter to connect to port 9007. | Invalid addresses produce a red "Invalid IP address" status. Setting saved as `AG_ManualIp`. |
 | Port A antenna buttons | Click to select an antenna on Port A; click again to deselect. | Blue = TX and RX permitted on the current band. Amber = RX only. Dim = no permission on the current band. Disabled if the antenna is already selected on Port B. |
 | Port A band | Displays the active band on Port A, derived from the radio frequency. | Shows **—** when no band is identified. |
@@ -37,11 +37,12 @@ Use the Antenna Genius applet to assign a specific antenna to Port A or Port B o
 
 - An antenna already selected on one port is disabled and dimmed on the other port's button grid. You cannot assign the same antenna to both ports simultaneously.
 - Amber-highlighted antenna buttons are available for receive but will not carry TX on the current band. Switch to a blue button before transmitting.
+- When disconnecting from a device, antenna button grids are cleared and the display resets. Antenna buttons repopulate automatically when you reconnect.
 
 ## Troubleshooting
 
 - **Port B section is not visible** — The connected device reports only one radio port. Port B is hidden automatically in this case and is not available.
-- **Antenna buttons are not shown** — The device is not yet connected, or the antenna list has not loaded. Confirm the status label reads **Connected —** and wait a moment for the list to populate.
+- **Antenna buttons are not shown** — The device is not yet connected, or the antenna list has not loaded. Confirm the status label reads **Connected —** and wait a moment for the list to populate. AetherSDR now prevents clearing the button grid if the antenna list hasn't loaded yet, so buttons remain visible if they were previously displayed.
 - **Clicking an antenna button has no effect** — The button may be disabled because that antenna is already selected on the other port. Choose a different antenna or deselect it on the other port first.
 - **A ShackSwitch device is discovered but does not appear in the Antenna Genius applet** — ShackSwitch devices are excluded from auto-connection in the Antenna Genius applet and are handled by the ShackSwitch applet instead. Open the ShackSwitch applet to connect to that device.
 - **Status label shows "Invalid IP address"** — The address entered in the Manual IP field is not a valid IPv4 or IPv6 address.

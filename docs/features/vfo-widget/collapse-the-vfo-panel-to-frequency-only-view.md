@@ -141,16 +141,33 @@ The VFO panel action buttons now use theme-aware stylesheets instead of hardcode
 | TX badge | TX (red) or hidden | Shown when this slice is the active transmit slice. |
 | SPLIT badge | SPLIT (amber) or hidden | Shown when TX is assigned to a different slice than the active receive slice. |
 
+## Tab bar improvements in v26.6.3
+
+The VFO panel tab bar has been updated for accessibility and usability. The tab buttons are now `QPushButton` instances instead of `QLabel` elements, providing native keyboard focus support.
+
+- Press **Tab** to navigate through the tab buttons. A focus indicator (blue bottom border) appears on the focused tab.
+- **Enter** or **Space** activates the focused tab.
+- The Audio tab now supports a right-click context menu. Right-click the **Speaker** tab to toggle mute for the current slice directly without switching tabs.
+
+## Frequency display accessibility in v26.6.3
+
+The VFO frequency display now uses a `FreqLineEdit` widget with accessibility support. When assistive technology is active, the frequency updates the accessibility tree to announce frequency changes. This ensures screen readers announce the current frequency value as it changes.
+
+The frequency entry field uses `setHintText()` instead of `setPlaceholderText()` for the MHz entry hint.
+
+## Mouse wheel tuning direction in v26.6.3
+
+The VFO panel now respects the reverse mouse wheel setting from `InteractionSettings`. When reverse mouse wheel is enabled, scrolling the mouse wheel over the VFO panel tunes the frequency in the opposite direction. This applies to both collapsed and expanded views.
+
 ## Tips
 
 - In collapsed view, scrolling the mouse wheel over the strip tunes the slice frequency by the current step size — the same as scrolling over the frequency display in the full panel.
 - In collapsed view, clicking the TX badge painted on the strip toggles the TX assignment for that slice. Clicking anywhere else on the strip expands the panel.
 - The panel flips to the right side of the VFO marker automatically if expanding it would be clipped by the window edge. This behavior applies in both expanded and collapsed states.
 - To access NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum display to open the overlay menu, or open the AetherDSP applet.
+- Right-click the Speaker tab to toggle mute without switching tabs.
 
 ## Related
 
 - [VFO Panel overview](overview.md)
-- [Tune the radio by typing a frequency into the VFO panel](tune-the-radio-by-typing-a-frequency-into-the-vfo-panel.md)
-- [Change the VFO marker line thickness](change-the-vfo-marker-line-thickness.md)
-- [Hide or show filter edge lines on the spectrum](hide-or-show-filter-edge-lines-on-the-spectrum.md)
+- [Tune the radio by typing a frequency into the VFO panel](tune-the

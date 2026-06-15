@@ -41,6 +41,10 @@ When you click and drag any EQ band slider, a small popup appears near the slide
 
 This makes it easy to see the exact value without looking at the number below the slider, especially when you are focusing on the audio changes.
 
+## Value popup for keyboard nudges
+
+If you use the keyboard to nudge an EQ band slider (when keyboard shortcuts are available for slider adjustment), a value popup briefly appears at the center of the slider to show the new dB value. The popup lingers and fades with the same timeout as a mouse release, so you can see the result of each keyboard step. This mirrors the mouse-drag readout behavior for keyboard adjustments.
+
 ## Tips
 
 - ON is path-specific. Toggling ON while RX is selected does not affect the TX equalizer, and vice versa. Switch paths with RX or TX before toggling if you want to compare the other direction.

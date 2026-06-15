@@ -13,6 +13,7 @@ The dialog window uses the persistent dialog framework, saving and restoring its
 - **Phone/CW** — Microphone, CW keyer, RTTY defaults
 - **RX** — GPSDO frequency offset calibration and 10 MHz reference source
 - **Antennas** — Antenna name configuration
+- **Audio** — Radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container
 - **Filters** — Low-latency / Sharp filter options per bandwidth
 - **XVTR** — Per-transverter configuration
 - **USB Cables** — Assigns USB serial adapters to CAT, BCD, bit, and PTT cable types
@@ -21,6 +22,8 @@ The dialog window uses the persistent dialog framework, saving and restoring its
 - **Themes** — UI customization including slice colors
 - **SmartLink** — Pinned SmartLink TLS certificate management
 - **Serial** — FlexControl serial port configuration and paddle/button mapping
+
+Several tabs (Radio, Themes, Audio, Filters, Peripherals) are wrapped in a scroll area so that their content remains accessible on small or high-DPI screens. The scrollbar appears automatically when the content exceeds the dialog's visible height; it hides when all content fits without scrolling.
 
 The dialog geometry (position and size) is saved automatically when you close the dialog and restored on next open. The dialog inherits from `PersistentDialog` which handles geometry persistence under the key `RadioSetupDialogGeometry`.
 
@@ -55,6 +58,21 @@ Each read-only field has a copy button (clipboard icon) that appears on hover or
 | **Callsign** | Station callsign | — |
 | **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. | `StationName` |
 | **Remote On** | Enables remote wake / remote-on | — |
+
+### Reboot Radio
+
+| Control | What it does |
+|---|---|
+| **Reboot Radio** | Sends a reboot command to the connected radio. A confirmation dialog appears before rebooting. The button is disabled when the radio is disconnected. |
+
+Click **Reboot Radio** to restart the connected radio. A confirmation dialog appears:
+
+- For LAN connections: "AetherSDR will disconnect and automatically reconnect once the radio finishes booting."
+- For SmartLink/WAN connections: "AetherSDR will disconnect. SmartLink/WAN sessions do not auto-reconnect today — you will need to reconnect manually once the radio finishes booting."
+
+Click **OK** to confirm. The dialog closes, and the radio reboots.
+
+The button is enabled only when the radio is connected. It disables automatically on disconnect and re-enables on reconnect.
 
 ### Firmware Update
 
@@ -167,11 +185,11 @@ The calibration controls are available regardless of whether a GPSDO is installe
 
 ### Calibration Controls
 
-| Control | What it does | Notes |
-|---|---|---|
-| **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. | — |
-| **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. | — |
-| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. | — |
+| Control | What it does |
+|---|---|
+| **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. |
+| **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |
+| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. |
 
 ### 10 MHz Reference Source
 
@@ -237,12 +255,4 @@ The **Audio** tab configures radio audio outputs, compression, PC devices, boost
 | **Headphone:** | Headphone gain slider | — | — | — |
 | **Mute (Headphone)** | Mutes headphone | — | — | — |
 | **Front Speaker: / Mute** | Mutes front speaker (model-specific) | — | — | — |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN | Auto | — | `AudioCompression` |
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle | False | — | `InhibitSleepWhileConnected` |
-| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices | — | — | — |
-| **Audio Boost:** | Enables extra gain on the client audio path | — | — | `AudioBoost` |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter | 200 | 50-1000 ms | `AudioBufferMs` |
-| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording | Radio Side | Radio Side / Client Side | `RecordingMode` |
-| **Save to:** | Folder for saved recordings (client-side only) | Documents/AetherSDR/Recordings | — | `QsoRecordingDir` |
-| **...** | Browses for recording folder | — | — | — |
-| **Auto-record on TX** | Autom
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus

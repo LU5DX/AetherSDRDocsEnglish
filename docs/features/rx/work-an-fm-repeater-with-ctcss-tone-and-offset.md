@@ -26,6 +26,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 | Control          | Default | Valid range / options                     |
 |------------------|---------|-------------------------------------------|
 | Mode combo       | USB     | FM, NFM, DFM (among others)               |
+| WFM button       | off     | toggle                                    |
 | Tone mode (FM)   | Off     | Off, CTCSS TX                             |
 | CTCSS tone value | —       | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
 | Offset (FM)      | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1                 |
@@ -38,6 +39,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.
 - FM family modes hide the filter width preset buttons. This is expected; filter width for FM is fixed by the mode itself.
+- The **WFM** button (software FM demodulator) is separate from the FM mode combo. Click it to enable a software-based wideband FM demodulation path that routes DAX IQ audio via the Hi-Fi Cable. WFM is automatically turned off when you select any real radio mode from the Mode combo.
 - Slice tab buttons and the slice badge are color-coded per slice using SliceColorManager (v0.9.3+). The colors persist across sessions and are reflected in the slice tabs, the slice badge, VFO widgets, and meter strips.
 - When the radio reports a different number of available slices than the tab row was built for, AetherSDR now tears down the existing slice tab buttons and rebuilds them for the new count before reconnecting click handlers (v0.9.5.1, #2254). This prevents stale buttons appearing after a reconnect or a change in hardware configuration.
 - Filter width presets are stored in the format `lo:hi` (passband edges in Hz) or as a plain width value, depending on whether the preset was saved with explicit edge positions. Both formats are read correctly when you reopen the applet or switch modes (#2259).
@@ -47,6 +49,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - Antenna selection for both RX and TX now prioritizes the slice's own antenna list when available. The menu shows antenna labels with tooltips and status tips, with actual antenna data stored separately from display text. TX antenna menus filter out ports with the "RX" prefix and include only antennas matching patterns like "ANT", "TX", or "XVTR".
 - By default, AetherSDR uses an Auto squelch algorithm that clobbers the slice's squelchLevel with algorithm-suggested values. The last user-chosen Manual squelch threshold is now persisted client-side in the `LastManualSquelchLevel` setting and restored between sessions and mode cycles.
 - The mute button uses a deferred single-click mechanism to avoid conflicts with double-click actions. A single-click mutes or unmutes the current slice. A double-click mutes or unmutes all owned slices. The icon updates only when the radio acknowledges the mute state change, ensuring the displayed state always matches the radio's actual state.
+- The **AGC Threshold** slider has a right-click context menu. Right-click the slider and select **Calibrate AGC-T against noise floor…** to open the AGC-T noise calibration panel. The tooltip also advertises this feature.
 - When entering a frequency in the Frequency edit field, AetherSDR uses `FrequencyEntryParser` to normalize the input. If you type a value above 54 MHz without being on an XVTR antenna, the parser checks whether it was entered as an explicit MHz value. If so, the maximum allowed frequency is raised to 50000 MHz, allowing entry of VHF/UHF frequencies above the normal 54 MHz limit without switching to an XVTR antenna first (e.g., typing 146.520 MHz on a non-XVTR antenna).
 - The offset direction buttons and REV button are part of an exclusive button group; selecting one automatically deselects the others.
 - The L/R pan slider now paints its fill from the centre outward. This provides a visual indication of the neutral (centre) position at a glance. The centre mark is a small dot painted on the groove.
@@ -61,6 +64,7 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - **Slice tab buttons appear incorrect after reconnecting** — If the slice tab row shows the wrong number of buttons or a stale layout after the radio reconnects, disconnect and reconnect manually. In v0.9.5.1 this is corrected automatically: the applet calls `clearSliceButtons()` to remove the old buttons and restore the static slice badge before rebuilding the tab row for the new slice count (#2254).
 - **Filter preset button does not change passband** — If the current width is not a standard preset value, the widen/narrow step may not change the passband. This is expected behavior; click a specific filter preset button or type a frequency to change the passband, then the widen/narrow shortcuts will work from the new width.
 - **Mute icon does not change on click** — The mute icon is updated only when the radio acknowledges the mute state change. If the icon does not change, the radio may not have confirmed the new state. This is expected per the Radio-Authoritative Settings Policy (#2489).
+- **Frequency edit field does not accept typed input** — The frequency edit field now uses `FreqLineEdit` which provides a hint label "MHz" instead of placeholder text. Click the frequency label to enter edit mode, type the frequency in MHz, and press Enter to apply.
 
 ## NT mode and RTTY mode notes
 
@@ -77,3 +81,4 @@ The **NT** and **RTTY** modes are treated as digital modes in the RX Controls ap
 - [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
 - [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md)
 - [Select the RX or TX antenna for this slice](select-the-rx-or-tx-antenna-for-this-slice.md)
+- Calibrate AGC-T against the noise floor

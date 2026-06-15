@@ -25,7 +25,6 @@ XIT (Transmit Incremental Tuning) lets you shift your transmit frequency by a fi
 | XIT        | Toggles Transmit Incremental Tuning on or off.                                                 | Off     |
 | XIT offset | Sets the TX frequency offset in hertz. Adjusted with the **<** / **>** buttons or mouse wheel. | +0 Hz   |
 | XIT 0      | Resets the XIT offset to +0 Hz without turning XIT off.                                        | —       |
-
 ## Tips
 
 - RIT and XIT are independent. You can run both simultaneously: RIT shifts your receive frequency, XIT shifts your transmit frequency, and the VFO readout stays unchanged.
@@ -50,6 +49,7 @@ The slice tab row at the top of the applet lets you select which slice the apple
 - Click a tab button (A..H) to bind the applet to that slice.
 - The tab row is hidden if the radio supports only one slice.
 - On reconnect, the tab row is rebuilt correctly when the number of available slices changes. The click handler that emits `sliceActivationRequested` is connected only once per applet instance, regardless of how many times the tab row is rebuilt.
+- Slice button click connections are guarded against duplicate signal handlers across reconnects. `clearSliceButtons()` tears down all generated tab buttons and restores the static slice badge on disconnect.
 
 ### Slice badge
 
@@ -69,7 +69,7 @@ Opens a menu listing TX-capable antennas. RX-only antenna ports (prefix "RX") ar
 
 ### 2.7K (filter width)
 
-Displays the current slice filter bandwidth. The readout is shared with the VFO panel and uses mode-aware logic so SSB and digital modes display the correct labelled width.
+Displays the current slice filter bandwidth. The readout is shared with the VFO panel and uses mode-aware logic so SSB and digital modes display the correct labelled width. The `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband, producing mode-correct edge geometry.
 
 ### QSK
 
@@ -86,6 +86,17 @@ Selects the slice mode from the available options: USB, LSB, CW, AM, SAM, FM, NF
 When switching modes:
 - Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch, which would otherwise notch out FSK characters and break decoding.
 - When switching out of RADE mode, the applet emits a deactivate signal only if the slice was actually in RADE mode, preventing stale deactivate signals when changing modes on a non-RADE slice.
+- Selecting any real radio mode automatically tears down the WFM software demodulator overlay if it was running on this slice (see WFM button section).
+
+### WFM button
+
+A toggle button labelled "WFM" appears immediately after the mode combo box. It enables or disables the software FM demodulator, which uses DAX IQ audio routed through the Hi-Fi cable. This is not a radio mode but a client-side overlay.
+
+- Click to toggle the WFM demodulator on or off.
+- When active, the button is highlighted with a green background.
+- Tooltip: "Software FM demodulator via DAX IQ → Hi-Fi Cable"
+- Selecting any mode from the mode combo box automatically deactivates WFM on that slice.
+- The WFM state is synchronized across reconnects: if the radio connection drops and re-establishes, the button reflects the previously active WFM state.
 
 ### Frequency label
 
@@ -93,11 +104,11 @@ Displays the current VFO frequency with dotted grouping. Click to switch into ed
 
 ### Frequency edit
 
-Enter a frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. The input is normalized so that only the first dot is kept as the decimal separator; any additional dots are removed. Escape cancels the entry, restores the previous frequency, and dismisses the editor. XVTR-aware: accepts up to 450 MHz when the slice is on an XVTR antenna.
+Enter a frequency in MHz and press Enter to tune and recenter. Supports kHz/Hz auto-scaling. The input is normalized so that only the first dot is kept as the decimal separator; any additional dots are removed. Escape cancels the entry, restores the previous frequency, and dismisses the editor. XVTR-aware: accepts up to 450 MHz when the slice is on an XVTR antenna. The text field is now a `FreqLineEdit` widget with a "MHz" hint label instead of placeholder text.
 
 ### STEP
 
-Cycles through per-mode step sizes using < / > buttons or mousewheel. Step list depends on slice mode.
+Cycles through per-mode step sizes using < / > buttons or mousewheel. Step list depends on slice mode. The `stepSizeChangedByUser` signal is emitted alongside `stepSizeChanged` to distinguish user-initiated step changes from programmatic ones.
 
 ### Filter width presets
 
@@ -161,7 +172,19 @@ Sets the slice AGC mode (Off, Slow, Med, Fast). Hidden in FM family modes.
 
 ### AGC threshold
 
-Sets the AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted.
+Sets the AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted. Additionally, the tooltip now advertises the right-click calibration feature: "Right-click to calibrate against the noise floor."
+
+Right-click on the AGC threshold slider to open a context menu with the option "Calibrate AGC-T against noise floor…" Selecting this emits a `calibrateAgcTRequested` signal for the current slice, which opens the AGC-T noise calibration panel. This feature helps you set the AGC threshold based on the actual noise floor rather than an arbitrary value.
+
+### AGC-T calibration context menu
+
+The AGC threshold slider has a right-click context menu that provides access to the noise calibration panel:
+
+1. Right-click the AGC threshold slider.
+2. Select "Calibrate AGC-T against noise floor…" from the context menu.
+3. The calibration panel opens, allowing you to set the AGC threshold based on the measured noise floor.
+
+This feature helps you set the AGC threshold more precisely for your operating environment. The context menu is only available when a slice is bound to the applet.
 
 ### RIT
 
@@ -215,28 +238,3 @@ The applet emits `radeActivated(false)` only if the slice was actually in RADE m
 This fix addresses the following scenarios:
 - Switching between non-RADE modes on a slice that was never in RADE.
 - RADE was activated externally (via the VFO widget combo, profile load on startup, or `MainWindow::activateRADE`).
-- The slice is rebound to a different slice via `setSlice()`.
-
-No action is required from you. The RADE mode deactivation behavior now correctly aligns with the client-side-only nature of the mode.
-
-## Audio mute state on reconnect
-
-The mute button state (🔊 / 🔇) is NOT saved or restored when the radio connection is lost and re-established. The radio is the source of truth for audio mute state. After you disconnect and reconnect, the mute button reflects the actual mute state reported by the radio, which may be different from what it was before the disconnect.
-
-## Mute button double-click behavior
-
-The mute button (🔊 / 🔇) has improved double-click handling:
-
-- **Single-click** mutes/unmutes the current slice only. The action is deferred by the platform double-click interval (approximately 400 ms) so that a double-click can override it. If you click twice quickly, the second click cancels the single-click timer.
-- **Double-click** mutes/unmutes all owned slices at once.
-- The mute icon (🔊 or 🔇) updates only when the radio acknowledges the mute state change, not instantly on click. This ensures the displayed state always matches the radio's actual audio mute state.
-
-No action is required from you. The mute button now correctly handles both single and double clicks.
-
-## Pan slider visual behaviour
-
-The L/R pan slider fill anchors from the centre outward, so the meaningful zero is the midpoint. A small centre-mark dot is painted on the groove so the operator can see the neutral position at a glance.
-
-## Colour theming
-
-In v26.6.1, button and slider styling was updated to use the centralised theme system. Filter preset buttons and the pressed-state colour now follow the application theme colours (`color.background.1`, `color.background.2`, `color.accent`, `color.text.primary`) instead of hard-coded hex values. This ensures consistent appearance across the entire UI when the theme is changed.

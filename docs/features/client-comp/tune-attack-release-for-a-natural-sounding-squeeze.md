@@ -19,16 +19,20 @@ The Attack and Release knobs control how quickly the compressor clamps down on l
 
 ## What each control does
 
-| Knob    | Default   | Valid range   | Behavior |
-|---------|-----------|---------------|----------|
-| Attack  | 20.0 ms   | 0.1 to 300.0 ms | Exponential mapping (0.1 * 3000^n). Sets how quickly the compressor clamps down after the threshold is crossed. |
-| Release | 200 ms    | 5 to 2000 ms   | Exponential mapping (5 * 400^n). Sets how quickly gain returns after the input drops back below threshold. |
-| Drive   | 0.0 dB    | 0.0 to 18.0 dB | Pre-comp gain boost with linked auto-makeup. Pushes more signal across the threshold so the compressor engages harder, and simultaneously adds equal gain at the output so average RMS lifts alongside peaks rather than dropping. Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'. |
-| Phase   | 0 stages  | 0 to 6 stages  | Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. |
+| Knob    | Default  | Valid range     |
+|---------|----------|-----------------|
+| Attack  | 20.0 ms  | 0.1 to 300.0 ms |
+| Release | 200 ms   | 5 to 2000 ms    |
+| Drive   | 0.0 dB   | 0.0 to 18.0 dB  |
+| Phase   | 0 stages | 0 to 6 stages   |
 
 **Attack** — Exponential knob mapping. Values below 10 ms display as `X.X ms`; values at 10 ms and above display as `X ms`. Shorter attack times clamp peaks faster but can dull consonants. Longer attack times let transients through before compression engages.
 
 **Release** — Exponential knob mapping. Displayed as `X ms`. Shorter release times let gain return quickly between syllables; if too short, the compressor audibly pumps. Longer release times produce a smoother, more sustained gain reduction but can reduce intelligibility if set too long.
+
+**Drive** — Pre-comp gain boost with linked auto-makeup. Pushes more signal across the threshold so the compressor engages harder, and simultaneously adds equal gain at the output so average RMS lifts alongside peaks rather than dropping. Pair with Phase to keep peaks clean. Displayed in the floating StripCompPanel only (right column). Label shows as '+X.X dB'.
+
+**Phase** — Number of cascaded all-pass sections (0 = off). Each stage adds 12 dB/oct of phase rotation at staggered frequencies (300/700/1500/2500 Hz, plus optional 1000/2000 Hz). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. Displayed in the floating StripCompPanel only (right column). Label 'Off' when 0, 'N stg' when active. Tooltip: 'Pre-comp phase rotator (#2887). All-pass cascade that symmetrizes asymmetric voice peaks before compression. 0 = off, 4 = broadcast default.'
 
 ## Using the inline value editor
 
@@ -49,6 +53,7 @@ The inline editor is enabled by default for all five knobs. It cannot be disable
 
 - The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
 - The transfer curve display caches axis labels for performance. Labels rebuild automatically when you toggle compact mode (e.g., when switching between the applet tile and the floating editor). This ensures the font size (9 px in full mode, 7 px in compact mode) always matches the current display without any visual lag.
+- The compressor animation timer uses precise timing and only runs repaints when the smoothed envelope is actively changing or when the level requires a visual update. This saves CPU cycles while still providing smooth visual feedback.
 - A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
 - If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
 - Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the **Knee**, **Limiter**, **Drive**, and **Phase** controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).

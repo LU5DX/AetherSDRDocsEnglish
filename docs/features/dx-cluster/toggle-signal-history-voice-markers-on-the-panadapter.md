@@ -10,7 +10,7 @@ Enable gold markers on the panadapter that show detected voice-width signals, he
 
 1. Open **Settings > SpotHub...**.
 2. Click the **Display** tab.
-3. Click **Signals** (labeled "Signal History") to toggle it to the checked/on state.
+3. Click **Signals** (labeled "Signal History") to toggle it to the on state.
 
 The gold markers now appear on the panadapter at frequencies where AetherSDR has detected voice-width signals. Click a marker with the cursor to tune your active slice to that frequency.
 
@@ -34,4 +34,4 @@ This toggle has a dual path — it can also be activated from **View > Signal Hi
 - [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm-gate-and-edge-threshold.md)
 - [Pick custom colors for voice signal and QRM markers](pick-custom-colors-for-voice-signal-and-qrm-markers.md)
 - [Enable Snap to Step for precise S-History tuning](enable-snap-to-step-for-precise-s-history-tuning.md)
-- [SpotHub dialog overview](spothub-dialog-overview.md)
+- SpotHub dialog overview

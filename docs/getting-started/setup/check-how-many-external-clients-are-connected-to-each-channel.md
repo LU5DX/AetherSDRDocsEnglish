@@ -31,7 +31,6 @@ The port shown is the base port for channel A, base+1 for B, base+2 for C, and b
 | **Enable TTY**       | Off         | On / Off    |
 | **Base**             | `4532`      | 1024–65535  |
 | A/B/C/D channel rows | `(stopped)` | —           |
-
 ### Enable TCP
 
 Starts or stops all four rigctld TCP servers on the base port through base+3. Also persists the current base port value to the `CatTcpPort` setting.

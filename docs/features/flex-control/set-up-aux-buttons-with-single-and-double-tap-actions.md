@@ -33,7 +33,7 @@ Configure the five auxiliary buttons on the AetherControl / FlexControl dialog s
 
 The available actions are:
 
-Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macro 1–12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, None.
+Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, **Slice Audio Volume**, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macro 1–12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, None.
 
 ## Tips
 
@@ -41,6 +41,7 @@ Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Headphone Volume, 
 - Actions that are continuous controls (Tune Slice, Master Volume, etc.) latch the aux button into a tuning mode. One-shot actions (Step Up, Toggle MOX, macros) execute immediately and do not latch.
 - The virtual wheel now uses double-click to capture and release circular tuning mode. Single-click does not change capture state. This replaces the previous asymmetry where only Escape could release capture.
 - When a physical FlexControl device sends an init/reset command (e.g. `F0304;`), the dialog automatically re-issues the LED state to ensure hardware matches the application's active wheel-mode button. This resolves race conditions where the device's power-on reset could clear LED state after the application had already set it.
+- Slice Audio Volume allows you to adjust the audio volume of the active slice independently using the wheel, without affecting the master volume or other slices.
 
 ## Related
 

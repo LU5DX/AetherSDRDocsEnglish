@@ -29,6 +29,15 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 | RX/TX slice-assignment labels                                   | — (em dash)                                                                                                                 | — or Slice letter                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Server status indicator                                         | (stopped)                                                                                                                   | `(stopped)`, `:<port> (N clients)`, `(port in use)`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
+## Accessibility names for gain sliders
+
+Each TCI gain slider now has an accessibility name to support screen readers and assistive technologies:
+
+- **RX1–RX4 gain sliders**: Named "TCI RX 1 gain" through "TCI RX 4 gain" respectively.
+- **TX gain slider**: Named "TCI TX gain".
+
+These names are set automatically and require no user configuration.
+
 ## RX/TX slice-assignment labels
 
 The RX1–RX4 and TX status labels show which slice currently drives each channel. The slice letter is now rendered as rich text (HTML) so that styled slice identifiers from `SliceLabel::richText` display correctly. The labels update automatically when slice assignments change.

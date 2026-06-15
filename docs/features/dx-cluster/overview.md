@@ -72,17 +72,25 @@ The **Display** tab controls how spots appear on the panadapter.
 | **QRM Gate:**                                                 | `SHistoryQrmGateS`                                                                                                       | 6 s                                                                                                                |
 | **Edge Threshold:**                                           | `SHistorySoftEdgeDb`                                                                                                     | 3.0 dB                                                                                                             |
 | **Signal History color swatches (Signals / QRM)**             | `SHistoryColorSignals` / `SHistoryColorQrm`                                                                              | #FFC800 / #FF0000                                                                                                  |
-| **Snap to Step:**                                             | `SHistorySnapToStep`                                                                                                     | Disabled                                                                                                           |
+| **Snap to Step:**                                             | `SHistorySnapToStep`                                                                                                     | Disabled                                                                                                            |
 
 **Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. Disable this during contests to reduce visual clutter. The setting is persisted as `IsSpotsLinesEnabled` and defaults to Enabled.
 
 **Auto:** defaults to **Enabled** (`SpotAutoSwitchMode` defaults to `True`). If you previously relied on Auto Mode being off by default, verify this setting after upgrading.
 
-### FreeDV Reporter reporting
+**Override Colors:** button always shows "Enabled" text. When checked, it forces a single text color for all spots. The button label does not change when toggled.
+
+**DXCC Colors:** button always shows "Enabled" text. When checked, it colors spots by worked/confirmed/needed DXCC status. The button label does not change when toggled.
+
+**Spot Lines:** button always shows "Enabled" text. When checked, it draws vertical lines from the spectrum up to each spot label. The button label does not change when toggled.
+
+**Snap to Step:** button always shows "Enabled" text. When checked, it rounds S-History click-to-tune to the nearest multiple of the active slice's step size. The button label does not change when toggled.
+
+## FreeDV Reporter reporting
 
 The **FreeDV** tab includes a **Station Reporting** section that lets AetherSDR broadcast your station activity to the public FreeDV Reporter map at `qso.freedv.org` whenever the RADE modem is active. This feature is only present in builds compiled with WebSocket support.
 
-#### Enable reporting
+### Enable reporting
 
 1. Open the **FreeDV** tab.
 2. Fill in a valid callsign and grid square in the **Callsign:** and **Grid Square:** fields (see below). The checkbox refuses to enable if either field is blank or unresolvable.
@@ -134,19 +142,4 @@ setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `points` | `QVector<SwrSweepPoint>` | — | The sweep data to display. |
-| `running` | `bool` | `false` | Pass `true` while a sweep is in progress to indicate a live, incomplete trace. |
-| `currentFreqMhz` | `double` | `-1.0` | The frequency currently being swept. Pass `-1.0` to suppress the cursor. |
-| `sourceLabel` | `QString` | *(empty)* | Optional label identifying the source of the sweep data, shown on the overlay. |
-
-### Clearing sweep data
-
-Call `clearSwrSweepPoints()` to remove all sweep data and hide the overlay.
-
-### Theme support
-
-The SpotHub dialog and all its connection status labels now use theme-aware colors. The dialog container is registered as `dialog/dxCluster` for theme styling. Connection status labels use:
-
-| State | Theme color token |
-|---|---|
-| Connected | `{{color.accent}}` |
-| Disconnected
+| `running` | `bool` | `false` | Pass `true` while a sweep is in progress to indicate a

@@ -5,6 +5,7 @@ The Waveform applet offers four visualization modes for the active audio path. S
 ## Before you start
 
 - The WAVE applet must be visible in the applet panel. If it is not, click the WAVE tray button in the right sidebar to show it.
+- The applet must be active. If the waveform display is completely hidden or no audio feed appears, the applet may be in lean mode (fully disabled). You cannot interact with the applet while it is inactive.
 - The settings drawer must be open. If you see only the waveform display with no controls beneath it, double-click the waveform display to open the drawer.
 
 ## Steps
@@ -25,6 +26,16 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 | **Zoom:** slider | 1.7x | 1.0x – 6.0x (100–600) | `WaveApplet_ZoomPercent` | Scales the amplitude axis. Higher values stretch small signals vertically. |
 | **FPS:** slider | 24 fps | 5–30 Hz | `WaveApplet_RefreshRateHz` | Controls repaint frequency. Lower values reduce CPU load. |
 
+## Lean mode
+
+When AetherSDR is operating in lean mode, the Waveform applet is fully disabled. This means:
+
+- The applet is hidden from view.
+- The audio feed is dropped — no scope samples are processed, and no repainting occurs. This stops the 24 Hz software repaint and prevents the sample buffer from accumulating data.
+- The upstream AudioEngine signal still fires once per audio callback (the Qt event is still queued onto the GUI thread), but the append-and-repaint work is skipped entirely.
+
+Lean mode reduces CPU load on resource-constrained systems. While the applet is inactive, none of its controls (View, Window, Zoom, FPS) can be adjusted.
+
 ## Tips
 
 - **Bands** mode uses a Goertzel filter to derive frequency band bars. It is useful for checking whether TX audio energy is distributed across the expected frequency range.
@@ -34,6 +45,8 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 - The settings drawer state (open or closed) is persisted. If you close the drawer and restart AetherSDR, it stays closed. Double-click the waveform to reopen it.
 - The **Window:** slider uses discrete steps with deliberate stops, not a continuous range. Each notch on the slider corresponds to one of the available time windows: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s. Slider appearance adapts to the active theme.
 - The **Zoom:** and **FPS:** sliders use theme-aware styling. Their handle and track colors match the current theme selection to provide consistent visual feedback across light and dark themes.
+- The TX audio path is tinted with a warm color and the RX path with a cool color, so you can identify the active direction at a glance without reading a label. The header readout shows RX/TX, RMS dBFS, and PK dBFS.
+- When clipping occurs (samples at or above ±0.98 full-scale), the affected columns are highlighted in red and a **CLIP N** counter appears in the header.
 
 ## Troubleshooting
 
@@ -41,6 +54,7 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 - **The selected mode does not persist after restart** — Confirm AetherSDR has write access to its settings storage. If the issue repeats, check that no other AetherSDR instance is running simultaneously and overwriting `WaveApplet_ViewMode` on exit.
 - **The Window: slider seems to have limited positions** — This is by design. The slider provides 12 discrete time window steps rather than a continuous range, so you can quickly select a standard window length without fine-tuning.
 - **The display shows "Enable PC Audio" instead of "no RX audio"** — This message indicates that PC Audio must be enabled in the radio settings for the RX path. Navigate to Radio > Audio and enable PC Audio.
+- **The waveform display is blank or missing entirely** — The applet may be in lean mode (fully disabled). Check if AetherSDR is running in a resource-saving configuration. If it is, the applet is intentionally hidden and cannot be used until lean mode is disabled.
 
 ## Related
 

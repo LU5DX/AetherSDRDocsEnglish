@@ -23,12 +23,12 @@ Use this page to audition a DVK slot through your local speaker before sending i
 | Slot name labels | Shows the name of each slot. | Default name is "Recording \<n\>". |
 | Slot duration labels | Shows recording length or "Empty". | A slot showing "Empty" cannot be previewed. |
 | Slot progress bars | Displays playback progress in blue during preview. | Hidden when idle. |
-| ● REC | Starts recording into the selected slot. | |
+| ● REC | Starts recording into the selected slot. | If the radio rejects the recording command, the button visually releases and the status area shows an error message. |
 | ■ STOP | Stops any active recording, playback, or preview. | Also activated by Escape. |
 | ▶ PLAY | Plays the selected slot on air. | Does not preview. |
 | ◀ PREV | Starts preview of the selected slot through the local speaker. Click again to stop. | Does not transmit. |
 | Rename edit | Inline rename of a slot triggered via context menu. | |
-| Status: Idle / Recording / Playing | Shows the current DVK state at the bottom of the panel. | |
+| Status: Idle / Recording / Playing | Shows the current DVK state at the bottom of the panel. | If a recording command fails, displays an error message such as "Status: Rec (slot 3) failed — <reason>". |
 
 ## Keyboard shortcuts
 
@@ -46,12 +46,14 @@ The DVK panel registers F1–F12 and Escape keyboard shortcuts. Shortcut availab
 - The F-key buttons and F1–F12 keyboard shortcuts trigger on-air playback, not preview. Use ◀ PREV specifically when you do not want to transmit.
 - Right-click a slot button to rename it or upload a WAV file.
 - Keyboard shortcuts work regardless of whether the DVK panel is currently visible, provided the active slice mode supports them.
+- If the radio rejects a recording start command, the status area shows the reason for the failure (e.g., "Status: Rec (slot 3) failed — Unavailable"). The button state resets automatically.
 
 ## Troubleshooting
 
 - **◀ PREV has no effect** — The selected slot is empty. Check that the slot's duration label does not show "Empty". Record audio or upload a WAV file first, then retry.
 - **No audio heard during preview** — Preview routes audio to the local speaker. Verify your system audio output is correctly configured and not muted.
 - **F1–F12 keyboard shortcuts do not work** — The active slice's operating mode may not support DVK shortcuts. Switch to a mode that supports DVK operation. If the CWX panel's F1–F12 shortcuts are enabled, the DVK shortcuts are automatically disabled.
+- **Recording fails with a status error** — The radio rejected the recording command. Check the error message displayed in the status area and verify that the radio is in a valid state for DVK recording (e.g., not in transmit, not in CW mode).
 
 ## Related
 

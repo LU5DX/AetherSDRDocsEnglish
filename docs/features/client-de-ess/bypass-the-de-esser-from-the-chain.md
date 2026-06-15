@@ -45,17 +45,17 @@ To open the appropriate instance:
 
 The Aetherial De-Esser panel contains the following controls:
 
-| Label                    | Kind        | Default              | Setting key                     |
-|--------------------------|-------------|----------------------|---------------------------------|
-| Sidechain response curve | indicator   | —                    | —                               |
-| Gain-reduction bar       | meter       | —                    | —                               |
-| Freq                     | knob        | 6000 Hz              | `ClientDeEssTxFrequencyHz`      |
-| Q                        | knob        | 2.00                 | `ClientDeEssTxQ`                |
-| Thresh                   | knob        | -30.0 dB             | `ClientDeEssTxThresholdDb`      |
-| Amount                   | knob        | -6.0 dB              | `ClientDeEssTxAmountDb`         |
-| Attack                   | knob        | 1.0 ms               | `ClientDeEssTxAttackMs`         |
-| Release                  | knob        | 100 ms               | `ClientDeEssTxReleaseMs`        |
-| Slope                    | push_button | 24 dB/oct (2 stages) | `ClientDeEssTxSlopeStages`      |
+| Label                    | Kind        | Default              |
+|--------------------------|-------------|----------------------|
+| Sidechain response curve | indicator   | —                    |
+| Gain-reduction bar       | meter       | —                    |
+| Freq                     | knob        | 6000 Hz              |
+| Q                        | knob        | 2.00                 |
+| Thresh                   | knob        | -30.0 dB             |
+| Amount                   | knob        | -6.0 dB              |
+| Attack                   | knob        | 1.0 ms               |
+| Release                  | knob        | 100 ms               |
+| Slope                    | push_button | 24 dB/oct (2 stages) |
 
 ### Control details
 
@@ -72,7 +72,7 @@ The Aetherial De-Esser panel contains the following controls:
 | Label | States | Meaning |
 |---|---|---|
 | Centre-frequency ball | resting on curve peak | Marks the currently-tuned sibilance centre frequency on the response curve. |
-| Gain-reduction strip | empty, soft-red fill | Current attenuation applied to the sibilance band. The meter is a horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed approximately 30 Hz. |
+| Gain-reduction strip | empty, soft-red fill | Current attenuation applied to the sibilance band. The meter is a horizontal soft-red strip, right-filled. Scale maxes at 24 dB; a tick marks the -6 dB typical amount. Refreshed at approximately 30 Hz. |
 
 ## Inline value editing on knobs
 
@@ -111,6 +111,7 @@ The sidechain response curve widget also sources its colors from theme keys:
 - You can use inline value editing to enter exact values without dragging knobs. This is especially useful for fine-tuning or when you know the precise setting you need.
 - The Slope button cycles through 12 → 24 → 36 → 48 dB/oct when clicked. Use a steeper slope for narrower filtering around the sibilant frequency to reduce collateral attenuation on mid-range speech.
 - The de-esser container (`applet/deess`) allows theme authors to customize knob colors specifically for the de-esser panel without affecting other comp knobs.
+- The gain-reduction meter uses a smoothing algorithm that only triggers repaints when the displayed value changes significantly. This reduces CPU usage during steady-state operation while maintaining responsiveness during transient sibilance events.
 
 ## Related
 

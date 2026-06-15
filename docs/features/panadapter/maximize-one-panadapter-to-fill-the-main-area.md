@@ -40,25 +40,26 @@ When both the radio's transmitted keying and received audio are routed to the sa
 
 ## Controls reference
 
-| Control         | Type                 | Default                    |
-|-----------------|----------------------|----------------------------|
-| CW stats label  | Indicator            | —                          |
-| Sens            | Slider               | 30 (range 0–100)           |
-| 🔒P (Lock Pitch) | Toggle button        | —                          |
-| 🔒S (Lock Speed) | Toggle button        | —                          |
-| Lo (pitch min)  | Slider               | 500 Hz (range 300–1200 Hz) |
-| Hi (pitch max)  | Slider               | 700 Hz (range 300–1200 Hz) |
-| CPY ALL         | Button               | —                          |
-| CPY VIS         | Button               | —                          |
-| CLR             | Button               | —                          |
-| ✕ (close CW)    | Button               | —                          |
-| CW decode text  | Read-only text field | —                          |
+| Control            | Type                 | Default                    | Notes                         |
+|--------------------|----------------------|----------------------------|-------------------------------|
+| CW stats label     | Indicator            | —                          | Shows detected pitch and speed |
+| Sens               | Slider               | 30 (range 0–100)          |                               |
+| 🔒P (Lock Pitch)   | Toggle button        | —                          |                               |
+| 🔒S (Lock Speed)   | Toggle button        | —                          |                               |
+| Pitch (range)      | Range slider         | 500–700 Hz (range 300–1200 Hz) | Replaces the Lo/Hi pair      |
+| WPM (range)        | Range slider         | 15–40 WPM (range 5–60 WPM) | New in v26.6.3               |
+| CPY ALL            | Button               | —                          |                               |
+| CPY VIS            | Button               | —                          |                               |
+| CLR                | Button               | —                          |                               |
+| ✕ (close CW)       | Button               | —                          |                               |
+| CW decode text     | Read-only text field | —                          |                               |
 
 ## Notes
 
 - The CW decode panel requires PC audio routing to function. If audio is not configured the panel shows the reminder `(requires PC Audio)`.
 - The Sensitivity slider maps values 0–100 to a cost threshold of 1.0–0.1. Higher values filter out lower-confidence decodes.
-- The Lo and Hi pitch sliders clamp so that Lo can never exceed Hi, and Hi can never be less than Lo.
+- The Pitch range slider replaces the previous two separate Lo and Hi sliders. It provides a single double-handle control (range 300–1200 Hz) with the low end defaulting to 500 Hz and the high end defaulting to 700 Hz. The label "Pitch" is embedded within the widget.
+- The WPM range slider (new in v26.6.3) constrains the decoder's speed search range. It provides a single double-handle control (range 5–60 WPM) with the low end defaulting to 15 WPM and the high end defaulting to 40 WPM. The label "WPM" is embedded within the widget.
 - The Lock Pitch and Lock Speed toggle buttons freeze the decoder to the currently detected pitch or speed, preventing the decoder from tracking changes.
 - When the radio is transmitting, waterfall freeze is driven by the radio's interlock TRANSMITTING state across all connected clients (Multi-Flex), eliminating the 10–23 second TX-trail artifact after unkeying.
 - On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.

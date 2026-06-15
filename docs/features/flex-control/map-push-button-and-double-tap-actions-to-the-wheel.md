@@ -18,7 +18,7 @@ Configure what happens when you push (single-tap) or double-tap the physical Fle
 
 | Control | Default | Setting key | Behavior |
 |---------|---------|-------------|----------|
-| Push (action) combo box | – | `FlexControlButtonAction_*` | Selects the action triggered by a single push of the wheel. Options include: Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macros 1-12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, and None. |
+| Push (action) combo box | – | `FlexControlButtonAction_*` | Selects the action triggered by a single push of the wheel. Options include: Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Slice Audio Volume, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macros 1-12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, and None. |
 | Double-tap (action) combo box | – | – | Selects the action triggered by two quick pushes of the wheel. Same action options as Push. |
 
 Both combo boxes share the same list of available actions. See the source snippet for the complete list of `FlexActionDef` entries, which include all labels shown above.
@@ -58,7 +58,7 @@ Configure the virtual AetherControl wheel and manage a physical FlexControl devi
 | Compact toggle | – | – | Toggles compact mode: hides auxiliary buttons, shows only the wheel and frequency for a minimal UI. |
 | External Spin toggle | – | – | Enables external spin wheel tuning: dragging on the panadapter triggers spin-wheel tuning gestures. |
 | Reverse toggle | – | – | Reverses the wheel tuning direction. |
-| Push (action) combo box | – | `FlexControlButtonAction_*` | Selects the action triggered by a single push of the wheel. Options include: Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macros 1-12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, and None. |
+| Push (action) combo box | – | `FlexControlButtonAction_*` | Selects the action triggered by a single push of the wheel. Options include: Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, Slice Audio Volume, Headphone Volume, AGCT, APF, Clear RIT, Clear XIT, Toggle APF, Change Active Slice, Split Active Slice, MOX, RF Power, CW Speed, CWX Macros 1-12, Step Up, Step Down, Toggle Tune, Toggle Mute, Toggle Lock, Previous Slice, Toggle AGC, Slice AF Up, Slice AF Down, and None. |
 | Double-tap (action) combo box | – | – | Selects the action triggered by two quick pushes of the wheel. Same action options as Push. |
 | Wheel Tightness slider | 45 | `FlexControlVirtualWheel` (nested JSON, looseness field) | Adjusts virtual wheel coasting drag; 0 = tight (fast stop), 100 = loose (long coast). Primarily for trackpads; does not affect physical FlexControl. |
 | Mouse Sensitivity slider | 50 | `FlexControlVirtualWheel` (nested JSON, sensitivity field) | Adjusts how much captured mouse/trackpad movement turns the virtual wheel. Midpoint (50) yields 1.0x scale. Primarily for trackpads; does not affect physical FlexControl. |

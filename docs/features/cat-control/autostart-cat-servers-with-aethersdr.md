@@ -50,7 +50,6 @@ The channel rows (A, B, C, D) will update from `(stopped)` to `:<port> (0 client
 The per-channel PTY path indicator shows:
 - `stopped` when no PTY is active
 - The full symlink path (e.g., `/run/user/1000/aethersdr/cat-A` on Linux or `~/Library/Caches/AetherSDR/cat-A` on macOS) when the PTY is running
-
 ## Tips
 
 - The `Enable TCP` toggle in the applet reflects the `AutoStartRigctld` setting. The `Enable TTY` toggle reflects the `AutoStartCAT` setting. Toggling either button in the applet updates the autostart preference at the same time, so you can use the applet buttons instead of the Settings menu if you prefer.

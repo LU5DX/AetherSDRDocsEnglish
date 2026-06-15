@@ -39,6 +39,7 @@ These indicators are read-only. They update automatically when a slice's DAX cha
 - A channel showing `—` means no slice is currently assigned to it; audio will not flow on that channel.
 - Starting with v26.5.2.1, slice letters in the status indicators may use rich text formatting. This is an internal change; you do not need to adjust any settings to see the indicators correctly.
 - The DAX Audio applet uses theme styling (class `applet/dax`). If you customize your application theme, the applet's appearance may vary to match the rest of the UI.
+- Accessibility labels have been added for the RX gain sliders (as "DAX RX 1 gain", "DAX RX 2 gain", "DAX RX 3 gain", "DAX RX 4 gain") and the TX gain slider (as "DAX TX gain") to improve compatibility with screen-reader software.
 
 ## Related
 

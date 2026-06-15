@@ -52,10 +52,11 @@ The RX Controls applet provides per-slice receive controls. It appears when you 
 | **2.7K (filter width)** | indicator | 2.7K | Shows current filter width in kHz. Updates when filter preset is applied. |
 | **QSK** | indicator | off (grey) | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet Breakin button. |
 | **TX (badge)** | toggle_button | — | Click to set this slice as the TX slice (calls slice->setTxSlice). |
-| **Mode combo** | combo_box | USB | Sets slice mode; reshapes filter and step presets for the new mode. Options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE). RADE option requires HAVE_RADE build flag. |
+| **Mode combo** | combo_box | USB | Sets slice mode; reshapes filter and step presets for the new mode. Options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE). Selecting a real radio mode tears down the WFM software-demod overlay if it was running on this slice. RADE option requires HAVE_RADE build flag. |
+| **WFM** | push_button | off | Toggle button for the software FM demodulator via DAX IQ → Hi-Fi Cable. When enabled, the button glows green; when disabled, it turns grey. Emits wfmActivated signal with the slice ID. |
 | **Frequency label** | indicator | 0.000.000 | Displays current VFO frequency with dotted grouping. Click to switch into edit mode. |
-| **Frequency edit** | text_field | — | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). XVTR-aware: accepts up to 450 MHz when slice is on an XVTR antenna. |
-| **STEP** | spinbox | 100 Hz (index 2) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged. Step list depends on slice mode. |
+| **Frequency edit** | text_field | — | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). Uses FreqLineEdit with hint text "MHz". XVTR-aware: accepts up to 450 MHz when slice is on an XVTR antenna. |
+| **STEP** | spinbox | 100 Hz (index 2) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged and stepSizeChangedByUser. Step list depends on slice mode. |
 | **Filter width presets** | push_button | — | Click to apply a preset filter width; right-click to save current width as a preset. Buttons hidden for FM/NFM/DFM modes. The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
 | **Filter passband widget** | drag_handle | — | Drag the lo/hi edges to adjust filter passband; emits filterChanged (lo, hi). |
 | **Tone mode (FM)** | combo_box | Off | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes. |
@@ -71,7 +72,7 @@ The RX Controls applet provides per-slice receive controls. It appears when you 
 | **SQL** | toggle_button | — | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). |
 | **Squelch level** | slider | 20 | Adjusts squelch threshold; takes effect only when SQL is on. Disabled in RTTY and digital modes. |
 | **AGC mode** | combo_box | Med | Sets the slice AGC mode. Options: Off, Slow, Med, Fast. Hidden in FM family modes. |
-| **AGC threshold** | slider | 65 | Sets AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted. |
+| **AGC threshold** | slider | 65 | Sets AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted and includes a hint about right-click calibration. |
 | **RIT** | toggle_button | — | Toggles Receive Incremental Tuning on/off. |
 | **RIT 0** | push_button | — | Zeroes the RIT offset. |
 | **RIT offset** | spinbox | +0 Hz | < / > or mousewheel adjusts RIT offset by 10 Hz steps. |
@@ -87,6 +88,25 @@ Squelch is automatically disabled in the following modes:
 - **DIGU, DIGL**
 
 When switching to any of these modes, the squelch is turned off and the SQL button and slider are disabled. This prevents squelch from gating weak FSK signals and breaking decoding, particularly in RTTY and digital modes where squelch would notch out FSK characters (#2504).
+
+## WFM software demodulator
+
+The **WFM** button provides a software FM demodulator for receiving wideband FM (broadcast) signals. This uses DAX IQ streaming to a Hi-Fi Cable device.
+
+- Click the **WFM** button to enable or disable the WFM demodulator for the current slice.
+- When enabled, the button glows green. When disabled, it appears grey.
+- Selecting any other mode from the **Mode combo** automatically disables the WFM demodulator for that slice.
+- The button state is synchronised across reconnects — if WFM was active on a slice before disconnect, it will be toggled back on when the slice is restored.
+
+## Calibrate AGC-T against the noise floor
+
+The **AGC threshold** slider supports a right-click context menu for noise floor calibration.
+
+1. Right-click on the **AGC threshold** slider.
+2. Select **Calibrate AGC-T against noise floor…** from the context menu.
+3. A calibration panel appears — follow the on-screen instructions to measure the current noise floor and adjust the AGC-T threshold automatically.
+
+The tooltip on the **AGC threshold** slider indicates which value is being adjusted (AGC Threshold or AGC Off Level) and advertises the right-click calibration feature.
 
 ## RADE mode behavior (if enabled)
 
@@ -105,6 +125,4 @@ The **🔊 / 🔇 (mute)** button uses a push_button (non-checkable) with click 
 
 The RX Controls applet integrates with the theme system for consistent visual appearance:
 
-- **Filter width presets** buttons use tokenised styles through `ThemeManager::resolve()`, allowing them to re-theme alongside the rest of the UI. Styles reference theme tokens such as `{{color.background.1}}`, `{{color.background.2}}`, and `{{color.text.primary}}`.
-- The **L / R pan** slider uses `CenterMarkSlider`, whose fill anchors from the centre outward. The slider groove is painted with theme-aware colours (`color.background.1` for the groove, `color.accent` for the fill). A centre-mark dot provides a visual neutral-position landmark.
-- The **TX (badge)** button uses tokenised styles via `ThemeManager::applyStyleSheet()`, referencing `{{color.background.1}}` for normal/hover states and `{{color.accent}}` for the pressed state.
+- **Filter width presets** buttons use tokenised styles through `ThemeManager::resolve

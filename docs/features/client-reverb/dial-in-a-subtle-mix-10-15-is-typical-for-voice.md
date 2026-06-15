@@ -57,7 +57,7 @@ Knob colours are drawn from the `color.knob.*` namespace in the theme:
 - `color.text.primary` — the value text below the knob.
 - `color.text.secondary` — the knob label above the ring.
 
-All five knobs in the "Aetherial FreeVerb — TX" editor use the same thematic colours. To apply a custom colour scheme, see [Custom themes](custom-themes.md).
+All five knobs in the "Aetherial FreeVerb — TX" editor use the same thematic colours. To apply a custom colour scheme, see Custom themes.
 
 ## Tips
 
@@ -74,4 +74,4 @@ All five knobs in the "Aetherial FreeVerb — TX" editor use the same thematic c
 - [Tune decay to taste without muddying speech](tune-decay-to-taste-without-muddying-speech.md)
 - [Reduce the high-end sparkle of the tail with Damp](reduce-the-high-end-sparkle-of-the-tail-with-damp.md)
 - [Offset reflections from the dry signal with Pre](offset-reflections-from-the-dry-signal-with-pre.md)
-- [Custom themes](custom-themes.md)
+- Custom themes

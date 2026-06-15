@@ -30,7 +30,6 @@ The dialog opens whether or not a radio is connected, but metrics are meaningful
 | **Deselect All (Logs)**      | Logs tab                        | Hides all log categories from the viewer.                                                                                                                                                       |
 | **Live / Paused (Logs)**     | Logs tab                        | When set to **Live**, the viewer auto-scrolls to the newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                      |
 | **Close**                    | Bottom of dialog                | Closes the dialog.                                                                                                                                                                              |
-
 ## Indicators
 
 | Indicator | Meaning |

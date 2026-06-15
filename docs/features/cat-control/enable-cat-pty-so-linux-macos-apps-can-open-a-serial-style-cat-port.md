@@ -29,7 +29,6 @@ CAT PTY creates four virtual serial port symlinks that logging and contest softw
 | **Enable TCP**       | Off         | On / Off    |
 | **Base**             | `4532`      | 1024–65535  |
 | A/B/C/D channel rows | `(stopped)` | —           |
-
 ## Tips
 
 - Each channel (A, B, C, D) maps to one radio slice. Point your logging software at the symlink that corresponds to the slice you want it to control.
@@ -46,7 +45,7 @@ CAT PTY creates four virtual serial port symlinks that logging and contest softw
 
 ## Related
 
-- [Enable CAT TCP so N1MM, Log4OM, WSJT-X can control the radio](enable-cat-tcp-so-n1mm-log4om-wsjtx-x-can-control-the-radio.md)
+- Enable CAT TCP so N1MM, Log4OM, WSJT-X can control the radio
 - [Autostart CAT servers with AetherSDR](autostart-cat-servers-with-aethersdr.md)
 - [CAT Control overview](overview.md)
 - [Check how many external clients are connected to each channel](../../getting-started/setup/check-how-many-external-clients-are-connected-to-each-channel.md)

@@ -22,6 +22,8 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 | **Sens** slider | 30      | 0–100                |
 | CW decode text  | —       | —                    |
 | CW stats label  | —       | `<hz> Hz  <wpm> WPM` |
+| **Pitch** range slider | 500–700 Hz | 300–1200 Hz   |
+| **WPM** range slider  | 15–40 WPM | 5–60 WPM       |
 
 ## CW decode text colouring
 
@@ -40,13 +42,14 @@ TX-side decoded text (your own sending) appears in cyan (`#5fc8ff`) so you can d
 
 - Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.
 - Character colour is a quick confidence gauge: if most output is green, the current sensitivity is well matched to signal conditions. If the display goes blank entirely, the slider is set too high — move it left until characters return.
-- The **Lo** and **Hi** pitch sliders (default 500 Hz and 700 Hz, range 300–1200 Hz) constrain which pitches the decoder searches. Narrowing that range to match the received signal's sidetone pitch can reduce false triggers independently of **Sens**.
+- The **Pitch** range slider (default 500–700 Hz, range 300–1200 Hz) constrains which pitches the decoder searches. Narrowing that range to match the received signal's sidetone pitch can reduce false triggers independently of **Sens**.
+- The **WPM** range slider (default 15–40 WPM, range 5–60 WPM) constrains which speeds the decoder searches. Narrowing that range to match the received signal's sending speed improves decoding accuracy.
 - Right-clicking the CW decode text area also gives access to the standard text actions (Select All, Copy, and so on) alongside the **Clear** option.
 
 ## Troubleshooting
 
 - **Decoded text disappears completely after raising Sens** — the threshold is above the confidence level of the incoming signal. Lower the slider until output returns, then raise it more slowly.
-- **Output remains noisy even at Sens 100** — the signal may be outside the pitch search window. Check the CW stats label for the reported pitch and adjust **Lo** and **Hi** to bracket it.
+- **Output remains noisy even at Sens 100** — the signal may be outside the pitch search window. Check the CW stats label for the reported pitch and adjust the **Pitch** range slider to bracket it.
 - **Sens resets to 30 after restart** — if `CwDecoderSensitivity` is missing from saved settings, AetherSDR uses the default of 30. Move the slider once to write the value; it is then saved on every change.
 
 ## Related

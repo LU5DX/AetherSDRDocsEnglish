@@ -41,6 +41,7 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 - If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first discovered device. Select a different entry and click **Connect** to switch.
 - Port B controls are hidden automatically when the connected device reports only one radio port.
 - Antenna buttons are colour-coded to show TX/RX permissions: blue buttons allow both transmit and receive on the current band, amber buttons allow receive only, and dimmed buttons indicate no permission on the current band.
+- The antenna button grid is cleared entirely when disconnected to keep the display consistent. When reconnecting, the buttons are rebuilt from the device's antenna list only after the list is fully loaded — the grid will not appear blank while waiting for the response.
 
 ## Troubleshooting
 

@@ -21,6 +21,7 @@ The button label changes to "STANDBY" and the green background is replaced with 
 | Control | Behavior | States |
 |---------|----------|--------|
 | OPERATE | Toggles the amplifier between OPERATE and STANDBY; emits operateToggled. | Hidden until setState arrives. Shows 'OPERATE' (green) for IDLE/OPERATE/TRANSMIT_* states, 'STANDBY' otherwise. In v0.9.8, setState is called from RadioModel::ampStateChanged (authoritative), preventing the button from staying stuck on the old label (#2437). |
+| Fan Speed | Single-letter button (S, C, or B) that cycles the PGXL fan mode through STANDARD, CONTEST, and BROADCAST. | Hidden until a direct PGXL connection delivers the first fanmode status. Tooltip: "Fan Speed\nClick to cycle STANDARD / CONTEST / BROADCAST". Accessible name updates with current mode, e.g., "Fan speed: STANDARD". |
 
 ## Telemetry indicators
 
@@ -28,11 +29,11 @@ The Amplifier applet displays telemetry values from the connected Power Genius X
 
 | Indicator | Display format | Range | Behavior | Notes |
 |-----------|---------------|-------|----------|-------|
-| PWR | Numeric value left of the Fwd Pwr gauge, e.g. "1148" | 0-2000 W | Shows PGXL forward power in watts. The gauge bar rises quickly on RF bursts but decays over approximately 800 ms, matching S-meter peak-hold feel. The gauge turns red above 1500 W. | Added in v26.6.1. Value label replaces the previous "Fwd Pwr" label. |
-| SWR | Numeric value left of the SWR gauge | 1.0-3.0 | Shows PGXL SWR. The gauge turns red above 2.5. | Added in v26.6.1. Value label replaces the previous standalone gauge label. |
+| PWR | Numeric value left of the Fwd Pwr gauge, e.g. "1148" | 0-2000 W | Shows PGXL forward power in watts. The gauge bar rises quickly on RF bursts but decays over approximately 800 ms, matching S-meter peak-hold feel. The gauge turns red above 1500 W. The SWR gauge clears to 1.0 when forward power drops below 5 W (idle). When forward power resumes above 5 W, the SWR gauge restores the cached value. | Added in v26.6.1. Value label replaces the previous "Fwd Pwr" label. |
+| SWR | Numeric value left of the SWR gauge | 1.0-3.0 | Shows PGXL SWR. The gauge turns red above 2.5. The gauge only displays a value when forward power is 5 W or greater — SWR is not meaningful at idle and the radio/PGXL may report stale or noise values. | Added in v26.6.1. Value label replaces the previous standalone gauge label. |
 | Id | Numeric value left of the gauge | 0-70 A | Shows PGXL drain current (Id). The gauge turns red above 60 A. | Added in v26.6.1. Replaces the previous "Amps" text display. |
 | Temp | Text label, e.g. "45 C" | — | Shows PGXL heatsink temperature in degrees Celsius. | Hidden until first telemetry arrives. |
-| Vdd | Text label, e.g. "Vdd 50 V" | — | Shows PGXL drain voltage. | Hidden until first telemetry arrives. |
+| Vdd | Text label, e.g. "Vdd 50 V" or "Vdd — V" | — | Shows PGXL drain voltage. Displays "Vdd — V" when the drain supply is off (voltage below 1.0 V) to clearly indicate the supply is off rather than reading zero. | Hidden until first telemetry arrives. |
 | Vac | Text label, e.g. "Vac 120 V" | — | Shows PGXL mains voltage. | Hidden until first telemetry arrives. |
 | MEffA | Text label | — | Displays the PGXL amplifier efficiency metric (meffa) forwarded from radio/proxy telemetry. | Hidden until setMeff is called. Added in v26.5.1. |
 | ● RADIO | Source indicator | — | Shows the telemetry data source. Always displays "● RADIO". | Added in v26.6.1. |
@@ -48,12 +49,22 @@ Starting in v26.6.1, the Amplifier applet has a redesigned layout:
 
 The gauge ballistics for PWR use a fast attack (30 ms) and slow release (800 ms) to keep brief transmissions visible on the meter.
 
+## Fan speed control
+
+The Fan Speed button appears only when a direct PGXL connection delivers the first fanmode status. The button is hidden until then.
+
+- Click the button to cycle through fan speed modes: STANDARD (S) → CONTEST (C) → BROADCAST (B) → STANDARD.
+- The button text shows a single letter: S, C, or B.
+- The accessible name updates with the current mode, e.g., "Fan speed: STANDARD".
+
 ## Troubleshooting
 
 - **The AMP tray button is not visible** — The applet is hidden until a Power Genius XL is detected by the radio. Confirm the PGXL is powered on and connected to the Flex radio.
 - **The OPERATE button is not visible** — The button is hidden until the first state message arrives from the amplifier. Wait a moment after the applet opens; if it does not appear, check the amplifier connection.
 - **Clicking OPERATE has no effect** — Confirm AetherSDR is still connected to the radio. Disconnect and reconnect if needed.
 - **Telemetry values show dashes** — Wait for the first telemetry packet to arrive from the amplifier. If values do not appear, check the amplifier connection and radio/proxy link.
+- **The Fan Speed button is not visible** — The button is hidden until a direct PGXL connection delivers the first fanmode status. Wait for the connection to establish; if it does not appear, check that the PGXL is directly connected (not through a proxy).
+- **SWR gauge shows no value** — The gauge only displays a value when forward power is 5 W or greater. This is normal; SWR is not meaningful when the amplifier is idle.
 
 ## Related
 

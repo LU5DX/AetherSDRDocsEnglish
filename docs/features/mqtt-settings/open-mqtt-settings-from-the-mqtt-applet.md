@@ -19,11 +19,26 @@
 
 ## What the Internal AetherSDR Topics section shows
 
-The **Internal AetherSDR Topics** group box lists topics that AetherSDR publishes automatically whenever MQTT is connected:
+The **Internal AetherSDR Topics** group box lists topics that AetherSDR publishes automatically whenever MQTT is connected. Each topic has a checkbox that allows you to enable or disable it individually. Topics marked as gateable (not grayed out) can be toggled; non-gateable topics are always active and shown grayed out.
 
-- `aethersdr/cw/decode`
+The publish topics are:
 
-These topics are not user-configurable and cannot be removed. They appear automatically on the broker when the corresponding feature is active.
+| Topic | Description | Default | Gateable |
+|-------|-------------|---------|----------|
+| `aethersdr/cw/decode` | CW decoded text | On | Yes |
+| `aethersdr/radio/state` | Radio VFO / mode / TX state | Off | Yes |
+| `aethersdr/ax25/rx` | AX.25 received frames | On | Yes |
+
+The subscribe topics shown in the **Internal AetherSDR Topics** group box on the **Subscriptions** tab are:
+
+| Topic | Description | Default | Gateable |
+|-------|-------------|---------|----------|
+| `aethersdr/antenna/alias/+` | Antenna name (per-port) | On | No |
+| `aethersdr/antenna/alias` | Antenna names (bulk) | On | No |
+| `aethersdr/cw/transmit` | CW keyer input | Off | Yes |
+| `aethersdr/ax25/tx` | AX.25 transmit | Off | Yes |
+
+When you enable or disable a gateable internal topic, the setting is stored and takes effect the next time MQTT connects or reconnects.
 
 ## Maximum number of publish buttons
 

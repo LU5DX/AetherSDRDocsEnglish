@@ -2,6 +2,8 @@
 
 Configure up to 12 publish buttons that send MQTT messages with a single click. Each button has a label, topic, and payload that you define in the Publish Buttons tab of the MQTT Settings dialog.
 
+The Publish Buttons tab also lists internal topics that AetherSDR publishes automatically. In v26.6.3, you can enable or disable most of these internal publish topics individually.
+
 ## Before you start
 
 - MQTT must be compiled into your build of AetherSDR (the dialog is guarded by the `HAVE_MQTT` build gate).
@@ -14,7 +16,8 @@ Configure up to 12 publish buttons that send MQTT messages with a single click. 
 3. To add a button, click **Add**. A new row appears in the table with empty Label, Topic, and Payload cells.
 4. Double-click each cell and type the values you want.
 5. To remove one or more buttons, select their rows (click the row number on the left, or Ctrl-click multiple rows) and click **Remove**.
-6. Click **Apply** to save without closing, or **Ok** to save and close.
+6. To enable or disable an internal publish topic, check or uncheck its checkbox in the **Internal AetherSDR Topics** group box.
+7. Click **Apply** to save without closing, or **Ok** to save and close.
 
 ## What each control does
 
@@ -28,13 +31,20 @@ Configure up to 12 publish buttons that send MQTT messages with a single click. 
 
 ## Internal AetherSDR Publish Topics
 
-The **Internal AetherSDR Topics** group box at the bottom of the Publish Buttons tab lists topics that are published automatically whenever MQTT is connected. These topics are not user-configurable:
+The **Internal AetherSDR Topics** group box at the bottom of the Publish Buttons tab lists topics that AetherSDR publishes automatically whenever MQTT is connected. Each topic has a checkbox; uncheck a topic to stop publishing it.
 
-`aethersdr/cw/decode`
+| Topic | Description | Default | Enabled by default |
+|---|---|---|---|
+| `aethersdr/cw/decode` | CW decoded text | Yes | Yes |
+| `aethersdr/radio/state` | Radio VFO / mode / TX state | Yes | No |
+| `aethersdr/ax25/rx` | AX.25 received frames | Yes | No |
+
+The **CW decoded text** topic (`aethersdr/cw/decode`) is enabled by default; the other two publish topics are disabled by default and must be checked to activate them.
 
 ## Settings storage
 
-All button definitions are saved to `MqttSettings` (nested JSON key `buttons`) when you click Apply or Ok.
+- All button definitions are saved to `MqttSettings` (nested JSON key `buttons`) when you click Apply or Ok.
+- Internal topic enable/disable state is saved to `AppSettings` under keys like `mqtt_internal_aethersdr_radio_state`.
 
 ## Tips
 
@@ -44,3 +54,4 @@ All button definitions are saved to `MqttSettings` (nested JSON key `buttons`) w
 ## Related
 
 - Configure MQTT broker connection (host, port, credentials, TLS)
+- Configure MQTT subscriptions

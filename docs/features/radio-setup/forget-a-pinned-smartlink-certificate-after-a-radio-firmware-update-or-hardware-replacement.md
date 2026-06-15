@@ -30,4 +30,4 @@ The **Forget all** button clears every pinned certificate after a confirmation p
 ## Related
 
 - [Clear all pinned SmartLink certificates when rotating multiple radio TLS identities](clear-all-pinned-smartlink-certificates-when-rotating-multiple-radio-tls-identities.md)
-- [Radio Setup dialog reference](radio-setup-dialog-reference.md)
+- Radio Setup dialog reference

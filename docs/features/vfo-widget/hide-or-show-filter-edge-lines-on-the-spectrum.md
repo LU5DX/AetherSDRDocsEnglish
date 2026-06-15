@@ -53,6 +53,10 @@ The state is saved immediately. When you reopen AetherSDR, the setting is restor
 - In v26.5.3, the VFO panel uses a custom `TabStack` widget that reports only the current tab's size hint, preventing a visual gap when switching between tabs of different heights. The frequency display shows a "LOCKED" overlay when the slice VFO is locked. Direct frequency entry is cancelled when the slice becomes locked. Scroll-wheel tuning on a locked VFO now notifies the user that tuning is blocked.
 - In v26.6.1, the VFO panel's slider controls (AF Gain, Pan, Squelch threshold) now use theme-aware colour tokens for their groove and handle styling, ensuring consistent appearance with the spectrum and other themed elements. The **Pan slider** uses a centre-anchored fill that extends outward from the midpoint, with a small centre-mark dot to indicate the neutral position.
 - In v26.6.1, the VFO panel has been assigned its own theming container scope (`spectrum/vfo`) that inherits spectrum overrides. This improves theme inspector coverage — clicking the VFO panel background, slice badge, or signal meter now surfaces the relevant theme tokens in the inspector.
+- In v26.6.3, the tab labels in the VFO panel are now implemented as `QPushButton` instead of `QLabel`, making them keyboard-navigable with Tab. Use Tab to move focus between tabs, then press Enter or Space to activate the selected tab. Right-click the speaker tab (first tab) to toggle audio mute directly.
+- In v26.6.3, scroll-wheel tuning respects the reverse mouse wheel setting from InteractionSettings. Enable the reverse mouse wheel setting in Preferences to invert the scroll direction for VFO frequency tuning.
+- In v26.6.3, the frequency display uses `FreqLineEdit` for direct frequency entry, with a hint showing "MHz (e.g. 14.225)" instead of a placeholder text. The split badge text has improved contrast with updated colour values.
+- In v26.6.3, accessibility support has been improved. The frequency label announces changes via `QAccessibleValueChangeEvent`, ensuring screen readers receive updates when the slice frequency changes.
 
 ## Related
 

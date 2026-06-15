@@ -19,8 +19,8 @@ Click the PHNE tray button on the right sidebar. The Phone applet opens in the A
 | VOX | Toggle button | Toggles voice-operated transmit. The button lights green when active. | — |
 | VOX level | Slider (0–100) | Sets the audio threshold required to activate transmit. Move right to require a stronger signal; move left to key on quieter audio. The current value is shown as a percentage. | — |
 | Delay | Slider (0–100) | Sets the VOX hang time before the radio returns to receive after audio drops below the threshold. | — |
-| DEXP | Toggle button | Toggles the downward expander (noise gate). Persists to `DexpEnabled`. | Non-functional on firmware v1.4.0.0 — the radio returns error `0x5000002D`. |
-| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. Persists to `DexpLevel`. The current value is shown as a percentage. | Subject to the same firmware limitation as the DEXP toggle. |
+| DEXP | Toggle button | Toggles the downward expander (noise gate). | — |
+| DEXP threshold | Slider (0–100, default 0) | Sets the DEXP gate threshold. The current value is shown as a percentage. | — |
 | Low Cut < / > | Spinbox | Adjusts the TX filter low-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: 0 Hz up to (high-cut − 50 Hz). Default: 50 Hz. | — |
 | High Cut < / > | Spinbox | Adjusts the TX filter high-cut frequency. Click `<` or `>`, or use the mouse wheel, to step the value. Steps snap to the nearest multiple of 50 Hz in the chosen direction (see [Filter cut stepping](#filter-cut-stepping)). Valid range: (low-cut + 50 Hz) up to 10000 Hz. Default: 3300 Hz. | — |
 
@@ -33,11 +33,9 @@ Click the PHNE tray button on the right sidebar. The Phone applet opens in the A
 
 ## Enable DEXP
 
-> **Note:** DEXP is non-functional on firmware v1.4.0.0. The radio returns error `0x5000002D` when this feature is used on that firmware version.
-
 1. Open the Phone applet.
 2. Click **DEXP** to enable the downward expander noise gate.
-3. Adjust the **DEXP threshold** slider to set the gate threshold. The value is stored in `DexpLevel` and persists across sessions. The current percentage is displayed next to the slider.
+3. Adjust the **DEXP threshold** slider to set the gate threshold. The current percentage is displayed next to the slider.
 
 ## Set TX filter cut-off frequencies
 
@@ -66,7 +64,6 @@ This means the value always lands on a clean 50 Hz boundary regardless of its st
 
 - **Radio does not key when you speak** — VOX level may be set too high. Lower the **VOX level** slider so quieter audio triggers transmit.
 - **Radio stays in transmit too long after you stop speaking** — Decrease the **Delay** slider to shorten the hang time.
-- **DEXP toggle has no effect** — This is a known firmware limitation on v1.4.0.0. The radio returns error `0x5000002D`. No workaround is available at the firmware level.
 
 ## Related
 

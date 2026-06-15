@@ -44,6 +44,7 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - **Display resumes on its own** — Pausing only freezes the visual display; a reconnect or audio engine reset clears the buffer and restores the live view.
 - **Placeholder message shows "no RX audio"** — This indicates no RX audio samples have been received. Enable PC Audio in the radio settings to receive audio from the radio.
 - **Settings drawer does not remember its state** — The drawer state is saved when you close it. If AetherSDR crashes before the save completes, the state may revert to expanded on next launch.
+- **Waveform applet is hidden and does not respond** — The applet may be in lean mode, which fully disables the scope. Click the WAVE tray button to show the applet and enable it. In lean mode, the scope feed is dropped and the applet is hidden to conserve resources.
 
 ## Related
 

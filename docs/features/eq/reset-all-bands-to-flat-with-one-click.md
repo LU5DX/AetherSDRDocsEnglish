@@ -14,6 +14,14 @@ The EQ applet provides an 8-band graphic equalizer applied inside the radio itse
 3. Adjust any band slider (63, 125, 250, 500 Hz or 1k, 2k, 4k, 8k) by dragging the handle up or down. The value label below the slider updates live.
 4. When dragging a slider, a popup appears near the slider handle showing the exact dB value with a sign (for example, "+3 dB" or "-5 dB").
 
+## Adjust bands using keyboard shortcuts
+
+You can nudge the band sliders with small keyboard steps when the EQ applet has focus. The same drag-value popup appears to show the new value, then lingers briefly before fading.
+
+1. Ensure the EQ applet window has keyboard focus.
+2. Use the Up Arrow or Down Arrow keys to adjust the currently focused slider by one small step.
+3. The value popup appears near the slider center, mirrors the mouse-drag readout, and fades with the same timeout.
+
 ## Reset all bands to flat with one click
 
 The reset function sets all eight equalizer bands for the currently-selected path (RX or TX) back to 0 dB in one action. Use it to clear a custom curve and return to a flat response without adjusting each slider individually.
@@ -31,7 +39,7 @@ All eight band sliders move to 0 dB and their value labels update to 0.
 | RX | Selects the receive path for display and editing. Shows blue when active. | unchecked | — |
 | TX | Selects the transmit path for display and editing. Shows blue when active. | checked on first launch; then remembers last selection | — |
 | Reset arc button | Resets all 8 bands of the currently-selected path to 0 dB. | — | — |
-| Band sliders (63–8k) | Vertically-oriented sliders; each trims one octave band for the selected path. Value label below each slider updates live. When dragging a slider, a popup near the handle shows the exact dB value with a sign (for example, "+3 dB" or "-5 dB"). The slider handle is colored with the theme accent color. | 0 dB | −10 to +10 dB |
+| Band sliders (63–8k) | Vertically-oriented sliders; each trims one octave band for the selected path. Value label below each slider updates live. When dragging a slider or using keyboard arrow keys to adjust, a popup near the handle shows the exact dB value with a sign (for example, "+3 dB" or "-5 dB"). The slider handle is colored with the theme accent color. | 0 dB | −10 to +10 dB |
 | +10 / 0 / -10 dB scale | Reference labels to the left and right of the slider column indicating the range of the sliders. | — | — |
 
 ## Tips
@@ -40,7 +48,8 @@ All eight band sliders move to 0 dB and their value labels update to 0.
 - The reset acts only on the path currently shown. To reset both paths, select RX, click the reset arc button, then select TX and click it again.
 - Resetting bands does not disable the equalizer. ON remains in its current state after a reset.
 - The drag popup shows the value with a sign (for example, "+3 dB" for positive values, "0 dB" for zero, "-5 dB" for negative values). This matches the behavior of other sliders in the application.
-- After releasing a slider handle, the popup lingers briefly before disappearing so you can read the final value.
+- After releasing a slider handle or pressing a keyboard arrow key, the popup lingers briefly before disappearing so you can read the final value.
+- Keyboard nudges for the EQ sliders are routed through a shortcut lease so global operating shortcuts can resume after each adjustment.
 - The applet uses theme colors for all UI elements. Colors update live when you change the application theme.
 
 ## Related

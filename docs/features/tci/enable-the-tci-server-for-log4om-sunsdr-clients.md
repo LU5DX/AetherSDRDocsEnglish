@@ -30,6 +30,8 @@ The RX1–RX4 rows show which slice drives each TCI channel. The label reads `Sl
 
 The status indicator now uses theme-aware colors for better visibility across light and dark UI themes (`v26.6.1`).
 
+The gain meter/slider controls have accessibility names set for screen reader support. The RX controls are named "TCI RX 1 gain" through "TCI RX 4 gain", and the TX control is named "TCI TX gain".
+
 ## Tips
 
 - To start the TCI server automatically every time AetherSDR launches, go to `Settings > Autostart TCI with AetherSDR` and enable that item. See [Autostart TCI on launch](autostart-tci-on-launch.md).

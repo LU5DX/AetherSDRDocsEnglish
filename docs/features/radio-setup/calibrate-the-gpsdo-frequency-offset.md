@@ -19,14 +19,14 @@ The following fields are read-only indicators of the connected radio:
 
 | Control | Description |
 |---|---|
-| **Radio SN** | Chassis serial number (read-only). |
+| **Radio SN** | Chassis serial number (read-only). Includes a clipboard copy button (tray icon) next to the value. |
 | **Region** | Radio regulatory region (e.g., USA). |
-| **HW Version** | Hardware version string. |
-| **Options** | Licensed radio options. |
+| **HW Version** | Hardware version string. Includes a clipboard copy button next to the value. |
+| **Options** | Licensed radio options. Includes a clipboard copy button next to the value. |
 | **FlexControl** | Detected state of FlexControl hardware. |
 | **multiFLEX** | multiFLEX enabled state. |
-| **Model** | Radio model. |
-| **License Info** | Subscription details, expiration date, Radio ID, and licensed version. |
+| **Model** | Radio model. Includes a clipboard copy button next to the value. |
+| **License Info** | Subscription details, expiration date, Radio ID, and licensed version. Each field includes a clipboard copy button next to the value. |
 
 ### Radio identification fields
 
@@ -36,17 +36,24 @@ The following fields are read-only indicators of the connected radio:
 | **Callsign** | Station callsign. |
 | **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Setting key: `StationName`. |
 
-### Remote control
+### Remote control and reboot
 
 | Control | Description |
 |---|---|
 | **Remote On** | Enables remote wake / remote-on. |
+| **Reboot Radio** | Reboots the connected radio. Click to see a confirmation dialog. On LAN connections, AetherSDR automatically reconnects after the radio finishes booting. On SmartLink/WAN connections, you must reconnect manually. The button is disabled when the radio is disconnected. |
 
 ### Firmware update
 
+| Control | Description |
+|---|---|
+| **Check for Update** | Queries for firmware updates. |
+| **Select Installer...** | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. |
+| **Upload Firmware** | Starts firmware upload with progress bar and status. |
+
 1. Click **Check for Update** to query for firmware updates. If an update is available, the status label displays the version number and instructs you to download the installer.
 2. Download the installer from flexradio.com (`.msi` for SmartSDR 4.2+, `.exe` for older releases).
-3. Click **Browse .ssdr...** and choose the downloaded file. AetherSDR accepts `.msi`, `.exe`, or a pre-extracted `.ssdr` file and stages the firmware automatically.
+3. Click **Select Installer...** and choose the downloaded file. AetherSDR accepts `.msi`, `.exe`, or a pre-extracted `.ssdr` file and stages the firmware automatically.
 4. Click **Upload Firmware** to transfer the staged firmware to the radio. A progress bar and status text show the upload progress.
 
 ## Network (tab)
@@ -57,7 +64,7 @@ The Network tab displays radio network information and provides advanced network
 
 | Control | Description |
 |---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses. |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. Each includes a clipboard copy button. |
 
 ### Network settings
 
@@ -297,26 +304,4 @@ The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable t
 | **Stop Bits** | Stop bits setting. |
 | **Flow** | Flow control. |
 | **Source** | Cable source. |
-| **Auto Report** | Enables automatic reporting. |
-| **BCD Type** | BCD type for BCD cables. |
-| **Polarity** | Signal polarity. |
-| **Bit Configuration (0-7)** | Bit configuration for bit cables. |
-
-## Peripherals (tab)
-
-The Peripherals tab provides manual IP connection management for external devices (TGXL, PGXL, Antenna Genius).
-
-### TGXL
-
-| Control | Description |
-|---|---|
-| **Connect / Disconnect (TGXL)** | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect. Required to recover TUNE on firmware 4.2+. |
-
-### PGXL
-
-| Control | Description |
-|---|---|
-| **Connect / Disconnect (PGXL)** | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-
-### Antenna Genius
-
+| **Auto Report**

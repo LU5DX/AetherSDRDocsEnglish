@@ -17,10 +17,15 @@ The compressor’s gain-reduction meter and the live ball on the transfer curve 
 
 ## What each control does
 
-| Control | Default | Valid range | Setting key | Behavior |
-|---|---|---|---|---|
-| Drive | `0.0 dB` | `0.0` to `18.0 dB` | `ClientCompTxDriveDb` | Pre-comp gain boost with linked auto-makeup. Pushes more signal into the compressor and simultaneously adds equal gain at the output, so average RMS lifts alongside peaks rather than dropping. |
-| Phase | `0 stages` | `0` to `6 stages` | `ClientCompTxPhaseRotatorStages` | Number of cascaded all-pass sections (0 = off). Symmetrizes asymmetric voice peaks before compression to reduce PAPR. Label shows "Off" when 0, "N stg" when active. |
+| Control | Default    | Valid range        | Setting key                     |
+|---------|------------|--------------------|---------------------------------|
+| Drive   | `0.0 dB`   | `0.0` to `18.0 dB` | `ClientCompTxDriveDb`           |
+| Phase   | `0 stages` | `0` to `6 stages`  | `ClientCompTxPhaseRotatorStages`|
+| Thresh  | `-18.0 dB` | `-60.0` to `0.0 dB` | `ClientCompTxThresholdDb`      |
+| Ratio   | `3.0`      | `1.0` to `20.0`    | `ClientCompTxRatio`             |
+| Attack  | `20.0 ms`  | `0.1` to `300.0 ms` | `ClientCompTxAttackMs`         |
+| Release | `200 ms`   | `5` to `2000 ms`   | `ClientCompTxReleaseMs`         |
+| Makeup  | `0.0 dB`   | `-12.0` to `24.0 dB` | `ClientCompTxMakeupDb`        |
 
 ## Tips
 

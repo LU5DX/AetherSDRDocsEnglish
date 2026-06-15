@@ -21,7 +21,7 @@ This page shows how to add a publish button to the MQTT applet and use it to sen
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | Settings...     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                                | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.                                                            |
 | Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog.                | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab.                                                   |
-| Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                                        | Capped to 50 entries.                                                                                                                 |
+| Message log     | Displays received and sent messages. Incoming messages shown as 'topic: value'. Outgoing published messages shown with 'TX' prefix. Capped to 50 entries. | Capped to 50 entries. New in v26.6.3: shows sent messages as 'TX topic: payload'.                                                    |
 | Enable (Off/On) | Connects or disconnects from the broker using settings from MqttSettings. Emits connectRequested / disconnectRequested and saves connection enabled state. | Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
 
 ## Indicators
@@ -37,6 +37,7 @@ This page shows how to add a publish button to the MQTT applet and use it to sen
 - Broker connection settings (host, port, credentials, TLS, and subscriptions) are configured in the MQTT Settings dialog (Settings > MQTT...) rather than inline in the applet.
 - Published button definitions are stored as JSON under `MqttButtons` and persist across restarts.
 - Hovering over a button in normal mode shows a tooltip with the configured topic and payload so you can confirm what will be sent before clicking.
+- Starting in v26.6.3, the message log shows both received and sent published messages. Sent messages appear with a "TX" prefix (e.g., "TX rotator/preset: 45") to distinguish them from incoming messages.
 
 ## Troubleshooting
 

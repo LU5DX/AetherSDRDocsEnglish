@@ -21,8 +21,8 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 | CW stats label                | Displays the currently detected pitch and speed in the format `<hz> Hz  <wpm> WPM`.                                                                                   | —        |
 | 🔒P (Lock Pitch)               | Locks the decoder pitch to the frequency shown in the CW stats label at the moment you click.                                                                         | Unlocked |
 | 🔒S (Lock Speed)               | Locks the decoder speed to the WPM shown in the CW stats label at the moment you click.                                                                               | Unlocked |
-| Lo (pitch min)                | Sets the lower bound of the pitch range the decoder searches.                                                                                                         | 500 Hz   |
-| Hi (pitch max)                | Sets the upper bound of the pitch range the decoder searches.                                                                                                         | 700 Hz   |
+| Pitch range slider            | Sets both the lower and upper bounds of the pitch range the decoder searches, using a dual-handle slider. Drag the left handle for the minimum (Lo) and the right handle for the maximum (Hi). The label shows current values (e.g. 500 Hz / 700 Hz). | 500–700 Hz |
+| WPM range slider              | Sets both the lower and upper bounds of the speed range the decoder searches, using a dual-handle slider. Drag the left handle for the minimum and the right handle for the maximum. The label shows current values (e.g. 15 WPM / 40 WPM). | 15–40 WPM |
 | Sens                          | Filters low-confidence decodes. Higher values are stricter.                                                                                                           | 30       |
 | CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | —        |
 
@@ -37,13 +37,13 @@ The CW decoder can also display your own transmitted keying alongside incoming s
 ## Tips
 
 - Lock pitch and speed independently. You can lock only one if the other is still settling.
-- Narrow the Lo and Hi pitch range sliders around the signal frequency before locking pitch. A tighter search window reduces the chance the decoder latches onto the wrong signal in the first place.
+- Narrow the Pitch range slider handles around the signal frequency before locking pitch. A tighter search window reduces the chance the decoder latches onto the wrong signal in the first place.
 - If the decoded text becomes garbled after locking, the signal pitch or speed may have drifted. Click the active lock button to release it, wait for the stats label to re-stabilise, then lock again.
 - To clear the decode buffer without moving the mouse to the CLR button, right-click the decoded text area and choose **Clear** from the context menu.
 
 ## Troubleshooting
 
-- **CW stats label is blank or not updating** — The decoder has not acquired a signal. Check that PC audio is routed correctly (the hint label reads `(requires PC Audio)`), that the signal falls within the Lo–Hi pitch range, and that Sens is not set so high that all decodes are rejected.
+- **CW stats label is blank or not updating** — The decoder has not acquired a signal. Check that PC audio is routed correctly (the hint label reads `(requires PC Audio)`), that the signal falls within the Pitch range slider bounds, and that Sens is not set so high that all decodes are rejected.
 - **Locked pitch produces no output after tuning away and back** — Locking pitch holds the decoder to the frequency at the time of locking. If you retuned the VFO, the signal pitch seen by the decoder may have shifted. Release 🔒P, retune, and re-lock once the stats label stabilises.
 - **TX-side decoded text not appearing** — Ensure PC audio is routed for both receive and transmit paths. The CW decoder only generates TX output when audio is available from your transmitted keying.
 

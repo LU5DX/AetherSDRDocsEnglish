@@ -14,6 +14,16 @@ To open or close the applet, click the **WAVE** tray button in row 1 of the righ
 
 The applet no longer enforces a fixed height; it resizes vertically with the layout.
 
+## Lean mode
+
+Starting in v26.6.3, you can fully disable the Waveform applet to conserve CPU resources. In lean mode:
+
+- The applet is hidden (setVisible(false)).
+- The sample feed from the audio engine is dropped — appended samples are ignored and the 24 Hz software repaint loop stops entirely.
+- The upstream `AudioEngine::{tx,rx}PostChainScopeReady` signal still fires per audio callback, but the applet does no work.
+
+To activate lean mode, call `setActive(false)` from the host application. While inactive, the **WAVE** tray button is hidden and no waveform processing occurs.
+
 ## What each control does
 
 | Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |
@@ -58,6 +68,7 @@ The settings drawer remembers whether it was open or closed when you last closed
 - Double-click on the display toggles the settings drawer. To clear the waveform buffer, use the WaveformWidget::clear() slot or reconnect to the audio engine.
 - The Window slider provides discrete steps only — it does not allow free-scrolling through millisecond values. Use the closest step that captures the time span you need.
 - The click discrimination interval used for starting the pause toggle timer reads from the Radio Setup click discrimination interval setting. This allows you to adjust the double-click timing across all applets without restarting AetherSDR.
+- Use lean mode (`setActive(false)`) to fully disable the Waveform applet and stop all sample processing if you do not need the oscilloscope. The applet is active by default.
 
 ## Related
 

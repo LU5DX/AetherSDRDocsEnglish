@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides access to all radio-level settings including radio identification, network configuration, GPS, transmit parameters, phone/CW settings, receive calibration, audio configuration, filters, transverters, USB cables, peripherals, and SmartLink certificate management.
+The Radio Setup dialog is the master per-radio configuration window. It provides access to all radio-level settings including radio identification, network configuration, GPS, transmit parameters, phone/CW settings, receive calibration, audio configuration, filters, transverters, USB cables, peripherals, APD sampling, themes, SmartLink certificate management, and serial port configuration.
 
 ## Before you start
 
@@ -11,23 +11,28 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 1. Open `Settings > Radio Setup...`.
 2. The dialog opens as a persistent window. Its position and size are saved automatically when you close it and restored the next time you open it. The geometry is stored in AppSettings under the key `RadioSetupDialogGeometry`.
 
+### Tab scroll areas
+
+Some tabs (Themes, Audio, Filters, Peripherals) contain more controls than fit vertically on small or high-DPI displays. These tabs are automatically wrapped in a vertical scroll area so you can scroll down to reach all controls without resizing the dialog beyond the screen edge. The scrollbar appears only when content exceeds the visible area.
+
 ## Radio tab
 
-The **Radio** tab displays radio information, identification, license info, and firmware update controls.
+The **Radio** tab displays radio information, identification, license info, remote on, firmware update, and reboot controls.
 
 ### Radio Information
 
 The radio information section shows read-only indicators for:
 
-| Control | Description |
-|---|---|
-| **Radio SN** | Chassis serial number (read-only). |
-| **Region** | Radio regulatory region (e.g., USA). |
-| **HW Version** | Hardware version string. |
-| **Model** | Radio model. |
-| **Options** | Shows licensed radio options. |
-| **FlexControl** | Detected state of FlexControl hardware. |
-| **multiFLEX** | multiFLEX enabled state. |
+| Control | Description | Notes |
+|---|---|---|
+| **Radio SN** | Chassis serial number (read-only). | Includes a clipboard copy button (tray icon) next to the value. |
+| **Region** | Radio regulatory region (e.g., USA). | |
+| **HW Version** | Hardware version string. | Includes a clipboard copy button next to the value. |
+| **Model** | Radio model. | Includes a clipboard copy button next to the value. |
+| **Options** | Shows licensed radio options. | Includes a clipboard copy button next to the value. |
+| **FlexControl** | Detected state of FlexControl hardware. | |
+| **multiFLEX** | multiFLEX enabled state. | |
+| **License Info** (Subscription / Expiration / Radio ID / Licensed version) | Displays license details from the radio. | Each field includes a clipboard copy button next to the value. |
 
 ### Radio Identification
 
@@ -51,13 +56,30 @@ Set a human-readable nickname, your callsign, and a station name on the connecte
 8. Press Tab or click away from the field to confirm.
 9. Click the window's close button or press Escape to dismiss the dialog.
 
-### License Information
-
-The **License Info** section displays subscription details, expiration date, Radio ID, and Licensed version from the radio.
-
 ### Remote On
 
 Click **Remote On** to enable remote wake / remote-on capability.
+
+### Reboot Radio
+
+The **Reboot Radio** button restarts the connected radio. This is useful after firmware updates or configuration changes that require a reboot.
+
+- The button is enabled only when the radio is connected. It disables automatically on disconnect or reconnect.
+- A confirmation dialog appears before rebooting.
+- The warning text differs by connection type:
+  - **SmartLink/WAN**: "Reboot the connected radio now? AetherSDR will disconnect. SmartLink/WAN sessions do not auto-reconnect today — you will need to reconnect manually once the radio finishes booting."
+  - **Direct/LAN**: "Reboot the connected radio now? AetherSDR will disconnect and automatically reconnect once the radio finishes booting."
+- Click **OK** to confirm. The dialog closes and AetherSDR disconnects.
+- The button has a styled disabled appearance (#3334 follow-up) so it remains visible but clearly greyed out when the radio is not connected.
+
+### Steps to reboot the radio
+
+1. Open `Settings > Radio Setup...`.
+2. Click the **Radio** tab.
+3. Click **Reboot Radio**.
+4. Read the confirmation dialog that appears.
+5. Click **OK** to confirm. AetherSDR disconnects and the dialog closes.
+6. Wait for the radio to finish booting. On direct/LAN connections, AetherSDR reconnects automatically.
 
 ### Firmware Update
 
@@ -66,7 +88,7 @@ Use the firmware update controls to check for and apply firmware updates to the 
 | Control | Description |
 |---|---|
 | **Check for Update** | Queries for firmware updates. |
-| **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. |
+| **Select Installer...** | Opens a file picker that accepts .msi (FlexRadio v4.2+ WiX installer), .exe (older self-extracting installer) or a pre-extracted .ssdr firmware file. The firmware stager auto-detects format from the first 8 bytes (OLE/MSI magic vs PE/COFF MZ) and extracts the .ssdr without external tools. Label changed from 'Browse .ssdr...' in v26.5.3. |
 | **Upload Firmware** | Starts firmware upload with progress bar and status. |
 
 #### To check for a firmware update
@@ -99,9 +121,9 @@ The **Network** tab displays radio network information and provides advanced net
 
 | Control | Description | Default |
 |---|---|---|
-| **IP Address / Mask / MAC Address** | Read-only network addresses. | — |
-| **Enforce Private IP Connections:** | Rejects non-RFC1918 peers. | — |
-| **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings. | 1450 |
+| **IP Address / Mask / MAC Address** | Read-only network addresses. Each includes a clipboard copy button. | — |
+| **Enforce Private IP Connections:** | Rejects non-RFC1918 peers. Toggle button shows "Enabled" / "Disabled". | — |
+| **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576-9000 bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings. | 1450 |
 | **DHCP / Static** | Switches between DHCP and Static IP modes. | — |
 | **IP Address: / Mask: / Gateway:** | Static IP configuration fields. | — |
 | **Apply** | Pushes the network config to the radio. | — |
@@ -200,39 +222,4 @@ The **Audio** tab provides radio audio outputs, compression, PC devices, boost, 
 | **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. | False |
 | **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices. | — |
 | **Audio Boost:** | Enables extra gain on the client audio path. Stored in AppSettings. | — |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Stored as `AudioBufferMs`. | 200 |
-| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. Stored in AppSettings. | Radio Side |
-| **Save to:** | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. | — |
-| **...** | Browses for recording folder. | — |
-| **Auto-record on TX** | Automatically records while transmitting. | False |
-| **Idle timeout:** | Seconds of silence before recording stops. | 120 |
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Controls the NVIDIA Broadcast noise-removal container. | — |
-
-## Filters tab
-
-The **Filters** tab provides low-latency and sharp filter options per bandwidth.
-
-| Control | Description | Default |
-|---|---|---|
-| **Voice / CW / Digital filter sharpness sliders** | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. Commands sent as `radio filter_sharpness <mode> level=<N>`. | — |
-| **Auto (Voice / CW / Digital)** | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. Commands sent as `radio filter_sharpness <mode> auto_level=1`. | — |
-| **Use Low Latency Filters for Digital Modes** | Forces low-latency filters in DIGU/DIGL. | — |
-
-## XVTR tab
-
-The **XVTR** tab provides per-transverter configuration. Contains nested tabs, one per transverter, plus a '+' tab to create new transverters.
-
-| Control | Description |
-|---|---|
-| **RX Only:** | Forces RX-only on that transverter. |
-| **Remove (xvtr)** | Deletes the transverter definition. |
-| **Create New Transverter** | Adds a new transverter entry. |
-
-## USB Cables tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | Description |
-|---|---|
-| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status. |
-| **Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto
+| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50-1000 ms. Stored as `

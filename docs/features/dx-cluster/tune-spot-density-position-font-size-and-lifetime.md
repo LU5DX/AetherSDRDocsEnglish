@@ -25,7 +25,7 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 13. To set the override color for all spots, click **Override Colors:** to enable, then click the color picker button next to it to choose a color.
 14. To enable custom spot background colors, click **Override Background: Enabled**. To have the background color auto-picked for contrast, click **Override Background: Auto**.
 15. To set background opacity, drag the **Background Opacity:** slider.
-16. To show or hide the vertical lines drawn from the spectrum up to each spot label, click **Spot Lines:**. The button toggles between Enabled and Disabled. Disable this during contests to reduce visual clutter.
+16. To show or hide the vertical lines drawn from the spectrum up to each spot label, click **Spot Lines:**. The button displays Enabled when the feature is on. Disable this during contests to reduce visual clutter.
 17. To enable DXCC coloring, click **DXCC Colors:** and load an ADIF log file using **Log File (ADIF):**.
 18. Click the color swatches under the DXCC Coloring section to choose colors for New DXCC, New Band, New Mode, and Worked statuses.
 19. Adjust Signal History marker behaviour using the **Marker Lifetime:**, **QRM Gate:**, and **Edge Threshold:** sliders.
@@ -48,14 +48,14 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | **Font Size:** | `SpotFontSize` | Size of the text in each spot label. |
 | **Spot Lifetime:** | `DxClusterSpotLifetimeSec` | Seconds a spot label remains visible before fading. |
 | **Spot Lines:** | `IsSpotsLinesEnabled` | Draws vertical lines from the spectrum up to each spot label. Default: Enabled. Disable during contests to reduce visual clutter. |
-| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | Forces a single text color for all spots. |
+| **Override Colors:** | `IsSpotsOverrideColorsEnabled` | Forces a single text color for all spots. The button always displays "Enabled" regardless of state. Pressing it toggles the feature on or off. |
 | Spot text color picker | `SpotsOverrideColor` | Opens QColorDialog to pick spot text color. Default: `#FFFF00`. |
 | **Override Background: Enabled** | `IsSpotsOverrideBackgroundColorsEnabled` | Enables custom spot background color. |
 | **Override Background: Auto** | `IsSpotsOverrideToAutoBackgroundColorEnabled` | Auto-picks background color for contrast. |
 | Spot background color picker | `SpotsOverrideBgColor` | Opens QColorDialog for spot background color. Default: `#000000`. |
 | **Background Opacity:** | `SpotsBackgroundOpacity` | Opacity of the spot background color. |
 | **Total Spots:** | — | Live count of spots currently tracked across all sources. |
-| **DXCC Colors:** | `IsDxccColoringEnabled` | Colors spots by worked/confirmed/needed DXCC status. Setting key changed from `DxccColoringEnabled` in v26.5.1. |
+| **DXCC Colors:** | `IsDxccColoringEnabled` | Colors spots by worked/confirmed/needed DXCC status. Setting key changed from `DxccColoringEnabled` in v26.5.1. The button always displays "Enabled" regardless of state. |
 | **Log File (ADIF):** | `DxccAdifFilePath` | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Setting key changed from `DxccAdifPath` in v26.5.1. |
 | **Imported: (DXCC stats)** | — | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. |
 | DXCC Color swatches (New DXCC / New Band / New Mode / Worked) | `DxccColorNewEntity`, `DxccColorNewBand`, `DxccColorNewMode`, `DxccColorWorked` | Opens a color picker for each DXCC status category. New in v26.5.1. |
@@ -63,7 +63,7 @@ The Display tab in SpotHub controls how spot labels appear on the panadapter: ho
 | **QRM Gate:** | `SHistoryQrmGateS` | How long a narrow carrier or wideband signal must persist before being classified as QRM. Default 6 s. New in v26.5.1. |
 | **Edge Threshold:** | `SHistorySoftEdgeDb` | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Default 3.0 dB. New in v26.5.1. |
 | Signal History color swatches (Signals / QRM) | `SHistoryColorSignals`, `SHistoryColorQrm` | Opens a color picker for the voice signal markers (gold) and QRM markers (red). New in v26.5.1. |
-| **Snap to Step:** | `SHistorySnapToStep` | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default Disabled. New in v26.5.1. |
+| **Snap to Step:** | `SHistorySnapToStep` | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default Disabled. New in v26.5.1. The button always displays "Enabled" regardless of state. |
 
 ## Double-clicking a spot to tune
 
@@ -77,6 +77,7 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - When **Override Colors:** is disabled, each spot source uses its configured color from the source's tab.
 - Signal History markers are independent of DX spots. Use **Clear All** to remove both simultaneously.
 - The SpotHub dialog now uses theme-aware colors. Status indicators for connection state are styled with the current theme's accent, label, and danger colors instead of hardcoded values. This ensures consistent appearance with the rest of the application.
+- Toggle buttons for **Override Colors:**, **Spot Lines:**, **DXCC Colors:**, and **Snap to Step:** always display "Enabled" regardless of their current state. The button's checked state (pressed or unpressed) indicates whether the feature is on or off.
 
 ## Troubleshooting
 
@@ -93,4 +94,4 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - Edit startup commands for cluster sources
-<!-- docmesh:llm version=V26.6.1 date=2026-07-01 -->
+<!-- docmesh:llm version=V26.6.3 date=2026-07-15 -->

@@ -5,7 +5,7 @@ Use this page to control how transparent or opaque the background behind spot la
 ## Before you start
 
 - Open the Spot Settings dialog by right-clicking the spots overlay on the panadapter.
-- Confirm that "Override Background: Enabled" is active (the button shows "Enabled"). The opacity slider has no visible effect if the background is disabled.
+- Confirm that "Override Background: Enabled" is active (the button should show as pressed/checked). The opacity slider has no visible effect if the background is disabled.
 
 ## Steps
 
@@ -19,10 +19,33 @@ Use this page to control how transparent or opaque the background behind spot la
 | Control | Default | Valid range |
 |---|---|---|
 | **Background Opacity:** slider | 48 | 0 – 100 |
-| **Override Background: Enabled** toggle | Enabled | Enabled / Disabled |
-| **Override Background: Auto** toggle | Enabled | Enabled / Disabled |
+| **Override Background: Enabled** toggle | Enabled (checked) | Enabled / Disabled |
+| **Override Background: Auto** toggle | Enabled (checked) | Enabled / Disabled |
 | Spot background color picker | `#000000` | Any color |
-| **Spot Lines:** toggle | Enabled | Enabled / Disabled |
+| **Spots:** toggle | Enabled (checked) | Enabled / Disabled |
+| **Memories:** toggle | Disabled (unchecked) | Enabled / Disabled |
+| **Levels:** slider | 3 | 1 – 10 |
+| **Position:** slider | 50 | 0 – 100 |
+| **Font Size:** slider | 16 | 8 – 32 |
+| **Spot Lifetime:** slider | Varies | 10 sec – 24 hrs (non-linear steps) |
+| **Override Colors:** toggle | Disabled (unchecked) | Enabled / Disabled |
+| Spot text color picker | `#FFFF00` | Any color |
+| **Spot Lines:** toggle | Enabled (checked) | Enabled / Disabled |
+| **Clear All Spots** button | N/A | N/A |
+
+## Additional controls
+
+| Control | Default | Valid range |
+|---|---|---|
+| **Spots:** toggle | Enabled (checked) | Enabled / Disabled |
+| **Memories:** toggle | Disabled (unchecked) | Enabled / Disabled |
+| **Levels:** slider | 3 | 1 – 10 |
+| **Position:** slider | 50 | 0 – 100 |
+| **Font Size:** slider | 16 | 8 – 32 |
+| **Spot Lifetime:** slider | Varies | 10 sec – 24 hrs (non-linear steps) |
+| **Override Colors:** toggle | Disabled (unchecked) | Enabled / Disabled |
+| Spot text color picker | `#FFFF00` | Any color |
+| **Clear All Spots** button | N/A | N/A |
 
 ## Tips
 
@@ -31,10 +54,12 @@ Use this page to control how transparent or opaque the background behind spot la
 - When "Override Background: Auto" is Enabled, AetherSDR picks the background color automatically for contrast. The opacity slider still applies on top of that auto-selected color.
 - If you want a specific background color, disable "Override Background: Auto" first, then use the spot background color picker to choose a color before adjusting opacity.
 - The **Spot Lines:** toggle controls whether vertical lines are drawn from the spectrum baseline up to each spot label. This setting is stored in `IsSpotsLinesEnabled`. Disable it during contests to reduce visual clutter.
+- Toggle buttons no longer show "Enabled" or "Disabled" text — they use a checkable button style with background color indicators: green when enabled, red when disabled.
 
 ## Troubleshooting
 
-- **Moving the slider has no effect** — Confirm "Override Background: Enabled" is showing "Enabled". If it shows "Disabled", click it to enable the background and then adjust the slider.
+- **Moving the slider has no effect** — Confirm "Override Background: Enabled" is showing as pressed/checked. If it shows green background (enabled), the slider should work. If it shows red background (disabled), click it to enable the background and then adjust the slider.
+- **Toggle buttons don't show text changes** — This is expected behavior. Toggle buttons use a checkable state with green/red background color indicators instead of text labels.
 
 ## Related
 

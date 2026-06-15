@@ -123,6 +123,10 @@ Starting in v26.5.3, frequency entry parsing is improved with context-aware hand
 
 If you attempt a direct frequency entry while the VFO is locked, the entry is cancelled and the LOCKED overlay is shown instead of accepting the new frequency (issue #2983). The frequency display also indicates when tune is blocked by lock. Scroll-wheel tuning on a locked VFO triggers the same feedback — the slice model notifies `tuneBlockedByLock`, which cancels any in-progress frequency entry and repaints the LOCKED indicator.
 
+### Frequency entry improvements (v26.6.3)
+
+Starting in v26.6.3, the frequency entry field uses a custom `FreqLineEdit` widget with improved placeholder text. The hint text reads "MHz (e.g. 14.225)" — note that this is the actual widget hint text, not a placeholder. The frequency display also provides accessibility announcements when the frequency changes, ensuring screen reader compatibility.
+
 ### VFO lock behavior
 
 The **Lock VFO button** toggles the locked state of the VFO. When locked:
@@ -135,6 +139,28 @@ Unlocking clears the LOCKED overlay centrally in the SliceModel (issue #2983).
 ### Tab layout improvement
 
 Starting in v26.5.3, the VFO panel tab stack uses a custom `TabStack` widget that reports only the current tab's preferred size. This fixes a visual gap inside the Mode tab when the DSP tab is taller (due to the digContainer being visible in DIGU/DIGL modes). The tab content no longer over-allocates height from the maximum of all pages.
+
+### Tab navigation improvements (v26.6.3)
+
+Starting in v26.6.3, the VFO panel tabs are implemented as `QPushButton` widgets instead of `QLabel` widgets. This change provides proper keyboard focus support:
+
+- Each tab button is focusable via the Tab key (`Qt::TabFocus` policy).
+- Focused tabs show a subtle bottom border outline using the tab label colour.
+- **Right-click on the speaker tab (first tab)** toggles the audio mute state directly — a convenient shortcut to mute the slice without opening the Audio tab.
+
+The tab buttons use flat, checkable style with the same visual appearance as before. The active tab is styled with the accent colour (#00b4d8) and a bottom border.
+
+### VFO lock behaviour with scroll wheel (v26.6.3)
+
+Starting in v26.6.3, the scroll wheel direction in the VFO panel respects the **Reverse mouse wheel** setting. If you have enabled reverse mouse wheel in `Settings > Audio/Radio > Tuning`, scrolling the VFO panel wheel will tune in the opposite direction. This setting is checked via the `InteractionSettings` model and applied to all VFO panel wheel events.
+
+### Scroll wheel accessibility (v26.6.3)
+
+Starting in v26.6.3, the scroll wheel behaviour is fully integrated with the `InteractionSettings` configuration. If you reverse the mouse wheel in settings, the VFO panel scroll direction reverses accordingly. This applies to all wheel events on the VFO panel, including the frequency display area and the RIT/XIT offset labels.
+
+### Accessibility improvements (v26.6.3)
+
+Starting in v26.6.3, the VFO panel provides accessibility announcements for frequency changes. When the frequency changes while an accessibility client (screen reader) is active, an `QAccessibleValueChangeEvent` is posted for the frequency label widget. This ensures screen readers announce the new frequency value. The accessibility timer is single-shot and fires after a brief delay to avoid flooding the accessibility layer during rapid tuning.
 
 ### Slider theming (v26.6.1)
 
@@ -156,24 +182,6 @@ Starting in v26.6.1, the VFO panel uses a dedicated theming container scope `spe
 
 These tokens are painted directly via `QPainter` calls and are surfaced correctly in inspect mode.
 
-## Tips
+### SPLIT badge appearance (v26.6.3)
 
-- Each DAX channel can be assigned to only one slice at a time. If you assign a channel that is already in use by another slice, the radio will move the assignment.
-- If the VFO panel would be clipped by the window edge, it flips to the right side of the marker automatically.
-- To access NR2, RN2, NR4, MNR, BNR, or DFNR, right-click the spectrum display to open the overlay menu, or open the AetherDSP applet.
-
-## Troubleshooting
-
-- **DAX channel combo has no effect / audio does not appear on the host** — Confirm the DAX audio bridge is running. Check `Settings > Autostart DAX with AetherSDR`. On macOS and PipeWire systems, the bridge must be active for DAX channels to appear as audio devices.
-- **DAX tab is not visible** — The VFO panel may be collapsed. Click the collapsed strip to expand it, then select the DAX tab.
-- **DSP level slider is dimmed** — No leveled DSP algorithm is currently active, or only RNN, ANFT, or APF is enabled. Turn on NR, NB, ANF, NRL, NRS, NRF, or ANFL to activate the slider.
-- **DSP level slider is missing on startup** — If a leveled DSP algorithm was enabled in the radio's saved profile, the slider is now automatically populated. If it still appears missing, toggle the algorithm off and on again.
-- **Squelch button is disabled** — You are in Digital, RTTY, or CW mode. Squelch is not available in these modes (digital and RTTY route audio through DAX; CW has radio-locked fixed squelch). Switch to a supported mode such as USB or AM to enable squelch controls.
-- **Frequency entry does not accept VHF/UHF frequencies** — Starting in v26.5.3, type the frequency explicitly in MHz format (e.g., "144.225") and the parser will accept it even without an XVTR slice.
-- **VFO lock prevents frequency change** — When locked, scroll-wheel tuning and direct frequency entry are blocked. Click the Lock VFO button to unlock the VFO before attempting to change frequency. The LOCKED overlay will disappear upon unlock.
-
-## Related
-
-- [VFO Panel overview](overview.md)
-- [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
--
+Starting in v26.

@@ -23,19 +23,18 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 
 ## What each control does
 
-| Control      | Kind        | Default |
-|--------------|-------------|---------|
-| **TUNE**     | Push button | —       |
-| **Tune Pwr** | Slider      | 10      |
-| **RF Pwr**   | Meter       | —       |
-| **SWR**      | Meter       | —       |
-| **RF Power** | Slider      | 100     |
-| **TX Profile** | Combo box | —     |
-| **MOX**      | Toggle button | —   |
-| **ATU**      | Push button | —       |
-| **MEM**      | Toggle button | —     |
-| **APD**      | Toggle button | —     |
-
+| Control        | Kind          | Default |
+|----------------|---------------|---------|
+| **TUNE**       | Push button   | —       |
+| **Tune Pwr**   | Slider        | 10      |
+| **RF Pwr**     | Meter         | —       |
+| **SWR**        | Meter         | —       |
+| **RF Power**   | Slider        | 100     |
+| **TX Profile** | Combo box     | —       |
+| **MOX**        | Toggle button | —       |
+| **ATU**        | Push button   | —       |
+| **MEM**        | Toggle button | —       |
+| **APD**        | Toggle button | —       |
 ## Tips
 
 - Keep **Tune Pwr** low (10 or less) when testing an unknown antenna system. Raise it only after confirming a reasonable SWR.

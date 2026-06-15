@@ -144,6 +144,22 @@ When a slice is locked:
 
 The VFO panel tab content now properly sizes itself to the current tab's contents. This fixes a gap that could appear inside the Mode tab when the DSP tab was taller (e.g., when the DIGU/DIGL sub-mode was visible). The tab stack now reports only the current page's preferred size rather than the maximum of all pages.
 
+## Tab button accessibility and mute shortcut (v26.6.3)
+
+The VFO panel tab labels have been changed from `QLabel` to `QPushButton` with a flat, checkable style. This improves accessibility and keyboard navigation:
+
+- Each tab is now reachable via Tab key in the focus order.
+- The active tab uses a focus indicator (bottom border in accent colour) for visual focus tracking.
+- Right-click the speaker icon tab (Audio tab) to toggle mute directly without switching to the Audio tab.
+
+## Mouse wheel tuning direction (v26.6.3)
+
+The VFO panel now respects the **Reverse mouse wheel direction** setting from `InteractionSettings`. When the setting is enabled, the effective tuning direction per scroll step is reversed. This affects all VFO panel wheel tuning, regardless of the scroll target.
+
+## Accessibility frequency announcements (v26.6.3)
+
+The VFO panel now provides accessibility frequency announcements when assistive technology (e.g., screen reader) is active. The frequency label fires a `QAccessibleValueChangeEvent` at a throttled rate when the frequency changes. This ensures that screen readers announce frequency updates without flooding the accessibility layer.
+
 ## Related
 
 - [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)

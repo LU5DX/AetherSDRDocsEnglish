@@ -43,6 +43,7 @@ The panel shows a status label that changes based on current activity:
 | **Status: Idle** | No recording or playback in progress. |
 | **Status: Recording** | A slot is actively recording. |
 | **Status: Playing** | A slot is actively playing. |
+| **Status: <verb> (slot <n>) failed — <message>** | The radio rejected a recording command (e.g., the radio was not in a mode that supports recording). The verb indicates the attempted action (e.g., "rec_start"), and the message explains the failure. The status reverts to Idle after a moment. |
 
 ## Tips
 
@@ -58,6 +59,7 @@ The panel shows a status label that changes based on current activity:
 - **▶ PLAY does nothing** — The selected slot is empty. The duration label will read "Empty". Record audio or upload a WAV file into the slot first.
 - **F-key press has no effect** — The DVK panel shortcuts are enabled based on the active slice's mode, not panel visibility. Make sure the active slice is in a voice mode (SSB, AM, FM). If the slice is in CW mode, the CWX panel's shortcuts take priority.
 - **Keyboard shortcuts work unexpectedly** — If the DVK panel and CWX panel are both visible, only the shortcuts for the mode of the active slice are active. Shortcuts from the other panel are disabled.
+- **● REC button appears to activate but recording does not start** — The radio may have rejected the recording command. The status label briefly shows a failure message explaining the reason (e.g., the radio was not in a voice mode). The button returns to its normal state automatically.
 
 ## Related
 

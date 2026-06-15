@@ -25,6 +25,8 @@ The status label at the top of the applet tracks the connection lifecycle, and t
 
 The applet now uses the system theme for all visual elements — button colours, label colours, and separator lines adapt to the active AetherSDR theme.
 
+When disconnected, the antenna button grid clears completely — all antenna buttons are removed from the display and the internal lists are emptied. When reconnecting, the grid is rebuilt from the device antenna list only after the model has loaded the list, preventing a blank grid display during the brief period before the antenna list response arrives.
+
 ## What each control does
 
 | Control | Behavior | Default | Setting key |

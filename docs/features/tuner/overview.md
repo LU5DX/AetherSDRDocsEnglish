@@ -13,7 +13,7 @@ The Tuner applet appears in the right-side applet panel once a TGXL is detected.
 
 The applet is divided into three areas:
 
-**Meters (top)** — Two horizontal gauges report live readings from the TGXL. Each gauge has an external row label on the left (PWR, SWR) that shows the live value. When power drops below threshold, the label clears after 800 ms to prevent blinking from inter-packet noise.
+**Meters (top)** — Two horizontal gauges report live readings from the TGXL. Each gauge has an external row label on the left (PWR, SWR) that shows the live value. When power drops below threshold, the label clears after 800 ms to prevent blinking from inter-packet noise. The SWR gauge defaults to 1.0 (empty) when forward power is below 5 W to avoid showing spurious idle readings.
 
 **Relay bars and buttons (middle)** — Three relay-position bars (C1, L, C2) sit to the left; TUNE and OPERATE/BYPASS/STANDBY buttons sit to the right.
 
@@ -23,8 +23,8 @@ The applet is divided into three areas:
 
 | Control | Kind | Behavior | Valid range / states |
 |---|---|---|---|
-| **PWR** | Meter (external label) | Displays TGXL-reported forward power. The external label shows the live value. Label clears after 800 ms when power drops below threshold to prevent blinking. Scale adjusts automatically based on whether a PGXL or Aurora amplifier is detected. | 0–200 W (barefoot); 0–600 W (Aurora); 0–2000 W (with PGXL) |
-| **SWR** | Meter (external label) | Displays TGXL-reported SWR. The external label shows the live value. Label clears after 800 ms when SWR drops below threshold to prevent blinking. Gauge turns red above 2.5, yellow above 2.0. | 1.0–3.0 |
+| **Fwd Pwr** | Meter (gauge) | Displays TGXL-reported forward power. Scale adjusts automatically based on whether a PGXL or Aurora amplifier is detected. The gauge has ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms for a smooth visual effect. | 0–200 W (barefoot); 0–600 W (Aurora); 0–2000 W (with PGXL) |
+| **SWR** | Meter (gauge) | Displays TGXL-reported SWR. The gauge defaults to 1.0 (empty) when forward power is below 5 W to avoid showing spurious idle readings from the TGXL sending SWR=0.0000 (return loss = 0 dB) at idle. Gauge turns red above 2.5, yellow above 2.0. | 1.0–3.0 |
 | **C1** | Relay bar | Shows the C1 relay bank position. Mousewheel scroll adjusts the relay when a direct TGXL connection is active. | 0–255 |
 | **L** | Relay bar | Shows the L relay bank position. Mousewheel scroll adjusts the relay when a direct TGXL connection is active. | 0–255 |
 | **C2** | Relay bar | Shows the C2 relay bank position. Mousewheel scroll adjusts the relay when a direct TGXL connection is active. | 0–255 |
@@ -38,11 +38,22 @@ The applet is divided into three areas:
 
 | Indicator | States | Meaning |
 |---|---|---|
-| **PWR label** | Live value / clears to "PWR" | Shows TGXL-reported forward power. Clears after 800 ms when power drops below threshold to prevent blinking from inter-packet noise. |
-| **SWR label** | Live value / clears to "SWR" | Shows TGXL-reported SWR. Clears after 800 ms when SWR drops below threshold to prevent blinking from inter-packet noise. |
 | **TUNE button** | TUNE / TUNING... / SWR x.xx | Idle / tuning in progress / captured post-tune SWR (flashes for 2.5 s). |
 | **OPERATE button** | OPERATE (green) / BYPASS (orange) / STANDBY (default) | TGXL relay/bypass state. |
 | **Forward power gauge** | Bar with peak hold | White tick mark shows peak forward power. Clears after 2.5 seconds of no new peaks. Gauge turns yellow at 80 W (barefoot), 400 W (Aurora), or 1000 W (PGXL). Turns red at 125 W (barefoot), 500 W (Aurora), or 1500 W (PGXL). |
+| **SWR gauge** | Bar | Defaults to 1.0 (empty) when forward power is below 5 W. Shows actual SWR when forward power is 5 W or above. |
+
+## Accessibility
+
+The Tuner applet controls include accessible names for screen readers:
+
+| Control | Accessible name |
+|---|---|
+| Forward power gauge | "Forward power" |
+| SWR gauge | "SWR" |
+| C1 relay bar | "Tuner capacitor C1" |
+| L relay bar | "Tuner inductor L" |
+| C2 relay bar | "Tuner capacitor C2" |
 
 ## Tips
 
@@ -51,6 +62,7 @@ The applet is divided into three areas:
 - The forward power gauge scale is set automatically. No manual configuration is required when switching between barefoot, Aurora, and PGXL setups.
 - The forward power gauge has ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms for a smooth visual effect.
 - The peak hold white tick mark on the forward power gauge clears automatically after 2.5 seconds of no new peaks.
+- The SWR gauge stays at 1.0 (empty) when forward power is below 5 W. This prevents the gauge from showing spurious high SWR readings when the TGXL is idle and sending SWR=0.0000 (return loss = 0 dB). The gauge only shows live SWR values when forward power is 5 W or above.
 
 ## Related
 

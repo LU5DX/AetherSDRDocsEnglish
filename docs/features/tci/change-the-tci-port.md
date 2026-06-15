@@ -29,12 +29,12 @@ The TCI server listens on a configurable port. Change the port when the default 
 | **TX** gain+meter              | 0.5                                                                                                                                    | 0.0–1.0 (combined slider/meter)                                                                                                                                                                                                                                                                                                   |
 | RX/TX slice-assignment labels  | —                                                                                                                                      | `—` or `Slice <letter>` (rich text)                                                                                                                                                                                                                                                                                               |
 | TX overflow mode (right-click) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits `tciTxOverflowModeChanged`. | New in v26.5.3. Clip (0): clamps overshoots to ±1.0 with harmonic distortion; NaNGuard (1): preserves bit-exact digital tones by only zeroing NaN/Inf; Measure (2): counts overshoots for telemetry without mutation. Persisted as `TciTxOverflowMode` (0/1/2). Default is Clip so existing users see no behavior change (#3065). |
-
 ## Tips
 
 - If you change the port while the server is enabled, the restart is immediate. Connected clients will be disconnected and must reconnect to the new port.
 - If the status shows `(port in use)` after clicking **Enable**, choose a different port number and try again.
 - RX and TX gain sliders control the TCI audio level for their respective channels. Drag to adjust; the value is persisted in `TciRxGain1`–`TciRxGain4` and `TciTxGain`.
+- Each TCI RX gain slider has an accessible name of "TCI RX 1 gain", "TCI RX 2 gain", etc., and the TX gain slider has an accessible name of "TCI TX gain" for screen reader compatibility.
 - Slice-assignment labels show which slice drives each RX/TX row. The slice letter may appear in rich text format for improved display.
 - Right-click the TX gain meter/slider to open the TX overflow-mode picker. Choose how out-of-range (>1.0) samples from digital-mode clients are handled:
   - **Clip (saturating ±1.0)** — Hard-clamp overshoots to ±1.0. Default that introduces harmonics on overshoot but protects downstream int16 conversion.

@@ -148,13 +148,13 @@ Controls how spots and markers appear on the panadapter. This tab combines spot 
 
 | Control | Default | Description | Setting key |
 |---|---|---|---|
-| **Override Colors:** | Disabled | Forces a single text color for all spots. | `IsSpotsOverrideColorsEnabled` |
+| **Override Colors:** | Disabled | Forces a single text color for all spots. Button label is static and always shows "Enabled" when checked. | `IsSpotsOverrideColorsEnabled` |
 | **Spot text color picker** | `#FFFF00` | Opens color picker for spot text color. | `SpotsOverrideColor` |
 | **Override Background: Enabled** | Enabled | Enables custom spot background color. | `IsSpotsOverrideBackgroundColorsEnabled` |
 | **Override Background: Auto** | Enabled | Auto-picks background color for contrast. | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
 | **Spot background color picker** | `#000000` | Opens color picker for spot background color. | `SpotsOverrideBgColor` |
 | **Background Opacity:** | 48 | 0-100 | Opacity of spot background color. | `SpotsBackgroundOpacity` |
-| **Spot Lines:** | Enabled | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. | `IsSpotsLinesEnabled` |
+| **Spot Lines:** | Enabled | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Button label is static and always shows "Enabled" when checked. | `IsSpotsLinesEnabled` |
 
 ### Total Spots indicator
 
@@ -166,7 +166,7 @@ Colors spots by worked/confirmed/needed DXCC status using an imported ADIF log.
 
 | Control | Description | Setting key |
 |---|---|---|
-| **DXCC Colors:** | Enables DXCC-based spot coloring. | `IsDxccColoringEnabled` |
+| **DXCC Colors:** | Enables DXCC-based spot coloring. Button label is static and always shows "Enabled" when checked. | `IsDxccColoringEnabled` |
 | **Log File (ADIF):** | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. | `DxccAdifFilePath` |
 | **Imported: (DXCC stats)** | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. | — |
 | **New DXCC / New Band / New Mode / Worked** color swatches | Opens a color picker for each DXCC status category. | `DxccColorNewEntity`, `DxccColorNewBand`, `DxccColorNewMode`, `DxccColorWorked` |
@@ -182,7 +182,9 @@ Controls for Signal History marker behavior and appearance.
 | **Edge Threshold:** | 3.0 | 1.0-10.0 dB | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Lower values pull the marker closer to the carrier. | `SHistorySoftEdgeDb` |
 | **Signals** color swatch | `#FFC800` (gold) | Any QColor | Color for voice signal markers. | `SHistoryColorSignals` |
 | **QRM** color swatch | `#FF0000` (red) | Any QColor | Color for QRM markers. | `SHistoryColorQrm` |
-| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. | `SHistorySnapToStep` |
+| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Button label is static and always shows "Enabled" when checked. | `SHistorySnapToStep` |
+
+> **Note:** In v26.6.3, several toggle buttons were updated to show a static label (always "Enabled") when in the checked state, instead of dynamically switching between "Enabled" and "Disabled". This affects: **Override Colors:**, **Spot Lines:**, **DXCC Colors:**, and **Snap to Step:**. The visual appearance of the button (pressed/released) still indicates the current state.
 
 ---
 
@@ -206,14 +208,4 @@ The SpotHub dialog displays current state for each source:
 
 | Label | Possible states |
 |---|---|
-| Status (Cluster/RBN/WSJT-X/SpotCollector/POTA/FreeDV) | Disconnected, Connected, Stopped, Listening, Polling |
-| Total spots count | Live count of all spots tracked across all sources |
-| DXCC stats | Imported QSO and entity count from ADIF log. Format: `<N> QSOs / <M> entities`. |
-
----
-
-## Related
-
-- [Toggle Signal History voice markers on the panadapter](toggle-signal-history-voice-markers-on-the-panadapter.md)
-- [Toggle QRM markers to see persistent carriers and interference](toggle-qrm-markers-to-see-persistent-carriers-and-interference.md)
-- [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm
+| Status (Cluster/RBN/WSJT-X/SpotCollector/POTA/FreeDV) | Disconnected, Connected, Stopped

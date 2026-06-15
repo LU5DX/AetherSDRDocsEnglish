@@ -24,7 +24,6 @@ RIT (Receive Incremental Tuning) shifts the receive frequency by a small amount 
 | RIT        | Toggle button | Off     |
 | RIT offset | Spinbox       | `+0 Hz` |
 | RIT 0      | Push button   | —       |
-
 ## Tips
 
 - RIT affects only the receive frequency. Your transmit frequency stays on the VFO. If you also need to offset your transmit frequency, use XIT instead of or alongside RIT.
@@ -59,6 +58,12 @@ When you select RADE from the mode combo, the slice is placed into RADE (Rapid A
 ## RADE mode switching fix (v26.5.3)
 
 From v26.5.3, when switching out of RADE mode via the mode combo, the applet emits `radeActivated(false)` only if the slice was actually in RADE mode. This prevents stale deactivate signals when changing modes on a non-RADE slice (#2376).
+
+## WFM software demodulator (v26.6.3)
+
+From v26.6.3, a WFM button appears next to the mode combo in the frequency row. This button activates a software FM demodulator that routes audio via DAX IQ to a Hi-Fi Cable. The WFM button is distinct from the mode combo — WFM is never a mode selection in the combo.
+
+Click the **WFM** button to toggle the software FM demodulator on or off for the current slice. The button lights green when active. When you select a real radio mode from the mode combo while WFM is active, the WFM overlay is automatically deactivated. This prevents conflict between the software demodulator and the radio's own mode processing.
 
 ## NT mode behaviour
 
@@ -130,6 +135,10 @@ From v26.5.3, frequency entry uses a dedicated `FrequencyEntryParser` for text n
 - If you enter a value above 54.0 MHz without a decimal point, the system divides the value by 1000 (treating kHz as Hz) or by 1e6 (treating Hz as MHz) as appropriate.
 - On any valid entry (0.001 to maxMhz), the signal `directEntryCommitted(freqMhz, QStringLiteral("rx-direct-entry"))` is emitted to recenter the panadapter.
 
+## Frequency editor (v26.6.3)
+
+From v26.6.3, the frequency editor text field is a `FreqLineEdit` instead of a plain `QLineEdit`. The placeholder text now reads "MHz" as hint text rather than a faded placeholder. The editing behaviour is otherwise identical: enter a frequency in MHz and press Enter to tune, or press Escape to cancel and restore the previous frequency.
+
 ## AF gain and pan slider labels (v26.5.3)
 
 From v26.5.3, the AF gain and pan sliders display percentage and positional labels:
@@ -142,18 +151,4 @@ From v26.5.3, the AF gain and pan sliders display percentage and positional labe
 From v26.6.1, the L/R pan slider uses a centre-anchored fill that paints from the centre outward. This makes the neutral position clear at a glance:
 
 - When the handle is left of centre, the groove paint erases the default (0 → handle) fill and paints accent-colour fill from the handle to the centre.
-- When the handle is right of centre, the groove paint erases the (0 → centre) portion so only the (centre → handle) segment is filled with accent colour.
-- A small centre-mark dot remains visible at the midpoint of the groove as a visual landmark.
-
-No action is required on your part. The visual updates apply automatically when you drag the pan slider.
-
-## Theme support for filter-preset buttons (v26.6.1)
-
-From v26.6.1, the filter-preset push buttons (1.8K, 2.1K, etc.) use theme-tokenised styles via `ThemeManager`. Their colours resolve to `color.background.1`, `color.background.2`, and `color.text.primary` from the active theme. This ensures the filter-preset buttons re-theme alongside the rest of the UI when you switch themes.
-
-No action is required on your part. The buttons update colour automatically when a new theme is applied.
-
-## Related
-
-- [Use XIT to offset the transmit frequency without changing RX](use-xit-to-offset-the-transmit-frequency-without-changing-rx.md)
-- [Tune the radio
+- When the

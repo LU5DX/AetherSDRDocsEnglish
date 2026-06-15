@@ -34,15 +34,15 @@ Each instance maintains independent settings for Freq, Q, Thresh, Amount, Attack
 
 ## What each control does
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| **Freq** | 6000 Hz | 1000 – 12000 Hz | Logarithmic mapping. Sets the centre frequency of the sibilance band. Label shows '6.0 kHz' above 1 kHz, 'N Hz' below. |
-| **Q** | 2.00 | 0.5 – 5.0 | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. Label shows 'X.XX'. |
-| **Thresh** | −30.0 dB | −60.0 to 0.0 dB | Linear mapping. Level above which the de-esser starts attenuating the band. |
-| **Amount** | −6.0 dB | −24.0 to 0.0 dB | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction. |
-| **Attack** | 1.0 ms | 0.1 to 30.0 ms | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel. The docked ClientDeEssApplet omits this knob. |
-| **Release** | 100 ms | 10.0 to 500.0 ms | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel. The docked ClientDeEssApplet omits this knob. |
-| **Slope** | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Present in the floating StripDeEssPanel. Label shows 'N dB/oct'. Present for both TX and RX paths. |
+| Control     | Default      | Valid range          | Setting key (TX)         | Behavior |
+|-------------|--------------|----------------------|--------------------------|----------|
+| **Freq**    | 6000 Hz      | 1000 – 12000 Hz      | `ClientDeEssTxFrequencyHz` | Logarithmic mapping. Sets the centre frequency of the sibilance band. |
+| **Q**       | 2.00         | 0.5 – 5.0            | `ClientDeEssTxQ`         | Linear mapping. Sets the bandwidth of the sibilance band — higher Q = narrower. |
+| **Thresh**  | −30.0 dB     | −60.0 to 0.0 dB      | `ClientDeEssTxThresholdDb` | Linear mapping. Level above which the de-esser starts attenuating the band. |
+| **Amount**  | −6.0 dB      | −24.0 to 0.0 dB      | `ClientDeEssTxAmountDb`  | Linear mapping. Maximum attenuation applied at peak sibilance. Values are negative (or zero) because they represent reduction. |
+| **Attack**  | 1.0 ms       | 0.1 to 30.0 ms       | `ClientDeEssTxAttackMs`  | Exponential mapping. Sets how quickly the de-esser responds once sibilance crosses the threshold. Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+| **Release** | 100 ms       | 10.0 to 500.0 ms     | `ClientDeEssTxReleaseMs` | Exponential mapping. Sets how quickly gain returns after sibilance drops below the threshold. Present in the Channel Strip StripDeEssPanel (RX and TX). The docked ClientDeEssApplet omits this knob. |
+| **Slope**   | 24 dB/oct (2 stages) | 12 / 24 / 36 / 48 dB/oct (1 to 4 stages) | `ClientDeEssTxSlopeStages` | Cycles the sidechain bandpass cascade count. Each stage adds 12 dB/oct of rolloff outside the sibilant band. Higher slope = narrower effective notch, less mid-band collateral on Ess-heavy phrases. Present in the floating StripDeEssPanel (left column, bottom). Label shows 'N dB/oct'. |
 
 ### Inline value editing
 

@@ -15,13 +15,16 @@ The What's New dialog shows release notes for versions you have not yet seen. It
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| Release notes browser | Scrollable HTML view of release entries for versions newer than the last seen version. Release notes are fetched live from GitHub's API and rendered as styled HTML with GitHub issue (`#123`) and user (`@username`) references linked. If the API is unreachable or rate-limited, a friendly error message is shown with a direct link to the GitHub releases page. |
-| `Got it — 73!` | Dismisses the dialog and marks the current version as seen in `LastSeenVersion`. |
-| `Upgrade` | Visible only when a newer build is available. Opens the latest release page on GitHub in your system browser and closes the dialog. |
-| `Skip this version` | Visible only when a newer build is available. Writes the current version to `LastSeenVersion` and closes the dialog without upgrading. |
-| Hint | Footer line with brief guidance. Read-only. |
+| Control                      | Behavior                                                                                                                                                                         | Notes                                                                                                                                                        |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Release notes browser        | Scrollable QTextBrowser rendering release notes as GitHub-flavored Markdown. Issue/PR numbers and @mentions are hyperlinked to GitHub. Clicking links opens the default browser. | Refactored in v26.5.3 (#2979) to fetch live notes from api.github.com. Shows 'Loading...' state, error state with suggestions, or the rendered release body. |
+| `Got it — 73!`               | Dismisses the dialog and marks the current version as seen in `LastSeenVersion`.                                                                                                 |                                                                                                                                                              |
+| `Upgrade`                    | Visible only when a newer build is available. Opens the latest release page on GitHub in your system browser and closes the dialog.                                              | Styled as secondary button.                                                                                                                                   |
+| `Skip this version`          | Visible only when a newer build is available. Writes the current version to `LastSeenVersion` and closes the dialog without upgrading.                                           | Styled as secondary button.                                                                                                                                   |
+| AETHERSDR V<version> eyebrow | Branded header showing the current AetherSDR version and either 'Welcome!' or 'What's New' heading.                                                                              | Rendered as styled HTML in a QLabel with padding.                                                                                                            |
+| Status label                 | Under the header shows the GitHub release title and published date after fetch, or a loading message while fetching.                                                             | Multi-line status via <br/> insertion.                                                                                                                       |
+| Find                         | Opens a QInputDialog to enter search text; highlights matches in the release notes and wraps around.                                                                             | New in v26.5.3 (#2979).                                                                                                                                      |
+| Close                        | Primary action button that dismisses the dialog.                                                                                                                                 | Styled as primary blue button. Always visible.                                                                                                               |
 
 ## Tips
 

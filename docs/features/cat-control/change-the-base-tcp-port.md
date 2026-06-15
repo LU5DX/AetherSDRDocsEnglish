@@ -17,13 +17,12 @@ The CAT Control applet runs up to four rigctld-compatible TCP servers on consecu
 
 ## What each control does
 
-| Control      | Kind          | Default     | Behavior |
-|--------------|---------------|-------------|----------|
-| `Base:`      | Text field    | `4532`      | Base TCP port; channels bind to port, port+1, port+2, port+3. Out-of-range values snap back to 4532; servers restart with new port if currently enabled. |
-| `Enable TCP` | Toggle button | Off         | Starts/stops all four rigctld TCP servers on Base..Base+3. Also persists the current base port to CatTcpPort. |
-| `Enable TTY` | Toggle button | Off         | Starts/stops all four PTY symlinks under `$XDG_RUNTIME_DIR/aethersdr/cat-A..D` (Linux) or `~/Library/Caches/AetherSDR/cat-A..D` (macOS). |
-| A/B/C/D channel rows | Indicator | `(stopped)` | Each row shows the channel badge, TCP status, and PTY path. Slice-colour coded badges. Per-channel TCP status shows `(stopped)` or `:<port> (1 client)` or `:<port> (N clients)`. |
-
+| Control              | Kind          | Default     |
+|----------------------|---------------|-------------|
+| `Base:`              | Text field    | `4532`      |
+| `Enable TCP`         | Toggle button | Off         |
+| `Enable TTY`         | Toggle button | Off         |
+| A/B/C/D channel rows | Indicator     | `(stopped)` |
 ## Tips
 
 - Choose a base port that leaves the next three consecutive ports free. For example, a base of `4532` uses `4532`, `4533`, `4534`, and `4535`.

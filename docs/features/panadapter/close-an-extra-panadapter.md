@@ -23,11 +23,15 @@ The panadapter closes immediately. The remaining panadapters expand to fill the 
 
 - **The × button is not visible** — The radio is either disconnected or only one panadapter is open. AetherSDR hides the × button in both cases. Connect to the radio and add a second panadapter before trying again.
 
-## CW decode text context menu
+## CW decode panel
+
+The CW decode panel appears below the panadapter spectrum and waterfall when CW decoding is active. It shows decoded Morse code text, detection statistics, and controls for tuning the decoder.
+
+### CW decode text context menu
 
 Right-clicking anywhere inside the CW decode text area opens a context menu. In addition to the standard text editing commands (Select All, Copy, and so on), the menu includes a **Clear** item. Choosing **Clear** erases the entire CW decode buffer immediately. This is equivalent to clicking the **CLR** button in the CW panel toolbar.
 
-## CW decode TX/RX coloring
+### CW decode TX/RX coloring
 
 In the CW decode panel, received text and transmitted (self-sent) text are rendered in different colors so you can distinguish your own sending from incoming CW. The colors are:
 
@@ -39,9 +43,42 @@ In the CW decode panel, received text and transmitted (self-sent) text are rende
 
 When switching between transmit and receive, a space is automatically inserted to prevent the colored text runs from merging together.
 
+### CW decoder controls
+
+The CW decoder toolbar includes the following controls:
+
+| Control | Type | Description |
+|---------|------|-------------|
+| CW stats label | Indicator | Shows detected CW pitch and speed as `<hz> Hz  <wpm> WPM` |
+| Sens | Slider (0-100) | Filters low-confidence decodes; higher values mean stricter filtering. Maps to a cost threshold from 1.0 (0) to 0.1 (100). Setting key: `CwDecoderSensitivity` |
+| 🔒P (Lock Pitch) | Toggle button | Locks the CW decoder pitch to the current tuned frequency |
+| 🔒S (Lock Speed) | Toggle button | Locks the CW decoder speed to the current WPM |
+| Pitch range slider | Range slider (300-1200 Hz) | Double-handle slider to set the minimum and maximum pitch for the CW decoder search. Default: 500-700 Hz |
+| WPM range slider | Range slider (5-60 WPM) | Double-handle slider to set the minimum and maximum speed for the CW decoder search. Default: 15-40 WPM |
+| CPY ALL | Button | Copies the full decoded text to the clipboard |
+| CPY VIS | Button | Copies only the text currently visible in the scroll area |
+| CLR | Button | Clears the CW decode buffer |
+| ✕ (close CW) | Button | Hides the CW decode panel |
+
+### CW hint indicator
+
+When PC audio routing is required but not configured, a hint label appears in the CW panel reminding you that "(requires PC Audio)".
+
+## RTTY decode panel (v26.6.3)
+
+Starting in v26.6.3, AetherSDR includes an RTTY decode panel that appears below the panadapter when the active slice mode is set to RTTY or DIGL. The panel functions similarly to the CW decode panel but for RTTY decoding.
+
+The RTTY panel includes a dropdown to select the RTTY decoder algorithm and controls for adjusting the decoder parameters. The panel is hidden by default and only appears when the slice mode is set appropriately.
+
 ## Slice title with Multi-Flex
 
 In Multi-Flex sessions, the slice title shown in the panadapter title bar uses the radio-provided index letter so the title matches the slice badge. This ensures consistency when multiple clients are connected to the same radio.
+
+## Waterfall freeze behavior
+
+The waterfall automatically freezes when any client in a Multi-Flex session begins transmitting. The freeze state is driven by the radio's interlock TRANSMITTING state rather than the local MOX edge, eliminating the 10-23 second TX-trail artifact that could appear after unkeying.
+
+On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
 
 ## Panadapter theming (v26.6.1)
 

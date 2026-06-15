@@ -40,6 +40,7 @@ Use the Digital Voice Keyer panel to record your voice into one of up to 8 slots
 
 - **Duration label stays Empty after recording** — The radio may not have received audio. Check that the correct microphone input is selected in `Settings > Radio Setup...` and that the radio is not in a mode that disables the microphone.
 - **● REC does nothing when clicked** — No slot is selected. Click a slot row first, then click **● REC**.
+- **● REC button toggles but recording does not start** — The radio rejected the recording start command. The status label briefly shows a failure message such as "Status: rec_start (slot 2) failed — reason text" before reverting to **Idle**. This can happen if the radio is busy, the slot is already in use, or the audio path is not ready. Check that the radio is in a voice mode and not already recording or playing a different slot.
 - **Status shows Recording but no audio is captured** — Verify the microphone is not muted at the operating system level and that the audio input device is routed correctly through the radio.
 - **F-keys do not respond in the DVK panel** — The active slice must be in a voice mode for DVK F-key shortcuts to be active. If the slice is in CW mode, CWX keyboard shortcuts are active instead.
 - **WAV transfer fails with "Transfer failed"** — If a WAV file upload or download fails, the status label shows a message starting with "Transfer failed". Verify the file is a valid 16-bit Mono WAV at 8-48 kHz sample rate. Network interruptions during transfer may also cause this error.

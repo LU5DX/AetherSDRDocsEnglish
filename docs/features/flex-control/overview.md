@@ -38,6 +38,7 @@ The AetherControl dialog provides a virtual tuning wheel and configuration panel
 | WheelRit | RIT (Receive Incremental Tuning) |
 | WheelXit | XIT (Transmit Incremental Tuning) |
 | WheelVolume | Master Volume |
+| WheelSliceAudio | Slice Audio Volume |
 | WheelHeadphoneVolume | Headphone Volume |
 | WheelAgcT | AGCT (Automatic Gain Control Threshold) |
 | WheelApf | APF (Audio Peaking Filter) |

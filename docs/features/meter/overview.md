@@ -33,9 +33,19 @@ The applet now applies the active application theme to the meters container usin
 
 None of the gauges have persisted settings or user-adjustable controls. There are no `AppSettings` keys associated with this applet.
 
-The label on the **+13.8V** gauge dynamically updates to reflect the live voltage value reported by the radio. For example, when the radio reports 13.82 V, the gauge label reads **+13.82V**. Prior to v26.6.1, the label always showed the static text **+13.8V** regardless of the actual reading.
+The label on the **+13.8V** gauge dynamically updates to reflect the live voltage value reported by the radio. For example, when the radio reports 13.82 V, the gauge label reads **+13.82V**. In v26.6.3, the label continues to show the live radio-reported voltage (e.g. '+13.82V') instead of the static '+13.8V' placeholder.
 
 **Note:** PA current is not displayed. On FLEX-8000 series hardware the PA current meter is capped at 10 A, which causes the reading to clip under full PA draw, making it unreliable.
+
+### Accessibility
+
+Each gauge has a programmatic accessible name that screen readers can announce:
+
+- **PA Temp** gauge: "PA temperature"
+- **Supply voltage** gauge: "Supply voltage"
+- **Main Fan** gauge: "Main fan speed"
+
+These accessible names are set using the Qt accessibility framework and are available to assistive technology on all supported platforms.
 
 ## Tips
 

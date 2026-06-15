@@ -36,6 +36,8 @@ At the bottom of the panel, a status indicator displays the current DVK state: "
 
 The slot now contains your recording and shows its duration.
 
+If the radio rejects the recording request, the status indicator shows a failure message and the REC button returns to its normal state.
+
 ## Play a Stored Voice-Keyer Slot
 
 1. Click the slot's **F-key button** (for example, **F1**).
@@ -89,12 +91,14 @@ The status indicator at the bottom of the panel shows:
 - **Idle** – No operation in progress.
 - **Recording** – A slot is currently being recorded.
 - **Playing** – A slot is currently playing on-air.
+- **Failure message** – If the radio rejects a command (for example, a recording request), the display shows "Status: <verb> (slot <n>) failed — <message>" for the duration of that event.
 
 ## Tips
 
 - **■ STOP** works for recording and preview as well as playback. One button covers all three active states.
 - Pressing Escape only stops the active operation if no slot rename is currently open. If a rename text field is visible, Escape cancels the rename instead.
 - The DVK and CWX panels share F1-F12 shortcuts. Shortcuts are enabled or disabled based on the active slice mode so they fire regardless of panel visibility, while staying mutually exclusive to avoid Qt shortcut ambiguity.
+- If a command such as starting a recording is rejected by the radio, the status indicator shows a specific failure message and all buttons return to their correct visual state.
 
 ## Related
 

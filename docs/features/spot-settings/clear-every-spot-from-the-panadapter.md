@@ -72,6 +72,8 @@ All spots are immediately removed from the panadapter. New spots will continue t
 1. Open the Spot Settings dialog.
 2. Set **Spots:** to **Enabled** or **Disabled**.
 
+When set to **Enabled**, the button displays "Enabled" with an active background. When set to **Disabled**, the button displays "Enabled" with a dimmed background.
+
 ### Shorten or lengthen spot lifetime
 
 1. Open the Spot Settings dialog.

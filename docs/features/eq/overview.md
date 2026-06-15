@@ -17,6 +17,8 @@ The applet always shows one path at a time — either RX or TX. Use the RX and T
 
 Each of the eight bands has a vertical slider. Moving a slider sends the new value to the radio immediately; the dB value below each slider updates live. While dragging a slider, a popup appears near the slider handle showing the current dB value (formatted with a sign, e.g. "+3 dB" or "-5 dB"). Enabling or disabling the equalizer with ON also takes effect immediately on the currently selected path.
 
+When you adjust a slider using the keyboard (for example, via arrow keys), a drag-value popup flashes to show the new value, then lingers and fades with the same timeout as a mouse release. This allows you to read the final value after a keyboard step.
+
 The RX and TX paths are independent. You can have different curves on each, and enable or disable them separately.
 
 ## What each control does
@@ -27,14 +29,14 @@ The RX and TX paths are independent. You can have different curves on each, and 
 | Reset arc (revert icon) | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | RX | Toggle button | Off (unchecked) | On / Off | Selects the receive equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with TX. |
 | TX | Toggle button | On (checked) | On / Off | Selects the transmit equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with RX. |
-| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Shows a drag-value popup while the slider is being moved. |
-| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Shows a drag-value popup while the slider is being moved. |
+| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
 | Per-band value label | Indicator | 0 | −10 through +10 | Shows the current dB value of each band below its slider handle. Updates live as you move the slider. |
 | +10 / 0 / −10 dB scale | Indicator | — | — | Reference labels on the left and right edges of the slider area showing the slider range. |
 
@@ -57,7 +59,7 @@ The slider handles use the theme's foreground (fill) accent color rather than th
 - Because RX and TX are independent paths, you can leave TX equalization flat while shaping only the RX audio, or vice versa.
 - Use ON to quickly compare equalized versus flat audio without moving any sliders. Toggle it off and on while listening to evaluate your curve.
 - The reset arc button resets all eight bands at once. If you only want to adjust one band, move just that slider back to 0 manually.
-- The drag-value popup appears near the slider handle while you are dragging. The popup lingers briefly after you release the mouse button so you can read the final value.
+- The drag-value popup appears near the slider handle while you are dragging. The popup lingers briefly after you release the mouse button so you can read the final value. When adjusting sliders via keyboard, a flash of the popup shows the new value, then fades with the same linger duration as a mouse release.
 - The applet remembers whether you were on RX or TX when you last used it, even across program restarts.
 
 ## Related

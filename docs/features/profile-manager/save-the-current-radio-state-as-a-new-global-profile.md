@@ -1,32 +1,30 @@
-# Save the current radio state as a new global profile
+# Profile Manager
 
-Use this page to capture the radio's current state and store it as a named global profile. Global profiles record overall radio configuration so you can return to a known setup later.
+Use the Profile Manager to create, rename, load, and delete Global, Transmit, and Microphone profiles on the radio, and to toggle auto-saving of transmit changes.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio. Profile Manager requires an active radio connection.
-- Decide on a name for the new profile before you begin.
+- Familiarise yourself with the profile categories: Global profiles store overall radio configuration; Transmit and Microphone profiles store transmission-specific settings.
 
-## Steps
+## Opening the Profile Manager
 
-1. Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
-2. Click the `Global (tab)` tab if it is not already selected.
-3. In the `Profile name` field, type the name for the new profile.
-4. Click `Save`.
-
-The radio saves the current state under the name you typed. The `Profile name` field clears, and the radio pushes an updated list back to the `Profile list`.
+Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
 
 ## What each control does
 
 | Control | Kind | Behavior | Setting key |
 |---|---|---|---|
+| `Global (tab)` | Tab | Manages global profiles. | — |
+| `Transmit (tab)` | Tab | Manages transmit profiles. | — |
+| `Microphone (tab)` | Tab | Manages microphone profiles. | — |
+| `Auto-Save (tab)` | Tab | Controls automatic profile saving. | — |
 | `Profile name` | Text field | Name used when saving a new profile. If left blank when Save is clicked and a profile is selected in the list, the selected profile's name is used instead. | — |
 | `Profile list` | List | Shows all existing profiles for the selected category. The active profile is highlighted. | — |
 | `Load` | Button | Loads the selected profile onto the radio. Enabled only when a profile is selected. | — |
 | `Save` | Button | Saves the current radio state under the name typed in `Profile name`. | — |
 | `Delete` | Button | Deletes the selected profile after a confirmation prompt. Enabled only when a profile is selected. | — |
 | `Close` | Button | Closes the Profile Manager dialog. | — |
-| `Auto-Save (tab)` | Tab | Opens the Auto-Save tab to control automatic profile saving. | — |
 | `Auto-save profile changes` | Checkbox | When enabled, TX changes are written back to the active profile automatically. | `AutoSaveTransmitProfile` |
 
 ## Tab-specific behavior
@@ -40,6 +38,7 @@ The radio saves the current state under the name you typed. The `Profile name` f
 - The `Save` button is labelled **Create** instead of **Save**. The radio firmware does not support directly overwriting transmit or microphone profiles. Clicking `Create` always creates a new profile with a unique name.
 - If a profile with the typed name already exists, a dialog appears offering to enable **Auto-Save**. Clicking the Enable Auto-Save button in this dialog sends the `profile autosave on` command to the radio. The Auto-Save checkbox on the Auto-Save tab updates automatically in response to the radio's confirmation.
 - A note below the buttons explains: "Updates to existing profiles save automatically — enable Auto-Save (Auto-Save tab) so changes follow the active profile. Create makes a new profile; it does not overwrite an existing one."
+- The `Load` button uses the firmware command `profile tx load` (on the Transmit tab) and `profile mic load` (on the Microphone tab) to load the selected profile.
 
 ### Auto-Save tab
 

@@ -31,11 +31,13 @@ The Radio tab displays radio information, identification, license info, and firm
 | **Callsign** | Text field | Station callsign. Click the copy icon next to the value to copy it to clipboard. |
 | **Station Name** | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings. Sent to radio as 'client station <name>'. |
 
-Each read-only information field on this tab (Radio SN, Callsign, Options, HW Version, Region, Model) displays a small copy icon when you hover over the value. Click the icon to copy the text to the clipboard. A brief "Copied" popup confirms the action.
+### Copying read-only values
+
+Each read-only information field on this tab (Radio SN, Callsign, Options, HW Version, Region, Model, IP Address, Mask, MAC Address, and License Info fields) displays a small copy icon when you hover over the value. Click the icon to copy the text to the clipboard. A brief "Copied" popup confirms the action.
 
 ### License information
 
-The dialog displays license details from the radio including subscription status, expiration date, radio ID, and licensed version.
+The dialog displays license details from the radio including subscription status, expiration date, radio ID, and licensed version. Each field includes a clipboard copy button next to the value.
 
 ### Firmware update
 
@@ -59,6 +61,18 @@ The dialog displays license details from the radio including subscription status
 
 Click **Remote On** to enable remote wake / remote-on capability.
 
+### Reboot Radio
+
+Click **Reboot Radio** to restart the connected radio.
+
+| Control | Kind | Notes |
+|---|---|---|
+| **Reboot Radio** | Button | Restarts the radio. A confirmation dialog is shown before rebooting. The button is disabled when the radio is not connected. For LAN connections, AetherSDR automatically reconnects after the radio finishes booting. For SmartLink/WAN connections, you must reconnect manually. The dialog closes after initiating the reboot. |
+
+1. Click **Reboot Radio**.
+2. A confirmation dialog explains the behavior difference between LAN and WAN connections.
+3. Click **OK** to confirm. AetherSDR sends the reboot command to the radio and closes the setup dialog.
+
 ## Network tab
 
 The Network tab displays radio network information and provides advanced network options.
@@ -67,13 +81,13 @@ The Network tab displays radio network information and provides advanced network
 
 | Control | Kind | Notes |
 |---|---|---|
-| **IP Address / Mask / MAC Address** | Indicator | Read-only network addresses. |
+| **IP Address / Mask / MAC Address** | Indicator | Read-only network addresses. Each includes a clipboard copy button. |
 
 ### Network settings
 
 | Control | Kind | Default | Valid range | Notes |
 |---|---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle button | — | — | Rejects non-RFC1918 peers. |
+| **Enforce Private IP Connections:** | Toggle button | Enabled | — | Rejects non-RFC1918 peers. The button always shows "Enabled" when checked. |
 | **Network MTU:** | Spin box | 1450 | 576–9000 bytes | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`. |
 | **DHCP / Static** | Toggle button | — | — | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text field | — | — | Static IP configuration fields. |
@@ -98,9 +112,9 @@ Click **TX Band Settings** to open the dedicated per-band power and tune dialog.
 
 | Control | Kind | Default | Notes |
 |---|---|---|---|
-| **Max Power:** | Spin box | — | 0-100%. Sets radio-level TX power cap. |
+| **Max Power:** | Spin box | — | Sets radio-level TX power cap (0–100%). |
 | **Tune Mode:** | Combo box | — | Selects how the tune button behaves. |
-| **Timings** | Spin box / Text field | — | TX hang / delay timings (see table below). |
+| **Timings** | Spin box / Text field | — | TX hang / delay timings. |
 | **Interlocks - TX REQ: RCA / Accessory** | Toggle button | — | Enables RCA and accessory interlock inputs. |
 | **Show TX in Waterfall:** | Toggle button | — | Draws TX signal in the waterfall. |
 | **TX Follows Active Slice** | Button | False | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. |
@@ -227,20 +241,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 
 | Control | Kind | Notes |
 |---|---|---|
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Button | Controls the NVIDIA Broadcast noise-removal container. Colored dot indicates container Running/Stopped/Unknown status. |
-
-## Filters tab
-
-The Filters tab configures low-latency or sharp filter options per bandwidth.
-
-### Filter sharpness controls
-
-| Control | Kind | Default | Notes |
-|---|---|---|---|
-| Voice / CW / Digital filter sharpness sliders | Slider | — | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled. |
-| Auto (Voice / CW / Digital) | Toggle button | — | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. |
-| **Use Low Latency Filters for Digital Modes** | Checkbox | — | Forces low-latency filters in DIGU/DIGL. |
-
-## XVTR tab
-
-The XVTR tab provides per-transverter configuration. It contains nested tabs, one per transverter, and a '+' tab for creating
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Button | Controls the NVIDIA Broadcast noise-removal container. Colored

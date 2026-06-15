@@ -13,9 +13,11 @@ HF Packet Decode pulls demodulated audio from the radio's audio stream and passe
 
 The decoder supports two modem profiles:
 - **HF 300** (300 baud, AFSK): Uses free-running phase-diversity lanes (PLL alpha 0) spread evenly across the symbol period for robust decoding. TX preamble is 80 flags (~2.13 seconds).
-- **VHF 1200** (1200 baud, Bell 202/APRS): Uses a hybrid bank of demodulator lanes. Free-running phase-diversity lanes decode clean, short bursts. Gardner-tracked lanes with two PLL bandwidths (0.010 and 0.025 alpha) actively chase the symbol clock to tolerate TX/RX clock drift and fading on longer or weaker bursts. The TX preamble is 64 flags (~0.43 seconds) for VHF 1200 to reduce dead air and slot time.
+- **VHF 1200** (1200 baud, Bell 202/APRS): Uses a bank of demodulator lanes with multiple space-gain multipliers. Nine lanes use the exact Direwolf A+ space-gain values (MIN_G=0.5, MAX_G=4.0) in a geometric series. Duplicate suppression collapses identical frames seen by multiple lanes into a single emission, similar to Direwolf's multi_modem.c. The TX preamble is 64 flags (~0.43 seconds) for VHF 1200 to reduce dead air and slot time.
 
-The VHF 1200 profile provides duplicate suppression, collapsing identical frames seen by multiple lanes into a single emission, similar to a multi-decoder TNC like Dire Wolf.
+Both profiles use an abstract demodulator interface (`IAfskDemod`) that allows VHF (Direwolf-derived) and HF (libmodem) demod types to coexist in the same lane vector. The HF 300 profile uses `LibmodemAfskDemod` wrapping the libmodem sinc_corr_afsk_demodulator, while VHF 1200 uses `DirewolfAfskDemod` wrapping the AetherAFSKDemod.
+
+Duplicate suppression collapses the same frame seen by multiple lanes into one emission, like a multi-decoder TNC (e.g. Dire Wolf).
 
 The feature is opened from the digital modes area when HF packet decode is active, or from a related menu entry.
 

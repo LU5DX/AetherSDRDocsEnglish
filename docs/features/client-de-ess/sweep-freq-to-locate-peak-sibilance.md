@@ -50,6 +50,10 @@ The curve widget draws frequency-axis labels using QStaticText for improved rend
 
 When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet tile renders at reduced opacity (approximately 55% of full brightness). This matches the dim effect used on the EQ curve and gives a clear at-a-glance indication that the stage is inactive. The tile returns to full brightness as soon as the stage is re-enabled.
 
+## Meter animation smoothing
+
+The gain-reduction bar uses a smoothed animation timer that updates at approximately 30 Hz. The animation applies a cubic easing to the gain-reduction display for a natural, non-jittery visual response. The timer stops when the gain-reduction value has settled to avoid unnecessary repaints. After v26.6.3, the animation also triggers a repaint when the smoothing engine signals that the display should update, ensuring smooth visual transitions even when the gain-reduction value is near a threshold where the timer would otherwise stop prematurely.
+
 ## RX and TX instances
 
 The Aetherial De-Esser has separate settings for the TX and RX paths. The docked Applet Panel shows the TX copy labelled "Aetherial De-Esser". The RX copy, labelled "Aetherial De-Esser — RX", is reachable through the Aetherial Audio Channel Strip's StripDeEssPanel.
@@ -97,6 +101,7 @@ The Slope setting is persisted per path: `ClientDeEssTxSlopeStages` for TX and `
 - **Applet is not visible** — The DESS stage has not been enabled in the CHAIN widget. Enable it there first; the applet remains hidden until the stage is active.
 - **Applet tile appears dimmed** — The DESS stage is currently bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it.
 - **Inline editor does not appear when clicking a knob** — The knob's inline edit mode may be disabled in your configuration. Verify that the `m_inlineEdit` flag is enabled (it is on by default).
+- **Gain-reduction bar animation appears jittery or stops updating during rapid sibilance changes** — This is a known issue in versions prior to v26.6.3. Update to v26.6.3 or later, where the animation timer correctly triggers repaints when the smoothing engine signals that the display should update, even when the gain-reduction value is near a threshold.
 
 ## Related
 

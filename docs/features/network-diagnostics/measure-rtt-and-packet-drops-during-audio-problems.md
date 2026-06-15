@@ -43,7 +43,6 @@ Use the Network Diagnostics dialog to read live round-trip time and per-category
 | Close                     | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
 
 All counters refresh once per second.
-
 ## Frameless mode
 
 The Network Diagnostics dialog supports a frameless window mode that is controlled by the `FramelessWindow` setting in `Settings > Preferences > Advanced > Use frameless windows`. When enabled, the dialog has no title bar and can be dragged by its custom title bar area. The resize behavior (eight-axis cursor on edges and corners) remains active in frameless mode. When disabled, the dialog uses the standard OS window decoration with a regular title bar.

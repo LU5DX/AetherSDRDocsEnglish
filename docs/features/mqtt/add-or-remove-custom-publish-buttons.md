@@ -1,12 +1,13 @@
 # MQTT Applet
 
-The MQTT applet integrates AetherSDR with a station MQTT broker. It allows you to publish canned messages with user-editable buttons, monitor incoming messages, and overlay topic values on the panadapter.
+The MQTT applet integrates AetherSDR with a station MQTT broker. It allows you to publish canned messages with user-editable buttons, monitor incoming messages, view published messages in the message log, and overlay topic values on the panadapter.
 
 ## Overview
 
-The MQTT applet provides three main functions:
+The MQTT applet provides four main functions:
 - **Publish buttons**: Up to 12 user-defined buttons that send fixed payloads to fixed topics when clicked.
-- **Message log**: Displays up to 50 received messages as "topic: value" lines.
+- **Message log**: Displays up to 50 received messages and published messages as "topic: value" lines.
+- **Published message log**: Shows sent messages prefixed with "TX" in the message log.
 - **Connection control**: Enable/Disable toggle to connect or disconnect from the broker.
 
 ## Connection setup
@@ -77,12 +78,20 @@ The MQTT applet supports up to 12 user-defined publish buttons. Each button send
 
 ## What each control does
 
-| Control             | Default | Notes                                                                                                                                       |
-|---------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| **Settings...**     | —       | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. |
-| Publish buttons     | —       | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. Only active while connected. Up to 12 buttons. |
-| Message log         | —       | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT. Capped to 50 entries.                  |
-| **Enable** (Off/On) | Off     | Connects or disconnects from the broker using settings from MqttSettings. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
+| Control             | Default                                                                                                                                     | Notes                                                                                                                                                                                                           |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Settings...**     | —                                                                                                                                           | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.           |
+| Publish buttons     | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab.                                                                                                                             |
+| Message log         | Displays received messages as 'topic: value' lines. Also displays sent messages prefixed with 'TX'. Processes antenna alias updates from MQTT. | Capped to 50 entries. Sent messages are logged with the short topic name and first 80 characters of payload.                                                                                                   |
+| **Enable** (Off/On) | Off                                                                                                                                         | Connects or disconnects from the broker using settings from MqttSettings. Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
+
+## Message log behavior
+
+The message log displays both received and published messages:
+- **Received messages**: Shown as `topic: value` where topic is the last segment of the full topic path.
+- **Published messages**: Shown as `TX topic: value` where topic is the last segment of the publish topic path and value is the first 80 characters of the payload.
+
+The log is capped at 50 entries. When the limit is reached, the oldest entry is removed to make room for new entries.
 
 ## Status indicators
 
@@ -96,6 +105,7 @@ The MQTT applet supports up to 12 user-defined publish buttons. Each button send
 - Buttons are inactive when the applet is disconnected. Connect first, then use the buttons to publish.
 - If you need to publish to the same topic with different payloads, create one button per payload.
 - The password is stored in the system keychain for security.
+- The message log shows published messages with a "TX" prefix, helping you confirm that your publish buttons are sending correctly.
 
 ## Troubleshooting
 

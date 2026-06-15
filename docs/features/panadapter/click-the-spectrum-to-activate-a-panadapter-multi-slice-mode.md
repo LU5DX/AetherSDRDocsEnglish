@@ -26,8 +26,8 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | Sens                 | Slider                               | 30      | Filters low-confidence decodes; higher = stricter. Maps 0-100 to cost threshold 1.0-0.1. Setting key: `CwDecoderSensitivity`. |
 | 🔒P (Lock Pitch)      | Toggle button                        | —       | Locks the CW decoder pitch to the current tuned frequency. |
 | 🔒S (Lock Speed)      | Toggle button                        | —       | Locks the CW decoder speed to the current WPM. |
-| Lo (pitch min)       | Slider                               | 500 Hz  | Minimum pitch the CW decoder searches; clamped ≤ Hi. Range: 300-1200 Hz. |
-| Hi (pitch max)       | Slider                               | 700 Hz  | Maximum pitch the CW decoder searches; clamped ≥ Lo. Range: 300-1200 Hz. |
+| Pitch range          | Dual-handle slider                   | Lo: 500 Hz, Hi: 700 Hz | Sets the decoder pitch search range (Lo to Hi). Range: 300-1200 Hz. Label shows "Pitch". |
+| WPM range            | Dual-handle slider                   | Lo: 15 WPM, Hi: 40 WPM | Sets the decoder speed search range. Range: 5-60 WPM. Label shows "WPM". |
 | CPY ALL              | Push button                          | —       | Copies the full decoded text to the clipboard. |
 | CPY VIS              | Push button                          | —       | Copies only the text currently visible in the scroll area. |
 | CLR                  | Push button                          | —       | Clears the CW decode buffer. |
@@ -54,7 +54,9 @@ Decoded text is coloured by confidence level:
 
 The **Sens** slider maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Higher values filter out lower-confidence decodes.
 
-The **Lo** and **Hi** sliders set the pitch search range. Lo is clamped to be no greater than Hi, and Hi is clamped to be no less than Lo.
+The **Pitch range** dual-handle slider sets the decoder pitch search range. The lower handle sets the minimum pitch (Lo), the upper handle sets the maximum pitch (Hi). The range is 300-1200 Hz.
+
+The **WPM range** dual-handle slider sets the decoder speed search range. The lower handle sets the minimum speed, the upper handle sets the maximum speed. The range is 5-60 WPM. Defaults: 15-40 WPM.
 
 Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click **CPY VIS** to copy only the text currently visible in the scroll area. Click **CLR** to clear the decode buffer. Click **✕ (close CW)** to hide the panel.
 

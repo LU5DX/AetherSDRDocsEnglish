@@ -10,7 +10,7 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 ## Steps
 
 1. Click the VFO marker flag on the spectrum display for the slice you want to mute. The VFO panel opens anchored to the marker.
-2. Click **Audio** to select the Audio tab inside the VFO panel.
+2. Click **Audio** to select the Audio tab inside the VFO panel. Alternatively, right-click the Audio tab button to toggle mute directly without opening the tab.
 3. Click **Mute**. The button activates, and audio output for the slice stops. The AF Gain slider value is not changed.
 4. To restore audio, click **Mute** again. The button deactivates and audio resumes at the previous AF Gain level.
 
@@ -20,11 +20,11 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 |---------|------|---------|----------|-------|
 | RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. Menu uses `rxAntennaList()` if available; otherwise falls back to the full antenna list. Each action sets the antenna via `data()`. | |
 | TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. Menu is built from `txAntennaOptions()` which filters out RX-only ports. Each action sets the antenna via `data()`. | |
-| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. Frequency entries with explicit decimal points above 54 MHz are accepted as MHz values on any band. | |
+| Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. Frequency entries with explicit decimal points above 54 MHz are accepted as MHz values on any band. | Accessibility: the frequency label emits `QAccessibleValueChangeEvent` when the frequency changes via radio update, so screen readers can announce the new value. |
 | Filter width label | Indicator | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth. | Fixes a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
 | Pan slider (Audio tab) | Slider | 50 | Sets left/right stereo pan for this slice. 50 = centre. The slider fill anchors from the centre outward, with a small centre-mark dot painted on the groove to show the neutral position. | |
-| Mute button (Audio tab) | Toggle button | Off | Mutes audio output for this slice without changing the AF gain setting. | |
+| Mute button (Audio tab) | Toggle button | Off | Mutes audio output for this slice without changing the AF gain setting. | Right-click the Audio tab label to toggle mute directly. |
 | Squelch button + slider (Audio tab) | Toggle button | Off | Enables squelch for this slice. The adjacent slider sets the threshold. | Squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes, audio feeds external decoders via DAX and squelch is not meaningful — it also gates weak FSK signals. In CW mode, the radio locks squelch on at a fixed level and rejects changes. |
 | AGC combo (Audio tab) | Combo box | FAST | Sets the AGC attack/release speed for this slice. | |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button | Off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. | Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
@@ -77,6 +77,16 @@ When squelch is disabled and was previously enabled, the system automatically tu
 
 The stacked tab widget inside the VFO panel now uses a custom `QStackedWidget` subclass (`TabStack`) that reports only the current tab's preferred size. This fixes a visual gap that occurred when switching from the Mode tab (which has a shorter content height) to the DSP tab (which is taller when the digital sub-container is visible). The VFO panel no longer over-allocates height based on the tallest tab. The panel now adjusts its height cleanly as you switch between tabs.
 
+## Tab navigation changes in v26.6.3
+
+The tab labels in the VFO panel have been changed from `QLabel` to `QPushButton`. This improves accessibility by making the tab buttons keyboard-focusable with Tab key navigation. Each tab button now has a focus indicator (outline) shown when focused via keyboard.
+
+**Audio tab:** Right-click the Audio tab button to toggle the mute state for that slice directly, without opening the Audio tab.
+
+**Frequency entry:** The frequency input field has been replaced with a `FreqLineEdit` widget that shows hint text instead of placeholder text, improving the visual appearance of direct frequency entry.
+
+**Wheel event refinement:** The frequency scroll wheel now respects the `reverseMouseWheel` setting from `InteractionSettings`. If you have configured reverse mouse wheel in the settings, scrolling the VFO panel's frequency will invert direction accordingly (#3302).
+
 ## Theming changes in v26.6.1
 
 The VFO panel now uses the AetherSDR theming system. All slider and button styles are derived from theme color tokens instead of hard-coded values, ensuring the panel matches the active color theme. The key visual changes are:
@@ -89,6 +99,7 @@ The VFO panel now uses the AetherSDR theming system. All slider and button style
 ## Tips
 
 - Muting a slice does not reset the AF Gain slider. When you unmute, audio returns at the same level it was before.
+- Right-click the **Audio** tab label to toggle mute directly without switching to the Audio tab.
 - If you want to silence a slice permanently rather than temporarily, drag the AF Gain slider to 0 instead.
 - To access NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum display to open the overlay menu, or open the AetherDSP applet.
 - The ADSP and AetherVoice buttons in the DSP tab are client-side launchers. They are styled like radio-side DSP toggles but are not checkable.
@@ -97,6 +108,7 @@ The VFO panel now uses the AetherSDR theming system. All slider and button style
 - Squelch is automatically disabled in digital, RTTY, and CW modes. If you switch to one of these modes while squelch is on, the system will turn it off and save its state for restoration when you return to a voice mode.
 - The slice badge now supports rich text format for the slice letter (#2606), allowing proper HTML rendering in the badge label.
 - When entering a frequency directly, if you type an explicit decimal point (e.g., "144.200") and the value is above 54 MHz, it is treated as MHz on any band — not just XVTR bands. This works for all VHF, UHF, and microwave bands.
+- If you have configured reverse mouse wheel in Interaction Settings, the VFO panel frequency scroll wheel will respect that setting and invert scrolling direction.
 
 ## Related
 

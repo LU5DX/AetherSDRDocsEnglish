@@ -24,7 +24,7 @@ Fine-tune how Signal History markers behave on the panadapter — how long they 
 | **Marker Lifetime:** | `15 sec` – `300 sec` | 60 | 15–300 sec | `SHistoryLifetimeS` | Left double-click resets to 60 |
 | **QRM Gate:** | `3 sec` – `30 sec` | 6 | 3–30 sec | `SHistoryQrmGateS` | Left double-click resets to 6 |
 | **Edge Threshold:** | `1.0 dB` – `10.0 dB` | 3.0 | 1.0–10.0 dB | `SHistorySoftEdgeDb` | Left double-click resets to 3.0 |
-| **Snap to Step:** | toggle button | Disabled | Enabled / Disabled | `SHistorySnapToStep` | |
+| **Snap to Step:** | toggle button | Disabled | Enabled / Disabled | `SHistorySnapToStep` | Toggle always shows "Enabled" label — the text does not change to "Disabled" when toggled off |
 
 ## Tips
 
@@ -32,6 +32,7 @@ Fine-tune how Signal History markers behave on the panadapter — how long they 
 - To see Signal History markers on the panadapter in the first place, enable **Signals** and/or **QRM** under the top toggle row in the Display tab. Their persisted keys are `SHistoryMarkersEnabled` and `SHistoryQrmEnabled`.
 - Turning on **Snap to Step** hides the small carrier offset that can appear when clicking an S-History marker; the tune frequency snaps to the next multiple of the active slice's step size.
 - Left double-clicking any slider resets it to its default value, providing a quick way to restore factory behavior without dragging.
+- The **Snap to Step** toggle button always displays "Enabled" regardless of its state. The current state is indicated by whether the button is visually pressed (checked) or not.
 
 ## Troubleshooting
 

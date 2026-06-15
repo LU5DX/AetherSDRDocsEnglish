@@ -35,22 +35,37 @@ This page explains how to enter the connection details for your MQTT broker so t
 The **Subscriptions** tab replaces the comma-separated Topics text field from earlier versions. It contains:
 
 - **Topic table**: Each row has an editable Topic text field and a Display checkbox. When checked, the topic’s messages appear on the panadapter overlay. Use the **Add** and **Remove** buttons below the table to manage rows.
-- **Internal AetherSDR Topics**: A read-only group box listing topics that AetherSDR subscribes to automatically when the MQTT connection is active. These topics are not user-removable.
+- **Internal AetherSDR Topics**: A read-only group box listing topics that AetherSDR subscribes to automatically when the MQTT connection is active. Each topic has a checkbox to enable or disable it. Topics with non-gateable behavior (antenna alias topics) are always active and appear grayed out. The available internal subscribe topics are:
+
+  | Topic | Description | User-disableable |
+  |-------|-------------|------------------|
+  | `aethersdr/antenna/alias/+` | Antenna name (per-port) | No |
+  | `aethersdr/antenna/alias/bulk` | Antenna names (bulk) | No |
+  | `aethersdr/cw/transmit` | CW keyer input | Yes (off by default) |
+  | `aethersdr/ax25/tx` | AX.25 transmit | Yes (off by default) |
+
+  Uncheck the checkbox next to a gateable topic to prevent AetherSDR from subscribing to it.
 
 ## Publish Buttons tab
 
 The **Publish Buttons** tab lets you define up to 12 publish buttons. Each row in the table has three editable text fields: **Label**, **Topic**, and **Payload**. Use the **Add** and **Remove** buttons below the table to manage rows. The Add button is disabled when 12 rows are reached.
 
-The tab also includes an **Internal AetherSDR Topics** group box showing topics that AetherSDR publishes automatically when the MQTT connection is active. These topics are not user-configurable.
+The tab also includes an **Internal AetherSDR Topics** group box showing topics that AetherSDR publishes automatically when the MQTT connection is active. Each topic has a checkbox to enable or disable it. The available internal publish topics are:
 
-Current internal publish topics:
-- `aethersdr/cw/decode`
+| Topic | Description | Default enabled |
+|-------|-------------|-----------------|
+| `aethersdr/cw/decode` | CW decoded text | Yes |
+| `aethersdr/radio/state` | Radio VFO / mode / TX state | Yes |
+| `aethersdr/ax25/rx` | AX.25 received frames | Yes |
+
+Uncheck the checkbox next to a topic to prevent AetherSDR from publishing to it.
 
 ## Tips
 
 - If your broker does not require a password, leave the **Password** field empty.
 - When **Use TLS** is checked, AetherSDR automatically flips the port to 8883. If your broker uses a different TLS port, adjust **Port** manually after checking TLS.
 - The password is stored in the system keychain when available; otherwise it falls back to plaintext storage in AppSettings.
+- Relay scripts that forward `aethersdr/cw/decode` into `aethersdr/cw/transmit` should filter on the topic namespace (`aethersdr/...`) to avoid re-publishing AetherSDR's own output back to it and creating a feedback loop.
 
 ## Related
 
