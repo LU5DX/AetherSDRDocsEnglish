@@ -28,7 +28,7 @@ Remove the Aetherial De-Esser from your TX or RX audio path without changing any
 2. Find the **DESS** stage in the chain.
 3. Single-click the **DESS** stage to toggle bypass on or off.
 
-When bypassed, the entire de-esser tile renders at reduced opacity (55 % of normal). Single-clicking again re-enables it and restores the tile to full opacity. The `ClientDeEssTxEnabled` and `ClientDeEssRxEnabled` settings are updated immediately.
+When bypassed, the entire de-esser tile renders at reduced opacity (55% of normal). Single-clicking again re-enables it and restores the tile to full opacity. The `ClientDeEssTxEnabled` and `ClientDeEssRxEnabled` settings are updated immediately.
 
 ## Opening the de-esser settings panel
 
@@ -111,7 +111,7 @@ The sidechain response curve widget also sources its colors from theme keys:
 - You can use inline value editing to enter exact values without dragging knobs. This is especially useful for fine-tuning or when you know the precise setting you need.
 - The Slope button cycles through 12 → 24 → 36 → 48 dB/oct when clicked. Use a steeper slope for narrower filtering around the sibilant frequency to reduce collateral attenuation on mid-range speech.
 - The de-esser container (`applet/deess`) allows theme authors to customize knob colors specifically for the de-esser panel without affecting other comp knobs.
-- The gain-reduction meter uses a smoothing algorithm that only triggers repaints when the displayed value changes significantly. This reduces CPU usage during steady-state operation while maintaining responsiveness during transient sibilance events.
+- In v26.7.4, the gain-reduction meter updates on every frame for smoother visual response during fast sibilance transients, at the cost of slightly higher CPU usage during dynamic passages.
 
 ## Related
 

@@ -21,20 +21,21 @@ Enable the built-in RNNoise denoiser to suppress background noise on your microp
 
 ## What each control does
 
-| Control  | Kind          | Default   |
-|----------|---------------|-----------|
-| RN2      | Toggle button | Unchecked |
-| Drive    | Knob          | 0.00 dB   |
-| Tone     | Knob          | 0.00      |
-| Bias     | Knob          | 0 %       |
-| Output   | Knob          | 0.00 dB   |
-| Dry/Wet  | Knob          | 100 %     |
-| Envelope | Knob          | 0 %       |
-| Attack   | Knob          | 5.00 ms   |
-| Release  | Knob          | 35.00 ms  |
-| A        | Toggle button | Checked   |
-| B        | Toggle button | Unchecked |
-| C        | Toggle button | Unchecked |
+| Control  | Kind          | Default   | Valid Range       | Setting Key              |
+|----------|---------------|-----------|-------------------|--------------------------|
+| RN2      | Toggle button | Unchecked | —                 | (persisted via AudioEngine) |
+| Dry/Wet  | Knob          | 100 %     | 0.0 to 1.0       | `ClientTubeTxDryWet`     |
+| Drive    | Knob          | 0.00 dB   | 0.0 to 24.0 dB   | `ClientTubeTxDriveDb`    |
+| Tone     | Knob          | 0.00      | -1.0 to 1.0      | `ClientTubeTxTone`       |
+| Bias     | Knob          | 0 %       | 0.0 to 1.0       | `ClientTubeTxBias`       |
+| Output   | Knob          | 0.00 dB   | -24.0 to 12.0 dB | `ClientTubeTxOutputDb`   |
+| Envelope | Knob          | 0 %       | -1.0 to 1.0      | `ClientTubeTxEnvelope`   |
+| Attack   | Knob          | 5.00 ms   | 0.1 to 30.0 ms   | `ClientTubeTxAttackMs`   |
+| Release  | Knob          | 35.00 ms  | 10.0 to 500.0 ms | `ClientTubeTxReleaseMs`  |
+| A        | Toggle button | Checked   | —                | `ClientTubeTxModel`      |
+| B        | Toggle button | Unchecked | —                | `ClientTubeTxModel`      |
+| C        | Toggle button | Unchecked | —                | `ClientTubeTxModel`      |
+
 ## Tube Character Models (A, B, C)
 
 The three tube character models provide different harmonic flavours:

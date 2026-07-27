@@ -9,11 +9,11 @@ Clearing the log before you trigger a problem ensures the log file contains only
 
 ## Steps
 
-1. Click `Help > Support...` to open the Support & Diagnostics dialog.
+1. Click `Help > Support & Diagnostics` to open the Support & Diagnostics dialog.
 2. Click `Clear Log`.
 3. Confirm that the log viewer is now empty.
 4. Close the dialog or leave it open, then perform the actions that trigger the bug.
-5. Return to `Help > Support...` and click `Refresh` to reload the log file.
+5. Return to `Help > Support & Diagnostics` and click `Refresh` to reload the log file.
 6. Review the log viewer to confirm the relevant output was captured.
 7. Click `Open Log Folder` to access the log file in your OS file browser if you need to attach it to a report.
 

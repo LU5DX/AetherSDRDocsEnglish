@@ -138,7 +138,7 @@ If either value is missing when you attempt to enable reporting, AetherSDR displ
 Displays a unified, searchable table of all live spots from all sources.
 
 1. Click the **Spot List** tab.
-2. Use the **Bands:** checkboxes to toggle visibility in the table. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.).
+2. Use the **Bands:** checkboxes to toggle visibility in the table. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). These checkboxes use a flow layout that wraps to a new row when the dialog is narrow, keeping the label text readable.
 3. Click **Clear** to empty the current spot list.
 4. The **Spot table** shows all spots with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click any row to tune the active slice to that frequency. AetherSDR reads the mode hint from the spot comment and switches the slice to the correct mode at the same time.
 
@@ -198,4 +198,4 @@ Controls in the right column below the divider.
 
 | Control | Description | Setting key |
 |---------|-------------|-------------|
-| **Marker Lifetime:** | How long an inactive Signal History marker persists before being removed. Slider, range 15–300
+|

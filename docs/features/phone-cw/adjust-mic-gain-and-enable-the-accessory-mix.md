@@ -11,10 +11,11 @@ Use this page to set the microphone input level and mix in the accessory input a
 
 1. Open the Phone/CW applet in the Applet Panel on the right sidebar. If it is not visible, click the **P/CW** tray button.
 2. Locate the **Mic source** combo box. Confirm the source you want to adjust is selected (for example, MIC, BAL, LINE, ACC, or PC).
+   - When host modulation is active, the combo box is disabled and shows only "PC". The radio is modulated by AetherSDR, so the PC microphone is the only available input.
 3. Drag the **Mic gain** slider left or right to set the input level. The numeric readout to the right of the slider updates as you drag. The valid range is 0–100; the default is 50.
    - When **Mic source** is set to PC, the value is stored client-side as `PcMicGain`. The radio always reports `mic_level=0` for the PC source; AetherSDR retains the value locally.
    - When RADE mode is active, the slider also acts as a client-side RADE gain control and is stored under the same `PcMicGain` key. The slider value is not sent to the radio in this state.
-4. Watch the **Level** gauge above the controls. Aim for peaks between −20 and −10 dBFS during normal speech. The gauge turns red above 0 dBFS.
+4. Watch the **Level** gauge above the controls. Aim for peaks between −20 and −10 dBFS during normal speech. Hover over the gauge to see the exact dB reading. The gauge turns red above 0 dBFS.
 5. To mix in the accessory input alongside the active mic source, click **+ACC** so it is lit. Click it again to disable the mix.
 
 ## What each control does
@@ -23,10 +24,10 @@ Use this page to set the microphone input level and mix in the accessory input a
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio.                                                                                                                        | 50                                                                                                                       |
 | **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                                                                                                                                                                                                        | —                                                                                                                        |
-| **Level** gauge       | Shows microphone input peak level in dBFS. Turns red above 0 dBFS.                                                                                                                                                                                                                | —                                                                                                                        |
-| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full left = 0 dB, no compression; full right = -25 dB, maximum compression). In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. In v26.5.3, the meter value is inverted from the previous display: MeterModel exposes compression as a positive 0–25 dB amount, and the gauge converts it to the reversed display (0 at the right edge, -25 at the left edge). | —                                                                                                                        |
-| **ALC (Phone panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
-| **ALC (CW panel)**    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
+| **Level** gauge       | Shows microphone input peak level in dBFS. Hover over the gauge to see the exact dB reading with one decimal place. Turns red above 0 dBFS.                                                                                                                                      | —                                                                                                                        |
+| **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full left = 0 dB, no compression; full right = -25 dB, maximum compression). Hover over the gauge to see the compression amount in dB with one decimal place. In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. In v26.5.3, the meter value is inverted from the previous display: MeterModel exposes compression as a positive 0–25 dB amount, and the gauge converts it to the reversed display (0 at the right edge, -25 at the left edge). | —                                                                                                                        |
+| **ALC (Phone panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge to see the exact dBFS reading with one decimal place. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
+| **ALC (CW panel)**    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Hover over the gauge to see the exact dBFS reading with one decimal place. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
 
 ## CW sidetone controls
 
@@ -58,6 +59,18 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 
 In v26.6.1, the Phone/CW applet fully adopts the AetherSDR theme system. All visual elements — including slider grooves and handles, label text, and push button backgrounds — now use theme colors instead of hardcoded values. The applet container itself is styled with the `applet/digi` theme class, ensuring consistent appearance across all supported themes.
 
+### v26.7.4 changes: hover value popups on gauges
+
+In v26.7.4, all four gauges in the Phone/CW applet (Level, Compression, ALC Phone, and ALC CW) display exact numeric readouts when you hover the mouse over them. This allows you to read precise values without having to estimate against the scale (#3936).
+
+- **Level gauge**: Hover to see the exact microphone peak level in dB with one decimal place (for example, "-15.3 dB").
+- **Compression gauge**: Hover to see the compression amount in dB with one decimal place (for example, "8.2 dB"). The value shown is the absolute amount of compression (positive), not the negative offset used for display.
+- **ALC gauges (Phone and CW)**: Hover to see the exact dBFS reading with one decimal place (for example, "-6.3 dBFS").
+
+### v26.7.4 changes: host modulation detection
+
+In v26.7.4, when host modulation is active (the radio is modulated by AetherSDR), the **Mic source** combo box is disabled and shows only "PC" as the available source. A tooltip explains that the other sources are FlexRadio jacks and are not available when host modulation is active.
+
 ### CW sub-panel controls
 
 | Control | What it does | Default | Range / Values | Setting key |
@@ -70,7 +83,7 @@ In v26.6.1, the Phone/CW applet fully adopts the AetherSDR theme system. All vis
 | **Pitch < / >** | Sets the CW sidetone and decode pitch. Type a value (100–6000) in the text field or click the < and > buttons to step by 10 Hz. Pitch is also followed automatically from the radio's `cw_pitch` setting. | 600 Hz | 100–6000 Hz (step 10) | — |
 | **Breakin** | Toggles full break-in (QSK). In v0.9.7, the CW keyboard and MIDI paths fully honor this setting: with Breakin ON (QSK) key edges trigger TX and the break-in delay holds the relay; with Breakin OFF keys are queued and the operator engages PTT manually. The previous auto-PTT envelope that masked Breakin OFF and eliminated QSK hang time has been removed. | — | On / Off | — |
 | **Iambic** | Toggles the iambic paddle keyer. | — | On / Off | — |
-| **ALC (CW panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Mirrors the Phone-panel ALC gauge. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | — | -20 to 0 dBFS (red > -3 dBFS) | — |
+| **ALC (CW panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge to see the exact dBFS reading with one decimal place. Mirrors the Phone-panel ALC gauge. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | — | -20 to 0 dBFS (red > -3 dBFS) | — |
 
 ## Tips
 
@@ -78,14 +91,4 @@ In v26.6.1, the Phone/CW applet fully adopts the AetherSDR theme system. All vis
 - The **Compression** gauge reads 0 dB whenever the radio is not in the TRANSMITTING interlock state (v0.9.7). This prevents stale TX chain readings from appearing during RX. The gauge becomes active as soon as you transmit with the speech processor enabled. In v26.5.3, the compression meter value is inverted: MeterModel exposes compression as a positive 0–25 dB amount, and the gauge converts it to the reversed display (0 at the right edge, -25 at the left edge). The gauge now correctly shows zero compression at 0 dB and maximum compression at -25 dB.
 - If you use the PC source, note that the `PcMicGain` value is not sent to the radio — it is managed entirely by AetherSDR. Switching away from the PC source and back restores the saved value. RADE mode shares this same `PcMicGain` setting.
 - With **Breakin** off in v0.9.7, key presses are queued and TX is not engaged automatically. Engage PTT manually before sending. If you expect full QSK operation, confirm **Breakin** is lit before keying.
-- The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where the radio's round-trip DAX latency becomes noticeable. Because both are controlled by the single **Sidetone** toggle, there is no risk of one being active without the other.
-- Double-click **L / R pan (CW)** to return the pan position to center (50).
-- In v0.9.8, the Delay, Speed, Sidetone Volume, and Pitch value fields accept direct numeric input. Type a value and press Enter or tab away — the slider moves to match. The fields validate input and enforce the valid range automatically.
-- In v26.5.1, the ALC gauge on both the Phone and CW panels was updated to use the software ALC meter (post-software-ALC SSB peak dBFS) instead of the previous HWALC (RCA voltage) path. Both gauges now read from the same MeterModel::swAlcChanged source, so the reading is consistent across voice and CW modes. The range is -20 to 0 dBFS, with the gauge filling from right to left. Values outside this range pin at the nearest end.
-- In v26.5.3, the ALC gauge on both panels is initialized to -20 dBFS at construction and immediately set to its floor value. This prevents a transient flicker that could appear on startup before the first meter update arrives from the radio.
-- In v26.5.3, the CW sidetone now routes to the user-selected audio output instead of the default output. If you do not hear sidetone after updating, verify that your desired audio output device is selected in AetherSDR's audio settings.
-- In v26.6.1, all visual elements in the Phone/CW applet use theme colors. If you change the active theme, the applet updates automatically to match. The slider handles, push button backgrounds, and label colors all respond to the current theme settings.
-
-## Troubleshooting
-
-- **Mic gain slider snaps back or reads 
+- The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where

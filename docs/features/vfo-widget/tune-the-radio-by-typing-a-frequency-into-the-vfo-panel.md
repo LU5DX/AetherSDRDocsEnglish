@@ -20,25 +20,25 @@ If you click the **Frequency display** while the slice is locked, AetherSDR imme
 
 ## What each control does
 
-| Control                      | Behavior                                                                                                                                                                                                 |
-|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **RX antenna button**        | Opens antenna selection menu for the receive antenna of this slice. Menu items use the slice's dedicated RX antenna list when available, falling back to the global antenna list. Right-click available. |
-| **TX antenna button**        | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Menu items use the slice's dedicated TX antenna options when available. Right-click available.   |
-| **Frequency display**        | Shows the current slice frequency. Click once to begin direct entry; type MHz and press Enter or Tab to apply. Uses `FreqLineEdit` for enhanced accessibility. Scroll the mouse wheel over the display to step-tune up or down by the current step size. |
-| **Slice badge**              | Shows the slice letter (e.g., A, B, C) in a colored badge. Supports rich text formatting for HTML rendering (#2606). Right-click opens the slice color picker.                                          |
-| **Filter width label**       | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
+| Control                        | Behavior                                                                                                                                                                                                 |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **RX antenna button**          | Opens antenna selection menu for the receive antenna of this slice. Menu items use the slice's dedicated RX antenna list when available, falling back to the global antenna list. Right-click available. |
+| **TX antenna button**          | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Menu items use the slice's dedicated TX antenna options when available. Right-click available.   |
+| **Frequency display**          | Shows the current slice frequency. Click once to begin direct entry; type MHz and press Enter or Tab to apply. Uses `FreqLineEdit` for enhanced accessibility. Scroll the mouse wheel over the display to step-tune up or down by the current step size. |
+| **Slice badge**                | Shows the slice letter (e.g., A, B, C) in a colored badge. Supports rich text formatting for HTML rendering (#2606). Right-click opens the slice color picker.                                          |
+| **Filter width label**         | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | **AF Gain slider (Audio tab)** | Sets the audio output level for this slice. Default: 100. Range: 0-100. Not persisted — reflects live radio state.                                                                                      |
-| **Pan slider (Audio tab)**   | Sets left/right stereo pan for this slice. Default: 50. Range: 0-100. 50 = centre. The slider fill anchors from the centre outward, showing a centre-mark dot on the groove at the neutral position.   |
-| **Mute button (Audio tab)**  | Toggle button. Mutes audio output for this slice without changing the AF gain setting. Default: off. Right-click the Audio tab label to toggle mute directly.                                            |
+| **Pan slider (Audio tab)**     | Sets left/right stereo pan for this slice. Default: 50. Range: 0-100. 50 = centre. The slider fill anchors from the centre outward, showing a centre-mark dot on the groove at the neutral position.   |
+| **Mute button (Audio tab)**    | Toggle button. Mutes audio output for this slice without changing the AF gain setting. Default: off. Right-click the Audio tab label to toggle mute directly.                                            |
 | **Squelch button + slider (Audio tab)** | Toggle button. Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Range: 0-100.                                                                             |
-| **AGC combo (Audio tab)**    | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. Default: FAST.                                                                                                          |
-| **Mode combo (Mode tab)**    | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. Default: USB.                                                                            |
+| **AGC combo (Audio tab)**      | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. Default: FAST.                                                                                                          |
+| **Mode combo (Mode tab)**      | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. Default: USB.                                                                            |
 | **Filter preset buttons (Mode tab)** | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Custom lo/hi edges can be set per slot via right-click. Persisted in `FilterPresets`.         |
 | **RIT / XIT buttons + labels (X/RIT tab)** | Toggle buttons. Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps. Default: off.                         |
 | **DAX channel combo (DAX tab)** | Assigns a DAX audio channel to this slice. Options: Off, 1-8. Default: Off.                                                                                                                            |
-| **Marker thickness button**  | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice in `Slice{N}_MarkerWidth`.                                                                                                  |
-| **Filter edges button**      | Toggle button. Toggles the filter edge lines on the spectrum passband. Persisted per slice in `Slice{N}_FilterEdgesHidden`. Default: shown.                                                               |
-| **Collapse toggle**          | Collapses the VFO panel to a compact frequency-only strip. In collapsed mode, scrolling anywhere on the strip tunes by the current step size. Persisted per slice in `SliceFlagCollapsed_{N}`.           |
+| **Marker thickness button**    | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice in `Slice{N}_MarkerWidth`.                                                                                                  |
+| **Filter edges button**        | Toggle button. Toggles the filter edge lines on the spectrum passband. Persisted per slice in `Slice{N}_FilterEdgesHidden`. Default: shown.                                                               |
+| **Collapse toggle**            | Collapses the VFO panel to a compact frequency-only strip. In collapsed mode, scrolling anywhere on the strip tunes by the current step size. Persisted per slice in `SliceFlagCollapsed_{N}`.           |
 
 ## DSP tab controls
 
@@ -69,6 +69,19 @@ When one or more radio-side DSP algorithms that support a level control are acti
 
 Right-click any of the following buttons to open the AetherDSP Settings dialog for that algorithm:
 - **NR2**, **NR4**, **MNR**, **DFNR** (accessible via ADSP button)
+
+## S-meter and Smart Meter
+
+The VFO panel displays an S-meter below the frequency display (or below the RADE info row, if RADE is active). The S-meter uses a stacked approach, with a spacer widget that adapts to the meter height.
+
+When the Smart Meter feature is enabled (via `SmartMeterEnabled` in `DisplaySettings`), the S-meter is replaced by a `SmartMtrWidget`. This widget maintains an aspect ratio to drive the overall strip height via `heightForWidth()`. The elevation shadow for the VFO flag is rendered by a separate `FlagShadow` widget to avoid re-blurring on live meter repaints.
+
+- **S-meter**: Shows signal strength in S-units and dB over S9. The spacer widget prevents layout shifts when meter height varies.
+- **Smart Meter**: A graphical meter with configurable scales and averaging. Enable it in `DisplaySettings`. The meter controls the VFO panel strip height to maintain its aspect ratio.
+
+## Adaptive filter controls
+
+When the **Adaptive Filters** feature is available (e.g., for KiwiSDR or certain DSP modes), `AdaptiveFilterControls` are shown below the mode/filter presets area. These controls allow real-time adjustment of adaptive filter parameters and are integrated into the VFO panel layout.
 
 ## Tab bar
 
@@ -143,24 +156,4 @@ When you type a frequency value, AetherSDR parses it as follows:
 
 ## Mouse wheel tuning
 
-The scroll wheel tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. The wheel direction follows the **Reverse mouse wheel** setting in Interaction Settings (#3302). When enabled, scrolling up decreases frequency and scrolling down increases frequency. On macOS, inertial scroll events are ignored to prevent unintended tuning after a gesture ends. In collapsed mode, scrolling anywhere on the strip tunes by step size.
-
-When the slice is locked, the scroll wheel does not tune and shows a brief **LOCKED** overlay instead.
-
-## Accessibility
-
-The VFO panel includes accessibility enhancements:
-
-- The frequency display sends `QAccessibleValueChangeEvent` notifications when the slice frequency changes, allowing screen readers to announce the updated frequency. A dedicated timer debounces rapid frequency changes to avoid flooding the accessibility system.
-- Tab labels are implemented as `QPushButton` controls and are keyboard-focusable. Navigate between tabs using the Tab and Shift+Tab keys.
-- The frequency edit field uses `FreqLineEdit` with integrated hint text ("MHz (e.g. 14.225)") instead of placeholder text, providing better screen reader support.
-
-## Tips
-
-- If the panel is collapsed to the frequency-only strip, click anywhere on it to expand it so the **Frequency display** is accessible for direct entry.
-- Right-click the slice badge to change its color.
-- Right-click the **Audio** tab label to toggle mute without switching tabs.
-
-## Troubleshooting
-
-- **Typing has no effect or the LOCKED overlay appears** — The
+The scroll wheel tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. The wheel direction follows the **Reverse mouse wheel** setting in Interaction Settings (#3302). When enabled, scrolling up decreases frequency

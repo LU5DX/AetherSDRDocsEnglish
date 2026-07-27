@@ -7,21 +7,23 @@ DAX (Digital Audio eXchange) creates virtual audio streams between AetherSDR and
 - AetherSDR must be connected to your FLEX-8600 radio. DAX requires an active radio connection.
 - Each slice you want to route must have a DAX channel assigned in the radio's slice settings. The DAX applet shows which slices are already assigned.
 - On Linux, PipeWire must be running. On macOS, the system audio subsystem handles routing automatically.
+- On Windows, AetherSDR does not include a built-in DAX audio driver. DAX audio on Windows requires FlexRadio's SmartSDR DAX drivers or TCI.
 
 ## Steps
 
 1. Click the **DAX** tray button on the right sidebar to open the DAX Audio applet. The applet is hidden by default.
-2. Click **Enable**. The button turns green when DAX is active. AetherSDR saves this state as `AutoStartDAX`.
-3. Check the slice-assignment indicators next to each DAX channel label (for example, **DAX 1:**, **DAX 2:**). Each indicator shows either `—` (no slice assigned) or `Slice A` through `Slice H`. Confirm the channel you want is showing the correct slice.
-4. In your digital mode software (WSJT-X, FLDigi, etc.), select the corresponding DAX virtual audio device as the input (and output for TX) audio device. See [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md) for per-application steps.
-5. Transmit a test audio tone from your digital software and watch the **TX** meter in the applet. Adjust the **TX gain+meter** slider so the level stays below clipping.
-6. Receive a signal and watch the **DAX 1–4 gain+meter** slider for the channel you assigned. Adjust the slider to set a comfortable level for your software's audio input.
+2. On macOS and Linux, click **Enable** (labeled **Disabled** when off). The button changes to **Enabled** and turns green when DAX is active. AetherSDR saves this state as `AutoStartDAX`.
+3. On Windows, the DAX applet shows a note "No built-in DAX driver on Windows. Use TCI, or SmartSDR DAX." The Enable button and all meters are not available. Proceed with your existing SmartSDR DAX drivers.
+4. Check the slice-assignment indicators next to each DAX channel label (for example, **DAX 1:**, **DAX 2:**). Each indicator shows either `—` (no slice assigned) or `Slice A` through `Slice H`. Confirm the channel you want is showing the correct slice.
+5. In your digital mode software (WSJT-X, FLDigi, etc.), select the corresponding DAX virtual audio device as the input (and output for TX) audio device. See [Setting up digital modes (FT8, WSJT-X, fldigi)](../../operating/digital-modes/digital-modes-setup.md) for per-application steps.
+6. Transmit a test audio tone from your digital software and watch the **TX** meter in the applet. Adjust the **TX gain+meter** slider so the level stays below clipping.
+7. Receive a signal and watch the **DAX 1–4 gain+meter** slider for the channel you assigned. Adjust the slider to set a comfortable level for your software's audio input.
 
 ## What each control does
 
 | Control | Description | Default | Range | Setting key |
 |---|---|---|---|---|
-| Enable | Master toggle. Starts or stops all DAX audio streams. | Off | On / Off | `AutoStartDAX` |
+| Enable | Master toggle. Starts or stops all DAX audio streams. On macOS/Linux only. On Windows, the button is not available. | Disabled | Disabled / Enabled | `AutoStartDAX` |
 | DAX 1 gain+meter | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain sent to software on that channel. Uses accessible name "DAX RX 1 gain". | 0.5 | 0.0–1.0 | `DaxRxGain1` |
 | DAX 2 gain+meter | Same as DAX 1, for channel 2. Uses accessible name "DAX RX 2 gain". | 0.5 | 0.0–1.0 | `DaxRxGain2` |
 | DAX 3 gain+meter | Same as DAX 1, for channel 3. Uses accessible name "DAX RX 3 gain". | 0.5 | 0.0–1.0 | `DaxRxGain3` |
@@ -35,13 +37,15 @@ DAX (Digital Audio eXchange) creates virtual audio streams between AetherSDR and
 - The TX indicator next to the **TX** label shows which slice currently holds TX privileges. If it shows `—`, no slice is set as the TX slice, and DAX TX audio will not reach the radio. Slice letters render in rich text for improved readability.
 - The gain sliders are post-fader: the meter bar reflects the level after your gain adjustment, so what you see is what the receiving application gets.
 - On Linux (v26.6.1+), DAX RX latency is approximately 200 ms, reduced from approximately 400 ms in earlier versions, through native PipeWire streaming.
+- On Windows, see `Help > Configuring Data Modes` for details on setting up audio routing with external DAX drivers.
 
 ## Troubleshooting
 
 - **DAX channels show `—` and no audio passes** — No slice has a DAX channel assigned. Assign a DAX channel to the slice using the slice controls on the panadapter, then confirm the indicator in the applet updates to `Slice A` (or the appropriate letter).
 - **Enable button does not stay checked after restarting AetherSDR** — `AutoStartDAX` was not saved. Enable the setting through `Settings > Autostart DAX with AetherSDR` so it is applied at launch.
-- **Digital software receives no audio despite DAX being enabled** — Confirm the correct DAX virtual device is selected as the audio input in your digital mode software. The device name depends on your operating system and audio subsystem.
+- **Digital software receives no audio despite DAX being enabled** — Confirm the correct DAX virtual device is selected as the audio input in your digital mode software. The device name depends on your operating system and audio subsystem. On Windows, ensure SmartSDR DAX drivers are installed.
 - **TX meter is active but the radio is not transmitting** — Confirm the TX slice indicator shows a valid slice. If it shows `—`, no slice holds TX privileges. See [Identify which slice is the TX slice](identify-which-slice-is-the-tx-slice.md).
+- **DAX Enable button and meters are not visible on Windows** — This is expected behavior. AetherSDR does not include built-in DAX audio drivers for Windows. Use FlexRadio's SmartSDR DAX drivers or TCI for DAX audio on Windows. See `Help > Configuring Data Modes`.
 
 ## Related
 

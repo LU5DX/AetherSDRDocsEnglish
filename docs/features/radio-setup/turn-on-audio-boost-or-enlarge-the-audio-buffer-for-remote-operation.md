@@ -1,6 +1,6 @@
 # AetherSDR Radio Setup Dialog
 
-The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, antennas, audio, filters, transverters, USB cables, peripherals, APD, Themes, SmartLink, and optionally serial ports.
+The **Radio Setup** dialog is the master configuration window for per-radio settings. It contains tabs for radio information, network, GPS, transmit, phone/CW, receive, antennas, audio, filters, transverters, USB cables, peripherals, APD, Themes, SmartLink, KiwiSDR, and optionally serial ports.
 
 ## Opening the Radio Setup dialog
 
@@ -10,7 +10,7 @@ The **Radio Setup** dialog is the master configuration window for per-radio sett
 
 The **Radio Setup** dialog uses a persistent dialog that remembers its size and position between sessions. Geometry is saved in `RadioSetupDialogGeometry` in the application settings.
 
-Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals) are wrapped in a vertical scroll area. The scrollbar appears only when content overflows; on wide screens there is no visual change.
+Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals, KiwiSDR) are wrapped in a vertical scroll area. The scrollbar appears only when content overflows; on wide screens there is no visual change.
 
 ## Radio tab
 
@@ -281,6 +281,7 @@ The **XVTR** tab configures per-transverter settings. It contains nested tabs, o
 |---|---|
 | **RX Only:** | Toggle to force RX-only on that transverter |
 | **Remove** | Click to delete the transverter definition |
+| **Create New Transverter** | Click the **+** tab to add a new transverter entry |
 
 ### Creating a new transverter
 
@@ -326,6 +327,4 @@ Each detected cable provides the following parameters:
 
 The **Peripherals** tab manages external devices via direct TCP connection (TGXL, PGXL, Antenna Genius).
 
-### TGXL
-
-Click **Connect** to open a direct TCP connection to the TGXL on port 9010. The IP and port are saved to `TGXL
+### TG

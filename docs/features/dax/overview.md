@@ -17,11 +17,17 @@ Each channel has a combined meter and gain slider (a MeterSlider). The backgroun
 
 You can also configure DAX to start automatically every time AetherSDR launches via `Settings > Autostart DAX with AetherSDR`.
 
+## Platform-specific behavior
+
+On **Windows**, AetherSDR does not include a built-in DAX audio bridge driver. The **DAX Enable** button, all per-channel and TX meters, and gain sliders are hidden. The applet displays only an informational note: "No built-in DAX driver on Windows. Use TCI, or SmartSDR DAX." DAX functionality can still be used through FlexRadio's own SmartSDR DAX drivers or via TCI. For configuration guidance, see Help > Configuring Data Modes.
+
+On **macOS and Linux**, the full DAX applet is available as described below.
+
 ## What each control does
 
 | Control | Description | Default | Valid range | Setting key |
 |---|---|---|---|---|
-| **DAX Enable** | Master toggle. Starts or stops the DAX audio bridge. Button label is "Enable". | Off | On / Off | `AutoStartDAX` |
+| **DAX Enable** | Master toggle. Starts or stops the DAX audio bridge. Button label reads "Enabled" when active, "Disabled" when inactive. | Off | On / Off | `AutoStartDAX` |
 | **DAX 1 gain+meter** | Combined level meter and gain slider for DAX RX channel 1. Drag the thumb to set gain. Accessible name: "DAX RX 1 gain". | 0.5 | 0.0–1.0 | `DaxRxGain1` |
 | **DAX 2 gain+meter** | Combined level meter and gain slider for DAX RX channel 2. Accessible name: "DAX RX 2 gain". | 0.5 | 0.0–1.0 | `DaxRxGain2` |
 | **DAX 3 gain+meter** | Combined level meter and gain slider for DAX RX channel 3. Accessible name: "DAX RX 3 gain". | 0.5 | 0.0–1.0 | `DaxRxGain3` |
@@ -36,6 +42,7 @@ On Linux, starting with AetherSDR v26.5.2.1, the DAX RX audio path uses a native
 
 ## Tips
 
+- On Windows, DAX functionality is available via FlexRadio's SmartSDR DAX drivers or via TCI — see Help > Configuring Data Modes for setup instructions.
 - Gain settings for all channels are persisted immediately on each drag event — you do not need to click a save button.
 - To have the DAX bridge start every time AetherSDR opens, use `Settings > Autostart DAX with AetherSDR` rather than clicking **Enable** manually each session.
 - The slice assignment status indicators now use rich text formatting to display slice letters more clearly.

@@ -13,7 +13,7 @@ AUTO mode tells the Antenna Genius to track your radio's active band and switch 
 2. Confirm the status label reads "Connected — \<name\> v\<version\>".
 3. To enable band-follow on Port A, click **AUTO** under the Port A antenna buttons. The button highlights green when active.
 4. To enable band-follow on Port B, click **AUTO** under the Port B antenna buttons. The button highlights green when active.
-   - The Port B section is hidden if the connected device reports only one radio port.
+   - The Port B section is hidden if the connected device reports only one radio port. This is determined from the device info response (when connecting via Manual IP) or from the UDP beacon (when auto-discovered).
 5. To disable AUTO mode on either port, click the lit **AUTO** button again. It returns to its unlit state and the port reverts to manual antenna selection.
 
 ## What each control does
@@ -46,6 +46,7 @@ When you disconnect from an Antenna Genius device, all antenna buttons are clear
 
 - You can run AUTO on one port and select antennas manually on the other. The two ports are independent.
 - When AUTO is active, the Port A band and Port B band indicators update as you tune across bands, confirming the AG is tracking correctly.
+- Port B visibility is automatically updated when device info is received, whether from a UDP beacon or a manual IP connection.
 
 ## Troubleshooting
 
@@ -53,6 +54,7 @@ When you disconnect from an Antenna Genius device, all antenna buttons are clear
 - **Band indicator shows "—" after enabling AUTO** — The AG has not yet received a band report from the radio. Tune to a frequency within a recognized band to trigger an update.
 - **A ShackSwitch device appears in the Device combo but the applet does not auto-connect to it** — ShackSwitch devices are handled by a separate applet and are intentionally skipped during Antenna Genius auto-connect. Use the ShackSwitch applet to connect to that device.
 - **Antenna buttons are missing after reconnecting** — This is normal and expected. The buttons are cleared on disconnect and rebuilt when the device is connected again. If they do not reappear, verify the connection was successful.
+- **Port B section is hidden when you expect two ports** — The device may have reported only one radio port. This information is retrieved from the device info response (manual IP path) or the UDP beacon (auto-discovery path). Verify the device supports two radio ports.
 
 ## Related
 

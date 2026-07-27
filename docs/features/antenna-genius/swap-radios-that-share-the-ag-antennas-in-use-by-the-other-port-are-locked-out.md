@@ -46,6 +46,10 @@ Disable AUTO on a port before manually reassigning antennas if you need explicit
 | Port B band | Active band name or "—" | Same as Port A, for Port B. |
 | Port B antenna | Selected antenna name | Same as Port A, for Port B. |
 
+## Port B Visibility
+
+The Port B section is hidden when the connected Antenna Genius device reports only one radio port. This is determined either from the device information response (in a manual-IP connection) or from a UDP beacon (in an auto-discovered connection). The section appears automatically when the device reports two or more radio ports.
+
 ## Swap Radios That Share the AG (Antennas in Use by the Other Port Are Locked Out)
 
 When two radios share one Antenna Genius, each radio connects to a separate port (Port A or Port B). Any antenna already selected on one port is locked out — its button is dimmed — on the other port. This section explains how to reassign antennas between ports so neither radio is blocked.

@@ -1,20 +1,10 @@
-# Filter memories by profile
+# Memory Channels
 
-Use the Profile filter in the Memory Channels dialog to narrow the memory table to entries belonging to a specific global profile. This is useful when you have a large memory list and want to see only the channels relevant to your current operating context.
+The Memory Channels dialog manages the radio's memory channels — add, edit, search, filter by profile, tune, import, export and delete stored frequencies.
 
-## Before you start
+## Opening the Memory Channels dialog
 
-- The radio must be connected. The Memory Channels dialog requires an active radio connection.
-- At least one global profile must exist on the radio. The `Profile:` combo box is populated from the radio's active global profiles.
-
-## Steps
-
-1. Open `Settings > Memory...`.
-2. Locate the `Profile:` combo box in the filter row at the top of the dialog.
-3. Click the `Profile:` combo box and select the profile you want to filter by.
-4. The memory table updates immediately to show only entries matching the selected profile.
-
-To clear the filter and show all memories, select the blank or default entry at the top of the `Profile:` combo box.
+1. Click `Settings > Memory...`.
 
 ## What each control does
 
@@ -35,8 +25,36 @@ To clear the filter and show all memories, select the blank or default entry at 
 | □ (Maximize)                | Maximizes or restores the dialog.                                                                                                                                            |                                                                                                                                            |
 | × (Close)                   | Closes the dialog. Escape clears search first, then closes.                                                                                                                  |                                                                                                                                            |
 | Drag-to-move                | Click and drag the title bar to move the dialog.                                                                                                                             | Double-click the title bar to toggle maximize/restore.                                                                                     |
-| 8-axis resize               | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction.                                                                  | 12 px resize hit zone via FramelessResizer.                                                                                                |
+| 8-axis resize               | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction.                                                                  | 12 px resize hit zone via FramelessResizer. The top edge of the dialog is reserved for drag-to-move; resize grabs begin below the title bar area. |
 | Selection count             | Shows '<N> of <M> selected'.                                                                                                                                                 |                                                                                                                                            |
+
+## Editing memory fields
+
+To edit a memory field directly in the table:
+
+1. Double-click the cell you want to edit, or select a memory and press F2.
+2. For constrained fields (Mode, Offset Direction, Tone Mode, Tone Value, Step, Group), a combo box appears pre-populated with valid values. The list drops open immediately for one-click selection.
+   - If the current value is not in the list (for example, from a legacy memory), it remains visible and editable.
+3. For editable fields, you can type a value. Numeric fields (Tone Value, Repeater Offset) show a validator to prevent invalid entries.
+4. Press Enter to commit the edit, or Escape to cancel.
+
+## Filter memories by profile
+
+Use the Profile filter in the Memory Channels dialog to narrow the memory table to entries belonging to a specific global profile. This is useful when you have a large memory list and want to see only the channels relevant to your current operating context.
+
+### Before you start
+
+- The radio must be connected. The Memory Channels dialog requires an active radio connection.
+- At least one global profile must exist on the radio. The `Profile:` combo box is populated from the radio's active global profiles.
+
+### Steps
+
+1. Open `Settings > Memory...`.
+2. Locate the `Profile:` combo box in the filter row at the top of the dialog.
+3. Click the `Profile:` combo box and select the profile you want to filter by.
+4. The memory table updates immediately to show only entries matching the selected profile.
+
+To clear the filter and show all memories, select the blank or default entry at the top of the `Profile:` combo box.
 
 ## Tips
 

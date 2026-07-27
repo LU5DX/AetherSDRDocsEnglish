@@ -1,6 +1,6 @@
 # Radio Setup
 
-The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, antenna names, filters, transverters, USB cables, peripherals, APD, themes, SmartLink certificate management, and serial port settings across multiple tabs.
+The Radio Setup dialog is the master per-radio configuration window. It organizes radio identification, network, GPS, transmit, phone/CW, receive, antenna names, filters, transverters, USB cables, peripherals, APD, themes, SmartLink certificate management, serial port settings, DX cluster, KiwiSDR receivers, and user interface settings across multiple tabs.
 
 ## Opening Radio Setup
 
@@ -241,4 +241,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 
 | Control | Kind | Notes |
 |---|---|---|
-| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Button | Controls the NVIDIA Broadcast noise-removal container. Colored
+| **NVIDIA BNR: Autostart Container / Start / Stop / Check Status** | Button

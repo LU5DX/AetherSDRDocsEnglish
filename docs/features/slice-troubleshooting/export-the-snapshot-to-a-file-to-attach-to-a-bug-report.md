@@ -21,10 +21,11 @@ Use this page to save the JSON snapshot from the Slice Troubleshooting dialog to
 - If you have made changes to slice settings since opening the dialog, click `Refresh Snapshot` again before exporting to capture the latest state.
 - If you only need to paste the snapshot into a web form or email rather than attach a file, use `Copy JSON` instead of `Export JSON...`.
 - To share the detected problems in plain language rather than raw data, click `Copy Summary` to copy the issue summary tab content to the clipboard.
+- The dialog remembers its window position and size. A future session will reuse those geometry settings.
 
 ## What the Issue Summary includes
 
-The **Issue Summary** tab displays a plain-language bullet list of detected problems. As of v26.6.1, the summary includes these sections:
+The **Issue Summary** tab displays a plain-language bullet list of detected problems. As of v26.7.4, the summary includes these sections:
 
 - **Slices** — lists each slice by index, frequency, mode, filter bandwidth, audio device, RX antenna, and mute state. Also includes the slice connection status showing connected and active slice IDs, and whether attention is required.
 - **Panadapters** — lists each panadapter by ID, center frequency, bandwidth, RF gain, preamp state, WNB active/inactive, and waterfall ID. When slice connection status data is available, it shows the connection state summary, connected slice IDs, and active slice IDs, with an (attention) marker if the radio indicates a problem.
@@ -33,6 +34,7 @@ The **Issue Summary** tab displays a plain-language bullet list of detected prob
 - **Audio endpoints** — reports the operational and running state, sample rate, channel count, sample format, resampling status, buffer statistics, and underrun count for each audio endpoint.
 - **Remote audio RX** — reports the stream ID, whether a stream is expected, whether creation is pending, whether a status message has been seen, whether the stream is owned by this client, and the compression setting in use.
 - **Remote audio route note** — a free-text routing note that may indicate why a remote audio RX stream is not functioning as expected.
+- **Client DSP snapshot** — reports the NR2 noise reduction settings including AE filter, gain max, gain floor, gain smoothing, QSPP, and legacy geometry and gain mapping. Also reports the NR4 noise reduction enabled state and noise estimation method.
 
 Each slice audio route section also now includes a **Radio stream route** line that reports the remote audio RX stream ID along with its expected, create-pending, remove-requested, status-seen, and owned-by-us flags. Review these lines first when diagnosing remote audio RX problems before contacting support.
 

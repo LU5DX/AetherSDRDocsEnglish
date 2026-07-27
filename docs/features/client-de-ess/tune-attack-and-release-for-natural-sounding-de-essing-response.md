@@ -65,6 +65,7 @@ All knobs in the De-Ess editor now support inline numeric entry for precise adju
 | Slope   | push button | 24 dB/oct |
 
 These controls exist only in the frameless strip editors (StripDeEssPanel). The docked ClientDeEssApplet omits them.
+
 ## Tips
 
 - For typical SSB voices, **Attack 0.5–2 ms** and **Release 80–150 ms** works well. Very fast speech (e.g. contesting) may need shorter values at both ends.
@@ -73,7 +74,7 @@ These controls exist only in the frameless strip editors (StripDeEssPanel). The 
 - The sidechain response curve shows frequency axis labels at 100, 500, 1k, 2k, 4k, 8k, and 16k Hz using cached static text for improved performance. The axis labels are only displayed when the curve widget is in its full (non-compact) mode. When in compact mode (as in the docked applet), only the grid lines are drawn without frequency labels.
 - Attack, Release, and Slope settings are stored per path (TX and RX) and persist across sessions.
 - To enter precise values, click any knob's value text to activate the inline editor. Type the desired number (with or without units) and press Enter to commit.
-- The gain-reduction meter and sidechain curve redraw efficiently: when values stabilise, repaints are skipped to conserve CPU. Only changes (or ongoing animation) trigger screen updates.
+- The gain-reduction meter and sidechain curve update on every tick; the widget repaints continuously when values are changing to ensure smooth visual feedback.
 
 ## Related
 

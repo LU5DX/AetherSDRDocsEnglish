@@ -58,7 +58,7 @@ Use the AI-assisted bug report flow to get help writing a clear, complete GitHub
 
 # Support & Diagnostics reference
 
-The Support & Diagnostics dialog (`Help > Support...`) provides log viewing, logging category control, and access to support tools.
+The Support & Diagnostics dialog (`Help > Support...`) provides log viewing, logging category control, and access to support tools. The dialog remembers its size and position between sessions.
 
 ## Logging controls
 
@@ -77,7 +77,6 @@ The Support & Diagnostics dialog (`Help > Support...`) provides log viewing, log
 
 | Control | What it does |
 |---|---|
-| Reset Settings | Resets AetherSDR settings to defaults (with confirmation). |
 | File an Issue | Launches the AI-Assisted Bug Report flow. |
 | Close | Closes the dialog. |
 

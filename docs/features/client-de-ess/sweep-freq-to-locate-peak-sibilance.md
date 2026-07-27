@@ -52,7 +52,7 @@ When the DESS stage is bypassed via the CHAIN widget, the entire de-esser applet
 
 ## Meter animation smoothing
 
-The gain-reduction bar uses a smoothed animation timer that updates at approximately 30 Hz. The animation applies a cubic easing to the gain-reduction display for a natural, non-jittery visual response. The timer stops when the gain-reduction value has settled to avoid unnecessary repaints. After v26.6.3, the animation also triggers a repaint when the smoothing engine signals that the display should update, ensuring smooth visual transitions even when the gain-reduction value is near a threshold where the timer would otherwise stop prematurely.
+The gain-reduction bar uses a smoothed animation timer that updates at approximately 30 Hz. The animation applies a cubic easing to the gain-reduction display for a natural, non-jittery visual response. The timer stops when the gain-reduction value has settled to avoid unnecessary repaints. The animation triggers a repaint on every timer tick to ensure smooth visual transitions even when the gain-reduction value is near a threshold where the timer would otherwise stop prematurely.
 
 ## RX and TX instances
 
@@ -101,7 +101,6 @@ The Slope setting is persisted per path: `ClientDeEssTxSlopeStages` for TX and `
 - **Applet is not visible** — The DESS stage has not been enabled in the CHAIN widget. Enable it there first; the applet remains hidden until the stage is active.
 - **Applet tile appears dimmed** — The DESS stage is currently bypassed. Single-click the DESS stage in the CHAIN widget to re-enable it.
 - **Inline editor does not appear when clicking a knob** — The knob's inline edit mode may be disabled in your configuration. Verify that the `m_inlineEdit` flag is enabled (it is on by default).
-- **Gain-reduction bar animation appears jittery or stops updating during rapid sibilance changes** — This is a known issue in versions prior to v26.6.3. Update to v26.6.3 or later, where the animation timer correctly triggers repaints when the smoothing engine signals that the display should update, even when the gain-reduction value is near a threshold.
 
 ## Related
 

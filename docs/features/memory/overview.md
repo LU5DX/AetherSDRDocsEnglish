@@ -24,12 +24,12 @@ Each row represents one stored memory. The columns are:
 | Owner                       | Owner tag                                                                                                   |                                                                                                      |
 | Frequency                   | Stored frequency in MHz                                                                                     |                                                                                                      |
 | Name                        | Memory label                                                                                                |                                                                                                      |
-| Mode                        | Operating mode (e.g. USB, FM, CW)                                                                           |                                                                                                      |
-| Step                        | Tuning step                                                                                                 |                                                                                                      |
-| FM TX Offset Dir            | FM repeater offset direction                                                                                |                                                                                                      |
+| Mode                        | Operating mode (e.g. USB, FM, CW)                                                                           | Edited using a drop-down combo box with known mode values                                            |
+| Step                        | Tuning step                                                                                                 | Edited using a drop-down combo box with known step values                                            |
+| FM TX Offset Dir            | FM repeater offset direction                                                                                | Edited using a drop-down combo box                                                                   |
 | Repeater Offset             | Repeater offset in MHz                                                                                      |                                                                                                      |
-| Tone Mode                   | CTCSS/DCS tone mode                                                                                         |                                                                                                      |
-| Tone Value                  | Tone frequency or code                                                                                      |                                                                                                      |
+| Tone Mode                   | CTCSS/DCS tone mode                                                                                         | Edited using a drop-down combo box                                                                   |
+| Tone Value                  | Tone frequency or code                                                                                      | Edited using a drop-down combo box                                                                   |
 | Squelch                     | Squelch enabled/disabled                                                                                    |                                                                                                      |
 | Squelch Level               | Squelch threshold level                                                                                     |                                                                                                      |
 | RX Filter Low               | Low edge of receive filter in Hz                                                                            |                                                                                                      |
@@ -38,6 +38,8 @@ Each row represents one stored memory. The columns are:
 | RTTY Shift                  | RTTY shift                                                                                                  |                                                                                                      |
 | DIGL Offset                 | Digital lower sideband offset                                                                               |                                                                                                      |
 | DIGU Offset                 | Digital upper sideband offset                                                                               |                                                                                                      |
+
+When editing a constrained field (Mode, Step, Offset Dir, Tone Mode, Tone Value, Group) by double-clicking the cell, a combo box opens immediately. For strict fields the combo is locked to the known values; editable fields seed common values but still accept typed input (validated by the radio on commit). The list pops open right away so picking a value is effectively one click once the cell is being edited.
 
 **Actions**
 
@@ -53,7 +55,7 @@ Each row represents one stored memory. The columns are:
 
 **Window title bar**
 
-The dialog uses a custom frameless title bar. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states.
+The dialog uses a custom frameless title bar. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states. The top strip of the dialog is reserved for the title bar's own move handling, so a title-bar grab is not stolen by the window resize zone.
 
 **Window controls**
 
@@ -65,7 +67,7 @@ The dialog uses a custom frameless title bar. The title bar displays the dialog 
 
 **Resizing**
 
-Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide.
+Click and drag any edge or corner of the dialog to resize it. The cursor changes to indicate the resize direction. The resize hit zone is 12 pixels wide. The top edge resize zone is partially reserved for the title bar's move functionality; click and drag on the title bar itself to move the dialog.
 
 **Selection count**
 
@@ -84,6 +86,7 @@ The memory table uses theme-aware styling. The alternate row background color an
 - The Search: field has a clear button on the right side; click it to remove the filter without clearing the Profile: selection.
 - Press Ctrl+F to focus the Search: field directly.
 - Sorting and filtering do not delete or reorder the memories on the radio; they only change what is visible in the table.
+- When editing a constrained field, the combo box opens automatically for one-click picking. Editable fields accept typed input validated by the radio.
 
 ## Related
 

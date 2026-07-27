@@ -45,6 +45,17 @@ In v26.6.1, the bypass state is owned by the audio engine for both TX and RX sid
 
 The BYPASS button disables every stage in the selected chain, including RN2 on the TX side. Its scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches.
 
+## How the ADSP tile handles NV AFX
+
+In v26.7.4, the ADSP tile on the RX chain now recognises and manages NV AFX as the seventh noise-reduction module. Previously, the NV AFX module was not included in the bypass snapshot mechanism.
+
+When you single-click the ADSP tile:
+
+- If any noise reducer (NR2, NR4, MNR, DFNR, RN2, or NV AFX) is active, clicking the ADSP tile bypasses all of them, including NV AFX.
+- If no noise reducer is active, clicking the ADSP tile restores the previously active module. If NV AFX was the module that was active before bypass, it is restored correctly.
+
+The ADSP tile label updates to show NV AFX when that module is active, rotating among the other short names (NR2, NR4, BNR, etc.) as appropriate. When no noise reducer is active, the tile shows ADSP.
+
 ## Click discrimination interval
 
 In v26.5.3, the chain applet uses a configurable click discrimination interval instead of the system double-click interval. This interval controls how long the applet waits after a mouse release before deciding whether the action is a single click or the first of a double-click. To adjust this interval:
@@ -63,7 +74,8 @@ This setting applies to both the TX and RX chain widgets. A shorter interval mak
 - The hint text below the chain strip, "Click to bypass · Double click to edit · Drag to reorder", applies equally to both the TX and RX chains.
 - The RX stage tiles are labelled AGC-G (gate) and AGC-C (compressor). These labels appear on the stage tiles themselves and in any stage editor titles.
 - If you click BYPASS on the channel strip while the chain applet is showing the TX side, the applet's BYPASS button updates immediately to match — no manual refresh is needed.
-- The ADSP tile label changes dynamically to show the active noise reducer module (e.g. NR2, NR4, BNR). If no noise reducer is active, it shows ADSP.
+- The ADSP tile label changes dynamically to show the active noise reducer module (e.g. NR2, NR4, NV AFX). If no noise reducer is active, it shows ADSP.
+- The ADSP tile now correctly handles NV AFX as part of the noise-reduction cluster. If you had NV AFX active and bypassed all noise reducers with a single click, clicking the ADSP tile again restores NV AFX (not NR2) as it was before bypass.
 
 ## Related
 

@@ -28,14 +28,14 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 
 ## What each control does
 
-| Control             | Description                                                                                                                 | Default                                                                    |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| **Settings...**     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration. | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
-| **Publish buttons** | Up to 12 configurable buttons; click publishes the configured payload to the configured topic.                              | Configured via MqttSettingsDialog Publish Buttons tab.                     |
-| **Message log**     | Displays received messages as `topic: value` lines and published messages as `TX topic: payload` lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries.                              |
-| **Enable**          | Connects (On) or disconnects (Off); saves all settings on connect. Password is loaded from system keychain on first enable. | Off                                                                        |
-| **Status label**    | Shows connection state with colour: green when connected, grey when disconnected, default on error.                         | Disconnected                                                               |
-
+| Control             | Description                                                                                                                                             | Default                                                                    |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Settings...**     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                             | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
+| **Publish buttons** | Up to 12 configurable buttons; click publishes the configured payload to the configured topic.                                                          | Configured via MqttSettingsDialog Publish Buttons tab.                     |
+| **Message log**     | Displays received messages as `topic: value` lines and published messages as `TX topic: payload` lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries.                                                      |
+| **Enable**          | Connects (On) or disconnects (Off); saves all settings on connect. Password is loaded from system keychain on first enable.                             | Off                                                                        |
+| **Status label**    | Shows connection state with colour: green when connected, grey when disconnected, default on error.                                                     | Disconnected                                                               |
+| Settings...         | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                             | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
 ## Tips
 
 - Settings are saved to persistent storage only when you click **OK** in the MQTT Settings dialog, not when you click **Enable** to connect.

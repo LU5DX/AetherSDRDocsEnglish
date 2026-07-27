@@ -12,6 +12,7 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 1. Locate the **RF Power** slider in the TX Controls applet. It appears below the **SWR** gauge.
 2. Drag the slider left or right to set your desired power level. The numeric readout to the right of the slider updates immediately, showing "XX%" format.
 3. Confirm the value shown in the readout is what you intend. The **RF Pwr** gauge will reflect actual forward power once you transmit.
+4. Hover your mouse cursor over the **RF Pwr** or **SWR** gauge to see the exact numeric reading in a popup tooltip. The **RF Pwr** popup shows the value in watts (e.g., "45 W"), and the **SWR** popup shows the ratio in conventional format (e.g., "1.42:1"). This is useful for precise readings between tick marks.
 
 ## What each control does
 
@@ -19,9 +20,10 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 |--------------------------|--------------------------------------------------------------------------------------|---------|
 | **RF Power** slider      | Sets the transmit RF power level (0-100% of maximum). Drag value shows "XX%" format. | 100     |
 | **Tune Pwr** slider      | Sets tune-carrier power level (0-100% of maximum). Drag value shows "XX%" format.    | 10      |
-| **RF Pwr** meter         | Displays actual forward power at the exciter output.                                 | —       |
-| **SWR** meter            | Displays standing wave ratio at the exciter.                                         | —       |
+| **RF Pwr** meter         | Displays actual forward power at the exciter output with PEP peak-hold. Hover for exact wattage. | —       |
+| **SWR** meter            | Displays standing wave ratio at the exciter. Hover for exact ratio in N.N:1 format.  | —       |
 | **TX Profile** combo box | Selects a transmit profile (e.g. SSB, Digital) from those available on the radio.    | —       |
+
 ## Tips
 
 - The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W.
@@ -29,6 +31,33 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 - The **RF Power** slider controls the exciter output level, not a separate amplifier. If you are running an external amplifier, set this slider to the drive level your amplifier expects.
 - The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays smoothly toward the current power level. The peak immediately clears to zero when the transmitter unkeys.
 - Power sliders now display values as percentages (0-100%) of the maximum power for your radio model, rather than watts.
+- Hovering over the **RF Pwr** or **SWR** gauge shows an exact numeric reading in a popup tooltip, eliminating the need to estimate between tick marks during transmit.
+
+## Using the TUNE button
+
+The **TUNE** button starts or stops a tune carrier. While active, the button text changes to "TUNING..." with a red background.
+
+### TUNE button right-click menu
+
+Right-clicking the **TUNE** button opens a context menu to select the carrier shape for the next tune cycle. Two options are available:
+
+- **Mono Tone** — A single carrier tone.
+- **Two Tone** — Two simultaneous carrier tones.
+
+Selecting either option is a one-shot setting. The radio's tune mode is stored in volatile state and AetherSDR does not persist this choice across restarts. The currently active mode is shown with a check mark.
+
+## Using the MOX button
+
+The **MOX** button manually keys the transmitter. The button has distinct visual styling — an amber border and text when idle (receive mode) to clearly identify it as the transmit button, and turns red with bright red border when active (transmit mode). This accent color is editable in the Theme Editor under the `color.tx.mox.*` tokens.
+
+When active, the button turns red ("QPushButton { background: #cc2222; border: 1px solid #ff4444; ...}").
+
+In v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the radio directly. This means:
+
+- On phone modes (SSB, AM, FM, and so on), if the **QUIN** chip is enabled in the Audio Channel Strip, the K-tone plays when you engage MOX and the BK-tone plays when you disengage it.
+- If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is identical to previous versions: the radio keys and unkeys immediately.
+
+No change to how you operate the button is required. The Quindar tones are controlled entirely by the **QUIN** setting in the Audio Channel Strip.
 
 ## Using the ATU button
 
@@ -55,25 +84,9 @@ Right-clicking the **ATU** button opens a context menu with two additional optio
 - **Pre-tune bands…** — Opens a dialog to run a pre-tune sweep across one or more bands. This option is only available when ATU memories are enabled (the **MEM** button is on).
 - **Clear ATU memories…** — Prompts for confirmation, then clears all stored ATU memories on the radio.
 
-## Using the TUNE button right-click menu
+## Using the MEM toggle button
 
-Right-clicking the **TUNE** button opens a context menu to select the carrier shape for the next tune cycle. Two options are available:
-
-- **Mono Tone** — A single carrier tone.
-- **Two Tone** — Two simultaneous carrier tones.
-
-Selecting either option is a one-shot setting. The radio's tune mode is stored in volatile state and AetherSDR does not persist this choice across restarts. The currently active mode is shown with a check mark.
-
-## Using the MOX button
-
-The **MOX** button manually keys the transmitter. When active, the button turns red.
-
-In v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the radio directly. This means:
-
-- On phone modes (SSB, AM, FM, and so on), if the **QUIN** chip is enabled in the Audio Channel Strip, the K-tone plays when you engage MOX and the BK-tone plays when you disengage it.
-- If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is identical to previous versions: the radio keys and unkeys immediately.
-
-No change to how you operate the button is required. The Quindar tones are controlled entirely by the **QUIN** setting in the Audio Channel Strip.
+The **MEM** button toggles ATU memory recall on or off. When enabled, the tuner can use stored tuning data for previously tuned frequencies. This button is disabled when the TGXL transverter is in OPERATE mode.
 
 ## Using the APD (Adaptive Pre-Distortion) cluster
 

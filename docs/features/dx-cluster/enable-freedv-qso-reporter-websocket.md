@@ -223,6 +223,8 @@ The unified spot table shows all active spots from every connected source.
 
 A row of checkboxes at the top lets you show or hide spots on specific bands (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). Uncheck a band to remove its spots from the table.
 
+The band checkboxes use a flow layout that wraps to a new row when the dialog is narrowed, keeping each checkbox readable instead of compressing labels.
+
 ### Clearing spots
 
 Click **Clear** to empty the current spot list.
@@ -240,6 +242,6 @@ The main table is sortable by clicking column headers. Columns:
 - **Mode** — Mode if included in the spot
 - **Source** — Which source provided this spot (Cluster, RBN, WSJT-X, SpotCollector, POTA, FreeDV)
 
-### Tuning to a spot
+### Column visibility
 
-Double-click any row to tune the active slice to that frequency. As of v0.9.7, AetherSDR also forwards the mode extracted from the spot comment, so the slice switches to the appropriate mode (for example
+Right-click any column header to open the column visibility menu. AetherSDR keeps the menu open

@@ -1,25 +1,30 @@
-# Lock the slice to prevent accidental retuning
+# RX Controls (RxApplet)
+
+The RX Controls applet provides per-slice receive controls for mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, and FM repeater duplex settings.
+
+## Lock the slice to prevent accidental retuning
 
 The tune-lock feature prevents a slice from responding to frequency changes. Use it when you want to monitor a fixed frequency without the risk of nudging the VFO by clicking the panadapter or scrolling the mouse wheel.
 
-## Before you start
+### Before you start
 
 - AetherSDR must be connected to the radio. The RX Controls applet requires an active radio connection.
 - The RX Controls applet must be visible. If it is not, click the RX tray button on the right sidebar to show it.
 
-## Steps
+### Steps
 
 1. In the RX Controls applet, identify the header row containing the slice badge, lock button, and antenna selectors.
 2. If you have more than one slice, click the appropriate slice tab (A through H) to select the slice you want to lock.
 3. Click the 🔓 button in the header row. The icon changes to 🔒 and turns blue, confirming the slice is locked.
 4. To unlock, click 🔒 again. The icon returns to 🔓 and the slice resumes responding to frequency changes.
 
-## What each control does
+### What each control does
 
-| Control | Default      | Behavior                                                                                                                |
-|---------|--------------|-------------------------------------------------------------------------------------------------------------------------|
-| 🔓 / 🔒   | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
-## Tips
+| Control | Default | Behavior |
+|---------|---------|----------|
+| 🔓 / 🔒 | 🔓 (unlocked) | Toggles tune-lock on the active slice. When locked (🔒), the slice ignores all frequency changes. Click again to unlock. |
+
+### Tips
 
 - The lock state applies per slice. You can lock slice A while slice B remains freely tunable.
 - The lock button is always visible in the header row regardless of the current mode.
@@ -170,8 +175,4 @@ This prevents misleading visual feedback where the default Qt stylesheet would p
 
 ### Visual indicator
 
-A small dot (2.5 pixel radius, colour `#608090`) is painted at the centre of the slider groove. This dot is always visible regardless of the handle position, so you can quickly verify the neutral position at a glance.
-
-### Double-click reset (existing behaviour)
-
-Double-clicking the slider resets it to 50 (centre), which automatically
+A small dot (2.5 pixel radius, colour `#608090`) is painted at the centre

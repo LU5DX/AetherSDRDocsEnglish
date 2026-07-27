@@ -33,14 +33,14 @@ Filter width presets are the one setting that persists across sessions, stored u
 
 | Control | Default | Behavior |
 |---|---|---|
-| ANT1 (RX antenna) | ANT1 | Opens a menu of available antennas. The menu is populated from the slice's `rxAntennaList()` if available, otherwise from the radio's antenna list. Menu items display a short label with the full antenna name in the tooltip and status tip. Selecting an item sets the RX antenna using the antenna's full name. Label is blue. |
+| ANT1 (RX antenna) | ANT1 | Opens a menu of available antennas. The menu is populated from the slice's `rxAntennaList()` if available, otherwise from the radio's antenna list. When KiwiSDR is active, virtual antenna tokens from KiwiSDRManager are also added. Menu items display a short label with the full antenna name in the tooltip and status tip. Selecting a KiwiSDR virtual antenna emits `kiwiRxAntennaSelected` with the slice ID and profile ID. Selecting a Flex antenna emits `flexRxAntennaSelected` and calls `slice->setRxAntenna()`. Label is blue. |
 | ANT1 (TX antenna) | ANT1 | Opens a menu of TX-capable antennas. Only antennas with names starting with "ANT", "TX", or "XVTR" are included; RX-only ports (names starting with "RX") are excluded. Menu items display a short label with the full antenna name in the tooltip and status tip. Selecting an item sets the TX antenna using the antenna's full name. Label is red. |
 
 ### Filter
 
 | Control | Default / range | Setting key | Behavior |
 |---|---|---|---|
-| Filter width presets | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIG: 100–2000 Hz; RTTY: 250–1000 Hz | `FilterPresets` | Click a button to apply that width. Right-click to save the current filter width as a preset. Buttons are hidden in FM, NFM, and DFM modes. Presets are stored as either a plain width value or a `lo:hi` passband pair; both formats are read and written correctly (v0.9.5.1, #2259). |
+| Filter width presets | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400/500/600 Hz; AM/SAM: 5600–14000 Hz; DIG: 100–2000 Hz; RTTY: 250–1000 Hz | `FilterPresets` | Click a button to apply that width. Right-click to save the current filter width as a preset. Buttons are hidden in FM, NFM, and DFM modes. CW mode now includes 500 Hz and 600 Hz presets. Presets are stored as either a plain width value or a `lo:hi` passband pair; both formats are read and written correctly (v0.9.5.1, #2259). |
 | Filter width label | 2.7K | — | Shows the current filter bandwidth. Updates when a preset is applied or the passband is dragged. Read-only. The formatting logic is shared with VfoWidget via `RxApplet::formatFilterWidth()` and uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). |
 | Filter passband widget | — | — | Drag the low or high edge to set a custom filter passband. |
 | Widen (shortcut action) | — | — | The `stepFilterWidth(+1)` method walks the per-mode preset list to widen the filter passband with mode-correct edge geometry. Accessible via keyboard shortcut (v0.9.8, #2208). |
@@ -122,7 +122,4 @@ Connects to an Antenna Genius device at the specified IP and port. The "Connecte
 | Control | Setting key | Default | Behavior |
 |---|---|---|---|
 | IP address field | `SS_ManualIp` | — | Enter the IP address of the ShackSwitch. |
-| Port field | `SS_ControlPort` | 9007 | Port used for the AG control protocol. Always connects on port 9007 regardless of the value entered. |
-| Connect button | — | — | Connects to the ShackSwitch at the specified IP on port 9007 using the AG control protocol. |
-| Disconnect button | — | — | Disconnects from the ShackSwitch. |
-| Connected status | — | — | Shows "Connected" only when the active connection is to
+| Port field | `SS_ControlPort` | 9007 | Port used for the AG control protocol. Always connects on port 9007 regardless

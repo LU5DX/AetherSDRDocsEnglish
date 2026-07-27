@@ -40,7 +40,9 @@ None of the meters have a persisted settings key. Values are read-only telemetry
 
 **Vdd label behavior:** When drain supply voltage (Vdd) drops below 1.0 V (indicating the drain supply is off during STANDBY), the Vdd label shows "Vdd — V" instead of "Vdd 0.0 V" for clarity.
 
-**Fan speed button:** The fan speed button appears only after a direct PGXL connection delivers the first fan mode status. Click the button to cycle through STANDARD, CONTEST, and BROADCAST. The button displays a single letter: S (STANDARD), C (CONTEST), or B (BROADCAST).
+**Fan speed button:** The fan speed button appears only after a direct PGXL connection delivers the first fan mode status. Click the button to cycle through STANDARD, CONTEST, and BROADCAST. The button displays the mode in a readable label: "Fan: Std", "Fan: Contest", or "Fan: Bcast".
+
+**Temperature unit toggle:** The temperature display is a clickable button that toggles between Celsius and Fahrenheit. The button shows the current temperature with the unit symbol (e.g., "40.5 °C" or "104.9 °F"). Click the button to switch units. The setting is persisted and remembered across restarts.
 
 ## Tips
 

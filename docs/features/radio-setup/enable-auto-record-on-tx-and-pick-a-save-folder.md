@@ -22,6 +22,7 @@ The dialog window uses the persistent dialog framework, saving and restoring its
 - **Themes** — UI customization including slice colors
 - **SmartLink** — Pinned SmartLink TLS certificate management
 - **Serial** — FlexControl serial port configuration and paddle/button mapping
+- **KiwiSDR** — KiwiSDR receiver configuration, custom nickname, and public/private receiver management
 
 Several tabs (Radio, Themes, Audio, Filters, Peripherals) are wrapped in a scroll area so that their content remains accessible on small or high-DPI screens. The scrollbar appears automatically when the content exceeds the dialog's visible height; it hides when all content fits without scrolling.
 
@@ -185,12 +186,17 @@ The calibration controls are available regardless of whether a GPSDO is installe
 
 ### Calibration Controls
 
-| Control | What it does |
-|---|---|
-| **Cal Frequency (MHz):** | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field. |
-| **Start** | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |
-| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. |
-
+| Control                                             | What it does                                                                                                                                                                                                                                 | Notes                                                                                                                               |
+|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Cal Frequency (MHz):**                            | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field.                                                                                                |                                                                                                                                     |
+| **Start**                                           | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |                                                                                                                                     |
+| **Freq Offset (ppb):**                              | Manual frequency offset in parts per billion.                                                                                                                                                                                                |                                                                                                                                     |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress.                                                  | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).                                                      | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                                                                           | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                   |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                                                                          | Backed by WanCertCache in WanConnection.cpp.                                                                                        |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                                                                    |                                                                                                                                     |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                                                                   | Shows QMessageBox::question before wiping.                                                                                          |
 ### 10 MHz Reference Source
 
 | Control | What it does | Default | Range |
@@ -217,42 +223,4 @@ The lock status label beside **10 MHz Reference Source:** shows richer informati
 | Unlocked | Red |
 | No status received yet | Grey/blue |
 
-The **10 MHz Reference Source:** combo box populates dynamically based on the hardware the radio reports as present, the current setting, and the active oscillator state. The **External** entry is labeled **External 10 MHz**. If the radio sends the value `ext` it is treated as equivalent to `external`.
-
-### Starting a Calibration
-
-1. Click the **RX** tab in Radio Setup.
-2. Enter the known reference frequency in **Cal Frequency (MHz):**.
-3. Click **Start**. The button shows **Busy** while the sweep runs. Watch the status label for progress and result.
-4. When calibration completes, the button re-enables.
-
----
-
-## Antennas Tab
-
-The **Antennas** tab allows you to configure user-friendly names for each antenna port on the radio, replacing the default port labels (ANT1, ANT2, XVTA, XVTB, etc.) with custom identifiers that appear throughout the AetherSDR interface.
-
-| Control | What it does |
-|---|---|
-| **Antenna name fields** | One text field per antenna port. Enter a custom name (e.g., "HF Vertical", "6M Yagi", "160M Loop"). Names are sent to the radio and persisted in the radio's configuration. |
-
-**To set an antenna name:**
-
-1. Click the **Antennas** tab in Radio Setup.
-2. For each antenna port, type the desired name in the corresponding text field.
-3. Press Enter or tab to the next field to commit the name to the radio.
-
----
-
-## Audio Tab
-
-The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
-
-| Control | What it does | Default | Range | Setting Key |
-|---|---|---|---|---|
-| **Line Out:** | Line-out gain slider | — | — | — |
-| **Mute (Line Out)** | Mutes line-out | — | — | — |
-| **Headphone:** | Headphone gain slider | — | — | — |
-| **Mute (Headphone)** | Mutes headphone | — | — | — |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific) | — | — | — |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus
+The **10 MHz Reference Source:** combo box populates dynamically based on the hardware the radio reports as

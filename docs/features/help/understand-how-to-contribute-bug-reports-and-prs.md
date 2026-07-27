@@ -16,21 +16,21 @@ This page explains how to open the bundled contribution guide in AetherSDR. The 
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the title. |
-| `Title` | Displays the window title (topic name). |
-| `Subtitle` | One-line topic description. |
-| `Markdown viewer` | Renders the loaded Markdown resource. Styled according to the current theme. |
-| `Find:` field | Enter a subject or term to search within the displayed topic. The field border turns red when there are no matches. |
-| `Next` | Moves to the next match in the document. Wraps to the top when the end is reached. Enabled only when the `Find:` field is non-empty. |
-| `Previous` | Moves to the previous match in the document. Wraps to the bottom when the start is reached. Enabled only when the `Find:` field is non-empty. |
-| `Hint / footer` | Shows a short usage hint. |
-| `Close` | Closes the dialog. |
+| Control                            | Behavior                                                                                                                                      | Notes                                                                                                                                              |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the title.                                                                                                           |                                                                                                                                                    |
+| `Title`                            | Displays the window title (topic name).                                                                                                       |                                                                                                                                                    |
+| `Subtitle`                         | One-line topic description.                                                                                                                   |                                                                                                                                                    |
+| `Markdown viewer`                  | Renders the loaded Markdown resource. Styled according to the current theme.                                                                  |                                                                                                                                                    |
+| `Find:` field                      | Enter a subject or term to search within the displayed topic. The field border turns red when there are no matches.                           | Ctrl+F focuses the field. Enter jumps to next match; Shift+Enter jumps to previous. QLineEdit with clear button and placeholder 'Subject or term'. |
+| `Next`                             | Moves to the next match in the document. Wraps to the top when the end is reached. Enabled only when the `Find:` field is non-empty.          | Disabled when search field is empty. Wraps around from end to top.                                                                                 |
+| `Previous`                         | Moves to the previous match in the document. Wraps to the bottom when the start is reached. Enabled only when the `Find:` field is non-empty. | Disabled when search field is empty. Wraps around from top to end.                                                                                 |
+| `Find status`                      | Shows 'No matches' (red) or 'Wrapped to top/bottom' when no further matches are found in the current direction.                               |                                                                                                                                                    |
+| `Hint / footer`                    | Shows a short usage hint.                                                                                                                     |                                                                                                                                                    |
 
 ## Tips
 
-- The Help menu keeps each guide in a separate dialog. You can reopen just this topic at any time without disturbing other open help windows.
+- The Help menu keeps each guide in a separate dialog. Each dialog remembers its own window position and size independently. You can reopen just this topic at any time without disturbing other open help windows.
 - The contribution guide is available offline. You do not need a network connection to read it.
 - All HelpDialog colors, including the header background, text colors, scrollbar colors, and the separator, are controlled by the active theme. To change the appearance, select `Settings > Theme...`.
 

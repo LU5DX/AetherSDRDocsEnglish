@@ -1,19 +1,31 @@
-# Autostart DAX on Launch
+# DAX Audio Applet
+
+## Windows note
+
+On Windows, AetherSDR does not include a built-in DAX audio driver. The DAX applet displays only the following informational message, and no controls are available:
+
+> No built-in DAX driver on Windows. Use TCI, or SmartSDR DAX.
+
+DAX audio routing on Windows is supported through FlexRadio's own SmartSDR DAX drivers or through TCI. See **Help > Configuring Data Modes** for setup instructions.
+
+On macOS and Linux, the full DAX applet is available as described below.
+
+## Autostart DAX on Launch
 
 Enable the `AutoStartDAX` setting so that the DAX audio bridge starts automatically every time AetherSDR opens, without requiring a manual click of Enable each session.
 
-## Before you start
+### Before you start
 
 - AetherSDR must be connected to a FLEX-8600 radio. The DAX applet requires an active radio connection.
 - The DAX applet must be visible. If it is not, click the **DAX** tray button on the right sidebar to show it.
 
-## Steps
+### Steps
 
 1. Open the DAX applet by clicking the **DAX** tray button on the right sidebar if it is not already visible.
 2. Click **Settings > Autostart DAX with AetherSDR** to place a check mark next to the item. This persists `AutoStartDAX` as `True`.
-3. Confirm the **Enable** button in the DAX applet is checked (lit green). If it is not, click **Enable** to start the bridge for the current session.
+3. Confirm the **Enable** button in the DAX applet shows **Enabled** (lit green). If it shows **Disabled**, click it to start the bridge for the current session.
 
-On the next launch, AetherSDR will read `AutoStartDAX` and activate the bridge automatically, reflecting the checked state on the **Enable** button.
+On the next launch, AetherSDR will read `AutoStartDAX` and activate the bridge automatically, reflecting the enabled state on the **Enable** button (showing **Enabled**).
 
 To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again to remove the check mark.
 
@@ -21,7 +33,7 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 
 | Control | What it does | Default | Range | Setting key |
 |---|---|---|---|---|
-| **Enable** (in the DAX applet) | Master toggle. Starts or stops the DAX audio bridge for the current session and persists the state. | Off | On / Off | `AutoStartDAX` |
+| **Enable** button in the DAX applet | Master toggle. Starts or stops the DAX audio bridge for the current session and persists the state. Shows **Enabled** when active, **Disabled** when inactive. | Disabled | Enabled / Disabled | `AutoStartDAX` |
 | **Settings > Autostart DAX with AetherSDR** | Checkable menu item. When checked, AetherSDR starts the DAX bridge on every launch. | Off (unchecked) | Checked / Unchecked | `AutoStartDAX` |
 | DAX 1 gain+meter | Combined level meter and gain slider for DAX RX channel 1. Drag to adjust. Accessible name: "DAX RX 1 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain1` |
 | DAX 2 gain+meter | Combined level meter and gain slider for DAX RX channel 2. Drag to adjust. Accessible name: "DAX RX 2 gain". | 0.5 | 0.0 – 1.0 | `DaxRxGain2` |
@@ -40,15 +52,17 @@ To turn autostart off, click **Settings > Autostart DAX with AetherSDR** again t
 
 - The **Enable** button and **Settings > Autostart DAX with AetherSDR** both write the same `AutoStartDAX` key. Clicking either one updates the shared setting.
 - Gain values for all four RX channels and the TX channel are saved independently. Adjusting them before enabling autostart means they will be restored at the same levels on the next launch.
-- Slice assignment indicators now display the slice letter in the active radio model's color (rich text format) for improved visibility. This affects both DAX RX channel assignments and TX assignment indicators.
+- Slice assignment indicators display the slice letter in the active radio model's color (rich text format) for improved visibility. This affects both DAX RX channel assignments and TX assignment indicators.
 - On Linux, DAX audio uses PipeWire native streams (`pw_stream`) for lower latency, reducing RX latency from approximately 400 ms to approximately 200 ms. This applies to all DAX RX channels.
 - Each gain slider has an accessible name set for screen reader compatibility: "DAX RX N gain" for channels 1-4 and "DAX TX gain" for the transmit channel.
+- The **Enable** button now dynamically updates its text to show **Enabled** or **Disabled** based on the current state, providing clearer visual feedback.
 
 ## Troubleshooting
 
 - **The DAX applet is not visible** — Click the **DAX** tray button on the right sidebar to show it.
 - **Enable is checked but the bridge does not start on the next launch** — Verify that **Settings > Autostart DAX with AetherSDR** has a check mark. Clicking **Enable** in the applet alone sets the bridge state for the current session and persists `AutoStartDAX`, but confirming the menu item is checked ensures the autostart path runs at launch.
-- **The Enable button is unchecked after launch despite autostart being on** — This can occur if AetherSDR launches before a radio connection is established. The DAX applet requires a connected radio. Connect to the radio and click **Enable** manually, or allow AetherSDR to connect before checking the bridge state.
+- **The Enable button shows Disabled after launch despite autostart being on** — This can occur if AetherSDR launches before a radio connection is established. The DAX applet requires a connected radio. Connect to the radio and click **Enable** manually, or allow AetherSDR to connect before checking the bridge state.
+- **On Windows, the DAX applet shows only a note** — This is expected. AetherSDR does not include a built-in DAX audio driver on Windows. Use FlexRadio's SmartSDR DAX drivers or TCI instead. See **Help > Configuring Data Modes** for details.
 
 ## Related
 

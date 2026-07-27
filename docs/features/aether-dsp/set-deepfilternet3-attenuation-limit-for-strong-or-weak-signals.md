@@ -24,15 +24,17 @@ Selecting the NR2 tab activates or bypasses the NR2 engine. When NR2 is activate
 
 ### NR2 controls
 
-| Control                        | Default       | Valid range    | Setting key      | Behavior                                                                                        | Notes                                                                                  |
-|--------------------------------|---------------|----------------|------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
-| Gain Method                    | Gamma         | Linear, Log, Gamma, Trained | `NR2GainMethod`  | Selects gain-curve mapping used by NR2.                                                        | Stored as integer 0-3 matching the order above.                                        |
-| NPE Method                     | OSMS          | OSMS, MMSE, NSTAT | `NR2NpeMethod`   | Selects noise power estimator.                                                                 | Stored as integer 0-2.                                                                |
-| AE Filter (artifact elimination) | True          | —              | `NR2AeFilter`    | Toggles the anti-artefact post-filter.                                                          |                                                                                        |
-| Reduction:                     | 1.50          | 0.50-2.00      | `NR2GainMax`     | Sets maximum NR2 reduction depth.                                                              | Slider stores value*100 internally.                                                    |
-| Smoothing:                     | 0.85          | 0.50-0.98      | `NR2GainSmooth`  | Controls how smoothly the noise estimate tracks changes.                                        |                                                                                        |
-| Threshold:                     | 0.20          | 0.05-0.50      | `NR2Qspp`        | Sets speech-presence-probability threshold.                                                    |                                                                                        |
-| Reset Defaults (↺ icon)       | —              | —              | —                | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20).                                   | Rendered as a flat icon button showing anticlockwise arrow (U+21BA).                   |
+| Control                        | Default       | Valid range    | Setting key           | Behavior                                                                                        | Notes                                                                                  |
+|--------------------------------|---------------|----------------|-----------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| Gain Method                    | Gamma         | Linear, Log, Gamma, Trained | `NR2GainMethod`       | Selects gain-curve mapping used by NR2.                                                        | Stored as integer 0-3 matching the order above.                                        |
+| NPE Method                     | OSMS          | OSMS, MMSE, NSTAT | `NR2NpeMethod`        | Selects noise power estimator.                                                                 | Stored as integer 0-2.                                                                |
+| AE Filter (artifact elimination) | True          | —              | `NR2AeFilter`         | Toggles the anti-artefact post-filter.                                                          |                                                                                        |
+| Reduction:                     | 1.50          | 0.50-2.00      | `NR2GainMax`          | Sets maximum NR2 reduction depth.                                                              | Slider stores value*100 internally.                                                    |
+| Gain Floor                     | 0.00          | 0.00-0.50      | `NR2GainFloor`        | Sets the minimum gain floor for NR2 processing.                                                 | Added in v26.7.4.                                                                      |
+| Smoothing:                     | 0.85          | 0.50-0.98      | `NR2GainSmooth`       | Controls how smoothly the noise estimate tracks changes.                                        |                                                                                        |
+| Threshold:                     | 0.20          | 0.05-0.50      | `NR2Qspp`             | Sets speech-presence-probability threshold.                                                    |                                                                                        |
+| Use Original Spatial Geometry  | True          | —              | `NR2UseOriginalGeometry` | Toggles use of original spatial geometry instead of the cascade configuration.                 | Added in v26.7.4.                                                                      |
+| Reset Defaults (↺ icon)       | —              | —              | —                     | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.00/0.85/0.20, Use Original Geometry on).    | Rendered as a flat icon button showing anticlockwise arrow (U+21BA).                   |
 
 ## NR4 tab (libspecbleach)
 
@@ -64,7 +66,7 @@ Selecting the MNR tab activates or bypasses the MNR engine. The MNR toggle is di
 
 ## DFNR tab (DeepFilterNet3)
 
-Selecting the DFNR tab activates or bypasses the DeepFilterNet3 engine.
+Selecting the DFNR tab activates or bypasses the DeepFilterNet3 engine. DFNR is only available when AetherSDR is rebuilt after setting up DeepFilterNet.
 
 ### DFNR controls
 
@@ -85,13 +87,15 @@ Selecting the BNR tab activates or bypasses the BNR engine. Intensity is control
 
 - For strong, clean signals where preserving fidelity matters, reduce **Attenuation Limit** toward 0 to limit how much the engine can alter the audio.
 - For weak or heavily noise-degraded signals, set **Attenuation Limit** to 100 and combine with a non-zero **Post-Filter Beta** for the most aggressive suppression.
-- When using NR2, start with the defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20) and adjust **Reduction:** and **Smoothing:** to find the best balance.
+- When using NR2, start with the defaults (Gamma/OSMS/AE on, 1.50/0.00/0.85/0.20) and adjust **Reduction:**, **Gain Floor**, and **Smoothing:** to find the best balance.
+- The **Gain Floor** control prevents the NR2 engine from applying excessive attenuation to very faint signals; higher values keep more of the background noise, lower values allow deeper suppression.
 
 ## Troubleshooting
 
 - **Audio sounds unaffected after moving the slider** — Confirm you are on the correct tab and that the corresponding noise reduction engine is active. Each engine has separate controls and is not affected by settings from other engines.
 - **MNR tab is dimmed** — MNR is only available on macOS builds.
 - **BNR tab is dimmed** — The NVIDIA Broadcast SDK is not detected on your system.
+- **DFNR tab shows DFNR unavailable tooltip** — DFNR requires DeepFilterNet to be set up and AetherSDR rebuilt.
 
 ## Related
 

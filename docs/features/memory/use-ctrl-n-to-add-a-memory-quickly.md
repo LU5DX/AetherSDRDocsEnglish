@@ -25,6 +25,14 @@ The memory table displays and edits memory rows. Columns include Group, Owner, F
 - Double-click tunes the active slice to that memory.
 - **Ctrl+Shift+A** selects all.
 
+### Inline editing with drop-down fields
+
+When editing a memory cell, constrained fields (Mode, Offset Dir, Tone Mode, Tone Value, Step, Group) open a combo-box editor. The list pops open immediately so you can pick a value in one click.
+
+- **Strict fields** (not editable): Only known values from the radio are offered.
+- **Editable fields**: Common values are seeded, but you can type custom text; the radio validates the input on commit. Int and Double validators apply where appropriate.
+- If a cell contains a value not in the list (e.g., from a legacy memory), the value is preserved and shown as the first item so it isn't silently changed.
+
 ## Managing memories
 
 | Control | Behavior |
@@ -48,7 +56,7 @@ The Memory Channels dialog has a modern frameless interface:
 | **□ (Maximize)** | Maximizes or restores the dialog. |
 | **× (Close)** | Closes the dialog. Escape clears search first, then closes. |
 | **Drag-to-move** | Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. |
-| **8-axis resize** | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone. |
+| **8-axis resize** | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone. The top edge reserves an area (the title bar height) for drag-to-move instead of resize. |
 | **Selection count** | Shows "<N> of <M> selected". |
 
 ## Keyboard shortcuts

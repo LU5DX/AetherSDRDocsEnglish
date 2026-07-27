@@ -27,7 +27,6 @@ AetherSDR opens the AetherSDR releases page in your default web browser and clos
 | Status label                 | Under the header shows the GitHub release title and published date after fetch, or a loading message while fetching.                                                             | Multi-line status via <br/> insertion.                                                                                                                       |
 | Find                         | Opens a QInputDialog to enter search text; highlights matches in the release notes and wraps around.                                                                             | New in v26.5.3 (#2979).                                                                                                                                      |
 | Close                        | Primary action button that dismisses the dialog.                                                                                                                                 | Styled as primary blue button. Always visible.                                                                                                               |
-
 ## Tips
 
 - If you close the dialog with `Got it — 73!` instead of `Upgrade`, AetherSDR records the current version in `LastSeenVersion` and will not prompt you again for this release. You can still return to the dialog via `Help > What's New...`.

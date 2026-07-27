@@ -40,7 +40,7 @@ The compact Compressor applet (shown when you enable the COMP stage in the CHAIN
 - Changes made in the editor are immediately reflected back in the compact applet's knobs and gain-reduction meter.
 - The editor remembers its last position and size via `StripCompPanelGeometry`. If you want to reset it, you can clear that setting from the config file.
 - The compact applet's theme adapts to the current color scheme. The transfer curve background, grid lines, axis labels, curve color, envelope ball glow, and ball core all use theme colors from the `color` palette.
-- The gain-reduction meter and envelope ball animation now refresh more smoothly. The timer stops when the meter settles but continues repainting while the envelope ball is moving, ensuring the ball glides along the transfer curve without stutter.
+- The gain-reduction meter and envelope ball animation refresh continuously while the compressor is active — the animation timer stops when the meter settles but continues repainting while the envelope ball is moving, ensuring the ball glides along the transfer curve without stutter.
 
 ## Related
 

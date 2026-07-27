@@ -21,10 +21,14 @@ The "RF Power" slider sets the maximum forward power the transmitter will produc
 
 The RF Pwr meter and SWR meter display real-time readings. A PEP peak-hold bar marks the peak envelope power and decays after a 2-second hold window. The peak resets to zero when the transmitter unkeys.
 
-| Meter  | Scale                          | Red threshold |
-|--------|--------------------------------|---------------|
+| Meter | Scale | Red threshold |
+|---|---|---|
 | RF Pwr | 0–120 W (barefoot), 0–600 W (Aurora 500W) | > 100 W / > 500 W |
-| SWR    | 1.0–3.0                        | > 2.5         |
+| SWR | 1.0–3.0 | > 2.5 |
+
+### Hover readout
+
+Hover your mouse over the RF Pwr or SWR meter to see the exact value. The RF Pwr readout shows the precise wattage (e.g., "45 W") and the SWR readout shows the ratio in conventional form (e.g., "1.32:1"). This helps you avoid estimating between tick marks during transmission.
 
 ## Set tune-carrier power
 
@@ -52,27 +56,27 @@ When dragging either the RF Power or Tune Pwr slider, a tooltip shows the curren
    - The button text changes to "TUNING..." and the background turns red.
 2. Click TUNE again or click the TUNE button to stop the carrier.
 
-**Right-click context menu (v26.5.2.1)**:
+**Right-click context menu**:
 - Right-click the TUNE button to open a context menu for selecting the carrier shape of the next tune cycle.
-- Choose **Mono Tone** or **Two Tone**. The selection is a one-shot: the radio's tune mode reverts to single_tone across power cycles, and AetherSDR does not persist the choice in AppSettings.
+- Choose **Mono Tone** or **Two Tone**. The selection is a one-shot: the radio's tune mode reverts to single_tone across power cycles, and AetherSDR does not persist the choice.
 
 ## MOX button
 
 1. Click MOX to key the transmitter manually.
    - The button turns red while the transmitter is keyed.
 2. Click MOX again to unkey.
-   - The button returns to blue.
+   - The button returns to its idle state with an amber accent border and text, distinguishing it from the TUNE, ATU, and MEM buttons.
 
-**Quindar tone behavior (v0.9.7+)**:
+**Quindar tone behavior**:
 - On **engage**: if Quindar is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, the K-tone plays before the transmitter is keyed.
 - On **disengage**: the BK-tone plays after the transmitter unkeys.
 - If Quindar is disabled, or the active TX slice is not on a phone mode, the behavior is immediate — the transmitter keys and unkeys without tones.
 
 ## ATU button
 
-The ATU button starts an internal ATU tuning cycle. As of v0.9.5.1, the ATU button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
+The ATU button starts an internal ATU tuning cycle. The ATU button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
 
-### Right-click context menu (v26.5.2.1)
+### Right-click context menu
 
 Right-click the ATU button to expose additional tuner actions:
 
@@ -139,7 +143,7 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 | Tune Pwr | Sets the tune-carrier power level (percent of maximum). | 10 |
 | TX Profile | Selects a TX profile from the radio. | — |
 | TUNE | Starts/stops a tune carrier. Right-click for Mono Tone / Two Tone carrier shape. | — |
-| MOX | Toggles manual transmit. | — |
+| MOX | Toggles manual transmit. Idle state shows an amber accent border. | — |
 | ATU | Starts an ATU tuning cycle or toggles bypass. Right-click for Pre-tune bands / Clear ATU memories. | — |
 | MEM | Toggles ATU memory recall. | — |
 | APD | Toggles adaptive pre-distortion. | — |
@@ -151,6 +155,7 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 - You can set per-band tune power defaults in `Settings > TX Band Settings...`.
 - The RF Pwr peak-hold bar resets to zero when the transmitter unkeys, preventing a held PEP reading from lingering across overs.
 - The power sliders now display values as percentages of the radio's maximum power. The actual wattage depends on your radio model and any external amplifier.
+- Hover over the RF Pwr or SWR meters to see precise readings — exact wattage or SWR ratio — instead of estimating between tick marks.
 
 ## Related
 

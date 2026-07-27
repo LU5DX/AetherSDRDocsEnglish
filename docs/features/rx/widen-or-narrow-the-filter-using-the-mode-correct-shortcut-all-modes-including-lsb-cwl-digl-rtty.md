@@ -20,13 +20,14 @@ Each click moves through the mode's preset list. The current filter width is sho
 |----------------------------------|----------------|--------------------------------------------------------------------------------|
 | **Filter width presets (◀ / ▶)** | See below      | Steps through per-mode filter widths in descending (◀) or ascending (▶) order. |
 | **2.7K (filter width)**          | Mode-dependent | Displays the current slice filter bandwidth.                                   |
+
 ## Filter width presets by mode
 
 | Mode | Presets (Hz) |
 |------|-------------|
 | USB, LSB | 1800, 2100, 2400, 2700, 2900, 3300 |
 | AM, SAM | 5600, 6000, 8000, 10000, 12000, 14000 |
-| CW | 50, 100, 250, 400 |
+| CW | 50, 100, 250, 400, 500, 600 |
 | DIGU, DIGL | 100, 300, 600, 1000, 1500, 2000 |
 | RTTY | 250, 300, 350, 400, 500, 1000 |
 | FM, NFM, DFM | No filter presets (buttons hidden) |
@@ -47,14 +48,14 @@ The RX Controls applet provides per-slice receive controls. It appears when you 
 | **Slice tabs (A..H)** | tab | — | Selects which slice the RX applet is bound to; emits sliceActivationRequested. Row hidden if maxSlices <= 1. clearSliceButtons() tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Slice button click connections are guarded against duplicate signal handlers across reconnects. |
 | **Slice badge** | indicator | A | Displays the letter of the currently bound slice. Coloured by slice identity. |
 | **🔓 / 🔒** | toggle_button | 🔓 (unlocked) | Toggles tune-lock on the slice; locked slice ignores frequency changes. Icon flips between open and closed padlock. |
-| **ANT1 (RX antenna)** | combo_box | ANT1 | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. Populated from the radio's ant_list. Blue-coloured label. |
+| **ANT1 (RX antenna)** | combo_box | ANT1 | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. Populated from the radio's ant_list and KiwiSDR virtual antenna tokens. Blue-coloured label. When a KiwiSDR profile is assigned to the selected slice, the corresponding virtual antenna token appears checked in the menu. Selecting a KiwiSDR virtual antenna emits kiwiRxAntennaSelected(sliceId, profileId); selecting a radio antenna emits flexRxAntennaSelected(sliceId) then sets the slice antenna. |
 | **ANT1 (TX antenna)** | combo_box | ANT1 | Opens a menu listing TX-capable antennas; RX-only ports (prefix 'RX') are filtered out. Selecting sets slice->setTxAntenna. Red-coloured label. |
 | **2.7K (filter width)** | indicator | 2.7K | Shows current filter width in kHz. Updates when filter preset is applied. |
 | **QSK** | indicator | off (grey) | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet Breakin button. |
 | **TX (badge)** | toggle_button | — | Click to set this slice as the TX slice (calls slice->setTxSlice). |
 | **Mode combo** | combo_box | USB | Sets slice mode; reshapes filter and step presets for the new mode. Options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE). Selecting a real radio mode tears down the WFM software-demod overlay if it was running on this slice. RADE option requires HAVE_RADE build flag. |
 | **WFM** | push_button | off | Toggle button for the software FM demodulator via DAX IQ → Hi-Fi Cable. When enabled, the button glows green; when disabled, it turns grey. Emits wfmActivated signal with the slice ID. |
-| **Frequency label** | indicator | 0.000.000 | Displays current VFO frequency with dotted grouping. Click to switch into edit mode. |
+| **Frequency label** | indicator | 0.000.000 | Displays current VFO frequency with dotted grouping. Click to switch into edit mode. Accessibility value change events are posted to the label when the frequency text changes, enabling assistive technology to announce updates. |
 | **Frequency edit** | text_field | — | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). Uses FreqLineEdit with hint text "MHz". XVTR-aware: accepts up to 450 MHz when slice is on an XVTR antenna. |
 | **STEP** | spinbox | 100 Hz (index 2) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged and stepSizeChangedByUser. Step list depends on slice mode. |
 | **Filter width presets** | push_button | — | Click to apply a preset filter width; right-click to save current width as a preset. Buttons hidden for FM/NFM/DFM modes. The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
@@ -117,12 +118,4 @@ When RADE mode (Radar Detection) is available (requires HAVE_RADE build flag), s
 The **🔊 / 🔇 (mute)** button uses a push_button (non-checkable) with click discrimination:
 
 - **Single-click**: Toggles mute for this slice only. The action is deferred by the platform double-click interval (typically ~400 ms) so a double-click can override it.
-- **Double-click**: Toggles mute for all owned slices via the `muteAllToggled` signal. The second click cancels the single-click timer.
-- The icon (🔊/🔇) updates only when the radio acknowledges the mute state change through `SliceModel::audioMuteChanged`, ensuring the displayed state matches the radio's actual state.
-- Mute state is not saved or restored on reconnect — the radio is always the source of truth.
-
-## Theme support
-
-The RX Controls applet integrates with the theme system for consistent visual appearance:
-
-- **Filter width presets** buttons use tokenised styles through `ThemeManager::resolve
+- **Double-click**: Toggles mute for all owned slices via the `muteAllToggled` signal. The second click cancels

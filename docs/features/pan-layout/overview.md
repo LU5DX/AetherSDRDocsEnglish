@@ -17,7 +17,7 @@ The chosen layout is persisted as `PanLayout`.
 
 Thumbnails for arrangements that exceed the number of panadapters your radio supports are shown with a dimmed appearance and cannot be selected. If the radio's slice limit is already at capacity when a larger layout is applied, a status-bar message "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" is shown and the layout change is cancelled.
 
-The dialog uses the current theme's color palette for its background, text, accent, and button styles. If you change the theme, the dialog updates automatically on next open.
+The dialog uses the current theme's color palette for its background, text, accent, and button styles. If you change the theme, the dialog updates automatically on next open. The dialog body has a fixed width that keeps the three-column thumbnail grid centred; its height is determined by the layout so the Cancel button always appears below the grid.
 
 ## What each control does
 

@@ -22,6 +22,7 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 
 | Control | Description | Persisted key |
 |---|---|---|
+| **Local / SmartLink / Manual** mode buttons | Switch the panel among the three connection modes. Default is **Local**. | `ConnectionMode` |
 | **Remote with SmartLink** mode button | Switches the panel to SmartLink mode. | `ConnectionMode` |
 | **Email** field | Your FlexRadio SmartLink account email address. | `SmartLinkEmail` |
 | **Password** field | Your SmartLink password. Not saved between sessions. | — |
@@ -29,20 +30,28 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 | **Sign Out** | Logs out of SmartLink and clears the radio list. | — |
 | **Remote radios** list | Shows all FLEX-8600 radios registered to your SmartLink account that are currently online. The list has a fixed display height; if you have many radios, scroll within the list. | — |
 | **Connect Remote Radio** | Starts a WAN connection to the radio selected in the **Remote radios** list. This button appears below the list, outside the radios group. | — |
-| **Use low bandwidth mode** checkbox | Enables reduced-rate audio and data streams. Use this on slow or metered internet connections. | `LowBandwidthMode` |
-| **Enable adaptive frame-rate throttle** checkbox | Automatically reduces FFT/waterfall frame rate when network quality degrades. This helps maintain performance on variable-speed links. | `AdaptiveThrottleEnabled` |
-| **Connect to last radio on start up** checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. Added in v0.9.7. | `AutoConnectToLastRadio` |
-| **Open Network Diagnostics** | Opens the Network Diagnostics dialog to help troubleshoot connection issues. | — |
+| **Available radios** list | Lists LAN radios discovered via mDNS/Flex discovery. Has a bounded height — use the scrollbar if more radios are found than fit. | — |
+| **No local radios found yet** indicator | Callout shown when discovery is empty. | — |
+| **Retry Discovery** | Re-runs LAN discovery. | — |
+| **Connect Selected Radio** | Connects to the highlighted LAN radio. | — |
+| **Connect by IP** | Shortcut to the Manual page. | — |
+| **Radio IP address** field | Manual IP to connect to. | `ManualRadioIp` |
+| **Connect by IP (manual)** | Starts the manual/VPN connection. | — |
 | **Source path** combo box (Advanced) | Picks the local network interface used for the manual connection. Available on the Manual page. | `ManualBindSource` |
-| **Connect by IP (manual)** | Starts a manual or VPN connection to the IP address entered in the **Radio IP address** field. | — |
+| **Use low bandwidth mode** checkbox | Enables reduced-rate audio and data streams. Use this on slow or metered internet connections. | `LowBandwidthMode` |
+| **Connect to last radio on start up** checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. Added in v0.9.7. | `AutoConnectToLastRadio` |
+| **Open Network Diagnostics** | Opens the Network Diagnostics dialog to help troubleshoot connection issues. Available from both Local and Manual pages. | — |
+| **Network Diagnostics** | Opens NetworkDiagnosticsDialog from the Manual page. | — |
+| **Disconnect** | Disconnects from the current radio. | — |
 
 ## Tips
 
 - If the connection is sluggish or audio breaks up, enable **Use low bandwidth mode** before clicking **Connect Remote Radio**.
-- For variable-speed network links (e.g., cellular), enable **Enable adaptive frame-rate throttle** to let AetherSDR automatically adjust FFT/waterfall frame rates when network quality changes.
 - The status label below the controls shows the current connection state. If it shows an error, sign out and sign in again to refresh the SmartLink session.
 - **Connect to last radio on start up** is checked by default so that existing users keep their previous behavior after upgrading. Uncheck it if you want to choose a radio manually at each startup.
 - SmartLink login fields now include accessibility hints and object names that help password managers (macOS Passwords, Windows Authenticator, KDE Wallet) correctly associate your credentials with the SmartLink login form.
+- Right-click a radio in the local **Available radios** list to set a custom nickname for non-Flex radios (HL2, simulator, etc.). This nickname is saved locally and appears on subsequent discoveries. This option is not available for Flex radios, whose names are set via the radio's own Radio Setup.
+- The radio list height is bounded to ensure the **Connect Selected Radio** and other controls below the list remain reachable, even on small displays (e.g., 1024x600). Use the vertical scrollbar to see all discovered radios.
 
 ## Troubleshooting
 

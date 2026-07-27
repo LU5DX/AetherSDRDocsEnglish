@@ -112,11 +112,21 @@ WebSocket feed of FreeDV QSO reporter spots.
 
 Unified searchable table of all live spots from all sources.
 
+The band-filter checkboxes use a flow layout that wraps to a new row when horizontal space runs out, rather than compressing the labels. This keeps the checked state readable even when the SpotHub dialog is narrow.
+
 | Control | Description |
 |---|---|
 | **Bands:** | Per-band checkboxes to toggle visibility. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). |
 | **Clear** | Empties the current spot list. |
 | **Spot table** | Sortable table with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click a row to tune to that frequency. |
+
+### Showing and hiding table columns
+
+Right-click any column header in the spot table to open a context menu. Each column name appears as a checkable menu item. The menu stays open while you toggle multiple columns, so you can show or hide several columns in one pass instead of reopening the menu for each column.
+
+1. Right-click a column header in the spot table.
+2. Check or uncheck any column name to show or hide it.
+3. Click outside the menu or press Escape to close it.
 
 ---
 
@@ -190,22 +200,4 @@ Controls for Signal History marker behavior and appearance.
 
 ## Startup Commands Editor
 
-The **Cluster** and **RBN** tabs each have a **Startup Commands...** button that opens a dialog for editing commands sent automatically after every login. Each source stores its commands independently.
-
-### Editing startup commands
-
-1. Click **Startup Commands...** on either the Cluster or RBN tab.
-2. Enter one command per line (e.g. `SET/NAME`, `SET/QTH`, `ACCEPT/SPOT`).
-3. Click **OK** to save, or **Cancel** to discard changes.
-
-Commands take effect on the next connection or reconnection to the cluster.
-
----
-
-## Indicators
-
-The SpotHub dialog displays current state for each source:
-
-| Label | Possible states |
-|---|---|
-| Status (Cluster/RBN/WSJT-X/SpotCollector/POTA/FreeDV) | Disconnected, Connected, Stopped
+The **Cluster** and **RBN** tabs each have a **Startup Commands...** button that opens a dialog for editing commands sent automatically

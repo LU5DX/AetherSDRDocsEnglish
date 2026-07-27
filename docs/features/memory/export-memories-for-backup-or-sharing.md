@@ -31,6 +31,17 @@ The dialog remembers its geometry across sessions. When reopened, it restores to
 
 The memory table uses themed background colors determined by the current application theme. The alternate row color and selected item highlight are set to match the active theme's color scheme.
 
+## Inline editing with combo-box delegates
+
+Starting in v26.7.4, many memory fields use dedicated combo-box editors when you enter inline edit mode. This accelerates data entry by presenting a pick list of valid values while still allowing typed input where appropriate.
+
+- **Mode, Offset Direction, Tone Mode, Tone Value, Step, Group**: A combo box pops open immediately when you start editing the cell. Select a value from the list or type a custom value.
+- **Frequency and Repeater Offset**: Float-validated editors accept only numeric input with standard decimal notation.
+- **Rx Filter Low, Rx Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset**: Integer-validated editors accept only whole numbers.
+- **Name**: Plain text editor with no validation.
+
+The combo box drops open on a zero-delay timer so picking a value is effectively one click once the cell is being edited.
+
 ## Tips
 
 - If you want to export only the memories belonging to a particular profile, use the `Profile:` combo box to filter the table to that profile first, then click `Select All` before clicking `Export...`.

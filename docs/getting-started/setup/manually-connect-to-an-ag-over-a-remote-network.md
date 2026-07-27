@@ -43,7 +43,7 @@ Use this page to connect AetherSDR to an Antenna Genius that is not on the local
 
 - AetherSDR saves the last-used address to `AG_ManualIp` when you press Enter. The field is pre-filled with that address the next time you open the applet.
 - If the Device combo contains a discovered device, clicking Connect connects to that device, not the Manual IP. Clear or ignore the combo selection if you want the Manual IP to take effect via the Connect button. Pressing Enter in the Manual IP field always uses the typed address regardless of the combo state.
-- Port B is hidden automatically if the connected Antenna Genius reports only one radio port.
+- Port B is hidden automatically once the Antenna Genius reports its number of radio ports. For manual-IP connections, this happens when the info get response is received. For discovered devices, this happens when a UDP beacon is received. Port B may remain visible briefly after connecting until the device reports it has only one port.
 - Auto-connect on discovery applies only to Antenna Genius devices. If a ShackSwitch is discovered on the same network, it is not auto-connected from this applet; it is handled by the ShackSwitch applet instead.
 - The antenna button grid is cleared when the device disconnects and rebuilt when a connection is established. This ensures the display and the model remain consistent while disconnected.
 - Antenna buttons are not rebuilt until the model has loaded the antenna list. If the grid appears blank briefly after connecting, wait for the antenna list response from the device.

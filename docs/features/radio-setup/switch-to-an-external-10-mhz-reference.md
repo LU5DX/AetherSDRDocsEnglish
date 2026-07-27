@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Radio Setup dialog is the master per-radio configuration window. It provides access to radio information, network settings, GPS, transmit configuration, phone/CW settings, receive calibration, audio, filters, transverters, USB cables, peripherals, serial ports, and SmartLink pinned certificate management.
+The Radio Setup dialog is the master per-radio configuration window. It provides access to radio information, network settings, GPS, transmit configuration, phone/CW settings, receive calibration, audio, filters, transverters, USB cables, peripherals, serial ports, SmartLink pinned certificate management, KiwiSDR receiver configuration, and APD settings.
 
 To open the dialog, click `Settings > Radio Setup...`. The dialog requires an active radio connection.
 
@@ -31,7 +31,6 @@ The Radio tab displays radio identification information, license details, and fi
 | Control | Kind | Behavior |
 |---------|------|----------|
 | Remote On | Push button | Enables remote wake / remote-on. |
-| Reboot Radio | Push button | Sends a reboot command to the connected radio. Disabled when radio is not connected. Shows a confirmation dialog before rebooting. On LAN connections, AetherSDR automatically reconnects after reboot. On SmartLink/WAN connections, you must reconnect manually. Dialog closes after confirmation. New in v26.6.3. |
 | Check for Update | Push button | Queries for firmware updates. |
 | Select Installer... | Push button | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. |
 | Upload Firmware | Push button | Starts firmware upload with progress bar and status. |
@@ -190,11 +189,13 @@ The APD tab provides external Adaptive Pre-Distortion sample port selection per 
 | ANT1: / ANT2: / XVTA: / XVTB: | Combo box | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. |
 | Reset (APD Equalizer) | Push button | Clears all per-antenna APD training data on the radio. |
 
-## Themes Tab
+## KiwiSDR Tab
 
-The Themes tab provides UI appearance settings including per-slice color overrides.
+The KiwiSDR tab manages connection to KiwiSDR public receivers for remote RX capabilities.
 
 ### Controls
 
 | Control | Kind | Default | Behavior |
-|---------|------|
+|---------|------|---------|----------|
+| KiwiSDR Receiver URL | Text field | - | URL of the KiwiSDR receiver to connect to. |
+| Connect / Disconnect | Push button | Connect | Establishes or tears down the connection to the configured KiwiSDR receiver

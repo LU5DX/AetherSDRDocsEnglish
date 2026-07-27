@@ -43,7 +43,7 @@ The **Gain-reduction bar** is a horizontal amber strip, right-filled, with a sca
 
 The **Input ball** on the transfer curve shows whether the gate is currently open or closed based on its position relative to the threshold and hysteresis band.
 
-The animation of the gain-reduction bar and input ball uses a precise timer for smooth visual updates. When the audio level settles, the animation timer stops to conserve CPU. If the smoothed value changes between ticks, the widget repaints immediately without waiting for the next timer interval, ensuring responsive visual feedback even during rapid level changes.
+The animation of the gain-reduction bar and input ball uses a precise timer for smooth visual updates. When the audio level settles, the animation timer stops to conserve CPU. The widget repaints continuously during animation to ensure responsive visual feedback.
 
 ## Inline value editing
 

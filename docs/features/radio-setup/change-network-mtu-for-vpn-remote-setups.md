@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, antennas, filters, XVTR, USB cables, peripherals, serial/FlexControl, themes, and SmartLink certificate management. Many read-only values include a clipboard copy button next to the label for easy sharing with support.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network, GPS, TX, phone/CW, RX, antennas, filters, XVTR, USB cables, peripherals, serial/FlexControl, themes, APD, KiwiSDR, and SmartLink certificate management. Many read-only values include a clipboard copy button next to the label for easy sharing with support.
 
 ## Opening the dialog
 
@@ -12,30 +12,31 @@ The Radio Setup dialog is the master per-radio configuration window. It contains
 - The dialog geometry is persisted across sessions using `PersistentDialog`.
 - Changes made on some tabs are applied immediately; others require clicking an Apply or Connect button.
 - If you clear an IP field on the **Peripherals** tab and close the dialog without clicking Connect/Disconnect, the saved manual IP and port are automatically removed and the device disconnects.
-- Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals on small or high-DPI displays) are wrapped in a vertical scroll area so the dialog does not overflow the screen edge.
+- Tabs whose content may exceed the dialog's visible height (Themes, Audio, Filters, Peripherals, KiwiSDR on small or high-DPI displays) are wrapped in a vertical scroll area so the dialog does not overflow the screen edge.
+- All QCheckBox indicators use ThemeManager tokens for visibility in dark mode, with hover and disabled pseudo-states.
 
 ## Radio (tab)
 
 The Radio tab displays radio information, identification, license info, firmware update controls, and a reboot button.
 
-| Control | Description | Notes |
-|---|---|---|
-| **Radio SN** | Chassis serial number (read-only). | Click the copy button to copy the serial number to clipboard. |
-| **Region** | Radio regulatory region (read-only). | |
-| **HW Version** | Hardware version string (read-only). | Click the copy button to copy the version string to clipboard. |
-| **Remote On** | Enables remote wake / remote-on. | |
-| **Options** | Shows licensed radio options (read-only). | Click the copy button to copy the options string to clipboard. |
-| **FlexControl** | Detected state of FlexControl hardware (read-only). | |
-| **multiFLEX** | multiFLEX enabled state (read-only). | |
-| **Model** | Radio model (read-only). | Click the copy button to copy the model string to clipboard. |
-| **Nickname** | User-friendly radio nickname. | |
-| **Callsign** | Station callsign. | |
-| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. | Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>". |
-| **License Info** | Displays license details from the radio: subscription, expiration, radio ID, and licensed version. | Each field includes a clipboard copy button next to the value. |
-| **Check for Update** | Queries for firmware updates. | |
-| **Select Installer...** | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3. |
-| **Upload Firmware** | Starts firmware upload with progress bar and status. | |
-| **Reboot Radio** | Sends a reboot command to the connected radio. Disabled when radio is disconnected. Shows a confirmation dialog before rebooting. On LAN, AetherSDR automatically reconnects after the radio boots. On SmartLink/WAN, you must reconnect manually. | New in v26.6.3. The dialog closes after reboot starts. |
+| Control                                             | Description                                                                                                                                                                                                                                        | Notes                                                                                                                               |
+|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Radio SN**                                        | Chassis serial number (read-only).                                                                                                                                                                                                                 | Click the copy button to copy the serial number to clipboard.                                                                       |
+| **Region**                                          | Radio regulatory region (read-only).                                                                                                                                                                                                               |                                                                                                                                     |
+| **HW Version**                                      | Hardware version string (read-only).                                                                                                                                                                                                               | Click the copy button to copy the version string to clipboard.                                                                      |
+| **Remote On**                                       | Enables remote wake / remote-on.                                                                                                                                                                                                                   |                                                                                                                                     |
+| **Options**                                         | Shows licensed radio options (read-only).                                                                                                                                                                                                          | Click the copy button to copy the options string to clipboard.                                                                      |
+| **FlexControl**                                     | Detected state of FlexControl hardware (read-only).                                                                                                                                                                                                |                                                                                                                                     |
+| **multiFLEX**                                       | multiFLEX enabled state (read-only).                                                                                                                                                                                                               |                                                                                                                                     |
+| **Model**                                           | Radio model (read-only).                                                                                                                                                                                                                           | Click the copy button to copy the model string to clipboard.                                                                        |
+| **Nickname**                                        | User-friendly radio nickname.                                                                                                                                                                                                                      |                                                                                                                                     |
+| **Callsign**                                        | Station callsign.                                                                                                                                                                                                                                  |                                                                                                                                     |
+| **Station Name**                                    | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty.                                                                                                                                                | Stored in AppSettings as `StationName`. Sent to radio as "client station \<name\>".                                                 |
+| **License Info**                                    | Displays license details from the radio: subscription, expiration, radio ID, and licensed version.                                                                                                                                                 | Each field includes a clipboard copy button next to the value.                                                                      |
+| **Check for Update**                                | Queries for firmware updates.                                                                                                                                                                                                                      |                                                                                                                                     |
+| **Select Installer...**                             | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress.                                                        | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
+| **Upload Firmware**                                 | Starts firmware upload with progress bar and status.                                                                                                                                                                                               |                                                                                                                                     |
+| **Reboot Radio**                                    | Sends a reboot command to the connected radio. Disabled when radio is disconnected. Shows a confirmation dialog before rebooting. On LAN, AetherSDR automatically reconnects after the radio boots. On SmartLink/WAN, you must reconnect manually. | New in v26.6.3. The dialog closes after reboot starts.                                                                              |
 
 ### Copyable values (Radio tab)
 
@@ -193,16 +194,4 @@ The **10 MHz Reference Source:** combo box is populated dynamically. Only source
 - When the setting and state agree, only the active source is shown.
 - Lock state is appended: `Locked` (green) or `Unlocked` (red).
 - If **External 10 MHz** is selected or active but no external reference is detected, the label appends `(not detected)`.
-- While the radio has not yet reported oscillator status, the label reads `Waiting for oscillator status` in grey.
-
-### Calibration procedure
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **RX** tab.
-3. Enter a known-accurate reference frequency in the **Cal Frequency (MHz):** field.
-4. Click **Start**.
-   - The button label changes to **Busy** and is disabled while the calibration sweep runs.
-   - A status label beside the button updates as the sweep progresses.
-   - The radio first resets the frequency error to 0 ppb, then begins the PLL calibration sequence.
-5. When calibration completes the button re-enables and the status label shows the result.
-6. If you
+- While the radio has not yet reported oscillator status, the label reads

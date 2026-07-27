@@ -37,9 +37,11 @@ The NR2 tab controls the musical-noise-reduction engine.
 | **NPE Method** | Radio button (OSMS, MMSE, NSTAT) | OSMS | `NR2NpeMethod` | Selects noise power estimator. Stored as integer 0-2. |
 | **AE Filter (artifact elimination)** | Checkbox | True | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
 | **Reduction:** | Slider, 0.50–2.00 | 1.50 | `NR2GainMax` | Sets maximum NR2 reduction depth. Slider stores value*100 internally. |
+| **Gain Floor:** | Slider, 0.00–1.00 | 0.00 | `NR2GainFloor` | Sets the minimum gain floor applied by NR2. Higher values preserve more ambient noise. Added in v26.7.4. |
 | **Smoothing:** | Slider, 0.50–0.98 | 0.85 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
 | **Threshold:** | Slider, 0.05–0.50 | 0.20 | `NR2Qspp` | Sets speech-presence-probability threshold. |
-| Reset Defaults (↺ icon) | Push button | — | — | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20). |
+| **Use Original Geometry** | Checkbox | False | `NR2UseOriginalGeometry` | When enabled, NR2 uses the original spectral geometry (pre-v26.7.4) for noise estimation. Disabled uses the revised geometry for improved musical-noise suppression. |
+| Reset Defaults (↺ icon) | Push button | — | — | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.00/0.85/0.20, Use Original Geometry off). |
 
 ### Changing the NPE method
 
@@ -47,6 +49,24 @@ The NR2 tab controls the musical-noise-reduction engine.
 2. In the **NPE Method** group, select one of the three radio buttons: **OSMS**, **MMSE**, or **NSTAT**.
 
 The setting takes effect immediately and is saved automatically to `NR2NpeMethod`.
+
+### Adjusting the Gain Floor
+
+The **Gain Floor** slider (0.00–1.00, default 0.00) sets the minimum gain applied by the NR2 engine. A value of 0.00 allows the engine to fully attenuate noise when the speech-presence probability is low. Higher values preserve more ambient noise, which can reduce the "starved" or "underwater" sound that some operators experience with aggressive noise reduction.
+
+1. Click the **NR2** tab.
+2. Drag the **Gain Floor:** slider to the desired level.
+
+The setting takes effect immediately and is saved automatically to `NR2GainFloor`.
+
+### Using the original spectral geometry
+
+The **Use Original Geometry** checkbox (default: off) controls whether NR2 uses the revised spectral geometry introduced in v26.7.4 (off) or the original pre-v26.7.4 geometry (on). The revised geometry improves suppression of musical-noise artifacts. If you prefer the older behavior, enable this option.
+
+1. Click the **NR2** tab.
+2. Check or uncheck **Use Original Geometry**.
+
+The setting takes effect immediately and is saved automatically to `NR2UseOriginalGeometry`.
 
 ## NR4 tab
 
@@ -88,7 +108,7 @@ The BNR tab controls the NVIDIA Broadcast noise-reduction engine. Intensity is c
 
 ## DFNR tab
 
-The DFNR tab controls the DeepFilterNet3 noise-reduction engine.
+The DFNR tab controls the DeepFilterNet3 noise-reduction engine. The DFNR toggle is dimmed on builds without DeepFilterNet support.
 
 ### Controls
 
@@ -103,11 +123,14 @@ The DFNR tab controls the DeepFilterNet3 noise-reduction engine.
 - The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as exclusive selectors and engine enable/disable controls. When NR2 is activated, AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
 - The dialog uses `PersistentDialog`, which automatically saves and restores its geometry across sessions. The dialog position and size are persisted using the `AetherDspDialogGeometry` setting key.
 - All sliders in this dialog use the themable primary slider style, adapting to the current color theme.
+- The last active client-side noise-reduction method is remembered across sessions via the `LastClientNr` setting. If DFNR was last active but DeepFilterNet is unavailable, the preference is cleared automatically.
 
 ## Tips
 
 - NR2: OSMS works well for steady background noise such as atmospheric hiss or white noise. NSTAT is better for rapidly changing noise floors.
 - NR2: If changing the NPE method introduces more musical noise artifacts, enable **AE Filter (artifact elimination)**.
+- NR2: If noise reduction sounds too aggressive or "starved," increase **Gain Floor:** slightly (e.g., 0.05–0.10) to retain some ambient noise.
+- NR2: Disable **Use Original Geometry** (the default) unless you specifically need the pre-v26.7.4 behavior.
 - NR4: Adaptive noise estimation helps track changing noise conditions. Disable it if the noise floor is stable.
 - DFNR: Post-Filter Beta adds extra suppression but may introduce artifacts at higher values.
 - Click the Reset Defaults button (↺) on any tab to return all parameters on that tab to their factory defaults.
@@ -117,6 +140,8 @@ The DFNR tab controls the DeepFilterNet3 noise-reduction engine.
 - **Changing parameters produces no audible difference** — Confirm the DSP engine is enabled on the receiver. The AetherDSP Settings dialog adjusts parameters but does not itself activate the engine; the engine must be switched on from the receiver controls.
 - **MNR tab is dimmed or unavailable** — MNR is only available on macOS. Windows and Linux builds do not include the MNR backend.
 - **BNR tab is dimmed** — The NVIDIA Broadcast SDK is not installed on this system.
+- **DFNR tab is dimmed** — DeepFilterNet is not available on this build. Rebuild AetherSDR with DeepFilterNet support to enable DFNR.
+- **Gain Floor slider does not appear** — You are running a version older than v26.7.4. Update to the latest release.
 
 ## Related
 

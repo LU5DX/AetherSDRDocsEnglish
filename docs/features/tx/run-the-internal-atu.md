@@ -1,6 +1,6 @@
 # TX Controls overview
 
-*Introduced in v0.9.0. Updated for v26.6.1.*
+*Introduced in v0.9.0. Updated for v26.7.4.*
 
 The TX Controls applet provides all transmit-related controls: forward power and SWR meters, RF/Tune power sliders, TX profile selector, and TUNE/MOX/ATU/MEM buttons. It also includes the APD (Adaptive Pre-Distortion) toggle with Active/Cal/Avail status indicators.
 
@@ -13,7 +13,11 @@ The TX Controls applet provides all transmit-related controls: forward power and
 
 The forward power meter displays the output power at the exciter. A peak-hold bar tracks the peak envelope power (PEP) on each transmission with a 2-second hold and gradual decay back to the current smoothed power level. The peak-hold resets to zero immediately when the transmitter is un-keyed.
 
+Hover the mouse cursor over the forward power meter to display the exact value in watts (e.g., "34 W"). This readout is useful for reading precise power levels between the 40 W tick marks during transmission.
+
 The SWR meter displays the standing wave ratio at the exciter output.
+
+Hover the mouse cursor over the SWR meter to display the exact ratio in the conventional N.N:1 form (e.g., "1.88:1").
 
 The forward power meter automatically scales based on the connected radio model:
 - Barefoot FlexRadio: 0–120 W (red zone above 100 W)
@@ -23,10 +27,12 @@ The forward power meter automatically scales based on the connected radio model:
 
 | Control | Default | Range | Behavior |
 |---|---|---|---|
-| RF Power | 100 | 0–100 | Sets the transmit RF power level as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "75%"). |
-| Tune Pwr | 10 | 0–100 | Sets the tune-carrier power level for tuning operations as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "25%"). |
+| RF Power | 100 | 0–100 | Sets the transmit RF power level as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "75%"). Releasing the slider handle syncs the final value from the model. |
+| Tune Pwr | 10 | 0–100 | Sets the tune-carrier power level for tuning operations as a percentage of maximum. When dragging the slider handle, a tooltip shows the value in percent (e.g., "25%"). Releasing the slider handle syncs the final value from the model. |
 
 Both sliders display a tooltip showing the current value in percent while you drag the handle. The tooltip appears next to the slider handle and updates in real time as you adjust the value. The slider fill color follows the selected theme.
+
+When you release the slider handle, the value is synced from the model to ensure consistency. This prevents the slider from reporting a different value than what the radio is actually using.
 
 ## TX Profile selector
 
@@ -37,7 +43,7 @@ The TX Profile combo box lists all TX profiles stored on the radio. Selecting a 
 | Button | Type | Behavior |
 |---|---|---|
 | TUNE | Push button | Starts/stops a tune carrier. Button text changes to "TUNING..." with red background while active. Right-click to select carrier shape. |
-| MOX | Toggle button | Toggles manual transmit. Button turns red while transmitting. Routes through Quindar-tone coordinator when QUIN chip is enabled. |
+| MOX | Toggle button | Toggles manual transmit. Button turns red while transmitting. Routes through Quindar-tone coordinator when QUIN chip is enabled. In idle state, MOX has an amber accent (border and text) to visually distinguish it from the neutral TUNE/ATU/MEM buttons. This accent is editable in the Theme Editor using the `color.tx.mox.*` tokens. |
 | ATU | Push button | Starts the internal ATU tuning cycle. Right-click for pre-tune and memory management options. |
 | MEM | Toggle button | Toggles ATU memory recall on/off. |
 
@@ -103,12 +109,15 @@ Starting in v0.9.7, clicking MOX routes through the Quindar-tone coordinator rat
 ## Tips
 
 - The forward power peak-hold bar helps you monitor PEP during voice transmission. The 2-second hold gives you time to read the value, and the gradual decay prevents distracting jumps.
+- Hover over the forward power meter to read the exact wattage, which is especially helpful when fine-tuning between the 40 W tick marks.
+- Hover over the SWR meter to see the exact ratio in the conventional N.N:1 form, making precise SWR adjustments easier.
 - Use the TUNE button right-click menu to select a two-tone carrier for intermodulation distortion testing when working with external amplifiers.
 - The ATU right-click menu provides access to pre-tuning multiple bands at once, saving time during band changes.
 - If Byp lights after the tuning cycle, the ATU was unable to find a match and has bypassed itself. Check your antenna system and SWR before transmitting at full power.
 - If Mem lights, the ATU applied a previously stored tuning memory rather than running a full tune. This is normal when MEM is enabled and a valid memory exists for the current frequency.
 - To manually force the tuner into bypass after a successful tune, click ATU a second time without changing frequency.
-- When adjusting the RF Power or Tune Pwr sliders, the tooltip that appears while dragging shows the exact value in percent, making fine adjustments easier.
+- When adjusting the RF Power or Tune Pwr sliders, the tooltip that appears while dragging shows the exact value in percent, making fine adjustments easier. Release the slider handle to sync the final value with the radio.
+- The MOX button's amber accent (border and text) when idle visually distinguishes it from the other buttons, confirming you are about to key the transmitter. This accent can be customized in the Theme Editor using the `color.tx.mox.*` tokens.
 
 ## Troubleshooting
 

@@ -61,7 +61,7 @@ Toggles tune-lock on the slice. When locked, the slice ignores frequency changes
 
 ### ANT1 (RX antenna)
 
-Opens a menu listing available receive antennas. The menu uses the slice's dedicated `rxAntennaList()` when available, falling back to the global panadapter antenna list. Blue-coloured label.
+Opens a menu listing available receive antennas. The menu uses the slice's dedicated `rxAntennaList()` when available, falling back to the global panadapter antenna list. If a KiwiSDR manager is active, virtual antenna tokens from the KiwiSDR are appended to the menu options — these are checked against the assigned KiwiSDR profile for the current slice. Selecting a virtual antenna emits a `kiwiRxAntennaSelected` signal with the slice ID and profile ID; selecting a real Flex antenna emits `flexRxAntennaSelected` and calls `setRxAntenna()` on the slice. Blue-coloured label.
 
 ### ANT1 (TX antenna)
 
@@ -100,7 +100,7 @@ A toggle button labelled "WFM" appears immediately after the mode combo box. It 
 
 ### Frequency label
 
-Displays the current VFO frequency with dotted grouping. Click to switch into edit mode.
+Displays the current VFO frequency with dotted grouping. Click to switch into edit mode. Accessibility: the frequency label emits accessible value change events when the displayed frequency changes, allowing screen readers to announce the new frequency.
 
 ### Frequency edit
 
@@ -114,7 +114,7 @@ Cycles through per-mode step sizes using < / > buttons or mousewheel. Step list 
 
 Click to apply a preset filter width. Right-click to save the current width as a preset. Buttons are hidden for FM/NFM/DFM modes. Presets are per-mode.
 
-The `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband, producing mode-correct edge geometry.
+The `stepFilterWidth()` method walks the per-mode filter preset list to widen or narrow the passband, producing mode-correct edge geometry. CW mode now has six presets (50, 100, 250, 400, 500, 600 Hz) instead of the previous four.
 
 Saved filter presets can store either a plain bandwidth width value or an explicit low-edge/high-edge pair (e.g., `300:3000`).
 
@@ -231,10 +231,4 @@ When you switch to RTTY mode:
 
 ## RADE mode safety
 
-In v26.5.2.1, the RADE mode deactivation logic was updated to reflect that "RADE" is a client-side only mode. The radio itself does not understand RADE as a distinct mode — when RADE is active, the radio echoes back the underlying real mode (DIGL or DIGU) immediately.
-
-The applet emits `radeActivated(false)` only if the slice was actually in RADE mode when the mode combo selection changed, preventing stale deactivate signals when changing modes on a non-RADE slice.
-
-This fix addresses the following scenarios:
-- Switching between non-RADE modes on a slice that was never in RADE.
-- RADE was activated externally (via the VFO widget combo, profile load on startup, or `MainWindow::activateRADE`).
+In v26.5.2.1, the RADE mode deactivation logic was

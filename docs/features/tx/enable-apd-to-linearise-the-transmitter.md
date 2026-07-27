@@ -27,6 +27,7 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 | Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
 The normal progression after enabling APD is: Cal → Avail → Active.
+
 ## Tips
 
 - APD calibration takes place automatically after you enable it. You do not need to transmit manually to trigger it; wait for the indicators to step through Cal → Avail → Active.
@@ -74,10 +75,12 @@ The selection is a one-shot transient — the radio's tune mode reverts to singl
 
 ## RF Power / Tune Power sliders
 
-| Control    | Kind   | Behavior                                                                                                                                    |
-|------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| RF Power   | Slider | Sets the transmit RF power level as a percentage of maximum (0–100%). Default: 100%. During drag, displays the current value as "XX%" above the slider handle. |
-| Tune Pwr   | Slider | Sets the tune-carrier power level as a percentage of maximum (0–100%). Default: 10%. During drag, displays the current value as "XX%" above the slider handle. |
+| Control    | Kind   | Behavior                                                                                                                                                                                                                                                                      |
+|------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Power   | Slider | Sets the transmit RF power level as a percentage of maximum (0–100%). Default: 100%. During drag, displays the current value as "XX%" above the slider handle. The value snaps to the last set position after release.                                                          |
+| Tune Pwr   | Slider | Sets the tune-carrier power level as a percentage of maximum (0–100%). Default: 10%. During drag, displays the current value as "XX%" above the slider handle. The value snaps to the last set position after release.                                                          |
+
+When you release either slider, the value synchronises from the radio model, ensuring the displayed value matches the actual radio state even if the radio rejected the intermediate value during the drag.
 
 ## TX Profile selector
 
@@ -89,7 +92,11 @@ Forward power is displayed as a horizontal bar gauge. The scale changes based on
 
 PEP peak-hold: a peak reading is held for 2 seconds, then decays smoothly to the current value. The peak is cleared immediately when the transmitter unkeys to prevent lingering readings across overs.
 
+Hover the mouse over the RF Pwr gauge to see the exact power reading in watts (e.g., "45 W").
+
 SWR is displayed as a horizontal bar gauge. Range 1.0–3.0. The gauge turns red above 2.5.
+
+Hover the mouse over the SWR gauge to see the exact ratio in conventional form (e.g., "1.52:1").
 
 ## MOX button and Quindar tones
 
@@ -99,11 +106,11 @@ Clicking MOX routes through the Quindar-tone coordinator rather than toggling th
 - **Disengage (click MOX off):** the BK-tone plays after the transmitter unkeys.
 - If Quindar is disabled, or the active TX slice is not on a phone mode, MOX behaves as before and keys the transmitter immediately.
 
-The button appearance is unchanged: the MOX button turns red while the transmitter is keyed and returns to its unlit state when the transmitter is off.
+The MOX button has a distinct appearance even when idle (amber border and text) to distinguish it from the TUNE/ATU/MEM buttons. The button turns red while the transmitter is keyed and returns to its amber accent when the transmitter is off. The accent colours are theme-editable via `color.tx.mox.*` tokens.
 
 | Control | Kind          | Behavior                                                                                                                                                      |
 |---------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MOX     | Toggle button | Toggles manual transmit. Routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed. |
+| MOX     | Toggle button | Toggles manual transmit. Routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed, amber accent when idle. |
 
 ## ATU MEM button
 
@@ -114,6 +121,8 @@ The button appearance is unchanged: the MOX button turns red while the transmitt
 ## Theme support
 
 Starting with v26.6.1, the TX Controls applet uses theme-aware colours for all controls and indicators. Slider fill, label colours, and indicator states adapt to the active theme. If you use a custom theme, these controls will respect the `applet/tx` scope in the theme definition.
+
+The MOX button and RF Pwr/SWR gauges also support theme tokens. The MOX button uses `color.tx.mox.border`, `color.tx.mox.text`, `color.tx.mox.border.hover`, and `color.tx.mox.text.hover` for its idle accent colouring. The gauge hover tooltips use the theme's default tooltip styling.
 
 ## Related
 

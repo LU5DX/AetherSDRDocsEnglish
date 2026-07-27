@@ -55,6 +55,15 @@ DXCC coloring lets AetherSDR mark panadapter spots by whether the DX entity has 
 | **Snap to Step:**                                             | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Default disabled. The toggle button always displays "Enabled". New in v26.5.1.              | `SHistorySnapToStep` (new in v26.5.1)                                                      |
 | Total Spots:                                                  | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared.                                                                                                | —                                                                                          |
 
+## Spot List Tab Band Checkboxes
+
+The **Spot List** tab contains per-band checkboxes that filter which bands appear in the spot table. As of v26.7.4, these checkboxes use a flow layout so that when the SpotHub dialog is narrow, the checkboxes wrap to a new row rather than being compressed into an unreadable size. The minimum dialog width has been lowered from 680 to 360 pixels to allow the window to be sized down once spot table columns are hidden.
+
+To use the band checkboxes:
+1. Click the **Spot List** tab.
+2. Check or uncheck any band name (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.) to show or hide spots on that band in the table.
+3. Click **Clear** to empty the current spot list.
+
 ## Tuning from the Spot List
 
 Double-clicking a row in the **Spot List** tab tunes the active receiver to that spot's frequency. As of v0.9.7, AetherSDR also forwards the mode derived from the spot comment, so the receiver switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
@@ -102,9 +111,4 @@ Starting in v26.6.1, the SpotHub dialog and all its status labels use theme-awar
 
 - The DXCC stats indicator in the dialog shows how many QSOs and entities were imported from the ADIF file. If it reads zero after loading, verify the file is valid ADIF.
 - The **Log File (ADIF):** button stores the path persistently. You do not need to re-select the file after restarting AetherSDR.
-- AetherSDR auto-watches the ADIF file for changes after selection. When your logger writes to the file, spot colors on the panadapter update automatically — no separate reload toggle is needed.
-- DXCC coloring is independent of per-source spot colors. If **Override Colors:** is also active, see [Pick colors for each spot source](pick-colors-for-each-spot-source.md) for how those settings interact.
-- **Spot Lines:** (`IsSpotsLinesEnabled`) as of v26.6.3, the toggle button always displays the text "Enabled" regardless of its actual state. Click the toggle to enable or disable the lines; the button appearance (checked/unchecked) shows the current state.
-- The four DXCC color swatches (**New DXCC**, **New Band**, **New Mode**, **Worked**) replace the previous fixed color scheme. Customize each to suit your preference.
-- When **Use radio (callsign)** is checked, the callsign field updates automatically if you change the callsign in Radio Setup without reopening SpotHub.
-- Reporter broadcasting is build-g
+- AetherSDR auto-watches the ADIF file for changes after selection. When your logger writes to the file

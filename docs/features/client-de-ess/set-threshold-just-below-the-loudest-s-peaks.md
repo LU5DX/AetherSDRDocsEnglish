@@ -56,6 +56,8 @@ The Centre-frequency ball rests on the curve peak, marking the currently-tuned s
 
 The curve updates automatically when Slope stages are changed to reflect the steeper or shallower rolloff.
 
+As of v26.7.4, the curve widget no longer uses a separate edit-style for its appearance — the edit-style constant has been removed, and the widget always refreshes its display regardless of whether the animated gain-reduction value has fully settled. This ensures that the sidechain response curve redraws continuously for smooth visual tracking during parameter changes.
+
 ## Inline value editing
 
 Each tuning knob (Freq, Q, Thresh, Amount, Attack, Release) supports direct value entry. Click the displayed value text to activate an inline editor overlay. The editor appears as a cyan-bordered text field against a dark background.
@@ -93,6 +95,8 @@ The applet container `applet/deess` carries per-applet colour overrides. If a th
 As of v26.6.3, the gain-reduction meter uses an improved animation timer that stops updating the display once the smoothed value has fully settled. Previously the timer continued running even when no further visual change was needed. The meter now stops and restarts efficiently, reducing CPU overhead during periods of stable gain reduction.
 
 The smooth animation uses a 30 Hz refresh rate with a precise timer for consistent visual tracking of sibilance peaks.
+
+As of v26.7.4, the curve widget always redraws regardless of whether the animation has settled, ensuring continuous visual updates.
 
 ## Tips
 

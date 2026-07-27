@@ -54,6 +54,19 @@ Right-click the TX gain meter/slider to open a context menu with three overflow 
 
 The default is Clip so existing users see no behavior change (#3065). The setting is persisted in `TciTxOverflowMode` (0/1/2).
 
+## Accessibility annotations for TCI controls
+
+The TCI server applet controls now have explicit accessibility names and descriptions to support screen readers and assistive technologies:
+
+- **TCI port field**: Accessible name "TCI port", description "TCP port the TCI server listens on".
+- **TCI server enable button**: Accessible name "TCI server enable", description "Start or stop the TCI server".
+
+These annotations are set via `setAccessibleName` and `setAccessibleDescription` methods and require no user configuration. The button width is 76 pixels to accommodate the "Enabled" and "Disabled" text labels.
+
+## Enable button text state
+
+The Enable toggle button displays "Enabled" when the server is running and "Disabled" when stopped. The text updates dynamically when toggling the button manually or when autostart triggers the server on launch. This makes the server state visible even to users with color vision deficiencies.
+
 ## Tips
 
 - Enabling autostart also sets `AutoStartTCI` to `True`. Toggling Enable in the TCI Server applet writes the same key, so both controls stay in sync.

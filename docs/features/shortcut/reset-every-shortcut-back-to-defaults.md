@@ -1,6 +1,6 @@
-# Keyboard Shortcuts (v26.6.1)
+# Keyboard Shortcuts (v26.7.4)
 
-The Keyboard Shortcuts dialog lets you view, assign, and reset keyboard bindings for all actions in AetherSDR. Changes take effect immediately.
+The Keyboard Shortcuts dialog lets you view, assign, reset, import, and export keyboard bindings for all actions in AetherSDR. Changes take effect immediately.
 
 ## Opening the dialog
 
@@ -40,7 +40,21 @@ Select a row in the table to edit its binding directly.
 
 1. Click **Reset All to Defaults** in the bottom-left corner of the dialog.
 2. When the confirmation prompt appears, click **Yes**.
-3. Click **Close**.
+
+## Importing shortcuts from a file
+
+1. Click **Import...** in the bottom row of buttons.
+2. In the file dialog, navigate to a CSV file containing AetherSDR keyboard shortcut definitions and click **Open**.
+3. A summary dialog shows the number of imported shortcuts. If any actions in the file are not available in this AetherSDR release, they are skipped and listed in the dialog's details. If any imported shortcuts displace existing local bindings, those displaced actions are also listed.
+4. The action table updates to reflect the imported bindings.
+
+## Exporting shortcuts to a file
+
+1. Click **Export...** in the bottom row of buttons.
+2. In the file dialog, choose a location and filename for the CSV file and click **Save**.
+3. A confirmation dialog shows the number of exported shortcuts and the file path.
+
+The exported CSV file can be shared with other AetherSDR users or used as a personal backup. The file uses the `.csv` extension.
 
 ## Closing the dialog
 
@@ -63,6 +77,8 @@ When the dialog is in key-capture mode (after clicking a key on the keyboard map
 | **Filter:** text field | Filters the action table by text. |
 | **Category:** combo box | Filters the action table by category. |
 | Action table (list) | All actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
+| **Import...** button | Opens a file dialog to import keyboard shortcuts from a CSV backup file. |
+| **Export...** button | Opens a file dialog to export keyboard shortcuts to a portable CSV backup file. |
 | **Reset All to Defaults** button | Resets every binding to its default key. A confirmation prompt appears before any changes are applied. |
 | **Close** button | Closes the dialog. |
 
@@ -70,6 +86,8 @@ When the dialog is in key-capture mode (after clicking a key on the keyboard map
 
 - To check what the default key for a specific action is before resetting, consult the **Default Key** column in the action table.
 - If you only want to reset a single shortcut rather than all of them, use **Reset to Default** after selecting the relevant key on the keyboard map.
+- Export your shortcuts regularly as a backup before making major changes.
+- Import and export use the CSV format, making it easy to share or version-control your shortcuts.
 
 ## Related
 

@@ -50,8 +50,8 @@ The **RF Power** and **Tune Pwr** sliders control transmit power levels. When dr
 
 | Meter | Range | Behavior |
 |---|---|---|
-| **RF Pwr** | 0–120 W (barefoot), 0–600 W (Aurora 500W); red > 100 W / > 500 W | Displays forward power at the exciter output. Scale changes based on radio model. |
-| **SWR** | 1.0–3.0 (red > 2.5) | Displays standing wave ratio at the exciter. |
+| **RF Pwr** | 0–120 W (barefoot), 0–600 W (Aurora 500W); red > 100 W / > 500 W | Displays forward power at the exciter output. Scale changes based on radio model. Hover the gauge to see an exact watt value in a popup (v26.7.4). |
+| **SWR** | 1.0–3.0 (red > 2.5) | Displays standing wave ratio at the exciter. Hover the gauge to see the exact ratio in N.N:1 form in a popup (v26.7.4). |
 
 ### RF Power meter peak-hold (v26.5.2.1)
 
@@ -62,6 +62,15 @@ The **RF Pwr** meter includes a peak-hold feature that captures and holds the pe
 - When you stop transmitting, the peak-hold value resets to zero immediately — a held PEP reading does not linger across overs.
 
 The decay rate scales automatically depending on the radio model: 48 W/s for a barefoot radio (120 W scale) and 240 W/s when an Aurora 500 W exciter is connected (600 W scale).
+
+### Hover value popups (v26.7.4)
+
+Starting with v26.7.4, both power meters show a popup with the exact numeric reading when you hover the mouse over them:
+
+- **RF Pwr** — Shows the exact watt value (e.g., "45 W").
+- **SWR** — Shows the exact ratio in conventional form (e.g., "1.42:1").
+
+This helps you read precise values without estimating between tick marks.
 
 ## ATU button behavior (v0.9.5.1)
 
@@ -123,6 +132,10 @@ The radio's tune mode also resets to single-tone after a power cycle.
 
 Click **MOX** to toggle manual transmit. The button turns red while TX is keyed.
 
+### MOX button appearance (v26.7.4)
+
+Starting with v26.7.4, the MOX button has a distinct amber accent when idle to visually distinguish it from the neighboring TUNE, ATU, and MEM buttons. This accent uses tokenized theme colors (`color.tx.mox.border`, `color.tx.mox.text`, and hover variants) that you can edit in the Theme Editor — the same approach used for the waterfall LIVE chip. The active (transmitting) state remains solid red with a red border.
+
 ### MOX button and Quindar tones (v0.9.7)
 
 Starting with v0.9.7, clicking **MOX** routes the PTT request through the Quindar-tone coordinator rather than keying the transmitter directly. The practical effect is:
@@ -150,6 +163,10 @@ Click **APD** to toggle adaptive pre-distortion on the radio. The status indicat
 | All dim | APD is off. |
 
 The APD progression follows: **Cal** (calibrating) → **Avail** (ready) → **Active** (applied).
+
+## TX Keying Markers (v26.7.4)
+
+Starting with v26.7.4, the TUNE, MOX, and ATU buttons are internally marked as TX-keying controls. This is a structural change that affects how accessibility tools and internal logic identify transmit-related controls — no visual change is associated with this marking.
 
 ## Related
 

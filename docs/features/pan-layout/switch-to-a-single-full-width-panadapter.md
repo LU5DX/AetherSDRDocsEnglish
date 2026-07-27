@@ -25,7 +25,8 @@ This page explains how to change the panadapter area to display one full-width p
 - The tile for the currently active layout is highlighted with a distinct border. If the **Single (1 pan)** tile is already highlighted, the layout is already set to single and no change is needed.
 - Tiles for layouts that require more panadapters than your radio supports are disabled and show a forbidden cursor. The single layout is always available.
 - If you attempt to apply a layout that requires more panadapters than the radio's available slice capacity, a status-bar message appears: "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)" and the layout change is cancelled.
-- The dialog window now follows the active AetherSDR theme. Button colors and text styling adapt to the theme's background and accent colors for consistent visual appearance.
+- The dialog body width is fixed so the 3-column thumbnail grid remains centered. The Cancel button always sits below the grid rather than being clipped over the bottom thumbnail row.
+- The dialog window follows the active AetherSDR theme. Button colors and text styling adapt to the theme's background and accent colors for consistent visual appearance.
 
 ## Related
 

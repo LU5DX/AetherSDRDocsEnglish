@@ -52,6 +52,7 @@ The **Clarity / Tune** knob uses logarithmic mapping (1000 * 10^n). The display 
 - Use the inline editor on any knob to type exact values. Click the displayed value, enter the number, and press Enter.
 - When the PUDU stage is bypassed, the entire applet tile dims to approximately 55 % opacity. This is a visual indicator only — no settings are lost.
 - In v26.6.1, knob colours are now sourced from the theme. The PUDU applet uses a dedicated themed container (`applet/pudu`) that can override knob ring, arc, and pointer colours independently. If you have created a custom theme, ensure the `color.knob.*` and `color.text.*` keys are defined for the PUDU container; otherwise, default theme colours apply.
+- In v26.7.4, the PUDU editor no longer uses a dedicated style for its buttons. All editor buttons now follow the global theme styling consistently.
 
 ## Troubleshooting
 

@@ -9,6 +9,7 @@ SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources 
 - Have an ADIF log file available if you want DXCC coloring.
 
 ## How it works
+
 SpotHub aggregates spots from up to six independent sources. Each source runs independently — you can enable any combination simultaneously. All incoming spots are merged into a unified list and rendered as frequency markers on the panadapter.
 
 Spots from each source are color-coded separately so you can distinguish their origin at a glance. A global display layer (the **Display** tab) controls how all spots appear on the panadapter, regardless of source.
@@ -37,9 +38,12 @@ Each source has an **Auto-connect on startup** or **Auto-start on startup** togg
 
 ### Spot List tab
 
-The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
+The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. The checkboxes use a flow layout that wraps to new rows when the SpotHub dialog is narrow, keeping each checkbox readable. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
+
+The column header menu shows or hides individual columns. Click the header context menu to toggle columns on and off. The menu stays open while you toggle multiple checkable columns, so you can show or hide several columns in one pass without the menu closing after each click.
 
 ### Display tab
+
 The **Display** tab controls how spots appear on the panadapter.
 
 | Control                                                       | Setting key                                                                                                              | Default                                                                                                            |
@@ -136,10 +140,4 @@ Call `setSwrSweepPoints()` with a vector of `SwrSweepPoint` values. Each point c
 The method signature is:
 
 ```
-setSwrSweepPoints(points, running, currentFreqMhz, sourceLabel)
-```
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `points` | `QVector<SwrSweepPoint>` | — | The sweep data to display. |
-| `running` | `bool` | `false` | Pass `true` while a sweep is in progress to indicate a
+setSwrSweepPoints(p

@@ -22,9 +22,8 @@ Settings are saved to disk only when Enable transitions from Off to On.
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
 | Enable          | Off                                                                                                                                         | Off / On                                                                            |
 | Settings...     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                 | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.          |
-| Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Up to 12 buttons. Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
-| Message log     | Displays received messages as 'topic: value' lines and published messages as 'TX topic: value' lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries. |
-
+| Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
+| Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                         | Capped to 50 entries.                                                               |
 ## Status indicator
 
 The status label next to Enable shows the current connection state:

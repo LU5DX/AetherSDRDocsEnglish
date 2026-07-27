@@ -22,6 +22,7 @@ To deselect the current Input B antenna, click its active **[B]** button again.
 | Control | Behavior | Setting key |
 |---|---|---|
 | Status label | Shows the connected device IP address and firmware version, or a disconnected message. | — |
+| INPUT A card | Displays the current band and antenna name selected on Port A. Highlighted in cyan. | — |
 | INPUT B card | Displays the current band and antenna name assigned to Port B. Highlighted in orange. Hidden on single-port (R4) devices. | — |
 | **[A]** button (per antenna row) | Selects this antenna for Input A. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna (conflict). | — |
 | **[B]** button (per antenna row) | Selects this antenna for Input B. Click again to deselect. Blinks amber when Port A and Port B are both assigned to the same antenna. When a dummy load is configured and Port B is auto-routed there, the intended row **[B]** button blinks amber and the dummy load row blinks orange. | — |

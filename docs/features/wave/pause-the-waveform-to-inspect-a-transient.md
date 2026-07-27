@@ -19,13 +19,14 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 
 ## What each control does
 
-| Control | Behavior | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Click on display | Toggles pause: freezes a buffer snapshot on first click; resumes live display on second click. The click discrimination interval is read from Radio Setup at click time, so changes to that setting take effect immediately without restarting the application. | Live | Live / Paused | — |
-| View | Selects the visualization mode shown while paused. | Scope | Scope, Envelope, History, Bands | `WaveApplet_ViewMode` |
-| Zoom | Scales the amplitude axis. Higher values stretch small signals vertically, making subtle transients easier to see while paused. | 1.7x (170) | 100–600 (1.0x–6.0x) | `WaveApplet_ZoomPercent` |
-| FPS | Controls repaint rate while live. Has no effect while paused. | 24 | 5–30 Hz | `WaveApplet_RefreshRateHz` |
-| Settings drawer state | Persists the expanded/collapsed state of the settings drawer across application restarts. Toggle by double-clicking the waveform display or opening/closing the drawer manually. | Expanded (True) | Expanded / Collapsed | `WaveApplet_DrawerExpanded` |
+| Control               | Behavior                                                                                                                                                                                                                                                        | Default                                                                                                               |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Click on display      | Toggles pause: freezes a buffer snapshot on first click; resumes live display on second click. The click discrimination interval is read from Radio Setup at click time, so changes to that setting take effect immediately without restarting the application. | Live                                                                                                                  |
+| View                  | Selects the visualization mode shown while paused.                                                                                                                                                                                                              | Scope                                                                                                                 |
+| Zoom                  | Scales the amplitude axis. Higher values stretch small signals vertically, making subtle transients easier to see while paused.                                                                                                                                 | 1.7x (170)                                                                                                            |
+| FPS                   | Controls repaint rate while live. Has no effect while paused.                                                                                                                                                                                                   | 25                                                                                                                    |
+| Settings drawer state | Persists the expanded/collapsed state of the settings drawer across application restarts. Toggle by double-clicking the waveform display or opening/closing the drawer manually.                                                                                | Expanded (True)                                                                                                       |
+| Window                | Controls the time window shown on the waveform display, in milliseconds. Larger values show more history at reduced resolution.                                                                                                                                 | Located in the settings drawer. Legacy WaveApplet_TimeWindowSec key migrated to WaveApplet_TimeWindowMs on first run. |
 
 ## Tips
 
@@ -36,6 +37,8 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - The TX path is tinted differently from the RX path, so you can confirm which audio direction the frozen snapshot represents without reading the header.
 - If no RX audio samples have arrived within 1 second, the placeholder message reads "no RX audio". For TX audio, the placeholder reads "no TX audio".
 - The settings drawer state (expanded or collapsed) is saved when you close it and restored the next time you open the Waveform applet.
+- The WAVE tray button no longer controls lean mode. The waveform applet always updates its display when visible; hiding the applet conserves resources naturally.
+- The FPS slider range now extends to 60 Hz for users who want a faster scope. The default is 25 Hz, matching the typical panadapter refresh rate.
 
 ## Troubleshooting
 
@@ -44,7 +47,6 @@ Single-clicking the waveform display freezes a snapshot of the current audio buf
 - **Display resumes on its own** — Pausing only freezes the visual display; a reconnect or audio engine reset clears the buffer and restores the live view.
 - **Placeholder message shows "no RX audio"** — This indicates no RX audio samples have been received. Enable PC Audio in the radio settings to receive audio from the radio.
 - **Settings drawer does not remember its state** — The drawer state is saved when you close it. If AetherSDR crashes before the save completes, the state may revert to expanded on next launch.
-- **Waveform applet is hidden and does not respond** — The applet may be in lean mode, which fully disables the scope. Click the WAVE tray button to show the applet and enable it. In lean mode, the scope feed is dropped and the applet is hidden to conserve resources.
 
 ## Related
 

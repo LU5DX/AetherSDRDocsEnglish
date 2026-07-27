@@ -30,13 +30,18 @@ If you assign a key that is already bound to a different action, AetherSDR promp
 
 **Bottom controls**
 
+- `Import...` — Opens a file dialog to import a keyboard shortcut CSV backup. Select an existing CSV file. After import, the action table and selected key info update to reflect the imported bindings. AetherSDR shows a summary of the import, including counts of imported actions, any unknown actions that were skipped, and any local bindings displaced by imported shortcuts.
+- `Export...` — Opens a file dialog to export keyboard shortcuts to a portable CSV backup. Choose a location and filename. The export saves all current key bindings to the specified CSV file.
 - `Reset All to Defaults` — Resets every binding to its default key. AetherSDR asks for confirmation before proceeding.
 - `Close` — Closes the dialog.
+
+The import and export dialogs remember the last directory you used, saving between sessions.
 
 ## Tips
 
 - The action table always shows both the current and default key for each action, so you can see at a glance what has been changed.
 - Selecting a row in the action table and selecting a key on the keyboard map are independent operations. Assign a binding by selecting a key on the map first, then choosing the action from the `Action:` combo.
+- Use `Import...` to restore shortcuts from another AetherSDR installation or from a previous backup. Use `Export...` to create a portable backup you can share or save.
 
 ## Related
 
@@ -45,3 +50,5 @@ If you assign a key that is already bound to a different action, AetherSDR promp
 - [Reset every shortcut back to defaults](reset-every-shortcut-back-to-defaults.md)
 - [Find all actions in a category](find-all-actions-in-a-category.md)
 - [See the default key for any action](see-the-default-key-for-any-action.md)
+- [Import keyboard shortcuts from a file](import-keyboard-shortcuts-from-a-file.md)
+- [Export keyboard shortcuts to a file](export-keyboard-shortcuts-to-a-file.md)

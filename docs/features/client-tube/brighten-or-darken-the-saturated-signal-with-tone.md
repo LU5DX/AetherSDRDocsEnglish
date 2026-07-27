@@ -18,18 +18,28 @@ Use the Tone knob to tilt the spectral character of the saturated signal — neg
 
 ## What each control does
 
-| Control   | Default                                                                                                                                                                             | Valid range                                                                                                                                                                                               |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Tone (TX) | 0.00                                                                                                                                                                                | −1.0 to 1.0                                                                                                                                                                                               |
-| Tone (RX) | 0.00                                                                                                                                                                                | −1.0 to 1.0                                                                                                                                                                                               |
-| Drive     | 0.00 dB                                                                                                                                                                             | 0.0 to 24.0 dB                                                                                                                                                                                            |
-| Bias      | 0 %                                                                                                                                                                                 | 0.0 to 1.0                                                                                                                                                                                                |
-| Output    | 0.00 dB                                                                                                                                                                             | −24.0 to 12.0 dB                                                                                                                                                                                          |
-| Dry/Wet   | 100 %                                                                                                                                                                               | 0.0 to 1.0                                                                                                                                                                                                |
-| Envelope  | 0 %                                                                                                                                                                                 | −1.0 to 1.0                                                                                                                                                                                               |
-| Attack    | 5.00 ms                                                                                                                                                                             | 0.1 to 30.0 ms                                                                                                                                                                                            |
-| Release   | 35.00 ms                                                                                                                                                                            | 10.0 to 500.0 ms                                                                                                                                                                                          |
-| RN2       | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate/compressor/saturator. | Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine. |
+| Control   | Default | Valid range | Setting key (TX) | Setting key (RX) | Notes |
+|-----------|---------|-------------|------------------|------------------|-------|
+| Tone (TX) | 0.00 | −1.0 to 1.0 | `ClientTubeTxTone` | `ClientTubeRxTone` | Centre row of the editor, left of the Model selector |
+| Drive | 0.00 dB | 0.0 to 24.0 dB | `ClientTubeTxDriveDb` | `ClientTubeRxDriveDb` | Left column of the editor |
+| Bias | 0 % | 0.0 to 1.0 | `ClientTubeTxBias` | `ClientTubeRxBias` | Centre row of the editor, right of the Model selector |
+| Output | 0.00 dB | −24.0 to 12.0 dB | `ClientTubeTxOutputDb` | `ClientTubeRxOutputDb` | Left column of the editor |
+| Dry/Wet | 100 % | 0.0 to 1.0 | `ClientTubeTxDryWet` | `ClientTubeRxDryWet` | Left column of the editor (top knob) |
+| Envelope | 0 % | −1.0 to 1.0 | `ClientTubeTxEnvelope` | `ClientTubeRxEnvelope` | Right column of the editor |
+| Attack | 5.00 ms | 0.1 to 30.0 ms | `ClientTubeTxAttackMs` | `ClientTubeRxAttackMs` | Right column of the editor |
+| Release | 35.00 ms | 10.0 to 500.0 ms | `ClientTubeTxReleaseMs` | `ClientTubeRxReleaseMs` | Right column of the editor |
+| RN2 | unchecked | — | — | — | TX-only toggle (hidden in RX mode). Enables RNNoise neural denoiser on the mic input before the DSP chain. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine |
+
+### Tube character models
+
+| Label | Default | Setting key | Behavior |
+|-------|---------|-------------|----------|
+| A | checked | `ClientTubeTxModel` / `ClientTubeRxModel` | Selects tube character Model A. Exclusive with B and C |
+| B | unchecked | `ClientTubeTxModel` / `ClientTubeRxModel` | Selects tube character Model B. Exclusive with A and C |
+| C | unchecked | `ClientTubeTxModel` / `ClientTubeRxModel` | Selects tube character Model C. Exclusive with A and B |
+
+The model selector appears as three amber-colored toggle buttons in the centre row of the editor, between Tone and Bias. The backing value is stored as an integer (0 = A, 1 = B, 2 = C) in the respective setting key.
+
 ## Output level meter
 
 The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX**) includes an **OUT** level meter in the far-right column. This meter shows the post-saturation peak level and uses fast-attack / slow-release ballistics.
@@ -42,6 +52,10 @@ The floating editor (titled **Aetherial Tube — TX** or **Aetherial Tube — RX
 | Above −3 dB | Red |
 
 The meter is only visible in the floating editor. It does not appear on the docked applet tile in the Applet Panel.
+
+## Transfer curve indicator
+
+The docked applet tile shows a compact **Transfer curve** widget that draws the currently-configured tube transfer curve with a live input ball. The ball rides the curve at the current input level, visualising the saturation regime in real time.
 
 ## Bypass dimming
 
@@ -71,5 +85,5 @@ When the tube stage is bypassed, the entire docked applet tile renders at reduce
 - [Parallel-blend saturation with Dry/Wet](parallel-blend-saturation-with-mix.md)
 - [Compensate level changes with Output](compensate-level-changes-with-output.md)
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
-- Modulate the tube curve with Envelope
+- [Modulate the tube curve with Envelope](modulate-the-tube-curve-with-envelope.md)
 - Type exact values with the value popup editor

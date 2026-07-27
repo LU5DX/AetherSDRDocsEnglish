@@ -29,6 +29,7 @@ NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its c
 | **Gain Method**                      | Radio buttons                                                                                               | Gamma                                                                                                          |
 | **NPE Method**                       | Radio buttons                                                                                               | OSMS                                                                                                           |
 | **AE Filter (artifact elimination)** | Checkbox                                                                                                    | Enabled                                                                                                        |
+| **Use Original Geometry**            | Checkbox                                                                                                    | Disabled                                                                                                       |
 | **Reduction:**                       | Slider                                                                                                      | 1.50                                                                                                           |
 | **Smoothing:**                       | Slider                                                                                                      | 0.85                                                                                                           |
 | **Threshold:**                       | Slider                                                                                                      | 0.20                                                                                                           |
@@ -42,13 +43,15 @@ NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its c
 
 **AE Filter (artifact elimination)** toggles the anti-artefact post-filter (`NR2AeFilter`). Leave this enabled unless you are specifically testing raw NR2 output.
 
-**Reduction:** (`NR2GainMax`) sets the maximum reduction depth NR2 can apply. Higher values suppress more noise but can affect speech naturalness.
+**Use Original Geometry** (`Nr2UseOriginalGeometry`) controls whether the NR2 algorithm uses the original spectral geometry approach. Enable this if you are experiencing tonal artifacts with the default geometry; disable it for standard operation.
+
+**Reduction:** (`NR2GainFloor`) sets the maximum reduction depth NR2 can apply. Higher values suppress more noise but can affect speech naturalness.
 
 **Smoothing:** (`NR2GainSmooth`) controls how quickly the noise estimate tracks signal changes. Higher values produce smoother but slower tracking.
 
 **Threshold:** (`NR2Qspp`) sets the speech-presence-probability threshold below which NR2 treats audio as noise. Raise this if speech is being suppressed; lower it if noise breaks through during pauses.
 
-**Reset Defaults (↺ icon)** restores the NR2 tab to its factory values: Gain Method = Gamma, NPE Method = OSMS, AE Filter = enabled, Reduction = 1.50, Smoothing = 0.85, Threshold = 0.20.
+**Reset Defaults (↺ icon)** restores the NR2 tab to its factory values: Gain Method = Gamma, NPE Method = OSMS, AE Filter = enabled, Use Original Geometry = disabled, Reduction = 1.50, Smoothing = 0.85, Threshold = 0.20.
 
 ### Steps — adjust NR2 reduction depth
 

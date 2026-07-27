@@ -75,6 +75,28 @@ The Connection Panel now uses theme variables for colors instead of hardcoded va
 
 Theme changes take effect when the panel is opened or refreshed.
 
+## Local radio list improvements
+
+The local radio list now has bounded dimensions so it scrolls internally when more radios are discovered than fit. This prevents the list from growing past the dialog on small displays (e.g., a 1024x600 tablet panel). The list has:
+
+- Minimum height: 120 pixels
+- Maximum height: 240 pixels
+- Vertical scrollbar policy: shown as needed
+- Vertical scroll mode: per-pixel scrolling
+
+## Radio nickname context menu
+
+You can right-click a discovered radio in the local radio list to set a custom nickname without connecting first. This is useful for non-Flex radios (e.g., HL2, simulator backends) that do not have an on-radio name store. The nickname is persisted keyed by serial number and is picked up on the next discovery sweep.
+
+To set a nickname:
+
+1. Right-click a radio in the **Available radios** list.
+2. Select the option to set a nickname from the context menu.
+3. Enter the desired nickname in the dialog that appears.
+4. Click **OK** to save.
+
+The nickname is displayed in the radio list on subsequent discovery sweeps. FlexRadio radios do not support client-side nicknames — their names are set from Radio Setup while connected.
+
 ## Related
 
 - [Connect to a local LAN radio](connect-to-a-local-lan-radio.md)

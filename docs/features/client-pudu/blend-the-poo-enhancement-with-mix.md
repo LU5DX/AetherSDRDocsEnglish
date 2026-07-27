@@ -44,6 +44,12 @@ The inline editor uses the same formatting as the normal knob display (for examp
 | **Poo / Drive** (RX) | 6.0 dB                                                                                     | 0.0 to 24.0 dB                             |
 | **Poo / Tune** (RX)  | 100 Hz                                                                                      | 50 to 160 Hz                               |
 | **Poo / Mix** (RX)   | 30 %                                                                                        | 0 % to 100 % (stored as 0.0 to 1.0)       |
+| **Doo / Tune** (TX)  | 5000 Hz                                                                                     | 1000 to 10000 Hz                           |
+| **Doo / Air** (TX)   | 6.0 dB                                                                                     | 0.0 to 24.0 dB                             |
+| **Doo / Mix** (TX)   | 30 %                                                                                        | 0 % to 100 % (stored as 0.0 to 1.0)       |
+| **Doo / Tune** (RX)  | 5000 Hz                                                                                     | 1000 to 10000 Hz                           |
+| **Doo / Air** (RX)   | 6.0 dB                                                                                     | 0.0 to 24.0 dB                             |
+| **Doo / Mix** (RX)   | 30 %                                                                                        | 0 % to 100 % (stored as 0.0 to 1.0)       |
 | AetherVoice logo   | Animated branded logo that pulses with the wet-signal RMS. Displays 'AetherVoice™' wordmark. | PooDooLogo widget — 40 px minimum height. |
 
 The knob display shows the value as a whole-number percentage (for example, "30 %"). Internally the value is stored as a linear fraction between 0.0 and 1.0.
@@ -55,6 +61,8 @@ The knob display shows the value as a whole-number percentage (for example, "30 
 - Start at the default of 30 % and increase gradually. Heavy Mix values can thicken the low end to the point of muddiness, especially if **Poo / Drive** is also high.
 - Use the inline edit feature to type exact values instead of fine-tuning with the mouse wheel — for example, type `45` to set exactly 45 % Mix.
 - The **Even** and **Odd** radio buttons select the processing mode. Even mode uses Aphex-style asymmetric shaping with Big Bottom LF saturation. Odd mode uses Behringer-style symmetric tanh shaping with a feed-forward bass compressor.
+- The **Body** group bracket contains the low-frequency processor controls: **Drive**, **Tune**, and **Mix**.
+- The **Clarity** group bracket contains the high-frequency processor controls: **Tune**, **Air**, and **Mix**.
 
 ## Related
 

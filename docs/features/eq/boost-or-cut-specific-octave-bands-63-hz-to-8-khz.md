@@ -24,7 +24,7 @@ Use the Equalizer applet to raise or lower individual frequency bands on the rad
 | ON | Toggle button | Off (unchecked) | On / Off | Enables or disables the equalizer for the currently-selected path. Highlights green when enabled. |
 | RX | Toggle button | Unchecked (or last selected state) | — | Switches the applet to display and edit the receive equalizer bands. Highlights blue when active. |
 | TX | Toggle button | Checked (or last selected state) | — | Switches the applet to display and edit the transmit equalizer bands. Highlights blue when active. The last-selected view (RX or TX) is remembered between applet sessions. |
-| Reset arc button | Push button | — | — | Resets all 8 bands of the currently-selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
+| Reset arc button | Push button | — | — | Resets all 8 bands of the currently-selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". Drawn as a 3/4-circle arrow. |
 | 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
 | 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |
 | 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Drag up to boost, down to cut. A pop-up shows the exact value while dragging and lingers briefly after release. Keyboard arrow nudge also shows the pop-up. |

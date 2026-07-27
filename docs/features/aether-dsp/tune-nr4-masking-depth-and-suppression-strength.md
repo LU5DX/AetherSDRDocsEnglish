@@ -32,7 +32,8 @@ The NR2 (musical-noise-reduction) engine uses a spectral-subtraction approach wi
 | Reduction: | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Slider stores value*100 internally |
 | Smoothing: | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes |
 | Threshold: | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets speech-presence-probability threshold |
-| Reset Defaults (↺ icon) | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, 1.50, 0.85, 0.20 |
+| Use Original Geometry | Off | On/Off | `NR2UseOriginalGeometry` | When enabled, uses the original NR2 gain-curve geometry instead of the newer improved geometry. Off by default for best performance |
+| Reset Defaults (↺ icon) | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, 1.50, 0.85, 0.20, Use Original Geometry off |
 
 ## NR4 tab
 
@@ -81,11 +82,16 @@ The BNR (NVIDIA) tab's intensity is controlled from the overlay menu. The BNR to
 
 The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both page selectors and engine enable/disable controls. When NR2 is activated, the AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules. Only one engine can be active at a time.
 
+## Persistence
+
+The last-used client-side noise-reduction engine is persisted in `LastClientNr` and restored on next launch. If the stored engine (e.g., DFNR) is not available in the current build, the preference is silently cleared.
+
 ## Tips
 
 - **Masking Depth:** and **Suppression:** on the NR4 tab interact: raising both together produces maximum noise reduction but the highest risk of speech distortion. Raise them incrementally and test on a live or recorded signal.
 - If speech sounds over-processed or hollow, reduce Masking Depth: first, then Suppression: until naturalness returns.
 - The **Adaptive Noise Estimation** checkbox affects how quickly NR4 tracks a changing noise floor, which in turn affects how both sliders sound in practice.
+- The **Use Original Geometry** checkbox on the NR2 tab reverts to the legacy gain-curve geometry used in older AetherSDR versions. Leave it off for best results unless you have a specific reason to use the original curve.
 - Click **Reset Defaults** on any tab to return all parameters on that tab to their factory values.
 
 ## Troubleshooting
@@ -94,6 +100,7 @@ The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both page selectors a
 - **Noise floor is still audible even at maximum settings** — Ensure **Adaptive Noise Estimation** is enabled so NR4 can continuously re-estimate the noise floor. Also consider increasing **Reduction (dB):** .
 - **Slider snaps back or refuses to move** — Click directly on the slider handle rather than clicking in the groove.
 - **NR4 toggle is dimmed on Windows** — The NR4 engine requires LLVM (clang-cl) to compile its C99 VLAs. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
+- **Last-used noise reduction engine does not restore across sessions** — If the persisted engine (e.g., DFNR) is not compiled into the current build, the preference is silently cleared. Select an available engine and restart to persist the new preference.
 
 ## Related
 

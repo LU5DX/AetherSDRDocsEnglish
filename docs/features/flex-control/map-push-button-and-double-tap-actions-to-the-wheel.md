@@ -72,6 +72,10 @@ Configure the virtual AetherControl wheel and manage a physical FlexControl devi
 |-----------|---------|
 | Slice / Frequency / Mode readout | Shows which slice is bound, its current frequency, and mode. |
 
+## Notes on window sizing
+
+The AetherControl dialog uses a scroll area for its content when not in compact mode. The full controller may be taller than your screen; the content area scrolls vertically as needed. The dialog will not open taller than the available screen workspace (accounting for taskbars). The minimum non-compact width is 430 pixels; the dialog cannot be resized narrower than its content requires.
+
 ## Notes on physical FlexControl
 
 When a physical FlexControl device is connected and sends a reset command (e.g. `F0304;`), AetherSDR automatically re-issues the cached LED state to restore the hardware's indicator lights to match the application's active wheel-mode button. This fixes a race condition where the device's power-on reset could otherwise clear the LEDs before AetherSDR had a chance to program them.

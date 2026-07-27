@@ -1,6 +1,6 @@
-# Refresh the snapshot after changing slice state
+# Slice Troubleshooting
 
-After you change slice settings — such as adjusting audio routing, toggling mute, or switching antennas — the Slice Troubleshooting dialog does not update automatically. Use **Refresh Snapshot** to re-read the current slice state so the Issue Summary and JSON reflect your changes.
+The Slice Troubleshooting dialog captures a JSON snapshot of every slice, panadapter, transverter, and DAX channel and summarizes likely problems (missing audio, stuck mute, missing antenna, XVTR validity) so you can share it with support.
 
 ## Before you start
 
@@ -73,6 +73,22 @@ For each panadapter, the summary reports:
 ### Control device (MIDI) bindings
 
 The summary reports each control device and the MIDI bindings associated with it, including the scope, mapping details, and error conditions.
+
+## JSON snapshot details
+
+The JSON snapshot includes the following client DSP parameters for NR2 (noise reduction 2):
+
+- `nr2_enabled` – Whether NR2 is enabled.
+- `gain_method` – The gain reduction method name.
+- `gain_method_id` – The gain reduction method ID.
+- `npe_method` – The noise power estimation method name.
+- `npe_method_id` – The noise power estimation method ID.
+- `ae_filter` – Whether the adaptive echo filter is enabled.
+- `gain_max` – Maximum gain reduction value.
+- `gain_floor` – Gain floor value.
+- `gain_smooth` – Gain smoothing factor.
+- `qspp` – Quasi-stationary power processor value.
+- `legacy_geometry_and_gain_mapping` – Whether legacy geometry and gain mapping is enabled.
 
 ## Status indicator
 

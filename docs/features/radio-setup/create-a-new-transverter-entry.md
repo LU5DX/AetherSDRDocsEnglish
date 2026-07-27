@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Antennas, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, Themes, and SmartLink pinned certificate management.
+The Radio Setup dialog is the master per-radio configuration window. It provides controls for radio information, network, GPS, TX, Antennas, Phone/CW, RX, audio, filters, XVTR, USB cables, peripherals, serial (FlexControl), APD, Themes, SmartLink pinned certificate management, KiwiSDR public receiver, callsign lookups, and ACOM amplifier integration.
 
 ## Opening the dialog
 
@@ -103,8 +103,8 @@ Click **TX Band Settings** to open the dedicated per-band power/tune dialog.
 | **Max Power:** | - | 0-100 % | Sets radio-level TX power cap. |
 | **Tune Mode:** | - | - | Selects how the tune button behaves. |
 | **Show TX in Waterfall:** | Off | - | Draws TX signal in the waterfall. |
-| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with **Active Slice Follows TX**. Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
-| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with **TX Follows Active Slice**. Stored in `ActiveFollowsTxSlice` setting. |
+| **TX Follows Active Slice** | False | - | TX follows the active slice. Mutually exclusive with 'Active Slice Follows TX'. Disabled automatically during Split operation. Stored in `TxFollowsActiveSlice` setting. |
+| **Active Slice Follows TX** | False | - | Switches the active slice when TX moves externally (e.g. WSJT-X or CAT). Mutually exclusive with 'TX Follows Active Slice'. Stored in `ActiveFollowsTxSlice` setting. |
 
 ## Antennas tab
 
@@ -248,6 +248,4 @@ The **Audio** tab configures radio audio outputs, compression, PC devices, boost
 
 ## Filters tab
 
-The **Filters** tab provides low-latency / sharp filter options per bandwidth. The tab content is wrapped in a scrollable area so all controls remain accessible on small or high-DPI displays.
-
-| Control | Default | Range | Behavior
+The **Filters** tab provides low-latency / sharp filter options per bandwidth. The tab content is wrapped in a scrollable area so all controls remain

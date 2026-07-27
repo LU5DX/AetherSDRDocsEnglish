@@ -30,6 +30,8 @@ The binding is immediately restored to the action's default key. The action tabl
 | **Filter:** | Text field | Filters the action table by text. |
 | **Category:** | Combo box | Filters the action table by category. |
 | Action table | List | All actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
+| **Import...** | Button | Opens a file dialog to import keyboard shortcuts from a portable CSV backup. |
+| **Export...** | Button | Opens a save dialog to export keyboard shortcuts to a portable CSV backup. |
 | **Reset All to Defaults** | Button | Resets every binding to its default key — use with caution. |
 | **Close** | Button | Closes the dialog. |
 
@@ -37,6 +39,8 @@ The binding is immediately restored to the action's default key. The action tabl
 
 - The **Default Key** column in the action table always shows the factory default, even after you have changed the binding. Use it to confirm what **Reset to Default** will restore before clicking.
 - If the action you want is assigned to a key that conflicts with another binding, resetting one action may free up a key for another. Check the **Current Key** column after resetting.
+- Use **Export...** to create a backup of your current keyboard shortcut configuration before making extensive changes. The exported file is a CSV that can be shared or imported on another instance of AetherSDR.
+- The **Import...** button lets you restore a previously exported CSV backup. If any actions in the imported file are not available in this AetherSDR release, they are skipped and reported in a warning dialog. If imported shortcuts displace existing local bindings, those displacements are also listed.
 
 ## Related
 
@@ -45,3 +49,5 @@ The binding is immediately restored to the action's default key. The action tabl
 - [Reset every shortcut back to defaults](reset-every-shortcut-back-to-defaults.md)
 - [See the default key for any action](see-the-default-key-for-any-action.md)
 - [Find all actions in a category](find-all-actions-in-a-category.md)
+- [Export keyboard shortcuts](export-keyboard-shortcuts.md)
+- [Import keyboard shortcuts](import-keyboard-shortcuts.md)

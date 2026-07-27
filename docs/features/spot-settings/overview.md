@@ -13,30 +13,30 @@ The Spot Settings dialog is a standalone window. It groups controls into three a
 
 The **Total Spots:** indicator at the bottom of the dialog shows the count of live spots currently being tracked.
 
-Toggle buttons show "Enabled" permanently and use a colored background (green for enabled, red/amber for disabled) to indicate their state. They no longer change their text label when toggled.
+Toggle buttons display either "Enabled" or "Disabled" text that updates to match the current state, with a colored background (green for enabled, red/amber for disabled).
 
 ## What each control does
 
 | Label | Kind | Default | Behavior | Notes |
 |---|---|---|---|---|
-| Spots: | Toggle button | Enabled | Master toggle for DX spot display. The button text stays "Enabled"; its background color changes to indicate state. | — |
-| Memories: | Toggle button | Disabled | Toggles memory channel overlays on panadapter. The button text stays "Enabled"; its background color changes to indicate state. | Setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7. |
+| Spots: | Toggle button | Enabled | Master toggle for DX spot display. Button text changes to "Enabled" or "Disabled" based on state. | — |
+| Memories: | Toggle button | Disabled | Toggles memory channel overlays on panadapter. Button text changes to "Enabled" or "Disabled" based on state. | Setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7. |
 | Levels: | Slider (1–10) | 3 | Vertical stacking rows for spots. | Setting key changed from `SpotsStackLevels` in v0.9.7. |
 | Position: | Slider (0–100) | 50 | Vertical position on panadapter as a percentage. | Setting key changed from `SpotsPosition` in v0.9.7. |
 | Font Size: | Slider (8–32) | 16 | Spot text size in points. | Setting key changed from `SpotsFontSize` in v0.9.7. |
 | Spot Lifetime: | Slider (10 sec – 24 hrs, non-linear) | — | How long spots remain before fading. | Stored in seconds (`DxClusterSpotLifetimeSec`). Setting key changed from `SpotsLifetime` in v0.9.7. Migrates old minutes-based `DxClusterSpotLifetime` key on first read. |
-| Override Colors: | Toggle button | Disabled | Forces a single text color for all spots. The button text stays "Enabled"; its background color changes to indicate state. | — |
+| Override Colors: | Toggle button | Disabled | Forces a single text color for all spots. Button text changes to "Enabled" or "Disabled" based on state. | — |
 | Spot text color picker | Push button | `#FFFF00` | Opens a color dialog to pick spot text color. | — |
-| Override Background: Enabled | Toggle button | Enabled | Draws a background under spot text. The button text stays "Enabled"; its background color changes to indicate state. | — |
-| Override Background: Auto | Toggle button | Enabled | Auto-picks background color for contrast. The button text stays "Enabled"; its background color changes to indicate state. | — |
+| Override Background: Enabled | Toggle button | Enabled | Draws a background under spot text. Button text changes to "Enabled" or "Disabled" based on state. | — |
+| Override Background: Auto | Toggle button | Enabled | Auto-picks background color for contrast. The button text stays "Auto"; its background color changes to indicate state. | — |
 | Spot background color picker | Push button | `#000000` | Opens a color dialog to pick spot background color. | — |
 | Background Opacity: | Slider (0–100) | 48 | Alpha of spot background (0 = transparent, 100 = opaque). | Setting key changed from `SpotsOverrideBgOpacity` in v0.9.7. |
-| Spot Lines: | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. The button text stays "Enabled"; its background color changes to indicate state. | New in v0.9.7 (#2349). |
+| Spot Lines: | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Button text changes to "Enabled" or "Disabled" based on state. | New in v0.9.7 (#2349). |
 | Clear All Spots | Push button | — | Clears all spots from the panadapter. | — |
 
 ## Tips
 
-- Toggle buttons always display "Enabled" regardless of their current state. The button background color indicates whether the function is on (green) or off (red/amber).
+- Toggle buttons display either "Enabled" or "Disabled" text that updates to match the current state, with a green background when enabled and red/amber when disabled.
 - The Spot Lifetime slider is non-linear. Small movements at the low end of the slider adjust lifetime in seconds; larger movements progress through minutes and then hours up to 24 hours.
 - Enabling Override Background: Auto while Override Background: Enabled is on lets AetherSDR choose contrasting background colors automatically. Disable Auto to apply your manually picked color from the spot background color picker instead.
 - Enabling Memories: shows your radio's stored memory channels as spot-style overlays, which is useful for quickly identifying activity on channels you have saved.

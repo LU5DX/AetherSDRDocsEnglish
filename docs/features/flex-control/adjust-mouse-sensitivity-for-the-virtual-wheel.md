@@ -1,69 +1,41 @@
-# Adjust mouse sensitivity for the virtual wheel
+# AetherControl / FlexControl Dialog
 
-Change how much mouse or trackpad movement is required to turn the virtual tuning wheel. Higher sensitivity means less physical movement per frequency change.
+The AetherControl dialog provides configuration for both the physical FlexControl hardware and the virtual tuning wheel. It includes a virtual wheel display, auxiliary button configuration, and tuning sensitivity settings.
 
-## Before you start
+## Opening the dialog
 
-- The AetherControl dialog must be open: `Settings > AetherControl...`
-- The virtual wheel is available regardless of whether a physical FlexControl is connected.
+- Select `Settings > AetherControl...`
 
-## Steps
+## Virtual wheel display
 
-1. Open `Settings > AetherControl...`.
-2. In the **Wheel Tightness / Mouse Sensitivity** section, locate the **Mouse Sensitivity** slider.
-3. Drag the slider to your desired value:
-   - **Less** (left, value 0): requires more pointer movement to turn the wheel.
-   - **More** (right, value 100): requires less pointer movement to turn the wheel.
-4. Test the feel by rotating your finger or stylus around the virtual wheel widget.
-5. Close the dialog to save the setting.
+The virtual wheel shows the currently active slice, its frequency, and mode. You can rotate it with mouse or touch to tune the active slice.
 
-## What each control does
+## Physical FlexControl
 
-| Control | Default | Valid range | Setting key |
-|---------|---------|-------------|-------------|
-| Mouse Sensitivity slider | 50 | 0–100 | `FlexControlVirtualWheel` (nested JSON, `sensitivity` field) |
+The dialog shows the physical FlexControl connection state and port name. Use the **Detect** and **Close** buttons to manage the physical device.
 
-- Midpoint (50) yields 1.0x scaling of pointer movement.
-- Values below 50 reduce sensitivity (more movement needed).
-- Values above 50 increase sensitivity (less movement needed).
-- Affects only the virtual wheel; does not change behavior of a physical FlexControl.
-- Single-event pointer deltas are clamped to 15° (π/12 radians) to reduce jitter.
-- Lazy re-anchoring prevents unwanted jumps when the pointer crosses through the wheel’s center dead-zone.
+## Compact mode
 
-## Capture/release behavior
+Toggle **Compact** to hide the auxiliary buttons and show only the wheel and frequency readout for a minimal UI.
 
-- **Double-click** the virtual wheel to capture mouse input for circular tuning.
-- **Double-click** again to release capture.
-- Press **Escape** as a secondary release path.
-- Single-clicking no longer captures or releases the wheel. This change provides a cleaner user experience than the previous asymmetry of click-to-capture with Escape-to-release.
+## External spin
 
-## Tips
+Enable **External Spin** to allow drag gestures on the panadapter to trigger spin-wheel tuning behavior.
 
-- If using a trackpad, try starting at value 65 and adjust from there.
-- The companion **Wheel Tightness** slider controls coasting feel (how long the wheel keeps spinning after you stop moving). See [Adjust wheel tightness (coasting feel)](adjust-wheel-tightness-coasting-feel.md).
+## Reverse direction
 
-## Related
+Enable **Reverse** to reverse the wheel tuning direction.
 
-- [Adjust wheel tightness (coasting feel)](adjust-wheel-tightness-coasting-feel.md)
-- [Use the virtual wheel to tune the active slice](use-the-virtual-wheel-to-tune-the-active-slice.md)
+## Wheel actions
 
-# Assign actions to the wheel push and double-tap
+Assign actions to pushing or double-tapping the wheel:
 
-Configure what happens when you push or double-tap the virtual wheel in the AetherControl dialog.
+| Control | Description |
+|---------|-------------|
+| **Push (action)** | Select an action for a single tap on the wheel |
+| **Double-tap (action)** | Select an action for a double-tap on the wheel |
 
-## Before you start
-
-- Open the AetherControl dialog: `Settings > AetherControl...`
-- The virtual wheel must be active.
-
-## Steps
-
-1. In the **Push (action)** combo box, select an action for a single tap on the wheel.
-2. In the **Double-tap (action)** combo box, select an action for a double-tap on the wheel.
-
-## Available wheel actions
-
-The following actions can be assigned to wheel push or double-tap:
+Available wheel actions:
 
 | Action ID | Display Name |
 |-----------|--------------|
@@ -75,24 +47,58 @@ The following actions can be assigned to wheel push or double-tap:
 | `WheelAgcT` | AGCT (Automatic Gain Control Threshold) |
 | `WheelApf` | APF (Audio Peaking Filter) |
 
-- **WheelSlice Audio** controls the audio volume of the currently active slice. This is separate from the master volume control.
-- Legacy settings using `WheelMasterAf` are automatically recognized as equivalent to `WheelVolume`.
+**WheelSlice Audio** controls the audio volume of the currently active slice, separate from the master volume control. Legacy settings using `WheelMasterAf` are automatically recognized as equivalent to `WheelVolume`.
 
-# Configure auxiliary buttons
+## Auxiliary buttons
 
-The five auxiliary buttons on the virtual FlexControl can each have separate single-tap and double-tap actions.
-
-## Before you start
-
-- Open the AetherControl dialog: `Settings > AetherControl...`
-
-## Steps
+Configure five auxiliary buttons, each with separate single-tap and double-tap actions:
 
 1. Click one of the five **Aux** buttons (labeled with dots) to select it.
 2. In the **Aux single-tap combo**, select the action for a single tap.
 3. In the **Aux double-tap combo**, select the action for a double-tap.
 
-## Tips
+Each aux button remembers its own assignments independently. The selected aux button is indicated by the dot state next to its label.
 
-- Each aux button remembers its own single-tap and double-tap assignments independently.
-- The selected aux button is indicated by the dot state next to its label.
+## Wheel Tightness slider
+
+Adjusts virtual wheel coasting drag:
+
+| Control | Default | Range | Setting Key |
+|---------|---------|-------|-------------|
+| Wheel Tightness slider | 45 | 0–100 | `FlexControlVirtualWheel` (nested JSON, `looseness` field) |
+
+- **Tight** (left, value 0): fast stop after you release the wheel.
+- **Loose** (right, value 100): long coast after you release the wheel.
+- Primarily affects trackpad usage; does not affect a physical FlexControl.
+- Formerly stored under legacy flat key `FlexControlVirtualWheelLooseness`; auto-migrated on first read.
+
+## Mouse Sensitivity slider
+
+Adjusts how much pointer movement turns the virtual wheel:
+
+| Control | Default | Range | Setting Key |
+|---------|---------|-------|-------------|
+| Mouse Sensitivity slider | 50 | 0–100 | `FlexControlVirtualWheel` (nested JSON, `sensitivity` field) |
+
+- **Less** (left, value 0): requires more pointer movement.
+- **More** (right, value 100): requires less pointer movement.
+- Midpoint (50) yields 1.0x scaling.
+- Single-event pointer deltas are clamped to 15° (π/12 radians) to reduce jitter.
+- Lazy re-anchoring prevents unwanted jumps when the pointer crosses through the wheel's center dead-zone.
+- Affects only the virtual wheel; does not change behavior of a physical FlexControl.
+
+### Tips
+
+- If using a trackpad, try starting Mouse Sensitivity at value 65 and adjust from there.
+- Use the companion **Wheel Tightness** slider to control coasting feel.
+
+## Capture/release behavior
+
+- **Double-click** the virtual wheel to capture mouse input for circular tuning.
+- **Double-click** again to release capture.
+- Press **Escape** as a secondary release path.
+- Single-clicking no longer captures or releases the wheel.
+
+## Window sizing
+
+The AetherControl dialog adapts to your screen size. When opened in non-compact mode on a shorter display, the content area scrolls vertically so all controls remain accessible. The dialog never opens taller than the available workspace height.

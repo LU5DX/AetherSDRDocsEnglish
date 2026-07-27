@@ -12,12 +12,12 @@ When you mute a slice using the mute button in the RX Controls applet, the mute 
 | Control     | Label | Default     |
 |-------------|-------|-------------|
 | Mute toggle | 🔊 / 🔇 | 🔊 (unmuted) |
-
 ## Behavior details
 
 - Single-click the mute button toggles mute for this slice. The icon (🔊 or 🔇) updates only when the radio acknowledges the state change via `SliceModel::audioMuteChanged`.
 - Double-click the mute button toggles mute for all owned slices simultaneously.
 - The single-click action is deferred by the platform double-click interval (approximately 400 ms). This delay allows a double-click to override the single-click and toggle all slices instead.
+- The single-click is deferred by `clickDiscriminationIntervalMs()` (configurable in Radio Setup → Slice Controls, default platform double-click interval ~400 ms, #3009) so a double-click can override it. The double-click handler is in `eventFilter` and cancels the single-click timer.
 - No suppress flag is needed for the trailing `clicked()` signal of a double-click sequence. The `eventFilter` returns `true` on `MouseButtonDblClick`, so `QAbstractButton::mouseDoubleClickEvent` is never called. The button never enters pressed-state on the second press, and the second release does not emit `clicked()`.
 
 ## Tips
@@ -34,7 +34,7 @@ When you mute a slice using the mute button in the RX Controls applet, the mute 
 
 # RX Controls (RxApplet)
 
-Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, and FM repeater duplex settings.
+Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, and FM repeater duplex settings. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices. The filter-width formatter is shared with the VFO panel for consistent readouts (#2197), and the stepFilterWidth() method walks per-mode preset lists so widen/narrow shortcuts produce mode-correct edge geometry. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch, which would otherwise notch out FSK characters and break decoding (#2504). When switching out of RADE mode via the mode combo, the applet emits radeActivated(false) only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice.
 
 ## Slice tabs
 
@@ -56,7 +56,7 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
-| RX antenna | ANT1 | from ant_list in panadapter status | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. | Populated from the radio's ant_list; blue-coloured label. |
+| RX antenna | ANT1 | from ant_list in panadapter status | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. | Populated from the radio's ant_list; blue-coloured label. When a KiwiSDR is active, virtual antenna tokens are appended to the menu. Selecting a KiwiSDR virtual antenna emits kiwiRxAntennaSelected(sliceId, profileId); selecting a Flex antenna emits flexRxAntennaSelected(sliceId). |
 | TX antenna | ANT1 | from ant_list, excluding RX-only ports | Opens a menu listing TX-capable antennas; sets slice->setTxAntenna. | Red-coloured label; RX-only antenna ports (prefix 'RX') are filtered out. |
 
 ## Mode and filter
@@ -66,7 +66,7 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 | Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) | Sets slice mode; reshapes filter and step presets for the new mode. | Selecting a mode emits wfmActivated(false) to tear down any WFM software demod overlay. RADE option requires HAVE_RADE build flag. |
 | WFM button | WFM | unchecked | On/Off | Toggle to enable the software FM demodulator via DAX IQ → Hi-Fi Cable for wideband FM reception. | Positioned next to the mode combo. When activated, emits wfmActivated(true) with the current slice ID. |
 | Filter width | 2.7K | none | Shows current filter width in kHz. | Updates when filter preset is applied. |
-| Filter width presets | none | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; AM/SAM: 5600-14000 Hz; CW: 50/100/250/400 Hz; DIG: 100-2000 Hz; RTTY: 250-1000 Hz | Click to apply a preset filter width; right-click to save current width as a preset. | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic. The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
+| Filter width presets | none | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; AM/SAM: 5600-14000 Hz; CW: 50/100/250/400/500/600 Hz; DIG: 100-2000 Hz; RTTY: 250-1000 Hz | Click to apply a preset filter width; right-click to save current width as a preset. | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. CW presets now include 500 Hz and 600 Hz (first 6 of VfoWidget's 8 presets). The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic. The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
 | Filter passband widget | none | none | Drag the lo/hi edges to adjust filter passband; emits filterChanged (lo, hi). | none |
 
 ## CW break-in indicator
@@ -85,7 +85,7 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
-| Mute toggle | 🔊 / 🔇 | 🔊 (unmuted) | none | Single-click mutes/unmutes this slice (deferred by the platform click-discrimination interval). Double-click mutes/unmutes all owned slices via muteAllToggled signal. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. | Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved/restored on reconnect. |
+| Mute toggle | 🔊 / 🔇 | 🔊 (unmuted) | none | Single-click mutes/unmutes this slice (deferred by the platform click-discrimination interval, configurable in Radio Setup → Slice Controls). Double-click mutes/unmutes all owned slices via muteAllToggled signal. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. | Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. The single-click is deferred by clickDiscriminationIntervalMs() (configurable in Radio Setup → Slice Controls, default platform double-click interval ~400 ms, #3009) so a double-click can override it. The double-click handler is in eventFilter and cancels the single-click timer. |
 | AF gain | 70 | 0-100 | Adjusts slice audio output gain; emits afGainChanged. | none |
 | L / R pan | 50 | 0-100 | Pans slice audio between left (0) and right (100) channels. | Double-click resets to 50 (centre). |
 
@@ -128,16 +128,4 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 
 ## AGC-T noise floor calibration
 
-The AGC threshold slider supports an automatic calibration feature to set the threshold based on the current noise floor.
-
-### Steps
-
-1. Right-click the AGC threshold slider.
-2. Select "Calibrate AGC-T against noise floor…" from the context menu.
-3. The applet emits a request to calibrate for the current slice ID. The system measures the noise floor and sets the AGC threshold accordingly.
-
-### Notes
-
-- This feature is available in all AGC modes (Off, Slow, Med, Fast).
-- The right-click entry point is intentionally non-obvious; the slider tooltip advertises the feature for discoverability.
-- See the AGC-T calibration design document for more details.
+The AGC

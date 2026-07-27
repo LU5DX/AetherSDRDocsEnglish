@@ -1,6 +1,6 @@
 # RX Controls applet
 
-The RX Controls applet provides per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, FM repeater duplex settings, and the new WFM software demodulator. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices.
+The RX Controls applet provides per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, FM repeater duplex settings, and the WFM software demodulator. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices.
 
 ## Before you start
 
@@ -11,7 +11,7 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 
 1. Open the RX Controls applet. If it is not visible, click the **RX** tray button on the right sidebar.
 2. If you have more than one slice, click the slice tab (A through H) for the slice you want to change.
-3. **To change the RX antenna:** Click the blue antenna label near the top of the applet (shows the current RX antenna, e.g. **ANT1**). A menu appears listing all available antenna ports. Click the port you want. A checkmark shows the current selection.
+3. **To change the RX antenna:** Click the blue antenna label near the top of the applet (shows the current RX antenna, e.g. **ANT1**). A menu appears listing all available antenna ports and any KiwiSDR virtual antenna profiles. Click the port or profile you want. A checkmark shows the current selection.
 4. **To change the TX antenna:** Click the red antenna label next to the RX antenna label (also shows the current TX antenna, e.g. **ANT1**). A menu appears listing TX-capable antenna ports. Click the port you want.
 5. **To enable WFM:** Click the **WFM** button. This activates a software FM demodulator via DAX IQ → Hi-Fi Cable. The button glows green when active. Switching the mode combo (USB, LSB, etc.) automatically turns WFM off.
 6. **To calibrate AGC-T:** Right-click the AGC threshold slider and select **Calibrate AGC-T against noise floor…** from the context menu. This opens the AGC-T calibration panel for the current slice.
@@ -20,7 +20,7 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 
 | Control                           | Default   | Valid values                                                                |
 |-----------------------------------|-----------|-----------------------------------------------------------------------------|
-| **ANT1** (RX antenna, blue label) | ANT1      | Antenna ports from the radio's ant_list or the slice's own rxAntennaList    |
+| **ANT1** (RX antenna, blue label) | ANT1      | Antenna ports from the radio's ant_list, slice's own rxAntennaList, or KiwiSDR virtual antenna tokens |
 | **ANT1** (TX antenna, red label)  | ANT1      | TX-capable ports from the radio's ant_list                                  |
 | **Slice tabs (A..H)**             | None      | 1–8 buttons (capped by hardware max slices)                                 |
 | **Slice badge**                   | A         | A/B/C/D/E/F/G/H (rendered as HTML-rich text)                                |
@@ -77,6 +77,7 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 - From v26.6.3, the frequency edit field uses `FreqLineEdit` (a subclass of `QLineEdit`) for improved input handling. It shows "MHz" as hint text rather than placeholder text.
 - From v26.6.3, the **STEP** spinbox emits `stepSizeChangedByUser` in addition to `stepSizeChanged` when the user manually changes the step size. This allows other components to distinguish programmatic step changes from user-initiated ones.
 - From v26.6.3, the AGC threshold slider has a right-click context menu with a **Calibrate AGC-T against noise floor…** option. The tooltip now includes the "Right-click to calibrate against the noise floor" hint for discoverability.
+- From v26.7.4, the CW filter preset list has been expanded from 4 to 6 presets: 50, 100, 250, 400, 500, and 600 Hz.
 
 ## Antenna menu changes in v26.5.2.1
 
@@ -85,6 +86,16 @@ The RX and TX antenna menus have been updated to provide clearer feedback:
 - Each menu item shows the antenna port name as both tooltip and status tip.
 - The menu action data carries the raw antenna identifier, rather than using the display text. This means menu items can display formatted labels (e.g. with port type indicators) while still selecting the correct antenna port.
 - The RX antenna menu now prefers the slice's own `rxAntennaList()` if it is non-empty, falling back to the radio's `ant_list`. This ensures the menu reflects any per-slice antenna restrictions reported by the radio.
+
+## KiwiSDR virtual antenna integration (v26.7.4)
+
+When a KiwiSDR manager is active, the RX antenna menu includes virtual antenna profile tokens from the KiwiSDR manager. These profiles appear as additional entries in the RX antenna menu.
+
+- Virtual antenna profiles are identified by a profile ID rather than a physical port name.
+- When you select a KiwiSDR virtual antenna from the menu, AetherSDR emits `kiwiRxAntennaSelected(sliceId, profileId)` and does not call `slice->setRxAntenna()`.
+- When you select a physical Flex antenna port, AetherSDR emits `flexRxAntennaSelected(sliceId)` and calls `slice->setRxAntenna()` with the selected port.
+- Each KiwiSDR profile is assigned to at most one slice at a time. The menu shows a checkmark next to the profile assigned to the current slice.
+- The menu is rebuilt each time it opens, ensuring the available profiles are current.
 
 ## WFM software demodulator (v26.6.3)
 
@@ -109,15 +120,4 @@ The RADE mode activation logic has been updated to reflect the fact that "RADE" 
 
 In v0.9.5.1, the slice tab row gained more robust lifecycle management to fix issues seen across radio reconnects (#2254).
 
-- When the radio reports a different number of slices than the current tab row contains, AetherSDR tears down all existing tab buttons (`clearSliceButtons()`) before rebuilding the row. Previously, the row was only built once per session.
-- `clearSliceButtons()` removes all generated tab buttons, hides the tab row, and restores the static slice badge. This is also the state shown when the radio is disconnected.
-- The signal connection between the button group and `sliceActivationRequested` is now created only once per session, regardless of how many times the tab row is rebuilt. This prevents duplicate signal handlers accumulating across reconnects. Slice button click connections are guarded against duplicate signal handlers across reconnects.
-
-## Filter preset storage format
-
-From v0.9.5.1, filter presets saved via right-clicking a **Filter width presets** button can store either a plain width or a specific passband edge pair (#2259). This matches the format used by VfoWidget.
-
-- A **plain width** entry is stored as a single integer (e.g. `2700`). When applied, the radio places the passband symmetrically according to the current mode.
-- A **lo:hi edge** entry is stored as two integers separated by a colon (e.g. `300:3000`). When applied, AetherSDR sets the low and high passband edges exactly as saved.
-
-Both formats can coexist in the same preset list
+- When the radio reports a different number of slices than the current tab row contains, AetherSDR tears down all existing tab buttons (`clearSlice

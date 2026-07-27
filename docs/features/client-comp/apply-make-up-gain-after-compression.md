@@ -36,11 +36,11 @@ The **Drive** and **Phase** knobs are available in the floating StripCompPanel o
 - Watch the gain-reduction bar while transmitting or listening. If the bar regularly sits at or beyond the `-6 dB` tick, you are applying significant compression; consider adding make-up gain in the `+4.0` to `+10.0 dB` range to recover loudness.
 - Make-up gain is applied before the limiter stage (if enabled). If you add a large make-up value and the output clips, enable the limiter and set an appropriate ceiling. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).
 - The TX and RX sides store their make-up values independently. Adjusting one does not affect the other.
-- The transfer curve in the applet now uses a cached text label system that adapts to compact mode. When the applet is in compact mode, axis labels use a smaller 7-pixel font instead of 9 pixels. The labels themselves remain the same — they show the major tick values (for example, -60, -40, -20, 0) along the axes.
+- The transfer curve in the applet uses a cached text label system that adapts to compact mode. When the applet is in compact mode, axis labels use a smaller 7-pixel font instead of 9 pixels. The labels themselves remain the same — they show the major tick values (for example, -60, -40, -20, 0) along the axes.
 - Inline editing also works on the Thresh, Ratio, Attack, and Release knobs. Click any knob's value label to type a precise numeric value. Press **Enter** or tab away to commit, or press **Escape** to cancel and revert.
 - The transfer curve, grid lines, and envelope ball colors now follow the active application theme. The curve uses the theme accent color, grid lines use background colors, the ball glow uses the warning accent, and the ball core uses the primary text color. This ensures the compressor display adapts to your chosen color scheme.
 - The gain-reduction meter (slider fill) also uses the theme slider foreground color, giving a consistent amber appearance that matches the overall visual theme.
-- The envelope ball animation now uses a precise timer with improved rendering. When the compression envelope settles, the animation timer stops to save resources, and a single repaint ensures the display remains accurate. This means the ball may appear to jump to its final position rather than fading smoothly when compression stops.
+- The envelope ball animation uses a precise timer with continuous rendering. When the compression envelope settles, the animation timer stops but the widget continues to repaint on every tick, ensuring the display remains accurate and the ball position updates smoothly at all times.
 
 ## Troubleshooting
 

@@ -95,7 +95,9 @@ Non-interactive. Only visible in RX mode. Turns green when PC Audio (the standar
 
 ### ADSP status / bypass tile
 
-Interactive. Only visible in RX mode. Mirrors which client-side noise reducer is currently active. The label rotates to the active module's short name (for example, `NR2`, `NR4`, `BNR`). Falls back to `ADSP` when no noise reducer is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. Adopts the same blue-ring + green-LED-dot styling as implemented stage tiles. Snapshot restoration falls back to NR2 if no modules were active at bypass-time.
+Interactive. Only visible in RX mode. Mirrors which client-side noise reducer is currently active. The label rotates to the active module's short name (for example, `NR2`, `NR4`, `BNR`, or `NVAFX`). Falls back to `ADSP` when no noise reducer is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. Adopts the same blue-ring + green-LED-dot styling as implemented stage tiles. Snapshot restoration falls back to NR2 if no modules were active at bypass-time.
+
+Note: The `NVAFX` module is treated as the equivalent of the legacy `BNR` module for snapshot and restore purposes. When bypassing, if NVAFX is active it will be disabled along with all other NR modules. Upon restore, if the saved snapshot indicates BNR was active, NVAFX will be enabled instead.
 
 ### SPEAK status tile
 
@@ -109,7 +111,7 @@ Non-interactive. Only visible in RX mode. Turns green when AetherSDR's audio out
 - Switching from TX to RX and back does not affect either chain's stage states or BYPASS snapshot. Each side is fully independent.
 - The Record button tooltip reads: "Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off)." If the button is greyed out, check your MIC source setting and DAX state first.
 - Double-clicking a TX stage tile now opens the full Aetherial Audio Channel Strip rather than a per-stage editor. Access individual stage editors from within the strip.
-- The ADSP tile's label updates dynamically to show which noise reducer module is currently active, or falls back to "ADSP" when no module is engaged.
+- The ADSP tile's label updates dynamically to show which noise reducer module is currently active, or falls back to "ADSP" when no module is engaged. The NVAFX module is labelled as "NVAFX" when active.
 - The click discrimination interval used by chain tiles is configured in Interaction Settings. Adjust it if the tiles feel too sensitive or not responsive enough when distinguishing single clicks from double clicks.
 - The BYPASS scope is global (per audio engine), not per-profile. Switching profiles in the Channel Strip will not reset the BYPASS state.
 - BYPASS also disables the RN2 module on the TX side, and restoration re-enables RN2 if it was active when bypass was engaged.

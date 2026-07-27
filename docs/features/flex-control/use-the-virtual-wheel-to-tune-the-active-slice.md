@@ -62,6 +62,8 @@ These settings are stored per aux button.
 - The wheel shows the slice frequency in Hz and the current mode (e.g., USB, CW, AM).
 - Click **Compact** to toggle compact mode, which hides auxiliary buttons and shows only the wheel and frequency for a minimal UI.
 - The **Physical** indicator shows physical FlexControl connection state and port name. Use the Detect/Close buttons to manage the physical device.
+- The dialog window now contains a scroll area. When the full controller exceeds the available screen height, the content scrolls vertically so the window can be smaller than the full controller height. The minimum width of the window is set to the content's minimum width to prevent horizontal clipping.
+- On short or DPI-scaled screens, the window height is clamped to the available screen height when opening, and the content becomes scrollable instead of being forced into compact mode.
 
 ## Related
 

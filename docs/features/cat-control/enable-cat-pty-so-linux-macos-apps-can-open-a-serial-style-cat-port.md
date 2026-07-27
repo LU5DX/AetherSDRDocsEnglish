@@ -29,12 +29,16 @@ CAT PTY creates four virtual serial port symlinks that logging and contest softw
 | **Enable TCP**       | Off         | On / Off    |
 | **Base**             | `4532`      | 1024–65535  |
 | A/B/C/D channel rows | `(stopped)` | —           |
+
+Each channel row shows a per-port enable checkbox with a high-contrast indicator. The checkbox shows a filled accent color when checked, making the on/off state readable at a glance.
+
 ## Tips
 
 - Each channel (A, B, C, D) maps to one radio slice. Point your logging software at the symlink that corresponds to the slice you want it to control.
 - To have AetherSDR start the PTY symlinks automatically at launch, enable `Settings > Autostart CAT with AetherSDR`.
 - You can run **Enable TTY** and **Enable TCP** independently. Enabling one does not require enabling the other.
 - In v26.5.3, the PTY symlink location moved from `/tmp` to per-user runtime directories for security hardening (GHSA-qxhr-cwrc-pvrm). Symlinks are created atomically to prevent TOCTOU race conditions.
+- In v26.7.4, the **Enable CAT** button label updates dynamically to show "Enabled" or "Disabled" text, reflecting the current state.
 
 ## Troubleshooting
 
@@ -42,6 +46,7 @@ CAT PTY creates four virtual serial port symlinks that logging and contest softw
 - **External application cannot open the port** — Confirm the application is using the correct path. On Linux, run `echo $XDG_RUNTIME_DIR/aethersdr/cat-A` to resolve the full path. On macOS, use `~/Library/Caches/AetherSDR/cat-A`. Check that **Enable TTY** is still active (button should be green) and that AetherSDR remains connected to the radio.
 - **Symlink path shown in the row does not match `/tmp/AetherSDR-CAT-A`** — Starting with v26.5.3, symlinks are no longer created in `/tmp`. The path shown updates to the actual PTY device path under the per-user runtime directory. Use whatever path is displayed in the channel row.
 - **Symlink path shows instead of a running path** — The path shown updates to `RigctlPty::defaultSymlinkPath(i)` format when the server is stopped, matching the per-user location scheme.
+- **Per-port enable checkbox is hard to see** — In v26.7.4, the checkbox indicator received a high-contrast border and filled accent color for better visibility against the dark applet background.
 
 ## Related
 

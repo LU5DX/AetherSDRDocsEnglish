@@ -29,6 +29,12 @@ The panel remembers your last mode and restores it on next launch.
 
 The status label at the bottom of the panel updates through searching, connecting, and then connected states as the link is established.
 
+### Setting a custom nickname for discovered radios
+
+Right-click any radio in the **Available radios** list to open a context menu with the option **Set Nickname...**. This is useful for radios that do not have an on-radio name store (such as HL2 or simulation backends). The nickname is persisted keyed by serial number and displayed on subsequent discovery sweeps.
+
+For FlexRadio radios, the radio name is set from the radio's own Radio Setup menu while connected; the nickname feature is not offered for Flex radios to avoid two sources of truth.
+
 ## SmartLink mode steps
 
 1. Click **SmartLink**.
@@ -58,7 +64,7 @@ The status label shows the connection result, and the **Manual result label** pr
 | Control | What it does | Persisted setting |
 |---|---|---|
 | **Local / SmartLink / Manual** | Switches the panel among the three connection modes. Default mode on first launch is **Local**. | `ConnectionMode` |
-| **Available radios** | Lists FLEX-8600 radios discovered on the LAN via mDNS. Populated automatically; no input required. | — |
+| **Available radios** | Lists FLEX-8600 radios discovered on the LAN via mDNS. Populated automatically; no input required. Right-click a radio to set a custom nickname (for non-Flex radios only). | — |
 | **Connect Selected Radio** | Connects to the highlighted LAN radio. Enabled only when a radio is selected in the list. | — |
 | **No local radios found yet** | Callout shown when discovery returns no results. Replaces the list until a radio is found or discovery is retried. | — |
 | **Retry Discovery** | Re-runs LAN discovery immediately. Appears inside the empty-state callout. | — |
@@ -94,6 +100,10 @@ The connection panel is a frameless dialog with a custom title bar. The title ba
 
 When the panel is hidden during a frameless mode toggle, its geometry is preserved only if the panel was visible at the time of the toggle.
 
+## Radio list sizing
+
+The **Available radios** list has a bounded height (minimum 120 px, maximum 240 px) with an always-available vertical scrollbar. This prevents the list from growing past the dialog on small displays such as 1024×600 Raspberry Pi panels, ensuring the Connect button and lower controls remain reachable.
+
 ## Tips
 
 - If the list is slow to populate, wait at least 10–15 seconds before using **Retry Discovery**. The radio sends periodic discovery packets and AetherSDR may not have received the first one yet.
@@ -109,6 +119,7 @@ When the panel is hidden during a frameless mode toggle, its geometry is preserv
 - **The Radio IP address drop-down shows an old or unreachable address** — Type a new address directly in the field. The old entry will age out of the list once three newer successful connections have been made.
 - **AetherSDR connects to the wrong radio at startup** — Uncheck **Connect to last radio on start up**. AetherSDR will then open the connection screen on every launch so you can choose the radio manually.
 - **SmartLink login fields do not auto-fill with a password manager** — Ensure your password manager is set to recognise the form as a SmartLink account login. The email and password fields are labelled appropriately in the accessibility tree for macOS Passwords, Windows Authenticator, and KDE Wallet.
+- **Right-click menu does not appear on the radio list** — Only the Local mode **Available radios** list supports the right-click context menu. The SmartLink **Remote radios** list does not offer this feature.
 
 ## Related
 

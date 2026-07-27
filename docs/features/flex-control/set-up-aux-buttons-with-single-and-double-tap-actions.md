@@ -20,7 +20,7 @@ Configure the five auxiliary buttons on the AetherControl / FlexControl dialog s
 |---|---|---|
 | Wheel | Virtual FlexControl wheel: rotate with mouse/touch to tune the active slice. Shows frequency and mode readout. Double-click to capture circular tuning; double-click again to release. Press Escape as a secondary release path. | None |
 | Physical | Shows physical FlexControl connection state and port name. Detect/Close buttons to manage the physical device. | None |
-| Compact | Toggles compact mode: hides auxiliary buttons, shows only the wheel and frequency for a minimal UI. | None |
+| Compact | Toggles compact mode: hides auxiliary buttons, shows only the wheel and frequency for a minimal UI. The content area scrolls if the dialog height exceeds the available screen workspace. | None |
 | External Spin | Enables external spin wheel tuning: dragging on the panadapter triggers spin-wheel tuning gestures. | None |
 | Reverse | Reverses the wheel tuning direction. | None |
 | Push (action) | Assigns an action to pushing the wheel (single tap). Options include mode cycle, step zoom, zoom reset, band up/down, and more. | `FlexControlButtonAction_*` |
@@ -42,6 +42,7 @@ Tune Slice, Band Zoom, Segment Zoom, RIT, XIT, Master Volume, **Slice Audio Volu
 - The virtual wheel now uses double-click to capture and release circular tuning mode. Single-click does not change capture state. This replaces the previous asymmetry where only Escape could release capture.
 - When a physical FlexControl device sends an init/reset command (e.g. `F0304;`), the dialog automatically re-issues the LED state to ensure hardware matches the application's active wheel-mode button. This resolves race conditions where the device's power-on reset could clear LED state after the application had already set it.
 - Slice Audio Volume allows you to adjust the audio volume of the active slice independently using the wheel, without affecting the master volume or other slices.
+- The dialog now uses a scroll area for non-compact mode. If your screen height is limited or you use high DPI scaling, the content scrolls vertically so the full controller remains accessible. The window cannot be resized taller than the available screen workspace.
 
 ## Related
 

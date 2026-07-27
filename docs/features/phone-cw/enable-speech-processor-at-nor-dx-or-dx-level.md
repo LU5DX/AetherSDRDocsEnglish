@@ -15,9 +15,9 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
    - Position 0 — **NOR** (normal, least compression)
    - Position 1 — **DX**
    - Position 2 — **DX+** (most compression)
-3. Watch the **Compression** gauge. The reversed fill shows how many dB of compression is being applied (range: −25 to 0 dB). Keep the reading out of the far left to avoid over-processing.
-4. Watch the **Level** gauge to confirm microphone input is reaching the processor. The range is −40 to +10 dBFS; the meter goes red above 0 dBFS.
-5. Watch the **ALC** gauge (Phone panel) to confirm the post-software-ALC level is in the normal operating range (−20 to 0 dBFS). The gauge fills from the right; excessive ALC pins at 0 dBFS.
+3. Watch the **Compression** gauge. The reversed fill shows how many dB of compression is being applied (range: −25 to 0 dB). Keep the reading out of the far left to avoid over-processing. Hover over the gauge to see the exact compression value in dB.
+4. Watch the **Level** gauge to confirm microphone input is reaching the processor. The range is −40 to +10 dBFS; the meter goes red above 0 dBFS. Hover over the gauge to see the exact mic peak level in dB.
+5. Watch the **ALC** gauge (Phone panel) to confirm the post-software-ALC level is in the normal operating range (−20 to 0 dBFS). The gauge fills from the right; excessive ALC pins at 0 dBFS. Hover over the gauge to see the exact ALC level in dBFS.
 6. To disable the processor, click **PROC** again. The button returns to its unlit state.
 
 ## What each control does
@@ -28,8 +28,34 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 | **NOR/DX/DX+**    | Slider                                                                                                                                                            | 0 (NOR)                                                                                                                  |
 | **Level**         | Meter                                                                                                                                                             | —                                                                                                                        |
 | **Compression**   | Meter                                                                                                                                                             | —                                                                                                                        |
-| **ALC (Phone panel)** | Meter showing automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
-| **ALC (CW panel)**    | Meter mirroring the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
+| **ALC (Phone panel)** | Meter showing automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover for exact dBFS reading. | Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. |
+| **ALC (CW panel)**    | Meter mirroring the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover for exact dBFS reading. | Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses HGauge::setFillFromRight mode.                          |
+
+## All applet controls
+
+| Control               | Kind          | Default | Valid range       | Behavior |
+|-----------------------|---------------|---------|-------------------|----------|
+| **Level**             | Meter         | —       | −40 to +10 dBFS (red > 0) | Shows microphone input peak level in dBFS. Suppressed to −150 when met_in_rx is off and not transmitting. Hover for exact dB reading (v26.7.4). |
+| **Compression**       | Meter         | —       | −25 to 0 dB (reversed fill) | Shows speech compression amount in dB. In v0.9.7, gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Hover for exact dB reading (v26.7.4). |
+| **Mic profile**       | Combo box     | —       | Populated from radio micProfileList() | Loads the named mic processing profile. |
+| **Mic source**        | Combo box     | —       | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source. When host modulation is active (radio is modulated by AetherSDR), the combo box is disabled and shows only "PC" with an explanatory tooltip. |
+| **Mic gain**          | Slider        | 50      | 0–100           | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence. |
+| **+ACC**              | Toggle button | —       | —               | Enables the accessory mic input mix. |
+| **PROC**              | Toggle button | —       | —               | Toggles the speech processor. |
+| **NOR/DX/DX+**        | Slider        | 0       | 0 (NOR), 1 (DX), 2 (DX+) | Three-position processor level. |
+| **DAX**               | Toggle button | —       | —               | Enables DAX as the TX audio source. |
+| **MON**               | Toggle button | —       | —               | Enables TX sidetone monitor. |
+| **Monitor volume**    | Slider        | —       | 0–100           | Sets sideband monitor volume. |
+| **ALC (Phone panel)** | Meter         | —       | −20 to 0 dBFS (red > −3) | Shows automatic level control reading from MeterModel::swAlcChanged. Fills right-to-left. Hover for exact dBFS reading (v26.7.4). |
+| **ALC (CW panel)**    | Meter         | —       | −20 to 0 dBFS (red > −3) | Mirrors the Phone-panel ALC gauge. Fills right-to-left. Hover for exact dBFS reading (v26.7.4). |
+| **Delay (CW)**        | Slider + edit | 500     | 0–2000 ms        | Sets CW break-in delay. The adjacent QLineEdit accepts typed values (0–2000). |
+| **Speed (CW)**        | Slider + edit | 20      | 5–100 WPM        | Sets CW keying speed. The adjacent QLineEdit accepts typed values (5–100). |
+| **Sidetone**          | Toggle button | —       | —               | Toggles CW sidetone monitor. Also enables/disables the client-side low-latency CwSidetoneGenerator in lockstep. |
+| **Sidetone volume**   | Slider + edit | 50      | 0–100           | Sets CW monitor volume. Also sets the local sidetone generator volume in lockstep. The adjacent QLineEdit accepts typed values (0–100). |
+| **L / R pan (CW)**    | Slider        | 50      | 0–100           | Sets CW monitor stereo pan. Double-click recenters to 50 (centre). |
+| **Breakin**           | Toggle button | —       | —               | Toggles full break-in (QSK). In v0.9.7, fully honors the radio's break_in setting. |
+| **Iambic**            | Toggle button | —       | —               | Toggles iambic paddle keyer. |
+| **Pitch < / >**       | Text + buttons| 600     | 100–6000 Hz      | QLineEdit with < / > buttons. Type a value (100–6000) or click the buttons to step by 10 Hz. |
 
 ## Tips
 
@@ -37,12 +63,14 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 - Start at **NOR** and move to **DX** or **DX+** only if signal reports warrant it. Heavy processing on strong signals sounds distorted to the receiving station.
 - The **Compression** gauge reads 0 dB (no fill) when **PROC** is off, when the radio is not transmitting, or when no audio is present.
 - Both **ALC** gauges (Phone and CW panels) use the same software ALC meter source. For SSB operation, target −10 to −5 dBFS on the ALC gauge for optimal transmit audio quality.
+- Hover over any gauge (**Level**, **Compression**, or either **ALC** gauge) to see the exact numeric reading in a popup (v26.7.4). This allows you to read the precise value without having to estimate the gauge's fill position.
 
 ## Troubleshooting
 
 - **PROC button is not visible** — The applet is showing the CW panel. The Phone panel, including **PROC**, appears only when the active slice is in a phone mode, not CW.
 - **Compression gauge shows 0 dB with PROC on** — In v0.9.7 and later the **Compression** gauge is gated on the radio's interlock TRANSMITTING state: it intentionally reads 0 dB during receive to prevent stale readings from the TX chain. If the gauge still reads 0 dB while transmitting, the radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
 - **NOR/DX/DX+ slider snaps back** — The slider has three valid positions (0, 1, 2). Dragging between snap points causes it to land on the nearest integer; this is expected behavior.
+- **Mic source combo box is disabled and shows only "PC"** — This occurs when the radio is in host modulation mode (modulated by AetherSDR). The PC microphone is the only available input in this mode; other sources are FlexRadio jacks that do not apply. A tooltip explains this.
 - **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). When RADE mode is active, the **Level** gauge also appears during receive (see [Level gauge behavior](#level-gauge-behavior-v093)). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
 - **Phone panel does not refresh when VOX is toggled by keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later if the Phone panel fails to update immediately when VOX is toggled via a keyboard shortcut.
 - **ALC gauge shows unexpected values** — The ALC meters now read from the software ALC meter (MeterModel::swAlcChanged) in dBFS ranges. Values outside −20 to 0 dBFS are not displayed; the gauge simply pins at the nearest end. This replaces the previous HWALC path that produced meaningless readings.
@@ -68,57 +96,4 @@ In v0.9.8, the four value labels for CW parameters were replaced with QLineEdit 
 The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator in lockstep. There is no longer a separate **Local STn** button, separate local volume slider, or **Follow** pitch toggle. Those controls have been removed.
 
 - Enabling **Sidetone** turns on both the radio-side monitor and the client-side generator simultaneously.
-- Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and the local generator volume to the same value.
-- Pitch and stereo pan always follow the radio's `cw_pitch` and `mon_pan_cw` settings automatically. No manual override or follow toggle is needed.
-- On Windows, the sidetone audio stream now starts immediately on connect rather than requiring a manual action (v0.9.3, fix #2105).
-- The sidetone bus is shared with Quindar tones. Sidetone and Quindar tones are mutually exclusive at the mode level.
-- In v26.5.3, the CW sidetone routes to the user-selected audio output device instead of the default output device (#2899). No user action is required; the sidetone automatically follows the audio output selection in the application's audio settings.
-
-If you have settings from a previous version that reference `CwLocalSidetoneEnabled`, `CwLocalSidetoneVolume`, `CwLocalSidetonePitchFollow`, or `CwLocalSidetonePitchHz`, those keys are no longer read or written by AetherSDR and can be ignored.
-
-## Break-in behavior (v0.9.7)
-
-The **Breakin** toggle now fully honors the radio's `break_in` setting.
-
-- With **Breakin** on (QSK mode), key edges from the CW keyboard or MIDI keyer trigger transmit immediately; the `break_in_delay` value holds the relay open between characters as expected.
-- With **Breakin** off, keyed characters are queued and the operator engages PTT manually. The previous auto-PTT envelope that forced transmit regardless of this setting, and that eliminated QSK hang time, has been removed.
-
-## ALC gauge behavior (v26.5.1)
-
-Starting with v26.5.1 (#2552), both the Phone panel and CW panel ALC gauges read from the software ALC meter (MeterModel::swAlcChanged) rather than the hardware ALC (HWALC) RCA voltage path. The HWALC path produced meaningless readings; the new path provides meaningful post-software-ALC SSB peak values in dBFS.
-
-- Both gauges display a range of −20 to 0 dBFS.
-- The fill direction is right-to-left: the gauge appears empty at −20 dBFS and fills toward the left as the level increases, reaching full at 0 dBFS.
-- Excessive ALC pins at 0 dBFS.
-- The gauges are mirrored: adjusting mic gain affects both gauges identically when operating in the respective mode.
-- The gauges use `HGauge::setFillFromRight(true)` for proper visual rendering.
-
-## Level gauge behavior (v0.9.3)
-
-When **Mic source** is set to **PC**, the **Level** gauge uses client-side metering and is not suppressed by the radio's `met_in_rx` flag. The gauge appears immediately on connect and shows the PC microphone input level whether or not the radio is transmitting.
-
-When RADE mode is active, the **Level** gauge behaves the same way: it uses client-side metering and is not suppressed by `met_in_rx`, so it shows the RADE input level during receive as well as transmit.
-
-For all other mic sources with RADE inactive, the gauge is suppressed to −150 dBFS when `met_in_rx` is off and the radio is not transmitting.
-
-## Level gauge behavior (v26.5.3)
-
-In v26.5.3, the logic that suppresses the **Level** gauge during receive has been refactored into a dedicated `applyLevelMeterReceiveGate()` method. This replaces the inline suppression check in `updateMeters()`. The behavior is functionally identical to previous versions:
-
-- When `met_in_rx` is off and the radio is not transmitting, the **Level** gauge is set to −150 dBFS regardless of the mic source. The previous exception for PC mic source and RADE mode has been removed — those sources are now also suppressed during receive when the level meter during receive is disabled.
-- To show the **Level** gauge during receive for PC mic source or RADE mode, enable **Level Meter During Receive** in the radio's settings or the applet's settings.
-
-## RADE mode behavior (v0.9.7)
-
-When AetherSDR activates RADE mode, the Phone/CW applet adjusts several behaviors automatically. No manual steps are required.
-
-- The **Mic gain** slider acts as a client-side RADE gain control. Its value is stored in `PcMicGain` and is not sent to the radio as `mic_level`. This prevents the slider from silently overwriting the hardware mic setting on the radio.
-- The `PcMicGain` setting is shared between PC mic source and RADE mode. Both paths are client-authoritative; the radio does not report a mic level for either.
-- The **Level** gauge shows RADE input level during receive (client-side metering, not gated by `met_in_rx`).
-- When RADE mode deactivates, the applet resynchronizes the **Mic gain** slider from the radio's reported value, and the **Level** gauge reverts to standard suppression behavior for the active mic source.
-
-## Compression gauge behavior (v26.5.3)
-
-In v26.5.3, the **Compression** gauge calculation was updated to correctly interpret the raw COMPPEAK meter value from MeterModel. The gauge now expects a positive value (0–25 dB compression) and inverts it for the reversed-fill gauge display.
-
-## Theme support (v
+- Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and

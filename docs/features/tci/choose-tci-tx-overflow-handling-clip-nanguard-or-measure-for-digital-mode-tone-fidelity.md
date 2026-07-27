@@ -4,7 +4,7 @@ The TX overflow handling mode controls how AetherSDR processes audio samples fro
 
 ## Before you start
 
-- The TCI server must be running (Enable button is green, status shows `:<port>`).
+- The TCI server must be running (Enable button shows "Enabled", status shows `:<port>`).
 - A TCI client (e.g., WSJT-X, Log4OM) must be connected and transmitting.
 
 ## Steps
@@ -19,12 +19,14 @@ The selection is persisted as `TciTxOverflowMode` and takes effect immediately f
 
 ## What each control does
 
-| Mode                           | Enum Value | Behavior                                                                                                                                                                                                                       |
-|--------------------------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Clip (saturating ±1.0)         | 0          | Hard-clamps overshoots to ±1.0. Introduces harmonic distortion on overshoot but protects downstream int16 conversion.                                                                                                          |
-| NaN guard (zero NaN/Inf only)  | 1          | Passes samples through bit-exact; only zeros pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio.                                                                           |
-| Measure only (true bypass)     | 2          | Never mutates samples. Counts overshoots for telemetry; downstream int16 conversion still clamps in the radio-native DAX route.                                                                                                |
-| TX overflow mode (right-click) |             | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as TciTxOverflowMode (0/1/2). |
+| Mode                           | Enum Value | Behavior                                                                                                                                                                                                                                                                                                                                                            |
+|--------------------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Clip (saturating ±1.0)         | 0          | Hard-clamps overshoots to ±1.0. Introduces harmonic distortion on overshoot but protects downstream int16 conversion.                                                                                                                                                                                                                                               |
+| NaN guard (zero NaN/Inf only)  | 1          | Passes samples through bit-exact; only zeros pathological NaN/Inf values. Preserves digital-mode tone fidelity; out-of-range floats reach the radio.                                                                                                                                                                                                                |
+| Measure only (true bypass)     | 2          | Never mutates samples. Counts overshoots for telemetry; downstream int16 conversion still clamps in the radio-native DAX route.                                                                                                                                                                                                                                     |
+| TX overflow mode (right-click) |            | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as TciTxOverflowMode (0/1/2). |
+
+The Enable button shows "Enabled" when the TCI server is running and "Disabled" when stopped.
 
 ## Tips
 

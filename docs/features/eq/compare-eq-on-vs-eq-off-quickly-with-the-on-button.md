@@ -24,7 +24,7 @@ Use the ON button to toggle the radio-side equalizer in and out while listening,
 | ON | Enables or disables the equalizer for the currently-selected path (RX or TX). Highlights green when enabled. Slider positions are preserved while bypassed. | Off (unchecked) |
 | Reset arc (revert icon) | Resets all 8 bands of the currently-selected path back to 0 dB. Drawn as a 3/4-circle arrow. Tooltip: "Reset all bands to 0 dB". | N/A |
 | RX | Selects the receive path for display and editing. ON acts on the RX equalizer when RX is active. Highlights blue when active. | Unchecked |
-| TX | Selects the transmit path for display and editing. ON acts on the TX equalizer when TX is active. Highlights blue when active. Applet opens on the TX view by default, or restores the last-selected view between sessions. | Checked |
+| TX | Selects the transmit path for display and editing. ON acts on the TX equalizer when TX is active. Highlights blue when active. Applet opens on the TX view by default. | Checked |
 | 63 | Trims the 63 Hz band for the selected path. Value label below the slider updates live. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
 | 125 | Trims the 125 Hz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
 | 250 | Trims the 250 Hz band for the selected path. While dragging, a popup shows the signed dB value (+/-). | 0 dB |
@@ -49,9 +49,10 @@ If you use the keyboard to nudge an EQ band slider (when keyboard shortcuts are 
 
 - ON is path-specific. Toggling ON while RX is selected does not affect the TX equalizer, and vice versa. Switch paths with RX or TX before toggling if you want to compare the other direction.
 - Your band slider positions are not changed by toggling ON. You can safely toggle in and out repeatedly without losing your curve.
-- The applet remembers which view (RX or TX) you last selected and restores it the next time you open the Equalizer tile. The TX view remains the default for first-time use.
+- The applet opens on the TX view by default.
 - Use the Reset arc button to quickly flatten all bands for the selected path without clicking individual sliders.
-- The EQ applet now supports live theme switching. When you change the application theme, the EQ tile's colors update in real time to match, including slider handles, labels, and button backgrounds.
+- The EQ applet supports live theme switching. When you change the application theme, the EQ tile's colors update in real time to match, including slider handles, labels, and button backgrounds.
+- Custom slider subclasses that override mouse handlers for click-to-jump positioning (such as the WaterfallRateSlider) still display the drag value popup correctly, because the internal popup implementation uses protected (not private) access.
 
 ## Related
 

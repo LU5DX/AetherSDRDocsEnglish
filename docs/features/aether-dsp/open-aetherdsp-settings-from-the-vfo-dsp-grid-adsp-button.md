@@ -31,9 +31,11 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 | NPE Method | radio_button | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects the noise power estimator. Stored as integer 0-2. |
 | AE Filter | checkbox | True | — | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
 | Reduction: | slider | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Higher values suppress more noise but risk distorting speech. |
+| Gain Floor | slider | — | 0.00–1.00 | `NR2GainFloor` | Sets the minimum gain floor for NR2 reduction. Values closer to 1.00 allow less attenuation, preserving more audio but reducing noise suppression. |
 | Smoothing: | slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. Higher values give steadier but slower adaptation. |
 | Threshold: | slider | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets the speech-presence-probability threshold. Lower values preserve quiet speech but may pass more noise. |
-| Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, 1.50/0.85/0.20. |
+| Use Original Geometry | checkbox | — | — | `NR2UseOriginalGeometry` | Enables the original noise reduction geometry calculation instead of the updated algorithm. |
+| Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, Gain Floor default, Smoothing 0.85, Threshold 0.20. |
 
 ### NR4 (libspecbleach spectral NR)
 
@@ -73,9 +75,9 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 
 | Control | Type | Default | Range | Setting Key | Description |
 |---------|------|---------|-------|-------------|-------------|
-| DFNR (tab) | tab | — | — | — | Selects the DeepFilterNet3 page. |
+| DFNR (tab) | tab | — | — | — | Selects the DeepFilterNet3 page. The DFNR toggle is dimmed if DeepFilterNet was not available at build time. |
 | Attenuation Limit | slider | 100 | 0–100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough, 100 = maximum. |
-| Post-Filter Beta | slider | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. |
+| Post-Filter Beta | slider | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. Slider stores value * 100 internally. |
 
 ## Dialog chrome behavior
 
@@ -93,3 +95,4 @@ The dialog uses a frameless window style with a custom title bar. Dialog geometr
 - **NR4** requires LLVM (clang-cl) on Windows to compile its C99 VLAs. If LLVM is not installed when AetherSDR was built, the NR4 toggle is dimmed and shows the tooltip: "NR4 requires LLVM (clang-cl) on Windows. Install LLVM from llvm.org and rebuild to enable NR4."
 - **MNR** is only available on macOS. On Windows and Linux builds, the MNR toggle is dimmed with the tooltip: "MNR is only available on macOS."
 - **BNR** requires the NVIDIA Broadcast SDK at compile time. On builds without it, the BNR toggle is dimmed.
+- **DFNR** requires DeepFilterNet to be set up and AetherSDR rebuilt. If DeepFilterNet was not available at build time, the DFNR toggle is dimmed.

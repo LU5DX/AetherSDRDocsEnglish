@@ -32,8 +32,33 @@ Use the Keyboard Shortcuts dialog to assign a different key to any action, or to
 | **Filter:** | Text field | Filters the action table by text. |
 | **Category:** | Combo box | Filters the action table by category. |
 | Action table | List | All actions with columns: Action, Category, Current Key, Default Key. Select a row to edit. |
+| **Import...** | Button | Opens a file dialog to import keyboard shortcuts from a CSV backup file. |
+| **Export...** | Button | Opens a file dialog to export keyboard shortcuts to a CSV backup file. |
 | **Reset All to Defaults** | Button | Resets every binding to its default key. Prompts for confirmation. |
 | **Close** | Button | Closes the dialog. |
+
+## Importing and exporting keyboard shortcuts
+
+You can transfer your customized keyboard shortcut assignments between AetherSDR installations using CSV files.
+
+### Import shortcuts
+
+1. Open `View > Configure Shortcuts...`.
+2. Click **Import...**.
+3. In the file dialog, navigate to the CSV file containing the shortcuts to import and click **Open**.
+4. A message box reports the number of imported actions.
+   - If some actions in the file are not available in this AetherSDR release, they are skipped and listed in the message details.
+   - If imported shortcuts displace existing local bindings, the affected actions are listed in the message details.
+5. The dialog refreshes to show the imported shortcuts.
+
+### Export shortcuts
+
+1. Open `View > Configure Shortcuts...`.
+2. Click **Export...**.
+3. In the file dialog, choose a location and file name for the CSV backup file and click **Save**.
+4. The exported file contains all current keyboard shortcut assignments.
+
+The dialog remembers the last directory used for import or export and reuses it the next time.
 
 ## Tips
 

@@ -20,7 +20,7 @@ Open the Equalizer applet and turn on the RX equalizer path so the Flex radio ap
 |---|---|---|---|---|
 | ON | Toggle button | Off (unchecked) | On / Off | Enables or disables the equalizer for the currently selected path. Green highlight when enabled. |
 | RX | Toggle button | Off (unchecked) | — | Selects the receive path for display and editing. Blue highlight when active. Mutually exclusive with TX. |
-| TX | Toggle button | Normally on (checked) | — | Selects the transmit path. The applet opens on the TX view by default. |
+| TX | Toggle button | On (checked) | — | Selects the transmit path. The applet opens on the TX view by default. |
 | Reset arc | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Drag pop-up shows signed dB value. |
 | 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Drag pop-up shows signed dB value. |

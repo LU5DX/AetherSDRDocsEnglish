@@ -40,32 +40,39 @@ To save the current filter width into a preset slot:
 | Filter preset buttons (Mode tab) | Each button applies a saved filter width preset to the slice. Left-click to apply; right-click to save the current filter width into that slot. Custom low and high filter edges can be stored per slot via right-click.                          | —                                                                                                                       |
 | RIT / XIT buttons + labels (X/RIT tab) | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps.                                                                                                       | off                                                                                                                     |
 | DAX channel combo (DAX tab)      | Assigns a DAX audio channel to this slice. Options: Off, 1-8.                                                                                                                                                                                   | Off                                                                                                                     |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. | off                                                                                                                     |
+| ADSP button (DSP tab)            | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. | —                                                                                                                       |
+| AetherVoice button (DSP tab)     | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. | —                                                                                                                       |
 | Marker thickness button          | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice.                                                                                                                                                                    | 1 px                                                                                                                    |
 | Filter edges button              | Toggles the filter edge lines on the spectrum passband. Persisted per slice.                                                                                                                                                                    | shown                                                                                                                   |
 | Collapse toggle                  | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice.                                                                                                                                                                 | expanded                                                                                                                |
 
-## DSP tab layout (v0.9.8)
+## DSP tab layout (v26.7.4)
 
-The **DSP tab** shows radio-side noise reduction and filtering buttons arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons:
+The **DSP tab** now shows radio-side noise reduction and filtering buttons arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons. The grid now includes additional noise reduction buttons that were previously available in the AetherDSP Settings dialog.
 
 | Position | Button |
 |---|---|
 | Row 1, col 1 | NR |
-| Row 1, col 2 | NB |
-| Row 1, col 3 | ANF |
-| Row 1, col 4 | APF (visible in CW mode only) |
-| Row 2, col 1 | NRL |
-| Row 2, col 2 | NRS |
-| Row 2, col 3 | RNN |
-| Row 2, col 4 | NRF |
-| Row 3, col 1 | ANFL |
-| Row 3, col 2 | ANFT |
+| Row 1, col 2 | NR2 |
+| Row 1, col 3 | NR4 |
+| Row 1, col 4 | MNR |
+| Row 2, col 1 | DFNR |
+| Row 2, col 2 | BNR |
+| Row 2, col 3 | RN2 |
+| Row 2, col 4 | RNN |
+| Row 3, col 1 | NRL |
+| Row 3, col 2 | NRS |
+| Row 3, col 3 | NRF |
+| Row 3, col 4 | MNR (duplicate) |
 | Row 4, col 1 | ADSP |
 | Row 4, cols 2–3 | AetherVoice |
 
-A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. In v0.9.8, when a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
+**Note**: The DSP tab layout has been updated in v26.7.4. The following buttons have been removed from the DSP tab grid: NB, ANF, APF, ANFL, ANFT. These are now available from the radio's front panel or the spectrum overlay menu.
 
-The following client-side DSP modules have been removed from the VFO panel DSP tab in v0.9.8: **NR2**, **RN2**, **BNR**, **NR4**, **MNR**, **DFNR**. Toggle them from the spectrum overlay menu or the AetherDSP applet instead.
+The following client-side DSP modules have been added as toggle buttons in the DSP tab grid: **NR2**, **RN2**, **BNR**, **NR4**, **MNR**, **DFNR**. Right-click any of these buttons to open the AetherDSP Settings dialog for that specific algorithm.
+
+A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. In v26.7.4, when a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
 
 ## Tab button changes (v26.6.3)
 
@@ -120,21 +127,4 @@ The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an i
 
 ## Pan slider visual improvements (v26.6.1)
 
-The **Pan slider** in the **Audio tab** now paints its fill from the centre outward, with a small centre-mark dot on the groove. This makes the neutral (50%) position visible at a glance, and the fill direction matches operator expectations for a left/right balance control.
-
-Previously, the slider fill painted from the left edge to the handle position, which was misleading for a centre-anchored control where the meaningful zero is the midpoint. The new rendering uses the `CenterMarkSlider` class that over-paints the default Qt sub-page fill: it erases the unwanted half of the sub-page with the groove background colour, then adds the desired centre-to-handle fill in the accent colour.
-
-## Theme update (v26.6.1)
-
-The VFO panel now uses the theme system for all visual elements:
-
-- The VFO panel container is registered under the `spectrum/vfo` theme scope, allowing theme files to target VFO-specific styling separately from the spectrum display.
-- The `CenterMarkSlider` and `MiniBadgeButton` classes use `ThemeManager` color tokens (`color.background.1`, `color.accent`, etc.) for their custom paint operations.
-- The MiniBadge button stylesheet uses the `applyStyleSheet()` method with theme template variables (e.g., `{{color.background.1}}`, `{{color.accent}}`) instead of hardcoded hex colours.
-- The Inspector tool (Inspect mode click) on the VFO panel now surfaces the theme tokens it reads: `color.background.0`, `color.background.1`, `color.background.2`, `color.text.primary`, `color.text.label`, `color.accent`, and `color.accent.bright`.
-
-## Accessibility improvements (v26.6.3)
-
-The VFO panel now provides accessibility support for the frequency display:
-
-- **Value change events**: When the slice frequency changes, an accessible value change event is fired for the
+The **Pan slider** in the **Audio tab** now paints its fill from the centre outward, with a small centre-mark dot on the groove. This makes the neutral (50%) position visible at a glance, and the fill direction matches operator expectations for a left/right balance control

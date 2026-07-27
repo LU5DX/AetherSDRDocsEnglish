@@ -33,6 +33,7 @@ The HelpDialog displays the following sections:
 - If the help file fails to load, AetherSDR displays a message in the viewer. Reinstall the application to restore missing help assets.
 - Each help topic in the Help menu is separate. You can reopen just this topic at any time without navigating away from other guides.
 - The dialog appearance follows the active application theme. Colors adjust dynamically based on theme settings.
+- Opening multiple help guides simultaneously now preserves their individual window positions. Each guide remembers its own size and location, preventing them from stacking on top of each other.
 
 ## Related
 

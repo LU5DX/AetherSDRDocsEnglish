@@ -22,6 +22,13 @@ All settings are persisted independently for the TX and RX sides.
 
 ## What each control does
 
+### Mode
+
+| Control | Behavior | Persisted setting |
+|---|---|---|
+| Even | Selects Aphex-lineage asymmetric shaping. Lit amber PooDoo-colour when active. Exclusive with Odd. | `ClientPuduTxMode` / `ClientPuduRxMode` |
+| Odd | Selects Behringer-lineage symmetric tanh shaping. Exclusive with Even. | `ClientPuduTxMode` / `ClientPuduRxMode` |
+
 ### Body group (low-frequency processor)
 
 The three knobs under the **Body** group label shape the low end.
@@ -41,13 +48,6 @@ The three knobs under the **Clarity** group label add presence and air.
 | Tune | 5000 Hz | 1000 – 10000 Hz | Centres the high-frequency excitement band. Logarithmic mapping (1000 * 10^n). Displays as "5.0 kHz" above 1 kHz, "X Hz" below. | `ClientPuduTxDooTuneHz` | `ClientPuduRxDooTuneHz` |
 | Air | 6.0 dB | 0.0 – 24.0 dB | Amount of harmonics and air added at the high band. Linear mapping. Displays as "X.X dB". | `ClientPuduTxDooHarmonicsDb` | `ClientPuduRxDooHarmonicsDb` |
 | Mix | 30 % | 0 – 100 % | Blends the excited highs back with the dry signal. Linear mapping. Displayed as percentage. | `ClientPuduTxDooMix` | `ClientPuduRxDooMix` |
-
-### Mode
-
-| Control | Behavior | Persisted setting |
-|---|---|---|
-| Even | Selects Aphex-lineage asymmetric shaping. Lit amber PooDoo-colour when active. Exclusive with Odd. | `ClientPuduTxMode` / `ClientPuduRxMode` |
-| Odd | Selects Behringer-lineage symmetric tanh shaping. Exclusive with Even. | `ClientPuduTxMode` / `ClientPuduRxMode` |
 
 ### Indicators
 

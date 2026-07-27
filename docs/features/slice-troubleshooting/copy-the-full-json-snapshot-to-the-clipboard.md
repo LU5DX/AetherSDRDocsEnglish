@@ -29,7 +29,7 @@ The Slice Troubleshooting dialog captures a JSON snapshot (schema v3) of every s
 
 ## What the Issue Summary includes
 
-The `Issue Summary` tab generates a plain-language bullet list from the snapshot. As of v26.6.1 the summary includes the following additional items:
+The `Issue Summary` tab generates a plain-language bullet list from the snapshot. As of v26.7.4 the summary includes the following additional items:
 
 ### Remote audio RX (radio-level)
 
@@ -59,6 +59,14 @@ For each audio endpoint, the summary reports:
 - Name, direction (INPUT/OUTPUT), kind, operational flag, running flag, state, error, backend, device name, sample rate, channel count, sample format, resampling flag, buffer statistics (buffer bytes, buffer peak bytes, underrun count), and any user-facing note.
 
 These entries appear alongside the existing audio device and control-device information.
+
+### Client DSP NR2 settings
+
+The summary now includes the full NR2 noise reduction configuration read from the `Nr2SettingsModel`, including:
+
+- Gain method and method name, NPE method and method name, AE filter enabled/disabled, gain max, gain floor, gain smooth, Qspp, and legacy geometry and gain mapping flag.
+
+Previously these values were read from `AppSettings`; they are now read from the centralized NR2 settings model for consistency with the actual DSP state.
 
 ## Tips
 

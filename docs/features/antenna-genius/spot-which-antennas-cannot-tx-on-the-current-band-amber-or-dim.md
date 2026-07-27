@@ -40,6 +40,7 @@ Buttons are also disabled and dim when the same antenna is already selected on t
 
 - **All buttons are dim after connecting** — The applet may not yet have received band information from the radio. Confirm the radio is tuned to a valid band and that the status label shows "Connected". If the applet was opened before the radio was on a band, change bands once to trigger a refresh.
 - **All buttons are blank (no antenna buttons shown) after connecting** — The antenna list may not have loaded yet. The applet waits for the device to send its antenna list before building the button grid. If buttons remain blank, disconnect and reconnect to the device.
+- **Port B section is missing** — The connected Antenna Genius device reports only one radio port. Port B is hidden automatically when the device has fewer than two radio ports. This state is determined from the device information response (for manual IP connections) or the UDP beacon (for discovered devices). If you expect Port B, verify the device is configured with two radio ports.
 - **Colours do not update when changing bands** — The band-follow update requires an active connection to the Antenna Genius device. Verify the status label still reads "Connected — \<name\> v\<version\>" and that no error is displayed.
 - **A ShackSwitch device is not auto-connecting here** — ShackSwitch devices discovered over UDP are handled by the ShackSwitch applet, not the Antenna Genius applet. If you see a ShackSwitch appear in the Device combo but it does not auto-connect, open the ShackSwitch applet to manage it.
 

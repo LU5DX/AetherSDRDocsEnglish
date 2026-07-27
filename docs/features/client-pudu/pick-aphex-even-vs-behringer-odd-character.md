@@ -6,7 +6,7 @@ Choose between two harmonic-enhancement algorithms in the PUDU exciter: Even mod
 
 - The PUDU stage must be visible in the Aetherial Audio chain. If the applet is hidden, enable the PUDU stage via the CHAIN widget on the TX or RX side, or double-click the PUDU stage in the CHAIN widget to open the floating editor.
 - Decide whether you are adjusting the transmit path ("Aetherial TX Voice Processor — TX") or the receive path ("Aetherial RX Poodoo™ — RX"). The two sides are fully independent.
-- On TX, the panel opens with the title "Aetherial Poodoo™ — TX". On RX, the panel opens with the title "Aetherial Poodoo™ — RX". Use the correct panel for the chain you want to adjust.
+- On TX, the panel opens with the title "Aetherial Poodoo™ — TX". On RX, the panel opens with the title "Aetherial RX Poodoo™ — RX". Use the correct panel for the chain you want to adjust.
 
 ## Steps
 

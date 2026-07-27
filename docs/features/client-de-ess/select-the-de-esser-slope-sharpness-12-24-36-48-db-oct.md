@@ -26,9 +26,11 @@ Choose how aggressively the de-esser's sidechain filter attenuates frequencies o
 - For heavy sibilance that triggers on many words, try **12 dB/oct** — the gentler slope preserves more natural timbre.
 - For extreme "S" sounds on an otherwise clear voice, **48 dB/oct** can target only the harshest sibilant band with minimal mid-band impact.
 
-## Gain-reduction meter smoothing (v26.6.3)
+## Gain-reduction meter smoothing (v26.6.3 – v26.7.4)
 
 Beginning in v26.6.3, the gain-reduction meter uses an improved smoothing algorithm. The meter animation timer now stops when the gain-reduction value has settled, reducing unnecessary repaints. The meter redraws only when the smoothed value or a pending repaint flag indicates a visual change is needed. This optimization applies to both the docked Aetherial De-Esser applet and the Aetherial De-Esser — RX instance accessible through the Aetherial Audio Channel Strip.
+
+Beginning in v26.7.4, the meter repaints every animation tick regardless of whether the value has settled or the smoothed indicator needs repainting. This ensures the sidechain response curve and gain-reduction bar remain visually responsive at all times, even when the gain-reduction value has fully settled. The edit-style push button used in earlier versions has been removed; the Slope button now uses the standard applet button style.
 
 ## Color theming (v26.6.1)
 

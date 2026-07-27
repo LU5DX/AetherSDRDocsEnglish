@@ -10,6 +10,8 @@ In v26.5.3 the CW sidetone now routes to the user-selected audio output instead 
 
 In v26.6.1 the applet now properly inherits the active theme's color palette. Sliders use the primary slider style (`applyPrimarySliderStyle`) instead of hardcoded color values, and label colors follow the theme's secondary text color (`{{color.text.secondary}}`). The panel container is styled using `theme::setContainer` for consistent appearance across all themes.
 
+In v26.7.4, all four gauges (Level, Compression, and both ALC meters) show an exact numeric readout when you hover the mouse over them, showing values to one decimal place. When the radio is modulated by AetherSDR (host modulation), the Mic source combo box is locked to "PC" and shows a tooltip explaining that only the PC input is available.
+
 ## Opening the Phone/CW Applet
 
 1. Click the **P/CW** tray button on the right sidebar.
@@ -20,11 +22,11 @@ The applet automatically shows Phone controls when the active slice is in a voic
 
 | Control           | Type         | Default | Valid range                  | Behavior                                                                 |
 |-------------------|--------------|---------|------------------------------|--------------------------------------------------------------------------|
-| **Level**         | Meter        | —       | -40 to +10 dBFS (red > 0)    | Shows microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting (v26.5.3 applies suppression immediately on state changes). |
-| **Compression**   | Meter        | —       | 0 to -25 dB (reversed fill)  | Shows speech compression amount in dB. Gated on radio interlock TRANSMITTING state and speech processor enable. v26.5.3: MeterModel COMPPEAK (positive 0–25 dB) converted to negative gauge display. |
-| **ALC**           | Meter        | —       | -20 to 0 dBFS (red > -3)     | Shows automatic level control from MeterModel::swAlcChanged. Fills right-to-left. Initialized to -20 dBFS in v26.5.3. |
+| **Level**         | Meter        | —       | -40 to +10 dBFS (red > 0)    | Shows microphone input peak level in dBFS. Hover to see exact value in dB with one decimal. Suppressed to -150 when met_in_rx is off and not transmitting (v26.5.3 applies suppression immediately on state changes). |
+| **Compression**   | Meter        | —       | 0 to -25 dB (reversed fill)  | Shows speech compression amount in dB. Hover to see exact value as a positive "amount of compression" in dB with one decimal. Gated on radio interlock TRANSMITTING state and speech processor enable. v26.5.3: MeterModel COMPPEAK (positive 0–25 dB) converted to negative gauge display. |
+| **ALC**           | Meter        | —       | -20 to 0 dBFS (red > -3)     | Shows automatic level control from MeterModel::swAlcChanged. Fills right-to-left. Hover to see exact value in dBFS with one decimal. Initialized to -20 dBFS in v26.5.3. |
 | **Mic profile**   | Combo box    | —       | Populated from radio          | Loads the named mic processing profile.                                   |
-| **Mic source**    | Combo box    | —       | MIC, BAL, LINE, ACC, PC      | Selects microphone input source.                                         |
+| **Mic source**    | Combo box    | —       | MIC, BAL, LINE, ACC, PC      | Selects microphone input source. Locked to "PC" and disabled when host modulation is active. |
 | **Mic gain**      | Slider       | 50      | 0-100                        | Adjusts mic input level. For PC source uses local PcMicGain persistence. |
 | **+ACC**          | Toggle button| —       | —                            | Enables the accessory mic input mix.                                     |
 | **PROC**          | Toggle button| —       | —                            | Toggles the speech processor.                                            |
@@ -37,7 +39,7 @@ The applet automatically shows Phone controls when the active slice is in a voic
 
 | Control              | Type         | Default | Valid range               | Behavior                                                                    |
 |----------------------|--------------|---------|---------------------------|-----------------------------------------------------------------------------|
-| **ALC**              | Meter        | —       | -20 to 0 dBFS (red > -3)  | Mirrors Phone-panel ALC gauge. Fills right-to-left. Initialized to -20 dBFS in v26.5.3. |
+| **ALC**              | Meter        | —       | -20 to 0 dBFS (red > -3)  | Mirrors Phone-panel ALC gauge. Fills right-to-left. Hover to see exact value in dBFS with one decimal. Initialized to -20 dBFS in v26.5.3. |
 | **Delay**            | Slider + edit| 500     | 0-2000 ms (step 10)       | Sets CW break-in delay. Type values 0-2000 directly.                       |
 | **Speed**            | Slider + edit| 20      | 5-100 WPM                 | Sets CW keying speed. Type values 5-100 directly.                          |
 | **Sidetone**         | Toggle button| —       | —                         | Toggles CW sidetone monitor. Controls both radio DAX-fed monitor and local low-latency CwSidetoneGenerator in lockstep. Pitch and pan always follow the radio's cw_pitch and mon_pan_cw automatically. v26.5.3: routes to user-selected audio output instead of default. |
@@ -77,6 +79,25 @@ Both the Phone panel and CW panel contain an ALC gauge. These gauges are identic
 - **Fill direction**: Right-to-left (empty at -20, fills leftward toward 0)
 - **Scale markings**: -20, -15, -10, -5, 0 dBFS
 - **Initial state**: Both gauges start at -20 dBFS on applet construction (v26.5.3).
+- **Hover readout**: Hover over either ALC gauge to see the exact dBFS value with one decimal (v26.7.4).
+
+## Gauge Hover Readouts (v26.7.4)
+
+All four gauges (Level, Compression, and both ALC meters) show an exact numeric readout when you hover your mouse cursor over them. This lets you read the precise metering value without having to eyeball it against the scale.
+
+| Gauge               | Hover format                                      |
+|---------------------|---------------------------------------------------|
+| **Level**           | Shows value as dB with one decimal (e.g., "-12.3 dB") |
+| **Compression**     | Shows value as positive dB with one decimal (e.g., "8.5 dB") |
+| **ALC (both panels)**| Shows value as dBFS with one decimal (e.g., "-5.7 dBFS") |
+
+## Mic Source Locking for Host Modulation (v26.7.4)
+
+When the radio is modulated by AetherSDR (host modulation active), the **Mic source** combo box is automatically set to "PC" and becomes disabled. The tooltip explains:
+
+> This radio is modulated by AetherSDR, so the PC microphone is the only input. The other sources are FlexRadio jacks.
+
+This prevents selecting microphone jacks that do not exist on a host-modulated radio.
 
 ## Troubleshooting
 
@@ -84,6 +105,8 @@ Both the Phone panel and CW panel contain an ALC gauge. These gauges are identic
 - **Level meter stays at -150 after stopping transmit** — In v26.5.3 the level meter is suppressed whenever receiving with met_in_rx off. Check **Settings > Appearance > Disable level meter during receive** if you see unexpected -150 readings in RX.
 - **Compression gauge shows unexpected values** — v26.5.3 changed the COMPPEAK interpretation to positive 0–25 dB; the gauge face reverses to -25–0 dB. If you see reversed scaling, verify you are running v26.5.3 or later.
 - **Colors don't match the active theme** — v26.6.1 fixed theme inheritance for all UI elements in this applet. If colors appear hardcoded (e.g., blue on black regardless of theme), verify you are running v26.6.1 or later.
+- **Gauge hover readout not appearing** — Hover readouts were added in v26.7.4. If you do not see them, verify you are running v26.7.4 or later.
+- **Mic source combo box is stuck on "PC"** — Host modulation may be active. Hover over the combo box to see the tooltip explaining why it is locked.
 
 ## Related
 

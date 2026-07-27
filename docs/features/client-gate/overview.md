@@ -43,10 +43,6 @@ The controls listed below appear identically in both the TX and RX applets. The 
 | Return | Knob | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` | Linear mapping (n * 20). Sets the hysteresis deadband: the gate opens above Thresh and doesn't close again until the input drops below Thresh − Return, preventing rapid chatter near the threshold. Label shows as 'X.XX dB'. The curve widget draws a soft-cyan vertical band between (Thresh − Return) and Thresh to make the sticky zone visible. |
 | Release | Knob | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` | Exponential mapping (5 * 400^n). Sets how quickly the gate closes after input falls below Thresh − Return. Label shows 'X.X ms' below 100, 'X ms' above. |
 | Floor | Knob | −15.0 dB | −80.0 to 0.0 dB | `ClientGateTxFloorDb` | Linear mapping. Maximum attenuation the gate is allowed to apply. |
-| Flip (Expander / Gate) | Toggle | Unchecked (Expander) | — | — | Editor-only control (floating ClientGateEditor). Unchecked = downward-expander (gentle, ratio-based). Checked = Gate (hard cut). Snaps ratio and floor to preset pairs when toggled; other knobs stay put. Label updates live between 'Expander' and 'Gate'. Colour: unchecked = green (Expander), checked = amber (Gate). Tooltip: 'Flip between downward Expander (gentle) and Gate (hard) modes. Snaps ratio + floor to preset pairs; other knobs stay where you left them.' |
-| Peek (lookahead) | Dropdown | Off | Off, 1 ms, 1.5 ms, 3 ms, 5 ms | — | Editor-only control. Sets a pre-read delay so the gate can open fractionally before a transient arrives, avoiding clipped attack edges. 'Off' disables the delay line entirely. Higher values increase latency on the TX path. 1 and 1.5 ms match Ableton's preset options; 3 and 5 ms added for very fast transients. |
-| Attack | Knob | 0.50 ms | 0.1 to 100 ms | `ClientGateTxAttackMs` | Editor-only control. Exponential mapping (0.1 * 1000^n). Sets how quickly the gate opens after input rises above Thresh. Label shows 'X.XX ms' below 10 ms, 'X.X ms' above. |
-| Hold | Knob | 0.0 ms | 0.0 to 500 ms | `ClientGateTxHoldMs` | Editor-only control. Linear mapping (n * 500). After the input drops below Thresh − Return the gate stays open for this long before it begins closing, preventing flutter on rhythmic material. Label shows 'X.X ms'. |
 
 The enable/bypass state for each side is persisted under `ClientGateTxEnabled` (TX) and `ClientGateRxEnabled` (RX).
 
@@ -77,9 +73,9 @@ Knob components now read from the theme colour system rather than using hard-cod
 
 The gate applet container is registered under the `applet/gate` theme path, allowing per-applet theme overrides. This enables the amber knob foreground colour used in the gate's transfer curve and gain-reduction bar to be styled independently from knobs in other applets.
 
-## Animation optimisations (v26.6.3)
+## Animation optimisations (v26.7.4)
 
-The meter-smoothing timer now stops when the gain-reduction value has settled, and only triggers a repaint when necessary. This reduces CPU usage when the gate is not actively attenuating audio. The live input ball and gain-reduction bar continue to update normally during active gating.
+The meter-smoothing timer now triggers a repaint on every tick, even when the gain-reduction value has settled. This ensures the live input ball and gain-reduction bar remain responsive and display the most current audio level information without interruption.
 
 ## Tips
 

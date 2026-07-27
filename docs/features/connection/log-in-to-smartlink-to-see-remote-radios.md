@@ -43,12 +43,21 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 - `Connect to last radio on start up` — When checked (default), AetherSDR automatically reconnects to the last used radio on startup. When unchecked, the connection panel opens each session.
 - `Enable adaptive frame-rate throttle` — When checked, AetherSDR automatically reduces FFT and waterfall frame rates when network quality degrades, helping to maintain a stable connection on slower or congested links.
 
+### Set a custom nickname for a non-Flex radio (HL2, simulator)
+
+The `Available radios` list supports a right-click context menu for setting a custom nickname on a discovered radio before connecting. This is only available for radios that do not have their own on-radio name store (for example, HL2 or simulator radios). FlexRadio radios set their name through Radio Setup while connected, so the context menu is not offered for Flex radios.
+
+1. Right-click a radio in the `Available radios` list.
+2. Select **Set custom nickname...** from the context menu.
+3. Enter the desired nickname in the dialog that appears.
+4. Click **OK**. The nickname is persisted keyed by serial number and appears the next time discovery runs.
+
 ## What each control does
 
 | Control | What it does | Persisted setting |
 |---|---|---|
 | Local / SmartLink / Manual mode buttons | Switch the panel among the three connection modes. | `ConnectionMode` |
-| `Available radios` | Lists LAN radios discovered via mDNS/Flex discovery. | — |
+| `Available radios` | Lists LAN radios discovered via mDNS/Flex discovery. Right-click a non-Flex radio to set a custom nickname. | — |
 | `Connect Selected Radio` | Connects to the highlighted LAN radio. | — |
 | `No local radios found yet` | Callout shown when discovery is empty. | — |
 | `Retry Discovery` | Re-runs LAN discovery. | — |
@@ -83,10 +92,12 @@ The Connection Panel is the main screen for discovering and connecting to a FLEX
 - `SmartLinkEmail` is persisted, so your email address is pre-filled on the next launch. Your password is never stored.
 - After signing in to SmartLink, the status label shows your name, callsign, or confirmation that you are signed in.
 - The `Remote radios` list is sized for compact display; scroll within the list if the radio you want is not immediately visible.
+- The `Available radios` list on the Local page is height-limited to 240 pixels with an internal scrollbar, so it works well on small displays like a 1024x600 panel.
 - The `Radio IP address` field stores up to three recent addresses. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
 - On the Local page, you can quickly switch to SmartLink or Manual mode using the shortcut buttons.
 - When switching to or from frameless mode, AetherSDR preserves the dialog geometry only if the dialog was visible at the time of the switch.
 - The SmartLink login form now includes accessibility hints for password managers (macOS Passwords, Windows Authenticator, KDE Wallet). The email and password fields are labeled as a "SmartLink login form" so credential managers can correctly scope the account pair.
+- Custom nicknames set via the right-click menu on the Local page are persisted keyed by serial number and will appear on subsequent discovery sweeps.
 
 ## Troubleshooting
 

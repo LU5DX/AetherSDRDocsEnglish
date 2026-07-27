@@ -53,7 +53,7 @@ The inline editor is enabled by default for all five knobs. It cannot be disable
 
 - The gain-reduction bar refreshes at approximately 30 Hz with smoothed ballistics, so it reflects the averaged envelope rather than instantaneous peaks. Trust your ears alongside the meter.
 - The transfer curve display caches axis labels for performance. Labels rebuild automatically when you toggle compact mode (e.g., when switching between the applet tile and the floating editor). This ensures the font size (9 px in full mode, 7 px in compact mode) always matches the current display without any visual lag.
-- The compressor animation timer uses precise timing and only runs repaints when the smoothed envelope is actively changing or when the level requires a visual update. This saves CPU cycles while still providing smooth visual feedback.
+- The compressor animation timer uses precise timing and runs repaints continuously for accurate visual feedback. The envelope ball and gain-reduction bar update smoothly at every animation tick regardless of settling state.
 - A starting point that works for most SSB voice: Attack 10–20 ms, Release 150–300 ms. Adjust from there based on the gain-reduction bar behavior.
 - If the tile appears dimmed, the compressor stage is currently bypassed. Re-enable it via the CHAIN widget before evaluating knob settings.
 - Double-click the COMP stage in the CHAIN widget to open the full editor, which also exposes the **Knee**, **Limiter**, **Drive**, and **Phase** controls. Knee softening can reduce the need for extremely precise attack timing. See [Open the full Compressor editor for knee and limiter controls](open-the-full-compressor-editor-for-knee-and-limiter-controls.md).

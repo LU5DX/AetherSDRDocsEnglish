@@ -29,7 +29,7 @@ The Support & Diagnostics dialog includes a scrollable log viewer that lets you 
 | Refresh | Button | Reloads the log file into the viewer. |
 | Clear Log | Button | Truncates the current log file. |
 | Open Log Folder | Button | Opens the log directory in the OS file browser. |
-| Reset Settings | Button | Resets AetherSDR settings to defaults (with confirmation). |
+| Reset Settings | Button | Resets AetherSDR settings to defaults (with confirmation). Deletes local settings and the NR2 wisdom cache. Radio settings stay on the radio. |
 | File an Issue | Button | Launches the AI-Assisted Bug Report flow. See **File an Issue** section below. |
 | Close | Button | Closes the dialog. |
 
@@ -46,6 +46,7 @@ The **File an Issue** button starts an AI-Assisted Bug Report process.
 
 - The log viewer holds a maximum of 2000 lines. If the log file is large, only the most recent content is shown. Click **Open Log Folder** to access the full file.
 - To control which categories appear in the log, use the category checkboxes in the **Diagnostic Logging** section at the top of the dialog. Click **Enable All** to turn on every category, or **Disable All** to silence all of them.
+- The dialog remembers its position and size between sessions.
 
 ## Related
 

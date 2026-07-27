@@ -51,7 +51,7 @@ The **WFM** button provides a software-based wideband FM demodulation mode. This
 | **Frequency label**        | 0.000.000        | Displays current VFO frequency with dotted grouping. Click to edit.                                                                                                                                   |
 | **Frequency edit**         | —                | Enter MHz (0.001–54.000 MHz, up to 450.000 MHz on XVTR). Escape cancels and restores previous frequency.                                                                                              |
 | **STEP**                   | 100 Hz (index 2) | Per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz; CW: 1, 5, 10, 50, 100, 200, 400 Hz; FM family: 50–12500 Hz)                                                                        |
-| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz. Hidden for FM/NFM/DFM.                                            |
+| **Filter width presets**   | Mode-dependent   | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; CW: 50/100/250/400/500/600 Hz; AM/SAM: 5600–14000 Hz; DIGU/DIGL: 100–2000 Hz; RTTY: 250–1000 Hz. Hidden for FM/NFM/DFM.                                            |
 | **Filter passband widget** | —                | Drag lo/hi edges to adjust filter passband.                                                                                                                                                           |
 | **Tone mode (FM)**         | Off              | Off, CTCSS TX. Visible only in FM family modes.                                                                                                                                                       |
 | **CTCSS tone value**       | —                | 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz). Enabled only when Tone mode = CTCSS TX.                                                                                                          |
@@ -67,7 +67,7 @@ The **WFM** button provides a software-based wideband FM demodulation mode. This
 | **Squelch level**          | 20               | Slider (0-100) to set squelch threshold. Disabled in RTTY, DIGU, DIGL, NT, CW, and CWL modes.                                                                                                         |
 | **AGC mode**               | Med              | Off, Slow, Med, Fast. Hidden in FM family modes.                                                                                                                                                      |
 | **AGC threshold**          | 65               | Slider (0-100). Sets AGC threshold (or AGC off-level when AGC mode is Off). Right-click to calibrate against the noise floor (see below).                                                             |
-| **RX antenna**             | ANT1             | Combo box listing available receive antennas. Populated from the radio's `ant_list` or the slice's `rxAntennaList()` when available. Blue-coloured label.                                             |
+| **RX antenna**             | ANT1             | Combo box listing available receive antennas. Populated from the radio's `ant_list`, the slice's `rxAntennaList()` when available, and virtual antenna tokens from KiwiSDR manager. Blue-coloured label. |
 | **TX antenna**             | ANT1             | Combo box listing TX-capable antennas. RX-only antenna ports (prefix 'RX') are filtered out. Red-coloured label.                                                                                      |
 | **TX (badge)**             | —                | Toggle button. Click to set this slice as the TX slice.                                                                                                                                               |
 | **RIT**                    | —                | Toggle button. Toggles Receive Incremental Tuning on/off.                                                                                                                                             |
@@ -120,4 +120,4 @@ The centre mark dot (small blue-grey circle at the midpoint) remains to show the
 
 ## Slice tab behaviour (v0.9.5.1)
 
-When the radio reports a change in the number of available slices, the A..H tab row is now rebuilt correctly instead of being skipped. The
+When the radio reports a change in the number of available slices, the A..

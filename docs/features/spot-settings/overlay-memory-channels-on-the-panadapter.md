@@ -18,19 +18,19 @@ Memory channels stored in your FLEX-8600 can be displayed as spot-like markers o
 
 | Control                                 | What it does                                                                                                             | Default   |
 |-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------|-----------|
-| **Spots:** toggle                       | Master on/off for all spot and memory overlays. Memories will not appear if this is off.                                 | Enabled   |
-| **Memories:** toggle                    | Shows or hides memory channel markers on the panadapter.                                                                 | Disabled  |
+| **Spots:** toggle                       | Master on/off for all spot and memory overlays. The button text updates to "Enabled" or "Disabled" based on state. Memories will not appear if this is off. | Enabled   |
+| **Memories:** toggle                    | Shows or hides memory channel markers on the panadapter. The button text updates to "Enabled" or "Disabled" based on state.                              | Disabled  |
 | **Levels:** slider                      | Number of vertical stacking rows used when spots or memories overlap. Range: 1–10.                                       | 3         |
 | **Position:** slider                    | Vertical position of the overlay band on the panadapter, as a percentage from top. Range: 0–100.                         | 50        |
 | **Font Size:** slider                   | Text size for spot and memory labels. Range: 8–32.                                                                       | 16        |
 | **Spot Lifetime:** slider               | How long spots remain before fading. Non-linear scale: 10 seconds to 24 hours.                                           | —         |
-| **Override Colors:** toggle             | Forces a single text color for all spots and memories instead of source-assigned colors.                                 | Disabled  |
+| **Override Colors:** toggle             | Forces a single text color for all spots and memories instead of source-assigned colors. The button text updates to "Enabled" or "Disabled" based on state. | Disabled  |
 | Spot text color picker                  | Opens a color picker to choose the override text color. Default: `#FFFF00`.                                              | `#FFFF00` |
-| **Override Background: Enabled** toggle | Draws a colored background behind spot and memory text.                                                                  | Enabled   |
+| **Override Background: Enabled** toggle | Draws a colored background behind spot and memory text. The button text updates to "Enabled" or "Disabled" based on state.                             | Enabled   |
 | **Override Background: Auto** toggle    | Automatically selects a background color for contrast rather than using the manual color.                                | Enabled   |
 | Spot background color picker            | Opens a color picker for the manual background color. Default: `#000000`.                                                | `#000000` |
 | **Background Opacity:** slider          | Sets the transparency of the spot background. Range: 0–100.                                                              | 48        |
-| **Spot Lines:** toggle                  | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. | Enabled   |
+| **Spot Lines:** toggle                  | Draws vertical lines from the spectrum baseline up to each spot label. The button text updates to "Enabled" or "Disabled" based on state. Disable during contests to reduce visual clutter. | Enabled   |
 | **Clear All Spots**                     | Removes all spots from the panadapter immediately. Does not affect memories.                                             | —         |
 
 ### Total Spots indicator
@@ -44,7 +44,7 @@ The **Total Spots:** label at the bottom of the dialog shows the count of live s
 - The **Override Background: Auto** toggle is active by default and selects contrast-appropriate background colors automatically. Disable it only if you want to set a specific background color with the background color picker.
 - During a contest, disable **Spot Lines:** to reduce visual clutter on the panadapter without hiding spot labels.
 - The Spot Settings dialog now uses the active theme colors for its title and the Total Spots label, matching the appearance of other AetherSDR dialogs.
-- The toggle buttons no longer change their displayed text when toggled. Instead, they indicate their state solely through their checked/unchecked appearance (colored red when disabled, default when enabled). The label next to each toggle remains constant.
+- The toggle buttons now update their displayed text to "Enabled" or "Disabled" when toggled, in addition to their checked/unchecked appearance (colored green when enabled, red when disabled).
 
 ## Troubleshooting
 

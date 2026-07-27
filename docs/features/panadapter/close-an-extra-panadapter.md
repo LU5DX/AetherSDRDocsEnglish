@@ -27,6 +27,14 @@ The panadapter closes immediately. The remaining panadapters expand to fill the 
 
 The CW decode panel appears below the panadapter spectrum and waterfall when CW decoding is active. It shows decoded Morse code text, detection statistics, and controls for tuning the decoder.
 
+### CW panel resizing (v26.7.4)
+
+In v26.7.4 the CW decode panel can be resized vertically by dragging the thin resize grip at the top edge of the panel. Drag downward to increase the panel height and reveal more decoded text history, or drag upward to decrease it. The panel height persists between sessions via the `CwDecodeSettings::panelHeight()` setting, clamped between 60 and 600 pixels.
+
+### CW decode text font size (v26.7.4)
+
+In v26.7.4 the decoded text font size can be adjusted using the **A+** and **A-** buttons in the CW panel toolbar. Each click increases or decreases the font size by 1 pixel, clamped between 8 and 32 pixels. The font size persists between sessions via the `CwDecodeSettings::fontPx()` setting.
+
 ### CW decode text context menu
 
 Right-clicking anywhere inside the CW decode text area opens a context menu. In addition to the standard text editing commands (Select All, Copy, and so on), the menu includes a **Clear** item. Choosing **Clear** erases the entire CW decode buffer immediately. This is equivalent to clicking the **CLR** button in the CW panel toolbar.
@@ -55,6 +63,8 @@ The CW decoder toolbar includes the following controls:
 | 🔒S (Lock Speed) | Toggle button | Locks the CW decoder speed to the current WPM |
 | Pitch range slider | Range slider (300-1200 Hz) | Double-handle slider to set the minimum and maximum pitch for the CW decoder search. Default: 500-700 Hz |
 | WPM range slider | Range slider (5-60 WPM) | Double-handle slider to set the minimum and maximum speed for the CW decoder search. Default: 15-40 WPM |
+| A- (font size down) | Button | Decreases the decoded-text font size by 1 pixel (v26.7.4) |
+| A+ (font size up) | Button | Increases the decoded-text font size by 1 pixel (v26.7.4) |
 | CPY ALL | Button | Copies the full decoded text to the clipboard |
 | CPY VIS | Button | Copies only the text currently visible in the scroll area |
 | CLR | Button | Clears the CW decode buffer |
@@ -78,7 +88,7 @@ In Multi-Flex sessions, the slice title shown in the panadapter title bar uses t
 
 The waterfall automatically freezes when any client in a Multi-Flex session begins transmitting. The freeze state is driven by the radio's interlock TRANSMITTING state rather than the local MOX edge, eliminating the 10-23 second TX-trail artifact that could appear after unkeying.
 
-On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
+On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default. Additionally, secondary panadapters (Slices B–H) have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum on reconnect.
 
 ## Panadapter theming (v26.6.1)
 

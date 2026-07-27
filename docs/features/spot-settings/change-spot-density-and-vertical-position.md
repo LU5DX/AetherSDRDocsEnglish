@@ -20,19 +20,19 @@ Use the Spot Settings dialog to control how many vertical rows of spots appear o
 
 | Control | Behavior | Default |
 |---|---|---|
-| **Spots:** toggle | Master toggle for DX spot display. Setting key: `IsSpotsEnabled`. | Enabled |
-| **Memories:** toggle | Toggles memory channel overlays on the panadapter. Setting key: `IsMemorySpotsEnabled`. | Disabled |
+| **Spots:** toggle | Master toggle for DX spot display. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsEnabled`. | Enabled |
+| **Memories:** toggle | Toggles memory channel overlays on the panadapter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsMemorySpotsEnabled`. | Disabled |
 | **Levels:** slider | Sets the number of vertical stacking rows available for spots. More rows reduce overlap when many spots are present on the same frequency range. Setting key: `SpotsMaxLevel`. | 3 |
 | **Position:** slider | Sets the vertical starting position of the spot stack as a percentage of the panadapter height. Setting key: `SpotsStartingHeightPercentage`. | 50 |
 | **Font Size:** slider | Sets the spot text size in points. Setting key: `SpotFontSize`. | 16 |
 | **Spot Lifetime:** slider | How long spots remain before fading. Non-linear scale from 10 seconds to 24 hours. Stored in seconds. Setting key: `DxClusterSpotLifetimeSec`. | 10 sec |
-| **Override Colors:** toggle | Forces a single text color for all spots. Setting key: `IsSpotsOverrideColorsEnabled`. | Disabled |
+| **Override Colors:** toggle | Forces a single text color for all spots. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideColorsEnabled`. | Disabled |
 | **Spot text color picker** button | Opens a color dialog to pick the text color. Setting key: `SpotsOverrideColor`. | #FFFF00 |
-| **Override Background: Enabled** toggle | Draws a background under spot text. Setting key: `IsSpotsOverrideBackgroundColorsEnabled`. | Enabled |
+| **Override Background: Enabled** toggle | Draws a background under spot text. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideBackgroundColorsEnabled`. | Enabled |
 | **Override Background: Auto** toggle | Auto-picks background color for contrast. Setting key: `IsSpotsOverrideToAutoBackgroundColorEnabled`. | Enabled |
 | **Spot background color picker** button | Opens a color dialog for background color. Setting key: `SpotsOverrideBgColor`. | #000000 |
 | **Background Opacity:** slider | Alpha of spot background (0 = transparent, 100 = opaque). Setting key: `SpotsBackgroundOpacity`. | 48 |
-| **Spot Lines:** toggle | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Setting key: `IsSpotsLinesEnabled`. | Enabled |
+| **Spot Lines:** toggle | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsLinesEnabled`. | Enabled |
 | **Clear All Spots** button | Clears all spots from the panadapter. | N/A |
 
 ## Tips

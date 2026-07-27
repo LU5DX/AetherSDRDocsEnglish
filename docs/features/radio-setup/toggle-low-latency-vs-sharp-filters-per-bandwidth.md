@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master configuration window for per-radio settings including radio information, network, GPS, TX, Phone/CW, RX, audio, filters, antennas, transverters, USB cables, peripherals, APD, themes, serial port, and SmartLink pinned certificate management.
+The Radio Setup dialog is the master configuration window for per-radio settings including radio information, network, GPS, TX, Phone/CW, RX, audio, filters, antennas, transverters, USB cables, peripherals, APD, themes, serial port, SmartLink pinned certificate management, and KiwiSDR receiver integration.
 
 ## Opening the dialog
 
@@ -25,6 +25,7 @@ The dialog contains a tabbed interface with the following tabs:
 - **Themes** - UI appearance settings including per-slice color overrides
 - **SmartLink** - Pinned TLS certificate management
 - **Serial** - FlexControl serial port configuration
+- **KiwiSDR** - KiwiSDR public receiver configuration and connection
 
 The dialog remembers its size and position between sessions using `RadioSetupDialogGeometry` in AppSettings.
 
@@ -36,16 +37,16 @@ The Radio tab displays radio identification and license information, provides fi
 
 ### Radio information
 
-| Control                                             | Kind                                                                                                                                                                                        | Behavior                                                                                                                               |
-|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **Radio SN**                                        | Indicator                                                                                                                                                                                   | Chassis serial number (read-only). If chassis serial is empty, falls back to radio serial number. Displays "—" if unavailable.         |
-| **Region**                                          | Indicator                                                                                                                                                                                   | Radio regulatory region. Default: USA.                                                                                                 |
-| **HW Version**                                      | Indicator                                                                                                                                                                                   | Hardware version string. Prefixed with "v" if not already present. Displays "—" if unavailable.                                        |
-| **Model**                                           | Indicator                                                                                                                                                                                   | Radio model.                                                                                                                           |
-| **Options**                                         | Indicator                                                                                                                                                                                   | Shows licensed radio options. If empty, shows a guess based on amplifier presence ("GPS, PGXL" or "GPS"). Displays "—" if unavailable. |
-| **FlexControl**                                     | Indicator                                                                                                                                                                                   | Detected state of FlexControl hardware.                                                                                                |
-| **multiFLEX**                                       | Indicator                                                                                                                                                                                   | multiFLEX enabled state.                                                                                                               |
-| **License Info**                                    | Indicator                                                                                                                                                                                   | Displays subscription, expiration, radio ID, and licensed version from the radio.                                                      |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Radio SN** | Indicator | Chassis serial number (read-only). If chassis serial is empty, falls back to radio serial number. Displays "—" if unavailable. Includes a clipboard copy button (tray icon) next to the value. |
+| **Region** | Indicator | Radio regulatory region. Default: USA. |
+| **HW Version** | Indicator | Hardware version string. Prefixed with "v" if not already present. Displays "—" if unavailable. Includes a clipboard copy button next to the value. |
+| **Model** | Indicator | Radio model. Includes a clipboard copy button next to the value. |
+| **Options** | Indicator | Shows licensed radio options. If empty, shows a guess based on amplifier presence ("GPS, PGXL" or "GPS"). Displays "—" if unavailable. Includes a clipboard copy button next to the value. |
+| **FlexControl** | Indicator | Detected state of FlexControl hardware. |
+| **multiFLEX** | Indicator | multiFLEX enabled state. |
+| **License Info** | Indicator | Displays subscription, expiration, radio ID, and licensed version from the radio. Each field includes a clipboard copy button next to the value. |
 
 ### Radio identification
 
@@ -105,7 +106,7 @@ The Network tab displays radio network information and provides advanced network
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **IP Address / Mask / MAC Address** | Indicator | Read-only network addresses. |
+| **IP Address / Mask / MAC Address** | Indicator | Read-only network addresses. Each includes a clipboard copy button. |
 
 ### Network configuration
 
@@ -215,7 +216,7 @@ The RX tab provides frequency calibration and reference source selection.
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **10 MHz Reference Source:** | Combo box | Selects oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+| **10 MHz Reference Source:** | Combo box | Selects oscillator reference: Auto, TCXO, GPSDO, or External 10 MHz. Options shown depend on hardware installed (TCXO/GPSDO/External). Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
 
 ### Calibration procedure
 
@@ -252,10 +253,4 @@ The Audio tab provides radio audio output, compression, PC devices, boost, buffe
 
 | Control | Kind | Behavior |
 |---|---|---|
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Push button | Selects audio codec for SmartLink/LAN. Stored as `AudioCompression`. Default: Auto. |
-
-### System sleep prevention
-
-| Control | Kind | Behavior |
-|---|---|---|
-| **Prevent system sleep while connected** | Checkbox | Keeps
+| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Push button | Selects

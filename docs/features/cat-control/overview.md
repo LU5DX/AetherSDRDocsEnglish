@@ -4,6 +4,8 @@ CAT Control lets external logging and contest software command the FLEX-8600 thr
 
 In v26.5.3, the PTY symlink location was moved from `/tmp` to per-user runtime directories to fix a cross-user symlink vulnerability (GHSA-qxhr-cwrc-pvrm). Atomic symlink replacement via symlink(.tmp) + rename(.tmp, final) closes the TOCTOU window.
 
+In v26.7.4, the main Enable button now reads "Enabled" or "Disabled" instead of "Enable CAT", providing clearer visual feedback at a glance. Per-port enable checkboxes have a high-contrast style so the checked state is visible even on dark applet backgrounds.
+
 ## Before you start
 
 - A FLEX-8600 must be connected. The CAT Control applet requires an active radio connection.
@@ -21,10 +23,11 @@ AetherSDR can start the TCP servers and PTY links automatically at launch via `S
 
 | Control | Kind | Default | Valid range | Persisted key | Behavior |
 |---|---|---|---|---|---|
+| Enable CAT | Toggle button | Off | — | `CatEnabled` | Starts or stops all four rigctld TCP servers (on ports Base through Base+3) and enables or disables the per-channel VFO combos. The button text changes to "Enabled" or "Disabled" to reflect the current state. |
 | Enable TCP | Toggle button | Off | — | — | Starts or stops all four rigctld TCP servers on ports Base through Base+3. Also writes the current base port to `CatTcpPort`. |
 | Enable TTY | Toggle button | Off | — | — | Starts or stops all four PTY symlinks under `$XDG_RUNTIME_DIR/aethersdr/cat-A` through `cat-D` (Linux) or `~/Library/Caches/AetherSDR/cat-A` through `cat-D` (macOS). Available on Linux and macOS only. |
 | Base | Text field | 4532 | 1024–65535 | `CatTcpPort` | Sets the base TCP port. Values outside the valid range snap back to 4532. If TCP servers are running when you change this value, they restart on the new ports immediately. |
-| A / B / C / D channel rows | Indicator | (stopped) | — | — | Each row shows a colour-coded slice badge, the TCP status (for example `:4532 (1 client)` or `(stopped)`), and the PTY symlink path for that channel. |
+| A / B / C / D channel rows | Indicator | (stopped) | — | — | Each row shows a colour-coded slice badge, an individual enable checkbox, a VFO selection combo, the TCP status (for example `:4532 (1 client)` or `(stopped)`), and the PTY symlink path for that channel. The enable checkboxes have a high-contrast style with a filled accent colour when checked. |
 
 ## Per-channel indicators
 
@@ -38,6 +41,7 @@ AetherSDR can start the TCP servers and PTY links automatically at launch via `S
 - If a port is already in use by another application, the server for that channel will fail to start. Change `Base` to a free port range and click Enable TCP again.
 - The PTY symlink paths are computed from per-user runtime directories. On Linux, paths are under `$XDG_RUNTIME_DIR/aethersdr/cat-A` through `cat-D`. On macOS, paths are under `~/Library/Caches/AetherSDR/cat-A` through `cat-D`. The exact path appears in the channel row when the PTY is running.
 - You can run TCP and TTY at the same time on the same channel.
+- Each channel row has its own enable checkbox. Enable the main Enable CAT toggle before configuring individual ports.
 
 ## Related
 

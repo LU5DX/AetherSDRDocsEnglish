@@ -18,8 +18,8 @@ Silence the audio output of a single slice without changing its AF Gain setting.
 
 | Control | Kind | Default | Behavior | Notes |
 |---------|------|---------|----------|-------|
-| RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. Menu uses `rxAntennaList()` if available; otherwise falls back to the full antenna list. Each action sets the antenna via `data()`. | |
-| TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. Menu is built from `txAntennaOptions()` which filters out RX-only ports. Each action sets the antenna via `data()`. | |
+| RX antenna button | Push button | — | Opens antenna selection menu for the receive antenna of this slice. | |
+| TX antenna button | Push button | — | Opens antenna selection menu for the transmit antenna of this slice. | |
 | Frequency display | Indicator | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. On XVTR bands, bare integer entry inserts a decimal after the third digit for 2m/70cm bands (100-999 MHz range). For 23cm and microwave bands, bare integers are treated as full MHz values. Frequency entries with explicit decimal points above 54 MHz are accepted as MHz values on any band. | Accessibility: the frequency label emits `QAccessibleValueChangeEvent` when the frequency changes via radio update, so screen readers can announce the new value. |
 | Filter width label | Indicator | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth. | Fixes a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab) | Slider | 100 | Sets the audio output level for this slice. | Not persisted — reflects live radio state. |
@@ -77,6 +77,10 @@ When squelch is disabled and was previously enabled, the system automatically tu
 
 The stacked tab widget inside the VFO panel now uses a custom `QStackedWidget` subclass (`TabStack`) that reports only the current tab's preferred size. This fixes a visual gap that occurred when switching from the Mode tab (which has a shorter content height) to the DSP tab (which is taller when the digital sub-container is visible). The VFO panel no longer over-allocates height based on the tallest tab. The panel now adjusts its height cleanly as you switch between tabs.
 
+## VFO panel layout changes in v26.7.4
+
+The `TabStack` widget now additionally forwards `hasHeightForWidth()` and `heightForWidth()` from the current page. This allows pages that maintain an aspect ratio (such as the SmartMtrWidget meter) to drive the strip height correctly. Pages without height-for-width (such as the S-meter spacer) are unaffected. The VFO flag also now includes a lightweight elevation shadow rendered by a separate `FlagShadow` widget. The shadow is kept on a separate surface so that live meter repaints do not re-blur the entire flag at animation rate.
+
 ## Tab navigation changes in v26.6.3
 
 The tab labels in the VFO panel have been changed from `QLabel` to `QPushButton`. This improves accessibility by making the tab buttons keyboard-focusable with Tab key navigation. Each tab button now has a focus indicator (outline) shown when focused via keyboard.
@@ -112,6 +116,4 @@ The VFO panel now uses the AetherSDR theming system. All slider and button style
 
 ## Related
 
-- [Adjust AF gain and pan from the VFO panel](adjust-af-gain-and-pan-from-the-vfo-panel.md)
-- [Enable squelch from the VFO panel](enable-squelch-from-the-vfo-panel.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
+- [Adjust AF gain and pan from the VFO panel](adjust-af-gain

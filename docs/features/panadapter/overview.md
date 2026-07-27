@@ -17,7 +17,7 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 
 **Waterfall freeze behaviour.** When any connected client begins transmitting, the waterfall freezes automatically. It unfreezes when transmission stops, eliminating the 10–23 second TX-trail artifact that previously appeared after unkeying.
 
-**Reconnection behaviour.** On radio reconnect, the panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
+**Reconnection behaviour.** On radio reconnect, the panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default. Additionally, secondary panadapters (Slices B–H) have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum on reconnect.
 
 **CW decode panel.** An optional panel can appear beneath the waterfall. It runs an off-air Morse decoder and displays decoded text in a rolling read-only field, colour-coded by decoder confidence. The panel is hidden by default and is enabled from the CW mode controls. See [Turn on the CW decoder to read Morse off-air](turn-on-the-cw-decoder-to-read-morse-off-air.md).
 
@@ -45,16 +45,28 @@ AetherSDR opens with one panadapter visible in the centre of the main window. It
 | Control | Kind | Default | Valid range | Setting key | Behavior |
 |---|---|---|---|---|---|
 | CW stats label | Indicator | — | `<hz> Hz  <wpm> WPM` | — | Shows the pitch and speed currently detected by the decoder. |
+| Resize grip | Drag area | — | 60–600 px (panel height) | — | A thin 4-pixel strip at the top of the CW decode panel. Drag up or down to resize the panel and reveal more decoded-text history. Replaces the previous fixed 80-pixel height. |
 | Sens | Slider | 30 | 0 – 100 | `CwDecoderSensitivity` | Filters low-confidence decodes. Higher values are stricter. Internally maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Uses themed slider styling via `applyPrimarySliderStyle`. |
 | 🔒P (Lock Pitch) | Toggle button | Off | On / Off | — | Locks the decoder pitch to the currently tuned frequency. |
 | 🔒S (Lock Speed) | Toggle button | Off | On / Off | — | Locks the decoder speed to the current WPM reading. |
 | Pitch (range slider) | Range slider | 500 – 700 Hz | 300 – 1200 Hz | — | Sets the minimum and maximum pitch the decoder searches. Uses a dual-handle slider; Lo and Hi are adjusted together. |
 | WPM (range slider) | Range slider | 15 – 40 WPM | 5 – 60 WPM | — | Sets the minimum and maximum speed (WPM) the decoder searches. Uses a dual-handle slider. |
+| A- (Decrease font) | Button | — | — | — | Decreases the decoded-text font size by one step. Values are persisted across sessions. |
+| A+ (Increase font) | Button | — | — | — | Increases the decoded-text font size by one step. Values are persisted across sessions. |
 | CPY ALL | Button | — | — | — | Copies the full decoded text buffer to the clipboard. |
 | CPY VIS | Button | — | — | — | Copies only the text currently visible in the scroll area to the clipboard. |
 | CLR | Button | — | — | — | Clears the CW decode buffer. |
 | × (close CW) | Button | — | — | — | Hides the CW decode panel. |
-| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, colour-coded by confidence: green (<0.15 cost), yellow (<0.35), orange (<0.60), red (>=0.60). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
+| CW decode text | Read-only text field | — | — | — | Rolling display of decoded Morse, colour-coded by confidence. Font size is user-tunable (see A- / A+ buttons). Right-click the text area to open a context menu; the menu includes standard text actions and a **Clear** item that clears the decode buffer. |
+
+### CW decode confidence colours
+
+| Colour | Cost range | Meaning |
+|---|---|---|
+| Green | <0.15 | High confidence |
+| Yellow | 0.15–0.34 | Moderate confidence |
+| Orange | 0.35–0.59 | Lower confidence |
+| Red | >=0.60 | Low confidence, treat with caution |
 
 ### TX-side CW decode
 
@@ -85,6 +97,7 @@ All visual elements of the panadapter now use theme-aware colour tokens instead 
 - **Drag grip dots:** Uses `{{color.text.label}}` token.
 - **Slice title:** Uses `{{color.text.secondary}}` token.
 - **CW panel background:** Uses `{{color.background.0}}` and `{{color.background.1}}` tokens.
+- **CW resize grip:** Uses `{{color.background.2}}` token.
 - **CW title:** Uses `{{color.accent}}` token.
 - **CW hint:** Uses `{{color.meter.bar.fill}}` token.
 - **CW stats label:** Uses `{{color.text.label}}` token.
@@ -98,6 +111,7 @@ This ensures the panadapter appearance adapts to the selected theme without manu
 - The WPM range slider constrains the speed range the decoder searches. Narrowing this range around the expected sending speed reduces false decodes.
 - Decoded text colour reflects decoder confidence. Green text is the most reliable; red text should be treated with caution. Adjust Sens upward to suppress red and orange characters if noise is producing junk output.
 - `CwDecoderSensitivity` is persisted across sessions. You do not need to re-tune it each time you open the application.
+- The CW decode panel height and font size are persisted across sessions. Use the resize grip at the top of the panel to adjust height, and the A- / A+ buttons to adjust font size.
 - You can clear the decode buffer from the keyboard-free right-click context menu on the decoded text area as an alternative to clicking CLR.
 - When viewing both transmitted and received CW in the same panel, the cyan TX text helps you identify your own keying. No textual "[TX]" prefix is added — colour alone distinguishes the source.
 - The RTTY decode panel automatically appears when the slice mode is set to RTTY or DIGL.

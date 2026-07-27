@@ -53,6 +53,14 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 | **Remote radios** | List | Lists SmartLink WAN radios available to your account. |
 | **Connect Remote Radio** | Button | Starts a WAN connection to the selected remote radio. |
 
+## Radio list context menu
+
+Right-click a radio in the **Available radios** list to display a context menu. The available action depends on the radio type:
+
+| Action | Behavior |
+|---|---|
+| **Set Nickname...** | Opens a dialog to assign a custom nickname to the radio. The nickname is stored client-side and displayed in the radio list on subsequent discovery scans. This option is available only for radios without an onboard name store (such as HL2 or simulated radios). For FlexRadio radios, set the radio name from Radio Setup while connected. |
+
 ## Tips
 
 - The "No local radios found yet" callout also shows while discovery is still in progress immediately after launch. Wait a few seconds before concluding the radio is unreachable.
@@ -62,6 +70,7 @@ When AetherSDR's local discovery finds no radios, the "No local radios found yet
 - The **Advanced: Source path** control lets you choose which local network interface to use for manual/VPN connections. Select the NIC that has the best route to your radio.
 - Enable **Use low bandwidth mode** when connecting over a slow or unreliable link to reduce audio and data stream rates.
 - Enable **Enable adaptive frame-rate throttle** to let AetherSDR automatically reduce FFT/waterfall frame rate when network quality degrades. This helps maintain a stable connection over intermittent links. The throttle resumes full frame rate when network quality improves.
+- Right-click a non-Flex radio in the **Available radios** list and select **Set Nickname...** to give it a custom name that persists across restarts.
 
 ## Troubleshooting
 

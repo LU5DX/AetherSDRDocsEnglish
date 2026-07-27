@@ -39,7 +39,7 @@ For the RX side, the equivalent persisted key is `ClientGateRxFloorDb`. The Floo
 - When the Gate stage is disabled in the CHAIN widget, the entire applet tile dims to roughly half opacity. This matches the dim effect used on the EQ curve and provides a quick visual indication that the stage is bypassed without requiring you to check the CHAIN widget directly.
 - The **Transfer curve** indicator shows the expander's static transfer curve with a live ball at the current input level. A soft-cyan vertical hysteresis band appears between (Thresh minus Return) and Thresh when Return is greater than 0 dB, making the gate's sticky zone visible.
 - Use inline value editing to set controls with decimal precision — for example, type `2.5` for Ratio to get a 2.5:1 expansion ratio, or `12.5` for Return to set exactly 12.5 dB of hysteresis.
-- The **Gain-reduction bar** is a horizontal amber strip that fills from the right. Its scale maxes at 40 dB, with a tick at -15.0 dB marking the default floor. The animation of the bar is now smoother: when the gate's state settles, the metering repaints continue exactly once more to polish the visual, so the bar glides to its final position without an abrupt stop.
+- The **Gain-reduction bar** is a horizontal amber strip that fills from the right. Its scale maxes at 40 dB, with a tick at -15.0 dB marking the default floor. The metering repaints continuously for smooth animation — the bar glides to its final position without an abrupt stop.
 
 ## Knob color theming
 

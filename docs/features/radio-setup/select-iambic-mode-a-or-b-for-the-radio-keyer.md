@@ -81,8 +81,8 @@ Displays network addresses and lets you adjust network settings.
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle button | Enabled | Rejects non-RFC1918 peers. Always reads "Enabled" when toggled on. |
-| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Valid range 576–9000. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`. |
+| **Enforce Private IP Connections:** | Toggle button | Enabled | Rejects non-RFC1918 peers. |
+| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576–9000. Stored in `NetworkMtu`. Default 1450 is safe for most VPN/SD-WAN tunnels. |
 | **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
 | **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
 | **Apply** | Push button | — | Pushes the network config to the radio. |
@@ -101,7 +101,7 @@ Displays GPS presence and live position data when a GPS receiver is attached to 
 
 ## TX tab
 
-Controls TX timings, interlocks, power limits, tune mode, and slice-follow behavior.
+Controls TX timings, power limits, tune mode, and slice-follow behavior.
 
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
@@ -198,4 +198,4 @@ Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR 
 | **Front Speaker: / Mute** | Push button | — | Mutes the front speaker (model-specific). |
 | **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Push button | Auto | Selects the audio codec for SmartLink/LAN connections. Stored in `AudioCompression`. |
 | **Prevent system sleep while connected** | Checkbox | False | Keeps the OS awake while the radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored in `InhibitSleepWhileConnected`. |
-| **PC Audio Devices: Input: / Output:** | Com
+| **PC Audio Devices: Input: / Output:** | Combo box | — | Picks host audio input and output devices. |

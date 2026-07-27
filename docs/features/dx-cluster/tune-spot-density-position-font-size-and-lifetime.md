@@ -78,6 +78,7 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - Signal History markers are independent of DX spots. Use **Clear All** to remove both simultaneously.
 - The SpotHub dialog now uses theme-aware colors. Status indicators for connection state are styled with the current theme's accent, label, and danger colors instead of hardcoded values. This ensures consistent appearance with the rest of the application.
 - Toggle buttons for **Override Colors:**, **Spot Lines:**, **DXCC Colors:**, and **Snap to Step:** always display "Enabled" regardless of their current state. The button's checked state (pressed or unpressed) indicates whether the feature is on or off.
+- The Spot List tab's band-filter checkboxes now use a flowing layout that wraps to new rows when the dialog is narrow, keeping each checkbox readable instead of compressing them horizontally. This avoids the illegible squashing that could occur in earlier versions.
 
 ## Troubleshooting
 
@@ -94,4 +95,4 @@ Double-clicking a row in the Spot List table tunes the active slice to the spot 
 - [Clear all spots from the panadapter](clear-all-spots-from-the-panadapter.md)
 - [Start WSJT-X UDP listener and filter for CQ, POTA or calls to me](start-wsjt-x-udp-listener-and-filter-for-cq-pota-or-calls-to-me.md)
 - Edit startup commands for cluster sources
-<!-- docmesh:llm version=V26.6.3 date=2026-07-15 -->
+<!-- docmesh:llm version=V26.7.4 date=2026-08-01 -->

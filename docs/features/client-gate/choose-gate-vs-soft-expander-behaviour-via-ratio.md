@@ -30,7 +30,7 @@ The Ratio knob controls how aggressively the gate attenuates audio below the thr
 
 ## Knob inline editing
 
-Each knob in the applet supports inline value editing. Click on a knob's displayed value to open an editable text field overlaid on the knob. Type a new value and press Enter or click elsewhere to commit the change. The editor accepts locale-aware decimal formats (for example, "12,5" in comma-decimal locales) and strips non-numeric characters, so you can enter values with units (for example, "−6 dB" or "12.5 ms"). If you enter an invalid value, the knob silently reverts to its previous setting. Press Escape to cancel editing without committing a change.
+Each knob in the applet supports inline value editing. Click on a knob's displayed value to open an editable text field overlaid on the knob. Type a value and press Enter or click elsewhere to commit the change. The editor accepts locale-aware decimal formats (for example, "12,5" in comma-decimal locales) and strips non-numeric characters, so you can enter values with units (for example, "−6 dB" or "12.5 ms"). If you enter an invalid value, the knob silently reverts to its previous setting. Press Escape to cancel editing without committing a change.
 
 ## Tips
 
@@ -39,7 +39,7 @@ Each knob in the applet supports inline value editing. Click on a knob's display
 - Use the **Return** knob to eliminate gate chatter. If the gate flickers open and closed rapidly when you pause speaking, increase **Return** so the gate stays open until the input level drops well clear of the threshold. The cyan band on the transfer curve widens as you increase **Return**, showing the sticky zone directly.
 - The transfer curve updates in real time as you move **Ratio** or **Return**. Use the live input ball to confirm the curve shape and hysteresis band match your intent before transmitting.
 - Changes to any knob take effect immediately and are saved automatically. No Apply or Save button is required.
-- The gain-reduction bar and transfer curve repaint at a smooth, consistent rate thanks to an animation timer. When the audio level is changing, the display updates continuously. When the level settles, the timer stops to save resources but still performs a final redraw to show the settled state. This ensures you always see the current meter reading without unnecessary CPU usage.
+- The gain-reduction bar and transfer curve repaint constantly while the gate processes audio. The display updates every animation frame to ensure you always see the current meter reading without any visual stutter.
 
 ## Troubleshooting
 
@@ -47,7 +47,7 @@ Each knob in the applet supports inline value editing. Click on a knob's display
 - **Hard-gate ratio cuts too deep and creates unnatural silences** — Lower **Floor** toward 0 dB to reduce the maximum attenuation, or reduce **Ratio** toward the soft-expander range.
 - **Soft-expander ratio does not suppress noise enough** — Raise **Ratio** or lower **Thresh** so attenuation begins at a higher input level.
 - **Gate chatters or flickers at the threshold** — Increase **Return** so the gate stays open until the signal drops further below the threshold. Watch the cyan hysteresis band on the transfer curve widen as you do so.
-- **Display meter or curve appears to stutter** — The animation system uses a precise internal timer that automatically stops when the audio level settles. A brief pause before the final redraw is normal and indicates the timer has stopped correctly. If you see continuous flickering, check that no other application is interfering with the audio pipeline.
+- **Display meter or curve appears to stutter** — The animation system repaints continuously while audio is processing. If you see flickering, check that no other application is interfering with the audio pipeline.
 
 ## Related
 

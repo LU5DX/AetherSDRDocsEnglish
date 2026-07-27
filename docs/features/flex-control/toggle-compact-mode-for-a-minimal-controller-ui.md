@@ -43,12 +43,16 @@ The following actions can be assigned to wheel presses and auxiliary button taps
 | WheelRit | RIT (Receive Incremental Tuning) |
 | WheelXit | XIT (Transmit Incremental Tuning) |
 | WheelVolume | Master Volume |
-| **WheelSliceAudio** | **Slice Audio Volume** |
+| WheelSliceAudio | Slice Audio Volume |
 | WheelHeadphoneVolume | Headphone Volume |
 | WheelAgcT | AGCT (Automatic Gain Control Threshold) |
 | WheelApf | APF (Audio Peaking Filter) |
 
-**Note:** The **Slice Audio Volume** action (WheelSliceAudio) is new in v26.6.3. It adjusts the audio volume of the active slice independently from the master and headphone volumes.
+**Note:** The **Slice Audio Volume** action (WheelSliceAudio) adjusts the audio volume of the active slice independently from the master and headphone volumes.
+
+## Window sizing behavior (v26.7.4)
+
+The AetherControl dialog now uses a scrollable layout. When compact mode is off, the window ensures the full controller is available even on short or DPI-scaled screens. The content area scrolls vertically when its intrinsic height exceeds the available screen height. The minimum window width tracks the content's minimum width to prevent horizontal clipping.
 
 ## Related
 

@@ -150,18 +150,32 @@ Points with non-finite `freqMhz` or `swr` values are silently skipped. Points wh
 
 To remove the overlay, call `clearSwrSweepPoints()`.
 
-## Tips
+## Panadapter freeze during TX
 
-- The **Frequency label** displays the VFO frequency with dotted grouping (for example, `14.225.000`). Click it to enter edit mode and type a frequency in MHz, then press Enter to tune and re-center the panadapter. The frequency editor supports up to 450 MHz when the slice is on an XVTR antenna, and up to 50000.0 MHz when an explicit MHz entry above 54.0 MHz is entered.
-- The **STEP** spinbox controls how far the VFO moves per scroll-wheel click or per press of the **<** / **>** buttons. Step sizes are per-mode — for example, SSB steps are 1, 10, 50, 100, 500, 1000, 2000, or 3000 Hz; CW steps are 1, 5, 10, 50, 100, 200, or 400 Hz.
-- The default step size is 100 Hz (index 2 in the per-mode list).
-- Pressing Escape in the frequency edit field cancels the entry, restores the previous frequency, and dismisses the editor.
-- The **AF gain** slider default is 70. The **L / R pan** slider default is 50 (centre).
-- The **Squelch level** default is 20. The manual squelch level is remembered across sessions.
-- The **AGC threshold** default is 65.
-- Right-click the **AGC threshold** slider to calibrate AGC-T against the noise floor.
+When the radio enters the TRANSMITTING state (any client on the network transmits), the waterfall on this panadapter automatically freezes. It resumes scrolling when the radio returns to receive. This replaces the older MOX-edge-based freeze logic, eliminating a 10–23 second TX-trail artifact after unkeying.
 
-## Related
+## CW decode panel
 
-- [RX Controls overview](../../features/rx/overview.md)
-- [Switch between multiple slices using the A..H tab row](../../features/rx/switch-between-multiple-slices-using
+Each panadapter can show a CW decode panel below the spectrum for off-air Morse decoding. The panel appears only in CW mode when PC audio is routed to the CW decoder.
+
+### Tuning and controls
+
+- **Sens** — A slider (0–100) that filters low-confidence decodes. Higher values are stricter. The setting is saved in `CwDecoderSensitivity`.
+- **🔒P (Lock Pitch)** — Toggles locking the decoder pitch to the current tuned frequency.
+- **🔒S (Lock Speed)** — Toggles locking the decoder speed to the current WPM.
+- **Lo (pitch min)** — Sets the minimum pitch to search (300–1200 Hz). Clamped to ≤ Hi.
+- **Hi (pitch max)** — Sets the maximum pitch to search (300–1200 Hz). Clamped to ≥ Lo.
+
+### Copy and clear
+
+- **CPY ALL** — Copies the full decoded text to the clipboard.
+- **CPY VIS** — Copies only the text currently visible in the scroll area.
+- **CLR** — Clears the CW decode buffer.
+- **✕ (close CW)** — Hides the CW decode panel.
+
+### Font size adjustment (#3628)
+
+Two buttons adjust the decoded-text font size for readability:
+
+- **A-** — Decreases the font size (8 px minimum).
+- **A+** — Increases

@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides access to all radio-level settings including radio identification, network configuration, GPS, transmit parameters, phone/CW settings, receive calibration, audio configuration, filters, transverters, USB cables, peripherals, APD sampling, themes, SmartLink certificate management, and serial port configuration.
+The Radio Setup dialog is the master per-radio configuration window. It provides access to all radio-level settings including radio identification, network configuration, GPS, transmit parameters, phone/CW settings, receive calibration, audio configuration, filters, transverters, USB cables, peripherals, APD sampling, themes, SmartLink certificate management, serial port configuration, KiwiSDR public receivers, and serial port configuration.
 
 ## Before you start
 
@@ -13,7 +13,7 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 
 ### Tab scroll areas
 
-Some tabs (Themes, Audio, Filters, Peripherals) contain more controls than fit vertically on small or high-DPI displays. These tabs are automatically wrapped in a vertical scroll area so you can scroll down to reach all controls without resizing the dialog beyond the screen edge. The scrollbar appears only when content exceeds the visible area.
+Some tabs (Themes, Audio, Filters, Peripherals, KiwiSDR) contain more controls than fit vertically on small or high-DPI displays. These tabs are automatically wrapped in a vertical scroll area so you can scroll down to reach all controls without resizing the dialog beyond the screen edge. The scrollbar appears only when content exceeds the visible area.
 
 ## Radio tab
 
@@ -33,6 +33,12 @@ The radio information section shows read-only indicators for:
 | **FlexControl** | Detected state of FlexControl hardware. | |
 | **multiFLEX** | multiFLEX enabled state. | |
 | **License Info** (Subscription / Expiration / Radio ID / Licensed version) | Displays license details from the radio. | Each field includes a clipboard copy button next to the value. |
+| **Select Installer...** | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3. |
+| **SmartLink (tab)** | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2). | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
+| **Pinned SmartLink Certificates (section)** | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use). | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects. |
+| **Host / SHA-256 fingerprint / Pinned (table columns)** | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)'). | Backed by WanCertCache in WanConnection.cpp. |
+| **Forget selected** | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently. | |
+| **Forget all** | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins. | Shows QMessageBox::question before wiping. |
 
 ### Radio Identification
 
@@ -70,7 +76,7 @@ The **Reboot Radio** button restarts the connected radio. This is useful after f
   - **SmartLink/WAN**: "Reboot the connected radio now? AetherSDR will disconnect. SmartLink/WAN sessions do not auto-reconnect today — you will need to reconnect manually once the radio finishes booting."
   - **Direct/LAN**: "Reboot the connected radio now? AetherSDR will disconnect and automatically reconnect once the radio finishes booting."
 - Click **OK** to confirm. The dialog closes and AetherSDR disconnects.
-- The button has a styled disabled appearance (#3334 follow-up) so it remains visible but clearly greyed out when the radio is not connected.
+- The button has a styled disabled appearance so it remains visible but clearly greyed out when the radio is not connected.
 
 ### Steps to reboot the radio
 
@@ -198,28 +204,4 @@ The **Phone/CW** tab provides microphone, CW keyer, and RTTY default settings.
 
 ## RX tab
 
-The **RX** tab provides GPSDO frequency offset calibration and 10 MHz reference source selection.
-
-| Control | Description | Default |
-|---|---|---|
-| **Cal Frequency (MHz):** | Frequency used for manual calibration. | — |
-| **Start** | Starts the frequency calibration sweep. | — |
-| **Freq Offset (ppb):** | Manual frequency offset in ppb. | — |
-| **10 MHz Reference Source:** | Selects oscillator reference source. Options depend on hardware installed (TCXO/GPSDO/External). Lock status (Locked/Unlocked) is shown alongside the combo and updates live. | Auto |
-
-## Audio tab
-
-The **Audio** tab provides radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container controls.
-
-| Control | Description | Default |
-|---|---|---|
-| **Line Out:** | Line-out gain slider. | — |
-| **Mute (Line Out)** | Mutes line-out. | — |
-| **Headphone:** | Headphone gain slider. | — |
-| **Mute (Headphone)** | Mutes headphone. | — |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Selects audio codec for SmartLink/LAN. Stored in AppSettings. | Auto |
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. | False |
-| **PC Audio Devices: Input: / Output:** | Picks host audio in/out devices. | — |
-| **Audio Boost:** | Enables extra gain on the client audio path. Stored in AppSettings. | — |
-| **Audio Buffer:** | Increases audio buffer in milliseconds for VPN/SmartLink jitter. Range 50-1000 ms. Stored as `
+The **RX** tab provides GPSDO frequency offset calibration and

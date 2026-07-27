@@ -65,7 +65,7 @@ All knob controls in the Aetherial De-Esser support inline value editing. Instea
 ## Tips
 
 - The meter runs at approximately 30 Hz, so short, sharp transients may appear as brief flashes. This is normal.
-- The gain-reduction bar now updates more smoothly during sustained sibilance. Prior to v26.6.3, the animation timer could stop early during continuous de-essing. The meter now repaints continuously while gain reduction is active, even if the internal smoother settles temporarily. This means you will see a steady, responsive bar during a long "S" sound rather than a brief flash that disappears.
+- The gain-reduction bar now updates more smoothly during sustained sibilance. Prior to v26.6.3, the animation timer could stop early during continuous de-essing. The meter now repaints continuously while gain reduction is active, even if the internal smoother settles temporarily. This means you will see a steady, responsive bar during a long "S" sound rather than a brief flash that disappears. As of v26.7.4, the client-side de-esser widget repaints continuously during gain reduction, ensuring the bar remains visible even when the animation smoother settles temporarily.
 - Keep the **Amount** knob at its default of −6.0 dB while watching the meter for the first time. Dial it down only after you have confirmed the meter is triggering on the right sounds.
 - If the ball on the sidechain response curve sits far from where your sibilance peaks, use **Freq** to move it. The meter will only show GR when energy in the current **Freq** band crosses **Thresh**.
 - When the De-Ess stage is bypassed in the CHAIN widget, the entire applet tile dims visibly. If the tile appears faded, confirm the stage is not bypassed before interpreting the meter.

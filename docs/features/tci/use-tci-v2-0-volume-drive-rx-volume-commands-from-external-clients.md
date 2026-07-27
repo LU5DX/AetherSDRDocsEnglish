@@ -28,7 +28,6 @@ External clients (logging software, digital-mode software, SDR programs) can con
 | `drive`                        | `TciTxGain`                                                                                                                          | 0.5                                                                                                                                                                                                                                            |
 | `rx_volume <channel>`          | `TciRxGain1`–`TciRxGain4`                                                                                                            | 0.5                                                                                                                                                                                                                                            |
 | TX overflow mode (right-click) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. | New in v26.5.3. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as TciTxOverflowMode (0/1/2). |
-
 ## TCI applet controls
 
 The TCI applet shows the current state and lets you adjust gain settings:
@@ -37,8 +36,8 @@ The TCI applet shows the current state and lets you adjust gain settings:
 |---------|-------------|-------------|
 | **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. Each control has an accessible name "TCI RX _N_ gain" for screen readers. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
 | **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. Right-click to open the TX overflow mode picker. Has accessible name "TCI TX gain" for screen readers. | `TciTxGain` |
-| **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. | `TciPort` |
-| **Enable** | Toggle button to start or stop the TCI server. If bind fails, snaps back to off and status shows "(port in use)". | None |
+| **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. Has accessible name "TCI port". | `TciPort` |
+| **Enable** | Toggle button to start or stop the TCI server. Text shows "Enabled" when the server is running or will auto-start, and "Disabled" otherwise. If bind fails, snaps back to off, text changes to "Disabled", and status shows "(port in use)". | None |
 
 ### TX overflow mode (right-click)
 
@@ -76,6 +75,8 @@ Default is **Clip** so existing users see no behavior change.
 - For bit-exact digital-mode tone fidelity, use **NaN guard** or **Measure only** mode to avoid harmonic distortion from the Clip limiter.
 - The TCI applet container now uses themed styling (v26.6.1) — colors adapt to the active theme.
 - All gain meters have explicit accessible names set for screen reader compatibility (v26.6.3). "TCI RX 1 gain" through "TCI RX 4 gain" for the RX channels, and "TCI TX gain" for the TX channel.
+- The Enable button text dynamically changes between "Enabled" and "Disabled" to reflect the server state (v26.7.4).
+- The Port text field has accessible name "TCI port" and accessible description "TCP port the TCI server listens on" (v26.7.4).
 
 ## Related
 

@@ -189,20 +189,24 @@ Click any color swatch to open a color picker:
 ### Viewing and filtering spots
 
 1. Click the **Spot List** tab.
-2. Use the band checkboxes to toggle visibility of spots on each band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.).
+2. Use the band checkboxes to toggle visibility of spots on each band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). The checkboxes use a flow layout that wraps to additional lines when the dialog is too narrow to display them all in one row.
 3. Click **Clear** to empty the current spot list.
 
 ### Tuning to a spot
 
 Double-click a row in the spot table to tune the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
+### Customizing table columns
+
+Right-click the table header to open a column visibility menu. The menu stays open while you toggle checkable columns, so you can show or hide multiple columns (for example, Spotter, Band, Mode) in a single pass without the menu closing after each toggle.
+
 ### What each control does on the Spot List tab
 
 | Control | Description | Setting key |
 |---|---|---|
-| **Bands:** | Per-band checkboxes toggle visibility in table. | — |
+| **Bands:** | Per-band checkboxes toggle visibility in table. The checkboxes wrap to additional rows when the dialog is narrow. | — |
 | **Clear** | Empties current spot list. | — |
-| **Spot table** | Sortable table of spots. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. | — |
+| **Spot table** | Sortable table of spots. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Right-click header to show/hide columns without the menu closing between toggles. | — |
 
 ## Display tab
 
@@ -215,8 +219,4 @@ The **Display** tab controls how spots are visualized on the panadapter.
 | Control | Description | Setting key |
 |---|---|---|
 | **Spots:** | Master toggle for DX spot overlay on the panadapter. Default: Enabled. | `IsSpotsEnabled` |
-| **Memories:** | Toggles memory-channel overlay on the panadapter. Default: Disabled. | `IsMemorySpotsEnabled` |
-| **Auto:** | Automatically switches the slice mode when clicking a spot that includes mode information (e.g. CW, FT8, RTTY). Default: Enabled. Setting key changed from `SpotsAutoMode` to `SpotAutoSwitchMode` in v26.5.1. Default changed from Disabled to Enabled in v0.9.5.1. | `SpotAutoSwitchMode` |
-
-#### Signal History toggles
-
+| **Memories:** | Toggles

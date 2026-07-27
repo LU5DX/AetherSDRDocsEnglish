@@ -25,7 +25,7 @@ The Slice Troubleshooting dialog analyzes your current slice, panadapter, transv
 | **Export JSON...**   | Button | Saves the full JSON snapshot to a file.                                                                                                                                                                               |
 | **Close**            | Button | Closes the dialog.                                                                                                                                                                                                    |
 
-The status label below the buttons confirms the result of the last copy or export action (for example, `Copied to clipboard`).
+The status label below the buttons confirms the result of the last copy or export action (for example, "Copied to clipboard").
 
 ## What the Issue Summary reports
 
@@ -39,6 +39,13 @@ The Issue Summary bullet list covers the following areas:
 - **Panadapters** — for each panadapter: ID, active status, center frequency, bandwidth, RF gain, preamp, WNB active/level, waterfall ID, and slice connection status (state, summary, connected slice IDs, active slice IDs, attention required flag).
 - **Audio endpoints** — for each audio endpoint: name, direction, kind, operational and running status, state, error, backend, device, sample rate, channel count, sample format, resampling status, buffer bytes, buffer peak bytes, underrun count, and any notes.
 - **Renderers (display engine)** — for each renderer: operational status, backend, device, state, error, sample rate, buffer info, and underrun metrics.
+
+## What the JSON snapshot includes
+
+The JSON tab shows the full diagnostic snapshot. In addition to the areas listed above, the snapshot now includes the following client DSP configuration parameters:
+
+- **NR2 settings**: gain method, NPE method, AE filter, gain max, gain floor, gain smooth, QSPP, and legacy geometry and gain mapping.
+- **NR4 settings**: enabled status and noise estimation method.
 
 ## Tips
 

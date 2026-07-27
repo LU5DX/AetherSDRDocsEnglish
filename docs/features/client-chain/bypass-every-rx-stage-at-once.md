@@ -1,27 +1,27 @@
 # Bypass every RX stage at once
 
-Use the BYPASS button to disable all RX chain stages in a single click, without losing track of which stages were active. Clicking BYPASS again restores only the stages that were enabled before.
+Use the **BYPASS** button to disable all RX chain stages in a single click, without losing track of which stages were active. Clicking **BYPASS** again restores only the stages that were enabled before.
 
 ## Before you start
 
 - The Aetherial Audio Chain applet must be visible. If it is not, click the PUDU tray button in the right sidebar to show the container.
-- You must be viewing the RX chain. The BYPASS button acts on whichever chain side is currently shown.
+- You must be viewing the RX chain. The **BYPASS** button acts on whichever chain side is currently shown.
 
 ## Steps
 
 1. In the Aetherial Audio Chain applet header, click **RX**. The RX chain stages appear below.
-2. Click **BYPASS**. The button changes to its checked appearance (amber border and fill). Every stage in the RX chain is disabled immediately, including RN2. AetherSDR snapshots which stages were enabled at the moment you clicked.
+2. Click **BYPASS**. The button changes to its checked appearance (amber border and fill). Every stage in the RX chain is disabled immediately, including all noise reduction modules (NR2, NR4, MNR, DFNR, RN2, NVAFX). AetherSDR snapshots which stages were enabled at the moment you clicked.
 3. To restore the previous stage states, click **BYPASS** again. Only the stages that were enabled before the bypass are re-enabled.
 
 ## What each control does
 
 | Control | Kind | Default | Behavior | Notes |
 |---------|------|---------|----------|-------|
-| **RX** | Toggle button | Unchecked | Shows and edits the RX DSP chain (ClientRxChainWidget) — fully interactive with click-bypass, double-click-edit, drag-reorder; bookended by RADIO / DSP / SPEAK status tiles. | Part of an exclusive pair with TX; blue-ring styling when selected. Each side keeps independent stage state, chain order, and BYPASS snapshot. |
-| **BYPASS** | Toggle button | Unchecked | Checked: snapshots the currently-enabled stages on the active side (TX or RX) and disables all of them (including RN2). Unchecked: re-enables just the stages that were on before. The snapshot is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches. | Stages toggled manually while BYPASS was active are preserved outside the snapshot. TX and RX maintain separate snapshots — the visual checked state tracks the side currently shown. |
+| **RX** | Toggle button | Unchecked | Shows and edits the RX DSP chain (ClientRxChainWidget) — fully interactive with click-bypass, double-click-edit, drag-reorder; bookended by RADIO / DSP / SPEAK status tiles. | Part of an exclusive pair with TX; amber 'VUDU' colour when selected. Each side keeps independent stage state, chain order, and BYPASS snapshot. Last-active tab persists via PooDooAudioActiveTab. |
+| **BYPASS** | Toggle button | Unchecked | Checked: snapshots the currently-enabled stages on the active side (TX or RX) and disables all of them (including all noise reduction modules). Unchecked: re-enables just the stages that were on before. The snapshot is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches. | Stages toggled manually while BYPASS was active are preserved outside the snapshot. TX and RX maintain separate snapshots — the visual checked state tracks the side currently shown. |
 | RX chain stage (EQ / AGC-G / AGC-C / DESS / TUBE / EVO) | Drag handle | None | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. | Delegated to ClientRxChainWidget. All six RX stages (EQ, AGC-G/Gate, AGC-C/Comp, DESS/DeEss, TUBE, EVO/Pudu) are fully implemented. Order is independent of the TX chain. Distinct mime type 'application/x-aethersdr-rx-chain-stage' prevents stray drops between the two strips. |
 | RADIO status tile | Indicator | None | Non-interactive RX-side bookend. Greens when PC Audio (the standard SSB stream) is enabled. | Only visible in RX mode. |
-| ADSP status / bypass tile | Toggle button | Unchecked | Interactive RX-side tile that mirrors which client-side noise reducer is currently active. Label rotates to the active module's short name (e.g. 'NR2', 'NR4', 'BNR'); falls back to 'ADSP' when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. | Only visible in RX mode. Adopts the same blue-ring + green-LED-dot styling as implemented stage tiles. Snapshot restoration falls back to NR2 if no modules were active at bypass-time. |
+| ADSP status / bypass tile | Toggle button | Unchecked | Interactive RX-side tile that mirrors which client-side noise reducer is currently active. Label rotates to the active module's short name (e.g. 'NR2', 'NR4', 'NVAFX'); falls back to 'ADSP' when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. | Only visible in RX mode. Adopts the same blue-ring + green-LED-dot styling as implemented stage tiles. Snapshot restoration falls back to NR2 if no modules were active at bypass-time. The 'BNR' label has been replaced by 'NVAFX' in v26.7.4. |
 | SPEAK status tile | Indicator | None | Non-interactive RX-side bookend. Greens when AetherSDR's audio output is unmuted. | Only visible in RX mode. |
 
 ## Customise click discrimination interval
@@ -52,7 +52,8 @@ A shorter interval makes double-click detection more responsive but may cause ac
 - **The TX BYPASS button state does not match what you set in the Channel Strip** — The applet synchronises with the audio engine when the TX side is shown. Click **TX** to switch to the TX chain; the BYPASS button will reflect the current engine state immediately.
 - **The RX BYPASS button state does not match what you expect** — RX BYPASS state is also owned by the engine. Click **RX** to switch to the RX chain; the BYPASS button will reflect the current engine state. If the engine state was changed elsewhere, the button updates automatically when viewing the RX chain.
 - **BYPASS appears unchecked after switching Channel Strip profiles** — BYPASS state is per audio engine, not per profile. If you switch profiles, the BYPASS button may appear unchecked even though the engine still has it enabled. Click **RX** to refresh the display, or simply re-click BYPASS to toggle it off and on.
-- **RN2 remains active after engaging BYPASS** — In v26.6.1, BYPASS now disables RN2 along with all other stages. If RN2 remains active, ensure you are using the latest version and that the BYPASS button is fully checked (amber border and fill).
+- **Noise reduction remains active after engaging BYPASS** — In v26.7.4, BYPASS now disables NVAFX along with all other noise reduction modules. If noise reduction remains active, ensure you are using the latest version and that the BYPASS button is fully checked (amber border and fill).
+- **The ADSP tile label shows 'BNR' instead of 'NVAFX'** — In v26.7.4, the 'BNR' noise reduction module has been renamed to 'NVAFX'. The ADSP tile will now display 'NVAFX' when that module is active. If you see 'BNR', you may need to update to the latest version.
 - **Clicking a stage toggles bypass when you intended to edit, or opens the editor when you intended to bypass** — Adjust the click discrimination interval in **Settings > Interaction Settings**. A longer interval helps if you are accidentally opening editors when trying to bypass; a shorter interval helps if you are accidentally bypassing when trying to edit.
 
 ## Related

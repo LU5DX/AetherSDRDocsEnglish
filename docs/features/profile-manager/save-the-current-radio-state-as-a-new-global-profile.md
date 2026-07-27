@@ -13,25 +13,27 @@ Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
-|---|---|---|---|
-| `Global (tab)` | Tab | Manages global profiles. | — |
-| `Transmit (tab)` | Tab | Manages transmit profiles. | — |
-| `Microphone (tab)` | Tab | Manages microphone profiles. | — |
-| `Auto-Save (tab)` | Tab | Controls automatic profile saving. | — |
-| `Profile name` | Text field | Name used when saving a new profile. If left blank when Save is clicked and a profile is selected in the list, the selected profile's name is used instead. | — |
-| `Profile list` | List | Shows all existing profiles for the selected category. The active profile is highlighted. | — |
-| `Load` | Button | Loads the selected profile onto the radio. Enabled only when a profile is selected. | — |
-| `Save` | Button | Saves the current radio state under the name typed in `Profile name`. | — |
-| `Delete` | Button | Deletes the selected profile after a confirmation prompt. Enabled only when a profile is selected. | — |
-| `Close` | Button | Closes the Profile Manager dialog. | — |
-| `Auto-save profile changes` | Checkbox | When enabled, TX changes are written back to the active profile automatically. | `AutoSaveTransmitProfile` |
+| Control                     | Kind       | Behavior                                                                                                                                                    |
+|-----------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Global (tab)`              | Tab        | Manages global profiles.                                                                                                                                    |
+| `Transmit (tab)`            | Tab        | Manages transmit profiles.                                                                                                                                  |
+| `Microphone (tab)`          | Tab        | Manages microphone profiles.                                                                                                                                |
+| `Auto-Save (tab)`           | Tab        | Controls automatic profile saving.                                                                                                                          |
+| `Profile name`              | Text field | Name used when saving a new profile. If left blank when Save is clicked and a profile is selected in the list, the selected profile's name is used instead. |
+| `Profile list`              | List       | Shows all existing profiles for the selected category. The active profile is highlighted.                                                                   |
+| `Load`                      | Button     | Loads the selected profile onto the radio. Enabled only when a profile is selected.                                                                         |
+| `Save`                      | Button     | Saves the current radio state under the name typed in `Profile name`. Disabled when the name field is empty.                                                |
+| `Delete`                    | Button     | Deletes the selected profile after a confirmation prompt. Enabled only when a profile is selected.                                                          |
+| `Close`                     | Button     | Closes the Profile Manager dialog.                                                                                                                          |
+| `Auto-save profile changes` | Checkbox   | When enabled, TX changes are written back to the active profile automatically. State is read live from the radio model, not from local settings.            |
 
 ## Tab-specific behavior
 
 ### Global tab
 
 - The `Save` button creates or overwrites a global profile. Enter a new name to create a profile, or select an existing one and click `Save` to overwrite it.
+- A result line appears below the buttons after a save attempt, showing success or failure. It disappears when you edit the profile name field.
+- The `Load` button uses the firmware command `profile load` to load the selected profile.
 
 ### Transmit and Microphone tabs
 
@@ -39,11 +41,14 @@ Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
 - If a profile with the typed name already exists, a dialog appears offering to enable **Auto-Save**. Clicking the Enable Auto-Save button in this dialog sends the `profile autosave on` command to the radio. The Auto-Save checkbox on the Auto-Save tab updates automatically in response to the radio's confirmation.
 - A note below the buttons explains: "Updates to existing profiles save automatically — enable Auto-Save (Auto-Save tab) so changes follow the active profile. Create makes a new profile; it does not overwrite an existing one."
 - The `Load` button uses the firmware command `profile tx load` (on the Transmit tab) and `profile mic load` (on the Microphone tab) to load the selected profile.
+- A result line appears below the buttons after a create attempt, showing success or failure. It disappears when you edit the profile name field.
 
 ### Auto-Save tab
 
 - Check `Auto-save profile changes` to enable automatic saving of transmit and microphone profile changes.
 - When enabled, any tweaks you make to an active transmit or microphone profile are written back to that profile immediately on the radio. You do not need to manually save.
+- The checkbox reads its state directly from the radio model, not from local AppSettings. It reflects the radio's actual auto-save state at all times.
+- The checkbox sends `profile autosave on/off` to the radio on toggle.
 - The checkbox stays in sync with the radio's actual auto-save state, even when auto-save is toggled by:
   - The Enable Auto-Save button in the Transmit or Microphone tab's duplicate-name dialog
   - TCI clients sending auto-save commands
@@ -57,13 +62,15 @@ Click `Profiles > Profile Manager...` to open the Profile Manager dialog.
 - You can also double-click a profile in the `Profile list` to load it immediately without clicking `Load`.
 - The `Profile list` updates automatically when the radio confirms the save. You do not need to close and reopen the dialog to see the new entry.
 - For transmit and microphone profiles, enable Auto-Save before making adjustments so you do not lose your changes.
+- The `Save` and `Create` buttons are disabled when the profile name field is empty, preventing inadvertent clicks that would have no effect.
 
 ## Troubleshooting
 
 - **Save has no effect and the profile does not appear in the list** — Confirm the radio is connected. Profile Manager requires an active radio connection; if the connection dropped, reconnect via `Settings > Connect to Radio...` and try again.
-- **Clicking Save with an empty `Profile name` field does nothing** — Either type a name in `Profile name` or select an existing profile in the `Profile list` first (its name will fill the field automatically).
+- **Clicking Save with an empty `Profile name` field does nothing** — Either type a name in `Profile name` or select an existing profile in the `Profile list` first (its name will fill the field automatically). The Save button is disabled when the field is empty.
 - **Cannot overwrite a transmit or microphone profile** — This is by design. Use `Create` to make a new profile, or enable Auto-Save so changes to the active profile are saved automatically.
 - **The Auto-Save checkbox seems to change by itself** — This is normal. The checkbox reflects the radio's actual auto-save state. It may update when you enable Auto-Save from the Transmit or Microphone tab, or when another client toggles auto-save on the radio.
+- **A save result line stays visible after a timeout** — If the radio does not respond to a save command within 15 seconds, the result line clears automatically. This prevents stale status from persisting after a radio disconnection.
 
 ## Related
 

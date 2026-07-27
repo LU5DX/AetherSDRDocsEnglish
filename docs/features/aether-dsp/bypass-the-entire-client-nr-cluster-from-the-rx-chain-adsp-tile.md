@@ -34,6 +34,10 @@ The top of the dialog contains six toggle buttons that serve as both tab selecto
 
 Clicking a toggle activates that engine and selects its tab. Clicking it again deactivates the engine. Only one engine can be active at a time — NR2, NR4, and DFNR are mutually exclusive. MNR and BNR may stack in some builds.
 
+Each toggle button has an accessible name that includes its label (e.g., "NR2 noise-reduction method") for assistive technology and automation bridge support.
+
+The last active client NR engine is persisted in the `LastClientNr` setting. If DFNR is unavailable and was previously active, the preference is automatically cleared.
+
 ## NR2 tab
 
 Controls for the musical-noise-reduction engine.
@@ -49,6 +53,8 @@ Controls for the musical-noise-reduction engine.
 | Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR2 defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20). |
 
 Sliders on this tab use theme-aware styling via `applyPrimarySliderStyle()`.
+
+In v26.7.4, two new signals were added to the NR2 tab — `nr2GainFloorChanged` and `nr2UseOriginalGeometryChanged` — enabling future controls for minimum gain floor and original geometry modes.
 
 ## NR4 tab
 
@@ -82,7 +88,7 @@ Controls for the macOS MMSE-Wiener noise reduction engine. This tab and its cont
 
 Controls for the DeepFilterNet3 neural noise reduction engine.
 
-**Note:** DeepFilterNet3 is an advanced neural-network-based noise reduction system that uses deep learning to suppress noise while preserving speech quality. It may require significant CPU resources.
+**Note:** DeepFilterNet3 is an advanced neural-network-based noise reduction system that uses deep learning to suppress noise while preserving speech quality. It may require significant CPU resources. DFNR requires DeepFilterNet to be set up and AetherSDR rebuilt. If unavailable, the DFNR toggle shows a tooltip explaining this.
 
 | Control | Type | Default | Range | Setting Key | Behavior |
 |---------|------|---------|-------|-------------|----------|
@@ -116,3 +122,4 @@ The ADSP tile updates to reflect the bypassed state. No client NR engines are no
 - The Reset Defaults button (↺ icon) on each tab restores that engine's parameters to their default values.
 - Settings are persisted across sessions.
 - The dialog uses theme-aware styling. Colors are drawn from the active color theme rather than fixed values.
+- The last active client NR engine is persisted; if DFNR becomes unavailable, the stored preference is automatically cleared.

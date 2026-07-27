@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, themes, and SmartLink pinned certificate management.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, themes, SmartLink pinned certificate management, and KiwiSDR receivers.
 
 ## Opening the Radio Setup dialog
 
@@ -50,7 +50,7 @@ The **License Info** section displays subscription status, expiration date, radi
 | Control | Description | Notes |
 |---|---|---|
 | **Remote On** | Enables remote wake / remote-on. | |
-| **Reboot Radio** | Reboots the connected radio. | Only enabled when the radio is connected. Clicking shows a confirmation dialog. On WAN/SmartLink connections, you must reconnect manually after the radio finishes booting. On LAN connections, AetherSDR automatically reconnects. The dialog closes after reboot is initiated. New in v26.6.3 (#3334). |
+| **Reboot Radio** | Reboots the connected radio. | Only enabled when the radio is connected. Clicking shows a confirmation dialog. On WAN/SmartLink connections, you must reconnect manually after the radio finishes booting. On LAN connections, AetherSDR automatically reconnects. The dialog closes after reboot is initiated. |
 
 ### SmartLink tab
 
@@ -265,4 +265,4 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 | **NVIDIA BNR: Autostart Container** | Enables automatic container startup. |
 | **NVIDIA BNR: Start / Stop** | Manually starts or stops the NVIDIA Broadcast noise-removal container. |
 | **NVIDIA BNR: Check Status** | Checks container status. |
-| **NVIDIA BNR status dot**
+| **NVIDIA BNR status dot** | Colored dot indicating container

@@ -13,6 +13,10 @@ Open the dialog via `Settings > AetherDSP Settings...`. The dialog contains six 
 
 The dialog has a frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and window control buttons (—, □, ×) on the right, matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. The controls inside the dialog are provided by an embedded `AetherDspWidget` in dialog mode, with all fonts scaled to 13 px. Dialog position and size are persisted across sessions using the `AetherDspDialogGeometry` setting key. The dialog background and colors follow the current theme via `ThemeManager`.
 
+Each toggle button in the top row has an object name of the form `dspMethodBtnNR2`, `dspMethodBtnNR4`, etc., and an accessible name that includes the label and "noise-reduction method". This enables automation bridges and assistive technologies to identify each specific engine control.
+
+When you select a DSP tab, AetherSDR remembers the last used client-side noise reduction engine in the `LastClientNr` setting. If that setting points to `DFNR` on a build without DeepFilterNet support, it is automatically cleared.
+
 ### NR2 tab
 
 NR2 is a frequency-domain musical-noise-reduction engine. Its parameters control how aggressively noise is suppressed and how the engine identifies speech versus noise.
@@ -73,7 +77,7 @@ MNR is an MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It 
 
 ### DFNR tab
 
-DFNR uses the DeepFilterNet3 neural network for deep noise suppression.
+DFNR uses the DeepFilterNet3 neural network for deep noise suppression. If AetherSDR was built without DeepFilterNet support, the DFNR toggle is disabled and a tooltip explains the missing dependency.
 
 | Control | Type | Default | Range | Persisted key |
 |---|---|---|---|---|
