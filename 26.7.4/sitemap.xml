@@ -73,6 +73,34 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/acom/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/acom/put-the-amplifier-in-operate-or-standby/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/acom/watch-amplifier-temperature-drain-current-and-mains-voltage/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/aether-clock/align-the-local-clock-to-the-radio-s-gps-timebase/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/aether-clock/check-the-radio-s-gps-gnss-lock-status/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/aether-clock/monitor-clock-drift-between-pc-and-radio/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/aether-clock/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/aether-dsp/adjust-nr4-reduction-amount-in-db/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -198,6 +226,22 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/band-stack/visually-scan-the-stored-frequencies-for-the-active-band/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/callsign-lookup/look-up-a-callsign-on-qrz-com/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/callsign-lookup/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/callsign-lookup/see-operator-name-location-and-dxcc-entity/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/callsign-lookup/view-the-callsign-card-with-flag-and-details/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -677,6 +721,46 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/change-the-whisper-model-tier-for-accuracy-vs-speed/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/choose-gpu-or-cpu-for-speech-recognition/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/clear-the-transcript-buffer/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/enable-speech-to-text-transcription-on-a-slice/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/copy-assist/read-the-live-transcript-with-confidence-colored-text/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/cross-needle-meter/change-the-meter-face-theme/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/cross-needle-meter/enable-peak-hold-for-ssb-voice-peaks/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/cross-needle-meter/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/cross-needle-meter/read-forward-and-reflected-power-on-the-cross-needle-meter/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/cwx/change-cw-send-speed-in-wpm/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -758,6 +842,22 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/dax-iq/pick-the-iq-sample-rate-24k-48k-96k-192k/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/demo/load-a-noise-scene-preset-for-realistic-band-simulation/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/demo/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/demo/shape-synthetic-rf-noise-with-per-channel-controls/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/demo/start-the-built-in-demo-radio/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -969,6 +1069,18 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/kiwi-sdr/assign-a-kiwisdr-to-a-slice-for-listening/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/kiwi-sdr/browse-the-public-kiwisdr-directory/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/kiwi-sdr/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/memory/add-a-memory-at-current-frequency/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -1169,6 +1281,34 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/capture-the-current-frequency-as-a-net-preset/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/create-a-recurring-net-schedule/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/edit-or-delete-a-scheduled-net/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/import-or-export-net-schedules/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/set-a-reminder-for-an-upcoming-net/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/net-scheduler/tune-to-a-net-with-one-click/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/network-diagnostics/change-the-timeframe-of-the-history-graphs-1-min-to-1-week/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -1254,6 +1394,14 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/panadapter/pop-a-panadapter-out-into-its-own-window/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/panadapter/read-signal-history-as-a-scrolling-3d-surface/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/panadapter/toggle-the-3d-fft-spectrum-view/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -1398,6 +1546,22 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/profile-manager/turn-on-auto-save-so-tx-tweaks-always-persist/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/profile-switcher/cycle-through-transmit-profiles-quickly/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/profile-switcher/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/profile-switcher/see-which-profile-is-currently-active/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/profile-switcher/switch-to-a-saved-transmit-profile/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
@@ -1721,6 +1885,18 @@
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/swr-sweep-license/confirm-operator-responsibility-before-running-the-antenna-swr-sweep/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/swr-sweep-license/overview/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/swr-sweep-license/remembers-confirmation-so-the-dialog-does-not-show-on-subsequent-sweeps/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/features/tci/adjust-tci-rx-gain-per-channel/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
@@ -2014,6 +2190,10 @@
     </url>
     <url>
          <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/getting-started/setup/connect-to-a-dx-cluster/</loc>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://lu5dx.github.io/AetherSDRDocsEnglish/26.7.4/getting-started/setup/connect-to-a-kiwisdr-receiver/</loc>
          <lastmod>2026-07-27</lastmod>
     </url>
     <url>
