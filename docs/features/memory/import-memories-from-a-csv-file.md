@@ -19,6 +19,7 @@ Import memory channels you prepared offline or received from another operator in
 
 - Sort or filter the memory table after import to verify the new entries. See [Sort memory table by column header](sort-memory-table-by-column-header.md) and [Filter memories by profile](filter-memories-by-profile.md).
 - The memory table uses the active theme's background color for alternating rows. The dialog container is styled with the `dialog/memory` theme key.
+- Inline editing supports combo-box editors for constrained fields (Mode, Offset Direction, Tone Mode, Tone Value, Step, Group). These editors pop open immediately when you enter edit mode, so picking a value is effectively one click.
 
 ## Related
 

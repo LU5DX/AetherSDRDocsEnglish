@@ -48,12 +48,26 @@ The TCI Server applet shows a status label next to the Enable button. This label
 
 In v26.6.1, the status label styling was updated to use the theme color `{{color.background.3}}` instead of a hardcoded color, ensuring proper appearance with all AetherSDR themes.
 
+## Enable/Disable button behavior
+
+The **Enable** button toggles the TCI server on or off. In v26.7.4, the button text changes dynamically:
+
+- **Disabled** (off state) — The TCI server is stopped. The label uses the text "Disabled" when unchecked.
+- **Enabled** (on state) — The TCI server is running. The label uses the text "Enabled" when checked.
+
+The button starts in the state determined by `AutoStartTCI`. If `AutoStartTCI` is set to `True`, the button initializes as checked with the text "Enabled". If `AutoStartTCI` is `False` (the default), the button initializes as unchecked with the text "Disabled".
+
+When clicked, the button toggles and its text updates immediately to match the new state. If the server fails to start (for example, because the port is in use), the button snaps back to the unchecked state and displays "Disabled" with the status label showing "(port in use)" in red.
+
+The Enable button has an accessible name "TCI server enable" and accessible description "Start or stop the TCI server" (v26.7.4).
+
 ## Tips
 
 - If no slice label appears next to **TX:** (it shows `—`), no TX slice is assigned. Assign a TX slice on the radio before adjusting TX gain.
 - The gain value persists across restarts. AetherSDR reads `TciTxGain` on launch and sets the slider to the stored value.
 - Use **NaN guard** or **Measure only** when running digital modes that require bit-exact tone fidelity. The **Clip** mode may introduce harmonic distortion on overshoots.
 - The **Measure only** mode is a true bypass and only counts overshoots for telemetry without modifying the audio stream.
+- The Enable button text ("Enabled"/"Disabled") provides clear visual feedback about the server state, complementing the status label.
 
 ## Related
 

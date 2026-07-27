@@ -41,8 +41,10 @@ A frequency-domain noise reducer designed to minimise the tonal "birdie" artefac
 | NPE Method | Radio buttons | OSMS | OSMS \| MMSE \| NSTAT | `NR2NpeMethod` |
 | AE Filter (artifact elimination) | Checkbox | Enabled | — | `NR2AeFilter` |
 | Reduction: | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
+| Gain Floor: | Slider | 0.0010 | 0.0001–0.1000 | `NR2GainFloor` |
 | Smoothing: | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
 | Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
+| Use Original Geometry | Checkbox | Off | — | `NR2UseOriginalGeometry` |
 | Reset Defaults (↺ icon) | Button | — | — | — |
 
 **Gain Method** selects how NR2 maps noise estimates to gain reduction. Gamma matches typical speech amplitude patterns and is the default. Trained uses a model built from real speech and noise samples. Linear and Log trade perceptual accuracy for simpler computation.
@@ -53,11 +55,15 @@ A frequency-domain noise reducer designed to minimise the tonal "birdie" artefac
 
 **Reduction:** controls maximum suppression. Higher values remove more noise but risk speech distortion. 1.50 is the default.
 
+**Gain Floor:** sets the minimum gain that NR2 will apply. Lower values allow deeper noise suppression but may introduce artefacts on very quiet passages. Raise this value if you hear pumping or breathing effects.
+
 **Smoothing:** controls how smoothly the noise estimate tracks changes. Higher values are steadier but slower to adapt.
 
 **Threshold:** is the speech-presence-probability threshold. Lower values protect quiet speech but may allow more noise through.
 
-**Reset Defaults (↺ icon)** restores: Gamma / OSMS / AE Filter on / 1.50 / 0.85 / 0.20.
+**Use Original Geometry** enables the original NR2 noise estimation geometry, which can produce a different noise floor estimate. Try enabling this if you notice NR2 is over-suppressing or under-suppressing certain noise types.
+
+**Reset Defaults (↺ icon)** restores: Gamma / OSMS / AE Filter on / 1.50 / 0.0010 / 0.85 / 0.20 / Use Original Geometry off.
 
 ---
 
@@ -145,11 +151,14 @@ The **BNR** tab is informational only. BNR intensity is controlled from the over
 - If you are on macOS and prefer a lighter CPU load, MNR is the lowest-overhead option.
 - DFNR's Attenuation Limit at 100 dB can suppress very weak signals along with the noise. Reduce it to 40–60 dB on marginal paths.
 - On the NR2 tab, if speech sounds hollow or "underwater", lower **Reduction:** toward 0.80–1.00 or switch **Gain Method** from Gamma to Log.
+- If NR2 produces a pumping effect, increase **Gain Floor:** from the default 0.0010 toward 0.0100.
+- On the NR2 tab, if you notice inconsistent noise reduction across different noise types, try enabling **Use Original Geometry**.
 - Use **Reset Defaults (↺ icon)** on the NR2 or NR4 tab to recover a known-good starting point after experimental changes.
 
 ## Troubleshooting
 
 - **Speech sounds hollow or musical artefacts are audible on NR2** — Reduce **Reduction:** or confirm **AE Filter (artifact elimination)** is enabled.
+- **NR2 has a pumping or breathing effect** — Increase **Gain Floor:** or reduce **Reduction:**.
 - **NR4 is not reducing noise enough** — Increase **Reduction (dB):** and enable **Adaptive Noise Estimation** if it is off.
 - **DFNR removes weak signals along with the noise** — Lower **Attenuation Limit** from 100 toward 40–60 dB.
 - **MNR tab is present but has no effect** — MNR is macOS-only. On Linux or Windows, use NR2, NR4, or DFNR instead.

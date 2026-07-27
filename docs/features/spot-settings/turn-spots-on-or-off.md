@@ -13,7 +13,7 @@ DX spots from cluster sources appear as overlays on the panadapter. This page ex
 2. Select the spot overlay option to open the **Spot Settings** dialog.
 3. Locate the **Spots:** toggle button at the top of the dialog.
 4. Click the button to toggle between **Enabled** and **Disabled**.
-   - The button displays "Enabled" when toggled on. The checked state (highlighted background) indicates the active status.
+   - The button displays the current state as its text label: "Enabled" or "Disabled". The checked state (highlighted background) also indicates the active status.
    - When **Enabled**, DX spots are drawn on the panadapter.
    - When **Disabled**, no spots are drawn. The setting is saved immediately; no additional confirmation is needed.
 
@@ -29,7 +29,7 @@ DX spots from cluster sources appear as overlays on the panadapter. This page ex
 | **Spot Lifetime:**               | Slider        | —         | `DxClusterSpotLifetimeSec`               |
 | **Override Colors:**             | Toggle button | Disabled  | `IsSpotsOverrideColorsEnabled`           |
 | Spot text color picker           | Button        | `#FFFF00` | `SpotsOverrideColor`                     |
-| **Override Background: Enabled** | Toggle button | Enabled   | `IsSpotsOverrideBackgroundColorsEnabled` |
+| **Override Background:**         | Toggle button | Enabled   | `IsSpotsOverrideBackgroundColorsEnabled` |
 | **Override Background: Auto**    | Toggle button | Enabled   | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
 | Spot background color picker     | Button        | `#000000` | `SpotsOverrideBgColor`                   |
 | **Background Opacity:**          | Slider        | 48        | `SpotsBackgroundOpacity`                 |
@@ -40,9 +40,17 @@ The **Total Spots:** indicator at the bottom of the dialog shows how many live s
 
 ### Control details
 
-**Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. Disable this during contests to reduce visual clutter. This control was added in v0.9.7 (issue #2349).
+**Spots:** This master toggle turns DX spot overlays on or off. The button text updates dynamically to show the current state: "Enabled" when spots are active, "Disabled" when they are not. Toggling this off does not clear buffered spots — they reappear when you re-enable.
 
-**Spot Lifetime:** uses a non-linear scale ranging from 10 seconds to 24 hours. The value is stored in seconds in `DxClusterSpotLifetimeSec`. On first read, any value previously saved under the old minutes-based key `DxClusterSpotLifetime` is automatically migrated.
+**Memories:** Toggles memory channel overlays on the panadapter. The button text updates dynamically to show the current state. The setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7.
+
+**Override Colors:** Forces a single text color for all spots. The button text updates dynamically to show the current state. When enabled, the color picker button becomes active.
+
+**Override Background:** Enables drawing a background under spot text. The button text updates dynamically to show the current state. When enabled, the Auto toggle and color picker become active.
+
+**Spot Lines:** Draws a vertical line from the spectrum baseline up to each spot label. The button text updates dynamically to show the current state. Disable this during contests to reduce visual clutter. This control was added in v0.9.7 (issue #2349).
+
+**Spot Lifetime:** Uses a non-linear scale ranging from 10 seconds to 24 hours. The value is stored in seconds in `DxClusterSpotLifetimeSec`. On first read, any value previously saved under the old minutes-based key `DxClusterSpotLifetime` is automatically migrated.
 
 ### Setting key changes in v0.9.7
 
@@ -60,7 +68,7 @@ Several setting keys were renamed. If you reference these keys in scripts or ext
 ## Tips
 
 - Toggling **Spots:** to **Disabled** does not clear buffered spots. When you re-enable it, spots that have not yet expired will reappear.
-- Toggle buttons in the Spot Settings dialog now always display "Enabled" as their text label. The checked state (highlighted background) indicates whether the feature is active.
+- Toggle buttons in the Spot Settings dialog now display their current state as the text label: "Enabled" when active, "Disabled" when inactive. The checked state (highlighted background) also indicates whether the feature is active.
 - The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
 - Disable **Spot Lines:** during contests to keep the panadapter uncluttered while retaining spot labels.
 - The Spot Settings dialog now follows the current theme. Title labels and the Total Spots indicator use the theme's primary text color for consistent appearance across different theme profiles.

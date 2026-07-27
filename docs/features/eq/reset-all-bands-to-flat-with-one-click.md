@@ -51,6 +51,7 @@ All eight band sliders move to 0 dB and their value labels update to 0.
 - After releasing a slider handle or pressing a keyboard arrow key, the popup lingers briefly before disappearing so you can read the final value.
 - Keyboard nudges for the EQ sliders are routed through a shortcut lease so global operating shortcuts can resume after each adjustment.
 - The applet uses theme colors for all UI elements. Colors update live when you change the application theme.
+- The drag-value popup is provided by a shared base class (`GuardedSlider`). Any slider subclass that customizes mouse handling for features such as click-to-jump positioning must be written to preserve this popup behavior. The relevant methods are `protected` (not `private`) to allow safe subclass override without losing the popup.
 
 ## Related
 

@@ -1,6 +1,6 @@
 # Waveform applet overview
 
-The Waveform applet is an audio oscilloscope that displays the time-domain waveform of the active RX or TX audio path. Use it to spot clipping, dropouts, and audio level problems at a glance without reaching for an external meter.
+The Waveform applet is an audio oscilloscope that displays the time-domain waveform of the active RX or TX audio path in one of four view modes (Scope, Envelope, History bars, Bands spectrum). Use it to spot clipping, dropouts, and audio level problems at a glance without reaching for an external meter.
 
 ## How it works
 
@@ -14,27 +14,17 @@ To open or close the applet, click the **WAVE** tray button in row 1 of the righ
 
 The applet no longer enforces a fixed height; it resizes vertically with the layout.
 
-## Lean mode
-
-Starting in v26.6.3, you can fully disable the Waveform applet to conserve CPU resources. In lean mode:
-
-- The applet is hidden (setVisible(false)).
-- The sample feed from the audio engine is dropped — appended samples are ignored and the 24 Hz software repaint loop stops entirely.
-- The upstream `AudioEngine::{tx,rx}PostChainScopeReady` signal still fires per audio callback, but the applet does no work.
-
-To activate lean mode, call `setActive(false)` from the host application. While inactive, the **WAVE** tray button is hidden and no waveform processing occurs.
-
 ## What each control does
 
-| Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                   |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Waveform display        | Renders mono float-32 PCM scope samples. Displays min/max waveform, RMS envelope, peak markers, and clipping highlights in the active view mode.                                                  | TX direction tinted differently from RX so the current side is obvious without reading a label. Header readout shows RX/TX, RMS dBFS, and PK dBFS. |
-| Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again.                                                                                           | A **PAUSED** badge appears in the footer. Default state is live.                                                        |
-| Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | Does not clear the buffer. To reset the display, use the WaveformWidget::clear() slot or reconnect.                     |
-| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as `WaveApplet_ViewMode`.                      |
-| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner.                                                                          | Located in the settings drawer. Default 170% (1.7x). Persisted as `WaveApplet_ZoomPercent`.                             |
-| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems.                                                                                                          | Located in the settings drawer. Persisted as `WaveApplet_RefreshRateHz`.                                                |
-| Window                  | Sets the time window duration. Discrete steps: 240 ms, 480 ms, 1 s, then 1-second increments to 10 s.                                                                                           | Located in the settings drawer. Persisted as `WaveApplet_TimeWindowMs`. Default 1000 ms (1 s).                          |
+| Control                 | Behavior                                                                                                                                                                                         | Notes                                                                                                                                              |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Waveform display        | Renders mono float-32 PCM scope samples. Displays min/max waveform, RMS envelope, peak markers, and clipping highlights in the active view mode.                                                 | TX direction tinted differently from RX so the current side is obvious without reading a label. Header readout shows RX/TX, RMS dBFS, and PK dBFS. |
+| Single-click on display | Toggles between live and paused. While paused, a snapshot of the buffer is held until you click again.                                                                                           | A **PAUSED** badge appears in the footer. Default state is live.                                                                                   |
+| Double-click on display | Toggles the settings drawer open or closed.                                                                                                                                                      | Does not clear the buffer. To reset the display, use the WaveformWidget::clear() slot or reconnect.                                                |
+| View                    | Selects the waveform visualization mode: Scope (Graph = min/max + RMS lines), Envelope (peak/RMS filled area), History (horizontal level bars), Bands (frequency band bars via Goertzel filter). | Located in the collapsible settings drawer below the waveform. Persisted as `WaveApplet_ViewMode`.                                                 |
+| Zoom                    | Scales the amplitude axis; higher values stretch small signals vertically, causing clipping artifacts to appear sooner.                                                                          | Located in the settings drawer. Default 170% (1.7x). Persisted as `WaveApplet_ZoomPercent`.                                                        |
+| FPS                     | Controls how often the waveform repaints; lower values reduce CPU load on slow systems.                                                                                                          | Located in the settings drawer. Range 5–60 Hz. Default 25 Hz. Persisted as `WaveApplet_RefreshRateHz`.                                             |
+| Window                  | Sets the time window duration. Discrete steps: 240 ms, 480 ms, 1 s, then 1-second increments to 10 s.                                                                                            | Located in the settings drawer. Persisted as `WaveApplet_TimeWindowMs`. Default 1000 ms (1 s).                                                     |
 
 ### Settings drawer controls
 
@@ -42,7 +32,7 @@ The settings drawer contains the following controls:
 
 - **View** combo box — Selects waveform visualization mode. Options: Scope, Envelope, History, Bands. Persisted as `WaveApplet_ViewMode`.
 - **Zoom** slider — Amplitude scaling from 1.0x to 6.0x. Default 1.7x (170%). Persisted as `WaveApplet_ZoomPercent`. Changes are saved immediately to settings.
-- **FPS** slider — Refresh rate from 5 to 30 Hz. Default 24 Hz. Persisted as `WaveApplet_RefreshRateHz`. Changes are saved immediately to settings.
+- **FPS** slider — Refresh rate from 5 to 60 Hz. Default 25 Hz. Persisted as `WaveApplet_RefreshRateHz`. Changes are saved immediately to settings.
 - **Window** slider — Time window duration. Steps: 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s. Default 1 s. Persisted as `WaveApplet_TimeWindowMs`.
 
 On initial launch after upgrading from a version using `WaveApplet_TimeWindowSec`, your previous window setting is migrated to the nearest available step in the new discrete-step system.
@@ -58,7 +48,7 @@ The settings drawer remembers whether it was open or closed when you last closed
 - **Direction tint** — The display uses a cool tint for RX and a warm tint for TX so the active audio path is unambiguous without reading the header label.
 - **Clipping highlight** — Any pixel column containing samples at or above the clipping threshold is highlighted in red at the top and bottom edges of the plot. A **CLIP N** counter also appears in the header, in bold red, showing the number of clipped samples in the current window.
 - **PAUSED badge** — Shown in the footer when the display is frozen on a snapshot. No badge means the display is live.
-- **No-audio placeholder** — If no samples have arrived within the last second, or the display buffer is empty, a placeholder message replaces the empty trace. For the RX path, the message reads "Enable PC Audio". For the TX path, the message reads "no TX audio".
+- **No-audio placeholder** — If no samples have arrived within the last second, or the display buffer is empty, a placeholder message replaces the empty trace. For the RX path, the message reads "no RX audio". For the TX path, the message reads "no TX audio".
 
 ## Tips
 
@@ -68,7 +58,7 @@ The settings drawer remembers whether it was open or closed when you last closed
 - Double-click on the display toggles the settings drawer. To clear the waveform buffer, use the WaveformWidget::clear() slot or reconnect to the audio engine.
 - The Window slider provides discrete steps only — it does not allow free-scrolling through millisecond values. Use the closest step that captures the time span you need.
 - The click discrimination interval used for starting the pause toggle timer reads from the Radio Setup click discrimination interval setting. This allows you to adjust the double-click timing across all applets without restarting AetherSDR.
-- Use lean mode (`setActive(false)`) to fully disable the Waveform applet and stop all sample processing if you do not need the oscilloscope. The applet is active by default.
+- The FPS slider now reaches up to 60 Hz for users who want a faster scope. The default is 25 Hz — a calm, low-overhead cadence matching the typical radio panadapter rate. Users who previously saved an explicit FPS value keep it; the default is only applied when the setting key is absent.
 
 ## Related
 

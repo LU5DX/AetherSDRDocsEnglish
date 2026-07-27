@@ -66,6 +66,20 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
 - When a slice is locked, scroll-wheel tuning on the VFO panel is blocked. A notification appears indicating that tuning is blocked by the lock. Direct frequency entry is also canceled if it was in progress when the lock is applied.
 
+## Changes in v26.7.4
+
+### Elevation shadow rendering
+
+The VFO flag now renders its elevation shadow using a dedicated `FlagShadow` widget, separate from the main `VfoWidget`. This means live meter repaints inside the VFO flag do not force the shadow to re-blur at animation rate, improving frame rate when a SmartMeter or other live-updating widget is embedded in the VFO flag area. The shadow uses a box-blur algorithm with a cached image that is rebuilt only when the widget size or device pixel ratio changes.
+
+### Height-for-width forwarding for meter pages
+
+The tab stack now forwards `heightForWidth()` from the current page. This allows a page that preserves an aspect ratio (such as a SmartMeter widget embedded via `SmartMtrWidget`) to drive the strip height; pages without height-for-width (such as the S-meter spacer) are unaffected.
+
+### Adaptive filter controls
+
+The VFO panel now includes support for adaptive filter controls via the new `AdaptiveFilterControls` class. When the radio provides adaptive filter signals (supported by certain FLEX-8600 firmware builds), the VFO panel displays controls for configuring the adaptive filter behavior on a per-slice basis.
+
 ## Changes in v26.6.3
 
 ### Tab buttons replaced with QPushButton
@@ -138,21 +152,4 @@ The slice badge now supports rich text format (`Qt::RichText`), allowing HTML fo
 
 The squelch button and slider are now automatically disabled when the slice is in a RTTY mode, in addition to the existing digital and CW mode restrictions. When the mode is RTTY, the squelch button is greyed out and cannot be toggled, and the squelch slider is greyed out and cannot be adjusted. If squelch was previously enabled, it is automatically turned off when switching to RTTY mode. This prevents squelch from gating weak FSK signals that external RTTY decoders need to receive via DAX (#2504).
 
-## Changes in v0.9.8
-
-### DSP tab — new ADSP and AetherVoice buttons
-
-The **DSP tab** in the VFO panel now includes two new client-side DSP launcher buttons:
-
-- **ADSP** — Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). This is a single-cell push button styled like the radio-side DSP toggles but non-checkable. Clicking it raises and focuses the modeless AetherDSP Settings dialog.
-- **AetherVoice** — Toggles the Aetherial Audio Channel Strip, the unified TX/RX DSP suite. This button spans 2 columns in the 4-column DSP grid.
-
-Both buttons are placed on the same grid row, with **ADSP** occupying the leftmost column and **AetherVoice** spanning columns 2-3.
-
-**Filter width label fix**
-
-The filter width label now uses `RxApplet::formatFilterWidth` as the single source of truth for formatting. This fixes a 0.1 kHz offset that previously affected SSB and digital mode filter readouts (#2197).
-
-## Changes in v0.9.7
-
-### DSP tab
+## Changes in v

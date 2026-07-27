@@ -36,6 +36,16 @@ The **Spot Settings** dialog provides quick, stand-alone control over how DX spo
 |---|---|
 | **Total Spots:** | Live count of DX spots currently tracked on the panadapter. |
 
+## Toggle buttons display state
+
+Each toggle button in the Spot Settings dialog updates its label to reflect the current enabled or disabled state. When a toggle is enabled the button reads **Enabled**; when disabled it reads **Disabled**. This applies to the following controls:
+
+- **Spots:**
+- **Memories:**
+- **Override Colors:**
+- **Override Background: Enabled**
+- **Spot Lines:**
+
 ## Spot Lines
 
 **Spot Lines:** draws a vertical line from the spectrum baseline up to each spot label. It is enabled by default.

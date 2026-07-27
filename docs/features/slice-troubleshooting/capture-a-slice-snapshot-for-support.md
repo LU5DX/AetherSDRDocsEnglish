@@ -8,7 +8,7 @@ The Slice Troubleshooting dialog captures a point-in-time snapshot of every slic
 
 ## Steps
 
-1. Click `Help > Slice Troubleshooting...`. The Slice Troubleshooting dialog opens and immediately captures a snapshot.
+1. Click `Help > Slice Troubleshooting...`. The Slice Troubleshooting dialog opens and immediately captures a snapshot. The dialog remembers its previous size and position.
 2. Review detected problems on the **Issue Summary** tab. Each entry is a plain-language bullet describing a suspected issue such as missing audio, stuck mute, missing antenna, an invalid transverter configuration, audio routing problems, DSP state issues, control-device (MIDI) state, multi-client ownership conflicts, audio renderer endpoint issues, or panadapter connection status.
 3. Review the raw data on the **JSON** tab if you need the full detail or intend to attach it to a report. The snapshot uses schema version 3 and includes slices, DAX channels, audio devices, client DSP state, control devices, TX band settings, remote audio RX stream state, audio renderer endpoints, and panadapter slice connection status.
 4. If you changed slice state after opening the dialog, click **Refresh Snapshot** to re-read current slice state.
@@ -46,6 +46,7 @@ The JSON snapshot includes all data from the Issue Summary plus detail for troub
 
 - **Audio renderer endpoints** — Each endpoint's full configuration: name, direction, kind, backend, device, sample rate, channel count, sample format, resampling status, buffer statistics, operational and running flags, state, error, and notes.
 - **Panadapter slice connection status** — For each panadapter, the `slice_connection_status` object containing the state, summary, connected slice IDs, active slice IDs, and attention required flag.
+- **NR2 DSP configuration** — The full NR2 noise reduction settings including the new `gain_floor` and `legacy_geometry_and_gain_mapping` fields alongside the existing `ae_filter`, `gain_method`, `gain_max`, `gain_smooth`, `npe_method`, and `qspp` fields.
 
 ## Tips
 
@@ -53,6 +54,7 @@ The JSON snapshot includes all data from the Issue Summary plus detail for troub
 - If you are reporting a transverter problem, the **JSON** tab includes each transverter's RF frequency, IF frequency, offset, and validity flags. The **Issue Summary** tab will flag any transverters where validity cannot be confirmed.
 - If you are reporting a remote audio problem, the **Issue Summary** tab now includes remote audio RX stream state at both the radio level and the per-slice level. Copy or export the snapshot and share it with support or paste it into an AI-assisted troubleshooting tool for analysis.
 - If you suspect an audio endpoint issue, check the audio renderer endpoint entries in the Issue Summary for underruns, error states, or configuration mismatches. The JSON tab provides full detail for each endpoint.
+- The dialog remembers its position and size between sessions. If you need to reset it, close the dialog and delete the `SliceTroubleshootingDialogGeometry` setting from the configuration file.
 
 ## Related
 

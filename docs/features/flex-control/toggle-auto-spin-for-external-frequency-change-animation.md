@@ -48,6 +48,11 @@ The following actions can be assigned to wheel push, double-tap, or aux button t
 | WheelAgcT | AGCT (Automatic Gain Control Threshold) |
 | WheelApf | APF (Audio Peaking Filter) |
 
+## Notes
+
+- **Scroll area**: The full AetherControl dialog includes a scroll area for its content. When the dialog height exceeds the available screen height, the content area scrolls vertically. The minimum non-compact window size is 430×610 pixels, but the dialog will shrink further on smaller screens while keeping scroll access to all controls.
+- **Screen-aware sizing**: The dialog adapts to the available screen height (excluding taskbar) to avoid opening taller than the workspace. In compact mode, the dialog resizes to fit the minimal wheel-only layout. In non-compact mode, the minimum width tracks the content width to prevent horizontal clipping.
+
 ## Related
 
 - [Use the virtual wheel to tune the active slice](use-the-virtual-wheel-to-tune-the-active-slice.md)

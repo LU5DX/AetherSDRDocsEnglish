@@ -1,11 +1,11 @@
 # Configure Radio Setup
 
-The **Radio Setup** dialog (`Settings > Radio Setup...`) provides master per-radio configuration with tabbed sections for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, transverters, USB cables, peripherals, adaptive pre-distortion, themes, SmartLink pinned certificates, and serial port settings.
+The **Radio Setup** dialog (`Settings > Radio Setup...`) provides master per-radio configuration with tabbed sections for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, transverters, USB cables, peripherals, adaptive pre-distortion, themes, SmartLink pinned certificates, serial port settings, KiwiSDR public receiver browsing, callsign lookup parameters, amplifier (Acom) configuration, and Automation Bridge parameters.
 
 ## Before you start
 
 - The radio must be connected before most tabs show live information.
-- Some tabs (APD, Themes, SmartLink, Serial) are built lazily and only appear when first clicked.
+- Some tabs (APD, Themes, SmartLink, Serial, KiwiSDR, Callsign Lookup, Acom, Automation Bridge) are built lazily and only appear when first clicked.
 - AetherSDR uses a `PersistentDialog` base class that saves and restores window geometry automatically.
 
 ## Steps to open
@@ -37,11 +37,17 @@ Each read-only value has a small copy button next to it. Click the copy button t
 
 ### Setting identification
 
-| Control | What it does | Notes |
-|---|---|---|
-| **Nickname** | User-friendly radio nickname (editable). | — |
-| **Callsign** | Station callsign (editable). | — |
-| **Station Name** | Identifies this AetherSDR client to other multiFLEX stations. Stored in AppSettings. | Defaults to the OS hostname if empty. Sent to radio as 'client station <name>'. |
+| Control                                             | What it does                                                                                                                                                                                | Notes                                                                                                                               |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Nickname**                                        | User-friendly radio nickname (editable).                                                                                                                                                    | —                                                                                                                                   |
+| **Callsign**                                        | Station callsign (editable).                                                                                                                                                                | —                                                                                                                                   |
+| **Station Name**                                    | Identifies this AetherSDR client to other multiFLEX stations. Stored in AppSettings.                                                                                                        | Defaults to the OS hostname if empty. Sent to radio as 'client station <name>'.                                                     |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                   |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                        |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                     |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                          |
 
 ### Firmware update
 
@@ -224,47 +230,4 @@ Check **Prevent system sleep while connected** to keep the OS awake while the ra
 
 ### PC Audio Devices
 
-Select host audio input and output devices using the **Input:** and **Output:** combo boxes.
-
-### Audio Boost
-
-Toggle **Audio Boost:** to enable extra gain on the client audio path. Stored as `AudioBoost`.
-
-### Audio Buffer
-
-Set the **Audio Buffer:** text field to increase audio buffer in milliseconds for VPN/SmartLink jitter. Default: 200, range 50–1000 ms. Stored as `AudioBufferMs`.
-
-### Recording
-
-| Control | What it does | Default | Notes |
-|---|---|---|---|
-| **Recording: Radio Side / Client Side** | Picks radio-side or client-side recording. | Radio Side | Stored as `RecordingMode`. |
-| **Save to:** | Folder for saved recordings (client-side only). | Documents/AetherSDR/Recordings | Stored as `QsoRecordingDir`. |
-| **...** | Browses for recording folder. | — | — |
-| **Auto-record on TX** | Automatically records while transmitting. | False | Stored as `QsoRecordingAutoRecord`. |
-| **Idle timeout:** | Seconds of silence before recording stops. | 120 | Range 10–3600 sec. Stored as `QsoRecordingIdleTimeout`. |
-
-### NVIDIA BNR
-
-Use the **NVIDIA BNR** controls to manage the NVIDIA Broadcast noise-removal container:
-- **Autostart Container** — Enables automatic startup.
-- **Start / Stop** — Manually starts or stops the container.
-- **Check Status** — Shows the container status (Running/Stopped/Unknown) with a colored dot indicator.
-
----
-
-## Filters tab
-
-The **Filters** tab configures low-latency or sharp filter options per bandwidth.
-
-### Filter sharpness
-
-For Voice, CW, and Digital modes, use the **Voice / CW / Digital filter sharpness sliders** to set filter sharpness (0 = lowest latency to 3 = sharpest). The slider is disabled when **Auto** is enabled for that mode.
-
-### Auto filter selection
-
-Toggle **Auto (Voice / CW / Digital)** to enable automatic filter-level selection for that mode. When enabled, the manual sharpness slider is disabled.
-
-### Low latency for digital modes
-
-Check **Use Low Latency Filters for Digital Modes** to force low-lat
+Select host audio input and output devices using the **Input:**

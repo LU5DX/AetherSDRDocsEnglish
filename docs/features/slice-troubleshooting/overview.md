@@ -20,6 +20,8 @@ The Issue Summary also includes detailed audio endpoint diagnostics showing each
 
 The snapshot reflects radio state at the moment it was taken. If you change slice settings while the dialog is open, click **Refresh Snapshot** to re-read the current state before drawing conclusions or sharing data.
 
+The dialog remembers its window position and size between sessions. It will reopen in the same location where you last closed it.
+
 ## What each control does
 
 | Control          | Kind      | Behavior                                                                                        |

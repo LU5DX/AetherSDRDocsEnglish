@@ -56,6 +56,17 @@ The following fields are read-only indicators of the connected radio:
 3. Click **Select Installer...** and choose the downloaded file. AetherSDR accepts `.msi`, `.exe`, or a pre-extracted `.ssdr` file and stages the firmware automatically.
 4. Click **Upload Firmware** to transfer the staged firmware to the radio. A progress bar and status text show the upload progress.
 
+## SmartLink (tab)
+
+The SmartLink tab manages pinned SmartLink TLS certificates. It lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All buttons. The tab is lazy-built when first clicked. If a certificate-pin mismatch occurs, the handshake hard-pauses with a modal dialog.
+
+| Control | Description |
+|---|---|
+| **Pinned SmartLink Certificates (section)** | Section header for the pinned certs table. Lists every host this client has pinned on first connect (trust-on-first-use). |
+| **Host / SHA-256 fingerprint / Pinned (table columns)** | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)'). |
+| **Forget selected** | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently. |
+| **Forget all** | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins. Shows a confirmation dialog before wiping. |
+
 ## Network (tab)
 
 The Network tab displays radio network information and provides advanced network options.
@@ -222,7 +233,7 @@ The Audio tab configures radio audio outputs, compression, PC devices, boost, bu
 
 | Control | Description |
 |---|---|
-| **Prevent system sleep while connected** | Keeps OS awake while radio is connected. Setting key: `InhibitSleepWhileConnected`. Default: False. |
+| **Prevent system sleep while connected** | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. Setting key: `InhibitSleepWhileConnected`. Default: False. |
 
 ### PC audio devices
 
@@ -275,33 +286,4 @@ The Filters tab provides low-latency and sharp filter options per bandwidth mode
 |---|---|
 | **Use Low Latency Filters for Digital Modes** | Forces low-latency filters in DIGU/DIGL. |
 
-## XVTR (tab)
-
-The XVTR tab provides per-transverter configuration. It contains nested tabs, one per configured transverter, plus a '+' tab for creating new ones.
-
-### Transverter management
-
-| Control | Description |
-|---|---|
-| **RX Only** | Forces RX-only on that transverter. |
-| **Remove** | Deletes the transverter definition. |
-| **Create New Transverter** | Adds a new transverter entry. |
-
-## USB Cables (tab)
-
-The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-### Cable configuration
-
-| Control | Description |
-|---|---|
-| **Cables list / Status** | Detected USB cables per type with Plugged/Unplugged status. |
-| **Name** | Cable name. |
-| **Enabled** | Enables the cable. |
-| **Speed** | Baud rate. |
-| **Data Bits** | Data bits configuration. |
-| **Parity** | Parity setting. |
-| **Stop Bits** | Stop bits setting. |
-| **Flow** | Flow control. |
-| **Source** | Cable source. |
-| **Auto Report**
+## XVTR (tab

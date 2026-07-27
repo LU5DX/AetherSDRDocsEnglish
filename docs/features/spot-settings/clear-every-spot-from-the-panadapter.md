@@ -17,8 +17,8 @@ Right-click anywhere on the panadapter, then select the option that opens the Sp
 
 | Control | Type | Default | Description |
 |---------|------|---------|-------------|
-| **Spots:** | Toggle button | Enabled | Master toggle for DX spot display. |
-| **Memories:** | Toggle button | Disabled | Toggles memory channel overlays on the panadapter. |
+| **Spots:** | Toggle button | Enabled | Master toggle for DX spot display. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
+| **Memories:** | Toggle button | Disabled | Toggles memory channel overlays on the panadapter. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 
 ### Appearance
 
@@ -33,9 +33,9 @@ Right-click anywhere on the panadapter, then select the option that opens the Sp
 
 | Control | Type | Default | Description |
 |---------|------|---------|-------------|
-| **Override Colors:** | Toggle button | Disabled | Forces a single text color for all spots. |
+| **Override Colors:** | Toggle button | Disabled | Forces a single text color for all spots. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 | **Spot text color picker** | Push button | #FFFF00 | Opens a color picker to choose the spot text color. Only active when **Override Colors:** is Enabled. |
-| **Override Background: Enabled** | Toggle button | Enabled | Draws a background under spot text. |
+| **Override Background: Enabled** | Toggle button | Enabled | Draws a background under spot text. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 | **Override Background: Auto** | Toggle button | Enabled | Auto-picks background color for contrast. |
 | **Spot background color picker** | Push button | #000000 | Opens a color picker for the spot background color. Only active when **Override Background: Enabled** is Enabled and **Override Background: Auto** is Disabled. |
 | **Background Opacity:** | Slider | 48 | 0-100 | Alpha of the spot background (0 = transparent, 100 = opaque). |
@@ -44,7 +44,7 @@ Right-click anywhere on the panadapter, then select the option that opens the Sp
 
 | Control | Type | Default | Description |
 |---------|------|---------|-------------|
-| **Spot Lines:** | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. |
+| **Spot Lines:** | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 
 ## Clear All Spots
 
@@ -72,7 +72,7 @@ All spots are immediately removed from the panadapter. New spots will continue t
 1. Open the Spot Settings dialog.
 2. Set **Spots:** to **Enabled** or **Disabled**.
 
-When set to **Enabled**, the button displays "Enabled" with an active background. When set to **Disabled**, the button displays "Enabled" with a dimmed background.
+When set to **Enabled**, the button displays "Enabled" with an active background. When set to **Disabled**, the button displays "Disabled" with a dimmed background.
 
 ### Shorten or lengthen spot lifetime
 
@@ -115,6 +115,7 @@ When disabled, vertical lines from the spectrum baseline to each spot label are 
 - The **Total Spots:** indicator at the bottom of the Spot Settings dialog shows the count of live spots currently tracked. After clearing, this count will reflect only spots received after the clear action.
 - To stop spots from appearing entirely, use the **Spots:** toggle to set it to **Disabled** instead.
 - The **Spot Lines:** toggle is independent of **Clear All Spots**. If the panadapter feels visually busy during a contest, set **Spot Lines:** to **Disabled** before or after clearing spots to reduce clutter without removing the spot labels themselves.
+- Each toggle button (Spots, Memories, Override Colors, Override Background: Enabled, Spot Lines) now dynamically displays either "Enabled" or "Disabled" as its label to clearly indicate the current state.
 
 ## Related
 

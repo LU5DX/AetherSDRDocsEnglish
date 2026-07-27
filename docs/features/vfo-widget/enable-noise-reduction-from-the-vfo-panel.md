@@ -136,6 +136,20 @@ The VFO Panel now uses the theme system for its visual styling:
 - **Mini button styling:** The mini (antenna) buttons use themed colours via `{{color.background.1}}` and `{{color.accent}}` tokens instead of hard-coded hex values.
 - **Split badge contrast:** The SPLIT badge text colour has been adjusted to improve readability — normal state is `rgba(255,255,255,120)`, hover state is `rgba(255,255,255,180)`.
 
+## Elevation shadow (v26.7.4)
+
+A lightweight hardware-accelerated elevation shadow now renders behind the VFO flag. The shadow is drawn by a dedicated `FlagShadow` widget that lives beneath the `VfoWidget` in the stacking order. This design isolates the shadow from live meter repaints — the meter can update at animation rate without forcing the entire flag to be re-blurred.
+
+The shadow uses a `SmartMtrWidget` height-for-width approach: the VFO strip height can be driven by a page that maintains an aspect ratio (e.g. the S-meter). Pages without height-for-width (the default S-meter spacer) are unaffected.
+
+## Adaptive filter controls (v26.7.4)
+
+When an adaptive filter (e.g. APF) or similarly dynamic filter is active, an `AdaptiveFilterControls` widget appears in the VFO Panel. This widget provides real-time parameter sliders and indicators for the adaptive filter algorithm (e.g. centre frequency, bandwidth, depth). The controls appear only when a compatible filter algorithm is enabled for the slice.
+
+## SmartMtr integration (v26.7.4)
+
+The VFO Panel now integrates with `SmartMtrWidget` to display real-time signal meter data within the VFO flag itself. When the panel is in its expanded state, a compact S-meter strip appears below the frequency display and above the tabs, showing signal strength, AGC activity, and other meter indications. The meter strip uses the same height-for-width behavior as the shadow widget to maintain consistent sizing.
+
 ## Tips
 
 - Multiple noise reduction buttons can be active at the same time.

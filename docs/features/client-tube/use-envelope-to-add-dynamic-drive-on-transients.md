@@ -25,6 +25,7 @@ The Envelope knob connects an envelope follower to the tube drive, so the amount
 | Attack   | 5.00 ms   | 0.1 to 30.0 ms   |
 | Release  | 35.00 ms  | 10.0 to 500.0 ms |
 | RN2      | unchecked | —                |
+
 ## Bypass dimming
 
 When a Tube stage is bypassed, AetherSDR applies a `QGraphicsOpacityEffect` to the applet tile and renders it at 55 % opacity. The tile returns to full opacity as soon as the stage is re-enabled. This behavior applies to both the TX and RX tiles and requires no configuration.

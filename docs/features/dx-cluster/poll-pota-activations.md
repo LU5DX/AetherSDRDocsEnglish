@@ -1,13 +1,25 @@
-# Poll POTA activations
+# SpotHub (DX Cluster Dialog)
 
-AetherSDR can periodically fetch current Parks on the Air (POTA) activations from `api.pota.app` and display them as spots on your panadapter. This lets you find active POTA operators without a separate web browser or cluster feed.
+AetherSDR can connect to multiple DX spot sources—DX cluster telnet, Reverse Beacon Network (RBN), WSJT-X, SpotCollector, POTA, and FreeDV—and display spots on your panadapter. The unified SpotHub dialog centralizes all connection, filter, color, and display settings.
 
 ## Before you start
 
-- AetherSDR must be running. A radio connection is not required to configure this feature.
-- Outbound HTTP access to `api.pota.app` must not be blocked by a firewall.
+- AetherSDR must be running. A radio connection is not required to configure spot sources.
+- For DX cluster and RBN connections, outbound telnet access to the respective servers must not be blocked by a firewall.
+- For WSJT-X, SpotCollector, and FreeDV, the respective applications must be running and configured to broadcast on the expected ports or WebSocket endpoint.
+- For POTA, outbound HTTP access to `api.pota.app` must not be blocked by a firewall.
 
-## Steps
+## Opening SpotHub
+
+1. Click `Settings > SpotHub...` to open the **SpotHub** dialog.
+
+The dialog is organized into tabs for each spot source, plus a unified **Spot List** tab and a **Display** tab for panadapter visualization settings.
+
+## Poll POTA activations
+
+This section describes how to configure the **POTA** tab to periodically fetch current Parks on the Air activations from `api.pota.app` and display them as spots on your panadapter.
+
+### Steps
 
 1. Click `Settings > SpotHub...` to open the SpotHub dialog.
 2. Click the **POTA** tab.
@@ -18,45 +30,16 @@ AetherSDR can periodically fetch current Parks on the Air (POTA) activations fro
 7. To start polling automatically each time AetherSDR launches, click **Auto-start on startup** so it is active. This is persisted as `PotaAutoStart`.
 8. Monitor incoming activations in the **POTA Activations** console on the same tab.
 
-## What each control does
+### POTA tab controls
 
-| Control                                                       | Kind                                                                                                                     | Behavior                                                                                                                                                                               |
-|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Server:**                                                   | Indicator                                                                                                                | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable.                                                                                                     |
-| **Poll Interval:**                                            | Spinbox                                                                                                                  | Seconds between POTA API polls. Persisted as `PotaPollInterval`.                                                                                                                       |
-| **Start / Stop**                                              | Push button                                                                                                              | Starts or stops POTA polling.                                                                                                                                                          |
-| **Auto-start on startup**                                     | Toggle button                                                                                                            | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`.                                                                                               |
-| **POTA Activations**                                          | Text field                                                                                                               | Read-only console showing the activation feed.                                                                                                                                         |
-| **Spot Color:**                                               | Push button                                                                                                              | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`.                                                                                                   |
-| Total Spots:                                                  | Indicator                                                                                                                | Live readout of how many spots are currently tracked across all sources. Updated whenever spots are added or cleared. Resets to 0 when **Clear All Spots** is pressed.                 |
-| **Spots:**                                                    | Toggle button                                                                                                            | Master toggle for DX spot overlay. Persisted as `IsSpotsEnabled`.                                                                                                                      |
-| **Memories:**                                                 | Toggle button                                                                                                            | Toggles memory-channel overlay on panadapter. Persisted as `IsMemorySpotsEnabled`.                                                                                                     |
-| Auto:                                                         | Toggle button                                                                                                            | Automatically switch slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY). Persisted as `SpotAutoSwitchMode`. Setting key changed from `SpotsAutoMode` in v26.5.1. |
-| Signals (Signal History)                                      | Toggle button                                                                                                            | Gold markers for detected voice-width signals on the panadapter. Persisted as `SHistoryMarkersEnabled`. New in v26.5.1 (#2426). Same toggle as View > Signal History Markers. |
-| QRM (Signal History)                                          | Toggle button                                                                                                            | Red markers for persistent carriers and wideband interference. Persisted as `SHistoryQrmEnabled`. New in v26.5.1 (#2426). Same toggle as View > QRM History Markers. |
-| Clear All                                                     | Push button                                                                                                              | Clears all DX spots, memory feed, Signal History markers and QRM markers from the spectrum. |
-| **Levels:**                                                   | Slider                                                                                                                   | Number of vertical stacking rows for spots. Range 1-10. Default 3. Persisted as `SpotsMaxLevel`. |
-| **Position:**                                                 | Slider                                                                                                                   | Vertical position on panadapter. Range 0-100. Default 50. Persisted as `SpotsStartingHeightPercentage`. |
-| **Font Size:**                                                | Slider                                                                                                                   | Spot text size. Range 8-32. Default 16. Persisted as `SpotFontSize`. |
-| **Spot Lifetime:**                                            | Slider                                                                                                                   | Seconds before a spot fades away. Non-linear steps from 10 sec to 24 hrs. Persisted as `DxClusterSpotLifetimeSec`. |
-| **Override Colors:**                                          | Toggle button                                                                                                            | Forces a single text color for all spots. Label always shows "Enabled". Persisted as `IsSpotsOverrideColorsEnabled`. |
-| Spot text color picker                                        | Push button                                                                                                              | Opens QColorDialog to pick spot text color. Default #FFFF00. Persisted as `SpotsOverrideColor`. |
-| **Override Background: Enabled**                              | Toggle button                                                                                                            | Enables custom spot background color. Persisted as `IsSpotsOverrideBackgroundColorsEnabled`. |
-| **Override Background: Auto**                                 | Toggle button                                                                                                            | Auto-picks background color for contrast. Persisted as `IsSpotsOverrideToAutoBackgroundColorEnabled`. |
-| Spot background color picker                                  | Push button                                                                                                              | Opens QColorDialog for spot background color. Default #000000. Persisted as `SpotsOverrideBgColor`. |
-| **Background Opacity:**                                       | Slider                                                                                                                   | Opacity of spot background color. Range 0-100. Default 48. Persisted as `SpotsBackgroundOpacity`. |
-| **Spot Lines:**                                               | Toggle button                                                                                                            | Draws vertical lines from the spectrum up to each spot label. Label always shows "Enabled". Disable during contests to reduce visual clutter. Persisted as `IsSpotsLinesEnabled`. |
-| DXCC Coloring (section)                                       | Indicator                                                                                                                | Section header for DXCC coloring controls in the left column below the divider. |
-| **DXCC Colors:**                                              | Toggle button                                                                                                            | Colors spots by worked/confirmed/needed DXCC status. Label always shows "Enabled". Persisted as `IsDxccColoringEnabled`. Setting key changed from `DxccColoringEnabled` in v26.5.1. |
-| **Log File (ADIF):**                                          | Push button                                                                                                              | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Persisted as `DxccAdifFilePath`. Setting key changed from `DxccAdifPath` in v26.5.1. Auto-Reload is always enabled when a file is selected. |
-| **Imported:** (DXCC stats)                                    | Indicator                                                                                                                | Shows QSO count and entity count when a log is loaded. Format: '<N> QSOs / <M> entities'. |
-| DXCC Color swatches (New DXCC / New Band / New Mode / Worked) | Push button                                                                                                              | Opens a color picker for each DXCC status category. Persisted as `DxccColorNewEntity`, `DxccColorNewBand`, `DxccColorNewMode`, `DxccColorWorked`. New in v26.5.1. |
-| Signal History (section)                                      | Indicator                                                                                                                | Section header for Signal History tunables in the right column below the divider. New in v26.5.1 (#2506). |
-| **Marker Lifetime:**                                          | Slider                                                                                                                   | How long an inactive Signal History marker persists before being removed. Range 15-300 sec. Default 60 s. Persisted as `SHistoryLifetimeS`. New in v26.5.1. |
-| **QRM Gate:**                                                 | Slider                                                                                                                   | How long a narrow carrier or wideband signal must persist before being classified as QRM. Range 3-30 sec. Default 6 s. Persisted as `SHistoryQrmGateS`. New in v26.5.1. |
-| **Edge Threshold:**                                           | Slider                                                                                                                   | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Range 1.0-10.0 dB. Default 3.0 dB. Persisted as `SHistorySoftEdgeDb`. New in v26.5.1. |
-| Signal History color swatches (Signals / QRM)                 | Push button                                                                                                              | Opens a color picker for the voice signal markers (gold) and QRM markers (red). Default #FFC800 / #FF0000. Persisted as `SHistoryColorSignals` / `SHistoryColorQrm`. New in v26.5.1. |
-| **Snap to Step:**                                             | Toggle button                                                                                                            | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Label always shows "Enabled". Default Disabled. Persisted as `SHistorySnapToStep`. New in v26.5.1. |
+| Control | Kind | Behavior |
+|---|---|---|
+| **Server:** | Indicator | Shows the fixed polling endpoint: `api.pota.app (HTTP polling)`. Not configurable. |
+| **Poll Interval:** | Spinbox | Seconds between POTA API polls. Persisted as `PotaPollInterval`. |
+| **Start / Stop** | Push button | Starts or stops POTA polling. |
+| **Auto-start on startup** | Toggle button | Automatically starts POTA polling when AetherSDR launches. Persisted as `PotaAutoStart`. |
+| **POTA Activations** | Text field | Read-only console showing the activation feed. |
+| **Spot Color:** | Push button | Opens a color picker for POTA spots on the panadapter. Persisted as `PotaSpotColor`. |
 
 ## Cluster tab controls
 
@@ -72,7 +55,6 @@ The following controls appear on the **Cluster** tab for DX cluster telnet conne
 | **Cluster Console** | Text field | Read-only telnet console of raw cluster traffic. |
 | **Send** | Push button | Sends a typed command to the cluster. |
 | **Spot Color:** | Push button | Opens a color picker for cluster spots. Persisted as `ClusterSpotColor`. |
-| **Startup Commands…** | Push button | Opens the startup commands editor. Commands are sent automatically after every login. One command per line. Persisted as `DxClusterStartupCommands`. New in v26.5.2.1 (#2683). |
 
 ## RBN tab controls
 
@@ -89,7 +71,6 @@ The following controls appear on the **RBN** tab for Reverse Beacon Network teln
 | **RBN Console** | Text field | Read-only console of RBN traffic. |
 | **Send (RBN)** | Push button | Sends command to RBN. |
 | **Spot Color: (RBN)** | Push button | Color picker for RBN spots. Persisted as `RbnSpotColor`. |
-| **Startup Commands…** | Push button | Opens the startup commands editor for the RBN instance. Commands are sent automatically after every login. One command per line. Persisted as `RbnStartupCommands`. New in v26.5.2.1 (#2683). |
 
 ## WSJT-X tab controls
 
@@ -110,4 +91,65 @@ The following controls appear on the **WSJT-X** tab for UDP message listening.
 
 ## SpotCollector tab controls
 
-The following controls appear on the **SpotCollector** tab for Ham Radio Del
+The following controls appear on the **SpotCollector** tab for Ham Radio Deluxe SpotCollector UDP broadcast listening.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **UDP Port:** | Spinbox | UDP port SpotCollector broadcasts on. Range 1-65535. Persisted as `SpotCollectorPort`. |
+| **Start / Stop** | Push button | Starts or stops UDP listener. |
+| **Auto-start on startup** | Toggle button | Auto-starts listener on launch. Persisted as `SpotCollectorAutoStart`. |
+| **SpotCollector Spots** | Text field | Read-only console of received SpotCollector spots. |
+
+## FreeDV tab controls
+
+The following controls appear on the **FreeDV** tab for WebSocket feed of FreeDV QSO reporter spots. This tab is only available when AetherSDR is built with WebSocket support.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Server:** | Indicator | Shows the fixed WebSocket endpoint: `qso.freedv.org (WebSocket)`. Not configurable. |
+| **Start / Stop** | Push button | Connects or disconnects the FreeDV WebSocket. |
+| **Auto-start on startup** | Toggle button | Auto-starts FreeDV on launch. Persisted as `FreeDvAutoStart`. |
+| **FreeDV Spots** | Text field | Read-only console of FreeDV activity. |
+| **Spot Color:** | Push button | Opens a color picker for FreeDV spots. Persisted as `FreeDvSpotColor`. |
+
+## Spot List tab
+
+The **Spot List** tab displays a unified, searchable table of all live spots from all connected sources.
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Bands:** | Checkbox group | Per-band checkboxes toggle visibility in the table. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). Checkboxes use a flow layout that wraps to a new row when horizontal space is low, keeping labels readable. |
+| **Clear** | Push button | Empties the current spot list. |
+| **Spot table** | List / Table | Sortable table of spots. Double-click a row to tune the radio to that frequency. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Column visibility can be toggled via a right-click context menu on the table header; the menu stays open while multiple columns are toggled, allowing several columns to be shown or hidden in one pass. |
+
+## Display tab
+
+The **Display** tab controls how spots are visualized on the panadapter, including Signal History tunables and DXCC coloring. In v26.5.1, the tab was reorganized to have a top toggle row, common sliders, then a two-column section with DXCC Coloring (left) and Signal History (right).
+
+### Display tab controls
+
+| Control | Kind | Behavior |
+|---|---|---|
+| **Spots:** | Toggle button | Master toggle for DX spot overlay. Persisted as `IsSpotsEnabled`. |
+| **Memories:** | Toggle button | Toggles memory-channel overlay on panadapter. Persisted as `IsMemorySpotsEnabled`. |
+| **Auto:** | Toggle button | Automatically switch slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY). Persisted as `SpotAutoSwitchMode`. |
+| **Signals (Signal History)** | Toggle button | Gold markers for detected voice-width signals on the panadapter. Persisted as `SHistoryMarkersEnabled`. Same toggle as View > Signal History Markers. |
+| **QRM (Signal History)** | Toggle button | Red markers for persistent carriers and wideband interference. Persisted as `SHistoryQrmEnabled`. Same toggle as View > QRM History Markers. |
+| **Clear All** | Push button | Clears all DX spots, memory feed, Signal History markers and QRM markers from the spectrum. |
+| **Levels:** | Slider | Number of vertical stacking rows for spots. Range 1-10. Default 3. Persisted as `SpotsMaxLevel`. |
+| **Position:** | Slider | Vertical position on panadapter. Range 0-100. Default 50. Persisted as `SpotsStartingHeightPercentage`. |
+| **Font Size:** | Slider | Spot text size. Range 8-32. Default 16. Persisted as `SpotFontSize`. |
+| **Spot Lifetime:** | Slider | Seconds before a spot fades away. Non-linear steps from 10 sec to 24 hrs. Persisted as `DxClusterSpotLifetimeSec`. |
+| **Override Colors:** | Toggle button | Forces a single text color for all spots. Persisted as `IsSpotsOverrideColorsEnabled`. |
+| Spot text color picker | Push button | Opens QColorDialog to pick spot text color. Default #FFFF00. Persisted as `SpotsOverrideColor`. |
+| **Override Background: Enabled** | Toggle button | Enables custom spot background color. Persisted as `IsSpotsOverrideBackgroundColorsEnabled`. |
+| **Override Background: Auto** | Toggle button | Auto-picks background color for contrast. Persisted as `IsSpotsOverrideToAutoBackgroundColorEnabled`. |
+| Spot background color picker | Push button | Opens QColorDialog for spot background color. Default #000000. Persisted as `SpotsOverrideBgColor`. |
+| **Background Opacity:** | Slider | Opacity of spot background color. Range 0-100. Default 48. Persisted as `SpotsBackgroundOpacity`. |
+| **Spot Lines:** | Toggle button | Draws vertical lines from the spectrum up to each spot label. Disable during contests to reduce visual clutter. Persisted as `IsSpotsLinesEnabled`. |
+| **Total Spots:** | Indicator | Live count of spots currently tracked across all sources. |
+| DXCC Coloring (section) | Indicator | Section header for DXCC coloring controls in the left column below the divider. |
+| **DXCC Colors:** | Toggle button | Colors spots by worked/confirmed/needed DXCC status. Persisted as `IsDxccColoringEnabled`. |
+| **Log File (ADIF):** | Push button | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Persisted as `DxccAdifFilePath`. |
+| **Imported:** (DXCC stats) | Indicator | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. |
+| DXCC Color swatches (New DXCC / New Band

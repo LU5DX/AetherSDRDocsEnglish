@@ -31,6 +31,8 @@ The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both exclusive tab se
 
 When NR2 is activated, AudioEngine enforces cascade exclusion, disabling DFNR and other mutually exclusive modules.
 
+Each toggle button has a stable object name (`dspMethodBtnNR2`, `dspMethodBtnNR4`, etc.) and accessible name for screen readers and automation tools.
+
 ## Tab: NR2 — Musical-noise reduction
 
 The NR2 engine uses spectral subtraction with gain curve mapping and noise power estimation.
@@ -73,6 +75,13 @@ Stored in setting `NR2NpeMethod` as integer 0-2.
 - Valid range: 0.50–2.00
 - Stored in setting `NR2GainMax` (value * 100).
 
+### Gain Floor:
+
+- Sets the minimum gain floor for NR2, preventing over-suppression of weak signals.
+- Default: 0.10
+- Valid range: 0.00–0.50
+- Stored in setting `NR2GainFloor`.
+
 ### Smoothing:
 
 - Controls how smoothly the noise estimate tracks changes.
@@ -87,9 +96,15 @@ Stored in setting `NR2NpeMethod` as integer 0-2.
 - Valid range: 0.05–0.50
 - Stored in setting `NR2Qspp`.
 
+### Use Original Geometry:
+
+- When enabled, uses the original NR2 geometry for the noise estimate rather than the updated geometry algorithm.
+- Default: Off (`False`).
+- Stored in setting `NR2UseOriginalGeometry`.
+
 ### Reset Defaults (↺ icon)
 
-- Restores NR2 tab defaults: Gamma, OSMS, AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+- Restores NR2 tab defaults: Gamma, OSMS, AE on, Reduction 1.50, Gain Floor 0.10, Smoothing 0.85, Threshold 0.20, Use Original Geometry off.
 - Rendered as a flat icon button with anticlockwise arrow (U+21BA).
 
 ## Tab: NR4 — Libspecbleach noise reduction
@@ -181,7 +196,7 @@ The BNR (NVIDIA) tab shows intensity controlled from the overlay menu. **The BNR
 
 ## Tab: DFNR — DeepFilterNet3
 
-The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine.
+The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine. **The DFNR toggle is dimmed on builds without the DeepFilterNet3 backend.**
 
 ### Attenuation Limit
 
@@ -204,13 +219,16 @@ The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine.
 - If you need stronger overall attenuation without touching the post-filter, increase **Attenuation Limit** first, then add **Post-Filter Beta** only for residual noise that remains.
 - A value of 0.00 disables the post-filter entirely, leaving DeepFilterNet3's output unchanged.
 - For NR2, start with default values and adjust Reduction upward gradually while checking for musical artefacts.
+- The **Gain Floor** slider prevents NR2 from completely silencing weak signals. Increase it if signals drop out during pauses, decrease it if background noise is too prominent.
 
 ## Troubleshooting
 
 - **Speech sounds hollow or phasey** — **Post-Filter Beta** is set too high. Reduce it toward 0.00 in small increments until naturalness returns.
 - **No audible change when moving the slider** — The selected engine may not be active on the current slice. Confirm the engine toggle is selected and that parameters are not at minimum.
 - **NR2 produces musical noise** — Reduce **Reduction** or enable **AE Filter** to suppress artefacts.
-- **MNR or BNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR) is not available on your platform.
+- **NR2 makes weak signals disappear** — Increase **Gain Floor** to prevent over-suppression.
+- **MNR, BNR, or DFNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR, DeepFilterNet for DFNR) is not available on your platform.
+- **DFNR tab is missing entirely** — AetherSDR was built without DeepFilterNet support. Rebuild with the DFNR backend to use this engine.
 - **Colors appear mismatched with the rest of AetherSDR** — The dialog now uses theme-aware styling. Try switching themes in `Settings > Appearance` if the colors are not to your liking.
 
 ## Related

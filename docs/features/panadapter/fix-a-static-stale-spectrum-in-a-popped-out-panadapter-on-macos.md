@@ -26,6 +26,8 @@ The main spectrum/waterfall area provides:
 
 **Reconnect behavior:** On radio reconnect, the desired panadapter FPS and waterfall line duration are automatically reasserted to prevent dropping to the radio's default 10 Hz (#2465).
 
+**Secondary panadapter dBm range:** On reconnect, secondary panadapters (Slices B–H) have their dBm range primed so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum (#3034).
+
 ## CW Decode Panel
 
 The CW decode panel provides off-air Morse decoding with the following controls:
@@ -45,10 +47,22 @@ The CW decode panel provides off-air Morse decoding with the following controls:
 | Control | Type | Behavior |
 |---------|------|----------|
 | CW stats label | Indicator | Shows detected CW pitch and speed (e.g., "700 Hz 25 WPM"). |
+| A- (Font down) | Push button | Decreases the decoded-text font size. Settings are persisted across sessions. |
+| A+ (Font up) | Push button | Increases the decoded-text font size. Settings are persisted across sessions. |
 | CPY ALL | Push button | Copies the full decoded text to the clipboard. |
 | CPY VIS | Push button | Copies only the text currently visible in the scroll area. |
 | CLR | Push button | Clears the CW decode buffer. |
 | ✕ (close CW) | Push button | Hides the CW decode panel. |
+
+### CW Decode Panel Resizing
+
+A thin drag grip appears along the top edge of the CW decode panel. To resize the panel:
+
+1. Hover over the drag grip (cursor changes to a vertical resize arrow).
+2. Click and drag up or down to adjust the panel height.
+3. The height is persisted and restored on restart.
+
+The drag grip allows adjusting the panel height without reparenting the GPU spectrum widget.
 
 ### Decoded Text Display
 
@@ -57,6 +71,8 @@ The read-only rolling display shows decoded CW with color coding by confidence:
 - **Yellow:** < 0.35 confidence cost
 - **Orange:** < 0.60 confidence cost
 - **Red:** ≥ 0.60 confidence cost
+
+The font size can be adjusted using the A- and A+ buttons, with the setting persisted across sessions.
 
 **TX decode support (v0.9.7+):** When both incoming and outgoing CW are decoded through the same panel, transmitted text appears in cyan (#5fc8ff) to distinguish it from received text. A separator space is automatically inserted between TX and RX runs to prevent visual merging (#2417).
 
@@ -67,7 +83,7 @@ The read-only rolling display shows decoded CW with color coding by confidence:
 
 ### Theme Support (v26.6.1+)
 
-Starting with v26.6.1, the panadapter applet theme colors are sourced from the theme system. The title bar background gradient uses `{{color.text.disabled}}`, `{{color.background.1}}`, and `#1a2a38` stop colors. The drag grip uses `{{color.text.label}}`. The slice title uses `{{color.text.secondary}}`. The CW panel background uses `{{color.background.0}}` with a border using `{{color.background.1}}`. The CW title uses `{{color.accent}}`. The CW hint uses `{{color.meter.bar.fill}}`. The CW stats label uses `{{color.text.label}}`. The Sens label uses `{{color.text.label}}`. The sensitivity slider uses `applyPrimarySliderStyle()` for themed appearance.
+Starting with v26.6.1, the panadapter applet theme colors are sourced from the theme system. The title bar background gradient uses `{{color.text.disabled}}`, `{{color.background.1}}`, and `#1a2a38` stop colors. The drag grip uses `{{color.text.label}}`. The slice title uses `{{color.text.secondary}}`. The CW panel background uses `{{color.background.0}}` with a border using `{{color.background.1}}`. The CW title uses `{{color.accent}}`. The CW hint uses `{{color.meter.bar.fill}}`. The CW stats label uses `{{color.text.label}}`. The Sens label uses `{{color.text.label}}`. The sensitivity slider uses `applyPrimarySliderStyle()` for themed appearance. The CW resize grip uses `{{color.background.2}}`.
 
 ## Floating Window Behavior (macOS)
 

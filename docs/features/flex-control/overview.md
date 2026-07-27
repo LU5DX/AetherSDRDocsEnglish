@@ -28,6 +28,10 @@ The AetherControl dialog provides a virtual tuning wheel and configuration panel
 
 **Auxiliary buttons (1–5)** — Five configurable buttons, each with its own single-tap and double-tap action combo box. The buttons show active selection via aux dots.
 
+## Dialog layout and scrolling
+
+The AetherControl dialog contains a scroll area that activates automatically when the content exceeds the available screen height. This allows the full controller to remain usable even on short or high-DPI displays. The scroll area has a minimum width of 430 pixels and a minimum height of 610 pixels (or the available screen height, whichever is smaller) to prevent content clipping.
+
 **Configurable actions** — The following actions are available for any button assignment:
 
 | Action ID | Label |
@@ -68,6 +72,7 @@ The AetherControl dialog provides a virtual tuning wheel and configuration panel
 - The virtual wheel uses de-jitter logic that clamps single-event pointer movements to 15° (π/12 radians) to prevent sudden jumps.
 - Double-click the virtual knob to capture mouse input, and double-click again to release. This replaces the previous single-click capture behavior that required Escape to release.
 - If the physical FlexControl resets, AetherSDR automatically restores the correct LED state for the active wheel-mode button.
+- The dialog now includes a scroll area that activates when content exceeds the available screen height, making it more usable on small or high-DPI displays (#3662, #4365).
 
 ## Related
 

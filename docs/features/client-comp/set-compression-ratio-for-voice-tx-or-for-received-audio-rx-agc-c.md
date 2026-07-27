@@ -50,7 +50,7 @@ The transfer curve widget uses color tokens from the active theme via `ThemeMana
 
 ## Gain-reduction meter
 
-The horizontal amber strip fills from right to left, showing up to 20 dB of gain reduction. A tick mark at -6 dB indicates a typical working amount of reduction. The meter refreshes at approximately 30 Hz using MeterSmoother ballistics applied to the `ClientComp::gainReductionDb()` value. The gain-reduction bar repaints only when the smoothed value changes or when the animation timer is active, conserving CPU cycles during quiet periods.
+The horizontal amber strip fills from right to left, showing up to 20 dB of gain reduction. A tick mark at -6 dB indicates a typical working amount of reduction. The meter refreshes at approximately 30 Hz using MeterSmoother ballistics applied to the `ClientComp::gainReductionDb()` value. The gain-reduction bar updates on every paint cycle to ensure smooth visual tracking during active compression.
 
 ## Tips
 

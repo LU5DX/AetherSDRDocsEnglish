@@ -30,6 +30,7 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 | Mute button (Audio tab)      | off                                                                                                                                   | Toggle. Mutes audio output for this slice without changing the AF gain setting.                                         |
 | Squelch button + slider (Audio tab) | off                                                                                                                           | 0-100. Enables squelch for this slice. The adjacent slider sets the threshold.                                          |
 | AGC combo (Audio tab)        | FAST                                                                                                                                  | FAST, MED, SLOW, OFF. Sets the AGC attack/release speed for this slice.                                                 |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | off | Toggle. Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 | RIT / XIT buttons + labels (X/RIT tab) | off                                                                                                                           | Toggle. Enables receiver (RIT) or transmitter (XIT) incremental tuning. Scroll-wheel adjusts in 10 Hz steps.            |
 | DAX channel combo (DAX tab)  | Off                                                                                                                                   | Off, 1-8. Assigns a DAX audio channel to this slice.                                                                    |
 | Marker thickness button      | 1 px                                                                                                                                  | Off, 1 px, 3 px. Cycles the VFO marker line thickness. Persisted per slice.                                             |
@@ -146,16 +147,10 @@ The VFO panel now uses its own theming surface under the `spectrum/vfo` containe
 
 The ADSP and AetherVoice buttons now use themed colours for their pressed state (`color.accent`) and background (`color.background.1`) instead of hard-coded values.
 
-## Tips
+## VFO panel elevation shadow (v26.7.4)
 
-- Changing mode may alter the active filter passband. Check the filter width label in the header row after switching modes, and apply a filter preset if needed.
-- The filter width label in the VFO panel header shows the current bandwidth. Click it to cycle through the filter preset buttons on the Mode tab.
-- To access NR2, NR4, MNR, BNR, DFNR, or RN2, right-click the DSP tab button for that algorithm, or right-click the spectrum display and open the overlay menu, or open the AetherDSP applet.
-- The marker thickness and filter edges buttons are persisted per slice in `Slice{N}_MarkerWidth` and `Slice{N}_FilterEdgesHidden` settings keys.
-- Press the collapse toggle next to the frequency display to reduce the panel to a compact frequency-only strip. The state is persisted per slice.
-- Right-click the Audio tab (speaker icon) to quickly toggle mute without switching tabs.
-- Enable **Reverse mouse wheel** in InteractionSettings to invert the frequency tuning direction.
+The VFO panel now renders its elevation drop shadow using a separate `FlagShadow` widget. This shadow surface is updated independently from the main VFO panel to avoid repainting the entire flag when the signal meter updates. The shadow uses a box blur algorithm and is drawn behind the VFO panel flag area.
 
-## Related
+## S-meter page support (v26.7.4)
 
-- [Apply a filter width preset from the VFO panel](apply-a-filter-width-preset-from-the-vfo-p
+The VFO panel strip now contains a dedicated page that hosts a `SmartMtrWidget` for the slice's signal meter. When this page is active, the VFO panel's height is driven by the meter's aspect ratio. The `QStackedSubWidget` used for the strip now forwards `

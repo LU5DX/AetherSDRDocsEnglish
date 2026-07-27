@@ -49,9 +49,12 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 
 **Release** — Exponential mapping (10 × 50^n). Sets how quickly the envelope follower recovers after levels drop when Envelope ≠ 0. Label shows 'X.XX ms' below 100 ms, 'X.X ms' above. Right column of the editor.
 
+**RN2** — TX-only toggle button (hidden in RX mode). Default unchecked. Enables RNNoise neural denoiser on the mic input before the DSP chain. Suppresses background noise before it reaches gate, compressor, or saturator. Located in the floating StripTubePanel below the output level meter, TX side only. Voice modes only — digital modes (RADE, DAX, RTTY, FT8, FDV, CW) bypass this stage. Setting persisted via AudioEngine.
+
 **Output level meter** — Indicator. ClientLevelMeter widget (far right of the editor) showing post-saturation peak level with fast-attack / slow-release ballistics. Labelled 'OUT'. Only visible in the floating editor ("Aetherial Tube — TX" or "— RX"), not the docked applet tile. Colour zones: green (−60 to −12 dB), lime (−12 to −6 dB), amber (−6 to −3 dB), red (above −3 dB). No persisted key.
 
 **Value edit mode** — Click any knob's displayed value to enter edit mode. The value text transforms into an inline text field with a subtle dark background and cyan border. Type a numeric value (supports locale-aware formats like "12,5" and unit-stripped input like "3.5 ms" or "−6 dB") and press Enter or click elsewhere to commit. The value is clamped to the knob's valid range. Press Escape or leave the field with invalid input to revert silently.
+
 ## Tips
 
 - Start with Drive at 0.0 dB and increase slowly. The transfer curve is the most direct visual guide to how much saturation you are adding.
@@ -61,6 +64,7 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - Use the OUT meter in the floating editor to confirm that the post-saturation level is where you expect it before closing the editor.
 - To dial in an exact value, click the knob's displayed value to enter inline edit mode rather than dragging the knob.
 - The applet tile and floating editor use per-applet container colour overrides defined in the theme's `color.knob.*` namespace (background, foreground, handle) and `color.text.*` for label/value text. Theme customisation affects knob appearance in this applet independently of other applet types.
+- Enable RN2 on the TX side in voice modes (SSB, AM, FM) to suppress background noise before the saturation stage. The RN2 toggle is located below the output level meter in the floating editor. Digital modes bypass RN2 automatically.
 
 ## Troubleshooting
 
@@ -69,6 +73,7 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - **OUT meter is not visible** — The output level meter only appears in the floating editor, not in the docked applet tile. Open the floating editor by double-clicking the TUBE stage in the CHAIN widget.
 - **Docked applet tile looks faded or dimmed** — When the Tube stage is bypassed, the entire docked tile is rendered at reduced opacity. This is expected behaviour and matches the dim effect applied to the EQ curve when that stage is bypassed. Re-enable the Tube stage through the CHAIN widget to restore full opacity.
 - **Inline value edit shows wrong value after applying** — If the value was typed with unsupported characters, the knob reverts to its last valid setting. Ensure you enter only numbers and, optionally, a decimal separator.
+- **RN2 toggle is not visible** — RN2 is TX only and only appears in the floating editor for the TX side ("Aetherial Tube — TX"). It is hidden in the RX floating editor and in the docked applet tile. If you are in a digital mode (RADE, DAX, RTTY, FT8, FDV, CW), RN2 is bypassed and the toggle may be hidden regardless of side.
 
 ## Related
 
@@ -79,3 +84,4 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - Use Envelope for dynamic tube response
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
+- Enable RNNoise noise suppression on TX (RN2)

@@ -35,7 +35,6 @@ The log viewer displays the most recent 2000 lines from the active log file. Use
 | Refresh | Reloads the log file. |
 | Clear Log | Truncates the current log file. |
 | Open Log Folder | Opens the log directory in the OS file browser. |
-| Reset Settings | Resets AetherSDR settings to defaults (with confirmation dialog). |
 | File an Issue | Launches the AI-Assisted Bug Report flow. |
 | Close | Closes the dialog. |
 

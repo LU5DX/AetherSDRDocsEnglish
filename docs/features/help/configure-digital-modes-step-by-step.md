@@ -17,16 +17,20 @@ This page explains how to open AetherSDR's bundled guide for configuring digital
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| `Find:` field | Enter a subject or term to search within the displayed topic. The field border turns red if no matches are found. |
-| `Next` | Moves to the next match in the document. Wraps to the top when the end is reached. Enabled only when the `Find:` field is not empty. |
-| `Previous` | Moves to the previous match in the document. Wraps to the bottom when the beginning is reached. Enabled only when the `Find:` field is not empty. |
-| `Close` | Closes the help dialog. |
+| Control         | Behavior                                                                                                                                          | Notes                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Find:` field   | Enter a subject or term to search within the displayed topic. The field border turns red if no matches are found.                                 |                                                                                                                                                    |
+| `Next`          | Moves to the next match in the document. Wraps to the top when the end is reached. Enabled only when the `Find:` field is not empty.              |                                                                                                                                                    |
+| `Previous`      | Moves to the previous match in the document. Wraps to the bottom when the beginning is reached. Enabled only when the `Find:` field is not empty. |                                                                                                                                                    |
+| `Close`         | Closes the help dialog.                                                                                                                           |                                                                                                                                                    |
+| Find:           | Search field to find text in the help document. Enables the Next and Previous buttons when non-empty.                                             | Ctrl+F focuses the field. Enter jumps to next match; Shift+Enter jumps to previous. QLineEdit with clear button and placeholder 'Subject or term'. |
+| Next (Find)     | Jumps to the next match of the search term.                                                                                                       | Disabled when search field is empty. Wraps around from end to top.                                                                                 |
+| Previous (Find) | Jumps to the previous match of the search term.                                                                                                   | Disabled when search field is empty. Wraps around from top to end.                                                                                 |
+| Find status     | Shows 'No matches' (red) or 'Wrapped to top/bottom' when no further matches are found in the current direction.                                   |                                                                                                                                                    |
 
 ## Tips
 
-- Each help topic opens in its own dialog. You can reopen `Help > Configuring Data Modes...` at any time without affecting other open help windows.
+- Each help topic opens in its own dialog and remembers its own position and size independently. You can reopen `Help > Configuring Data Modes...` at any time without affecting other open help windows.
 - The bundled help is available even when your station computer has no internet access.
 - The dialog uses the current theme's color scheme for its background, text, and accent colors.
 

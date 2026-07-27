@@ -29,6 +29,10 @@ If discovery finds nothing, the panel switches to an empty-state view showing **
 
 Common reasons discovery returns nothing include guest Wi-Fi AP isolation, VPN software running on the host, and firewall rules blocking discovery packets.
 
+The **Available radios** list has a bounded height (minimum 120px, maximum 240px) so it scrolls internally when more radios are discovered than fit the visible area. This prevents the list from growing past the dialog on small displays. The list includes custom-styled vertical scrollbar with rounded handles.
+
+You can right-click any radio in the **Available radios** list to open a context menu. Choose **Set custom nickname** to assign a client-side nickname that persists across discovery sweeps. This is intended for non-Flex radios (such as HL2 or simulated radios) that do not store a name on the radio itself. For Flex radios, the nickname is managed through Radio Setup while connected, so the context menu is not offered for Flex radios to avoid conflicting sources of truth.
+
 ### Remote with SmartLink
 
 Use this mode when the radio is at a different location. Enter your FlexRadio account email in **SmartLink account: Email** (persisted as `SmartLinkEmail`) and your password in **SmartLink account: Password** (not persisted), then click **Sign In**. After authentication, AetherSDR populates the **Remote radios** list with the WAN radios available to your account. The list has a fixed height; if you have many remote radios, scroll within the list to find the one you want. Select a radio and click **Connect Remote Radio**. To end the session, click **Sign Out**.
@@ -69,7 +73,7 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 | **Local** | — | Switches to local LAN discovery mode. |
 | **SmartLink** | — | Switches to SmartLink remote mode. |
 | **Manual** | — | Switches to manual IP entry mode. |
-| **Available radios** | Local | Lists radios found by LAN discovery. |
+| **Available radios** | Local | Lists radios found by LAN discovery. Bounded height (120–240px) with internal scrolling. Right-click to set a custom nickname for non-Flex radios. |
 | **Connect Selected Radio** | Local | Connects to the highlighted radio. |
 | **No local radios found yet** | Local | Indicator shown when discovery is empty. |
 | **Retry Discovery** | Local | Re-runs LAN discovery. |
@@ -101,3 +105,4 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 - [Pick the local network interface used for a manual connection](../../getting-started/setup/pick-the-local-network-interface-used-for-a-manual-connection.md)
 - [Enable low-bandwidth mode for slow links](enable-low-bandwidth-mode-for-slow-links.md)
 - [Disconnect from the current radio](../../getting-started/setup/disconnect-from-the-current-radio.md)
+- Set a custom nickname for a discovered radio

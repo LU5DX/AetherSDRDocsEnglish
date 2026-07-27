@@ -29,6 +29,7 @@ Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine'
 - **MNR** — Dimmed on Windows/Linux builds. The MNR engine has no backend on those platforms.
 - **BNR** — Dimmed on builds without the NVIDIA Broadcast SDK.
 - **RN2** — Purely informational; no adjustable parameters.
+- **DFNR** — Dimmed on builds without the DeepFilterNet SDK.
 
 ## NR2 tab
 
@@ -42,8 +43,10 @@ NR2 provides musical-noise reduction. Select it by clicking the **NR2** toggle.
 | **NPE Method** | Radio buttons | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` (stored as integer 0-2) |
 | **AE Filter (artifact elimination)** | Checkbox | True | - | `NR2AeFilter` |
 | **Reduction:** | Slider | 1.50 | 0.50-2.00 | `NR2GainMax` (stored as value*100) |
+| **Floor:** | Slider | 0.00 | 0.00-1.00 | `NR2GainFloor` (stored as value*100) |
 | **Smoothing:** | Slider | 0.85 | 0.50-0.98 | `NR2GainSmooth` |
 | **Threshold:** | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` |
+| **Use Original Geometry** | Checkbox | False | - | `NR2UseOriginalGeometry` |
 | **Reset Defaults (↺ icon)** | Push button | - | - | - |
 
 ### Gain Method descriptions
@@ -59,9 +62,17 @@ NR2 provides musical-noise reduction. Select it by clicking the **NR2** toggle.
 - **MMSE** — Minimum mean square error estimation.
 - **NSTAT** — Noise statistics-based estimator.
 
+### Floor
+
+Sets the minimum gain floor for NR2. Lower values allow more aggressive noise reduction.
+
+### Use Original Geometry
+
+When checked, uses the original geometric gain calculation method from earlier AetherSDR versions.
+
 ### Reset Defaults (NR2)
 
-Restores NR2 tab to Gamma/OSMS/AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+Restores NR2 tab to Gamma/OSMS/AE on, Reduction 1.50, Floor 0.00, Smoothing 0.85, Threshold 0.20, Use Original Geometry unchecked.
 
 ## NR4 tab
 
@@ -101,6 +112,8 @@ MNR provides macOS MMSE-Wiener noise reduction with asymmetric gain smoothing. C
 
 DFNR provides DeepFilterNet3 noise reduction. Select it by clicking the **DFNR** toggle.
 
+**Note:** The DFNR toggle is dimmed on builds without the DeepFilterNet SDK.
+
 ### DFNR controls
 
 | Control | Kind | Default | Range | Setting Key |
@@ -118,11 +131,11 @@ BNR uses the NVIDIA Broadcast SDK. Intensity control is available from the overl
 
 ## Tips
 
-- **NR2** — **Gamma** gain method with **OSMS** NPE is the default and works well for most SSB voice contacts. Start here if you are unsure.
+- **NR2** — **Gamma** gain method with **OSMS** NPE is the default and works well for most SSB voice contacts. Start here if you are unsure. Enable **Use Original Geometry** if you prefer the previous gain calculation behavior.
 - **NR4** — **MMSE** noise estimation with adaptive noise enabled provides good baseline performance.
 - **DFNR** — Attenuation Limit at 100 delivers maximum suppression. Lower values allow more noise through.
 - **MNR** (macOS only) — Strength at 100 provides maximum aggressiveness. Reduce for more natural-sounding audio.
-- After changing gain method or NPE method, re-adjust the reduction, smoothing, and threshold sliders to match the new characteristics.
+- After changing gain method or NPE method, re-adjust the reduction, floor, smoothing, and threshold sliders to match the new characteristics.
 - Each tab has its own **Reset Defaults** button to restore that engine's parameters to factory settings.
 
 ## Related

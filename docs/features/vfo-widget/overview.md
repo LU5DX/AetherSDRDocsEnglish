@@ -17,6 +17,8 @@ When collapsed, the panel shrinks to a compact frequency-only strip. Scroll-whee
 
 The panel uses a themed container scope (`spectrum/vfo`) for its theming. Clicking a control in the panel during Inspector mode shows the relevant token values.
 
+The VFO flag now includes an elevation shadow rendered by a lightweight sibling `FlagShadow` widget. The shadow is kept separate from the main VFO panel so that live meter repaints do not re-blur the entire flag at animation rate.
+
 ### Header row
 
 The header row sits above the tabs and is always visible.
@@ -38,6 +40,8 @@ The tab row provides buttons for Mode, Audio, DSP, X/RIT, and DAX. From v26.6.3:
 - Press **Tab** to focus the tab buttons. Use arrow keys or **Enter** to switch tabs.
 - The active tab shows a teal bottom border. Tab buttons have no visible focus outline.
 - **Right-click** the Audio tab button to toggle mute for the current slice directly.
+
+The tab stack now forwards `heightForWidth` from each page, so pages that maintain an aspect ratio (such as `SmartMtrWidget`) correctly drive the strip height. Pages without `heightForWidth` (the S-meter spacer) are unaffected.
 
 ### Mode tab
 
@@ -167,7 +171,4 @@ The ADSP button and other push buttons in the panel use theme-aware styling thro
 - Momentum (inertial) scroll events on macOS are ignored to prevent unintended tuning after a trackpad gesture ends.
 - The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
 - Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
-- Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY audio feeds external decoders via DAX channels, and squelch could gate weak FSK signals. CW mode locks squelch on at a fixed level.
-- The Pan slider fill anchors from centre outward with theme-aware colours. Double-click to reset to centre.
-- Tab buttons are now keyboard-focusable. Press **Tab** to navigate between tabs, then **Enter** or **Space** to select a tab.
-- Right-click the Audio tab button to toggle mute for the current slice.
+- Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY

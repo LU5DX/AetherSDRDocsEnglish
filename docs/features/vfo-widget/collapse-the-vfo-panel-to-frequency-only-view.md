@@ -159,7 +159,7 @@ The frequency entry field uses `setHintText()` instead of `setPlaceholderText()`
 
 The VFO panel now respects the reverse mouse wheel setting from `InteractionSettings`. When reverse mouse wheel is enabled, scrolling the mouse wheel over the VFO panel tunes the frequency in the opposite direction. This applies to both collapsed and expanded views.
 
-## Tips
+## Tip
 
 - In collapsed view, scrolling the mouse wheel over the strip tunes the slice frequency by the current step size — the same as scrolling over the frequency display in the full panel.
 - In collapsed view, clicking the TX badge painted on the strip toggles the TX assignment for that slice. Clicking anywhere else on the strip expands the panel.

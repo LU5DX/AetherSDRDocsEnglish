@@ -24,14 +24,14 @@ Activating a memory — by double-clicking a row or pressing Enter on a selected
 | Memory table                     | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory.                                               | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
 | Highlighted row                  | The row whose frequency is closest to the currently tuned frequency. The panel scrolls to keep this row centered whenever the tuned frequency changes. |                                                                                                                                |
 | "No memories are available yet." | Shown in place of the table when the radio has no memories loaded.                                                                                     |                                                                                                                                |
-| Add Memory                       | Saves the current slice as a new memory entry. Anchored at the bottom of the panel, always visible.                                                    | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant.                                                         |
+| Add Memory                       | Saves the current slice as a new memory entry. Positioned at the top of the panel, immediately above the scrolling rows.                              | Added in v26.5.1 (#2533). Replaces earlier slice-letter badge variant. In v26.7.4, moved from bottom-anchored to top of panel. |
 
 ## Tips
 
 - The Name column displays the memory's name if one is set, then the group name if no individual name exists, then a generated label of the form `Memory N` as a fallback.
 - Long names are truncated with an ellipsis. Hover over any row to see the full frequency or name in a tooltip.
 - Memories with a frequency of 0 MHz or below are excluded from the table entirely.
-- Click **Add Memory** to save the active slice on the current panadapter as a new memory entry. The button remains visible at the bottom of the panel regardless of scroll position.
+- Click **Add Memory** to save the active slice on the current panadapter as a new memory entry. The button sits at the top of the panel, immediately above the scrolling rows. If the panadapter is short, the bottom of the drawer may be clipped, but the button's top remains visible.
 - The panel and its controls now use theme-aware styling, adapting their colors (backgrounds, borders, text, accents, scrollbars) to your selected AetherSDR theme. Previously, these colors were hard-coded.
 
 ## Related

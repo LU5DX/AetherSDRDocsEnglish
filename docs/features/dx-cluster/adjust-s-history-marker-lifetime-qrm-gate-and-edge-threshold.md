@@ -24,7 +24,7 @@ Fine-tune how Signal History markers behave on the panadapter — how long they 
 | **Marker Lifetime:** | `15 sec` – `300 sec` | 60 | 15–300 sec | `SHistoryLifetimeS` | Left double-click resets to 60 |
 | **QRM Gate:** | `3 sec` – `30 sec` | 6 | 3–30 sec | `SHistoryQrmGateS` | Left double-click resets to 6 |
 | **Edge Threshold:** | `1.0 dB` – `10.0 dB` | 3.0 | 1.0–10.0 dB | `SHistorySoftEdgeDb` | Left double-click resets to 3.0 |
-| **Snap to Step:** | toggle button | Disabled | Enabled / Disabled | `SHistorySnapToStep` | Toggle always shows "Enabled" label — the text does not change to "Disabled" when toggled off |
+| **Snap to Step:** | toggle button | Disabled | Enabled / Disabled | `SHistorySnapToStep` | Toggle always displays "Enabled" label regardless of state — button pressed indicates enabled |
 
 ## Tips
 

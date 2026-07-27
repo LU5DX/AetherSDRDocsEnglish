@@ -55,6 +55,9 @@ The Reverse Beacon Network (RBN) provides automated CW, RTTY, and digital skimme
 | Edge Threshold:                                               | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge (1.0-10.0 dB).                                                        | `SHistorySoftEdgeDb`                                                                                               |
 | Signal History color swatches (Signals / QRM)                 | Opens a color picker for the voice signal markers (gold) and QRM markers (red).                                                                                        | `SHistoryColorSignals`, `SHistoryColorQrm`                                                                         |
 | Snap to Step:                                                 | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Button is always labelled **Enabled**.        | `SHistorySnapToStep`                                                                                               |
+| Bands:                                                        | Per-band checkboxes to toggle spot visibility in the Spot List table. Wrapped in a flow layout to remain readable when SpotHub is narrow.                              | —                                                                                                                  |
+| Clear                                                         | Empties the current spot list.                                                                                                                                         | —                                                                                                                  |
+| Spot table                                                    | Sortable table of spots. Double-click row to tune. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source.                                                  | —                                                                                                                  |
 
 ## Double-clicking a spot now forwards mode hints
 
@@ -82,6 +85,14 @@ Starting in v26.6.1, the SpotHub dialog uses theme-aware styling. The status lab
 ## Auto Mode default change
 
 In v0.9.5.1 the **Auto Mode:** toggle on the **Display** tab defaults to **Enabled** for new installations. The setting persists as `SpotAutoSwitchMode`. Existing installations where the value has been saved explicitly are not affected.
+
+## Spot List tab improvements (v26.7.4)
+
+The **Spot List** tab uses a flow layout for its band filter checkboxes. This prevents the checkboxes from being compressed to illegibility when the SpotHub dialog is narrow. The checkboxes wrap to a new row when they run out of horizontal space, keeping the checked state readable.
+
+The **Spot table** columns can be shown or hidden by right-clicking the table header and checking or unchecking column names. The menu stays open while you toggle multiple checkboxes, so you can adjust several columns in one pass instead of reopening the menu per column.
+
+The minimum width of the SpotHub dialog has been lowered to 360 pixels, allowing the dialog to be sized narrower once columns are hidden in the Spot List table.
 
 ## Tips
 

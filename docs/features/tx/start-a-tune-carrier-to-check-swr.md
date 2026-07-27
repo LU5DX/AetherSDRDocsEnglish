@@ -17,7 +17,7 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
    - The button label changes to **TUNING...** and the button background turns red while the carrier is active.
    - The **SWR** gauge updates in real time. The scale runs from 1.0 to 3.0; readings above 2.5 are shown in red.
    - The **RF Pwr** gauge shows forward power at the exciter output. A peak-hold bar tracks the peak envelope power (PEP) for 2 seconds, then decays toward the current reading.
-5. Read the SWR value from the **SWR** gauge.
+5. Read the SWR value from the **SWR** gauge. Hover the mouse over the gauge to see the exact reading displayed as "N.N:1".
 6. Click **TUNE** again to stop the carrier.
    - The button label returns to **TUNE** and the red background clears.
 
@@ -35,10 +35,12 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 | **ATU**        | Push button   | —       |
 | **MEM**        | Toggle button | —       |
 | **APD**        | Toggle button | —       |
+
 ## Tips
 
 - Keep **Tune Pwr** low (10 or less) when testing an unknown antenna system. Raise it only after confirming a reasonable SWR.
 - The **SWR** gauge turns red above 2.5. If it pegs at 3.0, stop the carrier and check your feedline and antenna connections before continuing.
+- Hover the mouse over the **RF Pwr** gauge to see the exact forward power in watts. The gauge shows peak-hold values, but the hover readout always shows the precise current reading.
 - To run the internal ATU instead of checking SWR manually, click **ATU** after the tune carrier confirms the antenna is usable. See [Run the internal ATU](run-the-internal-atu.md).
 - If you want to inhibit specific TX outputs (ACC TX, TX1, TX2, TX3) during tuning, configure them at `Settings > Inhibit during TUNE`.
 - The peak-hold bar on the **RF Pwr** gauge resets to zero immediately when the transmitter un-keys, so a held PEP reading does not linger across overs.
@@ -70,9 +72,17 @@ Starting with v0.9.7, clicking **MOX** routes through the Quindar-tone coordinat
 
 This change affects only the **MOX** button in the TX Controls applet. Hardware PTT, VOX, and other PTT sources are not affected.
 
+## MOX button appearance
+
+Starting with v26.7.4, the MOX button in its idle (receive) state displays an amber accent — an amber border and text color that distinguishes it from the neutral style of the adjacent TUNE, ATU, and MEM buttons. This visual cue makes it clear that MOX is the transmit button. When the transmitter is keyed, the button turns solid red with white text as before.
+
+The amber accent colors are tokenized in the Theme Editor under the `color.tx.mox.*` keys, so you can customize the idle appearance if desired. Changes made in the Theme Editor take effect immediately on the MOX button.
+
 ## Slider value display
 
 Starting with v26.5.3, when dragging the **RF Pwr** or **Tune Pwr** slider, the slider thumb displays the current value in percent (e.g., "50%") as a tooltip next to the thumb. This provides immediate visual feedback of the power level as you adjust the slider.
+
+Starting with v26.7.4, releasing the slider after dragging synchronizes the displayed value with the radio model, ensuring the slider position and the actual power level remain in agreement.
 
 ## APD status indicators
 
@@ -95,6 +105,7 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 - **MOX keys the transmitter but no Quindar tones are heard** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode (USB, LSB, AM, FM, or similar). Quindar tones do not play on CW or digital modes.
 - **Pre-tune bands menu item is grayed out** — Enable MEM by clicking the **MEM** button in the TX Controls applet before right-clicking **ATU**.
 - **Peak-hold bar does not appear during tune** — The peak-hold bar only tracks when the transmitter is keyed. The bar decays after 2 seconds of holding a peak, and resets to zero on un-key.
+- **Hover readout on RF Pwr or SWR gauge does not appear** — Ensure your mouse cursor is positioned directly over the gauge bar. The readout appears as a popup tooltip showing the exact value in the appropriate format (watts or "N.N:1").
 
 ## Related
 

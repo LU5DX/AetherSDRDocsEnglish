@@ -42,7 +42,7 @@ When the gate stage is bypassed, the entire applet tile renders at reduced opaci
 
 ## Animation update behavior
 
-The gain-reduction meter and transfer curve use a smooth animation timer that updates the display approximately every 33 ms. When audio levels are settled (no change in input level), the animation timer stops to save CPU resources. The transfer curve and gain-reduction bar continue to repaint on each interval tick while values are changing, and perform one final repaint when the values settle. This means the display always shows the latest state immediately after settling, with no visual hang or stale data.
+The gain-reduction meter and transfer curve use a smooth animation timer that updates the display approximately every 33 ms. When audio levels are settled (no change in input level), the animation timer stops to save CPU resources. The transfer curve and gain-reduction bar repaint on every animation tick while values are changing, ensuring no visual frames are skipped. The gain-reduction bar and curve widget always render the latest state on each redraw, so the display remains responsive and never shows stale data.
 
 ## Inline value editing
 

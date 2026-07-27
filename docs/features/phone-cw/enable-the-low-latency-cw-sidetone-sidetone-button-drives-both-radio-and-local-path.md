@@ -33,12 +33,12 @@ The client-side tone generator pitch and pan always follow the radio's `cw_pitch
 
 | Control | Kind | Default | Valid Range | Behavior |
 |---------|------|---------|-------------|----------|
-| Level | Meter | — | -40 to +10 dBFS (red > 0 dBFS) | Shows microphone input peak level in dBFS (Phone panel). Suppressed to -150 when met_in_rx is off and not transmitting. |
-| Compression | Meter | — | -25 to 0 dB (reversed fill) | Shows speech compression amount in dB (Phone panel). Gated on radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Driven via updateCompression() slot, independent of the mic level path. |
-| ALC (Phone panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Initializes to -20 dBFS on construction. |
-| ALC (CW panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Initializes to -20 dBFS on construction. Uses HGauge::setFillFromRight mode. |
+| Level | Meter | — | -40 to +10 dBFS (red > 0 dBFS) | Shows microphone input peak level in dBFS (Phone panel). Suppressed to -150 when met_in_rx is off and not transmitting. Hover over the gauge for an exact numeric readout in dB with one decimal place. |
+| Compression | Meter | — | -25 to 0 dB (reversed fill) | Shows speech compression amount in dB (Phone panel). Gated on radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Hover over the gauge for an exact numeric readout in dB with one decimal place. |
+| ALC (Phone panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge for an exact numeric readout in dBFS with one decimal place. Initializes to -20 dBFS on construction. |
+| ALC (CW panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge for an exact numeric readout in dBFS with one decimal place. Initializes to -20 dBFS on construction. Uses HGauge::setFillFromRight mode. |
 | Mic profile | Combo box | — | Populated from radio micProfileList() | Loads the named mic processing profile; calls TransmitModel::loadMicProfile. |
-| Mic source | Combo box | — | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source; calls TransmitModel::setMicSelection. |
+| Mic source | Combo box | — | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source; calls TransmitModel::setMicSelection. When host modulation is active, the combo box is disabled, shows only "PC", and displays a tooltip explaining that the PC microphone is the only available input. |
 | Mic gain | Slider | 50 | 0–100 | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence (`PcMicGain` setting key). Radio always reports mic_level=0 when source=PC; value kept client-side. |
 | +ACC | Toggle button | — | — | Enables the accessory mic input mix; calls TransmitModel::setMicAcc. |
 | PROC | Toggle button | — | — | Toggles the speech processor; calls TransmitModel::setSpeechProcessorEnable. |
@@ -76,6 +76,7 @@ Both the Phone and CW sub-panels contain identical ALC gauges that read from the
 - Values outside the [-20, 0] range clamp to the nearest endpoint.
 - The single updateAlc() slot drives both gauges simultaneously, ensuring SSB and CW operators see the same post-ALC peak reading.
 - Both gauges initialize to -20 dBFS on construction, preventing a brief visual flash at 0 dBFS during startup.
+- Hovering over either ALC gauge shows an exact numeric readout in dBFS with one decimal place, allowing you to read the precise SSB-peak level instead of estimating against the -20 to 0 scale.
 
 ## CW Sidetone Audio Output
 
@@ -87,7 +88,11 @@ The mic level meter suppression uses a dedicated `applyLevelMeterReceiveGate()` 
 
 ## Compression Gauge Mapping
 
-The compression gauge reads from the MeterModel `COMPPEAK` meter as a positive 0–25 dB compression amount. The gauge face is reversed: 0 dB displayed means no compression, -25 dB means full compression. The gauge converts the positive value to negative for display, so -25 corresponds to maximum compression and 0 to no compression.
+The compression gauge reads from the MeterModel `COMPPEAK` meter as a positive 0–25 dB compression amount. The gauge face is reversed: 0 dB displayed means no compression, -25 dB means full compression. The gauge converts the positive value to negative for display, so -25 corresponds to maximum compression and 0 to no compression. Hovering over the gauge shows a positive dB value (the amount of compression applied), with one decimal place.
+
+## Mic Source in Host Modulation Mode
+
+When the radio is being modulated by AetherSDR (host modulation active), the **Mic source** combo box is automatically disabled and shows only "PC" as the available source. The tooltip explains that the PC microphone is the only input because the radio is modulated by AetherSDR; the other sources are physical FlexRadio jacks and are not available in this mode. When host modulation is deactivated, the combo box returns to normal operation.
 
 ## Tips
 
@@ -97,12 +102,9 @@ The compression gauge reads from the MeterModel `COMPPEAK` meter as a positive 0
 - The **Delay (CW)** slider updates its cached value immediately when dragged, preventing the radio from snapping the slider back to its previous position.
 - The ALC gauge on both panels reads the same meter source, so you can monitor ALC regardless of which sub-panel is visible.
 - Sliders now follow the current theme's accent colours and background palette (v26.6.1). Changing the theme updates slider appearance without requiring a restart.
+- Hover over any gauge (Level, Compression, ALC Phone, ALC CW) for an exact numeric readout with one decimal place (#3936).
 
 ## Troubleshooting
 
 - **No tone heard despite Sidetone being enabled** — Confirm the **Sidetone volume** slider is above 0. Also check that your system audio output device is correctly configured in **Settings > Audio > Output device**, as the client-side generator routes to the user-selected output.
-- **Sidetone button is not visible** — The CW sub-panel only appears when the active slice is in CW mode. Switch the active slice to CW on the radio; the applet panel switches automatically.
-- **Pitch does not match expectation** — Pitch follows the radio's `cw_pitch` setting. Adjust it using **Pitch < / >** in the applet, which updates the radio setting in 10 Hz steps.
-- **Compression gauge always shows 0** — This is expected during RX. The gauge is gated on the radio's interlock TRANSMITTING state. It will show compression only while you are transmitting with **PROC** enabled.
-- **Breakin OFF does not hold TX between characters** — With **Breakin** off, AetherSDR no longer applies an automatic PTT envelope. Engage PTT manually before sending and release it when finished.
-- **Mic gain slider has no effect in RADE mode** — When RADE mode is active, the Mic gain slider operates as a client-side gain control rather than sending a mic level command to the radio. The slider value is stored under `PcMicGain` and is not written to the radio's `mic_level` property while RADE is active. When RADE mode is deactivated, the slider reverts to reflecting the radio's `mic_level`.
+- **Sidetone button is not visible** — The CW sub-panel only appears when the active slice is in CW mode. Switch the active slice

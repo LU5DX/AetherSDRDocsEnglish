@@ -18,31 +18,54 @@ Use the Network Diagnostics dialog to read live round-trip time and per-category
 
 ## What each control does
 
-| Indicator                 | Meaning                                                                                                                                                                                                                          | Notes                                                                                                   |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| `Latency (RTT)`           | Current round-trip time to the radio. Displays `< 1 ms` when below 1 ms.                                                                                                                                                         |                                                                                                         |
-| `Max Latency (RTT)`       | Highest RTT seen since connect. Displays `< 1 ms` when below 1 ms.                                                                                                                                                               |                                                                                                         |
-| `Audio` (Packet Loss)     | Dropped packets / total packets (loss %) for the audio stream, inferred from missing VITA sequence numbers.                                                                                                                      |                                                                                                         |
-| `FFT` (Packet Loss)       | Same metric for the FFT stream.                                                                                                                                                                                                  |                                                                                                         |
-| `Waterfall` (Packet Loss) | Same metric for the waterfall stream.                                                                                                                                                                                            |                                                                                                         |
-| `Meters` (Packet Loss)    | Same metric for the meters stream.                                                                                                                                                                                               |                                                                                                         |
-| `DAX` (Packet Loss)       | Same metric for the DAX stream.                                                                                                                                                                                                  |                                                                                                         |
-| `Status`                  | Overall link quality, color-coded green (Excellent) through red (Poor).                                                                                                                                                          |                                                                                                         |
-| Overview (tab)            | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).                                                     |                                                                                                         |
-| Details (tab)             | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                                                                                                           |                                                                                                         |
-| Latency (tab)             | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                                                                               |                                                                                                         |
-| Rates (tab)               | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                                                                                   |                                                                                                         |
-| Packet Loss (tab)         | Full-width time-series graph of packet loss % per stream category.                                                                                                                                                               |                                                                                                         |
-| Audio (tab)               | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. | v26.5.3 (#2889): per-stream RX diagnostics exposed in the support bundle and in this tab's detail view. |
-| Logs (tab)                | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                                                                         | Timeframe selector is hidden while this tab is active.                                                  |
-| Timeframe                 | Selects how far back the time-series charts display history. Default is 5 minutes; options are 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, and 1 week.                                                                       | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active.                       |
-| Filter Categories (Logs)  | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                                                                    |                                                                                                         |
-| Select All (Logs)         | Shows all log categories in the viewer.                                                                                                                                                                                          |                                                                                                         |
-| Deselect All (Logs)       | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                         |
-| Live / Paused (Logs)      | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      |                                                                                                         |
-| Close                     | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
+| Indicator | Meaning | Notes |
+|-----------|---------|-------|
+| `Latency (RTT)` | Current round-trip time to the radio. Displays `< 1 ms` when below 1 ms. | |
+| `Max Latency (RTT)` | Highest RTT seen since connect. Displays `< 1 ms` when below 1 ms. | |
+| `Audio` (Packet Loss) | Dropped packets / total packets (loss %) for the audio stream, inferred from missing VITA sequence numbers. | |
+| `FFT` (Packet Loss) | Same metric for the FFT stream. | |
+| `Waterfall` (Packet Loss) | Same metric for the waterfall stream. | |
+| `Meters` (Packet Loss) | Same metric for the meters stream. | |
+| `DAX` (Packet Loss) | Same metric for the DAX stream. | |
+| `Status` | Overall link quality, color-coded green (Excellent) through red (Poor). | |
+| Overview (tab) | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer). | |
+| Details (tab) | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups. | |
+| Latency (tab) | Full-width time-series graph of RTT, arrival gap and jitter in ms. | |
+| Rates (tab) | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps. | |
+| Packet Loss (tab) | Full-width time-series graph of packet loss % per stream category. | |
+| Audio (tab) | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. | v26.5.3 (#2889): per-stream RX diagnostics exposed in the support bundle and in this tab's detail view. |
+| Logs (tab) | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. | Timeframe selector is hidden while this tab is active. |
+| Timeframe | Selects how far back the time-series charts display history. Default is 5 minutes; options are 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, and 1 week. | Shown in the top-right corner of the tab bar; hidden when the Logs tab is active. |
+| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories. | |
+| Select All (Logs) | Shows all log categories in the viewer. | |
+| Deselect All (Logs) | Hides all log categories from the viewer. | |
+| Live / Paused (Logs) | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail. | |
+| Close | Closes the dialog. | |
 
 All counters refresh once per second.
+
+## Navigation pane
+
+The dialog now uses a tree-style navigation pane on the left side instead of a tab bar. The tree contains the following items:
+
+- **Overview** — Same content as the former Overview tab
+- **Details** — Same content as the former Details tab
+- **Latency** — Same content as the former Latency tab
+- **Rates** — Same content as the former Rates tab
+- **Packet Loss** — Same content as the former Packet Loss tab
+- **Audio** — Same content as the former Audio tab
+- **Logs** — Same content as the former Logs tab
+
+The navigation tree supports keyboard navigation with arrow keys. The selected item is highlighted. The Timeframe combo box remains in the top-right corner of the dialog, hidden when the Logs page is active.
+
+## Search bar
+
+A search field is available above the navigation pane. Type a page name or partial match to filter the navigation tree. The search is case-insensitive and updates as you type. Press `Ctrl+F` or `Cmd+F` to focus the search field. Press `Escape` to clear the search.
+
+## Fixed Y-axis range
+
+The time-series charts on the Rates tab and other tabs now support a fixed Y-axis range. When no fixed range is set, the chart auto-scales to the data. When a fixed range is set, the chart always shows the specified minimum and maximum values. This feature is controlled programmatically and does not have a user-facing control.
+
 ## Frameless mode
 
 The Network Diagnostics dialog supports a frameless window mode that is controlled by the `FramelessWindow` setting in `Settings > Preferences > Advanced > Use frameless windows`. When enabled, the dialog has no title bar and can be dragged by its custom title bar area. The resize behavior (eight-axis cursor on edges and corners) remains active in frameless mode. When disabled, the dialog uses the standard OS window decoration with a regular title bar.
@@ -62,7 +85,7 @@ Log lines are syntax-highlighted by log level and category:
 
 To filter the log output:
 
-1. Click the **Logs** tab.
+1. Click the **Logs** item in the navigation tree.
 2. Use the **Filter Categories** checkboxes to select which categories appear. Click **Select All** to show every category or **Deselect All** to clear them.
 3. To pause scrolling, scroll up in the viewer. The button switches to **Paused**. Click **Live** to resume auto-scrolling and jump to the newest line.
 
@@ -74,6 +97,7 @@ To filter the log output:
 - Use the **Timeframe** selector to zoom the time-series charts in or out. Narrower timeframes (1 minute) make recent spikes easier to see; wider timeframes (1 hour or more) help identify recurring patterns.
 - Use the **Logs** tab with appropriate category filters to correlate raw log events with the metrics shown in the other tabs.
 - The frameless mode setting affects all AetherSDR frameless-capable dialogs. If the Network Diagnostics dialog does not show a title bar, check that `FramelessWindow` is enabled in Preferences.
+- Use the search field above the navigation tree to quickly find a specific diagnostic page by name.
 
 ## Troubleshooting
 
@@ -81,6 +105,7 @@ To filter the log output:
 - **RTT reads `< 1 ms` but audio is broken** — Network latency is not the cause. See the Audio Playback section for underrun and jitter data.
 - **Logs tab shows no output** — Check that at least one category checkbox is selected. Click **Select All** to restore all categories.
 - **Dialog has no title bar and cannot be moved** — Frameless mode is enabled. Drag the dialog by clicking on the custom title bar area at the top. To disable frameless mode, go to `Settings > Preferences > Advanced` and uncheck `Use frameless windows`.
+- **Navigation tree shows no items after typing in search** — The search filter is active. Clear the search field to show all navigation items.
 
 ## Related
 

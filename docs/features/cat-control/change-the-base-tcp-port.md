@@ -20,14 +20,19 @@ The CAT Control applet runs up to four rigctld-compatible TCP servers on consecu
 | Control              | Kind          | Default     |
 |----------------------|---------------|-------------|
 | `Base:`              | Text field    | `4532`      |
-| `Enable TCP`         | Toggle button | Off         |
-| `Enable TTY`         | Toggle button | Off         |
+| `Enable CAT`         | Toggle button | Disabled    |
+| Enable checkboxes    | Checkbox      | Unchecked   |
 | A/B/C/D channel rows | Indicator     | `(stopped)` |
+
+The main toggle button shows `Enabled` when CAT servers are active and `Disabled` when they are off. The same label appears in both the docked and floating applet views.
+
+Each channel row includes a per-channel enable checkbox. The checkbox has a high-contrast border and fills with an accent color when checked, making the on/off state readable at a glance against the dark applet background.
+
 ## Tips
 
 - Choose a base port that leaves the next three consecutive ports free. For example, a base of `4532` uses `4532`, `4533`, `4534`, and `4535`.
-- If you change the port while `Enable TCP` is off, the servers will start on the new port the next time you click `Enable TCP`.
-- On Linux and macOS, click `Enable TTY` to expose each channel as a virtual serial port. Point your logging software to the corresponding symlink path displayed below each channel label.
+- If you change the port while `Enable CAT` is off, the servers will start on the new port the next time you click `Enable CAT`.
+- On Linux and macOS, each channel exposes a PTY symlink when the corresponding enable checkbox is checked. Point your logging software to the symlink path displayed below each channel label.
 - In v26.5.3, PTY symlinks are created per-user under `$XDG_RUNTIME_DIR/aethersdr/cat-A` through `cat-D` on Linux, or `~/Library/Caches/AetherSDR/cat-A` through `cat-D` on macOS. This change from the previous `/tmp/AetherSDR-CAT-*` location fixes a security vulnerability (GHSA-qxhr-cwrc-pvrm) and uses atomic symlink replacement to prevent time-of-check/time-of-use (TOCTOU) race conditions.
 
 ## Troubleshooting
@@ -35,7 +40,7 @@ The CAT Control applet runs up to four rigctld-compatible TCP servers on consecu
 - **Servers do not restart after changing the port** — Confirm you pressed Enter or Tab to finish editing the `Base:` field. Clicking away without committing the edit may not apply the change.
 - **Port field snaps back to 4532** — The value entered was outside the 1024–65535 range. Enter a value within that range.
 - **Server fails to start on the new port** — Another application may already be using that port or one of the three consecutive ports. Choose a different base port.
-- **PTY symlinks do not appear** — `Enable TTY` is available on Linux and macOS only. Confirm you clicked `Enable TTY` and that AetherSDR has write access to the per-user runtime directory. On Linux this is typically `$XDG_RUNTIME_DIR/aethersdr/`; on macOS `~/Library/Caches/AetherSDR/`.
+- **PTY symlinks do not appear** — Enable TTY is available on Linux and macOS only. Confirm you checked the enable checkbox for that channel and that AetherSDR has write access to the per-user runtime directory. On Linux this is typically `$XDG_RUNTIME_DIR/aethersdr/`; on macOS `~/Library/Caches/AetherSDR/`.
 
 ## Related
 

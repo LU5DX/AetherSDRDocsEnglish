@@ -41,6 +41,11 @@ The 10 layouts and their pan counts are:
 
 If you attempt to apply a layout requiring more panadapters than the radio's slice limit supports, or if the slice limit is already at capacity when a larger layout is requested, the layout change is cancelled. A status-bar message appears: "Slice capacity is full; cannot add another panadapter (<model> supports <N> slices)". The currently active layout remains unchanged.
 
+## Dialog layout
+
+- The dialog body has a fixed width (560 pixels) that keeps the three-column thumbnail grid centred.
+- The dialog height adjusts automatically so the Cancel button always appears below the grid, regardless of how many thumbnail rows are displayed.
+
 ## Tips
 
 - The currently active layout tile has a distinct highlight so you can confirm your starting point before making a change.

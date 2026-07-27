@@ -5,7 +5,7 @@ QSK (full break-in) lets the radio receive between each dit and dah while transm
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The CWX panel requires an active radio connection.
-- Set the active slice to CW, CWL, or CWU mode so the CWX panel is available.
+- Set the TX slice to CW, CWL, or CWU mode so the CWX panel is available.
 
 ## Steps
 
@@ -62,11 +62,22 @@ Right-click any bubble to open a context menu with the following actions:
 
 ## F1–F12 and Escape shortcut behavior
 
-The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts. The shortcuts are enabled or disabled by the active slice's mode, not by panel visibility. This ensures the keys fire whether the CWX panel is visible or not, while preventing conflicts with the DVK (Digital Voice Keyer) panel.
+The F1–F12 function keys and the **Escape** key are available as application-wide shortcuts. The shortcuts are enabled or disabled by the TX slice's mode, not by panel visibility. This ensures the keys fire whether the CWX panel is visible or not, while preventing conflicts with the DVK (Digital Voice Keyer) panel.
 
-- When the active slice is in CW, CWL, or CWU mode: F1–F12 trigger the corresponding CW macros, and **Escape** aborts the current send buffer.
-- When the active slice is in a voice mode: F1–F12 trigger DVK macros instead.
-- The shortcuts are automatically managed by the MainWindow based on the active slice's mode.
+- When the TX slice is in CW, CWL, or CWU mode: F1–F12 trigger the corresponding CW macros, and **Escape** aborts the current send buffer.
+- When the TX slice is in a voice mode: F1–F12 trigger DVK macros instead.
+- The shortcuts are automatically managed by the MainWindow based on the TX slice's mode.
+
+## Speed step configuration
+
+The CWX panel supports speed modifier prefixes in macros. The **Speed:** spinbox step value determines how much the speed changes when using speed modification characters. To configure the step:
+
+1. Right-click the **Speed:** spinbox to open the context menu.
+2. Select **Speed step...** to open the Speed Step dialog.
+3. Enter a value between 1 and 20 WPM.
+4. Click **OK**.
+
+The step value is saved and persists between sessions.
 
 ## Related
 

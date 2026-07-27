@@ -24,21 +24,31 @@ The Microphone tab in Profile Manager lets you save, load, and delete microphone
 
 ## What each control does
 
-| Control | Kind | Behavior | Setting key |
-|---|---|---|---|
-| **Microphone (tab)** | Tab | Shows mic profiles stored on the radio. | — |
-| **Profile name** | Text field | Name used when saving a new mic profile. Populated automatically when you select an item in the list. | — |
-| **Profile list** | List | All mic profiles on the radio; the active profile is highlighted. | — |
-| **Load** | Button | Loads the selected profile onto the radio. Enabled only when a profile is selected. | — |
-| **Create** | Button | Creates a new mic profile under the name in **Profile name**. If **Profile name** is empty, uses the selected list item's name. The radio does not support overwriting an existing mic profile — use Auto-Save to capture changes to an active profile. | — |
-| **Delete** | Button | Deletes the selected profile after confirmation. Enabled only when a profile is selected. | — |
-| **Close** | Button | Closes the Profile Manager dialog. | — |
+| Control              | Kind       | Behavior                                                                                                                                                                                                                                                |
+|----------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Microphone (tab)** | Tab        | Shows mic profiles stored on the radio.                                                                                                                                                                                                                 |
+| **Profile name**     | Text field | Name used when saving a new mic profile. Populated automatically when you select an item in the list. **Create** is disabled when the field is empty. Editing the field clears any result message shown below the buttons.                              |
+| **Profile list**     | List       | All mic profiles on the radio; the active profile is highlighted.                                                                                                                                                                                       |
+| **Load**             | Button     | Loads the selected profile onto the radio. Enabled only when a profile is selected. Double-clicking a profile also loads it.                                                                                                                            |
+| **Create**           | Button     | Creates a new mic profile under the name in **Profile name**. Disabled when the **Profile name** field is empty. The radio does not support overwriting an existing mic profile — use Auto-Save to capture changes to an active profile.                |
+| **Delete**           | Button     | Deletes the selected profile after confirmation. Enabled only when a profile is selected.                                                                                                                                                               |
+| **Close**            | Button     | Closes the Profile Manager dialog.                                                                                                                                                                                                                      |
 
 ### Additional note (visible on the Microphone tab)
 
 A label below the buttons reads:
 
 > Updates to existing profiles save automatically — enable Auto-Save (Auto-Save tab) so changes follow the active profile. Create makes a new profile; it does not overwrite an existing one.
+
+## Result messages
+
+After clicking **Create**, a message line appears below the buttons indicating the outcome:
+
+- **Success** — The profile was created on the radio. The message is shown in blue text.
+- **Error** — The radio rejected the operation (for example, a duplicate name or a time-out). The message is shown in red text.
+- **In progress** — While waiting for the radio to respond (maximum 15 seconds), a brief "creating…" message may appear.
+
+The result line clears automatically when you start typing in the **Profile name** field, or when you load a different profile.
 
 ## Tips
 
@@ -59,8 +69,10 @@ Click **Enable Auto-Save** to turn on auto-saving immediately, then make the exi
 ## Troubleshooting
 
 - **Load and Delete are greyed out** — No profile is selected in the **Profile list**. Click a profile name to select it.
+- **Create is greyed out** — The **Profile name** field is empty. Type a name before clicking **Create**.
 - **Create does nothing** — Both the **Profile name** field and the **Profile list** selection are empty. Type a name in **Profile name** before clicking **Create**.
 - **Profile list is empty** — No microphone profiles have been saved on this radio yet. Follow the steps above to create the first one.
+- **Error message appears after Create** — The radio may have rejected the operation. Check that the name is unique and that the radio connection is stable. If the error persists, try again; if the radio does not respond within 15 seconds, the dialog shows a time-out error.
 
 ## Related
 

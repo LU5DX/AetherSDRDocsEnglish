@@ -12,6 +12,20 @@ The Connection panel is the main entry point for connecting AetherSDR to a FlexR
 
 If no radios appear, click **Retry Discovery** to re-run LAN discovery.
 
+### Set a Custom Nickname for a Non-Flex Radio
+
+For radios that do not have an on-radio name store (e.g., HL2, simulator), you can set a custom nickname without connecting first.
+
+1. Open **Settings > Connect to Radio...**.
+2. Ensure **Local** is selected at the top of the dialog.
+3. Wait for the "Available radios" list to populate with discovered radios on your LAN.
+4. Right-click the radio you want to nickname.
+5. Select **Set Nickname...** from the context menu.
+6. Enter the desired nickname in the dialog.
+7. Click **OK**.
+
+The nickname is saved and will appear in the radio list on subsequent discovery sweeps. This option is not shown for FlexRadio radios, whose names are set from Radio Setup while connected.
+
 ## Connect to a Remote Radio through SmartLink
 
 1. Open **Settings > Connect to Radio...**.
@@ -86,7 +100,7 @@ The setting is saved immediately to `AutoConnectToLastRadio`. The next time Aeth
 | Control | Default | Persisted setting | Behavior |
 |---|---|---|---|
 | Local / SmartLink / Manual mode buttons | Local | `ConnectionMode` | Switches between the three connection modes. |
-| Available radios list | — | — | Displays LAN radios discovered via mDNS/Flex discovery. |
+| Available radios list | — | — | Displays LAN radios discovered via mDNS/Flex discovery. Right-click a non-Flex radio to set a custom nickname. |
 | Connect Selected Radio | — | — | Connects to the highlighted LAN radio. |
 | No local radios found yet | — | — | Callout shown when discovery is empty. |
 | Retry Discovery | — | — | Re-runs LAN discovery. |

@@ -1,3 +1,4 @@
+```md
 # Work an FM repeater with CTCSS tone and +/- offset
 
 Configure a slice for FM duplex operation with a repeater offset and a CTCSS access tone so you can both hear the repeater output and key it correctly on transmit.
@@ -26,7 +27,6 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 | Control          | Default | Valid range / options                     |
 |------------------|---------|-------------------------------------------|
 | Mode combo       | USB     | FM, NFM, DFM (among others)               |
-| WFM button       | off     | toggle                                    |
 | Tone mode (FM)   | Off     | Off, CTCSS TX                             |
 | CTCSS tone value | —       | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
 | Offset (FM)      | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1                 |
@@ -39,7 +39,6 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 
 - If you need to listen on the repeater's input frequency to check whether the channel is busy before transmitting, click **REV** to swap the offset direction temporarily.
 - FM family modes hide the filter width preset buttons. This is expected; filter width for FM is fixed by the mode itself.
-- The **WFM** button (software FM demodulator) is separate from the FM mode combo. Click it to enable a software-based wideband FM demodulation path that routes DAX IQ audio via the Hi-Fi Cable. WFM is automatically turned off when you select any real radio mode from the Mode combo.
 - Slice tab buttons and the slice badge are color-coded per slice using SliceColorManager (v0.9.3+). The colors persist across sessions and are reflected in the slice tabs, the slice badge, VFO widgets, and meter strips.
 - When the radio reports a different number of available slices than the tab row was built for, AetherSDR now tears down the existing slice tab buttons and rebuilds them for the new count before reconnecting click handlers (v0.9.5.1, #2254). This prevents stale buttons appearing after a reconnect or a change in hardware configuration.
 - Filter width presets are stored in the format `lo:hi` (passband edges in Hz) or as a plain width value, depending on whether the preset was saved with explicit edge positions. Both formats are read correctly when you reopen the applet or switch modes (#2259).
@@ -54,6 +53,8 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - The offset direction buttons and REV button are part of an exclusive button group; selecting one automatically deselects the others.
 - The L/R pan slider now paints its fill from the centre outward. This provides a visual indication of the neutral (centre) position at a glance. The centre mark is a small dot painted on the groove.
 - The filter preset buttons and other styled buttons now use tokenised stylesheet colours through ThemeManager. This means the button appearance updates automatically when you switch themes, consistent with the rest of the UI (v26.6.1).
+- The RX antenna menu now includes virtual antenna tokens from the KiwiSDR when a KiwiSDR manager is active. Tokens are appended to the options list and are not duplicates of existing physical antennas. Selecting a virtual antenna triggers a `kiwiRxAntennaSelected` signal instead of calling `setRxAntenna` directly (#2781).
+- The RX antenna menu is rebuilt as a popup menu rather than an inline menu. The menu is deleted automatically when hidden (#2781).
 
 ## Troubleshooting
 
@@ -82,3 +83,4 @@ The **NT** and **RTTY** modes are treated as digital modes in the RX Controls ap
 - [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md)
 - [Select the RX or TX antenna for this slice](select-the-rx-or-tx-antenna-for-this-slice.md)
 - Calibrate AGC-T against the noise floor
+```

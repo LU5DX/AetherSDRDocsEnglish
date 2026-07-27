@@ -19,7 +19,7 @@ Both profiles use an abstract demodulator interface (`IAfskDemod`) that allows V
 
 Duplicate suppression collapses the same frame seen by multiple lanes into one emission, like a multi-decoder TNC (e.g. Dire Wolf).
 
-The feature is opened from the digital modes area when HF packet decode is active, or from a related menu entry.
+The dialog is opened from the digital modes area when HF packet decode is active, or from a related menu entry. The dialog provides five tabs: AX.25 (APRS), KISS TNC, Terminal, Mailbox, and D-STAR.
 
 ## What each control does
 
@@ -28,14 +28,36 @@ The feature is opened from the digital modes area when HF packet decode is activ
 | Decoded frames | text_area | Scrollable display of decoded AX.25 frames showing source, destination, and payload information. New in v26.5.2.1. |
 | Signal activity | widget | Real-time signal activity indicator showing packet detection and decode status. Provided by PacketActivityWidget. |
 
+### Tab navigation
+
+The dialog provides five tabs across the top: **AX.25**, **KISS TNC**, **Terminal**, **Mailbox**, and **D-STAR**. Click a tab to switch to that page.
+
+- **AX.25 (APRS)** — Default tab showing decoded APRS frames, a station table, and a transmit area.
+- **KISS TNC** — KISS TNC server interface for external applications.
+- **Terminal** — Connected-mode AX.25 terminal client for keyboard chat.
+- **Mailbox** — Personal Message System (PMS) mailbox for storing and forwarding messages.
+- **D-STAR** — D-STAR modem page for D-STAR digital voice operation (new in v26.7.4).
+
+### Status bar behavior
+
+The status bar below the tab content shows modem status, gain stage, and packet activity. When the **D-STAR** tab is active, the status bar is hidden.
+
+The transmit area (with the Transmit button and text input) is visible only on non-D-STAR tabs and only when diagnostics debug mode is enabled.
+
+### Transmit button behavior
+
+The **Transmit** button on the AX.25 tab and the **Send** button on the Terminal tab are marked with TX keying indicators. Clicking either button transmits the entered packet and keys the transmitter.
+
 ## Tips
 
 - The decoded frames area scrolls automatically as new frames are received. Use the scrollbar to review older frames.
 - For best decode results, tune the radio to a clear frequency with active packet activity. Typical HF packet frequencies are in the 14.100-14.110 MHz range on 20 meters and corresponding allocations on other bands. For VHF 1200, standard APRS frequencies apply (144.390 MHz in North America, 144.800 MHz in Europe, etc.).
 - The VHF 1200 profile adjusts TX preamble automatically based on the selected profile. If using a transverter, the VHF 1200 preamble may need adjustment for T/R switching lead-in time. Set `kVhf1200TxPreambleFlags` in the configuration to tune this value.
+- The **D-STAR** tab provides D-STAR digital voice modem functionality. When active, the packet activity status bar and transmit area are hidden.
 
 ## Troubleshooting
 
 - **No frames decoded** — Verify the radio is connected and tuned to a frequency with active AX.25 packet activity. Check that the audio level is sufficient; the decoder needs a clean signal to demodulate.
 - **Garbled or partial frames** — Weak signals, interference, or incorrect tuning can cause decode errors. Try adjusting the receiver bandwidth or retuning to center the signal within the passband.
 - **VHF 1200 decode issues** — Ensure the correct profile is selected. If using a transverter, verify that the TX preamble provides enough lead-in time for T/R switching.
+- **D-STAR tab not working** — Ensure the radio is tuned to a D-STAR frequency. The D-STAR modem requires a clean digital signal for proper decode.

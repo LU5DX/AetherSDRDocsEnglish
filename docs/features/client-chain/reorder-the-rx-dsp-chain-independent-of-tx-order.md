@@ -21,13 +21,13 @@ This page explains how to drag RX DSP stages into a new order inside the Aetheri
 |---------|------|----------|
 | TX | Toggle button | Shows and edits the TX DSP chain (ClientChainWidget) — fully interactive: click-bypass, double-click-edit, drag-reorder. Part of an exclusive pair with RX; amber 'VUDU' colour when selected. Last-active tab persists via `PooDooAudioActiveTab='TX'` / `'RX'`. |
 | RX | Toggle button | Shows and edits the RX DSP chain (ClientRxChainWidget) — also fully interactive with click-bypass, double-click-edit, drag-reorder; bookended by RADIO / ADSP / SPEAK status tiles. Each side keeps independent stage state, chain order, and BYPASS snapshot. Default: unchecked. |
-| BYPASS | Toggle button | Disable every stage in the selected chain (including RN2). Click again to restore the stages that were on before. Scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches. TX and RX maintain separate snapshots. |
+| BYPASS | Toggle button | Disable every stage in the selected chain (including NR modules). Click again to restore the stages that were on before. Scope is global (per audio engine), not per-profile — the button stays pressed across Channel Strip profile switches. TX and RX maintain separate snapshots. |
 | Record (circle glyph) | Toggle button | Captures up to 30 s of post-PUDU TX audio; click again to stop (playback starts automatically). Tooltip: 'Record up to 30 s of post-PooDoo™ TX audio (MIC must be set to PC and DAX off).' Hidden in RX mode (TX-only feature). Only enabled when the mic input is ready and playback is not running. Pulses red while recording. |
 | Play (triangle glyph) | Toggle button | Plays back the captured PUDU audio; click again to cancel. Hidden in RX mode. Only enabled once a recording exists and recording is not active. Pulses green while playing. |
 | TX chain stage (EQ / COMP / GATE / DESS / TUBE / PUDU / VERB) | Drag handle | Single-click toggles bypass for the stage; double-click opens the Aetherial Audio Channel Strip; drag reorders the TX chain. Hint text below reads 'Click to bypass · Double click to edit · Drag to reorder'. |
 | RX chain stage (EQ / AGC-G / AGC-C / DESS / TUBE / EVO) | Drag handle | Single-click toggles bypass for the RX stage; double-click opens its frameless floating editor in RX mode; drag reorders the RX chain. All six RX stages are fully implemented. Order is independent of the TX chain. Distinct mime type `'application/x-aethersdr-rx-chain-stage'` prevents stray drops between the two strips. |
 | RADIO status tile | Indicator | Non-interactive RX-side bookend. Greens when PC Audio (the standard SSB stream) is enabled. Only visible in RX mode. |
-| ADSP status / bypass tile | Toggle button | Interactive RX-side tile that mirrors which client-side noise reducer is currently active. Label rotates to the active module's short name (e.g. 'NR2', 'NR4', 'BNR'); falls back to 'ADSP' when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Double-click opens the AetherDSP Settings dialog. Only visible in RX mode. Snapshot restoration falls back to NR2 if no modules were active at bypass-time. |
+| ADSP status / bypass tile | Toggle button | Interactive RX-side tile that mirrors which client-side noise reducer is currently active. Label rotates to the active module's short name (e.g. 'NR2', 'NR4', 'BNR', 'NVA'); falls back to 'ADSP' when none is on. Single-click bypasses the entire NR cluster with an in-memory snapshot; single-click again restores the prior NR state. Snapshot restoration uses the last-known active module (or falls back to NR2 if none was active). The ADSP tile now recognises the NVA (NVidia Affects) module as part of the NR cluster — bypassing or restoring the cluster toggles NVA in addition to NR2, NR4, MNR, DFNR, and RN2. Double-click opens the AetherDSP Settings dialog. Only visible in RX mode. |
 | SPEAK status tile | Indicator | Non-interactive RX-side bookend. Greens when AetherSDR's audio output is unmuted. Only visible in RX mode. |
 
 ## TX chain double-click behaviour (v0.9.7)
@@ -61,6 +61,7 @@ Starting in v26.6.1, the chain applet and all stage tiles use theme-aware colour
 - Switching to TX with "TX" and reordering there does not affect the saved RX order. The two chains maintain independent stage sequences.
 - On the TX side, double-clicking any stage is the canonical gesture for opening the TX audio editor. Use the channel strip's own controls to navigate to individual stage settings.
 - The BYPASS button is global (per audio engine), not per-profile. If you switch profiles in the Channel Strip while BYPASS is active, the button stays checked and the TX chain remains bypassed.
+- The ADSP bypass snapshot now includes the NVA (NVidia Affects) module. If you were using NVA before bypassing the NR cluster, it will be re-enabled when you un-bypass.
 
 ## Troubleshooting
 
@@ -70,6 +71,7 @@ Starting in v26.6.1, the chain applet and all stage tiles use theme-aware colour
 - **The BYPASS button state does not match between TX and RX** — Ensure the audio engine has initialised before opening the chain applet. Each side maintains its own engine-owned bypass state, and switching modes updates the button automatically.
 - **Click/double-click feels too fast or too slow** — Adjust the click discrimination interval in **Settings > Interaction Settings** to match your preference.
 - **Stage colours look wrong after a theme switch** — This is expected if the theme was changed while the chain applet was open. Close and reopen the chain applet to reload all theme colours.
+- **NVA status not restored correctly after un-bypass** — The ADSP tile now includes NVA in its bypass snapshot. Ensure you have updated to v26.7.4 or later for correct NVA handling.
 
 ## Related
 

@@ -28,6 +28,25 @@ Only the text currently visible in the scroll area is copied.
 
 As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere in the CW decode text area to open it. The menu contains the standard text editing actions followed by a separator and a **Clear** item. Click **Clear** to erase the decode buffer. This is equivalent to clicking `CLR`.
 
+### Adjust the decoded text font size
+
+As of v26.7.4, you can increase or decrease the font size of decoded CW text for better readability.
+
+1. Locate the `A-` and `A+` buttons in the CW decode panel's button bar.
+2. Click `A+` to increase the font size.
+3. Click `A-` to decrease the font size.
+
+The font size is persisted across sessions. Valid range is 8 to 32 pixels.
+
+### Resize the CW decode panel
+
+As of v26.7.4, you can drag the top edge of the CW panel to change its height, revealing more decoded text history.
+
+1. Hover over the thin resize grip at the top of the CW decode panel. The cursor changes to a vertical resize cursor.
+2. Click and drag up or down to resize the panel.
+
+The panel height is persisted across sessions. Valid range is 60 to 600 pixels.
+
 ## What each control does
 
 | Control                 | What it does                                                                                 | Default |
@@ -36,6 +55,8 @@ As of v0.9.2.1, the decoded text area has a context menu. Right-click anywhere i
 | `CPY VIS`               | Copies only the text currently visible in the scroll area to the clipboard.                  | —       |
 | `CLR`                   | Clears the CW decode buffer entirely. Text cannot be recovered after clearing.               | —       |
 | Right-click > **Clear** | Clears the CW decode buffer from the context menu of the text area. Equivalent to `CLR`.     | —       |
+| `A-` / `A+` (v26.7.4)  | Decreases/increases the decoded-text font size. Persisted by `CwDecodeSettings::fontPx()`.   | 13 px   |
+| Resize grip (v26.7.4)  | Drag up or down to change the panel height. Persisted by `CwDecodeSettings::panelHeight()`.  | 80 px   |
 | Sens                    | Filters low-confidence decodes before they appear in the buffer. Higher values are stricter. | 30      |
 | 🔒P (Lock Pitch)        | Locks the CW decoder pitch to the current tuned frequency.                                   | —       |
 | 🔒S (Lock Speed)        | Locks the CW decoder speed to the current WPM.                                               | —       |
@@ -69,6 +90,8 @@ A separator space is automatically inserted when the display switches between TX
 - Use the pitch range slider (embedded double-handle slider labelled "Pitch") to narrow the decoder's frequency search. Set the left handle for minimum pitch and the right handle for maximum pitch. The default range is 500–700 Hz.
 - Use the WPM range slider (embedded double-handle slider labelled "WPM") to constrain the decoder's speed search. The default range is 15–40 WPM.
 - Lock Pitch (`🔒P`) and Lock Speed (`🔒S`) buttons let you freeze the current detected values so the decoder no longer adjusts pitch or speed even if the signal varies.
+- Use `A+` and `A-` to adjust the decoded text font for better readability, especially in small panadapter windows.
+- Drag the resize grip at the top of the CW panel to show more decoded text history without scrolling.
 
 ## Related
 

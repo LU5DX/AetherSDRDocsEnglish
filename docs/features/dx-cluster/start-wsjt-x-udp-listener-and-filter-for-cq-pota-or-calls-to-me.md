@@ -76,6 +76,10 @@ Configure AetherSDR to receive decoded transmissions from WSJT-X over UDP and sh
 
 Double-clicking a row in the **Spot List** tab tunes the active slice to that spot's frequency. As of v0.9.7, AetherSDR also forwards any mode information extracted from the spot comment, so the slice automatically switches to the correct mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
+The **Spot List** tab shows a sortable table of all live spots from every connected source. Use the per-band checkboxes above the table to filter which bands appear. The checkboxes use a flow layout that wraps to additional rows when the dialog is narrow, so each checkbox label remains readable.
+
+To hide or show individual columns in the spot table, right-click the table header and check or uncheck the column names in the context menu. The menu stays open while you toggle multiple columns so you can configure visibility in a single pass without the menu closing after each change.
+
 ## FreeDV Reporter station reporting
 
 The **FreeDV** tab contains a **Station Reporting** group that lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at `qso.freedv.org`. This section is only present in builds compiled with `HAVE_WEBSOCKETS`; on Windows it additionally requires `HAVE_RADE`.
@@ -88,11 +92,4 @@ The **FreeDV** tab contains a **Station Reporting** group that lets AetherSDR br
 | **Callsign:** | Callsign sent to the FreeDV Reporter map. The field is read-only while **Use radio** is checked. Callsign is automatically updated if you change it in Radio Setup while **Use radio** is active. | `FreeDvMyCallsign` |
 | **Use radio (callsign)** | Pre-fills the callsign field from the radio's configured callsign and locks the field read-only. Default: enabled. | `FreeDvUseRadioCallsign` |
 | **Grid Square:** | Maidenhead grid square sent to the FreeDV Reporter map. The field is read-only while **Use GPS** is checked. | `FreeDvMyGrid` |
-| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on radio models that have GPS hardware. | `FreeDvUseGpsGrid` |
-| **Station Msg:** | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. | `FreeDvMyMessage` |
-
-### Enabling FreeDV Reporter reporting
-
-1. Open `Settings > SpotHub...` and click the **FreeDV** tab.
-2. In the **Station Reporting** group, verify the **Callsign:** field shows your callsign.
-   - If **Use radio** is checked, the callsign is
+| **Use GPS (grid)** | Pre-fills the grid field from the radio's GPS module and locks the field read-only. Only shown on

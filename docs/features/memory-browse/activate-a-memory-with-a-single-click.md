@@ -21,7 +21,7 @@ The tuned slice immediately changes to the memory's frequency. The closest memor
 |---|---|---|
 | Memory table | Shows each memory sorted by frequency; single-click or Enter to activate the tuned slice to that memory | Columns: Frequency, Name. Closest memory to current tuning is highlighted with a distinct background. Double-click also tunes. |
 | Highlighted row | Memory closest to current tuning has a distinct background color | Updates automatically as you tune |
-| Add Memory | Saves the current slice as a new memory entry | Anchored at the bottom of the panel, always visible. Added in v26.5.1 (#2533). |
+| Add Memory | Saves the current slice on this panadapter as a memory | Added at the top of the panel, above the memory list. Inserted at the top of the panel layout in v26.7.4. |
 | No memories are available yet. | Shown when the radio has no memories loaded | |
 
 ## Tips

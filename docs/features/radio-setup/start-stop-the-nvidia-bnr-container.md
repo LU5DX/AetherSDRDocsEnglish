@@ -31,7 +31,12 @@ The Radio tab displays radio information, identification, license information, a
 | **multiFLEX**                                       | Indicator                                                                                                                                                                                   | multiFLEX enabled state.                                                                                                                                                              |
 | **License Info**                                    | Indicator                                                                                                                                                                                   | Displays license details (Subscription / Expiration / Radio ID / Licensed version) from the radio.                                                                                    |
 | **Reboot:**                                         | Button + confirmation                                                                                                                                                                       | Reboots the connected radio. See "Rebooting the radio" below.                                                                                                                         |
-
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                                                                             |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.                                                   |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                                                                     |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                                                                          |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                                                                       |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                                                                            |
 #### Rebooting the radio
 
 1. Click **Reboot Radio**.
@@ -159,35 +164,4 @@ The combo box is populated dynamically based on what the radio reports:
 | Entry                | Shown when                                                                 |
 |----------------------|----------------------------------------------------------------------------|
 | Auto                 | Always present.                                                            |
-| TCXO                 | Radio reports TCXO hardware present, or TCXO is the current setting or active state. |
-| GPSDO                | Radio reports GPSDO hardware present, or GPSDO is the current setting or active state. |
-| External 10 MHz      | Radio reports an external reference detected, or External is the current setting or active state, or oscillator status has been received. |
-
-The lock-status label beside the combo shows the current oscillator state:
-
-| Condition                                      | Label text (examples)               |
-|------------------------------------------------|-------------------------------------|
-| No status received yet                         | Waiting for oscillator status       |
-| Auto mode, radio resolved to a source          | Auto -> GPSDO Locked                |
-| Setting differs from active state              | TCXO -> GPSDO Locked                |
-| Setting matches active state                   | GPSDO Locked                        |
-| Active source unlocked                         | GPSDO Unlocked                      |
-| External selected, no signal detected          | External 10 MHz Unlocked (not detected) |
-
-The label color is green when locked, red when unlocked, and muted blue-grey before status arrives.
-
-#### To calibrate frequency offset
-
-1. Open `Settings > Radio Setup...`.
-2. Click the **RX** tab.
-3. Enter a known-accurate reference frequency in **Cal Frequency (MHz)** (for example, a WWV or WWVH carrier).
-4. Verify the value is correct. If the field is empty, the status label shows "Enter cal frequency" and calibration cannot start.
-5. Click **Start**. The status label shows "Starting..." then "Busy" while the calibration sweep runs.
-6. When complete, the **Freq Offset (ppb)** field updates with the calculated offset.
-
-## Antennas (tab)
-
-The Antennas tab allows you to assign user-friendly names to each antenna port on the radio. This is useful for identifying which physical antenna is connected to each port.
-
-| Control                  | Kind      | Behavior                                                                 |
-|--------------------------|-----------|--------------------------------------------------------------------------|
+| TCXO                 | Radio reports TCXO hardware present, or TCXO

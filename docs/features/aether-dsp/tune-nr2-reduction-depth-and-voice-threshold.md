@@ -9,6 +9,7 @@ This page explains how to adjust AetherSDR's client-side noise-reduction engines
 - MNR is only available on macOS builds. The MNR toggle is dimmed on Windows and Linux.
 - BNR is only available on builds with the NVIDIA Broadcast SDK. The BNR toggle is dimmed otherwise.
 - NR4 requires LLVM (clang-cl) on Windows. The NR4 toggle is dimmed on Windows builds compiled without LLVM. Install LLVM from llvm.org and rebuild to enable NR4.
+- DFNR requires DeepFilterNet to be set up and AetherSDR rebuilt. The DFNR toggle is disabled if the engine is unavailable.
 
 ## Opening the dialog
 
@@ -37,6 +38,8 @@ Six toggle buttons are arranged in a row at the top of the dialog. Clicking a to
 
 When NR2 is activated, the AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
 
+Each toggle button has an accessible name for screen readers and automation, following the pattern "NR2 noise-reduction method", "NR4 noise-reduction method", etc.
+
 Available engines:
 
 - **NR2** — Musical-noise-reduction engine
@@ -55,11 +58,13 @@ Under the NR2 tab, use these controls:
 | **Gain Method** | Gamma | Linear / Log / Gamma / Trained | `NR2GainMethod` | Selects gain-curve mapping used by NR2. Stored as integer 0-3. |
 | **NPE Method** | OSMS | OSMS / MMSE / NSTAT | `NR2NpeMethod` | Selects noise power estimator. Stored as integer 0-2. |
 | **AE Filter (artifact elimination)** | On | On / Off | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
+| **Use Original Geometry** | Off | On / Off | `NR2UseOriginalGeometry` | When enabled, uses the original NR2 spectral gain geometry instead of the alternative flatter curve. |
 | **Reduction:** | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Slider stores value*100 internally. |
+| **Reduction Floor:** | 0.10 | 0.00–1.00 | `NR2GainFloor` | Sets the minimum noise reduction gain that is always applied, even on speech-dominant frames. |
 | **Smoothing:** | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
 | **Threshold:** | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets speech-presence-probability threshold. |
 
-Click **Reset Defaults** (↺ icon) to restore all NR2 parameters to their defaults: Gamma/OSMS/AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
+Click **Reset Defaults** (↺ icon) to restore all NR2 parameters to their defaults: Gamma/OSMS/AE on, Use Original Geometry off, Reduction 1.50, Reduction Floor 0.10, Smoothing 0.85, Threshold 0.20.
 
 ## NR4 parameters
 
@@ -112,9 +117,11 @@ Starting in v26.6.1, the AetherDSP Settings dialog uses the theme system for sty
 ## Tips
 
 - For SSB voice operation with NR2, start with **Reduction:** at `1.50` and **Threshold:** at `0.20`. If speech sounds clipped or hollow, lower **Reduction:** toward `1.00`.
+- **Reduction Floor:** sets a minimum gain that is always applied. A setting of `0.10` means even on speech-dominant frames, at least 10% noise reduction is active. Set to `0.00` to allow full pass-through on speech.
 - Lowering **Threshold:** below `0.15` can cause residual noise to break through during speech pauses because more of the signal is classified as speech. Raise it if you notice this.
 - If the noise estimate reacts too slowly to burst noise, lower **Smoothing:** toward `0.60`. If the noise gate sounds choppy, raise it toward `0.95`.
 - Leaving **AE Filter (artifact elimination)** enabled is recommended for most conditions; disable it only if you notice the post-filter itself introducing artifacts.
+- **Use Original Geometry** enables the original NR2 spectral gain curve. Enable this if you prefer the older noise reduction character; disable it for the newer flatter response that may preserve more speech components.
 - For NR4, start with default settings and adjust **Reduction (dB):** first. Raise **Masking Depth:** and **Suppression:** only if needed for particularly noisy conditions.
 - MNR on macOS works best at **Strength** between 60-80 for SSB; higher values may introduce artifacts.
 
@@ -126,6 +133,7 @@ Starting in v26.6.1, the AetherDSP Settings dialog uses the theme system for sty
 - **MNR toggle is grayed out** — You are on Windows or Linux. MNR requires macOS.
 - **BNR toggle is grayed out** — The NVIDIA Broadcast SDK is not installed or not detected.
 - **NR4 toggle is grayed out on Windows** — LLVM (clang-cl) is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.
+- **DFNR toggle is grayed out** — DeepFilterNet is not set up or AetherSDR was not rebuilt with DFNR support.
 - **Can't find the dialog after minimizing** — Check the taskbar/dock. The dialog minimizes like any other window.
 
 ## Related

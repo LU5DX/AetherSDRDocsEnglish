@@ -23,17 +23,22 @@ The AetherSDR help system bundles several offline guides covering setup, noise c
 
 ## What each control does
 
-| Control | Behavior |
-|---|---|
-| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the topic title. Read-only. |
-| Title | Displays the name of the open help topic. Read-only. |
-| Subtitle | One-line description: "Bundled help is available even when your station computer is offline." Read-only. |
-| `Find:` field | Type a search term to locate text within the current topic. Placeholder text reads "Subject or term". The border turns red when there are no matches. |
-| `Next` | Finds the next occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Return. |
-| `Previous` | Finds the previous occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Shift+Return. |
-| Markdown viewer | Renders the loaded help topic. External links open in your default browser. |
-| Hint / footer | Reads: "Tip: The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only. |
-| `Close` | Closes the help dialog. |
+| Control                            | Behavior                                                                                                                                              | Notes                                                                                                                                              |
+|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `AETHERSDR OFFLINE HELP` (eyebrow) | Brand header shown above the topic title. Read-only.                                                                                                  |                                                                                                                                                    |
+| Title                              | Displays the name of the open help topic. Read-only.                                                                                                  |                                                                                                                                                    |
+| Subtitle                           | One-line description: "Bundled help is available even when your station computer is offline." Read-only.                                              |                                                                                                                                                    |
+| `Find:` field                      | Type a search term to locate text within the current topic. Placeholder text reads "Subject or term". The border turns red when there are no matches. |                                                                                                                                                    |
+| `Next`                             | Finds the next occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Return.                           |                                                                                                                                                    |
+| `Previous`                         | Finds the previous occurrence of the search term. Enabled only when the `Find:` field contains text. Keyboard shortcut: Shift+Return.                 |                                                                                                                                                    |
+| Find status                        | Shows 'No matches' (red) or 'Wrapped to top/bottom' when no further matches are found in the current direction.                                      |                                                                                                                                                    |
+| Markdown viewer                    | Renders the loaded help topic. External links open in your default browser.                                                                           |                                                                                                                                                    |
+| Hint / footer                      | Reads: "Tip: The Help menu keeps each guide separate so you can reopen just the topic you need." Read-only.                                           |                                                                                                                                                    |
+| `Close`                            | Closes the help dialog.                                                                                                                               |                                                                                                                                                    |
+
+## Position and size persistence
+
+Each help guide now remembers its own window position and size independently. If you open the "Getting Started" guide, move it to one area of your screen, and then open the "Understanding Noise Cancellation" guide, the second dialog will not stack on top of the first. AetherSDR restores each guide to its last-used position and size. This behavior applies to every help topic opened from the Help menu.
 
 ## Appearance and theming
 
@@ -41,7 +46,7 @@ The Help dialog now follows the active theme instead of using hard-coded colors.
 
 ## Tips
 
-- Each Help menu item opens a separate dialog, so you can have more than one topic open at the same time.
+- Each Help menu item opens a separate dialog, so you can have more than one topic open at the same time, and each one will remember its own window position.
 - Press the standard Find shortcut (Ctrl+F on Linux and Windows, Cmd+F on macOS) while the dialog is focused to move the cursor directly to the `Find:` field.
 - If a search term is not found, the `Find:` field border turns red and the status area shows "No matches". Clearing the field resets the state.
 

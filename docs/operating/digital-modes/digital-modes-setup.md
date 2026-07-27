@@ -2,6 +2,8 @@
 
 The **DAX Audio** applet shows per-channel RX meters and gain sliders for DAX 1-4 plus a single TX meter, with a master Enable toggle that persists as `AutoStartDAX`. In v0.9.7 (Linux), DAX RX latency drops from ~400 ms to ~200 ms via a native PipeWire `pw_stream` source path, replacing the previous PulseAudio client.
 
+> **Note for Windows users:** AetherSDR does not ship a built-in DAX bridge on Windows. The DAX Audio applet displays an informational message only. Use TCI or FlexRadio's SmartSDR DAX drivers instead. See Help > Configuring Data Modes for setup instructions.
+
 ## Opening DAX Audio
 
 Click the **DAX Audio** button in the toolbar.
@@ -12,7 +14,7 @@ The DAX Audio window contains controls for enabling the DAX audio bridge, settin
 
 | Control | Default | Range | Setting Key | Behavior |
 |---------|---------|-------|-------------|----------|
-| **DAX Enable** | off | on/off | `AutoStartDAX` | Starts the DAX audio bridge; emits `daxToggled`. Button label is "Enable"; master switch for all DAX RX and TX streams. |
+| **DAX Enable** | off | on/off | `AutoStartDAX` | Starts the DAX audio bridge; emits `daxToggled`. Button label reflects current state: "Enabled" when active, "Disabled" when off. Master switch for all DAX RX and TX streams. |
 | **DAX 1 gain+meter** | 0.5 | 0.0–1.0 | `DaxRxGain1` | Combined meter/slider; drag to set RX gain on DAX channel 1. Emits `daxRxGainChanged(1, g)` and persists. |
 | **DAX 2 gain+meter** | 0.5 | 0.0–1.0 | `DaxRxGain2` | Combined meter/slider; drag to set RX gain on DAX channel 2. |
 | **DAX 3 gain+meter** | 0.5 | 0.0–1.0 | `DaxRxGain3` | Combined meter/slider; drag to set RX gain on DAX channel 3. |
@@ -30,6 +32,10 @@ Each DAX channel shows which slice (if any) is currently routed to it.
 | **DAX 3 assignment** | —, Slice A..H | The slice (if any) currently assigned to this DAX channel. |
 | **DAX 4 assignment** | —, Slice A..H | The slice (if any) currently assigned to this DAX channel. |
 | **TX assignment** | —, Slice A..H | The slice currently holding TX privileges (drives DAX TX). |
+
+### Windows Platform Behavior
+
+On Windows, the DAX Audio applet displays only an informational note: "No built-in DAX driver on Windows. Use TCI, or SmartSDR DAX." No controls, meters, or indicators are built. The applet's internal state setters (`setDaxEnabled`, `setDaxRxLevel`, `setDaxTxLevel`) are guarded and do nothing.
 
 # CAT Control
 
@@ -166,14 +172,4 @@ The **FreeDV** tab provides a WebSocket feed of FreeDV QSO reporter spots. This 
 |---------|---------|-------|-------------|----------|
 | **Server:** | qso.freedv.org (WebSocket) | — | — | Shows fixed FreeDV endpoint. |
 | **Start / Stop (FreeDV)** | — | — | — | Connects or disconnects the FreeDV WebSocket. |
-| **Auto-start on startup (FreeDV)** | — | — | `FreeDvAutoStart` | Auto-starts FreeDV on launch. |
-| **FreeDV Spots** | — | — | — | Console of FreeDV activity. |
-| **Spot Color: (FreeDV)** | — | — | `FreeDvSpotColor` | Color picker for FreeDV spots. |
-
-### Spot List Tab
-
-The **Spot List** tab shows a unified searchable table of all live spots from all sources.
-
-| Control | Default | Range | Setting Key | Behavior |
-|---------|---------|-------|-------------|----------|
-| **Bands:** | — | — | — | Per-band checkboxes toggle visibility in table. One checkbox per band (160m
+|

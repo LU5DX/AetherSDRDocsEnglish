@@ -1,6 +1,6 @@
-# Enable squelch from the VFO panel
+# VFO Panel
 
-Squelch mutes audio for a slice when the received signal falls below a set threshold. Use this to silence background noise on FM, AM, or digital modes when no signal is present.
+The VFO Panel is a floating per-slice control panel anchored to the VFO marker on the spectrum display. It provides quick access to the most frequently used per-slice settings — mode, filter presets, antenna selection, AF gain, pan, squelch, AGC, RIT/XIT, DSP noise reduction buttons, and DAX assignment — without leaving the spectrum view. Collapses to a compact frequency-only strip.
 
 ## Before you start
 
@@ -11,11 +11,8 @@ Squelch mutes audio for a slice when the received signal falls below a set thres
 ## Steps
 
 1. Open the VFO panel by clicking the VFO marker flag on the spectrum display for the slice you want to configure.
-2. Click the **Audio** tab inside the VFO panel.
-3. Click the **Squelch button** to enable squelch. The button activates and squelch is applied to the slice immediately.
-4. Drag the adjacent squelch slider left or right to set the threshold. The valid range is 0–100.
-
-To disable squelch, click the **Squelch button** again.
+2. Click any tab inside the VFO panel to access controls for that tab.
+3. Adjust controls as needed. Changes take effect immediately.
 
 ## What each control does
 
@@ -46,7 +43,7 @@ Neither the button state nor the slider position is persisted as an AetherSDR Ap
 
 ## Tips
 
-- Set the slider just above the noise floor to prevent the audio from cutting in and out on weak signals.
+- Set the squelch slider just above the noise floor to prevent the audio from cutting in and out on weak signals.
 - The squelch threshold interacts with the AGC setting. If you change the AGC mode using the **AGC combo**, you may need to readjust the squelch slider.
 
 ## DSP tab changes in v0.9.8
@@ -182,4 +179,4 @@ In v26.6.3, the VFO panel tab bar was rewritten to use `QPushButton` instead of 
 
 | Change | Description |
 |---|---|
-| Tab buttons | Each tab label is now a `QPushButton` with checkable behavior. Tab focus is enabled via `Qt::
+| Tab buttons | Each tab label is now a `QPushButton` with checkable behavior. Tab focus is enabled via `Qt:.focusPolicy` set to `Qt:.StrongFocus`.

@@ -160,9 +160,15 @@ The VFO panel now respects the **Reverse mouse wheel direction** setting from `I
 
 The VFO panel now provides accessibility frequency announcements when assistive technology (e.g., screen reader) is active. The frequency label fires a `QAccessibleValueChangeEvent` at a throttled rate when the frequency changes. This ensures that screen readers announce frequency updates without flooding the accessibility layer.
 
+## VFO panel shadow rendering (v26.7.4)
+
+The VFO panel flag now renders its elevation shadow on a separate `FlagShadow` widget. This prevents live S-meter repaints from triggering full-shadow re-renders at animation rate, improving performance.
+
+## Height-for-width propagation (v26.7.4)
+
+The VFO panel tab stack now forwards `heightForWidth` from the current page. This allows pages that maintain an aspect ratio (such as a meter widget) to correctly drive the strip height. Pages without height-for-width (such as the S-meter spacer) are unaffected.
+
 ## Related
 
 - [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)
-- [Enable squelch from the VFO panel](enable-squelch-from-the-vfo-panel.md)
-- [Collapse the VFO panel to frequency-only view](collapse-the-vfo-panel-to-frequency-only-view.md)
-- [VFO Panel overview](overview.md)
+- [Enable

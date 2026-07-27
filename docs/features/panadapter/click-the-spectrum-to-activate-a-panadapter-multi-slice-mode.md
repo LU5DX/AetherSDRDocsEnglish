@@ -28,11 +28,13 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | 🔒S (Lock Speed)      | Toggle button                        | —       | Locks the CW decoder speed to the current WPM. |
 | Pitch range          | Dual-handle slider                   | Lo: 500 Hz, Hi: 700 Hz | Sets the decoder pitch search range (Lo to Hi). Range: 300-1200 Hz. Label shows "Pitch". |
 | WPM range            | Dual-handle slider                   | Lo: 15 WPM, Hi: 40 WPM | Sets the decoder speed search range. Range: 5-60 WPM. Label shows "WPM". |
+| A- (font size down)  | Push button                          | —       | Decreases the decoded-text font size by one step. Persisted across sessions via `CwDecodeSettings::fontPx()`. Range: 8–32 px. |
+| A+ (font size up)    | Push button                          | —       | Increases the decoded-text font size by one step. Persisted across sessions via `CwDecodeSettings::fontPx()`. Range: 8–32 px. |
 | CPY ALL              | Push button                          | —       | Copies the full decoded text to the clipboard. |
 | CPY VIS              | Push button                          | —       | Copies only the text currently visible in the scroll area. |
 | CLR                  | Push button                          | —       | Clears the CW decode buffer. |
 | ✕ (close CW)         | Push button                          | —       | Hides the CW decode panel; emits cwPanelCloseRequested. |
-| CW decode text       | Read-only text field                 | —       | Rolling display of decoded CW coloured by confidence. Colours: <0.15 green, <0.35 yellow, <0.60 orange, >=0.60 red. |
+| CW decode text       | Read-only text field                 | —       | Rolling display of decoded CW coloured by confidence. Font size is user-adjustable via A- and A+ buttons. Colours: <0.15 green, <0.35 yellow, <0.60 orange, >=0.60 red. |
 | Start Sweep          | Push button                          | —       | Runs a low-power tune sweep across the current TX band and plots SWR on the panadapter. |
 | Clear Sweep          | Push button                          | —       | Removes the displayed SWR sweep trace from the panadapter. |
 | PWR (sweep power)    | Slider                               | 1 W     | Sets the carrier power used during the sweep. Range: 1 W to 10 W. The current value is shown as a read-only label to the right of the slider. |
@@ -58,7 +60,17 @@ The **Pitch range** dual-handle slider sets the decoder pitch search range. The 
 
 The **WPM range** dual-handle slider sets the decoder speed search range. The lower handle sets the minimum speed, the upper handle sets the maximum speed. The range is 5-60 WPM. Defaults: 15-40 WPM.
 
+Click **A-** to decrease the decoded-text font size, or **A+** to increase it. The font size is persisted across sessions and has a range of 8–32 pixels. The panel height adjusts proportionally to show more or fewer lines of decoded text.
+
 Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click **CPY VIS** to copy only the text currently visible in the scroll area. Click **CLR** to clear the decode buffer. Click **✕ (close CW)** to hide the panel.
+
+### Resizing the CW decode panel
+
+A thin drag grip at the top edge of the CW decode panel allows you to resize the panel vertically. To resize:
+
+1. Hover over the top edge of the CW decode panel until the cursor changes to a vertical resize cursor.
+2. Click and drag up or down to adjust the panel height.
+3. The panel height is persisted across sessions via `CwDecodeSettings::panelHeight()` with a range of 60–600 pixels.
 
 ### TX-side decoded text
 
@@ -74,7 +86,7 @@ Right-clicking inside the CW decode text area opens a context menu. In addition 
 
 When the radio begins transmitting (based on the radio's interlock TRANSMITTING state, not the local MOX edge), the waterfall display freezes automatically. This prevents a 10–23 second TX-trail artifact that previously appeared after unkeying. Any client transmitting to the radio triggers the freeze. The waterfall unfreezes when transmission ends.
 
-On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default (#2465).
+On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default (#2465). Secondary panadapters (Slices B–H) also have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum on reconnect (#3034).
 
 ## ANT panel SWR sweep controls
 
@@ -112,6 +124,7 @@ The panadapper's title bar and CW panel now use theme-aware styling instead of h
 - Drag on the Spectrum / waterfall area to tune the slice frequency. Scroll to zoom the span.
 - To give one panadapter more screen space without closing others, click □ (maximize) in its title bar. See [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md).
 - To move a panadapter to a separate window, click ⬈ (pop-out). See [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md).
+- Adjust the CW decode text size with the A- and A+ buttons to suit your preference. The setting persists across sessions.
 
 ## Related
 

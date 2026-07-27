@@ -1,15 +1,21 @@
 # Network Diagnostics
 
-The Network Diagnostics dialog provides a live view of the network link to the radio. It features a multi-tab layout with an overview dashboard, detailed metrics, per-stream performance graphs, and a live log viewer.
+The Network Diagnostics dialog provides a live view of the network link to the radio. It features a multi-pane layout with a navigation tree on the left and a content area on the right, replacing the previous tab-based design. Pages include an overview dashboard, detailed metrics, per-stream performance graphs, and a live log viewer.
 
 ## Opening Network Diagnostics
 
 1. Go to `Settings > Network...`.
 2. The Network Diagnostics dialog opens.
 
-## Tabs
+## Navigation
 
-The dialog contains the following tabs:
+The left pane contains a tree navigation widget that lists all available diagnostic pages. Click any page name to display its content in the right pane.
+
+A search field at the top of the navigation tree lets you filter the list by typing part of a page name.
+
+## Pages
+
+The dialog contains the following pages, selectable from the navigation tree:
 
 - **Overview** – Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series charts (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).
 - **Details** – A scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.
@@ -17,11 +23,11 @@ The dialog contains the following tabs:
 - **Rates** – Full-width log-scale time-series chart of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.
 - **Packet Loss** – Full-width time-series chart of packet loss percentage per stream category.
 - **Audio** – Full-width time-series chart of playback buffer fill (ms) and underruns per second. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream.
-- **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The timeframe selector is hidden while this tab is active.
+- **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The timeframe selector is hidden while this page is active.
 
 ## Timeframe selector
 
-A dropdown at the top-right corner of the tab bar selects how far back the time-series charts display history. The following options are available:
+A dropdown at the top-right corner of the content area selects how far back the time-series charts display history. The following options are available:
 
 - 1 minute
 - 5 minutes (default)
@@ -30,23 +36,23 @@ A dropdown at the top-right corner of the tab bar selects how far back the time-
 - 1 day
 - 1 week
 
-The timeframe selector is hidden when the **Logs** tab is active.
+The timeframe selector is hidden when the **Logs** page is active.
 
 ## Pause log scrolling to inspect an older entry
 
-The Logs tab tails the AetherSDR log file in real time. This section explains how to pause that automatic scrolling so you can read an older entry without it jumping away, and how to resume live tailing when you are done.
+The Logs page tails the AetherSDR log file in real time. This section explains how to pause that automatic scrolling so you can read an older entry without it jumping away, and how to resume live tailing when you are done.
 
 ### Steps
 
 1. Open Network Diagnostics via `Settings > Network...`.
-2. Click the **Logs** tab.
+2. Click **Logs** in the navigation tree.
 3. To pause scrolling, do either of the following:
    - Scroll up in the log viewer. The viewer automatically switches to **Paused**.
    - Click the toggle button, which reads **Live**, to switch it to **Paused**.
 4. Read the entry you need. The display stays fixed while the button shows **Paused**.
 5. When you are ready to return to the live tail, click the toggle button, which now reads **Paused**, to switch it back to **Live**. The viewer immediately jumps to the newest output and resumes auto-scrolling.
 
-### Logs tab controls
+### Logs page controls
 
 | Control                            | Default | Behavior                                                                                                                                                                                                                                                                                                                            |
 |------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -54,6 +60,7 @@ The Logs tab tails the AetherSDR log file in real time. This section explains ho
 | **Filter Categories** (checkboxes) | –       | Per-category checkboxes filter the log view. Includes a "General" (default) category plus all registered LogManager categories.                                                                                                                                                                                                     |
 | **Select All** (push button)       | –       | Shows all log categories in the viewer.                                                                                                                                                                                                                                                                                             |
 | **Deselect All** (push button)     | –       | Hides all log categories from the viewer.                                                                                                                                                                                                                                                                                           |
+
 ### Tips
 
 - Scrolling up is the fastest way to pause — you do not need to reach for the toggle button first.

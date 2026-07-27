@@ -35,6 +35,7 @@ The Logs tab in Network Diagnostics shows a live tail of the AetherSDR log file,
 | **Live / Paused**     | When **Live**, the viewer auto-scrolls to the newest output. Scrolling up switches the state to **Paused**. Clicking the toggle when it reads **Paused** resumes auto-scroll and jumps to the tail.                              | Live      |
 | **Log path label**    | Displays the full filesystem path of the log file being tailed.                                                                                                                                                                  | —         |
 | **Close**             | Closes the dialog.                                                                                                                                                                                                               | —         |
+
 ## Network Diagnostics indicators
 
 | Indicator | Description |
@@ -62,6 +63,7 @@ The Logs tab in Network Diagnostics shows a live tail of the AetherSDR log file,
 - Syntax highlighting colors help distinguish log levels at a glance: `INF` lines appear in blue, `WRN` in amber, and `CRT`/`FTL` in red. Category names are shown in bold. Numbers and protocol tokens (such as `UDP`, `TCP`, `RX`, `TX`) are highlighted separately.
 - If you want to freeze the display to read a specific entry, scroll up. The viewer switches to **Paused** automatically. Click **Live** to return to the tail.
 - Clicking **Deselect All** and then checking a single category is the fastest way to isolate one subsystem's output.
+- In v26.7.4, the dialog uses a navigation tree on the left and a content panel on the right. Click a page name in the **Network Diagnostics Navigation** tree to switch between pages. A search field at the top of the navigation tree allows you to filter available pages by name.
 
 ## Related
 

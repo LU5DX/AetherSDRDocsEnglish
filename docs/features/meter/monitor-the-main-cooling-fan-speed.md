@@ -12,22 +12,30 @@ Use the Meters applet to watch the FLEX-8600's main cooling fan speed in real ti
 1. Locate the **MTR** tray button on the right sidebar of the applet panel.
 2. Click **MTR** to toggle the Meters applet open.
 3. Read the **Main Fan** gauge under the **Radio Hardware** section header.
+4. To toggle the PA temperature display between Celsius and Fahrenheit, click the **°C** or **°F** button in the header row next to the **Radio Hardware** label. The setting persists between sessions.
 
 ## What each control does
 
 | Gauge        | What it shows                                                         | Valid range |
 |--------------|-----------------------------------------------------------------------|-------------|
-| **PA Temp**  | PA temperature in °C, read from the radio's PATEMP meter. The gauge has an accessible name of "PA temperature" for screen reader support. | 0–120 °C    |
+| **PA Temp**  | PA temperature, read from the radio's PATEMP meter. Displayed in Celsius by default; toggle to Fahrenheit using the **°C/°F** button in the header. The gauge label updates dynamically to show the live temperature value (e.g. **+55.0°C** or **+131.0°F**). The gauge has an accessible name of "PA temperature" for screen reader support. | 0–120 °C (32–248 °F) |
 | **+13.8V**   | Supply voltage in volts. The gauge label updates dynamically to show the live radio-reported value (for example, **+13.82V**) instead of the static **+13.8V** placeholder. The gauge has an accessible name of "Supply voltage" for screen reader support. | 10.0–16.0 V |
 | **Main Fan** | Current cooling fan speed in rpm, read from the radio's MAINFAN meter. The gauge has an accessible name of "Main fan speed" for screen reader support. | 0–3000 rpm  |
 
-Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns red above 70 °C, the **+13.8V** gauge turns red above 15 V, and the **Main Fan** gauge turns red above 2500 rpm.
+Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns red above 70 °C (158 °F), the **+13.8V** gauge turns red above 15 V, and the **Main Fan** gauge turns red above 2500 rpm.
+
+## Controls
+
+| Control | What it does |
+|---------|--------------|
+| **°C/°F** button | Toggles the PA temperature display between Celsius and Fahrenheit. The label updates to show the current unit. The setting persists across application restarts. |
 
 ## Tips
 
 - The **Main Fan** gauge updates as the radio reports new meter values. There may be a brief delay after the applet first opens while the meter index is resolved.
 - The gauge uses smoothed animation for value changes, so rapid fluctuations will appear as a smooth sweep rather than an instant jump.
 - The **+13.8V** gauge label reflects the live voltage value reported by the radio. The label updates each time the radio sends a new meter reading, so the displayed voltage (for example, **+13.82V**) is always current.
+- When you click the **°C/°F** button, the PA temperature gauge immediately updates to show values in the selected unit. The tick marks on the gauge also change to reflect the selected scale.
 
 ## Accessibility
 
@@ -35,11 +43,13 @@ Gauge bars are cyan in the normal operating range. The **PA Temp** gauge turns r
   - **PA Temp** — "PA temperature"
   - **+13.8V** — "Supply voltage"
   - **Main Fan** — "Main fan speed"
+- The **°C/°F** button has an accessible description: "Toggles PA temperature display between Celsius and Fahrenheit".
 
 ## Troubleshooting
 
 - **Main Fan gauge shows no movement after opening the applet** — The fan meter index is resolved lazily on first update. Wait a few seconds for the radio to emit a meter reading. If the gauge remains at zero, verify the radio connection is active via `Settings > Connect to Radio...`.
 - **Meters applet does not display correctly with certain themes** — The applet now applies theme styling via `applet/meter` container settings. If you experience visual issues, ensure you are using a compatible theme in `Settings > Appearance`.
+- **PA temperature gauge shows "0" or does not update** — Verify the radio is transmitting and reporting PATEMP values. Some radios may not report temperature when idle.
 
 ## Related
 

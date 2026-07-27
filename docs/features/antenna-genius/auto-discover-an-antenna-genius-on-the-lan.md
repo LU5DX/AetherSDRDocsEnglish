@@ -20,11 +20,11 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 |---|---|---|---|
 | **Device combo** | Lists all Antenna Genius units discovered via UDP. Auto-selects and connects to the first device found. | — | — |
 | **Connect / Disconnect** | Connects to the selected device in the combo, or disconnects if already connected. Label switches between **Connect** and **Disconnect** to reflect current state. | Connect | — |
-| **Manual IP** | Enter an IPv4 or IPv6 address and press Enter to connect directly to port 9007. Used when the device is not on the local LAN. The last-used value is restored on next launch. | — | `AG_ManualIp` |
+| **Manual IP** | Enter an IPv4 or IPv6 address and press Enter to connect directly to port 9007. Used when the device is not on the local LAN. The last-used value is restored on next launch. Invalid addresses produce a red **Invalid IP address** status. | — | `AG_ManualIp` |
 | **Port A antenna buttons** | Click to select an antenna on Port A; click again to deselect (antenna=0). Buttons are disabled/dim if the antenna is already selected on Port B. Colour indicates permission: blue = TX+RX, amber = RX only, dim = no permission on current band. | — | — |
 | **Port A AUTO** | Toggle to enable band-follow on Port A. When active, the Antenna Genius automatically switches antennas as the radio changes bands. | — | — |
-| **Port B antenna buttons** | Click to select an antenna on Port B; click again to deselect. Same colouring rules as Port A. | — | — |
-| **Port B AUTO** | Toggle to enable band-follow on Port B. | — | — |
+| **Port B antenna buttons** | Click to select an antenna on Port B; click again to deselect. Same colouring rules as Port A. This section is hidden when the connected device reports only one radio port. | — | — |
+| **Port B AUTO** | Toggle to enable band-follow on Port B. Hidden when the device reports only one radio port. | — | — |
 | Status label | Shows discovery and connection state: **No device found**, **Device found**, **Connected — \<name\> v\<version\>**, **Disconnected**, **Error: \<msg\>**, or **Invalid IP address**. | No device found | — |
 
 ## Indicators
@@ -39,7 +39,7 @@ AetherSDR listens for 4O3A Antenna Genius devices on your local network using UD
 ## Tips
 
 - If your network has more than one Antenna Genius, the **Device combo** lists all discovered units. AetherSDR connects automatically only to the first discovered device. Select a different entry and click **Connect** to switch.
-- Port B controls are hidden automatically when the connected device reports only one radio port.
+- Port B controls are hidden automatically when the connected device reports only one radio port. This visibility is set dynamically based on device information received from either a UDP beacon or the device info response after a manual IP connection.
 - Antenna buttons are colour-coded to show TX/RX permissions: blue buttons allow both transmit and receive on the current band, amber buttons allow receive only, and dimmed buttons indicate no permission on the current band.
 - The antenna button grid is cleared entirely when disconnected to keep the display consistent. When reconnecting, the buttons are rebuilt from the device's antenna list only after the list is fully loaded — the grid will not appear blank while waiting for the response.
 

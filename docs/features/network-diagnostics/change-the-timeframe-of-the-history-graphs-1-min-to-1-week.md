@@ -23,6 +23,7 @@ The charts update immediately to show the selected history window.
 | **Timeframe** | Combo box | 5 minutes |
 
 Valid values: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.
+
 ## Tips
 
 - The **Timeframe** selector applies to all graph tabs simultaneously. Switching tabs after changing the value keeps the same window.

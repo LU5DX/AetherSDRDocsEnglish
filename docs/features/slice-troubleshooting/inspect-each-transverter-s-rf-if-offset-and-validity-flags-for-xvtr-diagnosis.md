@@ -108,6 +108,23 @@ In the Issue Summary, look for the line beginning **Radio stream route: remote_a
 
 If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false, the radio has not yet confirmed the stream. If `create_pending` is true for an extended period, the create request may not have reached the radio.
 
+## Client DSP snapshot fields in the JSON tab
+
+v26.7.4 adds additional NR2 (Noise Reduction 2) configuration fields to the JSON snapshot. The client DSP section of the JSON now includes:
+
+| Field                              | Meaning                                                                                     |
+|------------------------------------|---------------------------------------------------------------------------------------------|
+| `nr2.gain_method`                  | The current NR2 gain method name.                                                           |
+| `nr2.gain_method_id`               | The numeric identifier of the gain method.                                                  |
+| `nr2.npe_method`                   | The current NR2 noise power estimation method name.                                         |
+| `nr2.npe_method_id`                | The numeric identifier of the NPE method.                                                   |
+| `nr2.ae_filter`                    | Whether the adaptive echo filter is enabled (`true` / `false`).                             |
+| `nr2.gain_max`                     | The maximum gain value.                                                                     |
+| `nr2.gain_floor`                   | The minimum gain floor value (new in v26.7.4).                                             |
+| `nr2.gain_smooth`                  | The gain smoothing factor.                                                                  |
+| `nr2.qspp`                         | The quasi-stationary power percentile value.                                                |
+| `nr2.legacy_geometry_and_gain_mapping` | Whether the legacy geometry and gain mapping is used (new in v26.7.4).               |
+
 ## Tips
 
 - If `has_is_valid` is `No` for a transverter, the radio did not report a validity flag for that entry at all. This is distinct from `is_valid` being `No`, which means the radio reported the entry as explicitly invalid.

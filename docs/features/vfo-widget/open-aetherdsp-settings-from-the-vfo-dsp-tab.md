@@ -18,12 +18,12 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX. Tab labe
 | RX antenna button | Push button | Opens antenna selection menu for the receive antenna of this slice. Shows the slice-specific RX antenna list when available; falls back to the radio's antenna list otherwise. |
 | TX antenna button | Push button | Opens antenna selection menu for the transmit antenna of this slice. Filters out RX-only antenna ports. Shows the slice-specific TX antenna list when available; falls back to the radio's antenna list otherwise. |
 | Frequency display | Indicator | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. When the slice is locked, displays a "LOCKED" overlay and prevents direct frequency entry. On XVTR bands, bare integer entry in the 100-999 MHz range inserts a decimal after the third digit (e.g., 1446 → 144.6). Accessibility: the frequency text is announced via `QAccessibleValueChangeEvent` when it changes. |
-| Filter width label | Indicator | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses a consistent formatting method to ensure accurate readouts. |
+| Filter width label | Indicator | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts. |
 | TX badge | Indicator | Shown (red) when this slice is the active transmit slice. Hidden otherwise. |
 | SPLIT badge | Indicator | Shown (amber) when TX is assigned to a different slice than the active receive slice. Hidden otherwise. The badge text can be "SWAP" to indicate split operation; clicking performs a swap. Badge opacity has been increased for better visibility. |
-| Marker thickness button | Push button | Cycles the VFO marker line through Off, 1 px, and 3 px. Setting is persisted per slice. |
-| Filter edges button | Toggle button | Toggles the filter edge lines on the spectrum passband. Setting is persisted per slice. Default: shown. |
-| Collapse toggle | Toggle button | Collapses the VFO panel to a compact frequency-only strip. Setting is persisted per slice. Default: expanded. |
+| Marker thickness button | Push button | Cycles the VFO marker line through Off, 1 px, and 3 px. Setting is persisted per slice (`Slice{N}_MarkerWidth`). |
+| Filter edges button | Toggle button | Toggles the filter edge lines on the spectrum passband. Setting is persisted per slice (`Slice{N}_FilterEdgesHidden`). Default: shown. |
+| Collapse toggle | Toggle button | Collapses the VFO panel to a compact frequency-only strip. Setting is persisted per slice (`SliceFlagCollapsed_{N}`). Default: expanded. |
 | Slice badge | Indicator | Shows the slice letter in a colored badge. Click to open the slice context menu. |
 
 ### Audio Tab
@@ -40,8 +40,8 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX. Tab labe
 
 | Control | Type | Description |
 |---------|------|-------------|
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | Toggle button | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Default: off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
-| ADSP button | Push button | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. Click raises and focuses the modeless AetherDSP Settings dialog. |
+- NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | Toggle button | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Default: off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| ADSP button | Push button | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. Click raises and focuses the modeless AetherDSP Settings dialog. Non-checkable; styled like a radio-side DSP toggle. |
 | AetherVoice button | Push button | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
 
 ### Mode Tab
@@ -103,6 +103,14 @@ When switching to a mode where squelch is disabled while squelch is active, the 
 ## Pan Slider Behavior
 
 The Pan slider in the Audio tab uses centre-anchored fill painting. When the handle is left of centre, the groove is filled from the handle to centre in accent colour; when the handle is at or right of centre, the fill is not shown. A small centre-mark dot is always visible on the groove so you can see the neutral position at a glance.
+
+## VFO Flag Elevation Shadow
+
+The VFO flag now has a lightweight elevation shadow rendered by a dedicated `FlagShadow` widget. The shadow is kept separate from the VFO Panel so that live meter repaints (e.g., S-meter updates) do not re-blur the entire flag at animation rate. The shadow widget:
+- Uses `WA_TransparentForMouseEvents` so it does not intercept clicks.
+- Uses a fast box-blur algorithm with high-performance lookups.
+- Automatically adapts to device pixel ratio (DPR) for sharp rendering on high-DPI displays.
+- Rebuilds the shadow image only when the flag geometry or DPR changes, preventing unnecessary CPU usage.
 
 ## Open AetherDSP Settings from the VFO DSP tab
 

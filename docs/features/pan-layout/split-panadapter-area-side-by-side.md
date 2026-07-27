@@ -26,6 +26,7 @@ To cancel without changing the layout, click **Cancel**.
 
 - The currently active layout tile is highlighted with a distinct border so you can see which arrangement is in effect before making a change.
 - If the **A | B (2 pans)** tile appears dimmed and cannot be clicked, your radio connection does not support 2 panadapters. Check your radio's slice and panadapter limits.
+- The dialog body has a fixed width to keep the 3-column thumbnail grid centered. Its height adjusts automatically so the **Cancel** button always appears below the grid, never clipped over the bottom row of thumbnails.
 
 ## Related
 

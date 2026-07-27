@@ -1,12 +1,15 @@
-# DAX Audio Applet (v26.6.3)
+# DAX Audio Applet (v26.7.4)
 
 The DAX Audio applet provides a per-channel RX audio bridge and a single TX audio stream for digital mode operation. It displays live audio meters and gain sliders for DAX channels 1–4 and the TX stream, along with slice-assignment indicators.
+
+> **Windows note:** AetherSDR does not ship a built-in DAX audio driver on Windows. On Windows, the applet displays an informational note only; all controls are inert. Use TCI or FlexRadio's SmartSDR DAX drivers instead. See Help → Configuring Data Modes for setup instructions.
 
 ## Enabling DAX Audio
 
 1. Click the `DAX` tray button on the right sidebar to open the DAX Audio applet.
 2. Click `Enable` to start the DAX audio bridge. The setting persists as `AutoStartDAX`.
 3. Once enabled, all DAX RX and TX streams become active.
+4. The button label updates to `Enabled` when the bridge is active and `Disabled` when inactive.
 
 ## Setting DAX RX gain per channel
 
@@ -46,11 +49,11 @@ Adjust the DAX TX gain slider to control how much audio from your transmit slice
 | `DAX 1..4 assignment` | — or Slice A–H | The slice currently assigned to this DAX channel |
 | `TX assignment` | — or Slice A–H | The slice currently holding TX privileges (drives DAX TX) |
 
-The slice letters in the assignment indicators now render in rich text format, providing improved visual clarity when slice labels contain HTML entities (issue #2606).
+The slice letters in the assignment indicators render in rich text format, providing improved visual clarity when slice labels contain HTML entities (issue #2606).
 
 ## Accessibility
 
-Each DAX RX gain slider and the TX gain slider now has an accessible name. Screen readers announce `DAX RX 1 gain` through `DAX RX 4 gain` for the receive channel sliders, and `DAX TX gain` for the transmit gain slider.
+Each DAX RX gain slider and the TX gain slider has an accessible name. Screen readers announce `DAX RX 1 gain` through `DAX RX 4 gain` for the receive channel sliders, and `DAX TX gain` for the transmit gain slider. The DAX Enable button has an accessible name of `DAX enable` and an accessible description of `Enable or disable DAX digital audio routing`.
 
 ## Tips
 

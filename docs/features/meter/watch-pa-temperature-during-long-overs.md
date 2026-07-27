@@ -13,17 +13,24 @@ The Meters applet shows a live PA Temp gauge that reads the radio's power amplif
 2. Click MTR to toggle the Meters applet open.
 3. Read the **PA Temp** gauge under the **Radio Hardware** section header.
 
-The bar fills from left to right as temperature rises. The bar turns yellow above 55 °C and red above 70 °C.
+The bar fills from left to right as temperature rises. The bar turns yellow above 55 °C and red above 70 °C. You can toggle the temperature display between Celsius (°C) and Fahrenheit (°F) using the unit button in the header row.
 
 ## What each control does
 
 | Label    | Range        | Red threshold | Notes                                                                                                      |
 |----------|--------------|---------------|------------------------------------------------------------------------------------------------------------|
-| PA Temp  | 0–120 °C     | > 70 °C       | Accessible name: "PA temperature".                                                                         |
+| PA Temp  | 0–120 °C     | > 70 °C       | Accessible name: "PA temperature". Display can be toggled between Celsius and Fahrenheit.                  |
 | +13.8V   | 10.0–16.0 V  | > 15 V        | The gauge label updates dynamically to show the live radio-reported voltage (e.g. `+13.82V`) instead of the static `+13.8V` placeholder. Accessible name: "Supply voltage". |
 | Main Fan | 0–3000 rpm   | > 2500 rpm    | Accessible name: "Main fan speed".                                                                         |
 
 None of these controls have persisted settings keys. They are read-only telemetry displays.
+
+## Temperature unit toggle
+
+A **°C/°F** button appears in the **Radio Hardware** header row. Click it to switch the PA Temp gauge between Celsius and Fahrenheit. The setting persists between sessions.
+
+- When toggling to Fahrenheit, gauge ticks, the label, and the displayed value all update to show °F.
+- The accessible name and the underlying data source remain unchanged; only the presentation is converted.
 
 ## Tips
 
@@ -31,6 +38,7 @@ None of these controls have persisted settings keys. They are read-only telemetr
 - The supply voltage gauge label reflects the live voltage value reported by the radio. The label updates each time a new reading arrives, so it always shows the current voltage to two decimal places (for example, `+13.82V`).
 - PA current is not shown. On FLEX-8000 series hardware the PA current meter clips under full PA draw, so it has been intentionally omitted.
 - Each gauge has an accessible name set for screen reader compatibility: "PA temperature", "Supply voltage", and "Main fan speed".
+- The temperature unit setting is stored in the application settings under the key `MtrApplet.tempFahrenheit`.
 
 ## Troubleshooting
 

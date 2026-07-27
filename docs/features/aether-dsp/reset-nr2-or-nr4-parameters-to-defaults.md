@@ -24,10 +24,15 @@ The dialog uses themed styling applied through `ThemeManager` rather than a hard
 
 The six tabs at the top (NR2, NR4, MNR, DFNR, RN2, BNR) act as both tab selectors and engine enable/disable controls. Clicking a tab selects that page and activates the corresponding DSP engine. When a new engine is activated, AetherSDR cascades exclusion, disabling DFNR and other mutually exclusive modules.
 
+Each toggle button has an object name in the format `dspMethodBtn` followed by the label text (e.g. `dspMethodBtnNR2`), and an accessible name that includes the label and "noise-reduction method". This allows screen readers and automation tools to identify each button.
+
+The last active client-side noise reduction method is persisted under the setting key `LastClientNr`. On builds without the DFNR backend, any stored DFNR preference is automatically cleared.
+
 **Platform notes:**
 
 - **MNR (macOS only)** — The MNR tab is dimmed on Windows and Linux builds because the macOS MMSE-Wiener engine has no backend on those platforms.
 - **BNR** — The BNR tab is dimmed on builds without the NVIDIA Broadcast SDK.
+- **DFNR** — The DFNR tab shows a tooltip "DFNR requires DeepFilterNet to be set up and AetherSDR rebuilt." on builds without the DFNR backend.
 - **RN2** — The RN2 tab is purely informational and has no adjustable parameters.
 
 ## NR2 tab
@@ -103,6 +108,8 @@ Use the DeepFilterNet3 engine for neural-network-based noise reduction.
 **Attenuation Limit** — Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum.
 **Post-Filter Beta** — Applies an additional post-filter for extra suppression. Slider stores value×100 internally.
 
+On builds without the DFNR backend, the DFNR tab shows a tooltip: "DFNR requires DeepFilterNet to be set up and AetherSDR rebuilt."
+
 ## RN2 tab
 
 The RN2 (RNNoise) tab is purely informational and has no adjustable parameters. When RN2 is active, it uses a neural network model for real-time noise suppression without user-configurable settings.
@@ -116,6 +123,7 @@ The BNR (NVIDIA Broadcast) tab uses the NVIDIA Broadcast SDK for AI-based noise 
 - **Reset Defaults** affects only the tab where you click it. Resetting NR2 does not alter NR4 settings, and vice versa.
 - Changes take effect immediately. If a noise reduction engine is active on a receive slice at the time, you will hear the engine change behaviour as soon as you adjust any control.
 - The six DSP toggles act as exclusive selectors and engine enable/disable controls simultaneously. Activating one engine may disable other mutually exclusive modules.
+- When AetherSDR restarts, it restores the last active client-side noise reduction method stored under the setting key `LastClientNr`.
 
 ## Related
 

@@ -6,7 +6,7 @@ The SpotHub dialog (`Settings > SpotHub...`) is the central hub for connecting t
 
 1. Open `Settings > SpotHub...`.
 
-The dialog remembers its size and position between sessions.
+The dialog remembers its size and position between sessions. The dialog has a minimum width of 360 pixels, so it can be narrowed to just the Spot List tab's visible-column width once columns are hidden.
 
 ## Source tabs
 
@@ -132,11 +132,13 @@ AetherSDR saves the setting to `FreeDvAutoReport` and begins reporting to qso.fr
 
 The Spot List tab shows a unified searchable table of all live spots.
 
-1. Use the per-band checkboxes to toggle visibility of spots on each band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.).
+1. Use the per-band checkboxes to toggle visibility of spots on each band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). The band checkboxes use a flow layout that wraps to a new row when the dialog is narrowed, keeping the labels readable instead of compressing them.
 2. Click `Clear` to empty the current spot list.
 3. Double-click a row in the table to tune the active slice to the spot's frequency. If mode information is present in the spot comment and `Auto:` is enabled on the Display tab, the slice switches to that mode automatically.
 
 The table columns are: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source.
+
+Right-click any column header to show or hide individual columns. The header menu stays open while checkable columns are toggled (for example, hide "Band" and "Mode" in one pass instead of reopening the menu for each). Click a non-checkable area or press Escape to dismiss the menu.
 
 ### Display (tab)
 
@@ -207,14 +209,4 @@ When DXCC coloring is enabled, AetherSDR reads your ADIF log once at startup. Au
 
 ### Before you start
 
-- DXCC coloring must be enabled and an ADIF log file must already be loaded. See [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-adif-log.md).
-- Your logging software must write updates to the same ADIF file path stored in `DxccAdifFilePath`.
-
-### Steps
-
-1. Open `Settings > SpotHub...`.
-2. Click the `Display` tab.
-3. Confirm that `DXCC Colors:` is enabled (the toggle shows "Enabled").
-4. Confirm that `Log File (ADIF):` shows the correct file path.
-
-Auto-reload is always enabled when a file is selected. AetherSDR watches the file at `DxccAdifFilePath` for changes. Each time your logger writes
+- DXCC coloring must be enabled and an ADIF log file must already be loaded. See [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-ad

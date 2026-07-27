@@ -45,12 +45,15 @@ When the CW decode panel is open, it appears below the spectrum and waterfall. T
 | **🔒P** (Lock Pitch) | Locks the decoder pitch to the current tuned frequency. | Off | Toggle. |
 | **🔒S** (Lock Speed) | Locks the decoder speed to the current WPM reading. | Off | Toggle. |
 | **Pitch** range slider | Sets the minimum and maximum pitch the decoder searches. | 500–700 Hz | Range: 300–1200 Hz. Double-handle slider replaces the separate **Lo** and **Hi** sliders. |
-| **WPM** range slider | Sets the minimum and maximum speed the decoder searches. | 15–40 WPM | Range: 5–60 WPM. New in v26.6.3. |
+| **WPM** range slider | Sets the minimum and maximum speed the decoder searches. | 15–40 WPM | Range: 5–60 WPM. |
 | **CPY ALL** | Copies the full decoded text to the clipboard. | — | — |
 | **CPY VIS** | Copies only the text currently visible in the scroll area. | — | — |
+| **A-** | Decreases the decoded-text font size by 1 pixel. | — | Persisted across sessions via `CwDecodeSettings::fontPx`. Range: 8–32 px. |
+| **A+** | Increases the decoded-text font size by 1 pixel. | — | Persisted across sessions via `CwDecodeSettings::fontPx`. Range: 8–32 px. |
 | **CLR** | Clears the CW decode buffer. | — | — |
 | **✕** (close CW) | Hides the CW decode panel. | — | — |
 | **CW decode text** | Read-only rolling display of decoded CW, coloured by decode confidence. | — | Green: cost < 0.15; Yellow: cost < 0.35; Orange: cost < 0.60; Red: cost ≥ 0.60. TX-originated text appears in cyan (#5fc8ff). |
+| **Drag grip** (thin strip at top of CW panel) | Drag up or down to resize the CW decode panel height. | — | Vertical size cursor. Panel height persisted via `CwDecodeSettings::panelHeight`. Range: 60–600 px. |
 
 ### CW decode text behaviour
 
@@ -65,11 +68,21 @@ The CW decode panel now displays both received (RX) and transmitted (TX) Morse d
 
 Right-clicking inside the **CW decode text** area opens a context menu. The menu contains the standard text editing actions (Select All, Copy, and so on) followed by a separator and a **Clear** item. Clicking **Clear** in the context menu has the same effect as clicking the **CLR** button — it empties the decode buffer immediately.
 
+### CW decode panel font size
+
+The decoded-text font size defaults to 13 pixels. Use the **A-** and **A+** buttons to decrease or increase the font size by 1 pixel per click. The size is clamped to the range 8–32 pixels and is persisted across sessions via the `CwDecodeSettings` configuration.
+
+### CW decode panel height
+
+Drag the thin horizontal grip at the top of the CW decode panel up or down to resize the panel height. The height is clamped to the range 60–600 pixels and is persisted across sessions via the `CwDecodeSettings` configuration. A taller panel reveals more decoded-text history.
+
 ## Waterfall freeze during transmission
 
 When any client in a Multi-Flex session begins transmitting, the waterfall in this panadapter freezes automatically. It resumes updating when transmission ends. This eliminates the 10–23 second TX-trail artifact that previously appeared after unkeying.
 
 On radio reconnection, the panadapter reasserts the desired frame rate and waterfall line duration to prevent silently dropping to the radio's default 10 Hz.
+
+Secondary panadapters (Slices B–H) have their dBm range primed on reconnection so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused a flat spectrum on reconnect.
 
 ## RTTY decode panel
 
@@ -89,6 +102,8 @@ The panadapter title bar, CW decode panel, RTTY decode panel, and all associated
 - Use the **WPM** range slider to bracket the speed range for the signal you are copying. Narrowing the range reduces false decodes when multiple CW signals are present.
 - To clear decoded text quickly, right-click the decode text area and select **Clear** rather than reaching for the **CLR** button.
 - TX-side decoded text appears in cyan to help you distinguish your own sending from incoming CW, without needing a textual prefix.
+- Use the **A-** and **A+** buttons to adjust the decoded-text font size for better readability.
+- Drag the thin grip at the top of the CW decode panel to reveal more decoded-text history.
 
 ## Troubleshooting
 

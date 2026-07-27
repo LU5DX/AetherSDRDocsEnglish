@@ -33,6 +33,7 @@ When you request a layout that needs more panadapters than your radio can suppor
 - Disabled layout tiles tell you at a glance which arrangements are out of reach for your radio. You do not need to attempt them to find out.
 - The status-bar warning can appear even for layouts whose tile was not visually disabled, if other software or another client has consumed slices since the dialog opened.
 - The currently active layout is highlighted with a distinct border in the grid, so you can always see which arrangement is in effect.
+- The dialog body now has a fixed width of 560 pixels. The height adjusts automatically based on the number of tile rows, keeping the Cancel button below the grid without clipping.
 
 ## Troubleshooting
 

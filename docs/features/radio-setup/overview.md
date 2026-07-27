@@ -37,7 +37,8 @@ Tabs whose content may exceed the visible dialog height on small or high-DPI dis
 | **XVTR** | Per-transverter configuration; create or remove transverter entries. |
 | **APD** | External Adaptive Pre-Distortion sampler configuration — per-TX-antenna feedback port selection and equalizer reset. Visible only on FLEX-8x00 radios reporting `apd configurable=1` (SmartSDR 4.2.18+ firmware). |
 | **USB Cables** | Assign USB serial adapters to CAT, BCD, bit, and PTT cable types and configure their serial parameters. |
-| **Peripherals** | Manual IP connection to external devices: TGXL, PGXL, Antenna Genius, and ShackSwitch. |
+| **Peripherals** | Manual IP connection to external devices: TGXL, PGXL, Antenna Genius, ShackSwitch, and ACOM amplifiers. |
+| **KiwiSDR** | Public KiwiSDR receiver management — add, remove, browse, and configure up to 10 public receivers. |
 | **Themes** | Slice color scheme: switch between built-in AetherSDR palette and custom per-slice colors (A–H). |
 | **Serial** | FlexControl serial port selection, line parameters, pin function assignments (DTR/RTS), paddle swap, auto-open, and tuning knob detection. (Visible only when serial port support is built in.) |
 | **SmartLink** | Pinned TLS certificate management — lists each pinned certificate with Forget and Forget All buttons. |
@@ -82,5 +83,4 @@ The following controls have persisted settings keys or notable behaviors.
 | **Connect / Disconnect (Antenna Genius)** | Peripherals | Opens/closes a connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. The row is hidden from the Connected state if a ShackSwitch (rather than a standard Antenna Genius) is the device currently connected. Same IP-clearing behavior as TGXL. |
 | **Connect / Disconnect (ShackSwitch)** | Peripherals | Opens/closes a connection to a ShackSwitch antenna switch via the AG UDP/TCP protocol on port 9007. Saves IP to `SS_ManualIp` and port to `SS_ControlPort`. ShackSwitch is detected by the `ShackSwitch` field in the AG broadcast beacon. Auto-discovery via UDP also works without manually entering an address. The row is hidden when a standard Antenna Genius (non-ShackSwitch) is the connected device. Same IP-clearing behavior as TGXL. |
 | **⚙ Web UI (ShackSwitch)** | Peripherals | Opens the ShackSwitch device's local web configuration interface in the system browser. Uses the beacon's `webPort` if greater than 1024; otherwise falls back to `SS_WebPort` or port 5000. |
-| **Use Aether defaults / Custom colors** | Themes | Switches the slice color scheme between the built-in AetherSDR palette and a fully custom per-slice set. Default: Use Aether defaults. |
-| **Slice A–H color buttons** | Themes | Click any lettered button (A–H) to open a color picker and assign a custom color for that slice. Changes are visible immediately in VFO widgets, panadapter overl
+| **Connect / Disconnect (ACOM)** | Peripherals | Opens/closes a direct TCP connection to an ACOM amplifier (default port 10000). Saves IP and port to `Acom_ManualIp` and `Acom_ManualPort` on connect so A

@@ -48,23 +48,27 @@ The TX Controls applet provides the primary interface for transmit operations: m
 - Scale changes based on radio model: 0–120 W (barefoot) or 0–600 W (with Aurora 500W amplifier).
 - Red zone indicates >100 W (barefoot) or >500 W (with amplifier).
 - The meter includes a **peak-hold bar** that captures the maximum PEP value during transmission. The peak holds for 2 seconds, then decays toward the current power level at approximately 2.5 seconds from peak to floor. The peak resets to zero immediately when the transmitter is unkeyed.
+- Hover the mouse cursor over the gauge to see an exact numeric readout in the format "X W" (e.g., "75 W").
 
 ### SWR (Standing Wave Ratio Meter)
 
 - Displays SWR at the exciter output.
 - Range 1.0–3.0, with red zone indicating >2.5.
+- Hover the mouse cursor over the gauge to see an exact numeric readout in the format "N.N:1" (e.g., "1.32:1").
 
 ### RF Power Slider
 
 - Sets the transmit RF power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setRfPower` when adjusted.
 - When dragging the slider, a tooltip displays the current value in the format "X%" (e.g., "75%").
+- When you finish dragging (release the mouse button), the value is synchronized from the radio model to ensure accurate display.
 
 ### Tune Pwr Slider
 
 - Sets the tune carrier power level as a percentage (0–100), which maps to watts based on the radio's power scale.
 - Calls `TransmitModel::setTunePower` when adjusted.
 - When dragging the slider, a tooltip displays the current value in the format "X%" (e.g., "10%").
+- When you finish dragging (release the mouse button), the value is synchronized from the radio model to ensure accurate display.
 
 ### TX Profile Combo Box
 
@@ -87,16 +91,20 @@ Three status LEDs indicate the ATU state:
   - **Two Tone** — Two-tone carrier for intermodulation distortion testing.
   
   The selection is a transient one-shot — it applies only to the next TUNE press and is not persisted in AppSettings. The radio's `tune_mode` reverts to `single_tone` across power cycles.
+- The button is marked as a TX-keying control in the UI (emits a tune carrier).
 
 ### MOX Button
 
 - Toggles manual transmit on/off. The button turns red while TX is keyed.
 - When Quindar tones are enabled in the Audio Channel Strip, the K and BK tones play on engage and disengage in phone modes.
+- The button is marked as a TX-keying control in the UI (manual PTT).
+- **Idle appearance:** When not transmitting, the MOX button displays an amber border and amber text accent, distinguishing it from the neutral TUNE, ATU, and MEM buttons. This accent is customizable in the Theme Editor using the tokenized colors `color.tx.mox.border`, `color.tx.mox.text`, `color.tx.mox.border.hover`, and `color.tx.mox.text.hover`.
 
 ### ATU Button
 
 - Starts the internal ATU tuning cycle.
 - **Disabled** when TGXL is in OPERATE mode.
+- The button is marked as a TX-keying control in the UI (starts ATU tune).
 - **Right-click** to open a context menu with two options:
   - **Pre-tune bands…** — Opens a dialog to run the ATU pre-tune sweep across user-selected bands. This action requires MEM to be enabled first; if MEM is off, the menu item is grayed out with a tooltip.
   - **Clear ATU memories…** — Prompts for confirmation and then clears all ATU memories from the radio.
@@ -124,6 +132,10 @@ The forward power meter includes a peak-hold feature that captures the maximum P
 - Holds the peak value for 2 seconds.
 - After the hold period, decays toward the current smoothed power level. The decay rate is scaled to the gauge's full-scale range (120 W or 600 W), so the visual feel (~2.5 seconds from peak to floor) is consistent across both scales.
 - Resets to zero immediately when the transmitter is unkeyed (MOX released or TUNE stopped). This prevents a held PEP reading from lingering across overs.
+
+## TX-Keying Control Markers
+
+The TUNE, MOX, and ATU buttons are internally marked as TX-keying controls (`markTxKeying`). This marker is used by the `TxKeyingMarker` utility to identify controls that can key the transmitter. The marker does not change the visible appearance of the buttons but is used internally for consistent behavior across the application.
 
 ## Related
 

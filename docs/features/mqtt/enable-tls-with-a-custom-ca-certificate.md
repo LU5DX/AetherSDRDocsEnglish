@@ -29,8 +29,7 @@ This page explains how to turn on TLS encryption for the MQTT connection and, op
 | Enable          | Toggle button. Connects or disconnects from the broker. Password is loaded from system keychain on first enable.                            | Off                                                                                 |
 | Settings...     | Push button. Opens the MQTT Settings dialog for broker connection, subscriptions, and publish button configuration.                         | None                                                                                |
 | Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
-| Message log     | Displays received messages as 'topic: value' lines and published messages as 'TX topic: value' lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries.                                                               |
-
+| Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                         | Capped to 50 entries.                                                               |
 ## Indicators
 
 | Label        | States                                    | Meaning                                                                                 |

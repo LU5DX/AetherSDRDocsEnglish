@@ -18,27 +18,27 @@ The Release knob controls how quickly the gate closes after audio drops below th
 
 | Control | Default | Valid range | Persisted key (TX / RX) |
 |---|---|---|---|
+| **Thresh** | -40.0 dB | -80.0 to 0.0 dB | `ClientGateTxThresholdDb` / `ClientGateRxThresholdDb` |
+| **Ratio** | 2.0 | 1.0 to 10.0 | `ClientGateTxRatio` / `ClientGateRxRatio` |
+| **Return** | 2.0 dB | 0.0 to 20.0 dB | `ClientGateTxReturnDb` / `ClientGateRxReturnDb` |
 | **Release** | 100 ms | 5 to 2000 ms | `ClientGateTxReleaseMs` / `ClientGateRxReleaseMs` |
+| **Floor** | -15.0 dB | -80.0 to 0.0 dB | `ClientGateTxFloorDb` / `ClientGateRxFloorDb` |
 
 The knob uses an exponential mapping (5 × 400^n), so small movements at the low end of the range produce finer timing adjustments, while the upper range covers long, gradual fade-outs. Release begins only after the input has fallen below Thresh − Return; the **Return** value therefore affects when the release phase starts.
 
 ## Transfer curve display
 
-The transfer curve widget plots the expander's static transfer curve with a live ball at the current input level. A soft-cyan hysteresis-band overlay appears between (Thresh − Return) and Thresh, making the sticky zone visible. The widget uses compact-mode rendering when the applet is in its smaller state, with axis labels drawn using cached static text for improved performance. Colors in the curve widget now respect the selected theme: the curve color uses the accent warning color, and grid, background, and label colors follow the theme's color palette.
+The transfer curve widget plots the expander's static transfer curve with a live ball at the current input level. A soft-cyan hysteresis-band overlay appears between (Thresh − Return) and Thresh, making the sticky zone visible. The widget uses compact-mode rendering when the applet is in its smaller state. The curve widget now uses the active theme's colors: the curve color uses the accent warning color, and grid, background, and label colors follow the theme's color palette.
 
 ## Gain-reduction bar
 
-A horizontal amber strip, filled from the right, shows the depth of attenuation applied. The scale maxes at 40 dB gain reduction, with a tick at -15 dB marking the default Floor setting.
-
-## Inline value editing
-
-Each knob in the five-knob row supports direct numeric entry. Click the value text below a knob to activate an inline editor. Type a number and press Enter or click elsewhere to commit the value. The value is clamped to the knob's valid range. Press Escape to cancel editing and revert to the previous value. The editor appears as a subtle dark inset with a cyan border when focused, and matches the painted label appearance when unfocused. Knob colors for the ring arc, background, handle, label, and value text now follow the theme's designated color namespace (`color.knob.*`), with the label text using color.text.secondary and value text using color.text.primary.
+A horizontal amber strip, filled from the right, shows the depth of attenuation applied. The scale maxes at 40 dB gain reduction, with a tick at -15 dB marking the default Floor setting. The bar repaints every frame to show the live state continuously.
 
 ## Tips
 
 - 100 ms (the default) suits most voice TX work. Increase toward 200–400 ms if consonants at the end of words are being clipped. Decrease toward 20–50 ms if background noise is audible in the gaps between words.
 - Release interacts with **Return**: a larger Return deadband delays the start of the release phase. If the gate seems to hang open, check **Return** before shortening **Release** further.
-- The gain-reduction bar updates approximately every 33 ms. The bar repaints continuously during active gain reduction and stops repainting when the meter has settled, improving performance. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
+- The gain-reduction bar updates every frame, providing smooth, continuous visual feedback while the gate is active. Watch it in real time while adjusting **Release** to confirm the close speed before transmitting.
 - Changes take effect immediately and are saved automatically. No radio connection is required to adjust this setting.
 - If the applet tile appears dimmed, the gate stage is bypassed and no processing is occurring. Re-enable the stage before making adjustments. See [Bypass the gate from the chain](bypass-the-gate-from-the-chain.md).
 - For precise adjustments, click the value text below the Release knob to enter a specific millisecond value directly. This is useful when you need to match a known timing from another processor or save a specific setting for later recall.

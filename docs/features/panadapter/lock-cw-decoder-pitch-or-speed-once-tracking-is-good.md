@@ -25,6 +25,8 @@ Once the CW decoder has latched onto a signal, use the lock controls to prevent 
 | WPM range slider              | Sets both the lower and upper bounds of the speed range the decoder searches, using a dual-handle slider. Drag the left handle for the minimum and the right handle for the maximum. The label shows current values (e.g. 15 WPM / 40 WPM). | 15–40 WPM |
 | Sens                          | Filters low-confidence decodes. Higher values are stricter.                                                                                                           | 30       |
 | CW decode text (context menu) | Right-click the decoded text area to open a context menu. In addition to the standard text actions, the menu includes a **Clear** item that clears the decode buffer. | —        |
+| A- (font size down)           | Decreases the font size of decoded text in the CW panel. Persisted across sessions.                                                                                   | 13 px    |
+| A+ (font size up)             | Increases the font size of decoded text in the CW panel. Persisted across sessions.                                                                                   | 13 px    |
 
 ## TX-side decoded CW display
 
@@ -34,12 +36,22 @@ The CW decoder can also display your own transmitted keying alongside incoming s
 - When switching from transmit to receive, a space is inserted to separate the burst from the following received text.
 - TX-side decodes use the same confidence filter (Sens) as received decodes.
 
+## Resizing the CW decode panel
+
+The CW decode panel height is adjustable to reveal more or less decoded text history.
+
+- Click and drag the thin horizontal grip bar at the top of the panel (just below the Stats bar) up or down.
+- The panel height is persisted across sessions (range: 60–600 px).
+- The resize grip is labelled "Drag to resize the CW decode panel" in its tooltip.
+
 ## Tips
 
 - Lock pitch and speed independently. You can lock only one if the other is still settling.
 - Narrow the Pitch range slider handles around the signal frequency before locking pitch. A tighter search window reduces the chance the decoder latches onto the wrong signal in the first place.
 - If the decoded text becomes garbled after locking, the signal pitch or speed may have drifted. Click the active lock button to release it, wait for the stats label to re-stabilise, then lock again.
 - To clear the decode buffer without moving the mouse to the CLR button, right-click the decoded text area and choose **Clear** from the context menu.
+- Use the A- and A+ buttons to adjust the decoded text font size for better readability (persisted across sessions).
+- Drag the resize grip at the top of the CW panel to increase or decrease the amount of decoded history visible.
 
 ## Troubleshooting
 

@@ -44,6 +44,7 @@ Stage order and individual stage state are persisted via `ClientCompTxChainStage
 - **BYPASS state in the applet does not match the channel strip** — Ensure you are running v0.9.8 or later. Earlier versions tracked TX bypass state only in the applet snapshot; v0.9.8 synchronises all BYPASS controls (TX and RX) through the audio engine.
 - **Double-click opens the editor inconsistently on the TX or RX chain** — The click discrimination interval can be adjusted in Interaction Settings. If you have a slow double-click motion, increase this interval. If you accidentally trigger editors instead of bypassing, decrease the interval.
 - **BYPASS is engaged but RN2 is still active** — In v26.6.1, BYPASS now explicitly disables RN2 as part of the global bypass. Ensure you are running v26.6.1 or later. If RN2 remains active, try toggling BYPASS off and on again.
+- **BYPASS on the ADSP tile does not disable BNR** — In v26.7.4, the ADSP tile now disables and restores `nvAfxEnabled` instead of `bnrEnabled`. Clicking the ADSP tile toggles the entire NR cluster, including the new `nvAfx` module. Ensure you have updated to v26.7.4 for this behavior.
 
 ## Related
 

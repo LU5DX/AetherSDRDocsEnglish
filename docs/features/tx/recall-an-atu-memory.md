@@ -17,24 +17,25 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 
 ## What each control does
 
-| Control    | Kind                                                                                                                                                                                              | Behavior                                                                                                                                                                                                                                      |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| RF Pwr     | Meter                                                                                                                                                                                             | Displays forward power at the exciter output. Scale changes based on radio model (0–120 W barefoot, 0–600 W with Aurora 500W exciter). Red above 100 W / 500 W. Includes a peak-hold bar that tracks PEP for 2 seconds, then decays smoothly. |
-| SWR        | Meter                                                                                                                                                                                             | Displays standing wave ratio at the exciter. Range 1.0–3.0, red above 2.5.                                                                                                                                                                    |
-| RF Power   | Slider                                                                                                                                                                                            | Sets transmit RF power level (0–100% of maximum). Shows the current value in percent while dragging.                                                                                                                                          |
-| Tune Pwr   | Slider                                                                                                                                                                                            | Sets tune-carrier power level (0–100% of maximum). Shows the current value in percent while dragging.                                                                                                                                         |
-| TX Profile | Combo box                                                                                                                                                                                         | Selects a TX profile from the radio's profile list. Selecting loads the profile immediately.                                                                                                                                                  |
-| Success    | Indicator                                                                                                                                                                                         | Lights green when ATU status is Successful or OK.                                                                                                                                                                                             |
-| Byp        | Indicator                                                                                                                                                                                         | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                                                                                                      |
-| Mem        | Indicator                                                                                                                                                                                         | Lights green when the ATU is using a memory.                                                                                                                                                                                                  |
-| TUNE       | Starts/stops tune carrier; text becomes 'TUNING...' with red background while active. Right-click picks the carrier shape (Mono Tone / Two Tone) for the next tune cycle.                         | Right-click context menu (showTuneContextMenu) is a transient one-shot — nothing is persisted; the radio reverts to single_tone across power cycles.                                                                                          |
-| MOX        | Toggle button                                                                                                                                                                                     | Toggles manual transmit. Button turns red while TX is keyed. Routes through Quindar-tone coordinator when QUIN chip is enabled in phone modes.                                                                                                |
-| ATU        | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. | Disabled when TGXL is in OPERATE mode. Right-click context menu (showAtuContextMenu) exposes pre-tune band sweep (#2624) and Clear ATU Memories.                                                                                              |
-| MEM        | Toggle button                                                                                                                                                                                     | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                                                                                                                      |
-| APD        | Toggle button                                                                                                                                                                                     | Toggles adaptive pre-distortion on the radio.                                                                                                                                                                                                 |
-| Active     | Indicator                                                                                                                                                                                         | Lights green when APD is on and the equalizer is actively applied.                                                                                                                                                                            |
-| Cal        | Indicator                                                                                                                                                                                         | Lights green when APD is on and still calibrating.                                                                                                                                                                                            |
-| Avail      | Indicator                                                                                                                                                                                         | Lights green when APD is on and a calibration is available but not yet applied.                                                                                                                                                               |
+| Control    | Kind       | Behavior                                                                                                                                                                                                                           |
+|------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Pwr     | Meter      | Displays forward power at the exciter output with PEP peak-hold (2 s hold then decay to current smoothed value over ~2.5 s). Peak resets immediately on un-key. Hover the mouse cursor over the gauge to see the exact power in watts (#3936). Scale changes based on radio model. Peak-hold ballistics match SmartSDR's peak-hold bar and the RX S-meter peak-hold pattern. |
+| SWR        | Meter      | Displays standing wave ratio at the exciter. Range 1.0–3.0, red above 2.5. Hover the mouse cursor over the gauge to see the exact ratio in N.N:1 form (#3936).                                                                    |
+| RF Power   | Slider     | Sets transmit RF power level (0–100% of maximum). Shows the current value in percent while dragging. On release, syncs the value from the radio model.                                                                             |
+| Tune Pwr   | Slider     | Sets tune-carrier power level (0–100% of maximum). Shows the current value in percent while dragging. On release, syncs the value from the radio model.                                                                            |
+| TX Profile | Combo box  | Selects a TX profile from the radio's profile list. Selecting loads the profile immediately.                                                                                                                                      |
+| Success    | Indicator  | Lights green when ATU status is Successful or OK.                                                                                                                                                                                 |
+| Byp        | Indicator  | Lights orange when the ATU is in Bypass or ManualBypass.                                                                                                                                                                          |
+| Mem        | Indicator  | Lights green when the ATU is using a memory.                                                                                                                                                                                      |
+| TUNE       | Button     | Starts/stops tune carrier; text becomes 'TUNING...' with red background while active. Right-click picks the carrier shape (Mono Tone / Two Tone) for the next tune cycle. Keys the transmitter (#3646).                            |
+| MOX        | Toggle btn | Toggles manual transmit. Button turns red while TX is keyed. Idle state shows amber accent border/text (#3663), editable in the Theme Editor (color.tx.mox.*). Routes through Quindar-tone coordinator when QUIN chip is enabled in phone modes. Keys the transmitter (#3646). |
+| ATU        | Button     | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. Disabled when TGXL is in OPERATE mode. Keys the transmitter (#3646). |
+| MEM        | Toggle btn | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                                                                                                          |
+| APD        | Toggle btn | Toggles adaptive pre-distortion on the radio.                                                                                                                                                                                     |
+| Active     | Indicator  | Lights green when APD is on and the equalizer is actively applied.                                                                                                                                                                |
+| Cal        | Indicator  | Lights green when APD is on and still calibrating.                                                                                                                                                                                |
+| Avail      | Indicator  | Lights green when APD is on and a calibration is available but not yet applied.                                                                                                                                                   |
+
 ## ATU button behavior
 
 Starting with v0.9.5.1, the **ATU** button toggles between tuning and bypass on a per-frequency basis, matching the behavior of SmartSDR. Right-click the **ATU** button to access additional ATU management options.
@@ -76,6 +77,10 @@ Right-click the **TUNE** button to set the carrier shape for the next tune cycle
 
 The currently active tune mode is shown with a check mark. Selecting an option immediately applies it for the next TUNE press.
 
+## TX Keying markers
+
+The **TUNE**, **MOX**, and **ATU** buttons are marked as TX keying controls (#3646). This means they are visually identified as buttons that key the transmitter, helping you quickly distinguish them from other controls.
+
 ## Forward power peak-hold meter
 
 The **RF Pwr** meter includes a peak-hold bar that tracks the peak envelope power (PEP). The peak value holds for 2 seconds, then decays smoothly toward the current power level. The decay rate is scaled to the gauge's full-scale range (120 W barefoot or 600 W with Aurora 500W exciter), so the visual feel remains consistent.
@@ -83,9 +88,25 @@ The **RF Pwr** meter includes a peak-hold bar that tracks the peak envelope powe
 - The peak-hold value resets to zero immediately when the radio un-keys, preventing a held PEP reading from lingering across overs.
 - The peak-hold behavior matches SmartSDR's peak-hold bar and the RX S-meter peak-hold pattern.
 
+## Gauge hover readouts
+
+The **RF Pwr** and **SWR** gauges now show an exact numeric readout when you hover the mouse cursor over them (#3936):
+
+- **RF Pwr** — Shows the precise forward power in watts (e.g., "45 W"), rounded to the nearest watt.
+- **SWR** — Shows the exact standing wave ratio in conventional N.N:1 form (e.g., "1.32:1").
+
+This eliminates the need to estimate values between tick marks, especially when operating at power levels where the gauge scale compresses the useful range.
+
 ## Slider percentage display
 
-The **RF Power** and **Tune Pwr** sliders now display the current value as a percentage (e.g., "50%") while you drag the slider handle. This provides precise visual feedback when setting power levels relative to the radio's maximum output.
+The **RF Power** and **Tune Pwr** sliders display the current value as a percentage (e.g., "50%") while you drag the slider handle. On release, the value is synced from the radio model to ensure the slider position matches the actual radio state.
+
+## MOX idle accent styling
+
+When **MOX** is not active (idle/blue state), the button uses an amber border and text color (#3663) that sets it apart from its neighbors **TUNE**, **ATU**, and **MEM**. The accent colors are tokenized under `color.tx.mox.*` and can be customized in the Theme Editor, mirroring the approach used for the waterfall LIVE chip (#3761).
+
+- When active (transmit), the button uses the standard red background (#cc2222).
+- When disabled, the button uses a muted grayscale appearance.
 
 ## Tips
 
@@ -93,6 +114,7 @@ The **RF Power** and **Tune Pwr** sliders now display the current value as a per
 - The **Mem** indicator and the **Success** indicator can both be lit at the same time; **Mem** confirms a memory is in use, while **Success** confirms the stored solution is valid.
 - To bypass the ATU without running a new tune cycle, click **ATU** a second time at the same frequency where the last successful tune occurred. The **Byp** indicator will light orange to confirm bypass is active.
 - To clear ATU memories across all bands, right-click **ATU** and select **Clear ATU memories…**. Use **Pre-tune bands…** to rebuild memories for frequently used bands.
+- Hover over the RF Pwr or SWR gauge for an exact numeric readout instead of estimating between tick marks.
 
 ## Troubleshooting
 

@@ -29,7 +29,7 @@ The RX and TX paths are independent. You can have different curves on each, and 
 | Reset arc (revert icon) | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | RX | Toggle button | Off (unchecked) | On / Off | Selects the receive equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with TX. |
 | TX | Toggle button | On (checked) | On / Off | Selects the transmit equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with RX. |
-| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. Subclasses may override mouse handlers for custom drag behavior, such as click-to-jump positioning, while preserving the popup display. |
 | 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
 | 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
 | 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |

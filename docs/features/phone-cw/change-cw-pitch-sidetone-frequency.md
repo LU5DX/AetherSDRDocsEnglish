@@ -14,6 +14,8 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 
 In v26.6.1, all slider and button styles were updated to use the active theme system via `ThemeManager::applyStyleSheet()` and `applyPrimarySliderStyle()`, replacing hardcoded color values. The panel container now uses `theme::setContainer()` for proper theming support. Button hover and pressed states now use theme-defined colors (`{{color.background.1}}` and `{{color.accent}}`) instead of fixed hex values.
 
+In v26.7.4, the **Level**, **Compression**, and both **ALC** gauges now display a mouse-over popup that shows the exact numeric value in dB or dBFS when you hover over the gauge. The **Mic source** combo box is automatically disabled and set to **PC** when the radio is being modulated by AetherSDR (host modulation mode), since no physical FlexRadio jacks are usable in that mode.
+
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
@@ -79,7 +81,7 @@ In v0.9.8, the `setCwDelay` method was fixed to cache the value immediately so t
 ### Adjust microphone controls (Phone panel)
 
 1. Select a mic profile from the **Mic profile** combo box to load the named mic processing profile.
-2. Select the mic source from the **Mic source** combo box (MIC, BAL, LINE, ACC, PC, plus any from the radio's mic input list).
+2. Select the mic source from the **Mic source** combo box (MIC, BAL, LINE, ACC, PC, plus any from the radio's mic input list). When AetherSDR is modulating the radio, the **Mic source** combo box is automatically disabled and set to **PC** only, since the physical FlexRadio jacks are not available in this mode.
 3. Adjust the **Mic gain** slider (0–100, default 50) to set the microphone input level. When the source is set to **PC**, the value is stored client-side in `PcMicGain` and the radio ignores it.
 4. Click **+ACC** to enable the accessory microphone input mix.
 5. Click **PROC** to toggle the speech processor on or off.
@@ -90,10 +92,10 @@ In v0.9.8, the `setCwDelay` method was fixed to cache the value immediately so t
 
 ### Read the meters
 
-- **Level** gauge: Shows microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS). Suppressed to -150 when `met_in_rx` is off and not transmitting. Applies to all mic sources including PC and RADE (v26.5.3).
-- **Compression** gauge: Shows speech compression amount in dB (0 dB = none, -25 dB = full compression). Gated on the radio's interlock TRANSMITTING state and speech processor enable. Reads 0 dB during receive (v0.9.7). In v26.5.3, properly converts the positive `COMPPEAK` meter values (0–25 dB) to the negative gauge range.
-- **ALC (Phone panel)** gauge: Shows automatic level control reading from the software ALC meter (post-software-ALC SSB peak in dBFS, range -20 to 0 dBFS, red above -3 dBFS). Fills from the right, with empty at -20 dBFS and full at 0 dBFS (#2552, v26.5.1). Initialized to -20 dBFS on startup (v26.5.3).
-- **ALC (CW panel)** gauge: Identical mirror of the Phone-panel ALC gauge, both driven by the same source (`MeterModel::swAlcChanged`). Range, scale, and fill direction match the Phone panel version exactly (#2552, v26.5.1). Initialized to -20 dBFS on startup (v26.5.3).
+- **Level** gauge: Shows microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS). Suppressed to -150 when `met_in_rx` is off and not transmitting. Applies to all mic sources including PC and RADE (v26.5.3). Hover your mouse over the gauge to see the exact dB value in a popup (#3936, v26.7.4).
+- **Compression** gauge: Shows speech compression amount in dB (0 dB = none, -25 dB = full compression). Gated on the radio's interlock TRANSMITTING state and speech processor enable. Reads 0 dB during receive (v0.9.7). In v26.5.3, properly converts the positive `COMPPEAK` meter values (0–25 dB) to the negative gauge range. Hover your mouse over the gauge to see the exact positive compression value in dB (#3936, v26.7.4).
+- **ALC (Phone panel)** gauge: Shows automatic level control reading from the software ALC meter (post-software-ALC SSB peak in dBFS, range -20 to 0 dBFS, red above -3 dBFS). Fills from the right, with empty at -20 dBFS and full at 0 dBFS (#2552, v26.5.1). Initialized to -20 dBFS on startup (v26.5.3). Hover your mouse over the gauge to see the exact dBFS value with one decimal place (#3936, v26.7.4).
+- **ALC (CW panel)** gauge: Identical mirror of the Phone-panel ALC gauge, both driven by the same source (`MeterModel::swAlcChanged`). Range, scale, and fill direction match the Phone panel version exactly (#2552, v26.5.1). Initialized to -20 dBFS on startup (v26.5.3). Hover your mouse over the gauge to see the exact dBFS value with one decimal place (#3936, v26.7.4).
 
 ## What each control does
 
@@ -138,8 +140,4 @@ While RADE is active:
 
 - The **Pitch < / >** control affects both the audible sidetone on the radio and the frequency used by the CW decoder. Adjust it to match your personal pitch preference. The client-side sidetone always tracks it automatically.
 - Because pitch and pan follow the radio settings automatically, you only need to adjust **Pitch < / >** and **L / R pan (CW)** in one place — both the radio monitor and the local generator update together.
-- The client-side sidetone generator operates at approximately 10 ms latency and works with paddle, straight key, and CWX-generated transmissions. If you are not hearing a sidetone at all, verify that **Sidetone** is enabled.
-- In v26.5.3, the CW sidetone routes to your selected audio output device rather than the default system output. Verify your audio output selection if sidetone is not audible.
-- The **Compression** gauge reads 0 dB during receive. It only shows a value while the radio's interlock reports TRANSMITTING and the speech processor is enabled. This prevents stale readings from appearing between transmissions.
-- With **Breakin** off, keys are queued and the radio does not go to TX until you engage PTT manually. With **Breakin** on (QSK), key edges trigger TX immediately and the break-in delay holds the relay open between elements. There is no longer an automatic PTT envelope that overrides this setting (v0.9.7).
-- For CW value fields (**Delay**, **Speed**, **Sidetone volume**, **Pitch**), click the numeric field, type your value, and press Enter or Tab. The value is validated and applied to both
+- The client-side sidetone generator operates at

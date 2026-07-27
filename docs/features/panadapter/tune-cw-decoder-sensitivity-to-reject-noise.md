@@ -17,13 +17,16 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 
 ## What each control does
 
-| Control         | Default | Range                |
-|-----------------|---------|----------------------|
-| **Sens** slider | 30      | 0–100                |
-| CW decode text  | —       | —                    |
-| CW stats label  | —       | `<hz> Hz  <wpm> WPM` |
-| **Pitch** range slider | 500–700 Hz | 300–1200 Hz   |
-| **WPM** range slider  | 15–40 WPM | 5–60 WPM       |
+| Control             | Default     | Range                |
+|---------------------|-------------|----------------------|
+| **Sens** slider     | 30          | 0–100                |
+| CW decode text      | —           | —                    |
+| CW stats label      | —           | `<hz> Hz  <wpm> WPM` |
+| **Pitch** range slider | 500–700 Hz | 300–1200 Hz        |
+| **WPM** range slider   | 15–40 WPM  | 5–60 WPM            |
+| **A-** button        | —           | —                    |
+| **A+** button        | —           | —                    |
+| CW panel resize grip | —           | —                    |
 
 ## CW decode text colouring
 
@@ -38,6 +41,22 @@ The decoded text uses colour to indicate confidence:
 
 TX-side decoded text (your own sending) appears in cyan (`#5fc8ff`) so you can distinguish your sending from incoming CW. When switching from TX to RX, a separator space is inserted automatically to prevent the two coloured runs from merging.
 
+## Adjusting the CW decode text font size
+
+The **A+** and **A-** buttons at the top of the CW decode panel let you increase or decrease the decoded text font size.
+
+1. Click **A+** to enlarge the text; click **A-** to shrink it.
+2. The font size is persisted between sessions. Valid range is 8–32 px.
+3. Use larger text for better readability at a distance; use smaller text to see more history in the panel.
+
+## Resizing the CW decode panel
+
+Drag the thin horizontal grip at the top of the CW decode panel (just below the title bar) up or down to change the panel height. This reveals more or less decoded-text history.
+
+1. Move your cursor over the 4-pixel-high resize bar until it becomes a vertical resize cursor.
+2. Click and drag up to shrink the panel, or down to enlarge it. Valid range is 60–600 px.
+3. The panel height is persisted between sessions.
+
 ## Tips
 
 - Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.
@@ -45,12 +64,14 @@ TX-side decoded text (your own sending) appears in cyan (`#5fc8ff`) so you can d
 - The **Pitch** range slider (default 500–700 Hz, range 300–1200 Hz) constrains which pitches the decoder searches. Narrowing that range to match the received signal's sidetone pitch can reduce false triggers independently of **Sens**.
 - The **WPM** range slider (default 15–40 WPM, range 5–60 WPM) constrains which speeds the decoder searches. Narrowing that range to match the received signal's sending speed improves decoding accuracy.
 - Right-clicking the CW decode text area also gives access to the standard text actions (Select All, Copy, and so on) alongside the **Clear** option.
+- Use **A+** and **A-** to find a comfortable reading size. The change takes effect immediately and is saved for next time.
 
 ## Troubleshooting
 
 - **Decoded text disappears completely after raising Sens** — the threshold is above the confidence level of the incoming signal. Lower the slider until output returns, then raise it more slowly.
 - **Output remains noisy even at Sens 100** — the signal may be outside the pitch search window. Check the CW stats label for the reported pitch and adjust the **Pitch** range slider to bracket it.
 - **Sens resets to 30 after restart** — if `CwDecoderSensitivity` is missing from saved settings, AetherSDR uses the default of 30. Move the slider once to write the value; it is then saved on every change.
+- **Font size resets after restart** — the font size is saved automatically. If it resets, ensure you have write permissions to the settings file.
 
 ## Related
 

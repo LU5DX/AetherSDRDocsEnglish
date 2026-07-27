@@ -30,6 +30,15 @@ The dialog opens whether or not a radio is connected, but metrics are meaningful
 | **Deselect All (Logs)**      | Logs tab                        | Hides all log categories from the viewer.                                                                                                                                                       |
 | **Live / Paused (Logs)**     | Logs tab                        | When set to **Live**, the viewer auto-scrolls to the newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                      |
 | **Close**                    | Bottom of dialog                | Closes the dialog.                                                                                                                                                                              |
+
+In addition to the tab-based layout, a navigation tree on the left side of the dialog provides quick access to each section. The tree is organized with top-level entries for each tab and, under Overview, sub-entries for Individual Metrics. A search field at the top of the navigation tree allows filtering the tree items by name.
+
+| Control                      | Location                        | Description                                                                                                                                                                                     |
+|------------------------------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Search**                   | Navigation tree header          | Filters the navigation tree items to show only those matching the typed text.                                                                                                                   |
+| **Navigation tree**          | Left side of dialog             | Tree widget listing all diagnostic pages. Top-level nodes correspond to each tab; Overview contains sub-nodes for Individual Metrics. Click any item to switch the main view to that section.    |
+| **Individual Metrics**       | Under Overview in navigation    | Sub-nodes for per-metric diagnostic views (Latency, Packet Loss, Audio Buffer, etc.).                                                                                                            |
+
 ## Indicators
 
 | Indicator | Meaning |

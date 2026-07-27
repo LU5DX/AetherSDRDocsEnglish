@@ -140,7 +140,22 @@ This change corrects the visual reading of the L/R pan control — the filled po
 
 ## VFO Panel overview
 
-The VFO panel is a floating per-slice control panel anchored to the VFO marker on the spectrum display. It provides quick access to the most frequently used per-slice settings without leaving the spectrum view.
+The VFO panel is a floating per-slice control panel anchored to the VFO marker on the spectrum display. It provides quick access to the most frequently used per-slice settings without leaving the spectrum view. The panel contains tabs for Audio, DSP, Mode, X/RIT, and DAX settings, plus an S-meter strip and collapse controls.
+
+### S-meter strip and VFO flag shadow
+
+The VFO panel's flag (the floating panel itself) now includes a lightweight shadow surface that is separate from the main VFO widget. This means live S-meter repaints do not re-blur the entire flag at animation rate. The shadow is rendered using a box-blur algorithm and updates only when the flag geometry changes.
+
+Below the tabbed controls, each VFO panel contains an S-meter strip. The S-meter strip uses a smart meter widget that keeps a fixed aspect ratio. The VFO panel's tab stack forwards height-for-width from the current page, allowing the S-meter to drive the strip height when it is the active tab row.
+
+### Slice badges
+
+The VFO panel displays badges to indicate slice status:
+
+| Badge | States | Meaning |
+|---|---|---|
+| TX badge | TX (red), hidden | Shown when this slice is the active transmit slice. |
+| SPLIT badge | SPLIT (amber), hidden | Shown when TX is assigned to a different slice than the active receive slice. |
 
 ### Controls
 
@@ -156,9 +171,4 @@ The VFO panel is a floating per-slice control panel anchored to the VFO marker o
 | Squelch button + slider (Audio tab) | toggle_button | off | Enables squelch for this slice. The adjacent slider sets the threshold. Range 0-100. |
 | AGC combo (Audio tab) | combo_box | FAST | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | toggle_button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
-| ADSP button (DSP tab) | push_button | - | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button (DSP tab) | push_button | - | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
-| Mode combo (Mode tab) | combo_box | USB | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. |
-| Filter preset buttons (Mode tab) | push_button | - | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in `FilterPresets`. |
-| RIT / XIT buttons + labels (X/RIT tab) | toggle_button | off | Enables receiver (RIT) or transmitter (XIT) incremental tuning. Scroll-wheel adjusts in 10 Hz steps. |
-| DAX channel combo (DAX tab) | combo_box | Off | Assigns a
+| ADSP button (DSP tab) | push_button | - | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8

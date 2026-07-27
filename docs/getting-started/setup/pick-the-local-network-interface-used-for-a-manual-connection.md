@@ -27,6 +27,8 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 | `Connect to last radio on start up` | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. | `AutoConnectToLastRadio` |
 | `Connect by IP` (button) | Starts the manual connection using the IP and source path configured above. | — |
 | `Network Diagnostics` (button) | Opens the Network Diagnostics dialog to help troubleshoot connectivity issues. | — |
+| `Source warning label` (indicator) | Warns when the selected source NIC is stale or unreachable. | — |
+| `Manual result label` (indicator) | Shows result text after probing a manual IP (success or error). | — |
 
 ## Tips
 
@@ -36,7 +38,8 @@ When connecting by IP across a VPN or routed network, AetherSDR lets you choose 
 - For links with variable latency, enable `Enable adaptive frame-rate throttle`. This reduces FFT and waterfall frame rates when network quality drops, keeping the connection usable.
 - The `Radio IP address` field keeps the three most recently used addresses. Select a previous address from the drop-down to avoid retyping it.
 - If you uncheck `Connect to last radio on start up`, AetherSDR opens the connection dialog on every launch and waits for you to select a radio manually.
-- In v0.9.2.1 the SmartLink remote radios list has a fixed maximum height. If you have many remote radios, scroll within the list to reach entries that are not immediately visible.
+- The local and remote radio lists now have a maximum height of 240 pixels and scroll internally. If you have many discovered radios, scroll within the list to reach entries that are not immediately visible. This prevents the list from growing past the dialog on small displays (e.g., a 1024×600 panel).
+- Right-click a discovered local radio to set a custom nickname without connecting first. This is available for non-Flex radios (such as HL2 or simulated radios). Flex radio names are set from Radio Setup while connected.
 - The ConnectionPanel preserves its window geometry when toggling frameless mode.
 
 ## Troubleshooting

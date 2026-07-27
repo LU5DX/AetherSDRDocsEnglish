@@ -12,19 +12,19 @@ The applet panel opens and displays the appropriate controls for the current sli
 
 ### Mic Level Meter
 
-Shows the microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS).
+Shows the microphone input peak level in dBFS (-40 to +10 dBFS, red above 0 dBFS). Hover over the gauge to see the exact value in dB with one decimal place.
 
 The meter is suppressed to -150 when `met_in_rx` is off and the radio is not transmitting. In v26.5.3, the application immediately applies the receive gate whenever the transmit state or MOX state changes, preventing stale level readings from appearing during receive.
 
 ### Compression Meter
 
-Shows speech compression amount in dB. The meter face is reversed: 0 dB = no compression, -25 dB = full compression.
+Shows speech compression amount in dB. The meter face is reversed: 0 dB = no compression, -25 dB = full compression. Hover over the gauge to see the exact compression amount in dB with one decimal place (displayed as a positive value).
 
 The gauge reads from the radio's COMPPEAK meter, which reports compression as a positive 0–25 dB value. The gauge internally negates this to display as -25 to 0 dB (reversed fill). The gauge only shows a compression reading while the radio is actively transmitting with the speech processor enabled. During receive, or when the speech processor is disabled, the gauge reads 0 dB regardless of any residual meter data from the TX chain.
 
 ### ALC Meter (Phone panel)
 
-Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). The gauge reads the post-software-ALC SSB peak in dBFS, replacing the previous HWALC (RCA voltage) path that produced meaningless readings.
+Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). The gauge reads the post-software-ALC SSB peak in dBFS, replacing the previous HWALC (RCA voltage) path that produced meaningless readings. Hover over the gauge to see the exact value in dBFS with one decimal place.
 
 - **Range:** -20 to 0 dBFS
 - **Red zone:** above -3 dBFS
@@ -41,6 +41,8 @@ Select the microphone processing profile. Click the combo box and choose a profi
 ### Mic Source
 
 Select the microphone input source. Click the combo box and choose from MIC, BAL, LINE, ACC, PC, or any additional sources provided by the radio.
+
+When host modulation is active (the radio is modulated by AetherSDR), the mic source control is disabled and shows only "PC". A tooltip explains that the other sources are FlexRadio jacks that are not available in this mode.
 
 ### Mic Gain
 
@@ -82,7 +84,7 @@ The **Level** meter remains active during RX when RADE is in use, allowing you t
 
 ### ALC Meter (CW panel)
 
-Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). This gauge is a mirror of the Phone-panel ALC gauge, identically scaled and reading from the same source.
+Shows automatic level control reading from the software ALC meter (MeterModel::swAlcChanged). This gauge is a mirror of the Phone-panel ALC gauge, identically scaled and reading from the same source. Hover over the gauge to see the exact value in dBFS with one decimal place.
 
 - **Range:** -20 to 0 dBFS
 - **Red zone:** above -3 dBFS
@@ -183,10 +185,10 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 
 | Indicator | Reading range | Meaning |
 |-----------|---------------|---------|
-| Level gauge | -40 to +10 dBFS | Microphone peak level |
-| Compression gauge | -25 to 0 dB reversed fill | Speech compression amount |
-| ALC gauge (Phone panel) | -20 to 0 dBFS (fill from right) | Automatic level control — post-software-ALC SSB peak, read from MeterModel::swAlcChanged |
-| ALC gauge (CW panel) | -20 to 0 dBFS (fill from right) | Mirror of the Phone-panel ALC gauge, identically scaled |
+| Level gauge | -40 to +10 dBFS | Microphone peak level (hover for exact value) |
+| Compression gauge | -25 to 0 dB reversed fill | Speech compression amount (hover for exact positive dB value) |
+| ALC gauge (Phone panel) | -20 to 0 dBFS (fill from right) | Automatic level control — post-software-ALC SSB peak, read from MeterModel::swAlcChanged (hover for exact dBFS value) |
+| ALC gauge (CW panel) | -20 to 0 dBFS (fill from right) | Mirror of the Phone-panel ALC gauge, identically scaled (hover for exact dBFS value) |
 
 ## What each control does
 
@@ -196,7 +198,7 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 | Compression meter | — | -25 to 0 dB (reversed fill) |
 | ALC meter (Phone panel) | — | -20 to 0 dBFS (red > -3) |
 | Mic profile | — | populated from radio micProfileList() |
-| Mic source | — | MIC, BAL, LINE, ACC, PC |
+| Mic source | — | MIC, BAL, LINE, ACC, PC (disabled to "PC" only when host modulation active) |
 | Mic gain | 50 | 0–100 |
 | +ACC | — | toggle |
 | PROC | — | toggle |
@@ -214,12 +216,10 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 | Iambic | — | toggle |
 | Pitch < / > | 600 | 100–6000 Hz (step 10) |
 
-## Tips
+## Hover readouts (v26.7.4)
 
-- The applet panel automatically switches between Phone and CW views based on the active slice mode. If you do not see the expected controls, check the active slice mode.
-- The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
-- The Compression gauge only shows readings while the radio is actively transmitting with the speech processor enabled.
-- When RADE mode is active, the Mic gain slider controls client-side RADE gain, not the radio's mic level.
-- The ALC gauges on both panels read from the same software ALC source (MeterModel::swAlcChanged). Starting in v26.5.1 (#2552), this replaces the previous HWALC (RCA voltage) path that produced meaningless readings. The gauge range is -20 to 0 dBFS, filling right-to-left. In v26.5.3, the gauges initialize to -20 dBFS immediately upon construction.
-- In v26.5.3, the CW sidetone routes to the user-selected audio output instead of the default output (#2899). If you change your audio output device, the CW sidetone follows automatically.
-- In v26.6.1, all sliders in the Phone/CW applet use the active theme's color palette instead of hard-coded colors. The slider handles and grooves now match the current theme's accent and background colors. This applies to the Mic gain, Processor level, Monitor volume, Delay, Speed
+In v26.7.4, all gauges in the Phone/CW applet display an exact numeric readout when you hover the mouse cursor over them:
+
+- **Level gauge:** Shows the exact microphone peak level in dB with one decimal place (e.g., "-12.3 dB").
+- **Compression gauge:** Shows the exact compression amount as a positive dB value with one decimal place (e.g., "8.5 dB" of compression).
+- **ALC gauge (Phone panel):** Shows the exact post-software-ALC SSB peak in dBFS with one decimal place (e.g., "-15

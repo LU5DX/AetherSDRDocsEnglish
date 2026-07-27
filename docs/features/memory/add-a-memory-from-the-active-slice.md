@@ -14,7 +14,7 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 2. A new row appears in the memory table populated with the active slice's current frequency, mode, and other parameters.
 3. (Optional) Edit the memory's name or other fields:
    - Click **Edit** to enter inline editing on the Name field.
-   - Click other cells directly to edit their values.
+   - Click other cells directly to edit their values. For constrained fields (Mode, Step, Offset Direction, Tone Mode, Tone Value, Group), a combo box opens automatically with common values. For editable fields, you can type custom values.
 
 ## What each control does
 
@@ -24,11 +24,11 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 | Minimize button | — (Minimize) | Minimizes the dialog. |
 | Maximize button | □ (Maximize) | Maximizes or restores the dialog. |
 | Close button | × (Close) | Closes the dialog. Escape clears the search field first, then closes the dialog. |
-| Drag-to-move | — | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore. |
-| 8-axis resize | — | Click and drag any edge or corner to resize. Cursor changes to indicate resize direction. 12 px resize hit zone. |
+| Drag-to-move | — | Click and drag the title bar to move the dialog. The top 18 px (title bar height) is reserved for moving; the resize zone starts below it. Double-click to toggle maximize/restore. |
+| 8-axis resize | — | Click and drag any edge or corner to resize. Cursor changes to indicate resize direction. 12 px resize hit zone. The top edge resize zone starts below the title bar. |
 | Search field | Search: | Filters the table by memory name. Has a clear button; press Enter to submit. Ctrl+F focuses this field. |
 | Profile filter | Profile: | Filters memories by active global or transmit profile. Default: "All Memories". |
-| Memory table | — | Displays memory rows. Sortable by clicking column headers (Frequency, Name, Mode). Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Double-click to tune. Ctrl+Shift+A selects all rows. Ctrl+F focuses the search field. The table background uses the theme color `dialog/memory`. |
+| Memory table | — | Displays memory rows. Sortable by clicking column headers (Frequency, Name, Mode). Columns: Group, Owner, Frequency, Name, Mode, Step, FM TX Offset Dir, Repeater Offset, Tone Mode, Tone Value, Squelch, Squelch Level, RX Filter Low, RX Filter High, RTTY Mark, RTTY Shift, DIGL Offset, DIGU Offset. Double-click to tune. Ctrl+Shift+A selects all rows. Ctrl+F focuses the search field. Editable cells use combo-box editors for constrained fields (Mode, Step, Offset Direction, Tone Mode, Tone Value, Group) — the drop-down opens immediately when you start editing. The table background uses the theme color `dialog/memory`. |
 | Selection count | — | Shows "<N> of <M> selected". |
 | Add button | Add | Creates a new memory from the active slice's current settings. Shortcut: Ctrl+N. |
 | Edit button | Edit | Enables inline editing on the selected memory's Name field. Only enabled when exactly one memory is selected. Shortcut: F2 or Ctrl+E. |
@@ -45,6 +45,7 @@ Save the current active slice's frequency, mode, and other settings as a new mem
 - The dialog remembers its size and position between sessions.
 - The Add button always targets the active slice; there is no per-slice-letter selection.
 - The dialog uses the theme color set for `dialog/memory`. Alternate row colors in the memory table follow the theme's background color.
+- When editing constrained fields (Mode, Step, Offset Direction, Tone Mode, Tone Value, Group), a combo box opens automatically with the known values. For editable fields, you can type custom values which are validated by the radio when committed.
 
 ## Related
 

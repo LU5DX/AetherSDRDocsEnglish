@@ -48,13 +48,17 @@ Each entry in the send history scroll area supports a right-click context menu w
 
 If you press Escape while the radio is sending a CW buffer, the transmission is aborted. In the send history scroll area, the history bubble for that transmission shows the sent portion in normal text and the unsent portion with strikeout formatting. This makes it clear which characters were actually transmitted before the abort.
 
+## History bubbles display expanded speed modifier text
+
+When macros or typed text contain speed modifier prefixes (e.g., `{10}...{20}...`), the history bubble shows the text as actually keyed, with speed-change markers stripped and segments joined together. This gives a clean readable display of what was transmitted, without the overhead of inline speed change indicators.
+
 ## Keyboard shortcuts
 
-The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate when the active slice is in CW, CWL, or CWU mode, regardless of whether the CWX panel is visible. This prevents shortcut conflicts with other panels, such as the DVK macro panel, which uses the same F1–F12 keys for its own purposes. The enable state is managed by the MainWindow based on the active slice's mode.
+The CWX panel registers global application shortcuts for the F1–F12 keys and the Escape key. These shortcuts activate when the TX slice is in CW or CWL mode, regardless of whether the CWX panel is visible. The enable state is managed by the MainWindow based on the TX slice's mode, preventing shortcut conflicts with other panels such as the DVK macro panel which uses the same F1–F12 keys for its own purposes.
 
 | Shortcut | Behavior |
 |---|---|
-| **F1–F12** | Sends the corresponding macro (F1–F12) when the active slice is in CW or CWL mode. |
+| **F1–F12** | Sends the corresponding macro (F1–F12) when the TX slice is in CW or CWL mode. |
 | **Escape** | Clears the current text buffer (aborts any transmission in progress). |
 
 ## Tips

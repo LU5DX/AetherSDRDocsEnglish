@@ -20,16 +20,16 @@ View the release notes for your current AetherSDR version, fetched live from Git
 
 ## What each control does
 
-| Control | Default | Behavior | Setting key |
-|---|---|---|---|
-| Header (AETHERSDR V&lt;version&gt;) | — | Shows current version and "Welcome!" or "What's New" heading | — |
-| Status label | — | Shows GitHub release title and published date, or a loading/error message | — |
-| Release notes browser | — | Scrollable view of GitHub-flavored Markdown. Issue/PR numbers and @mentions link to GitHub | — |
-| Find | — | Opens a search dialog; highlights matching text in the release notes | — |
-| Upgrade | — | (Only shown when an upgrade is available) Opens the latest release page on GitHub and closes the dialog | — |
-| Skip this version | — | (Only shown when an upgrade is available) Marks the current version as seen so the dialog won't auto-open on next launch | `LastSeenVersion` |
-| Close | — | Dismisses the dialog | — |
-
+| Control                             | Default                                                                                                                                                                          | Behavior                                                                                                                                                     |
+|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Header (AETHERSDR V&lt;version&gt;) | —                                                                                                                                                                                | Shows current version and "Welcome!" or "What's New" heading                                                                                                 |
+| Status label                        | —                                                                                                                                                                                | Shows GitHub release title and published date, or a loading/error message                                                                                    |
+| Release notes browser               | Scrollable QTextBrowser rendering release notes as GitHub-flavored Markdown. Issue/PR numbers and @mentions are hyperlinked to GitHub. Clicking links opens the default browser. | Refactored in v26.5.3 (#2979) to fetch live notes from api.github.com. Shows 'Loading...' state, error state with suggestions, or the rendered release body. |
+| Find                                | —                                                                                                                                                                                | Opens a search dialog; highlights matching text in the release notes                                                                                         |
+| Upgrade                             | Shown only when showUpgrade is true; opens the latest release page on GitHub and closes the dialog.                                                                              | Styled as secondary button.                                                                                                                                  |
+| Skip this version                   | Shown only when showUpgrade is true; persists current version as seen so the dialog is not shown on next launch.                                                                 | Styled as secondary button.                                                                                                                                  |
+| Close                               | —                                                                                                                                                                                | Dismisses the dialog                                                                                                                                         |
+| AETHERSDR V<version> eyebrow        | Branded header showing the current AetherSDR version and either 'Welcome!' or 'What's New' heading.                                                                              | Rendered as styled HTML in a QLabel with padding.                                                                                                            |
 ## Troubleshooting
 
 - **"GitHub is rate-limiting requests from your network"** — GitHub's unauthenticated API is limited to 60 requests per hour per IP. Wait a few minutes and try again, or visit github.com/aethersdr/AetherSDR/releases directly.

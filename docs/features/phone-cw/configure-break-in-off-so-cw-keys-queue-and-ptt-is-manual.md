@@ -16,9 +16,9 @@ The Phone panel is displayed when the active slice is in a voice mode (LSB, USB,
 
 | Control | Behavior | Default |
 |---------|----------|---------|
-| **Level** | Shows microphone input peak level in dBFS. Suppressed to -150 when `met_in_rx` is off and not transmitting. | — |
+| **Level** | Shows microphone input peak level in dBFS. Hover the mouse over the gauge to see the exact reading with one decimal place (e.g., "-12.3 dB"). Suppressed to -150 when `met_in_rx` is off and not transmitting. | — |
 | **Mic profile** | Selects a named microphone processing profile from the radio's available profiles. Calls `TransmitModel::loadMicProfile`. | — |
-| **Mic source** | Selects microphone input source. Options include MIC, BAL, LINE, ACC, PC, plus any from the radio's `micInputList()`. Calls `TransmitModel::setMicSelection`. | — |
+| **Mic source** | Selects microphone input source. Options include MIC, BAL, LINE, ACC, PC, plus any from the radio's `micInputList()`. When the radio is modulated by AetherSDR (host modulation enabled), the combo box is locked to "PC" and displays a tooltip explaining that only the PC microphone is available. Calls `TransmitModel::setMicSelection`. | — |
 | **Mic gain** | Adjusts microphone input level. Range 0-100. For 'PC' source, uses local `PcMicGain` persistence since the radio always reports `mic_level=0` when source=PC. | 50 |
 | **+ACC** | Toggles the accessory microphone input mix. Calls `TransmitModel::setMicAcc`. | — |
 
@@ -28,7 +28,7 @@ The Phone panel is displayed when the active slice is in a voice mode (LSB, USB,
 |---------|----------|---------|
 | **PROC** | Toggles the speech processor. Calls `TransmitModel::setSpeechProcessorEnable`. | — |
 | **NOR/DX/DX+** | Three-position processor level slider: 0 (NOR), 1 (DX), 2 (DX+). Calls `TransmitModel::setSpeechProcessorLevel`. | 0 |
-| **Compression** | Shows speech compression amount in dB. Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Driven via `updateCompression()`, independent of the mic level path. Range -25 to 0 dB (reversed fill). | — |
+| **Compression** | Shows speech compression amount in dB. Hover the mouse over the gauge to see the exact compression reading with one decimal place (e.g., "6.5 dB"). Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Driven via `updateCompression()`, independent of the mic level path. Range -25 to 0 dB (reversed fill). | — |
 
 ### Audio Routing Section
 
@@ -42,7 +42,7 @@ The Phone panel is displayed when the active slice is in a voice mode (LSB, USB,
 
 | Control | Behavior | Range |
 |---------|----------|-------|
-| **ALC (Phone panel)** | Shows automatic level control reading from `MeterModel::swAlcChanged` (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Red zone above -3 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). | -20 to 0 dBFS |
+| **ALC (Phone panel)** | Shows automatic level control reading from `MeterModel::swAlcChanged` (post-software-ALC SSB peak in dBFS). Hover the mouse over the gauge to see the exact reading with one decimal place (e.g., "-8.5 dBFS"). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Red zone above -3 dBFS. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). | -20 to 0 dBFS |
 
 ## CW Panel Controls
 
@@ -75,7 +75,7 @@ The CW panel is displayed when the active slice is in CW or CWL mode.
 
 | Control | Behavior | Range |
 |---------|----------|-------|
-| **ALC (CW panel)** | Mirrors the Phone-panel ALC gauge; both read from `MeterModel::swAlcChanged` for consistent readings across voice and CW. Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses `HGauge::setFillFromRight` mode. Red zone above -3 dBFS. | -20 to 0 dBFS |
+| **ALC (CW panel)** | Mirrors the Phone-panel ALC gauge; both read from `MeterModel::swAlcChanged` for consistent readings across voice and CW. Hover the mouse over the gauge to see the exact reading with one decimal place (e.g., "-8.5 dBFS"). Added in v26.5.1 (#2552) as part of the SW ALC meter split. Uses `HGauge::setFillFromRight` mode. Red zone above -3 dBFS. | -20 to 0 dBFS |
 
 ## CWX Panel Integration
 
@@ -90,12 +90,14 @@ The embedded CWX panel's F1-F12 shortcuts are driven by the active slice's mode 
 - With Breakin OFF, no auto-PTT envelope is applied. The radio will not transmit queued characters until you engage PTT manually. Release PTT after the last character is sent to return to RX.
 - If you are using an external amplifier, Breakin OFF gives you time to close the amplifier's T/R relay before the keyer starts sending.
 - In v26.5.3, CW sidetone is automatically routed to the audio output device selected in AetherSDR Audio settings, not the system default output. Check your audio output selection if you hear no sidetone.
+- In v26.7.4, all gauges (Level, Compression, and both ALC gauges) now display exact numeric readings in a popup when you hover the mouse over them (#3936). The Level gauge shows dB, the Compression gauge shows positive dB compression, and the ALC gauges show dBFS — all with one decimal place.
+- In v26.7.4, when the radio is modulated by AetherSDR (host modulation enabled), the **Mic source** combo box is locked to "PC" and displays a tooltip explaining that only the PC microphone input is available. This prevents confusion from selecting non-existent radio jacks.
 
 ## Troubleshooting
 
 - **The radio transmits immediately when a key is pressed, even with Breakin apparently off** — This was a known issue in versions prior to v0.9.7, where an auto-PTT envelope overrode the Breakin setting. Confirm AetherSDR is v0.9.7 or later.
 - **The CW panel is not visible; Phone controls are shown** — The applet switches to the CW sub-panel automatically only when the active slice is in a CW mode. Change the slice mode to CW on the radio.
 - **The Delay slider snaps back after typing a value** — This was fixed in v0.9.8 (#2428). The value is now cached immediately so the radio emission does not force the slider back.
-- **The ALC meter shows a frozen reading** — In v26.5.3, the ALC meter is initialized to -20 dBFS at construction. If the reading stays at -20 dBFS, verify the radio is transmitting and audio signal is present.
+- **The ALC meter shows a frozen reading** — In v26.5.3, the ALC meter is initialized to -20 dBFS at construction. If the reading stays at -20 dBFS, verify the radio is transmitting and audio signal is present. Hover over the gauge to see the exact numeric value.
 - **The mic level meter shows -150 dBFS during RX** — In v26.5.3, the level meter is suppressed during receive when the "Meter level during receive" option is disabled in TransmitModel settings. To see mic level during RX, enable that option.
 - **No CW sidetone heard** — In v26.5.3, verify the correct audio output is selected in AetherSDR Audio settings. Sidetone now routes to the user's audio output, not the system default output (#2899).

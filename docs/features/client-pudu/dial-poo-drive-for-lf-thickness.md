@@ -24,14 +24,14 @@ The **Body / Drive** knob controls how hard the low-frequency saturator or compr
 | **Poo / Drive** (RX) | 6.0 dB                                                                                       | 0.0 to 24.0 dB                            |
 | **Body** group bracket | Group label — the three knobs below belong to the low-frequency processor (Drive, Tune, Mix). |                                           |
 | AetherVoice logo     | Animated branded logo that pulses with the wet-signal RMS. Displays 'AetherVoice™' wordmark. | PooDooLogo widget — 40 px minimum height. |
-| **Even**             | Selects Aphex-lineage asymmetric shaping — predominantly even harmonics, warmer, with Big Bottom LF saturation. | Radio button exclusive with 'Odd'. |
+| **Even**             | Selects Aphex-lineage asymmetric shaping — predominantly even harmonics, warmer, with Big Bottom LF saturation. | Radio button exclusive with 'Odd'. When checked, the button is coloured amber (PooDoo colour). |
 | **Odd**              | Selects Behringer-lineage symmetric tanh shaping — pure odd harmonics, brighter, with a feed-forward bass compressor. | Radio button exclusive with 'Even'. |
 | **Poo / Tune**       | 100 Hz                                                                                       | 50 to 160 Hz                              |
 | **Poo / Mix**        | 30 %                                                                                         | 0.0 to 1.0 (displayed as percentage)      |
+| **Clarity** group bracket | Group label — the three knobs below belong to the high-frequency processor (Tune, Air, Mix). |                                           |
 | **Doo / Tune**       | 5000 Hz                                                                                      | 1000 to 10000 Hz (log mapping)            |
 | **Doo / Air**        | 6.0 dB                                                                                       | 0.0 to 24.0 dB                            |
 | **Doo / Mix**        | 30 %                                                                                         | 0.0 to 1.0 (displayed as percentage)      |
-| **Clarity** group bracket | Group label — the three knobs below belong to the high-frequency processor (Tune, Air, Mix). |                                           |
 
 The mapping is linear. Higher values push the low-frequency saturator (**Even** mode) or bass compressor (**Odd** mode) harder, producing more LF effect at the same **Poo / Mix** blend level.
 
@@ -44,6 +44,7 @@ The mapping is linear. Higher values push the low-frequency saturator (**Even** 
 - To focus the Drive on a specific frequency, set **Poo / Tune** first. See [Tune Poo to the fundamental of your voice (TX) or to bring out RX program lows](tune-poo-to-the-fundamental-of-your-voice-tx-or-to-bring-out-rx-program-lows.md).
 - The inline value editor supports locale-aware number parsing (e.g., "12,5" in comma-decimal locales) and a fallback that strips non-numeric characters, so appending unit text like "dB" works.
 - Knob component colours (background ring, foreground arc, handle) now read from the dedicated `color.knob.*` theme namespace. The PUDU applet container (`applet/pudu`) can supply per-applet colour overrides — knob foreground in PUDU may differ from standard knobs. This does not affect user interaction.
+- Both mode buttons (**Even**, **Odd**) now use a unified style with no dedicated edit button appearance. The amber highlight is applied only when a mode button is selected.
 
 ## Related
 

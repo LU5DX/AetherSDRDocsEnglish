@@ -26,6 +26,8 @@ By default, **Connect to last radio on start up** is checked, so AetherSDR will 
 
 When connecting by IP manually, select the local network interface from the **Advanced: Source path** combo box. The **Source warning label** appears below this combo when the previously saved NIC is no longer reachable. Select a valid source interface before clicking **Connect by IP (manual)**.
 
+If the **Available radios** list fills the available space, a vertical scrollbar appears so all entries remain reachable even on small displays. Right-click a radio in the list to set a custom nickname (this is stored locally and is available for non-Flex radios such as HL2 or simulated backends).
+
 ### 2. Select the correct antenna
 
 1. In the right sidebar, click the **RX** tray button to open the RX Controls applet (it is visible by default).
@@ -79,6 +81,7 @@ When connecting by IP manually, select the local network interface from the **Ad
 - **Frequency edit does not accept the value** — Ensure you are entering a value in MHz within the valid range (0.001–54.000 MHz for HF, or up to 50,000 MHz for XVTR and VHF/UHF entries). Press **Escape** to cancel and restore the previous frequency.
 - **Radio IP address drop-down shows a stale address** — The **Source warning label** appears below the **Advanced: Source path** combo when the previously saved NIC is no longer reachable. Select a valid source interface before clicking **Connect by IP (manual)**.
 - **The connection window is not visible or did not restore its previous size** — When entering or exiting frameless mode, the window restores its geometry only if it was previously visible. If the connection window appears in an unexpected position, resize or reposition it normally and it will remember those dimensions next time.
+- **Some radio entries in the Available radios list are not visible** — The list now has a fixed maximum height and a vertical scrollbar so all entries remain reachable on small displays. Use the scrollbar or scroll wheel to see radios below the visible area.
 
 ## Related
 

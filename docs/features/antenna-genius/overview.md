@@ -11,7 +11,7 @@ The Antenna Genius applet lets you control a 4O3A Antenna Genius antenna switch 
 
 AetherSDR listens for Antenna Genius devices on the LAN using UDP discovery. When a device is found, the applet appears and connects automatically. Note that ShackSwitch devices discovered on the LAN are not auto-connected here; they are handled by the ShackSwitch applet instead. If your device is on a remote network, enter its IP address in the Manual IP field and press Enter; the address is saved as `AG_ManualIp` and used to connect on port 9007.
 
-Once connected, the applet shows two port sections — Port A and Port B — each with a row of antenna buttons populated from the device's antenna list. Clicking an antenna button selects that antenna on the port; clicking it again deselects it (sets antenna to 0). If a device reports only one radio port, the Port B section is hidden.
+Once connected, the applet shows two port sections — Port A and Port B — each with a row of antenna buttons populated from the device's antenna list. Clicking an antenna button selects that antenna on the port; clicking it again deselects it (sets antenna to 0). If a device reports only one radio port, the Port B section is hidden. Port B visibility is set immediately when the device information is received, either from a manual IP connection response or from a UDP beacon.
 
 Antenna buttons are colour-coded to show TX/RX permission on the current band:
 

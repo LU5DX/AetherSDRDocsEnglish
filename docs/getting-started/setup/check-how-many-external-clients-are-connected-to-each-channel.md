@@ -31,9 +31,12 @@ The port shown is the base port for channel A, base+1 for B, base+2 for C, and b
 | **Enable TTY**       | Off         | On / Off    |
 | **Base**             | `4532`      | 1024–65535  |
 | A/B/C/D channel rows | `(stopped)` | —           |
+
 ### Enable TCP
 
 Starts or stops all four rigctld TCP servers on the base port through base+3. Also persists the current base port value to the `CatTcpPort` setting.
+
+In v26.7.4, the **Enable TCP** button now displays "Enabled" or "Disabled" instead of "Enable CAT" to make the current state immediately readable. The same label is mirrored in both the docked and floating applet views. The button text updates dynamically when toggled or when the state is changed programmatically.
 
 ### Enable TTY
 
@@ -51,6 +54,8 @@ Each row shows:
 - A slice-colour coded channel badge
 - TCP status: `(stopped)`, `:<port> (1 client)`, or `:<port> (N clients)`
 - PTY path showing the symlink location where logging software can open a serial device
+
+In v26.7.4, each channel row includes a per-port enable checkbox. The checkbox uses a high-contrast style with a visible border and a filled accent colour when checked, making its on/off state readable against the dark applet background. The VFO selection for each channel persists across reconnections so that a previously chosen slice is not lost when reconnecting to a smaller radio.
 
 ## Tips
 
