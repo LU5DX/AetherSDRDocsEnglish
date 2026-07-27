@@ -93,7 +93,7 @@ Configure the virtual or physical FlexControl rotary controller in AetherSDR. Th
 1. **Push (action)**: Select an action from the combo box for single-tap of the wheel.
 2. **Double-tap (action)**: Select an action from the combo box for double-tap of the wheel.
 
-See [Configure single- and double-tap actions for the PUSH button](configure-single--and-double-tap-actions-for-the-push-button.md) for the full list of available actions.
+See Configure single- and double-tap actions for the PUSH button for the full list of available actions.
 
 ## Configure auxiliary buttons
 
@@ -151,4 +151,4 @@ See [Configure single- and double-tap actions for the PUSH button](configure-sin
 
 ## Related
 
-- [Configure single- and double-tap actions for the PUSH button](configure-single--and-double-tap-actions-for-the-push-button.md)
+- Configure single- and double-tap actions for the PUSH button

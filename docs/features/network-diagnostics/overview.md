@@ -110,5 +110,5 @@ Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by c
 - [Verify the radio's IP and local bind address](verify-the-radio-s-ip-and-local-bind-address.md)
 - [Measure RTT and packet drops during audio problems](measure-rtt-and-packet-drops-during-audio-problems.md)
 - [Check per-category data rates (audio, FFT, waterfall, meters, DAX)](check-per-category-data-rates-audio-fft-waterfall-meters-dax.md)
-- [Diagnose audio underruns and jitter](../troubleshooting/networkdiagnostics/diagnose-audio-underruns-and-jitter.md)
+- Diagnose audio underruns and jitter
 - [Watch the first-UDP-packet timestamp after connect](../../getting-started/setup/watch-the-first-udp-packet-timestamp-after-connect.md)

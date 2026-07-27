@@ -49,5 +49,5 @@ The binding is immediately restored to the action's default key. The action tabl
 - [Reset every shortcut back to defaults](reset-every-shortcut-back-to-defaults.md)
 - [See the default key for any action](see-the-default-key-for-any-action.md)
 - [Find all actions in a category](find-all-actions-in-a-category.md)
-- [Export keyboard shortcuts](export-keyboard-shortcuts.md)
-- [Import keyboard shortcuts](import-keyboard-shortcuts.md)
+- Export keyboard shortcuts
+- Import keyboard shortcuts

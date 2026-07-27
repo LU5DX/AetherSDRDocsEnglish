@@ -84,4 +84,4 @@ Use the Drive knob to push signal into the tube stage and produce harmonic satur
 - [Parallel-blend saturation with Mix](parallel-blend-saturation-with-mix.md)
 - Use Envelope for dynamic tube response
 - [Bypass the tube from either chain](bypass-the-tube-from-either-chain.md)
-- [Enable RNNoise noise suppression on TX (RN2)](enable-rnnoise-noise-suppression-on-tx-rn2.md)
+- Enable RNNoise noise suppression on TX (RN2)

@@ -59,4 +59,4 @@ Alternatively, double-click any entry in the **Profile list** to load it without
 - [Turn on auto-save so TX tweaks always persist](turn-on-auto-save-so-tx-tweaks-always-persist.md)
 - [Profile Manager overview](overview.md)
 - [Save the current radio state as a new global profile](save-the-current-radio-state-as-a-new-global-profile.md)
-- [Save the current radio state as a new transmit profile](save-the-current-radio-state-as-a-new-transmit-profile.md)
+- Save the current radio state as a new transmit profile

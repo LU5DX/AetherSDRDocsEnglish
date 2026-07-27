@@ -50,5 +50,5 @@ The import and export dialogs remember the last directory you used, saving betwe
 - [Reset every shortcut back to defaults](reset-every-shortcut-back-to-defaults.md)
 - [Find all actions in a category](find-all-actions-in-a-category.md)
 - [See the default key for any action](see-the-default-key-for-any-action.md)
-- [Import keyboard shortcuts from a file](import-keyboard-shortcuts-from-a-file.md)
-- [Export keyboard shortcuts to a file](export-keyboard-shortcuts-to-a-file.md)
+- Import keyboard shortcuts from a file
+- Export keyboard shortcuts to a file
