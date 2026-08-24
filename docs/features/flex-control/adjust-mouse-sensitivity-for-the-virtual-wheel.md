@@ -14,6 +14,8 @@ The virtual wheel shows the currently active slice, its frequency, and mode. You
 
 The dialog shows the physical FlexControl connection state and port name. Use the **Detect** and **Close** buttons to manage the physical device.
 
+If the connection to a physical FlexControl is lost — for example, the USB cable is unplugged — AetherSDR automatically retries the connection. Retries start after 2 seconds and back off to a maximum interval of 30 seconds until the device is detected again. The driver re-detects the port name on each retry, so a device that re-enumerates on a different COM port is reconnected correctly. The failure is logged once per outage rather than on every retry.
+
 ## Compact mode
 
 Toggle **Compact** to hide the auxiliary buttons and show only the wheel and frequency readout for a minimal UI.

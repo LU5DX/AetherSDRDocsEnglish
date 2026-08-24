@@ -10,11 +10,11 @@ The Network Diagnostics dialog gives you a live, per-second view of the network 
 
 Open the dialog with `Settings > Network...`. All indicators update once per second automatically. Click Close when finished.
 
-The dialog uses a tree navigation panel on the left and a content area on the right. Seven pages are available: **Overview**, **Details**, **Latency**, **Rates**, **Packet Loss**, **Audio**, and **Logs**. Click any item in the navigation tree to open that page. A **Search** field at the top of the navigation panel lets you filter the tree items by name. A **Timeframe** selector in the top-right corner controls how far back the time-series charts display history; it is hidden when the Logs page is active.
+The dialog uses a tree navigation panel on the left and a content area on the right. Eight pages are available: **Overview**, **Connection Details**, **Latency**, **Rates**, **Packet Loss**, **Audio**, **Logs**, and **TCI Clients**. Click any item in the navigation tree to open that page. A **Search** field at the top of the navigation panel lets you filter the tree items by name. A **Timeframe** selector in the top-right corner controls how far back the time-series charts display history; it is hidden when the Logs or TCI Clients page is active.
 
 The dialog remembers its window geometry between sessions. Position and size are saved when you close the dialog and restored the next time it opens.
 
-The Details page organises all labeled indicators into four groups described below.
+The Connection Details page organises all labeled indicators into five groups described below.
 
 ### Network Status
 
@@ -28,8 +28,8 @@ Connection path and TCP latency. Confirms which route AetherSDR is using to reac
 | Local TCP | Local TCP endpoint (address and port). |
 | Local UDP | Local UDP endpoint (address and port). |
 | First UDP Packet | Whether the first UDP packet has been received since connect ("Yes" or "No"). |
-| Latency (RTT) | Current round-trip time in milliseconds. Displays "< 1 ms" when below 1 ms. |
-| Max Latency (RTT) | Highest RTT measured since the radio connected. |
+| Latency (RTT) | Current round-trip time in milliseconds. Displays "< 1 ms" when below 1 ms. Shows "not measured on this link" when the connected transport has no round trip to time. |
+| Max Latency (RTT) | Highest RTT measured since the radio connected. Shows "not measured on this link" when the connected transport has no round trip to time. |
 
 ### Incoming Stream Rates
 
@@ -37,13 +37,23 @@ Per-category ingress rates and aggregate totals. Large swings indicate bursty de
 
 | Indicator | What it shows |
 |---|---|
-| Audio | Incoming audio stream rate in kbps. |
-| FFT | Incoming FFT stream rate in kbps. |
-| Waterfall | Incoming waterfall stream rate in kbps. |
-| Meters | Incoming meters stream rate in kbps. |
-| DAX | Incoming DAX stream rate in kbps. |
+| Audio | Incoming audio stream rate in kbps. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| FFT | Incoming FFT stream rate in kbps. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| Waterfall | Incoming waterfall stream rate in kbps. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| Meters | Incoming meters stream rate in kbps. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| DAX | Incoming DAX stream rate in kbps. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
 | Total RX | Aggregate inbound rate across all streams in kbps. |
 | Total TX | Aggregate outbound rate in kbps. |
+
+### Adaptive Frame-Rate Throttle
+
+Shows the state of the adaptive throttle that reduces panadapter frame rates when latency or loss is detected. This section is hidden until throttle data is available.
+
+| Indicator | What it shows |
+|---|---|
+| Current State | The current throttle state. |
+| Pending Lift | Whether the throttle is pending lift. |
+| Sessions This Run | Number of throttle sessions since the radio connected. |
 
 ### Packet Loss (Sequence Gaps)
 
@@ -51,11 +61,11 @@ Drop counts inferred from missing VITA sequence numbers. A zero count here does 
 
 | Indicator | What it shows |
 |---|---|
-| Audio | Dropped packets / total packets (percent) for the audio stream. |
-| FFT | Dropped packets / total packets (percent) for the FFT stream. |
-| Waterfall | Dropped packets / total packets (percent) for the waterfall stream. |
-| Meters | Dropped packets / total packets (percent) for the meters stream. |
-| DAX | Dropped packets / total packets (percent) for the DAX stream. |
+| Audio | Dropped packets / total packets (percent) for the audio stream. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| FFT | Dropped packets / total packets (percent) for the FFT stream. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| Waterfall | Dropped packets / total packets (percent) for the waterfall stream. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| Meters | Dropped packets / total packets (percent) for the meters stream. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
+| DAX | Dropped packets / total packets (percent) for the DAX stream. Shows "n/a" when the connected transport does not provide per-stream category statistics. |
 
 ### Audio Playback
 
@@ -67,35 +77,43 @@ Speaker-side buffer health. If underruns increase while the buffer stays near ze
 | RX Buffer Peak | Highest buffer fill seen since connect, in bytes and milliseconds. |
 | Underruns (total) | Cumulative audio buffer underrun count since connect. |
 | Underruns (last sec) | Audio buffer underruns that occurred in the most recent one-second interval. |
-| Audio Arrival Gap | Time gap between consecutive incoming audio packets. |
-| Max Arrival Gap | Largest arrival gap seen since connect. |
-| Network Jitter | Smoothed jitter estimate of the incoming audio stream. |
+| Audio Arrival Gap | Time gap between consecutive incoming audio packets. Shows "not measured on this link" when the connected transport does not provide delivery-timing measurements. |
+| Max Arrival Gap | Largest arrival gap seen since connect. Shows "not measured on this link" when the connected transport does not provide delivery-timing measurements. |
+| Network Jitter | Smoothed jitter estimate of the incoming audio stream. Shows "not measured on this link" when the connected transport does not provide delivery-timing measurements. |
 
 ## Controls
 
-| Control                  | Behavior                                                                                                                                                                                                                         | Notes                                                                                                   |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| Navigation tree          | Tree panel on the left side of the dialog. Click any page name to open that page. Items are: Overview, Details, Latency, Rates, Packet Loss, Audio, Logs.                                                                       | Replaces the previous tab bar.                                                                          |
-| Search                   | Filters the navigation tree items by name as you type.                                                                                                                                                                           | Located above the navigation tree.                                                                      |
-| Overview (page)          | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).                                                     |                                                                                                         |
-| Details (page)           | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.                                                                                                           |                                                                                                         |
-| Latency (page)           | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                                                                               |                                                                                                         |
-| Rates (page)             | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                                                                                   |                                                                                                         |
-| Packet Loss (page)       | Full-width time-series graph of packet loss % per stream category.                                                                                                                                                               |                                                                                                         |
-| Audio (page)             | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. | v26.5.3 (#2889): per-stream RX diagnostics exposed in the support bundle and in this page's detail view. |
-| Logs (page)              | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                                                                         | Timeframe selector is hidden while this page is active.                                                  |
-| Timeframe                | Selects how far back the time-series charts display history. Default is 5 minutes. Available options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.                                                                    | Shown in the top-right corner of the page area; hidden when the Logs page is active.                     |
-| Filter Categories (Logs) | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                                                                    |                                                                                                         |
-| Select All (Logs)        | Shows all log categories in the viewer.                                                                                                                                                                                          |                                                                                                         |
-| Deselect All (Logs)      | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                         |
-| Live / Paused (Logs)     | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      | Default state is Live.                                                                                  |
-| Close                    | Closes the dialog.                                                                                                                                                                                                               |                                                                                                         |
+| Control                                | Behavior                                                                                                                                                                                                                         | Notes                                                                                                                                                                                                                    |
+|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Navigation tree                        | Tree panel on the left side of the dialog. Click any page name to open that page. Items are: Overview, Connection Details, Latency, Rates, Packet Loss, Audio, Logs, TCI Clients.                                                 | Replaces the previous tab bar.                                                                                                                                                                                            |
+| Search                                 | Filters the navigation tree items by name as you type.                                                                                                                                                                           | Located above the navigation tree.                                                                                                                                                                                       |
+| Overview (tab)                         | Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series graphs (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).                                                     |                                                                                                                                                                                                                          |
+| Connection Details (page)              | Scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, Audio Playback, and the Adaptive Frame-Rate Throttle subsection.                                                                     | Renamed from 'Details' in the v26.8.4 tree-navigation rework. Includes a Read-Only Clipboard Copy action to copy the whole diagnostic summary. Labs with per-stream category statistics are shown as "n/a" when unavailable. |
+| Adaptive Frame-Rate Throttle (section) | Shows the adaptive throttle's Current State, Pending Lift and Sessions This Run values. Reduces panadapter frame rates when latency or loss is detected.                                                                         | New in v26.8.4. Hidden until throttle data is available.                                                                                                                                                                  |
+| Latency (tab)                          | Full-width time-series graph of RTT, arrival gap and jitter in ms.                                                                                                                                                               | RTT trace is omitted entirely when the connected transport has no round trip to time.                                                                                                                                    |
+| Rates (tab)                            | Full-width log-scale time-series graph of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.                                                                                                   |                                                                                                                                                                                                                          |
+| Packet Loss (tab)                      | Full-width time-series graph of packet loss % per stream category.                                                                                                                                                               |                                                                                                                                                                                                                          |
+| Audio (tab)                            | Full-width time-series graph of playback buffer fill (ms) and underruns/s. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream. | v26.5.3 (#2889): per-stream RX diagnostics exposed in the support bundle and in this tab's detail view.                                                                                                                   |
+| Logs (tab)                             | Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name.                                                                                                         | Timeframe selector is hidden while this page is active.                                                                                                                                                                  |
+| TCI Clients (page)                     | Lists connected TCI clients with a live traffic monitor (Pause/Save log/Clear), answer-command suppression controls, and per-client details.                                                                                     | New in v26.8.4. Build-gated by HAVE_TCI / TCI support. Timeframe selector is hidden on this page.                                                                                                                         |
+| Timeframe                              | Selects how far back the time-series charts display history. Default is 5 minutes. Available options: 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week.                                                                    | Shown in the top-right corner of the page area; hidden when the Logs or TCI Clients page is active.                                                                                                                        |
+| Filter Categories (Logs)               | Per-category checkboxes filter the log view. Includes a General (default) category plus all registered LogManager categories.                                                                                                    |                                                                                                                                                                                                                          |
+| Select All (Logs)                      | Shows all log categories in the viewer.                                                                                                                                                                                          |                                                                                                                                                                                                                          |
+| Deselect All (Logs)                    | Hides all log categories from the viewer.                                                                                                                                                                                        |                                                                                                                                                                                                                          |
+| Live / Paused (Logs)                   | When Live, the viewer auto-scrolls to newest output. Scrolling up auto-pauses; clicking Live resumes and jumps to the tail.                                                                                                      | Default state is Live.                                                                                                                                                                                                   |
+| Close                                  | Closes the dialog.                                                                                                                                                                                                               |                                                                                                                                                                                                                          |
 
 ## Logs page
 
 The Logs page tails the AetherSDR log file in real time. The full path of the file being tailed is shown in the log path label at the top of the page.
 
 Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by category name. Use the **Filter Categories** checkboxes to limit output to the categories you are interested in. Click **Select All** to restore all categories or **Deselect All** to clear the view. The **Live / Paused** toggle controls auto-scroll: scrolling up pauses the view automatically; click **Live** to resume and jump back to the newest output.
+
+## TCI Clients page
+
+The TCI Clients page lists all TCI clients connected to the radio, with per-client details. A traffic monitor shows live TCI traffic; use **Pause** to freeze it, **Save log** to write it to a file, and **Clear** to reset it. Answer-command suppression controls let you adjust how AetherSDR responds to TCI client commands.
+
+This page is only available in builds compiled with TCI support (HAVE_TCI). The Timeframe selector is hidden while this page is active.
 
 ## Tips
 
@@ -104,6 +122,7 @@ Log lines are syntax-highlighted by log level (DBG, INF, WRN, CRT, FTL) and by c
 - Packet loss counts in the Packet Loss group are cumulative since the dialog was opened; close and reopen the dialog to reset the baseline.
 - Zero packet loss combined with rising underruns points to a jitter or timing problem rather than outright loss — check Audio Arrival Gap and Network Jitter in that case.
 - On the Rates page the y-axis uses a logarithmic scale, which makes it easier to see low-rate streams (such as Meters) alongside the much higher RX total.
+- When the connected transport does not provide a round-trip time or per-stream category statistics, the relevant indicators display "not measured on this link" or "n/a" rather than "0" — this distinguishes "no measurement taken" from "zero measured", so a transport that cannot produce a given figure is not mistaken for a perfectly healthy one.
 
 ## Related
 

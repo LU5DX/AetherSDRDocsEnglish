@@ -137,6 +137,14 @@ In v26.7.4 (#3936), all three Phone panel meters (Level, Compression, ALC) and t
 - **Compression gauge**: Shows the compression amount as a positive value in dB (e.g., "12.5 dB").
 - **ALC gauges (Phone and CW)**: Shows "X.X dBFS" (one decimal place).
 
+## Capability-aware mic input (v26.8.4)
+
+In v26.8.4, the **Mic source** selector and **Level** gauge become capability-aware:
+
+- When the radio's transmit audio input is not selectable from the client (the radio takes TX audio from the computer), the **Mic source** drop-down is narrowed to `PC` only. The drop-down is disabled and shows a tooltip explaining that the radio's own input selection is made on the radio. This avoids presenting a greyed-out entry that looks like a usable mic input.
+- When only `PC` is available, the client explicitly applies the `PC` mic selection state to the transmit model, so downstream tools (such as radiocert) read the correct state.
+- The **Level** gauge is hidden entirely on radios whose mic level cannot be measured client-side.
+
 ## Tips
 
 - When using `PC` as the source, the **Level** meter appears immediately when AetherSDR connects to the radio, because PC mic metering runs client-side independently of the radio's `met_in_rx` setting.

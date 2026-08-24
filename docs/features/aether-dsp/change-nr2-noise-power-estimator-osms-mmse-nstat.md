@@ -15,14 +15,15 @@ The dialog appears as a frameless window with a gradient title bar. It remembers
 
 ## Dialog controls overview
 
-| Control | Description |
-|---------|-------------|
-| Title bar | Frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and the dialog title. |
-| — (Minimize) | Minimizes the dialog. |
-| □ (Maximize) | Maximizes or restores the dialog. |
-| × (Close) | Closes the dialog. |
-| Drag-to-move | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore. |
-| 8-axis resize | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget. |
+| Control                   | Description                                                                                                                                                                                                  | Notes                                                                                                                                                                      |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Title bar                 | Frameless 18 px gradient title bar with a grip glyph (⋮⋮) on the left and the dialog title.                                                                                                                  | Matching the chrome family of NetworkDiagnosticsDialog and AetherialAudioStrip. Added in v0.9.8 (#2425 refit). |
+| — (Minimize)              | Minimizes the dialog.                                                                                                                                                                                        |                                                                                                                                                                            |
+| □ (Maximize)              | Maximizes or restores the dialog.                                                                                                                                                                            |                                                                                                                                                                            |
+| × (Close)                 | Closes the dialog.                                                                                                                                                                                           |                                                                                                                                                                            |
+| Drag-to-move              | Click and drag the title bar to move the dialog. Double-click to toggle maximize/restore.                                                                                                                    |                                                                                                                                                                            |
+| 8-axis resize             | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget.                                            |                                                                                                                                                                            |
+| Noise Floor (RN2 dry mix) | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. | Affects received audio only; the transmit denoiser is unchanged. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. New in v26.8.4. |
 
 ## NR2 tab
 
@@ -40,8 +41,7 @@ The NR2 tab controls the musical-noise-reduction engine.
 | **Gain Floor:** | Slider, 0.00–1.00 | 0.00 | `NR2GainFloor` | Sets the minimum gain floor applied by NR2. Higher values preserve more ambient noise. Added in v26.7.4. |
 | **Smoothing:** | Slider, 0.50–0.98 | 0.85 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
 | **Threshold:** | Slider, 0.05–0.50 | 0.20 | `NR2Qspp` | Sets speech-presence-probability threshold. |
-| **Use Original Geometry** | Checkbox | False | `NR2UseOriginalGeometry` | When enabled, NR2 uses the original spectral geometry (pre-v26.7.4) for noise estimation. Disabled uses the revised geometry for improved musical-noise suppression. |
-| Reset Defaults (↺ icon) | Push button | — | — | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.00/0.85/0.20, Use Original Geometry off). |
+| Reset Defaults (↺ icon) | Push button | — | — | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.00/0.85/0.20). |
 
 ### Changing the NPE method
 
@@ -58,15 +58,6 @@ The **Gain Floor** slider (0.00–1.00, default 0.00) sets the minimum gain appl
 2. Drag the **Gain Floor:** slider to the desired level.
 
 The setting takes effect immediately and is saved automatically to `NR2GainFloor`.
-
-### Using the original spectral geometry
-
-The **Use Original Geometry** checkbox (default: off) controls whether NR2 uses the revised spectral geometry introduced in v26.7.4 (off) or the original pre-v26.7.4 geometry (on). The revised geometry improves suppression of musical-noise artifacts. If you prefer the older behavior, enable this option.
-
-1. Click the **NR2** tab.
-2. Check or uncheck **Use Original Geometry**.
-
-The setting takes effect immediately and is saved automatically to `NR2UseOriginalGeometry`.
 
 ## NR4 tab
 
@@ -98,9 +89,25 @@ The MNR tab controls the macOS MMSE-Wiener noise-reduction engine. The MNR toggl
 | **Enable MNR (macOS only)** | Checkbox | Read live from AudioEngine | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. |
 | **Strength** | Slider, 0–100 | 100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). Persisted as normalized 0.00-1.00. |
 
-## RN2 tab (informational)
+## RN2 tab
 
-The RN2 tab displays the RNNoise page. It is purely informational with no adjustable parameters. The RN2 engine is enabled via the toggle button at the top of the dialog.
+The RN2 tab controls the RNNoise engine. It hosts the Noise Floor dry-mix slider. The RN2 engine is enabled via the toggle button at the top of the dialog.
+
+### Controls
+
+| Control | Kind | Default | Setting key | Behavior |
+|---------|------|---------|-------------|----------|
+| **RN2 (tab)** | Tab | — | — | Selects the RN2 page. |
+| **Noise Floor (RN2 dry mix)** | Slider, 0–100 | 0 | — | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. New in v26.8.4. |
+
+### Adjusting the Noise Floor
+
+The **Noise Floor** slider (0–100, default 0) sets the percentage of the original signal RN2 leaves under the denoised audio. A value of 0 yields full suppression, which can produce silence between phrases. A value of 10–20% keeps a steady quiet floor so the receiver still sounds alive.
+
+1. Click the **RN2** tab.
+2. Drag the **Noise Floor** slider to the desired level.
+
+The setting takes effect immediately and is persisted by Rn2SettingsModel.
 
 ## BNR tab (NVIDIA)
 
@@ -130,8 +137,8 @@ The DFNR tab controls the DeepFilterNet3 noise-reduction engine. The DFNR toggle
 - NR2: OSMS works well for steady background noise such as atmospheric hiss or white noise. NSTAT is better for rapidly changing noise floors.
 - NR2: If changing the NPE method introduces more musical noise artifacts, enable **AE Filter (artifact elimination)**.
 - NR2: If noise reduction sounds too aggressive or "starved," increase **Gain Floor:** slightly (e.g., 0.05–0.10) to retain some ambient noise.
-- NR2: Disable **Use Original Geometry** (the default) unless you specifically need the pre-v26.7.4 behavior.
 - NR4: Adaptive noise estimation helps track changing noise conditions. Disable it if the noise floor is stable.
+- RN2: Set the **Noise Floor** slice to 10–20% to keep the receiver sounding alive while still suppressing noise between phrases.
 - DFNR: Post-Filter Beta adds extra suppression but may introduce artifacts at higher values.
 - Click the Reset Defaults button (↺) on any tab to return all parameters on that tab to their factory defaults.
 
@@ -142,6 +149,7 @@ The DFNR tab controls the DeepFilterNet3 noise-reduction engine. The DFNR toggle
 - **BNR tab is dimmed** — The NVIDIA Broadcast SDK is not installed on this system.
 - **DFNR tab is dimmed** — DeepFilterNet is not available on this build. Rebuild AetherSDR with DeepFilterNet support to enable DFNR.
 - **Gain Floor slider does not appear** — You are running a version older than v26.7.4. Update to the latest release.
+- **Noise Floor slider does not appear on the RN2 tab** — You are running a version older than v26.8.4. Update to the latest release.
 
 ## Related
 

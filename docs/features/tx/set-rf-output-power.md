@@ -26,7 +26,7 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 
 ## Tips
 
-- The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W.
+- The **RF Pwr** meter scale changes automatically depending on your radio model. On a standard FLEX-8600 the red zone begins above 100 W. With the Aurora 500W amplifier, the red zone begins above 500 W and the scale extends to 600 W.
 - You can set per-band power limits independently of this slider. Go to `Settings > TX Band Settings...` to configure power, tune power, and inhibit settings for each band.
 - The **RF Power** slider controls the exciter output level, not a separate amplifier. If you are running an external amplifier, set this slider to the drive level your amplifier expects.
 - The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays smoothly toward the current power level. The peak immediately clears to zero when the transmitter unkeys.
@@ -36,6 +36,10 @@ Use the RF Power slider in the TX Controls applet to set the transmit power leve
 ## Using the TUNE button
 
 The **TUNE** button starts or stops a tune carrier. While active, the button text changes to "TUNING..." with a red background.
+
+### Meter behavior during TUNE
+
+When the transmitter is unkeyed, both the **RF Pwr** and **SWR** meters immediately return to their rest positions (0 W and 1.0:1 respectively). This prevents stale readings from lingering on screen between transmissions.
 
 ### TUNE button right-click menu
 
@@ -75,7 +79,7 @@ The **Byp** indicator lights orange when the tuner is in bypass. The **Success**
 | Success/OK match, same frequency as last tune | Switches to bypass |
 | Bypass active | Starts fresh tune cycle on next click |
 
-> **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL transverter is in OPERATE mode.
+> **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL transverter is in OPERATE mode, or when the radio has no antenna tuner fitted.
 
 ### ATU right-click menu
 
@@ -86,7 +90,7 @@ Right-clicking the **ATU** button opens a context menu with two additional optio
 
 ## Using the MEM toggle button
 
-The **MEM** button toggles ATU memory recall on or off. When enabled, the tuner can use stored tuning data for previously tuned frequencies. This button is disabled when the TGXL transverter is in OPERATE mode.
+The **MEM** button toggles ATU memory recall on or off. When enabled, the tuner can use stored tuning data for previously tuned frequencies. This button is disabled when the TGXL transverter is in OPERATE mode, or when the radio has no antenna tuner fitted.
 
 ## Using the APD (Adaptive Pre-Distortion) cluster
 
@@ -98,12 +102,15 @@ The **APD** toggle button enables or disables adaptive pre-distortion on the rad
 
 The typical progression is Cal → Avail → Active. When APD is off, all three indicators are dim.
 
+The APD controls are only shown when the radio supports adaptive pre-distortion. On radios without this feature, the entire APD cluster is hidden.
+
 ## Troubleshooting
 
 - **RF Pwr meter shows 0 W during transmit** — Confirm the radio is actually keyed. Check that MOX is active (the **MOX** button is red) or that your PTT line is asserted. Also verify the **RF Power** slider is not set to 0.
 - **Slider moves but forward power does not change** — The radio connection may have dropped. Check the connection status and reconnect via `Settings > Connect to Radio...` if needed.
 - **ATU button starts a fresh tune even though Success was lit** — Confirm you have not changed transmit frequency since the last tune. Any frequency change clears the stored tuned-frequency record and forces a new tune cycle.
 - **Quindar tones do not play when using MOX** — Confirm the active slice is set to a phone mode and that the **QUIN** chip is enabled in the Audio Channel Strip. Quindar tones are suppressed on non-phone modes regardless of the QUIN setting.
+- **ATU and MEM buttons are disabled** — The radio may not have an antenna tuner fitted, or the TGXL transverter is in OPERATE mode. Hover over the disabled button to see the reason in a tooltip.
 
 ## Related
 

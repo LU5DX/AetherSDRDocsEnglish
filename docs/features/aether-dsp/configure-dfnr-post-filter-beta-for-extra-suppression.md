@@ -12,19 +12,19 @@ The AetherDSP Settings dialog provides advanced control over all six client-side
 
 The AetherDSP Settings dialog uses custom chrome matching the NetworkDiagnosticsDialog and AetherialAudioStrip:
 
-| Control | Description |
-|---------|-------------|
-| **Title bar** | 18 px gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit). |
-| **— (Minimize)** | Minimizes the dialog. |
-| **□ (Maximize)** | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore. |
-| **× (Close)** | Closes the dialog. |
-| **Drag-to-move** | Click and drag the title bar to move the dialog. |
-| **8-axis resize** | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget. |
+| Control                   | Description                                                                                                                                                                                                  | Notes                                                                                                                                                                      |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Title bar**             | 18 px gradient title bar with grip glyph (⋮⋮) on the left and dialog title. Added in v0.9.8 (#2425 refit).                                                                                                   |                                                                                                                                                                            |
+| **— (Minimize)**          | Minimizes the dialog.                                                                                                                                                                                        |                                                                                                                                                                            |
+| **□ (Maximize)**          | Maximizes or restores the dialog. Double-click the title bar also toggles maximize/restore.                                                                                                                  |                                                                                                                                                                            |
+| **× (Close)**             | Closes the dialog.                                                                                                                                                                                           |                                                                                                                                                                            |
+| **Drag-to-move**          | Click and drag the title bar to move the dialog.                                                                                                                                                             |                                                                                                                                                                            |
+| **8-axis resize**         | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. 6 px resize hit zone around the inner content widget.                                                          |                                                                                                                                                                            |
+| Noise Floor (RN2 dry mix) | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. | Affects received audio only; the transmit denoiser is unchanged. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. |
 
 The dialog uses `PersistentDialog` with geometry stored in setting `AetherDspDialogGeometry`. The position and size are automatically restored when the dialog is reopened.
 
 The dialog background, title bar colors, and slider styling use theme tokens from the active theme. Sliders now use `applyPrimarySliderStyle()` instead of hardcoded inline stylesheets, making them respect the user's chosen color scheme.
-
 ## Selecting and activating noise-reduction engines
 
 The six DSP toggles (NR2, NR4, MNR, DFNR, RN2, BNR) act as both exclusive tab selectors and engine enable/disable controls. Click a toggle to select its settings page; the same click also activates or bypasses that engine.
@@ -96,15 +96,9 @@ Stored in setting `NR2NpeMethod` as integer 0-2.
 - Valid range: 0.05–0.50
 - Stored in setting `NR2Qspp`.
 
-### Use Original Geometry:
-
-- When enabled, uses the original NR2 geometry for the noise estimate rather than the updated geometry algorithm.
-- Default: Off (`False`).
-- Stored in setting `NR2UseOriginalGeometry`.
-
 ### Reset Defaults (↺ icon)
 
-- Restores NR2 tab defaults: Gamma, OSMS, AE on, Reduction 1.50, Gain Floor 0.10, Smoothing 0.85, Threshold 0.20, Use Original Geometry off.
+- Restores NR2 tab defaults: Gamma, OSMS, AE on, Reduction 1.50, Gain Floor 0.10, Smoothing 0.85, Threshold 0.20.
 - Rendered as a flat icon button with anticlockwise arrow (U+21BA).
 
 ## Tab: NR4 — Libspecbleach noise reduction
@@ -173,12 +167,6 @@ Stored in setting `NR4NoiseEstimationMethod` as integer 0-2.
 
 The MNR engine provides MMSE-Wiener noise reduction with asymmetric gain smoothing. **This tab is dimmed on Windows and Linux builds** — the engine has no backend on those platforms.
 
-### Enable MNR (macOS only)
-
-- Enables MMSE-Wiener noise reduction with asymmetric gain smoothing.
-- Initial state is read live from the audio engine.
-- Stored in setting `MnrEnabled`.
-
 ### Strength
 
 - Adjusts MNR aggressiveness (0 mild, 100 max).
@@ -188,7 +176,21 @@ The MNR engine provides MMSE-Wiener noise reduction with asymmetric gain smoothi
 
 ## Tab: RN2 — RNNoise
 
-The RN2 (RNNoise) tab is **purely informational** — no adjustable parameters are available. The toggle activates or bypasses the RNNoise engine, but settings are managed elsewhere.
+The RN2 (RNNoise) tab hosts the Noise Floor dry-mix slider introduced in v26.8.4. The toggle activates or bypasses the RNNoise engine.
+
+### Noise Floor (RN2 dry mix)
+
+- Sets the percentage of the original signal RN2 leaves under the denoised audio.
+- Default: 0
+- Valid range: 0–100
+- Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive.
+- Affects received audio only; the transmit denoiser is unchanged.
+- Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's `rn2DryMixChanged` signal.
+
+### Reset Defaults (↺ icon)
+
+- Restores the Noise Floor slider to 0.
+- Rendered as a flat icon button with anticlockwise arrow (U+21BA).
 
 ## Tab: BNR — NVIDIA Broadcast
 
@@ -220,6 +222,7 @@ The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine. **
 - A value of 0.00 disables the post-filter entirely, leaving DeepFilterNet3's output unchanged.
 - For NR2, start with default values and adjust Reduction upward gradually while checking for musical artefacts.
 - The **Gain Floor** slider prevents NR2 from completely silencing weak signals. Increase it if signals drop out during pauses, decrease it if background noise is too prominent.
+- For RN2, try a Noise Floor of 10-20% if full suppression leaves uncomfortable silence between phrases.
 
 ## Troubleshooting
 
@@ -227,6 +230,7 @@ The DFNR tab provides controls for the DeepFilterNet3 noise reduction engine. **
 - **No audible change when moving the slider** — The selected engine may not be active on the current slice. Confirm the engine toggle is selected and that parameters are not at minimum.
 - **NR2 produces musical noise** — Reduce **Reduction** or enable **AE Filter** to suppress artefacts.
 - **NR2 makes weak signals disappear** — Increase **Gain Floor** to prevent over-suppression.
+- **RN2 audio sounds dead between phrases** — Set **Noise Floor** to 10-20% so a quiet floor remains under the denoised audio.
 - **MNR, BNR, or DFNR tabs are dimmed** — The required backend (macOS for MNR, NVIDIA Broadcast SDK for BNR, DeepFilterNet for DFNR) is not available on your platform.
 - **DFNR tab is missing entirely** — AetherSDR was built without DeepFilterNet support. Rebuild with the DFNR backend to use this engine.
 - **Colors appear mismatched with the rest of AetherSDR** — The dialog now uses theme-aware styling. Try switching themes in `Settings > Appearance` if the colors are not to your liking.

@@ -63,14 +63,18 @@ The buttons available in the DSP tab are:
 | NRF | Spectral noise filter |
 | ANFL | LMS notch filter |
 | ANFT | FFT notch filter |
+| MN | Manual notch filter (only on radios that support it) |
 | ADSP | Opens the AetherDSP Settings dialog (client-side algorithms) |
 | AetherVoice | Opens the Aetherial Audio Channel Strip (unified TX/RX DSP suite) |
+
+- The MN button is hidden unless the connected radio reports manual notch filter support.
+- The APF button is visible only in CW mode.
 
 #### DSP level slider
 
 When one or more radio-side DSP functions that support a level control are enabled, a shared level slider appears below the button grid. The slider label and value update to reflect the most recently enabled function. The slider is always present in the layout but fades out when no supported DSP function is active. Drag the slider to set the level (0–100) for the targeted function.
 
-Functions that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
+Functions that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL, MN.
 
 Functions that do not target the level slider: RNN, ANFT, APF.
 
@@ -95,9 +99,15 @@ The VFO panel's filter preset buttons let you save and recall filter widths quic
 
 The preset button now applies your custom filter edges when clicked. The values are persisted in `FilterPresets`.
 
+## FM tone controls
+
+When the slice mode is FM, NFM, or DFM, the VFO panel shows FM-specific tone controls. These controls are not shown for DSTR or other digital FM modes (v26.8.4).
+
 ## Accessibility
 
 The frequency display includes accessibility support (v26.6.3). When accessibility tools are active, the frequency value is announced when it changes. The frequency input field uses a custom `FreqLineEdit` widget with hint text instead of placeholder text for improved accessibility.
+
+Each DSP tab toggle button has a stable object name (e.g., `dspNRBtn`, `dspANFLBtn`, `dspMNBtn`) for automation tooling in addition to its accessible name for screen readers (v26.8.4).
 
 ## Scrolling behavior
 
@@ -124,6 +134,4 @@ The Pan slider and Marker thickness button buttons use theme-aware stylesheets. 
 - To access NR2, NR4, MNR, BNR, DFNR, or RN2, right-click the spectrum display to open the overlay menu, or open the AetherDSP applet.
 - The ADSP button and AetherVoice button are placed in the DSP tab button grid alongside the radio-side DSP toggles. They are non-checkable — clicking ADSP raises the AetherDSP Settings dialog, and clicking AetherVoice opens the Aetherial Audio Channel Strip.
 - Squelch is automatically disabled and forced off when you switch to DIGU, DIGL, RTTY, or any CW mode. To re-enable squelch, switch to a voice mode (USB, LSB, AM, SAM, FM, NFM, DFM).
-- When the VFO panel is in collapsed mode, the scroll wheel tunes the slice by step size even if the wheel event does not occur over the frequency display. In expanded mode, scrolling only tunes when the cursor is over the frequency display.
-- The VFO panel tab stack now reports only the current tab's preferred size, eliminating the gap that could occur when switching from the taller DSP tab to the Mode tab.
-- Right-click the speaker tab for a context menu to directly toggle mute.
+- When the VFO panel is in collapsed mode, the scroll wheel tunes the slice by step size even if the wheel event does not occur over the frequency display. In expanded mode

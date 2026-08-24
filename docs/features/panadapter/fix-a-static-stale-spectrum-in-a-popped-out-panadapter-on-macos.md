@@ -6,7 +6,7 @@ The Panadapter applet provides a container for a single panadapter display (FFT 
 
 ## Title Bar Controls
 
-The title bar contains the following controls (visible only in multi-pan mode):
+The title bar contains the following controls:
 
 | Control | Type | Behavior |
 |---------|------|----------|
@@ -15,6 +15,10 @@ The title bar contains the following controls (visible only in multi-pan mode):
 | □ (maximize) | Push button | Maximizes this panadapter in a multi-pan layout. |
 | × (close) | Push button | Closes this panadapter. |
 
+**Visibility rules:**
+- In single-pan mode, the maximize and close buttons are hidden.
+- The pop-out button is hidden in single-pan (stack) mode, but is always visible when the panadapter is hosted on the workspace canvas.
+
 ## Spectrum and Waterfall
 
 The main spectrum/waterfall area provides:
@@ -22,11 +26,21 @@ The main spectrum/waterfall area provides:
 - Drag to tune
 - Scroll to zoom
 
+**3D FFT view (v26.7.x+):** Toggle the 3D FFT spectrum view to display signal history as a forward-scrolling 3D surface with elevation shadows, smooth-scroll boundaries, and resynchronized floor after bandwidth zoom. Slice flags cast cached elevation shadows.
+
 **TX-freeze behavior (v0.9.7+):** The waterfall freeze/unfreeze is driven by the radio's interlock TRANSMITTING state rather than the local MOX edge, eliminating the 10–23 second TX-trail artifact after unkeying. In Multi-Flex setups, any client transmitting triggers the freeze.
 
 **Reconnect behavior:** On radio reconnect, the desired panadapter FPS and waterfall line duration are automatically reasserted to prevent dropping to the radio's default 10 Hz (#2465).
 
 **Secondary panadapter dBm range:** On reconnect, secondary panadapters (Slices B–H) have their dBm range primed so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum (#3034).
+
+## Canvas Hosting (v26.8.4, RFC #4887)
+
+When the panadapter is hosted as an item on the workspace canvas, the title strip streams the live-move gesture — the same mechanism as ContainerTitleBar's canvas mode. This is a real gesture the canvas session follows, not a QDrag ghost.
+
+**Drag threshold:** A 6 px threshold separates a click (which activates the panadapter) from a drag. Everything past that threshold is consumed so the strip's floating-drag machinery never sees it.
+
+**Pop-out on canvas:** A canvas item can always pop out, even as the only pan — the single-pan button hiding is a stack-mode economy, not a rule about floating. Off-canvas, the stack's next layout mode re-applies its economy.
 
 ## CW Decode Panel
 
@@ -103,7 +117,7 @@ After step 2 the spectrum should be live.
 
 ### Troubleshooting
 
-- **The ⬈ pop-out button is not visible** — You are in single-pan mode. Add a second panadapter to enable multi-pan mode.
+- **The ⬈ pop-out button is not visible** — You are in single-pan (stack) mode. Add a second panadapter to enable multi-pan mode, or host the panadapter on the workspace canvas where pop-out is always available.
 - **Spectrum is still frozen after dock/undock** — Confirm you are on v0.9.5.1 or later.
 
 ## Multi-Flex Session Support (v0.9.7+)

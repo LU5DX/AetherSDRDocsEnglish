@@ -74,7 +74,7 @@ When dragging either the RF Power or Tune Pwr slider, a tooltip shows the curren
 
 ## ATU button
 
-The ATU button starts an internal ATU tuning cycle. The ATU button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR.
+The ATU button starts an internal ATU tuning cycle. The ATU button toggles between starting a tune cycle and bypassing the tuner, mirroring the per-frequency behavior in SmartSDR. The ATU button and the MEM button are disabled when the radio has no antenna tuner fitted (for example, a Hermes-Lite 2), or when a TGXL is in OPERATE mode.
 
 ### Right-click context menu
 
@@ -102,7 +102,7 @@ In practice this means:
 2. Click ATU again without changing frequency. The tuner enters bypass. The Byp indicator lights orange and the Success indicator goes dim.
 3. Change frequency and click ATU. The radio runs a fresh tune cycle regardless of the previous result.
 
-The ATU button and MEM button are both disabled when TGXL is in OPERATE mode.
+The ATU button and MEM button are both disabled when the radio has no tuner, or when TGXL is in OPERATE mode. Hover over a disabled button to see which reason applies: "This radio has no antenna tuner" takes precedence over "Disabled — TGXL is in OPERATE mode".
 
 ## MEM button
 
@@ -110,7 +110,7 @@ The ATU button and MEM button are both disabled when TGXL is in OPERATE mode.
    - When on, the Mem indicator lights green.
 2. Click MEM again to disable memory recall.
 
-The MEM button is disabled when TGXL is in OPERATE mode.
+The MEM button is disabled when the radio has no tuner, or when TGXL is in OPERATE mode.
 
 ## ATU status indicators
 
@@ -147,6 +147,12 @@ The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Ac
 | ATU | Starts an ATU tuning cycle or toggles bypass. Right-click for Pre-tune bands / Clear ATU memories. | — |
 | MEM | Toggles ATU memory recall. | — |
 | APD | Toggles adaptive pre-distortion. | — |
+
+## Metering behavior
+
+The RF Pwr and SWR meters show live readings only while the transmitter is keyed. On un-key, both meters return immediately to their rest positions (0 W and 1.0 SWR), and the PEP peak-hold bar drops to zero instantly. This prevents stale readings from lingering across overs, and clears any meter reply that was already in flight when the edge landed.
+
+When SWR data is absent during a transmission (for example, before the radio reports a ratio), the SWR gauge rests at 1.0 rather than showing an off-scale 0.0 reading.
 
 ## Tips
 

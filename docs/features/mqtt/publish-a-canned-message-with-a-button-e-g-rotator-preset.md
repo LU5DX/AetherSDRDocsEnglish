@@ -23,6 +23,7 @@ This page shows how to add a publish button to the MQTT applet and use it to sen
 | Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog.                | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab.                                                   |
 | Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                                        | Capped to 50 entries.                                                                                                                 |
 | Enable (Off/On) | Connects or disconnects from the broker using settings from MqttSettings. Emits connectRequested / disconnectRequested and saves connection enabled state. | Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
+
 ## Indicators
 
 | Indicator    | States                                    | Meaning                                                                                       |
@@ -37,12 +38,14 @@ This page shows how to add a publish button to the MQTT applet and use it to sen
 - Published button definitions are stored as JSON under `MqttButtons` and persist across restarts.
 - Hovering over a button in normal mode shows a tooltip with the configured topic and payload so you can confirm what will be sent before clicking.
 - Starting in v26.6.3, the message log shows both received and sent published messages. Sent messages appear with a "TX" prefix (e.g., "TX rotator/preset: 45") to distinguish them from incoming messages.
+- If the system keychain is unavailable, the MQTT password is kept session-only for the current AetherSDR run. It is not written to plaintext application settings; if you quit and restart AetherSDR, you will need to re-enter the password.
 
 ## Troubleshooting
 
 - **Clicking a publish button does nothing** — The applet is not connected. Check that Enable reads "On" and the status label reads "Connected". If it shows an error, verify your broker settings and click Enable to reconnect.
 - **Button is missing after restart** — Settings are saved when you confirm the MQTT Settings dialog. If AetherSDR was force-closed, the `MqttButtons` key may not have been written. Reconfigure the button.
 - **Status shows "Waiting for keychain"** — The system keychain has not yet provided the stored password. This usually resolves automatically after a few seconds. If it persists, check your system keychain configuration.
+- **Password not remembered after restart (no keychain)** — On systems without keychain support, the MQTT password is kept only for the current session. Re-enter the password each time you start AetherSDR.
 
 ## Related
 

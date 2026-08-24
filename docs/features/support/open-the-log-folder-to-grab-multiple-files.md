@@ -25,18 +25,18 @@ Your OS file browser opens directly to the log directory. From there, select and
 
 The log viewer displays the most recent 2000 lines from the active log file. Use these controls to manage the log display:
 
-| Control | Description |
-|---------|-------------|
-| Category checkboxes | Enable or disable logging per category. Each category appears as its own checkbox row. |
-| Enable All | Turn on every logging category. |
-| Disable All | Turn off every logging category. |
-| Log path label | Shows the current log file path. |
-| Log viewer | Scrollable view of the most recent log text (2000 lines maximum). |
-| Refresh | Reloads the log file. |
-| Clear Log | Truncates the current log file. |
-| Open Log Folder | Opens the log directory in the OS file browser. |
-| File an Issue | Launches the AI-Assisted Bug Report flow. |
-| Close | Closes the dialog. |
+| Control                               | Description                                                                                                                                                    | Notes                                                                                                                                     |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Category checkboxes                   | Enable or disable logging per category. Each category appears as its own checkbox row.                                                                         |                                                                                                                                           |
+| Enable All                            | Turn on every logging category.                                                                                                                                |                                                                                                                                           |
+| Disable All                           | Turn off every logging category.                                                                                                                               |                                                                                                                                           |
+| Log path label                        | Shows the current log file path.                                                                                                                               |                                                                                                                                           |
+| Log viewer                            | Scrollable view of the most recent log text (2000 lines maximum).                                                                                              |                                                                                                                                           |
+| Refresh                               | Reloads the log file.                                                                                                                                          |                                                                                                                                           |
+| Clear Log                             | Truncates the current log file.                                                                                                                                |                                                                                                                                           |
+| Open Log Folder                       | Opens the log directory in the OS file browser.                                                                                                                |                                                                                                                                           |
+| Close                                 | Closes the dialog.                                                                                                                                             |                                                                                                                                           |
+| Instructions (report-an-issue how-to) | Rich-text block pointing the user to `Help > File an Issue` for bug reporting once the relevant logging categories have been enabled and the problem reproduced. | New in v26.8.4: the `Reset Settings` and `File an Issue` buttons were removed from this dialog (they now live directly on the Help menu). |
 
 ## Related
 

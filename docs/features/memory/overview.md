@@ -39,23 +39,23 @@ Each row represents one stored memory. The columns are:
 | DIGL Offset                 | Digital lower sideband offset                                                                               |                                                                                                      |
 | DIGU Offset                 | Digital upper sideband offset                                                                               |                                                                                                      |
 
-When editing a constrained field (Mode, Step, Offset Dir, Tone Mode, Tone Value, Group) by double-clicking the cell, a combo box opens immediately. For strict fields the combo is locked to the known values; editable fields seed common values but still accept typed input (validated by the radio on commit). The list pops open right away so picking a value is effectively one click once the cell is being edited.
+The table supports sorting by clicking column headers (Frequency, Name, Mode). When editing a constrained field (Mode, Step, Offset Dir, Tone Mode, Tone Value, Group) by double-clicking the cell, a combo box opens immediately. For strict fields the combo is locked to the known values; editable fields seed common values but still accept typed input (validated by the radio on commit). The list pops open right away so picking a value is effectively one click once the cell is being edited.
 
 **Actions**
 
 | Button       | What it does                                                                             | Notes                                                                                                |
 |--------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Import...    | Imports memories from a CSV file with progress dialog.                                   | Shows import progress and a summary with any skipped rows.                                           |
+| Export...    | Exports selected (or filtered) memories to CSV.                                          | Validates generated CSV before saving.                                                               |
 | Add          | Creates a new memory from the current (active) slice -- no per-letter selection.         | The slice-letter badge variant was dropped; adding always targets the active slice. Ctrl+N shortcut. |
 | Edit         | Enters inline-edit mode on the selected memory's Name field.                             | F2 or Ctrl+E also triggers edit. Only enabled when exactly one memory is selected.                   |
 | Tune         | Tunes the active slice to the selected memory.                                           | Only enabled when exactly one memory is selected.                                                    |
 | Select All   | Selects every visible row (respecting search/filter).                                    | Ctrl+Shift+A shortcut.                                                                               |
-| Import...    | Imports memories from a CSV file with progress dialog.                                   | Shows import progress and a summary with any skipped rows.                                           |
-| Export...    | Exports selected (or filtered) memories to CSV.                                          | Validates generated CSV before saving.                                                               |
 | Remove       | Deletes selected memories (with confirmation). Shows progress for batch removal.         | Delete/Backspace key also triggers. Button label changes to 'Remove Selected' when >1 row selected.  |
 
 **Window title bar**
 
-The dialog uses a custom frameless title bar. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states. The top strip of the dialog is reserved for the title bar's own move handling, so a title-bar grab is not stolen by the window resize zone.
+The dialog uses a custom 18-pixel gradient frameless title bar on the top strip. The title bar displays the dialog name "Memory Channels" with a grip glyph on the left. Click and drag the title bar to move the dialog. Double-click the title bar to toggle between maximized and restored states. The title bar is separate from the resize handling, so a title-bar grab is not stolen by the window resize zone.
 
 **Window controls**
 
@@ -87,6 +87,9 @@ The memory table uses theme-aware styling. The alternate row background color an
 - Press Ctrl+F to focus the Search: field directly.
 - Sorting and filtering do not delete or reorder the memories on the radio; they only change what is visible in the table.
 - When editing a constrained field, the combo box opens automatically for one-click picking. Editable fields accept typed input validated by the radio.
+- Double-click any row to tune the radio to that memory.
+- The table uses ExtendedSelection; hold Ctrl or Shift and click to select multiple rows, or press Ctrl+Shift+A to select all visible rows.
+- Press Delete or Backspace to remove selected rows without using the Remove button.
 
 ## Related
 

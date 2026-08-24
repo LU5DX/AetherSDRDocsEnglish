@@ -56,7 +56,7 @@ The Memory Channels dialog has a modern frameless interface:
 | **□ (Maximize)** | Maximizes or restores the dialog. |
 | **× (Close)** | Closes the dialog. Escape clears search first, then closes. |
 | **Drag-to-move** | Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. |
-| **8-axis resize** | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone. The top edge reserves an area (the title bar height) for drag-to-move instead of resize. |
+| **8-axis resize** | Click and drag any edge or corner of the dialog to resize. Cursor changes to indicate the resize direction. 12 px resize hit zone via FramelessResizer. The top edge reserves an area (the title bar height) for drag-to-move instead of resize. |
 | **Selection count** | Shows "<N> of <M> selected". |
 
 ## Keyboard shortcuts

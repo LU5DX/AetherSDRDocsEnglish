@@ -24,6 +24,7 @@ Settings are saved to disk only when Enable transitions from Off to On.
 | Settings...     | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                 | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.          |
 | Publish buttons | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog. | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. |
 | Message log     | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                         | Capped to 50 entries.                                                               |
+
 ## Status indicator
 
 The status label next to Enable shows the current connection state:
@@ -41,6 +42,7 @@ The status label next to Enable shows the current connection state:
 - All broker connection settings (host, port, credentials, TLS, subscriptions) are configured exclusively via the MQTT Settings dialog (Settings > MQTT...).
 - The MQTT applet now uses theme-aware colors for all controls and labels, adapting correctly to light and dark themes.
 - The message log now shows both incoming and outgoing messages. Outgoing messages appear with a `TX` prefix (for example, `TX rotator/az/set: 180`) to distinguish them from incoming messages.
+- If you import a configuration that contains an MQTT password, the password is diverted to the system keychain during the import. On systems without keychain support, the password is held in a session vault and used only for the current session to avoid leaving it in plaintext settings.
 
 ## Related
 

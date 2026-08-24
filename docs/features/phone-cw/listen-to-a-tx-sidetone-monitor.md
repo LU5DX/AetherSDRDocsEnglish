@@ -10,6 +10,8 @@ In v26.6.1, all slider and label styles now use the ThemeManager for consistent 
 
 In v26.7.4, all four gauges (Level, Compression, ALC Phone, ALC CW) now display a hover-value popup when you mouse over them, showing the exact reading with one decimal place for precise monitoring (#3936). Also, when host modulation is active, the Mic source combo box is locked to "PC" with a tooltip explaining that only the PC input is available.
 
+In v26.8.4, the Mic source combo box now intelligently adapts to radios whose transmit audio input cannot be selected from this client. On such radios, the combo box is narrowed to a single "PC" entry with a tooltip explaining that the radio's own input selection is made on the radio. This prevents the misleading appearance of selectable microphone inputs that would be silently ignored. The client also automatically applies the PC mic selection state to the transmit model to keep it in sync. Additionally, CW mode detection now correctly recognizes all CW variants (CW, CWU, CWL) from any radio, not just the Flex bare "CW" mode.
+
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The Phone/CW applet requires an active radio connection.
@@ -27,7 +29,7 @@ In v26.7.4, all four gauges (Level, Compression, ALC Phone, ALC CW) now display 
 ### Phone mode: adjust microphone settings
 
 1. Select a Mic profile from the dropdown to load a named microphone processing profile.
-2. Select the Mic source from the dropdown (options include MIC, BAL, LINE, ACC, PC, plus any from the radio's available mic inputs). When host modulation is active, the combo box is locked to "PC" with a tooltip explaining that only the PC input is available.
+2. Select the Mic source from the dropdown. On radios where the input is selectable, options include MIC, BAL, LINE, ACC, PC, plus any from the radio's available mic inputs. When host modulation is active, the combo box is locked to "PC" with a tooltip explaining that only the PC input is available. On radios whose transmit audio input cannot be selected from this client (v26.8.4), the combo box is narrowed to a single "PC" entry with a tooltip explaining that the radio's own input selection is made on the radio.
 3. Adjust the Mic gain slider to set the microphone input level (0–100). When the source is PC, the value is stored locally in `PcMicGain`.
 4. Click +ACC to enable the accessory microphone input mix.
 5. Click PROC to toggle the speech processor.
@@ -36,7 +38,7 @@ In v26.7.4, all four gauges (Level, Compression, ALC Phone, ALC CW) now display 
 
 ### CW mode: adjust CW settings
 
-1. Switch the active slice to a CW mode. The applet automatically shows the CW panel.
+1. Switch the active slice to a CW mode (CW, CWU, or CWL). The applet automatically shows the CW panel.
 2. Adjust the Delay slider to set the CW break-in delay (0–2000 ms, step 10). You can also type a value directly into the QLineEdit (0–2000).
 3. Adjust the Speed slider to set CW keying speed (5–100 WPM). You can also type a value directly into the QLineEdit (5–100).
 4. Click Sidetone to enable the CW monitor. The button highlights when active.
@@ -62,7 +64,7 @@ In v26.7.4, all four gauges (Level, Compression, ALC Phone, ALC CW) now display 
 | Monitor volume      | Sets sideband monitor playback level.                                                                                                                                                                                                                                                                            | —                                                        |
 | DAX                 | Enables DAX as the TX audio source.                                                                                                                                                                                                                                                                              | —                                                        |
 | Mic profile         | Loads a named microphone processing profile.                                                                                                                                                                                                                                                                     | —                                                        |
-| Mic source          | Selects the microphone input source. When host modulation is active, the combo box is locked to "PC" with a tooltip explaining that only the PC input is available (v26.7.4).                                                                                                                                    | —                                                        |
+| Mic source          | Selects the microphone input source. When host modulation is active, the combo box is locked to "PC" with a tooltip explaining that only the PC input is available (v26.7.4). On radios whose transmit audio input cannot be selected from this client, the combo box is narrowed to a single "PC" entry with a tooltip explaining that the radio's own input selection is made on the radio (v26.8.4). | —                                                        |
 | Mic gain            | Adjusts microphone input level. For PC source uses local PcMicGain persistence.                                                                                                                                                                                                                                  | 50                                                       |
 | +ACC                | Enables the accessory microphone input mix.                                                                                                                                                                                                                                                                      | —                                                        |
 | PROC                | Toggles the speech processor.                                                                                                                                                                                                                                                                                    | —                                                        |
@@ -93,9 +95,4 @@ In v26.7.4, all four gauges (Level, Compression, ALC Phone, ALC CW) now display 
 
 - The Sidetone button and Sidetone volume slider control both audio paths (radio DAX monitor and client-side generator) together. There is no separate control to enable or adjust the local sidetone independently.
 - Pitch always follows the radio's CW pitch setting automatically. Use the Pitch < / > widget to change the radio's CW pitch, and both the decode pitch and sidetone pitch will update accordingly.
-- The MON button and the Sidetone button are separate controls on separate panels. MON applies to voice modes; Sidetone applies to CW mode.
-- When the mic source is set to PC, the Level gauge appears immediately on connect. In v0.9.7, the same applies when RADE mode is active: the Level gauge is shown during RX regardless of the `met_in_rx` setting. In other mic source modes (without RADE active), the gauge is suppressed when `met_in_rx` is off and the radio is not transmitting.
-- When RADE mode is active, the Mic gain slider acts as a client-side RADE gain control and its value is stored in `PcMicGain`. The slider does not send a mic level command to the radio in this state, which prevents overwriting your hardware mic setting.
-- In v0.9.8, the four CW QLineEdit fields (Delay, Speed, Sidetone Volume, Pitch) accept direct numeric input. Type a value and press Enter to apply it. Values are automatically clamped to the valid range.
-- The sidetone bus is shared with Quindar tones (mutually exclusive at the mode level).
-- The ALC gauge on both the Phone and CW panels now reads from the software ALC meter (MeterModel::sw
+- The MON button and the Sidetone button are separate controls on separate panels. MON applies to voice modes; Sidet

@@ -23,17 +23,17 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 | RX antenna button                    | Push button       |           | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button                    | Push button       |           | Opens antenna selection menu for the transmit antenna of this slice. |
 | Frequency display                    | Indicator         |           | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
-| Filter width label                   | Indicator         |           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth. |
+| Filter width label                   | Indicator         |           | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses RxApplet::formatFilterWidth as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | AF Gain slider (Audio tab)           | Slider            | 100       | Sets the audio output level for this slice. Not persisted — reflects live radio state. |
 | Pan slider (Audio tab)               | Slider            | 50        | Sets left/right stereo pan for this slice. 50 = centre. |
 | Mute button (Audio tab)              | Toggle button     | off       | Mutes audio output for this slice without changing the AF gain setting. |
 | Squelch button + slider (Audio tab)  | Toggle button     | off       | Enables squelch for this slice. The adjacent slider sets the threshold. |
 | AGC combo (Audio tab)                | Combo box         | FAST      | Sets the AGC attack/release speed for this slice. |
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Toggle button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. |
-| ADSP button (DSP tab)                | Push button       |           | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF / MN buttons (DSP tab) | Toggle button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. The MN (manual notch) button appears only on radios that support manual notch filtering. |
+| ADSP button (DSP tab)                | Push button       |           | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab)          | Push button       |           | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
 | Mode combo (Mode tab)                | Combo box         | USB       | Sets the demodulation mode for this slice. |
-| Filter preset buttons (Mode tab)     | Push button       |           | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in FilterPresets. |
+| Filter preset buttons (Mode tab)     | Push button       |           | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in FilterPresets. Custom lo/hi edges can be set per slot via right-click. |
 | RIT / XIT buttons + labels (X/RIT tab) | Toggle button   | off       | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps. |
 | DAX channel combo (DAX tab)          | Combo box         | Off       | Assigns a DAX audio channel to this slice. |
 | Marker thickness button              | Push button       | 1 px      | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice. |
@@ -45,6 +45,14 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 **RX antenna button** — Opens an antenna selection menu for the receive antenna of this slice. The menu now uses the per-slice `rxAntennaList()` property when available, falling back to the global antenna list. Menu items show a human-readable label alongside the internal antenna identifier.
 
 **TX antenna button** — Opens an antenna selection menu for the transmit antenna of this slice. The menu filters out RX-only antenna ports. Uses the `txAntennaOptions()` helper to determine valid transmit antennas. Menu items show a human-readable label alongside the internal antenna identifier.
+
+**Filter width label** — Shows the current filter bandwidth for the slice. Click to cycle through the filter preset buttons in the Mode tab. The label uses RxApplet::formatFilterWidth as the single source of truth, which fixes a 0.1 kHz offset that previously affected SSB and digital mode readouts (#2197, v0.9.8).
+
+**NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF / MN buttons (DSP tab)** — Enable the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. The MN (manual notch) button appears only on radios that support manual notch filtering. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
+
+**ADSP button (DSP tab)** — Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). The button is styled like a radio-side DSP toggle but is non-checkable; clicking it raises and focuses the modeless AetherDSP Settings dialog.
+
+**AetherVoice button (DSP tab)** — Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). The button spans 2 columns in the 4-column DSP grid and matches the existing menu and chain entry points for the strip.
 
 **Marker thickness button** — Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice.
 
@@ -65,6 +73,27 @@ RIT (Receiver Incremental Tuning) and XIT (Transmitter Incremental Tuning) let y
 - RIT and XIT offsets are independent. You can enable both at the same time to offset receive and transmit independently.
 - Scroll-wheel adjustment is 10 Hz per step. For larger offsets, scroll multiple notches.
 - When a slice is locked, scroll-wheel tuning on the VFO panel is blocked. A notification appears indicating that tuning is blocked by the lock. Direct frequency entry is also canceled if it was in progress when the lock is applied.
+- Right-click on the collapsed frequency strip to add a spot. The right-click context menu works even when the panel is collapsed to the frequency-only strip, and reports the VFO frequency correctly rather than the step-snapped cursor frequency from the spectrum display underneath (#4455).
+
+## Changes in v26.8.4
+
+### Manual notch (MN) filter support
+
+A new **MN** (manual notch) button has been added to the DSP tab grid. This button is hidden by default and appears only on radios that report support for manual notch filtering (`hasManualNotch`). When available, the MN button toggles the manual notch filter for the slice, and the shared DSP-level slider adjusts the manual notch level when the MN button is the active filter.
+
+The MN button uses a stable object name (`dspMNBtn`) for automation bridge addressing. All DSP toggle buttons now use stable object names based on their text (for example, `dspNRBtn`, `dspAPFBtn`) rather than prose-style accessible names. This ensures automation scripts that drive these controls continue to work even if the user-facing labels are reworded in the future.
+
+### Squelch method rename
+
+The internal squelch control method has been renamed from `setSquelch()` to `setManualSquelch()` to distinguish it from automatic squelch modes. The user-facing behavior is unchanged — the squelch button and slider in the Audio tab work exactly as before.
+
+### Collapsed mode right-click spot fix
+
+Right-click → **Add Spot** now works correctly when the VFO panel is collapsed to the frequency-only strip (#4455). Previously, clicks fell through to the SpectrumWidget underneath, which reported the cursor's step-snapped frequency instead of the VFO's actual frequency. The collapsed frequency label now intercepts events, so the spot is added at the VFO frequency.
+
+### FM mode detection
+
+The VFO panel now correctly identifies FM-related modes (FM, NFM, DFM, DSTR) for tone control purposes. FM tone controls are shown only for FM, NFM, and DFM modes.
 
 ## Changes in v26.7.4
 
@@ -98,58 +127,4 @@ Scroll-wheel tuning now respects the **Reverse mouse wheel** preference in `Inte
 
 ### Theme-aware Pan slider
 
-The Pan slider in the Audio tab now uses a centre-anchored fill. The slider groove fills from the centre outward — blue accent to the right of centre when the pan is right-heavy, and a background colour to the left of centre. When the pan is left-heavy, the groove fills from centre to the left in accent colour while the right side uses the background colour. This matches the behaviour of a stereo balance control where the meaningful zero is the midpoint. A small centre-mark dot is still painted on the groove at the midpoint.
-
-### Theme support for buttons and badges
-
-All VFO panel buttons and badges now honour the current theme. The button stylesheet has been updated to use theme tokens instead of hardcoded colours. The following tokens are declared for inspector coverage:
-- `color.background.0`
-- `color.background.1`
-- `color.background.2`
-- `color.text.primary`
-- `color.text.label`
-- `color.accent`
-- `color.accent.bright`
-
-The VFO panel is registered as a separate theming container under the `spectrum/vfo` scope. This means theme colour selections can be applied specifically to the VFO panel without affecting the rest of the spectrum display.
-
-## Changes in v26.5.3
-
-### Locked slice tuning behavior
-
-When a slice is locked, the following tuning interactions on the VFO panel are now blocked:
-
-- **Scroll-wheel tuning**: Scrolling the mouse wheel over the collapsed or expanded VFO panel no longer changes the frequency. A `tuneBlockedByLock` notification is shown.
-- **Direct frequency entry**: If you are in the middle of typing a frequency and the slice becomes locked, the direct entry is canceled and the display reverts to the locked frequency.
-
-The lock overlay (padlock icon) is managed centrally by `SliceModel` and clears automatically when the slice is unlocked (#2983).
-
-### XVTR band direct entry improvements
-
-When entering a frequency directly on the VFO panel, the parser now correctly handles explicit MHz entries above 54 MHz even when not on an XVTR band. If you type a value in MHz format (e.g., `144.200`), it is accepted up to 50,000 MHz without being misinterpreted as kHz or Hz. The 3-digit-band convenience insertion for bare integers on 2m/70cm bands still applies only when the slice frequency is between 100 MHz and 999 MHz.
-
-### Tab height optimization
-
-The VFO panel tab stack now uses a custom `TabStack` widget that reports only the current page's preferred size. Previously, when the DSP tab was taller than the Mode tab (e.g., when the digital filter container was visible in DIGU/DIGL mode), the VFO panel would overallocate height, causing a gap inside the Mode tab. This is now resolved.
-
-## Changes in v26.5.2.1
-
-### XVTR band frequency handling
-
-When the slice is on an XVTR band, the maximum accepted frequency during direct entry has been increased from 450 MHz to 50,000 MHz to support microwave bands. The 3-digit-band insertion behavior (automatically inserting a decimal after the third digit for bare integers on 2m/70cm) now only fires when the slice frequency is between 100 MHz and 999 MHz. For bands like 23cm (1296 MHz), bare integers are interpreted as the frequency in MHz directly.
-
-### Antenna menu improvements
-
-Both the RX and TX antenna buttons now display a human-readable label in the menu alongside the internal antenna identifier. The menu uses `data()` internally for selection, matching on the full antenna string rather than the display label. Menu items also include tooltip and status tip text showing the raw antenna identifier.
-
-### Slice badge rich text support
-
-The slice badge now supports rich text format (`Qt::RichText`), allowing HTML formatting in certain cases (#2606).
-
-## Changes in v26.5.1
-
-### Squelch disabled in RTTY mode
-
-The squelch button and slider are now automatically disabled when the slice is in a RTTY mode, in addition to the existing digital and CW mode restrictions. When the mode is RTTY, the squelch button is greyed out and cannot be toggled, and the squelch slider is greyed out and cannot be adjusted. If squelch was previously enabled, it is automatically turned off when switching to RTTY mode. This prevents squelch from gating weak FSK signals that external RTTY decoders need to receive via DAX (#2504).
-
-## Changes in v
+The Pan slider in the Audio tab now uses a centre-anchored fill. The slider groove fills from the centre outward — blue accent to the right of centre when the pan is right-heavy, and a background colour to the left of centre. When the pan is left-heavy, the groove fills from centre to the left in accent colour while the right side uses the background colour. This matches the behaviour of a stereo balance control where the meaningful zero is the midpoint. A small centre-mark dot is still painted on the

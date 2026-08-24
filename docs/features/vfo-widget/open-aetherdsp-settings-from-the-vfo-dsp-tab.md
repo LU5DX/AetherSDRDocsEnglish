@@ -40,7 +40,8 @@ The VFO Panel is organized into tabs: Audio, DSP, Mode, X/RIT, and DAX. Tab labe
 
 | Control | Type | Description |
 |---------|------|-------------|
-- NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | Toggle button | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Default: off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | Toggle button | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Default: off. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| MN button | Toggle button | Enables the manual notch filter for this slice. Only shown on radios that support manual notch filtering. Default: off. Hidden otherwise. |
 | ADSP button | Push button | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. Click raises and focuses the modeless AetherDSP Settings dialog. Non-checkable; styled like a radio-side DSP toggle. |
 | AetherVoice button | Push button | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
 
@@ -100,6 +101,8 @@ Squelch is automatically disabled in digital, RTTY, and CW modes:
 
 When switching to a mode where squelch is disabled while squelch is active, the system saves the squelch state and turns it off. When switching back to a mode where squelch is allowed, the previous squelch state is restored.
 
+The squelch control has been split into explicit methods — `setManualSquelch()` for manual control and separate handling for auto squelch modes — clarifying the distinction between user-set thresholds and radio-managed auto squelch.
+
 ## Pan Slider Behavior
 
 The Pan slider in the Audio tab uses centre-anchored fill painting. When the handle is left of centre, the groove is filled from the handle to centre in accent colour; when the handle is at or right of centre, the fill is not shown. A small centre-mark dot is always visible on the groove so you can see the neutral position at a glance.
@@ -138,3 +141,11 @@ Alternatively, you can right-click any of the NR2, NR4, MNR, or DFNR toggle butt
 
 - [Enable noise reduction from the VFO panel](enable-noise-reduction-from-the-vfo-panel.md)
 - Frequency locking
+
+## DSP Button Accessibility
+
+The DSP tab noise reduction buttons now use stable object names (e.g., `dspNR2Btn`, `dspDFNRBtn`) for automation and scripting. These names are separate from accessible names used by screen readers and are guaranteed not to change with UI text rewording. This ensures automation scripts can reliably address the DSP toggles.
+
+## Collapsed Mode Right-Click
+
+When the VFO Panel is collapsed to the compact frequency-only strip, right-clicking the frequency label opens the slice context menu using the VFO's actual frequency rather than the step-snapped cursor frequency. This ensures spot reports and other frequency-dependent actions use the correct tuned frequency.

@@ -62,6 +62,8 @@ This visual distinction helps you identify which parts of a message were actuall
 
 The CWX panel registers the F1 through F12 keys and the Escape key as application-wide shortcuts. The F1–F12 shortcuts are enabled or disabled based on the TX slice's mode, managed by MainWindow. They fire regardless of whether the CWX panel is visible, as long as the TX slice is in CW, CWL, or CWU mode. When the TX slice switches to a different mode (such as SSB), the shortcuts are automatically disabled to prevent conflicts with other panels like the DVK panel.
 
+In v26.8.4, CW mode detection was consolidated into a single shared helper (`isCwMode()`). This ensures that all panels, including the CWX panel, use the exact same list of CW modes. The previously site-specific checks for `"CW"` and `"CWL"` have been replaced, so if your radio's CW mode set includes additional variants, the CWX panel now recognizes them consistently.
+
 - **F1 – F12:** Sends the corresponding macro string.
 - **Escape:** Aborts the current CW transmission. Unsent characters appear with strikethrough in the history bubble.
 

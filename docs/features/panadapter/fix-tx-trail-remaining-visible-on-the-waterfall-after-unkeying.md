@@ -1,6 +1,6 @@
 # Panadapter Applet
 
-The Panadapter applet is a container for a single panadapter display (FFT spectrum + waterfall) with a title bar offering drag grip, pop-out, maximize, and close controls. An optional CW decode panel can appear underneath for off-air Morse decoding.
+The Panadapter applet is a container for a single panadapter display (FFT spectrum + waterfall) with a title bar offering drag grip, pop-out, maximize, and close controls. An optional CW decode panel can appear underneath for off-air Morse decoding. A 3D FFT spectrum view is also available for visualizing signal history as a scrolling 3D surface.
 
 ## Controls
 
@@ -24,6 +24,7 @@ The Panadapter applet is a container for a single panadapter display (FFT spectr
 | CLR | push_button | | | *none* | Clears the CW decode buffer. | |
 | ✕ (close CW) | push_button | | | *none* | Hides the CW decode panel entirely. | |
 | CW decode text | text_field | | | *none* | Read-only rolling display of decoded CW text. Colored by confidence: green (<0.15), yellow (<0.35), orange (<0.60), red (≥0.60). | Font size adjustable via A+/A- controls. |
+| 3D FFT view | toggle_button | Disabled | | *none* | Toggles the 3D FFT spectrum view. Shows signal history as a forward-scrolling 3D surface with elevation shadows, smooth-scroll boundaries, and resynchronized floor after bandwidth zoom. Slice flags cast cached elevation shadows. | New in v26.7.x (#4413-#4477). Part of SpectrumWidget. |
 
 ## CW Decode Panel Controls
 
@@ -49,6 +50,16 @@ The waterfall automatically freezes when the radio enters TRANSMITTING state bas
 ## Secondary Panadapter Initialization
 
 Secondary panadapters (Slices B-H) now have their dBm range primed on reconnect to the radio. This ensures the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that could cause a flat spectrum display after reconnection.
+
+## Canvas Mode (v26.8.4)
+
+When hosted on the workspace canvas, the panadapter's title strip streams a live-move gesture that mirrors the container title bar's canvas mode. This is a real gesture the canvas session follows, not a QDrag ghost.
+
+- The title strip is accessible by the automation bridge via its accessible name `panTitleBar`.
+- A 6 px drag threshold separates a click (which activates the panadapter) from a drag.
+- Everything past the threshold is consumed by the canvas gesture so the floating-drag machinery never sees it.
+- A canvas item can always pop out (even as the only pan), since the single-pan button hiding is a stack-mode economy, not a rule about floating. When the item is off-canvas, the stack's `setMultiPanMode()` re-applies its economy.
+- Canvas drag signals (`canvasDragBegan`, `canvasDragMoved`, `canvasDragEnded`) are emitted with global positions only while the applet is on-canvas and not floating.
 
 ## Indicators
 

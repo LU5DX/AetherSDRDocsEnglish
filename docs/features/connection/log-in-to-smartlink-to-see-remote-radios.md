@@ -70,7 +70,7 @@ The `Available radios` list supports a right-click context menu for setting a cu
 | `Sign Out` | Ends the current SmartLink session. | — |
 | `Remote radios` | Lists the WAN radios available to your account after sign-in. | — |
 | `Connect Remote Radio` | Starts a WAN connection to the selected remote radio. | — |
-| `Radio IP address` | The IP address or hostname to connect to in Manual mode. Editable combo box that remembers the last three addresses you successfully connected to. | `ManualRadioIp` |
+| `Radio IP address` | The IP address or hostname to connect to in Manual mode. Editable combo box that remembers the last three addresses you successfully connected to. Accepts both numeric IP addresses and hostnames (for example, `ic-705.local`). | `ManualRadioIp` |
 | `Advanced: Source path` | Picks the local network interface used for the manual connection. | `ManualBindSource` |
 | `Use low bandwidth mode` | Enables reduced-rate streams for slow links. | `LowBandwidthMode` |
 | `Connect by IP (manual)` | Starts the manual/VPN connection. | — |
@@ -93,11 +93,12 @@ The `Available radios` list supports a right-click context menu for setting a cu
 - After signing in to SmartLink, the status label shows your name, callsign, or confirmation that you are signed in.
 - The `Remote radios` list is sized for compact display; scroll within the list if the radio you want is not immediately visible.
 - The `Available radios` list on the Local page is height-limited to 240 pixels with an internal scrollbar, so it works well on small displays like a 1024x600 panel.
-- The `Radio IP address` field stores up to three recent addresses. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
+- The `Radio IP address` field stores up to three recent addresses, and now remembers both numeric IPs and hostnames. If you previously used the `LastRoutedRadioIp` setting, AetherSDR imports it automatically the first time you open the Manual page after upgrading.
 - On the Local page, you can quickly switch to SmartLink or Manual mode using the shortcut buttons.
 - When switching to or from frameless mode, AetherSDR preserves the dialog geometry only if the dialog was visible at the time of the switch.
 - The SmartLink login form now includes accessibility hints for password managers (macOS Passwords, Windows Authenticator, KDE Wallet). The email and password fields are labeled as a "SmartLink login form" so credential managers can correctly scope the account pair.
 - Custom nicknames set via the right-click menu on the Local page are persisted keyed by serial number and will appear on subsequent discovery sweeps.
+- The `Radio IP address` field canonicalizes numeric addresses, so `192.168.001.5` and `192.168.1.5` are treated as the same entry in the recent-address list. Hostnames are preserved as entered.
 
 ## Troubleshooting
 
@@ -106,6 +107,7 @@ The `Available radios` list supports a right-click context menu for setting a cu
 - **`Sign In` produces an error** — Check that your email and password are correct. Verify your credentials at the FlexRadio website.
 - **Cannot connect by IP** — Ensure the radio is reachable on the network. Use `Open Network Diagnostics` to check connectivity.
 - **AetherSDR connects to the wrong radio on startup** — Uncheck `Connect to last radio on start up` if you want to choose a radio manually each session.
+- **The recent `Radio IP address` list does not remember a hostname** — Hostnames are remembered only if they consist of letters, digits, dots, hyphens, or underscores, and begin and end with an alphanumeric character. Addresses with other characters (such as spaces) are not retained.
 
 ## Related
 

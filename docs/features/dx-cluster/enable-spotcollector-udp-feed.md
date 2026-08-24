@@ -142,6 +142,10 @@ Displays a unified, searchable table of all live spots from all sources.
 3. Click **Clear** to empty the current spot list.
 4. The **Spot table** shows all spots with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click any row to tune the active slice to that frequency. AetherSDR reads the mode hint from the spot comment and switches the slice to the correct mode at the same time.
 
+### Sorting the spot table
+
+Click any column header to sort the table by that column. Clicking **Time** sorts by UTC time, and clicking **Freq** sorts by frequency. Clicking a column header again reverses the sort order — this is the way to return to newest-first order after sorting by another column.
+
 ## Display tab
 
 Controls how spots appear on the panadapter, plus Signal History markers and DXCC coloring.
@@ -190,12 +194,4 @@ Controls in the left column below the divider.
 | **DXCC Colors:** | Colors spots by worked/confirmed/needed DXCC status. | `IsDxccColoringEnabled` |
 | **Log File (ADIF):** | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Auto-Reload is always enabled when a file is selected. | `DxccAdifFilePath` |
 | **Imported:** | Shows QSO count and entity count when a log is loaded. Format: '<N> QSOs / <M> entities'. | — |
-| **DXCC Color swatches (New DXCC / New Band / New Mode / Worked)** | Opens a color picker for each DXCC status category. | `DxccColorNewEntity` / `DxccColorNewBand` / `DxccColorNewMode` / `DxccColorWorked` |
-
-### Signal History section
-
-Controls in the right column below the divider.
-
-| Control | Description | Setting key |
-|---------|-------------|-------------|
-|
+| **DXCC Color swatches (New DXCC / New Band / New Mode / Worked)** | Opens a color picker for each DXCC status category. | `

@@ -20,7 +20,7 @@ Clearing the log before you trigger a problem ensures the log file contains only
 ## Tips
 
 - Click `Refresh` after reproducing the bug before reading the log. The log viewer does not update automatically.
-- If you intend to file a report immediately after capturing the log, click `File an Issue` to start the AI-assisted bug report flow. See [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md).
+- If you intend to file a report immediately after capturing the log, click `Help > File an Issue` to start the AI-assisted bug report flow. See [File an AI-assisted bug report](file-an-ai-assisted-bug-report.md).
 
 ## Troubleshooting
 

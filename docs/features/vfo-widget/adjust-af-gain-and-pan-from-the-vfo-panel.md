@@ -26,6 +26,7 @@ Use the Audio tab in the VFO panel to set the audio output level and stereo pan 
 | ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| MN button (DSP tab) | off | Enables the manual notch filter for this slice. Only shown on radios that support manual notch filtering. Sets the level via the shared DSP level slider. |
 | RX antenna button | — | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button | — | Opens antenna selection menu for the transmit antenna of this slice. |
 | Frequency display | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
@@ -68,6 +69,7 @@ The DSP tab in the VFO panel shows the following noise reduction buttons when av
 | NB | Noise blanker |
 | ANF | Automatic notch filter |
 | APF | Audio peaking filter (CW mode only) |
+| MN | Manual notch filter |
 | NRL | Noise reduction level |
 | NRS | Spectral subtraction |
 | RNN | RNN noise reduction |
@@ -76,6 +78,12 @@ The DSP tab in the VFO panel shows the following noise reduction buttons when av
 | ANFT | FFT notch filter |
 
 Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
+
+### Manual notch filter (MN) button (v26.8.4)
+
+The DSP tab now includes a **Manual notch filter (MN) button** that enables the manual notch filter for the current slice. This button is only shown on radios that report support for manual notch filtering (`hasManualNotch`). When enabled, the notch filter level can be adjusted with the shared DSP level slider.
+
+The MN button uses a stable object name (`dspMNBtn`) for automation bridging, consistent with other DSP toggles in this tab.
 
 ### ADSP button (v0.9.8)
 
@@ -89,7 +97,7 @@ The DSP tab also includes an **AetherVoice button** that toggles the Aetherial A
 
 A shared level slider now appears below the DSP button grid. The slider retargets automatically to whichever leveled DSP algorithm was most recently enabled. The label to the left of the slider shows the name of the currently targeted algorithm, and the numeric value is shown to the right.
 
-Important change in v0.9.8: The DSP level slider now properly appears on startup for any DSP that was enabled in the radio's saved profile. Previously the slider was missing until manually toggling the algorithm (#startup-slider). This affects NB, NR, ANF, NRL, NRS, NRF, and ANFL.
+Important change in v0.9.8: The DSP level slider now properly appears on startup for any DSP that was enabled in the radio's saved profile. Previously the slider was missing until manually toggling the algorithm (#startup-slider). This affects NB, NR, ANF, NRL, NRS, NRF, ANFL, and MN.
 
 The slider row remains laid out at all times. When no leveled algorithm is active — or when only RNN, ANFT, or APF is on — the slider row fades out and does not respond to clicks.
 
@@ -160,15 +168,3 @@ The VFO panel now respects the **Reverse mouse wheel direction** setting from `I
 
 The VFO panel now provides accessibility frequency announcements when assistive technology (e.g., screen reader) is active. The frequency label fires a `QAccessibleValueChangeEvent` at a throttled rate when the frequency changes. This ensures that screen readers announce frequency updates without flooding the accessibility layer.
 
-## VFO panel shadow rendering (v26.7.4)
-
-The VFO panel flag now renders its elevation shadow on a separate `FlagShadow` widget. This prevents live S-meter repaints from triggering full-shadow re-renders at animation rate, improving performance.
-
-## Height-for-width propagation (v26.7.4)
-
-The VFO panel tab stack now forwards `heightForWidth` from the current page. This allows pages that maintain an aspect ratio (such as a meter widget) to correctly drive the strip height. Pages without height-for-width (such as the S-meter spacer) are unaffected.
-
-## Related
-
-- [Mute audio for a slice from the VFO panel](mute-audio-for-a-slice-from-the-vfo-panel.md)
-- [Enable

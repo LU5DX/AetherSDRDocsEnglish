@@ -12,6 +12,7 @@ The dialog window uses the persistent dialog framework, saving and restoring its
 - **TX** — TX timings, interlocks, max power, tune mode, waterfall display, slice/TX follow and TX Band Settings shortcut
 - **Phone/CW** — Microphone, CW keyer, RTTY defaults
 - **RX** — GPSDO frequency offset calibration and 10 MHz reference source
+- **Calibration** — Manual host-side frequency calibration (HL2 and other backends that cannot self-calibrate; hidden for radios with hostFrequencyCalibration capability)
 - **Antennas** — Antenna name configuration
 - **Audio** — Radio audio outputs, compression, PC devices, boost, buffer, recording and NVIDIA BNR container
 - **Filters** — Low-latency / Sharp filter options per bandwidth
@@ -73,7 +74,7 @@ Click **Reboot Radio** to restart the connected radio. A confirmation dialog app
 
 Click **OK** to confirm. The dialog closes, and the radio reboots.
 
-The button is enabled only when the radio is connected. It disables automatically on disconnect and re-enables on reconnect.
+The button is enabled only when the radio is connected and the backend supports a client reboot. For example, HL2 is RX-only so the button is disabled. It disables automatically on disconnect and re-enables on reconnect.
 
 ### Firmware Update
 
@@ -104,6 +105,26 @@ The following indicators are read-only:
 | **Apply** | Pushes the network config to the radio | — | — | — |
 
 > **Note:** The default MTU of 1450 is safe for most VPN/SD-WAN tunnels. This setting is stored in AppSettings.
+
+### Automation Bridge (MCP)
+
+The **Network** tab includes controls for the in-app automation bridge that lets an AI coding assistant (via the MCP server) introspect and drive the running app.
+
+| Control | What it does | Default | Notes |
+|---|---|---|---|
+| **Agent Automation (MCP):** | Enables the in-app automation bridge | Disabled | New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The `AETHER_AUTOMATION` launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless `AETHER_AUTOMATION_ALLOW_TX` is set. |
+| **Access Token:** | Read-only display of the MCP access token; paste it into the assistant's `AETHER_MCP_TOKEN` environment variable. Stored in the OS secret store. | (none) | New in v26.8.4. Auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder '(loading…)' until the keychain read lands. |
+| **Copy (Access Token)** | Copies the access token to the clipboard | — | New in v26.8.4. |
+| **Rotate (Access Token)** | Generates a new token and applies it immediately, locking out any client still using the old one | — | New in v26.8.4. |
+| **Allow TX via MCP: Enable transmit control** | Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX) | False | New in v26.8.4. Enforced in the bridge; no client can flip it. Overridden by `AETHER_AUTOMATION_ALLOW_TX` (force on) and `AETHER_AUTOMATION_NO_TX` (pinned off). A force-unkey watchdog limits bridge-originated TX. |
+| **Observe only: Read-only (block all driving)** | Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused | False | New in v26.8.4 (#4188). Enforced in the app, so a client cannot bypass it. `AETHER_AUTOMATION_READONLY` launch variable pins it on for headless/CI runs. |
+
+### VITA-49 Receive Buffer
+
+| Control | What it does | Default | Range | Notes |
+|---|---|---|---|---|
+| **VITA-49 RX buffer:** | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped | 4 MB | 0.25-4 MB (presets) | New in v26.8.4 (#3810). Presets 256 KB to 4 MB. The system caps the grant at `net.core.rmem_max`; a live 'granted: <size>' label shows what the kernel actually granted. |
+| **granted: (VITA-49 RX buffer)** | Shows the buffer size the kernel actually granted (vs the requested preset) | — | — | New in v26.8.4. Shows '(applies on connect)' when no connection is active. |
 
 ---
 
@@ -171,56 +192,10 @@ The **Phone/CW** tab configures microphone, CW keyer, and RTTY defaults.
 | **Swap:** | Swaps dit/dah | — | — | — |
 | **Sideband:** | Selects CW pitch sideband | — | LSB / USB | — |
 | **CWX:** | Enables CWX macro keying | — | — | — |
-| **Decode:** | Enables the CW decode overlay on the panadapter | True | — | `CwDecodeOverlay` |
+| **Decode: RX** | Enables the CW decode overlay on the panadapter for received CW | True | — | `CwDecoder` (nested JSON, `rx` field) |
+| **Decode: TX** | Decodes the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing | False | — | `CwDecoder` (nested JSON, `tx` field) |
 | **RTTY Mark Default:** | Default RTTY mark frequency | — | — | — |
 
 > **Note:** Mode A and Mode B buttons are available beside the Iambic Enabled toggle. Mode A = Curtis A; Mode B = Curtis B. These also drive the local software iambic keyer (IambicKeyer) which mirrors the radio's iambic state for sub-5 ms sidetone.
 
----
-
-## RX Tab
-
-The **RX** tab provides manual frequency offset calibration and 10 MHz reference source selection.
-
-The calibration controls are available regardless of whether a GPSDO is installed. When a GPSDO is present the status label reads "GPSDO installed. Manual frequency offset calibration available." (green). Without a GPSDO the label reads "Manual frequency offset calibration available." (amber).
-
-### Calibration Controls
-
-| Control                                             | What it does                                                                                                                                                                                                                                 | Notes                                                                                                                               |
-|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| **Cal Frequency (MHz):**                            | Enter the known reference frequency in MHz. The value is sent to the radio as `radio set cal_freq=<value>` when you finish editing the field.                                                                                                |                                                                                                                                     |
-| **Start**                                           | Resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`), then starts the calibration sweep. The button label changes to **Busy** and is disabled while calibration is running. A status label beside the button reports progress. |                                                                                                                                     |
-| **Freq Offset (ppb):**                              | Manual frequency offset in parts per billion.                                                                                                                                                                                                |                                                                                                                                     |
-| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress.                                                  | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
-| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).                                                      | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
-| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                                                                           | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                   |
-| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                                                                          | Backed by WanCertCache in WanConnection.cpp.                                                                                        |
-| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                                                                    |                                                                                                                                     |
-| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                                                                   | Shows QMessageBox::question before wiping.                                                                                          |
-### 10 MHz Reference Source
-
-| Control | What it does | Default | Range |
-|---|---|---|---|
-| **10 MHz Reference Source:** | Selects oscillator reference source. Options shown depend on hardware installed (TCXO/GPSDO/External). Lock status (Locked / Unlocked) is shown alongside the combo and updates live. | Auto | Auto / TCXO / GPSDO / External |
-
-The lock status label beside **10 MHz Reference Source:** shows richer information. The label text and color update live as the radio reports oscillator state changes.
-
-**Label text format:**
-
-| Condition | Example text |
-|---|---|
-| Auto mode resolving to a source | `Auto -> GPSDO Locked` |
-| Setting overridden by radio | `TCXO -> GPSDO Locked` |
-| Source matches setting | `GPSDO Locked` |
-| External selected but not detected | `External 10 MHz Unlocked (not detected)` |
-| Waiting for first status report | `Waiting for oscillator status` |
-
-**Label color:**
-
-| State | Color |
-|---|---|
-| Locked | Green |
-| Unlocked | Red |
-| No status received yet | Grey/blue |
-
-The **10 MHz Reference Source:** combo box populates dynamically based on the hardware the radio reports as
+> **Note:** The **Decode: RX** and **Decode: TX** toggles were split from a single `CwDecodeOverlay` toggle in v26.5.3. They persist as a nested JSON blob under `CwDecoder` with `rx` and `tx` fields. The legacy `CwDecode

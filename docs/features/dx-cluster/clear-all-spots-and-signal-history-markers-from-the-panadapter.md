@@ -97,7 +97,7 @@ Displays a unified, searchable table of all live spots from every connected sour
 |---------|-------------|
 | **Bands:** | Per-band checkboxes toggle visibility in table. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). Checkboxes use a wrap layout so they remain readable even when the dialog is narrow. |
 | **Clear** | Empties current spot list |
-| **Spot table** | Sortable table of spots. Double-click a row to tune. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Right-click column headers to show or hide individual columns. |
+| **Spot table** | Sortable table of spots. Double-click a row to tune. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Right-click column headers to show or hide individual columns. The Time and Freq columns are both sortable; click either header to re-sort. |
 
 ### Changing Visible Columns
 

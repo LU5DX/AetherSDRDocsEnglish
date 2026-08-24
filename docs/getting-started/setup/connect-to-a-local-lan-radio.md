@@ -50,14 +50,19 @@ To sign out of SmartLink, click **Sign Out**.
 ## Manual mode steps
 
 1. Click **Manual**.
-2. Enter the IP address of the radio in the **Radio IP address** field.
+2. Enter the IP address or host name of the radio in the **Radio IP address** field.
    - You can also click the drop-down arrow to select a previously used address.
-3. (Optional) Click **Advanced: Source path** to select a specific network interface.
-4. (Optional) Check **Use low bandwidth mode** if you are on a slow or metered link.
-5. (Optional) Check **Enable adaptive frame-rate throttle** to automatically reduce FFT/waterfall frame rate when network quality degrades.
-6. Click **Connect by IP (manual)**.
+3. (Optional) Select the radio type from the **Radio type** drop-down (FlexRadio / Icom / HL2). The panel remembers the type for each address you enter.
+4. (Optional) Click **Advanced: Source path** to select a specific network interface.
+5. (Optional) Check **Use low bandwidth mode** if you are on a slow or metered link.
+6. (Optional) Check **Enable adaptive frame-rate throttle** to automatically reduce FFT/waterfall frame rate when network quality degrades.
+7. Click **Connect by IP (manual)**.
 
 The status label shows the connection result, and the **Manual result label** provides additional detail.
+
+### Host names in Manual mode
+
+The **Radio IP address** field accepts both numeric IP addresses and host names. This is important for radios that are documented with a host name rather than an IP — for example, the IC-705's default address is `ic-705.local`. Previously, host names were silently dropped from the recent-addresses list; in v26.8.4 and later they are remembered and reused just like numeric addresses. Host names are validated conservatively (letters, digits, dots, hyphens, underscores, with alphanumeric ends, up to 253 characters) before being saved.
 
 ## What each control does
 
@@ -72,12 +77,13 @@ The status label shows the connection result, and the **Manual result label** pr
 | **Connect by IP** | Shortcut to the **Manual** mode. Appears inside the empty-state callout. | `ConnectionMode` |
 | **Open Network Diagnostics** | Opens the network diagnostics window. Appears inside the empty-state callout. | — |
 | **SmartLink account: Email** | Email address used to sign in to SmartLink. Saved between sessions. | `SmartLinkEmail` |
-| **SmartLink account: Password** | Password used to sign in to SmartLink. Not saved between sessions. | — |
+| **SmartLink account: Password** | Password used to sign in to SmartLink. Not saved between sessions; stored in the OS keychain when the Icom backend is used. | — |
 | **Sign In** | Authenticates with SmartLink using the supplied email and password. | — |
 | **Sign Out** | Logs out of the current SmartLink session. | — |
 | **Remote radios** | Lists SmartLink WAN radios available to the signed-in account. | — |
 | **Connect Remote Radio** | Starts a WAN connection to the selected radio in the **Remote radios** list. | — |
-| **Radio IP address** | The IP address used for a manual or VPN connection. The field accepts typed input and also shows up to three recently used addresses in a drop-down for quick reuse. Addresses are normalised and deduplicated before being saved. | `ManualRadioIp` / `RecentConnectByIpAddresses` |
+| **Radio IP address** | The IP address or host name used for a manual or VPN connection. The field accepts typed input and also shows up to three recently used addresses in a drop-down for quick reuse. Addresses are normalised and deduplicated before being saved. | `ManualRadioIp` / `RecentConnectByIpAddresses` |
+| **Radio type** | Selects the radio family for the manual connection (FlexRadio, Icom, or HL2). The panel remembers the type for each address you enter. Older profiles without a type default to FlexRadio. | `ConnectByIpRadioFamily` |
 | **Network Diagnostics** | Opens the network diagnostics window from the Manual page. | — |
 | **Connect by IP (manual)** | Starts the manual or VPN connection to the address entered in **Radio IP address**. | — |
 | **Advanced: Source path** | Selects the local network interface used for the manual connection. Use this when the computer has multiple NICs and AetherSDR is binding to the wrong one. | `ManualBindSource` |
@@ -90,9 +96,15 @@ The status label shows the connection result, and the **Manual result label** pr
 
 The **Radio IP address** field is a drop-down combo box that remembers the last three addresses you connected to successfully. Click the arrow to see the list and select a previous address, or type a new one directly in the field.
 
-Addresses are normalised (trimmed and parsed through `QHostAddress`) before being stored so that equivalent forms of the same address are not saved as duplicates. The list is written to the `RecentConnectByIpAddresses` setting as a compact JSON array.
+Addresses are normalised (trimmed, and canonicalised if numeric) before being stored so that equivalent forms of the same address are not saved as duplicates. Host names are also accepted and stored as typed. The list is written to the `RecentConnectByIpAddresses` setting as a compact JSON array.
 
 If you are upgrading from a version prior to v0.9.7, the single address previously stored under `LastRoutedRadioIp` is automatically carried forward as the first entry in the new list. No manual migration is required.
+
+## Radio type selection (Manual mode)
+
+The **Radio type** drop-down next to the **Radio IP address** field lets you specify which radio family you are connecting to: **FlexRadio** (the default), **Icom**, or **HL2**. The panel remembers the type you chose for each address, so switching between a FlexRadio and an Icom at different addresses does not require re-selecting the type each time.
+
+Profiles written by versions before the selector existed carry no type information and are treated as FlexRadio, preserving the behaviour you had before.
 
 ## Window appearance
 
@@ -110,6 +122,7 @@ The **Available radios** list has a bounded height (minimum 120 px, maximum 240 
 - If your computer has multiple network interfaces, AetherSDR may be listening on the wrong one. If discovery consistently fails, consider switching to **Manual** mode and specifying the interface with **Advanced: Source path**.
 - If you share a computer and do not want AetherSDR to connect to a radio before you have a chance to choose one, uncheck **Connect to last radio on start up**.
 - **Enable adaptive frame-rate throttle** is useful on links with variable latency or packet loss, such as cellular hotspots or shared Wi-Fi. When enabled, AetherSDR automatically reduces visual data rates to preserve connection stability.
+- If your radio is documented with a host name (for example, `ic-705.local` for the IC-705), you can type that name directly in the **Radio IP address** field — it will be remembered just like a numeric address.
 
 ## Troubleshooting
 
@@ -117,6 +130,7 @@ The **Available radios** list has a bounded height (minimum 120 px, maximum 240 
 - **Connect Selected Radio is greyed out** — No radio is selected in the **Available radios** list. Click a radio in the list first.
 - **The status label shows an error after clicking Connect Selected Radio** — The radio was discovered but the TCP connection failed. Check that no firewall is blocking the SmartSDR protocol port, and that no other SmartSDR-compatible client holds the exclusive connection.
 - **The Radio IP address drop-down shows an old or unreachable address** — Type a new address directly in the field. The old entry will age out of the list once three newer successful connections have been made.
+- **The Radio type selection keeps reverting** — The panel remembers the type per address. If you are connecting to a different radio at the same address, select the correct type from the drop-down before connecting; it will be remembered for that address.
 - **AetherSDR connects to the wrong radio at startup** — Uncheck **Connect to last radio on start up**. AetherSDR will then open the connection screen on every launch so you can choose the radio manually.
 - **SmartLink login fields do not auto-fill with a password manager** — Ensure your password manager is set to recognise the form as a SmartLink account login. The email and password fields are labelled appropriately in the accessibility tree for macOS Passwords, Windows Authenticator, and KDE Wallet.
 - **Right-click menu does not appear on the radio list** — Only the Local mode **Available radios** list supports the right-click context menu. The SmartLink **Remote radios** list does not offer this feature.

@@ -1,4 +1,3 @@
-```md
 # Work an FM repeater with CTCSS tone and +/- offset
 
 Configure a slice for FM duplex operation with a repeater offset and a CTCSS access tone so you can both hear the repeater output and key it correctly on transmit.
@@ -19,21 +18,23 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
    - **Simplex** — TX frequency equals the RX frequency (default).
    - **+** — TX frequency is above the RX frequency.
 5. Click the **Tone mode (FM)** combo (default: **Off**) and select **CTCSS TX**.
-6. Click the **CTCSS tone value** combo and select the tone frequency required by the repeater. The available tones follow the 41-tone EIA/TIA-603 standard, from 67.0 Hz to 254.1 Hz.
+6. Click the **CTCSS tone value** combo and select the tone frequency required by the repeater. The available tones include the standard EIA/TIA-603 tone set (67.0 Hz to 254.1 Hz), plus the non-standard 69.3 Hz, 159.8 Hz, 165.5 Hz, 171.3 Hz, 177.3 Hz, 183.5 Hz, 189.9 Hz, 196.6 Hz, and 199.5 Hz tones that some repeaters use.
 7. Confirm the squelch is set appropriately for the band. See [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md) if needed.
 
 ## What each control does
 
-| Control          | Default | Valid range / options                     |
-|------------------|---------|-------------------------------------------|
-| Mode combo       | USB     | FM, NFM, DFM (among others)               |
-| Tone mode (FM)   | Off     | Off, CTCSS TX                             |
-| CTCSS tone value | —       | 67.0 Hz – 254.1 Hz (41 EIA/TIA-603 tones) |
-| Offset (FM)      | 0.0 MHz | 0.0 – 100.0 MHz, step 0.1                 |
-| − (offset down)  | —       | toggle                                    |
-| Simplex          | checked | toggle                                    |
-| + (offset up)    | —       | toggle                                    |
-| REV              | —       | toggle                                    |
+| Control          | Default                                                                                                                                                                                                                                                                                                                                                  | Valid range / options                                                                                                                                                                                                                                                    |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mode combo       | Sets slice mode; reshapes filter and step presets for the new mode.                                                                                                                                                                                                                                                                                      | RADE option requires HAVE_RADE build flag. DSTR and FreeDV modes are filtered out when the model doesn't support them. Selecting a real radio mode tears down a running WFM software-demod overlay (WFM itself is toggled from the VFO-flag WFM button, not this combo). |
+| Tone mode (FM)   | Off                                                                                                                                                                                                                                                                                                                                                      | Off, CTCSS TX                                                                                                                                                                                                                                                            |
+| CTCSS tone value | —                                                                                                                                                                                                                                                                                                                                                        | 67.0 Hz – 254.1 Hz, including standard EIA/TIA-603 tones plus non-standard 69.3, 159.8, 165.5, 171.3, 177.3, 183.5, 189.9, 196.6, and 199.5 Hz tones                                                                                                                     |
+| Offset (FM)      | 0.0 MHz                                                                                                                                                                                                                                                                                                                                                  | 0.0 – 100.0 MHz, step 0.1                                                                                                                                                                                                                                                |
+| − (offset down)  | —                                                                                                                                                                                                                                                                                                                                                        | toggle                                                                                                                                                                                                                                                                   |
+| Simplex          | checked                                                                                                                                                                                                                                                                                                                                                  | toggle                                                                                                                                                                                                                                                                   |
+| + (offset up)    | —                                                                                                                                                                                                                                                                                                                                                        | toggle                                                                                                                                                                                                                                                                   |
+| REV / XFC        | For FM repeater operation, REV inverts the TX offset sign to work a reversed repeater pair. On backends that support a transmit-frequency check, the button relabels to XFC: pressing it holds the transmit frequency check for the duration of the press, and while held it briefly forces the radio toward the transmit frequency to confirm coverage. | The button toggles REV (checkable) normally, or becomes a momentary XFC down-button when the connected radio backend advertises hasTransmitFrequencyCheck. The held XFC is released on hide, deactivate, capability change, or disconnect.                               |
+| SQL / AUTO       | Three-way cycle button: each click steps Off → SQL (manual threshold) → AUTO (algorithm tracks the noise floor) → Off. In AUTO mode the button shows amber 'AUTO'; in manual mode green 'SQL'. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504).                               | Manual and Auto both turn the radio squelch on. The auto-squelch algorithm lives in the panadapter; the level is the dB margin above the measured noise floor. Mirrored by an identical button in the VFO panel's Audio tab.                                             |
+| Mute | 🔊 (unmuted) | Toggle button. Single-click mutes/unmutes this slice; double-click mutes/unmutes all owned slices. Icon updates only when the radio acknowledges. | 
 
 ## Tips
 
@@ -43,11 +44,10 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - When the radio reports a different number of available slices than the tab row was built for, AetherSDR now tears down the existing slice tab buttons and rebuilds them for the new count before reconnecting click handlers (v0.9.5.1, #2254). This prevents stale buttons appearing after a reconnect or a change in hardware configuration.
 - Filter width presets are stored in the format `lo:hi` (passband edges in Hz) or as a plain width value, depending on whether the preset was saved with explicit edge positions. Both formats are read correctly when you reopen the applet or switch modes (#2259).
 - The filter width readout is shared with the VFO panel via `RxApplet::formatFilterWidth()`. In v0.9.8+, this method is now a public static function so both widgets produce identical, mode-aware formatting for SSB, digital, and AM modes (#2197).
-- The widen/narrow shortcuts (e.g. Ctrl+Shift+W, Ctrl+Shift+N) call `stepFilterWidth(int direction)`, which walks the per-mode filter preset list to find the next valid width and applies it with correct edge geometry for the current mode (#2208).
+- The widen/narrow shortcuts (e.g. Ctrl+Shift+W, Ctrl+Shift+N) call `stepFilterWidth(int direction)`, which walks the per-mode filter preset list to find the next valid width and applies it with correct edge geometry for the current mode (#2208). As of v26.8.4, CW mode detection uses a single shared `isCwMode()` helper across all CW variants (CW, CWL, CWU) rather than separate mode strings.
 - The slice badge now supports rich text formatting (HTML) for the slice letter display (#2606).
 - Antenna selection for both RX and TX now prioritizes the slice's own antenna list when available. The menu shows antenna labels with tooltips and status tips, with actual antenna data stored separately from display text. TX antenna menus filter out ports with the "RX" prefix and include only antennas matching patterns like "ANT", "TX", or "XVTR".
-- By default, AetherSDR uses an Auto squelch algorithm that clobbers the slice's squelchLevel with algorithm-suggested values. The last user-chosen Manual squelch threshold is now persisted client-side in the `LastManualSquelchLevel` setting and restored between sessions and mode cycles.
-- The mute button uses a deferred single-click mechanism to avoid conflicts with double-click actions. A single-click mutes or unmutes the current slice. A double-click mutes or unmutes all owned slices. The icon updates only when the radio acknowledges the mute state change, ensuring the displayed state always matches the radio's actual state.
+- The mute button uses a deferred single-click mechanism to avoid conflicts with double-click actions. A single-click mutes or unmutes the current slice. A double-click mutes or unmutes all owned slices. The icon updates only when the radio acknowledges the mute state change, ensuring the displayed state always matches the radio's actual state. Per the Radio-Authoritative Settings Policy (#2489), mute state is not saved or restored on reconnect — the radio is the source of truth.
 - The **AGC Threshold** slider has a right-click context menu. Right-click the slider and select **Calibrate AGC-T against noise floor…** to open the AGC-T noise calibration panel. The tooltip also advertises this feature.
 - When entering a frequency in the Frequency edit field, AetherSDR uses `FrequencyEntryParser` to normalize the input. If you type a value above 54 MHz without being on an XVTR antenna, the parser checks whether it was entered as an explicit MHz value. If so, the maximum allowed frequency is raised to 50000 MHz, allowing entry of VHF/UHF frequencies above the normal 54 MHz limit without switching to an XVTR antenna first (e.g., typing 146.520 MHz on a non-XVTR antenna).
 - The offset direction buttons and REV button are part of an exclusive button group; selecting one automatically deselects the others.
@@ -55,6 +55,8 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - The filter preset buttons and other styled buttons now use tokenised stylesheet colours through ThemeManager. This means the button appearance updates automatically when you switch themes, consistent with the rest of the UI (v26.6.1).
 - The RX antenna menu now includes virtual antenna tokens from the KiwiSDR when a KiwiSDR manager is active. Tokens are appended to the options list and are not duplicates of existing physical antennas. Selecting a virtual antenna triggers a `kiwiRxAntennaSelected` signal instead of calling `setRxAntenna` directly (#2781).
 - The RX antenna menu is rebuilt as a popup menu rather than an inline menu. The menu is deleted automatically when hidden (#2781).
+- Squelch threshold is radio-authoritative. The previous client-side persistence of the manual squelch level in `LastManualSquelchLevel` has been removed. The manual squelch level always comes from the radio, and the client-side fallback value is only used briefly when no slice is attached (v26.8.4, #4592).
+- The CTCSS tone list now includes the non-standard tones 69.3, 159.8, 165.5, 171.3, 177.3, 183.5, 189.9, 196.6, and 199.5 Hz. These are listed without EIA designations (showing only the frequency) to distinguish them from the standard 41-tone set.
 
 ## Troubleshooting
 
@@ -62,25 +64,15 @@ Configure a slice for FM duplex operation with a repeater offset and a CTCSS acc
 - **TX frequency appears wrong** — Check that the offset direction button (**−**, **Simplex**, or **+**) matches the repeater's published offset direction, and that the Offset (FM) value is set to the correct magnitude (e.g. 0.6 MHz for a typical 2 m repeater).
 - **Tone mode and CTCSS controls are not visible** — The slice mode must be **FM**, **NFM**, or **DFM**. These controls are hidden in all other modes.
 - **Squelch controls are greyed out** — Squelch is disabled automatically when the slice mode is **DIGU**, **DIGL**, **NT**, **RTTY**, **CW**, or **CWL**. Switch to an FM or SSB mode to enable the squelch controls.
+- **Repeater requires a non-standard CTCSS tone** — Check if the tone is one of the non-standard frequencies (69.3, 159.8, 165.5, 171.3, 177.3, 183.5, 189.9, 196.6, or 199.5 Hz). These are listed with only the frequency value in the CTCSS tone combo box, without an EIA designation.
 - **Slice tab buttons appear incorrect after reconnecting** — If the slice tab row shows the wrong number of buttons or a stale layout after the radio reconnects, disconnect and reconnect manually. In v0.9.5.1 this is corrected automatically: the applet calls `clearSliceButtons()` to remove the old buttons and restore the static slice badge before rebuilding the tab row for the new slice count (#2254).
 - **Filter preset button does not change passband** — If the current width is not a standard preset value, the widen/narrow step may not change the passband. This is expected behavior; click a specific filter preset button or type a frequency to change the passband, then the widen/narrow shortcuts will work from the new width.
 - **Mute icon does not change on click** — The mute icon is updated only when the radio acknowledges the mute state change. If the icon does not change, the radio may not have confirmed the new state. This is expected per the Radio-Authoritative Settings Policy (#2489).
 - **Frequency edit field does not accept typed input** — The frequency edit field now uses `FreqLineEdit` which provides a hint label "MHz" instead of placeholder text. Click the frequency label to enter edit mode, type the frequency in MHz, and press Enter to apply.
+- **Manual squelch level is not remembered between sessions** — As of v26.8.4, the manual squelch threshold is radio-authoritative and is not persisted client-side. The radio maintains the per-slice squelch level. When no slice is attached, the client uses a fallback value of 20.
 
 ## NT mode and RTTY mode notes
 
 The **NT** and **RTTY** modes are treated as digital modes in the RX Controls applet (v0.9.3+ for NT, v26.5.1 for RTTY). This has the following effects:
 
-- NT and RTTY use the same filter width presets and step sizes as DIGU and DIGL.
-- The filter width indicator calculates bandwidth the same way as USB (using the upper passband edge).
-- Squelch is disabled while NT or RTTY is active. If squelch was on when you switched to NT or RTTY, it is turned off automatically and restored when you leave the mode.
-- For RTTY mode specifically, squelch is disabled because it would notch out FSK characters and break decoding (#2504).
-
-## Related
-
-- [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
-- [Tune the radio to a frequency (type MHz in the readout)](tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-- [Turn on the squelch and set its threshold](turn-on-the-squelch-and-set-its-threshold.md)
-- [Select the RX or TX antenna for this slice](select-the-rx-or-tx-antenna-for-this-slice.md)
-- Calibrate AGC-T against the noise floor
-```
+- NT

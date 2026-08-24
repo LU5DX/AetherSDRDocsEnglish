@@ -6,7 +6,7 @@ The Connect to a Radio panel is the starting point for every AetherSDR session. 
 
 - Your FLEX-8600 must be powered on and running firmware 4.2.
 - For SmartLink connections, you need a FlexRadio account and internet access on both ends.
-- For manual/VPN connections, you need the radio's IP address.
+- For manual/VPN connections, you need the radio's IP address or host name.
 
 ## How it works
 
@@ -41,9 +41,11 @@ The email and password fields include accessibility metadata to help password ma
 
 ### Connect by IP (Manual mode)
 
-Use this mode for VPN or routed network connections where you already know the radio's IP address. Enter the address in **Radio IP address** (persisted as `ManualRadioIp`), then click **Connect by IP**.
+Use this mode for VPN or routed network connections where you already know the radio's IP address or host name. Enter the address in **Radio IP address** (persisted as `ManualRadioIp`), then click **Connect by IP**.
 
-The **Radio IP address** field is an editable drop-down. AetherSDR stores up to three recently used addresses (persisted as `RecentConnectByIpAddresses`) and populates the drop-down with them when the panel opens. Click the drop-down arrow to select a previous address, or type a new one directly. Addresses are normalized before saving; duplicates are not stored. If a legacy `LastRoutedRadioIp` value exists from an earlier version, it is imported automatically the first time the panel opens.
+The **Radio IP address** field is an editable drop-down. AetherSDR stores up to three recently used addresses (persisted as `RecentConnectByIpAddresses`) and populates the drop-down with them when the panel opens. Click the drop-down arrow to select a previous address, or type a new one directly. Addresses and host names are normalized before saving; duplicates are not stored. Numeric addresses are canonicalized (so `192.168.001.5` and `192.168.1.5` are treated as one entry), and host names such as `ic-705.local` are now remembered. If a legacy `LastRoutedRadioIp` value exists from an earlier version, it is imported automatically the first time the panel opens.
+
+The **Radio IP address** field accepts both numeric IP addresses and host names. Host names are validated with a conservative character set (letters, digits, dot, hyphen, underscore, with alphanumeric ends) and a maximum length of 253 characters. This allows VPN radios reached by DNS name to appear in the recent list; previously they were silently dropped.
 
 Three additional controls are available on this page:
 
@@ -86,7 +88,7 @@ Once connected, click **Disconnect** to return to the connection panel. You can 
 | **Sign Out** | SmartLink | Logs out of SmartLink. |
 | **Remote radios** | SmartLink | Lists WAN radios available to the account. Scrollable; fixed display height. |
 | **Connect Remote Radio** | SmartLink | Starts a WAN connection to the selected radio. |
-| **Radio IP address** | Manual | Editable drop-down showing up to three recent addresses (persisted as `RecentConnectByIpAddresses`). Type a new address or select a previous one. Persisted as `ManualRadioIp`. |
+| **Radio IP address** | Manual | Editable drop-down showing up to three recent addresses (persisted as `RecentConnectByIpAddresses`). Accepts numeric IP addresses and host names (up to 253 characters, validated with a conservative character set). Type a new address or select a previous one. Persisted as `ManualRadioIp`. |
 | **Advanced: Source path** | Manual | Selects the local NIC for the connection. Persisted as `ManualBindSource`. |
 | **Use low bandwidth mode** | Manual | Enables reduced-rate streams for slow links. Persisted as `LowBandwidthMode`. |
 | **Enable adaptive frame-rate throttle** | Manual | Automatically reduces FFT/waterfall frame rate when network quality degrades. Persisted as `AdaptiveThrottleEnabled`. Default: off. |

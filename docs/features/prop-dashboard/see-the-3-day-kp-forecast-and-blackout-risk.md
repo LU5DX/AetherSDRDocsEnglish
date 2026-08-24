@@ -20,12 +20,18 @@ The HF Propagation Dashboard includes a 3-day Kp forecast grid showing geomagnet
 
 | Control | Behavior |
 |---|---|
+| **Current Conditions cards** | Five metric tiles (SFI, SN, A-index, K-index, X-ray) showing current solar/geomagnetic indices with hover tooltips. |
 | **3-Day Forecast grid** | Displays Kp per 3-hour UTC period across three days, plus Max Kp per day. Cells are color-coded by severity. |
+| **Solar And Lunar panel** | Live solar image (click to cycle wavelengths; default label 'Corona (193A)') and current Moon phase. |
+| **What To Look For** | Rotating plain-language learning notes about the current solar image. |
+| **HF Band Conditions** | Day and night condition per band row (4 band rows). |
+| **VHF Conditions** | Aurora, E-Skip NA, and E-Skip EU opening states. |
+| **What These Mean (VHF)** | Two learning notes explaining aurora vs sporadic-E. |
 | **R1-R2** row | NOAA HF radio blackout risk at the R1–R2 level, shown per day. |
 | **R3+** row | NOAA HF radio blackout risk at the R3 level and above, shown per day. |
 | **S1+** row | NOAA solar radiation storm risk at the S1 level and above, shown per day. |
-| **Rationale** | Plain-language explanation of today's forecast. |
 | **Geomagnetic field / Solar wind / Noise / X-ray** | Summary status labels below the forecast grid. Color-coded by severity. |
+| **Rationale** | Plain-language explanation of today's forecast. |
 
 ## Tips
 
@@ -34,10 +40,11 @@ The HF Propagation Dashboard includes a 3-day Kp forecast grid showing geomagnet
 - The R1-R2 and R3+ rows reflect probability estimates per day, not certainty. Check the Kp cell colors across individual 3-hour periods to see when during the day risk is highest.
 - Hover over the **Current Conditions cards** (SFI, SN, A-index, K-index, X-ray) for tooltip explanations of each index.
 - The dialog's appearance adapts to your current AetherSDR theme. Separator lines and backgrounds use theme colors instead of fixed values.
+- If forecast data fails to load within 15 seconds, the dashboard stops the fetch and you can retry by reopening the dialog.
 
 ## Troubleshooting
 
-- **Forecast grid shows no data or stale values** — AetherSDR fetches forecast data from the internet. Verify your network connection is active and reopen the dialog.
+- **Forecast grid shows no data or stale values** — AetherSDR fetches forecast data from the internet. Verify your network connection is active and reopen the dialog. Fetches time out after 15 seconds if the server is unresponsive.
 - **Window position or size is not remembered** — The dialog uses `PersistentDialog` to store its geometry under the key `PropDashboardDialogGeometry`. If the setting file is corrupted, close AetherSDR, delete the `PropDashboardDialogGeometry` entry from your settings file, and reopen the dialog.
 
 ## Related

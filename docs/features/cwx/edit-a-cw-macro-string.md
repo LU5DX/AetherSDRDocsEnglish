@@ -65,7 +65,7 @@ The CWX panel stores up to 12 macro strings, one for each function key F1 throug
 ### Before you start
 
 - AetherSDR must be connected to the radio. The CWX panel requires an active radio connection.
-- The TX slice must use CW or CWL mode, or the CWX panel must already be open in the main window.
+- The TX slice must use a CW mode (CW, CWL, or CWU), or the CWX panel must already be open in the main window.
 
 ### Steps
 
@@ -85,7 +85,7 @@ The CWX panel stores up to 12 macro strings, one for each function key F1 throug
 
 The CWX panel registers application-wide shortcuts for F1 through F12 and Escape. These shortcuts are enabled and disabled by the main window based on the TX slice's operating mode, not on panel visibility.
 
-- When the TX slice uses CW or CWL mode, the shortcuts are enabled.
+- When the TX slice uses a CW mode (CW, CWL, or CWU), the shortcuts are enabled.
 - When the TX slice uses any other mode (such as SSB or AM for the DVK panel), the shortcuts are disabled.
 - The shortcuts fire regardless of whether the CWX panel is visible, as long as the TX slice is in a CW mode.
 - This prevents shortcut conflicts with the DVK panel, which registers its own set of F1 through F12 shortcuts for voice macros.

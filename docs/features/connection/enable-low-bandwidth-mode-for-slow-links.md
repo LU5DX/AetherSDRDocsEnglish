@@ -1,18 +1,56 @@
-# Enable low-bandwidth mode for slow links
+# Connect to a Radio
 
-Low-bandwidth mode reduces the rate of audio and data streams sent from the radio. Use it when connecting over a slow or congested link — such as a cellular hotspot, a long-distance VPN, or a satellite connection — to reduce dropouts and improve stability.
+The connection panel is the first screen shown when AetherSDR starts. It lets you pick between a local LAN radio, a SmartLink remote radio, or a manual/VPN IP connection.
+
+## Connection modes
+
+Choose one of three modes with the buttons at the top of the panel:
+
+- **Local** — discovers and connects to radios on your local network.
+- **SmartLink** — connects to WAN radios through your FlexRadio SmartLink account.
+- **Manual** — connects directly to a radio by IP address or host name, including over VPN.
 
 ## Before you start
 
-- AetherSDR must be open and not yet connected to a radio, or you must disconnect first before changing this setting.
-- Know which connection mode you are using: Local, SmartLink, or Manual. The `LowBandwidthMode` checkbox is present on the connection panel regardless of mode.
+- AetherSDR must be open and not yet connected to a radio, or you must disconnect first before changing connection settings.
+- Know which connection mode you are using: Local, SmartLink, or Manual.
 
-## Steps
+## Connect to a local radio
 
 1. Open the connection panel. It appears automatically before a radio is connected. If a radio is already connected, click `Settings > Connect to Radio...` and disconnect first.
-2. Locate the **Use low bandwidth mode** checkbox near the bottom of the connection panel.
-3. Check **Use low bandwidth mode** to enable reduced-rate streams.
-4. Proceed to connect using your preferred mode — **Local**, **SmartLink**, or **Manual** — as normal.
+2. Confirm **Local** is selected at the top of the panel.
+3. Wait for discovery to complete. The **Available radios** list populates with radios found on your LAN.
+4. Click the radio you want to connect to, then click **Connect Selected Radio**.
+5. If no radios are found, click **Retry Discovery** to re-run LAN discovery.
+
+## Connect through SmartLink
+
+1. Open the connection panel.
+2. Click **Remote with SmartLink** at the top of the panel.
+3. Enter your SmartLink account **Email** and **Password**, then click **Sign In**.
+4. When the **Remote radios** list populates with radios available to your account, click the radio you want.
+5. Click **Connect Remote Radio** to start the WAN connection.
+6. To log out of SmartLink, click **Sign Out**.
+
+## Connect by IP or host name (manual / VPN)
+
+1. Open the connection panel.
+2. Click **Connect by IP** at the top of the panel.
+3. In the **Radio IP address** field, enter the radio's IP address or host name.
+   - Numeric addresses are canonicalised, so `192.168.001.5` and `192.168.1.5` count as the same address.
+   - Host names are supported, including mDNS names such as `ic-705.local`. The field remembers host names as well as numeric addresses.
+   - The field stores up to three recently used addresses. Select a previous address from the drop-down or type a new one.
+4. If the local machine has more than one network interface, use **Advanced: Source path** to pick the NIC used for this connection.
+5. Check **Use low bandwidth mode** if you are connecting over a slow link.
+6. Click **Connect by IP (manual)** to start the connection.
+
+## Enable low-bandwidth mode
+
+Low-bandwidth mode reduces the rate of audio and data streams sent from the radio. Use it when connecting over a slow or congested link — such as a cellular hotspot, a long-distance VPN, or a satellite connection — to reduce dropouts and improve stability.
+
+1. On the connection panel, locate the **Use low bandwidth mode** checkbox near the bottom.
+2. Check **Use low bandwidth mode** to enable reduced-rate streams.
+3. Connect using your preferred mode as normal. The setting is negotiated at connect time.
 
 ## What each control does
 
@@ -32,7 +70,7 @@ Low-bandwidth mode reduces the rate of audio and data streams sent from the radi
 | Sign Out | Push button | — |
 | Remote radios | List | (not set) |
 | Connect Remote Radio | Push button | — |
-| Radio IP address | Text field. Stores up to three recently used IP addresses. Select a previous address from the drop-down or type a new one. The field replaces the plain text entry used in earlier versions. Stored as `ManualRadioIp`; recent entries stored as `RecentConnectByIpAddresses`. | (not set) |
+| Radio IP address | Text field. Accepts numeric IP addresses and host names. Stores up to three recently used addresses. Stored as `ManualRadioIp`; recent entries stored as `RecentConnectByIpAddresses`. | (not set) |
 | Network Diagnostics | Push button | — |
 | Connect by IP (manual) | Push button | — |
 | Advanced: Source path | Combo box | (not set) |

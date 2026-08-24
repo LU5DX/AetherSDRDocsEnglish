@@ -10,7 +10,7 @@ SpotHub is AetherSDR's central hub for receiving DX spots from multiple sources 
 
 ## How it works
 
-SpotHub aggregates spots from up to six independent sources. Each source runs independently — you can enable any combination simultaneously. All incoming spots are merged into a unified list and rendered as frequency markers on the panadapter.
+SpotHub aggregates spots from up to eight independent sources. Each source runs independently — you can enable any combination simultaneously. All incoming spots are merged into a unified list and rendered as frequency markers on the panadapter.
 
 Spots from each source are color-coded separately so you can distinguish their origin at a glance. A global display layer (the **Display** tab) controls how all spots appear on the panadapter, regardless of source.
 
@@ -32,13 +32,19 @@ The **Startup Commands…** button opens an editor for RBN-specific cluster comm
 
 **FreeDV tab** — Connects to the FreeDV QSO Reporter via WebSocket at `qso.freedv.org`. The server address is fixed. The **FreeDV Spots** console shows activity. Spot color is set via **Spot Color:** (`FreeDvSpotColor`). This tab is only present in builds that include WebSocket support.
 
+**Eibi tab** — Polls the EiBi shortwave database for current broadcast spots. The server address is fixed. The **Eibi Spots** console shows the feed. Spot color is set via **Spot Color:** (`EibiSpotColor`).
+
+**N1MM tab** — Listens for spot messages from N1MM Logger+. Set the UDP port and click **Start**. The **N1MM Spots** console shows received spots. Spot color is set via **Spot Color:** (`N1mmSpotColor`).
+
 ### Auto-connect and auto-start
 
-Each source has an **Auto-connect on startup** or **Auto-start on startup** toggle. When enabled, that source connects or starts automatically every time AetherSDR launches, without manual intervention. The persisted keys are `ClusterAutoConnect`, `RbnAutoConnect`, `WsjtxAutoStart`, `SpotCollectorAutoStart`, `PotaAutoStart`, and `FreeDvAutoStart`.
+Each source has an **Auto-connect on startup** or **Auto-start on startup** toggle. When enabled, that source connects or starts automatically every time AetherSDR launches, without manual intervention. The persisted keys are `ClusterAutoConnect`, `RbnAutoConnect`, `WsjtxAutoStart`, `SpotCollectorAutoStart`, `PotaAutoStart`, `FreeDvAutoStart`, `EibiAutoStart`, and `N1mmAutoStart`.
 
 ### Spot List tab
 
 The **Spot List** tab shows a unified, sortable table of all live spots from all active sources. Columns are: Time, Freq (kHz), DX Call, Mode, Comment, Spotter, Band, and Source. Per-band checkboxes under **Bands:** toggle visibility for each amateur band. The checkboxes use a flow layout that wraps to new rows when the SpotHub dialog is narrow, keeping each checkbox readable. Click **Clear** to empty the current list. Double-click any row to tune the active VFO to that spot's frequency and, where the spot carries mode information (for example CW, FT8, or RTTY), automatically switch the slice to that mode.
+
+The **Time** and **Freq** columns sort numerically when you click their headers; every other column sorts alphabetically. Sorting by Time restores the newest-first order if you have sorted by another column.
 
 The column header menu shows or hides individual columns. Click the header context menu to toggle columns on and off. The menu stays open while you toggle multiple checkable columns, so you can show or hide several columns in one pass without the menu closing after each click.
 
@@ -122,22 +128,4 @@ When **Use radio** is checked, the field displays the radio's callsign. Uncheck 
 
 | Control | Setting key | Default | Notes |
 |---|---|---|---|
-| **Station Msg:** | `FreeDvMyMessage` | — | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. |
-
-## SWR sweep overlay
-
-V0.9.4 adds a SWR sweep overlay that plots SWR versus frequency directly on the panadapter. An external source (for example, an antenna analyzer integration) supplies the data by calling `setSwrSweepPoints()`. The panadapter renders the curve via the internal `drawSwrSweep()` layer.
-
-### Supplying sweep data
-
-Call `setSwrSweepPoints()` with a vector of `SwrSweepPoint` values. Each point carries two fields:
-
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `freqMhz` | `double` | `0.0` | Frequency of the measurement in MHz. |
-| `swr` | `float` | `1.0` | SWR value at that frequency. |
-
-The method signature is:
-
-```
-setSwrSweepPoints(p
+| **Station Msg:** | `FreeDvMyMessage` | — | Optional free-text message shown beside your callsign on the public FreeDV Reporter map. Limited to 100 characters. |

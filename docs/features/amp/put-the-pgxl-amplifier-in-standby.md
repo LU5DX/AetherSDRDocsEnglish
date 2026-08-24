@@ -18,11 +18,18 @@ The button label changes to "STANDBY" and the green background is replaced with 
 
 ## What each control does
 
-| Control | Behavior | States |
-|---------|----------|--------|
-| OPERATE | Toggles the amplifier between OPERATE and STANDBY; emits operateToggled. | Hidden until setState arrives. Shows 'OPERATE' (green) for IDLE/OPERATE/TRANSMIT_* states, 'STANDBY' otherwise. In v0.9.8, setState is called from RadioModel::ampStateChanged (authoritative), preventing the button from staying stuck on the old label (#2437). |
-| Fan Speed | Button labelled with the current fan mode ("Fan: Std", "Fan: Contest", or "Fan: Bcast") that cycles the PGXL fan mode through STANDARD, CONTEST, and BROADCAST. | Hidden until a direct PGXL connection delivers the first fanmode status. Tooltip: "Fan Speed\nClick to cycle STANDARD / CONTEST / BROADCAST". Accessible name updates with current mode, e.g., "Fan speed: STANDARD". |
-| Temperature unit toggle | Click the temperature display to toggle between Celsius (°C) and Fahrenheit (°F). The setting persists across application restarts. | Shows current temperature with one decimal place. Hidden until first telemetry arrives. |
+| Control                 | Behavior                                                                                                                                                                                 | States                                                                                                                                                                                                                |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OPERATE                 | Toggles the amplifier between OPERATE and STANDBY; emits operateToggled.                                                                                                                 | Hidden until setState arrives. Shows 'OPERATE' (green) for IDLE/OPERATE/TRANSMIT_* states, 'STANDBY' otherwise (kept in sync via RadioModel::ampStateChanged, #2437).                                                 |
+| Fan speed               | Selects the PGXL fan mode; emits fanModeChanged with the uppercase mode.                                                                                                                 | Hidden until a direct PGXL connection delivers the first fanmode status. Uses GuardedComboBox so accidental mouse-wheel scroll while hovering does not change fan mode when the dropdown is closed (#3905).           |
+| Temperature unit toggle | Click the temperature display to toggle between Celsius (°C) and Fahrenheit (°F). The setting persists across application restarts.                                                      | Shows current temperature with one decimal place. Hidden until first telemetry arrives.                                                                                                                               |
+| PWR                     | Shows PGXL forward power with a white peak tick held for 2.5 s after the last new peak; the numeric label only shows a value when power >= 5 W.                                          | SWR gauge clears to 1.0 when power drops below 5 W (unmeasurable at idle) and restores the cached value when power resumes.                                                                                           |
+| SWR                     | Shows PGXL SWR; the numeric label only appears when forward power >= 5 W.                                                                                                                |                                                                                                                                                                                                                       |
+| Id                      | Shows PGXL drain current; the numeric label only appears when current >= 0.5 A.                                                                                                          |                                                                                                                                                                                                                       |
+| Temp (C/F button)       | Shows amp temperature (TEMP_A and TEMP_B if present) and toggles between Celsius and Fahrenheit on click. The choice persists to the 'AmpApplet' settings object (tempFahrenheit field). | Displays 'tempA/tempB °C' when both sensors report, or 'tempA °C' otherwise. Tooltip announces the unit clicking would switch to.                                                                                     |
+| Vdd (drain voltage)     | Shows drain voltage 'Vdd  x.x V' on a direct PGXL connection; shows a dash when the drain supply is off (vdd < 1 V) or when connected via the radio proxy.                               | Only updated on a direct connection; greyed out when proxied through the radio.                                                                                                                                       |
+| Vac (mains voltage)     | Shows mains voltage 'Vac  N V' on a direct PGXL connection.                                                                                                                              | Only updated on a direct connection; greyed out when proxied through the radio.                                                                                                                                       |
+| Source label            | Indicates whether telemetry is proxied through the radio (RADIO) or read directly from the PGXL (DIRECT).                                                                                | Vdd/Vac/fan mode are only available on the DIRECT path.                                                                                                                                                               |
 
 ## Telemetry indicators
 
@@ -52,11 +59,13 @@ The gauge ballistics for PWR use a fast attack (30 ms) and slow release (800 ms)
 
 ## Fan speed control
 
-The Fan Speed button appears only when a direct PGXL connection delivers the first fanmode status. The button is hidden until then.
+The Fan speed dropdown appears only when a direct PGXL connection delivers the first fanmode status. The control is hidden until then.
 
-- Click the button to cycle through fan speed modes: STANDARD → CONTEST → BROADCAST → STANDARD.
-- The button text shows the mode label: "Fan: Std", "Fan: Contest", or "Fan: Bcast".
+- Select the desired fan mode from the dropdown: STANDARD, CONTEST, or BROADCAST.
+- The dropdown text shows the mode label: "Fan: Std", "Fan: Contest", or "Fan: Bcast".
 - The accessible name updates with the current mode, e.g., "Fan speed: STANDARD".
+- The dropdown is a GuardedComboBox: accidental mouse-wheel scroll while hovering over it does not change the fan mode when the dropdown is closed.
+- The dropdown resizes to fit the widest item label ("Fan: Contest") and applies the application's theme styling to the popup list.
 
 ## Temperature unit toggle
 
@@ -72,7 +81,7 @@ The temperature display doubles as a control. Click it to switch between Celsius
 - **The OPERATE button is not visible** — The button is hidden until the first state message arrives from the amplifier. Wait a moment after the applet opens; if it does not appear, check the amplifier connection.
 - **Clicking OPERATE has no effect** — Confirm AetherSDR is still connected to the radio. Disconnect and reconnect if needed.
 - **Telemetry values show dashes** — Wait for the first telemetry packet to arrive from the amplifier. If values do not appear, check the amplifier connection and radio/proxy link.
-- **The Fan Speed button is not visible** — The button is hidden until a direct PGXL connection delivers the first fanmode status. Wait for the connection to establish; if it does not appear, check that the PGXL is directly connected (not through a proxy).
+- **The Fan speed dropdown is not visible** — The control is hidden until a direct PGXL connection delivers the first fanmode status. Wait for the connection to establish; if it does not appear, check that the PGXL is directly connected (not through a proxy).
 - **SWR gauge shows no value** — The gauge only displays a value when forward power is 5 W or greater. This is normal; SWR is not meaningful when the amplifier is idle.
 
 ## Related

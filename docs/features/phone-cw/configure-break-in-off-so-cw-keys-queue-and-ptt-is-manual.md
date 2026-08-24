@@ -18,8 +18,8 @@ The Phone panel is displayed when the active slice is in a voice mode (LSB, USB,
 |---------|----------|---------|
 | **Level** | Shows microphone input peak level in dBFS. Hover the mouse over the gauge to see the exact reading with one decimal place (e.g., "-12.3 dB"). Suppressed to -150 when `met_in_rx` is off and not transmitting. | — |
 | **Mic profile** | Selects a named microphone processing profile from the radio's available profiles. Calls `TransmitModel::loadMicProfile`. | — |
-| **Mic source** | Selects microphone input source. Options include MIC, BAL, LINE, ACC, PC, plus any from the radio's `micInputList()`. When the radio is modulated by AetherSDR (host modulation enabled), the combo box is locked to "PC" and displays a tooltip explaining that only the PC microphone is available. Calls `TransmitModel::setMicSelection`. | — |
-| **Mic gain** | Adjusts microphone input level. Range 0-100. For 'PC' source, uses local `PcMicGain` persistence since the radio always reports `mic_level=0` when source=PC. | 50 |
+| **Mic source** | Selects microphone input source. Options include MIC, BAL, LINE, ACC, PC, plus any from the radio's `micInputList()`. When the radio is modulated by AetherSDR (host modulation enabled), the combo box is narrowed to only "PC" and disabled, with a tooltip explaining that the radio's own input selection is made on the radio. In v26.8.4, on radios without selectable mic inputs, the model is explicitly set to PC to match the UI. Calls `TransmitModel::setMicSelection`. | — |
+| **Mic gain** | Adjusts microphone input level. Range 0-100. For 'PC' source, uses local `PcMicGain` persistence since the radio always reports `mic_level=0` when source=PC. In v26.8.4, the local gain is only applied when the client owns the gain (PC mode with selectable inputs, or RADE mode). | 50 |
 | **+ACC** | Toggles the accessory microphone input mix. Calls `TransmitModel::setMicAcc`. | — |
 
 ### Speech Processor Section
@@ -34,7 +34,7 @@ The Phone panel is displayed when the active slice is in a voice mode (LSB, USB,
 
 | Control | Behavior | Default |
 |---------|----------|---------|
-| **DAX** | Enables DAX as the TX audio source. Calls `TransmitModel::setDax`. | — |
+| **DAX** | Enables DAX as the TX audio source. Calls `TransmitModel::setDax`. In v26.8.4, this button is hidden on radios that do not support DAX TX. | — |
 | **MON** | Enables TX sidetone monitor. Calls `TransmitModel::setSbMonitor`. | — |
 | **Monitor volume** | Sets sideband monitor volume. Calls `TransmitModel::setMonGainSb`. Range 0-100. | — |
 
@@ -92,12 +92,17 @@ The embedded CWX panel's F1-F12 shortcuts are driven by the active slice's mode 
 - In v26.5.3, CW sidetone is automatically routed to the audio output device selected in AetherSDR Audio settings, not the system default output. Check your audio output selection if you hear no sidetone.
 - In v26.7.4, all gauges (Level, Compression, and both ALC gauges) now display exact numeric readings in a popup when you hover the mouse over them (#3936). The Level gauge shows dB, the Compression gauge shows positive dB compression, and the ALC gauges show dBFS — all with one decimal place.
 - In v26.7.4, when the radio is modulated by AetherSDR (host modulation enabled), the **Mic source** combo box is locked to "PC" and displays a tooltip explaining that only the PC microphone input is available. This prevents confusion from selecting non-existent radio jacks.
+- In v26.8.4, when the radio is modulated by AetherSDR (host modulation enabled), the **Mic source** combo box is narrowed to only "PC" rather than showing disabled entries for other sources. The model is explicitly set to PC state to keep the radio and UI consistent. The tooltip explains that the radio's own input selection is made on the radio.
+- In v26.8.4, on radios where the mic level meter is not available, the **Level** gauge is hidden rather than showing a meaningless reading.
+- In v26.8.4, on radios that do not support DAX TX, the **DAX** button is hidden and unchecked.
+- In v26.8.4, the applet now uses a single shared CW-mode check (`isCwMode()`) that recognizes "CW", "CWU", and "CWL" across radio brands, replacing the previous hardcoded "CW" check that only matched Flex radios.
 
 ## Troubleshooting
 
 - **The radio transmits immediately when a key is pressed, even with Breakin apparently off** — This was a known issue in versions prior to v0.9.7, where an auto-PTT envelope overrode the Breakin setting. Confirm AetherSDR is v0.9.7 or later.
-- **The CW panel is not visible; Phone controls are shown** — The applet switches to the CW sub-panel automatically only when the active slice is in a CW mode. Change the slice mode to CW on the radio.
+- **The CW panel is not visible; Phone controls are shown** — The applet switches to the CW sub-panel automatically only when the active slice is in a CW mode. Change the slice mode to CW on the radio. In v26.8.4, the applet recognizes CW, CWU, and CWL modes across radio brands.
 - **The Delay slider snaps back after typing a value** — This was fixed in v0.9.8 (#2428). The value is now cached immediately so the radio emission does not force the slider back.
 - **The ALC meter shows a frozen reading** — In v26.5.3, the ALC meter is initialized to -20 dBFS at construction. If the reading stays at -20 dBFS, verify the radio is transmitting and audio signal is present. Hover over the gauge to see the exact numeric value.
 - **The mic level meter shows -150 dBFS during RX** — In v26.5.3, the level meter is suppressed during receive when the "Meter level during receive" option is disabled in TransmitModel settings. To see mic level during RX, enable that option.
 - **No CW sidetone heard** — In v26.5.3, verify the correct audio output is selected in AetherSDR Audio settings. Sidetone now routes to the user's audio output, not the system default output (#2899).
+- **Mic source shows only PC on a Flex radio** — In v26.8.4, this is expected when the radio takes transmit audio from the computer over the network. The radio's own input selection is made on the radio itself, not in AetherSDR.

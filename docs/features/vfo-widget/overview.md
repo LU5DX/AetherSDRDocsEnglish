@@ -28,7 +28,7 @@ The header row sits above the tabs and is always visible.
 | RX antenna button | Opens the antenna selection menu for the receive antenna of this slice. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
 | TX antenna button | Opens the antenna selection menu for the transmit antenna of this slice. RX-only antenna ports are excluded. Menu items display radio-provided labels alongside abbreviated names in parentheses. |
 | Frequency display | Shows the current slice frequency. Click once to begin direct frequency entry; type a value in MHz and press Enter or Tab to apply. Scroll-wheel over the frequency display tunes by the current step size. If the slice is locked, a visual LOCKED overlay is shown and scroll-wheel tuning is blocked. |
-| Filter width label | Shows the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (v0.9.8). |
+| Filter width label | Shows the current filter bandwidth. Click to cycle through the filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
 | TX badge | Shown in red when this slice is the active transmit slice. In collapsed mode, click the badge to toggle TX assignment. |
 | SPLIT badge | Shown in amber when TX is assigned to a different slice than the active receive slice. From v26.6.3, the badge uses improved opacity styling for better visibility — white at 120 alpha in normal state, 180 alpha on hover. |
 
@@ -43,6 +43,8 @@ The tab row provides buttons for Mode, Audio, DSP, X/RIT, and DAX. From v26.6.3:
 
 The tab stack now forwards `heightForWidth` from each page, so pages that maintain an aspect ratio (such as `SmartMtrWidget`) correctly drive the strip height. Pages without `heightForWidth` (the S-meter spacer) are unaffected.
 
+In v26.8.4, the DAX tab index is tracked internally, and tab separators are stored as a list so they can be styled or hidden consistently with the tab buttons.
+
 ### Mode tab
 
 | Control | Default | Valid values | Persisted key |
@@ -53,6 +55,8 @@ The tab stack now forwards `heightForWidth` from each page, so pages that mainta
 Right-click a filter preset button to save the current filter width into that slot. Custom low and high filter edges can be saved per slot the same way.
 
 When DIGU or DIGL is selected in the Mode combo, a digital data container appears in the tab. This container is taller than the other tab content. The VFO Panel now reports only the current tab's preferred size, preventing a gap from appearing when switching back to the Mode tab from the DSP tab.
+
+**FM mode tones**: In FM, NFM, and DFM modes, the Mode tab shows additional tone controls (CTCSS/DCS encode and decode). These controls are hidden in DSTR mode and in all non-FM modes. The tone controls are gated by a dedicated `hasFmToneControls` helper, separating the FM-family check from the wider RF mode check used for other purposes.
 
 ### Audio tab
 
@@ -70,6 +74,8 @@ The Pan slider uses a CenterMarkSlider implementation. The fill anchors from the
 
 The squelch is disabled in digital, RTTY, and CW modes. In digital and RTTY modes the audio feeds external decoders via DAX, where squelch would gate weak FSK signals. In CW mode the radio locks squelch on at a fixed level and rejects changes. When entering one of these modes while squelch is enabled, squelch is automatically turned off and restored when leaving that mode.
 
+In v26.8.4, squelch state changes now call `setManualSquelch()` on the slice. This is the dedicated API for local, operator-driven squelch changes and keeps the model in sync with the slider and button positions.
+
 ### DSP tab
 
 The DSP tab contains buttons for noise reduction and filtering algorithms supplied directly by the radio. Client-side DSP modules (NR2, NR4, MNR, BNR, DFNR, and RN2) can be accessed from the AetherDSP Settings dialog or the Aetherial Audio Channel Strip.
@@ -77,16 +83,21 @@ The DSP tab contains buttons for noise reduction and filtering algorithms suppli
 | Control | Default | Notes |
 |---|---|---|
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons | off | Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| MN button | off | Manual notch filter. Available only when the radio reports `hasManualNotch` support. Hidden otherwise. |
 | ADSP button | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. The button styling uses theme tokens (`color.background.1` for background and border, `color.accent` for pressed state). |
 | AetherVoice button | — | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
 
+In v26.8.4, DSP toggle buttons have stable `objectName` values in the form `dsp<Label>Btn` (for example, `dspANFBtn`). This provides a reliable automation address independent of the accessible-name prose, so scripting and certification tooling can target these toggles without depending on wording that may change.
+
 #### DSP level slider
 
-A shared level slider appears below the button grid. It targets whichever leveled DSP button was most recently enabled — NR, NB, ANF, NRL, NRS, NRF, or ANFL. The label to the left of the slider shows the name of the current target. The numeric value is shown to the right.
+A shared level slider appears below the button grid. It targets whichever leveled DSP button was most recently enabled — NR, NB, ANF, NRL, NRS, NRF, ANFL, or MN. The label to the left of the slider shows the name of the current target. The numeric value is shown to the right.
 
 The slider row remains in the layout at all times. When no leveled DSP is active (or only RNN, ANFT, or APF are on), the row fades out and does not respond to interaction. It becomes fully visible again as soon as a leveled DSP is turned on.
 
 In v0.9.8, the level slider is also pushed to the shared stack when a leveled DSP state change arrives from the radio on startup. This ensures the slider appears for any DSP that was already enabled in the radio's saved profile.
+
+In v26.8.4, the slider targets the MN (manual notch) level when the MN button is selected, keeping the MN level adjustable through the same shared slider mechanism.
 
 ### X/RIT tab
 
@@ -112,6 +123,8 @@ These controls affect how the slice appears on the spectrum display. They are pe
 | Collapse toggle | expanded | expanded / collapsed | `SliceFlagCollapsed_{N}` |
 
 Clicking the slice badge in the header row collapses the panel. Clicking anywhere on the collapsed strip expands it.
+
+In v26.8.4, the collapsed frequency label participates in the event filter chain. This ensures right-click actions (such as Add Spot) on the collapsed strip target the VFO's own frequency rather than falling through to the spectrum widget beneath, which would otherwise report the cursor's step-snapped frequency (#4455).
 
 ## Antenna selection
 
@@ -146,29 +159,4 @@ When a slice is locked:
 
 From v26.6.3, scroll-wheel tuning respects the `InteractionSettings::reverseMouseWheel` setting. When reverse mouse wheel is enabled, scroll-up now decreases the frequency and scroll-down increases it. This applies to all scroll interactions on the VFO panel including the frequency display and collapsed mode.
 
-Accessibility: From v26.6.3, the frequency label fires `QAccessibleValueChangeEvent` when the frequency changes, ensuring screen readers announce the new frequency value. The accessibility update is rate-limited to avoid excessive announcements.
-
-## Theming and Inspector support
-
-The VFO Panel uses theme tokens for its visual appearance. In v26.6.1, the following theme tokens are declared for Inspector mode coverage:
-
-- `color.background.0`
-- `color.background.1`
-- `color.background.2`
-- `color.text.primary`
-- `color.text.label`
-- `color.accent`
-- `color.accent.bright`
-
-These tokens are used by raw QPainter calls that paint the panel's background, signal meter, and other custom-drawn elements. When using the Inspector, clicking on the VFO flag, callsign badge, or signal meter strip surface shows these tokens in the hit-list.
-
-The ADSP button and other push buttons in the panel use theme-aware styling through applyStyleSheet, with `{{color.background.1}}` for the background and `{{color.accent}}` for the pressed state.
-
-## Tips
-
-- In collapsed mode, scroll-wheel anywhere over the strip tunes the slice by the current step size.
-- Scroll-wheel tuning works in collapsed mode regardless of whether the slice is locked — if locked, the tune is blocked and the LOCKED overlay appears.
-- Momentum (inertial) scroll events on macOS are ignored to prevent unintended tuning after a trackpad gesture ends.
-- The panel flips to the right side of the marker automatically if displaying on the left would clip it at the window edge.
-- Client-side noise reduction algorithms (NR2, NR4, MNR, BNR, DFNR, RN2) are accessed from the AetherDSP Settings dialog (ADSP button) or the Aetherial Audio Channel Strip (AetherVoice button), both in the DSP tab.
-- Squelch is disabled in digital, RTTY, and CW modes. Digital and RTTY
+Accessibility: From v26.6.3, the frequency label fires `QAccessibleValueChangeEvent` when the frequency changes, ensuring screen readers announce the new frequency value. The accessibility

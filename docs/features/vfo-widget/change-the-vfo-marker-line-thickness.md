@@ -48,11 +48,12 @@ The remaining DSP tab buttons are arranged in a four-column grid:
 |---|---|---|---|---|
 | 0 | NR | NB | ANF | APF |
 | 1 | NRL | NRS | RNN | NRF |
-| 2 | ANFL | ANFT | ADSP | AetherVoice (2 cols) |
+| 2 | ANFL | ANFT | MN | ADSP | 
+| 3 | AetherVoice (2 cols) | | | |
 
-The APF button remains hidden unless the slice is in a CW mode.
+The APF button remains hidden unless the slice is in a CW mode. The MN (Manual Notch) button is shown only on radios that claim manual notch support.
 
-Two new client-side launcher buttons appear in row 2 of the grid:
+Two client-side launcher buttons appear in the grid:
 - **ADSP** — Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). This button is styled like a radio-side DSP toggle but is non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog.
 - **AetherVoice** — Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). This button spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip.
 
@@ -73,6 +74,7 @@ The slider controls the level for these targets:
 | NRS | Spectral subtraction level |
 | NRF | Spectral noise filter level |
 | ANFL | LMS notch filter level |
+| MN | Manual notch filter level |
 
 ## Squelch control behavior
 
@@ -124,6 +126,10 @@ When entering a frequency on HF bands, entering a value greater than 54 MHz with
 
 In collapsed mode, the scroll wheel now tunes the slice even when the slice is locked. When the locked slice is scrolled, a visual "LOCKED" notification is displayed to indicate that tuning was blocked. Previously, collapsed mode would ignore scroll events when the slice was locked.
 
+## Right-click add spot in collapsed mode (v26.8.4)
+
+Right-clicking the frequency label in collapsed mode now opens the **Add Spot** context menu correctly. Previously, clicks would fall through to the SpectrumWidget underneath, which reported the cursor's step-snapped frequency instead of the VFO's. The collapsed frequency label now intercepts the event, so the spot is always added at the VFO frequency.
+
 ## Tab stack height fix (v26.5.3)
 
 The VFO panel's tab content area now reports only the current tab page's preferred size, rather than the maximum of all pages. This fixes a height gap that occurred when the DSP tab was taller than the Mode tab (for example, when the digital sub-mode container was visible in DIGU or DIGL mode).
@@ -170,5 +176,4 @@ The VFO panel displays badges to indicate slice status:
 | Mute button (Audio tab) | toggle_button | off | Mutes audio output for this slice without changing the AF gain setting. Right-click the Audio tab label to toggle mute directly. |
 | Squelch button + slider (Audio tab) | toggle_button | off | Enables squelch for this slice. The adjacent slider sets the threshold. Range 0-100. |
 | AGC combo (Audio tab) | combo_box | FAST | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. |
-| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | toggle_button | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
-| ADSP button (DSP tab) | push_button | - | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8
+| NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / N

@@ -19,22 +19,23 @@ DX spots from cluster sources appear as overlays on the panadapter. This page ex
 
 ## What each control does
 
-| Label                            | Kind          | Default   | Setting key                              |
-|----------------------------------|---------------|-----------|------------------------------------------|
-| **Spots:**                       | Toggle button | Enabled   | `IsSpotsEnabled`                         |
-| **Memories:**                    | Toggle button | Disabled  | `IsMemorySpotsEnabled`                   |
-| **Levels:**                      | Slider        | 3         | `SpotsMaxLevel`                          |
-| **Position:**                    | Slider        | 50        | `SpotsStartingHeightPercentage`          |
-| **Font Size:**                   | Slider        | 16        | `SpotFontSize`                           |
-| **Spot Lifetime:**               | Slider        | —         | `DxClusterSpotLifetimeSec`               |
-| **Override Colors:**             | Toggle button | Disabled  | `IsSpotsOverrideColorsEnabled`           |
-| Spot text color picker           | Button        | `#FFFF00` | `SpotsOverrideColor`                     |
-| **Override Background:**         | Toggle button | Enabled   | `IsSpotsOverrideBackgroundColorsEnabled` |
-| **Override Background: Auto**    | Toggle button | Enabled   | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
-| Spot background color picker     | Button        | `#000000` | `SpotsOverrideBgColor`                   |
-| **Background Opacity:**          | Slider        | 48        | `SpotsBackgroundOpacity`                 |
-| **Spot Lines:**                  | Toggle button | Enabled   | `IsSpotsLinesEnabled`                    |
-| **Clear All Spots**              | Button        | —         | —                                        |
+| Label                         | Kind                                                                                                    | Default                        |
+|-------------------------------|---------------------------------------------------------------------------------------------------------|--------------------------------|
+| **Spots:**                    | Toggle button                                                                                           | Enabled                        |
+| **Memories:**                 | Toggle button                                                                                           | Disabled                       |
+| **Kiwi DX:**                  | Toggle button                                                                                           | Disabled                       |
+| **Levels:**                   | Slider                                                                                                  | 3                              |
+| **Position:**                 | Slider                                                                                                  | 50                             |
+| **Font Size:**                | Slider                                                                                                  | 16                             |
+| **Spot Lifetime:**            | Slider                                                                                                  | —                              |
+| **Override Colors:**          | Toggle button                                                                                           | Disabled                       |
+| Spot text color picker        | Button                                                                                                  | `#FFFF00`                      |
+| **Override Background:**      | Toggle button                                                                                           | Enabled                        |
+| **Override Background: Auto** | Toggle button                                                                                           | Enabled                        |
+| Spot background color picker  | Button                                                                                                  | `#000000`                      |
+| **Background Opacity:**       | Slider                                                                                                  | 48                             |
+| **Spot Lines:**               | Toggle button                                                                                           | Enabled                        |
+| **Clear All Spots**           | Button                                                                                                  | —                              |
 
 The **Total Spots:** indicator at the bottom of the dialog shows how many live spots are currently tracked.
 
@@ -43,6 +44,8 @@ The **Total Spots:** indicator at the bottom of the dialog shows how many live s
 **Spots:** This master toggle turns DX spot overlays on or off. The button text updates dynamically to show the current state: "Enabled" when spots are active, "Disabled" when they are not. Toggling this off does not clear buffered spots — they reappear when you re-enable.
 
 **Memories:** Toggles memory channel overlays on the panadapter. The button text updates dynamically to show the current state. The setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7.
+
+**Kiwi DX:** Overlays KiwiSDR Community DX database spots (beacons, utilities, time signals) on the band plan strip. The button text updates dynamically to show the current state. This control was added in v26.8.4. The default is **Disabled**; the setting key is `ShowKiwiDxSpots`.
 
 **Override Colors:** Forces a single text color for all spots. The button text updates dynamically to show the current state. When enabled, the color picker button becomes active.
 
@@ -71,6 +74,7 @@ Several setting keys were renamed. If you reference these keys in scripts or ext
 - Toggle buttons in the Spot Settings dialog now display their current state as the text label: "Enabled" when active, "Disabled" when inactive. The checked state (highlighted background) also indicates whether the feature is active.
 - The **Spot Lifetime:** slider uses a non-linear scale: fine steps in seconds at the low end, then minutes, then hours up to 24 hours.
 - Disable **Spot Lines:** during contests to keep the panadapter uncluttered while retaining spot labels.
+- **Kiwi DX:** spots are stored in the `ShowKiwiDxSpots` setting. This feature is off by default.
 - The Spot Settings dialog now follows the current theme. Title labels and the Total Spots indicator use the theme's primary text color for consistent appearance across different theme profiles.
 
 ## Related

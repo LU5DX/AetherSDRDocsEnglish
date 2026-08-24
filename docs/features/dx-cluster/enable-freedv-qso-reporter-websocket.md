@@ -1,6 +1,6 @@
 # SpotHub (formerly DX Cluster Dialog)
 
-Central hub for connecting to DX spot sources — DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA and FreeDV — and configuring how spots are displayed on the panadapter.
+Central hub for connecting to DX spot sources — DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA, FreeDV, and others — and configuring how spots are displayed on the panadapter.
 
 ## Before you start
 
@@ -233,15 +233,13 @@ Click **Clear** to empty the current spot list.
 
 The main table is sortable by clicking column headers. Columns:
 
-- **Time** — When the spot was received
-- **Freq** — Frequency in MHz
+- **Time** — When the spot was received (sortable; click to re-order)
+- **Freq** — Frequency in MHz (sortable)
 - **DX Call** — The spotted callsign
 - **Comment** — Spot comment (may include mode, name, etc.)
 - **Spotter** — Who spotted the DX station
 - **Band** — Band (e.g., 20m)
 - **Mode** — Mode if included in the spot
-- **Source** — Which source provided this spot (Cluster, RBN, WSJT-X, SpotCollector, POTA, FreeDV)
+- **Source** — Which source provided this spot (Cluster, RBN, WSJT-X, SpotCollector, POTA, FreeDV, EIBI, N1MM)
 
-### Column visibility
-
-Right-click any column header to open the column visibility menu. AetherSDR keeps the menu open
+Both **

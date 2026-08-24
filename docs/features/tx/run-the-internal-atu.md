@@ -1,6 +1,6 @@
 # TX Controls overview
 
-*Introduced in v0.9.0. Updated for v26.7.4.*
+*Introduced in v0.9.0. Updated for v26.8.4.*
 
 The TX Controls applet provides all transmit-related controls: forward power and SWR meters, RF/Tune power sliders, TX profile selector, and TUNE/MOX/ATU/MEM buttons. It also includes the APD (Adaptive Pre-Distortion) toggle with Active/Cal/Avail status indicators.
 
@@ -23,6 +23,8 @@ The forward power meter automatically scales based on the connected radio model:
 - Barefoot FlexRadio: 0–120 W (red zone above 100 W)
 - With Aurora 500W amplifier: 0–600 W (red zone above 500 W)
 
+Both meters clear immediately when the transmitter is un-keyed: the forward power gauge returns to zero and the SWR gauge returns to its 1.0 rest position. This prevents stale readings from lingering after a transmission ends.
+
 ## RF Power and Tune Pwr sliders
 
 | Control | Default | Range | Behavior |
@@ -44,8 +46,8 @@ The TX Profile combo box lists all TX profiles stored on the radio. Selecting a 
 |---|---|---|
 | TUNE | Push button | Starts/stops a tune carrier. Button text changes to "TUNING..." with red background while active. Right-click to select carrier shape. |
 | MOX | Toggle button | Toggles manual transmit. Button turns red while transmitting. Routes through Quindar-tone coordinator when QUIN chip is enabled. In idle state, MOX has an amber accent (border and text) to visually distinguish it from the neutral TUNE/ATU/MEM buttons. This accent is editable in the Theme Editor using the `color.tx.mox.*` tokens. |
-| ATU | Push button | Starts the internal ATU tuning cycle. Right-click for pre-tune and memory management options. |
-| MEM | Toggle button | Toggles ATU memory recall on/off. |
+| ATU | Push button | Starts the internal ATU tuning cycle. Disabled on radios without a tuner or when the TGXL is in OPERATE mode. Right-click for pre-tune and memory management options. |
+| MEM | Toggle button | Toggles ATU memory recall on/off. Disabled on radios without a tuner or when the TGXL is in OPERATE mode. |
 
 ## TUNE button right-click menu
 
@@ -81,6 +83,10 @@ In practice:
 - Changing frequency resets the toggle, so the next click starts a fresh tune cycle regardless of the previous status.
 - Entering bypass clears the stored tuned frequency, so the next click always starts a fresh tune.
 
+When the ATU and MEM buttons are disabled, hovering over either button shows the reason:
+- **This radio has no antenna tuner** — The connected radio model has no ATU hardware.
+- **Disabled — TGXL is in OPERATE mode** — The TGXL external tuner is in OPERATE mode.
+
 ## ATU status indicators
 
 | Indicator | Color | Meaning |
@@ -102,6 +108,8 @@ The APD toggle button enables or disables adaptive pre-distortion on the radio. 
 
 The APD status indicators follow this progression: Cal (calibrating) → Avail (ready) → Active (applied).
 
+The APD row is hidden entirely when the connected radio does not support adaptive pre-distortion, so a live-looking APD button never appears with no function behind it.
+
 ## MOX and Quindar tones
 
 Starting in v0.9.7, clicking MOX routes through the Quindar-tone coordinator rather than toggling transmit directly. When the QUIN chip is enabled in the Audio Channel Strip and the active TX slice is on a phone mode, clicking MOX to engage transmit plays the K tone and clicking it again to disengage plays the BK tone. When Quindar is disabled or the active TX slice is not on a phone mode, MOX behaves as before and toggles transmit directly.
@@ -121,11 +129,12 @@ Starting in v0.9.7, clicking MOX routes through the Quindar-tone coordinator rat
 
 ## Troubleshooting
 
-- **ATU button is unresponsive** — The radio's TGXL is in OPERATE mode. ATU is disabled in this mode. Switch the TGXL out of OPERATE mode before attempting to tune.
+- **ATU button is unresponsive** — The radio's TGXL is in OPERATE mode, or the radio has no ATU hardware. Hover over the ATU button to see which reason applies. Switch the TGXL out of OPERATE mode before attempting to tune, or use an external tuner if the radio has none.
 - **Success indicator does not light after tuning** — The ATU may have bypassed (check Byp) or the tune-carrier power may be too low for the ATU to work with your antenna. Increase Tune Pwr and try again.
 - **Clicking ATU bypasses instead of tuning** — The ATU status is Successful or OK and the TX frequency has not changed since the last tune. This is the expected second-click bypass behavior. Change frequency to force a fresh tune cycle, or leave the tuner in its current matched state.
 - **Quindar tones do not play on MOX** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode. Quindar tones are not played on CW or digital modes.
 - **TUNE button right-click menu is unresponsive** — The radio may not be connected or the TX controls may be in a transitional state. Ensure the radio is connected and try again.
+- **Power or SWR meter shows a stale reading after un-keying** — The meters are designed to clear immediately when the transmitter is un-keyed. If a reading persists, this indicates a firmware or connection issue. Reconnect the radio and try again.
 
 ## Related
 

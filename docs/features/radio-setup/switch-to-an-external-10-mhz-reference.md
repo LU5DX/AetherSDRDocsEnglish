@@ -34,6 +34,15 @@ The Radio tab displays radio identification information, license details, and fi
 | Check for Update | Push button | Queries for firmware updates. |
 | Select Installer... | Push button | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. |
 | Upload Firmware | Push button | Starts firmware upload with progress bar and status. |
+| Reboot Radio | Push button | Reboots the connected radio with a confirmation dialog. AetherSDR disconnects and (on LAN) auto-reconnects once booting finishes. New in v26.8.4 (#4448). Only enabled when connected and the backend supports a client reboot (e.g. HL2 is RX-only so the button is disabled). On SmartLink/WAN the operator must reconnect manually after the reboot. |
+| Agent Automation (MCP): | Toggle button | Enables the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in. New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The AETHER_AUTOMATION launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless AETHER_AUTOMATION_ALLOW_TX is set. |
+| Access Token: | Text field | Read-only display of the MCP access token; paste it into the assistant's AETHER_MCP_TOKEN environment variable. Stored in the OS secret store. New in v26.8.4. Auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder '(loading…)' until the keychain read lands. |
+| Copy (Access Token) | Push button | Copies the access token to the clipboard. New in v26.8.4. |
+| Rotate (Access Token) | Push button | Generates a new token and applies it immediately, locking out any client still using the old one. New in v26.8.4. |
+| Allow TX via MCP: Enable transmit control | Checkbox | Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation. New in v26.8.4. Enforced in the bridge; no client can flip it. Overridden by AETHER_AUTOMATION_ALLOW_TX (force on) and AETHER_AUTOMATION_NO_TX (pinned off). A force-unkey watchdog limits bridge-originated TX. |
+| Observe only: Read-only (block all driving) | Checkbox | Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused. New in v26.8.4 (#4188). Enforced in the app, so a client cannot bypass it. AETHER_AUTOMATION_READONLY launch variable pins it on for headless/CI runs. |
+| VITA-49 RX buffer: | Slider | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped. New in v26.8.4 (#3810). Presets 256 KB to 4 MB. The system caps the grant at net.core.rmem_max; a live 'granted: <size>' label shows what the kernel actually granted. |
+| granted: (VITA-49 RX buffer) | Indicator | Shows the buffer size the kernel actually granted (vs the requested preset). New in v26.8.4. Shows '(applies on connect)' when no connection is active. |
 
 ## Network Tab
 
@@ -90,7 +99,8 @@ The Phone/CW tab configures microphone, CW keyer, and RTTY defaults.
 | Swap: | Toggle button | - | - | Swaps dit/dah. |
 | Sideband: | Combo box | - | LSB / USB | Selects CW pitch sideband. |
 | CWX: | Toggle button | - | - | Enables CWX macro keying. |
-| Decode: | Toggle button | True | - | Enables the CW decode overlay on the panadapter. Stored as `CwDecodeOverlay`. |
+| Decode: RX | Toggle button | True | - | Enables the CW decode overlay on the panadapter for received CW. Stored as nested JSON under `CwDecoder` (rx field). |
+| Decode: TX | Toggle button | False | - | Decodes the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing. Stored as nested JSON under `CwDecoder` (tx field). |
 | RTTY Mark Default: | Spinbox | - | - | Default RTTY mark frequency. |
 
 ## RX Tab
@@ -105,6 +115,18 @@ The RX tab provides GPSDO frequency offset calibration and 10 MHz reference sour
 | Start | Push button | - | - | Starts the frequency calibration sweep. |
 | Freq Offset (ppb): | Spinbox | - | - | Manual frequency offset in ppb. |
 | 10 MHz Reference Source: | Combo box | Auto | Auto / TCXO / GPSDO / External | Selects oscillator reference source. Options shown depend on hardware installed. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+
+## Calibration Tab
+
+The Calibration tab provides manual frequency calibration for radios that cannot calibrate their own oscillator (e.g. HL2). This tab is hidden unless the connected radio's backend supports host frequency calibration; it is capability-gated, not family-gated, so it never appears on a Flex where the RX tab's hardware calibration handles the task.
+
+The tab re-reads the stored calibration each time the dialog is shown, so a `freqcal` bridge call or a different radio's settings made while the dialog was closed are picked up before any Trim press can commit the wrong value.
+
+### Controls
+
+| Control | Kind | Behavior |
+|---------|------|----------|
+| Calibration controls | Various | Frequency calibration inputs and Trim control for the connected radio. Re-seeded from the live radio model whenever the dialog opens or the connection changes. |
 
 ## Audio Tab
 
@@ -129,73 +151,4 @@ The Audio tab manages radio audio outputs, compression, PC devices, boost, buffe
 | ... | Push button | - | - | Browses for recording folder. |
 | Auto-record on TX | Checkbox | False | - | Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`. |
 | Idle timeout: | Spinbox | 120 | 10-3600 sec | Seconds of silence before recording stops. Stored as `QsoRecordingIdleTimeout`. |
-| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | - | - | Controls the NVIDIA Broadcast noise-removal container. |
-
-## Filters Tab
-
-The Filters tab provides low-latency and sharp filter options per bandwidth.
-
-### Controls
-
-| Control | Kind | Default | Valid Range | Behavior |
-|---------|------|---------|-------------|----------|
-| Voice / CW / Digital filter sharpness sliders | Slider | - | 0-3 | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode; slider is disabled when Auto is enabled. |
-| Auto (Voice / CW / Digital) | Toggle button | - | - | Enables automatic filter-level selection for that mode; disables the manual sharpness slider. |
-| Use Low Latency Filters for Digital Modes | Checkbox | - | - | Forces low-latency filters in DIGU/DIGL. |
-
-## XVTR Tab
-
-The XVTR tab configures per-transverter settings including RX Only, valid, remove, and create new transverter.
-
-### Controls
-
-| Control | Kind | Behavior |
-|---------|------|----------|
-| RX Only: | Toggle button | Forces RX-only on that transverter. |
-| Remove (xvtr) | Push button | Deletes the transverter definition. |
-| Create New Transverter | Push button | Adds a new transverter entry. |
-
-## USB Cables Tab
-
-The USB Cables tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-### Controls
-
-| Control | Kind | Behavior |
-|---------|------|----------|
-| Cables list / Status | Indicator | Detected USB cables per type with Plugged/Unplugged status. |
-| Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7) | Combo box | Per-cable serial parameters and behavior. |
-
-## Peripherals Tab
-
-The Peripherals tab manages external devices via manual IP connection (TGXL, PGXL, Antenna Genius).
-
-### Controls
-
-| Control | Kind | Default | Behavior |
-|---------|------|---------|----------|
-| Connect / Disconnect (TGXL) | Push button | Connect | Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to `TGXL_ManualIp` and `TGXL_ManualPort` on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2. If IP field is empty and radio has discovered the TGXL, the discovered IP is pre-filled. |
-| Connect / Disconnect (PGXL) | Push button | Connect | Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to `PGXL_ManualIp` and `PGXL_ManualPort`. |
-| Connect / Disconnect (Antenna Genius) | Push button | Connect | Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to `AG_ManualIp` and `AG_ManualPort`. |
-
-## APD Tab
-
-The APD tab provides external Adaptive Pre-Distortion sample port selection per TX antenna. The tab is hidden unless the radio reports `apd configurable=1` (FLEX-8x00 with SmartSDR 4.2.18+).
-
-### Controls
-
-| Control | Kind | Behavior |
-|---------|------|----------|
-| ANT1: / ANT2: / XVTA: / XVTB: | Combo box | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. |
-| Reset (APD Equalizer) | Push button | Clears all per-antenna APD training data on the radio. |
-
-## KiwiSDR Tab
-
-The KiwiSDR tab manages connection to KiwiSDR public receivers for remote RX capabilities.
-
-### Controls
-
-| Control | Kind | Default | Behavior |
-|---------|------|---------|----------|
-| KiwiSDR Receiver URL | Text field | - | URL of the KiwiSDR receiver to connect to. |
-| Connect / Disconnect | Push button | Connect | Establishes or tears down the connection to the configured KiwiSDR receiver
+| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | - | - | Controls the NVIDIA

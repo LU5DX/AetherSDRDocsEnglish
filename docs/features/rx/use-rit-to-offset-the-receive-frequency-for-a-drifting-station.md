@@ -19,11 +19,13 @@ RIT (Receive Incremental Tuning) shifts the receive frequency by a small amount 
 
 ## What each control does
 
-| Control    | Kind          | Default |
-|------------|---------------|---------|
-| RIT        | Toggle button | Off     |
-| RIT offset | Spinbox       | `+0 Hz` |
-| RIT 0      | Push button   | —       |
+| Control    | Kind                                                                                                                                                                                                                                                                                                                                                     | Default                                                                                                                                                                                                                                    |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RIT        | Toggle button                                                                                                                                                                                                                                                                                                                                            | Off                                                                                                                                                                                                                                        |
+| RIT offset | Spinbox                                                                                                                                                                                                                                                                                                                                                  | `+0 Hz`                                                                                                                                                                                                                                    |
+| RIT 0      | Push button                                                                                                                                                                                                                                                                                                                                              | —                                                                                                                                                                                                                                          |
+| REV / XFC  | For FM repeater operation, REV inverts the TX offset sign to work a reversed repeater pair. On backends that support a transmit-frequency check, the button relabels to XFC: pressing it holds the transmit frequency check for the duration of the press, and while held it briefly forces the radio toward the transmit frequency to confirm coverage. | The button toggles REV (checkable) normally, or becomes a momentary XFC down-button when the connected radio backend advertises hasTransmitFrequencyCheck. The held XFC is released on hide, deactivate, capability change, or disconnect. |
+| SQL / AUTO | Three-way cycle button: each click steps Off → SQL (manual threshold) → AUTO (algorithm tracks the noise floor) → Off. In AUTO mode the button shows amber 'AUTO'; in manual mode green 'SQL'. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504).                               | Manual and Auto both turn the radio squelch on. The auto-squelch algorithm lives in the panadapter; the level is the dB margin above the measured noise floor. Mirrored by an identical button in the VFO panel's Audio tab.               |
 
 ## Tips
 
@@ -87,6 +89,10 @@ This prevents squelch from notching out FSK characters and breaking decoding (#2
 
 From v26.5.2.1, the manual squelch threshold you set with the squelch level slider is saved and restored across sessions. When auto-squelch mode is active, the radio may change the squelch level internally — the client now remembers your last manual preference so it is preserved when you return to manual squelch control. The setting is stored in `LastManualSquelchLevel` with a default of 20.
 
+## Manual squelch level is radio-authoritative (v26.8.4)
+
+From v26.8.4, the manual squelch level is no longer seeded from `LastManualSquelchLevel` on startup. The radio is the source of truth for squelch settings (#4592). The manual squelch level now takes its class-default of 20 as a fallback when no slice is attached; the actual level comes from the radio.
+
 ## RX antenna menu (v26.5.2.1)
 
 From v26.5.2.1, the RX antenna menu is populated from the slice's dedicated `rxAntennaList()` when available, falling back to the general `ant_list` from the panadapter status. This ensures you see only antennas valid for the current slice. Menu items display the antenna name with tooltip and status tip showing the raw antenna identifier. Selecting an item calls `setRxAntenna()` with the antenna data string rather than the menu label text.
@@ -133,23 +139,4 @@ From v26.5.3, frequency entry uses a dedicated `FrequencyEntryParser` for text n
 
 - When you type a frequency in MHz and press Enter, the parser normalises the text by stripping any dots after the first decimal point. For example, `14.200.000` becomes `14.200000`.
 - The parser detects whether you entered an explicit MHz value (contains a decimal point) or a raw number. If you enter a value above 54.0 MHz as an explicit MHz entry (e.g., `144.0`), the XVTR frequency limit of 50000.0 MHz applies, allowing VHF/UHF operation without requiring an XVTR antenna.
-- If you enter a value above 54.0 MHz without a decimal point, the system divides the value by 1000 (treating kHz as Hz) or by 1e6 (treating Hz as MHz) as appropriate.
-- On any valid entry (0.001 to maxMhz), the signal `directEntryCommitted(freqMhz, QStringLiteral("rx-direct-entry"))` is emitted to recenter the panadapter.
-
-## Frequency editor (v26.6.3)
-
-From v26.6.3, the frequency editor text field is a `FreqLineEdit` instead of a plain `QLineEdit`. The placeholder text now reads "MHz" as hint text rather than a faded placeholder. The editing behaviour is otherwise identical: enter a frequency in MHz and press Enter to tune, or press Escape to cancel and restore the previous frequency.
-
-## AF gain and pan slider labels (v26.5.3)
-
-From v26.5.3, the AF gain and pan sliders display percentage and positional labels:
-
-- **AF gain slider**: Displays the current value as a percentage (e.g., `70%`) using `percentText()`.
-- **Pan slider**: Displays `C` at centre (50), `Lx` for left offset (e.g., `L20` for 30% from centre), and `Rx` for right offset (e.g., `R30` for 80% from centre) using `panText()`. The label updates as you drag the slider.
-
-## Pan slider centre-mark fill (v26.6.1)
-
-From v26.6.1, the L/R pan slider uses a centre-anchored fill that paints from the centre outward. This makes the neutral position clear at a glance:
-
-- When the handle is left of centre, the groove paint erases the default (0 → handle) fill and paints accent-colour fill from the handle to the centre.
-- When the
+- If you enter a

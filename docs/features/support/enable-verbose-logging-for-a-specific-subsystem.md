@@ -17,21 +17,21 @@ The Support & Diagnostics dialog lets you turn on logging for individual subsyst
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| Category checkboxes | Checkbox | One row per logging category. Check to enable, uncheck to disable. Changes take effect immediately. |
-| Enable All | Button | Turns on every logging category at once. |
-| Disable All | Button | Turns off every logging category at once. |
-| Log viewer | Text area | Scrollable view of the most recent log text. Displays up to 2000 lines. |
-| Refresh | Button | Reloads the log file into the Log viewer. |
-| Clear Log | Button | Truncates the current log file. |
-| Open Log Folder | Button | Opens the log directory in the OS file browser. |
-| Log path label | Indicator | Shows the full path of the current log file. |
-| Log file size | Indicator | Shows the current size of the active log file. |
-| File an Issue | Button | Launches the AI-Assisted Bug Report flow. |
-| Close | Button | Closes the dialog. |
+| Control                               | Kind                                                                                                                                                           | Behavior                                                                                                                                  |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Category checkboxes                   | Checkbox                                                                                                                                                       | One row per logging category. Check to enable, uncheck to disable. Changes take effect immediately.                                       |
+| Enable All                            | Button                                                                                                                                                         | Turns on every logging category at once.                                                                                                  |
+| Disable All                           | Button                                                                                                                                                         | Turns off every logging category at once.                                                                                                 |
+| Log viewer                            | Text area                                                                                                                                                      | Scrollable view of the most recent log text. Displays up to 2000 lines.                                                                   |
+| Refresh                               | Button                                                                                                                                                         | Reloads the log file into the Log viewer.                                                                                                 |
+| Clear Log                             | Button                                                                                                                                                         | Truncates the current log file.                                                                                                           |
+| Open Log Folder                       | Button                                                                                                                                                         | Opens the log directory in the OS file browser.                                                                                           |
+| Log path label                        | Indicator                                                                                                                                                      | Shows the full path of the current log file.                                                                                              |
+| Log file size                         | Indicator                                                                                                                                                      | Shows the current size of the active log file.                                                                                            |
+| Close                                 | Button                                                                                                                                                         | Closes the dialog.                                                                                                                        |
+| Instructions (report-an-issue how-to) | Rich-text block pointing the user to `Help > File an Issue` for bug reporting once the relevant logging categories have been enabled and the problem reproduced. | New in v26.8.4: the **Reset Settings** and **File an Issue** buttons were removed from this dialog (they now live directly on the `Help` menu, under `Help > Reset Settings` and `Help > File an Issue` respectively). |
 
-**Note:** The **Reset Settings** button has been removed from the Support & Diagnostics dialog.
+**Note:** The **Reset Settings** button has been removed from the Support & Diagnostics dialog. To reset AetherSDR's app-specific settings, use `Help > Reset Settings` instead.
 
 ## Tips
 

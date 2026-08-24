@@ -34,6 +34,15 @@ When enabled, dragging on the panadapter or changing frequency from an external 
 | Wheel | Virtual FlexControl wheel showing frequency and mode readout of the active slice. Rotate with mouse or touch to tune. |
 | Physical | Shows physical FlexControl connection state and port name. Use Detect/Close buttons to manage the physical device. |
 
+## Physical device auto-reconnect
+
+The AetherControl dialog automatically reconnects to a physical FlexControl device when it is unplugged and reinserted, or when the USB port changes during a replug.
+
+- When the device connection drops (USB cable unplugged, device powered off, or port error), the dialog shows a disconnected state and begins retrying automatically.
+- Retries start at 2-second intervals and gradually back off to a maximum of 30 seconds between attempts, so a device that never comes back does not spam the log.
+- Each retry re-detects the device rather than reusing the old port name, so a USB re-enumeration that assigns a different port still recovers correctly.
+- Once the device is detected and opened, the dialog displays the "Connected" state and the retry timer resets.
+
 ## Wheel action options
 
 The following actions can be assigned to wheel push, double-tap, or aux button taps:

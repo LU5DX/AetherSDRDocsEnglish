@@ -29,6 +29,7 @@ When screen space is limited, you can collapse the VFO panel to a compact strip 
 | Squelch button + slider (Audio tab) | Off | None |
 | AGC combo (Audio tab) | FAST | None |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | Off | None |
+| MN button (DSP tab) | Off. Shown only on radios that report manual notch support | None |
 | ADSP button (DSP tab) | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). | Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | AetherVoice button (DSP tab) | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). | Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 | Mode combo (Mode tab) | USB | None |
@@ -68,6 +69,10 @@ The buttons that remain in the DSP tab grid are now arranged in a four-column la
 
 Note: The NR button entry in the grid now represents a group of noise reduction buttons (NR, NR2, RN2, NR4, MNR, DFNR, BNR). The specific buttons shown depend on radio series and build configuration. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm.
 
+### Manual notch (MN) button in v26.8.4
+
+As of v26.8.4, the DSP tab includes a **MN** (manual notch) button. This button is hidden by default and appears only when the connected radio reports manual notch support (`hasManualNotch`). When available, it enables the manual notch filter for the slice and the DSP level slider retargets to the MN level.
+
 ### DSP level slider
 
 A shared level slider row appears below the DSP button grid. The slider targets whichever leveled DSP algorithm was most recently enabled. The label to the left of the slider shows the name of the current target (for example, **NR** or **NB**), and the numeric value is shown to the right.
@@ -78,7 +83,7 @@ A shared level slider row appears below the DSP button grid. The slider targets 
 
 The slider row remains in the layout at all times. When no compatible algorithm is active — or when only RNN, ANFT, or APF is on — the slider row fades out and does not respond to input. Enabling a supported algorithm fades the row back in and retargets the slider to that algorithm.
 
-Algorithms that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL.
+Algorithms that the level slider can target: NR, NB, ANF, NRL, NRS, NRF, ANFL, MN.
 
 The level slider now properly reflects the radio state on initial connection. When a leveled DSP algorithm is already active in the radio's saved profile, the slider appears immediately rather than requiring a manual toggle (#startup-slider, v0.9.8).
 
@@ -159,15 +164,6 @@ The frequency entry field uses `setHintText()` instead of `setPlaceholderText()`
 
 The VFO panel now respects the reverse mouse wheel setting from `InteractionSettings`. When reverse mouse wheel is enabled, scrolling the mouse wheel over the VFO panel tunes the frequency in the opposite direction. This applies to both collapsed and expanded views.
 
-## Tip
+## Cold-start squelch click-through fix in v26.8.4
 
-- In collapsed view, scrolling the mouse wheel over the strip tunes the slice frequency by the current step size — the same as scrolling over the frequency display in the full panel.
-- In collapsed view, clicking the TX badge painted on the strip toggles the TX assignment for that slice. Clicking anywhere else on the strip expands the panel.
-- The panel flips to the right side of the VFO marker automatically if expanding it would be clipped by the window edge. This behavior applies in both expanded and collapsed states.
-- To access NR2, RN2, BNR, NR4, MNR, or DFNR, right-click the spectrum display to open the overlay menu, or open the AetherDSP applet.
-- Right-click the Speaker tab to toggle mute without switching tabs.
-
-## Related
-
-- [VFO Panel overview](overview.md)
-- [Tune the radio by typing a frequency into the VFO panel](tune-the
+As of v26.8.4, in collapsed view, right-clicking the frequency strip opens the Add Spot context menu on the VFO's actual frequency. Previously, right-clicks in collapsed mode fell through to the SpectrumWidget underneath, which reported the cursor's step-snapped frequency instead of the VFO's. The

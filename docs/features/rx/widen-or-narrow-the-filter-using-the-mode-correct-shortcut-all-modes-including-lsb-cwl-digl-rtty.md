@@ -1,42 +1,3 @@
-# Widen or narrow the filter using the mode-correct shortcut (all modes, including LSB/CWL/DIGL/RTTY)
-
-Use the widen/narrow shortcut to step through per-mode filter width presets — one press widens the filter, the other narrows it. The shortcut always applies filter widths appropriate to the current slice mode, so you never get a CW-width filter in SSB or a broadcast-width filter in RTTY.
-
-## Before you start
-
-- A radio must be connected.
-- The RX Controls applet must be visible (tray button **RX** on the right sidebar).
-
-## Steps
-
-1. In the RX Controls applet, click the **Mode combo** and select the mode you intend to use (USB, LSB, CW, AM, SAM, DIGU, DIGL, RTTY, FM, etc.). The filter preset list and step sizes update for that mode.
-2. Click the left-pointing triangle button (◀) next to the filter width indicator to narrow the filter, or the right-pointing triangle button (▶) to widen it.
-
-Each click moves through the mode's preset list. The current filter width is shown on the **2.7K** (filter width) indicator.
-
-## What each control does
-
-| Control                          | Default        | Behavior                                                                       |
-|----------------------------------|----------------|--------------------------------------------------------------------------------|
-| **Filter width presets (◀ / ▶)** | See below      | Steps through per-mode filter widths in descending (◀) or ascending (▶) order. |
-| **2.7K (filter width)**          | Mode-dependent | Displays the current slice filter bandwidth.                                   |
-
-## Filter width presets by mode
-
-| Mode | Presets (Hz) |
-|------|-------------|
-| USB, LSB | 1800, 2100, 2400, 2700, 2900, 3300 |
-| AM, SAM | 5600, 6000, 8000, 10000, 12000, 14000 |
-| CW | 50, 100, 250, 400, 500, 600 |
-| DIGU, DIGL | 100, 300, 600, 1000, 1500, 2000 |
-| RTTY | 250, 300, 350, 400, 500, 1000 |
-| FM, NFM, DFM | No filter presets (buttons hidden) |
-
-## Related
-
-- [Pick a filter width preset for the current mode](pick-a-filter-width-preset-for-the-current-mode.md)
-- [Change mode (USB, LSB, CW, AM, FM, etc.)](change-mode-usb-lsb-cw-am-fm-etc.md)
-
 # RX Controls applet
 
 The RX Controls applet provides per-slice receive controls. It appears when you click the **RX** tray button on the right sidebar.
@@ -48,32 +9,32 @@ The RX Controls applet provides per-slice receive controls. It appears when you 
 | **Slice tabs (A..H)** | tab | — | Selects which slice the RX applet is bound to; emits sliceActivationRequested. Row hidden if maxSlices <= 1. clearSliceButtons() tears down all generated tab buttons and restores the static slice badge on disconnect (v0.9.5.1, #2254). Slice button click connections are guarded against duplicate signal handlers across reconnects. |
 | **Slice badge** | indicator | A | Displays the letter of the currently bound slice. Coloured by slice identity. |
 | **🔓 / 🔒** | toggle_button | 🔓 (unlocked) | Toggles tune-lock on the slice; locked slice ignores frequency changes. Icon flips between open and closed padlock. |
-| **ANT1 (RX antenna)** | combo_box | ANT1 | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. Populated from the radio's ant_list and KiwiSDR virtual antenna tokens. Blue-coloured label. When a KiwiSDR profile is assigned to the selected slice, the corresponding virtual antenna token appears checked in the menu. Selecting a KiwiSDR virtual antenna emits kiwiRxAntennaSelected(sliceId, profileId); selecting a radio antenna emits flexRxAntennaSelected(sliceId) then sets the slice antenna. |
+| **ANT1 (RX antenna)** | combo_box | ANT1 | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. Populated from the radio's ant_list and KiwiSDR virtual antenna tokens. Blue-coloured label. When a KiwiSDR profile is assigned to the selected slice, the corresponding virtual antenna token appears checked in the menu. Selecting a KiwiSDR virtual antenna emits kiwiRxAntennaSelected(sliceId, profileId); selecting a radio antenna emits flexRxAntennaSelected(sliceId) then sets the slice antenna. Falls back to ANT1/ANT2 when the list is empty. |
 | **ANT1 (TX antenna)** | combo_box | ANT1 | Opens a menu listing TX-capable antennas; RX-only ports (prefix 'RX') are filtered out. Selecting sets slice->setTxAntenna. Red-coloured label. |
 | **2.7K (filter width)** | indicator | 2.7K | Shows current filter width in kHz. Updates when filter preset is applied. |
 | **QSK** | indicator | off (grey) | Lights amber when CW break-in (QSK) is active. Read-only; controlled via the CW applet Breakin button. |
 | **TX (badge)** | toggle_button | — | Click to set this slice as the TX slice (calls slice->setTxSlice). |
-| **Mode combo** | combo_box | USB | Sets slice mode; reshapes filter and step presets for the new mode. Options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE). Selecting a real radio mode tears down the WFM software-demod overlay if it was running on this slice. RADE option requires HAVE_RADE build flag. |
+| **Mode combo** | combo_box | USB | Sets slice mode; reshapes filter and step presets for the new mode. Options: USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE; WFM via VFO-flag button). RADE option requires HAVE_RADE build flag. DSTR and FreeDV modes are filtered out when the model doesn't support them. Selecting a real radio mode tears down a running WFM software-demod overlay (WFM itself is toggled from the VFO-flag WFM button, not this combo). |
 | **WFM** | push_button | off | Toggle button for the software FM demodulator via DAX IQ → Hi-Fi Cable. When enabled, the button glows green; when disabled, it turns grey. Emits wfmActivated signal with the slice ID. |
 | **Frequency label** | indicator | 0.000.000 | Displays current VFO frequency with dotted grouping. Click to switch into edit mode. Accessibility value change events are posted to the label when the frequency text changes, enabling assistive technology to announce updates. |
-| **Frequency edit** | text_field | — | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). Uses FreqLineEdit with hint text "MHz". XVTR-aware: accepts up to 450 MHz when slice is on an XVTR antenna. |
+| **Frequency edit** | text_field | — | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). Uses FreqLineEdit with hint text "MHz". XVTR-aware: accepts up to 50,000 MHz when the slice is on an XVTR antenna. 3-digit band convenience: on 2m/70cm (100-999 MHz) a digit insertion formats 1446 as 144.6. |
 | **STEP** | spinbox | 100 Hz (index 2) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged and stepSizeChangedByUser. Step list depends on slice mode. |
 | **Filter width presets** | push_button | — | Click to apply a preset filter width; right-click to save current width as a preset. Buttons hidden for FM/NFM/DFM modes. The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
 | **Filter passband widget** | drag_handle | — | Drag the lo/hi edges to adjust filter passband; emits filterChanged (lo, hi). |
 | **Tone mode (FM)** | combo_box | Off | Selects CTCSS tone mode on FM/NFM/DFM. Visible only in FM family modes. |
-| **CTCSS tone value** | combo_box | — | Selects CTCSS tone frequency sent with transmit. 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz). Enabled only when Tone mode = CTCSS TX. |
+| **CTCSS tone value** | combo_box | — | Selects CTCSS tone frequency sent with transmit. Includes 41 standard EIA/TIA-603 tones (67.0 Hz to 254.1 Hz) plus additional intermediate frequencies (69.3, 159.8, 165.5, 171.3, 177.3, 183.5, 189.9, 196.6, 199.5 Hz) for legacy repeater compatibility. Enabled only when Tone mode = CTCSS TX. |
 | **Offset (FM)** | spinbox | 0.0 Mhz | Sets FM repeater offset frequency in MHz. Range 0.0-100.0 MHz (step 0.1). |
 | **− (offset down)** | toggle_button | — | Sets repeater offset direction to 'down' (TX below RX). |
 | **Simplex** | toggle_button | checked | Sets repeater offset direction to simplex (TX = RX). |
 | **+ (offset up)** | toggle_button | — | Sets repeater offset direction to 'up' (TX above RX). |
-| **REV** | toggle_button | — | Inverts the TX offset sign to work a reversed repeater pair. |
-| **🔊 / 🔇 (mute)** | push_button | 🔊 (unmuted) | Single-click mutes/unmutes this slice (deferred by the platform click-discrimination interval). Double-click mutes/unmutes all owned slices via muteAllToggled signal. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. The single-click is deferred by clickDiscriminationIntervalMs() (default platform double-click interval, ~400 ms) so a double-click can override it. The double-click handler is in eventFilter and cancels the single-click timer. |
+| **REV / XFC** | push_button | — | For FM repeater operation, REV inverts the TX offset sign to work a reversed repeater pair. On backends that support a transmit-frequency check, the button relabels to XFC: pressing it holds the transmit frequency check for the duration of the press, and while held it briefly forces the radio toward the transmit frequency to confirm coverage. The button toggles REV (checkable) normally, or becomes a momentary XFC down-button when the connected radio backend advertises hasTransmitFrequencyCheck. The held XFC is released on hide, deactivate, capability change, or disconnect. |
+| **🔊 / 🔇 (mute)** | push_button | 🔊 (unmuted) | Single-click mutes/unmutes this slice (deferred by the platform click-discrimination interval, configurable in Radio Setup → Slice Controls). Double-click mutes/unmutes all owned slices via muteAllToggled signal. Icon flips when the radio acknowledges via SliceModel::audioMuteChanged. Per the Radio-Authoritative Settings Policy (#2489), mute state is NOT saved/restored on reconnect — the radio is the source of truth for audio mute. The single-click is deferred by clickDiscriminationIntervalMs() (configurable in Radio Setup → Slice Controls, default platform double-click interval ~400 ms, #3009) so a double-click can override it. The double-click handler is in eventFilter and cancels the single-click timer. |
 | **AF gain** | slider | 70 | Adjusts slice audio output gain; emits afGainChanged. Range 0-100. |
 | **L / R pan** | slider | 50 | Pans slice audio between left (0) and right (100) channels. Double-click resets to 50 (centre). The slider fill anchors from the centre outward — the neutral position shows a centre-mark dot on the groove. |
-| **SQL** | toggle_button | — | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). |
-| **Squelch level** | slider | 20 | Adjusts squelch threshold; takes effect only when SQL is on. Disabled in RTTY and digital modes. |
+| **SQL / AUTO** | toggle_button | Off | Three-way cycle button: each click steps Off → SQL (manual threshold) → AUTO (algorithm tracks the noise floor) → Off. In AUTO mode the button shows amber 'AUTO'; in manual mode green 'SQL'. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). Manual and Auto both turn the radio squelch on. The auto-squelch algorithm lives in the panadapter; the level is the dB margin above the measured noise floor. Mirrored by an identical button in the VFO panel's Audio tab. |
+| **Squelch level** | slider | 20 | In Manual mode adjusts the squelch threshold (takes effect only when squelch is on). In AUTO mode sets the dB margin above the measured noise floor where the gate opens, persisted to AutoSqlMarginDb. Manual: 0-100 (or 0-99 on Kiwi replacement receive); Auto: 5-20 dB margin. In Manual mode the level is radio-authoritative per-slice (not persisted); in Auto mode the margin is persisted. Disabled in RTTY and digital modes and in Off mode. Right-click the AGC threshold slider for AGC-T noise calibration. |
 | **AGC mode** | combo_box | Med | Sets the slice AGC mode. Options: Off, Slow, Med, Fast. Hidden in FM family modes. |
-| **AGC threshold** | slider | 65 | Sets AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted and includes a hint about right-click calibration. |
+| **AGC threshold** | slider | 65 | Sets AGC threshold (or AGC off-level when AGC mode is Off). Tooltip reflects which value is being adjusted and includes a hint about right-click calibration. Right-click opens a 'Calibrate AGC-T against noise floor…' command that starts the AGC-T noise calibration dialog (disabled while a Kiwi replacement receive is active). |
 | **RIT** | toggle_button | — | Toggles Receive Incremental Tuning on/off. |
 | **RIT 0** | push_button | — | Zeroes the RIT offset. |
 | **RIT offset** | spinbox | +0 Hz | < / > or mousewheel adjusts RIT offset by 10 Hz steps. |
@@ -118,4 +79,13 @@ When RADE mode (Radar Detection) is available (requires HAVE_RADE build flag), s
 The **🔊 / 🔇 (mute)** button uses a push_button (non-checkable) with click discrimination:
 
 - **Single-click**: Toggles mute for this slice only. The action is deferred by the platform double-click interval (typically ~400 ms) so a double-click can override it.
-- **Double-click**: Toggles mute for all owned slices via the `muteAllToggled` signal. The second click cancels
+- **Double-click**: Toggles mute for all owned slices via the `muteAllToggled` signal. The second click cancels the single-click timer.
+
+## CTCSS tone list
+
+The **CTCSS tone value** combo includes the standard 41 EIA/TIA-603 tones plus additional intermediate frequencies for legacy repeater compatibility:
+
+| Freq (Hz) | Designation |
+|-----------|-------------|
+| 67.0 | XZ |
+| 69.3 | (no

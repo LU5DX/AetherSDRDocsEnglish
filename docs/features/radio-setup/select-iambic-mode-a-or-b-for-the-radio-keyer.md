@@ -79,13 +79,47 @@ Displays network addresses and lets you adjust network settings.
 
 ### Controls
 
+| Control                                     | Kind                                                                                                                                                                     | Default                                                                                                                                                                                                                                                                          |
+|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Enforce Private IP Connections:**         | Toggle button                                                                                                                                                            | Enabled                                                                                                                                                                                                                                                                          |
+| **Agent Automation (MCP):**                 | Toggle button                                                                                                                                                            | Disabled. Enables the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in. New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The AETHER_AUTOMATION launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless AETHER_AUTOMATION_ALLOW_TX is set. |
+| **Access Token:**                           | Text field (read-only)                                                                                                                                                   | (none). Auto-mints a 128-bit hex token when the bridge is enabled without one. Paste it into the assistant's AETHER_MCP_TOKEN environment variable. Stored in the OS secret store. Placeholder '(loading…)' until the keychain read lands. New in v26.8.4. |
+| **Copy (Access Token)**                     | Push button                                                                                                                                                              | Copies the access token to the clipboard. New in v26.8.4.                                                                                                                                                                                                                        |
+| **Rotate (Access Token)**                   | Push button                                                                                                                                                              | Generates a new token and applies it immediately, locking out any client still using the old one. New in v26.8.4.                                                                                                                                                               |
+| **Allow TX via MCP: Enable transmit control** | Checkbox                                                                                                                                                               | False. Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation. Enforced in the bridge; no client can flip it. Overridden by AETHER_AUTOMATION_ALLOW_TX (force on) and AETHER_AUTOMATION_NO_TX (pinned off). A force-unkey watchdog limits bridge-originated TX. New in v26.8.4. |
+| **Observe only: Read-only (block all driving)** | Checkbox                                                                                                                                                              | False. Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused. Enforced in the app, so a client cannot bypass it. AETHER_AUTOMATION_READONLY launch variable pins it on for headless/CI runs. New in v26.8.4 (#4188). |
+| **VITA-49 RX buffer:**                      | Slider (snap-to-preset)                                                                                                                                                  | 4 MB. Sets the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped. Presets 256 KB to 4 MB. The system caps the grant at net.core.rmem_max; a live 'granted: <size>' label shows what the kernel actually granted. New in v26.8.4 (#3810). |
+| **granted: (VITA-49 RX buffer)**            | Indicator                                                                                                                                                                | Shows the buffer size the kernel actually granted (vs the requested preset). Shows '(applies on connect)' when no connection is active. New in v26.8.4.                                                                                                                           |
+| **Network MTU:**                            | Spinbox                                                                                                                                                                  | 1450. Sets maximum outgoing VITA-49 UDP packet size in bytes (576–9000). Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`.                                                                                                                               |
+| **DHCP / Static**                           | Toggle button                                                                                                                                                            | —                                                                                                                                                                                                                                                                                |
+| **IP Address: / Mask: / Gateway:**          | Text fields                                                                                                                                                              | —                                                                                                                                                                                                                                                                                |
+| **Apply**                                   | Push button                                                                                                                                                              | Pushes the network config to the radio.                                                                                                                                                                                                                                          |
+
+---
+
+## Calibration tab
+
+Provides manual frequency offset calibration for radios that cannot calibrate their own oscillator. This tab is hidden by default and only appears for backends that report a `hostFrequencyCalibration` capability (such as HL2).
+
+> **Note:** Unlike the Flex RX tab (which offers the same calibration controls for radios with GPSDO hardware), this Calibration tab is used when the radio itself cannot correct its oscillator and the correction must happen in the host client. The tab is capability-gated: it stays hidden on a FLEX-8600 even if you type "calibration" in the filter box.
+
+### Controls
+
 | Control | Kind | Default | Behavior |
 |---|---|---|---|
-| **Enforce Private IP Connections:** | Toggle button | Enabled | Rejects non-RFC1918 peers. |
-| **Network MTU:** | Spinbox | 1450 | Sets maximum outgoing VITA-49 UDP packet size in bytes. Range 576–9000. Stored in `NetworkMtu`. Default 1450 is safe for most VPN/SD-WAN tunnels. |
-| **DHCP / Static** | Toggle button | — | Switches between DHCP and Static IP modes. |
-| **IP Address: / Mask: / Gateway:** | Text fields | — | Static IP configuration fields. |
-| **Apply** | Push button | — | Pushes the network config to the radio. |
+| **Cal Frequency (MHz):** | Spinbox | — | Frequency used for manual calibration. |
+| **Freq Offset (ppb):** | Spinbox | — | Manual frequency offset in parts per billion. Applied directly without running a sweep. |
+| **Trim** | Push button | — | Commits the displayed frequency offset to the connected radio's calibration. The value is re-read from the radio each time the dialog opens or the connection changes, so a stale value from a previously connected radio cannot be committed accidentally. |
+
+### Using the Calibration tab
+
+1. Click `Settings > Radio Setup...`.
+2. Click the **Calibration** tab.
+3. Enter a known-accurate reference frequency in **Cal Frequency (MHz):**.
+4. Adjust **Freq Offset (ppb):** to correct the displayed frequency error.
+5. Click **Trim** to commit the offset to the radio.
+
+The calibration values are re-read whenever the dialog is shown or a different radio connects, ensuring the displayed offset always reflects the currently connected radio.
 
 ---
 
@@ -132,70 +166,4 @@ Configures the microphone, CW keyer, and RTTY defaults.
 |---|---|---|---|
 | **Enable/Disable the Level Meter During Receive** | Toggle button | — | Shows the mic level meter during RX. |
 | **Iambic:** | Toggle button | — | Enables or disables the iambic keyer on the radio. Always reads "Enabled" when toggled on. |
-| **Iambic Mode: A / B** | Push button (mutually exclusive pair) | A | Selects Curtis iambic mode A or B for both the radio hardware keyer and the local software keyer. Mode A = Curtis A; Mode B = Curtis B. |
-| **Swap:** | Toggle button | — | Swaps dit and dah. |
-| **Sideband:** | Combo box | — | Selects CW pitch sideband (LSB or USB). |
-| **CWX:** | Toggle button | — | Enables CWX macro keying. |
-| **Decode:** | Toggle button | True | Enables the CW decode overlay on the panadapter. Stored in `CwDecodeOverlay`. |
-| **RTTY Mark Default:** | Spinbox | — | Default RTTY mark frequency. |
-
-**Mode A vs. Mode B:** Mode A (Curtis A) releases the last element when both paddles are released mid-squeeze. Mode B (Curtis B) completes the last element before stopping. The local software keyer mirrors whichever mode you select, providing sub-5 ms sidetone response independent of network latency.
-
----
-
-## RX tab
-
-Provides GPSDO frequency offset calibration and 10 MHz reference source selection.
-
-The calibration controls are available regardless of whether a GPSDO is installed. The status label at the top of the group reads:
-
-- **GPSDO installed. Manual frequency offset calibration available.** (green) — GPSDO present.
-- **Manual frequency offset calibration available.** (amber) — no GPSDO.
-
-### Using frequency calibration
-
-1. Click `Settings > Radio Setup...`.
-2. Click the **RX** tab.
-3. Enter a known-accurate reference frequency in **Cal Frequency (MHz):**.
-4. Click **Start**.
-   - The button label changes to **Busy** and becomes disabled while calibration runs.
-   - The status label reports progress (Starting… and subsequent states).
-   - AetherSDR resets the frequency error to 0 ppb (`radio set freq_error_ppb=0`) before starting the sweep.
-5. When calibration completes, the button re-enables and the status label updates with the result.
-6. If **Cal Frequency (MHz):** is empty when you click **Start**, the status label shows **Enter cal frequency** and calibration does not begin.
-
-### Calibration controls
-
-| Control | Kind | Default | Behavior |
-|---|---|---|---|
-| **Cal Frequency (MHz):** | Spinbox | — | Frequency used for calibration. Must not be empty before clicking Start. |
-| **Start** | Push button | — | Resets frequency error to 0 ppb, then starts the calibration sweep. Disabled and labelled Busy during an active calibration. |
-| **Freq Offset (ppb):** | Spinbox | — | Manual frequency offset in parts per billion. Applied directly without running a sweep. |
-| **10 MHz Reference Source:** | Combo box | Auto | Selects the oscillator reference source. The combo is populated dynamically based on installed hardware and the current oscillator state: **Auto**, **TCXO**, **GPSDO**, and **External 10 MHz** appear only when the corresponding hardware is detected or was previously selected. When **Auto** is active, the status label shows the resolved source (for example, *Auto -> GPSDO*). If the selected source differs from the active state, both are shown (for example, *GPSDO -> TCXO*). Lock status (**Locked** / **Unlocked**) is appended and updates live; if **External 10 MHz** is selected but no external signal is detected, *(not detected)* is appended. |
-
----
-
-## Antennas tab
-
-Configures user-defined antenna names for each TX antenna port.
-
-| Control | Kind | Default | Behavior |
-|---|---|---|---|
-| **ANT1 / ANT2 / XVTA / XVTB** | Text fields | — | Enter a custom name (up to 20 characters) for each antenna port. Names are sent to the radio and displayed in the band-stack buttons and slice antenna selector. |
-
----
-
-## Audio tab
-
-Configures radio audio outputs, PC audio devices, recording, and the NVIDIA BNR container.
-
-| Control | Kind | Default | Behavior |
-|---|---|---|---|
-| **Line Out:** | Slider | — | Line-out gain. |
-| **Mute (Line Out)** | Push button | — | Mutes line-out. |
-| **Headphone:** | Slider | — | Headphone gain. |
-| **Mute (Headphone)** | Push button | — | Mutes headphone output. |
-| **Front Speaker: / Mute** | Push button | — | Mutes the front speaker (model-specific). |
-| **Audio Compression (SmartLink): Auto / Uncompressed / Opus** | Push button | Auto | Selects the audio codec for SmartLink/LAN connections. Stored in `AudioCompression`. |
-| **Prevent system sleep while connected** | Checkbox | False | Keeps the OS awake while the radio is connected to prevent audio/TCP/UDP stream drops during idle. Stored in `InhibitSleepWhileConnected`. |
-| **PC Audio Devices: Input: / Output:** | Combo box | — | Picks host audio input and output devices. |
+| **Iambic Mode: A / B** | Push button (mutually exclusive pair) | A | Selects Curtis iambic mode A or B for both the radio hardware keyer and the local software keyer. Mode A = Curtis A; Mode B = Curtis B

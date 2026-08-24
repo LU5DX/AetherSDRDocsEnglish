@@ -75,6 +75,10 @@ Two learning notes explain the difference between auroral and sporadic-E propaga
 
 The Propagation Dashboard fully supports the active application theme. Panel backgrounds, separator lines, border colors, and the rationale field all use themed colors. When you change the application theme, the dashboard updates its appearance accordingly.
 
+## Network Timeout
+
+The dashboard applies a 15-second network timeout to all space-weather data fetches. If a fetch does not complete within this window, the request is cancelled, and the dashboard will not display stale or partial data. The data is retried on the next refresh cycle.
+
 ## Resizing and Positioning
 
 The HF Propagation Dashboard remembers its window size and position. Resize the dialog by dragging its edges. The next time you open the dashboard, it will restore to its previous size and location. The geometry is saved under the key `PropDashboardDialogGeometry` in the application settings.

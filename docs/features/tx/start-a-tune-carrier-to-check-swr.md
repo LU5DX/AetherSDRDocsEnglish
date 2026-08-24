@@ -45,6 +45,16 @@ Send a continuous carrier at reduced power to read SWR on your antenna system. U
 - If you want to inhibit specific TX outputs (ACC TX, TX1, TX2, TX3) during tuning, configure them at `Settings > Inhibit during TUNE`.
 - The peak-hold bar on the **RF Pwr** gauge resets to zero immediately when the transmitter un-keys, so a held PEP reading does not linger across overs.
 
+## Meter behavior
+
+The **RF Pwr** and **SWR** gauges display live readings only while the transmitter is keyed. When the transmitter is un-keyed:
+
+- The **RF Pwr** gauge returns to 0 W immediately.
+- The **SWR** gauge returns to its 1.0 rest position immediately.
+- The peak-hold bar on the **RF Pwr** gauge clears to zero.
+
+Starting with v26.8.4, a stale last-reading is never left painted on the gauges after un-key, even if an in-flight meter update arrives just after the transmitter turns off.
+
 ## ATU button behavior
 
 Starting with v0.9.5.1, the **ATU** button behaves as a frequency-aware toggle rather than always starting a new tune cycle. The logic mirrors SmartSDR's per-frequency behavior:
@@ -65,6 +75,14 @@ Right-click the **ATU** button to access the following actions:
 - **Clear ATU memories…** — Prompts for confirmation and then clears all stored ATU memories.
 
 This matches SmartSDR Windows's hidden right-click menu on the ATU button.
+
+## ATU and MEM buttons on radios without a tuner
+
+Starting with v26.8.4, AetherSDR checks whether the connected radio actually has an antenna tuner. On radios without a tuner (for example, a Hermes-Lite 2), the **ATU** and **MEM** buttons are disabled, and hovering over either button shows the tooltip **"This radio has no antenna tuner."**
+
+This prevents a serious hazard: on a radio with no tuner, clicking **ATU** would key the transmitter to run a tune cycle that nothing would answer. The buttons remain disabled regardless of TGXL state when no tuner is present.
+
+When TGXL is in OPERATE mode and a tuner is present, the buttons are disabled with the existing tooltip **"Disabled — TGXL is in OPERATE mode."** In that case, **TUNE** stays enabled so you can still run a carrier through the TGXL for power/SWR checks.
 
 ## MOX and Quindar tones
 
@@ -96,12 +114,17 @@ The **APD** button cluster shows three indicators that track the adaptive pre-di
 
 The typical progression is: **Cal** (calibrating) → **Avail** (ready) → **Active** (applied). All indicators are dim when APD is off.
 
+## APD button visibility
+
+Starting with v26.8.4, the **APD** button and its **Active**/**Cal**/**Avail** indicators are hidden when the connected radio does not support adaptive pre-distortion. On cold start, the APD row is correctly hidden until the radio confirms APD support, matching the behavior after a disconnect. This prevents a live-looking APD button with no functional backing.
+
 ## Troubleshooting
 
 - **TUNE button does nothing** — The applet requires an active radio connection. Check that AetherSDR shows the radio as connected before attempting to transmit.
 - **SWR gauge does not move during TUNE** — Forward power may be at or near zero. Verify the **Tune Pwr** slider is above 0 and that the correct antenna port is selected for the current band.
 - **Carrier does not stop** — Click **TUNE** once more. If the button remains in **TUNING...** state, check the radio connection; a dropped connection can leave the transmit state unacknowledged.
 - **ATU button bypasses the tuner instead of retuning** — This is expected behavior when the ATU already holds a successful match at the current frequency. Change frequency or wait for the tuner to clear its result, then click **ATU** again to start a fresh tune cycle.
+- **ATU and MEM buttons are disabled** — The connected radio has no antenna tuner, or the TGXL is in OPERATE mode. Hover over either button to see the specific reason in the tooltip.
 - **MOX keys the transmitter but no Quindar tones are heard** — Confirm that the QUIN chip is enabled in the Audio Channel Strip and that the active TX slice is set to a phone mode (USB, LSB, AM, FM, or similar). Quindar tones do not play on CW or digital modes.
 - **Pre-tune bands menu item is grayed out** — Enable MEM by clicking the **MEM** button in the TX Controls applet before right-clicking **ATU**.
 - **Peak-hold bar does not appear during tune** — The peak-hold bar only tracks when the transmitter is keyed. The bar decays after 2 seconds of holding a peak, and resets to zero on un-key.

@@ -5,7 +5,7 @@ When you have more than one panadapter open, you can detach any of them into a s
 ## Before you start
 
 - Connect to a FLEX-8600 radio. The pop-out button is only available when a radio connection is active.
-- Open at least one additional panadapter. In single-panadapter mode, the pop-out button is hidden.
+- Open at least one additional panadapter. In single-panadapter mode, the pop-out button is hidden. However, when a panadapter is placed on the workspace canvas, the pop-out button is always available regardless of how many panadapters are open.
 
 ## Steps
 
@@ -29,6 +29,15 @@ When you have more than one panadapter open, you can detach any of them into a s
 | Slice title      | Indicator showing which slice is bound to this panadapter (Slice A through Slice H). | Slice A |
 
 > **Note for Multi-Flex sessions:** When using multiple clients, the slice title matches the radio-provided index letter so the title corresponds to the slice badge.
+
+## Workspace canvas mode
+
+When a panadapter is placed on the workspace canvas (rather than in the standard docked layout), its title bar behaves differently:
+
+- **Drag to move** — Click and drag the title bar to move the panadapter around the canvas. A 6-pixel threshold separates a click from a drag; after that threshold, the gesture is consumed by the canvas and moves the panadapter as a whole.
+- **Click to activate** — A simple click on the title bar (without dragging past the 6-pixel threshold) activates the panadapter.
+- **Pop-out always available** — The **⬈** (pop-out) button is always visible while a panadapter is on the canvas, even if it is the only panadapter open. This is because the single-panadapter button hiding is a layout economy, not a restriction on floating.
+- **Mutually exclusive with floating** — Canvas-drag mode only applies when the panadapter is not floating. Floating windows use the frameless-move mechanism instead.
 
 ## CW decode panel
 
@@ -76,9 +85,19 @@ The decoded-text font size defaults to 13 pixels. Use the **A-** and **A+** butt
 
 Drag the thin horizontal grip at the top of the CW decode panel up or down to resize the panel height. The height is clamped to the range 60–600 pixels and is persisted across sessions via the `CwDecodeSettings` configuration. A taller panel reveals more decoded-text history.
 
+## 3D FFT view
+
+The panadapter includes an optional 3D FFT spectrum view that displays signal history as a forward-scrolling 3D surface. This view includes:
+
+- **Elevation shadows** — Slice flags and signal peaks cast cached elevation shadows onto the surface.
+- **Smooth-scroll boundaries** — History scrolls smoothly without boundary jumps.
+- **Bandwidth-zoom floor resynchronization** — The floor level resynchronizes after a bandwidth zoom to maintain accurate depth perception.
+
+Toggle the **3D FFT view** to enable or disable this display mode. It is part of the spectrum widget and is disabled by default.
+
 ## Waterfall freeze during transmission
 
-When any client in a Multi-Flex session begins transmitting, the waterfall in this panadapter freezes automatically. It resumes updating when transmission ends. This eliminates the 10–23 second TX-trail artifact that previously appeared after unkeying.
+When any client in a Multi-Flex session begins transmitting, the waterfall in this panadapter freezes automatically. It resumes updating when transmission ends. This eliminates the 10–23 second TX-trail artifact that previously appeared after unkeying. The freeze is driven by the radio's interlock (TRANSMITTING) state, so it applies regardless of which client initiates the transmission.
 
 On radio reconnection, the panadapter reasserts the desired frame rate and waterfall line duration to prevent silently dropping to the radio's default 10 Hz.
 
@@ -104,11 +123,14 @@ The panadapter title bar, CW decode panel, RTTY decode panel, and all associated
 - TX-side decoded text appears in cyan to help you distinguish your own sending from incoming CW, without needing a textual prefix.
 - Use the **A-** and **A+** buttons to adjust the decoded-text font size for better readability.
 - Drag the thin grip at the top of the CW decode panel to reveal more decoded-text history.
+- When on the workspace canvas, click the title bar to activate a panadapter or drag it to reposition. A 6-pixel threshold separates click from drag.
+- The **⬈** pop-out button is always available while a panadapter is on the canvas, even if it is the only one open.
 
 ## Troubleshooting
 
-- **The ⬈ button is not visible** — You have only one panadapter open. The pop-out, maximize, and close buttons are all hidden in single-panadapter mode. Open an additional panadapter to make them appear.
+- **The ⬈ button is not visible** — You have only one panadapter open and it is not on the workspace canvas. The pop-out, maximize, and close buttons are all hidden in single-panadapter stack mode. Open an additional panadapter or move the panadapter to the canvas to make them appear.
 - **The floating window cannot be moved** — Click and drag the title strip inside the floating window, not the spectrum area. The spectrum area is used for tuning.
+- **A panadapter on the canvas cannot be dragged** — Click and drag the title bar, not the spectrum area. A 6-pixel drag threshold must be exceeded before the panadapter starts moving. If the panadapter is floating, the canvas-drag mode is disabled; dock it first.
 - **The CW decode text area shows no text** — Verify that PC audio is routed to AetherSDR. The panel displays **(requires PC Audio)** when audio is not available.
 
 ## Related

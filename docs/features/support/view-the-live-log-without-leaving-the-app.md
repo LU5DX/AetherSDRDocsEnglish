@@ -9,38 +9,48 @@ The Support & Diagnostics dialog includes a scrollable log viewer that lets you 
 
 ## Steps
 
-1. Click `Help > Support...` to open the Support & Diagnostics dialog.
-2. Find the **Log viewer** panel in the center of the dialog. It shows the most recent log text as a scrollable, read-only view.
-3. Scroll through the log viewer to read current entries. The log path is shown in the **Log path label** above the viewer, and the current file size appears to the right of it.
-4. If new activity has occurred since you opened the dialog, click **Refresh** to reload the log file and show the latest entries.
-5. To manage which log categories appear, use the **Category checkboxes** in the **Diagnostic Logging** section at the top. Click **Enable All** to turn on every category, or **Disable All** to silence all of them.
-6. Click **Close** when finished.
+1. Open the **Help** menu.
+2. Select **File an Issue** only if you want to file a bug report; the dialog itself is opened via **Support...**.
+3. In the **Support & Diagnostics** dialog, find the **Log viewer** panel in the center. It shows the most recent log text as a scrollable, read-only view.
+4. Scroll through the log viewer to read current entries. The log path is shown in the **Log path label** above the viewer, and the current file size appears to the right of it.
+5. If new activity has occurred since you opened the dialog, click **Refresh** to reload the log file and show the latest entries.
+6. To manage which log categories appear, use the **Category checkboxes** in the **Diagnostic Logging** section at the top. Click **Enable All** to turn on every category, or **Disable All** to silence all of them.
+7. Click **Close** when finished.
 
 ## What each control does
 
-| Control | Kind | Behavior |
-|---|---|---|
-| Category checkboxes | Checkbox | Per-category log enable/disable, one row per category. |
-| Enable All | Button | Turns on every logging category. |
-| Disable All | Button | Turns off every logging category. |
-| Log path label | Indicator | Shows the full path to the current log file. |
-| Log file size | Indicator | Shows the current size of the active log file. |
-| Log viewer | Text field | Scrollable, read-only view of the most recent log text. Displays up to 2000 lines. |
-| Refresh | Button | Reloads the log file into the viewer. |
-| Clear Log | Button | Truncates the current log file. |
-| Open Log Folder | Button | Opens the log directory in the OS file browser. |
-| Reset Settings | Button | Resets AetherSDR settings to defaults (with confirmation). Deletes local settings and the NR2 wisdom cache. Radio settings stay on the radio. |
-| File an Issue | Button | Launches the AI-Assisted Bug Report flow. See **File an Issue** section below. |
-| Close | Button | Closes the dialog. |
+| Control                               | Kind          | Behavior                                                                                                                              |
+|---------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Category checkboxes                   | Checkbox      | Per-category log enable/disable, one row per category.                                                                                 |
+| Enable All                            | Button        | Turns on every logging category.                                                                                                      |
+| Disable All                           | Button        | Turns off every logging category.                                                                                                     |
+| Log path label                        | Indicator     | Shows the full path to the current log file.                                                                                          |
+| Log file size                         | Indicator     | Shows the current size of the active log file.                                                                                        |
+| Log viewer                            | Text field    | Scrollable, read-only view of the most recent log text. Displays up to 2000 lines.                                                    |
+| Refresh                               | Button        | Reloads the log file into the viewer.                                                                                                 |
+| Clear Log                             | Button        | Truncates the current log file.                                                                                                       |
+| Open Log Folder                       | Button        | Opens the log directory in the OS file browser.                                                                                       |
+| Close                                 | Button        | Closes the dialog.                                                                                                                    |
+| Instructions (report-an-issue how-to) | Rich text     | Points the user to **Help > File an Issue** for bug reporting once the relevant logging categories have been enabled and the problem reproduced. |
+
+> **Note (v26.8.4):** The **Reset Settings** and **File an Issue** buttons were removed from this dialog in v26.8.4. Both actions now live directly on the **Help** menu.
 
 ## File an Issue
 
-The **File an Issue** button starts an AI-Assisted Bug Report process.
+The **File an Issue** entry on the **Help** menu starts an AI-Assisted Bug Report process.
 
-1. Click **File an Issue**.
+1. Click **Help > File an Issue**.
 2. In the dialog that appears, describe the problem you are experiencing.
 3. Click one of the provided AI service buttons to open the AI tool with a pre-filled prompt that includes your system information and the bug description.
 4. The AI will generate a complete GitHub bug report. Follow the AI's instructions to submit it at `https://github.com/aethersdr/AetherSDR/issues/new`.
+
+## Reset Settings
+
+The **Reset Settings** entry on the **Help** menu removes AetherSDR's app-specific settings only. It does not change settings stored on the radio.
+
+1. Click **Help > Reset Settings**.
+2. A confirmation dialog appears listing the files that will be removed. Before anything is removed, a backup of the current settings is written to the backups directory (shown in the prompt).
+3. Click **Yes** to proceed. AetherSDR will close immediately after the reset so the settings files are not recreated.
 
 ## Tips
 

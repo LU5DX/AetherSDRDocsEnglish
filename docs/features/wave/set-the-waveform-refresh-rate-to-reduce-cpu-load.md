@@ -12,10 +12,8 @@ Waveform rendering uses QPainter with incremental reduction via WaveformScopeMod
 
 | Interaction | Behavior | Notes |
 |---|---|---|
-| Single-click on display | Toggles pause. A snapshot of the buffer is frozen until clicked again. Useful for inspecting a transient. A "PAUSED" badge appears in the footer while paused. | |
+| Single-click on display | Toggles pause. A snapshot of the buffer is frozen until clicked again. Useful for inspecting a transient. A "PAUSED" badge appears in the footer while paused. | The single-click discrimination interval is read from the Radio Setup click discrimination setting. If you adjust this value in Radio Setup, it takes effect immediately without an app restart. |
 | Double-click on display | Toggles the settings drawer open or closed. Does not clear the buffer — use the WaveformWidget::clear() slot or reconnect to reset. | |
-
-The single-click discrimination interval is read from the Radio Setup click discrimination setting. If you adjust this value in Radio Setup, it takes effect immediately without an app restart.
 
 ## Waveform display indicators
 
@@ -65,9 +63,9 @@ Higher values stretch small signals vertically, causing clipping artifacts to ap
 
 | Control | Default | Valid range | Persisted key |
 |---|---|---|---|
-| FPS | 25 Hz | 5–60 Hz | `WaveApplet_RefreshRateHz` |
+| FPS | 24 Hz | 5–30 Hz | `WaveApplet_RefreshRateHz` |
 
-Lower values reduce CPU load on slow systems. The upper range has been extended to 60 Hz for users who want a faster scope response. The default of 25 fps provides a calm, low-overhead cadence matching the usual radio panadapter rate. Users who previously saved an explicit FPS value keep their existing setting — the default is only applied when the setting key is absent.
+Lower values reduce CPU load on slow systems. The default of 24 fps provides a smooth scope response with a moderate load on the CPU. Users who previously saved an explicit FPS value keep their existing setting — the default is only applied when the setting key is absent.
 
 The setting has no effect on audio capture or level accuracy. The slider uses the primary slider style from the current theme.
 

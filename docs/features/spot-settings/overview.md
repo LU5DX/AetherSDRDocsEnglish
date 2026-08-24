@@ -17,26 +17,88 @@ Toggle buttons display either "Enabled" or "Disabled" text that updates to match
 
 ## What each control does
 
-| Label | Kind | Default | Behavior | Notes |
-|---|---|---|---|---|
-| Spots: | Toggle button | Enabled | Master toggle for DX spot display. Button text changes to "Enabled" or "Disabled" based on state. | — |
-| Memories: | Toggle button | Disabled | Toggles memory channel overlays on panadapter. Button text changes to "Enabled" or "Disabled" based on state. | Setting key changed from `IsMemoriesShownOnPanadapter` in v0.9.7. |
-| Levels: | Slider (1–10) | 3 | Vertical stacking rows for spots. | Setting key changed from `SpotsStackLevels` in v0.9.7. |
-| Position: | Slider (0–100) | 50 | Vertical position on panadapter as a percentage. | Setting key changed from `SpotsPosition` in v0.9.7. |
-| Font Size: | Slider (8–32) | 16 | Spot text size in points. | Setting key changed from `SpotsFontSize` in v0.9.7. |
-| Spot Lifetime: | Slider (10 sec – 24 hrs, non-linear) | — | How long spots remain before fading. | Stored in seconds (`DxClusterSpotLifetimeSec`). Setting key changed from `SpotsLifetime` in v0.9.7. Migrates old minutes-based `DxClusterSpotLifetime` key on first read. |
-| Override Colors: | Toggle button | Disabled | Forces a single text color for all spots. Button text changes to "Enabled" or "Disabled" based on state. | — |
-| Spot text color picker | Push button | `#FFFF00` | Opens a color dialog to pick spot text color. | — |
-| Override Background: Enabled | Toggle button | Enabled | Draws a background under spot text. Button text changes to "Enabled" or "Disabled" based on state. | — |
-| Override Background: Auto | Toggle button | Enabled | Auto-picks background color for contrast. The button text stays "Auto"; its background color changes to indicate state. | — |
-| Spot background color picker | Push button | `#000000` | Opens a color dialog to pick spot background color. | — |
-| Background Opacity: | Slider (0–100) | 48 | Alpha of spot background (0 = transparent, 100 = opaque). | Setting key changed from `SpotsOverrideBgOpacity` in v0.9.7. |
-| Spot Lines: | Toggle button | Enabled | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. Button text changes to "Enabled" or "Disabled" based on state. | New in v0.9.7 (#2349). |
-| Clear All Spots | Push button | — | Clears all spots from the panadapter. | — |
+| Label                        | Kind                                                                                                    | Default                        |
+|------------------------------|---------------------------------------------------------------------------------------------------------|--------------------------------|
+| Spots:                       | Toggle button                                                                                           | Enabled                        |
+| Memories:                    | Toggle button                                                                                           | Disabled                       |
+| Kiwi DX:                     | Toggle button                                                                                           | Disabled                       |
+| Levels:                      | Slider (1–10)                                                                                           | 3                              |
+| Position:                    | Slider (0–100)                                                                                          | 50                             |
+| Font Size:                   | Slider (8–32)                                                                                           | 16                             |
+| Spot Lifetime:               | Slider (10 sec – 24 hrs, non-linear)                                                                    | —                              |
+| Override Colors:             | Toggle button                                                                                           | Disabled                       |
+| Spot text color picker       | Push button                                                                                             | `#FFFF00`                      |
+| Override Background: Enabled | Toggle button                                                                                           | Enabled                        |
+| Override Background: Auto    | Toggle button                                                                                           | Enabled                        |
+| Spot background color picker | Push button                                                                                             | `#000000`                      |
+| Background Opacity:          | Slider (0–100)                                                                                          | 48                             |
+| Spot Lines:                  | Toggle button                                                                                           | Enabled                        |
+| Clear All Spots              | Push button                                                                                             | —                              |
+
+### Spots:  
+
+Master toggle for DX spot display. When Enabled, spots from the configured DX cluster source are drawn on the panadapter.
+
+### Memories:  
+
+Toggles memory channel overlays on the panadapter. When Enabled, your radio's stored memory channels appear as spot-style overlays for quickly identifying activity on saved channels.
+
+### Kiwi DX:  
+
+New in v26.8.4. Overlays KiwiSDR Community DX database spots (beacons, utilities, time signals) on the band plan strip. Default is Disabled. This setting is stored in `ShowKiwiDxSpots`.
+
+### Levels:  
+
+Vertical stacking rows for spots. Range is 1–10; default is 3. Higher values allow more spots to stack vertically before overlapping.
+
+### Position:  
+
+Vertical position of the spot text on the panadapter, expressed as a percentage. Range is 0–100; default is 50 (middle of the panadapter).
+
+### Font Size:  
+
+Spot text size in points. Range is 8–32; default is 16.
+
+### Spot Lifetime:  
+
+How long spots remain on the panadapter before fading. The slider is non-linear: small movements at the low end adjust lifetime in seconds; larger movements progress through minutes and then hours. Range is 10 seconds to 24 hours.
+
+### Override Colors:  
+
+Forces a single text color for all spots. When Enabled, the color you pick with the Spot text color picker is used for every spot regardless of the source.
+
+### Spot text color picker  
+
+Opens a color dialog to pick the text color used when Override Colors is Enabled. Default is `#FFFF00` (yellow).
+
+### Override Background: Enabled  
+
+Draws a background under spot text. When Enabled, spot text is drawn with a contrasting background for readability.
+
+### Override Background: Auto  
+
+Automatically picks a contrasting background color for spot text. When Enabled, the manually picked color is ignored. When Disabled, the color from the Spot background color picker is used instead.
+
+### Spot background color picker  
+
+Opens a color dialog to pick the background color used when Override Background: Enabled is on and Override Background: Auto is off. Default is `#000000` (black).
+
+### Background Opacity:  
+
+Alpha of the spot background. Range is 0–100; default is 48. At 0 the background is completely transparent; at 100 it is fully opaque.
+
+### Spot Lines:  
+
+Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests or when the panadapter is crowded to reduce visual clutter; the spot labels remain visible and only the vertical lines are hidden.
+
+### Clear All Spots  
+
+Clears all spots from the panadapter immediately.
 
 ## Tips
 
 - Toggle buttons display either "Enabled" or "Disabled" text that updates to match the current state, with a green background when enabled and red/amber when disabled.
+- Enabling Kiwi DX: overlays spots from the KiwiSDR Community DX database, which includes beacons, utilities, and time signals that are not typically in DX cluster feeds.
 - The Spot Lifetime slider is non-linear. Small movements at the low end of the slider adjust lifetime in seconds; larger movements progress through minutes and then hours up to 24 hours.
 - Enabling Override Background: Auto while Override Background: Enabled is on lets AetherSDR choose contrasting background colors automatically. Disable Auto to apply your manually picked color from the spot background color picker instead.
 - Enabling Memories: shows your radio's stored memory channels as spot-style overlays, which is useful for quickly identifying activity on channels you have saved.
@@ -47,6 +109,7 @@ Toggle buttons display either "Enabled" or "Disabled" text that updates to match
 
 - [Turn spots on or off](turn-spots-on-or-off.md)
 - [Overlay memory channels on the panadapter](overlay-memory-channels-on-the-panadapter.md)
+- Overlay KiwiSDR Community DX spots
 - [Change spot density and vertical position](change-spot-density-and-vertical-position.md)
 - [Enlarge or shrink the spot font](enlarge-or-shrink-the-spot-font.md)
 - [Shorten or lengthen spot lifetime](shorten-or-lengthen-spot-lifetime.md)

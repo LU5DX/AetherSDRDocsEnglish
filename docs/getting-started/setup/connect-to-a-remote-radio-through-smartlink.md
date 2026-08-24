@@ -35,8 +35,7 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 | **Retry Discovery** | Re-runs LAN discovery. | — |
 | **Connect Selected Radio** | Connects to the highlighted LAN radio. | — |
 | **Connect by IP** | Shortcut to the Manual page. | — |
-| **Radio IP address** field | Manual IP to connect to. | `ManualRadioIp` |
-| **Connect by IP (manual)** | Starts the manual/VPN connection. | — |
+| **Radio IP address** field | Manual IP or hostname to connect to. | `ManualRadioIp` |
 | **Source path** combo box (Advanced) | Picks the local network interface used for the manual connection. Available on the Manual page. | `ManualBindSource` |
 | **Use low bandwidth mode** checkbox | Enables reduced-rate audio and data streams. Use this on slow or metered internet connections. | `LowBandwidthMode` |
 | **Connect to last radio on start up** checkbox | When checked, AetherSDR auto-connects to the last used radio on startup and on broadcast-discovery / routed-radio probe. When unchecked, the connection dialog opens and the user must pick a radio manually each session. Defaults to checked. Added in v0.9.7. | `AutoConnectToLastRadio` |

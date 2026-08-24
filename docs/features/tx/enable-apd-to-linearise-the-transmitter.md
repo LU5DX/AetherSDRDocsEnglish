@@ -1,13 +1,16 @@
-# Enable APD to Linearise the Transmitter
+# TX Controls
 
-APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a correction equaliser to the signal before it reaches the PA. Enable it to improve spectral purity, particularly on SSB and digital modes.
+The TX Controls applet provides transmit controls for the radio, including forward power and SWR meters, RF and Tune power sliders, a TX profile selector, and TUNE/MOX/ATU/MEM buttons. It also includes the APD (Adaptive Pre-Distortion) toggle with Active/Cal/Avail status indicators.
 
-## Before you start
+## Opening the TX Controls applet
 
-- AetherSDR must be connected to the radio. APD is a radio-side function and requires an active connection.
-- Open the TX Controls applet. If it is not visible, click the TX tray button on the right sidebar.
+If the TX Controls applet is not visible, click the TX tray button on the right sidebar.
 
-## Steps
+## APD (Adaptive Pre-Distortion)
+
+APD reduces transmitter non-linearity by applying a correction equaliser to the signal before it reaches the PA. Enabling it improves spectral purity, particularly on SSB and digital modes.
+
+### Enabling APD
 
 1. Locate the APD button at the bottom of the TX Controls applet.
 2. Click APD to toggle adaptive pre-distortion on. The button background changes to green when enabled.
@@ -17,7 +20,7 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
    - **Active** lights green when the equaliser is applied to the transmit signal.
 4. To turn APD off, click APD again. The button returns to its unlit state and all three indicators go dim.
 
-## What each control does
+The normal progression after enabling APD is: Cal → Avail → Active.
 
 | Control | Kind          | Behavior                                                                                 |
 |---------|---------------|------------------------------------------------------------------------------------------|
@@ -26,52 +29,29 @@ APD (Adaptive Pre-Distortion) reduces transmitter non-linearity by applying a co
 | Cal     | Indicator     | Lit green when APD is on and the radio is still calibrating.                             |
 | Avail   | Indicator     | Lit green when APD is on and a calibration is available but not yet applied.             |
 
-The normal progression after enabling APD is: Cal → Avail → Active.
-
-## Tips
+### Tips
 
 - APD calibration takes place automatically after you enable it. You do not need to transmit manually to trigger it; wait for the indicators to step through Cal → Avail → Active.
 - If you disable and re-enable APD, the calibration sequence restarts from Cal.
 
-## ATU button behaviour
+## RF Pwr and SWR meters
 
-The ATU button uses a per-frequency toggle that mirrors SmartSDR behaviour:
+Forward power is displayed as a horizontal bar gauge. The scale changes based on the radio model (barefoot 0–120 W, or Aurora 500W 0–600 W). The gauge turns red above 100 W (barefoot) or 500 W (Aurora).
 
-- **First click** (or any click after a frequency change): starts a new ATU tune cycle.
-- **Second click at the same frequency**, when the ATU reports a successful match: switches the tuner to bypass.
-- **Click after any frequency change**: always starts a fresh tune cycle, even if the previous status was successful.
+PEP peak-hold: a peak reading is held for 2 seconds, then decays smoothly to the current value. The peak is cleared immediately when the transmitter unkeys to prevent lingering readings across overs.
 
-The bypass state is cleared automatically when the transmit frequency changes, so the next click will start a new tune rather than bypassing. There is no change to the ATU button label or appearance; the **Success**, **Byp**, and **Mem** indicators below the button continue to reflect ATU status as before.
+Hover the mouse over the RF Pwr gauge to see the exact power reading in watts (e.g., "45 W").
 
-| Indicator | Kind      | Behavior                                                          |
-|-----------|-----------|-------------------------------------------------------------------|
-| Success   | Indicator | Lights green when the ATU reports a successful or OK match.       |
-| Byp       | Indicator | Lights orange when the ATU is in bypass or manual bypass.         |
-| Mem       | Indicator | Lights green when the ATU is using a stored memory.               |
+SWR is displayed as a horizontal bar gauge. Range 1.0–3.0. The gauge turns red above 2.5.
 
-### ATU right-click menu
+Hover the mouse over the SWR gauge to see the exact ratio in conventional form (e.g., "1.52:1").
 
-Right-click the ATU button to open a context menu with two actions:
+When the transmitter is not keyed, both gauges rest at zero power / 1.0 SWR. If the radio does not report a valid SWR reading during transmission, the SWR gauge stays at its 1.0 rest position rather than showing an off-scale value.
 
-| Action                       | Behavior                                                                                     |
-|------------------------------|----------------------------------------------------------------------------------------------|
-| Pre-tune bands…              | Opens the ATU Pre-Tune dialog to sweep and store tuner settings across bands. Enabled only when MEM is on. |
-| Clear ATU memories…          | Clears all stored ATU memories on the radio. A confirmation dialog appears before clearing.  |
-
-## TUNE button behaviour
-
-Click TUNE to start or stop a tune carrier. The button label changes to **TUNING...** with a red background while the carrier is active.
-
-### TUNE right-click menu
-
-Right-click the TUNE button to choose the carrier shape for the next tune cycle:
-
-| Action      | Behavior                                                                                          |
-|-------------|---------------------------------------------------------------------------------------------------|
-| Mono Tone   | Sets the tune carrier to a single tone. Checked if this is the current mode.                      |
-| Two Tone    | Sets the tune carrier to two tones. Checked if this is the current mode.                          |
-
-The selection is a one-shot transient — the radio's tune mode reverts to single tone across power cycles. AetherSDR does not persist the choice in AppSettings.
+| Control | Kind   | Behavior                                                                                                                                                                                                                                                                      |
+|---------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RF Pwr  | Meter  | Displays forward power at the exciter output with PEP peak-hold (2 s hold then decay to current smoothed value over ~2.5 s). Peak resets immediately on un-key. Scale changes based on radio model. Red above 100 W (barefoot) or 500 W (Aurora 500W).                         |
+| SWR     | Meter  | Displays standing wave ratio at the exciter. Range 1.0–3.0, red above 2.5. Parks at 1.0 when no valid reading is available or the transmitter is unkeyed.                                                        |
 
 ## RF Power / Tune Power sliders
 
@@ -86,17 +66,24 @@ When you release either slider, the value synchronises from the radio model, ens
 
 Select a TX profile from the combo box to load it on the radio. Profiles are populated from the radio's profile list.
 
-## RF Pwr and SWR meters
+## TUNE button
 
-Forward power is displayed as a horizontal bar gauge. The scale changes based on the radio model (barefoot 0–120 W, or Aurora 500W 0–600 W). The gauge turns red above 100 W (barefoot) or 500 W (Aurora).
+Click TUNE to start or stop a tune carrier. The button label changes to **TUNING...** with a red background while the carrier is active.
 
-PEP peak-hold: a peak reading is held for 2 seconds, then decays smoothly to the current value. The peak is cleared immediately when the transmitter unkeys to prevent lingering readings across overs.
+### TUNE right-click menu
 
-Hover the mouse over the RF Pwr gauge to see the exact power reading in watts (e.g., "45 W").
+Right-click the TUNE button to choose the carrier shape for the next tune cycle:
 
-SWR is displayed as a horizontal bar gauge. Range 1.0–3.0. The gauge turns red above 2.5.
+| Action      | Behavior                                                                                          |
+|-------------|---------------------------------------------------------------------------------------------------|
+| Mono Tone   | Sets the tune carrier to a single tone. Checked if this is the current mode.                      |
+| Two Tone    | Sets the tune carrier to two tones. Checked if this is the current mode.                          |
 
-Hover the mouse over the SWR gauge to see the exact ratio in conventional form (e.g., "1.52:1").
+The selection is a one-shot transient — the radio's tune mode reverts to single tone across power cycles. AetherSDR does not persist the choice in AppSettings.
+
+| Control | Kind        | Behavior                                                                                      |
+|---------|-------------|-----------------------------------------------------------------------------------------------|
+| TUNE    | Push button | Starts/stops tune carrier; text becomes **TUNING...** with red background while active. Right-click picks the carrier shape (Mono Tone / Two Tone) for the next tune cycle. |
 
 ## MOX button and Quindar tones
 
@@ -108,15 +95,53 @@ Clicking MOX routes through the Quindar-tone coordinator rather than toggling th
 
 The MOX button has a distinct appearance even when idle (amber border and text) to distinguish it from the TUNE/ATU/MEM buttons. The button turns red while the transmitter is keyed and returns to its amber accent when the transmitter is off. The accent colours are theme-editable via `color.tx.mox.*` tokens.
 
+When the transmitter is keyed, the MOX button turns red. When the transmitter is off, the button returns to its amber accent.
+
 | Control | Kind          | Behavior                                                                                                                                                      |
 |---------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MOX     | Toggle button | Toggles manual transmit. Routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindan is enabled. Button goes red while TX is keyed, amber accent when idle. |
+| MOX     | Toggle button | Toggles manual transmit. Routes through the Quindar-tone coordinator so K/BK tones play on PTT engage/disengage in phone modes when Quindar is enabled. Button goes red while TX is keyed, amber accent when idle. |
 
-## ATU MEM button
+## ATU button
+
+The ATU button starts the internal antenna tuner tuning cycle. It uses a per-frequency toggle that mirrors SmartSDR behaviour:
+
+- **First click** (or any click after a frequency change): starts a new ATU tune cycle.
+- **Second click at the same frequency**, when the ATU reports a successful match: switches the tuner to bypass.
+- **Click after any frequency change**: always starts a fresh tune cycle, even if the previous status was successful.
+
+The bypass state is cleared automatically when the transmit frequency changes, so the next click will start a new tune rather than bypassing. There is no change to the ATU button label or appearance; the **Success**, **Byp**, and **Mem** indicators below the button continue to reflect ATU status as before.
+
+### ATU right-click menu
+
+Right-click the ATU button to open a context menu with two actions:
+
+| Action                       | Behavior                                                                                     |
+|------------------------------|----------------------------------------------------------------------------------------------|
+| Pre-tune bands…              | Opens the ATU Pre-Tune dialog to sweep and store tuner settings across bands. Enabled only when MEM is on. |
+| Clear ATU memories…          | Clears all stored ATU memories on the radio. A confirmation dialog appears before clearing.  |
+
+| Indicator | Kind      | Behavior                                                          |
+|-----------|-----------|-------------------------------------------------------------------|
+| Success   | Indicator | Lights green when the ATU reports a successful or OK match.       |
+| Byp       | Indicator | Lights orange when the ATU is in bypass or manual bypass.         |
+| Mem       | Indicator | Lights green when the ATU is using a stored memory.               |
+
+| Control | Kind        | Behavior                                                                                      |
+|---------|-------------|-----------------------------------------------------------------------------------------------|
+| ATU     | Push button | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. |
+
+### ATU and MEM availability
+
+The ATU and MEM buttons are disabled with explanatory tooltips in two situations:
+
+- **No antenna tuner fitted:** The radio reports no internal ATU. The tooltip reads "This radio has no antenna tuner".
+- **TGXL in OPERATE mode:** The TGXL amplifier is present and in OPERATE (not bypass). The tooltip reads "Disabled — TGXL is in OPERATE mode".
+
+When disabled for either reason, the TUNE button remains enabled so you can still send a carrier through the TGXL for power and SWR checks.
 
 | Control | Kind          | Behavior                                                                        |
 |---------|---------------|---------------------------------------------------------------------------------|
-| MEM     | Toggle button | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.       |
+| MEM     | Toggle button | Toggles ATU memory recall on/off. Disabled when the radio has no ATU or when TGXL is in OPERATE mode. |
 
 ## Theme support
 

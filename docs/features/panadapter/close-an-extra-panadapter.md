@@ -94,6 +94,18 @@ On radio reconnect, the desired panadapter FPS and waterfall line duration are r
 
 In v26.6.1, the panadapter and its CW decode panel now use theme-aware styling instead of hardcoded colors. The title bar gradient, drag grip dots, slice title, stats labels, and CW panel background all reference theme color tokens. This means the panadapter automatically adapts to light and dark themes without requiring manual color overrides. The theme system replaces the previous fixed-color stylesheets with token-based values such as `{{color.background.1}}`, `{{color.text.secondary}}`, and `{{color.accent}}`.
 
+## 3D FFT spectrum view (v26.7.x)
+
+Starting in v26.7.x, the panadapter includes an optional 3D FFT spectrum view. When enabled, signal history is displayed as a forward-scrolling 3D surface with elevation shadows and smooth-scroll boundaries. Slice flags cast cached elevation shadows on the surface. The floor resynchronizes automatically after a bandwidth zoom.
+
+Use the **3D FFT view** toggle button to enable or disable this view. The button is part of the SpectrumWidget and defaults to disabled.
+
+## Canvas hosting (v26.8.4)
+
+In v26.8.4, a panadapter on the workspace canvas behaves as a live-move item. When the panadapter is hosted on the canvas (rather than in the older stack layout), dragging its title strip streams the move gesture directly to the canvas — the same mechanism used by other canvas items — instead of the old floating-window drag. A 6-pixel threshold separates a click (which activates the panadapter) from a drag.
+
+When a panadapter is on the canvas, the pop-out button (⬈) is always visible, even if it is the only panadapter present. This is intentional: the single-pan button hiding applies only to the stacked layout, not to canvas items, which can always be popped out.
+
 ## Related
 
 - [Panadapter overview](overview.md)

@@ -190,9 +190,10 @@ Configure how spots appear on the panadapter.
 - Double-click any slider knob in the Signal History section to instantly reset it to its factory default value.
 - The **Spot List** tab uses a flow layout for band checkboxes, so they wrap to new rows when the dialog is narrow instead of being compressed.
 - Right-click the spot table header to show or hide columns — the column visibility menu stays open while you toggle multiple checkboxes.
+- Click the **Time** column header in the Spot List table to restore newest-first ordering after sorting by another column.
 
 ## Related
 
 - [Toggle Signal History voice markers on the panadapter](toggle-signal-history-voice-markers-on-the-panadapter)
 - [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-marker-lifetime-qrm-gate-and-edge-threshold)
-- [Pick custom colors for voice signal and QRM markers](pick-custom-colors-for-voice-signal-and-qrm-markers)
+- [Pick custom colors for

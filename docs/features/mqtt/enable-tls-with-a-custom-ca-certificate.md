@@ -38,7 +38,7 @@ This page explains how to turn on TLS encryption for the MQTT connection and, op
 
 ## Tips
 
-- The password is stored in the system keychain and is loaded automatically when you first enable the connection.
+- The password is stored in the system keychain and is loaded automatically when you first enable the connection. On builds without keychain support, the password is stored for the current session only and must be re-entered after restarting AetherSDR.
 - If you uncheck TLS after having set it to port `8883`, the Port field automatically reverts to `1883`. Check the port value before clicking Enable if your broker uses a non-standard port.
 - The CA certificate field is only available when the Use TLS checkbox is checked.
 - Settings are saved when you click **OK** in the MQTT Settings dialog or when Enable is clicked to the "On" position.
@@ -52,7 +52,7 @@ This page explains how to turn on TLS encryption for the MQTT connection and, op
 - **CA certificate field is not visible** — The Use TLS checkbox is not checked. Check the Use TLS checkbox; the CA certificate field appears immediately.
 - **Port reverted to 1883 after unchecking TLS** — This is expected behavior. Re-enter your broker's port manually if it is non-standard.
 - **Enable toggles back to "Off" immediately** — The broker is unreachable or rejected the connection. Check the Host, Port, and TLS settings, and confirm the broker is running and accessible from this machine.
-- **Status shows 'Waiting for keychain'** — The system keychain is not unlocked or the password has not been saved yet. Re-enter the password in the MQTT Settings dialog and try again.
+- **Status shows 'Waiting for keychain'** — The system keychain is not unlocked or the password has not been saved yet. Re-enter the password in the MQTT Settings dialog and try again. On builds without keychain support, the password is session-only and you must re-enter it after restarting AetherSDR.
 
 ## Related
 

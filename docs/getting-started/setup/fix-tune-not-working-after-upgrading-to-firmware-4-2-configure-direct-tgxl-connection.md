@@ -32,6 +32,7 @@ The button turns red and reads **TUNING...** while the autotune sweep runs. When
 - The PWR and SWR labels display live values updated from the TGXL. If no valid power reading is received for 800 ms, the labels return to their static names to prevent flickering from packet gaps.
 - A white peak tick appears on the Fwd Pwr gauge at the highest measured power. The tick clears automatically after 2.5 seconds of no new peak.
 - The SWR gauge snaps to 1.0 (empty) when forward power is below 5 W (the noise floor threshold). This prevents idle noise readings from lighting up the SWR bar. The raw SWR value is still retained internally for post-tune capture logic.
+- In v26.8.4, the power scale is no longer reapplied on every radio status update. The scale only updates when the amplifier state or maximum wattage actually changes, which reduces unnecessary repaints and improves UI responsiveness.
 
 ## Troubleshooting
 

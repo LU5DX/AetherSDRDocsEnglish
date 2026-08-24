@@ -34,6 +34,7 @@ The Solar And Lunar panel in the HF Propagation Dashboard displays a live solar 
 - Read the **What To Look For** panel alongside each image. It provides plain-language guidance matched to the current solar view, which helps you connect visual features to propagation effects.
 - The **Flaring (94Å)** view highlights high-temperature plasma associated with flare activity. Cross-reference it with the **X-RAY** metric card to see whether any visible flare regions are producing elevated X-ray flux.
 - No radio connection is required to use this feature.
+- The dashboard applies a 15-second transfer timeout when fetching space-weather data. If the solar image or other dashboard data appears stale, wait briefly for the fetch to complete or refresh the dashboard.
 
 ## Dashboard window behavior
 

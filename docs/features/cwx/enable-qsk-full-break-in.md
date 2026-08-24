@@ -33,7 +33,7 @@ To turn QSK off, click **QSK** again.
 
 ## How Send and Live interact
 
-In v26.6.1 the **Send** and **Live** buttons no longer act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
+The **Send** and **Live** buttons do not act as a simple mutually exclusive group. Their behavior depends on the current state of the panel:
 
 - **Live** is a toggle. Click it once to enable live character-by-character keying; click it again to disable it. The button's checked state always reflects the model's live state, even if the state was changed externally.
 - **Send** behaves differently depending on whether **Live** is active when you click it:

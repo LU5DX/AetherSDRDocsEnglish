@@ -17,8 +17,8 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 6. To open the settings drawer, double-click anywhere on the waveform display. Double-click again to close it. The drawer's open/closed state is remembered across app restarts.
 7. In the settings drawer, use the View combo box to choose a visualization: **Scope**, **Envelope**, **History**, or **Bands**. The default is **Scope**.
 8. Use the Zoom slider to scale the amplitude axis. The default is 1.7x (range 1.0x–6.0x). Drag right to stretch small signals; at high zoom values, clipping artifacts appear sooner.
-9. Use the FPS slider to set how often the display repaints (range 5–60 Hz, default 25). Lower values reduce CPU load.
-10. Use the Window slider to set the time window displayed. Slider stops at discrete steps: 240 ms, 480 ms, 1 s, then 1-second increments to 10 s. The default is 1 s.
+9. Use the FPS slider to set how often the display repaints (range 5–30 Hz, default 24). Lower values reduce CPU load.
+10. Use the Window slider to set the time window displayed, in milliseconds (range 10–500 ms, default 200 ms). The displayed time window is continuous, with larger values showing more history at reduced resolution.
 
 ## What each control does
 
@@ -26,8 +26,8 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 |-------------------------|------------|-------------------------------------------------------------------|
 | View                    | Scope      | Scope, Envelope, History, Bands                                   |
 | Zoom                    | 1.7x (170) | 1.0x–6.0x (100–600)                                               |
-| FPS                     | 25         | 5–60 Hz                                                           |
-| Window                  | 1 s        | 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s |
+| FPS                     | 24         | 5–30 Hz                                                           |
+| Window                  | 200 ms     | 10–500 ms                                                         |
 | Click on display        | Live       | Live / Paused                                                     |
 | Double-click on display | —          | —                                                                 |
 | Settings drawer         | Expanded   | Expanded / Collapsed                                              |
@@ -38,7 +38,7 @@ The Waveform applet displays a live time-domain view of the active TX or RX audi
 - Click once on the waveform to freeze a snapshot when you notice a transient. Click again to resume the live view.
 - The settings drawer remembers whether it was open or closed when you last used it, and restores that state on next launch.
 - The click discrimination interval used for single-click versus double-click detection is read from the Radio Setup at click time, so changes to `Settings > Radio Setup... > Audio > Click Discrimination Interval (ms)` take effect without restarting AetherSDR.
-- The Window slider uses discrete steps rather than continuous adjustment. Each notch provides a specific time window value. The first three steps (240 ms, 480 ms, 1 s) give sub-second detail; the remaining steps increase in 1-second increments up to 10 s.
+- The Window slider gives continuous adjustment from 10 ms to 500 ms. The default 200 ms window shows a good balance of detail and history; values below 100 ms are useful for spotting fast transients.
 - You can set the View mode, Zoom, FPS, and Window controls using keyboard navigation. Each control has an accessible name (WAVE view mode, WAVE zoom, WAVE FPS, WAVE window) that screen readers can announce.
 
 ## Troubleshooting

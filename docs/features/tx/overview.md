@@ -25,8 +25,8 @@ None of the TX Controls settings are persisted by AetherSDR; values follow the r
 
 | Control | Kind | Default | Range / States | What it does |
 |---|---|---|---|---|
-| **RF Pwr** | Meter | — | 0–120 W; red above 100 W (barefoot) / 0–600 W; red above 500 W (Aurora 500W) | Displays forward power at the exciter output. The scale changes automatically based on radio model. Includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays to the current smoothed value. The peak resets to zero immediately when the transmitter un-keys. Hover the mouse over the gauge to see the exact wattage readout (e.g. "45 W"). |
-| **SWR** | Meter | — | 1.0–3.0; red above 2.5 | Displays standing wave ratio at the exciter. Hover the mouse over the gauge to see the exact ratio readout (e.g. "1.42:1"). |
+| **RF Pwr** | Meter | — | 0–120 W; red above 100 W (barefoot) / 0–600 W; red above 500 W (Aurora 500W) | Displays forward power at the exciter output. The scale changes automatically based on radio model. Includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then decays to the current smoothed value. The peak resets to zero immediately when the transmitter un-keys. When not transmitting, the meter reads zero. Hover the mouse over the gauge to see the exact wattage readout (e.g. "45 W"). |
+| **SWR** | Meter | — | 1.0–3.0; red above 2.5 | Displays standing wave ratio at the exciter. When not transmitting, or when no valid SWR value is reported, the gauge rests at 1.0. Hover the mouse over the gauge to see the exact ratio readout (e.g. "1.42:1"). |
 | **RF Power** | Slider | 100 | 0–100 | Sets the transmit RF power level as a percentage of maximum. During slider drag, a tooltip shows the current percentage (e.g. "75%"). Values are synced to the radio when you release the slider. |
 | **Tune Pwr** | Slider | 10 | 0–100 | Sets the tune-carrier power level as a percentage of maximum. During slider drag, a tooltip shows the current percentage (e.g. "50%"). Values are synced to the radio when you release the slider. |
 | **TX Profile** | Drop-down | — | Populated from radio | Selects and loads a transmit profile from the radio's profile list. |
@@ -35,8 +35,8 @@ None of the TX Controls settings are persisted by AetherSDR; values follow the r
 | **Mem** | Indicator | Dim | Dim / green | Lights green when the ATU is recalling a saved memory. |
 | **TUNE** | Button | — | TUNE / TUNING... | Starts a tune carrier. Label changes to "TUNING..." with a red background while active. Click again to stop. Right-click to open the Tune Context Menu and select the carrier shape. |
 | **MOX** | Toggle button | — | Off / on (red) | Toggles manual transmit. Button turns red while the transmitter is keyed. When idle, the button has an amber accent border and text to distinguish it from the TUNE, ATU, and MEM buttons (customizable in the Theme Editor). In v0.9.7, clicking MOX routes through the Quindar-tone coordinator so K/BK tones play on PTT engage and disengage in phone modes when Quindar is enabled in the Audio Channel Strip. See [MOX and Quindar tones](#mox-and-quindar-tones) below. |
-| **ATU** | Button | — | — | Starts an ATU tune cycle or switches the tuner to bypass, depending on current state and frequency. See [ATU button behaviour](#atu-button-behaviour) below. Disabled when TGXL is in OPERATE mode. Right-click to open the ATU Context Menu. |
-| **MEM** | Toggle button | — | Off / on | Toggles ATU memory recall on or off. Disabled when TGXL is in OPERATE mode. |
+| **ATU** | Button | — | — | Starts an ATU tune cycle or switches the tuner to bypass, depending on current state and frequency. See [ATU button behaviour](#atu-button-behaviour) below. Disabled when TGXL is in OPERATE mode, or when the radio has no antenna tuner. Right-click to open the ATU Context Menu. |
+| **MEM** | Toggle button | — | Off / on | Toggles ATU memory recall on or off. Disabled when TGXL is in OPERATE mode, or when the radio has no antenna tuner. |
 | **APD** | Toggle button | — | Off / on | Toggles Adaptive Pre-Distortion on the radio. |
 | **Active** | Indicator | Dim | Dim / green | Lit when APD is on and the equalizer is actively applied. |
 | **Cal** | Indicator | Dim | Dim / green | Lit when APD is on and still calibrating. |
@@ -51,6 +51,13 @@ The **ATU** button toggles between starting a tune cycle and bypassing the tuner
 - **After a bypass** — the tuned-frequency record is cleared. The next click always starts a fresh tune cycle.
 
 If you change frequency between clicks, the button always starts a new tune cycle regardless of the previous ATU status.
+
+### ATU and MEM button availability
+
+The **ATU** and **MEM** buttons are disabled, with an explanatory tooltip, in two situations:
+
+- **Radio has no antenna tuner** — the radio reported no tuner is present (e.g. a Hermes-Lite 2). The tooltip reads "This radio has no antenna tuner". This check takes priority over the TGXL state.
+- **TGXL is in OPERATE mode** — the tuner is bypassed through the TGXL. The tooltip reads "Disabled — TGXL is in OPERATE mode". **TUNE** stays enabled; it sends a carrier through the TGXL for power/SWR checks, matching SmartSDR behaviour (#443).
 
 ### ATU context menu
 
@@ -90,11 +97,13 @@ V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, 
 - Keep **Tune Pwr** low (the default is 10) to avoid stressing the antenna or amplifier during ATU tuning.
 - Watch the **SWR** meter after a tune cycle. The **Success** indicator confirms the ATU found a match, but the SWR meter shows you the actual result.
 - The **RF Pwr** meter scale changes automatically between 0–120 W (barefoot FLEX-8600) and 0–600 W (Aurora 500W); the red threshold adjusts accordingly.
-- The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then gradually decays. This resets immediately when you un-key the transmitter.
+- The **RF Pwr** meter includes a peak-hold bar that holds the highest PEP reading for 2 seconds, then gradually decays. This resets immediately when you un-key the transmitter. Both the live reading and peak-hold clear to zero on un-key.
+- When the transmitter is not keyed, the **SWR** gauge rests at 1.0 rather than showing a stale reading. A valid SWR value is only displayed while transmitting.
 - Hover the mouse over the **RF Pwr** or **SWR** gauges to see the exact numeric readout — useful when you need precise values rather than estimating from the tick marks.
 - Use the right-click context menu on **TUNE** to switch between Mono Tone and Two Tone tune carriers for testing purposes.
 - After a successful tune, clicking **ATU** a second time at the same frequency bypasses the tuner. To retune, change frequency or click **ATU** again after the bypass.
 - Right-click **ATU** to access the Pre-tune sweep and Clear ATU memories functions.
+- If the **ATU** and **MEM** buttons are disabled, hover over them to see why. The tooltip distinguishes between a radio with no tuner and a TGXL in OPERATE mode.
 - If you use **MOX** on a phone mode with Quindar enabled, allow the K tone to finish before speaking. The transmitter is not keyed until the tone completes.
 - When dragging **RF Power** or **Tune Pwr** sliders, a tooltip displays the exact power value as a percentage (e.g. "75%"), making it easier to set precise levels. Values are sent to the radio when you release the slider.
 
@@ -112,4 +121,4 @@ V0.9.4 adds support for the ShackSwitch device. When a ShackSwitch is detected, 
 - [Make your first QSO with AetherSDR](../../getting-started/tutorials/first-qso.md)
 - Pre-tune ATU memories
 - Clear ATU memories
-<!-- docmesh:llm version=v26.7.4 date=2026-06-15 -->
+<!-- docmesh:llm version=v26.8.4 date=2026-06-16 -->

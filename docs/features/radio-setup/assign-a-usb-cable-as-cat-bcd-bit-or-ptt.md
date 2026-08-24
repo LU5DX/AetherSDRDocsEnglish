@@ -1,6 +1,6 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, transverters, USB cables, peripherals, serial ports, APD, themes, SmartLink pinned certificate management, and KiwiSDR receivers.
+The Radio Setup dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX configuration, Phone/CW, RX calibration, audio, antenna names, filters, calibration, transverters, USB cables, peripherals, serial ports, APD, themes, SmartLink pinned certificate management, and KiwiSDR receivers.
 
 ## Opening the Radio Setup dialog
 
@@ -47,11 +47,18 @@ The **License Info** section displays subscription status, expiration date, radi
 
 ### Remote control and reboot
 
-| Control | Description | Notes |
-|---|---|---|
-| **Remote On** | Enables remote wake / remote-on. | |
-| **Reboot Radio** | Reboots the connected radio. | Only enabled when the radio is connected. Clicking shows a confirmation dialog. On WAN/SmartLink connections, you must reconnect manually after the radio finishes booting. On LAN connections, AetherSDR automatically reconnects. The dialog closes after reboot is initiated. |
-
+| Control                                     | Description                                                                                                                                                              | Notes                                                                                                                                                                                                                                                                            |
+|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Remote On**                               | Enables remote wake / remote-on.                                                                                                                                         |                                                                                                                                                                                                                                                                                  |
+| **Reboot Radio**                            | Reboots the connected radio with a confirmation dialog. AetherSDR disconnects and (on LAN) auto-reconnects once booting finishes.                                        | New in v26.8.4 (#4448). Only enabled when connected and the backend supports a client reboot (e.g. HL2 is RX-only so the button is disabled). On SmartLink/WAN the operator must reconnect manually after the reboot.                                                            |
+| Agent Automation (MCP):                     | Enables the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in.      | New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The AETHER_AUTOMATION launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless AETHER_AUTOMATION_ALLOW_TX is set. |
+| Access Token:                               | Read-only display of the MCP access token; paste it into the assistant's AETHER_MCP_TOKEN environment variable. Stored in the OS secret store.                           | New in v26.8.4. Auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder '(loading…)' until the keychain read lands.                                                                                                                                   |
+| Copy (Access Token)                         | Copies the access token to the clipboard.                                                                                                                                | New in v26.8.4.                                                                                                                                                                                                                                                                  |
+| Rotate (Access Token)                       | Generates a new token and applies it immediately, locking out any client still using the old one.                                                                        | New in v26.8.4.                                                                                                                                                                                                                                                                  |
+| Allow TX via MCP: Enable transmit control   | Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation.                              | New in v26.8.4. Enforced in the bridge; no client can flip it. Overridden by AETHER_AUTOMATION_ALLOW_TX (force on) and AETHER_AUTOMATION_NO_TX (pinned off). A force-unkey watchdog limits bridge-originated TX.                                                                 |
+| Observe only: Read-only (block all driving) | Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused.                                          | New in v26.8.4 (#4188). Enforced in the app, so a client cannot bypass it. AETHER_AUTOMATION_READONLY launch variable pins it on for headless/CI runs.                                                                                                                           |
+| VITA-49 RX buffer:                          | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped. | New in v26.8.4 (#3810). Presets 256 KB to 4 MB. The system caps the grant at net.core.rmem_max; a live 'granted: <size>' label shows what the kernel actually granted.                                                                                                           |
+| granted: (VITA-49 RX buffer)                | Shows the buffer size the kernel actually granted (vs the requested preset).                                                                                             | New in v26.8.4. Shows '(applies on connect)' when no connection is active.                                                                                                                                                                                                       |
 ### SmartLink tab
 
 The SmartLink tab manages pinned SmartLink TLS certificates. Lists each pinned certificate with host, SHA-256 fingerprint, and pinned date. Cert-pin mismatch now hard-pauses the handshake with a modal dialog.
@@ -167,7 +174,8 @@ The Phone/CW tab configures microphone, CW keyer, and RTTY defaults.
 
 | Control | Default | Setting Key | Description |
 |---|---|---|---|
-| **Decode:** | True | `CwDecodeOverlay` | Enables the CW decode overlay on the panadapter. |
+| **Decode: RX** | True | `CwDecoder` (nested JSON, `rx` field) | Enables the CW decode overlay on the panadapter for received CW. |
+| **Decode: TX** | False | `CwDecoder` (nested JSON, `tx` field) | Decodes the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing. |
 
 ### RTTY
 
@@ -200,69 +208,4 @@ The calibration controls are visible regardless of whether a GPSDO is installed.
 |---|---|---|
 | **Cal Frequency (MHz):** | Frequency used for calibration, entered in MHz to six decimal places. | Sent to the radio as `radio set cal_freq=<value>`. |
 | **Start** | Begins the calibration sweep. Disabled and labelled **Busy** while a calibration is in progress. | Resets `freq_error_ppb` to 0 before starting. Requires a non-empty cal frequency. |
-| **Freq Offset (ppb):** | Manual frequency offset correction in parts per billion. | |
-
-### 10 MHz reference
-
-| Control | Default | Range | Description | Notes |
-|---|---|---|---|---|
-| **10 MHz Reference Source:** | Auto | Auto / TCXO / GPSDO / External | Selects oscillator reference source. Options shown depend on hardware installed. | Lock status (Locked / Unlocked) is shown alongside the combo and updates live. When Auto is selected and the radio has resolved to a specific source, the label shows "Auto -> <source>" to indicate the active hardware. If an External 10 MHz source is selected but no external signal is detected, the label appends "(not detected)". The label reads "Waiting for oscillator status" until the radio reports its first oscillator state. |
-
-## Audio tab
-
-The Audio tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR.
-
-### Radio audio outputs
-
-| Control | Description |
-|---|---|
-| **Line Out:** | Line-out gain slider. |
-| **Mute (Line Out)** | Mutes line-out. |
-| **Headphone:** | Headphone gain slider. |
-| **Mute (Headphone)** | Mutes headphone. |
-| **Front Speaker:** / **Mute** | Mutes front speaker (model-specific). |
-
-### Audio compression
-
-| Control | Default | Setting Key | Description |
-|---|---|---|---|
-| **Audio Compression (SmartLink):** | Auto | `AudioCompression` | Selects audio codec for SmartLink/LAN: Auto, Uncompressed, or Opus. |
-
-### System sleep
-
-| Control | Default | Setting Key | Description |
-|---|---|---|---|
-| **Prevent system sleep while connected** | False | `InhibitSleepWhileConnected` | Keeps OS awake while radio is connected to prevent audio/TCP/UDP stream drops during idle. |
-
-### PC audio devices
-
-| Control | Description |
-|---|---|
-| **PC Audio Devices: Input:** | Picks host audio input device. |
-| **PC Audio Devices: Output:** | Picks host audio output device. |
-
-### Audio boost and buffer
-
-| Control | Default | Range | Setting Key | Description |
-|---|---|---|---|---|
-| **Audio Boost:** | | | `AudioBoost` | Enables extra gain on the client audio path. |
-| **Audio Buffer:** | 200 | 50-1000 ms | `AudioBufferMs` | Increases audio buffer in milliseconds for VPN/SmartLink jitter. |
-
-### Recording
-
-| Control | Default | Range | Setting Key | Description |
-|---|---|---|---|---|
-| **Recording:** | Radio Side | Radio Side / Client Side | `RecordingMode` | Picks radio-side or client-side recording. |
-| **Save to:** | | | `QsoRecordingDir` | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. |
-| **...** | | | | Browses for recording folder. |
-| **Auto-record on TX** | False | | `QsoRecordingAutoRecord` | Automatically records while transmitting. |
-| **Idle timeout:** | 120 | 10-3600 sec | `QsoRecordingIdleTimeout` | Seconds of silence before recording stops. |
-
-### NVIDIA BNR
-
-| Control | Description |
-|---|---|
-| **NVIDIA BNR: Autostart Container** | Enables automatic container startup. |
-| **NVIDIA BNR: Start / Stop** | Manually starts or stops the NVIDIA Broadcast noise-removal container. |
-| **NVIDIA BNR: Check Status** | Checks container status. |
-| **NVIDIA BNR status dot** | Colored dot indicating container
+| **Freq Offset (pp

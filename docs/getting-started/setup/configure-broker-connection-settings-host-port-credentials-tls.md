@@ -34,9 +34,11 @@ Set up the MQTT broker address, authentication, and TLS options that AetherSDR u
 | Publish buttons     | Click publishes the configured payload to the configured topic via MqttClient::publish. Buttons are configured in the MQTT Settings dialog.                | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab.                                                                                                                    |
 | Message log         | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                                        | Capped to 50 entries.                                                                                                                                                                                  |
 | Status label        | Disconnected                                                                                                                                               | Shows "Connected" (green) on success, "Disconnected" (grey) when off or failed, or an error message (default color).                                                                                   |
+
 ## Tips
 
 - The password is migrated to your system keychain the first time you enable the MQTT connection. If the migration fails, AetherSDR logs a warning and preserves the plain-text entry for retry.
+- v26.8.4: If an MQTT password arrives via XML import (RFC #4603), it is stored in a session credential vault and used immediately. If the keychain is unavailable, the password remains session-only and is never written to plain-text settings.
 - If you enable the connection ("On") but the password hasn't been loaded from keychain yet, the status shows **Waiting for keychain** until the keychain read completes.
 - v26.6.1: The MQTT applet now uses theme-aware colors for all UI elements, adapting to both light and dark themes automatically.
 - v26.6.3: The message log now also shows transmitted messages as `TX topic: payload` lines, helping you confirm that publish buttons send the correct data.

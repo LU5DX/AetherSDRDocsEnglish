@@ -41,10 +41,14 @@ SmartLink lets you connect to a FLEX-8600 that is at a different location from y
 If your radio is on a VPN or a routed network that is not visible via LAN discovery, use Manual mode instead of SmartLink.
 
 1. Click **Connect by IP** on the Local page, or click the **Manual** mode button at the top of the connection screen.
-2. In the **Radio IP address** field, type the IP address of the radio. The field accepts IPv4 and IPv6 addresses. AetherSDR normalizes the address when you connect.
+2. In the **Radio IP address** field, type the IP address of the radio. The field accepts IPv4 and IPv6 addresses, as well as hostnames. AetherSDR normalizes the address when you connect.
 3. The **Radio IP address** control is a drop-down as well as a text field. It stores up to three recently used addresses (saved as `RecentConnectByIpAddresses`). To reuse a previous address, click the drop-down arrow and select it from the list.
 4. If needed, select the local network interface to use in **Advanced: Source path**. A **Source warning label** appears beneath the selector if the chosen interface is stale or unreachable.
 5. Click **Connect by IP (manual)**. The **Manual result label** shows whether the probe succeeded or failed.
+
+### Hostnames in the Manual IP field
+
+The **Radio IP address** field accepts hostnames in addition to numeric IP addresses. This is especially useful for Icom radios whose documented default address is a hostname (for example, `ic-705.local`). The recent-address drop-down remembers hostnames you enter across sessions, just as it does for numeric addresses. Hostnames are validated against a conservative character set (letters, digits, dot, hyphen, underscore, with alphanumeric ends) before being saved and are limited to 253 characters.
 
 ## Managing radio nicknames
 
@@ -60,13 +64,16 @@ Right-click any radio in the **Available radios** list on the Local page to set 
 - The **Enable adaptive frame-rate throttle** checkbox is unchecked by default. When enabled, AetherSDR automatically lowers the FFT and waterfall frame rate when network quality degrades, helping maintain a stable connection on variable-quality links.
 - The **Available radios** list on the Local page has a fixed maximum height so that the list scrolls internally when many radios are discovered. On small displays (for example, a 1024×600 panel), this prevents the Connect button and lower radios from becoming unreachable. The list shows a vertical scrollbar as needed.
 - Right-click context menus on the **Available radios** list are read by screen readers and reported as "available local radios" with an accessible description of "Discovered FlexRadio radios on the local network".
+- Hostnames in the **Radio IP address** field use a conservative character set (letters, digits, dot, hyphen, underscore, with alphanumeric ends) and are limited to 253 characters. Addresses that do not match this pattern are not remembered in the recent list.
+- The **Network Diagnostics** button appears on both the Local page and the Manual page. Use it to verify network reachability before attempting a connection.
 
 ## Troubleshooting
 
 - **Remote radios list is empty after Sign In** — The radio at the remote location may be offline or SmartLink may not be enabled on it. Confirm the radio is powered on and registered to the same FlexRadio account.
 - **Sign In fails or the status label shows an error** — Check that your email and password are correct. Verify that AetherSDR has outbound internet access and that no firewall or proxy is blocking the SmartLink connection.
 - **Audio is choppy or drops frequently** — Enable **Use low bandwidth mode** before connecting to reduce stream rates for the link. For variable-quality connections, also enable **Enable adaptive frame-rate throttle** to automatically adjust display update rates.
-- **Manual connection fails or the Manual result label shows an error** — Confirm the IP address is correct and reachable from this machine. Check that the selected source interface in **Advanced: Source path** is active; dismiss any **Source warning label** by selecting a valid interface.
+- **Manual connection fails or the Manual result label shows an error** — Confirm the IP address or hostname is correct and reachable from this machine. Check that the selected source interface in **Advanced: Source path** is active; dismiss any **Source warning label** by selecting a valid interface.
+- **A hostname entered in the Manual IP field is not remembered** — The hostname may contain characters outside the accepted set (letters, digits, dot, hyphen, underscore, with alphanumeric ends) or exceeds 253 characters. Numeric IP addresses are canonicalized and always accepted.
 - **AetherSDR connects to the wrong radio on startup** — Uncheck **Connect to last radio on start up** so the connection screen opens on every launch and you can select the intended radio.
 - **Connection dialog appears with incorrect geometry after exiting full-screen or frameless mode** — If you had the connection dialog in frameless mode and it was hidden when the window was restored, the dialog preserves its position only when it was visible at the time of restoration. This prevents the dialog from appearing off-screen.
 - **Available radios list only shows a few entries and does not scroll** — The list has a maximum height of 240 pixels. If more radios are discovered than fit, the vertical scrollbar appears automatically. Use the scroll wheel or drag the scrollbar to see the rest of the list.

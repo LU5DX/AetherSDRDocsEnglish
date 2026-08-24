@@ -13,13 +13,13 @@ The dialog can be moved by clicking and dragging the title bar. Double-click the
 
 The title bar contains three window control buttons and a grip glyph:
 
-| Button | Action |
-|--------|--------|
-| **⋮⋮ (Grip glyph)** | Visual reference indicator on the left of the title bar. |
-| **— (Minimize)** | Minimizes the dialog. |
-| **□ (Maximize)** | Maximizes or restores the dialog. |
-| **× (Close)** | Closes the dialog. |
-
+| Button                    | Action                                                                                                                                                                                                       | Notes                                                                                                                                                                      |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **⋮⋮ (Grip glyph)**       | Visual reference indicator on the left of the title bar.                                                                                                                                                     |                                                                                                                                                                            |
+| **— (Minimize)**          | Minimizes the dialog.                                                                                                                                                                                        |                                                                                                                                                                            |
+| **□ (Maximize)**          | Maximizes or restores the dialog.                                                                                                                                                                            |                                                                                                                                                                            |
+| **× (Close)**             | Closes the dialog.                                                                                                                                                                                           |                                                                                                                                                                            |
+| Noise Floor (RN2 dry mix) | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. | Affects received audio only; the transmit denoiser is unchanged. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. |
 ## DSP engine selection tabs
 
 Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine's page. Clicking a tab also activates or bypasses the corresponding engine. When NR2 is activated, AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
@@ -28,7 +28,7 @@ Click any of the six tabs (NR2, NR4, MNR, DFNR, RN2, BNR) to select that engine'
 
 - **MNR** — Dimmed on Windows/Linux builds. The MNR engine has no backend on those platforms.
 - **BNR** — Dimmed on builds without the NVIDIA Broadcast SDK.
-- **RN2** — Purely informational; no adjustable parameters.
+- **RN2** — Adjustable Noise Floor slider (new in v26.8.4); previously purely informational.
 - **DFNR** — Dimmed on builds without the DeepFilterNet SDK.
 
 ## NR2 tab
@@ -43,10 +43,8 @@ NR2 provides musical-noise reduction. Select it by clicking the **NR2** toggle.
 | **NPE Method** | Radio buttons | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` (stored as integer 0-2) |
 | **AE Filter (artifact elimination)** | Checkbox | True | - | `NR2AeFilter` |
 | **Reduction:** | Slider | 1.50 | 0.50-2.00 | `NR2GainMax` (stored as value*100) |
-| **Floor:** | Slider | 0.00 | 0.00-1.00 | `NR2GainFloor` (stored as value*100) |
 | **Smoothing:** | Slider | 0.85 | 0.50-0.98 | `NR2GainSmooth` |
 | **Threshold:** | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` |
-| **Use Original Geometry** | Checkbox | False | - | `NR2UseOriginalGeometry` |
 | **Reset Defaults (↺ icon)** | Push button | - | - | - |
 
 ### Gain Method descriptions
@@ -62,17 +60,9 @@ NR2 provides musical-noise reduction. Select it by clicking the **NR2** toggle.
 - **MMSE** — Minimum mean square error estimation.
 - **NSTAT** — Noise statistics-based estimator.
 
-### Floor
-
-Sets the minimum gain floor for NR2. Lower values allow more aggressive noise reduction.
-
-### Use Original Geometry
-
-When checked, uses the original geometric gain calculation method from earlier AetherSDR versions.
-
 ### Reset Defaults (NR2)
 
-Restores NR2 tab to Gamma/OSMS/AE on, Reduction 1.50, Floor 0.00, Smoothing 0.85, Threshold 0.20, Use Original Geometry unchecked.
+Restores NR2 tab to Gamma/OSMS/AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
 
 ## NR4 tab
 
@@ -105,7 +95,6 @@ MNR provides macOS MMSE-Wiener noise reduction with asymmetric gain smoothing. C
 
 | Control | Kind | Default | Range | Setting Key |
 |---------|------|---------|-------|-------------|
-| **Enable MNR (macOS only)** | Checkbox | - | - | `MnrEnabled` (initial state read live from AudioEngine) |
 | **Strength** | Slider | 100 | 0-100 | `MnrStrength` (persisted as normalized 0.00-1.00) |
 
 ## DFNR tab
@@ -120,22 +109,36 @@ DFNR provides DeepFilterNet3 noise reduction. Select it by clicking the **DFNR**
 |---------|------|---------|-------|-------------|
 | **Attenuation Limit** | Slider | 100 | 0-100 dB | `DfnrAttenLimit` (0 = passthrough, 100 = maximum) |
 | **Post-Filter Beta** | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` (stored as value*100) |
+| **Reset Defaults (↺ icon)** | Push button | - | - | - |
 
 ## RN2 tab
 
-RN2 uses the RNNoise engine. This tab is purely informational with no adjustable parameters.
+RN2 provides RNNoise-based noise reduction. Select it by clicking the **RN2** toggle.
+
+### RN2 controls
+
+| Control | Kind | Default | Range | Setting Key |
+|---------|------|---------|-------|-------------|
+| **Noise Floor (RN2 dry mix)** | Slider | 0 | 0-100 | - |
+
+The Noise Floor slider sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. Affects received audio only; the transmit denoiser is unchanged.
+
+### Reset Defaults (RN2)
+
+Restores RN2 tab to Noise Floor 0.
 
 ## BNR tab
 
-BNR uses the NVIDIA Broadcast SDK. Intensity control is available from the overlay menu. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+BNR uses the NVIDIA Broadcast SDK. Intensity control is available from the overlay menu. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK. No adjustable parameters — Reset Defaults is a no-op here.
 
 ## Tips
 
-- **NR2** — **Gamma** gain method with **OSMS** NPE is the default and works well for most SSB voice contacts. Start here if you are unsure. Enable **Use Original Geometry** if you prefer the previous gain calculation behavior.
+- **NR2** — **Gamma** gain method with **OSMS** NPE is the default and works well for most SSB voice contacts. Start here if you are unsure.
 - **NR4** — **MMSE** noise estimation with adaptive noise enabled provides good baseline performance.
 - **DFNR** — Attenuation Limit at 100 delivers maximum suppression. Lower values allow more noise through.
 - **MNR** (macOS only) — Strength at 100 provides maximum aggressiveness. Reduce for more natural-sounding audio.
-- After changing gain method or NPE method, re-adjust the reduction, floor, smoothing, and threshold sliders to match the new characteristics.
+- **RN2** — Set Noise Floor to 10-20% to keep the receiver sounding alive between phrases; set to 0 for maximum suppression.
+- After changing gain method or NPE method, re-adjust the reduction, smoothing, and threshold sliders to match the new characteristics.
 - Each tab has its own **Reset Defaults** button to restore that engine's parameters to factory settings.
 
 ## Related

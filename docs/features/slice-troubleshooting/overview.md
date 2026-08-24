@@ -16,6 +16,10 @@ The Issue Summary includes remote audio RX diagnostics. For the radio-level audi
 
 The Issue Summary also includes detailed audio endpoint diagnostics showing each endpoint's operational state, running state, backend, device name, sample rate, channel count, sample format, resampling status, buffer metrics, and any error or note.
 
+For audio endpoints that report voice-related resampling, the diagnostics also include voice input normalization to 48 kHz, voice egress resampling to 24 kHz, and RADE resampling to 24 kHz flags.
+
+The Issue Summary includes TX meter diagnostics. When TX meters are not live — for example, when the radio is not currently transmitting — the summary reports that TX forward power is the last value received rather than a current reading, and TX SWR is omitted rather than shown stale. This caveat is included when the TX meter age is available, along with the elapsed time since the last sample, and it helps avoid misreading a missing SWR as an antenna problem.
+
 **JSON tab** shows the full snapshot as structured JSON (schema version 3). This view contains every field AetherSDR collected: slice state, panadapter parameters, transverter RF/IF frequencies, offsets, validity flags, DAX channel assignments, audio devices, client DSP state, control-device bindings, TX band settings, remote audio RX state, and audio endpoint details. Support staff and advanced users can inspect individual field values here.
 
 The snapshot reflects radio state at the moment it was taken. If you change slice settings while the dialog is open, click **Refresh Snapshot** to re-read the current state before drawing conclusions or sharing data.
@@ -24,16 +28,18 @@ The dialog remembers its window position and size between sessions. It will reop
 
 ## What each control does
 
-| Control          | Kind      | Behavior                                                                                        |
-|------------------|-----------|-------------------------------------------------------------------------------------------------|
-| Issue Summary    | Tab       | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, and audio endpoint diagnostics. |
-| JSON             | Tab       | Displays the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP, control devices, TX band settings, remote audio RX state, and audio endpoints. |
-| Refresh Snapshot | Button    | Re-reads slice state into the snapshot. Use this after changing radio configuration.            |
-| Copy Summary     | Button    | Copies the issue summary text to the clipboard.                                                 |
-| Copy JSON        | Button    | Copies the full JSON snapshot to the clipboard.                                                 |
-| Export JSON...   | Button    | Opens a file dialog to save the JSON snapshot to a file.                                        |
-| Close            | Button    | Closes the dialog.                                                                              |
-| Status label     | Indicator | Shows the result of the most recent copy or export action (for example, "Copied to clipboard"). |
+| Control          | Kind                                                                                           | Behavior                                                                                                                                                                              |
+|------------------|------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Issue Summary    | Tab                                                                                            | Displays a plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, and audio endpoint diagnostics.        |
+| JSON             | Tab                                                                                            | Displays the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP, control devices, TX band settings, remote audio RX state, and audio endpoints. |
+| Refresh Snapshot | Button                                                                                         | Re-reads slice state into the snapshot. Use this after changing radio configuration.                                                                                                  |
+| Copy Summary     | Button                                                                                         | Copies the issue summary text to the clipboard.                                                                                                                                       |
+| Copy JSON        | Button                                                                                         | Copies the full JSON snapshot to the clipboard.                                                                                                                                       |
+| Export JSON...   | Button                                                                                         | Opens a file dialog to save the JSON snapshot to a file.                                                                                                                              |
+| Find:            | Text field                                                                                     | Highlights matching occurrences of the entered term in the active tab (Issue Summary or JSON). Has a clear button and placeholder 'Search snapshot...'. Enter jumps to the next match; tab sharing updates highlight counts. The status label shows '<N> match(es) in current tab.' |
+| Find Next        | Button                                                                                         | Jumps to the next match of the search term in the active tab. Wraps within the current tab. Empty term produces no matches.                                                           |
+| Close            | Button                                                                                         | Closes the dialog.                                                                                                                                                                    |
+| Status label     | Indicator                                                                                      | Shows the result of the most recent copy or export action (for example, "Copied to clipboard") or the search match count.                                                             |
 
 ## Tips
 
@@ -41,6 +47,7 @@ The dialog remembers its window position and size between sessions. It will reop
 - Use **Copy Summary** to paste a concise problem list into a support forum post or email. Use **Copy JSON** or **Export JSON...** when attaching full diagnostic data to a bug report.
 - If you are troubleshooting remote audio, check both the radio-level remote audio RX section and the per-slice radio stream route section in the Issue Summary. Both sections must show consistent stream IDs and ownership flags for audio to route correctly.
 - When investigating audio problems, review the audio endpoint diagnostics in the Issue Summary. Non-operational endpoints, high underrun counts, or error messages indicate audio backend considerations.
+- When troubleshooting TX meter readings, note that TX forward power holds its last smoothed value while TX SWR reads n/a when the meters are not live. The Issue Summary explicitly identifies when meters are stale so you do not mistake a plausible wattage reading for a current one.
 
 ## Related
 

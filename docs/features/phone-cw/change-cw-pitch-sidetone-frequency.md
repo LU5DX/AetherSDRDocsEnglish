@@ -14,7 +14,11 @@ In v26.5.3, the CW sidetone now routes to the user-selected audio output instead
 
 In v26.6.1, all slider and button styles were updated to use the active theme system via `ThemeManager::applyStyleSheet()` and `applyPrimarySliderStyle()`, replacing hardcoded color values. The panel container now uses `theme::setContainer()` for proper theming support. Button hover and pressed states now use theme-defined colors (`{{color.background.1}}` and `{{color.accent}}`) instead of fixed hex values.
 
-In v26.7.4, the **Level**, **Compression**, and both **ALC** gauges now display a mouse-over popup that shows the exact numeric value in dB or dBFS when you hover over the gauge. The **Mic source** combo box is automatically disabled and set to **PC** when the radio is being modulated by AetherSDR (host modulation mode), since no physical FlexRadio jacks are usable in that mode.
+In v26.7.4, the **Level**, **Compression**, and both **ALC** gauges now display a mouse-over popup that shows the exact numeric value in dB or dBFS when you hover over the gauge.
+
+In v26.8.4, the CW mode detection now uses a single shared CW-mode list (`isCwMode()`) instead of thirteen ad-hoc comparisons, correctly recognizing CW, CWU, and CWL mode names across Flex, Icom, and HL2 radios. The **Mic source** combo box is now capability-aware: on a radio whose transmit audio comes from this computer, the combo is narrowed to **PC** only, disabled, and given a tooltip explaining that the radio's own input selection is made on the radio. When the radio input cannot be selected by the client, the combo presents **PC** as the only entry and tells the transmit model directly so radiocert does not report a missing transmit audio capture.
+
+In v26.7.4, the **Mic source** combo box is automatically disabled and set to **PC** when the radio is being modulated by AetherSDR (host modulation mode), since no physical FlexRadio jacks are usable in that mode.
 
 ## Before you start
 
@@ -81,8 +85,13 @@ In v0.9.8, the `setCwDelay` method was fixed to cache the value immediately so t
 ### Adjust microphone controls (Phone panel)
 
 1. Select a mic profile from the **Mic profile** combo box to load the named mic processing profile.
-2. Select the mic source from the **Mic source** combo box (MIC, BAL, LINE, ACC, PC, plus any from the radio's mic input list). When AetherSDR is modulating the radio, the **Mic source** combo box is automatically disabled and set to **PC** only, since the physical FlexRadio jacks are not available in this mode.
-3. Adjust the **Mic gain** slider (0–100, default 50) to set the microphone input level. When the source is set to **PC**, the value is stored client-side in `PcMicGain` and the radio ignores it.
+2. Select the mic source from the **Mic source** combo box (MIC, BAL, LINE, ACC, PC, plus any from the radio's mic input list). 
+
+When AetherSDR is modulating the radio, the **Mic source** combo box is automatically disabled and set to **PC** only, since the physical FlexRadio jacks are not available in this mode (v26.7.4).
+
+In v26.8.4, the **Mic source** combo box is also capability-aware. On a radio whose transmit audio comes from this computer, the combo is narrowed to **PC** as the only entry and disabled. A tooltip explains that the radio's own input selection is made on the radio. This prevents the misleading situation where a greyed-out **MIC** entry suggests a physical mic input exists when the radio is actually listening to its network port. The transmit model is updated directly to **PC** in this state so that radiocert does not report a missing transmit audio capture.
+
+3. Adjust the **Mic gain** slider (0–100, default 50) to set the microphone input level. When the source is set to **PC**, the value is stored client-side in `PcMicGain` and the radio ignores it. In v26.8.4, the client-side gain ownership is determined by the capability-aware model sync: the `micLevelChanged` signal is emitted only when the client owns the gain (RADE mode, or selectable mic inputs with **PC** selected), so other components do not double-apply the gain.
 4. Click **+ACC** to enable the accessory microphone input mix.
 5. Click **PROC** to toggle the speech processor on or off.
 6. Use the **NOR/DX/DX+** slider to select the processor level (0 = NOR, 1 = DX, 2 = DX+).
@@ -124,20 +133,3 @@ In v0.9.8, the `setCwDelay` method was fixed to cache the value immediately so t
 | **L / R pan (CW)**  | 50      | 0–100                 |
 | **Breakin**         | —       | On / Off              |
 | **Iambic**          | —       | On / Off              |
-| **Pitch < / >**     | 600 Hz  | 100–6000 Hz (step 10) |
-
-## RADE mode and the mic level slider
-
-When RADE mode is active, the **Mic gain** slider acts as a client-side RADE gain control rather than sending a mic level command to the radio. This mirrors the behavior of the **PC** mic source, where the radio does not use the mic level value. Both cases store their gain in `PcMicGain`.
-
-While RADE is active:
-
-- The **Mic gain** slider reads from and saves to `PcMicGain` and does not send `mic_level` commands to the radio.
-- The **Level** gauge uses the standard receive-gate behavior (v26.5.3). It remains active during receive only if `met_in_rx` is enabled or the radio is transmitting. When RADE mode is active, the gauge state is refreshed via `applyLevelMeterReceiveGate()`.
-- When RADE mode is turned off, the slider reverts to reflecting the radio's mic level, and the **Level** gauge continues to follow the receive-gate logic.
-
-## Tips
-
-- The **Pitch < / >** control affects both the audible sidetone on the radio and the frequency used by the CW decoder. Adjust it to match your personal pitch preference. The client-side sidetone always tracks it automatically.
-- Because pitch and pan follow the radio settings automatically, you only need to adjust **Pitch < / >** and **L / R pan (CW)** in one place — both the radio monitor and the local generator update together.
-- The client-side sidetone generator operates at

@@ -22,15 +22,15 @@ NR2 is AetherSDR's musical-noise-reduction engine.
 
 ### What each control does
 
-| Control | Kind | Default | Valid range | Setting key |
-|---|---|---|---|---|
-| Gain Method | Radio button | Gamma | Linear / Log / Gamma / Trained | `NR2GainMethod` |
-| NPE Method | Radio button | OSMS | OSMS / MMSE / NSTAT | `NR2NpeMethod` |
-| AE Filter (artifact elimination) | Checkbox | On | On / Off | `NR2AeFilter` |
-| Reduction: | Slider | 1.50 | 0.50–2.00 | `NR2GainMax` |
-| Smoothing: | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
-| Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
-| Reset Defaults (↺ icon) | Push button | — | — | — |
+| Control                          | Kind          | Default | Valid range                | Setting key       |
+|----------------------------------|---------------|---------|----------------------------|-------------------|
+| Gain Method                      | Radio button  | Gamma   | Linear / Log / Gamma / Trained | `NR2GainMethod` |
+| NPE Method                       | Radio button  | OSMS    | OSMS / MMSE / NSTAT         | `NR2NpeMethod`   |
+| AE Filter (artifact elimination) | Checkbox      | On      | On / Off                   | `NR2AeFilter`    |
+| Reduction:                       | Slider        | 1.50    | 0.50–2.00                  | `NR2GainMax`     |
+| Smoothing:                       | Slider        | 0.85    | 0.50–0.98                  | `NR2GainSmooth`  |
+| Threshold:                       | Slider        | 0.20    | 0.05–0.50                  | `NR2Qspp`        |
+| Reset Defaults (↺ icon)          | Push button   | —       | —                          | —                |
 
 `NR2GainMethod` is stored as an integer 0–3 (Linear=0, Log=1, Gamma=2, Trained=3). `NR2NpeMethod` is stored as an integer 0–2 (OSMS=0, MMSE=1, NSTAT=2). `NR2GainMax` is stored internally as value × 100.
 
@@ -117,13 +117,32 @@ MNR is AetherSDR's MMSE-Wiener noise reduction engine, available on macOS only. 
 
 ## RN2 tab
 
-The **RN2** tab displays information about the RNNoise engine. There are no adjustable parameters on this tab.
+The **RN2** tab describes the RNNoise engine and hosts the **Noise Floor** dry-mix slider introduced in v26.8.4.
+
+### Steps
+
+1. Click `Settings > AetherDSP Settings...`.
+2. Click the **RN2** tab.
+3. Drag **Noise Floor** to set the percentage of the original signal RN2 leaves under the denoised audio.
+
+### What each control does
+
+| Control | Kind | Default | Valid range | Setting key |
+|---|---|---|---|---|
+| Noise Floor (RN2 dry mix) | Slider | 0 | 0–100 | — |
+
+The **Noise Floor** slider sets the percentage of the original signal RN2 leaves under the denoised audio. At 0, RN2 applies full suppression (the receiver may sound silent between phrases). Setting 10–20% keeps a steady quiet floor so the receiver still sounds alive. The setting affects received audio only; the transmit denoiser is unchanged. The value is persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's `rn2DryMixChanged` signal.
+
+### Tips
+
+- Start at 0 for maximum suppression; if the receiver sounds dead between phrases, raise **Noise Floor** to 10–20% for a natural quiet floor.
+- The **Reset Defaults (↺ icon)** button returns **Noise Floor** to 0.
 
 ---
 
 ## BNR tab
 
-The **BNR** tab displays information about the NVIDIA noise-reduction engine. Intensity is controlled from the overlay menu, not from this dialog. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+The **BNR** tab displays information about the NVIDIA noise-reduction engine. Intensity is controlled from the overlay menu, not from this dialog. The BNR toggle is dimmed on builds without the NVIDIA Broadcast SDK. BNR has no adjustable parameters in this dialog; **Reset Defaults (↺ icon)** is a no-op on this tab.
 
 ---
 

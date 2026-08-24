@@ -27,8 +27,8 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 | **🔓 / 🔒**                         | 🔓         | Unlocked / locked                                                           |
 | **WFM**                           | Off       | Toggle button; green when active                                            |
 | **Mode combo**                    | USB       | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY, WFM (+ RADE if HAVE_RADE) |
-| **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (450.000 MHz on XVTR)                                      |
-| **Frequency edit**                | None      | 0.001–54.000 MHz (450.000 MHz on XVTR); accepts kHz/Hz auto-scaling         |
+| **Frequency label**               | 0.000.000 | 0.001–54.000 MHz (up to 50000 MHz on XVTR)                                  |
+| **Frequency edit**                | None      | 0.001–54.000 MHz (up to 50000 MHz on XVTR); accepts kHz/Hz auto-scaling     |
 | **STEP**                          | 100 Hz    | Per-mode list of step sizes                                                 |
 | **Filter width presets**          | None      | Per-mode preset widths                                                      |
 | **Filter passband widget**        | None      | Drag lo/hi edges to adjust passband                                         |
@@ -38,12 +38,12 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 | **− (offset down)**               | None      | Toggle                                                                      |
 | **Simplex**                       | Checked   | Toggle                                                                      |
 | **+ (offset up)**                 | None      | Toggle                                                                      |
-| **REV**                           | None      | Toggle                                                                      |
+| **REV / XFC**                     | None      | REV (toggle) or XFC (momentary)                                             |
 | **🔊 / 🔇 (mute)**                  | 🔊         | Unmuted / muted                                                             |
 | **AF gain**                       | 70        | 0–100                                                                       |
 | **L / R pan**                     | 50        | 0–100                                                                       |
-| **SQL**                           | None      | Toggle                                                                      |
-| **Squelch level**                 | 20        | 0–100 (persisted client-side as `LastManualSquelchLevel`)                   |
+| **SQL / AUTO**                    | Off       | Off, SQL (Manual), AUTO                                                     |
+| **Squelch level**                 | 20        | Manual: 0–100 (or 0–99 on Kiwi replacement receive); Auto: 5–20 dB margin   |
 | **AGC mode**                      | Med       | Off, Slow, Med, Fast                                                        |
 | **AGC threshold**                 | 65        | 0–100                                                                       |
 | **RIT**                           | None      | Toggle                                                                      |
@@ -72,12 +72,14 @@ The RX Controls applet provides per-slice receive controls: mode, frequency tuni
 - The filter width indicator shares mode-aware formatting logic with the VFO panel (`RxApplet::formatFilterWidth`), ensuring consistent readouts across both locations (#2197).
 - The `stepFilterWidth()` method walks the per-mode filter preset list so widen/narrow keyboard shortcuts produce mode-correct edge geometry (#2208). For example, widening from a 2.7 kHz USB filter selects the next larger preset (e.g. 2.9 kHz) with proper edge placement for USB mode rather than a symmetrical passband.
 - From v26.5.2.1, the slice badge supports HTML-rich text rendering (#2606). This allows the slice letter to be styled with HTML formatting if needed.
-- The squelch manual level is persisted client-side as the setting `LastManualSquelchLevel`. This preserves your manual squelch preference across mode cycles, radio reconnects, and application restarts. The radio's own automatic squelch algorithm may modify the slice's squelch level, but AetherSDR restores the last user-chosen manual level when Auto mode is not active.
 - From v26.6.1, the filter-preset buttons (1.8K, 2.1K, etc.) use theme-aware styling via `kButtonBase()`, which resolves tokens through the ThemeManager. These buttons now re-theme alongside the rest of the UI when the application theme changes. The theme tokens used are `{{color.background.1}}`, `{{color.background.2}}`, and `{{color.text.primary}}`.
 - From v26.6.3, the frequency edit field uses `FreqLineEdit` (a subclass of `QLineEdit`) for improved input handling. It shows "MHz" as hint text rather than placeholder text.
 - From v26.6.3, the **STEP** spinbox emits `stepSizeChangedByUser` in addition to `stepSizeChanged` when the user manually changes the step size. This allows other components to distinguish programmatic step changes from user-initiated ones.
 - From v26.6.3, the AGC threshold slider has a right-click context menu with a **Calibrate AGC-T against noise floor…** option. The tooltip now includes the "Right-click to calibrate against the noise floor" hint for discoverability.
 - From v26.7.4, the CW filter preset list has been expanded from 4 to 6 presets: 50, 100, 250, 400, 500, and 600 Hz.
+- From v26.8.4, squelch is radio-authoritative per the Radio-Authoritative Settings Policy (#4592). The manual squelch level is NOT persisted client-side; the radio is the source of truth for squelch state. The client-side value is only a fallback when no slice is attached.
+- From v26.8.4, the CTCSS tone list now includes additional EIA/TIA-603 tones at 69.3, 159.8, 165.5, 171.3, 177.3, 183.5, 189.9, 196.6, and 199.5 Hz. These tones are displayed without a standard designator code (only the frequency is shown in the combo box).
+- From v26.8.4, CW mode detection uses a single shared helper (`isCwMode()`) that recognizes all CW mode variants, ensuring filter presets and step sizes apply correctly regardless of the specific CW mode selected.
 
 ## Antenna menu changes in v26.5.2.1
 
@@ -112,12 +114,4 @@ The **WFM** button provides a software FM demodulator that uses DAX IQ audio rou
 The RADE mode activation logic has been updated to reflect the fact that "RADE" is a client-side mode only:
 
 - When you select RADE from the mode combo, the client sets the slice mode to "RADE" and emits `radeActivated(true, sliceId)`. The radio itself immediately echoes back the real underlying mode (typically DIGL or DIGU).
-- AetherSDR no longer sets the slice mode on the radio when RADE is selected. The radio's mode feedback is used instead.
-- In v26.5.3, `radeActivated(false)` is emitted only when switching away from RADE on a slice that was genuinely in RADE mode (#2376). This prevents stale deactivate signals when changing modes on a non-RADE slice.
-- If you need to explicitly deactivate RADE mode on a slice, switch the mode to a non-RADE mode using the mode combo.
-
-## Slice tab behavior
-
-In v0.9.5.1, the slice tab row gained more robust lifecycle management to fix issues seen across radio reconnects (#2254).
-
-- When the radio reports a different number of slices than the current tab row contains, AetherSDR tears down all existing tab buttons (`clearSlice
+- AetherSDR no longer sets the slice mode on the radio when RADE is selected. The radio's mode feedback

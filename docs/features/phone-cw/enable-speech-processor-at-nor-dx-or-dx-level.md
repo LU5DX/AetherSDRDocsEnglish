@@ -35,15 +35,15 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 
 | Control               | Kind          | Default | Valid range       | Behavior |
 |-----------------------|---------------|---------|-------------------|----------|
-| **Level**             | Meter         | —       | −40 to +10 dBFS (red > 0) | Shows microphone input peak level in dBFS. Suppressed to −150 when met_in_rx is off and not transmitting. Hover for exact dB reading (v26.7.4). |
+| **Level**             | Meter         | —       | −40 to +10 dBFS (red > 0) | Shows microphone input peak level in dBFS. Suppressed to −150 when met_in_rx is off and not transmitting. Hover for exact dB reading (v26.7.4). Hidden when the radio takes transmit audio from this computer and its own input selection is made on the radio (v26.8.4). |
 | **Compression**       | Meter         | —       | −25 to 0 dB (reversed fill) | Shows speech compression amount in dB. In v0.9.7, gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Hover for exact dB reading (v26.7.4). |
 | **Mic profile**       | Combo box     | —       | Populated from radio micProfileList() | Loads the named mic processing profile. |
-| **Mic source**        | Combo box     | —       | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source. When host modulation is active (radio is modulated by AetherSDR), the combo box is disabled and shows only "PC" with an explanatory tooltip. |
-| **Mic gain**          | Slider        | 50      | 0–100           | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence. |
+| **Mic source**        | Combo box     | —       | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source. When host modulation is active (radio is modulated by AetherSDR), the combo box is disabled and shows only "PC" with an explanatory tooltip. When the radio takes transmit audio from this computer and its own input selection is made on the radio (v26.8.4), the combo box shows only "PC" and is disabled, and the model is forced to report "PC" so radiocert does not warn about missing transmit audio capture. |
+| **Mic gain**          | Slider        | 50      | 0–100           | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence. In v26.8.4, micLevelChanged is only emitted when the client owns the gain: RADE mode, or selectable mic inputs with PC selected. |
 | **+ACC**              | Toggle button | —       | —               | Enables the accessory mic input mix. |
 | **PROC**              | Toggle button | —       | —               | Toggles the speech processor. |
 | **NOR/DX/DX+**        | Slider        | 0       | 0 (NOR), 1 (DX), 2 (DX+) | Three-position processor level. |
-| **DAX**               | Toggle button | —       | —               | Enables DAX as the TX audio source. |
+| **DAX**               | Toggle button | —       | —               | Enables DAX as the TX audio source. Hidden when the radio takes transmit audio from this computer (v26.8.4). |
 | **MON**               | Toggle button | —       | —               | Enables TX sidetone monitor. |
 | **Monitor volume**    | Slider        | —       | 0–100           | Sets sideband monitor volume. |
 | **ALC (Phone panel)** | Meter         | —       | −20 to 0 dBFS (red > −3) | Shows automatic level control reading from MeterModel::swAlcChanged. Fills right-to-left. Hover for exact dBFS reading (v26.7.4). |
@@ -64,16 +64,18 @@ Turn on the FLEX-8600's built-in speech processor and choose how aggressively it
 - The **Compression** gauge reads 0 dB (no fill) when **PROC** is off, when the radio is not transmitting, or when no audio is present.
 - Both **ALC** gauges (Phone and CW panels) use the same software ALC meter source. For SSB operation, target −10 to −5 dBFS on the ALC gauge for optimal transmit audio quality.
 - Hover over any gauge (**Level**, **Compression**, or either **ALC** gauge) to see the exact numeric reading in a popup (v26.7.4). This allows you to read the precise value without having to estimate the gauge's fill position.
+- If the radio takes transmit audio from this computer (v26.8.4), the **Level** gauge and **DAX** button are hidden, and **Mic source** shows only "PC" with a tooltip. This applies to radios whose audio input selection is made on the radio itself.
 
 ## Troubleshooting
 
 - **PROC button is not visible** — The applet is showing the CW panel. The Phone panel, including **PROC**, appears only when the active slice is in a phone mode, not CW.
 - **Compression gauge shows 0 dB with PROC on** — In v0.9.7 and later the **Compression** gauge is gated on the radio's interlock TRANSMITTING state: it intentionally reads 0 dB during receive to prevent stale readings from the TX chain. If the gauge still reads 0 dB while transmitting, the radio is not receiving audio from the selected mic source. Check the **Level** gauge and the **Mic source** setting. If **Mic source** is **PC**, the radio always reports mic level as 0; use the **Level** gauge in the applet instead.
 - **NOR/DX/DX+ slider snaps back** — The slider has three valid positions (0, 1, 2). Dragging between snap points causes it to land on the nearest integer; this is expected behavior.
-- **Mic source combo box is disabled and shows only "PC"** — This occurs when the radio is in host modulation mode (modulated by AetherSDR). The PC microphone is the only available input in this mode; other sources are FlexRadio jacks that do not apply. A tooltip explains this.
-- **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). When RADE mode is active, the **Level** gauge also appears during receive (see [Level gauge behavior](#level-gauge-behavior-v093)). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio.
+- **Mic source combo box is disabled and shows only "PC"** — This occurs when the radio is in host modulation mode (modulated by AetherSDR). The PC microphone is the only available input in this mode; other sources are FlexRadio jacks that do not apply. A tooltip explains this. In v26.8.4, this also occurs on radios whose audio input selection is made on the radio itself, where "PC" indicates the radio takes transmit audio from this computer. On such radios, a tooltip reads: "This radio takes transmit audio from this computer. Its own input selection is made on the radio."
+- **Level gauge does not appear on connect** — If **Mic source** is **PC**, the **Level** gauge appears immediately on connect without requiring a transmit or `met_in_rx` to be active (v0.9.3, fix #2086). When RADE mode is active, the **Level** gauge also appears during receive (see [Level gauge behavior](#level-gauge-behavior-v093)). If the gauge is still absent, verify that **Mic source** is set to **PC** and that AetherSDR has finished connecting to the radio. In v26.8.4, the **Level** gauge is intentionally hidden on radios that take transmit audio from this computer.
 - **Phone panel does not refresh when VOX is toggled by keyboard shortcut** — This was resolved in v0.9.3 (#2084). Update to v0.9.3 or later if the Phone panel fails to update immediately when VOX is toggled via a keyboard shortcut.
 - **ALC gauge shows unexpected values** — The ALC meters now read from the software ALC meter (MeterModel::swAlcChanged) in dBFS ranges. Values outside −20 to 0 dBFS are not displayed; the gauge simply pins at the nearest end. This replaces the previous HWALC path that produced meaningless readings.
+- **DAX button is hidden** — On radios that take transmit audio from this computer (v26.8.4), the **DAX** button is hidden because DAX is not the audio path. If you need to use DAX, connect to a radio whose audio input selection is made on the radio.
 
 ## CW panel controls (v0.9.8)
 
@@ -82,18 +84,4 @@ In v0.9.8, the four value labels for CW parameters were replaced with QLineEdit 
 | Control               | Kind          | Default | Valid range       |
 |-----------------------|---------------|---------|-------------------|
 | **Delay (CW)**        | Slider + edit | 500     | 0–2000 ms         |
-| **Speed (CW)**        | Slider + edit | 20      | 5–100 WPM         |
-| **Sidetone volume**   | Slider + edit | 50      | 0–100             |
-| **Pitch < / >**       | Text + buttons| 600     | 100–6000 Hz       |
-
-- The **Delay (CW)**, **Speed (CW)**, and **Sidetone volume** QLineEdit widgets use `QIntValidator` to restrict input to the valid range.
-- The **Pitch < / >** widget (CwTriBtn) allows typing a value (100–6000) or clicking the < / > buttons to step by 10 Hz.
-- The **Delay (CW)** slider was fixed in v0.9.8 (#2428) so that `setCwDelay` caches the value immediately, preventing the radio emission from snapping the slider back.
-- The **Sidetone volume** slider controls both the radio-side (`mon_gain_cw`) and client-side sidetone generator volumes in lockstep.
-
-## CW sidetone behavior (v0.9.1 and later)
-
-The **Sidetone** toggle and **Sidetone volume** slider in the CW panel control both the radio's DAX-fed monitor and the client-side low-latency sidetone generator in lockstep. There is no longer a separate **Local STn** button, separate local volume slider, or **Follow** pitch toggle. Those controls have been removed.
-
-- Enabling **Sidetone** turns on both the radio-side monitor and the client-side generator simultaneously.
-- Adjusting **Sidetone volume** sets both `mon_gain_cw` on the radio and
+| **Speed (CW

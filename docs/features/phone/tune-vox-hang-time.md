@@ -15,16 +15,16 @@ The VOX hang time controls how long the radio stays in transmit after your voice
 
 ## What each control does
 
-| Control          | Description                                                                                                    | Valid range |
-|------------------|----------------------------------------------------------------------------------------------------------------|-------------|
-| **AM Carrier**   | Sets AM carrier power level. Displayed as a percentage (e.g., "48%") when dragged.                              | 0–100       |
-| **VOX**          | Toggles voice-operated transmit on or off.                                                                     | —           |
-| **VOX level**    | Sets the VOX activation threshold. Displayed as a percentage when dragged.                                     | 0–100       |
-| **Delay**        | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
-| **DEXP**         | Toggles the downward expander (noise gate) on or off.                                                          | —           |
-| **DEXP threshold**| Sets the DEXP noise gate threshold.                                                                           | 0–100       |
-| **Low Cut < / >**| Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary.                                       | 50 Hz       | 0 to (high-cut − 50), step 50 Hz    |
-| **High Cut < / >**| Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary.                                      | 3300 Hz     | (low-cut + 50) to 10000, step 50 Hz |
+| Control            | Description                                                                                                    | Valid range |
+|--------------------|----------------------------------------------------------------------------------------------------------------|-------------|
+| **AM Carrier**     | Sets AM carrier power level. Displayed as a percentage (e.g., "48%") when dragged.                             | 0–100       |
+| **VOX**            | Toggles voice-operated transmit on or off.                                                                     | —           |
+| **VOX level**      | Sets the VOX activation threshold. Displayed as a percentage when dragged.                                     | 0–100       |
+| **Delay**          | Sets the VOX hang time — how long the radio remains in transmit after speech ends before returning to receive. | 0–100       |
+| **DEXP**           | Toggles the downward expander (noise gate) on or off.                                                          | —           |
+| **DEXP threshold** | Sets the DEXP noise gate threshold.                                                                            | 0–100       |
+| **Low Cut < / >**  | Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary.                                        | 50 Hz       |
+| **High Cut < / >** | Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary.                                       | 3300 Hz     |
 
 ## Setting persistence
 
@@ -39,19 +39,28 @@ The VOX hang time controls how long the radio stays in transmit after your voice
 
 ## TX filter cut-point stepping behavior
 
-As of v0.9.5.1, the **Low Cut < / >** and **High Cut < / >** buttons snap the filter frequency to the nearest multiple of 50 Hz in the chosen direction, rather than adding or subtracting a fixed 50 Hz from the current value.
+As of v26.8.4, the **Low Cut < / >** and **High Cut < / >** buttons snap the filter frequency to the next multiple of 50 Hz in the chosen direction, rather than adding or subtracting a fixed 50 Hz from the current value.
 
 For example, if the low-cut is currently set to 87 Hz:
 
 - Pressing **>** (increase) moves it to **100 Hz** (the next multiple of 50 above 87).
 - Pressing **<** (decrease) moves it to **50 Hz** (the next multiple of 50 below 87).
 
-This means a single button press always lands on a clean 50 Hz boundary regardless of the starting value. The mousewheel on each spinbox follows the same snap behavior. The radio accepts any integer Hz value, so the snapping is a UI convenience only and does not restrict what the radio will accept.
+This means a single button press always lands on a clean 50 Hz boundary regardless of the starting value. The mousewheel on each spinbox follows the same snap behavior. When the radio backend publishes a discrete list of allowed edge frequencies, the buttons step through that list instead. On radios that accept continuous integer Hz values, the snapping is a UI convenience only and does not restrict what the radio will accept.
+
+### Direct numeric entry
+
+As of v26.8.4, you can double-click either the **Low Cut** or **High Cut** value to type an exact frequency in Hz instead of stepping to it 50 Hz at a time. Press Enter to commit the value.
+
+- A typed value is treated as a request for that exact frequency. On radios that support arbitrary integer Hz values, the exact value is sent to the radio.
+- The step buttons still clamp to the radio's step grid (50 Hz multiples or the backend's discrete edge list). This asymmetry is deliberate: a step is a request to move by one increment, while a typed number is a request for a specific value.
+- Out-of-range values are rejected, not clamped. The previous value is restored if you type an invalid frequency.
+- When the backend publishes a discrete edge list, typed values not present in that list are rejected.
 
 | Control            | Description                                                              | Default | Valid range                          |
 |--------------------|--------------------------------------------------------------------------|---------|--------------------------------------|
-| **Low Cut < / >**  | Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary. | 50 Hz   | 0 to (high-cut − 50), step 50 Hz    |
-| **High Cut < / >** | Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary.| 3300 Hz | (low-cut + 50) to 10000, step 50 Hz |
+| **Low Cut < / >**  | Sets the TX filter low-cut frequency; snaps to the next 50 Hz boundary. Double-click to type an exact Hz value. | 50 Hz   | 0 to (high-cut − 50), step 50 Hz    |
+| **High Cut < / >** | Sets the TX filter high-cut frequency; snaps to the next 50 Hz boundary. Double-click to type an exact Hz value. | 3300 Hz | (low-cut + 50) to 10000, step 50 Hz |
 
 Neither control has a persisted setting key; values are sent directly to the radio.
 

@@ -81,6 +81,7 @@ A plain-language explanation of today's forecast appears at the bottom of the da
 - The dashboard window size and position are remembered between sessions. Resize or move the dialog and it will reopen in the same location.
 - Kp cells in the forecast grid are color-coded according to their severity level.
 - The dashboard respects your current theme. Since version 26.6.1, all visual elements adapt their colors to the active theme for a consistent look.
+- Since version 26.8.4, network requests used to fetch space-weather data time out automatically after 15 seconds if no response is received. If the dashboard remains empty for longer than this, check your internet connection and try again.
 
 ## Related
 

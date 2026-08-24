@@ -12,7 +12,7 @@ Save the active slice's frequency to the Band Stack panel so you can return to i
 1. Locate the Band Stack panel — the narrow vertical strip of colored buttons that sits alongside the panadapter.
 2. Click `+` at the bottom of the Band Stack panel.
 
-The new bookmark appears immediately as a color-coded button showing the frequency in MHz. The button color reflects the band-plan segment for that frequency. Bookmarks are saved automatically to `BandStack_<serial>`, where `<serial>` is your radio's serial number.
+The new bookmark appears immediately as a color-coded button showing the frequency in MHz. The button color reflects the band-plan segment for that frequency. Bookmarks are saved automatically per radio and settings scope, so different configurations keep their own bookmark sets.
 
 ## What each control does
 

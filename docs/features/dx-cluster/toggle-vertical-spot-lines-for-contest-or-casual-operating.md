@@ -1,6 +1,6 @@
 # SpotHub
 
-The **SpotHub** is the central hub for connecting to DX spot sources — DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA and FreeDV — and configuring how spots are displayed on the panadapter.
+The **SpotHub** is the central hub for connecting to DX spot sources — DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA, FreeDV, and N1MM — and configuring how spots are displayed on the panadapter.
 
 ## Before you start
 
@@ -10,7 +10,7 @@ The **SpotHub** is the central hub for connecting to DX spot sources — DX clus
 ## Opening SpotHub
 
 1. Click `Settings > SpotHub...`.
-2. The SpotHub dialog opens with seven tabs: **Cluster**, **RBN**, **WSJT-X**, **SpotCollector**, **POTA**, **FreeDV**, **Spot List**, and **Display**.
+2. The SpotHub dialog opens with eight tabs: **Cluster**, **RBN**, **WSJT-X**, **SpotCollector**, **POTA**, **FreeDV**, **N1MM**, **Spot List**, and **Display**.
 
 ---
 
@@ -86,6 +86,19 @@ The **FreeDV** tab connects via WebSocket to the FreeDV QSO reporter (build-gate
 4. The **FreeDV Spots** console shows FreeDV activity (read-only).
 5. Click **Spot Color:** to open a color picker for FreeDV spots. This setting is stored in `FreeDvSpotColor`.
 
+## N1MM (tab)
+
+The **N1MM** tab listens for UDP spot broadcasts from N1MM Logger+.
+
+1. In the **UDP Port:** field, enter the port N1MM Logger+ broadcasts spots on (range 1–65535). This setting is stored in `N1MMSpotPort`.
+2. Click **Start** to begin listening. The button changes to **Stop** while listening.
+3. Enable **Auto-start on startup** to have the listener start automatically on launch. This setting is stored in `N1MMSpotAutoStart`.
+4. The **N1MM Spots** console shows received spots (read-only).
+5. Click **Spot Color:** to open a color picker for N1MM spots. This setting is stored in `N1MMSpotColor`.
+6. In the **My Message:** field, enter the message to send to N1MM when you double-click a spot. This setting is stored in `N1MMMyMessage`.
+7. Click **Start / Stop (N1MM)** to start or stop the N1MM UDP listener.
+8. Enable **Auto-start on startup (N1MM)** to have the listener start automatically on launch. This setting is stored in `N1MMAutoStart`.
+
 ## Spot List (tab)
 
 The **Spot List** tab provides a unified searchable table of all live spots from all sources.
@@ -100,14 +113,14 @@ The **Display** tab controls panadapter spot visualization, DXCC coloring, and S
 
 ### Top toggle row
 
-| Control | Default | Behavior | Setting key |
-|---------|---------|----------|-------------|
-| **Spots:** | Enabled | Master toggle for DX spot overlay. The button shows **Enabled** when active and **Disabled** when inactive. | `IsSpotsEnabled` |
-| **Memories:** | Disabled | Toggles memory-channel overlay on panadapter. The button shows **Enabled** when active and **Disabled** when inactive. | `IsMemorySpotsEnabled` |
-| **Auto:** | Enabled | Automatically switch slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY) | `SpotAutoSwitchMode` |
-| **Signals (Signal History)** | Disabled | Gold markers for detected voice-width signals on the panadapter | `SHistoryMarkersEnabled` |
-| **QRM (Signal History)** | Disabled | Red markers for persistent carriers and wideband interference | `SHistoryQrmEnabled` |
-| **Clear All** | — | Clears all DX spots, memory feed, Signal History markers and QRM markers from the spectrum | (no key) |
+| Control                      | Default                                                                                                 | Behavior                                                                                                               |
+|------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| **Spots:**                   | Enabled                                                                                                 | Master toggle for DX spot overlay. The button shows **Enabled** when active and **Disabled** when inactive.            |
+| **Memories:**                | Disabled                                                                                                | Toggles memory-channel overlay on panadapter. The button shows **Enabled** when active and **Disabled** when inactive. |
+| **Auto:**                    | Enabled                                                                                                 | Automatically switch slice mode when clicking a spot that includes mode info (e.g. CW, FT8, RTTY)                      |
+| **Signals (Signal History)** | Disabled                                                                                                | Gold markers for detected voice-width signals on the panadapter                                                        |
+| **QRM (Signal History)**     | Disabled                                                                                                | Red markers for persistent carriers and wideband interference                                                          |
+| **Clear All**                | —                                                                                                       | Clears all DX spots, memory feed, Signal History markers and QRM markers from the spectrum                             |
 
 ### Common sliders
 
@@ -149,12 +162,4 @@ The right column below the divider contains Signal History tunables.
 
 | Control | Default | Range | Behavior | Setting key |
 |---------|---------|-------|----------|-------------|
-| **Marker Lifetime:** | 60 | 15–300 sec | How long an inactive Signal History marker persists before being removed | `SHistoryLifetimeS` |
-| **QRM Gate:** | 6 | 3–30 sec | How long a narrow carrier or wideband signal must persist before being classified as QRM | `SHistoryQrmGateS` |
-| **Edge Threshold:** | 3.0 | 1.0–10.0 dB | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge | `SHistorySoftEdgeDb` |
-| **Signal History color swatches (Signals / QRM)** | #FFC800 / #FF0000 | — | Opens a color picker for the voice signal markers (gold) and QRM markers (red) | `SHistoryColorSignals`, `SHistoryColorQrm` |
-| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. The button shows **Enabled** when active and **Disabled** when inactive. | `SHistorySnapToStep` |
-
----
-
-## Toggle vertical spot lines
+| **Marker Lifetime

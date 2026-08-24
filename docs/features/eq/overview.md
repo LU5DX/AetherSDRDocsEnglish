@@ -29,14 +29,14 @@ The RX and TX paths are independent. You can have different curves on each, and 
 | Reset arc (revert icon) | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". |
 | RX | Toggle button | Off (unchecked) | On / Off | Selects the receive equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with TX. |
 | TX | Toggle button | On (checked) | On / Off | Selects the transmit equalizer path for display and editing. Highlighted blue when active. Mutually exclusive with RX. |
-| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. Subclasses may override mouse handlers for custom drag behavior, such as click-to-jump positioning, while preserving the popup display. |
-| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
-| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. Shows a drag-value popup while the slider is being moved or adjusted via keyboard. |
+| 63 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 63 Hz band for the selected path. |
+| 125 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 125 Hz band for the selected path. |
+| 250 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 250 Hz band for the selected path. |
+| 500 | Vertical slider | 0 dB | −10 to +10 dB | Trims the 500 Hz band for the selected path. |
+| 1k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 1 kHz band for the selected path. |
+| 2k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. |
+| 4k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. |
+| 8k | Vertical slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. |
 | Per-band value label | Indicator | 0 | −10 through +10 | Shows the current dB value of each band below its slider handle. Updates live as you move the slider. |
 | +10 / 0 / −10 dB scale | Indicator | — | — | Reference labels on the left and right edges of the slider area showing the slider range. |
 
@@ -53,6 +53,8 @@ The Equalizer applet fully supports live theme switching. When you change themes
 - Overall applet container background
 
 The slider handles use the theme's foreground (fill) accent color rather than the standard handle token to match the intended visual idiom. The groove sub-page and add-page areas remain the groove background color to prevent unwanted accent fills from the global slider style.
+
+The band sliders also receive a automatic hover-suppression fix that prevents stale pixels from appearing at fractional UI scales when the mouse moves over them, ensuring clean rendering at all display zoom levels.
 
 ## Tips
 

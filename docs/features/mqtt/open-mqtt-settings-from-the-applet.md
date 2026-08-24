@@ -24,7 +24,7 @@ Open the MQTT Settings dialog from the MQTT applet to configure broker connectio
 | **Enable (Off/On)**    | Toggle button that connects or disconnects from the broker using settings from MqttSettings. Emits connectRequested / disconnectRequested and saves connection enabled state. | Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows "Waiting for keychain" status. |
 | **Publish buttons**    | Up to 12 push buttons. Click publishes the configured payload to the configured topic via MqttClient::publish.                                                                | Only active while connected. Configured via MqttSettingsDialog Publish Buttons tab. Setting key: `MqttButtons`.                       |
 | **Message log**        | Displays received messages as "topic: value" lines and transmitted messages as "TX topic: value" lines. Also processes antenna alias updates from MQTT.                       | Capped to 50 entries.                                                                                                                 |
-| Settings...            | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                                                   | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields.                                                            |
+
 ### Indicators
 
 | Indicator        | States                                                                 | Meaning                                                          |
