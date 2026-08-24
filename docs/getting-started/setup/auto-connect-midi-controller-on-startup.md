@@ -75,5 +75,5 @@ Use the **Profile:** combo box, **Save**, and **Load** buttons to manage named m
 - [MIDI Controller Mapping overview](../../features/midi-mapping/overview.md)
 - [Record a new binding with Learn mode](../../features/midi-mapping/record-a-new-binding-with-learn-mode.md)
 - [Save the current mapping as a named profile](../../features/midi-mapping/save-the-current-mapping-as-a-named-profile.md)
-- [Import and export mapping profiles](../../features/midi-mapping/import-and-export-mapping-profiles.md)
+- Import and export mapping profiles
 - Triggers for CW straight key and paddles

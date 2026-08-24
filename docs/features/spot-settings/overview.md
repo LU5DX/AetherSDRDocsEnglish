@@ -109,7 +109,7 @@ Clears all spots from the panadapter immediately.
 
 - [Turn spots on or off](turn-spots-on-or-off.md)
 - [Overlay memory channels on the panadapter](overlay-memory-channels-on-the-panadapter.md)
-- [Overlay KiwiSDR Community DX spots](overlay-kiwisdr-community-dx-spots.md)
+- Overlay KiwiSDR Community DX spots
 - [Change spot density and vertical position](change-spot-density-and-vertical-position.md)
 - [Enlarge or shrink the spot font](enlarge-or-shrink-the-spot-font.md)
 - [Shorten or lengthen spot lifetime](shorten-or-lengthen-spot-lifetime.md)

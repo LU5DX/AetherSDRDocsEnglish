@@ -61,11 +61,11 @@ Bindings and the last-used port are persisted automatically. The `MidiPort` sett
 - [Connect a MIDI controller](../../getting-started/setup/connect-a-midi-controller.md)
 - [Auto-connect MIDI controller on startup](../../getting-started/setup/auto-connect-midi-controller-on-startup.md)
 - [Record a new binding with Learn mode](record-a-new-binding-with-learn-mode.md)
-- [Enter a binding manually](enter-a-binding-manually.md)
-- [Edit an existing binding](edit-an-existing-binding.md)
+- Enter a binding manually
+- Edit an existing binding
 - [Invert a knob or treat it as an endless encoder](invert-a-knob-or-treat-it-as-an-endless-encoder.md)
 - [Delete a binding](delete-a-binding.md)
 - [Save the current mapping as a named profile](save-the-current-mapping-as-a-named-profile.md)
 - [Load a previously saved MIDI profile](load-a-previously-saved-midi-profile.md)
-- [Import a MIDI mapping from a file](import-a-midi-mapping-from-a-file.md)
-- [Export the current mapping to a file](export-the-current-mapping-to-a-file.md)
+- Import a MIDI mapping from a file
+- Export the current mapping to a file

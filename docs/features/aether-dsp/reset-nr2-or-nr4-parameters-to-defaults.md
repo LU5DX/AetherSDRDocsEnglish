@@ -178,4 +178,4 @@ The BNR (NVIDIA Broadcast) tab uses the NVIDIA Broadcast SDK for AI-based noise 
 - [Enable or disable NR4 adaptive noise estimation](enable-or-disable-nr4-adaptive-noise-estimation.md)
 - [Tune NR4 masking depth and suppression strength](tune-nr4-masking-depth-and-suppression-strength.md)
 - [Choosing the right noise reduction: NR2, NR4, DFNR, MNR](../../operating/dsp/noise-reduction-overview.md)
-- [Set RN2 noise floor dry mix](set-rn2-noise-floor-dry-mix.md)
+- Set RN2 noise floor dry mix

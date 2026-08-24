@@ -65,7 +65,7 @@ Five configurable auxiliary buttons (1–5) sit below the wheel. Each button has
 
 ## Related
 
-- [Reverse tuning direction on the AetherControl](reverse-tuning-direction-on-the-aethercontrol.md)
+- Reverse tuning direction on the AetherControl
 - [Use the virtual wheel to tune the active slice](use-the-virtual-wheel-to-tune-the-active-slice.md)
 - [Adjust mouse sensitivity for the virtual wheel](adjust-mouse-sensitivity-for-the-virtual-wheel.md)
-- [Adjust wheel tightness for the virtual wheel](adjust-wheel-tightness-for-the-virtual-wheel.md)
+- Adjust wheel tightness for the virtual wheel
