@@ -31,11 +31,9 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 | NPE Method | radio_button | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects the noise power estimator. Stored as integer 0-2. |
 | AE Filter | checkbox | True | — | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
 | Reduction: | slider | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Higher values suppress more noise but risk distorting speech. |
-| Gain Floor | slider | — | 0.00–1.00 | `NR2GainFloor` | Sets the minimum gain floor for NR2 reduction. Values closer to 1.00 allow less attenuation, preserving more audio but reducing noise suppression. |
 | Smoothing: | slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. Higher values give steadier but slower adaptation. |
 | Threshold: | slider | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets the speech-presence-probability threshold. Lower values preserve quiet speech but may pass more noise. |
-| Use Original Geometry | checkbox | — | — | `NR2UseOriginalGeometry` | Enables the original noise reduction geometry calculation instead of the updated algorithm. |
-| Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, Gain Floor default, Smoothing 0.85, Threshold 0.20. |
+| Reset Defaults (↺ icon) | push_button | — | — | — | Restores NR2 defaults: Gamma, OSMS, AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20. |
 
 ### NR4 (libspecbleach spectral NR)
 
@@ -63,7 +61,8 @@ The AetherDSP Settings dialog provides six noise-reduction engine tabs. Click a 
 
 | Control | Type | Default | Range | Setting Key | Description |
 |---------|------|---------|-------|-------------|-------------|
-| RN2 (tab) | tab | — | — | — | Selects the RN2 page. This page is purely informational — no adjustable parameters. |
+| RN2 (tab) | tab | — | — | — | Selects the RN2 page. |
+| Noise Floor (RN2 dry mix) | slider | 0 | 0–100 | — | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10–20% keeps a steady quiet floor so the receiver still sounds alive. Affects received audio only; the transmit denoiser is unchanged. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. |
 
 ### BNR (NVIDIA Broadcast)
 

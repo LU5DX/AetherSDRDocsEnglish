@@ -11,6 +11,8 @@ The HF Propagation Dashboard gives you an at-a-glance view of current solar cond
 
 Open the dashboard from `View > Propagation Conditions`. The dialog retrieves current solar data and presents it in seven distinct areas described below. The dialog remembers its geometry between sessions. The dashboard respects the current application theme for its background and border colors.
 
+The dashboard applies a 15-second transfer timeout to all space-weather data fetches. If a fetch does not complete within that time, the dashboard stops waiting for it and continues displaying the data it has already received. This prevents the dashboard from appearing frozen when the network is slow or a data source is unresponsive.
+
 ### Current Conditions cards
 
 Five metric tiles display the most important solar and geomagnetic indices at a glance: **SFI** (Solar Flux Index), **SN** (Sunspot Number), **A-index**, **K-index**, and **X-ray** class. Each card is color-coded to reflect the quality of conditions — green indicates favorable conditions, yellow indicates unsettled or moderate conditions, and red indicates storm-level or degraded conditions. Hover over any card to read a plain-language tooltip explaining what that metric means for HF propagation.
@@ -54,6 +56,7 @@ Two fixed learning notes explain the difference between auroral propagation and 
 - The **Rationale** text below the forecast grid provides a plain-language explanation of why today's forecast looks the way it does — read it for a quick summary before checking individual metrics.
 - Hovering over a **Current Conditions** card shows a detailed tooltip explaining the metric's significance for HF propagation, including which bands are most affected.
 - The dashboard does not require a connected Flex radio. You can consult it before powering up your station.
+- If the dashboard appears to stop updating, wait for the 15-second transfer timeout to expire. The dashboard will continue with the data it has already received rather than waiting indefinitely.
 
 ## Related
 

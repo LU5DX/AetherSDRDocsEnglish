@@ -120,7 +120,7 @@ The **Spot List** tab displays a unified, searchable table of all live spots fro
 |---|---|---|
 | **Bands:** | Checkbox group | Per-band checkboxes toggle visibility in the table. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). Checkboxes use a flow layout that wraps to a new row when horizontal space is low, keeping labels readable. |
 | **Clear** | Push button | Empties the current spot list. |
-| **Spot table** | List / Table | Sortable table of spots. Double-click a row to tune the radio to that frequency. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Column visibility can be toggled via a right-click context menu on the table header; the menu stays open while multiple columns are toggled, allowing several columns to be shown or hidden in one pass. |
+| **Spot table** | List / Table | Sortable table of spots. Double-click a row to tune the radio to that frequency. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Column visibility can be toggled via a right-click context menu on the table header; the menu stays open while multiple columns are toggled, allowing several columns to be shown or hidden in one pass. Both the **Time** and **Freq** columns are sortable; click either column header to re-sort the table. |
 
 ## Display tab
 
@@ -151,5 +151,4 @@ The **Display** tab controls how spots are visualized on the panadapter, includi
 | DXCC Coloring (section) | Indicator | Section header for DXCC coloring controls in the left column below the divider. |
 | **DXCC Colors:** | Toggle button | Colors spots by worked/confirmed/needed DXCC status. Persisted as `IsDxccColoringEnabled`. |
 | **Log File (ADIF):** | Push button | Loads an ADIF log file to drive DXCC coloring. Auto-watches the file for changes after selection. Persisted as `DxccAdifFilePath`. |
-| **Imported:** (DXCC stats) | Indicator | Shows QSO count and entity count when a log is loaded. Format: `<N> QSOs / <M> entities`. |
-| DXCC Color swatches (New DXCC / New Band
+| **Imported:** (DXCC stats) | Indicator | Shows QSO count and entity count when a log is loaded. Format:

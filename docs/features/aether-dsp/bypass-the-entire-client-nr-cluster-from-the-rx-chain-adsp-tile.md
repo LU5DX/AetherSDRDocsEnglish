@@ -29,7 +29,7 @@ The top of the dialog contains six toggle buttons that serve as both tab selecto
 - **NR4** — libspecbleach spectral noise reduction
 - **MNR** — macOS MMSE-Wiener noise reduction (dimmed on Windows/Linux)
 - **DFNR** — DeepFilterNet3 neural noise reduction
-- **RN2** — RNNoise neural noise reduction (informational only, no adjustable parameters)
+- **RN2** — RNNoise neural noise reduction
 - **BNR** — NVIDIA Broadcast neural denoising (dimmed without NVIDIA Broadcast SDK)
 
 Clicking a toggle activates that engine and selects its tab. Clicking it again deactivates the engine. Only one engine can be active at a time — NR2, NR4, and DFNR are mutually exclusive. MNR and BNR may stack in some builds.
@@ -42,19 +42,17 @@ The last active client NR engine is persisted in the `LastClientNr` setting. If 
 
 Controls for the musical-noise-reduction engine.
 
-| Control | Type | Default | Range | Setting Key | Behavior |
-|---------|------|---------|-------|-------------|----------|
-| Gain Method | Radio button | Gamma | Linear, Log, Gamma, Trained | `NR2GainMethod` | Selects gain-curve mapping (stored as integer 0-3). |
-| NPE Method | Radio button | OSMS | OSMS, MMSE, NSTAT | `NR2NpeMethod` | Selects noise power estimator (stored as integer 0-2). |
-| AE Filter (artifact elimination) | Checkbox | True | — | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
-| Reduction: | Slider | 1.50 | 0.50-2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. |
-| Smoothing: | Slider | 0.85 | 0.50-0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
-| Threshold: | Slider | 0.20 | 0.05-0.50 | `NR2Qspp` | Sets speech-presence-probability threshold. |
-| Reset Defaults (↺ icon) | Push button | — | — | — | Restores NR2 defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20). |
+| Control                          | Type         | Default | Range                | Setting Key       | Behavior                                                        |
+|----------------------------------|--------------|---------|----------------------|-------------------|-----------------------------------------------------------------|
+| Gain Method                      | Radio button | Gamma   | Linear, Log, Gamma, Trained | `NR2GainMethod`   | Selects gain-curve mapping used by NR2. Stored as integer 0-3.  |
+| NPE Method                       | Radio button | OSMS    | OSMS, MMSE, NSTAT    | `NR2NpeMethod`    | Selects noise power estimator. Stored as integer 0-2.           |
+| AE Filter (artifact elimination) | Checkbox     | True    | —                    | `NR2AeFilter`     | Toggles the anti-artefact post-filter.                          |
+| Reduction:                       | Slider       | 1.50    | 0.50-2.00            | `NR2GainMax`      | Sets maximum NR2 reduction depth. Slider stores value*100.      |
+| Smoothing:                       | Slider       | 0.85    | 0.50-0.98            | `NR2GainSmooth`   | Controls how smoothly the noise estimate tracks changes.        |
+| Threshold:                       | Slider       | 0.20    | 0.05-0.50            | `NR2Qspp`         | Sets speech-presence-probability threshold.                     |
+| Reset Defaults (↺ icon)          | Push button  | —       | —                    | —                 | Restores NR2 tab defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20).    |
 
 Sliders on this tab use theme-aware styling via `applyPrimarySliderStyle()`.
-
-In v26.7.4, two new signals were added to the NR2 tab — `nr2GainFloorChanged` and `nr2UseOriginalGeometryChanged` — enabling future controls for minimum gain floor and original geometry modes.
 
 ## NR4 tab
 
@@ -81,8 +79,9 @@ Controls for the macOS MMSE-Wiener noise reduction engine. This tab and its cont
 
 | Control | Type | Default | Range | Setting Key | Behavior |
 |---------|------|---------|-------|-------------|----------|
-| Enable MNR (macOS only) | Checkbox | — | — | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. |
-| Strength | Slider | 100 | 0-100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). |
+| Enable MNR (macOS only) | Checkbox | — | — | `MnrEnabled` | Enables MMSE-Wiener noise reduction with asymmetric gain smoothing. Initial state read live from AudioEngine. |
+| Strength | Slider | 100 | 0-100 | `MnrStrength` | Adjusts MNR aggressiveness (0 mild, 100 max). Persisted as normalized 0.00-1.00. |
+| Reset Defaults (↺ icon) | Push button | — | — | — | Restores MNR defaults (Strength 100). |
 
 ## DFNR tab
 
@@ -93,15 +92,21 @@ Controls for the DeepFilterNet3 neural noise reduction engine.
 | Control | Type | Default | Range | Setting Key | Behavior |
 |---------|------|---------|-------|-------------|----------|
 | Attenuation Limit | Slider | 100 | 0-100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum suppression. |
-| Post-Filter Beta | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. |
+| Post-Filter Beta | Slider | 0.00 | 0.00-0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. Slider stores value*100 internally. |
+| Reset Defaults (↺ icon) | Push button | — | — | — | Restores DFNR defaults (Attenuation 100, Beta 0.00). |
 
 ## RN2 tab
 
-Selects the RNNoise neural noise reduction page. This tab is purely informational and has no adjustable parameters.
+Controls for the RNNoise neural noise reduction engine.
+
+| Control | Type | Default | Range | Setting Key | Behavior |
+|---------|------|---------|-------|-------------|----------|
+| Noise Floor (RN2 dry mix) | Slider | 0 | 0-100 | — | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. Affects received audio only; the transmit denoiser is unchanged. Persisted by `Rn2SettingsModel` and exposed to the DSP chain via `AetherDspWidget`'s `rn2DryMixChanged` signal. |
+| Reset Defaults (↺ icon) | Push button | — | — | — | Restores RN2 defaults (Noise Floor 0). |
 
 ## BNR tab
 
-Selects the NVIDIA Broadcast neural denoising page. Intensity is controlled from the overlay menu. The toggle is dimmed on builds without the NVIDIA Broadcast SDK.
+Selects the NVIDIA Broadcast neural denoising page. Intensity is controlled from the overlay menu. The toggle is dimmed on builds without the NVIDIA Broadcast SDK. The Reset Defaults button is a no-op on this tab.
 
 ## Bypassing all client NR engines
 
@@ -123,3 +128,4 @@ The ADSP tile updates to reflect the bypassed state. No client NR engines are no
 - Settings are persisted across sessions.
 - The dialog uses theme-aware styling. Colors are drawn from the active color theme rather than fixed values.
 - The last active client NR engine is persisted; if DFNR becomes unavailable, the stored preference is automatically cleared.
+- The NR2 tab includes a "Reduction:" slider (not "Reduction Depth:") and a "Threshold:" slider (not "Voice Threshold:").

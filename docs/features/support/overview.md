@@ -1,6 +1,6 @@
 # Support & Diagnostics overview
 
-The Support & Diagnostics dialog gives you a single place to control diagnostic logging, inspect the live log, and file bug reports. Open it from `Help > Support...`. No radio connection is required.
+The Support & Diagnostics dialog gives you a single place to control diagnostic logging and inspect the live log. Open it from `Help > Support...`. No radio connection is required.
 
 ## How it works
 
@@ -18,37 +18,28 @@ Below the category panel, a read-only text area displays the most recent log ent
 
 The button row at the bottom provides the following controls:
 
-| Button | What it does |
-|---|---|
-| Enable All | Turns on every logging category at once. |
-| Disable All | Turns off every logging category at once. |
-| Refresh | Reloads the log file into the viewer. |
-| Clear Log | Truncates the current log file. This cannot be undone. |
-| Open Log Folder | Opens the log directory in your OS file browser so you can copy or attach multiple files. |
-| File an Issue | Launches the AI-assisted bug report flow. Collects a support bundle, then opens a dialog that lets you open an AI assistant of your choice. Paste the pre-filled diagnostic prompt into the assistant, describe your issue, then use the AI’s output as your GitHub issue body. |
-| Close | Closes the dialog. |
-
-**Note:** The **Reset Settings** button has been removed in this version. To reset AetherSDR settings to defaults, delete or rename the settings file manually. The location depends on your operating system:
-- Linux: `~/.config/AetherSDR/AetherSDR.ini`
-- macOS: `~/Library/Preferences/com.aethersdr.AetherSDR.plist`
-- Windows: `%APPDATA%\AetherSDR\AetherSDR.ini`
-
-Radio settings stored on the FlexRadio are never affected by any local settings reset.
+| Button           | What it does                                                                                                                                                   | Notes                                                                                                                                    |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Enable All       | Turns on every logging category at once.                                                                                                                       |                                                                                                                                          |
+| Disable All      | Turns off every logging category at once.                                                                                                                      |                                                                                                                                          |
+| Refresh          | Reloads the log file into the viewer.                                                                                                                          |                                                                                                                                          |
+| Clear Log        | Truncates the current log file. This cannot be undone.                                                                                                         |                                                                                                                                          |
+| Open Log Folder  | Opens the log directory in your OS file browser so you can copy or attach multiple files.                                                                      |                                                                                                                                          |
+| Close            | Closes the dialog.                                                                                                                                             |                                                                                                                                          |
 
 **Indicators**
 
-The dialog displays the following indicator:
-
-| Indicator | What it shows |
-|---|---|
-| Log file size | Current size of the active log file, displayed to the right of the log path label. |
+| Indicator                             | What it shows                                                                                                                                                  | Notes                                                                                                                                    |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Log file size                         | Current size of the active log file, displayed to the right of the log path label.                                                                             |                                                                                                                                          |
+| Instructions (report-an-issue how-to) | Rich-text block pointing the user to `Help > File an Issue` for bug reporting once the relevant logging categories have been enabled and the problem reproduced. | New in v26.8.4: the Reset Settings and File an Issue buttons were removed from this dialog — they now live directly on the **Help** menu. |
 
 ## Tips
 
 - Enable only the categories relevant to the problem you are chasing to keep the log readable.
-- Click Clear Log immediately before reproducing a bug so the log contains only the relevant sequence of events.
-- If you use File an Issue, the diagnostic prompt is pre-filled with your system information and a support bundle is created automatically. Paste it into any AI assistant listed in the follow-up dialog, describe what went wrong, then use the AI's output as your GitHub issue body.
-- The log folder opened by Open Log Folder is the same folder where support bundles are saved when you use File an Issue, so you can drag both the log and the bundle into a GitHub issue in one step.
+- Click **Clear Log** immediately before reproducing a bug so the log contains only the relevant sequence of events.
+- If you use **File an Issue** (now on the **Help** menu), the diagnostic prompt is pre-filled with your system information and a support bundle is created automatically. Paste it into any AI assistant listed in the follow-up dialog, describe what went wrong, then use the AI's output as your GitHub issue body.
+- The log folder opened by **Open Log Folder** is the same folder where support bundles are saved when you use **File an Issue**, so you can drag both the log and the bundle into a GitHub issue in one step.
 
 ## Related
 

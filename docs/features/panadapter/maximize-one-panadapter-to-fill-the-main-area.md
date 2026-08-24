@@ -79,6 +79,18 @@ The font size is persisted in settings and will be restored the next time you op
 | ✕ (close CW)       | Button               | —                          |                               |
 | CW decode text     | Read-only text field | —                          |                               |
 
+## Canvas hosting
+
+When a panadapter is placed on the workspace canvas (rather than in the standard splitter layout), its title bar enters a canvas mode that streams a live-move gesture. This is the same mechanism used by container title bars in canvas mode — a real gesture the canvas session follows, not a drag-and-drop ghost.
+
+While on the canvas, the title bar handles mouse input as follows:
+
+- A left-click press and release without movement activates the panadapter (same as clicking the spectrum).
+- Dragging past a 6-pixel threshold begins a live-move of the panadapter across the canvas. All mouse events are consumed by the title bar during the drag so the floating-window drag machinery never interferes.
+- Release ends the move and updates the panadapter's position on the canvas.
+
+The pop-out (⬈) button remains visible while on the canvas, even if this is the only panadapter. The single-pan button-hiding behavior only applies in the stack layout, not on the canvas.
+
 ## Notes
 
 - The CW decode panel requires PC audio routing to function. If audio is not configured the panel shows the reminder `(requires PC Audio)`.
@@ -87,7 +99,7 @@ The font size is persisted in settings and will be restored the next time you op
 - The WPM range slider constrains the decoder's speed search range. It provides a single double-handle control (range 5–60 WPM) with the low end defaulting to 15 WPM and the high end defaulting to 40 WPM. The label "WPM" is embedded within the widget.
 - The Lock Pitch and Lock Speed toggle buttons freeze the decoder to the currently detected pitch or speed, preventing the decoder from tracking changes.
 - When the radio is transmitting, waterfall freeze is driven by the radio's interlock TRANSMITTING state across all connected clients (Multi-Flex), eliminating the 10–23 second TX-trail artifact after unkeying.
-- On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default.
+- On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default. Secondary panadapters (Slices B–H) also have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range.
 - The panadapter title bar and CW panel now use theme-aware colors via `ThemeManager::applyStyleSheet()` instead of hardcoded hex values. The title bar gradient references `{{color.text.disabled}}` and `{{color.background.1}}`, the drag grip uses `{{color.text.label}}`, and the slice title uses `{{color.text.secondary}}`. The CW panel background and border use `{{color.background.0}}` and `{{color.background.1}}` respectively. The Sensitivity slider uses the `applyPrimarySliderStyle()` helper for consistent theming.
 
 ## Related

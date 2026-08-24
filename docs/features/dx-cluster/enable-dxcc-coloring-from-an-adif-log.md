@@ -68,6 +68,17 @@ To use the band checkboxes:
 
 Double-clicking a row in the **Spot List** tab tunes the active receiver to that spot's frequency. As of v0.9.7, AetherSDR also forwards the mode derived from the spot comment, so the receiver switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
 
+## Spot List Table Columns
+
+The **Spot List** tab shows a sortable table of all live spots with the following columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, and Source.
+
+As of v26.8.4, the **Time** column is now sortable, just like the **Freq** column. Previously, Time was the only always-visible column that could not be sorted, so clicking its header did nothing and there was no way to return to the default newest-first order once the **Freq** column had been sorted. Now you can click the **Time** header to restore or toggle the newest-first ordering.
+
+To tune to a spot from the table:
+1. Open `Settings > SpotHub...` and click the **Spot List** tab.
+2. Optionally click the **Time** or **Freq** column headers to sort the table.
+3. Double-click any row to tune the active receiver to that spot's frequency and mode.
+
 ## Cluster and RBN Startup Commands
 
 The **Cluster** and **RBN** tabs each have a **Startup Commands…** button that opens an editor for commands sent automatically after every login to that source. New in v26.5.2.1 (#2683).
@@ -84,6 +95,21 @@ The **Cluster** and **RBN** tabs each have a **Startup Commands…** button that
 
 The commands replay after every connection, including reconnects.
 
+## Spot Source Tabs
+
+The SpotHub dialog contains a tab for each spot source, plus the unified **Spot List** and **Display** tabs:
+
+| Tab            | Purpose                                                                                                                                                                |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Cluster**    | DX cluster telnet connection with console, startup commands, and spot color picker.                                                                                    |
+| **RBN**        | Reverse Beacon Network telnet source with rate limiting, console, startup commands, and spot color picker.                                                             |
+| **WSJT-X**     | WSJT-X UDP listener with CQ/POTA/Calling Me filters, per-category color pickers, and decode console.                                                                   |
+| **SpotCollector** | UDP listener for Ham Radio Deluxe SpotCollector broadcasts.                                                                                                          |
+| **POTA**       | Polls api.pota.app for current activations.                                                                                                                            |
+| **FreeDV**     | WebSocket feed of FreeDV QSO reporter spots. Build-gated by HAVE_WEBSOCKETS.                                                                                           |
+| **Spot List**  | Unified searchable table of all live spots with per-band filters.                                                                                                      |
+| **Display**    | Panadapter spot visualization, Signal History tunables, and DXCC coloring. Reorganised in v26.5.1 (#2506).                                                             |
+
 ## FreeDV Reporter reporting
 
 The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast your station's activity to the public FreeDV Reporter map at qso.freedv.org whenever the RADE modem is active.
@@ -91,24 +117,4 @@ The **Station Reporting** group on the **FreeDV** tab lets AetherSDR broadcast y
 ### Requirements before enabling
 
 - A non-empty callsign must be available, either from the radio (when **Use radio (callsign)** is checked) or entered manually in the **Callsign:** field.
-- A non-empty Maidenhead grid square must be available, either from the radio's GPS (when **Use GPS (grid)** is checked, on supported hardware) or entered manually in the **Grid Square:** field.
-- If either value is missing when you check **Enable FreeDV Reporter reporting when RADE is active**, a warning dialog appears and the checkbox reverts to unchecked.
-
-### Steps
-
-1. Open `Settings > SpotHub...` and click the **FreeDV** tab.
-2. In the **Station Reporting** group, confirm **Use radio (callsign)** is checked if you want AetherSDR to pull the callsign from the radio automatically. Uncheck it and type a callsign in **Callsign:** to enter one manually.
-3. If your radio has GPS hardware, confirm **Use GPS (grid)** is checked to populate **Grid Square:** automatically. Otherwise uncheck it and type your Maidenhead grid square (up to six characters) in **Grid Square:**.
-4. Optionally type a short message in **Station Msg:** to display beside your callsign on the map.
-5. Check **Enable FreeDV Reporter reporting when RADE is active** (`FreeDvAutoReport`). If callsign or grid is missing, a warning appears — fill in the missing field and try again.
-6. To have reporting start automatically each time AetherSDR launches, enable **Auto-start on startup (FreeDV)** (`FreeDvAutoStart`).
-
-## Theme Support
-
-Starting in v26.6.1, the SpotHub dialog and all its status labels use theme-aware colors instead of hardcoded values. The dialog container applies the `dialog/dxCluster` theme style, and tab widgets, status labels, and connection states all resolve colors from the active theme. This means the dialog adapts automatically to light, dark, or custom themes without manual color tweaking.
-
-## Tips
-
-- The DXCC stats indicator in the dialog shows how many QSOs and entities were imported from the ADIF file. If it reads zero after loading, verify the file is valid ADIF.
-- The **Log File (ADIF):** button stores the path persistently. You do not need to re-select the file after restarting AetherSDR.
-- AetherSDR auto-watches the ADIF file for changes after selection. When your logger writes to the file
+- A non-empty Maidenhead grid square must

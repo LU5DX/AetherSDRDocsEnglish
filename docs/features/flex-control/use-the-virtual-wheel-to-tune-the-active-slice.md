@@ -65,6 +65,15 @@ These settings are stored per aux button.
 - The dialog window now contains a scroll area. When the full controller exceeds the available screen height, the content scrolls vertically so the window can be smaller than the full controller height. The minimum width of the window is set to the content's minimum width to prevent horizontal clipping.
 - On short or DPI-scaled screens, the window height is clamped to the available screen height when opening, and the content becomes scrollable instead of being forced into compact mode.
 
+## Physical FlexControl connection reliability
+
+The physical FlexControl connection now includes automatic error detection and reconnection. If the device disconnects (for example, when the USB cable is unplugged), AetherControl detects the error and automatically retries reconnection.
+
+- On disconnect, AetherControl attempts to re-detect the device immediately, then retries every 2 seconds for the first few attempts.
+- If the device remains absent, the retry interval backs off, doubling after each failed attempt until it reaches a maximum of 30 seconds. This prevents continuous rapid scanning and log warnings during a prolonged outage.
+- When the device is reconnected, AetherControl detects it on its new port name (if the USB re-enumeration changed it) and reconnects automatically. The **Physical** indicator updates to show the new connection state and port name.
+- A connection is considered "wanted" once you click **Detect**. Closing the port with **Close** clears the retry state and stops reconnection attempts.
+
 ## Related
 
 - [Adjust mouse sensitivity for the virtual wheel](adjust-mouse-sensitivity-for-the-virtual-wheel.md)

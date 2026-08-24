@@ -15,7 +15,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 
 **Live view** — Toggles live character-by-character sending on or off. When Live is enabled, each character you type is keyed immediately rather than held until you press Enter. Clicking Setup or Send while Live is on automatically disables live sending before switching views.
 
-**Setup view** — Shows the 12 F-key macro editors, the Delay: control, and the QSK toggle. Edit macro text here and configure keyer timing options. Opening the Setup view always turns off live sending.
+**Setup view** — Shows the 12 F-key macro editors, the Delay: control, and the QSK toggle. Edit macro text here and configure keyer timing options. Opening the Setup view always turns off live sending. The macro editors each have a minimum height of about two lines of text, ensuring that macro text remains readable even when the application window is at its minimum height.
 
 **F1–F12 shortcuts** — When the TX slice is in CW or CWL mode, pressing F1 through F12 on the keyboard sends the corresponding macro immediately, regardless of which view is currently shown, and even if the CWX panel is hidden. These shortcuts are enabled by the MainWindow based on the TX slice's mode, keeping them mutually exclusive with other panels that use the same keys (such as the DVK panel) to avoid Qt shortcut ambiguity.
 
@@ -32,7 +32,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 | Send history scroll | Scrolling display of previous send buffers with per-character highlighting. Right-click a bubble to resend that text or clear all history. Read-only. | — |
 | Send text area | Text entry field. Press Enter to send the typed buffer. | — |
 | F1 … F12 (macro buttons) | Sends the macro stored for that function key. Active via keyboard shortcut when the TX slice is in CW or CWL mode. | `CwxMacro_F1` – `CwxMacro_F12` |
-| F1 … F12 macro editors | Text fields in the Setup view for writing or editing each macro string. | `CwxMacro_F1` – `CwxMacro_F12` |
+| F1 … F12 macro editors | Text fields in the Setup view for writing or editing each macro string. Each editor maintains a minimum height of about two lines of text. | `CwxMacro_F1` – `CwxMacro_F12` |
 | Delay: | Inter-macro delay in milliseconds. Range: 0–2000 ms. Default: 5 ms. | `CwxDelay` |
 | QSK | Enables QSK full break-in when checked. | `CwxQsk` |
 | Prosigns legend | Read-only reference showing character shortcuts for common CW prosigns (=, +, (, &, $). | — |
@@ -46,6 +46,7 @@ CWX presents three views, selected by the buttons at the bottom of the panel: Se
 - If you switch to the Setup view or click Send while Live is on, live sending is turned off automatically. You will not accidentally retransmit characters that the keyer has already sent.
 - The Live button state reflects the radio model directly. If the model reports that live sending is active when the panel first loads, the Live button will already appear pressed.
 - The Send button is marked to indicate it keys the transmitter, distinguishing it from other transmit-related controls in the interface.
+- The macro editors are sized to remain readable even when the application is at its minimum window height, so you can keep editing macros without scrolling.
 
 ## Related
 

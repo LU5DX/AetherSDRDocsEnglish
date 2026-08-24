@@ -20,14 +20,15 @@ AetherSDR provides six client-side noise-reduction engines. This page describes 
 
 The dialog provides standard window management via the title bar:
 
-| Control | Behavior |
-|---|---|
-| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Themed via `dialog/aetherDsp` theme container. |
-| — (Minimize) | Minimizes the dialog |
-| □ (Maximize) | Maximizes or restores the dialog |
-| × (Close) | Closes the dialog |
-| Drag-to-move | Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore. |
-| 8-axis resize | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. A 6 px resize hit zone surrounds the inner content widget. |
+| Control                        | Behavior                                                                                                                                                                                                     | Notes                                                                                                                                                                      |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Title bar — AetherDSP Settings | 18 px gradient title bar with grip glyph (⋮⋮) on the left and the dialog title. Themed via `dialog/aetherDsp` theme container.                                                                               |                                                                                                                                                                            |
+| — (Minimize)                   | Minimizes the dialog                                                                                                                                                                                         |                                                                                                                                                                            |
+| □ (Maximize)                   | Maximizes or restores the dialog                                                                                                                                                                             |                                                                                                                                                                            |
+| × (Close)                      | Closes the dialog                                                                                                                                                                                            |                                                                                                                                                                            |
+| Drag-to-move                   | Click and drag the title bar to move the dialog. Double-click the title bar to toggle maximize/restore.                                                                                                      |                                                                                                                                                                            |
+| 8-axis resize                  | Click and drag any edge or corner to resize. Cursor changes to indicate the resize direction. A 6 px resize hit zone surrounds the inner content widget.                                                     |                                                                                                                                                                            |
+| Noise Floor (RN2 dry mix)      | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. | Affects received audio only; the transmit denoiser is unchanged. Persisted by Rn2SettingsModel and exposed to the DSP chain via AetherDspWidget's rn2DryMixChanged signal. |
 
 ## What each control does
 
@@ -44,7 +45,6 @@ A frequency-domain noise reducer designed to minimise the tonal "birdie" artefac
 | Gain Floor: | Slider | 0.0010 | 0.0001–0.1000 | `NR2GainFloor` |
 | Smoothing: | Slider | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
 | Threshold: | Slider | 0.20 | 0.05–0.50 | `NR2Qspp` |
-| Use Original Geometry | Checkbox | Off | — | `NR2UseOriginalGeometry` |
 | Reset Defaults (↺ icon) | Button | — | — | — |
 
 **Gain Method** selects how NR2 maps noise estimates to gain reduction. Gamma matches typical speech amplitude patterns and is the default. Trained uses a model built from real speech and noise samples. Linear and Log trade perceptual accuracy for simpler computation.
@@ -61,9 +61,7 @@ A frequency-domain noise reducer designed to minimise the tonal "birdie" artefac
 
 **Threshold:** is the speech-presence-probability threshold. Lower values protect quiet speech but may allow more noise through.
 
-**Use Original Geometry** enables the original NR2 noise estimation geometry, which can produce a different noise floor estimate. Try enabling this if you notice NR2 is over-suppressing or under-suppressing certain noise types.
-
-**Reset Defaults (↺ icon)** restores: Gamma / OSMS / AE Filter on / 1.50 / 0.0010 / 0.85 / 0.20 / Use Original Geometry off.
+**Reset Defaults (↺ icon)** restores: Gamma / OSMS / AE Filter on / 1.50 / 0.0010 / 0.85 / 0.20.
 
 ---
 
@@ -123,10 +121,7 @@ An MMSE-Wiener noise reducer with asymmetric gain smoothing, available only on m
 
 | Control | Kind | Default | Range | Setting key |
 |---|---|---|---|---|
-| Enable MNR (macOS only) | Checkbox | (read from audio engine) | — | `MnrEnabled` |
 | Strength | Slider | 100 | 0–100 | `MnrStrength` |
-
-**Enable MNR (macOS only)** turns the engine on or off. The initial state reflects the current audio engine state.
 
 **Strength** sets aggressiveness. 0 is the mildest; 100 is maximum. Persisted internally as a normalised value of 0.00–1.00.
 
@@ -136,7 +131,13 @@ MNR is not available on Linux or Windows. The **MNR** toggle is dimmed on those 
 
 ### RN2 — RNNoise
 
-The **RN2** tab is informational only. RNNoise has no adjustable parameters in AetherDSP Settings. Enable or disable the engine from the overlay menu.
+A neural-network noise reducer optimised for real-time voice. The **RN2** tab hosts the **Noise Floor** control, which determines how much of the original signal is mixed back under the denoised audio.
+
+| Control | Kind | Default | Range | Setting key |
+|---|---|---|---|---|
+| Noise Floor (RN2 dry mix) | Slider | 0 | 0–100 | — |
+
+**Noise Floor (RN2 dry mix)** sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10–20% keeps a steady quiet floor so the receiver still sounds alive. The control affects received audio only; the transmit denoiser is unchanged.
 
 ---
 
@@ -152,7 +153,7 @@ The **BNR** tab is informational only. BNR intensity is controlled from the over
 - DFNR's Attenuation Limit at 100 dB can suppress very weak signals along with the noise. Reduce it to 40–60 dB on marginal paths.
 - On the NR2 tab, if speech sounds hollow or "underwater", lower **Reduction:** toward 0.80–1.00 or switch **Gain Method** from Gamma to Log.
 - If NR2 produces a pumping effect, increase **Gain Floor:** from the default 0.0010 toward 0.0100.
-- On the NR2 tab, if you notice inconsistent noise reduction across different noise types, try enabling **Use Original Geometry**.
+- On the RN2 tab, if the receiver sounds dead between phrases, raise **Noise Floor** to 10–20% so a quiet background remains audible.
 - Use **Reset Defaults (↺ icon)** on the NR2 or NR4 tab to recover a known-good starting point after experimental changes.
 
 ## Troubleshooting
@@ -163,6 +164,7 @@ The **BNR** tab is informational only. BNR intensity is controlled from the over
 - **DFNR removes weak signals along with the noise** — Lower **Attenuation Limit** from 100 toward 40–60 dB.
 - **MNR tab is present but has no effect** — MNR is macOS-only. On Linux or Windows, use NR2, NR4, or DFNR instead.
 - **NR4 toggle is disabled on Windows** — NR4 requires LLVM (clang-cl). Install LLVM from llvm.org and rebuild AetherSDR.
+- **RN2 output is silent between phrases and the receiver sounds dead** — Raise **Noise Floor** on the RN2 tab to 10–20%.
 - **NR2 or NR4 settings did not persist after restart** — Settings are saved automatically on each control change. If values revert, click **Reset Defaults (↺ icon)** and re-enter the desired values to force a save.
 
 ## Related
@@ -171,4 +173,4 @@ The **BNR** tab is informational only. BNR intensity is controlled from the over
 - [Tune NR2 reduction depth and voice threshold](../../features/aether-dsp/tune-nr2-reduction-depth-and-voice-threshold.md)
 - [Switch NR2 gain method between Linear, Log, Gamma and Trained](../../features/aether-dsp/switch-nr2-gain-method-between-linear-log-gamma-and-trained.md)
 - [Change NR2 noise power estimator (OSMS/MMSE/NSTAT)](../../features/aether-dsp/change-nr2-noise-power-estimator-osms-mmse-nstat.md)
-- [Adjust NR4 reduction amount in dB](../../features/aether-dsp/adjust-nr4-reduction-amount-in-db.md)
+- [Adjust NR4 reduction amount in dB](../../features/aether-dsp/adjust-nr4

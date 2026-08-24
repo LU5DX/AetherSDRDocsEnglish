@@ -18,7 +18,7 @@ This page explains how to turn on the graphic equalizer for the transmit path. T
 | Control | Description | Default | Range |
 |---|---|---|---|
 | ON | Enables or disables the equalizer for the currently-selected path (TX or RX). Green when active. | Off | On / Off |
-| TX | Selects the transmit equalizer bands for display and editing. | Checked (restored from previous session) | — |
+| TX | Selects the transmit equalizer bands for display and editing. | Checked | — |
 | RX | Selects the receive equalizer bands for display and editing. | Unchecked | — |
 | Reset arc button | Resets all 8 bands of the current path to 0 dB. Tooltip: "Reset all bands to 0 dB". | — | — |
 | 63 | Trims the 63 Hz band. Value label below the slider updates live. While dragging, a popup displays the formatted dB value with sign (e.g., "+3 dB" or "-10 dB"). | 0 dB | −10 to +10 dB |

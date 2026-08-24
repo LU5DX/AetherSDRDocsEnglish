@@ -136,7 +136,7 @@ The Spot List tab shows a unified searchable table of all live spots.
 2. Click `Clear` to empty the current spot list.
 3. Double-click a row in the table to tune the active slice to the spot's frequency. If mode information is present in the spot comment and `Auto:` is enabled on the Display tab, the slice switches to that mode automatically.
 
-The table columns are: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source.
+The table columns are: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. The Time and Freq columns are sortable — click the column header to toggle between ascending and descending order. This lets you return to newest-first ordering after sorting by another column.
 
 Right-click any column header to show or hide individual columns. The header menu stays open while checkable columns are toggled (for example, hide "Band" and "Mode" in one pass instead of reopening the menu for each). Click a non-checkable area or press Escape to dismiss the menu.
 
@@ -209,4 +209,4 @@ When DXCC coloring is enabled, AetherSDR reads your ADIF log once at startup. Au
 
 ### Before you start
 
-- DXCC coloring must be enabled and an ADIF log file must already be loaded. See [Enable DXCC coloring from an ADIF log](enable-dxcc-coloring-from-an-ad
+- DXCC

@@ -1,6 +1,6 @@
 # Connect to a DX cluster
 
-AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster, the Reverse Beacon Network, WSJT-X, SpotCollector, POTA, and FreeDV, and configure how incoming spots display as overlays on the panadapter.
+AetherSDR's SpotHub dialog lets you connect to a telnet DX cluster, the Reverse Beacon Network, WSJT-X, SpotCollector, POTA, FreeDV, EiBi, and N1MM Logger+ Spot Collector, and configure how incoming spots display as overlays on the panadapter.
 
 ## Before you start
 
@@ -184,39 +184,40 @@ Click any color swatch to open a color picker:
 | **FreeDV Spots** | Console of FreeDV activity. | — |
 | **Spot Color:** | Color picker for FreeDV spots. | `FreeDvSpotColor` |
 
-## Spot List tab
+## EiBi tab
 
-### Viewing and filtering spots
+### Connecting to EiBi
 
-1. Click the **Spot List** tab.
-2. Use the band checkboxes to toggle visibility of spots on each band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). The checkboxes use a flow layout that wraps to additional lines when the dialog is too narrow to display them all in one row.
-3. Click **Clear** to empty the current spot list.
+1. Click the **EiBi** tab.
+2. In the **Server:** field, type the EiBi server hostname. This saves to `EibiHost`.
+3. In the **Port:** field, set the port (1–65535). This saves to `EibiPort`.
+4. In the **Callsign:** field, type your login callsign. This saves to `EibiCallsign`.
+5. Click **Connect** to establish the telnet connection. The status changes to **Connected**.
+6. To reconnect automatically on launch, enable **Auto-connect on startup**. This saves to `EibiAutoConnect`.
 
-### Tuning to a spot
-
-Double-click a row in the spot table to tune the active slice to the spot's frequency. As of v0.9.7, AetherSDR also forwards mode information extracted from the spot comment, so the slice switches to the appropriate mode (for example, CW or SSB) to match the spot rather than only changing frequency.
-
-### Customizing table columns
-
-Right-click the table header to open a column visibility menu. The menu stays open while you toggle checkable columns, so you can show or hide multiple columns (for example, Spotter, Band, Mode) in a single pass without the menu closing after each toggle.
-
-### What each control does on the Spot List tab
+### What each control does on the EiBi tab
 
 | Control | Description | Setting key |
 |---|---|---|
-| **Bands:** | Per-band checkboxes toggle visibility in table. The checkboxes wrap to additional rows when the dialog is narrow. | — |
-| **Clear** | Empties current spot list. | — |
-| **Spot table** | Sortable table of spots. Columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Right-click header to show/hide columns without the menu closing between toggles. | — |
+| **Server:** | EiBi telnet hostname. | `EibiHost` |
+| **Port:** | EiBi telnet port. Valid range: 1–65535. | `EibiPort` |
+| **Callsign:** | Login callsign sent to EiBi. | `EibiCallsign` |
+| **Connect / Disconnect** | Toggles the telnet connection. | — |
+| **Auto-connect on startup** | Starts EiBi automatically on launch. | `EibiAutoConnect` |
+| **EiBi Spots** | Console of received EiBi spots. | — |
+| **Spot Color:** | Color picker for EiBi spots. | `EibiSpotColor` |
 
-## Display tab
+## N1MM tab
 
-### Configuring spot overlay appearance
+### Connecting to N1MM Logger+ Spot Collector
 
-The **Display** tab controls how spots are visualized on the panadapter.
+1. Click the **N1MM** tab.
+2. In the **Port:** field, set the UDP port N1MM Logger+ broadcasts Spot Collector messages on. This saves to `N1mmPort`.
+3. Click **Start** to begin listening. The status changes to **Listening**.
+4. To auto-start on launch, enable **Auto-start on startup**. This saves to `N1mmAutoStart`.
 
-#### Master toggles
+### What each control does on the N1MM tab
 
 | Control | Description | Setting key |
 |---|---|---|
-| **Spots:** | Master toggle for DX spot overlay on the panadapter. Default: Enabled. | `IsSpotsEnabled` |
-| **Memories:** | Toggles
+| **Port:** | UDP port for

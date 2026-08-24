@@ -44,11 +44,15 @@ Select the microphone input source. Click the combo box and choose from MIC, BAL
 
 When host modulation is active (the radio is modulated by AetherSDR), the mic source control is disabled and shows only "PC". A tooltip explains that the other sources are FlexRadio jacks that are not available in this mode.
 
+In v26.8.4, when the radio's input selection is not available to this client, the mic source combo is rebuilt to show only "PC" and the TransmitModel is updated to match. This prevents a misleading list of phantom sources and keeps the radiocert transmit-audio check in sync with what the screen shows.
+
 ### Mic Gain
 
 Adjust the microphone input level. Drag the slider to set the level from 0 to 100.
 
 For the "PC" source, the value is stored locally in the `PcMicGain` setting. The radio always reports `mic_level=0` when the source is PC.
+
+In v26.8.4, the mic gain signal is emitted whenever the client owns the gain — either in RADE mode or when host modulation is active with the PC source selected.
 
 ### +ACC
 
@@ -218,8 +222,4 @@ Set the CW sidetone pitch. Type a value directly in the text field, or use the *
 
 ## Hover readouts (v26.7.4)
 
-In v26.7.4, all gauges in the Phone/CW applet display an exact numeric readout when you hover the mouse cursor over them:
-
-- **Level gauge:** Shows the exact microphone peak level in dB with one decimal place (e.g., "-12.3 dB").
-- **Compression gauge:** Shows the exact compression amount as a positive dB value with one decimal place (e.g., "8.5 dB" of compression).
-- **ALC gauge (Phone panel):** Shows the exact post-software-ALC SSB peak in dBFS with one decimal place (e.g., "-15
+In v26.7.4, all gauges in the Phone/CW applet display an exact numeric

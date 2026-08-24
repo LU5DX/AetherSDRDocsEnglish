@@ -45,7 +45,7 @@ Available engines:
 - **NR2** — Musical-noise-reduction engine
 - **NR4** — libspecbleach-based engine (requires LLVM on Windows)
 - **MNR** — macOS MMSE-Wiener engine (macOS only)
-- **RN2** — RNNoise-based engine (informational only, no adjustable parameters)
+- **RN2** — RNNoise-based engine with adjustable noise floor
 - **BNR** — NVIDIA Broadcast SDK engine (NVIDIA SDK only)
 - **DFNR** — DeepFilterNet3 engine
 
@@ -53,18 +53,16 @@ Available engines:
 
 Under the NR2 tab, use these controls:
 
-| Control | Default | Valid Range | Setting Key | Description |
-|---------|---------|-------------|-------------|-------------|
-| **Gain Method** | Gamma | Linear / Log / Gamma / Trained | `NR2GainMethod` | Selects gain-curve mapping used by NR2. Stored as integer 0-3. |
-| **NPE Method** | OSMS | OSMS / MMSE / NSTAT | `NR2NpeMethod` | Selects noise power estimator. Stored as integer 0-2. |
-| **AE Filter (artifact elimination)** | On | On / Off | `NR2AeFilter` | Toggles the anti-artefact post-filter. |
-| **Use Original Geometry** | Off | On / Off | `NR2UseOriginalGeometry` | When enabled, uses the original NR2 spectral gain geometry instead of the alternative flatter curve. |
-| **Reduction:** | 1.50 | 0.50–2.00 | `NR2GainMax` | Sets maximum NR2 reduction depth. Slider stores value*100 internally. |
-| **Reduction Floor:** | 0.10 | 0.00–1.00 | `NR2GainFloor` | Sets the minimum noise reduction gain that is always applied, even on speech-dominant frames. |
-| **Smoothing:** | 0.85 | 0.50–0.98 | `NR2GainSmooth` | Controls how smoothly the noise estimate tracks changes. |
-| **Threshold:** | 0.20 | 0.05–0.50 | `NR2Qspp` | Sets speech-presence-probability threshold. |
+| Control                              | Default | Valid Range            | Setting Key        | Description                                                                                                                         |
+|--------------------------------------|---------|------------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Gain Method**                      | Gamma   | Linear / Log / Gamma / Trained | `NR2GainMethod`     | Selects gain-curve mapping used by NR2. Stored as integer 0-3 matching the order above.                                             |
+| **NPE Method**                       | OSMS    | OSMS / MMSE / NSTAT    | `NR2NpeMethod`      | Selects noise power estimator. Stored as integer 0-2.                                                                               |
+| **AE Filter (artifact elimination)** | On      | On / Off               | `NR2AeFilter`       | Toggles the anti-artefact post-filter.                                                                                              |
+| **Reduction:**                       | 1.50    | 0.50–2.00              | `NR2GainMax`        | Sets maximum NR2 reduction depth. Slider stores value*100 internally.                                                               |
+| **Smoothing:**                       | 0.85    | 0.50–0.98              | `NR2GainSmooth`     | Controls how smoothly the noise estimate tracks changes.                                                                            |
+| **Threshold:**                       | 0.20    | 0.05–0.50              | `NR2Qspp`           | Sets speech-presence-probability threshold.                                                                                         |
 
-Click **Reset Defaults** (↺ icon) to restore all NR2 parameters to their defaults: Gamma/OSMS/AE on, Use Original Geometry off, Reduction 1.50, Reduction Floor 0.10, Smoothing 0.85, Threshold 0.20.
+Click **Reset Defaults** (↺ icon) to restore all NR2 parameters to their defaults: Gamma/OSMS/AE on, Reduction 1.50, Smoothing 0.85, Threshold 0.20.
 
 ## NR4 parameters
 
@@ -93,6 +91,8 @@ Under the MNR tab, use these controls:
 
 The MNR tab and toggle are dimmed on Windows and Linux builds — the engine has no backend on those platforms.
 
+Click **Reset Defaults** (↺ icon) to restore the MNR Strength to its default of 100. The Enable MNR checkbox is not affected by Reset Defaults.
+
 ## DFNR parameters
 
 Under the DFNR tab, use these controls:
@@ -102,9 +102,17 @@ Under the DFNR tab, use these controls:
 | **Attenuation Limit** | 100 | 0–100 dB | `DfnrAttenLimit` | Sets maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum. |
 | **Post-Filter Beta** | 0.00 | 0.00–0.30 | `DfnrPostFilterBeta` | Applies an additional post-filter for extra suppression. Slider stores value*100 internally. |
 
-## RN2 tab
+Click **Reset Defaults** (↺ icon) to restore all DFNR parameters to their defaults: Attenuation Limit 100, Post-Filter Beta 0.00.
 
-The RN2 tab is informational only. It displays the currently active RNNoise model but provides no adjustable parameters. The engine is controlled exclusively through the main receiver toolbar toggle.
+## RN2 parameters
+
+Under the RN2 tab, use these controls:
+
+| Control | Default | Valid Range | Setting Key | Description |
+|---------|---------|-------------|-------------|-------------|
+| **Noise Floor (RN2 dry mix)** | 0 | 0–100 | — | Sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10-20% keeps a steady quiet floor so the receiver still sounds alive. Affects received audio only; the transmit denoiser is unchanged. |
+
+The RN2 tab also displays the currently active RNNoise model. Click **Reset Defaults** (↺ icon) to restore the Noise Floor to its default of 0.
 
 ## BNR tab
 
@@ -117,11 +125,10 @@ Starting in v26.6.1, the AetherDSP Settings dialog uses the theme system for sty
 ## Tips
 
 - For SSB voice operation with NR2, start with **Reduction:** at `1.50` and **Threshold:** at `0.20`. If speech sounds clipped or hollow, lower **Reduction:** toward `1.00`.
-- **Reduction Floor:** sets a minimum gain that is always applied. A setting of `0.10` means even on speech-dominant frames, at least 10% noise reduction is active. Set to `0.00` to allow full pass-through on speech.
 - Lowering **Threshold:** below `0.15` can cause residual noise to break through during speech pauses because more of the signal is classified as speech. Raise it if you notice this.
 - If the noise estimate reacts too slowly to burst noise, lower **Smoothing:** toward `0.60`. If the noise gate sounds choppy, raise it toward `0.95`.
 - Leaving **AE Filter (artifact elimination)** enabled is recommended for most conditions; disable it only if you notice the post-filter itself introducing artifacts.
-- **Use Original Geometry** enables the original NR2 spectral gain curve. Enable this if you prefer the older noise reduction character; disable it for the newer flatter response that may preserve more speech components.
+- For RN2, a **Noise Floor** of `10`–`20` keeps the receiver sounding alive between phrases while still suppressing most background noise. Start at `0` for maximum suppression and increase only if the silence is objectionable.
 - For NR4, start with default settings and adjust **Reduction (dB):** first. Raise **Masking Depth:** and **Suppression:** only if needed for particularly noisy conditions.
 - MNR on macOS works best at **Strength** between 60-80 for SSB; higher values may introduce artifacts.
 
@@ -130,6 +137,7 @@ Starting in v26.6.1, the AetherDSP Settings dialog uses the theme system for sty
 - **Speech sounds hollow or over-processed** — **Reduction:** is too high or **Threshold:** is too high. Lower **Reduction:** and/or lower **Threshold:** so more speech components are preserved.
 - **Noise is still audible during speech pauses** — **Threshold:** is too low, causing pauses to be classified as speech. Raise **Threshold:** toward `0.30`–`0.40`.
 - **Noise estimate reacts sluggishly or the noise floor sounds unstable** — Adjust **Smoothing:** (see Tips above). Also verify the selected **NPE Method** suits your noise type; NSTAT adapts better to non-stationary noise.
+- **RN2 output is completely silent between phrases and you find it distracting** — Increase the **Noise Floor** slider to `10`–`20` to keep a steady quiet floor under the denoised audio.
 - **MNR toggle is grayed out** — You are on Windows or Linux. MNR requires macOS.
 - **BNR toggle is grayed out** — The NVIDIA Broadcast SDK is not installed or not detected.
 - **NR4 toggle is grayed out on Windows** — LLVM (clang-cl) is not installed. Install LLVM from llvm.org and rebuild AetherSDR to enable NR4.

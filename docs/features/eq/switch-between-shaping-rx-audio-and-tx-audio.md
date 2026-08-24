@@ -1,4 +1,8 @@
-# Switch between shaping RX audio and TX audio
+# Equalizer (Graphic)
+
+The Equalizer applet is an 8-band graphic equalizer applied **inside the radio itself** via the TCP/IP API. It is separate from the client-side parametric EQ. The fixed bands are at 63, 125, 250, 500 Hz and 1, 2, 4, 8 kHz; each slider trims ±10 dB.
+
+## Switch between shaping RX audio and TX audio
 
 The Equalizer applet maintains separate band settings for the receive and transmit paths. Use the RX and TX selector buttons to choose which path the sliders and ON button act on. The applet remembers which view (RX or TX) you last used and reopens on that view when you restart AetherSDR.
 
@@ -29,8 +33,14 @@ The Equalizer applet maintains separate band settings for the receive and transm
 | 2k | Slider | 0 dB | −10 to +10 dB | Trims the 2 kHz band for the selected path. While dragging, a popup shows the signed dB value. |
 | 4k | Slider | 0 dB | −10 to +10 dB | Trims the 4 kHz band for the selected path. While dragging, a popup shows the signed dB value. |
 | 8k | Slider | 0 dB | −10 to +10 dB | Trims the 8 kHz band for the selected path. While dragging, a popup shows the signed dB value. |
-| Reset arc (revert icon) | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. |
+| Reset arc (revert icon) | Push button | — | — | Resets all 8 bands of the currently selected path to 0 dB. Tooltip: "Reset all bands to 0 dB". Drawn as a 3/4-circle arrow. |
 | +10 / 0 / −10 dB scale | Indicator | — | — | Left and right reference labels showing the ±10 dB range of the sliders. |
+
+## Indicators
+
+| Label | States | Meaning |
+|---|---|---|
+| Per-band value label | −10 through +10 | Live dB value of each slider shown below its handle. |
 
 ## Tips
 

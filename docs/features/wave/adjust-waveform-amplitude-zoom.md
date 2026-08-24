@@ -13,19 +13,19 @@ The Zoom slider in the Waveform applet scales the amplitude axis of the waveform
 2. Locate the Zoom row or the Window row in the settings drawer.
 3. Adjust the desired slider:
    - Drag the **Zoom** slider left to decrease zoom or right to increase zoom. The readout to the right of the slider updates immediately, showing the current value as a multiplier (for example, `1.7x`).
-   - Drag the **Window** slider left to decrease the time window or right to increase it. The readout to the right of the slider updates immediately, showing the current value in milliseconds or seconds (for example, `1 s` or `240 ms`).
+   - Drag the **Window** slider left to decrease the time window or right to increase it. The readout to the right of the slider updates immediately, showing the current value in milliseconds (for example, `200 ms`).
 4. Release the slider. The new value is saved automatically to `WaveApplet_ZoomPercent` or `WaveApplet_TimeWindowMs`. The drawer expanded/collapsed state is also saved automatically to `WaveApplet_DrawerExpanded`.
 
 ## What each control does
 
-| Control | Default    | Valid range                                                       |
-|---------|------------|-------------------------------------------------------------------|
-| Zoom    | 170 (1.7x) | 100–600 (displayed as 1.0x–6.0x)                                  |
-| Window  | 1 s        | 240 ms, 480 ms, 1 s, 2 s, 3 s, 4 s, 5 s, 6 s, 7 s, 8 s, 9 s, 10 s |
+| Control | Default    | Valid range     |
+|---------|------------|-----------------|
+| Zoom    | 170 (1.7x) | 100–600 (displayed as 1.0x–6.0x) |
+| Window  | 200 ms     | 10–500 ms (continuous)           |
 
 The Zoom slider value is an integer percentage. The waveform display divides it by 100 to produce the multiplier shown in the readout. A value of 100 means no zoom (1.0x); 600 is maximum zoom (6.0x).
 
-The Window slider selects from discrete time window steps. The first two notches provide sub-second detail (240 ms and 480 ms), followed by one-second increments from 1 second to 10 seconds. Each notch is a deliberate stop, not a continuous range.
+The Window slider is a continuous range from 10 ms to 500 ms, giving you full control over the time window. Smaller values (around 10–50 ms) provide fine detail in fast waveforms; larger values (up to 500 ms) show more history at reduced resolution.
 
 ## The settings drawer state
 
@@ -36,7 +36,7 @@ The settings drawer (which contains the View, Zoom, Window, and FPS controls) re
 - At high zoom levels, signals near full scale will produce clipping highlights (red column emphasis and a CLIP N counter in the header). If you see frequent clipping indicators after raising zoom, reduce the value until the trace fits within the display without hitting the edges.
 - The zoom and window settings apply equally to RX and TX paths. The direction tint (cool for RX, warm for TX) still distinguishes which path is active regardless of zoom level.
 - To inspect a transient at higher zoom without missing it in real time, pause the display first by single-clicking the waveform, then adjust zoom while the snapshot is frozen.
-- Use a shorter window (240 ms or 480 ms) to see fine details in fast waveforms. Use a longer window (5 s to 10 s) to see overall level changes over time.
+- Use a shorter window (around 50 ms) to see fine details in fast waveforms. Use a longer window (up to 500 ms) to see overall level changes over time.
 - The click discrimination interval used to distinguish single-click from double-click respects the value you set in Radio Setup → Interaction Settings. Changes to that setting take effect immediately without restarting AetherSDR.
 
 ## Troubleshooting
@@ -44,7 +44,7 @@ The settings drawer (which contains the View, Zoom, Window, and FPS controls) re
 - **The settings drawer is not visible** — Double-click the waveform display to toggle it open. The drawer is below the waveform trace.
 - **The Zoom slider snaps back after dragging** — This can happen if no audio is arriving and the display is showing the no-audio placeholder. The slider value is still saved; it takes effect as soon as audio resumes.
 - **Zoom resets after restarting AetherSDR** — Verify the value is being persisted. If the application closed abnormally, the `WaveApplet_ZoomPercent` setting may not have been written. Set the slider to the desired value after a clean launch.
-- **Window setting changed unexpectedly after update** — If upgrading from a previous version that used the `WaveApplet_TimeWindowSec` setting (1–20 s linear), the value is automatically migrated to the nearest discrete step in `WaveApplet_TimeWindowMs`. Verify the setting and adjust if needed.
+- **Window setting changed unexpectedly after update** — If upgrading from a previous version that used the `WaveApplet_TimeWindowSec` setting (1–20 s linear), the value is automatically migrated to the nearest value in `WaveApplet_TimeWindowMs`. Verify the setting and adjust if needed.
 - **The no-audio placeholder message changed** — When no RX audio is arriving, the display now shows "Enable PC Audio" instead of "no RX audio". This indicates you need to enable PC audio in the radio settings or audio configuration. For TX, the message still shows "no TX audio".
 
 ## Related

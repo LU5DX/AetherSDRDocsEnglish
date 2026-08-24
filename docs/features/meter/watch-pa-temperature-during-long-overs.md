@@ -13,17 +13,18 @@ The Meters applet shows a live PA Temp gauge that reads the radio's power amplif
 2. Click MTR to toggle the Meters applet open.
 3. Read the **PA Temp** gauge under the **Radio Hardware** section header.
 
-The bar fills from left to right as temperature rises. The bar turns yellow above 55 °C and red above 70 °C. You can toggle the temperature display between Celsius (°C) and Fahrenheit (°F) using the unit button in the header row.
+The bar fills from left to right as temperature rises. The bar turns red above 70 °C (158 °F). You can toggle the temperature display between Celsius (°C) and Fahrenheit (°F) using the unit button in the header row.
 
 ## What each control does
 
-| Label    | Range        | Red threshold | Notes                                                                                                      |
-|----------|--------------|---------------|------------------------------------------------------------------------------------------------------------|
-| PA Temp  | 0–120 °C     | > 70 °C       | Accessible name: "PA temperature". Display can be toggled between Celsius and Fahrenheit.                  |
-| +13.8V   | 10.0–16.0 V  | > 15 V        | The gauge label updates dynamically to show the live radio-reported voltage (e.g. `+13.82V`) instead of the static `+13.8V` placeholder. Accessible name: "Supply voltage". |
-| Main Fan | 0–3000 rpm   | > 2500 rpm    | Accessible name: "Main fan speed".                                                                         |
+| Label                   | Range                                                                                                                                             | Behavior / Notes                                                                                                                                                                         |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PA Temp                 | 0–120 °C or 32–248 °F (red > 70 °C / 158 °F)                                                                                                      | Displays PATEMP meter reading from the radio; the gauge label shows the live value with the selected unit. Scale and tick marks re-render when the °C/°F toggle is used, snapping immediately to avoid animating across the unit jump. |
+| °C / °F toggle          | °C / °F                                                                                                                                           | Toggles the PA temperature display between Celsius and Fahrenheit; the choice persists to the `MtrApplet` settings object (`tempFahrenheit` field). Located in the header row next to the **Radio Hardware** section label. |
+| +13.8V (supply voltage) | 10.0–16.0 V (red > 15)                                                                                                                            | Displays supply voltage meter; label dynamically updates to show the live voltage value (e.g. `+13.82V`) via `HGauge::setLabel`.                                                        |
+| Main Fan                | 0–3000 rpm (red > 2500)                                                                                                                            | Displays MAINFAN meter value (resolved lazily by `MeterModel::findMeter`); label shows the live rpm. PACURRENT intentionally omitted: the 10A meter range clips under full PA draw on FLEX-8000 hardware. |
 
-None of these controls have persisted settings keys. They are read-only telemetry displays.
+None of these controls have persisted settings keys (except the °C/°F toggle). They are read-only telemetry displays.
 
 ## Temperature unit toggle
 
@@ -31,6 +32,7 @@ A **°C/°F** button appears in the **Radio Hardware** header row. Click it to s
 
 - When toggling to Fahrenheit, gauge ticks, the label, and the displayed value all update to show °F.
 - The accessible name and the underlying data source remain unchanged; only the presentation is converted.
+- The gauge scale re-renders immediately when toggled, without animating across the unit change.
 
 ## Tips
 

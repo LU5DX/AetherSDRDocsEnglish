@@ -242,6 +242,10 @@ The **Spot List** tab shows a unified, searchable table of all live spots from a
 
 Right-click any column header in the spot table to show or hide columns. The menu stays open while toggling multiple checkable columns, allowing you to show or hide several columns in one pass without the menu closing after each toggle.
 
+#### Sorting
+
+Click any column header to sort by that column. The **Time** column is sortable, so you can always return to newest-first order after sorting by other columns.
+
 ---
 
 ## Display Tab
@@ -340,6 +344,4 @@ Controls for coloring spots based on DXCC worked/confirmed/needed status.
 | Control | Setting key |
 |---|---|
 | **New DXCC** | `DxccColorNewEntity` |
-| **New Band** | `DxccColorNewBand` |
-| **New Mode** | `DxccColorNewMode` |
-| **Worked** | `Dxcc
+| **New

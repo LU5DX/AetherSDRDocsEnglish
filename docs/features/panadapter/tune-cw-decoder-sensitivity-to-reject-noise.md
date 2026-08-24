@@ -27,6 +27,14 @@ The **Sens** slider controls how strictly the CW decoder filters uncertain chara
 | **A-** button        | —           | —                    |
 | **A+** button        | —           | —                    |
 | CW panel resize grip | —           | —                    |
+| **Lo** (pitch min) slider | 500 Hz  | 300–1200 Hz        |
+| **Hi** (pitch max) slider | 700 Hz  | 300–1200 Hz        |
+| **🔒P** (Lock Pitch) | —          | —                    |
+| **🔒S** (Lock Speed) | —          | —                    |
+| **CPY ALL** button   | —           | —                    |
+| **CPY VIS** button   | —           | —                    |
+| **CLR** button       | —           | —                    |
+| **✕** (close CW) button | —        | —                    |
 
 ## CW decode text colouring
 
@@ -40,6 +48,20 @@ The decoded text uses colour to indicate confidence:
 | Red     | >= 0.60        | Very low confidence    |
 
 TX-side decoded text (your own sending) appears in cyan (`#5fc8ff`) so you can distinguish your sending from incoming CW. When switching from TX to RX, a separator space is inserted automatically to prevent the two coloured runs from merging.
+
+## Locking the CW decoder pitch
+
+Use **🔒P** (Lock Pitch) to fix the decoder's pitch search to the currently tuned frequency. This is useful once the decoder has locked onto a signal and you want to prevent it from wandering.
+
+1. Click **🔒P** to enable pitch locking.
+2. Click it again to disable locking and let the decoder search freely across the pitch range.
+
+## Locking the CW decoder speed
+
+Use **🔒S** (Lock Speed) to fix the decoder's speed search to the current WPM value. This prevents the decoder from switching between different character speeds while decoding a single transmission.
+
+1. Click **🔒S** to enable speed locking.
+2. Click it again to disable locking and let the decoder adapt to speed changes.
 
 ## Adjusting the CW decode text font size
 
@@ -57,6 +79,20 @@ Drag the thin horizontal grip at the top of the CW decode panel (just below the 
 2. Click and drag up to shrink the panel, or down to enlarge it. Valid range is 60–600 px.
 3. The panel height is persisted between sessions.
 
+## Copying decoded CW text
+
+- Click **CPY ALL** to copy the entire decoded text buffer to the clipboard.
+- Click **CPY VIS** to copy only the text currently visible in the scroll area.
+- Right-clicking the CW decode text area also gives access to the standard text actions (Select All, Copy, and so on) alongside the **Clear** option.
+
+## Clearing the CW decode buffer
+
+Click **CLR** to erase all decoded text from the buffer. This is useful before a new transmission when you want a clean readout.
+
+## Hiding the CW decode panel
+
+Click the **✕** button at the top of the CW decode panel to hide it. The panel reappears when you switch the CW decoder on again.
+
 ## Tips
 
 - Start at the default of 30 and raise the slider gradually until red and orange characters disappear from the decode text.
@@ -65,6 +101,7 @@ Drag the thin horizontal grip at the top of the CW decode panel (just below the 
 - The **WPM** range slider (default 15–40 WPM, range 5–60 WPM) constrains which speeds the decoder searches. Narrowing that range to match the received signal's sending speed improves decoding accuracy.
 - Right-clicking the CW decode text area also gives access to the standard text actions (Select All, Copy, and so on) alongside the **Clear** option.
 - Use **A+** and **A-** to find a comfortable reading size. The change takes effect immediately and is saved for next time.
+- Lock both **🔒P** and **🔒S** once the decoder has locked onto a steady signal to produce the most consistent text.
 
 ## Troubleshooting
 

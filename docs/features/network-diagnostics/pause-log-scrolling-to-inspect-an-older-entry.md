@@ -1,6 +1,6 @@
 # Network Diagnostics
 
-The Network Diagnostics dialog provides a live view of the network link to the radio. It features a multi-pane layout with a navigation tree on the left and a content area on the right, replacing the previous tab-based design. Pages include an overview dashboard, detailed metrics, per-stream performance graphs, and a live log viewer.
+The Network Diagnostics dialog provides a live view of the network link to the radio. It features a multi-pane layout with a navigation tree on the left and a content area on the right. Pages include an overview dashboard, detailed metrics, per-stream performance graphs, an application log viewer, and a TCI clients page.
 
 ## Opening Network Diagnostics
 
@@ -18,12 +18,13 @@ A search field at the top of the navigation tree lets you filter the list by typ
 The dialog contains the following pages, selectable from the navigation tree:
 
 - **Overview** – Shows four health cards (Status, Latency, Packet Loss, Audio Buffer) and four time-series charts (Latency and Jitter, Recent Packet Loss, Total Stream Rates, Audio Buffer).
-- **Details** – A scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, and Audio Playback groups.
+- **Connection Details** – A scrollable grid with labeled values for Network Status, Incoming Stream Rates, Packet Loss, Audio Playback, and the Adaptive Frame-Rate Throttle subsection. Includes a Read-Only Clipboard Copy action to copy the whole diagnostic summary. Renamed from "Details" in the v26.8.4 tree-navigation rework.
 - **Latency** – Full-width time-series chart of RTT, arrival gap, and jitter in ms.
 - **Rates** – Full-width log-scale time-series chart of per-stream incoming bitrates (RX total, Audio, FFT, Waterfall, Meters, DAX) in kbps.
 - **Packet Loss** – Full-width time-series chart of packet loss percentage per stream category.
 - **Audio** – Full-width time-series chart of playback buffer fill (ms) and underruns per second. Includes per-stream RX audio diagnostics showing feed rate, deficit, late packets, packet class code, and stream health for each active audio stream.
 - **Logs** – Live tail of the AetherSDR log file, filtered by category checkboxes. Syntax-highlighted by log level and category name. The timeframe selector is hidden while this page is active.
+- **TCI Clients** – Lists connected TCI clients with a live traffic monitor (Pause/Save log/Clear), answer-command suppression controls, and per-client details. New in v26.8.4. Build-gated by HAVE_TCI / TCI support. The timeframe selector is hidden on this page.
 
 ## Timeframe selector
 
@@ -36,7 +37,7 @@ A dropdown at the top-right corner of the content area selects how far back the 
 - 1 day
 - 1 week
 
-The timeframe selector is hidden when the **Logs** page is active.
+The timeframe selector is hidden when the **Logs** or **TCI Clients** page is active.
 
 ## Pause log scrolling to inspect an older entry
 
@@ -54,12 +55,12 @@ The Logs page tails the AetherSDR log file in real time. This section explains h
 
 ### Logs page controls
 
-| Control                            | Default | Behavior                                                                                                                                                                                                                                                                                                                            |
-|------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Live / Paused** (toggle button)  | Live    | When set to **Live**, the viewer auto-scrolls to the newest log output. When set to **Paused**, scrolling stops and the display holds its current position. Scrolling up in the viewer automatically switches the button to **Paused**. Clicking the button while it reads **Paused** resumes auto-scrolling and jumps to the tail. |
-| **Filter Categories** (checkboxes) | –       | Per-category checkboxes filter the log view. Includes a "General" (default) category plus all registered LogManager categories.                                                                                                                                                                                                     |
-| **Select All** (push button)       | –       | Shows all log categories in the viewer.                                                                                                                                                                                                                                                                                             |
-| **Deselect All** (push button)     | –       | Hides all log categories from the viewer.                                                                                                                                                                                                                                                                                           |
+| Control                                | Default                                                                                                                                                      | Behavior                                                                                                                                                                                                                                                                                                                            |
+|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Live / Paused** (toggle button)      | Live                                                                                                                                                         | When set to **Live**, the viewer auto-scrolls to the newest log output. When set to **Paused**, scrolling stops and the display holds its current position. Scrolling up in the viewer automatically switches the button to **Paused**. Clicking the button while it reads **Paused** resumes auto-scrolling and jumps to the tail. |
+| **Filter Categories** (checkboxes)     | –                                                                                                                                                            | Per-category checkboxes filter the log view. Includes a "General" (default) category plus all registered LogManager categories.                                                                                                                                                                                                     |
+| **Select All** (push button)           | –                                                                                                                                                            | Shows all log categories in the viewer.                                                                                                                                                                                                                                                                                             |
+| **Deselect All** (push button)         | –                                                                                                                                                            | Hides all log categories from the viewer.                                                                                                                                                                                                                                                                                           |
 
 ### Tips
 
@@ -79,15 +80,16 @@ The dialog displays the following indicators:
 | Local TCP | Local TCP endpoint |
 | Local UDP | Local UDP endpoint |
 | First UDP Packet | Whether the first UDP packet has been received since connect (Yes/No) |
-| Latency (RTT) | Current round-trip time |
-| Max Latency (RTT) | Highest RTT seen since connect |
-| Audio / FFT / Waterfall / Meters / DAX rates | Per-category ingress rate in kbps |
+| Latency (RTT) | Current round-trip time. Displays "not measured on this link" when the transport has no round trip to time. |
+| Max Latency (RTT) | Highest RTT seen since connect. Displays "not measured on this link" when the transport has no round trip to time. |
+| Audio / FFT / Waterfall / Meters / DAX rates | Per-category ingress rate in kbps. Displays "n/a" when the transport does not provide per-stream category statistics. |
 | Total RX / Total TX | Aggregate bytes per second in each direction |
-| Audio / FFT / Waterfall / Meters / DAX drops | Per-category dropped-packet counts and percentage |
+| Audio / FFT / Waterfall / Meters / DAX drops | Per-category dropped-packet counts and percentage. Displays "n/a" when the transport does not provide per-stream category statistics. |
 | RX Buffer Now / Peak | Current and peak audio buffer fill in bytes and ms |
 | Underruns (total / last sec) | Audio underrun counters |
-| Audio Arrival Gap / Max Arrival Gap | Inter-packet arrival timing |
-| Network Jitter | Smoothed jitter estimate of audio stream in ms |
+| Audio Arrival Gap / Max Arrival Gap | Inter-packet arrival timing. Displays "not measured on this link" before the first delivery-timing window closes. |
+| Network Jitter | Smoothed jitter estimate of audio stream in ms. Displays "not measured on this link" before the first delivery-timing window closes. |
+| Adaptive Frame-Rate Throttle | Current State, Pending Lift, and Sessions This Run values. Reduces panadapter frame rates when latency or loss is detected. Hidden until throttle data is available. |
 | Log path label | Full path of the log file being tailed |
 
 ## Closing the dialog

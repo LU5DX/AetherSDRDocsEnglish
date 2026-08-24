@@ -42,9 +42,11 @@ To sign out, click **Sign Out**.
 
 1. Open **Settings > Connect to Radio...**.
 2. Click **Connect by IP** or select the **Manual** mode button.
-3. Enter the radio's IP address in the **Radio IP address** field.
+3. Enter the radio's IP address or hostname (e.g., `ic-705.local`) in the **Radio IP address** field.
 4. (Optional) Select a local network interface from the **Advanced: Source path** dropdown if you need to route through a specific NIC.
 5. Click **Connect by IP (manual)**.
+
+The Manual page remembers the last three addresses you entered. The address can be either a numeric IP address or a hostname; both are saved in the recent-address list. Previously, only numeric IP addresses were remembered, so VPN radios reached by DNS name would not appear in the recent list.
 
 ## Connection Options for Slower Links
 
@@ -113,7 +115,7 @@ The setting is saved immediately to `AutoConnectToLastRadio`. The next time Aeth
 | Sign Out | — | — | Logs out of SmartLink. |
 | Remote radios list | — | — | Lists SmartLink WAN radios available to the account. |
 | Connect Remote Radio | — | — | Starts a WAN connection to the selected radio. |
-| Radio IP address | — | `ManualRadioIp` | Manual IP to connect to. |
+| Radio IP address | — | `ManualRadioIp` | Manual IP address or hostname to connect to. Hostnames such as `ic-705.local` are now remembered in the recent-address list. |
 | Advanced: Source path | — | `ManualBindSource` | Picks local NIC used for the manual connection. |
 | Connect by IP (manual) | — | — | Starts the manual/VPN connection. |
 | Use low bandwidth mode | — | `LowBandwidthMode` | Enables reduced-rate streams for slow links. |

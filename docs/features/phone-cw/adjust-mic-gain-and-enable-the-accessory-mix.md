@@ -5,7 +5,7 @@ Use this page to set the microphone input level and mix in the accessory input a
 ## Before you start
 
 - AetherSDR must be connected to the radio. The Phone/CW applet requires an active radio connection.
-- The active slice must be in a voice mode (USB, LSB, AM, FM) so the Phone sub-panel is visible. If the slice is in CW mode, the CW sub-panel is shown instead.
+- The active slice must be in a voice mode (USB, LSB, AM, FM) so the Phone sub-panel is visible. If the slice is in CW mode, the CW sub-panel is shown instead. CWU and CWL modes are also recognized as CW modes on radios that report them.
 
 ## Steps
 
@@ -24,14 +24,14 @@ Use this page to set the microphone input level and mix in the accessory input a
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | **Mic gain**          | Sets the microphone input level. When Mic source is PC or RADE mode is active, the value is persisted locally as `PcMicGain` and is not sent to the radio.                                                                                                                        | 50                                                                                                                       |
 | **+ACC**              | Enables the accessory mic input mix alongside the selected primary source.                                                                                                                                                                                                        | —                                                                                                                        |
-| **Level** gauge       | Shows microphone input peak level in dBFS. Hover over the gauge to see the exact dB reading with one decimal place. Turns red above 0 dBFS.                                                                                                                                      | —                                                                                                                        |
+| **Level** gauge       | Shows microphone input peak level in dBFS. Hover over the gauge to see the exact dB reading with one decimal place. Turns red above 0 dBFS. When the radio cannot provide a mic level meter (for example, on radios where the client controls the input), the gauge is hidden. | —                                                                                                                        |
 | **Compression** gauge | Shows the amount of speech compression being applied. Fill is reversed (full left = 0 dB, no compression; full right = -25 dB, maximum compression). Hover over the gauge to see the compression amount in dB with one decimal place. In v0.9.7, the gauge is gated on the radio's interlock TRANSMITTING state and speech processor enable: it reads 0 dB during RX to prevent stale readings from the TX chain. In v26.5.3, the meter value is inverted from the previous display: MeterModel exposes compression as a positive 0–25 dB amount, and the gauge converts it to the reversed display (0 at the right edge, -25 at the left edge). | —                                                                                                                        |
 | **ALC (Phone panel)** | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge to see the exact dBFS reading with one decimal place. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
 | **ALC (CW panel)**    | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Hover over the gauge to see the exact dBFS reading with one decimal place. In v26.5.3, the gauge is initialized to -20 dBFS at construction and immediately set to its floor value to prevent transient display flicker. | —                                                                                                                        |
 
 ## CW sidetone controls
 
-When the active slice is in CW mode, the CW sub-panel replaces the Phone sub-panel. The following controls govern CW sidetone behavior.
+When the active slice is in CW mode (including CWU and CWL on radios that report them), the CW sub-panel replaces the Phone sub-panel. The following controls govern CW sidetone behavior.
 
 ### How the sidetone works (v0.9.1 and later)
 
@@ -71,6 +71,12 @@ In v26.7.4, all four gauges in the Phone/CW applet (Level, Compression, ALC Phon
 
 In v26.7.4, when host modulation is active (the radio is modulated by AetherSDR), the **Mic source** combo box is disabled and shows only "PC" as the available source. A tooltip explains that the other sources are FlexRadio jacks and are not available when host modulation is active.
 
+### v26.8.4 changes: capability-aware mic source handling
+
+In v26.8.4, the **Mic source** combo box behavior is now capability-aware. When the radio's input selection cannot be controlled from this client (for example, when the radio takes transmit audio from the computer via the network connection), the combo box is rebuilt to show only "PC" as the selectable option. This prevents the misleading appearance of a disabled MIC entry that might suggest a radio mic input is available when it is not.
+
+When the combo box is narrowed to only "PC", the tooltip explains: "This radio takes transmit audio from this computer. Its own input selection is made on the radio." The model is also updated to report "PC" as the active selection, so any downstream diagnostics (such as radiocert) reflect the actual audio path.
+
 ### CW sub-panel controls
 
 | Control | What it does | Default | Range / Values | Setting key |
@@ -88,7 +94,4 @@ In v26.7.4, when host modulation is active (the radio is modulated by AetherSDR)
 ## Tips
 
 - The **Level** gauge is suppressed to −150 dBFS when the radio is not transmitting and monitor-in-receive is off. This is normal; the gauge becomes active when you transmit. When **Mic source** is set to PC, the gauge uses client-side metering and is not subject to this suppression — it appears immediately on connect (v0.9.3, #2086). When RADE mode is active, the gauge also uses client-side metering and is active during RX.
-- The **Compression** gauge reads 0 dB whenever the radio is not in the TRANSMITTING interlock state (v0.9.7). This prevents stale TX chain readings from appearing during RX. The gauge becomes active as soon as you transmit with the speech processor enabled. In v26.5.3, the compression meter value is inverted: MeterModel exposes compression as a positive 0–25 dB amount, and the gauge converts it to the reversed display (0 at the right edge, -25 at the left edge). The gauge now correctly shows zero compression at 0 dB and maximum compression at -25 dB.
-- If you use the PC source, note that the `PcMicGain` value is not sent to the radio — it is managed entirely by AetherSDR. Switching away from the PC source and back restores the saved value. RADE mode shares this same `PcMicGain` setting.
-- With **Breakin** off in v0.9.7, key presses are queued and TX is not engaged automatically. Engage PTT manually before sending. If you expect full QSK operation, confirm **Breakin** is lit before keying.
-- The client-side sidetone generator provides approximately 10 ms latency, which is useful at higher CW speeds where
+- The **Compression** gauge reads 0 dB whenever the radio is not in the TRANSMITTING interlock state (v0.9.7). This prevents stale TX chain readings from appearing

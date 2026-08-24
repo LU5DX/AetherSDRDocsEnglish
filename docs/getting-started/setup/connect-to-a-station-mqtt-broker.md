@@ -35,7 +35,7 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 | **Message log**     | Displays received messages as `topic: value` lines and published messages as `TX topic: payload` lines. Also processes antenna alias updates from MQTT. | Capped to 50 entries.                                                      |
 | **Enable**          | Connects (On) or disconnects (Off); saves all settings on connect. Password is loaded from system keychain on first enable.                             | Off                                                                        |
 | **Status label**    | Shows connection state with colour: green when connected, grey when disconnected, default on error.                                                     | Disconnected                                                               |
-| Settings...         | Opens the MQTT Settings dialog (MqttSettingsDialog) for broker connection, subscriptions, and publish button configuration.                             | New in v26.5.3. Replaces the inline Host/Port/User/Pass/TLS/Topics fields. |
+
 ## Tips
 
 - Settings are saved to persistent storage only when you click **OK** in the MQTT Settings dialog, not when you click **Enable** to connect.
@@ -43,6 +43,7 @@ This page explains how to open the MQTT applet and connect AetherSDR to a statio
 - The **Message log** keeps the last 50 message blocks. Older entries are dropped automatically. Both received and published messages appear in the log. Published messages are prefixed with `TX` (e.g., `TX topic: payload`).
 - Publish buttons are only active while connected. See [Add or remove custom publish buttons](../../features/mqtt/add-or-remove-custom-publish-buttons.md) to configure them.
 - If the system keychain password is not yet loaded, the status label shows "Waiting for keychain" until the password is retrieved.
+- Passwords transferred to AetherSDR via XML import are held in a session vault on first use. If the password was not yet written to the keychain, the session credential prevents the password from being stored in plaintext in the application settings. On systems without keychain support, the password is kept only for the current session and never persisted.
 
 ## Troubleshooting
 

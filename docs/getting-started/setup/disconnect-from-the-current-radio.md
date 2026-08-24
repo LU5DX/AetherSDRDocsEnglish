@@ -33,7 +33,7 @@ To change this setting, open the ConnectionPanel and check or uncheck **Connect 
 
 ## Recent IP addresses (Manual / VPN mode)
 
-When you connect using the Manual page, AetherSDR now saves up to three recently used IP addresses. The **Radio IP address** field is an editable drop-down. Click the arrow to pick a previous address, or type a new one directly. Addresses are validated and normalised when saved; duplicates and malformed entries are discarded automatically.
+When you connect using the Manual page, AetherSDR now saves up to three recently used addresses. The **Radio IP address** field is an editable drop-down that accepts both numeric IP addresses and host names such as `ic-705.local`. Click the arrow to pick a previous address, or type a new one directly. Numeric addresses are canonicalised (so `192.168.001.5` and `192.168.1.5` count as one entry); host names are validated against a conservative character set (letters, digits, dot, hyphen, underscore, alphanumeric at both ends, up to 253 characters). Duplicates and malformed entries are discarded automatically.
 
 If you previously used the legacy **LastRoutedRadioIp** setting, AetherSDR imports that address into the recent-addresses list the first time it starts after upgrading. The value is stored in `RecentConnectByIpAddresses`.
 
@@ -44,6 +44,13 @@ In the Manual connection page, under **Advanced**: collapse panel titled **Advan
 - **Source path** (`ManualBindSource`): Selects the local network interface used for the manual connection. The drop-down lists all available NICs. If the selected NIC becomes stale or unreachable, a warning appears below the field.
 - **Use low bandwidth mode** (`LowBandwidthMode`): When checked, AetherSDR uses reduced-rate streams for slow or high-latency links. Useful for VPN or satellite connections.
 - **Enable adaptive frame-rate throttle** (`AdaptiveThrottleEnabled`, default `False`): When checked, AetherSDR automatically reduces FFT and waterfall frame rates when network quality degrades. This helps maintain a responsive UI on slow or congested links.
+
+## Radio family selection in Manual mode
+
+The Manual page now remembers which radio family (Flex or Icom) was used for each manual connection. The **Advanced: Source path** drop-down is accompanied by a radio-family selector that persists per saved address:
+
+- Older profiles that predate the selector are treated as Flex, preserving the behavior of existing installs.
+- When you reconnect to a previously used manual address, the correct radio family is selected automatically.
 
 ## Accessible login form
 

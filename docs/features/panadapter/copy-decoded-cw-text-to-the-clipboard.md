@@ -81,6 +81,10 @@ The CW decode panel shows decoded text from both received (RX) and transmitted (
 
 A separator space is automatically inserted when the display switches between TX and RX text runs so the two coloured blocks do not visually merge.
 
+## Panadapter title bar and canvas drag
+
+When the panadapter is hosted on the workspace canvas (new in v26.8.4), the title bar (accessible name "panTitleBar") supports drag-to-move as a live gesture. A click (movement under 6 px before release) activates the panadapter; a press followed by movement beyond 6 px begins a drag that moves the panadapter on the canvas. The pop-out button remains visible for canvas items even in single-pan mode. Off-canvas, the button visibility reverts to the standard single-pan behavior.
+
 ## Tips
 
 - Use `CPY VIS` when you want only a specific exchange or callsign that is visible on screen, without the surrounding session noise.

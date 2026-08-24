@@ -23,24 +23,27 @@ To disable autostart, click `Settings > Autostart TCI with AetherSDR` again to u
 | `Settings > Autostart TCI with AetherSDR` (checkable menu item) | Off                                                                                                                         | On / Off                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Port                                                            | `50001`                                                                                                                     | 1024–65535                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Enable (toggle button in TCI Server applet)                     | Off                                                                                                                         | On / Off                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| RX1–RX4 gain+meter                                              | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| RX1–RX8 gain+meter                                              | 0.5                                                                                                                         | 0.0–1.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | TX gain+meter                                                   | Drags set the TCI TX gain and emit tciTxGainChanged. Right-click opens TX overflow-mode picker (Clip / NaNGuard / Measure). | TciServer::setTxGain persists TciTxGain internally; UI mirrors the stored value. TCI TX audio is always allowed regardless of platform or hosted-DAX availability (evaluateDaxTxPolicy now unconditionally allows DaxTxRequestReason::TciTxAudio, v0.9.5.1, #2276). Right-click menu lets users choose how out-of-range (>1.0) samples from digital-mode clients are handled: Clip (saturating ±1.0, legacy default), NaNGuard (pass-through, only zero NaN/Inf), or Measure (true bypass with clip counting). Default is Clip so existing users see no behavior change (#3065). |
 | TX overflow mode (right-click)                                  | Clip                                                                                                                        | 0 (Clip), 1 (NaNGuard), 2 (Measure)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | RX/TX slice-assignment labels                                   | — (em dash)                                                                                                                 | — or Slice letter                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Server status indicator                                         | (stopped)                                                                                                                   | `(stopped)`, `:<port> (N clients)`, `(port in use)`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
-## Accessibility names for gain sliders
+## RX channel rows and radio slice capacity
 
-Each TCI gain slider now has an accessibility name to support screen readers and assistive technologies:
+The TCI Server applet shows up to eight RX channel rows (RX1–RX8), each with a gain slider, level meter, and slice-assignment label. The number of visible rows is automatically limited to the connected radio's slice capacity:
 
-- **RX1–RX4 gain sliders**: Named "TCI RX 1 gain" through "TCI RX 4 gain" respectively.
-- **TX gain slider**: Named "TCI TX gain".
+- On radios with fewer than eight slices (for example, a FLEX-6600 with four slices), rows above the slice capacity are hidden.
+- The hidden rows are not destroyed; they are simply invisible. The underlying channel allocation remains and the rows reappear automatically if the radio reports a higher slice capacity.
+- The RX gain slider settings for hidden rows are preserved and remain applied.
 
-These names are set automatically and require no user configuration.
+This behavior mirrors the DAX applet and ensures the operator-facing UI matches what the radio can actually deliver.
 
 ## RX/TX slice-assignment labels
 
-The RX1–RX4 and TX status labels show which slice currently drives each channel. The slice letter is now rendered as rich text (HTML) so that styled slice identifiers from `SliceLabel::richText` display correctly. The labels update automatically when slice assignments change.
+The RX1–RX8 and TX status labels show which slice currently drives each channel. The slice letter is now rendered as rich text (HTML) so that styled slice identifiers from `SliceLabel::richText` display correctly. The labels update automatically when slice assignments change.
+
+TCI RX channels 1–8 carry the same DAX channels as the DAX applet; the TCI receiver index is a positional slice index bounded by the number of slices (up to 8), and TCI server audio and gain control already span channels 1–8.
 
 ## TX overflow mode
 
@@ -53,6 +56,15 @@ Right-click the TX gain meter/slider to open a context menu with three overflow 
 | Measure only (true bypass) | 2 | Never mutate samples. Count overshoots for telemetry; the downstream int16 conversion still clamps in the radio-native DAX route. |
 
 The default is Clip so existing users see no behavior change (#3065). The setting is persisted in `TciTxOverflowMode` (0/1/2).
+
+## Accessibility names for gain sliders
+
+Each TCI gain slider now has an accessibility name to support screen readers and assistive technologies:
+
+- **RX1–RX8 gain sliders**: Named "TCI RX 1 gain" through "TCI RX 8 gain" respectively.
+- **TX gain slider**: Named "TCI TX gain".
+
+These names are set automatically and require no user configuration.
 
 ## Accessibility annotations for TCI controls
 
@@ -78,6 +90,7 @@ The Enable toggle button displays "Enabled" when the server is running and "Disa
 - **`Settings > Autostart TCI with AetherSDR` is absent from the menu** — This build of AetherSDR does not include WebSocket support. TCI is unavailable.
 - **Server status shows `(port in use)` after launch** — Another process is already bound to the configured port. Change the port in the TCI Server applet's Port field, save, and restart AetherSDR. See [Change the TCI port](change-the-tci-port.md).
 - **Status stays `(stopped)` despite autostart being enabled** — The radio is not yet connected. The TCI server requires a radio connection. Connect to the radio; the server will start once the connection is established.
+- **Fewer than eight RX rows are visible** — The connected radio has a slice capacity lower than eight (for example, a FLEX-6600 has four slices). Rows above the slice capacity are hidden to match the radio's capabilities. This is expected behavior.
 - **Slice labels appear as raw HTML** — This indicates an older build without the rich-text fix. Update to v26.5.2.1 or later to ensure HTML-rendered slice letters display correctly (#2606).
 - **Server status text appears in the wrong color** — This indicates a theme compatibility issue. Update to v26.6.1 or later for proper theme support (#3065). The server status label now uses the theme color `color.background.3` instead of a hardcoded color.
 

@@ -46,10 +46,12 @@ Configure a physical FlexControl or the virtual AetherControl wheel for tuning a
 - The virtual wheel now uses double-click to capture and release, providing a more intuitive experience than the previous click-to-capture / Escape-to-release model. Escape still works as a secondary release path.
 - The FlexControl dialog automatically restores LED state on the physical device when it receives a hardware reset command, ensuring the Aux LEDs match the application's active wheel-mode button.
 - The dialog now uses a scroll area for its content. When the full controller exceeds the available screen height, the content scrolls vertically, and horizontal scroll is disabled. This ensures the dialog never opens taller than your screen workspace, even on short or DPI-scaled displays. Minimum non-compact window size is 610px tall by 430px wide, with the minimum width matching the content's intrinsic width.
+- The physical FlexControl connection now automatically recovers from dropped serial port connections. If the device is unplugged and re-plugged (or a USB re-enumeration assigns a different COM port), the driver re-detects the port and reconnects automatically, with retry intervals that back off from 2 seconds to a maximum of 30 seconds.
 
 ## Troubleshooting
 
 - **Physical FlexControl not detected** — Ensure the device is plugged into a USB port. Click **Detect** again. If still not found, try a different USB cable or port.
+- **Physical FlexControl connection drops and does not recover** — The driver now handles this automatically. If the device is unplugged, it retries reconnection every 2 seconds initially, backing off to 30 seconds for persistent failures. Re-plug the device; it should reconnect automatically.
 - **Virtual wheel tuning feels sluggish** — Increase **Mouse Sensitivity** and decrease **Wheel Tightness** for quicker response.
 - **Aux LEDs on physical FlexControl don't match** — This is now handled automatically. The dialog restores LED state after device resets, correcting any mismatch that could occur during power-on sequences.
 - **Dialog appears cut off or too tall** — The dialog automatically limits its height to fit your screen workspace and adds a vertical scroll bar if the content is taller than available space. Resize the window vertically if scrolling is preferred.

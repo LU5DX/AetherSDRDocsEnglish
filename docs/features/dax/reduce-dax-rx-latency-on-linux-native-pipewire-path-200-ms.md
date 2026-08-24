@@ -1,12 +1,14 @@
 # DAX Audio Applet
 
-The DAX Audio applet provides the digital audio bridge between your FLEX-8600 radio and computer audio system. It shows per-channel RX meters and gain sliders for DAX channels 1–4 plus a single TX meter, with a master Enable toggle.
+The DAX Audio applet provides the digital audio bridge between your FLEX-8600 radio and computer audio system. It shows per-channel RX meters and gain sliders for DAX channels 1–8 plus a single TX meter, with a master Enable toggle.
 
 ## Before you start
 
-- AetherSDR v26.7.4 or later installed.
+- AetherSDR v26.8.4 or later installed.
 - A connected FLEX-8600 radio (DAX requires an active radio connection).
 - At least one slice assigned to a DAX channel in the radio.
+
+Rows above the connected radio's slice capacity are hidden, so a radio with fewer slices (for example, a 2-slice or 4-slice model) does not show dead gain sliders.
 
 ## Platform support
 
@@ -29,19 +31,23 @@ On Linux, audio arrives with approximately 200 ms latency rather than ~400 ms. N
 
 ## What each control does
 
-| Control | Default | Valid range | Persisted key | Description |
-|---|---|---|---|---|
-| DAX Enable | Off | On / Off | `AutoStartDAX` | Master switch. Starts all DAX RX and TX streams. Must be on for audio to flow. Button text changes to "Enabled" when on, "Disabled" when off. |
-| DAX 1 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain1` | Combined level meter and gain slider for DAX channel 1. Drag to adjust RX gain. |
-| DAX 2 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain2` | Combined level meter and gain slider for DAX channel 2. |
-| DAX 3 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain3` | Combined level meter and gain slider for DAX channel 3. |
-| DAX 4 gain+meter | 0.5 | 0.0 – 1.0 | `DaxRxGain4` | Combined level meter and gain slider for DAX channel 4. |
-| TX gain+meter | 0.5 | 0.0 – 1.0 | `DaxTxGain` | Combined level meter and gain slider for the DAX TX stream. |
-| Slice-assignment status (per channel) | — | — or Slice A–H | *(none)* | Read-only indicator showing which slice is routed to each DAX channel. |
-
+| Control                               | Default                                                                                                                  | Valid range                                                                                                                          |
+|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| DAX Enable                            | Starts the DAX audio bridge; emits daxToggled.                                                                           | Button label is 'Enable'/'Disabled'; master switch for all DAX RX and TX streams. Not built on Windows (#4112).                      |
+| DAX 1 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0                                                                                                                            |
+| DAX 2 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0                                                                                                                            |
+| DAX 3 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0                                                                                                                            |
+| DAX 4 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0                                                                                                                            |
+| DAX 5 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0. Visible only when the connected radio supports at least 5 slices.                                                         |
+| DAX 6 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0. Visible only when the connected radio supports at least 6 slices.                                                         |
+| DAX 7 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0. Visible only when the connected radio supports at least 7 slices.                                                         |
+| DAX 8 gain+meter                      | 0.5                                                                                                                      | 0.0 – 1.0. Visible only on an 8-slice-capable radio.                                                                                 |
+| TX gain+meter                         | 0.5                                                                                                                      | 0.0 – 1.0                                                                                                                            |
+| Slice-assignment status (per channel) | Shows which slice is currently routed to each DAX channel.                                                               | Slice letters render as rich text identifiers.                                                                                       |
+| Windows note                          | On Windows builds the applet shows only the note 'No built-in DAX driver on Windows. Use TCI, or SmartSDR DAX.' (#4112). | Windows has no built-in DAX bridge (no kernel-mode audio driver); all other controls are omitted and their setters are null-guarded. |
 ## Tips
 
-- If the meter bars on DAX 1–4 are not moving after you click **Enable**, check that the slice-assignment status indicator shows a slice letter rather than —. A — means no slice is currently routed to that channel; assign the slice to the DAX channel from the radio's slice controls.
+- If the meter bars on DAX 1–8 are not moving after you click **Enable**, check that the slice-assignment status indicator shows a slice letter rather than —. A — means no slice is currently routed to that channel; assign the slice to the DAX channel from the radio's slice controls.
 - To have DAX start automatically at every launch, check **Settings > Autostart DAX with AetherSDR**. This sets `AutoStartDAX` to True without requiring you to click Enable manually each session.
 - The level meter uses fast attack (α = 0.4) and slow decay (α = 0.08) ballistics. A brief absence of signal will not immediately blank the meter.
 

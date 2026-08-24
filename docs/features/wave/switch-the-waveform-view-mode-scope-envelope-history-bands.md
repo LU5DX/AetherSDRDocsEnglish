@@ -23,7 +23,7 @@ The display updates immediately. The selection is saved to `WaveApplet_ViewMode`
 | **View:** combo box | Scope   | Scope, Envelope, History, Bands                                                                                       |
 | **Window:** slider  | 200 ms  | 10–500 ms                                                                                                             |
 | **Zoom:** slider    | 1.7x    | 1.0x – 6.0x (100–600)                                                                                                 |
-| **FPS:** slider     | 25 fps  | 5–60 Hz                                                                                                               |
+| **FPS:** slider     | 24 fps  | 5–30 Hz                                                                                                               |
 
 ## Settings drawer controls
 
@@ -33,7 +33,7 @@ All controls are located in the collapsible settings drawer below the waveform d
 |-------------------------|--------------------|--------------------------------------|------------------------------------------------------------------|
 | **View:** combo box     | WAVE view mode     | `WaveApplet_ViewMode`                | Persisted as 'Graph', 'Envelope', 'History', or 'Bands'          |
 | **Zoom:** slider        | WAVE zoom          | `WaveApplet_ZoomPercent`             | Scales amplitude axis; default 170 (1.7x)                        |
-| **FPS:** slider         | WAVE FPS           | `WaveApplet_RefreshRateHz`           | Controls repaint rate; default 25 fps, range 5–60 Hz             |
+| **FPS:** slider         | WAVE FPS           | `WaveApplet_RefreshRateHz`           | Controls repaint rate; default 24 fps, range 5–30 Hz             |
 | **Window:** slider      | WAVE window        | `WaveApplet_TimeWindowMs`            | Time window shown; default 200 ms, range 10–500 ms               |
 
 **Note:** The legacy `WaveApplet_TimeWindowSec` key is migrated to `WaveApplet_TimeWindowMs` on first run. The drawer collapsed state is persisted across application restarts using `WaveApplet_DrawerExpanded`.
@@ -47,7 +47,6 @@ All controls are located in the collapsible settings drawer below the waveform d
 - The settings drawer state (open or closed) is persisted. If you close the drawer and restart AetherSDR, it stays closed. Double-click the waveform to reopen it.
 - The TX audio path is tinted with a warm color and the RX path with a cool color, so you can identify the active direction at a glance without reading a label. The header readout shows RX/TX, RMS dBFS, and PK dBFS.
 - When clipping occurs (samples at or above ±0.98 full-scale), the affected columns are highlighted in red and a **CLIP N** counter appears in the header.
-- The default FPS was changed from 24 to 25 fps in v26.7.4 to match the typical radio panadapter rate. Users who previously saved an explicit FPS value retain their setting — the new default only applies when no FPS setting has been saved.
 
 ## Troubleshooting
 

@@ -14,12 +14,12 @@ The Meters applet shows the supply voltage reported live by the radio. Use it to
 
 ## What each control does
 
-| Gauge | Valid range | Red above | Behavior | Accessibility |
-|-------|-------------|-----------|----------|---------------|
-| +13.8V | 10.0–16.0 V | 15 V | Displays the supply voltage reported by the radio. The gauge label updates dynamically to reflect the live value (e.g. `+13.82V`). | Accessible name: "Supply voltage" |
-| PA Temp | 0–120 °C | 70 °C | Displays PATEMP meter reading from the radio. The temperature unit (°C or °F) is toggled by the button next to the "Radio Hardware" header. | Accessible name: "PA temperature" |
-| Main Fan | 0–3000 rpm | 2500 rpm | Displays MAINFAN meter value from the radio. | Accessible name: "Main fan speed" |
-
+| Gauge                   | Valid range                                                                                                                                       | Red above                                                                                                                   |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| PA Temp                 | Displays PATEMP meter reading from the radio; the gauge label shows the live value with the selected unit.                                        | Scale and tick marks re-render when the °C/°F toggle is used, snapping immediately to avoid animating across the unit jump. |
+| Main Fan                | Displays MAINFAN meter value (resolved lazily by MeterModel::findMeter); label shows the live rpm.                                                | PACURRENT intentionally omitted: the 10A meter range clips under full PA draw on FLEX-8000 hardware.                        |
+| °C / °F toggle          | Toggles the PA temperature display between Celsius and Fahrenheit; the choice persists to the 'MtrApplet' settings object (tempFahrenheit field). | Located in the header row next to the 'Radio Hardware' section label.                                                       |
+| +13.8V (supply voltage) | Displays supply voltage meter; label dynamically updates to show the live voltage value (e.g. '+13.82V') via HGauge::setLabel.                    |                                                                                                                             |
 ## Header row controls
 
 The **Radio Hardware** header row includes a temperature unit toggle button.
@@ -50,10 +50,12 @@ These names are announced when the gauge receives focus or is navigated to with 
 - The PA temperature gauge turns red above 70 °C. If this occurs, reduce transmit power or duty cycle.
 - Click the temperature unit toggle button (next to "Radio Hardware") to switch between Celsius and Fahrenheit. The setting is remembered across sessions.
 - The Main Fan gauge turns red above 2500 rpm. This is normal during high-power operation and indicates the cooling fan is working as expected.
+- The PA Temp gauge label reflects the current temperature in the selected unit (e.g., `45°C` or `113°F`), and the scale re-renders instantly when you toggle units.
 
 ## Troubleshooting
 
 - **Gauge shows no movement or a fixed label** — The radio is not connected, or the telemetry stream has not started. Confirm the connection status and reconnect via `Settings > Connect to Radio...`.
+- **PA Temp gauge is blank or not updating** — The radio is not reporting a PATEMP reading. Verify the radio is connected and that the PA temperature telemetry is available on your hardware.
 
 ## Related
 

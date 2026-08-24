@@ -44,6 +44,18 @@ In v26.6.1, the waterfall now freezes when any client (not just this radio) star
 
 When the radio reconnects, the desired panadapter FPS and waterfall line duration are reasserted (via internal reconciliation) to prevent silently dropping to the radio's 10 Hz default.
 
+## Secondary panadapter dBm range on reconnect
+
+In v26.8.4, secondary panadapters (Slices B–H) have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused a flat spectrum on reconnect.
+
+## Canvas live-move gestures
+
+In v26.8.4, when a panadapter is hosted as an item on the workspace canvas, the title strip streams a live-move gesture (the same mechanism used by other canvas items). A 6 px threshold separates a click (which activates the panadapter) from a drag; everything past that threshold is consumed by the canvas drag so the strip's floating-drag machinery never sees it.
+
+The pop-out button remains available for canvas items even in single-pan mode, since pop-out is a general capability rather than a stack-mode layout option.
+
+When a panadapter returns to the stack from the canvas, the stack re-applies its normal single/multi-pan button visibility rules.
+
 ## Persisted panel preferences
 
 In v26.7.4, the CW decode panel height and font size are now saved and restored across sessions, eliminating the need to re-adjust them each time you open the panel. The settings are stored in `CwDecodeSettings::panelHeight` and `CwDecodeSettings::fontPx`.
@@ -67,6 +79,7 @@ In v26.7.4, the CW decode panel height and font size are now saved and restored 
 - **Decode text is mostly red or orange** — The signal confidence is low. Increase **Sens**, or narrow the **Pitch** range to match the actual sidetone frequency shown in the **CW stats label**. Also narrow the **WPM** range to match the sending speed.
 - **Wrong pitch or speed shown in CW stats label** — Do not engage **🔒P (Lock Pitch)** or **🔒S (Lock Speed)** until the stats label has stabilised on the target signal.
 - **Waterfall has long TX trail after unkeying** — In v26.6.1, this is fixed. If you still see artifact trails, ensure you are running the latest version. A radio reconnect reasserts the correct FPS and waterfall line duration.
+- **Flat spectrum on secondary panadapter after reconnect** — In v26.8.4, secondary panadapters (Slices B–H) have their dBm range primed on reconnect. Ensure you are running the latest version.
 - **Panel height or font size resets after restart** — Ensure you have v26.7.4 or later. In v26.7.4, these preferences persist automatically. If they still reset, check that `CwDecodeSettings` values are being written to your configuration file.
 
 ## Related

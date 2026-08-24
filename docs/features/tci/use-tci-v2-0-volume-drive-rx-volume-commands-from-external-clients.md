@@ -16,7 +16,7 @@ External clients (logging software, digital-mode software, SDR programs) can con
 
    - **`volume`** — Sets the master RX volume. AetherSDR maps this to the RX gain for the currently active slice.
    - **`drive`** — Sets the TX drive level. AetherSDR maps this to `TciTxGain`.
-   - **`rx_volume <channel>`** — Sets the RX gain for a specific DAX channel (1–4). AetherSDR maps this to `TciRxGain1` through `TciRxGain4`.
+   - **`rx_volume <channel>`** — Sets the RX gain for a specific DAX channel (1–8). AetherSDR maps this to `TciRxGain1` through `TciRxGain8`.
 
 4. The TCI server receives these commands and updates the corresponding gain settings. The changes are reflected in the TCI applet's meter/slider controls and persisted to settings.
 
@@ -26,15 +26,16 @@ External clients (logging software, digital-mode software, SDR programs) can con
 |--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `volume`                       | Active slice RX gain                                                                                                                 | 0.5                                                                                                                                                                                                                                            |
 | `drive`                        | `TciTxGain`                                                                                                                          | 0.5                                                                                                                                                                                                                                            |
-| `rx_volume <channel>`          | `TciRxGain1`–`TciRxGain4`                                                                                                            | 0.5                                                                                                                                                                                                                                            |
+| `rx_volume <channel>`          | `TciRxGain1`–`TciRxGain8`                                                                                                            | 0.5                                                                                                                                                                                                                                            |
 | TX overflow mode (right-click) | Right-click the TX gain meter/slider to open a context menu selecting the TX overflow handling mode. Emits tciTxOverflowModeChanged. | New in v26.5.3. Clip clamps overshoots to ±1.0 with harmonic distortion; NaNGuard preserves bit-exact digital tones by only zeroing NaN/Inf; Measure counts overshoots for telemetry without mutation. Persisted as TciTxOverflowMode (0/1/2). |
+
 ## TCI applet controls
 
 The TCI applet shows the current state and lets you adjust gain settings:
 
 | Control | Description | Setting key |
 |---------|-------------|-------------|
-| **RX1 gain+meter** through **RX4 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. Each control has an accessible name "TCI RX _N_ gain" for screen readers. | `TciRxGain1`, `TciRxGain2`, `TciRxGain3`, `TciRxGain4` |
+| **RX1 gain+meter** through **RX8 gain+meter** | Combined meter/slider for each DAX channel. Drag to set TCI RX gain. Emits `tciRxGainChanged`. Each control has an accessible name "TCI RX _N_ gain" for screen readers. Rows above the radio's slice capacity are hidden automatically. | `TciRxGain1` through `TciRxGain8` |
 | **TX gain+meter** | Combined meter/slider for TX gain. Drag to set TCI TX gain. Emits `tciTxGainChanged`. Right-click to open the TX overflow mode picker. Has accessible name "TCI TX gain" for screen readers. | `TciTxGain` |
 | **Port** | Text field for the WebSocket server port. Change and press Enter. Out-of-range values snap to 50001. Has accessible name "TCI port". | `TciPort` |
 | **Enable** | Toggle button to start or stop the TCI server. Text shows "Enabled" when the server is running or will auto-start, and "Disabled" otherwise. If bind fails, snaps back to off, text changes to "Disabled", and status shows "(port in use)". | None |
@@ -55,7 +56,7 @@ Default is **Clip** so existing users see no behavior change.
 
 | Label | Description | Format |
 |-------|-------------|--------|
-| **RX1..RX4** status | Shows which slice drives each RX DAX channel. Displays as "Slice <letter>" where the letter may appear as rich HTML text (e.g., with strikethrough for disabled slices). | `—` or rich HTML slice label |
+| **RX1..RX8** status | Shows which slice drives each RX DAX channel. Displays as "Slice <letter>" where the letter may appear as rich HTML text (e.g., with strikethrough for disabled slices). | `—` or rich HTML slice label |
 | **TX** status | Shows which slice is the active TX slice. Displays as "Slice <letter>" with the same rich HTML formatting as RX labels. | `—` or rich HTML slice label |
 
 ### Server status indicator
@@ -69,14 +70,15 @@ Default is **Clip** so existing users see no behavior change.
 ## Tips
 
 - The TCI server supports bidirectional state sync — changes made locally via the TCI applet's sliders are also sent back to external clients that subscribe to gain updates.
-- The `rx_volume` command accepts a channel number (1–4). Channel numbers correspond to the DAX channels displayed in the TCI applet's RX1–RX4 rows.
+- The `rx_volume` command accepts a channel number (1–8). Channel numbers correspond to the DAX channels displayed in the TCI applet's RX1–RX8 rows.
 - TCI TX audio is always allowed regardless of platform or hosted-DAX availability (v0.9.5.1, #2276).
 - Slice assignment labels now use rich HTML formatting (v26.5.2.1, #2606), so disabled or special-state slices may display with text formatting (e.g., strikethrough).
 - For bit-exact digital-mode tone fidelity, use **NaN guard** or **Measure only** mode to avoid harmonic distortion from the Clip limiter.
 - The TCI applet container now uses themed styling (v26.6.1) — colors adapt to the active theme.
-- All gain meters have explicit accessible names set for screen reader compatibility (v26.6.3). "TCI RX 1 gain" through "TCI RX 4 gain" for the RX channels, and "TCI TX gain" for the TX channel.
+- All gain meters have explicit accessible names set for screen reader compatibility (v26.6.3). "TCI RX 1 gain" through "TCI RX 8 gain" for the RX channels, and "TCI TX gain" for the TX channel.
 - The Enable button text dynamically changes between "Enabled" and "Disabled" to reflect the server state (v26.7.4).
 - The Port text field has accessible name "TCI port" and accessible description "TCP port the TCI server listens on" (v26.7.4).
+- RX rows beyond the radio's slice capacity are hidden automatically (v26.8.4, #4854). For example, a radio with 4 slices shows only RX1–RX4 rows, while an 8-slice radio shows all RX1–RX8 rows.
 
 ## Related
 

@@ -19,7 +19,7 @@ The Band Stack panel shows all your bookmarked frequencies as a vertical strip o
 
 | Control | Behavior | Notes |
 |---|---|---|
-| Bookmark buttons | Display a stored frequency; click to recall, right-click to open a menu with **Remove**. | Button color reflects the band-plan segment for that frequency. Tooltip shows full frequency, mode, and RX antenna. |
+| Bookmark buttons | Display a stored frequency; click to tune, right-click to delete. | Button color reflects the band-plan segment for that frequency. Tooltip shows full frequency, mode, and RX antenna. |
 | + | Adds a new bookmark at the active slice's current frequency. | — |
 | × | Requests deletion of all bookmarks. | Tooltip reads "Clear all bookmarks". |
 | ⚙ | Opens the band stack options menu. | See options below. |
@@ -27,7 +27,7 @@ The Band Stack panel shows all your bookmarked frequencies as a vertical strip o
 | **Auto-expiry** (⚙ menu) | Automatically removes bookmarks older than the chosen age: Off, 5 min, 15 min, 30 min, or 60 min. | Default: Off. |
 | **Auto-save dwell** (⚙ menu) | Automatically saves a bookmark after the VFO dwells on a frequency for the chosen time: Off, 10 sec, 30 sec, or 60 sec. | Default: Off. Pair with Auto-expiry for a self-pruning rolling history. |
 
-Bookmark data is persisted in `BandStack_<serial>`, where `<serial>` is your radio's serial number.
+Bookmark data is persisted per radio. The stored bookmarks are scoped to the active radio's settings scope, which includes the radio serial number, so bookmarks for different radios never mix even if you use the same AetherSDR installation with multiple FLEX-8600 units.
 
 ## Appearance
 

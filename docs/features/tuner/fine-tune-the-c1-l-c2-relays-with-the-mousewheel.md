@@ -27,6 +27,31 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
 | **C2** | C2 relay bank position | 0–255 | 0 | — |
 | **SWR** | TGXL-reported SWR | 1.0–3.0 (red above 2.5) | — | — |
 | **Fwd Pwr** | TGXL-reported forward power | 0–200 W barefoot, 0–600 W Aurora, 0–2000 W with PGXL | — | — |
+| **TUNE** | Starts an autotune on the TGXL | — | — | — |
+| **OPERATE** | Cycles the TGXL through OPERATE, BYPASS, and STANDBY states | — | — | — |
+| **ANT 1**, **ANT 2**, **ANT 3** | Selects antenna port 1, 2, or 3 on the TGXL 3x1 switch | — | — | — |
+
+## What each button does
+
+### TUNE
+
+Click **TUNE** to start an autotune on the TGXL. During the tune the button turns red and reads **TUNING...**; when the tune completes it flashes the captured post-tune SWR as **SWR x.xx** for 2.5 seconds, then returns to **TUNE**.
+
+When a direct TGXL connection (port 9010) is configured, AetherSDR sends the autotune command directly to the TGXL. This bypasses the radio's firmware path that could fail on some setups with firmware 4.2. When no direct connection is available, AetherSDR falls back to routing the command through the radio. Configure the direct connection in **Radio Setup > Tuner**.
+
+### OPERATE
+
+Click **OPERATE** to cycle the TGXL through its three states:
+
+- **OPERATE** (green) — the tuner passes RF through the tuning network.
+- **BYPASS** (orange) — the tuner is bypassed.
+- **STANDBY** — the tuner is in standby.
+
+One click advances to the next state, wrapping around after STANDBY.
+
+### ANT 1 / ANT 2 / ANT 3
+
+Click **ANT 1**, **ANT 2**, or **ANT 3** to select the corresponding antenna port on the TGXL 3x1 switch. This row is visible only when a direct TGXL connection is active and the antenna switch is present.
 
 ## Notes about power and SWR display
 
@@ -34,7 +59,7 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
   - **Barefoot (no amp):** 0–200 W, yellow above 80 W, red above 125 W
   - **Aurora (500 W amp):** 0–600 W, yellow above 400 W, red above 500 W
   - **PGXL:** 0–2000 W, yellow above 1000 W, red above 1500 W
-- Scale labels and threshold colors update automatically when you change amplifier settings in Radio Setup.
+- Scale labels and threshold colors update automatically when you change amplifier settings in Radio Setup. AetherSDR skips redundant gauge updates when the scale-relevant settings have not changed, avoiding unnecessary repaints from repeated status messages.
 - The power gauge uses slow release ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms, preventing flicker from inter-packet noise.
 - A peak hold indicator (white tick) marks the highest forward power seen. The peak clears after 2.5 seconds with no new peak.
 - When power drops below the detection threshold, the PWR and SWR labels remain visible for 800 ms before returning to their default text, preventing blinking during brief pauses in transmission.
@@ -51,6 +76,7 @@ After an autotune, you can nudge the C1, L, and C2 relay bank positions one step
 - **Relay bar values change but SWR does not update** — The **SWR** gauge reflects TGXL-reported values via the direct connection. If the meter is frozen, the direct connection may have dropped.
 - **Power gauge stays stuck at a value** — The slow release ballistics keep the bar visible for 800 ms. If it remains stuck longer, the direct connection may have dropped.
 - **SWR gauge shows 1.0 even with a mismatch** — Check your forward power. The SWR gauge holds at 1.0 when forward power is below 5 W. Key the transmitter or increase drive until the power reading exceeds 5 W.
+- **TUNE button does not start a tune** — Check that the direct TGXL connection is working. If the direct connection is not available, AetherSDR routes the tune command through the radio, which may fail on some firmware 4.2 setups.
 
 ## Related
 

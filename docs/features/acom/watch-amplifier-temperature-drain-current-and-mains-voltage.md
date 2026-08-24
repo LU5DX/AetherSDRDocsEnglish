@@ -17,11 +17,16 @@ Monitor your ACOM linear amplifier's health telemetry — temperature, drain cur
 
 | Control | Behavior |
 |---|---|
-| **Temperature** | Real-time temperature reading from the amplifier's internal sensors. |
-| **Drain Current** | Real-time drain current drawn by the amplifier's final stage. |
-| **Mains Voltage** | Real-time AC mains voltage supplied to the amplifier. |
+| **Forward Power** | Real-time forward power reading from the amplifier. |
+| **SWR** | Real-time SWR reading. |
+| **Temperature / Drain Current / Mains Voltage** | Amplifier health telemetry readouts. |
+| **Operate / Standby** | Toggles the amplifier between Operate and Standby modes. Defaults to Standby. |
 
-These three readouts update continuously when the amplifier is communicating with AetherSDR.
+## Indicators
+
+| Indicator | States | Meaning |
+|---|---|---|
+| **Operate/Standby state** | Operate, Standby, Fault | Current amplifier operating mode. |
 
 ## Tips
 

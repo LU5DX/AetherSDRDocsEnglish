@@ -4,23 +4,25 @@ The Phone applet provides voice transmit (TX) controls for the FLEX-8600 radio. 
 
 ## Controls
 
-| Control              | Type          | Description                                                                 |
-|----------------------|---------------|-----------------------------------------------------------------------------|
-| **AM Carrier**       | Slider        | Sets AM carrier power level from 0 to 100 percent. Drag while holding to see a percentage label (e.g. "48%"). |
-| **VOX**              | Toggle button | Enables or disables voice-operated transmit.                                |
-| **VOX level**        | Slider        | Sets the VOX activation threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
-| **Delay**            | Slider        | Sets VOX hang time from 0 to 100 (arbitrary units) before returning to receive. |
-| **DEXP**             | Toggle button | Toggles the downward expander (noise gate).                                  |
-| **DEXP threshold**   | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label. |
-| **Low Cut < / >**    | Spin box      | Adjusts TX filter low-cut frequency by 50 Hz steps. Default 50 Hz. Range: 0 Hz to (high-cut − 50 Hz). |
-| **High Cut < / >**   | Spin box      | Adjusts TX filter high-cut frequency by 50 Hz steps. Default 3300 Hz. Range: (low-cut + 50 Hz) to 10000 Hz. |
+| Control            | Type          | Description                                                                                                   |
+|--------------------|---------------|---------------------------------------------------------------------------------------------------------------|
+| **AM Carrier**     | Slider        | Sets AM carrier power level from 0 to 100 percent. Drag while holding to see a percentage label (e.g. "48%"). |
+| **VOX**            | Toggle button | Enables or disables voice-operated transmit.                                                                  |
+| **VOX level**      | Slider        | Sets the VOX activation threshold from 0 to 100 percent. Drag while holding to see a percentage label.        |
+| **Delay**          | Slider        | Sets VOX hang time from 0 to 100 (arbitrary units) before returning to receive.                               |
+| **DEXP**           | Toggle button | Toggles the downward expander (noise gate).                                                                   |
+| **DEXP threshold** | Slider        | Sets the DEXP gate threshold from 0 to 100 percent. Drag while holding to see a percentage label.             |
+| **Low Cut < / >**  | Text field    | Adjusts TX filter low-cut frequency by 50 Hz steps. Default 50 Hz. Range: 0 Hz to (high-cut − 50 Hz). Double-click to type an exact Hz value. |
+| **High Cut < / >** | Text field    | Adjusts TX filter high-cut frequency by 50 Hz steps. Default 3300 Hz. Range: (low-cut + 50 Hz) to 10000 Hz. Double-click to type an exact Hz value. |
 
 ## Notes
 
-- The AM Carrier slider and VOX level slider now show a percentage label when dragged (e.g. "48%"). This provides clearer visual feedback of the current value.
-- The DEXP controls are now functional on FLEX-8600 firmware version 4.2. The DEXP settings are communicated directly to the radio and no longer saved as application preferences.
+- The AM Carrier slider and VOX level slider show a percentage label when dragged (e.g. "48%"). This provides clearer visual feedback of the current value.
+- The DEXP controls are functional on FLEX-8600 firmware version 4.2. The DEXP settings are communicated directly to the radio and no longer saved as application preferences.
 - All sliders in the Phone applet use the `GuardedSlider` class, which provides smooth drag behavior and visual feedback.
-- The Phone applet now supports theme customization. All colors adapt to the active theme.
+- The Phone applet supports theme customization. All colors adapt to the active theme.
+- The Low Cut and High Cut controls accept direct numeric entry: double-click the value display, type an exact Hz value, and press Enter. On radios that support it, the typed value is applied exactly; on others, the request is honored as far as the radio allows while the radio's own readback is preserved.
+- Typed values are validated against the current filter range. Out-of-range entries are rejected and the previous value is restored. Step buttons still clamp to the radio's boundaries.
 
 ## Related
 
@@ -46,6 +48,16 @@ Use the Low Cut control in the Phone applet to raise the lower edge of the TX au
 3. Click **<** to decrease the low-cut frequency or **>** to increase it. You can also scroll the mouse wheel over the value display to step in either direction.
 4. Read the current value in the numeric display between the two buttons. The default is **50 Hz**.
 
+## Setting an exact value
+
+You can type an exact Hz value instead of stepping 50 Hz at a time:
+
+1. Double-click the low-cut value display. A text entry field opens.
+2. Type the desired frequency in Hz.
+3. Press **Enter** to commit, or **Esc** to cancel and restore the previous value.
+
+When you type a value, it is treated as a request for that exact frequency. If the radio supports the value, it is applied exactly as typed. If not, the request is rejected and the previous value is restored. The step buttons still clamp to the radio's 50 Hz step grid.
+
 ## How the step buttons work
 
 Each click of **<** or **>** snaps the low-cut frequency to the nearest multiple of 50 Hz in the chosen direction, rather than adding or subtracting a fixed 50 Hz from the current value. For example, if the current value is 87 Hz, clicking **>** sets it to 100 Hz and clicking **<** sets it to 50 Hz. If the value is already an exact multiple of 50 Hz, the buttons move it to the next multiple in the chosen direction.
@@ -58,7 +70,7 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 |-----------------------|---------|-----------------------------------------|
 | **Low Cut** **<**     | —       | Snaps down to next lower 50 Hz multiple |
 | **Low Cut** **>**     | —       | Snaps up to next higher 50 Hz multiple  |
-| Low Cut value display | 50 Hz   | 0 Hz to (high-cut − 50 Hz), step 50 Hz |
+| Low Cut value display | 50 Hz   | 0 Hz to (high-cut − 50 Hz), step 50 Hz  |
 
 ## Tips
 
@@ -69,6 +81,7 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 ## Troubleshooting
 
 - **Low Cut buttons do nothing** — Confirm the radio is connected. The TX filter controls require an active radio connection to send filter changes to the FLEX-8600.
+- **Typed value is rejected** — The value is outside the valid range (0 Hz to high-cut − 50 Hz) or not on the radio's supported step grid. Check the current high-cut setting and try a value within range.
 
 ## Related
 
@@ -94,6 +107,16 @@ Use the High Cut control in the Phone applet to lower the upper edge of the TX a
 3. Click **<** to decrease the high-cut frequency or **>** to increase it. You can also scroll the mouse wheel over the value display to step in either direction.
 4. Read the current value in the numeric display between the two buttons. The default is **3300 Hz**.
 
+## Setting an exact value
+
+You can type an exact Hz value instead of stepping 50 Hz at a time:
+
+1. Double-click the high-cut value display. A text entry field opens.
+2. Type the desired frequency in Hz.
+3. Press **Enter** to commit, or **Esc** to cancel and restore the previous value.
+
+When you type a value, it is treated as a request for that exact frequency. If the radio supports the value, it is applied exactly as typed. If not, the request is rejected and the previous value is restored. The step buttons still clamp to the radio's 50 Hz step grid.
+
 ## How the step buttons work
 
 Each click of **<** or **>** snaps the high-cut frequency to the nearest multiple of 50 Hz in the chosen direction. For example, if the current value is 1234 Hz, clicking **>** sets it to 1250 Hz and clicking **<** sets it to 1200 Hz. If the value is already an exact multiple of 50 Hz, the buttons move it to the next multiple in the chosen direction.
@@ -106,7 +129,7 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 |------------------------|---------|--------------------------------------------|
 | **High Cut** **<**     | —       | Snaps down to next lower 50 Hz multiple    |
 | **High Cut** **>**     | —       | Snaps up to next higher 50 Hz multiple     |
-| High Cut value display | 3300 Hz | (low-cut + 50 Hz) to 10000 Hz, step 50 Hz |
+| High Cut value display | 3300 Hz | (low-cut + 50 Hz) to 10000 Hz, step 50 Hz  |
 
 ## Tips
 
@@ -117,6 +140,7 @@ This means a single click always lands on a clean 50 Hz boundary regardless of t
 ## Troubleshooting
 
 - **High Cut buttons do nothing** — Confirm the radio is connected. The TX filter controls require an active radio connection to send filter changes to the FLEX-8600.
+- **Typed value is rejected** — The value is outside the valid range (low-cut + 50 Hz to 10000 Hz) or not on the radio's supported step grid. Check the current low-cut setting and try a value within range.
 
 ## Related
 
@@ -188,22 +212,4 @@ Use the AM Carrier slider in the Phone applet to set the AM carrier power level 
 
 1. Click the **PHNE** tray button on the right sidebar to open the Phone applet.
 2. Locate the **AM Carrier** slider at the top of the applet.
-3. Drag the slider to the desired level. The valid range is 0 to 100 percent.
-4. While dragging, a percentage label appears (e.g. "48%") showing the current carrier level.
-
-## Tips
-
-- The AM carrier level should be set to match your transmitter's capabilities and the modulation depth you want to achieve.
-- Typical AM carrier levels range from 20% to 80% depending on your radio and antenna system.
-- The percentage label provides precise feedback when adjusting the carrier level.
-
-## Troubleshooting
-
-- **AM Carrier slider has no effect** — Confirm the radio is in AM mode. The slider only controls AM carrier level.
-- **No percentage label appears when dragging** — This indicates an older version of the software. Update to v26.5.3 or later to see the label.
-
-## Related
-
-- [Phone overview](overview.md)
-- [Set the TX audio low-cut frequency](set-the-tx-audio-low-cut-frequency.md)
-- [Set the TX audio high-cut frequency](set-the-tx-audio-high-cut-frequency.md)
+3. Drag the

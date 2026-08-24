@@ -30,7 +30,7 @@ If you click the **Frequency display** while the slice is locked, AetherSDR imme
 | **AF Gain slider (Audio tab)** | Sets the audio output level for this slice. Default: 100. Range: 0-100. Not persisted — reflects live radio state.                                                                                      |
 | **Pan slider (Audio tab)**     | Sets left/right stereo pan for this slice. Default: 50. Range: 0-100. 50 = centre. The slider fill anchors from the centre outward, showing a centre-mark dot on the groove at the neutral position.   |
 | **Mute button (Audio tab)**    | Toggle button. Mutes audio output for this slice without changing the AF gain setting. Default: off. Right-click the Audio tab label to toggle mute directly.                                            |
-| **Squelch button + slider (Audio tab)** | Toggle button. Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Range: 0-100.                                                                             |
+| **Squelch button + slider (Audio tab)** | Toggle button. Enables squelch for this slice. The adjacent slider sets the threshold. Default: off. Range: 0-100. The slider uses `setManualSquelch` for manual threshold control.               |
 | **AGC combo (Audio tab)**      | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF. Default: FAST.                                                                                                          |
 | **Mode combo (Mode tab)**      | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY. Default: USB.                                                                            |
 | **Filter preset buttons (Mode tab)** | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Custom lo/hi edges can be set per slot via right-click. Persisted in `FilterPresets`.         |
@@ -38,7 +38,7 @@ If you click the **Frequency display** while the slice is locked, AetherSDR imme
 | **DAX channel combo (DAX tab)** | Assigns a DAX audio channel to this slice. Options: Off, 1-8. Default: Off.                                                                                                                            |
 | **Marker thickness button**    | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice in `Slice{N}_MarkerWidth`.                                                                                                  |
 | **Filter edges button**        | Toggle button. Toggles the filter edge lines on the spectrum passband. Persisted per slice in `Slice{N}_FilterEdgesHidden`. Default: shown.                                                               |
-| **Collapse toggle**            | Collapses the VFO panel to a compact frequency-only strip. In collapsed mode, scrolling anywhere on the strip tunes by the current step size. Persisted per slice in `SliceFlagCollapsed_{N}`.           |
+| **Collapse toggle**            | Collapses the VFO panel to a compact frequency-only strip. In collapsed mode, scrolling anywhere on the strip tunes by the current step size. Right-click in collapsed mode to add a spot using the VFO's exact frequency (fixes #4455). Persisted per slice in `SliceFlagCollapsed_{N}`. |
 
 ## DSP tab controls
 
@@ -49,6 +49,7 @@ The DSP tab contains toggle buttons for noise reduction and filtering algorithms
 | **NR** | Noise reduction. |
 | **NB** | Noise blanker. |
 | **ANF** | Automatic notch filter. |
+| **MN** | Manual notch filter. Shown only when the radio reports manual notch support. |
 | **APF** | Audio peak filter. Visible only when the slice is in CW mode. |
 | **NR2 / NR4 / RN2 / BNR / MNR / DFNR / NRL / NRS / RNN / NRF** | Various noise reduction algorithms. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
 | **ADSP** | Push button. Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. |
@@ -58,7 +59,7 @@ All radio-side DSP buttons default to off.
 
 ### DSP level slider
 
-When one or more radio-side DSP algorithms that support a level control are active, a level slider appears below the DSP button grid. The slider label shows the name of the most recently enabled algorithm that supports leveling (for example, **NR**, **NB**, **ANF**, **NRL**, **NRS**, **NRF**, or **ANFL**). The adjacent numeric readout shows the current value.
+When one or more radio-side DSP algorithms that support a level control are active, a level slider appears below the DSP button grid. The slider label shows the name of the most recently enabled algorithm that supports leveling (for example, **NR**, **NB**, **ANF**, **MN**, **NRL**, **NRS**, **NRF**, or **ANFL**). The adjacent numeric readout shows the current value.
 
 - Drag the slider to set the level for the targeted algorithm (0–100).
 - The slider retargets automatically when you enable a different leveled algorithm.
@@ -69,6 +70,10 @@ When one or more radio-side DSP algorithms that support a level control are acti
 
 Right-click any of the following buttons to open the AetherDSP Settings dialog for that algorithm:
 - **NR2**, **NR4**, **MNR**, **DFNR** (accessible via ADSP button)
+
+## FM tone controls
+
+When the slice is in **FM**, **NFM**, or **DFM** mode, the VFO panel provides FM tone controls. These controls are hidden in other modes. FM tone controls are not shown for **DSTR** mode.
 
 ## S-meter and Smart Meter
 
@@ -150,10 +155,4 @@ When you type a frequency value, AetherSDR parses it as follows:
   - Values > 54 are treated as kHz and divided by 1000.
   - Values ≤ 54 are treated as MHz directly.
 - **Values > 54 MHz (VHF/UHF/SHF bands)**:
-  - If you explicitly typed MHz (by including a decimal point or using the "14.225.000" format), the value is used as MHz directly.
-  - If you typed a bare integer, 3-digit-band convenience parsing applies (see above).
-  - The maximum allowed value is 50000 MHz.
-
-## Mouse wheel tuning
-
-The scroll wheel tunes the slice when the pointer is over the **Frequency display**, stepping by the slice's current step size. The wheel direction follows the **Reverse mouse wheel** setting in Interaction Settings (#3302). When enabled, scrolling up decreases frequency
+  - If you explicitly typed

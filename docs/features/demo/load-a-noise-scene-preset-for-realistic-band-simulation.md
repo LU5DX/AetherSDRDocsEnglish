@@ -10,7 +10,7 @@ This page explains how to load a one-click noise scene preset in Demo Mode, inst
 ## Steps
 
 1. Locate the Demo Mode applet in the Applet Panel tray (look for the "DEMO" label).
-2. Find the **Scene presets** section containing preset buttons.
+2. Find the **Scene presets** section containing preset buttons. The buttons wrap to multiple lines if the applet panel is narrow, so all labels remain fully visible.
 3. Click the preset that matches the desired band scenario (e.g., **storm**, **night-40m**, **contest pileup**, **quiet band**, etc.).
 
 The noise scene updates immediately: all noise channels (pink noise, white noise, QRM bursts, birdies, etc.) and their levels are set to match the selected preset.
@@ -27,6 +27,8 @@ The noise scene updates immediately: all noise channels (pink noise, white noise
 
 - Scene presets override any manual channel toggles and level sliders you may have set.
 - After loading a preset, you can still fine-tune individual noise channels using the toggles and sliders.
+- Hover over any noise channel toggle or level slider to see a one-line explanation of what that noise source sounds like on a real HF band.
+- If the preset buttons appear clipped, widen the applet panel — the buttons now wrap instead of compressing, so every label stays readable.
 
 ## Related
 

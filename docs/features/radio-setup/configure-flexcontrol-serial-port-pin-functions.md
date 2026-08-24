@@ -1,6 +1,6 @@
 # Configure Radio Setup
 
-The **Radio Setup** dialog (`Settings > Radio Setup...`) provides master per-radio configuration with tabbed sections for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, transverters, USB cables, peripherals, adaptive pre-distortion, themes, SmartLink pinned certificates, serial port settings, KiwiSDR public receiver browsing, callsign lookup parameters, amplifier (Acom) configuration, and Automation Bridge parameters.
+The **Radio Setup** dialog (`Settings > Radio Setup...`) provides master per-radio configuration with tabbed sections for radio information, network, GPS, TX, Phone/CW, RX, audio, filters, calibration, antennas, transverters, USB cables, peripherals, adaptive pre-distortion, themes, SmartLink pinned certificates, serial port settings, KiwiSDR public receiver browsing, callsign lookup parameters, amplifier (Acom) configuration, and Automation Bridge parameters.
 
 ## Before you start
 
@@ -37,18 +37,26 @@ Each read-only value has a small copy button next to it. Click the copy button t
 
 ### Setting identification
 
-| Control                                             | What it does                                                                                                                                                                                | Notes                                                                                                                               |
-|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| **Nickname**                                        | User-friendly radio nickname (editable).                                                                                                                                                    | —                                                                                                                                   |
-| **Callsign**                                        | Station callsign (editable).                                                                                                                                                                | —                                                                                                                                   |
-| **Station Name**                                    | Identifies this AetherSDR client to other multiFLEX stations. Stored in AppSettings.                                                                                                        | Defaults to the OS hostname if empty. Sent to radio as 'client station <name>'.                                                     |
-| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                           |
-| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog. |
-| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                   |
-| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                        |
-| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                     |
-| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                          |
-
+| Control                                             | What it does                                                                                                                                                                                | Notes                                                                                                                                                                                                                                                                            |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Nickname**                                        | User-friendly radio nickname (editable).                                                                                                                                                    | —                                                                                                                                                                                                                                                                                |
+| **Callsign**                                        | Station callsign (editable).                                                                                                                                                                | —                                                                                                                                                                                                                                                                                |
+| **Station Name**                                    | Identifies this AetherSDR client to other multiFLEX stations. Stored in AppSettings.                                                                                                        | Defaults to the OS hostname if empty. Sent to radio as 'client station <name>'.                                                                                                                                                                                                  |
+| Select Installer...                                 | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. | Label changed from 'Browse .ssdr...' to 'Select Installer...' in v26.5.3.                                                                                                                                                                                                        |
+| SmartLink (tab)                                     | Pinned SmartLink TLS certificate management. Lists each pinned certificate (host, SHA-256 fingerprint, pinned date) with per-row Forget and Forget All. New in v26.5.3 (#2951 Phase 2).     | Lazy-built when first clicked. Phase 2 of GHSA-wfx7-w6p8-4jr2: cert-pin mismatch now hard-pauses the handshake with a modal dialog.                                                                                                                                              |
+| Pinned SmartLink Certificates (section)             | Section header for the pinned certs table inside the SmartLink tab. Lists every host this client has pinned on first connect (trust-on-first-use).                                          | Phase 2 of GHSA-wfx7-w6p8-4jr2. Pin schema migrated from plain strings to {fp, pinnedAt} objects.                                                                                                                                                                                |
+| Host / SHA-256 fingerprint / Pinned (table columns) | 3-column read-only table: Host (hostname), SHA-256 fingerprint (monospace), Pinned (YYYY-MM-DD or '(pre-phase 2)').                                                                         | Backed by WanCertCache in WanConnection.cpp.                                                                                                                                                                                                                                     |
+| Forget selected                                     | Removes the selected host's pinned cert fingerprint so the next connect re-pins silently.                                                                                                   |                                                                                                                                                                                                                                                                                  |
+| Forget all                                          | Clears every pinned cert (with confirmation). Next connect to each radio silently re-pins.                                                                                                  | Shows QMessageBox::question before wiping.                                                                                                                                                                                                                                       |
+| Reboot Radio                                        | Reboots the connected radio with a confirmation dialog. AetherSDR disconnects and (on LAN) auto-reconnects once booting finishes.                                                           | New in v26.8.4 (#4448). Only enabled when connected and the backend supports a client reboot (e.g. HL2 is RX-only so the button is disabled). On SmartLink/WAN the operator must reconnect manually after the reboot.                                                            |
+| Agent Automation (MCP):                             | Enables the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in.                         | New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The AETHER_AUTOMATION launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless AETHER_AUTOMATION_ALLOW_TX is set. |
+| Access Token:                                       | Read-only display of the MCP access token; paste it into the assistant's AETHER_MCP_TOKEN environment variable. Stored in the OS secret store.                                              | New in v26.8.4. Auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder '(loading…)' until the keychain read lands.                                                                                                                                   |
+| Copy (Access Token)                                 | Copies the access token to the clipboard.                                                                                                                                                   | New in v26.8.4.                                                                                                                                                                                                                                                                  |
+| Rotate (Access Token)                               | Generates a new token and applies it immediately, locking out any client still using the old one.                                                                                           | New in v26.8.4.                                                                                                                                                                                                                                                                  |
+| Allow TX via MCP: Enable transmit control           | Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation.                                                 | New in v26.8.4. Enforced in the bridge; no client can flip it. Overridden by AETHER_AUTOMATION_ALLOW_TX (force on) and AETHER_AUTOMATION_NO_TX (pinned off). A force-unkey watchdog limits bridge-originated TX.                                                                 |
+| Observe only: Read-only (block all driving)         | Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused.                                                             | New in v26.8.4 (#4188). Enforced in the app, so a client cannot bypass it. AETHER_AUTOMATION_READONLY launch variable pins it on for headless/CI runs.                                                                                                                           |
+| VITA-49 RX buffer:                                  | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped.                    | New in v26.8.4 (#3810). Presets 256 KB to 4 MB. The system caps the grant at net.core.rmem_max; a live 'granted: <size>' label shows what the kernel actually granted.                                                                                                           |
+| granted: (VITA-49 RX buffer)                        | Shows the buffer size the kernel actually granted (vs the requested preset).                                                                                                                | New in v26.8.4. Shows '(applies on connect)' when no connection is active.                                                                                                                                                                                                       |
 ### Firmware update
 
 1. Click **Check for Update** to query for available firmware updates. The result appears in the status label. If an update is available, the label directs you to download the SmartSDR installer from flexradio.com.
@@ -161,73 +169,4 @@ Toggle **Enable/Disable the Level Meter During Receive** to show the mic level m
 | **Iambic Mode: A / B** | Selects Curtis iambic mode A or B for both the radio and the local software keyer. | A | Mutually exclusive pair added in v0.9.1. |
 | **Swap:** | Swaps dit/dah. | — | — |
 | **Sideband:** | Selects CW pitch sideband. | — | Options: LSB / USB. |
-| **CWX:** | Enables CWX macro keying. | — | — |
-| **Decode:** | Enables the CW decode overlay on the panadapter. | True | Stored as `CwDecodeOverlay`. |
-
-### RTTY
-
-Set the **RTTY Mark Default:** spinbox to the default RTTY mark frequency.
-
----
-
-## RX tab
-
-The **RX** tab provides GPSDO frequency offset calibration and 10 MHz reference source selection.
-
-### Frequency calibration
-
-The calibration section is always visible, regardless of whether a GPSDO is installed.
-
-- **GPSDO installed** — shown in green: *GPSDO installed. Manual frequency offset calibration available.*
-- **No GPSDO** — shown in amber: *Manual frequency offset calibration available.*
-
-| Control | What it does | Notes |
-|---|---|---|
-| **Cal Frequency (MHz):** | Frequency used for manual calibration. | Always shown. |
-| **Start** | Starts the frequency calibration sweep. | Disabled and labelled **Busy** while active. Validates that a cal frequency has been entered. Resets stored frequency error to zero before starting. |
-| **Freq Offset (ppb):** | Manual frequency offset in parts per billion. | Reset to 0 when **Start** is clicked. |
-
-### 10 MHz Reference Source
-
-The **10 MHz Reference Source:** combo box populates dynamically based on detected hardware and live oscillator state.
-
-| Control | What it does | Notes |
-|---|---|---|
-| **10 MHz Reference Source:** | Selects the oscillator reference source. Sends `radio oscillator <value>` to the radio when changed. | **Auto** always present. Additional entries: **TCXO**, **GPSDO**, **External 10 MHz**. Options depend on hardware detected and live oscillator state. |
-| Lock status label | Shows the active source, resolution of Auto, and lock state. Updates live. | Green = Locked; Red = Unlocked; Grey-blue = waiting for status. Appends *(not detected)* when External 10 MHz is active but no external reference signal is present. |
-
-The lock status label shows:
-- *Waiting for oscillator status* when status has not yet been received.
-- *Auto -> \<resolved source\>* when Auto is selected and the radio has resolved to a specific source.
-- *\<setting\> -> \<active state\>* when the setting and active state differ.
-- The active source name alone when they match.
-
-The lock state (*Locked* or *Unlocked*) is always appended.
-
----
-
-## Audio tab
-
-The **Audio** tab configures radio audio outputs, compression, PC devices, boost, buffer, recording, and NVIDIA BNR container.
-
-### Radio audio outputs
-
-| Control | What it does | Notes |
-|---|---|---|
-| **Line Out:** | Line-out gain slider. | — |
-| **Mute (Line Out)** | Mutes line-out. | — |
-| **Headphone:** | Headphone gain slider. | — |
-| **Mute (Headphone)** | Mutes headphone. | — |
-| **Front Speaker: / Mute** | Mutes front speaker (model-specific). | — |
-
-### Audio Compression
-
-Select the audio codec for SmartLink/LAN using the **Audio Compression (SmartLink):** buttons: **Auto**, **Uncompressed**, or **Opus** (default: Auto). Stored as `AudioCompression`.
-
-### System sleep
-
-Check **Prevent system sleep while connected** to keep the OS awake while the radio is connected (default: False). Stored as `InhibitSleepWhileConnected`.
-
-### PC Audio Devices
-
-Select host audio input and output devices using the **Input:**
+|

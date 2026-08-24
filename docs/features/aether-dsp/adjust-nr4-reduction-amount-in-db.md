@@ -29,7 +29,6 @@ NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its c
 | **Gain Method**                      | Radio buttons                                                                                               | Gamma                                                                                                          |
 | **NPE Method**                       | Radio buttons                                                                                               | OSMS                                                                                                           |
 | **AE Filter (artifact elimination)** | Checkbox                                                                                                    | Enabled                                                                                                        |
-| **Use Original Geometry**            | Checkbox                                                                                                    | Disabled                                                                                                       |
 | **Reduction:**                       | Slider                                                                                                      | 1.50                                                                                                           |
 | **Smoothing:**                       | Slider                                                                                                      | 0.85                                                                                                           |
 | **Threshold:**                       | Slider                                                                                                      | 0.20                                                                                                           |
@@ -43,15 +42,13 @@ NR2 is the musical-noise-reduction engine. Click the **NR2** tab to access its c
 
 **AE Filter (artifact elimination)** toggles the anti-artefact post-filter (`NR2AeFilter`). Leave this enabled unless you are specifically testing raw NR2 output.
 
-**Use Original Geometry** (`Nr2UseOriginalGeometry`) controls whether the NR2 algorithm uses the original spectral geometry approach. Enable this if you are experiencing tonal artifacts with the default geometry; disable it for standard operation.
+**Reduction:** (`NR2GainMax`) sets the maximum reduction depth NR2 can apply. Higher values suppress more noise but can affect speech naturalness.
 
-**Reduction:** (`NR2GainFloor`) sets the maximum reduction depth NR2 can apply. Higher values suppress more noise but can affect speech naturalness.
-
-**Smoothing:** (`NR2GainSmooth`) controls how quickly the noise estimate tracks signal changes. Higher values produce smoother but slower tracking.
+**Smoothing:** (`NR2GainSmooth`) controls how smoothly the noise estimate tracks changes. Higher values produce smoother but slower tracking.
 
 **Threshold:** (`NR2Qspp`) sets the speech-presence-probability threshold below which NR2 treats audio as noise. Raise this if speech is being suppressed; lower it if noise breaks through during pauses.
 
-**Reset Defaults (↺ icon)** restores the NR2 tab to its factory values: Gain Method = Gamma, NPE Method = OSMS, AE Filter = enabled, Use Original Geometry = disabled, Reduction = 1.50, Smoothing = 0.85, Threshold = 0.20.
+**Reset Defaults (↺ icon)** restores the NR2 tab to its factory values: Gain Method = Gamma, NPE Method = OSMS, AE Filter = enabled, Reduction = 1.50, Smoothing = 0.85, Threshold = 0.20.
 
 ### Steps — adjust NR2 reduction depth
 
@@ -133,7 +130,24 @@ MNR is the MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It
 
 ## RN2 tab
 
-The **RN2** tab displays information about the RNNoise engine. There are no adjustable parameters on this tab.
+The **RN2** tab (RNNoise engine) hosts a **Noise Floor** slider. Sets the percentage of the original signal that remains mixed under the denoised audio. Zero yields full suppression (silent between phrases); 10–20% keeps a steady quiet floor so the receiver still sounds alive.
+
+### Controls
+
+| Control                              | Kind                                                                                                        | Default                                                                                                        |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| **Noise Floor (RN2 dry mix)**        | Slider                                                                                                      | 0                                                                                                              |
+
+### Control descriptions
+
+**Noise Floor (RN2 dry mix)** (`Rn2SettingsModel`) mixes a percentage of the original signal under the denoised audio. Affects received audio only; the transmit denoiser is unchanged. The slider range is 0–100%, with 0 providing full suppression.
+
+### Steps — adjust RN2 noise floor
+
+1. Open `Settings > AetherDSP Settings...`.
+2. Click the **RN2** tab.
+3. Drag the **Noise Floor** slider to the desired percentage. Lower values give stronger suppression; higher values keep more of the original signal in the output.
+4. Close the dialog. The value is saved automatically.
 
 ---
 

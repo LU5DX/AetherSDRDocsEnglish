@@ -26,15 +26,14 @@ In a multi-panadapter layout, only one panadapter is active at a time. Clicking 
 | Sens                 | Slider                               | 30      | Filters low-confidence decodes; higher = stricter. Maps 0-100 to cost threshold 1.0-0.1. Setting key: `CwDecoderSensitivity`. |
 | 🔒P (Lock Pitch)      | Toggle button                        | —       | Locks the CW decoder pitch to the current tuned frequency. |
 | 🔒S (Lock Speed)      | Toggle button                        | —       | Locks the CW decoder speed to the current WPM. |
-| Pitch range          | Dual-handle slider                   | Lo: 500 Hz, Hi: 700 Hz | Sets the decoder pitch search range (Lo to Hi). Range: 300-1200 Hz. Label shows "Pitch". |
-| WPM range            | Dual-handle slider                   | Lo: 15 WPM, Hi: 40 WPM | Sets the decoder speed search range. Range: 5-60 WPM. Label shows "WPM". |
-| A- (font size down)  | Push button                          | —       | Decreases the decoded-text font size by one step. Persisted across sessions via `CwDecodeSettings::fontPx()`. Range: 8–32 px. |
-| A+ (font size up)    | Push button                          | —       | Increases the decoded-text font size by one step. Persisted across sessions via `CwDecodeSettings::fontPx()`. Range: 8–32 px. |
+| Lo (pitch min)       | Slider                               | 500 Hz  | Minimum pitch the CW decoder searches; clamped ≤ Hi. Range: 300-1200 Hz. |
+| Hi (pitch max)       | Slider                               | 700 Hz  | Maximum pitch the CW decoder searches; clamped ≥ Lo. Range: 300-1200 Hz. |
 | CPY ALL              | Push button                          | —       | Copies the full decoded text to the clipboard. |
 | CPY VIS              | Push button                          | —       | Copies only the text currently visible in the scroll area. |
 | CLR                  | Push button                          | —       | Clears the CW decode buffer. |
 | ✕ (close CW)         | Push button                          | —       | Hides the CW decode panel; emits cwPanelCloseRequested. |
-| CW decode text       | Read-only text field                 | —       | Rolling display of decoded CW coloured by confidence. Font size is user-adjustable via A- and A+ buttons. Colours: <0.15 green, <0.35 yellow, <0.60 orange, >=0.60 red. |
+| CW decode text       | Read-only text field                 | —       | Rolling display of decoded CW coloured by confidence. Colours: <0.15 green, <0.35 yellow, <0.60 orange, >=0.60 red. |
+| 3D FFT view          | Toggle button                        | Disabled | Toggles the 3D FFT spectrum view. Shows signal history as a forward-scrolling 3D surface with elevation shadows, smooth-scroll boundaries, and resynchronized floor after bandwidth zoom. Slice flags cast cached elevation shadows. New in v26.7.x (#4413-#4477). Part of SpectrumWidget. |
 | Start Sweep          | Push button                          | —       | Runs a low-power tune sweep across the current TX band and plots SWR on the panadapter. |
 | Clear Sweep          | Push button                          | —       | Removes the displayed SWR sweep trace from the panadapter. |
 | PWR (sweep power)    | Slider                               | 1 W     | Sets the carrier power used during the sweep. Range: 1 W to 10 W. The current value is shown as a read-only label to the right of the slider. |
@@ -56,11 +55,7 @@ Decoded text is coloured by confidence level:
 
 The **Sens** slider maps the 0 – 100 range to a cost threshold of 1.0 – 0.1. Higher values filter out lower-confidence decodes.
 
-The **Pitch range** dual-handle slider sets the decoder pitch search range. The lower handle sets the minimum pitch (Lo), the upper handle sets the maximum pitch (Hi). The range is 300-1200 Hz.
-
-The **WPM range** dual-handle slider sets the decoder speed search range. The lower handle sets the minimum speed, the upper handle sets the maximum speed. The range is 5-60 WPM. Defaults: 15-40 WPM.
-
-Click **A-** to decrease the decoded-text font size, or **A+** to increase it. The font size is persisted across sessions and has a range of 8–32 pixels. The panel height adjusts proportionally to show more or fewer lines of decoded text.
+The **Lo** and **Hi** sliders set the decoder pitch search range. **Lo** sets the minimum pitch (300 – 1200 Hz), **Hi** sets the maximum pitch (300 – 1200 Hz). The **Lo** value is clamped to ≤ **Hi**, and the **Hi** value is clamped to ≥ **Lo**.
 
 Click **CPY ALL** to copy the entire decoded text buffer to the clipboard. Click **CPY VIS** to copy only the text currently visible in the scroll area. Click **CLR** to clear the decode buffer. Click **✕ (close CW)** to hide the panel.
 
@@ -88,6 +83,10 @@ When the radio begins transmitting (based on the radio's interlock TRANSMITTING 
 
 On radio reconnect, the desired panadapter FPS and waterfall line duration are reasserted to prevent silently dropping to the radio's 10 Hz default (#2465). Secondary panadapters (Slices B–H) also have their dBm range primed on reconnect so the noise-floor auto-adjust starts from the correct baseline rather than the default [-50, +50] range that caused flat spectrum on reconnect (#3034).
 
+## 3D FFT spectrum view
+
+The **3D FFT view** toggles the spectrum display to a forward-scrolling 3D surface. In this view, signal history scrolls toward you as an elevation-mapped surface, with slice flags casting cached elevation shadows. Bandwidth zoom resynchronizes the floor level. Toggle it off to return to the standard 2D spectrum.
+
 ## ANT panel SWR sweep controls
 
 The ANT panel includes controls for running a low-power SWR sweep across the current TX band and displaying the result on the panadapter.
@@ -111,6 +110,12 @@ The sweep progresses through the following internal phases. These are not direct
 
 SWR readings can be sourced from the radio's own forward/reflected power meters or from the TGXL tuner's meter, depending on which is available for the connected antenna port.
 
+## Canvas hosting (v26.8.4)
+
+When the panadapter is hosted as an item on the workspace canvas, the title strip streams a live-move gesture. A 6-pixel drag threshold separates a click (which activates the panadapter) from a drag. Once the threshold is exceeded, the panadapter follows the mouse pointer on the canvas and emits `canvasDragBegan`, `canvasDragMoved`, and `canvasDragEnded` signals.
+
+A canvas item can always pop out, even when it is the only pan — the single-pan button hiding applies only to the stacked layout. When the panadapter returns to the stack, the normal button visibility rules are re-applied.
+
 ## DSP row visibility (extended DSP, #2177)
 
 The NRL noise-reduction row (DSP row 4) is available on both 6000-series and 8000-series firmware and is always visible regardless of whether extended DSP is enabled. The NRS (row 5), RNN (row 6), and NRF (row 8) rows remain hidden unless the connected radio reports extended DSP support.
@@ -131,4 +136,4 @@ The panadapper's title bar and CW panel now use theme-aware styling instead of h
 - [Maximize one panadapter to fill the main area](maximize-one-panadapter-to-fill-the-main-area.md)
 - [Pop a panadapter out into its own window](pop-a-panadapter-out-into-its-own-window.md)
 - [Close an extra panadapter](close-an-extra-panadapter.md)
-- [Understanding slices and VFOs](../../getting-started/concepts/understanding-slices.md)
+-

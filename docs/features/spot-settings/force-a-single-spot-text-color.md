@@ -13,22 +13,35 @@ The **Spot Settings** dialog provides quick, stand-alone control over how DX spo
 
 ## What the controls do
 
-| Control | Default | Range | Persisted key |
-|---|---|---|---|
-| **Spots:** | Enabled | On/Off | `IsSpotsEnabled` |
-| **Memories:** | Disabled | On/Off | `IsMemorySpotsEnabled` |
-| **Levels:** | 3 | 1–10 | `SpotsMaxLevel` |
-| **Position:** | 50 | 0–100 (% from top) | `SpotsStartingHeightPercentage` |
-| **Font Size:** | 16 | 8–32 points | `SpotFontSize` |
-| **Spot Lifetime:** | 10 min | 10 sec – 24 hrs (non-linear steps) | `DxClusterSpotLifetimeSec` |
-| **Override Colors:** | Disabled | On/Off | `IsSpotsOverrideColorsEnabled` |
-| Spot text color picker | `#FFFF00` | (color) | `SpotsOverrideColor` |
-| **Override Background: Enabled** | Enabled | On/Off | `IsSpotsOverrideBackgroundColorsEnabled` |
-| **Override Background: Auto** | Enabled | On/Off | `IsSpotsOverrideToAutoBackgroundColorEnabled` |
-| Spot background color picker | `#000000` | (color) | `SpotsOverrideBgColor` |
-| **Background Opacity:** | 48 | 0–100 (0 = transparent) | `SpotsBackgroundOpacity` |
-| **Spot Lines:** | Enabled | On/Off | `IsSpotsLinesEnabled` |
-| **Clear All Spots** | – | – | (action, no key) |
+| Control                          | Default                                                                                                 | Range                              |
+|----------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------|
+| **Spots:**                       | Enabled                                                                                                 | On/Off                             |
+| **Memories:**                    | Disabled                                                                                                | On/Off                             |
+| **Kiwi DX:**                     | Disabled                                                                                                | On/Off                             |
+| **Levels:**                      | 3                                                                                                       | 1–10                               |
+| **Position:**                    | 50                                                                                                      | 0–100 (% from top)                 |
+| **Font Size:**                   | 16                                                                                                      | 8–32 points                        |
+| **Spot Lifetime:**               | 10 min                                                                                                  | 10 sec – 24 hrs (non-linear steps) |
+| **Override Colors:**             | Disabled                                                                                                | On/Off                             |
+| Spot text color picker           | `#FFFF00`                                                                                               | (color)                            |
+| **Override Background: Enabled** | Enabled                                                                                                 | On/Off                             |
+| **Override Background: Auto**    | Enabled                                                                                                 | On/Off                             |
+| Spot background color picker     | `#000000`                                                                                               | (color)                            |
+| **Background Opacity:**          | 48                                                                                                      | 0–100 (0 = transparent)            |
+| **Spot Lines:**                  | Enabled                                                                                                 | On/Off                             |
+| **Clear All Spots**              | –                                                                                                       | –                                  |
+
+## Kiwi DX spots
+
+**Kiwi DX:** overlays spots from the KiwiSDR Community DX database on the band plan strip. These include beacons, utility stations, and time signal stations that are not typically reported by amateur DX cluster sources.
+
+To enable Kiwi DX spots:
+
+1. In the Spot Settings dialog, locate the **Kiwi DX:** row.
+2. Click the toggle button so it reads **Enabled**. This persists as `ShowKiwiDxSpots`.
+3. The Kiwi DX spots appear on the band plan strip immediately.
+
+To disable Kiwi DX spots, click the toggle again so it reads **Disabled**.
 
 ## Indicator
 
@@ -42,6 +55,7 @@ Each toggle button in the Spot Settings dialog updates its label to reflect the 
 
 - **Spots:**
 - **Memories:**
+- **Kiwi DX:**
 - **Override Colors:**
 - **Override Background: Enabled**
 - **Spot Lines:**
@@ -71,6 +85,7 @@ To revert to per-spot colors, click the **Override Colors:** toggle again so it 
 - The color picker only takes effect while **Override Colors:** reads **Enabled**. You can pre-select a color while the toggle is still Disabled; it will apply the next time you enable the override.
 - If spot text is still hard to read after setting the color, adjust the background contrast using the **Override Background:** controls — see [Pick a custom background color for spots](pick-a-custom-background-color-for-spots.md) and [Adjust spot background opacity](adjust-spot-background-opacity.md).
 - During contests, disabling **Spot Lines:** while keeping spots enabled reduces clutter without losing frequency labels.
+- Kiwi DX spots complement amateur DX cluster spots. You can run both sources simultaneously by enabling **Spots:** and **Kiwi DX:** together.
 
 ## Related
 

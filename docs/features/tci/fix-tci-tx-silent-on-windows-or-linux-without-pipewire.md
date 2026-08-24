@@ -1,6 +1,6 @@
-# Fix TCI TX Silent on Windows or Linux without PipeWire
+# TCI Server Applet Reference
 
-TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR's TCI server, independent of the Windows SmartSDR DAX2 audio device path and independent of PipeWire. This means TCI TX should work on all platforms without any special configuration. This page helps you confirm the TCI server is set up correctly and the TX gain is not the cause of silence.
+The **TCI Server** applet runs an Expert-style TCI WebSocket server so third-party logging, digital-mode, and SDR software (Log4OM, SunSDR tools, etc.) can read and control the radio over the TCI protocol. TCI TX audio is received over the WebSocket and fed into a dedicated `dax_tx` stream slot that is independent of the Windows SmartSDR DAX2 audio device path, so TCI TX works on all platforms including Windows and Linux without PipeWire.
 
 ## Before you start
 
@@ -12,8 +12,8 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 
 1. Click the **TCI** tray button on the right sidebar to open the TCI Server applet.
 2. Check the server status label next to the Port field.
-   - If it reads `(stopped)`, click **Enabled** to start the server. The button text changes to **Enabled** when the server is running.
-   - If it reads `(port in use)`, the chosen port is already bound by another process. Change the value in the **Port** field to a free port (valid range: 1024–65535; default: `50001`), then press Enter and click **Enabled**.
+   - If it reads `(stopped)`, click **Enable** to start the server. The button text changes to **Enabled** when the server is running.
+   - If it reads `(port in use)`, the chosen port is already bound by another process. Change the value in the **Port** field to a free port (valid range: 1024–65535; default: `50001`), then press Enter and click **Enable**.
 3. Confirm the status label shows `:<port> (N clients)` with at least one client connected. If your TX application is not shown as a connected client, check its TCI host and port settings and ensure they match the **Port** field value.
 4. Look at the **TX** row in the applet. Check the slice-assignment label next to the TX meter.
    - If it shows `—`, no slice is currently designated as the TX slice. Use the radio's slice controls to assign a TX slice.
@@ -33,9 +33,15 @@ TCI TX audio is routed through a dedicated `dax_tx` stream slot inside AetherSDR
 | **RX2 gain+meter**                 | `0.5`   | 0.0–1.0     |
 | **RX3 gain+meter**                 | `0.5`   | 0.0–1.0     |
 | **RX4 gain+meter**                 | `0.5`   | 0.0–1.0     |
+| **RX5 gain+meter**                 | `0.5`   | 0.0–1.0     |
+| **RX6 gain+meter**                 | `0.5`   | 0.0–1.0     |
+| **RX7 gain+meter**                 | `0.5`   | 0.0–1.0     |
+| **RX8 gain+meter**                 | `0.5`   | 0.0–1.0     |
 | **TX overflow mode (right-click)** | Clip    | Clip (0), NaNGuard (1), Measure (2) |
 
 The **Enable** button shows **Enabled** when the server is running and **Disabled** when stopped. If the **AutoStartTCI** setting is enabled in Settings, the button starts as **Enabled** on launch.
+
+The **RX** rows display the receiver (trx) index as a positional slice index bounded by the radio's slice capacity (up to 8 on a Flex-6700). Rows above the radio's maximum slice count are hidden automatically. Each RX row shows the slice assignment label that mirrors the DAX channel mapping — TCI RX channels 1–8 carry the same DAX channels as the DAX applet, with audio fanned out to both DaxBridge and TciServer.
 
 ## TX overflow handling modes
 
@@ -66,10 +72,11 @@ Right-click the **TX gain+meter** slider to open the TX overflow handling contex
 - For digital modes requiring bit-exact tone fidelity, use **NaN guard** or **Measure only** modes to avoid harmonic distortion from clipping.
 - The applet container uses the theme system (`applet/tci`) for consistent styling across all themes.
 - The TCI server is explicitly torn down when AetherSDR closes to prevent a use-after-free condition, fixed in v0.9.7.
+- RX rows are automatically hidden when they exceed the radio's slice capacity (mirroring the DAX applet behavior). Only the rows corresponding to available slices are shown.
 
 ## Troubleshooting
 
-- **Status shows `(port in use)` and Enable snaps back to off** — Another application is bound to that port. Enter a different port number in the **Port** field, press Enter, and click **Enabled** again.
+- **Status shows `(port in use)` and Enable snaps back to off** — Another application is bound to that port. Enter a different port number in the **Port** field, press Enter, and click **Enable** again.
 - **Status shows the correct port and client count, but the radio is not transmitting audio** — Confirm the TX slice label in the **TX** row shows `Slice <letter>` and not `—`. If it shows `—`, designate a TX slice from the main UI. Also confirm the **TX gain+meter** is above `0.0`.
 - **Third-party application cannot connect** — Verify the application is pointed at `localhost` (or AetherSDR's host IP) and the port number matches the **Port** field. Confirm no firewall rule is blocking the port.
 - **TX meter shows no movement despite the client being connected and keyed** — The client application may be sending audio to a system audio device rather than over the TCI WebSocket. Check the client's audio output or TCI audio routing settings. AetherSDR does not use the Windows DAX2 audio device for TCI TX; audio must arrive over the WebSocket connection.

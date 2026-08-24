@@ -12,14 +12,14 @@ Click the VFO marker flag on the spectrum display for the target slice. The VFO 
 
 ## Collapse or expand the VFO panel
 
-Click the **Collapse toggle** button (arrow icon) at the right edge of the VFO panel title bar to collapse it to a compact frequency-only strip. Click again to expand.
+Click the **Collapse toggle** button (arrow icon) at the right edge of the VFO panel title bar to collapse it to a compact frequency-only strip. Click again to expand. Right-click the collapsed frequency strip to add a spot at the VFO frequency.
 
 ## Use the tabs
 
 The VFO panel contains several tabs:
 
 - **Audio** tab — AF gain, pan, mute, squelch, and AGC controls
-- **DSP** tab — noise reduction algorithm buttons (NR, NR2, RN2, NR4, MNR, DFNR, BNR, NRL, NRS, RNN, NRF), ADSP button, and AetherVoice button
+- **DSP** tab — noise reduction algorithm buttons (NR, NR2, RN2, NR4, MNR, DFNR, BNR, NRL, NRS, RNN, NRF, MN), ADSP button, and AetherVoice button
 - **Mode** tab — mode selection and filter preset buttons
 - **X/RIT** tab — RIT and XIT incremental tuning
 - **DAX** tab — DAX audio channel assignment
@@ -52,6 +52,7 @@ Tab labels are implemented as checkable push buttons that support keyboard focus
 | NRS button | DSP | **NRS** | off | — | Enables the NRS noise reduction algorithm. |
 | RNN button | DSP | **RNN** | off | — | Enables the RNN noise reduction algorithm. |
 | NRF button | DSP | **NRF** | off | — | Enables the NRF noise reduction algorithm. |
+| MN button | DSP | **MN** | off | — | Enables the manual notch filter. Only shown on radios that support manual notch filtering. |
 | ADSP button | DSP | **ADSP** | — | — | Opens the AetherDSP Settings dialog. Non-checkable. |
 | AetherVoice button | DSP | **AetherVoice** | off (not checkable) | — | Toggles the Aetherial Audio Channel Strip. |
 | Mode combo | Mode | **USB** | USB | USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY | Sets the demodulation mode for this slice. |

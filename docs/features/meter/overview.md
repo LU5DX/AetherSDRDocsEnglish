@@ -25,11 +25,13 @@ The applet now applies the active application theme to the meters container usin
 
 ## What each control does
 
-| Gauge        | What it shows               | Valid range |
-|--------------|-----------------------------|-------------|
-| **PA Temp**  | Power amplifier temperature | 0–120 °C or 32–248 °F |
-| **+13.8V**   | DC supply voltage           | 10.0–16.0 V |
-| **Main Fan** | Main cooling fan speed      | 0–3000 rpm  |
+| Gauge                   | What it shows                                                                                                                                     | Valid range                                                           |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| **PA Temp**             | Power amplifier temperature                                                                                                                       | 0–120 °C or 32–248 °F                                                 |
+| **+13.8V**              | DC supply voltage                                                                                                                                 | 10.0–16.0 V                                                           |
+| **Main Fan**            | Main cooling fan speed                                                                                                                            | 0–3000 rpm                                                            |
+| **°C / °F toggle**      | Toggles the PA temperature display between Celsius and Fahrenheit; the choice persists to the `MtrApplet` settings object (tempFahrenheit field). | Located in the header row next to the 'Radio Hardware' section label. |
+| **+13.8V (supply voltage)** | Displays supply voltage meter; label dynamically updates to show the live voltage value (e.g. '+13.82V') via HGauge::setLabel.                | 10.0–16.0 V (red > 15)                                                 |
 
 ### PA Temp gauge
 

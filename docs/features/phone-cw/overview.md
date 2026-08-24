@@ -18,12 +18,12 @@ AetherSDR switches between sub-panels automatically as you change the slice mode
 | Level             | Meter        | Shows microphone input peak level in dBFS. Suppressed to -150 when met_in_rx is off and not transmitting. Mouse over the gauge to see the exact peak level in dB with one decimal place (#3936).                                                                                                                                                                                |
 | Compression       | Meter        | Shows speech compression amount in dB. Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX to prevent confusing stale readings from the TX chain. In v26.5.3, the meter range is reversed: 0 = no compression, -25 = full compression. Mouse over the gauge to see the exact compression amount in dB (#3936). |
 | Mic profile       | Combo box    | Loads the named mic processing profile from the radio's profile list.                                                                                                                                                                                                                                                                                    |
-| Mic source        | Combo box    | Selects the microphone input source. When the radio is modulated by AetherSDR (host modulation active), this combo box is disabled and shows only "PC" as the available source, with a tooltip explaining the limitation.                                                                                                                                |
-| Mic gain          | Slider       | Adjusts mic input level. When source is PC, the value is kept client-side (stored as `PcMicGain`).                                                                                                                                                                                                                                                        |
+| Mic source        | Combo box    | Selects the microphone input source. When the radio is modulated by AetherSDR (host modulation active), this combo box is disabled and shows only "PC" as the available source, with a tooltip explaining the limitation. In v26.8.4, on radios whose transmit audio comes from the computer, the combo box is rebuilt to contain only "PC" — the other entries are removed, not merely greyed out, and the model is told the PC source is in effect. |
+| Mic gain          | Slider       | Adjusts mic input level. When source is PC, the value is kept client-side (stored as `PcMicGain`). In v26.8.4, the client gain ownership logic was refactored: the radio is never updated in PC mode (the radio always reports mic_level=0 for PC), and the `micLevelChanged` signal is emitted for client-owned gain only when appropriate — for RADE mode or for a selectable radio whose current source is PC. |
 | +ACC              | Toggle button| Enables the accessory mic input mix.                                                                                                                                                                                                                                                                                                                     |
 | PROC              | Toggle button| Toggles the speech processor.                                                                                                                                                                                                                                                                                                                            |
 | NOR/DX/DX+        | Slider       | Sets the speech processor level. Three positions: NOR (0), DX (1), DX+ (2).                                                                                                                                                                                                                                                                              |
-| DAX               | Toggle button| Enables DAX as the TX audio source.                                                                                                                                                                                                                                                                                                                      |
+| DAX               | Toggle button| Enables DAX as the TX audio source. In v26.8.4, the DAX button is hidden entirely on radios that take transmit audio directly from the computer (host modulation), and is force-unchecked when hidden. |
 | MON               | Toggle button| Enables the sideband TX monitor.                                                                                                                                                                                                                                                                                                                         |
 | Monitor volume    | Slider       | Sets the sideband monitor volume.                                                                                                                                                                                                                                                                                                                        |
 | ALC (Phone panel) | Meter        | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS, range -20 to 0 dBFS, red above -3). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Mouse over the gauge to see the exact level in dBFS with one decimal place (#3936). Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). In v26.5.3, the gauge initializes to -20 dBFS on construction. Mirrored by an identical gauge on the CW sub-panel. |
@@ -91,23 +91,11 @@ When VOX is toggled via a keyboard shortcut, the Phone panel now refreshes immed
 
 The embedded CWX panel scopes its F1-F12 shortcuts to panel visibility (#2464, #2469) so DVK panel F-key bindings and CWX hotkeys no longer fire simultaneously. CWX macros also release TX automatically when the queue drains (#2450, #2507).
 
-### Host modulation mode (v26.7.4)
+### Host modulation mode (v26.7.4, refined in v26.8.4)
 
-When the radio is being modulated directly by AetherSDR (host modulation active), the **Mic source** combo box is disabled and shows only "PC" as the available input. A tooltip explains that the other sources are physical FlexRadio jacks that are not available in this mode. This prevents confusion by eliminating the choice of nonexistent input sources.
+When the radio is being modulated directly by AetherSDR (host modulation active), the **Mic source** combo box behavior changed in v26.8.4 to be more explicit:
 
-### Gauge hover readouts (v26.7.4)
-
-In v26.7.4, all four gauges in the Phone/CW applet now display numeric readouts when you hover the mouse cursor over them:
-
-- **Level gauge** — shows the exact microphone peak level in dB with one decimal place (e.g., "-12.5 dB")
-- **Compression gauge** — shows the exact compression amount in dB with one decimal place (e.g., "8.3 dB")
-- **ALC gauge (Phone panel)** — shows the exact level in dBFS with one decimal place (e.g., "-5.2 dBFS")
-- **ALC gauge (CW panel)** — shows the exact level in dBFS with one decimal place (e.g., "-5.2 dBFS")
-
-This allows you to read the precise value of each gauge without having to estimate against the scale markings.
-
-## Theme support (v26.6.1)
-
-In v26.6.1, the Phone/CW applet was updated to use the Theme Manager for all visual styling. All slider handles, labels, and push buttons now derive their colors from the active theme's color scheme rather than hardcoded hex values. The compact **CwXButton** used in the CWX toolbar now uses theme-aware colors for its background, border, and pressed state (accent color).
-
-When you change the application theme via `View > Theme`, the Phone/CW applet updates
+- Previously (v26.7.4), the combo box was disabled and showed only "PC" as the available input, with a tooltip explaining the limitation.
+- In v26.8.4, the combo box is **rebuilt** to contain only "PC" when the radio cannot accept a selectable input. The other entries (MIC, BAL, LINE, ACC) are removed entirely rather than greyed out, because a greyed-out entry still reads as "this radio has a mic input we could use." The combo box is then disabled, and a tooltip states: "This radio takes transmit audio from this computer. Its own input selection is made on the radio."
+- The model is also explicitly told the PC source is now in effect, so the transmit-audio capture state is reported consistently.
+- On a radio with a single possible

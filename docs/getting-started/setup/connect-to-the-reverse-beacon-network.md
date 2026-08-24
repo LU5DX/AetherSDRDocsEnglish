@@ -94,6 +94,10 @@ The **Spot table** columns can be shown or hidden by right-clicking the table he
 
 The minimum width of the SpotHub dialog has been lowered to 360 pixels, allowing the dialog to be sized narrower once columns are hidden in the Spot List table.
 
+## Spot List sorting by Time (v26.8.4)
+
+Starting in v26.8.4, clicking the **Time** column header in the **Spot table** sorts spots by their UTC timestamp. Previously, the Time column had no sortable value, so clicking it did nothing — and once you sorted by **Freq**, there was no way to return to the default newest-first order. Now you can always restore the newest-first view by clicking **Time**. Spots are sorted by their actual UTC time, not display text, so entries from different sources remain correctly ordered even when they use slightly different time formats.
+
 ## Tips
 
 - The **RBN Console** is read-only and shows raw telnet lines as they arrive. Use the **Send** command line below it to issue filter commands directly to the RBN server (e.g., `set/skimmer` or band-filter commands supported by the RBN).
@@ -107,4 +111,4 @@ The minimum width of the SpotHub dialog has been lowered to 360 pixels, allowing
 - **No spots appear on the panadapter after connecting** — Confirm that **Spots:** on the **Display** tab is set to Enabled (`IsSpotsEnabled`). Also check that the band you are monitoring is not hidden in the **Spot List** tab band filter checkboxes.
 - **Panadapter is flooded with spots** — Reduce **Rate Limit:** to a lower value to cap incoming spot rate. Alternatively, disable **Spot Lines:** (`IsSpotsLinesEnabled`) on the **Display** tab to make dense spot areas easier to read without reducing the number of spots shown.
 - **Double-clicking a spot changes frequency but does not change mode** — The spot comment may not contain a recognizable mode token. Mode switching depends on the spot comment containing a known mode string (e.g., `CW`, `FT8`, `SSB`). If the spotter did not include a mode in the comment, only the frequency changes.
-- **Toggle buttons do not show Enabled/Disabled text change** — This is expected behavior starting in v26.6.3. The **Override Colors:**, **Spot Lines:**, **DXCC Colors:**, and **Snap to Step:** buttons always display **Enabled** regardless of state. Their checked/unchecked visual state indicates whether the feature is active.
+- **Toggle buttons do not show Enabled/Disabled text change** — This is expected behavior starting in v26.6.3. The **Override Colors:**, **Spot Lines:**, **DXCC Colors:**

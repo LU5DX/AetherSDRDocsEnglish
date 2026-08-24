@@ -14,12 +14,12 @@ Click the **P/CW** tray button in the right sidebar.
 | Compression       | Meter                                                                                                                                                             | Shows speech compression amount in dB (-25 to 0 dB, reversed fill). Gated on the radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX (v0.9.7+). Hover over the gauge to see the exact compression amount in dB with one decimal place (v26.7.4+). |
 | ALC (Phone panel) | Meter                                                                                                                                                             | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Red threshold at -3 dBFS. Initializes to -20 dBFS on startup. Rewired from HWALC (RCA voltage) to SW ALC meter in v26.5.1 (#2552). Mirrored by an identical gauge on the CW sub-panel. Hover over the gauge to see the exact dBFS value with one decimal place (v26.7.4+). |
 | Mic profile       | Combo box                                                                                                                                                         | Loads a named microphone processing profile from the radio. Click to select a profile; it loads immediately.                                                                                        |
-| Mic source        | Combo box                                                                                                                                                         | Selects the microphone input source: MIC, BAL, LINE, ACC, or PC. Calls `TransmitModel::setMicSelection`. When host modulation is enabled, the combo box shows only "PC" and is disabled (v26.7.4+). |
+| Mic source        | Combo box                                                                                                                                                         | Selects the microphone input source: MIC, BAL, LINE, ACC, or PC. Calls `TransmitModel::setMicSelection`. The available sources depend on the radio's capabilities: on radios whose transmit audio cannot be selected from the client (the radio takes audio from this computer), the combo box shows only "PC" and is disabled (v26.8.4+). |
 | Mic gain          | Slider (0-100)                                                                                                                                                    | Adjusts microphone input level. For the "PC" source, uses local `PcMicGain` persistence (the radio always reports mic_level=0 when source=PC).                                                      |
 | +ACC              | Toggle                                                                                                                                                            | Enables the accessory microphone input mix. Calls `TransmitModel::setMicAcc`.                                                                                                                       |
 | PROC              | Toggle                                                                                                                                                            | Toggles the speech processor. Calls `TransmitModel::setSpeechProcessorEnable`.                                                                                                                      |
 | NOR/DX/DX+        | Slider (0=NOR, 1=DX, 2=DX+)                                                                                                                                       | Three-position processor level. Calls `TransmitModel::setSpeechProcessorLevel`.                                                                                                                     |
-| DAX               | Toggle                                                                                                                                                            | Enables DAX as the TX audio source. Calls `TransmitModel::setDax`.                                                                                                                                  |
+| DAX               | Toggle                                                                                                                                                            | Enables DAX as the TX audio source. Calls `TransmitModel::setDax`. Hidden when the radio does not support DAX as a TX source (v26.8.4+).                                                            |
 | MON               | Toggle                                                                                                                                                            | Enables TX sidetone monitor. Calls `TransmitModel::setSbMonitor`.                                                                                                                                   |
 | Monitor volume    | Slider (0-100)                                                                                                                                                    | Sets sideband monitor volume. Calls `TransmitModel::setMonGainSb`.                                                                                                                                  |
 
@@ -54,12 +54,15 @@ When RADE mode is active:
 - The **Level** gauge remains active during RX.
 - When RADE deactivates, the slider reverts to showing the radio's `mic_level` value and the Level gauge resets to -150 dBFS.
 
-### Host modulation behavior (v26.7.4+)
+### Host modulation and client-side mic input behavior (v26.8.4+)
 
-When the radio is modulated by AetherSDR (host modulation enabled):
-- The **Mic source** combo box is disabled and shows only "PC" — no other source choices are available.
-- A tooltip on the combo box explains that the PC microphone is the only input because the other sources are FlexRadio radio jacks.
-- This is managed automatically; no user action is required.
+When the radio takes transmit audio from this computer (that is, the client cannot select the radio's hardware mic input):
+- The **Mic source** combo box shows only "PC" and is disabled. The previous behavior of presenting all FlexRadio connector names (MIC, BAL, LINE, ACC) with a greyed-out non-PC selection is removed, because a disabled "MIC" entry wrongly implied the radio had a usable hardware mic input.
+- A tooltip on the disabled combo box explains: "This radio takes transmit audio from this computer. Its own input selection is made on the radio."
+- The client immediately applies the PC mic selection to the model when the mode is engaged, so downstream tools that read the model see the correct source.
+- The **Level** gauge is hidden when the radio has no client-feedable mic input, so it cannot show a misleading always-silent reading.
+- The **DAX** toggle is hidden on radios that do not support DAX as a TX source.
+- These states are managed automatically and update immediately when the radio's capabilities change.
 
 ## CW panel controls
 
@@ -113,33 +116,13 @@ The sidetone audio bus is shared with Quindar tones. The two are mutually exclus
 - **Breakin ON (QSK):** key edges trigger TX immediately; the break-in delay set by the **Delay (CW)** slider holds the relay after the last element.
 - **Breakin OFF:** keyed characters are queued; the operator engages PTT manually to transmit.
 
+### CW mode detection (v26.8.4+)
+
+The CW panel activates for any of the CW variants a radio may report: a FlexRadio reports bare "CW", while other radios report "CWU" for the same mode and "CWL" for the reverse-sideband variant. All three spellings drive the CW sub-panel. No user action is needed.
+
 ## Mic profile management
 
 To select a mic profile:
 
 1. Open the Phone/CW applet.
-2. Confirm the active slice is in a voice mode (SSB, AM, FM). In CW mode the mic profile controls are not visible.
-3. Click the **Mic profile** combo box. The list shows profiles stored on the radio.
-4. Select the profile name for your microphone. The profile loads immediately.
-
-The available profile names come from the radio. To create or rename profiles, use the radio's own profile management or open `Profiles > Profile Manager...` in AetherSDR. Selecting a profile does not change the **Mic source** or **Mic gain** settings; adjust those separately if needed.
-
-## Changes in v0.9.3
-
-### Level gauge — PC mic source exception
-
-When the mic source is PC, the Level gauge appears immediately on connect even when `met_in_rx` is off. Hardware mic sources continue to be suppressed during RX.
-
-### VOX toggle refresh
-
-Toggling VOX via a keyboard shortcut now refreshes the Phone panel immediately (#2084).
-
-### Sidetone stream on Windows
-
-On Windows, the client-side sidetone stream starts correctly as soon as AetherSDR connects to the radio (#2105).
-
-## Changes in v0.9.7
-
-### Compression gauge gated on transmit state
-
-The Compression gauge only shows a live value while the radio is transmitting and the speech processor is enabled. During receive it reads 
+2. Confirm the active slice is in a voice mode (SSB, AM,

@@ -1,37 +1,3 @@
-# Understand why mute state is not restored on reconnect (radio-authoritative policy #2489)
-
-When you mute a slice using the mute button in the RX Controls applet, the mute state is not saved or restored after a radio disconnection and reconnection. This is by design: AetherSDR treats the radio as the authoritative source for audio mute state.
-
-## Steps
-
-1. Click the mute button (🔊 / 🔇) in the RX Controls applet to mute or unmute the slice.
-2. Disconnect and reconnect to the radio — the mute button returns to its default unmuted (🔊) state.
-
-## What each control does
-
-| Control     | Label | Default     |
-|-------------|-------|-------------|
-| Mute toggle | 🔊 / 🔇 | 🔊 (unmuted) |
-## Behavior details
-
-- Single-click the mute button toggles mute for this slice. The icon (🔊 or 🔇) updates only when the radio acknowledges the state change via `SliceModel::audioMuteChanged`.
-- Double-click the mute button toggles mute for all owned slices simultaneously.
-- The single-click action is deferred by the platform double-click interval (approximately 400 ms). This delay allows a double-click to override the single-click and toggle all slices instead.
-- The single-click is deferred by `clickDiscriminationIntervalMs()` (configurable in Radio Setup → Slice Controls, default platform double-click interval ~400 ms, #3009) so a double-click can override it. The double-click handler is in `eventFilter` and cancels the single-click timer.
-- No suppress flag is needed for the trailing `clicked()` signal of a double-click sequence. The `eventFilter` returns `true` on `MouseButtonDblClick`, so `QAbstractButton::mouseDoubleClickEvent` is never called. The button never enters pressed-state on the second press, and the second release does not emit `clicked()`.
-
-## Tips
-
-- The mute button only controls audio for the currently selected slice. Each slice has its own mute toggle.
-- If you regularly need the audio to start muted after a reconnect, manually mute the slice after connecting, or use the radio's hardware mute if available.
-
-## Related
-
-- [RX Controls overview](../../features/rx/overview.md)
-- [Tune the radio to a frequency (type MHz in the readout)](../../features/rx/tune-the-radio-to-a-frequency-type-mhz-in-the-readout.md)
-
----
-
 # RX Controls (RxApplet)
 
 Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, filter width, AGC, AF gain/pan, squelch, RIT/XIT, and FM repeater duplex settings. Single-click the mute button mutes this slice; double-click mutes/unmutes all owned slices. The filter-width formatter is shared with the VFO panel for consistent readouts (#2197), and the stepFilterWidth() method walks per-mode preset lists so widen/narrow shortcuts produce mode-correct edge geometry. Switching to RTTY or digital modes (DIGU, DIGL) auto-disables squelch, which would otherwise notch out FSK characters and break decoding (#2504). When switching out of RADE mode via the mode combo, the applet emits radeActivated(false) only if the slice was actually in RADE (#2376), preventing stale deactivate signals when changing modes on a non-RADE slice.
@@ -48,25 +14,24 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
 | Tune lock | 🔓 / 🔒 | 🔓 (unlocked) | none | Toggles tune-lock on the slice; locked slice ignores frequency changes. | Icon flips between open and closed padlock. |
-| Frequency label | 0.000.000 | 0.001-54.000 MHz (450.000 MHz on XVTR) | Displays current VFO frequency with dotted grouping. | Click to switch into edit mode. |
-| Frequency edit | none | 0.001-54.000 MHz (450.000 MHz on XVTR) | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). | XVTR-aware: accepts up to 450 MHz when slice is on an XVTR antenna. Uses FreqLineEdit for improved input handling. |
-| STEP | 100 Hz (index 2) | per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged. | Step list depends on slice mode. Step changes also emit stepSizeChangedByUser for external synchronization. |
+| Frequency label | 0.000.000 | none | Displays current VFO frequency with dotted grouping. | Click to switch into edit mode. |
+| Frequency edit | none | 0.001-54.000 MHz (up to 50000 MHz on XVTR) | Enter MHz and press Enter to tune and recenter; supports kHz/Hz auto-scaling. Escape cancels the entry, restores the previous frequency, and dismisses the editor (v0.9.0, #1954). | XVTR-aware: accepts up to 50,000 MHz when the slice is on an XVTR antenna. 3-digit band convenience: on 2m/70cm (100-999 MHz) a digit insertion formats 1446 as 144.6. |
+| STEP | 100 Hz (index 2) | per-mode list (e.g. SSB: 1, 10, 50, 100, 500, 1000, 2000, 3000 Hz) | < / > or mousewheel cycles through per-mode step sizes; emits stepSizeChanged. | Step list depends on slice mode. |
 
 ## Antenna selection
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
-| RX antenna | ANT1 | from ant_list in panadapter status | Opens a menu listing available antennas; selecting sets slice->setRxAntenna. | Populated from the radio's ant_list; blue-coloured label. When a KiwiSDR is active, virtual antenna tokens are appended to the menu. Selecting a KiwiSDR virtual antenna emits kiwiRxAntennaSelected(sliceId, profileId); selecting a Flex antenna emits flexRxAntennaSelected(sliceId). |
+| RX antenna | ANT1 | from ant_list, plus assigned KiwiSDR virtual-antenna tokens | Opens a menu listing available antennas; selecting sets slice->setRxAntenna, or routes to an assigned KiwiSDR receiver profile when a virtual antenna token is chosen. | Populated from the radio's antenna list plus any KiwiSDR virtual-antenna tokens from the Kiwi manager; blue-coloured label. Falls back to ANT1/ANT2 when the list is empty. |
 | TX antenna | ANT1 | from ant_list, excluding RX-only ports | Opens a menu listing TX-capable antennas; sets slice->setTxAntenna. | Red-coloured label; RX-only antenna ports (prefix 'RX') are filtered out. |
 
 ## Mode and filter
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
-| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE) | Sets slice mode; reshapes filter and step presets for the new mode. | Selecting a mode emits wfmActivated(false) to tear down any WFM software demod overlay. RADE option requires HAVE_RADE build flag. |
-| WFM button | WFM | unchecked | On/Off | Toggle to enable the software FM demodulator via DAX IQ → Hi-Fi Cable for wideband FM reception. | Positioned next to the mode combo. When activated, emits wfmActivated(true) with the current slice ID. |
+| Mode combo | USB | USB, LSB, CW, AM, SAM, FM, NFM, DFM, DSTR, DIGU, DIGL, RTTY (+ RADE if HAVE_RADE; WFM via VFO-flag button) | Sets slice mode; reshapes filter and step presets for the new mode. | RADE option requires HAVE_RADE build flag. DSTR and FreeDV modes are filtered out when the model doesn't support them. Selecting a real radio mode tears down a running WFM software-demod overlay (WFM itself is toggled from the VFO-flag WFM button, not this combo). |
 | Filter width | 2.7K | none | Shows current filter width in kHz. | Updates when filter preset is applied. |
-| Filter width presets | none | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; AM/SAM: 5600-14000 Hz; CW: 50/100/250/400/500/600 Hz; DIG: 100-2000 Hz; RTTY: 250-1000 Hz | Click to apply a preset filter width; right-click to save current width as a preset. | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. CW presets now include 500 Hz and 600 Hz (first 6 of VfoWidget's 8 presets). The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic. The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
+| Filter width presets | none | USB/LSB: 1800/2100/2400/2700/2900/3300 Hz; AM/SAM: 5600-14000 Hz; CW: 50/100/250/400 Hz; DIG: 100-2000 Hz; RTTY: 250-1000 Hz | Click to apply a preset filter width; right-click to save current width as a preset. | Buttons hidden for FM/NFM/DFM modes; presets are per-mode. The width readout (shared with VfoWidget via RxApplet::formatFilterWidth) uses mode-aware logic so SSB/digital modes display the correct labelled width (#2197). The stepFilterWidth(direction) method walks the per-mode preset list for mode-correct widen/narrow (#2208). |
 | Filter passband widget | none | none | Drag the lo/hi edges to adjust filter passband; emits filterChanged (lo, hi). | none |
 
 ## CW break-in indicator
@@ -93,15 +58,15 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
-| SQL toggle | SQL | none | none | Enables the squelch at the current slider level. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). | none |
-| Squelch level | 20 | 0-100 | Adjusts squelch threshold; takes effect only when SQL is on. Disabled in RTTY and digital modes. | none |
+| SQL / AUTO | Off | Off, SQL (Manual), AUTO | Three-way cycle button: each click steps Off → SQL (manual threshold) → AUTO (algorithm tracks the noise floor) → Off. In AUTO mode the button shows amber 'AUTO'; in manual mode green 'SQL'. Disabled (and auto-turned off) in RTTY and digital modes (DIGU, DIGL) where squelch would notch out FSK characters (#2504). | Manual and Auto both turn the radio squelch on. The auto-squelch algorithm lives in the panadapter; the level is the dB margin above the measured noise floor. Mirrored by an identical button in the VFO panel's Audio tab. |
+| Squelch level | 20 | Manual: 0-100 (or 0-99 on Kiwi replacement receive); Auto: 5-20 dB margin | In Manual mode adjusts the squelch threshold (takes effect only when squelch is on). In AUTO mode sets the dB margin above the measured noise floor where the gate opens, persisted to AutoSqlMarginDb. | In Manual mode the level is radio-authoritative per-slice (not persisted); in Auto mode the margin is persisted. Disabled in RTTY and digital modes and in Off mode. Right-click the AGC threshold slider for AGC-T noise calibration. |
 
 ## AGC controls
 
 | Control | Label | Default | Valid range | Behavior | Notes |
 |---------|-------|---------|-------------|----------|-------|
 | AGC mode | Med | Off, Slow, Med, Fast | Sets the slice AGC mode. | Hidden in FM family modes. |
-| AGC threshold | 65 | 0-100 | Sets AGC threshold (or AGC off-level when AGC mode is Off). | Right-click the slider to open a context menu and select "Calibrate AGC-T against noise floor…" to automatically set the threshold based on the current noise floor. Tooltip reflects which value is being adjusted and advertises the right-click calibration. |
+| AGC threshold | 65 | 0-100 | Sets AGC threshold (or AGC off-level when AGC mode is Off). | Tooltip reflects which value is being adjusted. Right-click opens a 'Calibrate AGC-T against noise floor…' command that starts the AGC-T noise calibration dialog (disabled while a Kiwi replacement receive is active). |
 
 ## RIT/XIT
 
@@ -124,8 +89,22 @@ Per-slice receive controls: mode, frequency tuning, RX/TX antenna selection, fil
 | Offset down | − | none | none | Sets repeater offset direction to 'down' (TX below RX). | none |
 | Simplex | Simplex | checked | none | Sets repeater offset direction to simplex (TX = RX). | none |
 | Offset up | + | none | none | Sets repeater offset direction to 'up' (TX above RX). | none |
-| REV | REV | none | none | Inverts the TX offset sign to work a reversed repeater pair. | none |
+| REV / XFC | REV | none | REV (toggle) or XFC (momentary) | For FM repeater operation, REV inverts the TX offset sign to work a reversed repeater pair. On backends that support a transmit-frequency check, the button relabels to XFC: pressing it holds the transmit frequency check for the duration of the press, and while held it briefly forces the radio toward the transmit frequency to confirm coverage. | The button toggles REV (checkable) normally, or becomes a momentary XFC down-button when the connected radio backend advertises hasTransmitFrequencyCheck. The held XFC is released on hide, deactivate, capability change, or disconnect. |
 
-## AGC-T noise floor calibration
+---
 
-The AGC
+# Mute state is not restored on reconnect (radio-authoritative policy #2489)
+
+When you mute a slice using the mute button in the RX Controls applet, the mute state is not saved or restored after a radio disconnection and reconnection. This is by design: AetherSDR treats the radio as the authoritative source for audio mute state.
+
+## Steps
+
+1. Click the mute button (🔊 / 🔇) in the RX Controls applet to mute or unmute the slice.
+2. Disconnect and reconnect to the radio — the mute button returns to its default unmuted (🔊) state.
+
+## What each control does
+
+| Control     | Label                                                                                                                                                                                                                                                                                                                                                    | Default                                                                                                                                                                                                                                    |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mute toggle | 🔊 / 🔇                                                                                                                                                                                                                                                                                                                                                    | 🔊 (unmuted)                                                                                                                                                                                                                                |
+| REV / XFC   | For FM repeater operation, REV inverts the TX offset sign to work a reversed repeater pair. On backends that support a transmit-frequency check, the button relabels to XFC: pressing it holds the transmit frequency check for the duration of the press, and while held it briefly forces the radio toward the

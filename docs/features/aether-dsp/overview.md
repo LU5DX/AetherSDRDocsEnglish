@@ -69,10 +69,8 @@ MNR is an MMSE-Wiener noise-reduction engine with asymmetric gain smoothing. It 
 
 | Control | Type | Default | Range | Persisted key |
 |---|---|---|---|---|
-| Enable MNR (macOS only) | Checkbox | (read from audio engine) | — | `MnrEnabled` |
 | Strength | Slider | 100 | 0–100 | `MnrStrength` |
 
-- **Enable MNR (macOS only)** turns the engine on or off. The initial state reflects what the audio engine reports at the time the dialog opens.
 - **Strength** sets aggressiveness from mild (0) to maximum (100). The value is persisted as a normalized 0.00–1.00 figure.
 
 ### DFNR tab
@@ -89,23 +87,30 @@ DFNR uses the DeepFilterNet3 neural network for deep noise suppression. If Aethe
 
 ### RN2 tab
 
-The RN2 tab covers the RNNoise engine. It is informational only; there are no adjustable parameters on this tab.
+The RN2 tab covers the RNNoise engine. It hosts the Noise Floor dry-mix slider, which sets the amount of the original signal RN2 leaves under the denoised audio.
+
+| Control | Type | Default | Range | Persisted key |
+|---|---|---|---|---|
+| Noise Floor | Slider | 0 | 0–100 | — (persisted by Rn2SettingsModel) |
+
+- **Noise Floor** sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10–20% keeps a steady quiet floor so the receiver still sounds alive. This affects received audio only; the transmit denoiser is unchanged.
+- **Reset Defaults** restores the RN2 tab to its default Noise Floor value of 0.
 
 ### BNR tab
 
-The BNR tab covers NVIDIA noise reduction. Intensity is controlled from the overlay menu, not from this dialog. On builds without the NVIDIA Broadcast SDK the BNR toggle is dimmed.
+The BNR tab covers NVIDIA noise reduction. Intensity is controlled from the overlay menu, not from this dialog. On builds without the NVIDIA Broadcast SDK the BNR toggle is dimmed. There are no adjustable parameters on this tab, so **Reset Defaults** is a no-op.
 
 ## Window controls
 
 The dialog's custom title bar provides these controls:
 
-| Control | Behavior |
-|---|---|
-| Grip glyph (⋮⋮) | Visual indicator only; click and drag any part of the title bar to move the dialog |
-| — (Minimize) | Minimizes the dialog |
-| □ (Maximize) | Maximizes or restores the dialog |
-| × (Close) | Closes the dialog |
-| Double-click title bar | Toggles maximize/restore |
+| Control                   | Behavior                                                                                                                                                                                                     | Notes                                                                                                                                                                      |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Grip glyph (⋮⋮)           | Visual indicator only; click and drag any part of the title bar to move the dialog                                                                                                                           |                                                                                                                                                                            |
+| — (Minimize)              | Minimizes the dialog                                                                                                                                                                                         |                                                                                                                                                                            |
+| □ (Maximize)              | Maximizes or restores the dialog                                                                                                                                                                             |                                                                                                                                                                            |
+| × (Close)                 | Closes the dialog                                                                                                                                                                                            |                                                                                                                                                                            |
+| Double-click title bar    | Toggles maximize/restore                                                                                                                                                                                     |                                                                                                                                                                            |
 
 ## Resizing
 
@@ -116,7 +121,8 @@ Click and drag any edge or corner of the dialog to resize it. The cursor changes
 - Changes take effect immediately; you can monitor the audio while adjusting sliders.
 - On the NR2 tab, reducing **Threshold:** below its default (0.20) helps recover weak or low-power speech, but may increase noise breakthrough.
 - On the NR4 tab, leaving **Smoothing (%):** and **Whitening (%):** at 0 gives the most natural-sounding output; increase them only if residual noise is objectionable.
-- Use **Reset Defaults** on the NR2 or NR4 tab to recover a known-good baseline before experimenting.
+- On the RN2 tab, use a **Noise Floor** of 10–20% to keep the receiver sounding alive between phrases instead of falling fully silent.
+- Use **Reset Defaults** on the NR2, NR4, or RN2 tab to recover a known-good baseline before experimenting.
 
 ## Related
 

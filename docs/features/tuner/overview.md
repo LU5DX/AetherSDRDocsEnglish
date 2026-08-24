@@ -23,7 +23,7 @@ The applet is divided into three areas:
 
 | Control | Kind | Behavior | Valid range / states |
 |---|---|---|---|
-| **Fwd Pwr** | Meter (gauge) | Displays TGXL-reported forward power. Scale adjusts automatically based on whether a PGXL or Aurora amplifier is detected. The gauge has ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms for a smooth visual effect. | 0–200 W (barefoot); 0–600 W (Aurora); 0–2000 W (with PGXL) |
+| **Fwd Pwr** | Meter (gauge) | Displays TGXL-reported forward power. Scale adjusts automatically based on whether a PGXL or Aurora amplifier is detected. The gauge has ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms for a smooth visual effect. The scale is only reapplied when the relevant inputs actually change, so the gauge does not repaint unnecessarily on unrelated radio status updates. | 0–200 W (barefoot); 0–600 W (Aurora); 0–2000 W (with PGXL) |
 | **SWR** | Meter (gauge) | Displays TGXL-reported SWR. The gauge defaults to 1.0 (empty) when forward power is below 5 W to avoid showing spurious idle readings from the TGXL sending SWR=0.0000 (return loss = 0 dB) at idle. Gauge turns red above 2.5, yellow above 2.0. | 1.0–3.0 |
 | **C1** | Relay bar | Shows the C1 relay bank position. Mousewheel scroll adjusts the relay when a direct TGXL connection is active. | 0–255 |
 | **L** | Relay bar | Shows the L relay bank position. Mousewheel scroll adjusts the relay when a direct TGXL connection is active. | 0–255 |
@@ -63,6 +63,7 @@ The Tuner applet controls include accessible names for screen readers:
 - The forward power gauge has ballistics: the bar rises quickly on RF bursts but decays over approximately 800 ms for a smooth visual effect.
 - The peak hold white tick mark on the forward power gauge clears automatically after 2.5 seconds of no new peaks.
 - The SWR gauge stays at 1.0 (empty) when forward power is below 5 W. This prevents the gauge from showing spurious high SWR readings when the TGXL is idle and sending SWR=0.0000 (return loss = 0 dB). The gauge only shows live SWR values when forward power is 5 W or above.
+- In v26.8.4, the forward power scale is updated only when the amplifier state or maximum wattage actually changes. This avoids unnecessary gauge repaints during routine radio status updates and keeps the panel responsive.
 
 ## Related
 

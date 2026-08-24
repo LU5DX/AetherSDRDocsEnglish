@@ -45,13 +45,13 @@ When the speaker/audio tab is right-clicked, the slice audio mute toggles direct
 
 | Control | Default | Behavior |
 |---------|---------|----------|
-| **NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF** | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. |
+| **NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF / MN** | off | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. The MN (manual notch filter) button is shown only on radios that claim manual notch capability. |
 | **ADSP button** | N/A | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | **AetherVoice button** | N/A | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. Matches the existing menu / chain entry points for the strip. |
 
 **DSP level slider:** When one or more leveled DSP algorithms are active, a shared level slider appears below the button grid. The slider label shows which algorithm it currently targets — it retargets automatically to the most recently enabled leveled algorithm. The numeric value is shown to the right of the slider. The slider is always present in the layout. When no leveled algorithm is active (or only RNN, or APF are on), the slider row fades out and does not respond to input.
 
-Algorithms that expose the level slider: NR, NRL, NRS, NRF.
+Algorithms that expose the level slider: NR, NRL, NRS, NRF, MN.
 
 ### Mode tab
 
@@ -149,6 +149,14 @@ When an adaptive filter (e.g. APF) or similarly dynamic filter is active, an `Ad
 ## SmartMtr integration (v26.7.4)
 
 The VFO Panel now integrates with `SmartMtrWidget` to display real-time signal meter data within the VFO flag itself. When the panel is in its expanded state, a compact S-meter strip appears below the frequency display and above the tabs, showing signal strength, AGC activity, and other meter indications. The meter strip uses the same height-for-width behavior as the shadow widget to maintain consistent sizing.
+
+## Automation stability (v26.8.4)
+
+DSP toggle buttons now carry stable object names (`dspNR`, `dspNR2`, `dspMN`, etc.) in addition to their accessible names. This guarantees that automation scripts can reliably address these controls even if the human-readable labels are reworded in the future.
+
+## Collapsed panel spot handling (v26.8.4)
+
+Right-clicking the collapsed VFO panel frequency label now correctly opens the **Add Spot** context menu for the VFO's own frequency. Previously, clicks fell through to the spectrum widget underneath, which reported the cursor's step-snapped frequency instead of the VFO's.
 
 ## Tips
 

@@ -80,6 +80,10 @@ The AetherControl dialog uses a scroll area for its content when not in compact 
 
 When a physical FlexControl device is connected and sends a reset command (e.g. `F0304;`), AetherSDR automatically re-issues the cached LED state to restore the hardware's indicator lights to match the application's active wheel-mode button. This fixes a race condition where the device's power-on reset could otherwise clear the LEDs before AetherSDR had a chance to program them.
 
+## Notes on automatic reconnection
+
+If a connected physical FlexControl becomes unavailable — for example, the USB cable is unplugged or the device is re-enumerated — AetherSDR automatically retries the connection. Retries begin every 2 seconds and back off exponentially to a maximum of 30 seconds. During retries, the device is re-detected rather than reusing the previous port name, because a USB re-enumeration can assign a different COM port. AetherSDR keeps retrying until the device is found or you explicitly close the connection; a warning is logged once per outage rather than on every retry attempt. Once the device reconnects, its LED state is re-applied automatically.
+
 ## Theme support
 
 The FlexControl dialog uses theme-aware colors for sliders. The groove background uses `color.slider.background`, the filled portion and handle border use `color.accent.success`, and the handle uses `color.slider.handle`. These colors update automatically when switching between Default Dark and Default Light themes.

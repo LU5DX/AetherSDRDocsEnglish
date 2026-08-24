@@ -77,6 +77,14 @@ The **Network** tab displays radio network information and allows configuration.
 | **Enforce Private IP Connections:** | Toggle to reject non-RFC1918 peers | On / Off |
 | **Network MTU:** | Sets maximum outgoing VITA-49 UDP packet size in bytes. Default 1450 is safe for most VPN/SD-WAN tunnels. Stored in `NetworkMtu`. | 576–9000 bytes |
 | **DHCP / Static** | Switches between DHCP and Static IP modes | DHCP / Static |
+| **Agent Automation (MCP):** | Toggle to enable the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in. | Enabled / Disabled |
+| **Access Token:** | Read-only display of the MCP access token; paste it into the assistant's `AETHER_MCP_TOKEN` environment variable. Stored in the OS secret store. | — |
+| **Copy (Access Token)** | Click to copy the access token to the clipboard | — |
+| **Rotate (Access Token)** | Click to generate a new token and apply it immediately, locking out any client still using the old one | — |
+| **Allow TX via MCP: Enable transmit control** | Check to let an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation. | On / Off |
+| **Observe only: Read-only (block all driving)** | Check to make the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused. | On / Off |
+| **VITA-49 RX buffer:** | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped. | 0.25–4 MB (presets) |
+| **granted: (VITA-49 RX buffer)** | Shows the buffer size the kernel actually granted (vs the requested preset). | — |
 
 When **Static** is selected, enter the **IP Address:**, **Mask:**, and **Gateway:** in the text fields, then click **Apply** to push the configuration to the radio.
 
@@ -143,7 +151,8 @@ Toggle **Enable/Disable the Level Meter During Receive** to show the mic level m
 | **Swap:** | Swaps dit/dah | On / Off |
 | **Sideband:** | Selects CW pitch sideband | LSB / USB |
 | **CWX:** | Enables CWX macro keying | On / Off |
-| **Decode:** | Enables the CW decode overlay on the panadapter. Stored in `CwDecodeOverlay`. | On / Off |
+| **Decode: RX** | Enables the CW decode overlay on the panadapter for received CW. Stored in `CwDecoder` (nested JSON, `rx` field). | On / Off |
+| **Decode: TX** | Decodes the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing. Stored in `CwDecoder` (nested JSON, `tx` field). | On / Off |
 
 ### RTTY
 
@@ -170,6 +179,20 @@ The **RX** tab provides frequency calibration and reference source selection.
 | **10 MHz Reference Source:** | Selects the oscillator reference source. Options depend on installed hardware. | Auto / TCXO / GPSDO / External |
 
 The lock status label beside the control updates live.
+
+## Calibration tab
+
+The **Calibration** tab provides manual frequency calibration for radios that cannot calibrate themselves (e.g., HL2). This tab is hidden unless the connected radio supports host-side frequency calibration.
+
+### Manual frequency calibration
+
+| Control | What it does |
+|---|---|
+| **Cal Frequency (MHz):** | Enter the known-accurate reference frequency in MHz to use for calibration |
+| **Start** | Begins the frequency calibration sweep |
+| **Freq Offset (ppb):** | Displays or manually sets the current frequency offset in parts per billion |
+
+The calibration state is re-read whenever the dialog is shown or a different radio is connected, so a Trim press cannot commit the previous radio's calibration value.
 
 ## Antennas tab
 
@@ -252,79 +275,4 @@ The **Filters** tab configures filter sharpness per mode.
 
 ### Filter sharpness
 
-Use the sliders for **Voice**, **CW**, and **Digital** to set filter sharpness:
-
-| Value | Meaning |
-|---|---|
-| 0 | Lowest latency |
-| 1 | — |
-| 2 | — |
-| 3 | Sharpest |
-
-Sliders are disabled when **Auto** is enabled for that mode.
-
-### Auto mode
-
-Toggle **Auto** for Voice, CW, or Digital to enable automatic filter-level selection. When enabled, the manual sharpness slider for that mode is disabled.
-
-### Low Latency Filters
-
-Check **Use Low Latency Filters for Digital Modes** to force low-latency filters in DIGU/DIGL.
-
-## XVTR tab
-
-The **XVTR** tab configures per-transverter settings. It contains nested tabs, one per configured transverter, plus a **+** tab to create new transverters.
-
-### Per-transverter controls
-
-| Control | What it does |
-|---|---|
-| **RX Only:** | Toggle to force RX-only on that transverter |
-| **Remove** | Click to delete the transverter definition |
-| **Create New Transverter** | Click the **+** tab to add a new transverter entry |
-
-### Creating a new transverter
-
-1. Click the **+** tab (labelled **Create New Transverter**).
-2. Configure the transverter parameters.
-
-### XVTR Policy
-
-The **XVTR Policy** section allows configuring how transverters are handled regarding band edges and frequency limits. This is managed through the `XvtrPolicy` model.
-
-| Control | What it does |
-|---|---|
-| Policy selection | Choose how transverter band edges and frequency limits are applied |
-
-## USB Cables tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-### Cable detection
-
-The **Cables list / Status** shows detected USB cables per type with Plugged/Unplugged status.
-
-### Per-cable configuration
-
-Each detected cable provides the following parameters:
-
-| Control | What it does |
-|---|---|
-| **Name:** | Cable identifier |
-| **Enabled** | Toggle cable enable |
-| **Speed** | Baud rate selection |
-| **Data Bits** | Data bits selection |
-| **Parity** | Parity selection |
-| **Stop Bits** | Stop bits selection |
-| **Flow** | Flow control selection |
-| **Source** | Signal source selection |
-| **Auto Report** | Toggle auto-reporting |
-| **BCD Type** | BCD output type selection |
-| **Polarity** | Signal polarity selection |
-| **Bit Configuration (0-7)** | Bit configuration per pin |
-
-## Peripherals tab
-
-The **Peripherals** tab manages external devices via direct TCP connection (TGXL, PGXL, Antenna Genius).
-
-### TG
+Use the sliders for **Voice**, **

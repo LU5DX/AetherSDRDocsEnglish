@@ -1,34 +1,85 @@
-# Choose GPU or CPU for speech recognition
+# Copy Assist — Speech to Text
 
-Select whether the whisper.cpp speech-to-text engine uses your system's GPU or CPU for transcription. GPU processing is faster but requires VRAM; CPU processing works on any system but is slower.
+Real-time speech-to-text transcription for the active slice. Uses whisper.cpp to decode received voice audio into a scrolling, color-coded transcript (green = high confidence, red = low). Includes model selection, compute device picker, and confidence-based text coloring.
 
-## Before you start
+## Controls
 
-- Copy Assist must be open: `View > Copy Assist` (Ctrl+Shift+T)
-- A radio must be connected
+### Enable / Disable
 
-## Steps
+Starts or stops the whisper.cpp speech-to-text engine on the active slice's audio.
 
-1. Open the Copy Assist settings dialog by clicking **Settings** in the Copy Assist panel.
-2. Locate the **Compute device** combo box.
-3. Select either **GPU** or **CPU** from the dropdown.
-4. Close the settings dialog.
+| Property | Value |
+|---|---|
+| Kind | Toggle button |
+| Default | Disabled |
 
-The new compute device is used the next time you enable transcription.
+### Transcript
 
-## What each control does
+Scrolling, read-only transcript of decoded speech. Text is color-coded by whisper confidence: green (high), yellow (medium), red (low). Clear button empties the buffer.
 
-| Control | Default | Valid range | Behavior |
-|---|---|---|---|
-| Compute device | GPU (CUDA/Metal) | GPU / CPU | Selects whether whisper runs on GPU (faster, needs VRAM) or CPU (slower, works everywhere) |
+| Property | Value |
+|---|---|
+| Kind | Text field |
 
-## Tips
+### Model tier
 
-- If you see high backlog values (amber/red) with GPU selected, try switching to a smaller model tier first before falling back to CPU.
-- On systems with limited GPU memory (e.g., integrated graphics), CPU mode may be more stable.
+Whisper model size. Larger models are more accurate but slower and use more VRAM/RAM.
 
-## Related
+| Property | Value |
+|---|---|
+| Kind | Combo box |
+| Default | tiny |
+| Valid range | tiny / base / small / medium |
 
-- [Copy Assist — Speech to Text overview](overview.md)
-- [Enable speech-to-text transcription on a slice](enable-speech-to-text-transcription-on-a-slice.md)
-- [Change the whisper model tier for accuracy vs speed](change-the-whisper-model-tier-for-accuracy-vs-speed.md)
+### Compute device
+
+Selects whether whisper runs on GPU (faster, needs VRAM) or CPU (slower, works everywhere).
+
+| Property | Value |
+|---|---|
+| Kind | Combo box |
+| Default | GPU (CUDA/Metal) |
+| Valid range | GPU / CPU |
+
+### Backlog indicator
+
+Seconds of received audio not yet transcribed. Colour escalates amber→red as backlog grows.
+
+| Property | Value |
+|---|---|
+| Kind | Indicator |
+| Default | 0.0s |
+
+### Settings button
+
+Opens the modeless Copy Assist settings dialog for model tier, compute device and engine configuration.
+
+| Property | Value |
+|---|---|
+| Kind | Push button |
+
+### Clear
+
+Clears the current transcript buffer.
+
+| Property | Value |
+|---|---|
+| Kind | Push button |
+
+## Indicators
+
+### Engine status
+
+Current state of the whisper.cpp speech-to-text engine.
+
+| State | Meaning |
+|---|---|
+| Idle | Engine is not running |
+| Downloading model | Model is being downloaded |
+| Loading model | Model is being loaded into memory |
+| Listening | Engine is actively transcribing |
+| Error | Engine encountered an error |
+
+### Backlog
+
+Seconds of untranscribed audio in the pipeline buffer.

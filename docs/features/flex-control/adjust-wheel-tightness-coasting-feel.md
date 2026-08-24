@@ -79,6 +79,29 @@ The dialog automatically checks the screen's available height (excluding taskbar
 
 ---
 
+# Physical FlexControl connection recovery
+
+AetherSDR automatically retries connecting to the physical FlexControl hardware device when the connection is lost or the device is temporarily unavailable.
+
+## How it works
+
+- When a connection attempt fails, AetherSDR keeps retrying instead of giving up immediately.
+- Retries start at 2-second intervals and gradually back off to a maximum of 30 seconds between attempts.
+- The device port is re-detected on each retry, so a USB re-enumeration that assigns a different port name is handled automatically.
+- If the device is unplugged and replugged, AetherSDR reconnects on the new port without requiring manual intervention.
+- The **Physical** indicator in the AetherControl dialog shows the current connection state.
+
+## When this applies
+
+- The device is unplugged and reconnected.
+- The USB port is re-enumerated by the operating system.
+- Another process temporarily holds the port.
+- The device is mid-enumeration when AetherSDR starts.
+
+> **Note:** Automatic reconnection was added in AetherSDR v26.8.4 to address issue #4574.
+
+---
+
 # AetherControl dialog controls reference
 
 | Control | Kind | Default | Range | Setting key | Behavior |

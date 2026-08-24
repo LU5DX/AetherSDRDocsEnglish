@@ -32,7 +32,7 @@ The state is saved immediately. When you reopen AetherSDR, the setting is restor
 | **Mute button (Audio tab)** | off | Not persisted | Mutes audio output for this slice without changing the AF gain setting. |
 | **Squelch button + slider (Audio tab)** | off | Not persisted | Enables squelch for this slice. The adjacent slider sets the threshold. |
 | **AGC combo (Audio tab)** | FAST | Not persisted | Sets the AGC attack/release speed for this slice. |
-| **NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab)** | off | Not persisted | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| **NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF / MN buttons (DSP tab)** | off | Not persisted | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. The **MN** button is shown only on radios that support manual notch filtering. Right-click NR2, NR4, MNR, DFNR, or MN to open the AetherDSP Settings dialog for that algorithm. |
 | **ADSP button (DSP tab)** | — | Not persisted | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu. Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
 | **AetherVoice button (DSP tab)** | — | Not persisted | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
 | **Mode combo (Mode tab)** | USB | Not persisted | Sets the demodulation mode for this slice. |
@@ -59,9 +59,11 @@ The state is saved immediately. When you reopen AetherSDR, the setting is restor
 - The VFO panel uses a custom `TabStack` widget that reports only the current tab's size hint, preventing a visual gap when switching between tabs of different heights.
 - Tab labels in the VFO panel are implemented as `QPushButton`, making them keyboard-navigable with Tab. Use Tab to move focus between tabs, then press Enter or Space to activate the selected tab. Right-click the speaker tab (first tab) to toggle audio mute directly.
 - Scroll-wheel tuning respects the reverse mouse wheel setting from InteractionSettings. Enable the reverse mouse wheel setting in Preferences to invert the scroll direction for VFO frequency tuning.
-- The frequency display uses `FreqLineEdit` for direct frequency entry, with a hint showing "MHz (e.g. 14.225)". Direct frequency entry is cancelled when the slice becomes locked. Scroll-wheel tuning on a locked VFO notifies the user that tuning is blocked. The frequency display shows a "LOCKED" overlay when the slice VFO is locked.
+- The frequency display uses `FreqLineEdit` for direct frequency entry, with a hint showing "MHz (e.g. 14.225)". Direct frequency entry is cancelled when the slice becomes locked. Scroll-wheel tuning on a locked VFO notifies the user that tuning is blocked. The frequency display shows a **LOCKED** overlay when the slice VFO is locked.
 - On XVTR bands, bare integers of 4+ digits with the slice in the 100-999 MHz range automatically insert a decimal after the third digit (e.g., 1446 → 144.6). Above 1000 MHz, bare integers are treated as the direct MHz value. Maximum frequency entry: 50000 MHz.
 - Squelch is disabled for RTTY modes in addition to digital and CW modes. This prevents squelch from gating weak FSK signals sent to external decoders via DAX.
+- Right-click the collapsed frequency strip to add a DX spot for the slice's VFO frequency. The spot is added at the VFO's actual frequency, not the cursor's step-snapped frequency.
+- The **MN** (manual notch) DSP button appears only when the connected radio reports manual notch support. On radios without this capability, the button is hidden.
 
 ## Version history
 
@@ -74,6 +76,7 @@ The state is saved immediately. When you reopen AetherSDR, the setting is restor
 - In v26.6.1, slider controls use theme-aware colour tokens. Pan slider uses centre-anchored fill. VFO panel assigned its own theming container scope (`spectrum/vfo`).
 - In v26.6.3, tab labels implemented as `QPushButton` for keyboard navigation. Scroll-wheel tuning respects reverse mouse wheel setting. Frequency display uses `FreqLineEdit`. Accessibility support improved.
 - In v26.7.4, the VFO panel shadow is rendered by a dedicated `FlagShadow` widget, keeping the shadow separate from live meter repaints to avoid re-blurring the entire flag at animation rate.
+- In v26.8.4, the **MN** (manual notch) DSP toggle button was added to the DSP tab, shown only on radios that support manual notch filtering. Each DSP toggle button now has a stable object name for automation bridge compatibility. Right-clicking the collapsed frequency strip adds a DX spot for the slice's VFO frequency, using the actual VFO frequency instead of the cursor's step-snapped frequency.
 
 ## Related
 

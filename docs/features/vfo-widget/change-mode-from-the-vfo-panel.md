@@ -31,6 +31,7 @@ Use the VFO panel's Mode tab to switch the demodulation mode for any slice — f
 | Squelch button + slider (Audio tab) | off                                                                                                                           | 0-100. Enables squelch for this slice. The adjacent slider sets the threshold.                                          |
 | AGC combo (Audio tab)        | FAST                                                                                                                                  | FAST, MED, SLOW, OFF. Sets the AGC attack/release speed for this slice.                                                 |
 | NR / NR2 / RN2 / NR4 / MNR / DFNR / BNR / NRL / NRS / RNN / NRF buttons (DSP tab) | off | Toggle. Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
+| MN button (DSP tab)          | off                                                                                                                                   | Toggle. Manual notch filter. Shown only on radios that support it.                                                      |
 | RIT / XIT buttons + labels (X/RIT tab) | off                                                                                                                           | Toggle. Enables receiver (RIT) or transmitter (XIT) incremental tuning. Scroll-wheel adjusts in 10 Hz steps.            |
 | DAX channel combo (DAX tab)  | Off                                                                                                                                   | Off, 1-8. Assigns a DAX audio channel to this slice.                                                                    |
 | Marker thickness button      | 1 px                                                                                                                                  | Off, 1 px, 3 px. Cycles the VFO marker line thickness. Persisted per slice.                                             |
@@ -88,6 +89,7 @@ The DSP tab shows buttons for noise reduction and filtering algorithms supplied 
 | NRF | Spectral noise filter |
 | ANFL | LMS notch filter |
 | ANFT | FFT notch filter |
+| MN | Manual notch filter (shown only on radios that support it) |
 | NR2 | Opens the NR2 algorithm in the AetherDSP Settings dialog (right-click) |
 | NR4 | Opens the NR4 algorithm in the AetherDSP Settings dialog (right-click) |
 | MNR | Opens the MNR algorithm in the AetherDSP Settings dialog (right-click) |
@@ -103,7 +105,7 @@ All radio-side buttons default to off and toggle the corresponding algorithm on 
 
 ### DSP level slider
 
-When one or more leveled DSP algorithms (NR, NB, ANF, NRL, NRS, NRF, or ANFL) are active, a level slider appears below the DSP button grid. The slider label shows which algorithm is currently targeted — the most recently enabled leveled DSP. The numeric value is displayed to the right of the slider.
+When one or more leveled DSP algorithms (NR, NB, ANF, NRL, NRS, NRF, ANFL, or MN) are active, a level slider appears below the DSP button grid. The slider label shows which algorithm is currently targeted — the most recently enabled leveled DSP. The numeric value is displayed to the right of the slider.
 
 - Range: 0–100.
 - The slider retargets automatically when you enable a different leveled DSP button.
@@ -153,4 +155,4 @@ The VFO panel now renders its elevation drop shadow using a separate `FlagShadow
 
 ## S-meter page support (v26.7.4)
 
-The VFO panel strip now contains a dedicated page that hosts a `SmartMtrWidget` for the slice's signal meter. When this page is active, the VFO panel's height is driven by the meter's aspect ratio. The `QStackedSubWidget` used for the strip now forwards `
+The VFO panel strip now contains a dedicated page that

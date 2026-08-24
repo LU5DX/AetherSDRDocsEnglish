@@ -1,6 +1,6 @@
 # Radio Setup Dialog Reference
 
-The **Radio Setup** dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX, Phone/CW, RX, audio, filters, transverters, USB cables, peripherals, APD, themes, SmartLink certificate management, and serial port configuration.
+The **Radio Setup** dialog is the master per-radio configuration window. It contains tabs for radio information, network settings, GPS, TX, Phone/CW, RX, calibration, audio, filters, transverters, USB cables, peripherals, APD, themes, SmartLink certificate management, and serial port configuration.
 
 ## Opening the dialog
 
@@ -13,23 +13,32 @@ Many read-only values (serial number, HW version, options, model, subscription d
 
 The **Radio** tab displays radio identification, license information, and firmware update controls.
 
-| Control | Type | Description |
-|---------|------|-------------|
-| Radio SN | Indicator | Chassis serial number (read-only). Includes clipboard copy button. |
-| Region | Indicator | Radio regulatory region. Default: USA. |
-| HW Version | Indicator | Hardware version string. Includes clipboard copy button. |
-| Remote On | Push button | Enables remote wake / remote-on. |
-| Options | Indicator | Licensed radio options. Includes clipboard copy button. |
-| FlexControl | Indicator | Detected state of FlexControl hardware. |
-| multiFLEX | Indicator | multiFLEX enabled state. |
-| Model | Indicator | Radio model. Includes clipboard copy button. |
-| Nickname | Text field | User-friendly radio nickname. |
-| Callsign | Text field | Station callsign. |
-| Station Name | Text field | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as 'client station <name>'. |
-| License Info | Indicator | Displays license details including Subscription, Expiration, Radio ID, and Licensed version. Each field includes a clipboard copy button. |
-| Check for Update | Push button | Queries for firmware updates. |
-| Select Installer... | Push button | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. Label changed from 'Browse .ssdr...' in v26.5.3. |
-| Upload Firmware | Push button | Starts firmware upload with progress bar and status. |
+| Control                                     | Type                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                      |
+|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Radio SN                                    | Indicator                                                                                                                                                                | Chassis serial number (read-only). Includes clipboard copy button.                                                                                                                                                                                                               |
+| Region                                      | Indicator                                                                                                                                                                | Radio regulatory region. Default: USA.                                                                                                                                                                                                                                           |
+| HW Version                                  | Indicator                                                                                                                                                                | Hardware version string. Includes clipboard copy button.                                                                                                                                                                                                                         |
+| Remote On                                   | Push button                                                                                                                                                              | Enables remote wake / remote-on.                                                                                                                                                                                                                                                 |
+| Options                                     | Indicator                                                                                                                                                                | Licensed radio options. Includes clipboard copy button.                                                                                                                                                                                                                          |
+| FlexControl                                 | Indicator                                                                                                                                                                | Detected state of FlexControl hardware.                                                                                                                                                                                                                                          |
+| multiFLEX                                   | Indicator                                                                                                                                                                | multiFLEX enabled state.                                                                                                                                                                                                                                                         |
+| Model                                       | Indicator                                                                                                                                                                | Radio model. Includes clipboard copy button.                                                                                                                                                                                                                                     |
+| Nickname                                    | Text field                                                                                                                                                               | User-friendly radio nickname.                                                                                                                                                                                                                                                    |
+| Callsign                                    | Text field                                                                                                                                                               | Station callsign.                                                                                                                                                                                                                                                                |
+| Station Name                                | Text field                                                                                                                                                               | Identifies this AetherSDR client to other multiFLEX stations. Defaults to the OS hostname if empty. Stored in AppSettings as `StationName`. Sent to radio as 'client station <name>'.                                                                                            |
+| License Info                                | Indicator                                                                                                                                                                | Displays license details including Subscription, Expiration, Radio ID, and Licensed version. Each field includes a clipboard copy button.                                                                                                                                        |
+| Check for Update                            | Push button                                                                                                                                                              | Queries for firmware updates.                                                                                                                                                                                                                                                    |
+| Select Installer...                         | Push button                                                                                                                                                              | Opens a file dialog for a SmartSDR installer (.msi, .exe) or pre-extracted .ssdr firmware file. Passes the selected path to FirmwareStager which extracts .ssdr payload and emits progress. Label changed from 'Browse .ssdr...' in v26.5.3.                                     |
+| Upload Firmware                             | Push button                                                                                                                                                              | Starts firmware upload with progress bar and status.                                                                                                                                                                                                                             |
+| Reboot Radio                                | Push button                                                                                                                                                              | Reboots the connected radio with a confirmation dialog. AetherSDR disconnects and (on LAN) auto-reconnects once booting finishes. New in v26.8.4 (#4448). Only enabled when connected and the backend supports a client reboot (e.g. HL2 is RX-only so the button is disabled). On SmartLink/WAN the operator must reconnect manually after the reboot. |
+| Agent Automation (MCP):                     | Toggle button                                                                                                                                                            | Enables the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in. New in v26.8.4 (#3646). Persisted via AutomationBridgeSettings. The AETHER_AUTOMATION launch environment variable force-enables the bridge regardless of this toggle and disables the control in the UI. Transmit-keying stays blocked unless AETHER_AUTOMATION_ALLOW_TX is set. |
+| Access Token:                               | Text field                                                                                                                                                              | Read-only display of the MCP access token; paste it into the assistant's AETHER_MCP_TOKEN environment variable. Stored in the OS secret store. New in v26.8.4. Auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder '(loading…)' until the keychain read lands.                                                   |
+| Copy (Access Token)                         | Push button                                                                                                                                                              | Copies the access token to the clipboard. New in v26.8.4.                                                                                                                                                                                                                                                                                      |
+| Rotate (Access Token)                       | Push button                                                                                                                                                              | Generates a new token and applies it immediately, locking out any client still using the old one. New in v26.8.4.                                                                                                                                                                                                                              |
+| Allow TX via MCP: Enable transmit control   | Checkbox                                                                                                                                                                | Lets an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation. New in v26.8.4. Enforced in the bridge; no client can flip it. Overridden by AETHER_AUTOMATION_ALLOW_TX (force on) and AETHER_AUTOMATION_NO_TX (pinned off). A force-unkey watchdog limits bridge-originated TX. |
+| Observe only: Read-only (block all driving) | Checkbox                                                                                                                                                                | Makes the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused. New in v26.8.4 (#4188). Enforced in the app, so a client cannot bypass it. AETHER_AUTOMATION_READONLY launch variable pins it on for headless/CI runs.                                                       |
+| VITA-49 RX buffer:                          | Slider                                                                                                                                                                   | Snap-to-preset slider setting the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger absorbs panadapter/waterfall bursts so packets aren't dropped. New in v26.8.4 (#3810). Presets 256 KB to 4 MB. The system caps the grant at net.core.rmem_max; a live 'granted: <size>' label shows what the kernel actually granted. |
+| granted: (VITA-49 RX buffer)                | Indicator                                                                                                                                                               | Shows the buffer size the kernel actually granted (vs the requested preset). New in v26.8.4. Shows '(applies on connect)' when no connection is active.                                                                                                                                                                                         |
 
 ## Network tab
 
@@ -75,7 +84,8 @@ The **Phone/CW** tab configures microphone, CW keyer, and RTTY defaults.
 | Swap: | Toggle button | Swaps dit/dah. |
 | Sideband: | Combo box | Selects CW pitch sideband. Options: LSB, USB. |
 | CWX: | Toggle button | Enables CWX macro keying. |
-| Decode: | Toggle button | Default: True. Enables the CW decode overlay on the panadapter. Stored as `CwDecodeOverlay`. |
+| Decode: RX | Toggle button | Default: True. Enables the CW decode overlay on the panadapter for received CW. Stored as nested JSON under `CwDecoder` (rx field). New in v26.5.3: split from single CwDecodeOverlay toggle into independent RX/TX toggles. Legacy `CwDecodeOverlay` key auto-migrated on first read. |
+| Decode: TX | Toggle button | Default: False. Decodes the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing. Stored as nested JSON under `CwDecoder` (tx field). New in v26.5.3 (#2417). |
 | RTTY Mark Default: | Spinbox | Default RTTY mark frequency. |
 
 ## RX tab
@@ -88,6 +98,14 @@ The **RX** tab configures GPSDO frequency offset calibration and 10 MHz referenc
 | Start | Push button | Starts the frequency calibration sweep. |
 | Freq Offset (ppb): | Spinbox | Manual frequency offset in ppb. |
 | 10 MHz Reference Source: | Combo box | Selects oscillator reference source. Default: Auto. Options depend on hardware installed: Auto, TCXO, GPSDO, External. Lock status (Locked / Unlocked) is shown alongside the combo and updates live. |
+
+## Calibration tab
+
+The **Calibration** tab provides manual host-side frequency calibration for radios that cannot calibrate their own oscillator (e.g. HL2). This tab is hidden for radios that support hardware calibration (such as Flex radios, which calibrate on the RX tab). New in v26.8.4.
+
+| Control | Type | Description |
+|---------|------|-------------|
+| Calibration controls | Various | Manual frequency calibration in ppb/ppm for radios without self-calibration capability. The tab is capability-gated: it only appears when the connected radio reports `hostFrequencyCalibration` support. |
 
 ## Audio tab
 
@@ -106,64 +124,4 @@ The **Audio** tab configures radio audio outputs, compression, PC devices, boost
 | Audio Boost: | Toggle button | Enables extra gain on the client audio path. Stored as `AudioBoost`. |
 | Audio Buffer: | Text field | Default: 200. Increases audio buffer in milliseconds for VPN/SmartLink jitter. Valid range: 50-1000 ms. Stored as `AudioBufferMs`. Applied to AudioEngine::setRxBufferCapMs(). |
 | Recording: Radio Side / Client Side | Push button | Default: Radio Side. Picks radio-side or client-side recording. Stored as `RecordingMode`. |
-| Save to: | Text field | Folder for saved recordings (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `QsoRecordingDir`. |
-| ... | Push button | Browses for recording folder. |
-| Auto-record on TX | Checkbox | Default: False. Automatically records while transmitting. Stored as `QsoRecordingAutoRecord`. |
-| Idle timeout: | Spinbox | Default: 120. Seconds of silence before recording stops. Valid range: 10-3600 sec. Stored as `QsoRecordingIdleTimeout`. |
-| NVIDIA BNR: Autostart Container / Start / Stop / Check Status | Push button | Controls the NVIDIA Broadcast noise-removal container. |
-
-## Filters tab
-
-The **Filters** tab configures low-latency and sharp filter options per bandwidth.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| Voice / CW / Digital filter sharpness sliders | Slider | Sets filter sharpness (0=lowest latency to 3=sharpest) per mode. Slider is disabled when Auto is enabled. Commands sent as 'radio filter_sharpness <mode> level=<N>'. |
-| Auto (Voice / CW / Digital) | Toggle button | Enables automatic filter-level selection for that mode. Disables the manual sharpness slider. Commands sent as 'radio filter_sharpness <mode> auto_level=1'. |
-| Use Low Latency Filters for Digital Modes | Checkbox | Forces low-latency filters in DIGU/DIGL. |
-
-## XVTR tab
-
-The **XVTR** tab configures per-transverter settings. Contains nested tabs, one per transverter, and a '+' tab to create new ones.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| RX Only: | Toggle button | Forces RX-only on that transverter. |
-| Remove (xvtr) | Push button | Deletes the transverter definition. |
-| Create New Transverter | Push button | Adds a new transverter entry. |
-
-## USB Cables tab
-
-The **USB Cables** tab assigns USB serial adapters to CAT, BCD, bit, and PTT cable types.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| Cables list / Status | Indicator | Detected USB cables per type with Plugged/Unplugged status. |
-| Name: / Enabled / Speed / Data Bits / Parity / Stop Bits / Flow / Source / Auto Report / BCD Type / Polarity / Bit Configuration (0-7) | Combo box | Per-cable serial parameters and behavior. |
-
-## Peripherals tab
-
-The **Peripherals** tab configures external devices manual IP connection for TGXL, PGXL, and Antenna Genius.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| Connect / Disconnect (TGXL) | Push button | Default: Connect. Opens/closes direct TCP connection to the TGXL on port 9010. Saves IP and port to TGXL_ManualIp and TGXL_ManualPort on connect so AetherSDR auto-reconnects on startup. Required to recover TUNE on firmware 4.2+. When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the broken radio-side path. If IP field is empty and radio has discovered the TGXL, the discovered IP is pre-filled. |
-| Connect / Disconnect (PGXL) | Push button | Default: Connect. Opens/closes direct TCP connection to the Power Genius XL (default port 9008). Saves IP and port to PGXL_ManualIp and PGXL_ManualPort. |
-| Connect / Disconnect (Antenna Genius) | Push button | Default: Connect. Opens/closes connection to the Antenna Genius (default port 9007). Saves IP and port to AG_ManualIp and AG_ManualPort. |
-
-## APD tab
-
-The **APD** tab configures external Adaptive Pre-Distortion sample port selection per TX antenna (ANT1, ANT2, XVTA, XVTB). This tab is hidden unless the radio reports apd configurable=1 (FLEX-8x00 with SmartSDR 4.2.18+). Added in v26.5.1 (#2186). Lazy-built only when the tab is first clicked.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| ANT1: / ANT2: / XVTA: / XVTB: | Combo box | Picks the sample port (INTERNAL, RX_A, RX_B, XVTA, XVTB) that the radio uses for APD feedback on that TX antenna. INTERNAL samples inside the radio; external ports require a coupled feedback signal from the linear amplifier output. Changing sends setApdSamplerPort() to the radio. |
-| Reset (APD Equalizer) | Push button | Clears all per-antenna APD training data on the radio. Sends resetApdEqualizer() to the radio's TransmitModel. |
-
-## Themes tab
-
-The **Themes** tab configures UI appearance settings including per-slice color overrides. Lazy-built when first clicked.
-
-| Control | Type | Description |
-|---------|------|-------------|
-| Use
+| Save to: | Text

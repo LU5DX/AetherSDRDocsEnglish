@@ -16,7 +16,7 @@ After an autotune completes, the TUNE button briefly displays the final settled 
 4. The button then displays the result as "SWR x.xx" — for example, "SWR 1.34". Read this value directly from the button.
 5. After 2.5 seconds, the button label returns to "TUNE".
 
-If you miss the flash, the SWR gauge continues to display the live TGXL-reported SWR value after tuning.
+If you miss the flash, the SWR gauge continues to display the live TGXL-reported SWR value after tuning. The gauge scale only repaints when the scale-relevant inputs (power or amplifier state) actually change, so the displayed scale stays stable during normal operation.
 
 ## What each control does
 
@@ -38,6 +38,7 @@ If you miss the flash, the SWR gauge continues to display the live TGXL-reported
 - The peak hold tick on the gauges helps you see the highest power or SWR reached during a transmission, which clears automatically after 2.5 seconds.
 - The slow decay on the gauge bars (800 ms) prevents annoying flickering that could occur from brief gaps between UDP packets.
 - The SWR gauge automatically resets to 1.0 when forward power drops below 5 W, preventing idle noise from causing false SWR readings.
+- The forward power gauge scale repaints only when the actual scale changes (for example, when an amplifier is connected or disconnected), reducing unnecessary redraws during routine telemetry updates.
 
 ## Troubleshooting
 

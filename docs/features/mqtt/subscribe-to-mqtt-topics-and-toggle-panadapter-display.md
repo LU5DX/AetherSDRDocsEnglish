@@ -31,12 +31,14 @@ Add MQTT topic subscriptions and control whether each topic's latest value is sh
 | Message log               | Displays received messages as 'topic: value' lines. Also processes antenna alias updates from MQTT.                                                        | Capped to 50 entries.                                                                                                                 |
 | Enable (Off/On)           | Connects or disconnects from the broker using settings from MqttSettings. Emits connectRequested / disconnectRequested and saves connection enabled state. | Password is loaded from system keychain on first enable. If keychain password is not yet loaded, shows 'Waiting for keychain' status. |
 | Status label              | Shows connection state: green "Connected", grey "Disconnected", or default color error message.                                                            | "Disconnected"                                                                                                                        |
+
 ## Tips
 
 - The panadapter overlay shows the value of the most recently received message for each topic with Display enabled. Overlay labels are truncated to fit, so keep topic names short.
 - A topic is subscribed immediately when you connect to the broker (toggle **On** in the applet). You do not need to reconnect after changing subscriptions — toggle **Off** then **On** to apply changes.
 - If the status label shows "Waiting for keychain", the system keychain password has not yet been loaded. Toggle Off then On again to trigger keychain retrieval.
 - The message log now also shows transmitted messages with a "TX" prefix, helping you confirm that publish buttons are working.
+- The MQTT password is stored securely in the system keychain. If a password was imported via XML (RFC #4603), it is diverted to the keychain during import and made available as a session credential for this session.
 
 ## Related
 

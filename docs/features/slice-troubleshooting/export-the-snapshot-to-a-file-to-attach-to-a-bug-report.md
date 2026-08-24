@@ -21,22 +21,34 @@ Use this page to save the JSON snapshot from the Slice Troubleshooting dialog to
 - If you have made changes to slice settings since opening the dialog, click `Refresh Snapshot` again before exporting to capture the latest state.
 - If you only need to paste the snapshot into a web form or email rather than attach a file, use `Copy JSON` instead of `Export JSON...`.
 - To share the detected problems in plain language rather than raw data, click `Copy Summary` to copy the issue summary tab content to the clipboard.
+- To search within the current tab, type a term into the `Find:` field. Click `Find Next` to jump to the next match. The status label shows the number of matches in the current tab.
 - The dialog remembers its window position and size. A future session will reuse those geometry settings.
 
 ## What the Issue Summary includes
 
-The **Issue Summary** tab displays a plain-language bullet list of detected problems. As of v26.7.4, the summary includes these sections:
+The **Issue Summary** tab displays a plain-language bullet list of detected problems. As of v26.8.4, the summary includes these sections:
 
 - **Slices** — lists each slice by index, frequency, mode, filter bandwidth, audio device, RX antenna, and mute state. Also includes the slice connection status showing connected and active slice IDs, and whether attention is required.
 - **Panadapters** — lists each panadapter by ID, center frequency, bandwidth, RF gain, preamp state, WNB active/inactive, and waterfall ID. When slice connection status data is available, it shows the connection state summary, connected slice IDs, and active slice IDs, with an (attention) marker if the radio indicates a problem.
 - **Transverters** — lists each transverter by name, frequency range, IF frequency, and validity.
 - **DAX channels** — lists each DAX channel by index, name, frequency, mode, and squelch level.
-- **Audio endpoints** — reports the operational and running state, sample rate, channel count, sample format, resampling status, buffer statistics, and underrun count for each audio endpoint.
+- **Audio endpoints** — reports the operational and running state, sample rate, channel count, sample format, resampling status, buffer statistics, and underrun count for each audio endpoint. When available, audio endpoint details also include voice input normalization to 48 kHz, voice egress resampling to 24 kHz, and RADE resampling to 24 kHz flags.
 - **Remote audio RX** — reports the stream ID, whether a stream is expected, whether creation is pending, whether a status message has been seen, whether the stream is owned by this client, and the compression setting in use.
 - **Remote audio route note** — a free-text routing note that may indicate why a remote audio RX stream is not functioning as expected.
-- **Client DSP snapshot** — reports the NR2 noise reduction settings including AE filter, gain max, gain floor, gain smoothing, QSPP, and legacy geometry and gain mapping. Also reports the NR4 noise reduction enabled state and noise estimation method.
+- **Client DSP snapshot** — reports the NR2 noise reduction settings including AE filter, gain max, gain floor, gain smoothing, and QSPP. Also reports the NR4 noise reduction enabled state and noise estimation method.
+- **TX meters** — when TX meter data is not live, the summary includes a warning line indicating that TX forward power is the last received value rather than a current reading, and that TX SWR is omitted. The line includes the age of the last sample when known.
 
 Each slice audio route section also now includes a **Radio stream route** line that reports the remote audio RX stream ID along with its expected, create-pending, remove-requested, status-seen, and owned-by-us flags. Review these lines first when diagnosing remote audio RX problems before contacting support.
+
+## Using Find within the dialog
+
+The dialog includes a `Find:` field that searches the active tab (either **Issue Summary** or **JSON**):
+
+1. Click the tab you want to search (**Issue Summary** or **JSON**).
+2. Type a search term into the `Find:` field. The field has a placeholder "Search snapshot..." and a clear button.
+3. As you type, matching occurrences are highlighted and the status label shows the number of matches found in the current tab.
+4. Press Enter or click `Find Next` to jump to the next match. The search wraps within the current tab.
+5. Click the clear button in the `Find:` field to clear the search.
 
 ## Troubleshooting
 
@@ -44,6 +56,7 @@ Each slice audio route section also now includes a **Radio stream route** line t
 - **`Export JSON...` is unavailable** — The dialog requires an active radio connection. Verify AetherSDR is connected to the radio before opening the dialog.
 - **The remote audio RX fields all show placeholders** — AetherSDR has not yet received a status message from the radio for that stream. Click `Refresh Snapshot` after the radio has had a moment to send stream status, then check the **Issue Summary** tab again.
 - **Panadapter bullets show "Slice link state unavailable."** — The radio did not provide slice connection status data for that panadapter. This may be normal for older firmware versions or during startup. Click `Refresh Snapshot` to try again.
+- **The Issue Summary shows a warning that TX meters are not live** — This indicates the radio is not currently providing fresh TX meter data. TX forward power shows the last received value rather than a current reading, and TX SWR is omitted rather than displayed stale. This warning is expected when the transmitter is inactive or during certain radio states.
 
 ## Related
 

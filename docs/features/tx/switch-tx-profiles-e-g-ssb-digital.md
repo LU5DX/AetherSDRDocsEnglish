@@ -63,6 +63,15 @@ The **RF Pwr** meter includes a peak-hold feature that captures and holds the pe
 
 The decay rate scales automatically depending on the radio model: 48 W/s for a barefoot radio (120 W scale) and 240 W/s when an Aurora 500 W exciter is connected (600 W scale).
 
+### Meter behavior on un-key (v26.8.4)
+
+Starting with v26.8.4, both meters clear immediately when you stop transmitting:
+
+- The **RF Pwr** meter drops to zero and the peak-hold resets immediately.
+- The **SWR** meter returns to its 1.0 rest position.
+
+Previously, the meters could briefly hold the last reported values after un-keying. If the radio does not report a valid SWR value while transmitting, the SWR meter rests at 1.0 rather than displaying a stale or off-scale reading.
+
 ### Hover value popups (v26.7.4)
 
 Starting with v26.7.4, both power meters show a popup with the exact numeric reading when you hover the mouse over them:
@@ -90,7 +99,18 @@ In practice this means:
 
 The **Byp** indicator lights orange whenever the tuner is in bypass. The **Success** indicator lights green when the tune was successful and the tuner is holding that match.
 
-> **Note:** The **ATU** and **MEM** buttons are disabled when the TGXL amplifier is in OPERATE mode.
+### ATU availability (v26.8.4)
+
+Starting with v26.8.4, the **ATU** and **MEM** buttons are disabled when the connected radio has no antenna tuner. This prevents accidentally keying the transmitter to run a tune cycle that no tuner will answer.
+
+The tooltip explains why the buttons are disabled:
+
+| Condition | Tooltip |
+|---|---|
+| Radio has no antenna tuner | "This radio has no antenna tuner" |
+| TGXL amplifier is in OPERATE mode | "Disabled — TGXL is in OPERATE mode" |
+
+When the radio has no tuner, the tooltip takes priority over the TGXL message so you are directed to the root cause.
 
 ### ATU indicator lights
 
@@ -149,7 +169,7 @@ The **MOX** button appearance is unchanged: it turns red while TX is keyed and r
 
 ## MEM button
 
-Click **MEM** to toggle ATU memory recall on or off. Disabled when TGXL is in OPERATE mode.
+Click **MEM** to toggle ATU memory recall on or off. Disabled when the radio has no antenna tuner or when TGXL is in OPERATE mode.
 
 ## APD button and status indicators
 
@@ -163,6 +183,10 @@ Click **APD** to toggle adaptive pre-distortion on the radio. The status indicat
 | All dim | APD is off. |
 
 The APD progression follows: **Cal** (calibrating) → **Avail** (ready) → **Active** (applied).
+
+### APD row visibility (v26.8.4)
+
+Starting with v26.8.4, the APD button and its Active/Cal/Avail indicators are hidden from the start on radios that do not support configurable APD. Previously, a cold launch could show a live-looking APD control with nothing behind it until the radio reported its APD capabilities. The row now appears only once the radio confirms APD is configurable.
 
 ## TX Keying Markers (v26.7.4)
 

@@ -27,28 +27,30 @@ The Slice Troubleshooting dialog captures a snapshot of every transverter config
 
 ## What each control does
 
-| Control             | Kind   | Behavior                                                                                        |
-|---------------------|--------|-------------------------------------------------------------------------------------------------|
-| `Issue Summary` tab | Tab    | Plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, audio endpoint state, multi-client ownership, panadapter slice connection status, and XVTR validity issues. |
-| `JSON` tab          | Tab    | Full JSON snapshot (schema version 3) containing slices, DAX channels, audio devices, client DSP, control devices, audio endpoints, TX band settings, and all transverter entries with RF, IF, offset, and validity fields. |
-| `Refresh Snapshot`  | Button | Re-reads slice state into the snapshot.                                                         |
-| `Copy Summary`      | Button | Copies the issue summary to the clipboard.                                                      |
-| `Copy JSON`         | Button | Copies the full JSON snapshot to the clipboard.                                                 |
-| `Export JSON...`    | Button | Saves the full JSON snapshot to a file.                                                         |
-| `Status label`      | Label  | Shows last copy/export result (e.g. "Copied to clipboard").                                     |
-| `Close`             | Button | Closes the dialog.                                                                              |
+| Control             | Kind                                                                                           | Behavior                                                                                                                                                                                                                    |
+|---------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Issue Summary` tab | Tab                                                                                            | Plain-language bullet list of detected problems, including audio routing, DSP, control-device (MIDI) state, audio endpoint state, multi-client ownership, panadapter slice connection status, TX meter liveness, and XVTR validity issues. |
+| `JSON` tab          | Tab                                                                                            | Full JSON snapshot (schema version 3) containing slices, DAX channels, audio devices, client DSP, control devices, audio endpoints, TX band settings, and all transverter entries with RF, IF, offset, and validity fields. |
+| `Refresh Snapshot`  | Button                                                                                         | Re-reads slice state into the snapshot.                                                                                                                                                                                     |
+| `Copy Summary`      | Button                                                                                         | Copies the issue summary to the clipboard.                                                                                                                                                                                  |
+| `Copy JSON`         | Button                                                                                         | Copies the full JSON snapshot to the clipboard.                                                                                                                                                                             |
+| `Export JSON...`    | Button                                                                                         | Saves the full JSON snapshot to a file.                                                                                                                                                                                     |
+| Find:               | Text field                                                                                     | Highlights matching occurrences of the entered term in the active tab (Issue Summary or JSON). Has clear button and placeholder 'Search snapshot...'. Enter jumps to the next match; tab sharing updates highlight counts. Status label shows '<N> match(es) in current tab.' |
+| Find Next           | Button                                                                                         | Jumps to the next match of the search term in the active tab. Wraps within the current tab. Empty term produces no matches.                                                                                                |
+| `Status label`      | Label                                                                                          | Shows last copy/export result (e.g. "Copied to clipboard") or the search match count.                                                                                                                                      |
+| `Close`             | Button                                                                                         | Closes the dialog.                                                                                                                                                                                                          |
 
-## Panadapter slice connection status in the snapshot
+## TX meter liveness in the Issue Summary
 
-v26.6.1 adds slice connection status information to the panadapter section of the Issue Summary. When a panadapter has slice connection details available, the summary line for that panadapter includes a `slice_connection_status` block with the following fields:
+v26.8.4 adds TX meter liveness detection to the Issue Summary. When the TX meters are not live, the summary includes a warning line similar to:
 
-| Field                  | Meaning                                                                 |
-|------------------------|-------------------------------------------------------------------------|
-| `state`                | The connection state (e.g. "connected", "disconnected", "unknown").    |
-| `summary`              | A plain-language description of the slice link state.                   |
-| `connected_slice_ids`  | Comma-separated list of slice IDs currently connected to this panadapter, or "none". |
-| `active_slice_ids`     | Comma-separated list of active slice IDs, or "none".                    |
-| `attention_required`   | Whether the connection status requires attention (`(attention)` appended). |
+```
+  - ⚠ TX meters are NOT live (last sample 1234 ms ago) — TX forward power is the last value received, not a current reading, and TX SWR is omitted rather than shown stale.
+```
+
+The warning is only emitted when the TX meters are stale; a live group produces no caveat. This prevents misreading a stale forward power value as a live reading when the SWR correctly shows `n/a`.
+
+Depending on the state, the parenthetical part reads either `last sample <N> ms ago` (when a sample has been received) or `no TX meter sample this session` (when none has been received this session).
 
 ## Audio endpoint fields in the snapshot
 
@@ -69,10 +71,15 @@ v26.6.1 adds audio endpoint state to the snapshot. Each audio endpoint appears i
 | `channel_count`        | Number of channels.                                                     |
 | `sample_format`        | Sample format string.                                                   |
 | `resampling_active`    | Whether resampling is active.                                           |
+| `voice_input_normalizing_to_48k` | Whether voice input normalization to 48 kHz is active (new in v26.8.4). |
+| `voice_egress_resampling_to_24k` | Whether voice egress resampling to 24 kHz is active (new in v26.8.4). |
+| `rade_resampling_to_24k` | Whether RADE resampling to 24 kHz is active (new in v26.8.4).        |
 | `buffer_bytes`         | Current buffer size in bytes (if available).                            |
 | `buffer_peak_bytes`    | Peak buffer size in bytes (if available).                               |
 | `underrun_count`       | Number of underruns (if available).                                     |
 | `note`                 | Additional plain-language note about the endpoint.                      |
+
+In v26.8.4, the endpoint details line includes three additional flags when the underlying audio system reports them: `voice input normalization to 48 kHz`, `voice egress resampling to 24 kHz`, and `RADE resampling to 24 kHz`. These indicate whether the audio system is actively resampling for those purposes.
 
 ## Remote audio RX fields in the snapshot
 
@@ -108,6 +115,18 @@ In the Issue Summary, look for the line beginning **Radio stream route: remote_a
 
 If `remote_audio_rx_expected` is true but `remote_audio_rx_status_seen` is false, the radio has not yet confirmed the stream. If `create_pending` is true for an extended period, the create request may not have reached the radio.
 
+## Panadapter slice connection status in the snapshot
+
+v26.6.1 adds slice connection status information to the panadapter section of the Issue Summary. When a panadapter has slice connection details available, the summary line for that panadapter includes a `slice_connection_status` block with the following fields:
+
+| Field                  | Meaning                                                                 |
+|------------------------|-------------------------------------------------------------------------|
+| `state`                | The connection state (e.g. "connected", "disconnected", "unknown").    |
+| `summary`              | A plain-language description of the slice link state.                   |
+| `connected_slice_ids`  | Comma-separated list of slice IDs currently connected to this panadapter, or "none". |
+| `active_slice_ids`     | Comma-separated list of active slice IDs, or "none".                    |
+| `attention_required`   | Whether the connection status requires attention (`(attention)` appended). |
+
 ## Client DSP snapshot fields in the JSON tab
 
 v26.7.4 adds additional NR2 (Noise Reduction 2) configuration fields to the JSON snapshot. The client DSP section of the JSON now includes:
@@ -123,7 +142,8 @@ v26.7.4 adds additional NR2 (Noise Reduction 2) configuration fields to the JSON
 | `nr2.gain_floor`                   | The minimum gain floor value (new in v26.7.4).                                             |
 | `nr2.gain_smooth`                  | The gain smoothing factor.                                                                  |
 | `nr2.qspp`                         | The quasi-stationary power percentile value.                                                |
-| `nr2.legacy_geometry_and_gain_mapping` | Whether the legacy geometry and gain mapping is used (new in v26.7.4).               |
+
+Note: The `legacy_geometry_and_gain_mapping` field, which appeared in snapshots from v26.7.4, has been removed in v26.8.4 because the legacy geometry option was retired and no longer has a user-facing control.
 
 ## Tips
 
@@ -133,10 +153,11 @@ v26.7.4 adds additional NR2 (Noise Reduction 2) configuration fields to the JSON
 - When investigating missing audio, check the remote audio RX fields first. If `owned_by_us` is `No` and `stream_expected` is `Yes`, another client may have taken ownership of the stream.
 - When investigating panadapter connection issues, check the `slice_connection_status` field. If `attention_required` is true, further investigation is needed.
 - Audio endpoint underruns indicated by a non-zero `underrun_count` may point to performance or buffer configuration issues.
+- When the TX meters warning appears in the Issue Summary, do not trust the displayed forward power for tuning or matching decisions — it is the last value received, not a live reading.
 
 ## Related
 
 - [Slice Troubleshooting overview](overview.md)
 - [Read a plain-language list of suspected slice problems](read-a-plain-language-list-of-suspected-slice-problems.md)
 - [Refresh the snapshot after changing slice state](refresh-the-snapshot-after-changing-slice-state.md)
-- [Export the snapshot to a file to attach to a bug report](export-the-snapshot-to-a-file-to-attach-to-a-bug-report.md)
+- [Export the snapshot to a file to attach to a bug report](

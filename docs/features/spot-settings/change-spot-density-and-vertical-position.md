@@ -18,28 +18,30 @@ Use the Spot Settings dialog to control how many vertical rows of spots appear o
 
 ## What each control does
 
-| Control | Behavior | Default |
-|---|---|---|
-| **Spots:** toggle | Master toggle for DX spot display. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsEnabled`. | Enabled |
-| **Memories:** toggle | Toggles memory channel overlays on the panadapter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsMemorySpotsEnabled`. | Disabled |
-| **Levels:** slider | Sets the number of vertical stacking rows available for spots. More rows reduce overlap when many spots are present on the same frequency range. Setting key: `SpotsMaxLevel`. | 3 |
-| **Position:** slider | Sets the vertical starting position of the spot stack as a percentage of the panadapter height. Setting key: `SpotsStartingHeightPercentage`. | 50 |
-| **Font Size:** slider | Sets the spot text size in points. Setting key: `SpotFontSize`. | 16 |
-| **Spot Lifetime:** slider | How long spots remain before fading. Non-linear scale from 10 seconds to 24 hours. Stored in seconds. Setting key: `DxClusterSpotLifetimeSec`. | 10 sec |
-| **Override Colors:** toggle | Forces a single text color for all spots. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideColorsEnabled`. | Disabled |
-| **Spot text color picker** button | Opens a color dialog to pick the text color. Setting key: `SpotsOverrideColor`. | #FFFF00 |
-| **Override Background: Enabled** toggle | Draws a background under spot text. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideBackgroundColorsEnabled`. | Enabled |
-| **Override Background: Auto** toggle | Auto-picks background color for contrast. Setting key: `IsSpotsOverrideToAutoBackgroundColorEnabled`. | Enabled |
-| **Spot background color picker** button | Opens a color dialog for background color. Setting key: `SpotsOverrideBgColor`. | #000000 |
-| **Background Opacity:** slider | Alpha of spot background (0 = transparent, 100 = opaque). Setting key: `SpotsBackgroundOpacity`. | 48 |
-| **Spot Lines:** toggle | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsLinesEnabled`. | Enabled |
-| **Clear All Spots** button | Clears all spots from the panadapter. | N/A |
+| Control                                 | Behavior                                                                                                                                                                                                              | Default                        |
+|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| **Spots:** toggle                       | Master toggle for DX spot display. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsEnabled`.                                                                                            | Enabled                        |
+| **Memories:** toggle                    | Toggles memory channel overlays on the panadapter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsMemorySpotsEnabled`.                                                                      | Disabled                       |
+| **Kiwi DX:** toggle                     | Overlays KiwiSDR Community DX database spots (beacons, utilities, time signals) on the band plan strip. The button text updates to show "Enabled" or "Disabled". Setting key: `ShowKiwiDxSpots`.                       | Disabled                       |
+| **Levels:** slider                      | Sets the number of vertical stacking rows available for spots. More rows reduce overlap when many spots are present on the same frequency range. Setting key: `SpotsMaxLevel`.                                        | 3                              |
+| **Position:** slider                    | Sets the vertical starting position of the spot stack as a percentage of the panadapter height. Setting key: `SpotsStartingHeightPercentage`.                                                                         | 50                             |
+| **Font Size:** slider                   | Sets the spot text size in points. Setting key: `SpotFontSize`.                                                                                                                                                       | 16                             |
+| **Spot Lifetime:** slider               | How long spots remain before fading. Non-linear scale from 10 seconds to 24 hours. Stored in seconds. Setting key: `DxClusterSpotLifetimeSec`.                                                                        | 10 sec                         |
+| **Override Colors:** toggle             | Forces a single text color for all spots. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideColorsEnabled`.                                                                       | Disabled                       |
+| **Spot text color picker** button       | Opens a color dialog to pick the text color. Setting key: `SpotsOverrideColor`.                                                                                                                                       | #FFFF00                        |
+| **Override Background: Enabled** toggle | Draws a background under spot text. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsOverrideBackgroundColorsEnabled`.                                                                   | Enabled                        |
+| **Override Background: Auto** toggle    | Auto-picks background color for contrast. Setting key: `IsSpotsOverrideToAutoBackgroundColorEnabled`.                                                                                                                 | Enabled                        |
+| **Spot background color picker** button | Opens a color dialog for background color. Setting key: `SpotsOverrideBgColor`.                                                                                                                                       | #000000                        |
+| **Background Opacity:** slider          | Alpha of spot background (0 = transparent, 100 = opaque). Setting key: `SpotsBackgroundOpacity`.                                                                                                                      | 48                             |
+| **Spot Lines:** toggle                  | Draws vertical lines from the spectrum baseline up to each spot label. Disable during contests to reduce visual clutter. The button text updates to show "Enabled" or "Disabled". Setting key: `IsSpotsLinesEnabled`. | Enabled                        |
+| **Clear All Spots** button              | Clears all spots from the panadapter.                                                                                                                                                                                 | N/A                            |
 
 ## Tips
 
 - If spots overlap heavily, increase **Levels:** to give them more rows to stack into.
 - If spots cover signal traces you need to see, lower the **Position:** value to push the stack toward the top of the panadapter, or raise it to move spots toward the bottom.
 - During contests, disable **Spot Lines:** to reduce visual clutter without turning off spot labels entirely.
+- Use the **Kiwi DX:** toggle to display beacon, utility, and time-signal spots from the KiwiSDR Community DX database on the band plan strip.
 - The **Total Spots:** indicator in the dialog shows how many live spots are currently tracked, which helps you judge how many levels are needed.
 - Use the **Clear All Spots** button to quickly remove all spots from the panadapter without changing any settings.
 

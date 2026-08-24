@@ -44,20 +44,28 @@ The status bar below the tab content shows modem status, gain stage, and packet 
 
 The transmit area (with the Transmit button and text input) is visible only on non-D-STAR tabs and only when diagnostics debug mode is enabled.
 
+The status bar's modem description now includes the exact TX preamble in HDLC flags and milliseconds, for example `HF 300: 44100 Hz, 300 bps, mark 1600 Hz, space 1800 Hz, Normal, 2 lanes, TXD 80 flags (2133 ms)`. If you have set a TXDELAY override, the display appends `[override]`.
+
 ### Transmit button behavior
 
 The **Transmit** button on the AX.25 tab and the **Send** button on the Terminal tab are marked with TX keying indicators. Clicking either button transmits the entered packet and keys the transmitter.
+
+### TXDELAY override
+
+Starting in v26.8.4 you can set an explicit TXDELAY (transmit key-up lead-in) override in HDLC flags. When set, this value overrides the profile default (80 flags on HF 300, 64 flags on VHF 1200) for both transmission and link-timing calculations. Setting `txPreambleFlags` to 0 (the default) uses the profile default.
+
+The override is useful when sweeping TXDELAY on the air, or when a transverter or external amplifier needs more (or less) lead-in time than the profile default. Because the link-layer timing model reads the same value as the modulator, T1 timing automatically tracks your override.
 
 ## Tips
 
 - The decoded frames area scrolls automatically as new frames are received. Use the scrollbar to review older frames.
 - For best decode results, tune the radio to a clear frequency with active packet activity. Typical HF packet frequencies are in the 14.100-14.110 MHz range on 20 meters and corresponding allocations on other bands. For VHF 1200, standard APRS frequencies apply (144.390 MHz in North America, 144.800 MHz in Europe, etc.).
-- The VHF 1200 profile adjusts TX preamble automatically based on the selected profile. If using a transverter, the VHF 1200 preamble may need adjustment for T/R switching lead-in time. Set `kVhf1200TxPreambleFlags` in the configuration to tune this value.
+- The VHF 1200 profile adjusts TX preamble automatically based on the selected profile. If using a transverter, set the TXDELAY override to add more lead-in time for T/R switching.
 - The **D-STAR** tab provides D-STAR digital voice modem functionality. When active, the packet activity status bar and transmit area are hidden.
 
 ## Troubleshooting
 
 - **No frames decoded** — Verify the radio is connected and tuned to a frequency with active AX.25 packet activity. Check that the audio level is sufficient; the decoder needs a clean signal to demodulate.
 - **Garbled or partial frames** — Weak signals, interference, or incorrect tuning can cause decode errors. Try adjusting the receiver bandwidth or retuning to center the signal within the passband.
-- **VHF 1200 decode issues** — Ensure the correct profile is selected. If using a transverter, verify that the TX preamble provides enough lead-in time for T/R switching.
+- **VHF 1200 decode issues** — Ensure the correct profile is selected. If using a transverter, verify that the TX preamble provides enough lead-in time for T/R switching by setting a TXDELAY override.
 - **D-STAR tab not working** — Ensure the radio is tuned to a D-STAR frequency. The D-STAR modem requires a clean digital signal for proper decode.

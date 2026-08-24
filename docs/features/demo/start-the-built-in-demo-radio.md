@@ -21,13 +21,14 @@ The Demo Mode applet panel appears only when the demo radio is connected. It con
 
 | Control | Type | Behavior |
 |---------|------|----------|
-| Noise channel toggles | Checkbox | Enable or disable individual noise sources (pink noise, white noise, QRM bursts, birdies). |
-| Noise level sliders | Slider | Adjust the amplitude of each enabled noise source independently. |
-| Scene presets | Push button | One-click buttons that set all noise channels to match a specific scenario (storm, night-40m, contest pileup, quiet band, etc.). |
+| Noise channel toggles | Checkbox | Enable or disable individual noise sources (pink noise, white noise, QRM bursts, birdies). Hover over any toggle to see what that noise sounds like on a real HF rig and how to deal with it. |
+| Noise level sliders | Slider | Adjust the amplitude of each enabled noise source independently. Hover over any slider for the same educational tooltip. |
+| Scene presets | Push button | One-click buttons that set all noise channels to match a specific scenario (storm, night-40m, contest pileup, quiet band, etc.). The buttons wrap to new lines when the panel is too narrow, so every label stays fully visible. |
 
 ## Tips
 
 - The demo radio does not support transmit operations.
+- Each noise channel has a hover tooltip explaining what that sound is on a real band — what causes it and what you can do about it. Playing with the demo doubles as an HF primer: for example, hover over the **Birdie carrier** toggle to learn that it is a steady unwanted carrier (heterodyne), often a spur from nearby electronics, and that a notch filter is the classic fix.
 
 ## Related
 

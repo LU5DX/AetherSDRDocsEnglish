@@ -1,6 +1,6 @@
 # SpotHub
 
-The SpotHub dialog is the central control for connecting to DX spot sources, including a traditional DX cluster, the Reverse Beacon Network (RBN), WSJT-X, SpotCollector, POTA, and FreeDV. It also provides comprehensive controls for how spots appear on the panadapter, including Signal History markers and DXCC coloring.
+The SpotHub dialog is the central control for connecting to DX spot sources, including a traditional DX cluster, the Reverse Beacon Network (RBN), WSJT-X, SpotCollector, POTA, FreeDV, and N1MM. It also provides comprehensive controls for how spots appear on the panadapter, including Signal History markers and DXCC coloring.
 
 ## Opening SpotHub
 
@@ -108,6 +108,19 @@ WebSocket feed of FreeDV QSO reporter spots.
 
 ---
 
+## N1MM (tab)
+
+UDP listener for N1MM Logger+ spot broadcasts.
+
+| Control | Description | Setting key |
+|---|---|---|
+| **UDP Port:** | UDP port N1MM Logger+ broadcasts on (1-65535). | `N1MMPort` |
+| **Start / Stop** | Starts or stops the UDP listener. | — |
+| **Auto-start on startup** | When enabled, starts the listener automatically on launch. | `N1MMAutoStart` |
+| **N1MM Spots** | Console showing received N1MM spots. | — |
+
+---
+
 ## Spot List (tab)
 
 Unified searchable table of all live spots from all sources.
@@ -118,7 +131,7 @@ The band-filter checkboxes use a flow layout that wraps to a new row when horizo
 |---|---|
 | **Bands:** | Per-band checkboxes to toggle visibility. One checkbox per band (160m, 80m, 60m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 6m, 2m, etc.). |
 | **Clear** | Empties the current spot list. |
-| **Spot table** | Sortable table with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click a row to tune to that frequency. |
+| **Spot table** | Sortable table with columns: Time, Freq, DX Call, Comment, Spotter, Band, Mode, Source. Double-click a row to tune to that frequency. Click any column header to sort by that column; click Time to return to newest-first order. |
 
 ### Showing and hiding table columns
 
@@ -192,12 +205,4 @@ Controls for Signal History marker behavior and appearance.
 | **Edge Threshold:** | 3.0 | 1.0-10.0 dB | Threshold above noise floor for the slope edge walk that refines the S-History carrier-side edge. Lower values pull the marker closer to the carrier. | `SHistorySoftEdgeDb` |
 | **Signals** color swatch | `#FFC800` (gold) | Any QColor | Color for voice signal markers. | `SHistoryColorSignals` |
 | **QRM** color swatch | `#FF0000` (red) | Any QColor | Color for QRM markers. | `SHistoryColorQrm` |
-| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Button label is static and always shows "Enabled" when checked. | `SHistorySnapToStep` |
-
-> **Note:** In v26.6.3, several toggle buttons were updated to show a static label (always "Enabled") when in the checked state, instead of dynamically switching between "Enabled" and "Disabled". This affects: **Override Colors:**, **Spot Lines:**, **DXCC Colors:**, and **Snap to Step:**. The visual appearance of the button (pressed/released) still indicates the current state.
-
----
-
-## Startup Commands Editor
-
-The **Cluster** and **RBN** tabs each have a **Startup Commands...** button that opens a dialog for editing commands sent automatically
+| **Snap to Step:** | Disabled | — | Rounds S-History click-to-tune to the nearest multiple of the active slice's step size, hiding the small carrier offset. Button label

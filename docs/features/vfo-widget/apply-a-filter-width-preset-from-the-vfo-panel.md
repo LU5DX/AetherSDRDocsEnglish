@@ -33,10 +33,11 @@ To save the current filter width into a preset slot:
 | Squelch button + slider (Audio tab) | Enables squelch for this slice. The adjacent slider sets the threshold (0-100). Disabled for RTTY and digital modes (DIGU, DIGL).                                                                                                                 | off                                                                                                                     |
 | AGC combo (Audio tab)            | Sets the AGC attack/release speed for this slice. Options: FAST, MED, SLOW, OFF.                                                                                                                                                                | FAST                                                                                                                    |
 | NR / NB / ANF / APF / NRL / NRS / RNN / NRF / ANFL / ANFT buttons (DSP tab) | Enables the corresponding radio-side noise reduction or filtering algorithm for this slice. APF is visible in CW mode only.                                                                                           | off                                                                                                                     |
+| MN button (DSP tab)              | Enables the manual notch filter for this slice. Only shown on radios that support manual notch filtering.                                                                                                                                       | off                                                                                                                     |
 | DSP level slider (DSP tab)       | Sets the processing level for the most recently activated leveled DSP algorithm. The label to the left identifies the current target. Automatically activates on startup if the radio's saved profile has a leveled DSP enabled. Hidden (faded) when no leveled algorithm is active. | —                                                                                                                       |
 | ADSP button (DSP tab)            | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Non-checkable push button. Click raises and focuses the modeless dialog.                                                                                   | —                                                                                                                       |
-| AetherVoice button (DSP tab)     | Opens the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Non-checkable push button. Spans 2 columns in the 4-column DSP grid.                                                                                                      | —                                                                                                                       |
-| Mode combo (Mode tab)            | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY.                                                                                                                                | USB                                                                                                                     |
+| AetherVoice button (DSP tab)     | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Non-checkable push button. Spans 2 columns in the 4-column DSP grid.                                                                                                      | —                                                                                                                       |
+| Mode combo (Mode tab)            | Sets the demodulation mode for this slice. Options: USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY.                                                                                                                                 | USB                                                                                                                     |
 | Filter preset buttons (Mode tab) | Each button applies a saved filter width preset to the slice. Left-click to apply; right-click to save the current filter width into that slot. Custom low and high filter edges can be stored per slot via right-click.                          | —                                                                                                                       |
 | RIT / XIT buttons + labels (X/RIT tab) | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps.                                                                                                       | off                                                                                                                     |
 | DAX channel combo (DAX tab)      | Assigns a DAX audio channel to this slice. Options: Off, 1-8.                                                                                                                                                                                   | Off                                                                                                                     |
@@ -47,9 +48,9 @@ To save the current filter width into a preset slot:
 | Filter edges button              | Toggles the filter edge lines on the spectrum passband. Persisted per slice.                                                                                                                                                                    | shown                                                                                                                   |
 | Collapse toggle                  | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice.                                                                                                                                                                 | expanded                                                                                                                |
 
-## DSP tab layout (v26.7.4)
+## DSP tab layout (v26.8.4)
 
-The **DSP tab** now shows radio-side noise reduction and filtering buttons arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons. The grid now includes additional noise reduction buttons that were previously available in the AetherDSP Settings dialog.
+The **DSP tab** now shows radio-side noise reduction and filtering buttons arranged in a four-column grid, followed by the ADSP and AetherVoice launcher buttons. The grid includes all noise reduction buttons that were previously available in the AetherDSP Settings dialog, plus a manual notch filter button on radios that support it.
 
 | Position | Button |
 |---|---|
@@ -64,15 +65,31 @@ The **DSP tab** now shows radio-side noise reduction and filtering buttons arran
 | Row 3, col 1 | NRL |
 | Row 3, col 2 | NRS |
 | Row 3, col 3 | NRF |
-| Row 3, col 4 | MNR (duplicate) |
-| Row 4, col 1 | ADSP |
-| Row 4, cols 2–3 | AetherVoice |
+| Row 3, col 4 | ANFL |
+| Row 4, col 1 | ANFT |
+| Row 4, col 2 | MN (only on radios that support manual notch) |
+| Row 4, col 3 | (empty) |
+| Row 4, col 4 | (empty) |
+| Row 5, col 1 | ADSP |
+| Row 5, cols 2–3 | AetherVoice |
 
-**Note**: The DSP tab layout has been updated in v26.7.4. The following buttons have been removed from the DSP tab grid: NB, ANF, APF, ANFL, ANFT. These are now available from the radio's front panel or the spectrum overlay menu.
+**Note**: The DSP tab layout has been updated in v26.8.4. The following buttons have been removed from the DSP tab grid: NB, ANF, APF. These are now available from the radio's front panel or the spectrum overlay menu.
 
-The following client-side DSP modules have been added as toggle buttons in the DSP tab grid: **NR2**, **RN2**, **BNR**, **NR4**, **MNR**, **DFNR**. Right-click any of these buttons to open the AetherDSP Settings dialog for that specific algorithm.
+The following client-side DSP modules are available as toggle buttons in the DSP tab grid: **NR2**, **RN2**, **BNR**, **NR4**, **MNR**, **DFNR**. Right-click any of these buttons to open the AetherDSP Settings dialog for that specific algorithm.
 
-A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. In v26.7.4, when a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
+A shared **DSP level slider** row appears below the button grid. The slider retargets automatically to whichever leveled DSP button was most recently turned on. When a DSP level state change arrives from the radio (for example, when the radio's saved profile has NR enabled on startup), the slider appears immediately without requiring manual re-toggle. Its label shows the name of the current target (for example, **NR** or **NB**), and the value to the right of the slider shows the current level numerically. When no leveled DSP algorithm is active — or when only RNN, ANFT, or APF is on — the slider row is present in the layout but visually faded out. Clicking it while faded has no effect.
+
+## DSP button automation identifiers (v26.8.4)
+
+Each DSP toggle button in the grid now carries a stable object name (`dspNRBtn`, `dspNR2Btn`, `dspANFLBtn`, etc.) that the automation bridge can address directly. This complements the existing accessible names used by screen readers. Automation scripts should use these object names rather than prose labels, which may change if button wording is ever adjusted.
+
+## Squelch control consistency (v26.8.4)
+
+The squelch controls in the **Audio tab** now call `setManualSquelch()` consistently for manual squelch adjustments. This internal change ensures that the squelch behaviour matches the radio-side manual squelch API, providing more predictable behaviour across slice types and external receive modes.
+
+## Collapsed-mode spot entry fix (v26.8.4)
+
+Right-clicking the frequency display while the VFO panel is collapsed now correctly opens the **Add Spot** context menu at the VFO's own frequency. Previously, clicks fell through to the spectrum widget underneath, which reported the cursor's step-snapped frequency instead of the VFO's. This fix also applies to other collapsed-mode interactions that rely on the frequency label.
 
 ## Tab button changes (v26.6.3)
 
@@ -110,21 +127,4 @@ The **RX antenna** and **TX antenna** buttons now use improved menus:
 
 The frequency entry logic has been updated to better handle transverter (XVTR) bands:
 
-- The maximum XVTR frequency has been increased from 450 MHz to 50000 MHz to support microwave bands.
-- The "three-digit band" convenience parsing (inserting a decimal after the third digit for bare integers like 1446 → 144.6 MHz) now only activates when the slice frequency is between 100 MHz and 999 MHz. For 23 cm and microwave bands (above 1000 MHz), a bare integer like 1296 is treated as 1296 MHz directly.
-
-## Frequency entry improvements (v26.5.3)
-
-The frequency entry logic now uses the `FrequencyEntryParser` utility class for consistent parsing across the application:
-
-- Explicit MHz entry (typing a frequency greater than 54 MHz) is now recognized on HF bands as well, allowing direct MHz entry without being on an XVTR band.
-- The `normalizedMhzText()` method handles multi-dot formats like "14.225.000" by removing dots beyond the first, ensuring consistent parsing.
-- Direct frequency entry is blocked when the slice is locked. Attempting to enter a frequency while locked produces no action.
-
-## Slice badge rendering (v26.5.2.1)
-
-The slice letter badge now renders as Qt Rich Text (`Qt::RichText`), fixing an issue where certain slice letters displayed incorrectly (#2606). The badge styling remains the same.
-
-## Pan slider visual improvements (v26.6.1)
-
-The **Pan slider** in the **Audio tab** now paints its fill from the centre outward, with a small centre-mark dot on the groove. This makes the neutral (50%) position visible at a glance, and the fill direction matches operator expectations for a left/right balance control
+- The maximum XVTR frequency has been increased from 

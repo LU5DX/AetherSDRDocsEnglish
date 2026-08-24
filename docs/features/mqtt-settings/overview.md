@@ -21,7 +21,7 @@ The dialog also includes Ok, Apply, and Cancel buttons. Apply saves all settings
 | Text field | Host | `localhost` | — | Broker hostname or IP address. | `MqttHost` |
 | Spin box | Port | `1883` | 1–65535 | Broker TCP port. Auto-switches to 8883 when TLS is toggled and vice versa. | `MqttPort` |
 | Text field | User | *(empty)* | — | Broker username (optional). | `MqttUser` |
-| Text field (masked) | Password | *(empty)* | — | Broker password (optional). Stored in the system keychain when available; falls back to plaintext `MqttPass` AppSettings key otherwise. | — |
+| Text field (masked) | Password | *(empty)* | — | Broker password (optional). Stored in the system keychain when available. On systems without keychain support, the password is session-only: it is held in memory for the current session and must be re-entered at the next launch. A stale legacy plaintext `MqttPass` AppSettings key is removed once migrated. | — |
 | Check box | Use TLS | unchecked | — | Enable TLS encryption. Auto-flips the port between 1883 and 8883. Shows/hides the CA cert row. | `MqttTls` |
 | Text field + Browse button | CA cert | *(empty)* | — | Path to a CA certificate file. Blank means use the system CA bundle. Row visible only when Use TLS is checked. | `MqttCaFile` |
 
@@ -33,7 +33,7 @@ The dialog also includes Ok, Apply, and Cancel buttons. Apply saves all settings
 | Push button | Add | Inserts a new empty row. |
 | Push button | Remove | Removes all selected rows. |
 
-The **Internal AetherSDR Topics** group box lists topics that are subscribed automatically when MQTT connects. Each topic has an Enable checkbox. Topics labeled as always active are shown grayed out and cannot be disabled. The following internal subscription topics are available:
+The **Internal AetherSDR Topics** group box lists topics that are subscribed automatically when MQTT connects. Each topic has an Enable checkbox. Topics labeled as always active are shown grayed out and cannot be disabled. These internal topics are always subscribed when MQTT connects and cannot be removed; only the Enable checkbox can turn their processing on or off. The following internal subscription topics are available:
 
 | Topic | Description | Default | User-disableable |
 |-------|-------------|---------|------------------|
@@ -61,7 +61,8 @@ The **Internal AetherSDR Topics** group box lists topics that are published auto
 ## Tips
 
 - Click Apply to save your settings without closing the dialog. This is useful if you want to test the connection immediately.
-- The Password field stores credentials in the system keychain when `HAVE_KEYCHAIN` is set. Legacy plaintext passwords in the `MqttPass` AppSettings key are migrated on first save.
+- The Password field stores credentials in the system keychain when `HAVE_KEYCHAIN` is set. Legacy plaintext passwords in the `MqttPass` AppSettings key are migrated on first save; the legacy key is removed after successful migration.
+- On systems without keychain support, the MQTT password is never written to the settings store. It is kept in memory for the current session only, so you must re-enter it after restarting AetherSDR.
 - Disable internal topics you do not need to reduce MQTT traffic. Topics labeled "always active" cannot be disabled because they are required for antenna alias functionality.
 - If you use relay scripts that forward `aethersdr/cw/decode` into `aethersdr/cw/transmit`, filter on the topic namespace (`aethersdr/...`) to avoid re-publishing AetherSDR's own output back to it and creating a feedback loop.
 

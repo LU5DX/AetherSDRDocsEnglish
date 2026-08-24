@@ -31,7 +31,7 @@ At the top of the dialog, six toggle tabs act as both selector and enable/disabl
 - **NR4** – libspecbleach noise suppression (dimmed on Windows builds without LLVM/clang-cl)
 - **MNR** – macOS MMSE-Wiener (dimmed on Windows/Linux builds)
 - **DFNR** – DeepFilterNet3 neural noise suppression
-- **RN2** – RNNoise (informational only, no adjustable parameters)
+- **RN2** – RNNoise
 - **BNR** – NVIDIA Broadcast (dimmed on builds without NVIDIA Broadcast SDK)
 
 Click a toggle to select its parameter page and activate or bypass that engine. When NR2 is activated, AudioEngine cascades exclusion, disabling DFNR and other mutually exclusive modules.
@@ -47,6 +47,13 @@ Click a toggle to select its parameter page and activate or bypass that engine. 
 | **Smoothing:** | 0.85 | 0.50–0.98 | `NR2GainSmooth` |
 | **Threshold:** | 0.20 | 0.05–0.50 | `NR2Qspp` |
 
+- **Gain Method** selects the gain-curve mapping used by NR2. Stored as integer 0-3 matching the order Linear, Log, Gamma, Trained.
+- **NPE Method** selects the noise power estimator. Stored as integer 0-2.
+- **AE Filter (artifact elimination)** toggles the anti-artefact post-filter.
+- **Reduction:** sets the maximum NR2 reduction depth. Slider stores value*100 internally.
+- **Smoothing:** controls how smoothly the noise estimate tracks changes.
+- **Threshold:** sets the speech-presence-probability threshold.
+
 Click **Reset Defaults (↺ icon)** to restore NR2 defaults (Gamma/OSMS/AE on, 1.50/0.85/0.20).
 
 ## NR4 parameters
@@ -60,6 +67,14 @@ Click **Reset Defaults (↺ icon)** to restore NR2 defaults (Gamma/OSMS/AE on, 1
 | **Whitening (%):** | 0 | 0–100 | `NR4WhiteningFactor` |
 | **Masking Depth:** | 0.50 | 0.00–1.00 | `NR4MaskingDepth` |
 | **Suppression:** | 0.50 | 0.00–1.00 | `NR4SuppressionStrength` |
+
+- **Noise Estimation:** selects the noise-floor estimator used by NR4. Stored as integer 0-2.
+- **Adaptive Noise Estimation** enables continuous re-estimation of the noise floor.
+- **Reduction (dB):** sets maximum NR4 noise reduction in dB. Slider stores value*10.
+- **Smoothing (%):** applies time-domain smoothing of the NR4 noise estimate.
+- **Whitening (%):** flattens residual noise spectral shape.
+- **Masking Depth:** controls spectral-masking depth.
+- **Suppression:** sets overall NR4 suppression strength.
 
 Click **Reset Defaults (↺ icon)** to restore NR4 defaults (MMSE/adaptive on, 10 dB, 0, 0, 0.50, 0.50).
 
@@ -91,7 +106,7 @@ NR4 uses the libspecbleach library, which requires the clang-cl compiler on Wind
 | **Enable MNR (macOS only)** | Off | Checked / unchecked | `MnrEnabled` |
 | **Strength** | 100 | 0–100 | `MnrStrength` |
 
-The MNR toggle is dimmed on Windows/Linux builds. The **Enable MNR** checkbox enables MMSE-Wiener noise reduction with asymmetric gain smoothing.
+The MNR toggle is dimmed on Windows/Linux builds. The **Enable MNR** checkbox enables MMSE-Wiener noise reduction with asymmetric gain smoothing. **Strength** adjusts MNR aggressiveness (0 mild, 100 max) and is persisted as a normalized 0.00–1.00 value.
 
 ## DFNR parameters
 
@@ -102,11 +117,21 @@ The MNR toggle is dimmed on Windows/Linux builds. The **Enable MNR** checkbox en
 
 **Attenuation Limit** sets the maximum noise attenuation applied by DeepFilterNet3. 0 = passthrough; 100 = maximum.
 
-**Post-Filter Beta** applies an additional post-filter for extra suppression.
+**Post-Filter Beta** applies an additional post-filter for extra suppression. Slider stores value*100 internally.
 
 ## RN2 tab
 
-Selecting the RN2 tab displays informational content only. There are no adjustable parameters for RN2.
+Selecting the RN2 tab displays RNNoise engine information and hosts the adjustable Noise Floor dry-mix slider.
+
+| Control | Default | Valid values | Setting key |
+|---|---|---|---|
+| **Noise Floor (RN2 dry mix)** | 0 | 0–100 | None (persisted by `Rn2SettingsModel`) |
+
+**Noise Floor (RN2 dry mix)** sets the percentage of the original signal RN2 leaves under the denoised audio. Zero yields full suppression (silent between phrases); 10–20% keeps a steady quiet floor so the receiver still sounds alive.
+
+The setting affects received audio only; the transmit denoiser is unchanged. It is exposed to the DSP chain via AetherDspWidget's `rn2DryMixChanged` signal. There is no setting key — the value is persisted by `Rn2SettingsModel`.
+
+Click **Reset Defaults (↺ icon)** on the RN2 tab to return the Noise Floor slider to 0.
 
 ## BNR tab
 

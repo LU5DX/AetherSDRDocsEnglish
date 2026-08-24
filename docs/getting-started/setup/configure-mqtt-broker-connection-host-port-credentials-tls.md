@@ -5,7 +5,7 @@ This page explains how to enter the connection details for your MQTT broker so t
 ## Before you start
 
 - You need the hostname or IP address of your MQTT broker.
-- You need the broker’s TCP port (default 1883, or 8883 with TLS).
+- You need the broker's TCP port (default 1883, or 8883 with TLS).
 - If the broker requires authentication, have the username and password ready.
 - If using TLS with a custom CA certificate, have the certificate file path available.
 
@@ -23,19 +23,23 @@ This page explains how to enter the connection details for your MQTT broker so t
 
 | Control | Default | Valid range | Setting key | Behavior |
 |---------|---------|-------------|-------------|----------|
-| Host | `localhost` | any hostname/IP | `MqttHost` (migrated to `MqttSettings`) | Broker hostname or IP address |
-| Port | `1883` | 1–65535 | `MqttPort` (migrated to `MqttSettings`) | Broker TCP port; auto-flips to 8883 when TLS is enabled |
-| User | (empty) | any text | `MqttUser` (migrated to `MqttSettings`) | Broker username (optional) |
-| Password | (empty) | any text | stored in system keychain (qt6keychain) or plaintext fallback | Broker password (optional, masked) |
-| Use TLS | unchecked | – | `MqttTls` (migrated to `MqttSettings`) | Enables TLS encryption; shows/hides the CA cert row |
-| CA cert | (empty) | file path or blank | `MqttCaFile` (migrated to `MqttSettings`) | Path to a custom CA certificate file; blank = system CA bundle |
+| Host | `localhost` | any hostname/IP | `MqttHost` | Broker hostname or IP address |
+| Port | `1883` | 1–65535 | `MqttPort` | Broker TCP port; auto-flips to 8883 when TLS is enabled |
+| User | (empty) | any text | `MqttUser` | Broker username (optional) |
+| Password | (empty) | any text | system keychain (qt6keychain) with legacy plaintext fallback | Broker password (optional, masked) |
+| Use TLS | unchecked | – | `MqttTls` | Enables TLS encryption; shows/hides the CA cert row |
+| CA cert | (empty) | file path or blank | `MqttCaFile` | Path to a custom CA certificate file; blank = system CA bundle |
+
+### Password storage
+
+The MQTT password is stored in the system keychain (via qt6keychain) when available. When the keychain is not available, the password is kept in memory only for the current session and must be re-entered on the next launch. No plaintext copy is written to the settings store. A legacy plaintext password from earlier versions is migrated to the keychain (or to session-only storage) on first use and the old setting key is removed.
 
 ## Subscriptions tab
 
 The **Subscriptions** tab replaces the comma-separated Topics text field from earlier versions. It contains:
 
-- **Topic table**: Each row has an editable Topic text field and a Display checkbox. When checked, the topic’s messages appear on the panadapter overlay. Use the **Add** and **Remove** buttons below the table to manage rows.
-- **Internal AetherSDR Topics**: A read-only group box listing topics that AetherSDR subscribes to automatically when the MQTT connection is active. Each topic has a checkbox to enable or disable it. Topics with non-gateable behavior (antenna alias topics) are always active and appear grayed out. The available internal subscribe topics are:
+- **Topic table**: Each row has an editable Topic text field and a Display checkbox. When checked, the topic's messages appear on the panadapter overlay. Use the **Add** and **Remove** buttons below the table to manage rows.
+- **Internal AetherSDR Topics**: A read-only group box listing topics that AetherSDR subscribes to automatically when the MQTT connection is active. These topics are not user-removable. Each topic has a checkbox to enable or disable it. Topics with non-gateable behavior (antenna alias topics) are always active and appear grayed out. The available internal subscribe topics are:
 
   | Topic | Description | User-disableable |
   |-------|-------------|------------------|
@@ -48,7 +52,7 @@ The **Subscriptions** tab replaces the comma-separated Topics text field from ea
 
 ## Publish Buttons tab
 
-The **Publish Buttons** tab lets you define up to 12 publish buttons. Each row in the table has three editable text fields: **Label**, **Topic**, and **Payload**. Use the **Add** and **Remove** buttons below the table to manage rows. The Add button is disabled when 12 rows are reached.
+The **Publish Buttons** tab lets you define up to 12 publish buttons. Each row in the table has three editable text fields: **Label**, **Topic**, and **Payload**. Use the **Add** and **Remove** buttons below the table to manage rows. The Add button is disabled when 12 rows are reached. Button definitions are shared with the MQTT applet.
 
 The tab also includes an **Internal AetherSDR Topics** group box showing topics that AetherSDR publishes automatically when the MQTT connection is active. Each topic has a checkbox to enable or disable it. The available internal publish topics are:
 
@@ -64,7 +68,7 @@ Uncheck the checkbox next to a topic to prevent AetherSDR from publishing to it.
 
 - If your broker does not require a password, leave the **Password** field empty.
 - When **Use TLS** is checked, AetherSDR automatically flips the port to 8883. If your broker uses a different TLS port, adjust **Port** manually after checking TLS.
-- The password is stored in the system keychain when available; otherwise it falls back to plaintext storage in AppSettings.
+- The password is stored in the system keychain when available; otherwise it is kept only for the current session and must be re-entered on the next launch.
 - Relay scripts that forward `aethersdr/cw/decode` into `aethersdr/cw/transmit` should filter on the topic namespace (`aethersdr/...`) to avoid re-publishing AetherSDR's own output back to it and creating a feedback loop.
 
 ## Related

@@ -16,15 +16,17 @@ The Slice Troubleshooting dialog captures a JSON snapshot of every slice, panada
 
 ## What each control does
 
-| Control                 | Kind   | Behavior                                                                               |
-|-------------------------|--------|----------------------------------------------------------------------------------------|
-| **Refresh Snapshot**    | Button | Re-reads slice state into the snapshot. Use this after any slice configuration change. |
-| **Issue Summary** (tab) | Tab    | Shows a plain-language bullet list of detected problems based on the current snapshot, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, remote audio RX routing, audio endpoint state, renderer state, and panadapter slice connection status. |
-| **JSON** (tab)          | Tab    | Shows the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP, control devices, audio endpoints, renderers, TX band settings, remote audio RX state, and panadapter slice connection status. |
-| **Copy Summary**        | Button | Copies the issue summary to the clipboard.                                             |
-| **Copy JSON**           | Button | Copies the full JSON to the clipboard.                                                 |
-| **Export JSON...**      | Button | Saves the JSON to a file.                                                              |
-| **Close**               | Button | Closes the dialog.                                                                     |
+| Control                 | Kind                                                                                           | Behavior                                                                                                                                                                                                                                                                         |
+|-------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Refresh Snapshot**    | Button                                                                                         | Re-reads slice state into the snapshot. Use this after any slice configuration change.                                                                                                                                                                                           |
+| **Issue Summary** (tab) | Tab                                                                                            | Shows a plain-language bullet list of detected problems based on the current snapshot, including audio routing, DSP, control-device (MIDI) state, multi-client ownership, remote audio RX routing, audio endpoint state, renderer state, and panadapter slice connection status. |
+| **JSON** (tab)          | Tab                                                                                            | Shows the full JSON snapshot (schema version 3) of slices, DAX channels, audio devices, client DSP, control devices, audio endpoints, renderers, TX band settings, remote audio RX state, and panadapter slice connection status.                                                |
+| **Copy Summary**        | Button                                                                                         | Copies the issue summary to the clipboard.                                                                                                                                                                                                                                       |
+| **Copy JSON**           | Button                                                                                         | Copies the full JSON to the clipboard.                                                                                                                                                                                                                                           |
+| **Export JSON...**      | Button                                                                                         | Saves the JSON to a file.                                                                                                                                                                                                                                                        |
+| **Find:**               | Text field                                                                                     | Highlights matching occurrences of the entered term in the active tab (Issue Summary or JSON). Has clear button and placeholder 'Search snapshot...'. Enter jumps to the next match; tab sharing updates highlight counts. Status label shows '<N> match(es) in current tab.'    |
+| **Find Next**           | Button                                                                                         | Jumps to the next match of the search term in the active tab. Wraps within the current tab. Empty term produces no matches.                                                                                                                                                      |
+| **Close**               | Button                                                                                         | Closes the dialog.                                                                                                                                                                                                                                                               |
 
 ## What the Issue Summary reports
 
@@ -34,6 +36,12 @@ The **Issue Summary** tab includes the following categories of information. Each
 
 - Headphone gain, headphone mute, and front speaker mute status.
 - Oscillator setting, lock state, external reference, and TCXO status.
+
+### Transmitter meter state
+
+The summary reports TX meter status, including whether the TX meters are live. If the TX meters are NOT live, a warning bullet is shown:
+
+- **TX meters are NOT live** – Indicates that TX forward power is the last value received, not a current reading, and TX SWR is omitted rather than shown stale. The bullet includes the time since the last sample (for example, "last sample 250 ms ago") or notes that no TX meter sample has been received this session. This prevents a support bundle reader from mistaking a stale wattage reading next to a missing SWR for an antenna problem.
 
 ### Remote audio RX state
 
@@ -56,6 +64,10 @@ For each audio endpoint, the summary reports:
 
 - Name, direction (INPUT or OUTPUT), and kind (endpoint type).
 - Backend, device name, sample rate, channel count, sample format, and whether resampling is active.
+- For voice input endpoints, additional resampling details are reported:
+  - Voice input normalization to 48 kHz.
+  - Voice egress resampling to 24 kHz.
+  - RADE resampling to 24 kHz.
 - Operational and running status, stream state, and error information.
 - Buffer statistics (buffer bytes, peak bytes, and underrun count) if available.
 - Any additional notes about the endpoint.
@@ -88,11 +100,12 @@ The JSON snapshot includes the following client DSP parameters for NR2 (noise re
 - `gain_floor` – Gain floor value.
 - `gain_smooth` – Gain smoothing factor.
 - `qspp` – Quasi-stationary power processor value.
-- `legacy_geometry_and_gain_mapping` – Whether legacy geometry and gain mapping is enabled.
+
+The retired `legacy_geometry_and_gain_mapping` parameter and its associated setting key (`NR2UseOriginalGeometry`) are no longer part of the snapshot.
 
 ## Status indicator
 
-After you click **Copy Summary**, **Copy JSON**, or **Export JSON...**, a status label below the buttons shows the result of the operation (for example, *Copied to clipboard*).
+After you click **Copy Summary**, **Copy JSON**, or **Export JSON...**, a status label below the buttons shows the result of the operation (for example, *Copied to clipboard*). The status label also shows the search match count when you use **Find:** or **Find Next**.
 
 ## Tips
 
@@ -100,6 +113,8 @@ After you click **Copy Summary**, **Copy JSON**, or **Export JSON...**, a status
 - If you plan to export or copy the snapshot for a bug report, always click **Refresh Snapshot** first to ensure the data is current.
 - The remote audio RX routing note in the Issue Summary is a useful first indicator of stream ownership or creation problems when troubleshooting audio that is not reaching the client.
 - The panadapter slice connection status and audio endpoint details can help identify connectivity or stream state issues that may not appear elsewhere.
+- If the TX meters are reported as NOT live, the TX forward power shown is the last smoothed value received, not a live reading. Treat it accordingly when diagnosing antenna or amplifier issues.
+- Use **Find:** to quickly locate a slice ID, DAX channel, or error string in either tab without exporting the snapshot.
 
 ## Related
 

@@ -154,28 +154,22 @@ To remove the overlay, call `clearSwrSweepPoints()`.
 
 When the radio enters the TRANSMITTING state (any client on the network transmits), the waterfall on this panadapter automatically freezes. It resumes scrolling when the radio returns to receive. This replaces the older MOX-edge-based freeze logic, eliminating a 10–23 second TX-trail artifact after unkeying.
 
+## Panadapter reconnect reconciliation
+
+On radio reconnect, the desired panadapter frame rate and waterfall line duration are reasserted to the radio. This prevents the panadapter from silently dropping to the radio's 10 Hz default frame rate. Secondary panadapters also have their dBm range primed on reconnect so noise-floor auto-adjustment starts from the correct baseline rather than the default [-50, +50] range that could cause a flat spectrum.
+
+## Panadapter canvas hosting
+
+When a panadapter is hosted as an item on the workspace canvas, its title strip provides a live-move gesture for repositioning. A click (movement under 6 px before release) activates the panadapter; a drag beyond 6 px starts the canvas move gesture. The pop-out button remains visible on canvas items even in single-pan mode, since a canvas item can always float.
+
+## 3D FFT spectrum view
+
+The **3D FFT view** toggle (in the panadapter) switches between the traditional 2D spectrum and a 3D forward-scrolling surface view. The 3D view shows signal history as a three-dimensional surface with:
+
+- Elevation shadows cast by slice flags
+- Smooth-scroll boundaries between history frames
+- Resynchronized floor after bandwidth zoom changes
+
 ## CW decode panel
 
-Each panadapter can show a CW decode panel below the spectrum for off-air Morse decoding. The panel appears only in CW mode when PC audio is routed to the CW decoder.
-
-### Tuning and controls
-
-- **Sens** — A slider (0–100) that filters low-confidence decodes. Higher values are stricter. The setting is saved in `CwDecoderSensitivity`.
-- **🔒P (Lock Pitch)** — Toggles locking the decoder pitch to the current tuned frequency.
-- **🔒S (Lock Speed)** — Toggles locking the decoder speed to the current WPM.
-- **Lo (pitch min)** — Sets the minimum pitch to search (300–1200 Hz). Clamped to ≤ Hi.
-- **Hi (pitch max)** — Sets the maximum pitch to search (300–1200 Hz). Clamped to ≥ Lo.
-
-### Copy and clear
-
-- **CPY ALL** — Copies the full decoded text to the clipboard.
-- **CPY VIS** — Copies only the text currently visible in the scroll area.
-- **CLR** — Clears the CW decode buffer.
-- **✕ (close CW)** — Hides the CW decode panel.
-
-### Font size adjustment (#3628)
-
-Two buttons adjust the decoded-text font size for readability:
-
-- **A-** — Decreases the font size (8 px minimum).
-- **A+** — Increases
+Each panadapter can show a CW decode panel below the spectrum for off-air Morse decoding

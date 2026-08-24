@@ -23,7 +23,7 @@ The client-side tone generator pitch and pan always follow the radio's `cw_pitch
 ## Steps
 
 1. If the Phone/CW applet is not visible, click the **P/CW** tray button on the right sidebar to open it.
-2. Confirm the CW sub-panel is displayed. If the Phone sub-panel is showing, switch the active slice to a CW mode on the radio; the panel switches automatically.
+2. Confirm the CW sub-panel is displayed. If the Phone sub-panel is showing, switch the active slice to a CW mode on the radio; the panel switches automatically. The applet recognises bare **CW**, **CWU**, and **CWL** as CW modes.
 3. Click **Sidetone** to enable the sidetone. The button lights up when active.
 4. Adjust the **Sidetone volume** slider to a comfortable level. The slider controls both the radio-side monitor volume and the client-side tone generator volume simultaneously.
 5. Optionally, adjust **Pitch < / >** to set the sidetone frequency. The pitch follows the radio's `cw_pitch` setting automatically, but you can step it in 10 Hz increments using the **<** and **>** controls. You can also type a value directly (100–6000) in the QLineEdit field.
@@ -33,17 +33,17 @@ The client-side tone generator pitch and pan always follow the radio's `cw_pitch
 
 | Control | Kind | Default | Valid Range | Behavior |
 |---------|------|---------|-------------|----------|
-| Level | Meter | — | -40 to +10 dBFS (red > 0 dBFS) | Shows microphone input peak level in dBFS (Phone panel). Suppressed to -150 when met_in_rx is off and not transmitting. Hover over the gauge for an exact numeric readout in dB with one decimal place. |
+| Level | Meter | — | -40 to +10 dBFS (red > 0 dBFS) | Shows microphone input peak level in dBFS (Phone panel). Suppressed to -150 when met_in_rx is off and not transmitting. Hidden when the radio's mic level meter is unavailable (e.g. when the radio is modulated by AetherSDR). Hover over the gauge for an exact numeric readout in dB with one decimal place. |
 | Compression | Meter | — | -25 to 0 dB (reversed fill) | Shows speech compression amount in dB (Phone panel). Gated on radio's interlock TRANSMITTING state and speech processor enable: reads 0 dB during RX. Hover over the gauge for an exact numeric readout in dB with one decimal place. |
 | ALC (Phone panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Shows automatic level control reading from MeterModel::swAlcChanged (post-software-ALC SSB peak in dBFS). Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge for an exact numeric readout in dBFS with one decimal place. Initializes to -20 dBFS on construction. |
 | ALC (CW panel) | Meter | — | -20 to 0 dBFS (red > -3 dBFS) | Mirrors the Phone-panel ALC gauge; both read from MeterModel::swAlcChanged for consistent readings across voice and CW. Fills right-to-left: empty at -20 dBFS, full at 0 dBFS. Hover over the gauge for an exact numeric readout in dBFS with one decimal place. Initializes to -20 dBFS on construction. Uses HGauge::setFillFromRight mode. |
 | Mic profile | Combo box | — | Populated from radio micProfileList() | Loads the named mic processing profile; calls TransmitModel::loadMicProfile. |
-| Mic source | Combo box | — | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source; calls TransmitModel::setMicSelection. When host modulation is active, the combo box is disabled, shows only "PC", and displays a tooltip explaining that the PC microphone is the only available input. |
-| Mic gain | Slider | 50 | 0–100 | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence (`PcMicGain` setting key). Radio always reports mic_level=0 when source=PC; value kept client-side. |
+| Mic source | Combo box | — | MIC, BAL, LINE, ACC, PC (plus any from micInputList()) | Selects microphone input source; calls TransmitModel::setMicSelection. When the radio cannot accept a client-side mic source selection, the combo is disabled, shows only "PC", and displays a tooltip explaining that the radio takes transmit audio from this computer. |
+| Mic gain | Slider | 50 | 0–100 | Adjusts mic input level. For 'PC' source uses local PcMicGain persistence (`PcMicGain` setting key). Radio always reports mic_level=0 when source=PC; value kept client-side. The `micLevelChanged` signal is emitted only when the client owns the gain (RADE mode, or selectable mic inputs with PC selected). |
 | +ACC | Toggle button | — | — | Enables the accessory mic input mix; calls TransmitModel::setMicAcc. |
 | PROC | Toggle button | — | — | Toggles the speech processor; calls TransmitModel::setSpeechProcessorEnable. |
 | NOR/DX/DX+ | Slider | 0 (NOR) | 0 (NOR), 1 (DX), 2 (DX+) | Three-position processor level; calls TransmitModel::setSpeechProcessorLevel. |
-| DAX | Toggle button | — | — | Enables DAX as the TX audio source; calls TransmitModel::setDax. |
+| DAX | Toggle button | — | — | Enables DAX as the TX audio source; calls TransmitModel::setDax. Hidden when this client cannot select DAX as a TX source; the button is forced off when hidden. |
 | MON | Toggle button | — | — | Enables TX sidetone monitor; calls TransmitModel::setSbMonitor. |
 | Monitor volume | Slider | — | 0–100 | Sets sideband monitor volume; calls TransmitModel::setMonGainSb. |
 | Delay (CW) | Slider with QLineEdit | 500 ms | 0–2000 ms (step 10) | Sets CW break-in delay; calls TransmitModel::setCwDelay. The adjacent QLineEdit accepts typed values (0–2000). Cached immediately when dragged to prevent radio snapping back (#2428). |
@@ -90,21 +90,15 @@ The mic level meter suppression uses a dedicated `applyLevelMeterReceiveGate()` 
 
 The compression gauge reads from the MeterModel `COMPPEAK` meter as a positive 0–25 dB compression amount. The gauge face is reversed: 0 dB displayed means no compression, -25 dB means full compression. The gauge converts the positive value to negative for display, so -25 corresponds to maximum compression and 0 to no compression. Hovering over the gauge shows a positive dB value (the amount of compression applied), with one decimal place.
 
-## Mic Source in Host Modulation Mode
+## Mic Source on Radios with Fixed TX Audio Input
 
-When the radio is being modulated by AetherSDR (host modulation active), the **Mic source** combo box is automatically disabled and shows only "PC" as the available source. The tooltip explains that the PC microphone is the only input because the radio is modulated by AetherSDR; the other sources are physical FlexRadio jacks and are not available in this mode. When host modulation is deactivated, the combo box returns to normal operation.
+When the radio takes its transmit audio from this computer and its own input selection is made on the radio (for example, when AetherSDR is modulating the radio via the network), the **Mic source** combo box is automatically disabled and shows only "PC" as the available source. The tooltip explains that the radio takes transmit audio from this computer and its own input selection is made on the radio. In this state the combo box does not look broken: it states the effective source. The radio-side model is told the source is PC so downstream checks (such as radiocert warnings about transmit audio capture) do not fire incorrectly.
+
+The **Level** meter gauge is also hidden in this state, since the radio is not reporting a meaningful mic level for the network-fed path. The **DAX** button is hidden as well when DAX cannot be selected as a TX source for the current radio configuration.
 
 ## Tips
 
 - Double-clicking the **L / R pan (CW)** slider resets it to centre (50).
 - The **Compression** gauge reads 0 dB during RX. It only shows a non-zero value when the radio's interlock reports the TRANSMITTING state and the speech processor (**PROC**) is enabled.
 - With **Breakin** off, key presses are queued and TX must be engaged manually with PTT. With **Breakin** on (QSK), key edges trigger TX directly and `break_in_delay` controls the relay hang time. No automatic PTT envelope overrides this behaviour.
-- The **Delay (CW)** slider updates its cached value immediately when dragged, preventing the radio from snapping the slider back to its previous position.
-- The ALC gauge on both panels reads the same meter source, so you can monitor ALC regardless of which sub-panel is visible.
-- Sliders now follow the current theme's accent colours and background palette (v26.6.1). Changing the theme updates slider appearance without requiring a restart.
-- Hover over any gauge (Level, Compression, ALC Phone, ALC CW) for an exact numeric readout with one decimal place (#3936).
-
-## Troubleshooting
-
-- **No tone heard despite Sidetone being enabled** — Confirm the **Sidetone volume** slider is above 0. Also check that your system audio output device is correctly configured in **Settings > Audio > Output device**, as the client-side generator routes to the user-selected output.
-- **Sidetone button is not visible** — The CW sub-panel only appears when the active slice is in CW mode. Switch the active slice
+- The **Delay (CW)** slider updates its cached value immediately when dragged, preventing the radio from snapping

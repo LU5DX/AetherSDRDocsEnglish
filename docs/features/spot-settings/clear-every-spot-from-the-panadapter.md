@@ -19,6 +19,7 @@ Right-click anywhere on the panadapter, then select the option that opens the Sp
 |---------|------|---------|-------------|
 | **Spots:** | Toggle button | Enabled | Master toggle for DX spot display. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 | **Memories:** | Toggle button | Disabled | Toggles memory channel overlays on the panadapter. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
+| **Kiwi DX:** | Toggle button | Disabled | Overlays KiwiSDR Community DX database spots (beacons, utilities, time signals) on the band plan strip. When Enabled, the button label reads "Enabled"; when Disabled, it reads "Disabled". |
 
 ### Appearance
 
@@ -74,6 +75,13 @@ All spots are immediately removed from the panadapter. New spots will continue t
 
 When set to **Enabled**, the button displays "Enabled" with an active background. When set to **Disabled**, the button displays "Disabled" with a dimmed background.
 
+### Turn Kiwi DX spots on or off
+
+1. Open the Spot Settings dialog.
+2. Set **Kiwi DX:** to **Enabled** or **Disabled**.
+
+When set to **Enabled**, KiwiSDR Community DX database spots (beacons, utilities, time signals) are overlaid on the band plan strip. When set to **Disabled**, these spots are hidden.
+
 ### Shorten or lengthen spot lifetime
 
 1. Open the Spot Settings dialog.
@@ -115,7 +123,7 @@ When disabled, vertical lines from the spectrum baseline to each spot label are 
 - The **Total Spots:** indicator at the bottom of the Spot Settings dialog shows the count of live spots currently tracked. After clearing, this count will reflect only spots received after the clear action.
 - To stop spots from appearing entirely, use the **Spots:** toggle to set it to **Disabled** instead.
 - The **Spot Lines:** toggle is independent of **Clear All Spots**. If the panadapter feels visually busy during a contest, set **Spot Lines:** to **Disabled** before or after clearing spots to reduce clutter without removing the spot labels themselves.
-- Each toggle button (Spots, Memories, Override Colors, Override Background: Enabled, Spot Lines) now dynamically displays either "Enabled" or "Disabled" as its label to clearly indicate the current state.
+- Each toggle button (Spots, Memories, Kiwi DX, Override Colors, Override Background: Enabled, Spot Lines) now dynamically displays either "Enabled" or "Disabled" as its label to clearly indicate the current state.
 
 ## Related
 

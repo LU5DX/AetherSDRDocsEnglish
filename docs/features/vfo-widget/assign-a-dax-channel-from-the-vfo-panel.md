@@ -19,8 +19,8 @@ Click the VFO marker flag on the spectrum display for the slice you want to conf
 | RX antenna button | Header | — | — | Opens antenna selection menu for the receive antenna of this slice. |
 | TX antenna button | Header | — | — | Opens antenna selection menu for the transmit antenna of this slice. |
 | Frequency display | Header | — | — | Shows the current slice frequency. Click once to begin direct frequency entry; type MHz and press Enter or Tab. |
-| Filter width label | Header | — | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. |
-| Collapse toggle | Header | expanded | — | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice as `SliceFlagCollapsed_{N}`. |
+| Filter width label | Header | — | — | Shows current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. Uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8). |
+| Collapse toggle | Header | expanded | — | Collapses the VFO panel to a compact frequency-only strip. Persisted per slice as `SliceFlagCollapsed_{N}`. Right-click → Add Spot works in collapsed mode too. |
 | Marker thickness button | Header | 1 px | Off, 1 px, 3 px | Cycles the VFO marker line through Off, 1 px, and 3 px. Persisted per slice as `Slice{N}_MarkerWidth`. |
 | Filter edges button | Header | shown | — | Toggles the filter edge lines on the spectrum passband. Persisted per slice as `Slice{N}_FilterEdgesHidden`. |
 | AF Gain slider | Audio tab | 100 | 0–100 | Sets the audio output level for this slice. Not persisted — reflects live radio state. |
@@ -29,12 +29,12 @@ Click the VFO marker flag on the spectrum display for the slice you want to conf
 | Squelch button + slider | Audio tab | off | 0–100 | Enables squelch for this slice. The adjacent slider sets the threshold. |
 | AGC combo | Audio tab | FAST | FAST, MED, SLOW, OFF | Sets the AGC attack/release speed for this slice. |
 | Mode combo | Mode tab | USB | USB, LSB, CW, CWL, AM, SAM, DIGU, DIGL, FM, NFM, DFM, RTTY | Sets the demodulation mode for this slice. |
-| Filter preset buttons | Mode tab | — | — | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in `FilterPresets`. |
+| Filter preset buttons | Mode tab | — | — | Applies a saved filter width preset. Right-click to save the current filter width into that slot. Persisted in `FilterPresets`. Custom lo/hi edges can be set per slot via right-click. |
 | RIT / XIT buttons + labels | X/RIT tab | off | — | Enables receiver (RIT) or transmitter (XIT) incremental tuning. The label shows the current offset; scroll-wheel adjusts in 10 Hz steps. |
 | DAX channel combo | DAX tab | Off | Off, 1–8 | Assigns a DAX audio channel to this slice. |
 | DSP buttons | DSP tab | off | — | Enables the corresponding noise reduction algorithm for this slice. Button availability depends on radio series and build. Right-click NR2, NR4, MNR, or DFNR to open the AetherDSP Settings dialog for that algorithm. |
-| ADSP button | DSP tab | — | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| AetherVoice button | DSP tab | — | — | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
+| ADSP button | DSP tab | — | — | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| AetherVoice button | DSP tab | — | — | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
 
 ## Indicators
 
@@ -80,6 +80,7 @@ The following radio-side DSP buttons appear in the DSP tab grid:
 | NRF | Spectral noise filter |
 | ANFL | LMS notch filter |
 | ANFT | FFT notch filter |
+| MN | Manual notch filter (only shown on radios that support it) |
 
 ### Client-side launcher buttons
 
@@ -87,8 +88,8 @@ Two client-side launcher buttons appear at the end of the DSP grid:
 
 | Button | Behavior |
 |---|---|
-| **ADSP** | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
-| **AetherVoice** | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite. Spans 2 columns in the 4-column DSP grid. |
+| **ADSP** | Opens the AetherDSP Settings dialog (client-side NR2 / NR4 / DFNR / RN2 / BNR / MNR). Same entry point as the Settings menu (v0.9.8). Styled like a radio-side DSP toggle but non-checkable. Click raises and focuses the modeless AetherDSP Settings dialog. |
+| **AetherVoice** | Toggles the Aetherial Audio Channel Strip — the unified TX/RX DSP suite (v0.9.8). Spans 2 columns in the 4-column DSP grid. |
 
 ### Client-side noise reduction toggles
 
@@ -115,13 +116,13 @@ A shared level slider row appears below the button grid. The slider adjusts the 
 
 The slider range is 0–100. When no leveled DSP is active — or when only RNN, ANFT, or APF is on — the slider row is dimmed and does not respond to input. The row remains in place at all times; it does not shift the button grid when its target changes.
 
-Algorithms that support the level slider: NR, NB, ANF, NRL, NRS, NRF, ANFL.
+Algorithms that support the level slider: NR, NB, ANF, NRL, NRS, NRF, ANFL, MN.
 
 When a leveled DSP algorithm is enabled from the radio's saved profile on startup, the level slider is automatically populated without requiring a manual toggle.
 
 ## Filter width label
 
-The filter width label shows the current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. The label uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts.
+The filter width label shows the current filter bandwidth. Click to cycle through filter preset buttons in the Mode tab. The label uses `RxApplet::formatFilterWidth` as the single source of truth, fixing a 0.1 kHz offset that affected SSB/digital mode readouts (#2197, v0.9.8).
 
 ## RX and TX antenna menus
 
@@ -136,6 +137,8 @@ The **Filter edges button** toggles the filter edge lines on the spectrum passba
 ## Collapse toggle
 
 The **Collapse toggle** collapses the VFO panel to a compact frequency-only strip. The setting is persisted per slice as `SliceFlagCollapsed_{N}`.
+
+Right-click → Add Spot works in collapsed mode too. The collapsed frequency label installs an event filter to ensure clicks are handled by the VFO panel, not the spectrum widget underneath, so the cursor's step-snapped frequency is never reported instead of the VFO's (#4455).
 
 ## Slice badge
 
@@ -175,14 +178,4 @@ The VFO panel tabs are implemented as `QPushButton` widgets instead of `QLabel` 
 - Focused tabs show a subtle bottom border outline using the tab label colour.
 - **Right-click on the speaker tab (first tab)** toggles the audio mute state directly — a convenient shortcut to mute the slice without opening the Audio tab.
 
-The tab buttons use flat, checkable style with the same visual appearance as before. The active tab is styled with the accent colour (#00b4d8) and a bottom border.
-
-## Scroll wheel behavior
-
-The scroll wheel direction in the VFO panel respects the **Reverse mouse wheel** setting. If you have enabled reverse mouse wheel in `Settings > Audio/Radio > Tuning`, scrolling the VFO panel wheel will tune in the opposite direction. This setting is checked via the `InteractionSettings` model and applied to all VFO panel wheel events.
-
-The scroll wheel behaviour is fully integrated with the `InteractionSettings` configuration. If you reverse the mouse wheel in settings, the VFO panel scroll direction reverses accordingly. This applies to all wheel events on the VFO panel, including the frequency display area and the RIT/XIT offset labels.
-
-## Accessibility
-
-The VFO panel provides accessibility announcements for frequency changes. When the frequency changes while an accessibility client (screen reader) is active, a `QAccessibleValueChangeEvent` is posted for
+The tab buttons use flat, checkable style with the same

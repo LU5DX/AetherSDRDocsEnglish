@@ -1,12 +1,13 @@
 # Radio Setup Dialog
 
-The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network settings, GPS, transmit configuration, Phone/CW settings, receive calibration, audio, antennas, filters, transverters, USB cables, peripherals, Adaptive Pre-Distortion (APD), themes, SmartLink certificate management, and serial port configuration for FlexControl.
+The Radio Setup dialog is the master per-radio configuration window. It provides tabs for radio information, network settings, GPS, transmit configuration, Phone/CW settings, receive calibration, antenna names, filters, transverters, USB cables, peripherals, Adaptive Pre-Distortion (APD), themes, SmartLink certificate management, and serial port configuration for FlexControl.
 
 ## Before you start
 
 - AetherSDR must be connected to the radio to access tabs that communicate with the radio.
-- Some tabs (APD, Themes, SmartLink, Serial) are built lazily when first clicked.
+- Some tabs (APD, Themes, Calibration, SmartLink, Serial) are built lazily when first clicked.
 - The APD tab is only visible on FLEX-8x00 series radios with SmartSDR 4.2.18 or later firmware.
+- The Calibration tab is only visible when the connected radio cannot calibrate its own oscillator (e.g. HL2). Flex radios handle calibration on the RX tab.
 
 ## Opening the dialog
 
@@ -15,7 +16,7 @@ The Radio Setup dialog is the master per-radio configuration window. It provides
 ## General dialog behavior
 
 - The dialog remembers its size and position between sessions.
-- Tab order from left to right: Radio, Network, GPS, TX, Phone/CW, RX, Antennas, Audio, Filters, XVTR, USB Cables, Peripherals, APD, Themes, SmartLink, Serial.
+- Tab order from left to right: Radio, Network, GPS, TX, Phone/CW, RX, Calibration, Antennas, Audio, Filters, XVTR, USB Cables, Peripherals, APD, Themes, SmartLink, Serial.
 - Tabs whose content may exceed the dialog height (Themes, Audio, Filters, Peripherals on small or high-DPI displays) are wrapped in a scroll area so the dialog never grows past the screen edge.
 - Click **Close** to dismiss the dialog.
 
@@ -33,7 +34,7 @@ Displays radio identification, license information, and firmware update controls
    - Click **Reboot Radio**. A confirmation dialog appears.
    - On LAN connections, AetherSDR automatically reconnects once the radio finishes booting.
    - On SmartLink/WAN connections, you must manually reconnect after the radio boots.
-   - The button is disabled when the radio is disconnected; it re-enables automatically when the radio reconnects.
+   - The button is disabled when the radio is disconnected or when the backend does not support a client reboot (e.g. HL2 is RX-only so the button is disabled). It re-enables automatically when the radio reconnects.
 6. To update firmware:
    - Click **Check for Update** to query the FlexRadio update server.
    - Download the SmartSDR installer from flexradio.com (`.msi` for v4.2+, `.exe` for older releases).
@@ -56,11 +57,29 @@ Configure how the radio obtains its network address and advanced network options
 1. Click the **Network** tab.
 2. Note the read-only **IP Address**, **Mask**, and **MAC Address**. Each includes a clipboard copy button.
 3. Toggle **Enforce Private IP Connections:** to reject non-RFC1918 peers.
-4. Set **Network MTU:** as a spinbox value (576-9000 bytes, default 1450). This sets maximum outgoing VITA-49 UDP packet size. The default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`.
-5. Click the **DHCP / Static** toggle button to switch modes.
-6. If you selected static mode, fill in the **IP Address:**, **Mask:**, and **Gateway:** text fields.
-7. Click **Apply** to push the network configuration to the radio.
-8. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
+4. Configure the Agent Automation (MCP) bridge:
+   - Toggle **Agent Automation (MCP):** to enable the in-app automation bridge so an AI coding assistant (via the MCP server) can introspect and drive the running app. Off by default; the operator opts in. Persisted via AutomationBridgeSettings.
+   - The **Access Token:** field displays the MCP access token (read-only). Paste it into the assistant's `AETHER_MCP_TOKEN` environment variable. Stored in the OS secret store.
+   - Click **Copy** to copy the access token to the clipboard.
+   - Click **Rotate** to generate a new token and apply it immediately, locking out any client still using the old one.
+   - Check **Allow TX via MCP: Enable transmit control** to let an MCP client key the transmitter (MOX/PTT/TUNE/ATU/CWX). Off by default; first enable raises an operator-responsibility confirmation.
+   - Check **Observe only: Read-only (block all driving)** to make the bridge observe-only: MCP clients can read state but every mutating verb (set/invoke/connect/tune/capture) is refused. Enforced in the app, so a client cannot bypass it.
+5. Set **VITA-49 RX buffer:** as a snap-to-preset slider (256 KB to 4 MB, default 4 MB). This sets the kernel receive buffer (SO_RCVBUF) for the VITA-49 stream socket; larger values absorb panadapter/waterfall bursts so packets aren't dropped. The system caps the grant at `net.core.rmem_max`.
+   - The **granted:** label shows the buffer size the kernel actually granted (vs the requested preset). Shows "(applies on connect)" when no connection is active.
+6. Set **Network MTU:** as a spinbox value (576-9000 bytes, default 1450). This sets maximum outgoing VITA-49 UDP packet size. The default 1450 is safe for most VPN/SD-WAN tunnels. Stored in AppSettings as `NetworkMtu`.
+7. Click the **DHCP / Static** toggle button to switch modes.
+8. If you selected static mode, fill in the **IP Address:**, **Mask:**, and **Gateway:** text fields.
+9. Click **Apply** to push the network configuration to the radio.
+10. Reconnect to the radio at its new address using `Settings > Connect to Radio...`.
+
+### Agent Automation (MCP) notes
+
+- The `AETHER_AUTOMATION` launch environment variable force-enables the bridge regardless of the toggle and disables the control in the UI.
+- Transmit-keying stays blocked unless `AETHER_AUTOMATION_ALLOW_TX` is set.
+- `AETHER_AUTOMATION_ALLOW_TX` force-enables TX; `AETHER_AUTOMATION_NO_TX` pins it off.
+- `AETHER_AUTOMATION_READONLY` pins the observe-only mode on for headless/CI runs.
+- A force-unkey watchdog limits bridge-originated TX.
+- The Access Token field auto-mints a 128-bit hex token when the bridge is enabled without one. Placeholder shows "(loading…)" until the keychain read lands.
 
 ## GPS tab
 
@@ -102,8 +121,14 @@ Configure microphone, CW keyer, and RTTY defaults.
    - **Swap:** Toggle to swap dit/dah.
    - **Sideband:** Select LSB or USB for CW pitch.
    - **CWX:** Toggle to enable CWX macro keying.
-   - **Decode:** Toggle (default True) to enable the CW decode overlay on the panadapter. Stored as `CwDecodeOverlay`.
+   - **Decode: RX:** Toggle (default True) to enable the CW decode overlay on the panadapter for received CW. Stored as a nested JSON blob under `CwDecoder` with an `rx` field.
+   - **Decode: TX:** Toggle (default False) to decode the operator's own CW keying via client-side sidetone, useful as a self-training tool for paddle/bug timing. Stored as a nested JSON blob under `CwDecoder` with a `tx` field.
 4. Set **RTTY Mark Default:** spinbox for default RTTY mark frequency.
+
+### CW decode notes
+
+- The RX and TX decode toggles were split from a single `CwDecodeOverlay` toggle in v26.5.3.
+- The legacy `CwDecodeOverlay` key is auto-migrated on first read.
 
 ## RX tab
 
@@ -117,12 +142,35 @@ Configure GPSDO frequency offset calibration and 10 MHz reference source.
 4. Adjust **Freq Offset (ppb):** manually.
 5. Select **10 MHz Reference Source:** from the combo box (Auto, TCXO, GPSDO, External). Options depend on hardware installed. Lock status (Locked/Unlocked) is shown alongside the combo and updates live.
 
+## Calibration tab
+
+Configure host-side frequency calibration for radios that cannot calibrate their own oscillator (e.g. HL2). This tab is hidden for Flex radios, which handle calibration on the RX tab.
+
+### Steps
+
+1. Click the **Calibration** tab (only visible when the connected radio requires host-side frequency calibration).
+2. Configure the frequency calibration settings as appropriate for the connected radio.
+3. Click **Trim** or the equivalent action to apply the calibration to the radio.
+
+### Calibration notes
+
+- The tab is gated on the capability `hostFrequencyCalibration`, not on the family name.
+- The calibration value is re-read whenever the dialog is shown or the connection state changes, so a Trim press cannot commit a previous radio's number.
+
 ## Antennas tab
 
-Configure antenna names and assignments.
+Configure antenna port display names.
 
-- Tab labeled "Antennas" appears between RX and Filters tabs.
-- Provides controls for naming and configuring antenna ports.
+### Steps
+
+1. Click the **Antennas** tab.
+2. For each antenna port row (e.g. **ANT1**, **ANT2**, **XVTA**, **XVTB**):
+   - View the read-only port label.
+   - Enter a custom name (max 16 characters) in the editable text field.
+   - Preview the final display name in the Preview column.
+   - Click **Clear** to reset the custom name to empty.
+3. When a port's custom name is empty, the raw port token is used as the display name.
+4. Rows auto-update when slice antenna assignments change.
 
 ## Audio tab
 
@@ -140,88 +188,4 @@ Configure radio audio outputs, PC audio devices, recording, and NVIDIA BNR conta
 8. Set **Audio Buffer:** (50-1000 ms, default 200) for VPN/SmartLink jitter. Stored as `AudioBufferMs`.
 9. Configure recording:
    - **Recording: Radio Side / Client Side:** Select the recording mode. Stored as `RecordingMode`.
-   - **Save to:** Text field for folder (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `QsoRecordingDir`.
-   - Click **...** to browse for a recording folder.
-   - Toggle **Auto-record on TX** to automatically record while transmitting. Stored as `QsoRecordingAutoRecord`.
-   - Set **Idle timeout:** (10-3600 sec, default 120) for seconds of silence before recording stops. Stored as `QsoRecordingIdleTimeout`.
-10. Control **NVIDIA BNR:** with Autostart Container, Start, Stop, and Check Status buttons. A colored dot indicates container Running/Stopped/Unknown status.
-
-## Filters tab
-
-Configure filter sharpness per mode and low-latency options for digital modes.
-
-### Steps
-
-1. Click the **Filters** tab.
-2. Adjust **Voice / CW / Digital filter sharpness sliders** (0-3). 0 = lowest latency, 3 = sharpest. Slider is disabled when Auto is enabled.
-3. Toggle **Auto (Voice / CW / Digital)** to enable automatic filter-level selection for that mode; disables the manual sharpness slider.
-4. Toggle **Use Low Latency Filters for Digital Modes** to force low-latency filters in DIGU/DIGL.
-
-## XVTR tab
-
-Configure per-transverter settings.
-
-### Steps
-
-1. Click the **XVTR** tab.
-2. The tab contains nested tabs, one per transverter, plus a '+' tab.
-3. For each transverter:
-   - Toggle **RX Only:** to force RX-only.
-   - Click **Remove** to delete the transverter definition.
-4. Click **Create New Transverter** to add a new transverter entry.
-
-## USB Cables tab
-
-Assign USB serial adapters to cable types.
-
-### Steps
-
-1. Click the **USB Cables** tab.
-2. View detected **Cables list / Status** with Plugged/Unplugged status per cable type.
-3. Configure per-cable parameters: **Name**, **Enabled**, **Speed**, **Data Bits**, **Parity**, **Stop Bits**, **Flow**, **Source**, **Auto Report**, **BCD Type**, **Polarity**, **Bit Configuration (0-7)**.
-
-## Peripherals tab
-
-Configure external device connections (TGXL, PGXL, Antenna Genius).
-
-### Steps
-
-1. Click the **Peripherals** tab.
-2. For each peripheral, enter the IP address and port (default ports: TGXL=9010, PGXL=9008, Antenna Genius=9007).
-3. Click **Connect** to establish a direct TCP connection. The IP and port are saved on connect so AetherSDR auto-reconnects on startup.
-4. Click **Disconnect** to close the connection.
-
-### Peripheral auto-connect and clearing manual IP
-
-When you enter an IP address for a peripheral and click **Connect**, the IP and port are saved to settings. On subsequent startups, AetherSDR automatically attempts to reconnect to that peripheral.
-
-If you clear the IP field and click **Connect** while disconnected, the saved manual IP and port are removed from settings, preventing auto-connect on startup. If you clear the IP field and close the **Radio Setup** dialog without clicking Connect/Disconnect, the saved settings are also cleared and any active connection is disconnected.
-
-### TGXL specific notes
-
-- Required to recover TUNE on firmware 4.2+.
-- When connected, the TUNE button sends the native `autotune` command directly to the TGXL instead of the radio-side path broken in firmware 4.2.
-- The TGXL drives radio PTT via its hardware interlock cable; no client-side keying is needed.
-- If the IP field is empty and the radio has discovered the TGXL, the discovered IP is pre-filled.
-
-## APD tab
-
-Configure Adaptive Pre-Distortion sample ports per TX antenna. Tab is hidden unless the radio reports `apd configurable=1` (FLEX-8x00 with SmartSDR 4.2.18+).
-
-### Steps
-
-1. Click the **APD** tab (only visible on compatible radios).
-2. For each TX antenna (**ANT1**, **ANT2**, **XVTA**, **XVTB**), select the sampler port from the combo box (**INTERNAL**, **RX_A**, **RX_B**, **XVTA**, **XVTB**).
-   - **INTERNAL** samples inside the radio.
-   - External ports require a coupled feedback signal from the linear amplifier output.
-3. Click **Reset** (APD Equalizer) to clear all per-antenna APD training data on the radio.
-
-## Themes tab
-
-Configure UI appearance including per-slice color overrides.
-
-### Steps
-
-1. Click the **Themes** tab.
-2. In the **Slice Colors** section:
-   - Select **Use Aether defaults**
+   - **Save to:** Text field for folder (client-side only). Defaults to Documents/AetherSDR/Recordings. Stored as `Q

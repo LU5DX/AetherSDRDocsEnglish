@@ -180,3 +180,4 @@ In v26.6.3, the VFO panel tab bar was rewritten to use `QPushButton` instead of 
 | Change | Description |
 |---|---|
 | Tab buttons | Each tab label is now a `QPushButton` with checkable behavior. Tab focus is enabled via `Qt:.focusPolicy` set to `Qt:.StrongFocus`.
+

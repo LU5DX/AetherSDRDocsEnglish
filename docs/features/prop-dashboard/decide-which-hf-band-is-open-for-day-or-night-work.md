@@ -39,6 +39,7 @@ The HF Propagation Dashboard shows a band-by-band condition summary split into d
 
 - **All band condition values appear blank or do not update** — the dashboard could not retrieve propagation data. Verify your internet connection and reopen the dialog.
 - **The dashboard window does not reposition correctly between sessions** — the dialog saves and restores its geometry automatically. If the position is incorrect, resize or move the window to a new location, then close and reopen it to save the updated geometry.
+- **The dashboard data stops updating or appears stale** — the dashboard uses a 15-second network timeout for space-weather fetches. If the propagation service is slow or unreachable, the affected panels may remain blank. Verify your internet connection and reopen the dialog to retry.
 
 ## Related
 

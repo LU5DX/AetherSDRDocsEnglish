@@ -1,6 +1,6 @@
 # SpotHub (DX Cluster Dialog)
 
-Central hub for connecting to DX spot sources -- DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA and FreeDV -- and configuring how spots are displayed on the panadapter.
+Central hub for connecting to DX spot sources -- DX cluster, Reverse Beacon Network, WSJT-X, SpotCollector, POTA, FreeDV, EiBi and N1MM -- and configuring how spots are displayed on the panadapter.
 
 ## Opening SpotHub
 
@@ -136,7 +136,9 @@ The **Spot table** columns are:
 | Spotter | The station that posted the spot |
 | Band | Band name |
 | Mode | Mode (e.g., CW, FT8, RTTY) |
-| Source | Which source provided the spot (Cluster, RBN, WSJT-X, SpotCollector, POTA, FreeDV) |
+| Source | Which source provided the spot (Cluster, RBN, WSJT-X, SpotCollector, POTA, FreeDV, EiBi, N1MM) |
+
+Click any column header to sort by that column. Both **Time** and **Freq** columns support sorting; click **Time** to return to newest-first order.
 
 ### Hiding and showing table columns
 
@@ -237,13 +239,9 @@ In the **Display** tab, the **Signal History** section configures markers for vo
 - The Spot List band-filter checkboxes wrap to new rows when the dialog is narrow, keeping labels readable (#4157).
 - Right-click the Spot List table header to show/hide columns; the menu stays open while you toggle multiple columns in one pass (#4157).
 - Snap to Step only affects clicks on Signal History markers — it does not change how the slice tunes when you click the spectrum directly.
+- Click the **Time** column header in the Spot List to return to newest-first ordering after sorting by another column (#4749).
 
 ## Troubleshooting
 
 - **Spot List band-filter checkboxes are unreadable when the dialog is narrow** — The band-filter checkboxes now wrap to a new row when they run out of horizontal space. If they still appear compressed, drag the dialog wider.
-- **Clicking a marker still tunes to the exact carrier frequency** — Make sure the **Snap to Step** toggle shows a green fill. If it's still gray, click it once to enable.
-
-## Related
-
-- [Toggle Signal History voice markers on the panadapter](toggle-signal-history-voice-markers-on-the-panadapter.md)
-- [Adjust S-History marker lifetime, QRM gate and edge threshold](adjust-s-history-m
+- **Clicking a marker still tunes to the exact carrier frequency** — Make sure the **

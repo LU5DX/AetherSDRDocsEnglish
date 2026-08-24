@@ -1,4 +1,4 @@
-# Recall an ATU Memory
+# Recall a Waveform
 
 Use ATU memory recall to apply a previously stored tuner solution for the current band or frequency, skipping a full retune cycle.
 
@@ -6,7 +6,7 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 
 - AetherSDR must be connected to the radio. The TX Controls applet requires an active radio connection.
 - The radio's internal ATU must have stored at least one memory from a prior tuning cycle. If no memory exists for the current frequency, recalling one will have no effect.
-- MEM is disabled when the TGXL is in OPERATE mode.
+- MEM is disabled when the TGXL is in OPERATE mode or when the radio has no antenna tuner.
 
 ## Steps
 
@@ -20,7 +20,7 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 | Control    | Kind       | Behavior                                                                                                                                                                                                                           |
 |------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | RF Pwr     | Meter      | Displays forward power at the exciter output with PEP peak-hold (2 s hold then decay to current smoothed value over ~2.5 s). Peak resets immediately on un-key. Hover the mouse cursor over the gauge to see the exact power in watts (#3936). Scale changes based on radio model. Peak-hold ballistics match SmartSDR's peak-hold bar and the RX S-meter peak-hold pattern. |
-| SWR        | Meter      | Displays standing wave ratio at the exciter. Range 1.0–3.0, red above 2.5. Hover the mouse cursor over the gauge to see the exact ratio in N.N:1 form (#3936).                                                                    |
+| SWR        | Meter      | Displays standing wave ratio at the exciter. Range 1.0–3.0, red above 2.5. Hover the mouse cursor over the gauge to see the exact ratio in N.N:1 form (#3936). |
 | RF Power   | Slider     | Sets transmit RF power level (0–100% of maximum). Shows the current value in percent while dragging. On release, syncs the value from the radio model.                                                                             |
 | Tune Pwr   | Slider     | Sets tune-carrier power level (0–100% of maximum). Shows the current value in percent while dragging. On release, syncs the value from the radio model.                                                                            |
 | TX Profile | Combo box  | Selects a TX profile from the radio's profile list. Selecting loads the profile immediately.                                                                                                                                      |
@@ -29,8 +29,8 @@ Use ATU memory recall to apply a previously stored tuner solution for the curren
 | Mem        | Indicator  | Lights green when the ATU is using a memory.                                                                                                                                                                                      |
 | TUNE       | Button     | Starts/stops tune carrier; text becomes 'TUNING...' with red background while active. Right-click picks the carrier shape (Mono Tone / Two Tone) for the next tune cycle. Keys the transmitter (#3646).                            |
 | MOX        | Toggle btn | Toggles manual transmit. Button turns red while TX is keyed. Idle state shows amber accent border/text (#3663), editable in the Theme Editor (color.tx.mox.*). Routes through Quindar-tone coordinator when QUIN chip is enabled in phone modes. Keys the transmitter (#3646). |
-| ATU        | Button     | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. Disabled when TGXL is in OPERATE mode. Keys the transmitter (#3646). |
-| MEM        | Toggle btn | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode.                                                                                                                                                          |
+| ATU        | Button     | Starts the internal ATU tuning cycle. If status is Successful/OK at the same frequency, a second click sends bypass instead. Right-click opens the pre-tune sweep and Clear ATU Memories actions. Disabled when TGXL is in OPERATE mode or when the radio has no antenna tuner. Keys the transmitter (#3646). |
+| MEM        | Toggle btn | Toggles ATU memory recall on/off. Disabled when TGXL is in OPERATE mode or when the radio has no antenna tuner.                                                                                                                                                          |
 | APD        | Toggle btn | Toggles adaptive pre-distortion on the radio.                                                                                                                                                                                     |
 | Active     | Indicator  | Lights green when APD is on and the equalizer is actively applied.                                                                                                                                                                |
 | Cal        | Indicator  | Lights green when APD is on and still calibrating.                                                                                                                                                                                |
@@ -118,7 +118,7 @@ When **MOX** is not active (idle/blue state), the button uses an amber border an
 
 ## Troubleshooting
 
-- **MEM button is greyed out and cannot be clicked** — The TGXL is in OPERATE mode. Memory recall cannot be toggled in this mode. Check the TGXL operating mode before proceeding.
+- **MEM button is greyed out and cannot be clicked** — The TGXL is in OPERATE mode, or the radio has no antenna tuner. If the radio has a tuner, check the TGXL operating mode before proceeding. If the radio has no tuner (for example, a Hermes-Lite 2), the ATU and MEM controls are unavailable.
 - **Mem indicator stays dim after clicking MEM** — No stored ATU memory exists for the current frequency. Run a full ATU tune cycle first using **ATU**, then try **MEM** again.
 - **Byp lights orange instead of Mem going green** — The ATU has entered bypass because no usable memory was found. Use **ATU** to tune and store a new solution.
 - **ATU button starts a new tune instead of bypassing** — The transmit frequency changed since the last successful tune. The button will not bypass until you are back on the exact frequency that was tuned. Tune again at the current frequency first.

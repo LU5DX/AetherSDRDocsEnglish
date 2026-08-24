@@ -18,7 +18,17 @@ The applet communicates with an ACOM amplifier over a serial or TCP connection. 
 | Forward Power | indicator | — | Real-time forward power reading from the amplifier. |
 | SWR | indicator | — | Real-time SWR reading. |
 | Temperature / Drain Current / Mains Voltage | indicator | — | Amplifier health telemetry readouts. |
-| Operate / Standby | push button | Standby | Toggles the amplifier between Operate and Standby modes. The indicator shows current state: Operate, Standby, or Fault. |
+| Operate / Standby | push button | Standby | Toggles the amplifier between Operate and Standby modes. |
+
+## Understanding the Operate/Standby indicator
+
+The Operate/Standby push button also functions as an indicator. Its color-coded state shows the current amplifier operating mode:
+
+| State | Meaning |
+|-------|---------|
+| Operate | Amplifier is in Operate mode. |
+| Standby | Amplifier is in Standby mode. |
+| Fault | Amplifier has reported a fault condition. |
 
 ## Related
 

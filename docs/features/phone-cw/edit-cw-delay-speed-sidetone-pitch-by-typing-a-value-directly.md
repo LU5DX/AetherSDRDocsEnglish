@@ -12,26 +12,28 @@ In v26.6.1 the applet now properly inherits the active theme's color palette. Sl
 
 In v26.7.4, all four gauges (Level, Compression, and both ALC meters) show an exact numeric readout when you hover the mouse over them, showing values to one decimal place. When the radio is modulated by AetherSDR (host modulation), the Mic source combo box is locked to "PC" and shows a tooltip explaining that only the PC input is available.
 
+In v26.8.4, the applet detects the radio's transmit-audio capability and adapts the Mic source combo box accordingly. When the radio's transmit audio comes from this computer's network port (rather than its own microphone jacks), the Mic source combo box is narrowed to "PC" only, is disabled, and a tooltip explains that the radio's own input selection is made on the radio. The Mic level gauge is hidden on such radios because no usable input level is available. The DAX button is hidden when the radio has no DAX capability. CW mode detection now recognizes CWL and CWU variants (for Icom and HL2 radios), not just bare "CW" as on Flex radios.
+
 ## Opening the Phone/CW Applet
 
-1. Click the **P/CW** tray button on the right sidebar.
+1. Click the **Phone/CW** tray button on the right sidebar.
 
-The applet automatically shows Phone controls when the active slice is in a voice mode (LSB, USB, AM, FM, etc.) and CW controls when the active slice is in CW or CWL mode.
+The applet automatically shows Phone controls when the active slice is in a voice mode (LSB, USB, AM, FM, etc.) and CW controls when the active slice is in CW, CWL, or CWU mode.
 
 ## Phone Panel Controls
 
 | Control           | Type         | Default | Valid range                  | Behavior                                                                 |
 |-------------------|--------------|---------|------------------------------|--------------------------------------------------------------------------|
-| **Level**         | Meter        | —       | -40 to +10 dBFS (red > 0)    | Shows microphone input peak level in dBFS. Hover to see exact value in dB with one decimal. Suppressed to -150 when met_in_rx is off and not transmitting (v26.5.3 applies suppression immediately on state changes). |
+| **Level**         | Meter        | —       | -40 to +10 dBFS (red > 0)    | Shows microphone input peak level in dBFS. Hover to see exact value in dB with one decimal. Suppressed to -150 when met_in_rx is off and not transmitting (v26.5.3 applies suppression immediately on state changes). Hidden when the radio's transmit audio comes from this computer (no usable input level). |
 | **Compression**   | Meter        | —       | 0 to -25 dB (reversed fill)  | Shows speech compression amount in dB. Hover to see exact value as a positive "amount of compression" in dB with one decimal. Gated on radio interlock TRANSMITTING state and speech processor enable. v26.5.3: MeterModel COMPPEAK (positive 0–25 dB) converted to negative gauge display. |
 | **ALC**           | Meter        | —       | -20 to 0 dBFS (red > -3)     | Shows automatic level control from MeterModel::swAlcChanged. Fills right-to-left. Hover to see exact value in dBFS with one decimal. Initialized to -20 dBFS in v26.5.3. |
 | **Mic profile**   | Combo box    | —       | Populated from radio          | Loads the named mic processing profile.                                   |
-| **Mic source**    | Combo box    | —       | MIC, BAL, LINE, ACC, PC      | Selects microphone input source. Locked to "PC" and disabled when host modulation is active. |
+| **Mic source**    | Combo box    | —       | MIC, BAL, LINE, ACC, PC      | Selects microphone input source. Disabled and narrowed to "PC" when host modulation is active or when the radio's input cannot be chosen by this client. Tooltip explains why on such radios. |
 | **Mic gain**      | Slider       | 50      | 0-100                        | Adjusts mic input level. For PC source uses local PcMicGain persistence. |
 | **+ACC**          | Toggle button| —       | —                            | Enables the accessory mic input mix.                                     |
 | **PROC**          | Toggle button| —       | —                            | Toggles the speech processor.                                            |
 | **NOR/DX/DX+**    | Slider       | 0       | 0 (NOR), 1 (DX), 2 (DX+)    | Three-position processor level.                                          |
-| **DAX**           | Toggle button| —       | —                            | Enables DAX as the TX audio source.                                      |
+| **DAX**           | Toggle button| —       | —                            | Enables DAX as the TX audio source. Hidden when the radio has no DAX capability. |
 | **MON**           | Toggle button| —       | —                            | Enables TX sidetone monitor.                                             |
 | **Monitor volume**| Slider       | —       | 0-100                        | Sets sideband monitor volume.                                            |
 
@@ -99,18 +101,24 @@ When the radio is modulated by AetherSDR (host modulation active), the **Mic sou
 
 This prevents selecting microphone jacks that do not exist on a host-modulated radio.
 
+## Mic Source Limiting by Radio Capability (v26.8.4)
+
+When the radio's transmit audio comes from this computer (its own input selection is made on the radio, not by this client), the **Mic source** combo box is narrowed to a single entry, "PC", and becomes disabled. The tooltip explains:
+
+> This radio takes transmit audio from this computer. Its own input selection is made on the radio.
+
+Setting the model state to "PC" in this situation keeps radiocert and other model readers in sync with what the UI shows.
+
+## DAX Button Visibility (v26.8.4)
+
+The **DAX** toggle button is hidden when the connected radio has no DAX capability. When hidden, DAX is also forced off client-side so no stale state persists.
+
 ## Troubleshooting
 
 - **Typed value snaps back to previous value** — The radio may have rejected the value. Ensure your entry is within the valid range shown above. For Delay values, the radio emission no longer snaps the slider back in v0.9.8 (#2428).
 - **Level meter stays at -150 after stopping transmit** — In v26.5.3 the level meter is suppressed whenever receiving with met_in_rx off. Check **Settings > Appearance > Disable level meter during receive** if you see unexpected -150 readings in RX.
+- **Level meter does not appear at all** — In v26.8.4 the Level meter is hidden on radios whose transmit audio comes from this computer, because no usable input level exists. Verify the radio model and its audio input configuration.
 - **Compression gauge shows unexpected values** — v26.5.3 changed the COMPPEAK interpretation to positive 0–25 dB; the gauge face reverses to -25–0 dB. If you see reversed scaling, verify you are running v26.5.3 or later.
 - **Colors don't match the active theme** — v26.6.1 fixed theme inheritance for all UI elements in this applet. If colors appear hardcoded (e.g., blue on black regardless of theme), verify you are running v26.6.1 or later.
 - **Gauge hover readout not appearing** — Hover readouts were added in v26.7.4. If you do not see them, verify you are running v26.7.4 or later.
-- **Mic source combo box is stuck on "PC"** — Host modulation may be active. Hover over the combo box to see the tooltip explaining why it is locked.
-
-## Related
-
-- [Set CW break-in delay](set-cw-break-in-delay.md)
-- [Set CW keying speed in WPM](set-cw-keying-speed-in-wpm.md)
-- [Change CW pitch / sidetone frequency](change-cw-pitch-sidetone-frequency.md)
-- [Enable the low-latency CW sidetone (Sidetone button drives both radio and local path)](enable-the-low-latency-cw-sidetone-sidetone-button-drives-both-radio-and-local-path.md)
+- **Mic source combo box is stuck on "PC"** — Host modulation may be active, or the radio's input cannot be chosen by this client. Hover over the combo box to see the tooltip explaining why
